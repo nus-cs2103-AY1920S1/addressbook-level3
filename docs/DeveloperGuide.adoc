@@ -471,12 +471,23 @@ If no recommendations can be generated, a `NoRecommendationsExceptions` is throw
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-// tag::markaswatched[]
+// tag::search[]
 [[Implementation]]
 === [Feature] Search feature
-The search feature allows users to search for shows from the online database, the internal database, their watchlist or watched-list.
-It allows users to search for shows based on either "name", "genre" or "actors", or a combination of them.
-Users can choose to search from the online database or their watchlist and watched list, and also filter their search based on the show type.
+The `Search` feature allows users to search for shows from the *online database*, the *internal database*, their *watchlist* or
+*watched-list*.
+It allows users to search for shows based on either "*name*", "*genre*" or "*actors*", or a combination of them. +
+Users can choose to search from the online database or their watchlist and watched-list, and also filter their search
+based on the show type.
+
+The following activity diagram summarises the workflow of the `Search` feature:
+
+.Activity Diagram for the `Search` Feature
+image::SearchActivityDiagram.png[][width=590"]
+
+Users
+
+{sp} +
 
 ==== Implementation
 The search mechanism is facilitated by `SearchCommand` which can be found under the commands package.
@@ -484,59 +495,83 @@ It extends `Command` and uses the `SearchCommandParser` to process the command e
 
 Given below is an example usage scenario and how the search mechanism behaves at each step.
 
-
 Step 1. The user launches the application, goes to the *Search page* and executes `search n/Avengers o/no`
 command to search for shows named "Avengers" from the watchlist and watched-list.
 
-Step 2. Entering the command calls `SearchCommandParser#parse()`.
+Step 2. Entering the command calls `LogicManager#execute()`, which in turns calls the `WatchListParser#parseCommand()`.
 
-[Note]
+Step 3. `WatchListParser#parseCommand()` returns a new `SearchCommandParser` and the `SearchCommandParser#parse()` command is called.
+
+[NOTE]
 If the user enters a wrong command, such as prefix other than that specified in the User Guide and incorrect keywords,
 a new `ParseException` is thrown.
 
-Step 3. A new `SearchCommand` is created, with the hash map containing the contents to be searched as a field of `SearchCommand`.
+Step 4. A new `SearchCommand` is created, with the hash map containing the contents to be searched as a field of
+`SearchCommand`.
 
-Step 4. The `SearchCommand#execute()` method is called, referencing the current model.
+Step 5. The `SearchCommand#execute()` method is called, referencing the current model.
 
 [NOTE]
-If the user is not connected online, a new `OnlineConnectionException` is caught and search would be done using the internal database, watchlist and watched-list instead of the online database.
+If the user is not connected online, a new `OnlineConnectionException` is caught and search would be done using the
+*internal database*, *watchlist* and *watched-list* instead of the *online database*.
 
-Step 5. The `SearchCommand#searchByName()` method is called, referencing the current model.
+Step 6. The `SearchCommand#searchByName()` method is called, referencing the current model.
 
-Step 6. The `SearchCommand#addShowFromWatchListIfSameNameAs()` method is called, referencing the current model and name of search to be searched from the list of names.
+Step 7. The `SearchCommand#addShowFromWatchListIfSameNameAs()` method is called, referencing the current model and name
+of the show to be searched from the list of shows.
 
-Step 7. The `Model#getShowIfHasName()` method is called and any show with the name to be searched is added to the `filteredShowList`.
+Step 8. The `Model#getShowFromWatchlistIfHasName()` method is called, referencing the name of the show to be searched.
+A list of shows with the name "Avengers" is retrieved.
 
-Step 8. The `SearchCommand#addShowToSearchResult()` method is called and shows from the `filteredShowList` is added to the `searchResult`.
+Step 9. The `SearchCommand#addShowToSearchResult()` method is called, referencing the list of the shows found in Step 7.
+Shows are filtered based on the possible filters and added the the `SearchCommand#searchResult`
 
-Step 9. The `SearchCommand#addShowFromOnlineIfSameNameAs()` method is also called, referencing the name of show to be searched from the list of names.
-
-Step 10. The `SearchCommand#addOnlineMovieSearchedByNameToResults()` method is called, referencing the name of show to be searched.
+Step 10. A new `CommandResult` is created, referencing the search message to be shown to user. This `CommandResult` is
+returned to the `LogicManager`.
 
 {sp} +
-The following sequence diagram shows how the search operation works:
+The following sequence diagram summarizes how the search operation works based on the example above:
 
 .Sequence Diagram for the `Search` Operation
 image::SearchSequenceDiagram.png[][width="790"]
 
 {sp} +
-The following activity diagram summarises the workflow of Search:
-
-.Activity Diagram for the `Search` Feature
-image::SearchActivityDiagram.png[][width=590"]
 
 ==== Design Considerations
 
-===== Aspect: How `SearchCommand` takes in the information to be searched for
-** Current choice: Takes in a hash map from `SearchCommandParser` and gets the list of information to be searched for.
-*** Pros: Easy to implement and make use of.
-*** Cons: Certain list might be redundant as there might have no information in them.
+===== Aspect: How `SearchCommand` reference the information to be searched for
+* Alternative 1 (current choice): Takes reference to the hash map from `SearchCommandParser`, consisting of all the
+possible ways to search for show
+** Pros:
+*** Easy to implement
+*** Can be easily made use of by retrieving the list of what the user want to search from the hash map
+** Cons:
+*** Command may be longer and user would be required to be familiarize with the prefix, such as `n/` when searching by name
+*** Certain list might be redundant as the user might not have requested to search by certain fields
+*** Higher run time in checking through all the lists
 
-===== Aspect: How Search searches for the shows
-** Current choice: Checks if the user choose to search by name, actor or both, then filter them accordingly.
-*** Pros: Easy to implement and make use of.
-*** Cons: User has to input either a name or actor to be searched.
-*** Cons: Logic is repetitive when searching based on actor or name.
+* Alternative 2: Takes reference to a string from `SearchCommandParser` and by *name*, *genre*, and *actor* using that string
+** Pros:
+*** Easy to parse the information from `SearchCommandParser` to `SearchCommand`
+** Cons:
+*** Does not allow the user to have the freedom to choose what they would like to search by
+*** May return irrelevant results back to the user as the user did not specify what they would like to search based on
+*** Higher run time as there would be a need to search based on all 3 ways
+
+===== Aspect: How `SearchCommand` is executed
+* Current choice: Search by name, followed by genre then actor, when the user chooses to search with any combinations of the 3 methods
+** Pros:
+*** Easy to implement and make use of.
+*** Shows all the shows from the combination of the search results
+** Cons:
+*** The user has to input either a name, genre or actor in order for the search to work
+*** Logic is repetitive when searching based on name, actor and genre
+*** Does not allow the user to search for shows that has a combination of the names, genres and actors +
+e.g. `search n/Avengers g/Comedy` would show a search result with shows that either have the name "Avengers" or the genre "Comedy",
+instead of shows that have both the name "Avengers" and the genre "Comedy"
+
+// end::search[]
+
 
 // tag::add[]
 === [Feature] Add feature
@@ -904,7 +939,6 @@ Use case ends.
 Use case ends.
 
 
-
 [appendix]
 == Non Functional Requirements
 
@@ -922,26 +956,17 @@ _{More to be added}_
 [[details-page]] Details page::
 The page that shows the details of shows, which the user may then add it to the watchlist if interested.
 
-[[edit-page]] Edit page::
-The page where the user can edit the shows that they have added.
-
-[[main-page]] Main Page / Watchlist page::
-The default main page with the WatchList tab that contains a list of shows that the user wishes to watch
+[[main-page]] Main Page::
+The default main page with the WatchList tab that contains a list of shows that the user wishes to watch (same as _Watchlist Page_)
 
 [[movies]] Movie::
 A cinema film
-
-[[progress-bar]] Progress Bar::
-A visible bar for users to see how many episodes of TV Series have been watched
-
-[[search-command]] Search command `search [keyword]`::
-This command brings the user to a search page with keyword input
 
 [[search-page]] Search page::
 The page where the user searches for shows to be added or to view their information
 
 [[show-index]] Show index::
-The number reference for the show in the pages
+The number reference for the show on the page in EzWatchlist
 
 [[shows]] Shows::
 Movies or TV series
@@ -949,20 +974,23 @@ Movies or TV series
 [[statistics-page]] Statistics page::
 The page that shows the statistics of user, such as total number of movies / TV series watched
 
-[[tag]] Tag::
-A short remark about the show or user’s feelings towards the show
-
 [[tv-series]] TV Series::
-A television program which consists of several episodes that are broadcast in regular intervals
+A television program which consists of possibly several episodes and seasons that are broadcast on regular intervals
 
 [[view-command]] View command `view [index]`::
 This command brings the user to the details page of the show with the specified show index
 
-[[watched-page]] Watched page::
+[[watched-list]] Watched-list::
+The list of shows that the user has watched.
+
+[[watched-page]] Watched Page::
 The page where the user can access to view the list of shows indicated as watched
 
 [[watchlist]] Watchlist::
 The list of shows that the user wishes to watch in the future.
+
+[[watchlist-page]] Watchlist Page::
+The default main page with the WatchList tab that contains a list of shows that the user wishes to watch (same as _Main Page_)
 
 [appendix]
 == Product Survey
