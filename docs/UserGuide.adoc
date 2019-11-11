@@ -635,6 +635,67 @@ User will also be able to filter by tags.
 
 Format: `filter tag TAG_NAME`
 
+=== Scheduling `schedule`
+==== Schedule the interviews
+Schedule and allocate interviewees to the available interview slots based on the availability of interviewees and
+their choice of department.
+
+Format: `schedule`
+
+=== Exporting of interview schedule `export`
+Exports the allocated interview schedule timetable to the specified comma separated values (CSV) file.
+
+Format: `export fp/FILE_PATH`
+
+* PATH_TO_FILE is the absolute path to the file.
+* E.g C:\\Users\Bob\file.csv
+
+NOTE: If `FILE_PATH` is a valid .csv file but does not exist, it will be created in the specified path.
+
+Example:
+
+ export fp/C:\Users\johndoe\schedules.csv
+
+Exported data format:
+
+* The exported data will follow the format of the schedules in 'schedules' tab.
+* Each schedule (table) will be separated from the previous with 2 empty lines.
+* Timeslots with "0" indicates that the interviewer is not available for the timeslot.
+Timeslots with "1" indicates that it is an available slot that has not been filled up by an interviewee.
+* Csv file can be converted into an excel file by following this guide - https://www.ablebits.com/office-addins-blog/2014/05/01/convert-csv-excel/.
+
+Constraints:
+
+* This command requires the interview schedule to be generated first.
+* Although the specified filepath does not need to exist, it needs to be of .csv extension.
+
+WARNING: The exported data will erase and replace all pre-existing data in the specified file.
+
+// tag::email[]
+=== Sending of email `email`
+==== Sending of interview time slot to interviewee
+Opens an email dialog containing the interviewee’s allocated interview time slot to a particular interviewee specified, including other details such as the interviewer and location.
+
+Format: `email ct/timeslot n/INTERVIEWEE NAME`
+
+Notes:
+
+* The email dialog will only appear if the interviewee’s email is present in the database and that the interview schedule has already been generated.
+
+==== Sending of interview time slot to all interviewees
+Opens an email dialog containing the interviewee's allocated interview time slot to every interviewee, including other details such as the interviewer and location. A summary report is then generated at the end of the command execution.
+
+Format: `email ct/alltimeslot`
+
+Notes:
+
+* The email dialog will only appear if the interviewee’s email is present in the database and that the interview schedule has already been generated.
+
+==== Checking status of emails sent
+Provides a summary report of the number of interviewees with emails sent and the total number of interviewees stored in the database.
+
+Format: `email ct/status`
+
 ==== Sending of interview results to an interviewee `[Coming in v2.0]`
 Opens an email dialog containing the interviewee’s result/interview outcome and other details that you might want to include.
 
@@ -652,7 +713,8 @@ Format: `email ct/allresults`
 Note:
 
 * The email dialog will only appear if the interviewee's email is present in the database and the interview results has been updated.
-// end::email
+
+// end::email[]
 
 === Recording of additional statuses: `record` `[Coming in v2.0]`
 ==== Recording of interviewee’s attendance

@@ -615,7 +615,7 @@ The Activity Diagram below summarises the execution of the export command.
 image::ExportActivityDiagram.png[]
 
 // tag::email[]
-=== [Coming soon in v1.4] Email
+=== Email
 ==== Implementation
 
 The Email feature makes use of the `java.awt.Desktop` package to activate the default Mail client of the user.
