@@ -65,6 +65,9 @@ features' `list` commands.
 respective Command Results to show in the Command Result Box. An invalid command will result in a red border around
 the Command Entry Box and an appropriate error message will be displayed in the Command Result Box, as shown in an
 example in Figure 2 below.
++
+Additionally, you may press the `enter` key anywhere in the app and it will automatically focus on the Command Entry
+Box - no mouse required!
 
 .Adding a non-existent course into the Course Planner will result in a display like this
 image::ug/ErrorMessage.png[]
@@ -464,7 +467,6 @@ edit-install 2 d/Spotify student plan a/7.50
 
 ==== Set a monthly spending limit: `set-limit`
 Taking control of your spending might mean asking `Jarvis` to set a cap on your monthly budget.
-//todo what happens when you exceed your budget
 
 Format: `set-limit a/AMOUNT`
 
@@ -816,18 +818,6 @@ application, even after you exit the application!
 command! This means that you can undo and redo up to a thousand commands with
 a single undo or redo command.
 
-.Display for undo/redo
-image::ug/undo-redo-1.png[]
-
-.Display for undo/redo
-image::ug/undo-redo-2.png[]
-
-.Display for undo/redo
-image::ug/undo-redo-3.png[]
-
-.Display for undo/redo
-image::ug/undo-redo-4.png[]
-
 [NOTE]
 JARVIS undo and redo commands in a specific sequence:
  +
@@ -914,16 +904,43 @@ commands.
 `Jarvis` can provide you with the maximum number of commands you can `undo` and `redo` - which will be shown
 in the Command Result Box.
 
-.Display for list-history
-image::ug/list-history.png[]
-
-{sp} +
-
 Format: `list-history`
 
 Lists the number of available commands to be undone, number of available commands to be redone,
 and the limit of the maximum number of commands Jarvis can remember for you to support undo and
 redo commands.
+
+==== Use case for `undo`, `redo` and `list-history`
+
+Let's say you would like to delete the first task in the `Planner`, highlighted by the
+green box in Figure 19 below.
+
+.Before deleting the task highlighted in the green box
+image::ug/undo-redo-1.png[]
+
+Deleting the task in Jarvis would then trigger the appropriate command result as seen in the
+figure below.
+
+.You have just deleted a task as shown in the command result display
+image::ug/undo-redo-2.png[]
+
+As shown in the picture below, entering the command `undo`,  would revert the delete command that
+you had entered earlier.
+
+.The deleted task is back in Jarvis
+image::ug/undo-redo-3.png[]
+
+You can enter the command `redo`, re-applying the delete command on Jarvis
+as shown in the picture below.
+
+.You have just redone that latest undone command
+image::ug/undo-redo-4.png[]
+
+You can enter the command `list-history`, displaying the number
+of commands that can be undone and redone.
+
+.You can see the number of commands that you can undo and redo
+image::ug/list-history.png[]
 
 {sp} +
 

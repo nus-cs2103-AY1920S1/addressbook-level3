@@ -12,7 +12,7 @@ import seedu.jarvis.storage.planner.JsonAdaptedTask;
 import seedu.jarvis.storage.planner.JsonAdaptedTodo;
 
 /**
- * Represents a Todo task in JARVIS
+ * Represents a {@code Todo} task in JARVIS
  */
 public class Todo extends Task {
 

@@ -35,7 +35,7 @@ class TaskDateMatchesDatePredicateTest {
         predicate = new TaskDateMatchesDatePredicate(false);
         assertFalse(predicate.test(d));
 
-        //todo -> returns false
+        //{@code Todo} -> returns false
         Todo t = new Todo("bb");
         assertFalse(predicate.test(t));
 
@@ -71,7 +71,7 @@ class TaskDateMatchesDatePredicateTest {
         Deadline d;
         Event e;
 
-        //todo -> returns false
+        //{@code Todo} -> returns false
         Todo t = new Todo("test");
         assertFalse(predicate.test(t));
 
