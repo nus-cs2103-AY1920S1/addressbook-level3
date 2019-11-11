@@ -1378,6 +1378,44 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
+=== Adding a task
+
+. Adding a task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `goto dashboard` command. Multiple tasks are in the list.
+.. Test case: `add task tn/ Project meeting at COM1 td/ 12/12/2019` +
+   Expected: A new task named "Project meeting at COM1" is added to the list. Details of the added task is shown in the result display.
+.. Test case: `add task tn/ Project meeting at COM1 td/ 12/12/2019` (A repeat of the previous test case) +
+   Expected: No task is added. Error message is shown in the result display. Status bar remains the same.
+
+=== Deleting a task
+
+. Deleting a task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `goto dashboard` command. Multiple tasks are in the list.
+.. Test case: `delete task 1` +
+   Expected: First task is deleted from the list. Details of the deleted task is shown in the result display.
+.. Test case: `delete task 0` +
+   Expected: No task is deleted. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect delete command to try: `delete diary x` (where x is larger than the list size) +
+   Expected: Similar error messages to previous.
+
+=== Editing a task
+
+. Editing a task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `goto dashboard` command. Multiple tasks are in the list.
+.. Test case: `edit task 1 tn/Lunch meeting` +
+   Expected: First task is edited to the new task name. Details of the edited task is shown in the result display.
+.. Test case: `edit task 1 tn/Lunch meeting!` +
+   Expected: No task is edited. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect edit command to try: `edit task 1 tn/ y` (where y contains more than 35 characters) +
+   Expected: Similar error messages to previous.
+.. Test case: `edit task 1 td/31/11/2019 +
+   Expected: No task is edited. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect edit command to try: `edit task 1 tn/ 29/2/2019` (2019 is not a leap year; February only has 28 days) +
+   Expected: Similar error messages to previous.
+
 === Adding a diary
 
 . Adding a diary while all diaries are listed
@@ -1431,3 +1469,6 @@ It should be one of the following:
 - `.\data\workouts.json` +
 
 After identifying the file that causes the error, delete that particular data file.
+
+By deleting the data file, a new data file will be generated from the `SampleUtil` corresponding
+to the file that was deleted.

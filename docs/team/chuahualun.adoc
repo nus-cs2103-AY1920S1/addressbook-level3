@@ -58,7 +58,7 @@ Visit this https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=hua-lun&so
 | |What I did
 
 |Project management
-|Managed releases `v1.2.1` (1 release) on GitHub +
+|Managed release https://github.com/AY1920S1-CS2103T-T10-2/main/releases/tag/v1.2.1[v1.2.1] on GitHub +
 Regularly update `Ui.png` to the latest version
 
 |User guide
