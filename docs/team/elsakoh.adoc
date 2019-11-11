@@ -16,7 +16,7 @@ Including myself, my team comprises of 5 computer science undergraduates from th
 === About The Project
 +Work is a project that is created for the our Software Engineering Module. In this module, we had to morph or enhance the existing AddressBook application to meet the needs of a particular user group.
 
-+Work is a desktop project management application targeted at NUS project leaders of small groups. Users can use +Work for task allocation, inventory management and scheduling purposes.
++Work is a desktop project management application targeted at NUS project leaders of small groups. Users can use +Work for task allocation, inventory management and scheduling purposes. Features include generating a pdf report of inventory items and finding a common time slot among team members.
 
 +Work uses a Command Line Inteferface for users to type into, while incorporating a simple Graphical User Interface (GUI) for users to visualise project details easily.
 
@@ -34,7 +34,7 @@ Information here are things that the user can learn, so as to more efficiently u
 Information here are things the user can learn so that they have a faster experience with +Work
 
 == Summary of Contributions
-This section details all of my contributions to the project, and showcases how I worked on different aspects of the project.
+This section details all of my contributions to the project. It showcases how I worked on different aspects of the project throughout the course.
 
 === Enhancements
 * *Major enhancement*: I implemented the autocomplete feature for the command line.
@@ -68,7 +68,25 @@ This section details all of my contributions to the project, and showcases how I
 
 == Contributions to the User Guide
 
-The following section is an excerpt from my additions to the *+Work User Guide* for the `autocorrect` feature.
+The following section is an excerpt from my additions to the *+Work User Guide* for the `autocorrect` feature and Command Summary.
+
+=== Quick Start
+
+.  Ensure you have Java `11` or above installed in your Computer.
+.  Download the latest `pluswork.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your +Work.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
++
+image::Ui.png[width="400"]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Here are some commands you can try to get you started:
+
+* **`add-member mn/Adam Smith mi/AS`** : Adds a member with name "Adam Smith" to the project.
+* **`add-task tn/Finish up milestone setting`** : Adds a task with name "Finish up milestone" to the project.
+* **`assign ti/1 mi/JD`** : Assigns the project member "John Doe" (with member id "JD"), to the task "Finish up milestone setting".
+* **`doing-task ti/1`** : Changes status of task "Finish up milestone setting"  to `doing`:
 
 === Command Line Autocomplete
 
@@ -81,13 +99,88 @@ After selecting `add-member`, +Work will paste `add-member mn/ mi/ mt/` into you
 
 image::AutoCompletePost.png[]
 
-
 [TIP]
-You can use kbd:[control] to navigate along the various prefixes.
+You can use kbd:[control] to move to the next prefix.
+
+=== Command Summary
+
+* `add-calendar [mn/MEMBER_NAME] [fp/PATH_TO_ICS]`:  *Imports a calendar*
+
+* `add-inv [i/NAME] [p/PRICE] [ti/TASKID] [mi/MEMBER_ID]`: *Adds an inventory*
+
+* `add-meeting [meeting/index]`: *Adds a meeting from the generated meeting time list from `find-meeting-time`*
+
+* `add-member [mn/MEMBER_NAME] [mi/MEMBER_ID] [mt/MEMBER_TAG]`: *Adds a member*
+
+* `add-task [tn/TASK_NAME] [s/TASK_STATUS] [tt/TASK_TAG]`: *Adds a task*
+
+* `assign [ti/TASK_ID] [mi/MEMBER_ID]`: *Adds a task to a member*
+
+* `clear`: *Clears all data from dashboard*
+
+* `clock twelve`: *Switches deadline display to the 12 hour clock format*
+
+* `clock twenty_four`: *Switches deadline display to the 24 hour clock format*
+
+* `set-deadline [ti/TASK_ID] [at/dd-mm-yyyy hh:mm]`: *Assigns a deadline to a task*
+
+* `delete-calendar [mn/MEMBER_NAME]`: Deletes calendar of member
+
+* `delete-inv [ii/ITEM_ID]`: *Deletes an inventory*
+
+* `delete-meeting [meeting/MEETING_INDEX]`: *Deletes a meeting*
+
+* `delete-task [ti/TASK_INDEX]`: *Deletes a task*
+
+* `doing-task [ti/TASK_ID]`: *Marks a task as `doing`*
+
+* `done-task [ti/TASK_ID]`: *Marks a task as `done`*
+
+* `edit-inv [ii/ITEM_ID] [i/ITEM_NAME] [p/PRICE] [ti/TASK_ID] [mi/MEMBER_ID]`: *Edits an inventory*
+
+* `edit-member [mi/MEMBER_ID] [mn/MEMBER_NAME] [mt/MEMBER_TAG]`: *Edits a member*
+
+* `edit-task [ti/TASk_ID] [FIELDS_TO_EDIT]`: *Edits a task*
+
+* `exit`: *Exits +Work*
+
+* `fire [ti/TASK_ID] [mi/MEMBER_ID]`: *Removes a task from a member*
+
+* `find-meeting-time [start/dd-mm-yyyy hh:mm] [end/dd-mm-yyyy hh:mm] [hours/HOURS]`: *Generates free times among members*
+
+* `home`: *Switches to the project dashboard*
+
+* `help`: *Navigates to help page*
+
+* `list-members`: *Lists all members*
+
+* `list-tasks`: *Lists all tasks*
+
+* `list-inv`: *Lists all inventories*
+
+* `member-stats`: *Displays member statistics*
+
+* `pdf [ty/TYPE]`: *Creates a PDF document of inventory list*
+
+* `redo`: *Redoes last known command*
+
+* `remove-member [mi/MEMBER_ID]`: *Removes a member*
+
+* `set-image[mi/MEMBER_ID] [im/IMAGE_FILEPPATH]`: *Switches to the settings configuration page*
+
+* `settings`: *Switches to the settings configuration page*
+
+* `task-stats`: *Displays task statistics*
+
+* `theme dark`: *Switches to the dark theme*
+
+* `theme light`: *Switches to the light theme*
+
+* `undo`: *Undoes last known command*
 
 
 == Contribution to the Developer Guide
-The following section displays my additions to the *+Work Developer Guide* for the `AutoComplete` feature.
+The following section displays my additions to the *+Work Developer Guide* for the `AutoComplete` feature and Architecture Section.
 They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
 === AutoComplete feature
@@ -103,6 +196,8 @@ They showcase my ability to write technical documentation and the technical dept
 ** Pros: This would be easier to implement and maintain UI components. Can access TextField directly.
 
 ** Cons: Difficult to access other logic components. Handles both UI and logic in the same component. ]
+
+==== AutoComplete control flow
 
 Given below is an example usage scenario and how AutoComplete  behaves at each step:
 
@@ -121,3 +216,5 @@ The following sequence diagram shows how the autocomplete works.
 
 .Operational flow of `getAutoCompleteResults()`
 image::AutoCompleteFlow.png[]
+
+include::../DeveloperGuide.adoc[tag=architecture]
