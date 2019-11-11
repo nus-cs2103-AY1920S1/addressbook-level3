@@ -143,9 +143,9 @@ Format: `txn dn/out|in x/<amount> d/<description> [a/<account>] [c/<category>] [
 
 Examples:
 
-* txn dn/out x/3 d/apples a/food c/fruits w/5/4/2019
+* `txn dn/out x/3 d/apples a/food c/fruits w/5/4/2019`
 
-* txn dn/in x/50 d/pocket money a/school
+* `txn dn/in x/50 d/pocket money a/school`
 
 ****
 * The account provided has to be created before transactions can be added to it.
@@ -162,9 +162,9 @@ Format: `txn edit <id> dn/out|in [x/<amount>] [d/<description>] [a/<account>] [c
 
 Examples:
 
-* txn edit 1 x/50 d/apple juice c/groceries
+* `txn edit 1 x/50 d/apple juice c/groceries`
 
-* txn edit 4 a/personal
+* `txn edit 4 a/personal`
 
 ****
 * The new edited transaction should have at least 1 field different from the previous transaction.
@@ -180,7 +180,7 @@ Format: `txn delete <id>`
 
 Examples:
 
-* txn delete 3
+* `txn delete 3`
 
 ==== List transactions(s): 'txn list'
 
@@ -191,7 +191,7 @@ Format: `txn list [c/category] [f/from date] [u/until date] [af/from amount] [au
 
 Examples:
 
-* txn list c/food u/10/4/2019 af/5 au/10 d/fruits s/ad
+* `txn list c/food u/10/4/2019 af/5 au/10 d/fruits s/ad`
 ****
 The explanation of the sorting abbreviations following 's/' are as follows:
 
