@@ -81,6 +81,10 @@ Format: `listDefaultExpenses`
 Shows a list of all budgets. +
 Format: `listBudgets`
 
+An example is provided to show how the listBudgets command will result after the call.
+
+image::ListBudgetUI.png[]
+
 === Adding an expense: `expense`
 Adds an expense to track.* +
 Format: `expense n/NAME a/AMOUNT [c/CURRENCY] [d/DATE] [t/TAG]…​`
@@ -103,6 +107,10 @@ Examples:
 
 *An added expense may automatically fall into a budget if the date of expense
 falls into a budget period. Otherwise it will fall into the default expense list.
+
+An example is provided to show how the expense command will result after the call.
+
+image::AddExpenseUI.png[]
 
 === Adding a budget : `budget`
 Specifies a budget for a period beginning from the specified start date to an end date. +
@@ -132,6 +140,10 @@ Sets a budget of SGD4000 for the period from Wed, 9th Oct 2019 to Sat, 19th Oct 
 * `budget n/January 2019 Budget a/800 c/SGD d/1/1/2019 ed/31/1/2019` +
 Sets a budget of SGD800 for the period from Tue, 1st Jan 2019 to Thu, 31st Jan 2019.
 
+An example is provided to show how the budget command will result after the call.
+
+image::AddBudgetUI.png[]
+
 === Viewing a budget : `view`
 Views an existing budget in the budget list. +
 Format: `view INDEX`
@@ -139,6 +151,10 @@ Format: `view INDEX`
 ****
 * Views the expenses stored in the budget, and shows the amount of money left in the budget.
 ****
+
+An example is provided to show how the View command will result after the call.
+
+image::ViewBudgetUI.png[]
 
 === Editing an expense : `editExpense`
 Edits an existing expense in the expense list. +
