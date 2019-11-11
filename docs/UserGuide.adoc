@@ -380,7 +380,7 @@ Format: `newshift -id <STAFF_REFERENCE_ID> -start <START_TIMING> -end <END_TIMIN
 
 Cancels the specified duty shift for a doctor based on the given entry index. +
 
-NOTE: To avoid accidental cancellation of another doctor's shift, the user must first narrow down the search to a single doctor using the `shift [<REFERENCE_ID>]` command. +
+NOTE: To avoid accidental cancellation of another doctor's shift, the user must first narrow down the search to a single doctor using the `shifts [<REFERENCE_ID>]` command. +
 
 NOTE: The operation is rejected if it results in there being more appointments than staff doctors on duty at any given point in time. The appointments affected by the deletion of the duty shift must be resolved first. +
 
@@ -392,7 +392,7 @@ Format: `cancelshift <ENTRY_ID>`
 
 Changes the timing of an existing duty shift based on the given entry index.  +
 
-NOTE: To avoid accidental cancellation of another doctor's shift, the user must first narrow down the search to a single doctor using the `shift [<REFERENCE_ID>]` command. +
+NOTE: To avoid accidental cancellation of another doctor's shift, the user must first narrow down the search to a single doctor using the `shifts [<REFERENCE_ID>]` command. +
 
 NOTE: The operation is rejected if it results in there being more appointments than staff doctors on duty at any given point in time. +
 
