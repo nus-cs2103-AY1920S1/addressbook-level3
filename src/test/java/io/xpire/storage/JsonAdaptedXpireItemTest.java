@@ -71,6 +71,7 @@ public class JsonAdaptedXpireItemTest {
         assertThrows(IllegalValueException.class, expectedMessage, item::toModelType);
     }
 
+    //@@author xiaoyu-nus
     @Test
     public void toModelType_invalidExpiryDateUpper_throwsIllegalValueException() {
         JsonAdaptedXpireItem item = new JsonAdaptedXpireItem(VALID_NAME_FISH, INVALID_EXPIRY_DATE_UPPER,
@@ -86,6 +87,7 @@ public class JsonAdaptedXpireItemTest {
         String expectedMessage = ExpiryDate.MESSAGE_CONSTRAINTS_OUTDATED;
         assertThrows(IllegalValueException.class, expectedMessage, item::toModelType);
     }
+    //@@author
 
     @Test
     public void toModelType_nullExpiryDate_throwsIllegalValueException() {
@@ -115,6 +117,7 @@ public class JsonAdaptedXpireItemTest {
     }
 
     @Test
+    //@@author xiaoyu-nus
     public void toModelType_invalidReminderThreshold_throwsIllegalValueException() {
         JsonAdaptedXpireItem item =
                 new JsonAdaptedXpireItem(VALID_NAME_FISH, VALID_EXPIRY_DATE_FISH, VALID_QUANTITY_FISH,

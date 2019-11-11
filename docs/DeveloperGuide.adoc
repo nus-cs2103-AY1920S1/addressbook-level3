@@ -698,19 +698,29 @@ As as an example of how the UI were implemented, we will examine the implementat
 
 ==== The View Panel
 `ViewPanel` is a container for many `ItemCards`, each carrying information about the items. +
-Given below are the steps of an example scenario of how `ViewPanel` is updated:
+Given below are the steps of an example scenario of how `ViewPanel` is constructed and updated:
 
 . The User launches the application and the `MainWindow` creates a new `ViewPanelPlaceholder` container that hosts the `ViewPanel`.
 . `MainWindow` calls `Logic` which in turn calls `Model` to obtain a current active list through `getCurrentFilteredItemList()`.
 Depending on the user's current list in view, it will either be an `XpireItemList` or `ReplenishList`.
-. `MainWindow` passes the list as parameters to the constructor of the `ViewPanel`.
-. `ViewPanel` has a `displayItems` method that is able to construct a Collection of `ItemCard` by mapping each `XpireItem` or `Item`
+. On starting of the GUI, `MainWindow` makes a call to `fillInnerParts()` , where the `MainWindow` passes the list as parameters to the constructor of the `ViewPanel`.
+. `ViewPanel` makes a call to `displayItems(ObservableList)` and constructs a Collection of `ItemCard` by mapping each `XpireItem` or `Item`
 to an `ItemCard` .
-. `displayItems` will first have to clear all child Nodes that the `ViewPanel` contains before adding a new Collection of `ItemCard` .
 .`ItemCard` takes as parameters the item and its index in the list. It renders all fields of an `XpireItem` and `Item` and also
-dose an additional check on the condition of the `XpireItem` and assign it to different colours respectively.
-[Note]
+dose an additional check on the condition of the `XpireItem` and assign it to different colours respectively through `setColour()`.
+. The app then starts.
 
+Let's now see what happens when a command executes.
+[NOTE]
+If the command is a `help`, `exit` of `export`, the `ViewPanel` will not be updated and refreshed.
+
+. In `MainWindow`, a call to `executeCommand(String)` is made, where `Logic` will executes the command.
+. Upon a successful execution, a call to `updateViewPanel()` is made. In this method the `ViewPanel` then calls `displayItems(ObservableList)` again to rerender the items.
+. `displayItems` will first have to clear all child Nodes that the `ViewPanel` contains before adding a new Collection of `ItemCard`.
+. `ViewPanelPlaceholder` will then have to remove the `ViewPanel` child and add it back to allow the changes to be reflected in the GUI.
+
+[NOTE]
+If the execution by `Logic` is not successful, an error will be thrown and the `ViewPanel` will not be updated and refreshed.
 
 === Logging
 

@@ -83,6 +83,7 @@ public class HelpWindow extends UiPart<Stage> {
 
     /**
      * Opens the User Guide window in browser.
+     * @@author xiaoyu-nus
      */
     public void openLink() {
         try {

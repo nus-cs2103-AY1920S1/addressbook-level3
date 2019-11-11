@@ -100,6 +100,7 @@ public class LogicManager implements Logic {
     }
 
     @SuppressWarnings("unchecked")
+    //@@author xiaoyu-nus
     @Override
     public ObservableList<XpireItem> getXpireItemList() {
         try {
@@ -111,6 +112,7 @@ public class LogicManager implements Logic {
     }
 
     @SuppressWarnings("unchecked")
+    //@@author xiaoyu-nus
     @Override
     public ObservableList<Item> getReplenishItemList() {
         try {

@@ -78,13 +78,16 @@ public class ExpiryDate {
     }
 
     /**
-     * Checks if an item is expired.
+     * Checks if the ExpiryDate has passed.
      * @return true if item is expired; false otherwise.
      */
-    public boolean isExpired() {
+    public boolean isPassed() {
         return Long.parseLong(getStatus()) <= 0;
     }
 
+    /**
+     * Computes the number of days between the ExpiryDate and the current date.
+     */
     public String getStatus() {
         long offset = DateUtil.getOffsetDays(DateUtil.getCurrentDate(), this.date);
         return String.valueOf(offset);

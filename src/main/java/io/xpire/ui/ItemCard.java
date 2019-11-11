@@ -72,7 +72,7 @@ public class ItemCard extends UiPart<Region> {
         this.status.setText(item.getExpiryDate().getStatus());
 
         this.box.setOnMouseClicked(e -> this.box.requestFocus());
-        this.setColor();
+        this.setColour();
     }
     //@@author febee99
     public ItemCard(Item replenishItem, int displayedIndex) {
@@ -89,6 +89,7 @@ public class ItemCard extends UiPart<Region> {
         this.box.setOnMouseClicked(e -> box.requestFocus());
     }
 
+    //@@author xiaoyu-nus
     private String getReminderDate() {
         return DateUtil.convertDateToString(
                 DateUtil.getPreviousDate(
@@ -97,13 +98,10 @@ public class ItemCard extends UiPart<Region> {
                 );
     }
 
-    //@@author xiaoyu-nus
-    private void setColor() {
-        long remainingDays = Long.parseLong(xpireItem.getExpiryDate().getStatus());
-        int reminderThreshold = xpireItem.getReminderThreshold().getValue();
+    private void setColour() {
         if (xpireItem.isExpired()) {
             days.getStyleClass().add(EXPIRED);
-        } else if (remainingDays <= reminderThreshold) {
+        } else if (xpireItem.isReminding()) {
             days.getStyleClass().add(REMIND);
         } else {
             days.getStyleClass().add(HEALTHY);

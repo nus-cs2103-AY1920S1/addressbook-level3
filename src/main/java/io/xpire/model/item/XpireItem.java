@@ -116,11 +116,21 @@ public class XpireItem extends Item {
         return newTagSet;
     }
 
+    //@@author xiaoyu-nus
     /**
      * Returns {@Code true} if the item has expired.
      */
     public boolean isExpired() {
-        return this.expiryDate.isExpired();
+        return this.expiryDate.isPassed();
+    }
+
+    /**
+     * Returns {@Code true} if the item's reminderThreshold is activated.
+     */
+    public boolean isReminding() {
+        long remainingDays = Long.parseLong(this.getExpiryDate().getStatus());
+        int reminderThreshold = this.getReminderThreshold().getValue();
+        return hasReminderThreshold() && remainingDays <= reminderThreshold;
     }
 
     /**
@@ -129,6 +139,7 @@ public class XpireItem extends Item {
     public boolean hasReminderThreshold() {
         return !this.reminderThreshold.equals(new ReminderThreshold(DEFAULT_THRESHOLD));
     }
+    //@@author
 
     /**
      * Returns true if both items of the same name have at least one other identity field that is the same.

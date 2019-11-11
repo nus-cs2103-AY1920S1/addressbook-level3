@@ -86,6 +86,7 @@ public class DateUtil {
      *
      * @param offsetDays Number of days before current date.
      * @return Earlier date.
+     * @@author xiaoyu-nus
      */
     public static LocalDate getPreviousDate(LocalDate date, int offsetDays) {
         requireNonNull(date);

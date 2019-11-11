@@ -152,6 +152,7 @@ public class StringUtil {
      * Returns false for any other non-null string input.
      *
      * @throws NullPointerException if {@code s} is null.
+     * @author xiaoyu-nus
      */
     public static boolean isExceedingMaxValue(String s, int max) {
         try {

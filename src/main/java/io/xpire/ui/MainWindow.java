@@ -198,19 +198,16 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            updateViewPanel();
-            updateAllItemsPanel();
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
-            }
-
-            if (commandResult.isExit()) {
+            } else if (commandResult.isExit()) {
                 handleExit();
-            }
-
-            if (commandResult.isShowQr()) {
+            } else if (commandResult.isShowQr()) {
                 handleExport(commandResult.getPngData());
+            } else {
+                updateViewPanel();
+                updateAllItemsPanel();
             }
 
             return commandResult;
