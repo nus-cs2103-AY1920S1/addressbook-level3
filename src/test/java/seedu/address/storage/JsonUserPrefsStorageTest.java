@@ -9,12 +9,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.UserPrefs;
 
