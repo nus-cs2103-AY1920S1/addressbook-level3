@@ -9,13 +9,12 @@
 
 == Overview
 
-iFridge is a desktop grocery management application to encourage home cooks to manage their food waste. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
-It is written in Java, and has a about 20kLoC.
+iFridge is a desktop grocery management application to encourage home cooks to manage their food waste.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
 
 My role in the project was to implement the feature for users to keep track of their statistical food waste,
 so that they can see how they are performing in food waste management and seek efficient ways to reduce their food waste.
-Apart from writing code, I maintained the User Guide, Developer Guide and project GitHub repository. The following sections illustrates
-the enhancements I made in greater detail, as well as highlight my key contributions to the user and developer guide regarding these enhancements.
+Apart from writing code, I maintained the User Guide, Developer Guide and project GitHub repository.
 
 
 == Summary of contributions
@@ -56,8 +55,8 @@ allowing users to see which types of foods they tend to waste more often by chec
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/zhangxuan97/ped/issues/3[1], https://github.com/zhangxuan97/ped/issues/13[2], https://github.com/zhangxuan97/ped/issues/6[3])
 
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com/AY1920S1-CS2103-F10-2/main/pull/92/commits/4158271b466907502b8387f1d5b5a07dcd5c12cc[#92])
-*** Integrated a third party library (JFreeChart) to the project (https://github.com/AY1920S1-CS2103-F10-2/main/pull/124/files[#124])
+*** Integrated third party libraries: Natty (https://github.com/AY1920S1-CS2103-F10-2/main/pull/92/commits/4158271b466907502b8387f1d5b5a07dcd5c12cc[#92])
+and JFreeChart (https://github.com/AY1920S1-CS2103-F10-2/main/pull/124/files[#124])  to the project
 
 
 == Contributions to the User Guide
@@ -71,7 +70,7 @@ include::../UserGuide.adoc[tag=wastelistfeatures]
 
 //include::../UserGuide.adoc[tag=commandsummary]
 
-include::../UserGuide.adoc[tag=wastelistfuture]
+//include::../UserGuide.adoc[tag=wastelistfuture]
 
 == Contributions to the Developer Guide
 
