@@ -13,7 +13,6 @@ import seedu.address.logic.commands.AddNusModCommand;
 import seedu.address.logic.commands.AddNusModsCommand;
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddToGroupCommand;
-import seedu.address.logic.commands.ClosestLocationCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeleteFromGroupCommand;
@@ -139,9 +138,6 @@ public class TimeBookParser {
 
         case ExportCommand.COMMAND_WORD:
             return new ExportCommand();
-
-        case ClosestLocationCommand.COMMAND_WORD:
-            return new ClosestLocationCommandParser().parse(arguments);
 
         case ScheduleCommand.COMMAND_WORD:
             return new ScheduleCommandParser().parse(arguments);
