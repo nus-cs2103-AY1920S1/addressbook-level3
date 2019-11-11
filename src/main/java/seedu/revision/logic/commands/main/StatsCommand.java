@@ -16,10 +16,10 @@ public class StatsCommand extends Command {
 
     public static final String COMMAND_WORD = "stats";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows summary statistics of your latest "
-            + "quiz performance.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows results breakdown of all your past "
+            + "quiz performances.";
 
-    private static final String MESSAGE_SUCCESS = "Summary statistics shown!";
+    public static final String MESSAGE_SUCCESS = "Results breakdown shown!";
 
 
     /**
@@ -36,7 +36,6 @@ public class StatsCommand extends Command {
         if (history.isEmpty()) {
             return new CommandResultBuilder().withFeedBack("You have not attempted any quizzes yet!").build();
         }
-        return new CommandResultBuilder().withFeedBack(String.format(MESSAGE_SUCCESS + "\nLatest quiz results shown: \n"
-                + history.get(history.size() - 1))).withStats(true).build();
+        return new CommandResultBuilder().withFeedBack(MESSAGE_SUCCESS).withStats(true).build();
     }
 }

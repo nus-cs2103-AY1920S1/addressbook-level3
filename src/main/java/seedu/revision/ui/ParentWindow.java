@@ -17,6 +17,8 @@ import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.ui.answerables.AnswerableListPanel;
+import seedu.revision.ui.statistics.GraphListPanel;
+import seedu.revision.ui.statistics.StatisticsListPanel;
 
 /**
  * The Parent Window. Provides the basic application layout containing a menu bar and space where other JavaFX
@@ -29,6 +31,8 @@ public abstract class ParentWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     protected AnswerableListPanel answerableListPanel;
+    protected StatisticsListPanel statisticsListPanel;
+    protected GraphListPanel graphListPanel;
     protected ResultDisplay resultDisplay;
     protected HelpWindow helpWindow;
 

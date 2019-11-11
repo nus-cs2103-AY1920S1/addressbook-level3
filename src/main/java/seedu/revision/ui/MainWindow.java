@@ -75,26 +75,30 @@ public class MainWindow extends ParentWindow {
     }
 
     /**
-     * Shows history of results as a line graph. Loads the window components for line graph.
+     * Shows history of results as line graphs. Loads the window components for line graphs.
      * @throws CommandException
      */
     @FXML
     public void handleHistory() throws CommandException {
         if (this.logic.getStatisticsList().size() > 0) {
-
+            HistoryWindow historyWindow = new HistoryWindow(getPrimaryStage(), getLogic());
+            historyWindow.show();
+            historyWindow.fillInnerParts();
         } else {
             throw new CommandException("No past results were found.");
         }
     }
 
     /**
-     * Shows results of latest quiz attempted as a pie chart. Loads the window components for pie chart.
+     * Shows results of all quiz attempts. Loads the window components for results.
      * @throws CommandException
      */
     @FXML
     public void handleStats() throws CommandException {
         if (this.logic.getStatisticsList().size() > 0) {
-
+            StatisticsWindow statisticsWindow = new StatisticsWindow(getPrimaryStage(), getLogic());
+            statisticsWindow.show();
+            statisticsWindow.fillInnerParts();
         } else {
             throw new CommandException("You have not attempted any quiz yet.");
         }

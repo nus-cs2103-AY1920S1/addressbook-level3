@@ -67,7 +67,7 @@ public class ParserManager {
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            return new ClearCommandParser().parse(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
@@ -76,22 +76,22 @@ public class ParserManager {
             return new ListCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+            return new ExitCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            return new HelpCommandParser().parse(arguments);
 
         case RestoreCommand.COMMAND_WORD:
-            return new RestoreCommand();
+            return new RestoreCommandParser().parse(arguments);
 
         case StartCommand.COMMAND_WORD:
             return new StartCommandParser().parse(arguments);
 
         case StatsCommand.COMMAND_WORD:
-            return new StatsCommand();
+            return new StatsCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
+            return new HistoryCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
