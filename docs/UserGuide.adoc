@@ -250,7 +250,7 @@ image::ListcatStep3.png[width="600"]
 
 // tag::deadline[]
 
-=== Add general Deadlines: `deadline t>TASK d>DUEDATE`
+=== Add general Deadline: `deadline t>TASK d>DUEDATE`
 
 This command adds a general `Deadline` into a list. The list will be displayed on the right-side pane.
 Note: `DUEDATE` has to be in dd/MM/yyyy format.
@@ -269,19 +269,20 @@ NOTE: Note that `Deadline`(s) entered will be sorted in ascending order i.e. ear
 
 CAUTION: `Deadline`(s) can only be after the current date. Leap year dates are also taken into account.
 
-=== Remove deadline from list: `remove index`
+=== Remove Deadline from list: `remove index`
 
 Removes a specific `Deadline`. The list on the right-side pane will no longer have the `Deadline`.
 
 `remove 2`
 
 ****
-* Removes the `Deadline` at the specified `INDEX` from the list. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
+* Removes the `Deadline` at the specified `INDEX` from the list. The index refers to the index number shown in the displayed
+`Deadline` list on the right-side pane. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 NOTE: When a `Deadline` of re-test questions is removed, the list of questions will still be stored in the specific date.
 
-=== Show monthly calendar with all deadlines: `calendar`
+=== Show monthly calendar with all Deadline(s): `calendar`
 
 Shows the calendar filled with all deadlines in the month. The calendar will be shown as a new window pop-up.
 
@@ -291,39 +292,40 @@ The calendar will pop up, seen below.
 
 image::calendar.png[width="600"]
 
-NOTE: Calendar does not show the specific `Deadline`, but an overview of all your `Deadline`(s) for the month ahead.
+NOTE: The calendar window does not show the specific `Deadline`, but an overview of all your `Deadline`(s) for the month ahead.
 
 //end::deadline[]
 
 // tag::badflashcard[]
 
-=== Set Flashcard as "Bad", with deadline to re-test: `bad index`
+=== Rate Flashcard as "Bad", with Deadline to re-test: `bad index`
 
-Sets a specific flashcard as a "Bad" `FlashCard`. It will then be stored as a `Deadline` in the list on the right-side pane.
+Rates a specific 'FlashCard' as "Bad". It will then be stored as a `Deadline` in the list on the right-side pane.
 
 `bad 2`
 
 ****
-* Sets the FlashCard specified at `INDEX` as 'Bad'. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
+* Sets the `FlashCard` specified at `INDEX` as 'Bad'. The index refers to the index number shown in the displayed deadline
+list on the right-side pane. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-Key the above mentioned example into the command box
+Key the above mentioned example into the command box.
 
 image::BadFlashcard.png[width="550"]
 
-The command will add the 2nd flashcard on the list, "How to declare a pointer in C?" as a 'bad' flashcard.
+The command will add the 2nd `FlashCard` on the list, "How to declare a pointer in C?" as a "Bad" `FlashCard`.
 After which, the result box will show the success message.
-A new deadline will now be shown at the right side-bar, 3 days later from the day it was entered.
+A new `Deadline` will now be shown at the right side-bar, 3 days later from the day it was entered.
 
 image::BadFlashcardAdded.png[width="550"]
 
-NOTE: Bad Questions will be added to a deadline which is due 3 days later. This is an approximated value that based on
+NOTE: "Bad" rated `FlashCard`(s) will be added to as a `Deadline` which is due 3 days later. This is an approximated value that based on
 the theory of https://en.wikipedia.org/wiki/Spaced_repetition[Spaced Repetition], referring to Ebbinghaus Forgetting Curve
 by Hermann Ebbinghaus who hypothesised this theory in 1985.
 
 === List all "Bad" FlashCards for a specific date `listbad d>DATE`
 
-List all the "Bad" rated FlashCards from a specific date. The FlashCard Questions will be shown.
+List all the "Bad" rated `FlashCard`(s) from a specific date. The `FlashCard` questions will be shown.
 
 `listbad d>14/11/2019`
 
@@ -339,11 +341,12 @@ You can remove a specific "Bad" rated `FlashCard` from the list
 
 You can refer to the example above.
 
-As seen from before, after listing all the "Bad" rated FlashCards for a specific date using `listbad d>14/11/2019`, you can observe the full list as seen below.
+As seen from before, after listing all the "Bad" rated `FlashCard`(s) for a specific date using `listbad d>14/11/2019`,
+you can observe the full list as seen below.
 
 image::listbad.png[width="600"]
 
-Afterwards, you can choose to remove as specific "Bad" rated FlashCard from that list.
+Afterwards, you can choose to remove as specific "Bad" rated `FlashCard` from that list.
 Using the example `removebad d>14/11/2019 i>2`, you can observe this.
 
 image::removebad.png[width="600"]
@@ -352,7 +355,8 @@ Once removed, a success message will be shown!
 
 image::removebadsuccess.png[width="600"]
 
-NOTE: Using the `remove` command to remove a "ToDo: Bad Questions" Deadline does not remove all the "Bad" `FlashCard` stored for that date.
+NOTE: Using the `remove` command to remove a "ToDo: Bad Questions" `Deadline` does not remove all the "Bad" `FlashCard`
+stored for that date.
 
 //end::badflashcard[]
 
