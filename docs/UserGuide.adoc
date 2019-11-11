@@ -166,11 +166,11 @@ where ``PAGE TYPE`` can be any of the following: ``calendar``, ``itinerary``, ``
 
 Step 1. Type ``goto itinerary`` in the _command box_ and press _Enter_. +
 
-image::MainGoto1.png[Goto command]
+image::MainGoto1.png[Goto command,width=600]
 
 Step 2. You will be directed to the _itinerary page_.
 
-image::MainGoto2.png[Goto result]
+image::MainGoto2.png[Goto result,width=600]
 
 
 === Viewing help: ``help``
@@ -184,13 +184,13 @@ If you are lost, this command will be helpful.
 
 Step 1. Type ``help`` in the _command box_ and press _Enter_. +
 
-image::MainHelp1.png[Help command]
+image::MainHelp1.png[Help command,width=600]
 
 Step 2. The message in the _result box_ will be updated to indicate that the help window has been opened.
 
 Step 3. The help window will appear as a pop-up and you may click the "copy link". This link will direct you to _TravEzy's_ user guide (i.e. this document).😊 +
 
-image::MainHelp2.png[Help result]
+image::MainHelp2.png[Help result,width=600]
 
 === Exiting the application: ``exit``
 
@@ -203,7 +203,7 @@ It's time to catch your flight, exit  _TravEzy_ and start your trip!
 
 Step 1. Type ``exit`` in the _command box_ and press _Enter_. +
 
-image::MainExit1.png[Exit command]
+image::MainExit1.png[Exit command,width=600]
 
 Step 2. All _TravEzy's_ windows will close.
 
