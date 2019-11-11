@@ -917,7 +917,7 @@ Format: `*annotate* INDEX p/PARA_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
 
 For example:
 
-* Input `*annotate* 1 p/p1 n/summary of paragraph h/orange` into the command box (boxed in orange).
+* Input `*annotate* 24 p/p1 n/summary of paragraph h/orange` into the command box (boxed in orange).
 
 image::ui-screenshots/AddAnnotationCommandUi1.png[350,350]
 // offline tab, showing result after   annotate 1 p/p2
@@ -981,7 +981,7 @@ Format: `*annotate-edit* INDEX p/PARA_NUM [to/NEW_PARA_NUM] [n/NOTES] [h/HIGHLIG
 
 For example:
 
-* Input `*annotate-edit* 1 p/g1 to/p1 h/green` into the command box.
+* Input `*annotate-edit* 24 p/g1 to/p1 h/green` into the command box.
 
 image::EditAnnotationCommandUi1.png[]
 // offline tab after   annotate 1 p/null n/this note was once a general note
@@ -1045,7 +1045,7 @@ Format: `*annotate-delete* INDEX p/PARA_NUM [n/KEEP_NOTES=false] [h/KEEP_HIGHLIG
 
 For example:
 
-* Input `*annotate-delete* 1 p/p2 n/true` into the command box.
+* Input `*annotate-delete* 24 p/p1 n/true` into the command box.
 
 image::DeleteAnnotationCommandUi1.png[]
 // offline tab, after   annotate 1 p/p2 h/pink n/this note is originally not general
