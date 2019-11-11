@@ -89,8 +89,8 @@ public class ResultInformationTest {
         assertFalse(resultInformationAccommodation.equals(new ResultInformation(DANIEL, INDEX_FIRST)));
 
         // different ActivityWithTime value -> returns false
-        assertFalse(resultInformationActivityWithTime.equals(
-                new ResultInformation(ACTIVITY_WITH_TIME_B1, INDEX_FIRST)));
+        assertFalse(resultInformationActivityWithTime
+                .equals(new ResultInformation(ACTIVITY_WITH_TIME_B1, INDEX_FIRST)));
 
         // different description value -> returns false
         assertFalse(resultInformationContactWithDescription.equals(new ResultInformation(CARL,
@@ -100,3 +100,4 @@ public class ResultInformationTest {
         assertFalse(resultInformationActivity.equals(new ResultInformation(ACTIVITY_A, INDEX_SECOND)));
     }
 }
+

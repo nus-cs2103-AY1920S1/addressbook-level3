@@ -18,9 +18,15 @@ import seedu.planner.logic.commands.editcommand.EditContactCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
+import seedu.planner.model.AccommodationManager;
+import seedu.planner.model.ActivityManager;
 import seedu.planner.model.ContactManager;
+import seedu.planner.model.Itinerary;
 import seedu.planner.model.Model;
+import seedu.planner.model.accommodation.Accommodation;
+import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
+import seedu.planner.model.day.Day;
 import seedu.planner.model.field.NameContainsKeywordsPredicate;
 import seedu.planner.testutil.contact.EditContactDescriptorBuilder;
 
@@ -134,12 +140,28 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         ContactManager expectedContactManager = new ContactManager(actualModel.getContacts());
-        List<Contact> expectedFilteredList = new ArrayList<>(actualModel.getFilteredContactList());
+        AccommodationManager expectedAccommodationManager = new AccommodationManager(actualModel.getAccommodations());
+        ActivityManager expectedActivityManager = new ActivityManager(actualModel.getActivities());
+        Itinerary expectedItinerary = new Itinerary(actualModel.getItinerary());
+
+        List<Contact> expectedContactList = new ArrayList<>(actualModel.getFilteredContactList());
+        List<Accommodation> expectedAccommodationList = new ArrayList<>(actualModel.getFilteredAccommodationList());
+        List<Activity> expectedActivityList = new ArrayList<>(actualModel.getFilteredActivityList());
+        List<Day> expectedItineraryList = new ArrayList<>(actualModel.getFilteredItinerary());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+
         assertEquals(expectedContactManager, actualModel.getContacts());
-        assertEquals(expectedFilteredList, actualModel.getFilteredContactList());
+        assertEquals(expectedAccommodationManager, actualModel.getAccommodations());
+        assertEquals(expectedActivityManager, actualModel.getActivities());
+        assertEquals(expectedItinerary, actualModel.getItinerary());
+
+        assertEquals(expectedContactList, actualModel.getFilteredContactList());
+        assertEquals(expectedAccommodationList, actualModel.getFilteredAccommodationList());
+        assertEquals(expectedActivityList, actualModel.getFilteredActivityList());
+        assertEquals(expectedItineraryList, actualModel.getFilteredItinerary());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the contacts at the given {@code targetIndex} in the
      * {@code model}'s address book.
