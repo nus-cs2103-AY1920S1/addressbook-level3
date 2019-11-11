@@ -561,11 +561,11 @@ The above sequence diagram only demonstrates how an `AddReminderCommand` is cons
 The following are the brief explanation of <<AddReminderSequenceDiagram>>
 
 1. The user enters `reminder add d/today m/Pay bill`.
-2. `SpendingBookParser#parseCommand()` is called by `LogicManger`
+2. `SpendingBookParser#parseCommand()` is called by `LogicManager`
 3. This creates `ReminderCommandParser` and it checks if the given user input is to add a reminder, to delete a reminder or invalid.
 4. Next, `AddReminderCommandParser` is created and it validates the parameters provided by `ReminderCommandParser`.
 5. After successful validation, `AddReminderCommand` is created and passed back to callers until it reaches to `LogicManager`.
-6. `LogicManger` then executes the command, adding the new reminder to the model through `Model#addReminder()`.
+6. `LogicManager` then executes the command, adding the new reminder to the model through `Model#addReminder()`.
 
 ==== Implementation for Removing Reminder
 
@@ -583,7 +583,7 @@ image::DeleteReminderActivityDiagram.png[width=90%]
 [NOTE]
 The negative index from user input will leads to invalid command format error as shown in the above diagram.
 
-Moreover, the below sequence diagram summarizes the interactions between different components when user enter `DeleteReminderCommand`.
+Moreover, the following sequence diagram summarizes the interactions between different components when the user enter `DeleteReminderCommand`.
 
 .Sequence diagram while user attempt to remove a reminder
 [#DeleteReminderSequenceDiagram,align="center"]
@@ -593,17 +593,17 @@ The following are the brief explanation of <<DeleteReminderSequenceDiagram>>
 
 1. The user enters `reminder delete 1`
 2. `SpendingBookParser#parseCommand()` called by `LogicManager`.
-3. This creates `ReminderCommandParser` and it checks if the given user input is to add a reminder, delete a reminder or invalid.
+3. This creates `ReminderCommandParser` and it checks if the given user input is to add a reminder or to delete a reminder or is invalid.
 4. Next, `DeleteReminderCommandParser` is created and it validates the parameters provided by `ReminderCommandParser`.
 5. After successful validation, `DeleteReminderCommand` is created and passed back to callers until it reaches to `Logic Manager`.
-6. `LogicManger` then executes the command, removing the specified reminder from the model through `Model#deleteReminder()`.
+6. `LogicManager` then executes the command, removing the specified reminder from the model through `Model#deleteReminder()`.
 
 [NOTE]
 The above sequence diagram only shows how a `DeleteReminderCommand` is created and executed. It does not include how a reminder is removed from the storage component and how the UI component is updated.
 
 ==== Limitations
 
-1. The date value of the `deadline` attribute is limited to before the end of next year and must be in the future. This prevent users from entering reminder of overdue tasks as inputs.
+1. The date value of the `deadline` attribute is limited to before the end of next year and must be in the future. This prevents users from entering reminder of overdue tasks as inputs.
 
 2. In this feature, the `reminderMessage` attribute cannot be constructed with empty spaces. The purpose of this limitation is to prevent users from entering a reminder without specifying a message to be displayed.
 
@@ -617,27 +617,26 @@ The above sequence diagram only shows how a `DeleteReminderCommand` is created a
 |Store reminders together with other information in `moneygowhere.json`.  +
  +
 *Pros:* +
-All user's data stored in one place. +
-Allows re-use of existing code. +
-Lesser number of files to manage. +
+Allows re-use of existing codes for implementation. +
+Only has to manage a single file for storage of user's data. +
  +
 *Cons:* +
 Could lead to larger file size. +
-Higher data loss in cases of file corruption.
+More data could be lost in cases of file corruption.
 
-|Store reminders in a json file separated from other information. +
+|Store reminders in a new json file separated from other information. +
  +
 *Pros:* +
-Improve performance while importing and exporting reminders. +
-Lesser data loss in case of file corruption. +
+Smaller file size compared to alternative 1. +
+Lesser data loss in case of file corruption compare to alternative 1. +
+ +
  +
 *Cons:* +
-Could complicate future implementation of importing and exporting reminders.
-`import` and `export` commands now need to manges two file at the same time.
-
+Requires additional implementation for storing reminders. +
+Has to manage multiple files for storage of user's data
 |===
 
-Alternative 1 from above table, is currently implemented in MoneyGoWhere (v1.4) since current version of `Import` and `Export` Commands has not be integrated with reminders yet.
+Alternative 1 from above table, is currently implemented in MoneyGoWhere (v1.4) since it is efficient for the application to access user's data from a single storage file.
 
 The following Architecture Diagram summarizes how different components in MoneyGoWhere application interact with each other while storing a reminder from the valid user input with the current implementation.
 
