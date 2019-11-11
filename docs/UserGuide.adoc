@@ -19,7 +19,6 @@ endif::[]
 
 By: `Team MooLah`      Since: `Aug 2019`      Licence: `MIT`
 
-//tag::intro[]
 == What is MooLah?
 
 Welcome to MooLah, your perfect personal financial assistant.
@@ -36,11 +35,9 @@ Although a desktop app optimised for Command Line, MooLah has an elegant Graphic
 This is what MooLah looks like:
 
 .The graphical user interface for MooLah
-image::Ui.png[width="790"]
+image::Ui_annotated.png[width="790"]
 
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
-
-//end::intro[]
 
 == Before We Start
 //insert UG legend
@@ -417,113 +414,97 @@ It can help you cultivate better financial management habits in the following wa
 
 * Each budget has a progress bar with a percentage (rounded to the nearest integer), which indicates how much you have
 spent as a proportion to the limit.
-* The color of the progress bar implies the following 4 situations:
-- GREEN: Less than half of the limit.
-- YELLOW: Spent half of the limit.
-- ORANGE: Reached 90% of the limit.
-- RED: Exceeded the limit.
-* When your expenses reach 50% of the limit, it will notify that you're halfway through.
-* When your expenses reach 90% of the limit, it will give a warning to remind you of the approaching limit.
-* When your expenses exceed the budget limit, it will give another warning to remind you to
-cut down on your spending. However, the percentage will continue to update even you exceed the budget, to give you a
-better idea of how much you have overspent.
-* Note that when the budget is exceeded too much (more than 10^7 times the budget
-limit), you will not be able to add any new expense -- I hope that won't happen!
+* The color of the progress bar implies the following 4 status:
+- *GREEN*: `0% - 49%` of the limit.
+- *YELLOW*: `50% - 89%` of the limit (MooLah will notify you're halfway through)
+- *ORANGE*: `90% - 100%` of the limit. (MooLah will remind you of the approaching limit)
+- *RED*: `> 100%` of the limit. (MooLah will give a warning and advise you to cut down on your spending. However, the
+percentage will continue to update even if you exceed the budget, to give you a better idea of how much you have overspent.)
 
-==== Create a new budget : `addbudget`
-Want your expenses tracked under a recurring budget? Simple enough with this command: `addbudget`
+NOTE: When the budget is exceeded too much (more than `10^7` times the budget
+limit), you will not be able to add any new expense -- I hope that won't happen ;)
+
+==== Create a New Budget : `addbudget`
+Want your expenses tracked under a recurring budget? Simple enough with this command: `addbudget`.
 
 The concrete format is:
 ----
 addbudget d/<DESCRIPTION> p/<AMOUNT> sd/<START_DATE> pr/<PERIOD>
 ----
 
-For example, given after typing
+For example, after typing:
 ----
 addbudget d/school p/300 sd/01-10-2019 pr/month
 ----
-You'll see that a new budget "school" is created, and set to $300, recurring monthly, starting from 1st October 2019.
+You'll see that a new budget `school` is created, and set to `$300`, recurring `monthly`, starting from `1 Oct 2019`.
 
-Tips:
-
-* All expenses that do not have a budget will go under "Default Budget", which is not deletable nor modifiable.
-* Each budget must have a unique name (case-insensitive).
-* 4 types of budget periods are supported, namely `day`, `week`, `month`, and `year` (all in lower case).
-* The year in start date is optional, i.e. you can simply input `01-10` and the year will be automatically set
-to the current year.
-* The start date can be any time in the past or future, the budget period will automatically
-normalize to the current period.
+NOTE: All expenses that do not have a budget will go under `Default Budget`, which is not deletable nor modifiable. +
+Each budget must have a *unique (case-insensitive) name*. +
+MooLah supports 4 types of budget period input: `day`, `week`, `month`, and `year` (all in *lower case*). +
+The year in <START_DATE> is optional, i.e. you can simply input `01-10` and the year will be automatically set
+to the current year. +
+The <START_DATE> can be any time in the past or future, the budget period will *automatically
+normalize to the current period*.
 For example, if today is `23-10-2019`, when you type `sd/01-07 pr/month`, the resulting budget period
-will be `01-10-2019 to 31-10-2019`, since that's the period anchored by today's date.
-* All budgets are recurring. Continuing from the example above, at 1 Nov 2019, you'll see the budget's period refreshed
+will be `01-10-2019 to 31-10-2019`, since that's the period anchored by today's date. +
+All budgets are *recurring*. Continuing from the example above, on 1 Nov 2019, you'll see the budget's period refreshed
 to `01-11-2019 to 30-11-2019`, and all past expenses archived, giving you an empty budget panel to start with.
 
-==== Switch between budgets : `switchbudget`
+==== Switch Between Budgets : `switchbudget`
 Now that you've successfully added a few different budgets, wonder how to toggle between them? Try this magical command:
-`switchbudget`, which switches the primary budget to any other budget in one shot!
+`switchbudget`, which switches the primary budget to any other budget in one click!
 
 The concrete format is:
 ----
-switchbudget d/<BUDGET_NAME>`
+switchbudget d/<BUDGET_NAME>
 ----
 
-For example, suppose you're at primary budget `school` now.
-
-After typing:
+For example, suppose you're at primary budget `school` now. After typing:
 ----
 switchbudget d/outside school
 ----
 
-You will see that the primary budget panel is switched from "school" to "outside school". Every expense you add
-from now on will be tracked under the "outside school" budget instead.
+You will see that the primary budget panel is switched from `school` to `outside school`. Every expense you add
+from now on will be tracked under the `outside school` budget instead.
 
-Tips:
+NOTE: There is one, and only one, *primary budget* in MooLah at all times. Every expense you enter automatically goes to
+this current primary budget. If you wish to let an expense be tracked by a different budget, *switch to that
+corresponding budget* first, before you add the expense. +
+The <BUDGET_NAME> is case-insensitive.
 
-* There is one, and only one, "primary budget" in MooLah at all times. Every expense you enter automatically goes under
-this current primary budget. If you wish to let an expense be tracked by a different budget, switch to that
-corresponding budget first, before you add the expense.
-* As a result, every expense can be tracked under one, and only one, budget.
-* The BUDGET_NAME you type is case-insensitive.
-
-==== List all budgets: `listbudget`
+==== List All Budgets: `listbudget`
 To get an overview of all the budgets at hand, simply type:
-
 ----
 listbudget
 ----
 You'll see a list of all budgets in MooLah.
 
-Tips:
+NOTE: The primary budget is marked with a *red border*. +
+To go back to primary budget panel, type `view primary budget`.
 
-* The primary budget is marked with a red border.
-* To go back to primary budget panel, type `view Primary Budget`.
-
-==== Edit a budget: `editbudget`
+==== Edit a Budget: `editbudget`
 A typo? On a second thought? No worries, you can easily modify your budget with `editbudget`.
 
 The concrete format is:
 ----
 listbudget (first go to list of budgets)
-editbudget <INDEX> d/<DESCRIPTION> p/<AMOUNT> sd/<START DATE> pr/<PERIOD>
+editbudget <INDEX> [d/<DESCRIPTION>] [p/<AMOUNT>] [sd/<START_DATE>] [pr/<PERIOD>]
 ----
 
-For example, if the second budget shown in the list is "school", recurring monthly, amount set at $300,
-refreshed on the first day of each month, after typing:
+For example, if the second budget shown in the list is `school`, recurring `monthly`, amount set as `$300`,
+refreshed on `the 1st of each month`, after typing:
 
 ----
-listbudget (first go to list of budgets)
+listbudget
 editbudget 2 d/school expenses p/400 sd/05-10
 ----
 
-It will change to "school expenses", capped at $400, refreshed on the 5th of every month.
+It will change to `school expenses`, capped at `$400`, refreshed on `the 5th of each month`.
 
-Tips:
-
-* You can choose to edit any of these 4 attributes of a budget: `DESCRIPTION`, `AMOUNT`, `START DATE`
+NOTE: You can choose to edit any of these 4 attributes of a budget: `DESCRIPTION`, `AMOUNT`, `START_DATE`
 and `PERIOD`, more than one at a time.
-* Budgets can't have duplicate names (case-insensitive).
 
-==== Delete a budget (by name) : `deletebudget`
+==== Delete a Budget (by Name) : `deletebudget`
 Don't want it any more? Use `deletebudget` to say bye to your budget!
 
 The concrete format is:
@@ -537,16 +518,12 @@ For example, after typing:
 deletebudget d/school
 ----
 
-The budget with the name "school" will be deleted.
+The budget with the name `school` will be deleted.
 
-Tips:
+NOTE: The *Default Budget* cannot be deleted or modified. It archives all expenses without a proper budget defined by you. +
+After a budget is deleted, its expenses will be transferred to the Default Budget.
 
-Tips:
-
-* The Default Budget cannot be deleted or modified. It archives all expenses without a proper budget defined by you.
-* After a budget is deleted, its expenses will be transferred to the Default Budget.
-
-==== Delete a budget (by index) : `deletebudget-id`
+==== Delete a Budget (by Index) : `deletebudget-id`
 Budget names are too long? Don't worry, there's an easier way to delete them: `deletebudget-id`.
 
 The concrete format is:
@@ -556,15 +533,13 @@ deletebudget-id <INDEX>
 ----
 You'll see the corresponding budget disappear from the list.
 
-Tips:
-
-* Regretted? Type `undo` to get it back ;D
+NOTE: Regretted? Type `undo` to get it back ;D
 
 ==== Delete all budgets: `clearbudget`
-Don't feel like living on budgets any more? You can clear them all, just by a simple command:
+Don't feel like living on budgets any more? You can clear them all, just using this simple command:
 `clearbudget`.
 
-==== View expenses in a different period: `switchperiod`
+==== View Expenses in a Different Period: `switchperiod`
 Wanna see your archived expenses in the past? The command `switchperiod` is the time machine you need.
 
 The concrete format is:
@@ -572,51 +547,44 @@ The concrete format is:
 switchperiod t/<DATE>
 ----
 
-For example, suppose you have a monthly budget "school", refreshed at the first day of each month; and
-suppose it is November now.
-After typing:
+For example, suppose you have a monthly budget `school`, refreshed on `the 1st of each month`; and
+suppose it is November now. After typing:
 ----
 switchperiod t/01-05
 ----
-You'll see all expenses tracked under "school" from 1 May to 31 May this year.
+You'll see all expenses tracked under `school` from `1 May to 31 May` this year.
 
-Tips:
+NOTE: The time machine can only travel *back* in time! That is, you will only be able to switch to periods
+*before or equal to* the current period. If the date you enter is in a future period, you'll need to input again. +
+Only expenses tracked under *the current budget* are shown.
 
-* The time machine can only travel back in time! That is, you will only be able to switch to periods
-*before or equal to* the current period. If the date you enter is in a future period, you'll need to input again.
-* Only expenses tracked under *the current budget* are shown.
-
-==== Edit expenses inside a budget: `editexpense-primary`
-When you are staring at the primary budget panel, and suddenly want to modify an expense,
-there's a quicker way to do it than switching back to the general expense list: you can edit it directly from
-this primary budget! The trick is: `editexpense-primary`
+==== Edit Expenses Inside a Budget: `editexpense-primary`
+When you are staring at the primary budget panel, and suddenly want to modify an expense...
+Rather than switch back to the general expense list, there's a quicker way to do it: you can edit it *directly from
+this budget panel*! The trick is: `editexpense-primary`.
 
 The concrete format is:
 ----
-editexpense-primary INDEX [d/DESCRIPTION] [p/PRICE] [c/CATEGORY] [t/TIMESTAMP]
+editexpense-primary <INDEX> [d/<DESCRIPTION>] [p/<PRICE>] [c/<CATEGORY>] [t/<TIMESTAMP>]
 ----
 
-The INDEX depends on the current budget's expenses, rather than the general expense list.
+The `INDEX` depends on the current budget's expenses, instead of the general expense list.
 
-Tips:
-
-* Editing an expense from a budget has the same effect as editing it from the general expense list.
+NOTE: Editing an expense from a budget has the same effect as editing it from the general expense list.
 That is, this expense will also be updated in the general expense list.
 
 ==== Delete expense inside a budget: `deleteexpense-primary`
-Similarly to editing expense inside a budget, you can delete an expense directly from the
-primary budget: `deleteexpense-primary`
+Similarly to editing expense inside a budget, you can delete an expense *directly from the
+budget panel*: `deleteexpense-primary`.
 
 The concrete format is:
 ----
-deleteexpense-primary INDEX
+deleteexpense-primary <INDEX>
 ----
 
-The INDEX depends on the current budget's expenses, rather than the general expense list.
+The `INDEX` depends on the current budget's expenses, instead of the general expense list.
 
-Tips:
-
-* Deleting an expense from a budget has the same effect as deleting it from the general expense list.
+NOTE: Deleting an expense from a budget has the same effect as deleting it from the general expense list.
 That is, this expense will also disappear from the general expense list.
 
 //end::budget[]
@@ -1051,24 +1019,26 @@ e.g. `editexpense 1 p/2.50 t/15-09-2019 1230 c/Food`
 
 ---
 
-*All about budgeting:*
+*All About Budgeting:*
 
 * *Create a new budget* (_undoable_) : `addbudget d/<DESCRIPTION> p/<AMOUNT> sd/<START_DATE> pr/<PERIOD>` +
 e.g. `budget d/school p/300 sd/01-10-2019 pr/month`
 * *Switch between budgets* (_undoable_) : `switchbudget d/DESCRIPTION` +
 e.g. `switchbudget d/outside school`
 * *List all budgets* : `listbudget`
-* *Edit a budget* (_undoable_): `editbudget <INDEX> d/<DESCRIPTION> p/<AMOUNT> sd/<START_DATE> pr/<PERIOD>` +
+* *Edit a budget* (_undoable_): `editbudget <INDEX> [d/<DESCRIPTION>] [p/<AMOUNT>] sd/<START_DATE> pr/<PERIOD>` +
 e.g. `editbudget 2 d/school expenses p/400 sd/05-10 pr/week`
 * *Delete a budget by name* (_undoable_): `deletebudget d/<DESCRIPTION>` +
 e.g. `deletebudget d/school`
-* *Delete a budget by index* (_undoable_): `deletebudgetid <INDEX>` +
+* *Delete a budget by index* (_undoable_): `deletebudget-id <INDEX>` +
 e.g. `deletebudget-id 2`
-* *Clear all budgets* : `clearbudget`
+* *Clear all budgets* : `clearbudget` (_undoable_)
 * *View expenses in a different period* (_undoable_): `switchperiod t/<DATE>` +
 e.g. `switchperiod t/01-05`
-* *Edit expense inside a budget* : `editexpense-primary`
-* *Delete expense inside a budget* : `deleteexpense-primary`
+* *Edit expense inside a budget* (_undoable_): `editexpense-primary <INDEX> [d/<DESCRIPTION>] [p/<PRICE>] [c/<CATEGORY>] [t/<TIMESTAMP>]` +
+e.g. `editexpense-primary 1 d/chicken`
+* *Delete expense inside a budget* : `deleteexpense-primary` <INDEX> +
+e.g. `deleteexpense-primary 2`
 
 ---
 
