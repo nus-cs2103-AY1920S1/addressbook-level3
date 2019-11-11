@@ -1347,6 +1347,64 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== UC8 - View training and performance records on specific date
+
+Actor: User
+
+*MSS*
+
+1. User requests to view records on specific date
+2. Athletick displays training and performance records on specified date
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The specified date is invalid.
++
+[none]
+** 1a1. Athletick shows an error message.
++
+Use case ends.
+
+* 1b. The specified date does not contain any records.
++
+[none]
+** 1b1. Athletick informs the user that the specified date does not contain any records.
++
+Use case ends.
+
+[discrete]
+=== UC9 - Navigate to a different date on calendar
+
+Actor: User
+
+*MSS*
+
+1. User requests jump to a specific month and year.
+2. Athletick displays training and performance records on specified date.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The specified date is invalid.
++
+[none]
+** 1a1. Athletick shows an error message.
++
+Use case ends.
+
+* 1b. The specified date does not contain any records.
++
+[none]
+** 1b1. Athletick informs the user that the specified date does not contain any records.
++
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
@@ -1542,15 +1600,54 @@ a list of your athletes and their attendance beside their names.
 list size) _{give more}_ +
 Expected: Error details shown in result box.
 
+=== Viewing the calendar
 
-=== Saving data
+. Displaying the calendar for the current month
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: Currently viewing another feature (e.g. attendance, performance or records).
+.. Test case: `view calendar` +
+   Expected: Calendar for the current month is displayed in the feature box. The success message
+"Viewing your calendar" is displayed in the result box.
+.. Test case: `view f` (any String except `attendance`, `performance` and `records`) +
+   Expected: Calendar is not displayed. Error details shown in the result box.
+.. Other incorrect view commands to try: `view`, `view x` (where x is an integer).
+   Expected: Similar to previous.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Navigating the calendar
 
-_{ more test cases ... }_
+. Displaying the calendar for a specific month and year
 
+.. Test case: `calendar 012019` +
+   Expected: Calendar for January 2019 is displayed in the feature box. The success message
+"Viewing calendar for: January 2019" is displayed in the result box.
+.. Test case: `calendar 132019` +
+   Expected: Invalid date provided, calendar for specified month is not displayed. Error details
+shown in the result box.
+.. Test case: `calendar 010000` +
+   Expected: Similar to previous.
+.. Test case: `calendar s` (any String) +
+   Expected: Similar to previous.
+.. Other incorrect delete commands to try: `calendar x` (where x is any combination of numbers
+that is not length of 6 or 8)
+Expected: Similar to previous.
+
+=== Viewing training and performance records
+
+. Viewing training and performance records recorded on a specific date
+
+.. Test case: `calendar 01012019` +
+   Expected: Records for 1st January 2019 are displayed in the feature box. The success message
+"Viewing details for: 1st January 2019" is displayed in the result box.
+.. Test case: `calendar 32012019` +
+   Expected: Invalid date provided, records for specified date is not displayed. Error details
+shown in the result box.
+.. Test case: `calendar 01010000` +
+   Expected: Similar to previous.
+.. Test case: `calendar s` (any String) +
+   Expected: Similar to previous.
+.. Other incorrect delete commands to try: `calendar x` (where x is any combination of numbers
+that is not length of 6 or 8)
+Expected: Similar to previous.
 === Adding an event
 
 . Adding an event while all events are listed
