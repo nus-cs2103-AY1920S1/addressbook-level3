@@ -192,8 +192,6 @@ The following is my contribution to the general commands that the app can offer 
 
 include::../UserGuide.adoc[tag=roby2]
 
-<<<
-
 == Contributions to the Developer Guide
 
 This section shows the additions that I have made to the various features of the Developer Guide.
