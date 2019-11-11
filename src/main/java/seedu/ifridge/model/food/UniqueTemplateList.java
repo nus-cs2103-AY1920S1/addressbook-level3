@@ -133,8 +133,15 @@ public class UniqueTemplateList implements Iterable<UniqueTemplateItems> {
             return true;
         }
         if (other instanceof UniqueTemplateList) {
+            if (internalList.size() > ((UniqueTemplateList) other).internalList.size()
+                    || internalList.size() < ((UniqueTemplateList) other).internalList.size()) {
+                return false;
+            }
+            if (internalList.size() == 0 && ((UniqueTemplateList) other).internalList.size() == 0) {
+                return true;
+            }
             for (int i = 0; i < internalList.size(); i++) {
-                if (internalList.get(i).equals(((UniqueTemplateList) other).internalList.get(i)) == false) {
+                if (!internalList.get(i).equals(((UniqueTemplateList) other).internalList.get(i))) {
                     return false;
                 }
             }
