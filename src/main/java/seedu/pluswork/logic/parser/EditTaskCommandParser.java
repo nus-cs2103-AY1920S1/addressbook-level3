@@ -23,7 +23,7 @@ import seedu.pluswork.model.tag.Tag;
 /**
  * Parses input arguments and creates a new EditTaskCommand object
  */
-public class EditCommandParser implements Parser<EditTaskCommand> {
+public class EditTaskCommandParser implements Parser<EditTaskCommand> {
     public static final String MESSAGE_NO_ID = "Please enter the TASK ID of the task you want to edit.";
 
     /**

@@ -156,15 +156,6 @@ public class EditTaskCommandTest {
         assertCommandFailure(editTaskCommand, model, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
-    /**
-     * Edit a task that has no deadline set.
-     */
-    /*@Test
-    public void execute_taskWithNoDeadline() {
-        EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_SECOND_TASK, new EditTaskDescriptor());
-        assertCommandFailure(editTaskCommand, model, EditTaskCommand.MESSAGE_NOT_EDITED_DEADLINE);
-    }*/
-
     @Test
     public void equals() {
         final EditTaskCommand standardCommand = new EditTaskCommand(INDEX_FIRST_TASK, TASK_DESC_FINANCE);

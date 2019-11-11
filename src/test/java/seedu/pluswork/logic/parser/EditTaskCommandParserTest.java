@@ -43,7 +43,7 @@ public class EditTaskCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTaskCommand.MESSAGE_USAGE);
 
-    private EditCommandParser parser = new EditCommandParser();
+    private EditTaskCommandParser parser = new EditTaskCommandParser();
 
     @Test
     public void parse_missingParts_failure() throws CommandException {

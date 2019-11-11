@@ -91,7 +91,7 @@ public class ProjectDashboardParser {
                 return new ListTaskCommand();
 
             case EditTaskCommand.COMMAND_WORD:
-                return new EditCommandParser().parse(arguments);
+                return new EditTaskCommandParser().parse(arguments);
 
             case DoingTaskCommand.COMMAND_WORD:
                 return new DoingTaskCommandParser().parse(arguments);
