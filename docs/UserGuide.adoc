@@ -557,7 +557,7 @@ Clears all the date-time mapping from the 2nd Event on the Event list.
 
 Generates the payment for an employee
 
-Format: `pay EMPLOYEE_INDEX s/VALUE
+Format: `pay EMPLOYEE_INDEX s/VALUE`
 
 ****
 * EMPLOYEE_INDEX is the index of the employee in the displayed list.
@@ -582,7 +582,7 @@ image::pay.png[]
 
 Undo the payment for an employee
 
-Format: `undo_pay EMPLOYEE_INDEX s/VALUE
+Format: `undo_pay EMPLOYEE_INDEX s/VALUE`
 
 ****
 * EMPLOYEE_INDEX is the number of the employee on the displayed list.
@@ -596,6 +596,7 @@ Examples:
 * `list_em` +
 `undo_pay 3 s/50` +
 Undo the payment of employee with $50.
+
 ._User Interface (UI) of Finance_
 image::undopay.png[]
 //end::Cris[]

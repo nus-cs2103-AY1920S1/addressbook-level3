@@ -156,7 +156,7 @@ The `Model`,
 As a more OOP model, we can store a `Tag` list in both `Employee` and `Event`, which `AddMin+` can reference. This would allow our application to only require one `Tag` object per unique `Tag`, instead of each `Employee` or `Event` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagramN.png[]
-+
+
 image:BetterModelClassDiagramNew.png[]
 
 // end::Cris[]
@@ -595,8 +595,26 @@ and 'Total Salary' is modified real time. User do not need to input so many fiel
 *Pros*: Easy to access the 'Pending To Pay' and 'Total Salary'.
 
 *Cons*: when the user want to add employees, the user have type in all these fields.
+
+|Storage of employees fields after pay/undo-pay command
+|Saves only the `Employee#employeeSalaryPaid` and `Employee#Pay` in storage.
+
+*Pros*: Easy to implement. Will use less memory.
+
+*Cons*: Future accesses the 'Pending To Pay' and 'Total Salary' require more time.
+
+Decision: Alternative 1 :
+
+I decided to proceed with this option* because it creates fewer fields in employees, the 'Pending To Pay'
+and 'Total Salary' is modified real time. User do not need to input so many fields when they add the employees.
+
+|Saves the `Employee#employeeSalaryPaid`, `Employee#Pay`, `Employee#employeePendingPay`, `Employee#employeeTotalSalary` in storage.
+
+*Pros*: Easy to access the 'Pending To Pay' and 'Total Salary'.
+
+*Cons*: when the user want to add employees, the user have type in all these fields.
 |========================================================================================
-// end::Cris[]
+// end::Cris2[]
 == Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
