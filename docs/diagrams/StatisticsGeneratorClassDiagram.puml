@@ -7,18 +7,21 @@ skinparam classBackgroundColor UI_COLOR
 package StatisticsGenerator <<Rectangle>> {
 
 Interface StatisticsGenerator <<interface>>
-Class TimelineGenerator
-Class BreakdownGenerator
-
-Class ExpenseTimeline
-Class ExpenseBreakdown
+Class XYZGenerator
+Class ExpenseXYZ
 }
+Class ExpenseXYZChart
 
-TimelineGenerator -up|> StatisticsGenerator
-BreakdownGenerator -down|> StatisticsGenerator
 
-TimelineGenerator -down-> ExpenseTimeline
-BreakdownGenerator -down-> ExpenseBreakdown
+ExpenseXYZChart -right-> XYZGenerator
+ExpenseXYZChart -right-> ExpenseXYZ
+
+XYZGenerator -up|> StatisticsGenerator
+note right of XYZGenerator: XYZGenerator = TimelineGenerator, \nBreakdownGenerator, etc
+
+XYZGenerator -down-> ExpenseXYZ
+note right of ExpenseXYZ: ExpenseXYZ = ExpenseTimeline, \n ExpenseBreakdown, etc
+
 
 
 
