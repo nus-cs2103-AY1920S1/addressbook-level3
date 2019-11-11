@@ -13,7 +13,7 @@ Here, the Dashboard function's user and developer guide in DukeCooks will be pre
 
 == Who is behind DukeCooks?
 
-DukeCooks is proudly developed by a group of second-year students from the National University of Singapore. This application was made to fit the team project requirements for a software engineering module. An application, AddressBook 3 (AB3), was assigned as a base for our project. Thus, this is a brownfield project which entails morphing AB3 into a new application which in this case, DukeCooks.
+DukeCooks is proudly developed by a group of second-year students from the National University of Singapore (NUS). This application was made specially for the team project requirements of the software engineering module, CS2103T. An application, https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook3] (AB3), was assigned as a base for our project. Thus, as a brownfield project this entails morphing AB3 into a new application which in this case, DukeCooks.
 
 == What exactly is DukeCooks?
 
@@ -63,6 +63,9 @@ Regularly update `Ui.png` to the latest version
 
 |User guide
 |Wrote the "Quick Look at DukeCooks" section.
+
+|About us
+|Wrote and update the about us page.
 
 |Reported bugs
 |Reported bugs and suggestions for other teams in the class +
