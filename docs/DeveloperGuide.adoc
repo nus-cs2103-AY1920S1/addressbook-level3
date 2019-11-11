@@ -184,16 +184,18 @@ methods. When `undo()` or `redo()` of `ModelManager` is called, it sets its own 
 returned by the respective methods of `UndoHistory`.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+The model data mentioned below encapsulates the data stored in the model (such as the restaurant,
+customer, and deliveryman data).
 
-Step 1. The user launches the application for the first time. The `UndoHistory` will be initialized with the initial address book state, and the `current` state pointer pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `UndoHistory` will be initialized with the initial address book state, and the `current` state pointer pointing to that single model data state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. After each command, `LogicManager` calls `Model#notifyChange()`, causing the modified state of the data after the `delete 5` command executes to be saved in the `history` list, and the `current` state pointer is shifted to the newly inserted address book state.
+Step 2. The user executes the `delete 5` command to delete the 5th customer in the address book. After each command, `LogicManager` calls `Model#notifyChange()`, causing the modified state of the data after the `delete 5` command executes to be saved in the `history` list, and the `current` state pointer is shifted to the newly inserted model data state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. `LogicManager` calls `Model#notifyChange()` again, causing another modified state to be saved into the `history` list.
+Step 3. The user executes `add u/David ...` to add a new person. `LogicManager` calls `Model#notifyChange()` again, causing another modified state to be saved into the `history` list.
 
 image::UndoRedoState2.png[]
 
@@ -202,7 +204,7 @@ If a command does not modify the data, when `UndoHistory` checks whether the cur
 to the data in the previous state according to its `equals()` method, it will realise that it is
 indeed equal. It will then not store the state into the `history` list.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `current` state pointer once to the left, pointing it to the previous state, and restores the data to that state.
+Step 4. The user now decides that adding the person was a mistake, and undoes that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `current` state pointer once to the left, pointing it to the previous state, and restores the data to that state.
 
 image::UndoRedoState3.png[]
 
@@ -211,26 +213,54 @@ If the `current` state pointer is at index 0, i.e. pointing to the initial state
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoSequenceDiagram1.png[]
+image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 The `redo` command does the opposite -- it calls `Model#redo()`, which shifts the `current` state pointer once to the right, pointing to the previously undone state, and restores the data to that state.
 
 [NOTE]
-If the `current` state pointer is at index `history.size() - 1`, i.e. pointing to the latest address book state, then there are no undone states to restore. The `redo` command uses `Model#hasRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `current` state pointer is at index `history.size() - 1`, i.e. pointing to the latest model data state, then there are no undone states to restore. The `redo` command uses `Model#hasRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 Step 5. The user then decides to execute the command `list`. If a command does not modify the data, it will not be stored in the undo history as `UndoHistory` checks for equality with the previous state. Thus, the `history` list remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#notifyChange()`. Since the `current` state pointer is not pointing at the end of the `history` list, all address book states after the `current` state pointer will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#notifyChange()`. Since the `current` state pointer is not pointing at the end of the `history` list, all model data states after the `current` state pointer will be purged. We designed it this way because it no longer makes sense to redo the `add u/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::CommitActivityDiagram.png[]
+
+==== Design Considerations
+
+This section discusses current and possible alternative methods to design the undo/redo function.
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire address book.
+** Pros: Is easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: Must ensure that the implementation of each individual command is correct.
+
+Saving the entire address book was chosen because it is more straightforward. Adding logic to each
+command to undo itself would be too much work given the time constraints.
+
+===== Aspect: How undo states are copied
+
+* **Alternative 1 (current choice):** Make all objects in the databases immutable.
+** Pros: Easy to undo and redo, and objects which are not modified can be shared, saving memory.
+** Cons: Slightly more complex to understand, and every minor change requires updating the database
+with a new object.
+* **Alternative 2:** Add a clone method.
+** Pros: Slightly simpler to reason about.
+** Cons: Uses a lot of memory as each command executed requires cloning of all objects.
+
+Making all objects immutable was chosen as it was the original design of AB3 and saves memory.
 // end::undoredo[]
 
 // tag::autocompletecommands[]
