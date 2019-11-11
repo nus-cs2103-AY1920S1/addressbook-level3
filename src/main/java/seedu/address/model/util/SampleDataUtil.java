@@ -120,15 +120,15 @@ public class SampleDataUtil {
     public static Budget[] getSampleBudgets() {
         return new Budget[] {
             new Budget(new Name("Japan Travel"), new Amount("100000.00"), new Amount("100000.00"),
-                new Currency("JPY"), new Date("12/12/2019"), new Date("18/12/2019"), getJapanTravelExpenseList()),
+                new Currency("JPY", getRate("JPY")), new Date("12/12/2019"), new Date("18/12/2019"), getJapanTravelExpenseList()),
             new Budget(new Name("Business Budget"), new Amount("2000.00"), new Amount("2000.00"),
-                new Currency("USD"), new Date("10/5/2019"), new Date("18/5/2019"), getBusinessBudgetExpenseList()),
+                new Currency("USD", getRate("USD")), new Date("10/5/2019"), new Date("18/5/2019"), getBusinessBudgetExpenseList()),
             new Budget(new Name("January 19 Budget"), new Amount("500.00"), new Amount("1000.00"),
-                new Currency("SGD"), new Date("1/1/2019"), new Date("31/1/2019"), getJanuaryBudgetExpenseList()),
+                new Currency("SGD", getRate("SGD")), new Date("1/1/2019"), new Date("31/1/2019"), getJanuaryBudgetExpenseList()),
             new Budget(new Name("Wedding Budget"), new Amount("40000.00"), new Amount("40000.00"),
-                new Currency("SGD"), new Date("5/7/2019"), new Date("12/7/2019"), getWeddingBudgetExpenseList()),
+                new Currency("SGD", getRate("SGD")), new Date("5/7/2019"), new Date("12/7/2019"), getWeddingBudgetExpenseList()),
             new Budget(new Name("Family Travel in SG"), new Amount("600.00"), new Amount("600.00"),
-                new Currency("SGD"), new Date("24/6/2019"), new Date("24/6/2019"), getFamilyTravelExpenseList()),
+                new Currency("SGD", getRate("SGD")), new Date("24/6/2019"), new Date("24/6/2019"), getFamilyTravelExpenseList()),
         };
     }
 
