@@ -405,6 +405,15 @@ Each image is displayed with a description (bottom left), a date taken (top righ
 There is also a photo index
 (top left), which is for use in various commands (see <<diary_text_displaying_images>>).
 
+[NOTE]
+====
+The image files of _TravelPal_ are not copied to where your the _TravelPal_ application file is. Instead, the absolute file path
+(see <<glossary>>) to the image file on your computer is stored!
+
+If you move or delete the original image on your system,
+then you will have to add the photo again, and a placeholder image will be shown in place of your image in _TravelPal_.
+====
+
 [[diary_current_day_indicator]]
 ===== Current Day Indicator
 This is simply some helper text for you to know what day the diary entry you are currently viewing is tied to.
@@ -417,7 +426,7 @@ diary entries for different days by clicking on the respective buttons.
 [[diary_gallery_button_bar]]
 ===== Gallery Button Bar
 This smaller button bar is used for executing two other commands. Firstly, the `editor` (<<diary_editor_command>>)
-can be executede by clicking on the _Edit_ button. Secondly, the `addphoto` command may be executed
+can be executed by clicking on the _Edit_ button. Secondly, the `addphoto` command may be executed
 (<<diary_addphoto_command>>) through _Add_ button.
 
 [[diary_add_new_entry_button]]
@@ -504,14 +513,14 @@ The diary commands follow the same general format used by the rest of `TravelPal
 To start, you would want to create a new diary entry for a certain day. There are two options,
 the former being the `create` command which offers slightly more flexibility.
 
-====== Using the `create <dayN>` command
+====== Option 1: Using the `create <dayN>` command
 * Usage: Creates a new diary entry for *any* specified day number.
 * Arguments:
 ** `<dayN>` - Positive integer nth day of the trip, which has not yet been created, and is less than or equal to
 the last day of your trip.
 
 [[diary_create_entry_command_button]]
-====== Using the add entry button `+`
+====== Option 2: Using the add entry button `+`
 
 * Usage: Creates a new diary entry for the day right after the latest day's entry you currently have.
 
@@ -538,12 +547,12 @@ image::diary/userguide/diary_create_command_command_after.png[title="Example res
 Next, say you wanted to view or edit a different day's diary entry, be it during your trip, or long after the trip. There
 are also two options here to suit your needs, both offering the exact same functionality.
 
-====== Using the `flip <dayN>` command
+====== Option 1: Using the `flip <dayN>` command
 * Usage: Flips the diary to the diary entry of the day number specified.
 * Arguments:
 ** `<dayN>` - Positive integer of the nth day's diary entry to flip to.
 
-====== Using the diary entry navigation bar
+====== Option 2: Using the diary entry navigation bar
 * Usage: Clicking the the button of with the day number of the diary entry in the navigation bar (<<diary_day_navigation_bar>>)
 will flip to the diary entry for that day.
 
@@ -569,33 +578,22 @@ image::diary/userguide/diary_flip_command_command_after.png[title="Example resul
 If you have just created a fresh diary entry, and you're wondering where to go next, then you
 may want to start by adding your photos to display in the gallery (<<diary_gallery_display>>).
 
-Here, there are 3 options for you to choose, the last option being the least flexible but also the fastest, if
-you are more comfortable with using the user interface than the command line input.
+There are *3* options for you to choose, the last option being the least flexible but also the fastest.
 
-In all options, the image file chosen should be of the file types `.jpg`, `.jpeg`, or `.png`.
-
-
-[NOTE]
-====
-The image files are not copied to where your the _TravelPal_ application file is. Instead, the absolute file path
-(see <<glossary>>) to the image file on your computer is stored!
-
-If you move or delete the original image on your system,
-then you will have to add the photo again, and a placeholder image will be shown in place of your image in _TravelPal_.
-====
+NOTE: In all options, the image file chosen should be of the file types `.jpg`, `.jpeg`, or `.png`.
 
 
 
-====== Using the `addphoto` command with the `fp/` prefix
+====== Option 1: Using the `addphoto` command with the `fp/` prefix
 * Usage: Typing in the command `addphoto fp/<file path> [d/<description>] [dts/<date taken>]`, with the
-arguments described below, will add the image file located at the specified file
-path on your computer to the gallery display.
+arguments described below, will add the image located at the `file
+path` on your computer to the gallery.
 * Arguments:
-** `<file path>` - Relative file path from the location of the _TravelPal's_ jar file, or an absolute file path.
+** `<file path>` - Relative file path from the location of the _TravelPal's_ jar file, or an absolute file path. (see <<glossary>> for details of relative and absolute file paths)
 ** `<description>` (optional) - The description of the photo to be shown in the gallery, of maximum length 20.
-If left unspecified, the file name, truncated to the maximum length is used instead.
-** `<date taken>` (optional) - The date taken of the photo, of the format d/M/yyyy HHmm.
-If left unspecified, the last modified date of the file is used instead.
+If unspecified, the file name is used instead, shortened to the maximum length.
+** `<date taken>` (optional) - The date taken of the photo, of the format `d/M/yyyy HHmm`.
+If unspecified, the last modified date of the file is used instead.
 
 '''
 
@@ -603,12 +601,10 @@ If left unspecified, the last modified date of the file is used instead.
 
 Scenario:
 
-* You are currently viewing the diary entry for day 1, which is empty, and you want to add a new photo.
-* You are also a command line savvy user that loves and understands how to manually specify relative or absolute
-file paths (see <<glossary>>), hence you opted for this option,
-rather than <<Using the `addphoto` command with the `fc/` prefix>> or <<Using the `add` button under the gallery display>>.
+* You are currently viewing an empty diary entry for day 1 and you want to add a new photo.
 * Also, you want to give the photo a custom description, but want to use the last modified date of the image file in your
-computer as the date taken for the photo. Shown below is an example of the photo on your computer you want to add,
+computer as the date taken for the photo.
+* Shown below is an example of the photo on your computer you want to add,
 `snowymountains.jpg`, that is located in the same place as the _TravelPal_ application.
 
 image::diary/userguide/diary_addphoto_filepath_directory.png[title="Example file directory structure of the TravelPal application and snowymountains.jpg" width="80%" align="center"]
@@ -619,7 +615,7 @@ same directory as the _TravelPal_ application.
 +
 image::diary/userguide/diary_addphoto_command_filepath.png[title="Example usage of the `addphoto` command with the `fp/` option"]
 
-. The photo, with the specified description and last modified date will be added. You should see a brief confirmation message in
+. That's it! The photo, with the specified description and last modified date will be added. You should see a brief confirmation message in
 the command result box.
 .. Additionally, there will be a auto-generated photo numbering, for use as described in <<diary_text_displaying_images>>.
 
@@ -627,25 +623,26 @@ image::diary/userguide/diary_addphoto_command_filepath_result.png[title="Example
 
 '''
 
-====== Using the `addphoto` command with the `fc/` prefix
-* Usage: Typing in the command `addphoto fc/ [d/<description>] [dts/<date taken>]`, with the
-arguments described below, will add the image file located at the specified file
-path on your computer to the gallery display.
-* Arguments:
-** `fc/` - opens your system's user interface dialog to allow choosing an image (of file types `.jpg .jpeg .png`).
-** `<description>` & `<date taken>` (optional) - as described in <<Using the `addphoto` command with the `fp/` prefix>>.
+====== Option 2: Using the `addphoto` command with the `fc/` prefix
+* Usage: Typing in the command `addphoto fc/ [d/<description>] [dts/<date taken>]`, with the optional
+arguments described below, will open your system's dialog to choose an image file.
+* Arguments (optional):
+** `<description>` - The description of the photo to be shown in the gallery, of maximum length 20.
+If unspecified, the file name is used instead, shortened to the maximum length.
+** `<date taken>` - The date taken of the photo, of the format `d/M/yyyy HHmm`.
+If unspecified, the last modified date of the file is used instead.
 
-NOTE: The `fc/` prefix takes precedence over the `fp/` argument if both are specified.
+NOTE: Using both the `fc/` and `fp/` prefix will cause _TravelPal_ to ignore the `fp/` prefix!
 
-====== Using the `Add` button under the gallery display
+====== Option 3: Using the `Add` button under the gallery display
 * Usage: Clicking the `Add` button located under the gallery display area (<<diary_gallery_button_bar>>) will open your
-system's user interface dialog to choose an image file.
+system's dialog to choose an image file.
 * If this option is used, then the `<description>` & `<date taken>` are not specifiable and will be auto generated as described
-in <<Using the `addphoto` command with the `fp/` prefix>>.
+in above.
 
 '''
 
-====== Example Usage for `addphoto` command with `fc/` option or `add` button
+====== Example Usage for `addphoto` command with the `fc/` option or `add` button
 // end::diary_ppp1[]
 
 Scenario:
@@ -804,7 +801,7 @@ to delete a paragraph of text in the entry!
 
 '''
 ====== Example Usage
-Scenario: You discovered that you made quite a few rather embarrassing, elementary spelling errors in a line 1 of your diary entry.
+Scenario: You discovered that you made quite a few rather embarrassing, elementary spelling errors in line 1 of your diary entry.
 You want to rectify this quickly, because your friend requested you share details of your trip with her.
 
 . You type in the command `delete 1` command to delete first line entirely, and press the 'enter' key.
@@ -820,10 +817,10 @@ As an alternative to commands that allow you to edit your diary entry, you can a
 in <<diary_editor_display_mode>>. Note that any edits through the edit box or command made while the editor was opened
 need to be saved by using the `done` command or button (see <<diary_done_command>>).To show the editor, there are two equivalent options.
 
-====== Using the `editor` command
+====== Option 1: Using the `editor` command
 * Usage: Opens the text editor window and shifts the keyboard focus to it, if it is not already opened.
 
-====== Using the `Edit` button
+====== Option 2: Using the `Edit` button
 * Usage: Clicking the `Edit` button located under the gallery display area (<<diary_gallery_button_bar>>) will open the editor.
 
 '''
@@ -850,11 +847,11 @@ If you have the edit box opened, any edits you make, through commands or the edi
 _TravelPal_ to do so! To do this, there are two options, the first being the `done` command and the second being the
 `Done` button.
 
-====== Using the `done` command
+====== Option 1: Using the `done` command
 ** Usage: Saves the text currently in the edit box to the diary entry, and closes the editor.
 ** Example: `done`
 
-====== Using the `Done` button
+====== Option 2: Using the `Done` button
 * Usage: Clicking the `Done` button located under the gallery display area (<<diary_gallery_button_bar>>) will similarly
 save the changes you made while the editor was open, and close the editor.
 

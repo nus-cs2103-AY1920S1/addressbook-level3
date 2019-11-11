@@ -36,9 +36,9 @@ public class DiaryEntryDisplay extends UiPart<ListView<CharSequence>> {
 
     private final Logger logger = LogsCenter.getLogger(DiaryEntryDisplay.class);
 
-    private PhotoList photoList;
+    private final ObservableList<CharSequence> observableParagraphs;
 
-    private ObservableList<CharSequence> observableParagraphs;
+    private PhotoList photoList;
 
     public DiaryEntryDisplay(ObservableList<CharSequence> observableParagraphs) {
         super(FXML);

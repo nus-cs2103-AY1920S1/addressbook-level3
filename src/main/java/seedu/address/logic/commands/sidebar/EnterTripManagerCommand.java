@@ -15,7 +15,7 @@ public class EnterTripManagerCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the landing page of TravelPal.";
 
-    public static final String MESSAGE_SUCCESS = "Entered the landing screen.";
+    private static final String MESSAGE_SUCCESS = "Entered the landing screen.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

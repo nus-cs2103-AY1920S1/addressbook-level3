@@ -18,7 +18,7 @@ import seedu.address.ui.UiPart;
 public abstract class FormItem<T> extends UiPart<AnchorPane> {
 
     /** Form field change handler that receives the form field value of type {@code T}. */
-    protected Consumer<T> executeChangeHandler;
+    protected final Consumer<T> executeChangeHandler;
 
     @FXML
     protected Label formItemLabel;

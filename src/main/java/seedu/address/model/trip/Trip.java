@@ -23,7 +23,7 @@ import seedu.address.model.itinerary.event.EventList;
  * Compulsory fields: name, startDate, endDate, destination, dayList, totalBudget
  */
 public class Trip {
-    public static final String MESSAGE_INVALID_DATETIME = "Start date should be before end date";
+    private static final String MESSAGE_INVALID_DATETIME = "Start date should be before end date";
 
     // Compulsory Fields
     private final Name name;
@@ -107,7 +107,7 @@ public class Trip {
         }
     }
 
-    public boolean isValidDuration(LocalDateTime startDate, LocalDateTime endDate) {
+    private boolean isValidDuration(LocalDateTime startDate, LocalDateTime endDate) {
         return startDate.isBefore(endDate);
     }
 

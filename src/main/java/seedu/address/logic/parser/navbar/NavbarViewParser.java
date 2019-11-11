@@ -25,9 +25,7 @@ public class NavbarViewParser implements PageParser {
     public static final String MESSAGE_COMMAND_TYPES = "Available navigation commands :"
             + Arrays.stream(NavbarCommand.values())
                     .map(navbarCommandEnum -> navbarCommandEnum.toString().toLowerCase())
-                    .reduce("", (firstType, secondType) -> {
-                        return firstType + " " + secondType;
-                    })
+                    .reduce("", (firstType, secondType) -> firstType + " " + secondType)
             + "\n";
 
     private static final String MESSAGE_NAVIGATE_SAME_PAGE = "You are already at %1$s page!";
