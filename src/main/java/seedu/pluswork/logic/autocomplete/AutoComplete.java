@@ -37,12 +37,6 @@ public class AutoComplete {
             SortedSet <String> commandList = new TreeSet<>(Keywords.commandList);
             suggestions.addAll(commandList.subSet(input, input + Character.MAX_VALUE));
         }
-        // String commandWord = input.substring(0, firstSpace);
-
-        // input is not a valid commandWord/ commandWord has no valid prefix to autocomplete
-        if (input.endsWith("/")) { // entering a new prefix for the valid commandWord
-            suggestions = getPrefixSuggestion(input);
-        }
         return suggestions;
     }
     /**
@@ -78,6 +72,7 @@ public class AutoComplete {
 
     /**
      * gets memberId suggestion from created {@code Member}
+     * for prefix suggestions in v2.0
      * @param memberList
      * @return
      */
@@ -91,6 +86,7 @@ public class AutoComplete {
 
     /**
      * gets all the existing tags created by {@Code Task}
+     * for prefix suggestions in v2.0
      * @param taskList
      * @return
      */

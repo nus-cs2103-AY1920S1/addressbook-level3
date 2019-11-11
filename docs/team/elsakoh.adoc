@@ -14,24 +14,24 @@ This project portfolio documents my contributions as well as key features that I
 Including myself, my team comprises of 5 computer science undergraduates from the National University of Singapore.
 
 === About The Project
-+Work is a project that is created for the our Software Engineering Module. In this module, we had to morph or enhance the existing AddressBook application to meet the needs of a particular user group. 
++Work is a project that is created for the our Software Engineering Module. In this module, we had to morph or enhance the existing AddressBook application to meet the needs of a particular user group.
 
-+Work is a desktop project management application targeted at NUS project leaders of small groups. Users can use +Work for task allocation, inventory management and scheduling purposes. 
++Work is a desktop project management application targeted at NUS project leaders of small groups. Users can use +Work for task allocation, inventory management and scheduling purposes.
 
-+Work uses a Command Line Inteferface for users to type into, while incorporating a simple Graphical User Interface (GUI) for users to visualise project details easily. 
++Work uses a Command Line Inteferface for users to type into, while incorporating a simple Graphical User Interface (GUI) for users to visualise project details easily.
 
 === Formatting of Document
 Shown below are symbols that will appear in this document, and their significance.
 
 [IMPORTANT]
 Information listed here are essential information that users need to
-take note of in order for +Work to function as expected. 
+take note of in order for +Work to function as expected.
 
 [NOTE]
 Information here are things that the user can learn, so as to more efficiently use +Work.
 
 [TIP]
-Information here are things the user can learn so that they have a faster experience with +Woork 
+Information here are things the user can learn so that they have a faster experience with +Work
 
 == Summary of Contributions
 This section details all of my contributions to the project, and showcases how I worked on different aspects of the project.
@@ -41,39 +41,39 @@ This section details all of my contributions to the project, and showcases how I
 ** What it does: This feature suggests the possible +Work commands based on what the user has typed in the command line in a dropdown list. If an autocomplete suggestion has been chosen, it will paste the relevant prefixes for that specific command.
 ** Justification: This feature increases the usability of +Work, especially for new users, as users do not have to rely on error messages to understand the correct input format. Furthermore, much of the user's interaction is spent on using the command-line and would arguably improve the overall experience of using +Work greatly.
 
-** Highlights: As of the latest release, the kbd:[shift] key will toggle the caret to make user interactions with the command line much quicker. 
+** Highlights: As of the latest release, the kbd:[control] key will toggle the caret to make user interactions with the command line much quicker.
 
 
 * *Minor enhancement*:
-** Created UI for the help page for new users to interact and understand +Work easily
+** Created UI for the help page for new users to interact and understand +Work easily. (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/88[#88])
 
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=elsakoh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=elsakoh&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=elsakoh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=elsakoh&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Test code]] 
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=elsakoh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=elsakoh&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=elsakoh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=elsakoh&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Test code]]
 
 === Other Significant Contribution to Project
 ** Project management
-*** Set up the project management tool, Trello, at the start of the project to facilitate ease of communication and clear division of roles. 
+*** Set up a project management tool, Trello, at the start of the project to facilitate ease of communication and clear division of roles.
+
+*** Refactored code to remove addressbook (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/162[#162])
 
 ** Enhancements to existing features
-*** Enhanced the UI display for tasks, to include information regarding member allocated to the different tasks, in individual task cards. (Pull requests https://github.com[#36], https://github.com[#38])
+*** Enhanced the styling for the dropdown menu of autocomplete  (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/168[#168])
 
 ** Documentation
-*** Wrote parts of the +Work User Guide relating to https://github.com[Quick Start], https://github.com[Introduction] and https://github.com[Autocomplete].
-*** Wrote parts of the +Work Developer Guide relating to https://github.com[Autocomplete] and https://github.com[Help]. 
+*** Wrote parts of the +Work User Guide relating to https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#quick-start[Quick Start],https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#introduction[Introduction], https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#autocomplete[Autocomplete] and https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#command-summary[Command Summary].
+*** Wrote parts of the +Work Developer Guide relating to https://github.com[Autocomplete] and https://github.com[Architecture].
 
 ** Community
 *** Reported bugs and suggestions for other teams in the class (https://github.com/elsakoh/ped[report])
 
 == Contributions to the User Guide
-We had to make changes to the original AddressBook User Guide with instructions for the features that we implemented.
-The following section displays my additions to the *+Work User Guide* for the `statistics` and `member` features.
 
-include::../UserGuide.adoc[tag=MemberCommands]
+The following section is an excerpt from my additions to the *+Work User Guide* for the `autocorrect` feature.
 
-include::../UserGuide.adoc[tag=Statistics]
+include::../UserGuide.adoc[tag=autocomplete]
 
 == Contribution to the Developer Guide
 The following section displays my additions to the *+Work Developer Guide* for the `AutoComplete` feature.
 They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
-include::../DeveloperGuide.adoc[tag=AutoComplete]
+include::../DeveloperGuide.adoc[tag=autocomplete]
