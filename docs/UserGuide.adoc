@@ -582,7 +582,7 @@ image::export-other-options.PNG[width="250"]
 notepad application on your mobile phone (see Figure 16).
 
 .Pasting and saving exported content onto the mobile phone's built-in notepad application
-image::export-save-in-notes.png[width="250"]
+image::export-save-in-notes.PNG[width="250"]
 
 // end:export[]
 

@@ -1710,6 +1710,13 @@ set for them previously.
 . Undo an earlier command or redo a previously done command.
 
 .. Prerequisites: No commands have been entered yet and the current view is the main list. There is at least one item in the main list that is expiring within 50 days, and one item in the replenish list.
+
+.. Test case: `undo` +
+   Expected: Feedback stating that there are no commands to undo.
+
+.. Test case: `redo` +
+   Expected: Feedback stating that there are no commands to redo.
+
 .. Test case: `add|Apple|12/03/2025|3` followed by `undo` and then `redo` +
    Expected: The item with name Apple, expiry date 12/03/2025 and with quantity 3 will be added. Undo command will proceed to remove the item whilst the Redo command will proceed to add the same item back.
 
@@ -1722,11 +1729,6 @@ set for them previously.
 .. Test case: `view|replenish` followed by `shift|1|12/03/2025` followed by `undo` and lastly `redo` +
    Expected: The view changes to the replenish list and the first item on the list gets shifted to the main list with expiry date 12/03/2025. Undo command will shift the item back to the main list. Redo command will shift the item back to the replenish list.
 
-.. Test case: `undo` +
-   Expected: Feedback stating that there are no commands to undo.
-
-.. Test case: `redo` +
-   Expected: Feedback stating that there are no commands to redo.
 
 
 === Sorting items
@@ -1758,6 +1760,37 @@ set for them previously.
    Expected: No change in the order of items. Error details shown in the status message.
 .. Other incorrect sort commands to try: `sort|`, `sort|xyz` (where xyz is any garbage input) +
    Expected: Similar to previous.
+
+=== Searching items
+
+. Non empty current list
+
+.. Prerequisites: current list contains "apple" tagged with "#Fruit", "pear" tagged
+with "#Fruit" and "banana" tagged with "#Yellow". Note: `view` is executed after
+every `search` command to reset the current list.
+.. Test case: `search|apple` +
+   Expected: "apple" will be in the new current list.
+.. Test case: `search|a` +
+   Expected: "apple", "pear" and "banana" will be in the new current list.
+.. Test case: `search|e` +
+   Expected: "apple" and "pear" will be in the new current list.
+.. Test case: `search|x` +
+   Expected: New current list will be empty.
+.. Test case: `search|e` then `search|r` +
+   Expected: "pear" will be in the new current list.
+.. Test case: `search|#Fruit` +
+   Expected: "apple" and "pear" will be in the new current list.
+.. Test case: `search|#fruit` +
+   Expected: "apple" and "pear" will be in the new current list.
+.. Test case: `search|#Frui` +
+   Expected: New current list will be empty.
+.. Test case: `search|#yellow|app` +
+   Expected: "apple" and "banana" will be in the new current list.
+
+. Empty current list
+
+.. Test case: `search|random string`
+   Expected: Error message indicating that current list is empty.
 
 === Export data
 

@@ -50,6 +50,6 @@ image::xiaoyu-nus.png[width="150", align="left"]
 {empty}[https://github.com/xiaoyu-nus[github]] [<<xiaoyu-nus#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Reminder System + Logo and Website Designer
+Responsibilities: Reminder System + Logo and UI Designer
 
 '''

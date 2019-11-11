@@ -299,7 +299,7 @@ This implementation is under `Logic` and `Model` components.
 
 ==== Implementation
 
-Below are the UML sequence diagrams and a step-by-step explanation of an example usage scenario.
+Below are the UML sequence diagrams an example usage scenario.
 
 .Sequence diagram illustrating the search mechanism
 image::SequenceDiagramSearch.png[width="500"]
@@ -319,7 +319,7 @@ The selection of parser and the creation of `SearchCommand` object is omitted fo
 .Activity diagram illustrating the high-level workflow of search command
 image::ActivityDiagramSearchCommand.png[width="500"]
 
-As illustrated in Figure 14, the `search` functionality also considers the case where the current view list
+As illustrated in Figure 15, the `search` functionality also considers the case where the current view list
 is empty and there will be a feedback to the user to inform him/her that the `search` command is not executed
 successfully.
 
