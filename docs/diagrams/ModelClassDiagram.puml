@@ -47,18 +47,19 @@ HiddenOutside ..> Model
 
 Model ..> ObservableList
 ModelManager .up.|> Model
-ModelManager o..> "1" UserPrefs
+ModelManager o--> "1" UserPrefs
 UserPrefs ..|> ReadOnlyUserPrefs
 
 ModelManager o--> "1" EateryList
-EateryList --|> ReadOnlyEateryList
+EateryList ..|> ReadOnlyEateryList
 EateryList *--> "1" UniqueEateryList
 UniqueEateryList o--> "*" Eatery
 
 ModelManager o--> "1" FeedList
-FeedList --|> ReadOnlyFeedList
+FeedList ..|> ReadOnlyFeedList
 FeedList *--> "1" UniqueFeedList
-UniqueFeedList o--> "*" FeedPost
+UniqueFeedList o--> "*" Feed
+Feed *--> "*" FeedPost
 
 ModelManager o--> "1" Statistics
 

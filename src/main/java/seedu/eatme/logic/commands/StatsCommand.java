@@ -8,7 +8,6 @@ import seedu.eatme.model.Model;
 import seedu.eatme.model.statistics.Statistics;
 import seedu.eatme.model.statistics.exceptions.CannotGenerateStatisticsException;
 import seedu.eatme.model.statistics.exceptions.NoAvailableDataException;
-
 /**
  * Shows overall statistics gathered from the reviews of all the eateries in the application.
  */

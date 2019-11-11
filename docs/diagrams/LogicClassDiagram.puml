@@ -36,7 +36,7 @@ HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
 LogicManager -->"1" EatMeParser
-EatMeParser .left.> XYZCommandParser: creates >
+EatMeParser ..> XYZCommandParser: creates >
 EatMeParser .left.> XYZCommand : creates >
 
 XYZCommandParser ..> XYZCommand : creates >

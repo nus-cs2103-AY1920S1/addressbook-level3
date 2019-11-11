@@ -8,18 +8,18 @@ Participant ":Model" as model MODEL_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
 
-user -[USER_COLOR]> ui : "delete 1"
+user -[USER_COLOR]> ui : delete 1
 activate ui
 
-ui -> logic : "execute("delete 1")"
+ui -> logic : execute("delete 1")
 activate logic
 
-logic -> model : "deleteEatery()"
+logic -> model : deleteEatery(eatery)
 activate model
 model --> logic
 deactivate model
 
-logic -> storage : saveEateryList()
+logic -> storage : saveEateryList(eateryList)
 activate storage
 
 storage -> storage : save to file

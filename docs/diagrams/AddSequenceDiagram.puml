@@ -65,6 +65,7 @@ activate "cr:CommandResult"
 deactivate "cr:CommandResult"
 "ac:AddCommand" --> ":LogicManager" : cr
 deactivate "ac:AddCommand"
+destroy "ac:AddCommand"
 
 
 [<-- ":LogicManager"
