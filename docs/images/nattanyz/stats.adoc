@@ -1,4 +1,5 @@
 = Statistics feature
+:imagesDir: {imagesDir}/nattanyz
 
 Written in a separate doc to avoid merge conflicts given frequent updates to DG.
 Unfortunately, it seems that all text is inexplicably bold.
@@ -11,4 +12,9 @@ Unfortunately, it seems that all text is inexplicably bold.
 ** Thus, they are accessible via the static methods `getUserStats()` and `getDeckStats()` accessible via the `StatsHolder` class.
 ** This method of implementation is similar to what my teammates have used to store `State`.
 ** Initially, the `UserStats` and `DeckStats` objects were intended to be stored within `State` as well. However, the addition of undo/redo functionality complicated matters. Thus, the statistics objects have been decoupled from `State`.
+
+The structure of Statistics-related classes is depicted in the class diagram below.
+
+image::class diagram.png
+
 
