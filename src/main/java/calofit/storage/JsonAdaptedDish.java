@@ -68,7 +68,7 @@ class JsonAdaptedDish {
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        if (!Calorie.isValidCalorie(String.valueOf(calories))) {
+        if (Calorie.tryParseCalorie(String.valueOf(calories)).isEmpty()) {
             throw new IllegalValueException(Calorie.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);

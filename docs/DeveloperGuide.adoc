@@ -94,7 +94,7 @@ image::UiClassDiagram.png[]
 
 The #UI# consists of a #MainWindow# that is made up of parts e.g.#CommandBox#, #ResultDisplay#, #DishListPanel#, #StatusBarFooter# etc. All these parts, including the #MainWindow#, inherit from the abstract #UiPart# class. +
 
-The #UI# component uses JavaFx UI framework. The layout of these UI parts are defined in matching *.fxml* files that are in the *src/main/resources/view* folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[#MainWindow#] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[#MainWindow.fxml#]
+The #UI# component uses JavaFx UI framework. The layout of these UI parts are defined in matching *.fxml* files that are in the *src/main/resources/view* folder. For example, the layout of the link:{repoURL}/src/main/java/calofit/ui/MainWindow.java[#MainWindow#] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[#MainWindow.fxml#]
 
 The #UI# component,
 
@@ -134,19 +134,24 @@ NOTE: The lifeline for #DeleteCommandParser# should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[#Model.java#]
+*API* : link:{repoURL}/src/main/java/calofit/model/Model.java[#Model.java#]
 
 The #Model#,
 
-* stores a #UserPref# object that represents the user's preferences.
-* stores the #DishDatabase# data and #MealLog# data.
-* exposes an unmodifiable #ObservableList<Meal># and #ObservableList<Dish># that can be 'observed' e.g. the #UI# can be bound to this list so that it automatically updates when the data in the list change.
+* stores a `UserPref` object that represents the user's preferences.
+* stores the DishDatabase data, MealLog data and CalorieBudget data.
+* exposes many unmodifiable properties that can be 'observed' by the UI component
+** List of today meals (`ObservableList<Meal>`)
+** List of suggested/filtered dishes (`ObservableList<Dish>`)
+** Current calorie budget (`CalorieBudget`)
+  The UI components can be bound to this list, so that the UI automatically updates when the data in the list changes.
 * does not depend on any of the other three components.
 
 This design allows many parts of CaloFit to be created without the fear of conflict with other classes. This is due to the #Model# interface acting as a Facade class that manages the interactions between the components that makeup CaloFit.
+
 [NOTE]
 As a more OOP model, we can store a #Tag# list in #ModelManager#, which #Dish# can reference. This would allow #ModelManager# to only require one #Tag# object per unique #Tag#, instead of each #Dish# needing their own #Tag# object. An example of how such a model may look like is given below. +
- +
+
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
@@ -316,6 +321,7 @@ only has 1 meal.)
 Hence on average, the most meals to be deleted is 4. Thus the sorting time would not be too significant.
 // end::delete[]
 
+// tag::budgetbar[]
 === Budget Bar display
 
 The budget bar display provides a graphic overview of meals consumed on the current day,
@@ -345,7 +351,7 @@ From there, we again construct further observable/reactive values representing:
 ** Each meal is displayed as a proportionally-sized segment in the whole bar.
 * Position of warning/danger markers
 
-The following activity diagram shows the reactive update dependencies.
+The following object diagram shows the reactive update dependencies.
 
 image::BudgetMealUpdate.png[]
 
@@ -369,6 +375,7 @@ Use JavaFx's `GridPane` to lay out bar segments, and `ColumnConstraints` to appr
 *** Poor performance to due `Observable` machinery and `GridPane` layout
 * Explanation of choice:
 Simpler implementation and better performance outweighs the cost of using an external library.
+// end::budgetbar[]
 
 
 // tag::assistance[]
