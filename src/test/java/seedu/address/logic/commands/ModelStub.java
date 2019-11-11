@@ -7,11 +7,11 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyBudgetList;
 import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ViewState;
 import seedu.address.model.budget.Budget;
-import seedu.address.model.ReadOnlyBudgetList;
 import seedu.address.model.exchangedata.ExchangeData;
 import seedu.address.model.expense.Expense;
 

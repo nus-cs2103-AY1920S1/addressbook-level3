@@ -8,12 +8,12 @@ import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.BudgetList;
 import seedu.address.model.ExpenseList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.ViewState;
-import seedu.address.model.BudgetList;
 
 public class ClearCommandTest {
 

@@ -3,11 +3,11 @@ package seedu.address.model.util;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import seedu.address.model.BudgetList;
 import seedu.address.model.ExpenseList;
+import seedu.address.model.ReadOnlyBudgetList;
 import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.budget.Budget;
-import seedu.address.model.BudgetList;
-import seedu.address.model.ReadOnlyBudgetList;
 import seedu.address.model.exchangedata.ExchangeData;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Currency;
@@ -120,97 +120,111 @@ public class SampleDataUtil {
     public static Budget[] getSampleBudgets() {
         return new Budget[] {
             new Budget(new Name("Japan Travel"), new Amount("100000.00"), new Amount("100000.00"),
-                new Currency("JPY", getRate("JPY")), new Date("12/12/2019"), new Date("18/12/2019"), getJapanTravelExpenseList()),
+                new Currency("JPY", getRate("JPY")), new Date("12/12/2019"),
+                new Date("18/12/2019"), getJapanTravelExpenseList()),
             new Budget(new Name("Business Budget"), new Amount("2000.00"), new Amount("2000.00"),
-                new Currency("USD", getRate("USD")), new Date("10/5/2019"), new Date("18/5/2019"), getBusinessBudgetExpenseList()),
+                new Currency("USD", getRate("USD")), new Date("10/5/2019"),
+                new Date("18/5/2019"), getBusinessBudgetExpenseList()),
             new Budget(new Name("January 19 Budget"), new Amount("500.00"), new Amount("1000.00"),
-                new Currency("SGD", getRate("SGD")), new Date("1/1/2019"), new Date("31/1/2019"), getJanuaryBudgetExpenseList()),
+                new Currency("SGD", getRate("SGD")), new Date("1/1/2019"),
+                new Date("31/1/2019"), getJanuaryBudgetExpenseList()),
             new Budget(new Name("Wedding Budget"), new Amount("40000.00"), new Amount("40000.00"),
-                new Currency("SGD", getRate("SGD")), new Date("5/7/2019"), new Date("12/7/2019"), getWeddingBudgetExpenseList()),
+                new Currency("SGD", getRate("SGD")), new Date("5/7/2019"),
+                new Date("12/7/2019"), getWeddingBudgetExpenseList()),
             new Budget(new Name("Family Travel in SG"), new Amount("600.00"), new Amount("600.00"),
-                new Currency("SGD", getRate("SGD")), new Date("24/6/2019"), new Date("24/6/2019"), getFamilyTravelExpenseList()),
+                new Currency("SGD", getRate("SGD")), new Date("24/6/2019"),
+                new Date("24/6/2019"), getFamilyTravelExpenseList()),
         };
     }
 
     public static ExpenseList getJapanTravelExpenseList() {
-        ExpenseList JapanTravel = new ExpenseList();
-        JapanTravel.addExpense(new Expense(new Name("Japanese Coffee"), new Amount("1000"),
+        ExpenseList japanTravel = new ExpenseList();
+        japanTravel.addExpense(new Expense(new Name("Japanese Coffee"), new Amount("1000"),
             new Currency("JPY", getRate("JPY")), new Date("12/12/2019"), new Tag("food")));
-        JapanTravel.addExpense(new Expense(new Name("Japanese Ramen"), new Amount("7900"),
+        japanTravel.addExpense(new Expense(new Name("Japanese Ramen"), new Amount("7900"),
             new Currency("JPY", getRate("JPY")), new Date("13/12/2019"), new Tag("food")));
-        JapanTravel.addExpense(new Expense(new Name("Bus fare"), new Amount("800"),
-            new Currency("JPY", getRate("JPY")), new Date("13/12/2019"), new Tag("transport")));
-        JapanTravel.addExpense(new Expense(new Name("Hotel"), new Amount("5000"),
-            new Currency("JPY", getRate("JPY")), new Date("12/12/2019"), new Tag("accommodation")));
-        JapanTravel.addExpense(new Expense(new Name("Temple and Shrine"), new Amount("12000"),
-            new Currency("JPY", getRate("JPY")), new Date("14/12/2019"), new Tag("adventure")));
-        JapanTravel.addExpense(new Expense(new Name("Mountain climbinb"), new Amount("17000"),
-            new Currency("JPY", getRate("JPY")), new Date("12/12/2019"), new Tag("adventure")));
-        return JapanTravel;
+        japanTravel.addExpense(new Expense(new Name("Bus fare"), new Amount("800"),
+            new Currency("JPY", getRate("JPY")),
+            new Date("13/12/2019"), new Tag("transport")));
+        japanTravel.addExpense(new Expense(new Name("Hotel"), new Amount("5000"),
+            new Currency("JPY", getRate("JPY")),
+            new Date("12/12/2019"), new Tag("accommodation")));
+        japanTravel.addExpense(new Expense(new Name("Temple and Shrine"), new Amount("12000"),
+            new Currency("JPY", getRate("JPY")),
+            new Date("14/12/2019"), new Tag("adventure")));
+        japanTravel.addExpense(new Expense(new Name("Mountain climbinb"), new Amount("17000"),
+            new Currency("JPY", getRate("JPY")),
+            new Date("12/12/2019"), new Tag("adventure")));
+        return japanTravel;
     }
 
     public static final ExpenseList getWeddingBudgetExpenseList() {
-        ExpenseList WeddingBudget = new ExpenseList();
-        WeddingBudget.addExpense(new Expense(new Name("Balloons"), new Amount("500"),
-            new Currency("SGD", getRate("SGD")), new Date("6/7/2019"), new Tag("decoration")));
-        WeddingBudget.addExpense(new Expense(new Name("Flowers"), new Amount("700"),
-            new Currency("SGD", getRate("SGD")), new Date("7/7/2019"), new Tag("decoration")));
-        WeddingBudget.addExpense(new Expense(new Name("Hotel"), new Amount("985"),
-            new Currency("SGD", getRate("SGD")), new Date("7/7/2019"), new Tag("accomodation")));
-        WeddingBudget.addExpense(new Expense(new Name("Photoshoot"), new Amount("1200"),
+        ExpenseList weddingBudget = new ExpenseList();
+        weddingBudget.addExpense(new Expense(new Name("Balloons"), new Amount("500"),
+            new Currency("SGD", getRate("SGD")),
+            new Date("6/7/2019"), new Tag("decoration")));
+        weddingBudget.addExpense(new Expense(new Name("Flowers"), new Amount("700"),
+            new Currency("SGD", getRate("SGD")),
+            new Date("7/7/2019"), new Tag("decoration")));
+        weddingBudget.addExpense(new Expense(new Name("Hotel"), new Amount("985"),
+            new Currency("SGD", getRate("SGD")),
+            new Date("7/7/2019"), new Tag("accomodation")));
+        weddingBudget.addExpense(new Expense(new Name("Photoshoot"), new Amount("1200"),
             new Currency("SGD", getRate("SGD")), new Date("9/7/2019"), new Tag("")));
-        WeddingBudget.addExpense(new Expense(new Name("Attire"), new Amount("700"),
+        weddingBudget.addExpense(new Expense(new Name("Attire"), new Amount("700"),
             new Currency("SGD", getRate("SGD")), new Date("10/7/2019"), new Tag("rent")));
-        return WeddingBudget;
+        return weddingBudget;
     }
 
     public static final ExpenseList getJanuaryBudgetExpenseList() {
-        ExpenseList JanuaryBudget = new ExpenseList();
-        JanuaryBudget.addExpense(new Expense(new Name("Toys for child"), new Amount("50"),
+        ExpenseList januaryBudget = new ExpenseList();
+        januaryBudget.addExpense(new Expense(new Name("Toys for child"), new Amount("50"),
             new Currency("SGD", getRate("SGD")), new Date("3/1/2019"), new Tag("toy")));
-        JanuaryBudget.addExpense(new Expense(new Name("Expensive chicken rice"), new Amount("40"),
+        januaryBudget.addExpense(new Expense(new Name("Expensive chicken rice"), new Amount("40"),
             new Currency("SGD", getRate("SGD")), new Date("7/1/2019"), new Tag("food")));
-        JanuaryBudget.addExpense(new Expense(new Name("Table"), new Amount("120"),
+        januaryBudget.addExpense(new Expense(new Name("Table"), new Amount("120"),
             new Currency("SGD", getRate("SGD")), new Date("4/1/2019"), new Tag("furniture")));
-        JanuaryBudget.addExpense(new Expense(new Name("Laptop"), new Amount("1500"),
+        januaryBudget.addExpense(new Expense(new Name("Laptop"), new Amount("1500"),
             new Currency("SGD", getRate("SGD")), new Date("13/1/2019"), new Tag("")));
-        JanuaryBudget.addExpense(new Expense(new Name("Phone bill"), new Amount("40"),
+        januaryBudget.addExpense(new Expense(new Name("Phone bill"), new Amount("40"),
             new Currency("SGD", getRate("SGD")), new Date("23/1/2019"), new Tag("bill")));
-        JanuaryBudget.addExpense(new Expense(new Name("Phone card"), new Amount("20"),
+        januaryBudget.addExpense(new Expense(new Name("Phone card"), new Amount("20"),
             new Currency("SGD", getRate("SGD")), new Date("16/1/2019"), new Tag("")));
-        JanuaryBudget.addExpense(new Expense(new Name("Chair"), new Amount("100"),
-            new Currency("SGD", getRate("SGD")), new Date("18/1/2019"), new Tag("furniture")));
-        return JanuaryBudget;
+        januaryBudget.addExpense(new Expense(new Name("Chair"), new Amount("100"),
+            new Currency("SGD", getRate("SGD")),
+            new Date("18/1/2019"), new Tag("furniture")));
+        return januaryBudget;
     }
 
     public static final ExpenseList getBusinessBudgetExpenseList() {
-        ExpenseList BusinessBudget = new ExpenseList();
-        BusinessBudget.addExpense(new Expense(new Name("Business lunch"), new Amount("150"),
+        ExpenseList businessBudget = new ExpenseList();
+        businessBudget.addExpense(new Expense(new Name("Business lunch"), new Amount("150"),
             new Currency("USD", getRate("USD")), new Date("12/5/2019"), new Tag("food")));
-        BusinessBudget.addExpense(new Expense(new Name("Travel"), new Amount("30"),
+        businessBudget.addExpense(new Expense(new Name("Travel"), new Amount("30"),
             new Currency("USD", getRate("USD")), new Date("13/5/2019"), new Tag("travel")));
-        BusinessBudget.addExpense(new Expense(new Name("Supplier expenditure"), new Amount("200"),
+        businessBudget.addExpense(new Expense(new Name("Supplier expenditure"), new Amount("200"),
             new Currency("USD", getRate("USD")), new Date("15/5/2019"), new Tag("")));
-        BusinessBudget.addExpense(new Expense(new Name("Bribery"), new Amount("50"),
+        businessBudget.addExpense(new Expense(new Name("Bribery"), new Amount("50"),
             new Currency("USD", getRate("USD")), new Date("11/5/2019"), new Tag("")));
-        BusinessBudget.addExpense(new Expense(new Name("Business Taxes"), new Amount("1150"),
+        businessBudget.addExpense(new Expense(new Name("Business Taxes"), new Amount("1150"),
             new Currency("USD", getRate("USD")), new Date("11/5/2019"), new Tag("tax")));
-        return BusinessBudget;
+        return businessBudget;
     }
 
     public static final ExpenseList getFamilyTravelExpenseList() {
-        ExpenseList FamilyTravelBudget = new ExpenseList();
-        FamilyTravelBudget.addExpense(new Expense(new Name("Family lunch"), new Amount("70"),
+        ExpenseList familyTravelBudget = new ExpenseList();
+        familyTravelBudget.addExpense(new Expense(new Name("Family lunch"), new Amount("70"),
             new Currency("SGD", getRate("SGD")), new Date("24/6/2019"), new Tag("food")));
-        FamilyTravelBudget.addExpense(new Expense(new Name("Taxi"), new Amount("40"),
-            new Currency("SGD", getRate("SGD")), new Date("24/6/2019"), new Tag("transport")));
-        FamilyTravelBudget.addExpense(new Expense(new Name("Tickets to Gardens by the Bay"), new Amount("150"),
+        familyTravelBudget.addExpense(new Expense(new Name("Taxi"), new Amount("40"),
+            new Currency("SGD", getRate("SGD")),
+            new Date("24/6/2019"), new Tag("transport")));
+        familyTravelBudget.addExpense(new Expense(new Name("Tickets to Gardens by the Bay"), new Amount("150"),
             new Currency("SGD", getRate("SGD")), new Date("24/6/2019"), new Tag("tickets")));
-        FamilyTravelBudget.addExpense(new Expense(new Name("Jurong East Swimming Pool"), new Amount("10"),
+        familyTravelBudget.addExpense(new Expense(new Name("Jurong East Swimming Pool"), new Amount("10"),
             new Currency("SGD", getRate("SGD")), new Date("24/6/2019"), new Tag("tickets")));
-        FamilyTravelBudget.addExpense(new Expense(new Name("Singapore Zoo tickets"), new Amount("40"),
+        familyTravelBudget.addExpense(new Expense(new Name("Singapore Zoo tickets"), new Amount("40"),
             new Currency("SGD", getRate("SGD")), new Date("24/6/2019"), new Tag("tickets")));
-        return FamilyTravelBudget;
+        return familyTravelBudget;
     }
 
     public static ReadOnlyBudgetList getSampleBudgetList() {
