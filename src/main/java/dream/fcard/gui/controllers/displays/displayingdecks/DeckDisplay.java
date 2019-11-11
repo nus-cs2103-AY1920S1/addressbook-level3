@@ -92,6 +92,7 @@ public class DeckDisplay extends VBox {
             Exam exam = ExamRunner.getCurrentExam();
             TestDisplay testDisplay = new TestDisplay(exam);
             Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
+            Consumers.doTask("TOGGLE_LIST_VIEW_OFF", true);
         }
     }
 

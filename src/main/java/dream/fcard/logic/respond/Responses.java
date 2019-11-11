@@ -589,6 +589,7 @@ public enum Responses {
             RegexUtil.commandFormatRegex("test", new String[]{"deck/", "duration/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    //@@author shawnpunchew11
                     StateHolder.getState().setCurrState(StateEnum.TEST);
                     ArrayList<ArrayList<String>> res =
                             RegexUtil.parseCommandFormat("test", new String[]{"deck/", "duration/"}, i);
@@ -616,12 +617,14 @@ public enum Responses {
                                 TimedTestDisplay timedTestDisplay = new TimedTestDisplay(currExam);
                                 Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, timedTestDisplay);
                             }
+                            Consumers.doTask("TOGGLE_LIST_VIEW_OFF", true);
                             return true;
                         }
                     } catch (DeckNotFoundException e) {
                         e.printStackTrace();
                     }
                     return true;
+                    //@author
                 }
     ),
 
@@ -629,9 +632,11 @@ public enum Responses {
             "^((?i)test).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    //@@author shawnpunchew11
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Wrong Command.");
                     StateHolder.getState().setCurrState(StateEnum.DEFAULT);
                     return true;
+                    //@auth
                 } //todo
     ),
     //@@author PhireHandy
@@ -684,6 +689,7 @@ public enum Responses {
                 ResponseGroup.TEST_MCQ,
                 ResponseGroup.TEST_MCQ_BACK},
                 i -> {
+                    //@@author shawnpcunchew11
                     Exam exam = ExamRunner.getCurrentExam();
                     boolean isEndOfDeck = exam.upIndex();
                     if (isEndOfDeck) {
@@ -696,6 +702,7 @@ public enum Responses {
                     Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
+                    //@author
                 }
     ),
     TEST_PREV(
@@ -708,12 +715,14 @@ public enum Responses {
                 ResponseGroup.TEST_MCQ,
                 ResponseGroup.TEST_MCQ_BACK},
                 i -> {
+                    //@@author shawnpunchew11
                     Exam exam = ExamRunner.getCurrentExam();
                     exam.downIndex();
                     Pane newCard = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
+                    //@author
                 }
     ),
     // Needs to change StateEnum back to DEFAULT
@@ -727,6 +736,7 @@ public enum Responses {
                 ResponseGroup.TEST_MCQ,
                 ResponseGroup.TEST_MCQ_BACK},
                 i -> {
+                    //@@author shawnpunchew11
                     Consumers.doTask("STOP_TIMELINE", true);
                     if (ExamRunner.getCurrentExam() != null) {
                         ExamRunner.terminateExam();
@@ -734,8 +744,10 @@ public enum Responses {
                     }
                     Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
                     Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
+                    Consumers.doTask("TOGGLE_LIST_VIEW_ON", true);
                     StateHolder.getState().setCurrState(StateEnum.DEFAULT);
                     return true;
+                    //@author
                 }
     ),
 
@@ -747,28 +759,33 @@ public enum Responses {
                 ResponseGroup.TEST_FBCARD,
                 ResponseGroup.TEST_FBCARD_BACK},
                 i -> {
+                    //@@author shawnpunchew11
                     StateHolder.getState().setCurrState(StateEnum.TEST_FBCARD);
                     Exam exam = ExamRunner.getCurrentExam();
                     Pane cardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardFront);
                     return true;
+                    //@author
                 }
     ),
     FB_BACK(
             "^((?i)back)\\s*",
             new ResponseGroup[]{ResponseGroup.TEST_FBCARD},
                 i -> {
+                    //@@author shawnpunchew11
                     StateHolder.getState().setCurrState(StateEnum.TEST_FBCARD_BACK);
                     Exam exam = ExamRunner.getCurrentExam();
                     Pane cardBack = exam.getCardDisplayBack();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardBack);
                     return true;
+                    //@author
                 }
     ),
     FB_CORRECT(
             "^((?i)correct)\\s*",
             new ResponseGroup[]{ResponseGroup.TEST_FBCARD_BACK},
                 i -> {
+                    //@@author shawnpunchew11
                     Consumers.doTask("GET_SCORE", true);
                     Exam exam = ExamRunner.getCurrentExam();
                     exam.upIndex();
@@ -776,12 +793,14 @@ public enum Responses {
                     Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
+                    //@author
                 }
     ),
     FB_WRONG(
             "^((?i)wrong)\\s*",
             new ResponseGroup[]{ResponseGroup.TEST_FBCARD_BACK},
                 i -> {
+                    //@@author shawnpunchew11
                     Consumers.doTask("GET_SCORE", false);
                     Exam exam = ExamRunner.getCurrentExam();
                     exam.upIndex();
@@ -789,6 +808,7 @@ public enum Responses {
                     Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
+                    //@author
                 }
     ),
 
@@ -798,6 +818,7 @@ public enum Responses {
             "^((?i)(\\d)+\\s*)",
             new ResponseGroup[]{ResponseGroup.TEST_MCQ},
                 i -> {
+                    //@@author shawnpunchew11
                     LogsCenter.getLogger(i);
                     StateHolder.getState().setCurrState(StateEnum.TEST_MCQ_BACK);
                     String[] inputArray = i.split(" ");
@@ -814,17 +835,20 @@ public enum Responses {
                     Pane cardBack = exam.getCardDisplayBack();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardBack);
                     return true;
+                    //@author
                 }
     ),
     MCQ_FRONT(
             "^((?i)front)\\s*",
             new ResponseGroup[]{ResponseGroup.TEST_MCQ_BACK},
                 i -> {
+                    //@@author shawnpunchew11
                     StateHolder.getState().setCurrState(StateEnum.TEST_MCQ);
                     Exam exam = ExamRunner.getCurrentExam();
                     Pane cardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardFront);
                     return true;
+                    //@author
                 }
     ),
 
@@ -834,6 +858,7 @@ public enum Responses {
             "^((?i)code)\\s*",
             new ResponseGroup[]{ResponseGroup.TEST_JSJAVA},
                 i -> {
+                    //@@author shawnpunchew11
                     Exam exam = ExamRunner.getCurrentExam();
                     FlashCard card = exam.getCurrentCard();
                     if (card.getClass().getSimpleName().equals("JavascriptCard")) {
@@ -842,6 +867,7 @@ public enum Responses {
                         Consumers.doTask("LAUNCH_JAVA", true);
                     }
                     return true;
+                    //@author
                 }
     ),
 

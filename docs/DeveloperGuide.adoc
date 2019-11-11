@@ -281,35 +281,78 @@ The GUI of the application is started up by the `UiManager` class, when the appl
 The `GUI` class handles operations on the GUI, such as rendering nodes to the application window,
 and passing user command input to the `Responder` class.
 
-=== Timed/Untimed Test
+// tag::test[]
+
+=== Test
 ==== Proposed Implementation
 
-The timed/untimed test is a exam mechanism facilitated by the `ExamRunner` class which extends from the `Exam` interface.
+The timed/untimed test is a exam mechanism whereby users can enter a test mode that allows users to test themselves using the various flashcards. Users will then be notified of their results at the end of the test and will also have the chance to review their answers and reattempt questions.
 
-Given below is an example usage scenario and how the timed/untimed mechanism behaves at each step.
+The overall test architecture is depicted in the class diagram below.
 
-Step 1. User keys in the command `test <duration> <deck name>` (Eg. test 120 German)
+image::TestClassDiagram.png[]
 
-Step 2. If `<duration>` is 0, untimed test will be initiated. Else, a timed test will be initiated.
+Tests are driven by the main `ExamRunner` class which ensures that only a single `Exam` object exists at any point in time.
 
-Step 3. User will be showed the card front, and prompted for a String answer.
+`Exam` objects are where the bulk of the test logic resides. They each will also contain *ONE* `Results` object that keeps track of score.
 
-Step 4. Answer will be evaluated against the card back, and if it is correct, score will be updated.
+The sequence diagram of the three classes is as follows:
 
-The following activity diagram displays the action flow of the test mechanism.
+image::TestSequenceDiagram.png[]
 
-image::ExamRunnerActivityDiagram.png[]
+Given below is an example usage scenario and how the timed/untimed mechanism behaves at each step. The activity diagrams for Timed and Untimed Tests are also as follows:
+
+image::UntimedTestActivityDiagram.png[]
+image::TimedTestActivityDiagram.png[]
+
+
+=====
+Step 1. User keys in the command `test deck/DECK_NAME duratoin/DURATION_IN_SECONDS` (Eg. test deck/german duration/0)
+
+Step 2. If `DURATION_IN_SECONDS` is 0, untimed test will be initiated. Else, a timed test will be initiated.
+
+Step 3. A question will be loaded and user answers the question.
+
+Step 4. Answer will be evaluated and if it is correct, score will be updated.
+
+Step 5. For untimed test, repeat steps 3 and 4 until the end of deck is reached. For timed test, repeat steps 3 and 4 until either end of deck is reached or time runs out.
+=====
+
 
 ==== Design Considerations
-===== Aspect: how the timed/untimed test mechanism works
+===== Aspect: Controlling the number of `Exam` instances.
 
-* **Alternative 1:** Use forEach or while loops to iterate through the deck
-** Pros: Ensures that the entire deck will be iterated through
-** Cons: Limited control wihtin the loop
+* **Alternative 1:** Just create `Exam` whenever a user calls for a new test.
+** Pros: Lesser code to write
+** Cons:
+*** Limited control on number of instances of an exam object
+*** Potentially may lead to bugs if not well managed
+*** Hard to simulate a test truly "ending" if an object can persist
 
-* **Alternative 2: (Current Choice)** Use a nextCard method that the GUI can trigger on click
-** Pros: High amount of control as every individual card can be controlled.
-** Cons: More code for a relatively small function
+* **Alternative 2: (Current Choice)** Use a singleton static class that ensures only one instance of `Exam` exists at each point in time.
+** Pros:
+*** Extensive control over the `Exam` object by ensuring that only one instance exists
+*** Exam can be "terminated" to ensure once a test ends, users are unable to re-access it.
+** Cons:
+*** More complex design architecture that requires higher understanding of MVC pattern as well as Consumer Functional Interface
+
+===== Aspect: Management of StandardExam Object
+
+* **Alternative 1:** StandardExam class exists standalone
+** Pros:
+*** Lesser code to write
+*** Lesser complexity in terms of polymorphism
+** Cons:
+*** Not open for extension.
+
+* **Alternative 2: (Current Choice)** Use an `Exam` interface despite only one class inheriting from it
+** Pros:
+*** Allows the project to be open for extension. Developers may potentially develop other kinds of Exam modes (eg. speed round whereby there's a limited time *per card*)
+** Cons:
+*** Relatively redundant at the current version (`v1.4`)
+// end::test[]
+
+
 
 === Running a code flashcard
 .Activity diagram for creating a code flashcard
