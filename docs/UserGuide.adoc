@@ -145,7 +145,7 @@ With our transactions feature, you can organise your transactions in a fuss-free
 [[overviewtx]]
 ==== Overview
 
-In the transactions tab, you can maintain a list of your transactions, adding, editing, deleting and filtering items
+In the transactions tab, you can maintain a list of your transactions - adding, editing, deleting and filtering items
 as you like. The image below gives an overview of the GUI of the feature:
 
 [[transactionsScreenshot]]
