@@ -78,3 +78,13 @@ include::../DeveloperGuide.adoc[tag=statsfeature]
 
 *_End of extract_*
 
+{nbsp} +
+
+Also, I also wrote a test case for one of my implemented commands in the Developer Guide.
+
+*_Start of extract_*
+
+include::../DeveloperGuide.adoc[tag=statuscase]
+
+*_End of extract_*
+
