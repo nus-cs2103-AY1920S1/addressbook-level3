@@ -11,10 +11,10 @@
 
 
 
-image::subbashcontentpage.png[width=300]
+image::subbashcontentpage1.png[width=300]
 == CS2103T Team Project: Dukemon
 
-image::subbashcontentpageA.png[width=300]
+image::subbashcontentpageA1.png[width=300]
 
 
 Dukemon is a desktop flashcard application used to reinforce memory techniques. The user interacts with it using a CLI (Command Line Interface), and it has a GUI (Graphical User Interface) created with JavaFX.
@@ -26,7 +26,7 @@ It was our priority to improve their learning experience. So I took the initiati
 Under the hood, it required major restructuring of input handling. In that process, I took care of that code was well abstracted for co-developers and future developers.
 
 
-image::subbashcontentpageB.png[width=300]
+image::subbashcontentpageB1.png[width=300]
 
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=subbash&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=sreesubbash&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[***Link to codebase***]
 
@@ -74,7 +74,7 @@ PR reviewed: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/54#i
 
 
 
-image::subbashcontentpageC.png[width=300]
+image::subbashcontentpageC1.png[width=300]
 
 
 |===
@@ -97,7 +97,7 @@ include::../UserGuide.adoc[tag=switchingmodes]
 
 include::../UserGuide.adoc[tag=quickstartsubbash]
 
-image::subbashcontentpageD.png[width=300]
+image::subbashcontentpageD1.png[width=300]
 
 |===
 |
