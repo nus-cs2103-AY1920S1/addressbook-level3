@@ -228,26 +228,34 @@ The above sequence diagram clearly portrays the execution of the `delete 1` comm
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+This section describes the behaviour of the `Model` component in detail.
+The _figure_ below portrays the internal structures of the `Model` components and their interactions.
+
+.Class diagram of the structure of the `Model` Component
+image::samDiagrams/StudyBuddyProModelClassDiagram.png[]
+
+The class diagram above draws out the relationships between the internal components and their flow of actions.
+The segment below provides more details of the `Model` components and its API's link.
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
+* stores the three main packages `Flashcard`, `Note`, and `CheatSheet`.
 * stores the StudyBuddyPro data.
 
 [[Design-Storage]]
 === Storage component
 
-This section describes the behaviour of the `storage` component in details.
-The _figure_ below portrays the internal structures of the `storage` components and their interactions.
+This section describes the behaviour of the `Storage` component in detail.
+The _figure_ below portrays the internal structures of the `Storage` components and their interactions.
 
 .Class diagram of the structure of the `Storage` Component
 image::StorageClassDiagram.png[]
 
 The class diagram above draws out the relationships between the internal components and their flow of actions.
-The segment below provides more details of the `storage` components and its API's link.
+The segment below provides more details of the `Storage` components and its API's link.
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -772,7 +780,7 @@ the `Logic` package.
 
 As the diagram above shows, `Notes` are `StudyBuddyItems`, and can contain any number of `NoteFragments`.
 `NoteFragment` objects are used to represent the specific areas within a `Note` that have been tagged. Each tag
-within a `Note` is referred to as a *note fragment tag* (which is represented by a `NoteFragment` object).
+within a `Note` is referred to as a _note fragment tag_ (which is represented by a `NoteFragment` object).
 
 NOTE: Note fragment tags should not be confused with `Tags`.
 
@@ -793,6 +801,8 @@ NOTE: Note fragment tags should not be confused with `Tags`.
 
 ==== Design Implementation of the Add Tags Within Notes feature
 
+//tag::notesImplementationIntro[]
+
 The Add Tags Within Notes feature was implemented in the following way:
 
 ** Creation of a `NoteFragment` class that represents one tag within a `Note`
@@ -803,6 +813,8 @@ The Add Tags Within Notes feature was implemented in the following way:
 
 The following class diagram shows a more specific view of the relationships between the `Note`, `NoteFragment`, and
 `NoteFeatureUtil` classes.
+
+//end::notesImplementationIntro[]
 
 .A detailed view of the Note, NoteFragment, and NoteFeatureUtil classes
 image::samDiagrams/NoteModelDetailedClassDiagram.png[]
@@ -832,6 +844,8 @@ The implementation of these four methods is shown below:
 
 ===== Implementation of `NoteFeatureUtil#parseNoteFragmentsFromNote()`:
 
+//tag::notesImplementationNoteFeatureUtil1[]
+
 The method of parsing `Content` in `NoteFeatureUtil#parseNoteFragmentsFromNote()` relies on the use of `Prefixes`
 around each note fragment tag. Each note fragment tag is specified with a start and end marker (represented by the
 `Prefixes` '/\*' and '*/'), and its `Content` and `Tags` are also represented with the `Prefixes` 'C/' and 'TAG/'.
@@ -845,6 +859,8 @@ add t/About Notes c/Notes can be /* C/highlighted TAG/highlight TAG/important */
 [NOTE]
 'C/' and 'TAG/' have to be used instead of the default 'c/' and 'tag/' because otherwise the `Note` would not be
 parsed correctly (since only the most recent 'c/' tag is used for each command).
+
+//end::notesImplementationNoteFeatureUtil1[]
 
 Expected output:
 
@@ -877,10 +893,12 @@ As seen in the diagram above, when an `add` command is entered by the user:
 ** `Notes` and `NoteFragments` are created (see next diagram for more details).
 ** The new state of StudyBuddyPro is saved via the `StorageManager`.
 
-The following sequence diagram elaborates upon the creation process of `Notes` and `NoteFragments`.
+The following sequence diagram elaborates upon the creation process of `Notes` and `NoteFragments`:
 
 .Illustration of how Notes and NoteFragments are created
 image::samDiagrams/AddNoteSequenceDiagramZoomedIn.png[]
+
+//tag::notesImplementationNoteFeatureUtil2[]
 
 As can be seen from the zoomed-in diagram above, when an `AddNoteCommand` is created:
 
@@ -891,6 +909,8 @@ As can be seen from the zoomed-in diagram above, when an `AddNoteCommand` is cre
 
 NOTE: All four `Prefixes` must be present for the note fragment tag to be considered valid. Otherwise, an exception is
 thrown.
+
+//end::notesImplementationNoteFeatureUtil2[]
 
 ===== Implementation of `NoteFragments` in `filter` command:
 
@@ -938,11 +958,15 @@ even when its parent `Note` is not.
 
 ==== Design Implementation of ViewNoteCommand
 
+//tag::notesImplementationView1[]
+
 There are two Commands available if the user intends to view a particular `Note`: `ViewNoteCommand` and
 `ViewRawNoteCommand`. `ViewNoteCommand` displays the `Note` to the user while hiding any note fragment tag syntax
 from the content of the `Note`, while `ViewRawNoteCommand` displays the `Note` to the user exactly as it was inputted.
 
 The main difference in the process of the two commands is shown in the activity diagram below:
+
+//end::notesImplementationView1[]
 
 .Difference between ViewNoteCommand and ViewRawNoteCommand
 image::samDiagrams/ViewVersusViewRawActivityDiagram.png[]
@@ -955,6 +979,8 @@ The object diagram below elaborates on the process of `Note#getContentCleanedFro
 .A possible instance of a use of ViewNoteCommand
 image::samDiagrams/NoteCleanedContentObjectDiagram.png[]
 
+//tag::notesImplementationView2[]
+
 As can be seen from the diagram above, the `Note` object named 'note' makes use of the `NoteFeatureUtil` object and
 its own `Content` object to return the cleaned content String to the `ViewNoteCommand` object. The `ViewNoteCommand`
 object then creates a separate `Note` object named 'cleanedNote' to obtain the information to display.
@@ -962,7 +988,11 @@ object then creates a separate `Note` object named 'cleanedNote' to obtain the i
 This indicates that calling a `ViewNoteCommand` does not affect the original `Note`, as a separate `Note` object is
 created instead.
 
+//end::notesImplementationView2[]
+
 ==== Design Considerations of the Add Tags Within Notes feature and ViewNoteCommand
+
+//tag::notesConsiderations[]
 
 ===== Aspect: Container location for `NoteFragment`
 
@@ -975,7 +1005,7 @@ must be searched through to filter them out.
 ** Alternative 2: Separate `UniqueNoteFragmentList` from `UniqueNoteList`:
 *** Pros: O(n) search time for `filter` commands, as the `UniqueNoteFragmentList` exists separately from the
 `UniqueNoteList`.
-*** Cons: Difficult to maintain; deletion of a parent Note requires searching the `UniqueNoteFragmentList` for any
+*** Cons: Difficult to maintain; deletion of a parent `Note` requires searching the `UniqueNoteFragmentList` for any
 child `NoteFragments` to delete as well.
 
 ===== Aspect: Implementation of `ViewNoteCommand`
@@ -989,6 +1019,8 @@ child `NoteFragments` to delete as well.
 *** Pros: Can manipulate the String of the `Content` directly without having to convert it to and from `Content`.
 *** Cons: Breaks the Single Responsibility Principle, as `Content` will now be dependent on `Tags`, even though it
 does not use `Tags`.
+
+//end::notesConsiderations[]
 
 ==== Usages of the Add Tags Within Notes feature
 

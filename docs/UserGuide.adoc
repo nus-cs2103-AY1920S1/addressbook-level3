@@ -256,10 +256,11 @@ will list all items that match all of the specified tags.
 === Clearing specific feature's data: `clear`
 
 [WARNING]
+Proceed with care when using this function!! Using the clear function will IMMEDIATELY clear ALL of the data from the
+mode you are in!
 
-Proceed with care when using this function!! Using the clear function will IMMEDIATELY clear ALL of the data depending on the mode you are in!
-
-Clears the data in specific feature. Depending on the _mode_ that the user is in, the `clear` command will only clear the specific feature's data.
+Clears the data in a specific feature. Depending on the _mode_ that the user is in, the `clear` command will only
+clear the specific feature's data.
 
 Example usage:
 
@@ -273,7 +274,6 @@ Expected output:
 === Clearing entire application's data: `clear all`
 
 [WARNING]
-
 Proceed with care when using this function!! Using the clear function will IMMEDIATELY clear ALL of the data in StudyBuddyPro!
 
 
@@ -504,7 +504,6 @@ Are you sure you would like to delete the following flashcard?
 ```
 
 [IMPORTANT]
-
 Inputting invalid commands will *NOT* offer another prompt to the user.
 For example, calling `delete 3`, then an `invalid command` and then `delete 3` again will immediately delete the 3rd item without a prompt.
 
@@ -627,19 +626,18 @@ Here are your overdue flashcards:
 
 == Notes Feature:
 
-//tag::notesAdd[]
-
 Have too many things memorized in your head, with nowhere to write them down? Tired of jotting down thoughts in loose text files on your computer? Then give our Notes a try! Quick and easy to use, they help you keep track of all the loose bits of knowledge that you want to keep around but don't have the brain space to keep! Take note of these Notes and studying will be a breeze!
 
 [IMPORTANT]
 ====
 All the operations in this section assume that the user is in the _notes_ mode. To be sure
-you are _notes_ mode, please ensure you used the `switch notes` command before this. Your
+you are in the _notes_ mode, please ensure you used the `switch notes` command before this. Your
 screen should now look like the one found in the screenshot below.
 ====
 
 image::NotesSuccess.png[width="700"]
 
+//tag::notesAdd[]
 
 === To create a note: `add`
 
@@ -693,14 +691,14 @@ Expected output:
 
 ```
 New note added:
-	Title: About Notes
-	Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
-	Tags: [about]
+    Title: About Notes
+    Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
+    Tags: [about]
 
 Note fragment tags detected:
-	Title: About Notes
-	Content: highlighted
-	Tags: [important][highlight]
+    Title: About Notes
+    Content: highlighted
+    Tags: [important][highlight]
 ```
 
 This adds a note with content "Notes can be highlighted if needed.", and a note fragment tag with content
@@ -714,13 +712,15 @@ Multiple note fragment tags are allowed. These do not interfere with the other t
 
 IMPORTANT: Overlapping note fragment tags are not allowed.
 
+//end::notesAdd[]
+
 NOTE: Note fragment tags can be used for filtering notes (see Section 6.6), or filtering globally (see Section 4.3).
 For a clearer visualization of note fragments, compare the `view` (see Section 6.3) and `viewraw` (see Section 6.4)
 commands.
 
 //end::notesAdd[]
 
-=== To delete note: `delete`
+=== To delete a note: `delete`
 
 Simply get rid of any unwanted notes and make your life easier using `delete`.
 
@@ -845,8 +845,6 @@ Listing all notes:
 NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will not be listed along with the notes. To
 visualize specific note fragment tags, use the `filter` command (see Section 6.6).
 
-//tag::notesFilter[]
-
 === Filtering by tags: `filter`
 
 `filter` allows you to quickly search for your notes by their specified tags.
@@ -884,8 +882,6 @@ Filter notes by tag(s) :
 NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will be labeled with '1-1', '1-2', '2-1' etc.
 '5-1' means 'the first note fragment tag in the fifth note'.
 
-//end::notesFilter[]
-
 === Editing a note: `edit` (Coming in v2.0)
 
 Edits a note's title, content, or tags. The note will be referred to by their original title `ORIGINAL_TITLE`.
@@ -921,7 +917,7 @@ information, and to simply, save the day.
 [IMPORTANT]
 ====
 All the operations in this section assume that the user is in the _cheatsheet_ mode. To be sure
-you are _cheatsheet_ mode, please ensure you used the `switch cs` command before this. Your
+you are in the _cheatsheet_ mode, please ensure you used the `switch cs` command before this. Your
 screen should now look like the one found in the screenshot below.
 ====
 
