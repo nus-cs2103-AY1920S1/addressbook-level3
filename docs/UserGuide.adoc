@@ -401,8 +401,7 @@ Example usage:
 
 Expected output:
 ```
-New flashcard added:
-    New flashcard added: Title: Binary Stuff
+New flashcard added: Title: Binary Stuff
     Tags: [cs2100]
 ```
 
@@ -480,14 +479,14 @@ Example usage:
 
 Expected output:
 ```
-Listed all flashcards:
-    Title: Pipelineing Question 1
-    Tags: [CS2100]
+Listing all flashcards:
+1.  Title: Pipelining Question 1
+    Tags: [cs2100]
 ```
 
 === How to delete a flashcard: `delete`
 
-Deletes the flashcard by <FLASHCARD_INDEX>.
+Deletes the flashcard by <FLASHCARD_INDEX> provided by the user.
 
 The user will be prompted again to confirm their deletion.
 
@@ -519,7 +518,12 @@ Deleted Flashcard:  Title: Binary Question 1
     Tags: [cs2100]
 ```
 
-=== Time Trial: `timetrial`
+[TIP]
+If you were viewing a flashcard and then delete it, it will still remain shown as the last
+loaded flashcard in the GUI. Use the `view` command to view another flashcard instead and
+refresh the GUI!
+
+=== How to enter the timetrial mode: `timetrial`
 
 Starts a time trial for flashcards with specified tags.
 
@@ -543,7 +547,7 @@ command will be executed.
 * Executing `show` will reveal the answer of the flashcard in advance, but will not terminate the time trial.
 
 
-=== Listing by tags: `filter`
+=== How to filter flashcards based on the tags provided: `filter`
 
 * Filters the flashcard library by the user specified tag(s).
 * The user must specify at least one tag.
@@ -570,7 +574,7 @@ Expeted output:
 === Find out what flashcards to revise today, or ones you may have missed: `remind`
 
 This feature helps the user check which flashcards are due for revision today and which flashcards
-overdue for revision. Don't worry, StudyBuddyPro automatically sets the date the flashcard should next be
+overdue for revision. StudyBuddyPro automatically sets the date the flashcard should next be
 viewed at for optimal learning. These increments also scale with time i.e. newer flashcards will
 have to be viewed more often.
 
