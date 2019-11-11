@@ -228,4 +228,4 @@ A website which is tailored towards counting calories for recipes which are prov
 
 A GitHub repository containing my own solutions to Kattis problems. Kattis is a popular competitive programming website which is used
 by many programmers to hone their skills (https://github.com/lyskevin/Kattis[Link]).
- 
+
