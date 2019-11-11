@@ -284,6 +284,8 @@ public String displayPercentage() {
     double percentage = this.amount.divideAmount(this.initialAmount) * 100;
     if (percentage < 0.00) {
         percentage = 0.0; // should not display a negative percentage
+    } else if (percentage > 100.00) {
+        percentage = 100.0; // should not display a percentage greater than 100%
     }
     return String.format("%.2f%% remaining", percentage);
 }
@@ -294,20 +296,49 @@ For instance, budget is displayed in red to alert the user that he has overspent
 
 Shown below is an example of an overspent budget:
 
-.Example of an overspent budget
+.Example of an Overspent Budget
 image::overspentBudget.png[]
 
 
 When setting a new `Budget`, existence of a duplicate budget is checked through a sequence of checks.
 The activity diagram below shows the activity diagram of setting a new budget:
 
-.Activity Diagram of successfully setting a new Budget
+
+[[Duplicate-budget-check]]
+.Activity Diagram of setting a New Budget Successfully
 image::SetBudgetSimpleActivityDiagram.png[]
 
 As shown, a new budget cannot have the same *initalAmount*, *deadline* and *categories* as any other existing budget in
 budget list. Allowing existence of duplicate budgets will crowd the interface of `Budget` tab,
 which prevents the user from getting a quick overview of his budget status. Hence, a duplicate check is essential
 in providing a pleasing user experience. +
+
+==== Example of Usage
+
+Given below is an example usage of how `set` behaves at each step.
+
+**Step 1**. The user executes `set $/100 d/31122019 c/shopping` to set a new budget of $100 until 31st December 2019 under the *category* shopping.
+
+.User Inputs `set $/100 d/31122019 c/shopping`
+image::set_dg_1.png[]
+
+**Step 2**. Upon executing the command, `LogicManager` uses `MainParser#parse` to parse the input from the user.
+
+**Step 3**. `MainParser` determines which command is being executed and creates `SetCommandParser` to further parse the input.
+
+**Step 4**. `SetCommandParser` parses the argument and checks if it is valid. If it is invalid, an exception is thrown.
+Else, it returns a `SetCommand`.
+
+**Step 5**. `LogicManager` uses `SetCommand#execute()` to add a new budget. +
+`SetCommand` uses `ModelManager#has(Budget)` to check if it is a duplicate of an existing budget
+in the `UniqueBudgetList` as shown above in <<Duplicate-budget-check, the above diagram>>.
+
+**Step 6**. `SetCommand` uses `Model#commitUserState()` to save the latest state of the application. It then
+returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user at the end.
+
+.New Budget Successfully Created
+image::set_dg_2.png[]
+
 
 ==== Design Considerations
 
