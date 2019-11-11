@@ -790,6 +790,42 @@ the purchase history data of the user while maintaining data integrity.
 `TimeOfPurchase` stores the time the `Purchase` was made by the user.
 ****
 
+===== Design considerations
+
+Below are some design considerations when implementing Purchase-related models.
+
+.Design considerations of the for `Purchase` model
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|Storing the purchased food item as a `Food` object in the `Purchase` object
+
+* Pros:
+** Easier to implement
+** No need to do additional input validation to ensure validity of `Purchase` and can instead rely on the input validation provided by `Food`.
+** Allow for future functionality extension by storing all the information of the purchased `Food` to be accessed when needed.
+
+* Cons:
+** Increased coupling due to the dependency created between `Purchase` model and `Food` model.
+
+a|Creating an additional immutable `PurchasedFood` class to store information regarding the purchased `Food` object.
+
+* Pros:
+** Can choose to only include relevant information such as the food name and price while cutting out other irrelevant parts.
+** Remove the dependency between `Purchase` model and `Food` model
+
+* Cons:
+** Creates another dependency between `Purchase` and `PurchasedFood`
+** Harder to implement, additional classes would have to be written to allow for serialisation as well.
+
+|===
+
+We chose alternative 1 due to the fact that `Food` is implemented as a immutable class.
+Therefore, we are able to get the required from the `Food` object the user selected to construct the new purchased `Food` object.
+And at the same time, ensure the data integrity of that information.
+Also, by encapsulating the `Food` object within the `Purchase` object and making it a private field, we are able to ensure that the purchased `Food` is not modified in an unintended manner.
+
 ==== Buying a Food Item
 
 The user may want to buy a food item and record the purchase. This can be done with the `buy` command.
