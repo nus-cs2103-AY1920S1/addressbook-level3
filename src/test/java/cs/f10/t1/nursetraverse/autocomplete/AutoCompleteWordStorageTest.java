@@ -56,9 +56,9 @@ class AutoCompleteWordStorageTest {
     @Test
     public void generateOListAllIndexWord() {
         ObservableList<AutoCompleteWord> patIndexList = autoCompleteWordStorage
-                .generateOListAllIndexWord(new ObjectWord("pat", "test description 1"));
+                .generateOListAllIndexWord(new ObjectWord("pat-", "test description 1"));
         ObservableList<AutoCompleteWord> apptIndexList = autoCompleteWordStorage
-                .generateOListAllIndexWord(new ObjectWord("appt", "test description 1"));
+                .generateOListAllIndexWord(new ObjectWord("appt-", "test description 1"));
 
         assertEquals(patIndexList.size(), testFilteredPatients.size());
         assertEquals(apptIndexList.size(), testFilteredAppointments.size());
