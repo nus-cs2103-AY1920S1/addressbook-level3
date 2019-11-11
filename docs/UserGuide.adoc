@@ -727,6 +727,9 @@ Swaps the ordering of the 2nd rule and the 4th rule.
 [[Scripting]]
 === Scripting: `script`
 
+.Scripts in the script tab
+image::scriptpanel.png[width=85%,scaledwidth=85%]
+
 The scripting engine allows you to evaluate arbitrary scripts to perform complex operations on your transaction data,
 as well as extend the application and add commands and features of your own.
 
