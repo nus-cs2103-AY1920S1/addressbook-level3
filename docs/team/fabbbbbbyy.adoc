@@ -133,7 +133,7 @@ syntax for HTML files.
 
 Please click these links to see a sample of my code.
 
-[https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/main/java/seedu/address/model/quiz/QuizManager.java[Functional code]] [https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/test/java/seedu/address/logic/commands/quiz/QuizAddQuestionCommandTest.java[Test code]] _{Links to samples of my code.}_
+[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=fabbbbbbyy&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=fabbbbbbyy&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Test code]] _{Links to samples of my code.}_
 
 === Other contributions
 
