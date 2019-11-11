@@ -42,6 +42,10 @@ public class ChangeThemeCommand extends Command {
             GuiSettings newSettings = new GuiSettings(600, 900,
                 0, 0, guiTheme);
             model.setGuiSettings(newSettings);
+        } else if (oldSettings.getWindowCoordinates() == null) {
+            GuiSettings newSettings = new GuiSettings(oldSettings.getWindowWidth(), oldSettings.getWindowHeight(),
+                    0, 0, guiTheme);
+            model.setGuiSettings(newSettings);
         } else {
             GuiSettings newSettings = new GuiSettings(oldSettings.getWindowWidth(), oldSettings.getWindowHeight(),
                     (int) oldSettings.getWindowCoordinates().getX(),

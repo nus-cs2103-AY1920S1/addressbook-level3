@@ -170,10 +170,14 @@ public class MainWindow extends UiPart<Stage> {
                 } else {
                     ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
                     semesterListPanel = new SemesterListPanel(semesters, sp.getCurrentSemester());
-                    semesterListPanelPlaceholder.getChildren().remove(0);
+                    if (semesterListPanelPlaceholder.getChildren().size() != 0) {
+                        semesterListPanelPlaceholder.getChildren().remove(0);
+                    }
                     semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
                     studyPlanTagPanel = new StudyPlanTagPanel(sp.getStudyPlanTags().asUnmodifiableObservableList());
-                    studyPlanTagsPlaceholder.getChildren().remove(0);
+                    if (studyPlanTagsPlaceholder.getChildren().size() != 0) {
+                        studyPlanTagsPlaceholder.getChildren().remove(0);
+                    }
                     studyPlanTagsPlaceholder.getChildren().add(studyPlanTagPanel.getRoot());
                     studyPlanId.setText(String.format(STUDY_PLAN_ID, sp.getIndex()));
                     title.setText(sp.getTitle().toString());

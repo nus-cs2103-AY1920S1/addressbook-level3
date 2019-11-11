@@ -1178,6 +1178,21 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Executing basic commands
 
+. Help +
+.. Test case: `help` +
+Expected: A list of commands will be displayed, with brief descriptions of what they do.
+
+. Help specific +
+.. Test case: `help addmod` +
+Expected: An explanation of the addmod command will be displayed.
+
+. Autocomplete +
+.. Test case: `remove`, then press `TAB` +
+Expected: A menu will appear with possible autocompletions that can be selected with up and down keys. +
+Things in the menu will be: removealltags, removecommit, removemod, removeplan, removepriority, removesem, removetag.
+.. Test case: `ac`, then press `TAB` +
+Expected: The command box will be filled with `activate`.
+
 . Undo +
 .. Test case: `undo` +
 Expected:
@@ -1494,3 +1509,27 @@ Expected:
 It should show all valid modules that can be taken in Y1S1. Note that this may include
 the dissertation and internship, as their prerequisites are not expressible in terms
 of prerequisite modules.
+
+=== Executing GUI-related commands
+
+. Expanding a semester
+.. Test case: `expand y1s1`
+Expected: If Y1S1 was previously collapsed, it should be expanded now.
+If it was already expanded, no change will occur.
+
+. Expanding all semesters
+.. Test case: `expandall`
+Expected: All semesters should be expanded.
+
+. Collapsing a semester
+.. Test case: `collapse y1s1`
+Expected: If Y1S1 was previously expanded, it should be collapsed now.
+If it was already collapsed, no change will occur.
+
+. Collapsing all semesters
+.. Test case: `collapseall`
+Expected: All semesters should be collapsed.
+
+. Changing the theme
+.. Test case: `theme dark`
+Expected: The theme will become dark.
