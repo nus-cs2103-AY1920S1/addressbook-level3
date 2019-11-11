@@ -1,14 +1,5 @@
 package seedu.pluswork.logic;
 
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_TAG;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_DEADLINE;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_PDFTYPE;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_START_PERIOD;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_END_PERIOD;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -18,7 +9,6 @@ import java.util.LinkedList;
 import javafx.collections.ObservableList;
 import seedu.pluswork.commons.core.GuiSettings;
 import seedu.pluswork.commons.core.LogsCenter;
-import seedu.pluswork.commons.Keywords;
 import seedu.pluswork.logic.MultiLine.MultiLineManager;
 import seedu.pluswork.logic.autocomplete.AutoComplete;
 import seedu.pluswork.logic.commands.Command;

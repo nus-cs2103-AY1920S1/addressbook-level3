@@ -41,6 +41,8 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
         if (argMultimap.getValue(PREFIX_TASK_STATUS).isPresent()) {
             taskStatus = ParserUtil.parseStatus((argMultimap.getValue(PREFIX_TASK_STATUS).get()));
         }
+
+
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TASK_TAG));
 
         Task task = new Task(name, taskStatus, tagList);

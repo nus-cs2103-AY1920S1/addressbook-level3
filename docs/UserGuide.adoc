@@ -106,7 +106,7 @@ using the format `mt/... mt/... mt/...`
 // tag::UniversalCommands[]
 === Universal Commands
 
-==== Accessing project dashboard page: `home` +
+==== Accessing the project dashboard page: `home` +
 This command brings you to the project dashboard page, where tasks are displayed. +
 
 Format: `home` +
@@ -116,14 +116,14 @@ Calling the `home` command will bring you to the following page:
 image::Ui.png[width=790]
 
 
-==== Accessing time management page: `calendar` +
+==== Accessing the time management page: `calendar` +
 This command brings you to the time management page where calendar and meeting times are displayed +
 
 Format: `calendar` +
 
 Calling the `calendar` command will bring you to the following page:
 
-==== Accessing settings page: `settings` (Coming in v1.3) +
+==== Accessing the settings page: `settings` +
 This command brings you to the settings page  +
 
 Format: `settings` +
@@ -158,7 +158,7 @@ Undo the most recent command by
 === Member-related Commands
 
 ==== Adding a member: `add-member` +
-To add a member to the list of team members in +Work, use the command 'add-member' following the format below.
+To add a member to the list of team members in +Work, use the command `add-member` following the format below.
 
 Format: `add-member mn/MEMBER_NAME mi/MEMBER_ID mt/TAGS`
 
@@ -166,20 +166,20 @@ Example: `add-member mn/New Member mi/NM mt/UG` can be executed as follows:
 
 *Step 1:* +Work initially contains a list of 6 project members, as shown below.
 
-image::BeforeAdd.png[width="400"]
+image::BeforeAdd.png[]
 
 *Step 2:* To add a new project member into +Work, you enter the command `add-member mn/New Member mi/NM mt/UG` into the
 command prompt box.
 
-image::DuringAdd.png[width="400"]
+image::DuringAdd.png[]
 
 *Step 3:* After you hit kbd:[Enter], the  result box will display the message "New member added", and a new member with name 'New Member', member ID 'NM' and tag 'UG' is added to +Work.
 
-image::DoneAdd.png[width="400']
+image::DoneAdd.png[]
 
 The addition of a new member can also be seen from the list of members as shown below:
 
-image::ListAdd.png[width="400"]
+image::ListAdd.png[]
 
 [IMPORTANT]
 Member ID is an alphanumeric ID set by you, and cannot be changed once the member is created.
@@ -202,7 +202,7 @@ Example: `set-image mi/NM im/C:\Desktop\NewUserImage.png` can be executed as fol
 
 *Step 1:* +Work initially contains a list of project members with default profile pictures, as shown below.
 
-image::BeforeSet.png[width="400"]
+image::BeforeSet.png[]
 
 *Step 2:* To update the profile picture of the project member with member ID 'NM' in +Work to a specified image, you
 enter the command `set-image mi/NM im/C:\Desktop\NewUserImage.png` into the command prompt box.
@@ -210,7 +210,7 @@ enter the command `set-image mi/NM im/C:\Desktop\NewUserImage.png` into the comm
 *Step 3:* After you kbd:[Enter] the command, the member 'New Member' with member ID 'NM' has a new profile
 picture, specified by the image path you entered.
 
-image::SetImage.png[width="400"]
+image::SetImage.png[]
 
 
 [NOTE]
@@ -240,7 +240,7 @@ Example: `edit-member mi/NM mn/No Longer New mt/edited` can be executed as follo
 
 *Step 1:* +Work initially contains a list of 7 project members, as shown below.
 
-image::BeforeEdit.png[width="400"]
+image::BeforeEdit.png[]
 
 *Step 2:* To edit the member name and tag of 'New Member' with member ID 'NM', you enter the command
 `edit-member mi/NM mn/No Longer New mt/edited` into the command prompt box.
@@ -248,7 +248,7 @@ image::BeforeEdit.png[width="400"]
 *Step 3:* After you kbd:[Enter] the command, the member with member ID 'NM' and tag 'UG' is edited,
 with a new member name 'No Longer New' and new tag 'edited'.
 
-image::AfterEdit.png[width="400"]
+image::AfterEdit.png[]
 
 ==== List existing members: `list-members` +
 To get a list of all members added to +Work, used the command `list-members` following the format below. +
@@ -256,19 +256,19 @@ Format: `list-members` +
 
 Example: Entering `list-members` into the command prompt will result in the following:
 
-image::ListMembers.png[width="400"]
+image::ListMembers.png[]
 
 As seen from the above, all existing project members in +Work will be listed.
 
 ==== Removing a member: `remove-member` +
-To remove a member from the project, and subsequently remove him from associated tasks, use the 'remove-member' command in the format below. +
+To remove a member from the project, and subsequently remove him from associated tasks, use the `remove-member` command in the format below. +
 Format: `remove-member [mi/MEMBER_ID]`
 
 Example: `remove-member mi/GS` can be executed as follows:
 
 *Step 1:* +Work now contains a list of 7 project members, as shown below.
 
-image::BeforeRemove.png[width="400"]
+image::BeforeRemove.png[]
 
 *Step 2:* To remove project member 'No Longer New', with member ID 'NM' from +Work, you enter the command
 `remove-member mi/NM` into the command prompt box.
@@ -276,7 +276,7 @@ image::BeforeRemove.png[width="400"]
 *Step 3:* After you kbd:[Enter] the command, the member 'No Longer New' is no longer a project member in +Work, as
 seen from the list of members below.
 
-image::AfterRemove.png[width="400"]
+image::AfterRemove.png[]
 
 
 ==== Assign a task to a member: `assign` +
@@ -290,15 +290,15 @@ Example: `assign ti/1 mi/GS` can be executed as follows:
 'Gabriel Seow' with member ID 'GS'. The task 'Review Budget' has task ID 1, prompting you to enter the command
 `assign ti/1 mi/GS`.
 
-image::BeforeAssign.png[width="400"]
+image::BeforeAssign.png[]
 
 *Step 2:* After you kbd:[Enter] the command, the task 'Review Budget' with task ID '1' is added under member
 'Gabriel Seow' with member id 'GS', as seen from the image below.
 
-image::AfterAssign.png[width="400"]
+image::AfterAssign.png[]
 
 ==== Removing a task from a member: `fire` +
-To remove a task from a specific team member, use the 'fire' command in the format below. +
+To remove a task from a specific team member, use the `fire` command in the format below. +
 
 Format: `fire ti/TASK_ID mi/MEMBER_ID` +
 
@@ -308,12 +308,12 @@ Example: `fire ti/1 mi/GS` can be executed as follows:
 from being assigned to task 'Review Budget'. The task 'Review Budget' has task ID 1, prompting you to enter the command
 `fire ti/1 mi/GS`.
 
-image::BeforeFire.png[width="400"]
+image::BeforeFire.png[]
 
 *Step 2:* After you kbd:[Enter] the command, the task 'Review Budget' with  task id 1 is removed from member
 'Gabriel Seow' with member id 'GS'  as seen from the image below.
 
-image::AfterFireMember.png[width="400"]
+image::AfterFireMember.png[]
 
 '''
 // end::MemberCommands[]
@@ -338,7 +338,7 @@ as show below.
 image::add-task-preview.png[]
 
 * Hit the kbd:[Enter] key and you will see that the task is added to the project! +
-[NOTE]
+[IMPORTANT]
 The prompt displayed as a result of performing `add-task` is further explained in <<Multiline Commands>>.
 
 image::add-task-res-list.png[]
@@ -586,7 +586,7 @@ Example:
 * To remove meeting **#3**, simply enter the command `delete-meeting meeting/3` and the meeting will be removed
 
 '''
-
+// tag::Inventory[]
 === Inventory Commands
 
 ==== Adding an inventory: `add-inv`
@@ -695,7 +695,7 @@ image::pdf-inv_1.PNG[]
 ** Hit the kbd:[Enter] key and you will see that the default PDF viewer will open to show the PDF report. You should see a report like the one below.
 
 image::pdf-inv_2.PNG[]
-
+// end::Inventory[]
 
 '''
 
@@ -710,7 +710,7 @@ Format: `member-stats` +
 
 Calling the `member-stats` command will result in the statistics being displayed as follows:
 
-image::MemberStats.png[width="400"]
+image::MemberStats.png[]
 
 [NOTE]
 The resultant statistics displayed shows the proportion and number of tasks and inventory items allocated to each
@@ -723,7 +723,7 @@ Format: `task-stats` +
 
 Calling the `task-stats` command will result in the statistics being displayed as follows:
 
-image::TaskStats.png[width="400"]
+image::TaskStats.png[]
 
 [NOTE]
 The resultant statistics displayed shows the proportion of tasks that are undone, in progress and completed,
@@ -732,7 +732,7 @@ as well as the time taken for each task inputted into +Work.
 '''
 
 
-// start::Multiline[]
+// tag::Multiline[]
 === Multiline Commands
 
 ==== Adding a task: `add-task`
@@ -822,51 +822,64 @@ image::ml-task_4_4.PNG[]
 image::ml-task_4_5.PNG[]
 // end::Multiline[]
 
-=== Settings Commands
 // tag::settings[]
+=== Settings Commands
+
++Work helps you view your current settings by highlighting your current option! To see your current settings navigate
+to the settings panel by entering `settings` as described in section Section 3.1.3.
+
 ==== Switching the theme of +Work: `theme`
 
-This command helps you toggle the theme of +Work between light and dark to suit your viewing preferences.
+This command helps you toggle the theme of +Work between `light` and `dark` to suit your viewing preferences.
 
 [TIP]
-
-By default, the theme is set to dark.
+By default, the theme is set to `dark`.
 
 Format: `theme light`
 
-Examples:
+Example:
 
-* Type `theme light` as shown below.
+* Type `theme light` into the command box as shown below.
 
-image::theme-light-command.png[]
+image::theme-light-preview.png[]
 
-* Hit the kbd:[Enter] key and +Work switches to the light theme!
+* Hit the kbd:[Enter] key and +Work switches to the `light` theme! As seen below, your choice of `light` is highlighted as well.
 
-image::theme_light.png[]
+image::theme-light-res.png[]
 
-* Similarly, `theme dark` switches to the dark theme, and your choice is highlighted.
+* Similarly, `theme dark` switches to the `dark` theme.
 
-==== Switching the clock format of +Work: `clock`
+==== Switching the time format of +Work: `clock`
 
-This command helps you toggle the clock format of +Work between 24 hour and 12 hour format. +
-The clock format is set to 24 hour is set to 24 hour by default.
+This command helps you toggle the time format of +Work between 24 hour and 12 hour clock. +
+
+[TIP]
+The time format is set to 24 hour by default.
 
 [NOTE]
-
 This does not affect the input format of deadlines for tasks, you still need to be enter them in the 24 hour format!
 
 Format: `clock twenty_four`
 
-Examples:
+Example:
 
-* `clock twelve` +
-Switches to the 12 hour clock
+* Type `clock twelve` into the command box as shown below.
 
-* `clock twenty_four` +
-Switches to the 24 hour clock
+image::clock-twelve-preview.png[]
 
-'''
+* Hit the kbd:[Enter] key and +Work switches the time format to the 12 hour clock! As seen below, the new format is highlighted as well.
+
+image::clock-twelve-res-settings.png[]
+
+* Now when you navigate to any view which has time sensitive data, you will see that the format has been switched. For example, if you were to switch
+back to the dashboard by entering `home` you should see a window similar the one shown below.
+
+image::clock-twelve-res-dashboard.png[]
+
+* Similarly, `clock twenty_four` switches to the 24 hour clock.
+
 // end::settings[]
+'''
 
 === Saving Data
 
