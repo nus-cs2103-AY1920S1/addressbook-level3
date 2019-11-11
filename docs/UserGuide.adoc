@@ -177,7 +177,7 @@ image::createTrip.png[title=" `create` command generates empty fields, width=500
 
 image::editTrip.png[title=" `edit` command generates fields from your previously saved data, width=500]
 
-*Step 3*: Now that you are on the edit page, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/<value> ...`. There are 6 different prefixes, each to edit one of the 6 fields displayed. The 6 prefixes refer to editing each fields as follows:
+*Step 3*: Now that you are on the edit page, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/<value> ...`. There are 8 different prefixes. The 8 prefixes refer to editing each fields as follows:
 
 1. Name :  `n/`
 2. Start Date : `ds/`
@@ -185,6 +185,9 @@ image::editTrip.png[title=" `edit` command generates fields from your previously
 4. Total Budget : `b/`
 5. Destination : `l/`
 6. Photo File Path : `fp/`
+7. Add an inventory item to the Event Inventory List: 'inv/' (This prefix can be called more than once in the edit command)
+8. Deletes an inventory item from the Event Inventory List: 'dinv/' (This prefix can be called more than once in the edit command)
+
 
 NOTE: You can execute `fc/` with `fp/` to open a file dialog to choose an image rather than type in absoulute path of the image.
 e.g. `edit fp/ fc/`
