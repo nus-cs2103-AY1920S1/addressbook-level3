@@ -43,7 +43,7 @@ Duke Academy is written in Java, and has about 15 kLoC.
 ** Project management
 *** Managed and enforced branching workflow on GitHub
 *** Set up auto-publishing of docs (https://github.com/AY1920S1-CS2103T-F14-1/main/commit/ccde6b5fba8b4d5294678804d0e63c03804ce24c[commit])
-*** Managed releases `v1.3` - `v1.4` (2 releases) on GitHub
+*** Managed releases `v1.3` - `v1.4` on GitHub (2 releases)
 ** Product design:
 *** Updated the GUI layout and color scheme (Pull requests https://github.com/AY1920S1-CS2103T-F14-1/main/pull/112[#112])
 ** Documentation:

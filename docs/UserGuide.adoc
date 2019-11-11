@@ -98,6 +98,7 @@ _Note: the index of a question is the number displayed next to its title._
 image::questionindex.png[width="1000"]
 +
 
+
 //tag::overview[]
 [[Overview]]
 == Overview
@@ -108,7 +109,10 @@ different tabs by entering `tab` into the *CommandBox*.
 === Dashboard
 The *Dashboard* tab contains an introduction of the application, and more importantly, a *Personal Dashboard* for you to keep track of your progress made in Duke Academy.
 
+
 image::homepage.png[width="1000"]
+
+
 . *Completion Progress* +
    Displays the number of questions that you have completed and how close you are to the next skill tier
 . *Currently attempting* +

@@ -1,55 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0"
-            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-            style="-fx-background-color: #7d2277;">
+
+<AnchorPane style="-fx-background-color: #7d2277;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
 
     <padding>
-        <Insets left="45.0" right="45.0"/>
+        <Insets left="45.0" right="45.0" />
     </padding>
 
-    <GridPane AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              style="-fx-background-color: white">
+    <GridPane style="-fx-background-color: white" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
-        <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.hgrow="ALWAYS"
-              style="-fx-border-color: #7d2277">
-            <StackPane fx:id="questionListPanelPlaceholder" VBox.vgrow="ALWAYS" GridPane.hgrow="ALWAYS"/>
+        <VBox style="-fx-border-color: #7d2277" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0">
+            <StackPane fx:id="questionListPanelPlaceholder" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
         </VBox>
 
-        <VBox GridPane.columnIndex="1" GridPane.rowIndex="0"
-              style="-fx-border-color: #7d2277">
+        <VBox style="-fx-border-color: #7d2277" GridPane.columnIndex="1" GridPane.rowIndex="0">
             <Label text="Now viewing:" textFill="#63075d">
                 <font>
-                    <Font name="Century Gothic" size="20.0"/>
+                    <Font name="Century Gothic" size="20.0" />
                 </font>
                 <padding>
-                    <Insets bottom="10.0"/>
+                    <Insets bottom="10.0" />
                 </padding>
             </Label>
 
-            <StackPane fx:id="problemStatementDisplayPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="problemStatementDisplayPlaceholder" VBox.vgrow="ALWAYS" />
 
             <padding>
-                <Insets top="35.0" right="35.0" left="35.0" bottom="35.0"/>
+                <Insets bottom="35.0" left="35.0" right="35.0" top="35.0" />
             </padding>
         </VBox>
 
         <rowConstraints>
-            <RowConstraints vgrow="ALWAYS" percentHeight="100"/>
+            <RowConstraints percentHeight="100" vgrow="ALWAYS" />
         </rowConstraints>
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="50"/>
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="50"/>
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="30.0" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="70.0" />
         </columnConstraints>
 
     </GridPane>
