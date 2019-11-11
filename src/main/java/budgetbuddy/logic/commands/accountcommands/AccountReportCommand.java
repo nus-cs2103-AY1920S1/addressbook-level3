@@ -47,7 +47,7 @@ public class AccountReportCommand extends Command {
         }
 
         String accountEssentialInfo = accountsManager.getAccount(targetAccountIndex).getAccountInfo();
-
+        accountsManager.setActiveAccountByIndex(targetAccountIndex);
         return new CommandResult(accountEssentialInfo, CommandCategory.ACCOUNT);
     }
 

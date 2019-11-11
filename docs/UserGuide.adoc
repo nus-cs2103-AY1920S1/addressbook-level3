@@ -93,12 +93,12 @@ you should first familiarize yourself with the syntax that will be used througho
 * Commands start with a category, and a command type usually follows, e.g. `rule add`
 * Words written using `<>` brackets are parameters to be supplied by the user.
 * Parameters within `[]` brackets are optional and can be omitted.
-* `|` indicates that a choice must be made between two parameters.
+* `|` indicates that a choice must be made between multiple parameters.
 * `...` indicates a variable number (at least 1) of the specified parameter.
 ====
 
 Budget Buddy also comes with various keyboard shortcuts,
-further helping you to use the app with the keyboard alone.
+for a better user experience with the Command Line Interface(CLI).
 
 |===
 |Shortcut |Purpose
@@ -138,7 +138,7 @@ a certain category of spending.
 
 ==== Add a transaction: `txn out|in`
 
-Adds a new transaction of the specified amount and with the given description.
+This command will add a new transaction of the specified amount and with the given description.
 
 Format: `txn dn/out|in x/<amount> d/<description> [a/<account>] [c/<category>] [w/<date>]`
 
@@ -149,7 +149,7 @@ Examples:
 * txn dn/in x/50 d/pocket money a/school
 
 ****
-* The account provided has to be exist before transactions can be added to it.
+* The account provided has to be created before transactions can be added to it.
 * If the account is not given, the transaction is added to the active account.
 * If the category is not given, the transaction is not categorized.
 * If the date is not given, the date is set to the current date.
@@ -157,7 +157,7 @@ Examples:
 
 ==== Edit a transaction: `txn edit`
 
-Edits the specified transaction, setting the specified fields. At least one field should be provided.
+This command will edit the specified transaction, setting the specified fields. At least one field should be provided for editing.
 
 Format: `txn edit <id> dn/out|in [x/<amount>] [d/<description>] [a/<account>] [c/<category>] [w/<date>]`
 
@@ -169,12 +169,13 @@ Examples:
 
 ****
 * The new edited transaction should have at least 1 field different from the previous transaction.
-* If a new account is provided, that account will be the new active account.
+* If another account is provided, that account must exist first.
+* If another account is provided, that account will be set to the new active account.
 ****
 
-==== Delete transaction(s): `txn delete`
+==== Delete a transaction: `txn delete`
 
-Deletes the transaction with the specified ID on the current list of filtered transactions.
+This command will delete the transaction with the specified id in the displayed list of transactions.
 
 Format: `txn delete <id>`
 
@@ -184,7 +185,7 @@ Examples:
 
 ==== List transactions(s): 'txn list'
 
-Lists the transactions from the current active account, with optional filters and sorting methods.
+This will the transactions from the currently active account, and you can optionally filter/sort them as well.
 
 Format: `txn list [c/category] [f/from date] [u/until date] [af/from amount] [au/until amount] [d/description]
 [s/<aw|dw|ax|dx|ad|dd>]`
@@ -193,16 +194,16 @@ Examples:
 
 * txn list c/food u/10/4/2019 af/5 au/10 d/fruits s/ad
 ****
-The explanation of the sorting abbreviations are as follows:
+The explanation of the sorting abbreviations following 's/' are as follows:
 
-* aw: Sort transactions by ascending date.
-* dw: Sort transactions by descending date.
-* ax: Sort transactions by ascending amount.
-* dx: Sort transactions by descending amount.
-* ad: Sort transactions by description, ascending alphabetically.
-* dd: Sort transactions by description, descending alphabetically.
+* aw: Sort the transactions by ascending date.
+* dw: Sort the transactions by descending date.
+* ax: Sort the transactions by ascending amount.
+* dx: Sort the transactions by descending amount.
+* ad: Sort the transactions by description, ascending alphabetically.
+* dd: Sort the transactions by description, descending alphabetically.
 ****
-// tag::transactions[]
+// end::transactions[]
 
 // tag::accounts[]
 === Managing accounts: `account`
@@ -289,6 +290,24 @@ Format: `account report <id>`
 Example:
 
 * `account report 2` You can view the report of the first account.
+
+==== Switch the active account: `account switch`
+
+To switch the active account to another in the account list, specify the ID of the new account to switch to.
+
+Format: `account switch <id>`
+
+****
+* Switches the active account to the account with the specified index, and updates the shown `Transaction` list.
+The index refers to the index number as shown in the displayed account list. The index must be a positive integer 1, 2, 3...
+****
+
+Example:
+
+* `account switch 3` Will switch the active account to the third one in the list, as long as there are at least 3 accounts listed.
+The active account will be highlighted, as shown below:
+
+image::AccountSwitch1.png[]
 
 ==== Export the overview of all accounts: `account overview`
 
