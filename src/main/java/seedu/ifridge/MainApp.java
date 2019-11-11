@@ -294,6 +294,13 @@ public class MainApp extends Application {
         return mapToBeCreated;
     }
 
+    /**
+     * Updates the dictionary map with the names and unitTypes in the shoppinglist
+     * @param mapToBeCreated map to be edited
+     * @param shoppingList list consisting of shopping items
+     * @returne editedMap to be entered into Unitdictionary
+     * @throws InvalidDictionaryException
+     */
     private HashMap<String, String> updateMapWithShoppingItems(
             HashMap<String, String> mapToBeCreated, ReadOnlyShoppingList shoppingList)
             throws InvalidDictionaryException {
