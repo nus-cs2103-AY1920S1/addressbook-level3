@@ -86,7 +86,6 @@ public class AddRecurrenceCommand extends RecurrenceCommand {
         Expense expense;
         ExpenseList expenses = new ExpenseList();
         Set<Tag> tags = model.retrieveTags(tagList);
-        model.incrementCount(tags);
 
         for (int i = 0; i < iterations; i++) {
             expense = new Expense(
@@ -95,6 +94,7 @@ public class AddRecurrenceCommand extends RecurrenceCommand {
                     amount.getClone(),
                     date.plus(interval, i), tags);
             expenses.add(expense);
+            model.incrementCount(tags);
         }
 
         Recurrence recurrence = new Recurrence(expenses, interval);

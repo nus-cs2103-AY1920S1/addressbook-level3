@@ -36,11 +36,6 @@ public class RecurrenceCommandParser implements Parser<RecurrenceCommand> {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        /*case AddRecurrenceCommand.COMMAND_WORD:
-            return new AddRecurrenceCommandParser().parse(arguments);
-        case RemoveOccurenceCommand.COMMAND_WORD:
-            return new RemoveTagCommandParser().parse(arguments);*/
-
         case ListRecurrenceCommand.COMMAND_WORD:
             return new ListRecurrenceCommand();
 

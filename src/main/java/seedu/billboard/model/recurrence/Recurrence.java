@@ -79,7 +79,7 @@ public class Recurrence {
     }
 
     public List<String> getTagNames() {
-        return getFirstExpense().getTags().stream().map(t -> t.getTagName()).collect(Collectors.toList());
+        return getFirstExpense().getTags().stream().map(t -> t.tagName).collect(Collectors.toList());
     }
     /**
      * Returns true if both persons have the same identity and data fields.
