@@ -134,7 +134,7 @@ public enum Responses {
                     //@@author huiminlim
                     LogsCenter.getLogger(Responses.class).info("COMMAND: IMPORT_ERROR");
                     //@author
-
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Wrong command, type \"help command/import\"");
                     return true;
                 }
     ),
