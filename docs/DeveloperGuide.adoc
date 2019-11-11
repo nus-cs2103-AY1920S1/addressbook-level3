@@ -144,11 +144,13 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::passwordManagement[]
 === Password Management
 ==== Model
-The `Password` model is created to support the password management feature of our application.
+We created the `Password` model to support the password management feature of our application.
 It stores the information of all the passwords created by the user. The class diagram of the `Password` model is as follows:
 
+.Class diagram of Password Model.
 image::PasswordClassDiagram.png[]
 
 The `Password` model consists of a `Password` class which has its attributes implemented as
@@ -162,36 +164,40 @@ separate classes to follow *Single Responsibility Principle*. The attributes are
 
 `Website`: The website where the password is being used for.
 
-`PasswordModifiedAt`: The local date when the password is last modified.
+`PasswordModifiedAt`: The date when the password is last modified.
 
-`PasswordExpiredAt`: The local date 1 year after the password is last modified.
+`PasswordExpiredAt`: The date 1 year after the password is last modified.
 
-`ExpiryMode`: It has 3 modes: `HEALTHY`, `EXPIRING`, `EXPIRED`, depending on how close local time is when compared to the expiry date of the password.
+`ExpiryMode`: It has 3 modes: `HEALTHY`, `EXPIRING`, `EXPIRED`, depending on how close the current date is when compared to the expiry date of the password.
 
-The `Password` are stored in a `UniquePasswordList` in the `PasswordBook` and the existing model manager is extended to
-add the functionality managing passwords into the application. Minimal functionality are added to adhere to the *YAGNI* principle.
+The `Password` objects are stored in a `UniquePasswordList` in the `PasswordBook` and the existing model manager is extended to
+add the functionality managing passwords into the application. We have adhered to *YAGNI* design principle by making sure that minimal changes are added.
 
 ==== Design Considerations:
 ===== Aspect: Model Manager for Password.
-This would be similar for all other models including `File` model, `Card` model, `Note` model and `Password` model.
+The design considerations would be similar for all other models including `File` model, `Card` model, `Note` model and `Password` model.
 
 * **Alternative 1 (current choice):** The current model manager is extended to handle the filtered lists of all the models.
-** Pros: Adheres to *DRY* design principle as it extends the functionality of the model manager without repeating.
-** Cons: It might increase coupling in the model manager.
+** Pros: Adheres to *DRY* design principle as it extends the functionality of the model manager without repeating code.
+** Cons: It might increase dependencies in the model manager.
 
 * **Alternative 2:** Create another `Model` interface and another `Model Manager` class.
 ** Pros: Easy to implement.
 ** Cons: Does not adhere to *DRY* design principle, where additional `Model Manager` class are created.
 
-==== Logic
-In this feature, you are able to `add`, `read`, `edit`, `find`, `list`, `delete` and `copy`. Additional `Parser` and `Command`
-classes are included to enhance the functionality. The class diagram for all `Command` classes available for `Password` model is as follows:
+We chose alternative 1 as there is already a model manager available and it would be logical to use it instead of creating another class and possibly write repeated code.
 
+==== Logic
+
+User is allowed to `add`, `read`, `edit`, `find`, `list`, `delete` and `copy`. Additional `PasswordBookParser`, `Parser` and `Command`
+classes are included to support the functionality stated above. The class diagram for all `Command` classes available for `Password` model is as follows:
+
+.Class diagram of all Command classes used in password management
 image::CopyCommand.png[]
 
 
 ===== Aspect: Logic Manager for Password model.
-This would be similar for all other models such as the `File` model, `Card` model, `Note` model and `Password` model.
+The design considerations would be similar for all other models such as the `File` model, `Card` model, `Note` model and `Password` model.
 
 * **Alternative 1 (current choice):** The current logic manager is extended to handle the model parsers. The logic manager
 checks for the current mode of the system and decides which model parser class to use.
@@ -201,31 +207,53 @@ However, all the fields in the command classes are different and separating them
 * **Alternative 2:** Extending one parser class to handle all the different commands. Different command will have different `add` command words.
 
 ** Pros: Easy to implement.
-** Cons: User will have to remember different command words for the same `add` command for different modes. This will decrease the usability of the application.
+** Cons: User will have to remember different command words for the same `add` command for different modes, such as `addp`, `addn`, `addc`.
+This will impact the user experience and increase coupling as the same `add` command is required to perform different tasks.
+
+We chose alternative 1 because of its pros. We place emphasis on the user
+experience of our application. In this implementation users will not have to remember different command words to
+add the same objects into our application.
 
 ==== Copy Command:
 ===== Current Implementation:
-`CopyPasswordValueCommand` class, `CopyWebsiteCommand` class and `CopyUsernameCommand` class extends `CopyPasswordCommand` class.
+`CopyPasswordValueCommand` class, `CopyWebsiteCommand` class and `CopyUsernameCommand` class extends `CopyPasswordCommand` class as shown in the earlier figure.
 
 These three classes are implemented together with `CopyCommandParser` class to create the functionality of copying the required details onto clipboard using CLI.
 Since this is a command that would be used frequently, command alias are added to increase the efficiency for the user.
 The activity diagram below describes the flow of the `CopyPasswordCommand`:
 
-image::CopyPasswordSequenceDiagram.png[]
+.Activity Diagram for CopyPasswordCommand
+image::Step1.png[]
 
 The following sequence diagram describes the detailed interactions between any `CopyPasswordCommand` and the architecture:
+
+.Sequence Diagram for CopyPasswordValueCommand
+image::CopyPasswordSequenceDiagram.png[]
+
+The process of copying a password value is as follows:
+
+1) PasswordBookParser creates CopyPasswordCommandParser and depending on the command word after `copy`, different copy commands will be created.
+
+2) In this case, the index is a valid index and `CopyPasswordValueCommand` is created.
+
+3) The `Password` object is retrieved from the filtered password list using the index and the password value is copied via
+`ClipboardUtil#copyToClipboard()` method
 
 ==== Design Considerations:
 ===== Aspect: Implementation of `CopyPasswordCommand`
 * **Alternative 1 (current choice):** The `CopyPasswordCommand` class extends `Command` class. `CopyPasswordValueCommand` class, `CopyWebsiteCommand` class and `CopyUsernameCommand` class extend `CopyPasswordCommand`.
 ** Pros: This follows closely to *Polymorphism* and *Inheritance* concepts as all three commands share the similar functionality.
 The common functionality is abstracted out and placed inside the `CopyPasswordCommand`.
-** Cons: Any further enhancement of the child commands will have to follow `Liskov Substitution Principle` and it needs to be more restrictive than the parent command.
+** Cons: Any further enhancement of the child commands will have to follow *Liskov Substitution Principle* and it needs to be more restrictive than the parent command.
 
 * **Alternative 2:** `CopyPasswordValueCommand`, `CopyWebsiteCommand` , `CopyUsernameCommand` will extend `Command` class.
 ** Pros: Easy to implement. `PasswordBookParser` can directly check for the command word instead of splitting into 2 command words.
-** Cons: Violates *DRY* design principle.
+** Cons: Does not adhere to *DRY* design principle.
 
+We chose alternative 1 because it is more logical and follows the *DRY* design principle. The cons caused by the further enhancements of child
+commands will not be considered because of *YAGNI* design principle.
+
+// end::passwordManagement[]
 // tag::generate[]
 
 === Generate Password
@@ -504,7 +532,9 @@ When a user tries to add a card, there are various checks to ensure that the exp
 
 The other operations are used in `ParserUtil#parseExpiryDate(String expiryDate)` to ensure that user input passes these validations, before allowing the card to be added to the list. Upon startup of the app, the repopulation of data also checks against these validations to ensure that there are no illegal values stored in the list.
 
-Given below is an example usage scenario and how the validations behave at each step.
+Given below is an example usage scenario and how the validations behave at each step. The following sequence diagram shows how the expiry validations work.
+
+image::CardExpiryValidation.png[Diagram, 700]
 
 Step 1. The user executes `add d/VisaPOSB v/4291728395018293 c/256 e/12/15` command to add a new card named 'VisaPOSB' in the card book. The `CardBookParser#parseCommand(String userInput)` calls `AddCardCommandParser#parse(String args)` and the command parser tries to breakdown the string in to various parameters.
 
@@ -512,9 +542,7 @@ Step 2. The `AddCardCommandParser` calls `ParserUtil#parseExpiryDate(String expi
 
 Step 3. The `ParserUtil#parseExpiryDate(String expiry)` then calls `ExpiryDate#isValidExpiryDate(String test)`, which calls `ExpiryUtil#getMonthToExp(String expiry)`. However, `-47` is returned and the condition in `ExpiryDate#isValidExpiryDate` returns `false`.
 
-Step 4. A `ParseException` is thrown from `ParserUtil#parseExpiryDate(String expiryDate)` and the error message is shown on the command box.
-
-The following sequence diagram shows how the expiry validations work:
+Step 4. A `ParseException` is thrown from `ParserUtil#parseExpiryDate(String expiryDate)` and the error message is shown on the result box.
 
 ==== Expiry Notification
 The expiry notification is facilitated by `ExpiryDisplay`. It exists as an attribute within `MainWindow` and obtains the required expiring cards list from `LogicManager`. This is internally stored as `expiringCards`. Additionally, it implements the following operations:
@@ -725,37 +753,29 @@ It is less complex to implement and the code is much cleaner for better readabil
 
 // tag::carddesign[]
 
-[width="80%",cols="3,10,10",options="header"]
-|=========================================================
-|Aspect |Alternative 1 |Alternative 2
+===== Aspect: Implementation of expiry tagging system
+* Alternative 1 (current choice): Check for expiring and expired cards and add respective tags upon startup.
+** Pros: Adds the tag in real time on startup, removing the concern of updating tags.
+** Cons: Startup time may take longer due to extra processing of information.
 
-|Implementation of expiry tagging system
-a|The system saves a copy of the entire address book whenever the commands are executed.
+* Alternative 2: Add respective expiring and expired tags upon detection of nearing expiry.
+** Pros: Users can visibly see the addition of expiry tags when cards are expiring.
+** Cons: There will be a need to update expiring tags to expired tags, after the card has expired. This may lead to potential bugs.
 
-* Pros:
-* Cons:
+*The reason why we chose alternative 1:*
+It is much easier to code, and it is less susceptible to unforeseen circumstances such as a card having both expiring and expired tags.
 
-I decided to proceed with this option because
+===== Aspect: Deciding when the expiry notification should appear
+* Alternative 1 (current choice): Notification should appear upon startup.
+** Pros: User is immediately warned of their expiring cards and is able to take the necessary actions required.
+** Cons: Potentially disruptive as notification would appear every time the user starts up the app, as long as expiring cards exists.
 
-a|List 2.
+* Alternative 2: Notification should appear upon navigating to card book.
+** Pros: User can immediately tell which cards are in need of attention.
+** Cons: Expiring cards may be left unnoticed if user does not explicitly navigate to the card book.
 
-* Pros:
-* Cons:
-
-|Implementation of expiry tagging system
-a|The system saves a copy of the entire address book whenever the commands are executed.
-
-* Pros:
-* Cons:
-
-I decided to proceed with this option because
-
-a|List 2.
-
-* Pros:
-* Cons:
-
-|=========================================================
+*The reason why we chose alternative 1:*
+The main purpose of notifications is to remind users to take action and users can subsequently delete the card so that the notification stops appearing.
 
 // end::carddesign[]
 ==== Sort Note feature
