@@ -5,15 +5,17 @@
 
 == 1. Introduction
 
-The purpose of the portfolio is to document my roles and contributions to the project,
-link:https://ay1920s1-cs2103t-f13-4.github.io/main/index.html[EzWatchlist] in terms of the code, the User Guide and
-the Developer Guide.
+The purpose of the portfolio is to document my roles and contributions to the project, in terms of the code, the User
+Guide and the Developer Guide.
 
 === 1.1 Overview
 
-In a team of 5 software engineering students, we were tasked to enhance a basic command line interface desktop
-address book application for our software engineering project. We chose to morph it into a watchlist for movie and
-television series called EzWatchList.
+In a team of 5 software engineering students, we were tasked to enhance an existing desktop application,
+link:https://nus-cs2103-ay1920s1.github.io/addressbook-level3/index.html[AddressBook], for our software
+engineering project. We chose to morph it into a watchlist for movie and television series called
+link:https://ay1920s1-cs2103t-f13-4.github.io/main/index.html[EzWatchlist].
+A limitation was to ensure that the application remains as a command-line interface application, which means that
+users that use the application primary execute commands through typing.
 
 My role was to design the code for the `search` feature and ensure proper documentation of the code in general. I had
 to implement the `search` feature such that users would be able to search within the watchlist and from online. The
@@ -28,6 +30,9 @@ watched or wish to watch, reducing the hassle of having to search for shows freq
 
 ._Graphical User Interface_ of EzWatchlist
 image::Ui.png[]
+
+==== 1.2.1 Main Features
+*
 
 [width="100%",cols="5,^15"]
 |===
