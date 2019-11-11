@@ -828,7 +828,7 @@ Use case resumes at step 1.
 
 *MSS*
 
-1. Actor add order to the system. SML displays the new order list.
+1. Actor adds an order to the system. SML displays the new order list.
 2. Actor adds a schedule to the order. (UC04)
 3. Actor mark order as completed. SML displays completed order message.
 
