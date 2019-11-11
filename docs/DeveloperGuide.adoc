@@ -320,8 +320,28 @@ Conversions are done in `Expense#getConvertedAmount` for conversion back into th
 
 * Whenever an expense is displayed on the `ExpenseCard` or `CommandResult`, its converted value will be computed and displayed together with its conversion rate and original amount.
 
+The following sequence diagram shows how currency conversion works:
+
+image::CurrencyConversionSequenceDiagram.png[]
 
 
+
+==== Design Consideration
+There were 3 main design choices we had to choose from for the implementation of the Currency Conversion Feature. +
+
+- *Alternative 1:* Do not store currency rates when expenses are added with a selected currency and simply store the currency. +
+    * Pros: Easy to implement, recompute the amount of the expense based on the present day currency exchange rate.
+* Cons: If there was a crash in any currency, the expense amount will no longer be timeless. For instance, if an expense of of 10 MYR was stored today and was converted to 3 SGD (converted at 3.33), then the exchange rate became 2.0 the following day, the budget would reflect the amount left wrongly when it was recomputed the next day.
+
+- *Alternative 2:* Persist all the exchange rates to file every time the app is launched to ensure that the user's expenses are computed based on the exchange rate that was on that specific day. The specific exchange rate used is not stored in the expense itself.
+* Pros: Achieve timeless expense which will provide the most accurate values when computing the budget amount left.
+* Cons: Slightly harder to implement as there are multiple sources for exchange rate data based on dates. This will also bloat the amount of space requirement of the app as time persists.
+
+- *Alternative 3:* Store the specific exchange rate used together with the expense whenever it is added, update the exchange rates daily and only persist the latest rates.
+* Pros: Achieve timeless expense which will provide the most accurate values when computing the budget amount left, without the need to store historical exchange rates. Reduced space used and single source of truth for computing exchange rates.
+* Cons: Expenses added in the past that have their currencies changed will not be able to use the exchange rate of that specific day.
+
+*Alternative 3* was chosen as it was a balance between the cons across all 3 considerations, and the timelessness of an expense carries more weight than the unlikely event that the user would need to alter the currency of a past expense.
 
 === Logging
 
