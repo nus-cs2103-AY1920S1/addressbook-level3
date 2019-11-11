@@ -65,7 +65,7 @@ public class StartTimeTrialCommand extends Command {
 
         ArrayList<Flashcard> deck = model.getTaggedFlashcards(tagPredicate);
         if (deck.size() == 0) {
-            throw new TagNotFoundException("Tag not found");
+            throw new TagNotFoundException("There are no flashcards with the tags specified!");
         }
 
         Optional<ArrayList<Flashcard>> optionalDeck = Optional.of(deck);
