@@ -125,15 +125,6 @@ The added athlete will be shown at the bottom of the team list.
 
 This command deletes an athlete from the list by their index.
 
-*What you should do*
-
-Let's say you want to remove Sun Yang from Athletick as he is no longer in the team. Type the delete command,
-followed by the index of the athlete you wish to delete in the following format and press `Enter` to execute it.
-
-Format: `delete -p INDEX`
-
-Example: `delete -p 5`
-
 [NOTE]
 ====
 The index refers to the index number shown in the displayed person list.
@@ -141,16 +132,26 @@ The index refers to the index number shown in the displayed person list.
 The index must be a positive integer 1, 2, 3, …​
 ====
 
-image::deleteperson_wsyd.png[width=450]
+Let's say you want to remove Tao Li from Athletick as she is no longer in the team.
+
+*What you should do*
+
+Type in the command in the following format and press `Enter` to execute it.
+
+Format: `delete -p INDEX`
+
+Example: `delete -p 3`
+
+.As seen in the orange box, Tao Li has index 3 in the active list. Hence, 3 is used at the INDEX.
+image::deleteathlete_wysd.png[width=450]
 
 *What you should see*
 
-.Notice that Sun Yang is no longer in the athlete list on the left sidebar.
-image::deleteperson_wsys.png[width=450]
+If successfully deleted, the result box will display the details of the athlete you just deleted, as shown in
+the diagram below. The athlete should no longer be shown in the team list.
 
-If successfully removed, the details of the removed athlete will be displayed in the result box.
-
-The athlete should no longer be shown in the team list.
+.Notice that Tao Li is no longer in the athlete list on the left sidebar.
+image::deleteathlete_wyss.png[width=450]
 
 ==== Editing an athlete : `edit`
 
