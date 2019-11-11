@@ -555,7 +555,7 @@ The `view calendar` command is similar except that `[green]#displayCalendar(Comm
 
 The following activity diagram summarises what happens when a user wants to perform function 1.
 
-.Activity diagram showing what happens when a user wants to  perform function 1 
+.Activity diagram showing what happens when a user wants to  perform function 1
 image::Function1ActivityDiagram.png[width=300]
 
 Function 1 is facilitated by the `[green]#CalendarPanel#` class. It extends `[green]#UiPart<Region>#` and represents the calendar using a `[green]#GridPane#` with dimensions of 7 by 6 (42 cells). Additionally, it implements the following operations:
@@ -1066,7 +1066,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |Team coach |Track performance of my team |Know how to help them improve
 
-|`* * *` |Motivational Team coach |Performance data analysis of the performance of my team |Provide detailed feedback to my athletes 
+|`* * *` |Motivational Team coach |Performance data analysis of the performance of my team |Provide detailed feedback to my athletes
 
 |`* * *` |Detailed team coach |Retrieve past training and performance records on a specific date |Know what happened on a specific date
 
