@@ -143,7 +143,7 @@ Other Examples:
 
 === Sorting and Finding
 Sorting allows the user to organize GuiltTrip to sort what he wants to see. For more information visit: https://github.com/AY1920S1-CS2103-T16-4/main/blob/master/docs/UserGuide.adoc#31-categories
-Finding allows the user to organize GuiltTrip to filter out what he wants to see.
+Finding allows the user to organize GuiltTrip to filter out what he wants to see. For more information visit: https://github.com/AY1920S1-CS2103-T16-4/main/blob/master/docs/UserGuide.adoc#31-categories
 
 == Contributions to the Developer Guide
 

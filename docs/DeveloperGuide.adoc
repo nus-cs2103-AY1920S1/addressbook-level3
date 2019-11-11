@@ -881,3 +881,117 @@ Use case resumes from step 2.
 * Category - Income, Expense, Wishlist, Budget +
 * Entry - any item in a category +
 * Tag - label(s) attached to an entry
+
+[appendix]
+== Instructions for Manual Testing
+
+=== Adding a Expense
+
+. Test Case: addExpense cat/Food n/Mala amt/5.50 d/2019-09-09 tg/food
+.. Expected: A new Expense is added into guiltTrip. Details of the expense added is showed in the CommandResult.
+
+. Test Case: addExpense cat/Food n/Mala amt/5.50 tg/food
+.. Expected: GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that the d/DATE field is missing. The expense is not added.
+
+. Test Case: addExpense cat/Food n/Mala amt/5.503 d/2019-09-09 tg/food
+.. Expected: GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that the amt/AMOUNT field has more than the required d.p. The expense is not added.
+
+
+=== Adding a Category
+
+. Test Case: addCategory cat/Expense n/Exercise
+.. Expected: A new Category is added into guiltTrip. Details of the Category added is showed in the CommandResult.
+
+. Test Case: addCategory cat/Budget n/Exercise
+.. Expected: GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that the cat/CATEGORY TYPE must either be expense or income. The Category is not added.
+
+. Test Case: addCategory n/Exercise
+.. Expected: GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that the cat/CATEGORY NAME. The Category is not added.
+
+=== Editing a Category
+
+. Test Case: editCategory cat/Expense o/Food n/Fitness
+.. Expected: The original Category is replaced by the new Category. Details of the Category edited is showed in the CommandResult.
+
+. Test Case: editCategory cat/Expense o/Anime n/Fitness
+.. Explanation: Anime is a category that doesn't exists.
+.. Expected: GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that the Expense Category List does not have an existing Category named anime. The Category is not edited.
+
+. Test Case: editCategory cat/Expense o/Food n/Food
+.. Expected: GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that the category already exists in GuiltTrip as nothing was changed. The Category is not edited.
+
+. Test Case: editCategory cat/Expense o/Food
+.. Expected: GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that there is a missing field n/CATEGORY NEW NAME. The Category is not edited.
+
+
+=== Deleting a Category
+
+. Test Case: deleteCategory cat/Expense n/Food
+.. Explanation: In this case, Food does not have any entries with it as a Category.
+.. Expected: Food Category is deleted from guiltTrip. Details of the Category deleted is showed in the CommandResult.
+
+. Test Case: deleteCategory cat/Budget n/Food
+.. Expected: GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that the cat/CATEGORY TYPE must either be expense or income. The Category is not deleted.
+
+. Test Case: deleteCategory cat/Expense n/Food
+.. Explanation: In this case, Food has entries with it as a Category.
+.. Expected: Food Category is not deleted from guiltTrip.GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that the Category to be deleted has existing entries.
+
+=== Viewing Statistics in Table Form
+
+. Test Case: viewTable
+.. Expected: The Table showing expense and income details of the current month is shown.
+
+. Test Case: viewTable p/2019-09
+.. Expected: The Table showing expense and income details of September 2019 is shown.
+
+. Test Case: viewTable p/2019-09, 2019-11
+.. Expected: The Table showing expense and income details of September 2019 to November 2019 is shown.
+
+. Test Case: viewTable p/2019-09-01
+.. Expected: GuiltTrip throws an exception stating that it should only be shown in Month Form.
+
+=== Viewing Statistics in Pie Form
+
+. Test Case: viewPie
+.. Expected: The Pie Chart showing expense and income details of the current month is shown.
+
+. Test Case: viewPie p/2019-09
+.. Expected: The Pie Chart showing expense and income details of September 2019 is shown.
+
+. Test Case: viewPie p/2019-09, 2019-11
+.. Expected: The Pie Chart showing expense and income details of September 2019 to November 2019 is shown.
+
+. Test Case: viewPie p/2019-09-01
+.. Expected: GuiltTrip throws an exception stating that it should only be shown in Month Form.
+
+=== Viewing Statistics in Bar Form
+
+. Test Case: viewBar
+.. Expected: The Bar Chart showing expense and income details of the current month is shown.
+
+. Test Case: viewBar p/2019-09
+.. Expected: The Bar Chart showing expense and income details of September 2019 is shown.
+
+=== Sorting Expense/Income/Wish/Budget
+
+. Test Case: sortExpense typ/Amount s/ascending
+.. Expected: The Expense list should be sorted by amount in ascending order.
+
+. Test Case: sortIncome typ/Time s/ascending
+.. Expected: The Income list should be sorted by time in ascending order.
+
+. Test Case: sortBudget typ/Time s/asdasdsada
+.. Expected: An Exception should be thrown, with GulitTrip displaying in the CommandResult that sequence can only be ascending or descending.
+
+
+=== Finding Expense/Income/Wish/Budget
+
+. Test Case: findExpense n/mala
+.. Expected: All Expenses with name mala in their description should be filtered to show in the Expense List.
+
+. Test Case: findIncome n/mala amt/1900
+.. Expected: All Income with name mala in their description and with amount larger than 1900 should show in the Income List.
+
+. Test Case: findBudget cat/Food
+.. Expected: All Budget with category Foo should show in the BudgetList

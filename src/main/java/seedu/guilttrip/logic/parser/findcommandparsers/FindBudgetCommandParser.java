@@ -21,6 +21,7 @@ import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
 import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
+import seedu.guilttrip.model.entry.BudgetAmount;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.predicates.EntryContainsAmountPredicate;
@@ -43,7 +44,7 @@ public class FindBudgetCommandParser implements Parser<FindBudgetCommand> {
      */
     public FindBudgetCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DESC, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_AMOUNT, PREFIX_DESC, PREFIX_DATE, PREFIX_TAG);
 
         List<Predicate<Entry>> predicateList = new ArrayList<Predicate<Entry>>();
         if (argMultimap.getValue(PREFIX_DESC).isPresent()) {
@@ -57,14 +58,14 @@ public class FindBudgetCommandParser implements Parser<FindBudgetCommand> {
             predicateList.add(new EntryContainsDescriptionPredicate(Arrays.asList(nameKeywords)));
         }
 
-        if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
-            double trimmedDouble = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get().trim()).value;
-            predicateList.add(new EntryContainsAmountPredicate(trimmedDouble));
-        }
-
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
             String name = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
             predicateList.add(new EntryContainsCategoryPredicate(new Category(name, CategoryType.EXPENSE)));
+        }
+
+        if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
+            double trimmedDouble = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get().trim()).value;
+            predicateList.add(new EntryContainsAmountPredicate(trimmedDouble));
         }
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {

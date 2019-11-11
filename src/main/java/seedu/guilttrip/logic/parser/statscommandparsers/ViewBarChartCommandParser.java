@@ -4,7 +4,6 @@ import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_PERIOD;
 
 import seedu.guilttrip.logic.commands.statisticscommands.ViewBarChartCommand;
-import seedu.guilttrip.logic.commands.statisticscommands.ViewTableCommand;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
@@ -27,12 +26,16 @@ public class ViewBarChartCommandParser implements Parser<ViewBarChartCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_PERIOD);
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewTableCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewBarChartCommand.MESSAGE_USAGE));
         }
 
         Date dateToParse = null;
 
         if (argMultimap.getValue(PREFIX_PERIOD).isPresent()) {
+            String[] checkSize = argMultimap.getValue(PREFIX_PERIOD).get().split(",");
+            if (checkSize.length >= 2) {
+                throw new ParseException(ViewBarChartCommand.MESSAGE_FAILURE);
+            }
             dateToParse = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_PERIOD).get());
         }
 

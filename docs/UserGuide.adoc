@@ -5,7 +5,6 @@
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
-:imagesDir: images/user-guide-pictures
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
@@ -95,7 +94,7 @@ Other Examples:
 * `addCategory cat/Expense n/Transport`
 * `addCategory cat/Income n/Lottery`
 
-===== Editing Category : `editCategory`
+==== Editing Category : `editCategory`
 Edits a current category's description. The category to be edited must exist in the current list of Categories
 whether it be in the Expense CategoryList or the Income CategoryList. The new name for the category must not be a
 duplicate of existing categories.
@@ -505,7 +504,7 @@ Other Examples:
 Find income/expenditure by Category, Description, Amount, Date or Tags. There must be at least one find parameter.
 
 [NOTE]
-Finding by `Amount` will show the entries that are above a certain amount.
+Finding by `Amount` will show the entries that are above a certain amount. Budget's Amount refers to the total amount allocated for the Budget.
 
 [NOTE]
 Finding by `Description` will show all entries which have some parts of the description keyword in them. For example,
@@ -893,7 +892,7 @@ do so.
 .. sortWish typ/<sort type> s/<sort sequence>
 .. findExpense [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
 .. findIncome [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
-.. findBudget [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
+.. findBudget [cat/<category>] [n/<description>] [d/<date>] [t/<tag>]
 .. findWish [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
 
 . Reminders:
