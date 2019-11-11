@@ -4,11 +4,11 @@ skinparam arrowThickness 1.1
 skinparam arrowColor #000000
 skinparam classBackgroundColor LOGIC_COLOR
 
-package EventsCenter #bcdfe3 {
+package EventsCenter {
 Class ScheduledExecutorService #5f9ca3
 }
 
-package Logic LOGIC_COLOR_T1{
+package Logic {
 package Command {
 Class "{abstract}\nCommand" as Command
 Class NotifCommand
@@ -23,16 +23,16 @@ Class UpdateCommandDescriptor
 
 }
 
-package UI UI_COLOR_T1{
+package UI {
 Class NotifWindow UI_COLOR
 }
 
-package Model MODEL_COLOR_T1 {
+package Model {
 Class Notif MODEL_COLOR
 Class Body MODEL_COLOR
 }
 
-package Storage STORAGE_COLOR_T1 {
+package Storage {
 Interface Storage <<Interface>> STORAGE_COLOR
 Interface UserPrefsStorage <<Interface>> STORAGE_COLOR
 Interface AddressBookStorage <<Interface>> STORAGE_COLOR

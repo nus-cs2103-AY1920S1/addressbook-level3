@@ -358,6 +358,7 @@ To update Jane Doe's designation: +
 
 | `update -w /id 1 /designation Manager`
 | Output box shows: This entity was successfully updated. ID Number: W00001 +
+
 Dashboard shows: Jane Doe's designation was changed to Manager.
 |===
 // end::update[]
@@ -392,8 +393,8 @@ Returns any workers having names `Betsy`, `Tim`, or `John`
 // tag::delete[]
 [[delete]]
 ==== Deleting an entry : `delete` +
-You can delete a body, worker or fridge entry, using its Identification Number by entering a delete command with the
-given format below. +
+You can delete a body, worker or fridge entry, using its Identification Number by entering a delete command
+using the format given below. +
 
 Format: `delete -FLAG  id`
 
@@ -402,8 +403,8 @@ you want to delete a `Fridge` with id `F01`, you need to only enter `delete -f 1
 
 When you delete a `Body`:
 
-* Mortago automatically deletes its associated `Notifs`. You can learn more
-about `Notifs` in <<notifs, Section 3.2.1>>.
+* Mortago automatically deletes its associated `Notif`. You can learn more
+about `Notif` in <<notifs, Section 3.2.1>>.
 * If you had assigned a `Fridge` to this `Body`, Mortago automatically sets the status of the `Fridge` to
 `UNOCCUPIED`.
 
@@ -415,19 +416,15 @@ Example:
 Imagine that you added someone (Jim Kerr) by mistake and you want to remove his details from Mortago. You see that his
 ID number is W00003.
 
-To delete his record:
+|===
+| Command | Expected Output
 
-1) Type `delete -w 3` and press `ENTER` to execute it.
+| `delete -w 3`
+| Output box shows: Deleted Entity: Jim Kerr Worker ID: W00003 Sex: MALE Phone: No input given.
+Date of Birth: No input given. Date Joined: Tue Nov 21 00:00:00 SGT 1111 Designation: No input given. Employment Status: No input given. +
 
-image::DeleteStep1.png[]
-
-2) The result box displays the message as shown below.
-
-image::DeleteStep2.png[]
-
-3) And you can check that Jim Kerr is no longer in the list of workers.
-
-image::DeleteStep3.png[width="500"]
+Dashboard no longer shows Jim Kerr.
+|===
 
 // end::delete[]
 
@@ -459,15 +456,15 @@ After filtering specific bodies, you may now want to view the full list of bodie
 
 1) Mortago shows filtered list of bodies.
 
-image::List1.png[]
+image::List1.png
 
 2) Type `list -b` in the Command Line Interface (CLI).
 
-image::List2.png[]
+image::List2.png
 
 3) Mortago shows unfiltered list of bodies.
 
-image::List3.png[]
+image::List3.png
 
 // end::list[]
 
@@ -497,7 +494,7 @@ View a body with the ID B00000001.
 This command allows you to view all `Notif`(s).
 
 A `Notif` is a notification associated with a `Body`. In Singapore, if the next-of-kin is not contactable for more
-than 24 hours from the time of addition of a `Body` in Mortago,
+than 24 hours from the time of admission of a body,
 police must informed. Mortago removes the hassle of manually keeping track of the status of bodies! For the purpose of
 testing, instead of 24 hours, Mortago currently
 uses 10 seconds.
@@ -525,28 +522,28 @@ Imagine that a new `Body` (John Doe) has just arrived at your mortuary.
 1) Type the `add` command as specified in the example in <<add, Section 3.1.1>>. Currently the status of this `Body`
 is `ARRIVED`
 
-image::Notif1.png[]
+image::Notif1.png[width=500]
 
 2) Wait for 10 seconds. Mortago automatically changes the status of the `Body` to `CONTACT_POLICE` and shows
 you a
 pop-up
 notification.
 
-image::Notif2.png[]
+image::Notif2.png[width=550]
 
 3) Type `showNotif` and press `ENTER` to execute it.
 
-image::Notif3.png[]
+image::Notif3.png[width=500]
 
 4) The notification bell opens up a panel and lists all the bodies for which you need to contact the police. You
 can see John Doe's ID number B00000020 is in the list.
 
-image::Notif4.png[]
+image::Notif4.png[width=700]
 
 5) Suppose you have contacted the police, change the status of John Doe using the command `update -b /id 20 /status
 pending police report`. John Doe's ID is no longer listed in the notifs panel.
 
-image::Notif5.png[]
+image::Notif5.png[width=700]
 
 // end::notifs[]
 
@@ -594,12 +591,12 @@ Example: +
 Imagine that you wanted to delete a `Body` with ID 10 from Mortago. However, your finger slips and you type `20` instead
 of `10`!
 
-image::Undo2.png[]
+image::Undo2.png
 
 You don't realise and execute the command. When you look at the dashboard, you realise you have deleted body 20.
 Even worse, you have no recollection of body 20's name or information.
 
-image::UndoBodyDeleted.png[]
+image::UndoBodyDeleted.png
 
 
 You can easily reverse that mistake with the `undo` command instead of adding body 20 all over again!
@@ -608,11 +605,11 @@ To undo:
 
 1) Type `undo` or `u` into the command box.
 
-image::Undo4.png[]
+image::Undo4.png
 
 2) Press `Enter` to execute the command.
 
-image::Undo5.png[]
+image::Undo5.png
 
 3) Notice that the result box shows text telling you what was undone, and body 20 is back in the list of bodies.
 
@@ -765,12 +762,11 @@ The following are the correct formats for typing in stats commands, with example
 * To display the last 10 days: `stats` +
 The line chart displays statistics over the last 10 days. The line chart appears as below:
 
-.Line chart displaying the last ten days
 image::statsTenDays.png[width="790"]
 
 * To display a specific week: `stats /week 25/10/2019` +
 The line chart displays statistics for the week which contains the specified day. In this case, it is the date
-12/10/2019. The line chart appears as below:
+25/10/2019. The line chart appears as below:
 
 .Line chart displaying the week containing the day 25/10/2019
 image::statsWeek.png[width="790"]
@@ -823,7 +819,6 @@ Displays all archived worker entries, in order of archive date.
 
 ==== Give and view feedback: `feedback` `[coming in v2.0]`
 You can give workers feedback and display a history of all feedback entered by entering a feedback command with the given format below.
-
 
 Format:
 

@@ -303,7 +303,7 @@ If a `redo` command was executed afterwards, the `ClearCommand` would simply be 
 The following activity diagram shows what happens when a user executes a new `UndoableCommand`. In this case, it is the `ClearCommand` being undone. The control flow is similar for other `UndoableCommands`; they only differ in the implementation of `undo()`.
 
 .Activity Diagram Showing the Execution Control Flow of a Command
-image::CommandProcessActivityDiagram.png[]
+image::CommandProcessActivityDiagram.png[width=400]
 
 ===== Defensive programming
 To defend against improper undoing or redoing, an `UndoableCommand` can only be added to the `commandHistory` or `undoHistory` of `ModelManager` through its `execute()` or `undo()` method.
@@ -405,13 +405,8 @@ Alternative 1 was chosen as it causes almost no overhead, guarantees data integr
 
 === Notification Feature
 This feature in Mortago reminds a mortuary manager to contact the police when the next-of-kin of a body
-has not been contactable for a given period of time from the point of admission of the `Body`. He / She then needs
-to
-contact
-the police
-to
-proceed with a
-more thorough investigation. In Singapore, this period is 24 hours. For testing purposes, it has been set to
+has not been contactable for a given period of time from the point of addition of the `Body`. He / She then needs
+to contact the police to proceed with a more thorough investigation. In Singapore, this period is 24 hours. For testing purposes, it has been set to
 10 seconds in Mortago.
 
 If the status of a `Body` is `ARRIVED` after 10 seconds, it is updated to `CONTACT_POLICE` and a
@@ -427,8 +422,7 @@ This command is supported by the model component `Notif` and the logic component
 
 In `Notif` command, the following are the key private variables:
 
-* `body`: Refers to the `Body` for which the `Notif` is created. This is passed in as a parameter when a new
-instance of the class is instantiated.
+* `body`: Refers to the `Body` for which the `Notif` is created. This is passed in as a parameter to the constructor.
 
 * `alert`: Refers to a `Runnable` function which checks if the current status of the body is `ARRIVED` and if so,
 changes it to `CONTACT_POLICE`.
@@ -449,7 +443,7 @@ It will be explained in further detail later. Currently, this value is set to `1
 The following class diagram (Figure 14) models the relationships and dependencies among classes in this feature:
 
 .Notification Class Diagram
-image::NotifCommandClassDiagram.png[]
+image::NotifCommandClassDiagram.png[width=400]
 
 The following sequence diagrams (Figure 15 and 16) illustrate the execution of the notification feature:
 
@@ -463,16 +457,7 @@ The following activity diagram summarizes what happens when a user adds a new bo
 instantiated:
 
 .Notification Command Activity Diagram
-image::NotifCommandActivityDiagram.png[]
-
-
-|===
-a|[TIP]
-*Is `NotifCommand` only executed when a `Body` is added?*
-a| No! If the status of the `Body` is changed to `ARRIVED` using the `UpdateCommand`, `NotifCommand` is still
-executed. The `Notif` is scheduled to be executed after the specified `period` from the point in time when the
-status of the body was updated.
-|===
+image::NotifCommandActivityDiagram.png[width=200]
 
 ===== Storing executed and pending `Notifs`
 `NotifCommand` supports storage where each `Notif` with its associated `Body` and the `long` equivalent of the
@@ -485,49 +470,28 @@ following happens:
 changed to `CONTACT_POLICE`. Otherwise, the `NotifCommand` is scheduled to be executed after the calculated time difference.
 4. The `Notif` is added to the model.
 
-|===
-
-a|[TIP]
-*When is the `NotifCommand` not executed?*
-a|* If the status of the `Body` is changed before the 10 second window.
-* If the `Body` is deleted before the specified `period`.
-* If the difference between `notifCreationTime` and system time is more than `period` when the app is initialized.
-
-|===
-
 ===== Defensive programming
 
 The `NotifCommand` heavily makes use of the `ScheduledExecutorService` and `Platform.runLater(Runnable runnable)` to
-make changes to the `Body` status and `Notif`. They use threading to allow tasks to be handled concurrently. For instance,
-even after scheduling a `Runnable` function, the user is still able to carry on with other commands of Mortago such
-as updating the status of the `Body`, adding a new `Fridge` etc.
+make changes to the `Body` status and `Notif`. They use threading to allow tasks to be handled concurrently.
 
 As per the official Java Documentation, `Platform.runLater(Runnable runnable)` runs the specified runnable function
 on a thread dedicated to JavaFX application at some unspecified time in the future. So,
 if some updates to the model are wrapped inside it as a `Runnable` while others are not, it can result in a
 mismatch of model. For instance, you may want to delete a `Notif` which already exists in the model. The usual
 process will be to first check whether it exists and if it does, then proceed with deletion. However, due to
-threading, you may end up in a situation when the app finds the `Notif` at the point of checking but throws a
+threading, you may end up in a situation where the app finds the `Notif` at the point of checking but throws a
 `NullPointerException` when proceeding with the deletion.
 
-To prevent this, in Mortago, any addition or deletion of `Notif` in the model during the execution of the
-`NotifCommand` and parts of `UpdateCommand` are wrapped inside `Platform.runLater(Runnable runnable)`. This ensures
-that updates to the model happen sequentially and not concurrently and the relevant changes can be reflected on the
-UI.
+To prevent this, addition or deletion of `Notif` in the model during the execution of the
+`NotifCommand` and `UpdateCommand` are wrapped inside `Platform.runLater(Runnable runnable)`. This ensures
+that `Notif`(s) in the model are handled sequentially.
 
 Moreover, all these operations are wrapped inside a try-catch block. Either the `NullPointerException` or
 `DuplicateNotifException` is directly thrown in the form of `CommandException` or it is logged in `Logger`. A
 code snippet of `NotifCommand` to illustrate this is show below.
 
 ```
- if (model.hasNotif(notif)) {
-    try {
-        model.deleteNotif(notif);
-    } catch (NullPointerException exp) {
-        logger.info(MESSSAGE_NOTIF_DOES_NOT_EXIST);
-    }
-}
-
 Platform.runLater(() -> {
     if (!model.hasNotif(notif)) {
         try {
@@ -562,10 +526,10 @@ to manually deal with threads.
 system
 time and `notifCreationTime` exceeds `period`.
 ** Pros: Ensures that the user does not forget about contacting the police.
-** Cons: May slow down the computer and lag the app if there are too many pop-up notifications at the same time.
+** Cons: May slow down the computer and lag the application if there are too many pop-up notifications at the same time.
 
 Alternative 1 is the current choice because we want the app to be responsive and scalable in the long term. The
-notification bell is placed beside the command box to prevent instances of user forgetting to contact the police.
+notification bell placed beside the command box aims to constantly remind the user.
 
 // end::notifs[]
 
@@ -595,7 +559,7 @@ The `genReport <BODY_ID> (sign)` command calls `ReportGenerator#generate(body, s
 The following activity diagram (Figure 18) summarizes what happens when manager executes a `genReport <BODY_ID> (sign)` command:
 
 .Activity diagram when `genReport 1 John Doe` is executed by manager.
-image::GenReportActivityDiagram.png[]
+image::GenReportActivityDiagram.png[width=200]
 
 The following code snippet from `GenReportCommand.java` demonstrates how an error message is displayed when manager inputs an invalid command and when report is not successfully generated:
 
