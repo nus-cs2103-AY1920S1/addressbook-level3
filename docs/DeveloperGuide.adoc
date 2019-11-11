@@ -639,7 +639,8 @@ Depending on the user's current list in view, it will either be an `XpireItemLis
 to an `ItemCard` .
 . `displayItems` will first have to clear all child Nodes that the `ViewPanel` contains before adding a new Collection of `ItemCard` .
 .`ItemCard` takes as parameters the item and its index in the list. It renders all fields of an `XpireItem` and `Item` and also
-dose an additional check on whether the `XpireItem` has already expired. the remaining days before the `XpireItem` expires is less than or equal to its `ReminderThreshold`. If yes,
+dose an additional check on the condition of the `XpireItem` and assign it to different colours respectively.
+[Note]
 
 
 === Logging
