@@ -31,7 +31,7 @@ Graphical User Interface (GUI).
 Moreover, StudyBuddyPro comes geared with pre-loaded features specially
 catered for computing students. So whether you're a computing student getting
 used to a CLI for the first time or if you're a CLI expert who wants to reap
-the benefits of a fast typing speed, give StudyBuddyPro a try! {To be implemented!}
+the benefits of a fast typing speed, give StudyBuddyPro a try!
 
 If you're interested, head over to the
 https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#2-quick-start[Quick Start]
@@ -43,7 +43,7 @@ Do refer to the signs below that will be used across the documents for reference
 
 [WARNING]
 ====
-Indicates information that are to be adhere as potential problems may be encountered if you are not careful.
+Indicates information that are to be adhered as potential problems may be encountered if you are not careful.
 ====
 
 [IMPORTANT]
@@ -292,9 +292,13 @@ Here are your overdue flashcards:
 Type 'exit' again to exit the application!
 ```
 
-After any of the 3 scenarios above user can override the warning by entering the `exit` command again.
+* After any of the 3 scenarios above user can override the warning by entering the `exit` command again.
 
-If no remaining or overdue flashcards for revision found, application exits immediately.
+* If no remaining or overdue flashcards for revision found, application exits immediately.
+
+* The user can use this feature to alleviate worries that they may forget to revise
+the relevant content for the day - StudyBuddyPro will always double-check for you!
+
 
 === Editing a tag: `edit tag` (proposed in v2.0)
 
@@ -327,10 +331,19 @@ This then allows the user to more conveniently generate a cheatsheet for his/her
 
 == Flashcard Feature
 
+Sick and tired of cramming all your revision at the last minute? Why not give our
+Flashcards feature a try! This feature can help you create your very own flashcards to
+help you consistently revise. With our built-in reminder features and timetrial modes to
+test yourself, use this feature and be on track to better revising habits today!
+
 [IMPORTANT]
 ====
-All the operations in this section assume that the user is in the _flashcard_ mode.
+All the operations in this section assume that the user is in the _flashcard_ mode. To be sure
+you are _flashcard_ mode, please ensure you used the `switch fc` command before this. Your
+screen should now look like the one found in the screenshot below.
 ====
+
+image::FlashcardSuccess.PNG[width="700"]
 
 === Creating a flashcard: `add`
 
@@ -345,10 +358,7 @@ Example usage:
 Expected output:
 ```
 New flashcard added:
-    Title: Binary Stuff
-    Statictics: This flashcard was last viewed on: 2019-11-01. This flashcard should next be viewed on 2019-11-02 for optimum revision!
-    Question: What is 100 Binary in its Decimal form?
-    Answer: 4
+    New flashcard added: Title: Binary Stuff
     Tags: [cs2100]
 ```
 
@@ -393,27 +403,24 @@ Edits flashcard <FLASHCARD_ID> by changing any field of the flashcard.
 
 * At least one of the optional fields must be provided.
 
-=== Listing flashcards: `list`
+=== Listing all flashcards: `list`
 
-Lists all flashcards. (Answer to be removed in v2.0)
+Lists all flashcards.
 
    Format: list
 
 Expected output:
 ```
 Listed all flashcards:
-    Question: What is my name?
-    Answer: Sahil
-    Title: Test Name Question 1
-    Statistics: This flashcard was last viewed on: 2019-10-29. This flashcard should next be viewed on 2019-10-30 for optimum revision!
-    Tags: [pop]
+    Title: Pipelineing Question 1
+    Tags: [CS2100]
 ```
 
 === Deleting a flashcard: `delete`
 
 Deletes the flashcard by <FLASHCARD_INDEX>.
 
-The user will be prompted once to confirm their deletion.
+The user will be prompted again to confirm their deletion.
 
    Format: delete (index)
 
@@ -424,10 +431,7 @@ Example usage:
 Expected output:
 ```
 Are you sure you would like to delete the following flashcard?
-    Question: What is 101 Binary in its Decimal form?
-    Answer: 5
-    Title: BinaryQn
-    Statistics: This flashcard was last viewed on: 2019-10-31. This flashcard should next be viewed on 2019-11-01 for optimum revision!
+    Title: Binary Question 1
     Tags: [cs2100]
     Please use `delete 6` again to confirm your deletion..
 ```
@@ -437,11 +441,7 @@ Upon keying in `delete 6` again, then the flashcard will be deleted.
 Expected output:
 
 ```
-Deleted Flashcard:
-    Question: What is 101 Binary in its Decimal form?
-    Answer: 5
-    Title: BinaryQn
-    Statistics: This flashcard was last viewed on: 2019-10-31. This flashcard should next be viewed on 2019-11-01 for optimum revision!
+Deleted Flashcard:  Title: Binary Question 1
     Tags: [cs2100]
 ```
 
@@ -495,13 +495,17 @@ Expeted output:
         Title: Maths
         Tags: [difficult][important]
 
-=== Remind
+=== Find out what flashcards to revise today, or ones you may have missed: `remind`
 
 Reminds the user regarding the flashcards due for revision today and the flashcards
 overdue for revision. Automatically suggests a new date the flashcard should next be
 viewed at for optimal learning. These increments scale with time i.e. suggested viewing
-dates are closer at the start and spread further after more viewings. The suggested
-date for the next viewing of all flashcards can be viewed under the `list` command.
+dates are closer at the start and spread further after more viewings.
+
+[NOTE] StudyBuddyPro only marks a flashcard as revised and removes it from the due and
+overdue flashcard list when you see the flashcard's _answer_ not just its question! For
+example, simply using the `view` command without the `show` command to reveal the flashcard's
+answer will not trick the system. Sorry, it's for your own good!
 
 Example usage:
 

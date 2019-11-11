@@ -16,7 +16,7 @@ public class RemindFeatureUtil {
 
     /**
      * Gets flashcards that are due for revision today from a given list of flashcards.
-     * @param flashcardList list of flashcards
+     * @param flashcardList list of flashcards to be checked
      * @return list of flashcards containing flashcards due for revision today
      */
     public List<Flashcard> getDueFlashcards(List<Flashcard> flashcardList) {
@@ -34,8 +34,8 @@ public class RemindFeatureUtil {
 
     /**
      * Gets flashcards that are overdue for revision from a given list of flashcards.
-     * @param flashcardList list of flashcards
-     * @return list of flashcards containing flashcards due for revision today overdue for revision
+     * @param flashcardList list of flashcards to be checked
+     * @return list of flashcards containing flashcards overdue for revision
     */
     public List<Flashcard> getOverdueFlashcards(List<Flashcard> flashcardList) {
         List<Flashcard> overdueFlashcards = new ArrayList<>();

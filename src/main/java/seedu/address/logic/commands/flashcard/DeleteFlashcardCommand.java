@@ -31,13 +31,13 @@ public class DeleteFlashcardCommand extends Command {
 
     public static final String MESSAGE_DELETE_FLASHCARD_SUCCESS = "Deleted Flashcard: %1$s";
 
-    private final Index targetIndex;
-
     /**
      * The successfulDeletionOnPreviousCommand is to prevent the user from calling, for instance,
      * 'delete 1' twice in a row and not get a prompt.
      */
     private static boolean successfulDeletionOnPreviousCommand = false;
+
+    private final Index targetIndex;
 
     /**
      * @param targetIndex of the flashcard to be deleted

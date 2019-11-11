@@ -35,13 +35,13 @@ public class DeleteNoteCommand extends Command {
 
     private static final Logger logger = LogsCenter.getLogger(DeleteNoteCommand.class);
 
-    private final Index targetIndex;
-
     /**
      * The successfulDeletionOnPreviousCommand is to prevent the user from calling, for instance,
      * 'delete 1' twice in a row and not get a prompt.
      */
     private static boolean successfulDeletionOnPreviousCommand = false;
+
+    private final Index targetIndex;
 
     public DeleteNoteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;

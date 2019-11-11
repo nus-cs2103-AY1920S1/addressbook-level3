@@ -32,7 +32,7 @@ public class UniqueTagList implements Iterable<Tag> {
 
     /**
      * Adds a tag to the list.
-     * The person must not already exist in the list.
+     * The StudyBuddyProItem must not already exist in the list.
      */
     public void add(Tag toAdd) {
         requireNonNull(toAdd);

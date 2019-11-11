@@ -32,13 +32,13 @@ public class DeleteCheatSheetCommand extends Command {
 
     public static final String MESSAGE_DELETE_CHEATSHEET_SUCCESS = "Deleted Cheatsheet: %1$s";
 
-    private final Index targetIndex;
-
     /**
      * The successfulDeletionOnPreviousCommand is to prevent the user from calling, for instance,
      * 'delete 1' twice in a row and not get a prompt.
      */
     private static boolean successfulDeletionOnPreviousCommand = false;
+
+    private final Index targetIndex;
 
     private final Logger logger = LogsCenter.getLogger(DeleteCheatSheetCommand.class.getName());
 
