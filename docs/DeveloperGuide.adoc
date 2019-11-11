@@ -1366,32 +1366,43 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `Dukemon` and the *Actor* is the `User`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add a Card
 
 *MSS*
 
-1.  User requests to list persons
-2.  Dukemon shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  Dukemon deletes the person
-+
+1.  User selects and opens a WordBank.
+2.  Dukemon shows a list of Cards.
+3.  User adds Word and Meaning pair.
+4.  Dukemon adds a Card into WordBank.
+
+
 Use case ends.
 
-*Extensions*
+[discrete]
+=== Use case: Play a game
 
-[none]
-* 2a. The list is empty.
+*MSS*
+
+1.  User selects and opens a WordBank.
+2.  Dukemon shows a list of Cards.
+3.  User starts a game.
+4.  Dukemon shows the Meaning of a Card.
+5.  User guesses Word of the corresponding Card.
 +
+Steps 4-5 are repeated till all Cards are played.
+6.  Game ends. Dukemon shows statistics of game.
+
+
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. Dukemon shows an error message.
-+
-Use case resumes at step 2.
+*Extentions*
 
-_{More to be added}_
+2a. User opens settings
+
+2a1.  User changes hints to off.
+
+Use case resumes from step 3.
+
 
 [appendix]
 == Non Functional Requirements
