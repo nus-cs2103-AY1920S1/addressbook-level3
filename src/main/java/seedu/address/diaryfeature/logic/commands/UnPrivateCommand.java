@@ -15,13 +15,14 @@ public class UnPrivateCommand extends Command<DiaryModel> {
     public static final String COMMAND_WORD = "unprivate";
     private static final String OVERFLOW = "For the unprivate command, your index has to be less than the size" +
             " of the list! Make your number smaller.";
-    private static final String MESSAGE_UNPRIVATE_ENTRY_SUCCESS = "Entry %1$d has become unprivate. Everyone can see it";
+    private static final String MESSAGE_UNPRIVATE_ENTRY_SUCCESS = "Your Entry has become unprivate. Everyone can see it";
     private static final String MESSAGE_HAS_DETAILS = "There is password protection!\n"
-            +"Use the unlock command";
+            + "Use the unlock command";
     private final Index targetIndex;
 
     /**
      * Generates an UnPrivateCommand to show the memory
+     *
      * @param targetIndex is the index to be unprivated
      */
     public UnPrivateCommand(Index targetIndex) {
@@ -30,6 +31,7 @@ public class UnPrivateCommand extends Command<DiaryModel> {
 
     /**
      * Executes the command, if applicable, and sets the entry to unprivate
+     *
      * @param model on which the command is executes
      * @return {@code CommandResult} a readable message to show the result
      */
@@ -40,11 +42,12 @@ public class UnPrivateCommand extends Command<DiaryModel> {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(OVERFLOW);
         }
-        if (model.hasPassword()) {
+        if (model.hasDetails()) {
             return new CommandResult(MESSAGE_HAS_DETAILS);
         } else {
-            model.setDiaryEntryUnPrivate(targetIndex.getOneBased());
-            return new CommandResult(String.format(MESSAGE_UNPRIVATE_ENTRY_SUCCESS,targetIndex.getOneBased()));
+            DiaryEntry unprivate = lastShownList.get(targetIndex.getZeroBased());
+            model.setDiaryEntryUnPrivate(unprivate);
+            return new CommandResult(MESSAGE_UNPRIVATE_ENTRY_SUCCESS);
 
         }
     }

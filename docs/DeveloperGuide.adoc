@@ -92,7 +92,7 @@ The `UI` component extends out to many different pages in TravEzy which represen
 * Achievements
 
 [CAUTION]
-The Calendar and Itinerary window work in tandem with each other. Due to their dependency, modification to one of the feeature might result in the the other feature breaking.
+The Calendar and Itinerary window work in tandem with each other. Due to their dependency, modification to one of the feature might result in the the other feature breaking.
 
 The `UI` component,
 
@@ -504,40 +504,119 @@ image::FinancialTrackerActivityDiagram.png[width=800]
 
 === Diary
 
-
-==== Architecture
+==== Architecture of Diary
 
 .Architecture Diagram for Diary Feature
 image::DiaryArchitectureDiagram.png[]
 
-The architecture diagram above explains the high-level design and implementation of the Diary Feature within TravEzy.
+The *_Architecture Diagram_* above explains the high -level design of the _Diary_ within _TravEzy_. Below, there is a brief explanation of each component.
+The actual _Diary_ is represented as a ``DiaryModel`` in the diagram. This ``DiaryModel`` has the basic functionalities of a real _Diary_.
+It can store multiple entries which can then be manipulated by the user. The exact functionalities are described in more detail in the *_Model_* section below.
+
+`GUI` represents the Graphical User Interface through which users input their commands.
+
+`DiaryLogic` is the main executor of Diary. It is composed of the ``Logic``, `DiaryParser` and `DiaryCommand`. After receiving input from the ``GUI``, logic triggers
+the `DiaryParser` to `Parse` the input and output the matching `Command`
+
+``DiaryModel``. As mentioned above, this encapsulates a _Diary_ and hence, the `Command` from `DiaryCommand` is implemented on this ``DiaryModel``
+
+``Storage``. After the `Command`  has been executed, logic then stores the updated `DiaryModel`in `Storage`. Data is written to and read from the hard drive using `Storage` .
+
+``Commons``. `DiaryParser` and `GUI` are derived from classes in ``Commons``. Diary Feature also utilises the `Log Center`
 
 
-`Diary Model` has multiple classes which form the basis of a Diary.
-This implementation starts at the root object, which is a `DiaryEntry`. These entries
-are stored within a `DiaryList`, which are then encapsulated within a `DiaryBook`
-
-After receiving user input from `DiaryUi`, `DiaryParser`
-changes the input to a executable format, and `DiaryCommand` allows for execution of the user input.
+``JUnit Test`` contains the testing classes for the _Diary_.
 
 
+==== Structure of Diary Model
 
-==== UI component
+.Class Diagram for the Diary Model
+image::DiaryLogicClassDiagram.png[]
 
-.Structure of DiaryUi
-image::DiaryUI.png[]
 
-`DiaryUI`, which is represented above, consists of  `DiaryPage`, which encapsulates all the smaller Ui components.
+The above diagram is a Class Diagram of the ``DiaryModel``
 
-*The main components are the:*
 
-* `CommandBox` -> Captures user input
+``DiaryModel`` Encapsulates the _Diary_ and prevents users from tampering with the underlying structure of the _Diary_.
+It contains the `DiaryBook`, which is the actual implementation of _Diary_.
 
-* `ResultDisplay` -> Returns the output after the user input has passed through the DiaryCommand
+`DiaryBook` is the actual implementation of the _Diary_.
 
-* `DiaryListPanel` -> Shows an easily readable version of the current DiaryBook
+It contains:
 
-All of these components inherit from the abstract `UiPart` Class
+* ``DiaryList``, which is a collection of all the `DiaryEntries` in a list form
+* ``Observable List`` , which exposes an unmodifiable `ObservableList<DiaryEntry>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates upon any changes.
+* ``Details``, which is a component of the _Diary_ to keep `DiaryEntries` private using username and password protection
+
+This `DiaryBook` has the relevant methods to allow users to add, delete, find general and specific `DiaryEntries`, private and unprivate their `DiaryEntries` and also password protect their `DiaryEntries`.
+
+
+`DiaryEntries`: This is the base component of the _Diary_, and encapsulates a single entry into a diary.
+
+It contains:
+
+* ``Title``, which refers to the title of the ``DiaryEntry``
+* ``Date``, which refers to the date and time of the ``DiaryEntry``
+* ``Place``, which refers to the place of the ``DiaryEntry``
+* ``Memory``, which refers to the memory of the ``DiaryEntry``
+
+
+==== Sequence of Find Command
+.Sequence Diagram for the Find Command
+
+
+image::DiaryFindCommandSequenceDiagram.png[]
+
+
+Above, we have the sequence diagram for the ``FindCommand`` in the _Diary_. In this case, we have taken the scenario of finding any `DiaryEntries` which contain the word "temp".
+
+Process:
+
+. Upon receiving the instruction from ``Logic`` to parse the input `find temp`, the ``DiaryBookParser`` begins parsing the input to match it (based on the _Command Word_) to the appropriate _Parser_
+
+. In this case, given that the the _Command Word_ is ``find`` the appropriate _Parser_ is the ``FindCommandParser``, which is created and then begins to ``parse("temp")``
+
+. This in turn creates a new ``FindPredicate``, based on the input ``temp``. This ``FindPredicate`` will be used to filter through the ``DiaryModel`` to get the matching ``DiaryEntries``
+
+. With the ``FindPredicate``, a new ``FindCommand`` is created which is returned to logic and executed
+
+. This execution leads to the ``find(temp)`` command being executed on the ``DiaryModel``, which returns the updated ``DiaryModel`` with the matching ``DiaryEntries``
+
+. This model is then returned to the user in the form of the ``Command Result``, and is visible on the GUI in the form of a list of the matching `DiaryEntries`.
+
+
+NOTE: The lifeline for FindCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+
+==== Logic of Unprivate and Unlock  Commands
+
+
+Given the similar function of the 2 commands, ``unprivate`` and ``unlock``, there is a more detailed explanation of the differences between the commands below.
+
+
+.Activity Diagram for the Unprivate Command
+
+image::DiaryUnPrivateActivityDiagram.png[]
+
+
+Above, is the logical flow for the Unprivate Command. In brief, it allows a user to unprivate any private entry *IF* there are no ``Details`` set. As a result, the command can be input like this:
+
+``unprivate 1``
+
+NOTE: `1` is the index of the Diary Entry which is to be unprivated
+
+.Activity Diagram for the UnLock Command
+
+image::DiaryUnLockActivityDiagram.png[]
+
+Above, is the logical flow for the Unlock Command. In brief, it allows a user to unlock any private entry *IF* there are ``Details`` and the ``Details`` input by the user match the original ``Details`` set by the user.As a result, the command can be input like this:
+
+``unlock 1 user/username password/password``
+
+NOTE: `1` is the index of the Diary Entry which is to be unlocked and ``user/username`` and ``password/password`` are the relevant Details.
+
+
+In summary, the ``unlock`` command is only to be used when the user has already set ``Details``. Otherwise, the user has to use the ``unprivate`` command to see private ``DiaryEntries``
 
 
 

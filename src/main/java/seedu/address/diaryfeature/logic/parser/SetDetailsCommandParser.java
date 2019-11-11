@@ -23,26 +23,27 @@ public class SetDetailsCommandParser {
     private final String SET_DETAILS_USAGE = "In particular, input your setDetails command like this: \n \n" +
             "setDetails user/USERNAME password/PASSWORD | EG: user/myname password/mypassword." +
             " \nNote: all details have to be at least 8 characters and only alphanumeric";
+
     /**
      * Parses the given {@code String} of arguments in the context of the SetDetails
      * and returns an SetDetails object for execution.
      */
-    public Command parse(String args) throws EmptyArgumentException, DetailParseException  {
+    public Command parse(String args) throws EmptyArgumentException, DetailParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_USERNAME, PREFIX_PASSWORD);
 
         if ((!arePrefixesPresent(argMultimap, PREFIX_USERNAME, PREFIX_PASSWORD)
                 || (!argMultimap.getPreamble().isEmpty()))) {
-            throw new EmptyArgumentException(SetDetailsCommand.COMMAND_WORD,SET_DETAILS_USAGE);
+            throw new EmptyArgumentException(SetDetailsCommand.COMMAND_WORD, SET_DETAILS_USAGE);
         }
         Details details;
         try {
-            String user = ParserUtil.parseDetail(argMultimap.getValue(PREFIX_USERNAME).get(),SetDetailsCommand.COMMAND_WORD);
-            String pass = ParserUtil.parseDetail(argMultimap.getValue(PREFIX_PASSWORD).get(),SetDetailsCommand.COMMAND_WORD);
+            String user = ParserUtil.parseDetail(argMultimap.getValue(PREFIX_USERNAME).get(), SetDetailsCommand.COMMAND_WORD);
+            String pass = ParserUtil.parseDetail(argMultimap.getValue(PREFIX_PASSWORD).get(), SetDetailsCommand.COMMAND_WORD);
             details = new Details(new Username(user), new Password(pass));
 
         } catch (EmptyArgumentException err) {
-            throw new EmptyArgumentException(SetDetailsCommand.COMMAND_WORD,SET_DETAILS_USAGE);
+            throw new EmptyArgumentException(SetDetailsCommand.COMMAND_WORD, SET_DETAILS_USAGE);
         }
         return new SetDetailsCommand(details);
     }

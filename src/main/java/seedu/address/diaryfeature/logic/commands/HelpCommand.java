@@ -13,6 +13,7 @@ public class HelpCommand extends Command<DiaryModel> {
 
     /**
      * Executes the command by showing the help window
+     *
      * @param diaryModel on which the command is executes
      * @return {@code CommandResult} a readable form of the matched entries
      */

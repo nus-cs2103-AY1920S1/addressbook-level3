@@ -17,7 +17,7 @@ public class DiaryEntry {
     private final Date date;
     private final Place place;
     private final Memory memory;
-    private boolean isPrivate = false;
+    private boolean isPrivate;
 
 
     /**
@@ -25,7 +25,7 @@ public class DiaryEntry {
      */
 
     public DiaryEntry(Title title, Date date, Place place, Memory memory) {
-        requireAllNonNull(title, date);
+        requireAllNonNull(title, date, place, memory);
         this.title = title;
         this.date = date;
         this.place = place;
@@ -33,40 +33,79 @@ public class DiaryEntry {
         isPrivate = memory.getPrivacy();
     }
 
+    /**
+     * Return a copy of this title
+     * @return Title
+     */
     public Title getTitle() {
-        return title;
+        return title.copy();
     }
 
+    /**
+     * Return this date
+     * @return Date
+     */
     public Date getDate() {
         return date;
     }
 
+    /**
+     * Return a copy of this palce
+     * @return Place
+     */
     public Place getPlace() {
-        return place;
+        return place.copy();
     }
 
+    /**
+     * Return a copy of this memory
+     * @return Memory
+     */
     public Memory getMemory() {
-        return memory;
+        return memory.copy();
     }
+
+    /**|
+     * Return Date in a presentable format
+     * @return String
+     */
 
     public String getDateAsString() {
         return DateFormatter.convertToStringPrint(date);
     }
 
+    /**
+     * Return Date in a storage format
+     * @return String
+     */
     public String getDateAsStringtoStore() {
         return DateFormatter.convertToStringStore(date);
     }
 
+    public DiaryEntry copy() {
+        return new DiaryEntry(getTitle(),getDate(),getPlace(),getMemory());
+    }
+
+    /**
+     * Set this memory to private
+     */
     public void setPrivate() {
         isPrivate = true;
         this.memory.setPrivate();
     }
 
+    /**
+     * Set this memory as unprivate
+     */
     public void unPrivate() {
         isPrivate = false;
         this.memory.unPrivate();
     }
 
+    /**
+     * Get the privacy status of this memory
+     * @return boolean
+     */
     public boolean getPrivacy() {
         return isPrivate;
     }
@@ -85,10 +124,11 @@ public class DiaryEntry {
             return false;
         }
 
-        DiaryEntry otherPerson = (DiaryEntry) other;
-        return otherPerson.getTitle().equals(getTitle())
-                && otherPerson.getDate().equals(getDate());
+        DiaryEntry otherEntry = (DiaryEntry) other;
+        return otherEntry.getTitle().equals(getTitle()) &&
+                otherEntry.getDateAsStringtoStore().equalsIgnoreCase(getDateAsStringtoStore());
     }
+
 
     @Override
     public int hashCode() {

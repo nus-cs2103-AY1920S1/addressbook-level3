@@ -44,40 +44,39 @@ public class DiaryModel {
     }
 
     /**
-     *
-     * @param target
+     * @param input
      * @return
      */
-    public DiaryEntry deleteDiaryEntry(int target) {
+    public DiaryEntry deleteDiaryEntry(DiaryEntry input) {
 
-        return diaryBook.deleteDiaryEntry(target);
+        return diaryBook.deleteDiaryEntry(input);
     }
 
 
-    public void setDiaryEntryPrivate(int index) {
-        diaryBook.setDiaryEntryPrivate(index);
+    public void setDiaryEntryPrivate(DiaryEntry input) {
+        diaryBook.setDiaryEntryPrivate(input);
     }
 
-    public void setDiaryEntryUnPrivate(int index) {
-        diaryBook.setDiaryEntryUnPrivate(index);
+    public void setDiaryEntryUnPrivate(DiaryEntry input) {
+        diaryBook.setDiaryEntryUnPrivate(input);
     }
 
     public void setDetails(Details attempt) {
         diaryBook.setDetails(attempt);
     }
-    public String getEntriesAsString() {
-        return diaryBook.getEntriesAsString();
-    }
 
     /**
-     *
      * @param diaryEntry
      * @return
      */
 
-    public DiaryEntry addDiaryEntry (DiaryEntry diaryEntry) {
+    public DiaryEntry addDiaryEntry(DiaryEntry diaryEntry) {
 
         return diaryBook.addDiaryEntry(diaryEntry);
+    }
+
+    public boolean contains(DiaryEntry otherEntry) {
+        return diaryBook.contains(otherEntry);
     }
 
     public Optional<Details> getDetails() {
@@ -87,8 +86,9 @@ public class DiaryModel {
     public boolean checkDetails(Details input) {
         return diaryBook.checkDetails(input);
     }
-    public boolean hasPassword() {
-        return diaryBook.hasPassword();
+
+    public boolean hasDetails() {
+        return diaryBook.hasDetails();
     }
 
     /**
@@ -106,11 +106,11 @@ public class DiaryModel {
     }
 
     public void setinnerDetails(Optional<Details> input) {
-       diaryBook.setinnerDetails(input);
+        diaryBook.setinnerDetails(input);
     }
 
     public DiaryBook getDiaryBook() {
-        return  this.diaryBook;
+        return this.diaryBook;
     }
 
     //=========== Statistics =================================================================================

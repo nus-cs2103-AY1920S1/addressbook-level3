@@ -27,6 +27,7 @@ public class SetDetailsCommand extends Command<DiaryModel> {
 
     /**
      * Executes the command by checking if a new set of details can be implemented
+     *
      * @param model on which the command is executes
      * @return {@code CommandResult} a readable message to show whether the set was a success or not
      */
@@ -34,11 +35,11 @@ public class SetDetailsCommand extends Command<DiaryModel> {
     @Override
     public CommandResult execute(DiaryModel model) throws CommandException {
         requireNonNull(model);
-        if(model.hasPassword()) {
+        if (model.hasDetails()) {
             return new CommandResult(MESSAGE_FAILURE + "\n");
         } else {
             model.setDetails(checker);
-           return new CommandResult(MESSAGE_SUCCESS + "\n");
-       }
+            return new CommandResult(MESSAGE_SUCCESS + "\n");
+        }
     }
 }

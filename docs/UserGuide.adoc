@@ -114,7 +114,7 @@ Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's fi
 | Symbol/font | What does it mean?
 
 | _italics_
-| Italicised text indicates that the text has a definition that is specific to the application. Do look out for the definitions of these words along the way. If not, please look at the glossary in section 13).
+| Italicised text indicates that the text has a definition that is specific to the application. Do look out for the definitions of these words along the way.
 
 | ``command``
 | A grey highlight means that you can type the words into _TravEzy_ and it will start performing tasks to make travel easier for you

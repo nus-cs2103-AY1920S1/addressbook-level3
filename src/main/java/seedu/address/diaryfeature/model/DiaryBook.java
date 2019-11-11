@@ -1,5 +1,6 @@
 package seedu.address.diaryfeature.model;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -15,32 +16,41 @@ public class DiaryBook {
     private final DiaryEntryList entries;
     private Optional<Details> details;
 
-
+    /**
+     * Construct a new DiaryBook
+     */
     public DiaryBook() {
         entries = new DiaryEntryList();
         details = Optional.empty();
     }
 
+    /**
+     * Load sample entries
+     * @param myEntries
+     * @return DiaryBook
+     */
     public DiaryBook loadData(DiaryEntry[] myEntries) {
-        for (DiaryEntry curr : myEntries) {
-            entries.addDiaryEntry(curr);
-        }
+        entries.loadData(myEntries);
         return this;
     }
 
+    /**
+     *Sets a new set of details
+     * @param attempt
+     */
     public void setDetails(Details attempt) {
         if (details.isEmpty()) {
-        details = Optional.of(attempt);
+            details = Optional.of(attempt);
+        }
+
     }
 
-}
-
-    public boolean hasPassword() {
+    public boolean hasDetails() {
         return (details.isPresent());
     }
 
     public void setinnerDetails(Optional<Details> input) {
-        if(input.isEmpty()) {
+        if (input.isEmpty()) {
             details = Optional.empty();
         } else {
             details = input;
@@ -49,7 +59,7 @@ public class DiaryBook {
 
 
     public boolean checkDetails(Details input) {
-        if(details.isEmpty()) {
+        if (details.isEmpty()) {
             return false;
         } else {
             return details.get().checkDetails(input);
@@ -64,6 +74,7 @@ public class DiaryBook {
 
         return entries.addDiaryEntry(p);
     }
+
     public Optional<Details> getDetails() {
         return details;
     }
@@ -73,17 +84,17 @@ public class DiaryBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public DiaryEntry deleteDiaryEntry(int x) {
+    public DiaryEntry deleteDiaryEntry(DiaryEntry input) {
 
-        return entries.deleteDiaryEntry(x);
+        return entries.deleteDiaryEntry(input);
     }
 
-    public void setDiaryEntryPrivate(int index) {
-         entries.setDiaryEntryPrivate(index);
+    public void setDiaryEntryPrivate(DiaryEntry input) {
+        entries.setDiaryEntryPrivate(input);
     }
 
-    public void setDiaryEntryUnPrivate(int index) {
-       entries.setDiaryEntryUnPrivate(index);
+    public void setDiaryEntryUnPrivate(DiaryEntry input) {
+        entries.setDiaryEntryUnPrivate(input);
     }
 
 
@@ -100,6 +111,10 @@ public class DiaryBook {
 
     public ObservableList<DiaryEntry> getDiaryEntryList() {
         return entries.asUnmodifiableObservableList();
+    }
+
+    public boolean contains(DiaryEntry otherEntry) {
+        return entries.contains(otherEntry);
     }
 
     @Override
