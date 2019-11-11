@@ -60,10 +60,10 @@ https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655
 
 .Dark Mode display for $aveNUS
 
-image::DarkMode.png[width="1000"]
+image::DarkMode.png[align="center"]
 
 .Light Mode display for $aveNUS. Note that the panels are at the same locations as in Figure 3.
-image::LightMode.png[width-"800"]
+image::LightMode.png[width-"800", align=center]
 
 . Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -83,13 +83,12 @@ This application is optimized for screen resolution of 1400x900 pixels and highe
 might experienced some bugs.
 
 [NOTE]
-You might experience some truncated detail on smaller laptop screens. As such, we would advice you to not to input
-really long names, description, etc.
+Users might experience some truncated detail on smaller laptop screens. As such, we advice users to not input
+names with many characters, description, etc.
 
 [IMPORTANT]
-Ensure that your scaling setting is set to 100% as anything higher might result in text being cut off.
+Ensure that your screen setting is set to a display size of 100%, as a higher setting might result in texts being cut off.
 
-image::ScalingSetting.png[]
 //end::roby1[]
 
 === Using Commands
@@ -103,17 +102,19 @@ is provided in the command descriptions.
 Provided below is a summary of the command format used in the $aveNUS User Guide:
 
 ****
-`UPPER_CASE` words are the parameters supplied by you.
+- `UPPER_CASE` words are the parameters supplied by you.
 
-For example, `info COMMAND`, `COMMAND` is a parameter to find out more information about `COMMAND`.
+** For example, `info COMMAND`, `COMMAND` is a parameter to find out more information about `COMMAND`.
 
-Items in square brackets are optional.
+- Items in square brackets are optional.
 
-For example, `budget AMOUNT [DURATION]` has an optional parameter `DURATION`, hence `budget 100 10` or `budget 100`
+** For example, `budget AMOUNT [DURATION]` has an optional parameter `DURATION`, hence `budget 100 10` or `budget 100`
 are both valid commands.
 
-Items with …​ after them can be used multiple times or not at all.
-For example, `delete INDEX...` works with commands such as `delete 1`, `delete 1 2` and so on.
+- Items with …​ after them can be used multiple times or not at all.
+
+** For example, `delete INDEX...` works with commands such as `delete 1`, `delete 1 2` and so on.
+
 ****
 
 .  Refer to <<Features>> for details of each command.
@@ -133,8 +134,8 @@ to make the user more familiar with the app.
 
 ==== Viewing help: `help`
 
-Display the help screen that allows you to view the list of commands available and also open up the user guide
-by clicking the `Guide` button.
+Displays the help window that allows users to view the list of commands available.
+It also allows users to open up the user guide by clicking the `Guide` button within the help window.
 
 ****
 *Format*: `help` +
@@ -160,9 +161,6 @@ The user can view up to 10 previously typed commands.
 
 ****
 
-[NOTE]
-A message stating that "You have not entered any commands." is displayed if you have not input any commands prior to the call to `history`.
-
 [IMPORTANT]
 This command only allows you to see previously typed commands. Any commands done through the buttons on the menu pane
 will not be shown.
@@ -173,10 +171,13 @@ ifdef::env-github[| :white_check_mark: a| You will see a list of commands that y
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a list of commands that you have previously typed in the Results Display.]
 
 .Example of view of $aveNUS after user inputs `history`. History of previously typed command appears in the Results Display as shown.
-image::HistoryUI.png[width=450]
+image::HistoryUI.png[width=600, align="center"]
 
 {empty}
 |===
+
+[NOTE]
+A message stating that "You have not entered any commands." is displayed if you have not input any commands prior to the call to `history`.
 
 [NOTE]
 The `history` command will only display previous commands with no duplicate commands. +
@@ -194,13 +195,9 @@ specified command, usage example, and expected output of the command.
 *Example*: `info edit`
 ****
 
-[NOTE]
+[TIP]
 $aveNUS can only display one information window at a time. Therefore, subsequent usage of the `info` command will only
 display the latest command specified.
-
-[TIP]
-You will not have to worry about opening too many new information window as older information window closes as soon as
-a new one is opened!
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -208,7 +205,7 @@ ifdef::env-github[| :white_check_mark: a| You will see a window pop-up specifyin
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a window pop-up specifying the details of the command you wanted more information about.]
 
 .Example of view of information window after user inputs `info edit`.
-image::InfoEditUI.png[width=250]
+image::InfoEditUI.png[width=450, align="center"]
 
 {empty}
 |===
@@ -292,7 +289,8 @@ restrictions and opening hours.
 ifdef::env-github[| :white_check_mark: a| The food list will scroll to the bottom, where the new food item is added.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The food list will scroll to the bottom, where the new food item is added.]
 
-image::addsuccess.png[]
+.Example of new food added into the app
+image::addsuccess.png[align="center"]
 
 {empty}
 |===
@@ -313,7 +311,8 @@ by using the `recommend` command again (see <<Getting a list of recommended food
 ifdef::env-github[| :white_check_mark: a| All the items in the food list will be shown.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| All the items in the food list will be shown.]
 
-image::listsuccess.png[]
+.Example of listing all food items
+image::listsuccess.png[align="center"]
 
 {empty}
 |===
@@ -342,7 +341,8 @@ Providing more than one of these `FIELD` will throw an error.
 ifdef::env-github[| :white_check_mark: a| The food item's fields will be updated.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The food item's fields will be updated.]
 
-image::editsuccess.png[]
+.Example of edited food item
+image::editsuccess.png[align="center"]
 
 {empty}
 |===
@@ -361,7 +361,8 @@ be shown in the food list.
 ifdef::env-github[| :white_check_mark: a| The food items containing any of the specific keywords will be shown.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The food items containing any of the specific keywords will be shown.]
 
-image::findsuccess.png[]
+.Example of finding food
+image::findsuccess.png[align="center"]
 
 {empty}
 |===
@@ -387,7 +388,8 @@ in v2.0 and above.
 ifdef::env-github[| :white_check_mark: a| The food items satisfying the conditions will be shown.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The food items satisfying the conditions will be shown.]
 
-image::filtersuccess.png[]
+.Example of filtering food successfully
+image::filtersuccess.png[align="center"]
 
 {empty}
 |===
@@ -409,7 +411,8 @@ You are allowed to have more than one `INDEX`.
 ifdef::env-github[| :white_check_mark: a| A confirmation message will appear, informing that the food item has been deleted.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| A confirmation message will appear, informing that the food item has been deleted.]
 
-image::deletesuccess.png[]
+.Example of deleting food sucessfully
+image::deletesuccess.png[align="center"]
 
 {empty}
 |===
@@ -426,7 +429,8 @@ Clears wallet, purchase history, savings account, likes, dislikes and aliases in
 ifdef::env-github[| :white_check_mark: a| Wallet, Purchase History, Savings History, Savings Account, likes, dislikes and aliases will all be cleared..]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| Wallet, Purchase History, Savings History, Savings Account, likes, dislikes and aliases will all be cleared..]
 
-image::clearsuccess.png[]
+.Example of calling `clear` in the app.
+image::clearsuccess.png[align="center"]
 
 {empty}
 |===
@@ -475,7 +479,8 @@ You can have more than one pair of `FIELD` and `DIRECTION`.
 ifdef::env-github[| :white_check_mark: a| The list of food items will be sorted by the fields you have entered.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of food items will be sorted by the fields you have entered.]
 
-image::sortsuccess.png[]
+.Example of sorting the food items successfully
+image::sortsuccess.png[align="center"]
 
 {empty}
 |===
@@ -494,7 +499,8 @@ FIELD and DIRECTION.
 ifdef::env-github[| :white_check_mark: a| Your custom comparator will be shwon.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| Your custom comparator will be shown.]
 
-image::makesortsuccess.png[]
+.Example of success message when custom comparator successfully created.
+image::makesortsuccess.png[align="center"]
 
 {empty}
 |===
@@ -515,7 +521,8 @@ by using the `recommend` command again (see <<Getting a list of recommended food
 ifdef::env-github[| :white_check_mark: a| The list of food items will be sorted by the fields specified in your custom comparator.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|  The list of food items will be sorted by the fields specified in your custom comparator.]
 
-image::customsortsuccess.png[]
+.Example of successful custom sort
+image::customsortsuccess.png[align="center"]
 
 {empty}
 |===
@@ -542,7 +549,8 @@ turn auto sorting off.
 ifdef::env-github[| :white_check_mark: a| A message will inform you if you have turned autosorting on or off.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| A message will inform you if you have turned autosorting on or off.]
 
-image::autosortsuccess.png[]
+.Example of successful autosort.
+image::autosortsuccess.png[align="center"]
 
 {empty}
 |===
@@ -559,7 +567,8 @@ Views the current Custom Sorter.
 ifdef::env-github[| :white_check_mark: a| A message will inform you of the fields of your custom comparator.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| A message will inform you of the fields of your custom comparator.]
 
-image::viewsortsuccess.png[]
+.Example of success message when user request to view the custom comparator
+image::viewsortsuccess.png[align="center"]
 
 {empty}
 |===
@@ -580,7 +589,8 @@ by using the `recommend` command again (see <<Getting a list of recommended food
 ifdef::env-github[| :white_check_mark: a| The list of food items will be sorted in its natural order.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of food items will be sorted in its natural order.]
 
-image::defaultsuccess.png[]
+.Example of setting the food items in default order
+image::defaultsuccess.png[align="center"]
 
 {empty}
 |===
@@ -590,7 +600,7 @@ image::defaultsuccess.png[]
 //tag::budgeting[]
 === Budgeting
 .Example User's Wallet
-image::wallet.png[width = "300"]
+image::wallet.png[width = "300", align="center"]
 
 [NOTE]
 Maximum budget amount is $1,000,000. +
@@ -627,9 +637,11 @@ If the top up was successful, you should be able to see the update to your walle
 === Savings
 
 Unlike your wallet which has a limit to the amount you can have, i.e. $1,000,000, your savings account has a limit that is imposed by the limitations of the user's computer's memory. +
+
 The savings account and the savings history is presented to the user in the display as shown in figure below.
 
-image::SavingsDisplay.png[width=400]
+.GUI display of $aveNUS
+image::SavingsDisplay.png[align="center"]
 
 //tag::savings[]
 ==== Transfer money from user's wallet into savings account: `save`
@@ -654,10 +666,10 @@ ifdef::env-github[| :white_check_mark: a| You will see a success message and the
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and the amount of money you have saved in your savings account. You will be able to view your savings in the savings history tab. The savings will appear GREEN.]
 
 .Example savings display when "Savings" is clicked as shown after savings are made.
-image::SavingsAdded.png[width=300]
+image::SavingsAdded.png[width=450, align="center"]
 
 .Example success message that appears after keying a successful saving.
-image::SavingsSuccessMessage.png[width=300]
+image::SavingsSuccessMessage.png[width=450, align="center"]
 
 {empty}
 |===
@@ -686,12 +698,12 @@ ifdef::env-github[| :white_check_mark: a| You will see a success message and the
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and the amount of money you have withdrawn from your savings account. You will be able to view your withdrawals in the savings history tab. The withdrawals will appear RED. ]
 
 .Example withdrawal display when "Savings" is clicked as shown after withdrawals are made.
-image::SavingsWithdraw.png[width=300]
+image::SavingsWithdraw.png[width=450, align="center"]
 
 {empty}
 
 .Example success message that appears after keying a successful withdrawal. This appears below where the user typed.
-image::WithdrawalSuccessMessage.png[width=300]
+image::WithdrawalSuccessMessage.png[width=450, align="center"]
 
 {empty}
 |===
@@ -750,7 +762,7 @@ Only the date shall be entered, no time is required.
 === Purchasing
 
 .Example User's PurchaseHistory
-image::PurchaseHistory.png[width = 400]
+image::PurchaseHistory.png[width=400, align="center"]
 
 ==== Buy a food item: `buy`
 Allows users to log a food expense into the application.
@@ -857,7 +869,7 @@ Format: `recommend`
 ifdef::env-github[| :white_check_mark: a| The list of recommendations will be shown, sorted by their recommendation value.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of recommendations will be shown, sorted by their recommendation value.]
 
-image::recommend.png[]
+image::recommend.png[align="center"]
 {empty}
 |===
 
