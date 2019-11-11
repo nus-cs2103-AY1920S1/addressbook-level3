@@ -204,5 +204,4 @@ Step 3.
 `LogicManager` executes the `AddRecurrenceCommand`. During execution, `AddRecurrenceCommand` calls `Model#addRecurrence(Recurrence)` and `Model#addExpense(Expense)`on the new recurrence and expenses created.
 `Model#incrementCount(Set<Tag>)` is then called on the set of `Tag`. The expense are then updated and shown on the UI.
 
-
 // end::recurring[]
