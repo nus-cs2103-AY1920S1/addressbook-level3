@@ -253,6 +253,7 @@ Examples:
 
 * `set 2500`
 
+// tag::report[]
 === Generating a Report: `report`
 
 Want to have your very own report that summarises your calorie intake progress over this month? Here are the steps to create one now!:
@@ -293,6 +294,7 @@ Changing your system time at any point while CaloFit is running may affect the r
 To ensure correct data is displayed to you, allow 2 minutes for CaloFit to update itself before creating your report.
 
 Format: `report`
+// end::report[]
 
 === Shows an overview of commands usable in CaloFit: `help`
 
