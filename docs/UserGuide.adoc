@@ -8,6 +8,7 @@
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
+:doctype: book
 ifdef::env-github[]
 :tip-caption: :bulb:
 :warning-caption: ⚠️
