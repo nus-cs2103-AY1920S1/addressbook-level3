@@ -312,7 +312,7 @@ to set percentage thresholds for notifications.
 ==== 3.6.1 Set Command Feature
 This feature allows the user to set a goal for their budget, expense or sales targets.
 
-The following sequence diagram depicts how the Set Command operates, and is an extension of the general sequence diagram
+The following Sequence Diagram depicts how the Set Command operates, and is an extension of the general sequence diagram
 found in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
 [caption = "Figure 52. "]
@@ -326,7 +326,7 @@ the data file.
 This feature allows the user to set a percentage threshold for notifications. Upon hitting that percentage for a
 particular financial goal, the user will automatically be notified of it with a message from Leo.
 
-The following sequence diagram depicts how the Notify Command operates, and is an extension of the general sequence
+The following Sequence Diagram depicts how the Notify Command operates, and is an extension of the general sequence
 diagram found in <<GeneralLogicSD, 2.3 Logic component: Figure 5>>:
 
 [caption = "Figure 53. "]
