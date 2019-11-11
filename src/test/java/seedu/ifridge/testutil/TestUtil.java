@@ -5,15 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import seedu.ifridge.commons.core.index.Index;
-import seedu.ifridge.logic.parser.grocerylist.GroceryListParser;
-import seedu.ifridge.logic.parser.templatelist.TemplateListParser;
-import seedu.ifridge.logic.parser.templatelist.template.TemplateItemParser;
-import seedu.ifridge.model.Model;
-import seedu.ifridge.model.food.Food;
-import seedu.ifridge.model.food.TemplateItem;
-import seedu.ifridge.model.food.UniqueTemplateItems;
-
 /**
  * A utility class for test cases.
  */

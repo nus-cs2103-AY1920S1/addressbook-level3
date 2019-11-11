@@ -74,7 +74,8 @@ public class EditTemplateItemCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         TemplateItem editedTemplateItem = new TemplateItemBuilder().build();
         EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder(editedTemplateItem).build();
-        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD, descriptor);
+        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD,
+                descriptor);
 
         UniqueTemplateItems templateToEdit = model.getFilteredTemplateList().get(0);
         UniqueTemplateItemsBuilder templateItems = new UniqueTemplateItemsBuilder(templateToEdit);
@@ -184,7 +185,8 @@ public class EditTemplateItemCommandTest {
         TemplateItem firstTemplateItem = model.getFilteredTemplateList()
                 .get(INDEX_FIRST_FOOD.getZeroBased()).get(INDEX_FIRST_FOOD.getZeroBased());
         EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder(firstTemplateItem).build();
-        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_SECOND_FOOD, descriptor);
+        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_SECOND_FOOD,
+                descriptor);
 
         assertCommandFailure(editCommand, model, EditTemplateItemCommand.MESSAGE_DUPLICATE_ITEM);
     }
@@ -214,7 +216,8 @@ public class EditTemplateItemCommandTest {
             descriptor = null;
         }
 
-        EditTemplateItemCommand addCommand = new EditTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD, descriptor);
+        EditTemplateItemCommand addCommand = new EditTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD,
+                descriptor);
 
         assertCommandFailure(addCommand, model, EditTemplateItemCommand.MESSAGE_INCORRECT_UNIT);
     }
@@ -244,7 +247,8 @@ public class EditTemplateItemCommandTest {
             descriptor = null;
         }
 
-        EditTemplateItemCommand addCommand = new EditTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD, descriptor);
+        EditTemplateItemCommand addCommand = new EditTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD,
+                descriptor);
 
         assertCommandFailure(addCommand, model, EditTemplateItemCommand.MESSAGE_INCORRECT_UNIT);
     }

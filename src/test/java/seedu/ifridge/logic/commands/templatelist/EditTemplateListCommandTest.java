@@ -78,7 +78,8 @@ public class EditTemplateListCommandTest {
 
     @Test
     public void equals() {
-        final EditTemplateListCommand standardCommand = new EditTemplateListCommand(INDEX_FIRST_FOOD, DESC_TEMP_BULK_UP);
+        final EditTemplateListCommand standardCommand = new EditTemplateListCommand(INDEX_FIRST_FOOD,
+                DESC_TEMP_BULK_UP);
 
         // same values -> returns true
         EditTemplateListDescriptor copyDescriptor = new EditTemplateListDescriptor(DESC_TEMP_BULK_UP);

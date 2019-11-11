@@ -74,10 +74,12 @@ public class DeleteTemplateItemCommandTest {
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTemplateList().size() + 1);
 
-        DeleteTemplateItemCommand withInvalidTempIndex = new DeleteTemplateItemCommand(outOfBoundIndex, INDEX_FIRST_FOOD);
+        DeleteTemplateItemCommand withInvalidTempIndex = new DeleteTemplateItemCommand(outOfBoundIndex,
+                INDEX_FIRST_FOOD);
         assertCommandFailure(withInvalidTempIndex, model, Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
 
-        DeleteTemplateItemCommand withInvalidItemIndex = new DeleteTemplateItemCommand(INDEX_FIRST_FOOD, outOfBoundIndex);
+        DeleteTemplateItemCommand withInvalidItemIndex = new DeleteTemplateItemCommand(INDEX_FIRST_FOOD,
+                outOfBoundIndex);
         assertCommandFailure(withInvalidItemIndex, model, Messages.MESSAGE_INVALID_TEMPLATE_ITEM_DISPLAYED_INDEX);
     }
 
