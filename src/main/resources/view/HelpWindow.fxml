@@ -22,21 +22,6 @@
             <URL value="@Extensions.css" />
         </stylesheets>
         <VBox alignment="CENTER" styleClass="pane-with-border" onKeyPressed="#handleKeyPress">
-            <HBox fx:id="hotKeyHelpBar" styleClass="pane-with-border" alignment="CENTER">
-                <ImageView fitHeight="40" fitWidth="100">
-                    <image>
-                        <Image url="@/images/space-icon.png"/>
-                    </image>
-                </ImageView>
-                <Label fx:id="SpaceLabel" styleClass="cell_small_label, blue-text-label" text="Copy URL" />
-
-                <ImageView fitHeight="40" fitWidth="40">
-                    <image>
-                        <Image url="@/images/esc-icon.png"/>
-                    </image>
-                </ImageView>
-                <Label fx:id="closeLabel" styleClass="cell_small_label, blue-text-label" text="Close Window" />
-            </HBox>
 
          <HBox alignment="CENTER" styleClass="pane-with-border">
                 <Label fx:id="helpMessage" text="Label" styleClass="prefix-label">
