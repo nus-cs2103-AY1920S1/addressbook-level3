@@ -19,7 +19,7 @@ Plan *-up-> "1" PlanName
 Plan *-up-> "1" PlanDescription
 Plan *-up-> "1" LocalDate : startDate
 Plan *-up-> "1" LocalDate : endDate
-Plan o--> "*" Task
+Plan *--> "*" Task
 PlanList o--> "*" Plan
 
 @enduml

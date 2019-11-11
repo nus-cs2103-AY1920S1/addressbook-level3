@@ -27,7 +27,7 @@ Problem *--> Name
 Problem *--> Remark
 Problem *--> Source
 Problem *--> WebLink
-Problem *--> "*" Tag
+Problem o--> "*" Tag
 
 
 @enduml
