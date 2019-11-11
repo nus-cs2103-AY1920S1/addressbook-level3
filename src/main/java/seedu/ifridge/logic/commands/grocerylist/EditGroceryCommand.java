@@ -46,7 +46,7 @@ public class EditGroceryCommand extends Command {
             + PREFIX_NAME + "Pisang Goreng "
             + PREFIX_TAG + "fried";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited grocery item: %1$s";
+    public static final String MESSAGE_EDIT_GROCERY_ITEM_SUCCESS = "Edited grocery item: %1$s";
     public static final String MESSAGE_NOT_EDITED =
             "At least one different field (name, expiry date, or tag) must be provided.";
     public static final String MESSAGE_DUPLICATE_GROCERY_ITEM = "This food item already exists in the grocery list";
@@ -99,7 +99,7 @@ public class EditGroceryCommand extends Command {
         model.commitGroceryList();
         model.commitWasteList();
         model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedGroceryItem));
+        return new CommandResult(String.format(MESSAGE_EDIT_GROCERY_ITEM_SUCCESS, editedGroceryItem));
     }
 
     /**

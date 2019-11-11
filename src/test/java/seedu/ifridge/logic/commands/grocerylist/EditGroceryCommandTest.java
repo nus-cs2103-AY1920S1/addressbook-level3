@@ -50,7 +50,7 @@ public class EditGroceryCommandTest {
         EditGroceryItemDescriptor descriptor = new EditGroceryItemDescriptorBuilder(editedGroceryItem).build();
         EditGroceryCommand editGroceryCommand = new EditGroceryCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditGroceryCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedGroceryItem);
+        String expectedMessage = String.format(EditGroceryCommand.MESSAGE_EDIT_GROCERY_ITEM_SUCCESS, editedGroceryItem);
 
         Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
                 model.getWasteArchive(), model.getShoppingList(), model.getBoughtList(), model.getUnitDictionary());
@@ -71,7 +71,7 @@ public class EditGroceryCommandTest {
                 .withTags(VALID_TAG_NUTS).build();
         EditGroceryCommand editGroceryCommand = new EditGroceryCommand(indexLastGroceryItem, descriptor);
 
-        String expectedMessage = String.format(EditGroceryCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedGroceryItem);
+        String expectedMessage = String.format(EditGroceryCommand.MESSAGE_EDIT_GROCERY_ITEM_SUCCESS, editedGroceryItem);
 
         Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
                 model.getWasteArchive(), model.getShoppingList(), model.getBoughtList(), model.getUnitDictionary());
@@ -99,7 +99,7 @@ public class EditGroceryCommandTest {
                 new EditGroceryItemDescriptorBuilder().withName(VALID_NAME_NUTS).withAmount(VALID_AMOUNT_NUTS)
                         .withExpiryDate(VALID_EXPIRY_DATE_NUTS).withTags(VALID_TAG_NUTS).build());
 
-        String expectedMessage = String.format(EditGroceryCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedGroceryItem);
+        String expectedMessage = String.format(EditGroceryCommand.MESSAGE_EDIT_GROCERY_ITEM_SUCCESS, editedGroceryItem);
 
         Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
                 model.getWasteArchive(), model.getShoppingList(), model.getBoughtList(), model.getUnitDictionary());
@@ -130,7 +130,7 @@ public class EditGroceryCommandTest {
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
+    public void execute_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredGroceryItemList().size() + 1);
         EditGroceryItemDescriptor descriptor = new EditGroceryItemDescriptorBuilder().withName(VALID_NAME_NUTS).build();
         EditGroceryCommand editGroceryCommand = new EditGroceryCommand(outOfBoundIndex, descriptor);
@@ -143,7 +143,7 @@ public class EditGroceryCommandTest {
      * but smaller than size of grocery list
      */
     @Test
-    public void execute_invalidPersonIndexFilteredList_failure() {
+    public void execute_invalidGroceryItemIndexFilteredList_failure() {
         showGroceryItemAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
