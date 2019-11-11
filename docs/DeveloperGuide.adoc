@@ -1449,6 +1449,7 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
+[discrete]
 === Launch and Shutdown
 
 . Initial launch
@@ -1463,6 +1464,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+[discrete]
 === Deleting a person
 
 . Deleting a person while all persons are listed
@@ -1475,8 +1477,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size). +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
+[discrete]
 === Selecting an athlete
 
 . Selecting an athlete while all athletes are listed
@@ -1487,6 +1488,7 @@ _{ more test cases ... }_
 .. Test case: `select 0` +
    Expected: No person is deleted. Error details shown in result box.
 
+[discrete]
 === Adding/editing an image of an athlete
 
 . Adding or editing an image of an athlete
@@ -1499,6 +1501,7 @@ _{ more test cases ... }_
 .. Test case: `edit 1 i/bobby.png`
    Expected: Error message : Image file does not exist. Make sure image file is in the `images` folder.
 
+[discrete]
 === Adding a training using athletes present
 
 . Add a training by indicating athletes present
@@ -1522,6 +1525,7 @@ Expected: No training added. Error details shown in the result box.
 .. Other incorrect commands: `training d/1234567890 #/1`, `training` +
 Expected: Similar to previous.
 
+[discrete]
 === Adding a training using athletes absent
 
 . Add a training by indicating athletes absent
@@ -1544,6 +1548,7 @@ Expected: No training added. Error details shown in the result box.
 .. Other incorrect commands: `training d/1234567890 #/1`, `training` +
 Expected: Similar to previous.
 
+[discrete]
 === Editing a training
 
 . Edit a training attendance
@@ -1557,6 +1562,7 @@ at 11th November 2019 remains there. Running the `calendar 11112019` command sho
 .. Test case: `training d/11112019 #/0` +
 Expected: Training is not replaced. Error details shown in the result box.
 
+[discrete]
 === Deleting a training
 
 . Delete a training at date
@@ -1570,6 +1576,7 @@ at 11th November 2019 disappears. Running the `calendar 11112019` command shows 
 .. Test case: `training d/11112019 #/0` +
 Expected: Training is not replaced. Error details shown in the result box.
 
+[discrete]
 === Viewing attendance of one athlete
 
 . View attendance of one athlete
@@ -1586,6 +1593,7 @@ Expected: Attendance is not shown. Error details shown in the result box.
 _{give more}_ +
 Expected: Similar to previous.
 
+[discrete]
 === Viewing overall attendance
 
 . View attendance of all athletes
@@ -1600,6 +1608,7 @@ a list of your athletes and their attendance beside their names.
 list size) _{give more}_ +
 Expected: Error details shown in result box.
 
+[discrete]
 === Viewing the calendar
 
 . Displaying the calendar for the current month
@@ -1613,6 +1622,7 @@ Expected: Error details shown in result box.
 .. Other incorrect view commands to try: `view`, `view x` (where x is an integer).
    Expected: Similar to previous.
 
+[discrete]
 === Navigating the calendar
 
 . Displaying the calendar for a specific month and year
@@ -1631,6 +1641,7 @@ shown in the result box.
 that is not length of 6 or 8)
 Expected: Similar to previous.
 
+[discrete]
 === Viewing training and performance records
 
 . Viewing training and performance records recorded on a specific date
@@ -1648,6 +1659,8 @@ shown in the result box.
 .. Other incorrect delete commands to try: `calendar x` (where x is any combination of numbers
 that is not length of 6 or 8)
 Expected: Similar to previous.
+
+[discrete]
 === Adding an event
 
 . Adding an event while all events are listed
@@ -1662,6 +1675,7 @@ Expected: Similar to previous.
    Expected: The former will result in an error message for adding a person. The latter will result in a
 general unknown command error message.
 
+[discrete]
 === Deleting an event
 
 . Deleting an event while all events are listed
@@ -1675,6 +1689,7 @@ general unknown command error message.
 .. Other incorrect delete commands to try: `delete e`, `delete event`. +
 Expected: Similar to previous.
 
+[discrete]
 === Undoing a previous command
 . Undoing a previous command after user executes `list` command
 
@@ -1685,6 +1700,7 @@ the same. List of people remains the same.
 .. Other incorrect undo commands to try: `undo x` (where x is any word) +
 Expected: Similar to previous.
 
+[discrete]
 === Redoing a previous command
 . Redoing a previous command after user executes `undo` command
 
