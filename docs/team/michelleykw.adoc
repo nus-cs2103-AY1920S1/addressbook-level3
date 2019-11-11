@@ -1,11 +1,9 @@
-= Michelle Yong Kai Wen - Project Portfolio for EzWatchList
+= Michelle Yong Kai Wen: Project Portfolio for EzWatchList
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
 == 1. Introduction
-
----
 
 The purpose of the portfolio is to document my roles and contributions to the project in terms of code, the user and
 developer guides.
@@ -13,7 +11,7 @@ developer guides.
 === 1.1 Overview
 
 In a team of 5 software engineering students, we were tasked to enhance a basic command line interface desktop
-addressbook application for our software engineering project. We chose to morph it into a watchlist for movie and
+address book application for our software engineering project. We chose to morph it into a watchlist for movie and
 television series called EzWatchList.
 
 My role was to design the code for the `search` feature and ensure proper documentation of the code in general. I had
@@ -28,7 +26,7 @@ Interface (CLI) for managing movies and television series watchlist. It helps us
 watched or wish to watch, reducing the hassle of having to search for shows frequently.
 
 image::Ui.png[]
-_Figure 1: The graphical interface for Ezwatchlist_
+_Figure 1: The graphical interface for EzWatchlist_
 
 [width="100%",cols="5,^15"]
 |===
@@ -49,16 +47,16 @@ I modified the `search` command. +
 * Justification:
 * Highlights:
 * Credits:
-* Code contributed +
-Below is a sample of my code: +
- // screenshot of code
+* Code contributed
+
+Below is a sample of my code:
 
 Please click here to see the above full code and here for other sample of my code.
 
 Other contributions: +
 
 * Project Management:
-* Enhancements to exisiting features:
+* Enhancements to existing features:
 * Documentation:
 * Community:
 * Tools:
@@ -70,4 +68,3 @@ include::../UserGuide.adoc[tag=search]
 === 1.5 Contributions to the Developer Guide
 
 include::../DeveloperGuide.adoc[tag=search]
-

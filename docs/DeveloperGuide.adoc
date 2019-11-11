@@ -473,20 +473,35 @@ If no recommendations can be generated, a `NoRecommendationsExceptions` is throw
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+// tag::markaswatched[]
 [[Implementation]]
 === [Feature] Search feature
+The search feature allows users to search for shows from the online database, the internal database, their watchlist or watched-list.
+It allows users to search for shows based on either "name", "genre" or "actors", or a combination of them.
+Users can choose to search from the online database or their watchlist and watched list, and also filter their search based on the show type.
+
 ==== Implementation
-The `searchCommand` extends `Command` and uses `SearchCommandParser` to process the command entered by the user.
+The search mechanism is facilitated by `SearchCommand` which can be found under the commands package.
+It extends `Command` and uses the `SearchCommandParser` to process the command entered by the user.
 
 Given below is an example usage scenario and how the search mechanism behaves at each step.
 
-Step 1. The user launches the application and executes `search n/Joker` command to search for a show with the name "Joker".
 
-Step 2. Entering the command calls SearchCommandParser#parse().
+Step 1. The user launches the application, goes to the *Search page* and executes `search n/Avengers o/no`
+command to search for shows named "Avengers" from the watchlist and watched-list.
 
-Step 3. A new `SearchCommand` is created, with the list containing the name of the show to be searched as a field of `SearchCommand`.
+Step 2. Entering the command calls `SearchCommandParser#parse()`.
+
+[Note]
+If the user enters a wrong command, such as prefix other than that specified in the User Guide and incorrect keywords,
+a new `ParseException` is thrown.
+
+Step 3. A new `SearchCommand` is created, with the hash map containing the contents to be searched as a field of `SearchCommand`.
 
 Step 4. The `SearchCommand#execute()` method is called, referencing the current model.
+
+[NOTE]
+If the user is not connected online, a new `OnlineConnectionException` is caught and search would be done using the internal database, watchlist and watched-list instead of the online database.
 
 Step 5. The `SearchCommand#searchByName()` method is called, referencing the current model.
 
@@ -498,25 +513,19 @@ Step 8. The `SearchCommand#addShowToSearchResult()` method is called and shows f
 
 Step 9. The `SearchCommand#addShowFromOnlineIfSameNameAs()` method is also called, referencing the name of show to be searched from the list of names.
 
-[NOTE]
-If the user is not connected online, a new `OnlineConnectionException` is thrown.
-
 Step 10. The `SearchCommand#addOnlineMovieSearchedByNameToResults()` method is called, referencing the name of show to be searched.
 
+{sp} +
+The following sequence diagram shows how the search operation works:
 
-//The following sequence diagram shows how the search operation works:
+.Sequence Diagram for the `Search` Operation
+image::SearchSequenceDiagram.png[][width="790"]
 
-//image::SearchSequenceDiagram.png[]
-
-//_Figure 1: Sequence Diagram for `SearchCommand`_
-
+{sp} +
 The following activity diagram summarises the workflow of Search:
 
-image::SearchActivityDiagram.png[]
-
-_Figure 2: Activity Diagram of `SearchCommand`_
-
-In Figure 2, the user first launches the app. After the user input a search command, the program runs and shows the list of shows found in the search page.
+.Activity Diagram for the `Search` Feature
+image::SearchActivityDiagram.png[][width=590"]
 
 ==== Design Considerations
 
