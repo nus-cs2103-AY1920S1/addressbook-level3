@@ -2,20 +2,10 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-:icons: font
-
-:stylesDir: stylesheets
-:xrefstyle: full
-:experimental:
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-endif::[]
-
 
 == 1. Introduction
 
-The purpose of this portfolio is to document my roles and contributions to the project, in terms of the code, the User
+The purpose of the portfolio is to document my roles and contributions to the project, in terms of the code, the User
 Guide and the Developer Guide.
 
 === 1.1 Overview
@@ -24,35 +14,33 @@ In a team of 5 software engineering students, we were tasked to enhance an exist
 link:https://nus-cs2103-ay1920s1.github.io/addressbook-level3/index.html[AddressBook], for our software
 engineering project. We chose to morph it into a watchlist for movie and television series called
 link:https://ay1920s1-cs2103t-f13-4.github.io/main/index.html[EzWatchlist].
+A limitation was to ensure that the application remains as a command-line interface application, which means that
+users that use the application primary execute commands through typing.
 
-My role was to implement the `search` feature and ensure proper documentation of the code. I had
+My role was to design the code for the `search` feature and ensure proper documentation of the code in general. I had
 to implement the `search` feature such that users would be able to search within the watchlist and from online. The
 code had to be refactored and the `search` command had to be modified to allow users to search for different
 categories such as searching by name or actor.
 
-[width="59%",cols="^22%,^50%",options="header",align="centre"]
-|===================================
-|Symbol |Meaning
-|`Commands`|Commands input to the command line of EzWatchList
-|icon:lightbulb-o[role="icon-tip", size="2x"]|Tips for the user
-|icon:info-circle[role="icon-note", size="2x"] |Additional information
-|kbd:[3] |Keyboard input to EzWatchList
-|===================================
-
 === 1.2 About EzWatchList
 
-EzWatchList is a Command Line Interface desktop application, which means that it is designed for those who types fast
-and prefer to execute commands through typing. It helps users, especially those who are forgetful, to keep track of the
-shows they had watched or wish to watch, reducing the hassle of having to search for shows frequently.
+EzWatchList is a desktop application, designed for those who types fast and prefer to work with Command Line
+Interface (CLI) for managing movies and television series watchlist. It helps users keep track of the shows they had
+watched or wish to watch, reducing the hassle of having to search for shows frequently.
 
-.Graphical User Interface of EzWatchlist
-image::Ui.png[width="600"]
+._Graphical User Interface_ of EzWatchlist
+image::Ui.png[]
 
 ==== 1.2.1 Main Features
-* Add, edit and delete shows
-* Search online and offline
-* Statistics
+*
 
+[width="100%",cols="5,^15"]
+|===
+| [NOTE] |  This symbol indicates information and tips to take note of.
+| `Search` | A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command
+line and executed by the application.
+| (different front/colour text) | This indicates that it is a class, method or field in the code.
+|===
 
 === 1.3 Summary of Contributions
 This section shows a summary of my coding, documentation, and other helpful contributions to the team project. +

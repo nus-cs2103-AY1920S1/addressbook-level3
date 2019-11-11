@@ -13,7 +13,6 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F13-4/main/tree/master
-:icons: font
 
 By: `Team CS2103T-F13-4`      Since: `Sept 2019`      Licence: `MIT`
 
