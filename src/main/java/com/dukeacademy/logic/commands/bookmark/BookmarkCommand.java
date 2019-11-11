@@ -29,11 +29,19 @@ public class BookmarkCommand implements Command {
         this.questionsLogic = questionsLogic;
     }
 
+    /**
+     * Returns the question that the user selected to bookmark
+     * @return user selected question
+     */
     public Question getUserSelectedQuestion() {
         Question userSelection = this.questionsLogic.getQuestion(id);
         return userSelection;
     }
 
+    /**
+     * Returns a command result that notifies the user that no action is taken
+     * @return command result
+     */
     public CommandResult notifyUserNoActionTaken() {
         // Simply notify user that question is already bookmarked
         String feedback = "Question " + id + " : " + getUserSelectedQuestion().getTitle()
@@ -41,11 +49,18 @@ public class BookmarkCommand implements Command {
         return new CommandResult(feedback, false);
     }
 
+    /**
+     * Bookmarks the question that the user selected
+     */
     public void bookmarkUserSelectedQuestion() {
         Question bookmarkedVersion = getUserSelectedQuestion().withNewIsBookmarked(true);
         this.questionsLogic.setQuestion(id, bookmarkedVersion);
     }
 
+    /**
+     * Returns a command result that notifies the user that bookmark was added successfully
+     * @return
+     */
     public CommandResult notifyUserBookmarkSuccess() {
         String feedback = "Bookmarked question " + id + " : " + getUserSelectedQuestion().getTitle();
         return new CommandResult(feedback, false);
