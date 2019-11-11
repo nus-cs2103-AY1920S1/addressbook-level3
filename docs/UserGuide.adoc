@@ -81,7 +81,6 @@ Format: `tab b/MENU_NAME`
 Users can switch between respective windows in order to make full use of the application.
 
 [NOTE]
-`tab b/game` is used instead of `tab b/typinggame` to simplify typing. +
 `Engagement` window is set to default window upon starting the application.
 
 If user wants to switch to different windows, simply enter the tab command. Tab names can be seen on the top of the application display in green boxes. +
