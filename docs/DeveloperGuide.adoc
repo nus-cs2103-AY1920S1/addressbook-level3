@@ -508,7 +508,7 @@ Step 1. The user launches the application for the first time. The `SplitWiser` w
 
 Step 2. The user executes `activity t/breakfast p/David` command to create an activity named breakfast with `David` as the sole participant which is stored in the `activityList`.
 
-Step 3. The user executes `invite p/Louis p/Mary...` to invite more participants into the current viewed activity. The `invite` command calls `Activity#invite()`, inviting more participants into the activity. The `activityList` will then be modified with the newly invited participants which is then stored in the `ActivityBook`.
+Step 3. The user executes `invite p/Louis p/Mary...` to invite more participants into the current viewed activity. The `invite` command calls `Activity#invite()` which then modifies the `activityList` with the new participants and is stored in the `ActivityBook`.
 
 The following sequence diagram shows how the invite operation works:
 
@@ -516,16 +516,15 @@ image::InviteSequenceDiagram.png[]
 
 NOTE: The lifeline for `InviteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-Step 4. The user decides that inviting the person was a mistake or the particular person has not been involved in any of the expenses in the activity. Therefore, it is perfectly fine to remove that person from the activity since he does not owe money to anyone and no one else owes him money.
-Hence the user decides to remove that person by executing the `disinvite` command.
+Step 4. The user decides that inviting the person was a mistake or the particular person has not been involved in any of the expenses in the activity. Hence the user decides to remove that person by executing the `disinvite` command.
 
-Step 5. The user executes `disinvite p/Louis p/David ...` to remove participant(s) from the current activity. The `disinvite` command calls `Activity#disinvite()`, removing participants from the activity. The `activityList` will then be modified due to a change in participants which is then stored in the `ActivityBook`.
+Step 5. The user executes `disinvite p/Louis p/David ...` to remove participant(s) from the current activity. The `disinvite` command calls `Activity#disinvite()` which then modifies the `activityList` and is stored in the `ActivityBook`.
 
 NOTE: The sequence diagram for the disinvite operation is omitted as it is similar to the invite operation.
 
 The following activity diagram summarizes what happens when a user executes an invite command:
 
-image::InviteActivityDiagram.png[]
+image::InviteActivityDiagram.png[InviteActivityDiagram, 183, 300]
 
 NOTE: The activity diagram for the disinvite command is omitted as it is similar to the invite operation.
 
@@ -573,11 +572,11 @@ Step 5. The user executes `delete 1` again, but this time the activity at the fi
 
 Step 6. The user views an activity at the second index using `view a/2`
 
-Step 7. The user executes `delete 1` again, but this time the expense at the first index will be deleted instead.
+Step 7. The user executes `delete 1` again, but this time the expense at the first index will be *soft* deleted instead.
 
 The following activity diagram summarizes what happens when a user executes a delete command for deletion of activity:
 
-image::DeleteContactActivityDiagram.png[]
+image::DeleteContactActivityDiagram.png[DeleteContactActivityDiagram, 229, 300]
 
 NOTE: The activity diagram for deletion of expense and contact are omitted as they are similar to the deletion of activity.
 

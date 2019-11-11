@@ -1,0 +1,77 @@
+= John Ng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SplitWiser
+
+---
+
+== Overview
+
+My team of 4 software engineering students and I were tasked with enhancing a basic command line interface desktop addressbook application for our Software Engineering project. We chose to morph it into an activity tracking bill-splitting system called *SplitWiser*.
+This enhanced application enables people who participate in group activities together with shared expenses to split the cost evenly without the hassle of manual calculation. +
+ +
+This is what our project looks like:
+
+image::SplitWiserGUI.png[]
+.Figure 1. The graphical user interface for *SplitWiser*. +
+
+My role was to design and write codes for the `invite`, `disinvite` and `delete` features. The following sections illustrate
+these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements. +
+ +
+Note the following formatting used in this document. +
+
+`delete`: A grey highlight indicates that this is a command that can be inputted into the command line and executed by the application
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to invite contacts to current viewed activity*
+** What it does: allows the user to `invite` multiple contacts at once to the current viewed activity.
+** Justification: This feature improves the product significantly because the participants in an activity is not static as people can join midway during an activity and the app should provide a convenient way to `invite` them without creating a new activity.
+** Highlights: This enhancement affects existing commands and commands to be added in future. The implementation was challenging due to the fact that it depends on the user's screen.
+
+* *Major enhancement*: added *the ability to disinvite contacts from current viewed activity*
+** What it does: allows the user to `disinvite` multiple contacts at once from the current viewed activity.
+** Justification: It is sort of an "undo" function if user mistakenly invited the wrong person to an activity. Since `invite` allows multiple invitees at once, an "undo" function will be inconvenient as it removes everyone that was invited previously, `disinvite` allows user to remove particular participants that was invited mistakenly to the activity conveniently.
+** Highlights: This enhancement affects existing commands and commands to be added in future. The implementation was challenging due to the fact that it depends on the user's screen.
+
+* *Major enhancement*: added *the ability to delete contact/activity/expense in an activity*
+** What it does: allows the user to `delete` contact/activity or soft-delete expense one at a time.
+** Justification: This feature improves the product significantly especially for the deletion of expense. Since money is a sensitive issue, the soft deletion of expense allows the expense to still be visible but striked-off so it remains as a history for accountability.
+** Highlights: This enhancement affects existing commands and commands to be added in future. The implementation was challenging due to the fact that it depends on the user's screen.
+
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=JohnNzj&tabRepo=AY1920S1-CS2103T-W11-2%2Fmain%5Bmaster%5D[Functional and test codes]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Enhanced `delete` command to delete contacts, activities, expenses based on displayed screen (Pull requests https://github.com/AY1920S1-CS2103T-W11-2/main/pull/196[#196])
+*** Implemented `invite` and `disinvite` command to invite or disinvite participants from current viewed activity (Pull requests https://github.com/AY1920S1-CS2103T-W11-2/main/pull/121[#121], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/108[#108])
+*** Wrote additional tests for `delete`, `invite` and `disinvite` (Pull requests https://github.com/AY1920S1-CS2103T-W11-2/main/pull/196[#196], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/121[#121], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/108[#108], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/136[#136])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-W11-2/main/pull/190[190], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/23#pullrequestreview-296001593[23]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/JohnNzj/ped/issues/4[4], https://github.com/JohnNzj/ped/issues/1[1], https://github.com/JohnNzj/ped/issues/5[5], https://github.com/JohnNzj/ped/issues/6[6], https://github.com/JohnNzj/ped/issues/3[3], https://github.com/JohnNzj/ped/issues/2[2])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=invite]
+
+include::../UserGuide.adoc[tag=disinvite]
+
+include::../UserGuide.adoc[tag=delete]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=invitedisinvite]
+
+include::../DeveloperGuide.adoc[tag=delete]
+
