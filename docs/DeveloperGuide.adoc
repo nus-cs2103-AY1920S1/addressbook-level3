@@ -694,7 +694,7 @@ The `delete` command is facilitated by the Logic and Model components of the app
 *Step 11*: `DeleteRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
 // end::repeaterdelete[]
 
-// tag::repeaterdelete[]
+// tag::repeaterfind[]
 ==== Finding Repeater
 This feature allows the user to find repeaters in IchiFund. The search by matching provided keywords against repeater descriptions.
 
