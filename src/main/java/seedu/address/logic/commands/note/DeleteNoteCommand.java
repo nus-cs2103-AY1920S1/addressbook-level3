@@ -35,6 +35,12 @@ public class DeleteNoteCommand extends Command {
 
     private static final Logger logger = LogsCenter.getLogger(DeleteNoteCommand.class);
 
+    /**
+     * The successfulDeletionOnPreviousCommand is to prevent the user from calling, for instance,
+     * 'delete 1' twice in a row and not get a prompt.
+     */
+    private static boolean successfulDeletionOnPreviousCommand = false;
+
     private final Index targetIndex;
 
     public DeleteNoteCommand(Index targetIndex) {
@@ -68,12 +74,22 @@ public class DeleteNoteCommand extends Command {
                     // correct. allow delete
                     model.deleteNote(noteToDelete);
 
+                    // item has been deleted, set this to true
+                    successfulDeletionOnPreviousCommand = true;
+
                     assert (model.getFilteredNoteList().size() - noteListSize == -1);
                     logger.info("Current list size: " + model.getFilteredNoteList().size());
 
                     commandResult = new NoteCommandResult(String.format(MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete));
+                } else {
+                    // nothing has been deleted, set back to false
+                    successfulDeletionOnPreviousCommand = false;
                 }
+            } else {
+                successfulDeletionOnPreviousCommand = false;
             }
+        } else {
+            successfulDeletionOnPreviousCommand = false;
         }
         return commandResult;
     }
