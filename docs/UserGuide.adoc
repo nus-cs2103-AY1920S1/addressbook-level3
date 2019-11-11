@@ -384,7 +384,7 @@ After entering the `ans` command, you will see the answer to that `FlashCard`.
 
 image::ShowAnswerResults.png[width="600"]
 
-==== Rate FlashCard: `rate [easy/good/hard]`
+==== Rate FlashCard: `rate RATING`
 After seeing the answer, you can enter this command which rates the `FlashCard`,
 depending on how well you answered the question i.e. `easy`, `good`, `hard`.
 
@@ -641,6 +641,8 @@ e.g.  `import p>C:\Users\User\Documents\flashcards.json`
 e.g.  `list Math`
 * List all `FlashCard`(s) - `listall`
 * List all "Bad" `FlashCard`(s) - `listbad`
+* Rate `FlashCard` during test mode - `rate RATING`
+e.g. `rate easy`
 * Remove `Deadline` from list - `remove INDEX` +
 e.g.  `remove 2`
 * Remove a "Bad" rated `FlashCard` from list - `removebad INDEX` +
@@ -649,6 +651,8 @@ e.g.  `removebad 2`
 ** `search` KEYWORD(S)  e.g `search c`
 ** `searchqn` KEYWORD(S)  e.g `searchqn pointer`
 ** `searchans` KEYWORD(S)  e.g `searchans name`
+* Show answer during test mode - `ans`
+* Skip `FlashCard` during test mode - `skip`
 * Start a certain topic of `FlashCard`(s) - `start KEYWORD` +
 e.g.  `start Mathematics`
 * View overall statistics - `stats`
