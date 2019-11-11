@@ -206,4 +206,9 @@ public class Workout {
     public int hashCode() {
         return Objects.hash(name, exercises, exercisesDetails, musclesTrained, averageIntensity, history);
     }
+
+    @Override
+    public String toString() {
+        return name.toString();
+    }
 }
