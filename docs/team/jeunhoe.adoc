@@ -51,6 +51,9 @@ by listing members present, or by members absent. We understand that keying play
 big teams. Giving the option to coaches to mark attendance by entering players absent will reduce the amount of
 typing which will save time.
 
+* Credits:
+** Saving of training data into .json files is done with the use of the Jackson library.
+
 *Enhancement added:* I added the ability to monitor an athlete’s attendance.
 
 * What it does:
@@ -70,8 +73,8 @@ select command. A TrainingManager was implemented to provide other components us
 training information and attendance rate.
 
 *Code contributed:* The links provided show my code contribution for the project.
-https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=jeunhoe[(RepoSense)]
-https://github.com/jeunhoe/main[(GitHub repository)]
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jeunhoe&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[(RepoSense)]
+https://github.com/AY1920S1-CS2103T-T12-3/main/commits?author=jeunhoe[(All commits)]
 
 *Other contributions:*
 
@@ -123,8 +126,7 @@ reader friendly. (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pu
 ** Reviewed other team’s PRs to give suggestions and comments.
 
 ** Stress tested applications from other teams, reported bugs and gave suggestions.
-(https://github.com/jeunhoe/ped/issues?q=is%3Aopen+is%3Aissue+label%3Atype.FunctionalityBug[Bug reports],
-https://github.com/jeunhoe/ped/issues?q=is%3Aopen+is%3Aissue+-label%3Atype.FunctionalityBug[Suggestions])
+(https://github.com/jeunhoe/ped/issues?q=is%3Aissue+is%3Aopen[Bug reports and suggestions])
 
 ** Reviewed and commented on pull requests. (Pull requests
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/28[#28],
