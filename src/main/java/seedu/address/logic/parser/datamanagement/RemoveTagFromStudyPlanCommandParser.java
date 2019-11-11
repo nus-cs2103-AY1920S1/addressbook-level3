@@ -20,7 +20,7 @@ public class RemoveTagFromStudyPlanCommandParser implements Parser<RemoveTagFrom
      */
     public RemoveTagFromStudyPlanCommand parse(String args) throws ParseException {
         String[] tokens = args.trim().split(" ");
-        if (tokens.length < 1 || !tokens[0].matches("\\d")) {
+        if (tokens.length < 1 || !tokens[0].matches("\\d+")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RemoveTagFromStudyPlanCommand.MESSAGE_USAGE));
         }

@@ -22,7 +22,7 @@ public class TagStudyPlanCommandParser implements Parser<TagStudyPlanCommand> {
     public TagStudyPlanCommand parse(String args) throws ParseException {
         String[] tokens = args.trim().split(" ");
         if (tokens.length < 2 || !PriorityTagType.isValidPriorityTagString(tokens[0])
-                || !tokens[1].matches("\\d")) {
+                || !tokens[1].matches("\\d+")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     TagStudyPlanCommand.MESSAGE_USAGE));
         }
