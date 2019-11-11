@@ -38,7 +38,7 @@ Here are a few steps to get you started on Mark: +
 //TODO: update UI screenshot
 +
 .GUI for Mark
-image::Ui.png[width="790"]
+image::Ui.png[]
 +
 // TODO: move this part to <<Using Mark>>
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
