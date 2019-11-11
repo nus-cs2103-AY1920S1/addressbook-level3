@@ -96,13 +96,13 @@ image::LogicComponentClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/io/xpire/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `XpireParser` class to parse the user command.
+.  `Logic` uses the `XpireParser` or `ReplenishParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding an item).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete|1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete|1")` API call when the user is viewing the main list.
 
 .Interactions Inside the Logic Component for the `delete|1` Command
 image::LogicComponentSequenceDiagram.png[]
@@ -134,7 +134,7 @@ image::StorageComponentClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Xpire and ReplenishList data in json format and read it back.
+* can save the `Xpire` and `ReplenishList` data in JSON format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -160,19 +160,19 @@ image::condensed_item_class_diagram.png[]
 
 ==== Storage of items in the replenish list
 An `XpireItem` is converted to a `JsonAdaptedXpireItem` whereas an `Item` is converted to a `JsonAdaptedItem` for storage.
-To store both the replenish list and main list in a single json file, both lists are wrapped in the `JsonSerializableList` class
+To store both the replenish list and main list in a single JSON file, both lists are wrapped in the `JsonSerializableList` class
 for serializing and deserializing using the Jackson Library.
 
 .Snippet of Storage Component Class Diagram to illustrate how an item in the replenish list is stored.
 image::condensed_storage_class_diagram.png[]
 
 ==== Moving items in the main list into the replenish list
-An `XpireItem` in the main list can be transferred into the replenish list using the `ShiftToReplenishCommand`.
-Any `XpireItem` whose quantity have hit `0` will also be automatically added to the replenish list.
+An `XpireItem` in the main list can be transferred to the replenish list using the `ShiftToReplenishCommand`.
+Any `XpireItem` whose quantity is `0` will also be automatically added to the replenish list.
 
 ===== Implementation
-When the user executes a `ShiftToReplenishCommand`, the target item in the main list be adapted from a `XpireItem` into an `Item`.
-The adapted item will be subsequently added to the replenish list, while the target item is removed.
+When the user executes a `ShiftToReplenishCommand`, the target item in the main list will be adapted from a `XpireItem` into an `Item`.
+The adapted item will be subsequently added to the replenish list, while the target item is removed from the main list.
 The following sequence diagrams demonstrate how the command makes changes to both the main list and replenish list.
 
 .Sequence diagram for `ShiftToReplenishCommand`.
@@ -182,7 +182,7 @@ image::shift_to_replenish_sequence_diagram.png[]
 image::transfer_item_to_replenish_sequence_diagram.png[]
 
 When the user executes a `DeleteCommand` to reduce the `Quantity` of an `XpireItem` to `0`, the item is automatically
-shifted to the replenish list. The item shift is demonstrated in the sequence diagram above.
+shifted to the replenish list. The item shift is demonstrated in the activity diagram below.
 
 .Sequence diagram when an item quantity is reduced to 0.
 image::delete_quantity_activity_diagram.png[]
@@ -192,7 +192,7 @@ The shift would not be successful if an item with the same `Name` already exists
 The user would be prompted to delete the existing item in the replenish list in order to add the target item into the replenish list.
 
 ==== Moving items in the replenish list to the main list
-On the other hand, items can be transferred out of the replenish list using the `ShiftToMainCommand`.
+On the other hand, items can be transferred into the main list using the `ShiftToMainCommand`.
 The following activity diagram summarises how the command works:
 
 .Activity diagram for `ShiftToMainCommand`.
@@ -207,14 +207,14 @@ However, only the tags of the item on the main list will be retained.
 
 ===== Design Considerations
 
-====== Aspect: Storage of replenish list
-* **Alternative 1 (current choice): Store both lists in the same json file**
+====== Aspect: Storage of replenish list and main list
+* **Alternative 1 (current choice): Store both lists in the same JSON file**
 ** Pros: Updating the storage would be less cumbersome as only one file needs to be read and written into.
-** Cons: Challenging to find a suitable and efficient data structure that wraps both lists for storage into a single file .
+** Cons: Challenging to find a suitable and efficient data structure that wraps both lists for storage into a single file.
 
-* **Alternative 2: Store both lists as separate json files**
+* **Alternative 2: Store both lists as separate JSON files**
 ** Pros: Easier to implement as there is no need to find a data structure to wrap both lists for storage.
-** Cons: This makes updating the storage troublesome as both files need to be updated at the same time for any changes made to the lists.
+** Cons: Makes updating the storage troublesome as both files need to be updated at the same time for any changes made to the lists.
 
 ====== Aspect: Handling of items that have run out
 * **Alternative 1 (current choice): Automatically shift an item to the replenish list when the item's quantity reaches 0**
@@ -1267,7 +1267,7 @@ Product Scope
 .  The product is not required to handle items without expiry dates.
 .  The product is not required to handle items without names.
 .  The product is not required to produce reminders when the app is inactive.
-.  The product is not required to handle intentionally corrupted json files.
+.  The product is not required to handle intentionally corrupted JSON files.
 
 Usability
 
@@ -1474,7 +1474,7 @@ add any reminder threshold. +
    Expected: `view` is given as a recommendation in the error message.
 
 === Adding expired items to the tracking list for testing
-By design, our app does not accept items that have expired unless the json file is tampered with.
+By design, our app does not accept items that have expired unless the JSON file is tampered with.
 
 .. To add an expired item to the tracking list, open the xpire.json file in an editor. Under `"xpireItems"`, add a new JSON object with values for `name`, `expiryDate`, `quantity`, `reminderThreshold` and `tags`.
 .. Note that this expiry date has to be after 1/10/2019.
@@ -1489,7 +1489,7 @@ Example:
 
 .Example of a valid XpireItem manually added to xpire.json file
 image::json_example.png[]
-An item with `name` Raspberry and `expiryDate` 8/10/2019 (which has passed) is now added to the json file for your testing.
+An item with `name` Raspberry and `expiryDate` 8/10/2019 (which has passed) is now added to the JSON file for your testing.
 
 [NOTE]
 Remember to enclose these name-value items with `{` and `}`.
@@ -1666,4 +1666,4 @@ set for them previously.
 
 . Dealing with missing/corrupted data files
 
-.. Corrupted data files will be deleted. A new json file without any items will be used.
+.. Corrupted data files will be deleted. A new JSON file without any items will be used.

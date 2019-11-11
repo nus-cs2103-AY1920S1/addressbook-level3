@@ -16,32 +16,33 @@ Responsibilities: Storage + Documentation
 
 == Overview
 
-Xpire is an application that helps users manage their items and track their expiry dates.
-With a minimalistic dark mode GUI created with JavaFX, the user can easily use the application via Command Line Interface.
+My team of 5, including myself and 4 other software engineering teammates, were tasked to enhance an existing address book application.
+We chose to morph the address book into an expiry date tracker, Xpire.
+Xpire contains both a replenish list containing items that need to be stocked up on and an expiry date tracker containing the list of expiring items.
+With this and our implemented features, Xpire makes management of items fuss-free for users.
 
 == Summary of contributions
 
-* *Major enhancement*: added *`ShiftCommand`* that allows the user to transfer items to and fro the replenish list.
-** What it does: -	enables the user to transfer an item from the tracking list into the replenish list containing the items to
-stock up on, such as when the item expires.
-** Justification: - Instead keying in an item's details again, users simply need to key in the given
+* *Major enhancement*: Added *`ShiftCommand`* that allows the user to transfer items to and fro the replenish list.
+** What it does: Enables the user to transfer an item from the tracking list into the replenish list.
+** Justification: Instead of keying in an item's details again, users simply need to key in the given
 item index to transfer an existing item to the replenish list. This makes the overall user experience more fuss-free.
-** Highlights: This enhancement required a refactor of the `Model` component using important concepts such as polymorphism and inheritance.
-The implementation was also challenging as it required an in-depth understanding of generics to avoid a huge overhaul of the existing implementation and repeated code.
-Additionally, the implementation familiarised me with JSON serialization in FXML using the Jackson Library.
+** Highlights: The implementation of this enhancement required a refactor of the `Model` component using important concepts such as polymorphism and inheritance.
+The implementation was also challenging as it required an in-depth understanding of generics to avoid repeated code and a huge overhaul of the existing implementation.
+Additionally, the implementation also familiarised me with JSON serialization using the Jackson Library.
 
-* *Major enhancement*: added the ability to automatically add an item to the replenish list once an item in the tracking list runs out.
-** What it does: -	automatically transfers an item that has depleted into the replenish list.
-** Justification: -	Instead of having the user delete an item on the tracking list and add it into the replenish list
+* *Major enhancement*: Added the ability to automatically add an item to the replenish list once an item in the tracking list runs out.
+** What it does: Automatically transfers an item that has depleted to the replenish list.
+** Justification: Instead of having the user delete an item on the tracking list and add it into the replenish list
 manually when it runs out, this enhancement collapses this two-step process into a one-step process.
 ** Highlights: The implementation required an in-depth analysis of user needs and comprehensive testing to ensure
 that edge cases will also be factored in.
 * *Minor enhancement*: Added the ability to input item quantity.
-The parsing of the quantity field familiarised me with Regex.
+The parsing of the `Quantity` field familiarised me with Regex.
 This makes tracking multiple items of the same type easier as users only need to key the item's details once.
 
 * *Minor enhancement*: Added the ability to reduce item quantity in the tracking list.
-This allows users to better keep track of their items as users can simply update their items when a certain amount of is used up.
+This allows users to better keep track of their items as users can simply update their items when a certain amount of the item is used up.
 
 * *Minor enhancement*: Added the ability to input similar items into the tracking list.
 This is useful as it provides users with an option to add to existing items in cases where they bought the same item on separate occasions.
@@ -59,9 +60,9 @@ This is useful as it provides users with an option to add to existing items in c
 *** Wrote additional tests for existing features (Pull requests [https://github.com/AY1920S1-CS2103T-F11-2/main/pull/78[#78]], [https://github.com/AY1920S1-CS2103T-F11-2/main/pull/99[#99]], [https://github.com/AY1920S1-CS2103T-F11-2/main/pull/227[#227]])
 
 ** Documentation:
-*** Updated manual testing instructions in Developer Guide on how to edit data file. (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/pull/193[#193]])
-*** Updated diagrams in Developer Guide for Architecture Diagrams and components. (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/pull/135[#135]])
-*** Updated glossary in Developer Guide (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/pull/13[#30]])
+*** Updated manual testing instructions in Developer Guide on how to edit data file. (Pull request [https://github.com/AY1920S1-CS2103T-F11-2/main/pull/193[#193]])
+*** Updated diagrams in Developer Guide for Architecture Diagrams and components. (Pull request [https://github.com/AY1920S1-CS2103T-F11-2/main/pull/135[#135]])
+*** Updated glossary in Developer Guide (Pull request [https://github.com/AY1920S1-CS2103T-F11-2/main/pull/30[#30]])
 
 == Contributions to the User Guide
 
