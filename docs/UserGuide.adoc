@@ -58,9 +58,9 @@ The GUI should appear in a few seconds.
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Some example commands you can try:
 
-* **`add`**` rt/BLOODSUGAR con/10 dt/2019-11-01 12:12` : adds a `bloodsugar` record to the app.
-* **`delete`**` 3` : deletes the 3rd record shown in the current list
-* *`exit`* : exits the app
+* `*add* rt/BLOODSUGAR con/10 dt/2019-11-01 12:12` : adds a `bloodsugar` record to the app.
+* `*delete* 3` : deletes the 3rd record shown in the current list
+* `*exit*` : exits the app
 
 . Refer to <<Features>> for details of each command.
 
