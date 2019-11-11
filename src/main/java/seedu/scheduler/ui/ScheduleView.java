@@ -65,12 +65,15 @@ public class ScheduleView extends UiPart<Region> {
                         super.updateItem(cell, empty);
                         if (cell == null || empty) {
                             setText(null);
-                        } else if (!cell.equals("0")) {
+                        } else if (cell.equals("0")) {
+                            setText(cell);
+                            setStyle("-fx-background-color: transparent");
+                        } else if (cell.equals("1")) {
+                            setText(cell);
+                            setStyle("-fx-background-color: #b8b8b882");
+                        } else {
                             setText(cell);
                             setStyle("-fx-background-color: #14542179");
-                        } else {
-                            setText("-");
-                            setStyle("-fx-background-color: transparent");
                         }
                     }
             });

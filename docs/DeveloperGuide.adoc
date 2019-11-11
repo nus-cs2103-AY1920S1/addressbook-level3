@@ -72,6 +72,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+// tag::UiDesign[]
 [[Design-Ui]]
 === UI component
 
@@ -164,6 +165,8 @@ of interviewees
 
 .UI Refresh During Data Import Sequence Diagram
 image::ImportUIRefreshSequenceDiagram.png[]
+
+// end::UiDesign[]
 
 // tag::logic[]
 
@@ -644,6 +647,8 @@ The message content can also be configured by the user. However, a default templ
 
 // end::email[]
 
+// tag::display[]
+
 === Display
 ==== Implementation
 
@@ -656,7 +661,12 @@ the following method:
 
 The activity diagram will provide the overall flow of this implementation.
 
-image::DisplayActivity.png
+image::DisplayActivity.png[]
+
+NOTE: For the activity diagram, plantUML is not able to have multiple alternate paths from a diamond. Thus, multiple diamonds are used to implement
+multiple alternate paths.
+
+// end::display[]
 
 === Logging
 
@@ -878,6 +888,7 @@ Use case ends.
 +
 Use case ends.
 
+// tag::DisplayUseCases[]
 === Use case: (UC-5) Display list of interviewee
 
 *MSS*
@@ -897,6 +908,8 @@ Use case resumes at step 1.
 * 1b1. Scheduler display invalid command to user.
 +
 Use case resumes at step 1.
+
+// end::DisplayUseCases[]
 
 === Use Case: (UC-6) Export Schedules
 
@@ -925,6 +938,7 @@ Use case resumes at step 3.
 ** 3a1. Scheduler displays error message in the UI.
 +
 Use case resumes at step 1.
+
 
 [appendix]
 == Non Functional Requirements
@@ -1070,6 +1084,23 @@ This section follows directly from the previous section, <<Editing an entity, Ed
 . You can delete any entity as long as the entity's name is shown in the Interviewee/Interviewer tab. See the User Guide under the `delete` command section for specifics.
 
 // end::delete_appendix[]
+
+// tag::ManualDisplay[]
+
+=== Displaying different views from the Scheduler
+Please refer to the UI Display section in the <<UserGuide#, user guide>> for more detailed information on the `display` command.
+
+. Type `display interviewee` to display a list of interviewee in the scheduler.
+. Expected: A table will be shown with the list of interviewees arranged in this format:
+. Table will be filled when a list of interviewee is imported into the Scheduler.
+. You can also display the list of interviewers and the scheduled table by the command `display interviewer` and `display schedule` respectively.
+. The format for the displays are shown below.
+
+image::intervieweeListFormat.png[]
+image::interviewerListFormat.png[]
+image::scheduleListFormat.png[]
+
+// end::ManualDisplay[]
 
 === Scheduling Interviews
 . Import .csv files of interviewers' availability and interviewees' details using the `import` command.

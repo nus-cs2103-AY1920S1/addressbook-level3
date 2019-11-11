@@ -600,14 +600,58 @@ Constraints:
 
 // end::delete[]
 
-// tag::clear[]
+// tag::UiDisplay[]
 
-=== Clear all interviewees/interviewers `clear`
-Clears all interviewees, interviewers and schedules from Scheduler.
+=== UI Display
 
-Format: `clear`
+==== Display Schedules
+Display multiple tables that consist information of the schedules generated in a day format. The columns will show the date of the schedule followed by
+the interviewers and their respective departments. The rows consists of the time slots as well as names of the interviewee.
 
-// end::clear[]
+Format: `display schedule`
+
+Notes:
+* You are also able to toggle to display schedule by clicking on the Schedules tab.
+
+====
+
+Constraints:
+
+* The command must be exactly the same as the format.
+
+====
+
+==== Display Interviewee
+Display information of the interviewees in a table format.
+
+Format: `display interviewee`
+
+Notes:
+* You are also able to toggle to display schedule by clicking on the Interviewee tab.
+
+====
+
+Constraints:
+
+* The command must be exactly the same as the format.
+
+====
+
+==== Display Interviewer
+Display information of the interviewers in a table format.
+
+Format: `display interviewer`
+
+Notes:
+* You are also able to toggle to display schedule by clicking on the Interviewer tab.
+
+====
+
+Constraints:
+
+* The command must be exactly the same as the format.
+
+====
 
 ==== Differentiating the importance of timetable slots through colours `[Coming in v2.0]`
 To edit time slots and change their colour so to show the importance of that slots.
@@ -616,6 +660,17 @@ There are 3 importance: Low, Medium and High.
 Format: `change s/SLOT IMPORTANCE`
 
 Example: `change s/17/10/2019 13:00-14:00 medium`
+
+// end::UiDisplay[]
+
+// tag::clear[]
+
+=== Clear all interviewees/interviewers `clear`
+Clears all interviewees, interviewers and schedules from Scheduler.
+
+Format: `clear`
+
+// end::clear[]
 
 === Get interview schedule `get` `[Coming in v2.0]`
 Find an interviewer/interviewee and display his/her interview schedule.
