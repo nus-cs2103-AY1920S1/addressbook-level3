@@ -64,9 +64,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete i/1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete i/1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
