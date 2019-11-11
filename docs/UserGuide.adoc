@@ -319,7 +319,6 @@ What `assert(addExclam("Hello"), "Hello!")` does is to compare the result of `ad
 
 and if you write both the correct `addExclam` and `addFive` functions, the card can test both functions for you. +
 
-
        Example program:
 
        const addExclam = str => str + "!";
