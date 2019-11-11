@@ -44,6 +44,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_validIndexValidQuantity_successful() throws NoSuchItemException {
+        TypicalItem.STORYBOOK.setQuantity(5000);
         EditCommand editCommand = new EditCommand(VALID_INDEX, VALID_QUANTITY);
         String message = String.format(CashierMessages.MESSAGE_EDIT_SUCCESS,
                 TypicalItem.STORYBOOK.getDescription(), VALID_QUANTITY);
