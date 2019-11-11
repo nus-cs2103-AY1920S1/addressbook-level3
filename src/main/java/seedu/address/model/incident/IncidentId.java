@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class IncidentId {
     public static final String MESSAGE_CONSTRAINTS =
-            "Incident ID should only contain numerical digits and should not be blank";
+            "Incident ID should only contain numerical digits and should not be blank.";
 
     private static int previousMonth = 1;
     private static int monthId = 1;

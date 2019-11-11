@@ -11,10 +11,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 participant "filteredIncidents:FilteredList<Incident>" as FilteredList MODEL_COLOR
 end box
-[-> LogicManager : execute("find-i")
+[-> LogicManager : execute("list-i")
 activate LogicManager
 
-LogicManager -> IncidentManagerParser : parseCommand("find-i")
+LogicManager -> IncidentManagerParser : parseCommand("list-i")
 activate IncidentManagerParser
 
 create ListIncidentsCommand

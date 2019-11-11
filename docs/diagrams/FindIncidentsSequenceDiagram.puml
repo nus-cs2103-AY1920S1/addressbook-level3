@@ -1,0 +1,84 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":IncidentManagerParser" as IncidentManagerParser LOGIC_COLOR
+participant ":FindIncidentsCommandParser" as FindIncidentsCommandParser LOGIC_COLOR
+participant "l:FindIncidentsCommand" as FindIncidentsCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "dkp: DescriptionKeywordsPredicate" as DescriptionKeywordsPredicate MODEL_COLOR
+participant "nkp: NameKeywordsPredicate" as NameKeywordsPredicate MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant "filteredIncidents:FilteredList<Incident>" as FilteredList MODEL_COLOR
+end box
+[-> IncidentManagerParser : parseCommand("find-i op/alex desc/pmd")
+activate IncidentManagerParser
+
+create FindIncidentsCommandParser
+IncidentManagerParser -> FindIncidentsCommandParser
+activate FindIncidentsCommandParser
+
+FindIncidentsCommandParser --> IncidentManagerParser
+deactivate FindIncidentsCommandParser
+
+IncidentManagerParser -> FindIncidentsCommandParser : parse("op/alex desc/pmd")
+activate FindIncidentsCommandParser
+
+FindIncidentsCommandParser -> DescriptionKeywordsPredicate : "pmd"
+activate DescriptionKeywordsPredicate
+DescriptionKeywordsPredicate --> FindIncidentsCommandParser : dkp
+deactivate DescriptionKeywordsPredicate
+
+FindIncidentsCommandParser -> FindIncidentsCommandParser : predicateArr.add(dkp)
+
+FindIncidentsCommandParser -> NameKeywordsPredicate : "alex"
+activate NameKeywordsPredicate
+NameKeywordsPredicate --> FindIncidentsCommandParser : nkp
+deactivate NameKeywordsPredicate
+
+FindIncidentsCommandParser -> FindIncidentsCommandParser : predicateArr.add(nkp)
+
+create FindIncidentsCommand
+FindIncidentsCommandParser -> FindIncidentsCommand : predicateArr
+activate FindIncidentsCommand
+
+FindIncidentsCommand -> FindIncidentsCommand : combinePredicates()
+
+FindIncidentsCommand --> FindIncidentsCommandParser : l
+deactivate FindIncidentsCommand
+
+FindIncidentsCommandParser --> IncidentManagerParser : l
+deactivate FindIncidentsCommandParser
+
+IncidentManagerParser -->[  : l
+deactivate IncidentManagerParser
+destroy FindIncidentsCommandParser
+
+[-> FindIncidentsCommand : execute()
+activate FindIncidentsCommand
+
+FindIncidentsCommand -> Model : updatedFilteredIncidentList(predicate)
+activate Model
+
+Model -> FilteredList : setPredicate(predicate)
+activate FilteredList
+ FilteredList --> Model :
+deactivate FilteredList
+
+Model --> FindIncidentsCommand
+deactivate Model
+
+FindIncidentsCommand -> Model : getFilteredIncidentList
+activate Model
+
+Model --> FindIncidentsCommand
+deactivate Model
+
+FindIncidentsCommand -> FindIncidentsCommand : size()
+
+FindIncidentsCommand -->[ : commandResult
+deactivate FindIncidentsCommand
+FindIncidentsCommand -[hidden]->] : commandResult
+@enduml
