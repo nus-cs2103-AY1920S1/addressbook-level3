@@ -1,0 +1,81 @@
+= Xelyion - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Teacher's Notebook
+
+---
+
+== Overview
+
+Teacher's Notebook is a desktop application designed for teachers to manage their busy schedules, by aiding the the tasks of
+ managing classrooms, students, and assignments. There is also a reminder function to alert the user to upcoming lessons.
+ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to manage classrooms with the Notebook class*
+** What it does:
+** Justification: This feature improves the product significantly because a user can have more than one classroom of students, and
+have different assignments for each classroom.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis
+ of existing structure and relations between existing classes. The implementation too was challenging as it required changes
+ to the entire structure of the application, from logic and commands to storage.
+
+* *Minor enhancement*: Added color to indicate selection of classrooms
+* *Minor enhancement*: Added color to indicate selection of classrooms
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuideOld.adoc[tag=add]
+
+include::../UserGuideOld.adoc[tag=edit]
+
+include::../UserGuideOld.adoc[tag=list]
+
+include::../UserGuideOld.adoc[tag=reminder]
+
+include::../UserGuideOld.adoc[tag=delete]
+
+include::../UserGuideOld.adoc[tag=find]
+
+
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
