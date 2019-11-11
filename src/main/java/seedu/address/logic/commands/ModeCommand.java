@@ -12,21 +12,14 @@ public class ModeCommand extends Command {
 
     public static final String COMMAND_WORD = "mode";
 
-    public static final String MESSAGE_SUCCESS_MAIN = "Mode Changed: Main Mode";
-
-    public static final String MESSAGE_SUCCESS_TODO = "Mode Changed: Todo Mode";
-
+    public static final String MESSAGE_SUCCESS = "Mode successfully changed: %s";
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.toggle();
         model.updateFilteredEateryList(PREDICATE_SHOW_ALL_EATERIES);
-        if (model.isMainMode()) {
-            return new CommandResult(MESSAGE_SUCCESS_MAIN);
-        } else {
-            return new CommandResult(MESSAGE_SUCCESS_TODO);
-        }
 
+        return new CommandResult(String.format(MESSAGE_SUCCESS, model.isMainMode() ? "main mode" : "todo mode"));
     }
 }

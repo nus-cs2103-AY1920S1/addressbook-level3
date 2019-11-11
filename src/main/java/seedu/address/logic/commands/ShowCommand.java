@@ -21,10 +21,10 @@ public class ShowCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Shows the eatery identified by the index number used in the displayed eatery list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: [index] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SHOW_EATERY_SUCCESS = "Shown Eatery: %s";
+    public static final String MESSAGE_SHOW_EATERY_SUCCESS = "Eatery successfully shown: %s";
 
     private final Index targetIndex;
 

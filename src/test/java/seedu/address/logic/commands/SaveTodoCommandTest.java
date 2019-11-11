@@ -58,7 +58,7 @@ public class SaveTodoCommandTest {
         }
 
         String pendingCommand = String.format("add %s %s %s %s %s %s",
-            PREFIX_NAME, name, PREFIX_ADDRESS, address, tags.toString(), PREFIX_CATEGORY);
+            PREFIX_NAME, name, PREFIX_ADDRESS, address, tags.toString().trim(), PREFIX_CATEGORY);
         String expectedMessage = SaveTodoCommand.MESSAGE_REMINDER_TO_USER + pendingCommand;
 
         assertCommandSuccess(saveTodoCommand, model, expectedMessage, expectedModel);

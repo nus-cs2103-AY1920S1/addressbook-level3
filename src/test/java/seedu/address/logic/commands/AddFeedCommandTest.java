@@ -34,7 +34,7 @@ public class AddFeedCommandTest {
         expectedModel.addFeed(validFeed);
 
         assertCommandSuccess(new AddFeedCommand(validFeed), model,
-                String.format(AddFeedCommand.MESSAGE_SUCCESS, validFeed), expectedModel);
+                String.format(AddFeedCommand.MESSAGE_SUCCESS, validFeed.getName()), expectedModel);
     }
 
     @Test

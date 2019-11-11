@@ -24,7 +24,8 @@ public class DeleteFeedCommandTest {
         Feed feedToDelete = model.getFeedList().getFeedList().get(0);
         DeleteFeedCommand deleteCommand = new DeleteFeedCommand(feedToDelete.getName());
 
-        String expectedMessage = String.format(DeleteFeedCommand.MESSAGE_DELETE_FEED_SUCCESS, feedToDelete);
+        String expectedMessage = String.format(DeleteFeedCommand.MESSAGE_DELETE_FEED_SUCCESS,
+                feedToDelete.getName());
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getFeedList(), new UserPrefs());
         expectedModel.deleteFeed(feedToDelete);

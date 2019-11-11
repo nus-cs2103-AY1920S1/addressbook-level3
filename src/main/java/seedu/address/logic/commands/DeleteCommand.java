@@ -19,10 +19,10 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the eatery identified by the index number used in the displayed eatery list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: [index] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_EATERY_SUCCESS = "Deleted Eatery: %1$s";
+    public static final String MESSAGE_DELETE_EATERY_SUCCESS = "Eatery successfully deleted: %s";
 
     private final Index targetIndex;
 
@@ -41,7 +41,7 @@ public class DeleteCommand extends Command {
 
         Eatery eateryToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteEatery(eateryToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_EATERY_SUCCESS, eateryToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_EATERY_SUCCESS, eateryToDelete.getName()));
     }
 
     @Override

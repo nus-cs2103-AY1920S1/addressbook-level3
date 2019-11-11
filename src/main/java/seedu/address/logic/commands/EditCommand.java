@@ -34,16 +34,16 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the eatery identified "
             + "by the index number used in the displayed eatery list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + " NAME] "
-            + "[" + PREFIX_ADDRESS + " ADDRESS] "
-            + "[" + PREFIX_CATEGORY + " CATEGORY] "
-            + "[" + PREFIX_TAG + " TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "Parameters: [index] (must be a positive integer) "
+            + "{" + PREFIX_NAME + " [name]} "
+            + "{" + PREFIX_ADDRESS + " [address]} "
+            + "{" + PREFIX_CATEGORY + " [category]} "
+            + "{" + PREFIX_TAG + " [tag]} ...\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_ADDRESS + " 100 Orchard Road";
 
-    public static final String MESSAGE_EDIT_EATERY_SUCCESS = "Edited Eatery: %1$s";
+    public static final String MESSAGE_EDIT_EATERY_SUCCESS = "Eatery successfully edited: %s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_EATERY = "This eatery already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_EATERY = "This eatery already exists!";
 
     private final Index index;
     private final EditEateryDescriptor editEateryDescriptor;
@@ -78,7 +78,7 @@ public class EditCommand extends Command {
 
         model.setEatery(eateryToEdit, editedEatery);
         model.updateFilteredEateryList(PREDICATE_SHOW_ALL_EATERIES);
-        return new CommandResult(String.format(MESSAGE_EDIT_EATERY_SUCCESS, editedEatery));
+        return new CommandResult(String.format(MESSAGE_EDIT_EATERY_SUCCESS, editedEatery.getName()));
     }
 
     /**

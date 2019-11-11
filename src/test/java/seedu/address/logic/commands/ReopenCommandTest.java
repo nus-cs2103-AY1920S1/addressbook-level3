@@ -33,7 +33,8 @@ public class ReopenCommandTest {
         Eatery reopenedEatery = new EateryBuilder().withTags("fastfood").build();
         ReopenCommand reopenCommand = new ReopenCommand(INDEX_FIRST_EATERY);
 
-        String expectedMessage = String.format(ReopenCommand.MESSAGE_REOPENED_EATERY_SUCCESS, reopenedEatery);
+        String expectedMessage = String.format(ReopenCommand.MESSAGE_REOPENED_EATERY_SUCCESS,
+                reopenedEatery.getName().fullName);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getFeedList(), new UserPrefs());
         expectedModel.setEatery(model.getFilteredEateryList().get(INDEX_FIRST_EATERY.getZeroBased()), reopenedEatery);
@@ -57,7 +58,8 @@ public class ReopenCommandTest {
         Eatery reopenedEatery = new EateryBuilder().withTags("fastfood").build();
         ReopenCommand reopenCommand = new ReopenCommand(INDEX_FIRST_EATERY);
 
-        String expectedMessage = String.format(ReopenCommand.MESSAGE_REOPENED_EATERY_SUCCESS, reopenedEatery);
+        String expectedMessage = String.format(ReopenCommand.MESSAGE_REOPENED_EATERY_SUCCESS,
+                reopenedEatery.getName().fullName);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getFeedList(), new UserPrefs());
         expectedModel.setEatery(model.getFilteredEateryList().get(INDEX_FIRST_EATERY.getZeroBased()), reopenedEatery);

@@ -25,20 +25,19 @@ public class ReviewCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a review to the eatery identified "
             + "by the index number used in the last eatery listing. "
-            + "New review will be added to the eatery.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_DESCRIPTION + " [DESCRIPTION] "
-            + PREFIX_COST + " [PRICE PER PAX] "
-            + PREFIX_RATING + " [RATING]"
-            + PREFIX_DATE + " [DATE] (should be in the dd/MM/YYYY format)\n"
+            + "Parameters: [index] (must be a positive integer) "
+            + PREFIX_DESCRIPTION + " [description] "
+            + PREFIX_COST + " [cost per person] "
+            + PREFIX_RATING + " [rating]"
+            + PREFIX_DATE + " [date] (in dd/MM/YYYY format)\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_DESCRIPTION + " Nice condensed milk pork ribs "
+            + PREFIX_DESCRIPTION + " Great noodles! "
             + PREFIX_COST + " 6.20 "
             + PREFIX_RATING + " 4 "
             + PREFIX_DATE + " 14/02/2020";
 
-    public static final String MESSAGE_ADD_REVIEW_SUCCESS = "Added review to eatery: %1$s";
-    public static final String MESSAGE_WRONG_MODE = "Add review is unavailable in todo mode.";
+    public static final String MESSAGE_ADD_REVIEW_SUCCESS = "Review successfully added";
+    public static final String MESSAGE_WRONG_MODE = "Adding of reviews is unavailable in todo mode!";
 
     private final Index index;
     private final Review review;
@@ -72,7 +71,7 @@ public class ReviewCommand extends Command {
             throw new CommandException(MESSAGE_WRONG_MODE);
         }
 
-        return new CommandResult(String.format(MESSAGE_ADD_REVIEW_SUCCESS, review));
+        return new CommandResult(MESSAGE_ADD_REVIEW_SUCCESS);
     }
 
 }

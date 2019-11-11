@@ -11,20 +11,20 @@ import seedu.address.model.Model;
 import seedu.address.model.eatery.EateryAttributesContainsKeywordsPredicate;
 
 /**
- * Finds and lists all eateries in address book whose name contains any of the argument keywords.
+ * Finds and lists all eateries in address book whose attributes contain any of the specified constraints.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all eateries whose attributes contain all of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all eateries whose attributes contain any of "
             + "the specified constraints (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: "
-            + "[" + PREFIX_NAME + " NAME] "
-            + "[" + PREFIX_ADDRESS + " ADDRESS] "
-            + "[" + PREFIX_CATEGORY + " CATEGORY] "
-            + "[" + PREFIX_TAG + " TAG]...\n"
+            + "{" + PREFIX_NAME + " [name]} "
+            + "{" + PREFIX_ADDRESS + " [address]} "
+            + "{" + PREFIX_CATEGORY + " [category]} "
+            + "{" + PREFIX_TAG + " [tag]} ...\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_CATEGORY + " chinese " + PREFIX_TAG + " delicious";
 
     private final EateryAttributesContainsKeywordsPredicate predicate;

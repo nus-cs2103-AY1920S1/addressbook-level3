@@ -30,14 +30,14 @@ public class EditReviewCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the review identified "
             + "by the index number used in the displayed review list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_DESCRIPTION + " DESCRIPTION "
-            + "[" + PREFIX_COST + " COST "
-            + "[" + PREFIX_RATING + " RATING "
-            + "[" + PREFIX_DATE + " DATE [dd/MM/yyyy format only]"
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "Parameters: [index] (must be a positive integer) "
+            + "{" + PREFIX_DESCRIPTION + " [description]} "
+            + "{" + PREFIX_COST + " [cost]} "
+            + "{" + PREFIX_RATING + " [rating]} "
+            + "{" + PREFIX_DATE + " [date] (in dd/mm/yyyy format)}"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_COST + " 15";
 
-    public static final String MESSAGE_EDITED_REVIEW_SUCCESS = "Edited Review";
+    public static final String MESSAGE_EDITED_REVIEW_SUCCESS = "Review successfully edited";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final Index index;
@@ -70,7 +70,7 @@ public class EditReviewCommand extends Command {
 
         lastShownList.set(index.getZeroBased(), editedReview);
         activeEatery.setReviews(lastShownList);
-        return new CommandResult(String.format(MESSAGE_EDITED_REVIEW_SUCCESS), editedReview);
+        return new CommandResult(MESSAGE_EDITED_REVIEW_SUCCESS);
     }
 
     /**

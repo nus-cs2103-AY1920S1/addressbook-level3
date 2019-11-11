@@ -26,11 +26,11 @@ public class ReopenCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Reopens the eatery identified by the index number used in the displayed eatery list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: [index] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_EATERY_ALREADY_OPENED = "This eatery is already open in the address book.";
-    public static final String MESSAGE_REOPENED_EATERY_SUCCESS = "Reopened Eatery: %1$s";
+    public static final String MESSAGE_EATERY_ALREADY_OPENED = "This eatery is already open!";
+    public static final String MESSAGE_REOPENED_EATERY_SUCCESS = "Eatery successfully reopened: %s";
 
     private final Index targetIndex;
 
@@ -60,7 +60,7 @@ public class ReopenCommand extends Command {
         model.setEatery(eateryToReopen, reopenedEatery);
         model.updateFilteredEateryList(PREDICATE_SHOW_ALL_EATERIES);
 
-        return new CommandResult(String.format(MESSAGE_REOPENED_EATERY_SUCCESS, reopenedEatery));
+        return new CommandResult(String.format(MESSAGE_REOPENED_EATERY_SUCCESS, reopenedEatery.getName()));
     }
 
     @Override
