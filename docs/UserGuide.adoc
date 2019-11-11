@@ -266,7 +266,8 @@ To enter the Quiz section please enter the command: `switch quiz` +
 *Note on pre-populated data:* The pre-populated data are used to help you to get the picture of how
 quiz show the data. You can use the command `clear` or go to `3.4.12` section to clear the given data.
 
-*Note on UI:* You can adjust the size of the split pane by sliding the window separator
+*Note on UI:* Modulo quiz uses dark theme to prevent users from straining their eyes by staring at
+their computer window too long. You can adjust the size of the split pane by sliding the window separator
 between the two windows to fully see the whole question. Go to `3.4.6` section to fully see the
 question properly.
 
@@ -282,9 +283,9 @@ be added with the following requirements.
 - `<tag>` Indicate that the next several phrases will be the customized tag of the question.
 
 *The details instructions after the keyword of the question:* +
-- `<qns>` are required. The word limit is 200 and minimum 3 letters. +
-- `<ans>` are required. The word limit is 125. +
-- `<cat>` are required. The word limit is 50. +
+- `<qns>` are required. The character limit is 200 and minimum 3 letters. +
+- `<ans>` are required. The character limit is 125. +
+- `<cat>` are required. The character limit is 50. +
 - `<type>` are required. The format after this command should only be: `high`, `normal`, `low`. +
 - `<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another. +
 
@@ -323,9 +324,9 @@ Specify which question you want to edit and modify it from the question list.
 - `<tag>` Indicate that the next several phrases will be the customized tag of the question.
 
 *Note that at least one of the following must be modified and replaced:* +
-- `<qns>` word limit is 200. No minimum letter. +
-- `<ans>` word limit is 125. No minimum letter. +
-- `<cat>` word limit is 50. +
+- `<qns>` character limit is 200. No minimum letter. +
+- `<ans>` character limit is 125. No minimum letter. +
+- `<cat>` character limit is 50. +
 - `<type>` format after this command should only be: `high`, `normal`, `low`. +
 - `<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another. +
 
