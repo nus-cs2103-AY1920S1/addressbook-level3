@@ -1125,7 +1125,7 @@ _{ more test cases ... }_
 _{ more test cases ... }_
 
 === Adding tags to an expense
-. Adding tags to an expense in a list with multiple expenses (filtered or not).
+. Adding tags to an expense in a list with multiple expenses.
 .. Prerequisites: Multiple expenses in the list. First expense does not have the tag "_holiday_" but have the tag "_tech_".
 .. Test case: `tag add 1 t/holiday` +
     Expected: Tag "_holiday_" is added to the first expense. Details of first expense shown in the status message.
