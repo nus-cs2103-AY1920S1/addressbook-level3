@@ -55,7 +55,7 @@ include::SettingUp.adoc[tag=settingup]
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::ArchitectureDiagram.png[align=center]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -88,7 +88,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[align=center]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -96,7 +96,7 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+image::ArchitectureSequenceDiagram.png[align=center]
 
 The sections below give more details of each component.
 
@@ -105,7 +105,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassDiagram.png[align=center]
 
 *API* : link:{repoURL}/src/main/java/seedu/savenus/ui/Ui.java[`Ui.java`]
 
@@ -130,7 +130,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[align=center]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/savenus/logic/Logic.java[`Logic.java`]
@@ -144,7 +144,7 @@ link:{repoURL}/src/main/java/seedu/savenus/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+image::DeleteSequenceDiagram.png[align=center]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -152,7 +152,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.png[align=center]
 
 *API* : link:{repoURL}/src/main/java/seedu/savenus/model/Model.java[`Model.java`]
 
@@ -179,7 +179,7 @@ The `Food`,
 * stores information `Tag` which are retrieved from the `UniqueTagList`.
 
 .Structure of the Food Component
-image:BetterModelClassDiagram.png[]
+image:BetterModelClassDiagram.png[align=center]
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Menu`, which `Food` can reference.
@@ -229,7 +229,7 @@ stall. As a result, we would want to be able to add these 2 food items into the 
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageClassDiagram.png[align=center]
 
 *API* : link:{repoURL}/src/main/java/seedu/savenus/storage/Storage.java[`Storage.java`]
 
@@ -294,7 +294,7 @@ Not only that, they will be able to implement their own custom comparator using 
 The Sorting feature was implemented with a new set of classes introduced to the Model. +
 
 .Sorting class diagram in Sort component.
-image::SortingClassDiagram.png[width=500]
+image::SortingClassDiagram.png[width=500, align=center]
 
 From the model, the `CustomSorter` stores the comparator for `autosort` and `makesort`. +
 
@@ -343,7 +343,7 @@ The user may wish to create a new custom comparator. This can be done with the `
 The sequence diagram for interactions between the Logic, Model and Storage components when a user executes the `makesort` command is shown below.
 
 .Sequence diagram for sample makesort command
-image::MakeSortSequenceDiagram.png[]
+image::MakeSortSequenceDiagram.png[align=center]
 
 The user may want to create a new custom comparator. This can be done with the `makesort` command.
 
@@ -736,7 +736,7 @@ For example, `budget 100 10` will set the user's budget, with $100.00 for 10 day
 The sequence diagram for interactions between the Logic, Model and Storage components when a user executes the `buy 1` command is shown below.
 
 .Sequence diagram for `budget 100 10` command
-image::BudgetSequenceDiagram.png[]
+image::BudgetSequenceDiagram.png[align=center]
 
 The following activity diagram below summarizes how `budget` commands works
 
@@ -799,7 +799,7 @@ After the users enters a `buy` command, for example, `buy 1` which buys the firs
 The sequence diagram for interactions between the Logic, Model and Storage components when a user executes the `buy 1` command is shown below.
 
 .Sequence diagram for `buy 1` command
-image::BuySequenceDiagram.png[]
+image::BuySequenceDiagram.png[align=center]
 
 The following activity diagram below summarizes how `buy` commands works
 
@@ -1066,12 +1066,12 @@ For example, `info add` will open up a new `InfoWindow` about the command `add`.
 The sequence window below shows how a sample `info` command is executed:
 
 .Sequence diagram for sample `info` command
-image::InfoSequenceDiagram.png[]
+image::InfoSequenceDiagram.png[align=center]
 
 The following activity diagram shows how the `info` command works.
 
 .Activity diagram for sample `info` command
-image::InfoActivityDiagram.png[]
+image::InfoActivityDiagram.png[align=center]
 
 ==== Design Considerations
 
@@ -1181,12 +1181,12 @@ theme. As such, the only valid commands are `theme dark` or `theme light`.
 The sequence window below shows how a sample `theme` command is executed:
 
 .Sequence diagram for sample `theme` command
-image::ThemeSequenceDiagram.png[]
+image::ThemeSequenceDiagram.png[align=center]
 
 The following activity diagram shows how the `theme` command works.
 
 .Activity diagram for sample `theme` command
-image::ThemeActivityDiagram.png[]
+image::ThemeActivityDiagram.png[align=center]
 
 ==== Design Considerations
 
