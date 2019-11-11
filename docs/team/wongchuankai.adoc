@@ -4,7 +4,9 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: `Ezwatchlist`
+
 ---
+
 == 1. Introduction
 
 The purpose of the Project Portfolio is to document and showcase my contributions to the software project, `EzWatchList`.
@@ -153,6 +155,7 @@ My contributions to EzWatchList can be found in the following link: [https://nus
 features. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=addfirst]
 include::../UserGuide.adoc[tag=addsecond]
 include::../UserGuide.adoc[tag=sync]
 
@@ -167,8 +170,7 @@ and the technical depth of my software engineering skills to the project._
 include::../DeveloperGuide.adoc[tag=add]
 include::../DeveloperGuide.adoc[tag=sync]
 
-== PROJECT: PowerPointLabs
+
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_
