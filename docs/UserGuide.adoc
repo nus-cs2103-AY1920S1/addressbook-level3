@@ -374,7 +374,7 @@ Shows a list of all incidents in the Incident Manager +
 Format: `list-i`
 
 Example usage of the `list-i` command returning all incidents within the system:
-image::listIncidentsCommand.png[]
+image::listIncidentsCommand.png[width="500"]
 
 * The listing returns all incidents, inclusive of all incomplete drafts and complete drafts and submitted incident reports
 * Adding any keywords or parameters will result in an error. Only `list-i` is allowed.
@@ -395,11 +395,11 @@ Lists all incidents whereby the operator name contains any of the given keywords
 
 * Example of the `find-i` command with one word under parameter `op/`, returning all incidents whereby the operator name matches `alex` (case-insensitive):
 
-image::findIncidentsCommandWithOperatorParameter.png[]
+image::findIncidentsCommandWithOperatorParameter.png[width="500"]
 
 * Example of the `find-i` command with multiple words under parameter `op/`, returning all incidents whereby the operator name matches `irfan` or `bernice` (case-insensitive):
 
-image::findIncidentsCommandWithOperatorsParameter.png[]
+image::findIncidentsCommandWithOperatorsParameter.png[width="500"]
 
 **By Description** +
 Format: `find-i desc/<DESCRIPTION KEYWORD [MORE_KEYWORDS]...>` +
@@ -407,7 +407,7 @@ Lists all incidents whereby the incident description contains any the given keyw
 
 * Example of the `find-i` command with parameter `desc/`, returning all incidents whereby the description contains either keyword `fire` or `arson`:
 
-image::findIncidentsCommandWithDescriptionParameter.png[]
+image::findIncidentsCommandWithDescriptionParameter.png[width="500"]
 
 **By ID** +
 Format: `find-i id/KEYWORD` +
@@ -417,7 +417,7 @@ Lists all incidents whereby the incident ID is an exact match with the given key
 
 * Example of `find-i` command with parameter `id/` returning all incidents whereby the ID matches `0620150001` exactly:
 
-image::findIncidentsCommandWithIdParameter.png[]
+image::findIncidentsCommandWithIdParameter.png[width="500"]
 
 **Self-Search** +
 Format: `find-i self` +
@@ -425,7 +425,7 @@ Lists all incidents whereby the operator name matches the logged-in user's name.
 
 * Example of executing `find-i self` to list all incidents:
 
-image::findIncidentsCommandWithSelfParameter.png[]
+image::findIncidentsCommandWithSelfParameter.png[width="500"]
 
 * Requires an exact name match with the logged-in user's name
 
