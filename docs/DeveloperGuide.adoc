@@ -1129,6 +1129,17 @@ modifying or adding on new criteria.
 
 |===
 
+The following is a code snippet of the chosen implementation above:
+
+    public double getTotalExpenses() {
+        Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
+        return transactionStream
+            .filter(transaction -> !transaction.getCategory().equals("Sales"))
+            .filter(transaction -> transaction.isNegative())
+            .flatMapToDouble(transaction -> DoubleStream.of(transaction.getAmount()))
+            .sum() * -1;
+    }
+
 A design consideration was also made for the implementation of the notifications that are to be displayed
 to the user upon hitting the notification threshold. These are shown in the table below:
 
@@ -1156,16 +1167,7 @@ implementation of this function,
 
 |===
 
-The following are code snippets of each of the chosen implementations above:
-
-    public double getTotalExpenses() {
-        Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
-        return transactionStream
-            .filter(transaction -> !transaction.getCategory().equals("Sales"))
-            .filter(transaction -> transaction.isNegative())
-            .flatMapToDouble(transaction -> DoubleStream.of(transaction.getAmount()))
-            .sum() * -1;
-    }
+The following is a code snippet of the chosen implementation above:
 
     private void checkIfNotify() {
         List<OverallCommandResult> notifications = overviewLogic.checkNotifications();

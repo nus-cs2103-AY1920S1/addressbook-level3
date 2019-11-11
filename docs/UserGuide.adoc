@@ -1074,7 +1074,7 @@ To reset the goal, simply set it to 0.
 image::overviewUG/SetCommandExample.png[width="600"]
 
 [start = 2]
-. Hit `Enter`
+. Hit `Enter`.
 
 //.Screenshot of a successful user input for Set Command in Overview tab
 image::overviewUG/SetCommandResult.png[width="600"]
@@ -1110,7 +1110,7 @@ To disable notifications for a particular financial goal, simply set its notific
 image::overviewUG/NotifyCommandExample.png[width="600"]
 
 [start = 2]
-. Hit `Enter`
+. Hit `Enter`.
 
 //.Screenshot of a successful user input for Notify Command in Overview tab
 image::overviewUG/NotifyCommandResult.png[width="600"]

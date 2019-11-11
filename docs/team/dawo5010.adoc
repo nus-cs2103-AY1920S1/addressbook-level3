@@ -270,7 +270,7 @@ image::overviewUG/NotificationExample.png[width="600"]
 
 :sectnums:
 ==  Contributions to the Developer Guide
-The following section shows my additions to the treasurerPro Developer Guide for the Overview tab features.
+The following section shows my additions to the treasurerPro Developer Guide.
 
 :sectnums!:
 
@@ -281,6 +281,7 @@ The following section shows my additions to the treasurerPro Developer Guide for
 This section will show further details of the `Logic` Component of the Overview tab.
 Given below is a Class Diagram showing the structure of `Parser` within the `Logic` Component:
 
+[caption = "Figure 10. "]
 .Structure of `Parser` for Overview Tab.
 image::OverviewLogicDiagram.png[]
 
@@ -314,7 +315,7 @@ This feature allows the user to set a goal for their budget, expense or sales ta
 The following sequence diagram depicts how the Set Command operates, and is an extension of the general sequence diagram
 found in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
-[caption = "Figure 42. "]
+[caption = "Figure 52. "]
 .Sequence Diagram of Set Command in the Overview package.
 image::OverviewSetCommandSD.png[]
 
@@ -328,14 +329,14 @@ particular financial goal, the user will automatically be notified of it with a 
 The following sequence diagram depicts how the Notify Command operates, and is an extension of the general sequence
 diagram found in <<GeneralLogicSD, 2.3 Logic component: Figure 5>>:
 
-[caption = "Figure 43. "]
+[caption = "Figure 53. "]
 .Sequence Diagram of Notify Command in the Overview Package
 image::OverviewNotifyCommandSD.png[]
 
 After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to
 the data file. The full execution of the command is shown in the activity diagram below:
 
-[caption = "Figure 44. "]
+[caption = "Figure 54. "]
 .Activity Diagram of Notify Command in the Overview Package
 image::OverviewNotifyActivityDiagram.png[]
 
@@ -370,6 +371,17 @@ modifying or adding on new criteria.
 
 |===
 
+The following is a code snippet of the chosen implementation above:
+
+    public double getTotalExpenses() {
+        Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
+        return transactionStream
+            .filter(transaction -> !transaction.getCategory().equals("Sales"))
+            .filter(transaction -> transaction.isNegative())
+            .flatMapToDouble(transaction -> DoubleStream.of(transaction.getAmount()))
+            .sum() * -1;
+    }
+
 A design consideration was also made for the implementation of the notifications that are to be displayed
 to the user upon hitting the notification threshold. These are shown in the table below:
 
@@ -397,16 +409,7 @@ implementation of this function,
 
 |===
 
-The following are code snippets of each of the chosen implementations above:
-
-    public double getTotalExpenses() {
-        Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
-        return transactionStream
-            .filter(transaction -> !transaction.getCategory().equals("Sales"))
-            .filter(transaction -> transaction.isNegative())
-            .flatMapToDouble(transaction -> DoubleStream.of(transaction.getAmount()))
-            .sum() * -1;
-    }
+The following is a code snippet of the chosen implementation above:
 
     private void checkIfNotify() {
         List<OverallCommandResult> notifications = overviewLogic.checkNotifications();
