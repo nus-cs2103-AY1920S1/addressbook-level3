@@ -51,6 +51,10 @@ public class TypicalSchedules {
             .setDate(2019, 05, 11).setTimeOfDay(11, 11, 0).build();
     private static final Calendar CBD_CALENDAR_7 = new Calendar.Builder()
             .setDate(2019, 10, 11).setTimeOfDay(11, 11, 0).build();
+    private static final Calendar CBD_CALENDAR_TEST = new Calendar.Builder()
+            .setDate(2019, 10, 12).setTimeOfDay(12, 11, 0).build();
+    private static final Calendar CBD_CALENDAR_TEST2 = new Calendar.Builder()
+            .setDate(2019, 10, 13).setTimeOfDay(05, 11, 0).build();
 
     public static final Schedule SCHEDULESTATONE = new ScheduleBuilder().withId(UUID.randomUUID())
             .withCalendar(CBD_CALENDAR_1).withVenue(DEFAULT_VENUE_1).withTags(DEFAULT_TAG_1).build();
@@ -72,6 +76,12 @@ public class TypicalSchedules {
 
     public static final Schedule SCHEDULESTATSEVEN = new ScheduleBuilder().withId(UUID.randomUUID())
             .withCalendar(CBD_CALENDAR_7).withVenue(DEFAULT_VENUE_1).withTags(DEFAULT_TAG_1).build();
+
+    public static final Schedule SCHEDULE_TEST = new ScheduleBuilder().withId(UUID.randomUUID())
+            .withCalendar(CBD_CALENDAR_TEST).withVenue(DEFAULT_VENUE_1).withTags(DEFAULT_TAG_1).build();
+
+    public static final Schedule SCHEDULE_TEST2 = new ScheduleBuilder().withId(UUID.randomUUID())
+            .withCalendar(CBD_CALENDAR_TEST2).withVenue(DEFAULT_VENUE_1).withTags(DEFAULT_TAG_1).build();
 
     /**
      * Returns a {@code DataBook} with all the typical schedules.
