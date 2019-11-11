@@ -726,10 +726,10 @@ binary search.
 // tag::healthRecords[]
 [[HealthRecordsTag]]
 === Health Records feature
-The Health Records feature allows user to record their health progress using the commands
-`add health`, as well as making record changes with `edit health`, `delete health` and `clear health`.
+The Health Records feature allows user to track their health progress using the commands
+`add health`, as well as making changes to their records with `edit health`, `delete health` and `clear health`.
 
-Additionally, users can create and personalize their own profile with commands `add profile`,
+Additionally, users can create and personalize their own profile with the commands `add profile`,
 `edit profile` and `delete profile`.
 
 In a nut shell, the Health Records feature supports the following operations:
@@ -799,7 +799,7 @@ below depicts the class diagram of the `Person` class
 .Structure of the Person Component
 image::PersonClassDiagram.png[]
 
-It can be observed that `Person` share similar attributes to `Record`, *Weight* and *Height*.
+It can be observed that `Person` share similar attributes to `Record`, both *Weight* and *Height*.
 However, the implementation of the two types are distinctly different among `Record` and `Person`. `Record` have
 structured *Weight* and *Height* to be attributes of its `Type` enum class while `Person` has defined
 them separately to be classes of their own.
@@ -812,7 +812,7 @@ image::LinkHealthToProfileSequenceDiagram.png[]
 
 Once `Model#addRecord` has been executed, `AddRecordCommand` will check the type of
 the newly added record. If it is a *Weight* or *Height* record, `LinkProfile#updateProfile`
-will be called. The `LinkProfile` acts as a bridge for `AddRecordCommand` to invoke `EditProfileCommand`,
+will be called. The `LinkProfile` helps `AddRecordCommand` to invoke `EditProfileCommand` by
 calling for changes to be made for profile.
 
 A simplified activity diagram of the problem can be shown below.
@@ -832,22 +832,23 @@ in sync with health records.
 |===
 |Aspect |Option 1 (Chosen)|Option 2
 
-|Way of implementating Record `Type`
+|Data Structure used to store Record Type
 |`Enum` class is used to store record types.
 
-- **Pros**: More static control over the record types with varying validity checks. +
-- **Cons**: Limited options of health record types as no changes can be made. +
+- **Pros**: Type safe and more static control over the record types. +
+
+- **Cons**: Limiting health record types as no dynamic additions can be made. +
 
 This choice was chosen as it is easier to maintain for our model. Additionally, the extension of having user defined health
 types would mean more validity checks and maintainence needed.
 
 |A `HashMap` is used to store record types.
 
-- **Pros**: Increase flexibility and possible extension of having user defined health types. +
+- **Pros**: Increase flexibility and have the possible extension of allowing user defined health types. +
+
 - **Cons**: More error prone compared to enums +
 
 |===
-
 
 // tag::diary[]
 [[DiaryTag]]
@@ -1254,7 +1255,6 @@ Use case resumes at step 2.
 
 [discrete]
 
-=== Use case: UC03 - Adding Calorie Intake
 === Use case: UC03 - Adding Glucose Record
 
 *MSS*
