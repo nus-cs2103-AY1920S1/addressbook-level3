@@ -1,5 +1,9 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DATEJOINED_BEFORE_DOB;
+import static seedu.address.commons.core.Messages.MESSAGE_DOA_BEFORE_DOB;
+import static seedu.address.commons.core.Messages.MESSAGE_DOA_BEFORE_DOD;
+import static seedu.address.commons.core.Messages.MESSAGE_DOD_BEFORE_DOB;
 import static seedu.address.commons.core.Messages.MESSAGE_INEXISTENT_FRIDGE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -136,6 +140,10 @@ public class AddCommandParser implements Parser<AddCommand> {
             .orElse(""));
         Photo photo = ParserUtil.parsePhoto(argMultimap.getValue(PREFIX_PHOTO).orElse(""));
 
+        if (dateJoined != null && dateOfBirth != null && dateJoined.before(dateOfBirth)) {
+            throw new ParseException(MESSAGE_DATEJOINED_BEFORE_DOB);
+        }
+
         return new Worker(name, phone, sex, employmentStatus, dateOfBirth, dateJoined, designation, photo);
     }
 
@@ -171,6 +179,13 @@ public class AddCommandParser implements Parser<AddCommand> {
             }
         }
 
+        if (dateOfAdmission != null && dateOfDeath != null && dateOfAdmission.before(dateOfDeath)) {
+            throw new ParseException(MESSAGE_DOA_BEFORE_DOD);
+        } else if (dateOfAdmission != null && dateOfBirth != null && dateOfAdmission.before(dateOfBirth)) {
+            throw new ParseException(MESSAGE_DOA_BEFORE_DOB);
+        } else if (dateOfDeath != null && dateOfBirth != null && dateOfDeath.before(dateOfBirth)) {
+            throw new ParseException(MESSAGE_DOD_BEFORE_DOB);
+        }
         return new Body(dateOfAdmission, name, sex, nric, religion,
                 causeOfDeath, organsForDonation, status, fridgeId, dateOfBirth, dateOfDeath, nameNok, relationship,
                         phoneNok, details);
