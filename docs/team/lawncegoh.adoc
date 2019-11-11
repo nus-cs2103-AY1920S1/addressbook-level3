@@ -12,12 +12,11 @@ image::lawncegoh.png[width="100", align="left"]
 
 Hi! My name is Lawnce. I am a second year student in School of Computing. This page aims to document the contributions I have made in a project that my team and I completed for the module CS2103T.
 
-I am in a team of 4 Computer Science students and we were tasked to enhance the existing Command Line Interface application the module provided us with. We decided to morph the application into a Financial Tracker for Finance Secretaries in organisations. The name of the application is FinSec.
+My team was tasked to enhance the existing Command Line Interface application the module provided us with. We decided to morph the application into a Financial Tracker for Finance Secretaries in organisations.
 
-This new application, allows for these Finance Secretaries to easily store their claims requests, income inflows and keep track of budget accurately. On top of these, the secretary can store the contacts of all the people who have made transactions with him so that it ensures easier tracking in the future.
+This new application, FinSec, allows for these Finance Secretaries to easily store their claims requests, income inflows and keep track of budget accurately. On top of these, the secretary can store the contacts of all the people who have made transactions with him so that it ensures easier tracking in the future.
 
 This is what our project looks like:
-
 [[fig-PPP-ui]]
 .Structure of the Logic Component
 image::PPP-ui.png[]
@@ -95,7 +94,7 @@ https://github.com/AY1920S1-CS2103T-W12-1/main/pull/58[#58], https://github.com/
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/139[139],
 https://github.com/nus-cs2103-AY1920S1/forum/issues/45[2]
 
-** Tools:
+** Tool:
 *** Integrated coveralls to the project
 
 == Contributions to the User Guide
@@ -127,8 +126,5 @@ I have made for `sort` and `check` features._
 include::../DeveloperGuide.adoc[tag=sortfeature]
 
 include::../DeveloperGuide.adoc[tag=checkfeature]
-
-
-
 ---
 
