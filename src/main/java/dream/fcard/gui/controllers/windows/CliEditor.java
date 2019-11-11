@@ -12,6 +12,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.Clipboard;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
@@ -199,7 +200,9 @@ public class CliEditor {
      */
     private void processKeyInput(KeyEvent e) {
         int code = e.getCode().getCode();
-        if (code == 68 && e.isControlDown() && multiline) { //multiline escape
+        if (code == 86 && e.isControlDown()) {
+            printClipBoard();
+        } else if (code == 68 && e.isControlDown() && multiline) { //multiline escape
             multilineEscape();
         } else if (code == 67 && e.isControlDown() && !multiline) { // clear line
             clearSingleLine();
@@ -228,6 +231,20 @@ public class CliEditor {
             justHistory = false;
         }
         render();
+    }
+
+    /**
+     * Prints clipboard content to cli.
+     */
+    private void printClipBoard() {
+        String str = Clipboard.getSystemClipboard().getString();
+        boolean hasMultiline = str.contains("\n");
+        for (String s : str.split("\n")) {
+            characterInput(s);
+            if (hasMultiline) {
+                newLine();
+            }
+        }
     }
 
     /**
