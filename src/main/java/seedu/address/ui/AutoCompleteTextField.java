@@ -1,12 +1,12 @@
 package seedu.address.ui;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -37,28 +37,29 @@ public class AutoCompleteTextField extends TextField {
     /**
      * The listener that will be added to textproperty
      * listens for changes in user input and suggests
-     * commands accordingly, filters by contains().
+     * commands accordingly, using getSuggestedCommands
      */
     private ChangeListener<String> changeListener = new ChangeListener<>() {
         @Override
         public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
             String enteredText = getText();
+
             int maxCompareWordSize = 6;
             int comparingCutoffPoint = Math.min(enteredText.length(), maxCompareWordSize);
-            String mainRequest = enteredText.substring(0, comparingCutoffPoint);
+            String mainText = enteredText.substring(0, comparingCutoffPoint);
+
             if (enteredText == null || enteredText.isEmpty()) {
                 entriesPopup.hide();
             } else {
-                //TODO make this code better
-                List<String> filteredEntries = entries.stream()
-                        .filter(e -> e.toLowerCase().contains(mainRequest.toLowerCase()))
-                        .collect(Collectors.toList());
+                ArrayList<String> filteredEntries = getSuggestedCommands(mainText);
                 if (!filteredEntries.isEmpty()) {
-                    populatePopUp(filteredEntries, mainRequest);
+                    populatePopUp(filteredEntries, mainText);
                     if (!entriesPopup.isShowing()) {
                         //position of popup
                         entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
                     }
+                    // V impt, enables focus on 1st suggestion all the time
+                    entriesPopup.getSkin().getNode().lookup(".menu-item").requestFocus();
                 } else {
                     entriesPopup.hide();
                 }
@@ -85,8 +86,12 @@ public class AutoCompleteTextField extends TextField {
      */
     public void initListener() {
         textProperty().addListener(changeListener);
+        focusedProperty().addListener((observableValue, oldValue, newValue) -> {
+            entriesPopup.hide();
+        });
         logger.info("Listening to textfield.");
     }
+
     /**
      * shutsdown listener for autocomplete
      */
@@ -96,13 +101,54 @@ public class AutoCompleteTextField extends TextField {
     }
 
     /**
+     * filter entries based on contains
+     */
+    private ArrayList<String> getSuggestedCommands(String enteredText) {
+        ArrayList<String> suggestedCommands = new ArrayList<>();
+        boolean commandContainsUserInput;
+        for (String command : entries) {
+            commandContainsUserInput = command.contains(enteredText);
+            if (commandContainsUserInput) {
+                suggestedCommands.add(command);
+            }
+        }
+        suggestedCommands.sort(new SuggestionComparator(enteredText));
+        return suggestedCommands;
+    }
+
+    /**
+     * comparator to decide which
+     * suggested command to place first
+     * in popup menu
+     */
+    public class SuggestionComparator implements Comparator<String> {
+
+        private final String enteredText;
+
+        public SuggestionComparator(String enteredText) {
+            this.enteredText = enteredText;
+        }
+        @Override
+        public int compare(String command, String otherCommand) {
+            int inputIndexOfCommand = command.indexOf(enteredText);
+            int inputIndexOfOtherCommand = otherCommand.indexOf(enteredText);
+            if (inputIndexOfCommand < inputIndexOfOtherCommand) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+    }
+
+    /**
      * Populates contextmenu with suggestions from listener
      * if any suggestion is selected,
      * set the textfield to suggestion.
      * @param searchResults
      * @param searchRequest
      */
-    private void populatePopUp(List<String> searchResults, String searchRequest) {
+    private void populatePopUp(ArrayList<String> searchResults, String searchRequest) {
         assert !searchResults.isEmpty() : "Search result must be non-empty in this method.";
         if (searchRequest.equals("")) {
             return;

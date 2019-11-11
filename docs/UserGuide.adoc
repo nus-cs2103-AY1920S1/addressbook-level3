@@ -89,6 +89,9 @@ Examples:
 
 * `setclass c/4E7`
 * `setclass c/3E8`
+
+[NOTE]
+The classroom names are case-sensitive.
 // end::classes[]
 
 // tag::lessons[]
@@ -280,6 +283,7 @@ Upon typing any letters that resemble commands, a popup menu will appear as show
 
 image::autocorrect/autocomplete2.jpg[auto,500,480,pdfwidth=50%,scaledwidth=50%]
 
+
 The user can then choose the first option of the menu using CTRL, use SHIFT + UP and SHIFT + DOWN to cycle through menu options, +
 or use ESC to turn the autocomplete feature off. CTRL can be used to turn the feature back on. +
 
@@ -288,6 +292,14 @@ Usage:
 `SHIFT + Arrow DOWN` and `SHIFT + Arrow UP` Keys to toggle between autocomplete options +
 `CTRL` Key to choose the first autocomplete suggestion, or turn AutoComplete on if it's off. +
 `ESC` Key to close the autocomplete suggestions and turn off AutoComplete. +
+
+[NOTE]
+To facilitate the user learning the long and possibly tedious commands,
+the AutoComplete popup menu does not hide when a user's input greater than 6 characters does not match any command.
+This is why even if the input matches the suggestion, the matching part of the
+suggestion is not highlighted past 6 characters.
+6 characters is an arbitrary value and will be improved upon in future releases, and
+with user feedback.
 
 ==== History
 
