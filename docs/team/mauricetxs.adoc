@@ -1,0 +1,70 @@
+= Maurice Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: CaloFit
+
+---
+
+== Overview
+
+My team of 4 software engineering student and I were tasked with enhancing a basic command line interface desktop addressbook application(AddressBook – Level 3) for our Software Engineering project. We chose to morph it into a calories tracker management system called CaloFit. This enhanced application provides health-conscious people or those who are aiming for a diet to set their calorie budget for the day or to simply input their meal for the day; a calorie budget tracker that manages the meal that they take; find dishes based on keywords; suggest a meal with the remaining calorie budget; notify the user if the user missed a meal; and get data about their calorie intake progress through a report.
+
+CaloFit is a desktop application for tracking the calories that the user has taken from his or her meals over the course of using the application. +
+The user interacts with CaloFit using a Command Line Interface(CLI) that is represented by a box near the top of the application screen. This is where the user can type in their commands and press "Enter" on their keyboards to execute them. +
+It has a Graphical User Interface(GUI) created with JavaFX. The GUI is the main display that the user sees upon starting up CaloFit.
+
+This is what our project looks like as shown in Figure 1 below:
+
+image::PPPMain.png[]
+Figure 1. The graphical user interface for CaloFit.
+
+My role was to design and write the codes for the `suggest` and `notification` features. The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements.
+
+Note the following symbols and formatting used in this document:
+
+[NOTE]
+This symbol indicates important information.
+
+`suggest` A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
+
+
+== Summary of contributions
+
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
+
+* *Major enhancement 1*: added *the ability to suggest meals*
+** What it does: automatically provides the user with suggested meals based on the remaining calorie budget. Ability to toggled between finding meal and suggested meals.
+** Justification: This feature improves the product significantly because as a user most of the time we would not know what to eat, and a list of suggested meal will help us the user to decide on their meal quicker. Moreover, the suggested meals are all within the calorie budget, hence the user would not need to worry about having a meal that will be over their current calorie budget.
+** Highlights: This enhancement affects the future suggestion for a whole day meal plan or exercise plan that would be added in future. This feature provides the user with convenience of choosing a meal, and could potentially be the income generating factor for CaloFit.
+
+* *Major enhancement 2*: added *the ability to notify user when a meal is missed*
+** What it does: the user will be prompted with a notification when a meal is missed.
+** Justification: On top of keeping within the calorie budget range, this feature also ensure that the user follows a spread-out and balance diet, of eating their meal at allocated timing. Furthermore, it also ensures that the user will not miss their meal throughout their busy day schedule.
+** Highlights: This enhancement affects the future implementation of notification being set by the user and users being allowed to decide on what they want to be notified about. This feature provides the user with a worry-free experience, as they need not worry about forgetting their meal in future.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=mauricetxs&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=MauriceTXS&tabRepo=AY1920S1-CS2103T-W11-4%2Fmain%5Bmaster%5D[Functional code]]
+
+* *Other contributions*:
+
+*** Reported bugs and suggestions for other teams in the class (https://github.com/FelixNWJ/ped/issues[List of bugs reported])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide as we had to update the original AddressBook-Level 3 User Guide with instructions for the enhancements that we had added. The following is an excerpt from our *CaloFit User Guide*, showing additions that I have made for the `suggest` and `notification` feature. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=suggest]
+include::../UserGuide.adoc[tag=notification]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide for the `suggest` and `notification` feature. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=suggest]
+
+include::../DeveloperGuide.adoc[tag=notification]
