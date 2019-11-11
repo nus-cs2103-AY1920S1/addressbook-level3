@@ -15,26 +15,26 @@ skinparam sequence {
 
 }
 box Logic
-participant ":DoneTaskCommandParser" as A
-participant ":DoneTaskCommand" as B
+participant ":RunWorkoutCommandParser" as A
+participant ":RunWorkoutCommand" as B
 participant ":CommandResult" as D
 end box
 box Model MODEL_COLOR_T1
-participant ":UniqueDashboardList" as C
+participant ":UniqueWorkoutList" as C
 end box
 
- -> A: parse(done 1)
+ -> A: parse(run workout 1)
 activate A
 
-A -> B: DoneTaskCommand(1)
+A -> B: RunWorkoutCommand(1)
 activate B
 
-B -> C: doneDashboard(list)
+B -> C: get(1)
 activate C
 C --> B:
 destroy C
 
-B -> D: new CommandResult(MESSAGE)
+B -> D: new CommandResult(MESSAGE, WorkoutToRun)
 activate D
 destroy B
 
