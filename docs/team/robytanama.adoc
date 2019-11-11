@@ -187,3 +187,6 @@ include::../DeveloperGuide.adoc[tag=UI]
 
 === This section includes my contribution on the Info feature of the Developer Guide.
 include::../DeveloperGuide.adoc[tag=info]
+
+=== This section includes my contribution on the Theme feature of the Developer Guide.
+include::../DeveloperGuide.adoc[tag=theme]
