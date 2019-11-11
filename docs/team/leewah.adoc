@@ -14,10 +14,8 @@ tasks and yet, manage a healthy lifestyle at the same time.
 DukeCooks aims to simplify this by allowing you to manage various aspects of your lifestyle, all within a single application.
 In DukeCooks, you will be able to manage tasks, store recipes, plan workouts, monitor health and write diaries, all in the same application.
 
-With DukeCooks, we hope to eliminate and simplify these tedious and stressful chores, all just in one single application.
 DukeCooks is equipped with a command-line interface (CLI). With CLI all you have to do is key in what you want to do
 with an array of predefined commands.
-Then, all you have to do is sit back, relax and let DukeCooks handle the rest!
 
 == Who is behind DukeCooks?
 
@@ -29,13 +27,7 @@ Thus, this is a brownfield project which entails morphing AB3 into a new applica
 == What is in this document?
 
 This document is a collection of my contributions made to DukeCooks. These contributions can be categorized
-in the following 3 main areas:
-
-. Overall Project
-
-. User Guide
-
-. Developer Guide
+in the following 3 main areas: the overall project, the user guide, and the developer guide.
 
 == My Contributions to DukeCooks
 
@@ -46,9 +38,7 @@ track of each recipe's ingredients and nutritional value, to aid them in monitor
 nutritional intake.
 
 Initial works for the Recipe Book include referencing the AB3 codebase. The add / delete / edit / list / find functions
-from AB3 were adapted and are made available in Recipe Book. As a comparison, the functions listed before was used in
-AB3 to create and manipulate a person's contact information. In the DukeCooks Recipe Book, these functions are used to create
-and manipulate a recipe's information.
+from AB3 were adapted and are made available in Recipe Book.
 
 === Enhancement 1: Upgrading the Graphic User Interface (GUI)
 
@@ -78,9 +68,7 @@ recipes that he has saved into the DukeCooks recipe book, allowing him to plan h
 value. The Meal Plan Book will calculate and display the weekly nutritional value to the user upon the user's request.
 
 Initial works for the Meal Plan Book include referencing the AB3 codebase. The add / delete / edit / list / find functions
-from AB3 were adapted and are made available in Meal Plan Book. As a comparison, the functions listed before was used in
-AB3 to create and manipulate a person's contact information. In the DukeCooks Meal Plan Book, these functions are used to create
-and manipulate a meal plan's information.
+from AB3 were adapted and are made available in Meal Plan Book.
 
 === Enhancement 1: Upgrading the Graphic User Interface (GUI)
 
@@ -191,44 +179,32 @@ and a new meal plan named "One Recipe" will be added.
 .Successfully added meal plan
 image::ug_mealplan_addMealPlan2.png[]
 
-==== Editing a meal plan
-Edit a meal plan according to a specified index. +
-Command `edit mealplan` +
-Format: `edit mealplan <index> [parameters]`
+==== Finding a meal plan containing a certain recipe
+Finds meal plans with a specified recipe name. +
+Command: `find mealplanwith` +
+Format: `find mealplanwith <recipe name keyword>`
 
-The possible parameters are:
-
-* `n/<name>` : edits name
-* `day1/<recipe>` : adds a recipe to this day
-* `day1-/<recipe>` : removes a recipe only if it exists in this day
-* `day2/<recipe>` : adds a recipe to this day
-* `day2-/<recipe>` : removes a recipe only if it exists in this day
-* `day3/<recipe>` : adds a recipe to this day
-* `day3-/<recipe>` : removes a recipe only if it exists in this day
-* `day4/<recipe>` : adds a recipe to this day
-* `day4-/<recipe>` : removes a recipe only if it exists in this day
-* `day5/<recipe>` : adds a recipe to this day
-* `day5-/<recipe>` : removes a recipe only if it exists in this day
-* `day6/<recipe>` : adds a recipe to this day
-* `day6-/<recipe>` : removes a recipe only if it exists in this day
-* `day7/<recipe>` : adds a recipe to this day
-* `day7-/<recipe>` : removes a recipe only if it exists in this day
+[IMPORTANT]
+====
+You can only search for one recipe at a time. The recipe's name must be entered exactly as it is in the recipe book.
+====
 
 Examples:
 
-* `edit mealplan 1 n/Bulking day-1/Salad day4/Mashed Potatoes` +
-Updates the first listed meal plan to remove the recipe "Salad" from Day 1 and add the recipe "Mashed Potatoes" to Day 4.
+* `find mealplanwith Chicken Rice` +
+Lists all meal plans containing "Chicken Rice" in any of the meal plan days.
 
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-.Editing a meal plan
-image::ug_mealplan_editMealPlan1.png[]
+.Finding a meal plan with recipe
+image::ug_mealplan_findWithMealPlan1.png[]
 +
-. If the command succeeds, the following result will be displayed and the meal plan will be edited as shown below.
+. If the command succeeds, only the found meal plans would be displayed as shown below. In this case,
+all meal plans with the recipe "Chilli Crab" in any of its days would be found.
 +
-.Successfully edited a meal plan
-image::ug_mealplan_editMealPlan2.png[]
+.Successfully found meal plan with recipe
+image::ug_mealplan_findWithMealPlan2.png[]
 
 //END OF USER GUIDE
 

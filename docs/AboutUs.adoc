@@ -5,9 +5,10 @@
 :stylesDir: stylesheets
 :stylesheet: asciidoctor.css
 
-DukeCooks is a lifestyle app developed by our team.
+DukeCooks is a healthy lifestyle app developed by our team.
 
-We are a team of students from: http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+DukeCooks is proudly developed by a group of second-year students from the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore]. +
+The https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook3] (AB3), was used and referenced to make DukeCooks. As such, this is a brownfield project which entails morphing AB3 into a new application which in this case, DukeCooks.
 
 == Project Team
 
@@ -49,7 +50,7 @@ Responsibilities: Exercise Tracker
 
 === Yeo Yuan Xin
 image::yyuanxin.png[width="150", align="left"]
-{empty}[http://github.com/yyuanxin[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/yyuanxin[github]] [<<yeoyuanxin#, portfolio>>]
 
 Role: UI Design +
 Responsibilities: Health Records

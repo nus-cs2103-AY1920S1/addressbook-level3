@@ -26,12 +26,6 @@ public class SampleRecordDataUtil {
                     getRemarkSet("after meal", "dinner")
             ),
             new Record(
-                Type.Glucose,
-                new Value("30"),
-                new Timestamp("17/10/2019 13:10"),
-                getRemarkSet("after meal", "lunch")
-            ),
-            new Record(
                 Type.Weight,
                 new Value("67"),
                 new Timestamp("26/10/2019 12:10"),
@@ -44,21 +38,9 @@ public class SampleRecordDataUtil {
                 getRemarkSet()
             ),
             new Record(
-                Type.Weight,
-                new Value("65"),
-                new Timestamp("23/10/2019 12:00"),
-                getRemarkSet()
-            ),
-            new Record(
                 Type.Height,
                 new Value("168"),
                 new Timestamp("25/10/2019 12:00"),
-                getRemarkSet()
-            ),
-            new Record(
-                Type.Height,
-                new Value("167"),
-                new Timestamp("05/10/2019 12:00"),
                 getRemarkSet()
             ),
             new Record(
@@ -72,6 +54,24 @@ public class SampleRecordDataUtil {
                 new Value("300"),
                 new Timestamp("24/10/2019 11:00"),
                 getRemarkSet("on a diet", "breakfast", "no carbs")
+            ),
+            new Record(
+                Type.Carbs,
+                new Value("8"),
+                new Timestamp("24/10/2019 12:00"),
+                getRemarkSet()
+            ),
+            new Record(
+                Type.Fats,
+                new Value("20"),
+                new Timestamp("24/10/2019 12:00"),
+                getRemarkSet("lunch")
+            ),
+            new Record(
+                Type.Protein,
+                new Value("22"),
+                new Timestamp("24/10/2019 12:00"),
+                getRemarkSet()
             )
         };
     }

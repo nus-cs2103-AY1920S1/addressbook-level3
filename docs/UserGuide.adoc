@@ -69,9 +69,11 @@ section.
 .  Copy the file to the folder you want to use as the home folder for DukeCooks.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+
+.Start-up screen for DukeCooks
 image::Ui.png[width="790"]
 
-.  Refer to <<Commands>> for details of each command.
+.  Refer to <<Commands, Commands>> for details of each command.
 
 === Quick Look at DukeCooks
 
@@ -91,9 +93,10 @@ You may click on the following features below to find out more about the feature
 
 * Dashboard: +
 Start making a task list for the things you plan to do and never have to forget to do something ever again!
-* Recipe Book - (Fill in a simple line for your feature?)
+* Recipe Book - Keep a record of all your homemade recipes!
+* Meal Plan - Plan what you want to eat for the week!
 * Workout Planner - Create custom workouts and track your progress!
-* Health - (Fill in a simple line for your feature?)
+* Health - Start tracking your health progress!
 * Diary - Create diary posts to share with your friends and family!
 
 == Commands
@@ -126,6 +129,13 @@ Delete commands will be used to delete a specific entry within DukeCooks.
 ==== Clear commands: `clear`
 Clear commands will be used to clear all saved data.
 
+==== Help command: `help`
+Find yourself lost and not knowing what to do? Help command will bring you to this informative User Guide and you can
+learn how to use DukeCooks.
+
+==== Exit command: `exit`
+Exit command will be used to stop DukeCooks.
+
 === Dashboard
 
 ==== Breaking down the Dashboard
@@ -154,11 +164,11 @@ Command: `goto dashboard`
 Let's start by using the `add` command to add some tasks into DukeCooks!
 
 Command: `add task` +
-Format: `add task tn/_insert task here_ td/ _insert date here_`
+Format: `add task tn/<insert task here> td/<insert date here>`
 
 [NOTE]
 ====
-Task name entered should not exceed 30 characters.
+Task name entered should not exceed 35 characters.
 When entering the date for a task, please follow the given format: day/month/year.
 ====
 
@@ -176,7 +186,7 @@ Step 3. You can view the newly added task under the Dashboard.
 .Adding a task success
 image::addtask2.png[width="500"]
 
-[icon tip]
+[TIP]
 ====
 Did you know? You are able to enter Dashboard commands even if you are on another feature. Talk about
 double the productivity!
@@ -188,7 +198,7 @@ Made some typos when adding a task? +
 Fret not! You are able to make changes to them.
 
 Command: `edit task` +
-Format: `edit task _index number_ tn/ _insert new name_ td/ _insert new date_`
+Format: `edit task <index number> tn/ <insert new name> td/ <insert new date>`
 
 [NOTE]
 ====
@@ -216,7 +226,7 @@ Decided that this task is not needed? +
 Well you can delete them off from DukeCooks.
 
 Command: `delete task` +
-Format: `delete task _index number_`
+Format: `delete task <index number>`
 
 [NOTE]
 ====
@@ -243,7 +253,7 @@ Finished with a task? +
 Check it off the list!
 
 Command: `done task` +
-Format: `done task _index number_`
+Format: `done task <index number>`
 
 Example usage (Figure 8 & 9): `done 1`
 
@@ -270,7 +280,7 @@ A pop up window with an encouraging message will be displayed for extra motivati
 For those who want to know what are the tasks relevant given a keyword.
 
 Command: `find task` +
-Format: `find task _keyword_`
+Format: `find task <keyword>`
 
 Example usage (Figure 10 & 11): `find task project`
 
@@ -301,7 +311,7 @@ Command: `list taskincomplete`
 Think you need a little bit more time to complete a task?
 
 Command: `postpone task` +
-Format: `postpone task _index number_ by _number of days_`
+Format: `postpone task <index number> by <number of days>`
 
 Example usage: `postpone task 1 by 5` +
 The above example will postpone the date of task 1 by 5 days.
@@ -1666,32 +1676,34 @@ Command: `link`
 
 *Recipe Book*
 
-* *Add recipe* : `add recipe n/<name> i/<ingredients>…​ cal/<calories> carb/<carbs> fats/<fats> prot/<protein>`
-* *Delete recipe* : `edit recipe <index> [parameters]`
-* *List recipes* : `list recipe`
-* *Find recipes* : `find recipe <keyword>`
-* *Delete recipe* : `delete recipe <index>`
-* *Clear recipe book* : `clear recipe`
+* *Going to recipes*: `goto recipe`
+* *Adding recipes* : `add recipe n/<name> i/<ingredients>... cal/<calories> carb/<carbs> fats/<fats> prot/<protein>`
+* *Deleting recipe* : `delete recipe <index>`
+* *Editing recipes* : `edit recipe <index> [parameters]`
+* *Listing recipes* : `list recipe`
+* *Finding recipes* : `find recipe <keyword>`
+* *Clearing recipes* : `clear recipe`
 
 *Meal Plan*
 
-* *Add meal plan* : `add mealplan n/<name> day1/[name]…​ day2/[name]…​ day3/[name]…​ day4/[name]…​ day5/[name]…​ day6/[name]…​ day7/[name]…​`
-* *Delete meal plan* : `edit mealplan <index> [parameters]`
-* *List meal plans* : `list mealplan`
-* *Find meal plans* : `find mealplan <keyword>`
-* *Find recipe in meal plans* : `find mealplanwith <recipe name keyword>`
-* *View meal plan* : `view mealplan <index>`
-* *Delete meal plan* : `delete mealplan <index>`
-* *Clear meal plan book* : `clear mealplan`
+* *Going to meal plans*: `goto mealplan`
+* *Adding meal plans* : `add mealplan n/<name> day1/[name]…​ day2/[name]…​ day3/[name]…​ day4/[name]…​ day5/[name]…​ day6/[name]…​ day7/[name]…​`
+* *Deleting meal plans* : `edit mealplan <index> [parameters]`
+* *Listing meal plans* : `list mealplan`
+* *Finding meal plans* : `find mealplan <keyword>`
+* *Finding recipe in meal plans* : `find mealplanwith <recipe name keyword>`
+* *Viewing meal plans* : `view mealplan <index>`
+* *Deleting meal plans* : `delete mealplan <index>`
+* *Clearing meal plans* : `clear mealplan`
 
 *Dashboard*
 
 * *Going to the Dashboard:* `goto dashboard`
-* *Adding a task:* `add task`
-* *Editing a task* : `edit task`
-* *Removing a task* : `delete task`
-* *Marking a task as complete* : `done task`
-* *Finding a task* : `find task`
+* *Adding a task:* `add task tn/<taskname> td/<taskdate>`
+* *Editing a task* : `edit task <index> tn/<taskname> td/<taskdate>`
+* *Deleting a task* : `delete task <index>`
+* *Marking a task as complete* : `done task <index>`
+* *Finding a task* : `find task <keyword>`
 * *Viewing completed tasks* : `list taskcomplete`
 * *Viewing incomplete tasks* : `list taskcomplete`
 
@@ -1699,54 +1711,39 @@ Command: `link`
 
 * *Going to the Health Records:* `goto health`
 * *Add profile* : `add profile n/ <name> d/ <date of birth> g/ <gender> bt/ <blood type> w/ <weight> h/ <height> [m/ <medical history>]` +
-e.g. `add profile n/Alex Yeoh d/23/02/1995 g/female bt/a+ w/57.8 h/173.2 m/Stroke m/Diabetes`
-* *Edit existing profile* : `edit profile n/ <name> d/ <date of birth> g/ <gender> bt/ <blood type> w/ <weight> h/ <height> [m/ <medical history>] [m-/ <medical history>]` +
-e.g. `edit profile g/male bt/a- w/57.5 h/173 m-/Stroke m/High Blood Pressure`
 * *Delete existing profile* : `delete profile`
+* *Edit existing profile* : `edit profile n/ <name> d/ <date of birth> g/ <gender> bt/ <blood type> w/ <weight> h/ <height> [m/ <medical history>] [m-/ <medical history>]`
 
-* *List health by record type* : `list health t/ <type>` +
-e.g. `list health t/glucose`
-* *Add health data* : `add health t/ <type> val/ <value> dt/ <date time> [remark/ <remark>]` +
-e.g. `add health t/weight val/60 dt/10/11/2019 12:00 remark/after meal`
-* *Edit existing health data* : `edit health <index> val/ <value> dt/ <date time> [remark/ <remark>]` +
-e.g. `edit health 1 val/62 dt/10/11/2019 10:30 remark-/after meal remark/before meal`
-* *Delete existing health data* : `delete health <index>` +
-e.g. `delete health 1`
-* *Clear all records* : `clear health`
+* *Listing health by record type* : `list health t/ <type>`
+* *Adding health data* : `add health t/ <type> val/ <value> dt/ <date time> [remark/ <remark>]`
+* *Deleting existing health data* : `delete health <index>`
+* *Editing existing health data* : `edit health <index> val/ <value> dt/ <date time> [remark/ <remark>]`
+* *Clearing all records* : `clear health`
 
 *Workout Tracker*
 
+* *Going to exercise*: `goto exercise`
 * *Adding an exercise* : `add exercise <exerciseName>` +
-e.g. `add exercise Inclined Bench Press`
-* *List exercise* : `list exercise [MUSCLEGROUP] [INTENSITY]`
-* *Delete exercise* : `delete exercise <index>`
-* *View exercise* : `view exercise<index>`
-* *Create workout* : `workout <exerciseName>`
-* *List workout* : `list exercise [MUSCLEGROUP] [INTENSITY] [TOTALTIME]`
-* *Delete workout* : `delete workout <index>`
-* *Run workout* : `run <index>`
+* *Listing exercise* : `list exercise [MUSCLEGROUP] [INTENSITY]`
+* *Deleting exercise* : `delete exercise <index>`
+* *Viewing exercise* : `view exercise<index>`
+* *Creating workout* : `workout <exerciseName>`
+* *Listing workout* : `list exercise [MUSCLEGROUP] [INTENSITY] [TOTALTIME]`
+* *Deleting workout* : `delete workout <index>`
+* *Running workout* : `run <index>`
 
 *Diary*
 
-* *Adding diary* : `add diary n/ <diary name>` +
-e.g. `add diary n/ Healthy Living`
-* *Deleting diary* : `delete diary <diary index>` +
-e.g. `delete diary 1`
-* *Editing diary* : `edit diary <diary index> n/ <new diary name>` +
-e.g. `edit diary 1 n/ Student Life`
-* *Viewing diary* : `view diary <diary index>` +
-e.g. `view diary 1`
-* *Finding diary* : `find diary <keyword>` +
-e.g. `find diary Singapore`
-* *Listing diary* : `list diary` +
-e.g. `list diary`
-* *Adding pages* : `add page` +
-e.g. `add page`
-* *Deleting pages* : `delete page <page index> n/ <diary name>` +
-e.g. `delete page 1 n/ Healthy Living`
-* *Editing pages* : `edit page <page index> n/ <diary name> t/ [new title] tp/ [new type] desc/ [new description] i/ [new image]` +
-e.g. `edit page 1 n/ Healthy Living t/ Yoga`
-
+* *Going to diary* : `goto diary`
+* *Adding diary* : `add diary n/ <diary name>`
+* *Deleting diary* : `delete diary <index>`
+* *Editing diary* : `edit diary <index> n/ <diary name>`
+* *Viewing diary* : `view diary <index>`
+* *Finding diary* : `find diary <keyword>`
+* *Listing diary* : `list diary`
+* *Adding pages* : `add page`
+* *Deleting pages* : `delete page <index> n/ <diary name>`
+* *Editing pages* : `edit page <page index> n/ <diary name> t/ [new title] tp/ [new type] desc/ [new description] i/ [new image]`
 
 == Glossary
 
