@@ -46,7 +46,9 @@ public class EditCommandTest {
                 new ModelManager(new EateryList(model.getEateryList()), model.getFeedList(), new UserPrefs());
         expectedModel.setEatery(model.getFilteredEateryList().get(INDEX_FIRST_EATERY.getZeroBased()), editedEatery);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        CommandResult commandResult = new CommandResult(expectedMessage, editedEatery);
+
+        assertCommandSuccess(editCommand, model, commandResult, expectedModel);
     }
 
     @Test
@@ -60,7 +62,9 @@ public class EditCommandTest {
         Model expectedModel =
                 new ModelManager(new EateryList(model.getEateryList()), model.getFeedList(), new UserPrefs());
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        CommandResult commandResult = new CommandResult(expectedMessage, editedEatery);
+
+        assertCommandSuccess(editCommand, model, commandResult, expectedModel);
     }
 
     @Test

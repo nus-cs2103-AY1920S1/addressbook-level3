@@ -57,21 +57,23 @@ public class ReviewCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Eatery> lastShownList = model.getFilteredEateryList();
+        Eatery eateryToAddReview;
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EATERY_DISPLAYED_INDEX);
         }
 
         if (model.isMainMode()) {
-            Eatery eateryToAddReview = lastShownList.get(index.getZeroBased());
+            eateryToAddReview = lastShownList.get(index.getZeroBased());
 
             eateryToAddReview.addReview(review);
             model.updateFilteredEateryList(Model.PREDICATE_SHOW_ALL_EATERIES);
+            model.updateActiveReviews(eateryToAddReview.getReviews());
         } else {
             throw new CommandException(MESSAGE_WRONG_MODE);
         }
 
-        return new CommandResult(MESSAGE_ADD_REVIEW_SUCCESS);
+        return new CommandResult(MESSAGE_ADD_REVIEW_SUCCESS, eateryToAddReview);
     }
 
 }

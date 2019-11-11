@@ -61,7 +61,7 @@ public class AddCommand extends Command {
         }
 
         model.addEatery(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()), toAdd);
     }
 
     @Override

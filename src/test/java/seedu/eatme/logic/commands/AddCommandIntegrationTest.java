@@ -33,8 +33,10 @@ public class AddCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getEateryList(), model.getFeedList(), new UserPrefs());
         expectedModel.addEatery(validEatery);
 
-        assertCommandSuccess(new AddCommand(validEatery), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validEatery.getName().fullName), expectedModel);
+        CommandResult commandResult = new CommandResult(
+                String.format(AddCommand.MESSAGE_SUCCESS, validEatery.getName().fullName), validEatery);
+
+        assertCommandSuccess(new AddCommand(validEatery), model, commandResult, expectedModel);
     }
 
     @Test
