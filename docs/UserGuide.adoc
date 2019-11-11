@@ -462,7 +462,9 @@ Format: `delete TYPE+INDEX`
 * Example: `delete t1` will delete the first transaction from the list of transactions.
 ****
 
-PalPay deletes items based on the entry index of the target item. You can only delete a maximum of 1 entry per command. (i.e. `delete t1 t2 b1` is not allowed)
+==== Important Details:
+
+PalPay deletes items based on the entry index of the target item. You can only delete a maximum of 1 entry per command. (i.e. `delete t1 t2 b1` or `delete t1 t2` will not work)
 
 ==== Example Usage:
 
@@ -520,9 +522,9 @@ Format (Projections): Cannot be updated
 ==== Important Details:
 
 * `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted).
-* `Ledger` and `Projection` does not have an update function. If you need to change specific fields within a ledger entry, you should delete the target entry and recreate a new ledger entry with your preferred fields.
-* You can not change an `in` transaction to an `out` transaction.
-* Changing an expenditure (`out` Transaction) with the same category fields as a `Budget` entry will reflect changes on that `Budget` entry as well.
+* `Ledger` and `Projection` do not have an update function. If you need to change specific fields within a ledger or projection entry, you should delete the target entry and recreate a new entry with your desired fields.
+* You can not change an `in` Transaction to an `out` Transaction.
+* Changing an expenditure (`out` Transaction) with the same category fields as a `Budget` entry will reflect changes on that particular `Budget` entry as well.
 
 ==== Example Usage
 
@@ -557,6 +559,30 @@ image::update_ug_5.png[]
 . Success message will be displayed upon successful update. Fields will now be updated accordingly.
 +
 image::update_ug_6.png[]
+
+===== Example 3:
+
+Updating a *Transaction* entry which has the same category field as a *Budget* entry.
+
+. Identify the index number of the *Transaction* entry you want to edit.
++
+image::update_ug_7.png[]
++
+. Notice that a *Budget* entry has the same category field as the *Transaction* entry mentioned above. (*Budget* entry 2).
++
+image::update_ug_8.png[]
++
+. Put `t` as your `TYPE` input and key in the fields you want to change. In this case, we will be changing only the amount of this *Transaction*.
++
+image::update_ug_9.png[]
++
+. Success message will be displayed upon successful update. Fields of the *Transaction* entry will now be updated accordingly.
++
+image::update_ug_10.png[]
++
+. Remaining amount of the *Budget* entry will also be updated accordingly.
++
+image::update_ug_11.png[]
 
 ===== Example Commands:
 
