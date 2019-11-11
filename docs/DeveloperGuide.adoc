@@ -76,13 +76,29 @@ The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
+This section describes the various UI components that make up TimeBook's Graphical User Interface. The diagram below shows the
+full structure of the UI component.
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+In general, TimeBook's UI consists of a `MainWindow` that is made up of the following main parts:
+
+. `CommandBox` -- The box that users would key in commands to execute.
+. `ResultDisplay` -- The box that would show response to the user after every command has been executed.
+. `TabPanel` -- The tabs at the left side of the window. It displays the list of groups or persons that have been added to TimeBook.
+. `ScheduleView` -- The display that contains the graphics of schedules belonging to individuals or groups.
+. `GroupInformationDisplay` -- The display that contains in-depth information about the group.
+. `PersonInformationDisplay` -- The display that contains in-depth information about the person.
+
+Additionally, TimeBook also has a separate window for popups when users executes the `select` or `selectfreetime` commands.
+The major ui components for this separate window are `LocationView` and `TimeslotView`.
+
+All these components, including the `MainWindow`, inherit from the abstract `UiPart` class. Note that not all of these ui components are shown
+at any one point in time. For example, the TabPanel gets displaced with either GroupInformationDisplay or PersonInformationDisplay
+when a user executes commands such as `addgroup` or `addevent`. In a nut shell, the MainWindow will show different ui components depending on the command executed.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -515,67 +531,120 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-=== Visual Representation of individual's or group's schedule
-A separate class `ScheduleView` will be created to facilitate the creation of the schedule view belonging to individuals and groups.
-Depending on the constructor used in this class, different types of schedules will be shown. There are two types of constructors:
-* `ScheduleView(WeekSchedule personSchedule)` This constructor is used to construct a schedule view of an individual.
-* `ScheduleView(List<WeekSchedule> personSchedules, List<String> colors, WeekSchedule freeSchedule)` This constructor is used to construct a schedule view of a group
+// tag::visualrep[]
+=== Visual Representation of individual's or group's schedule feature
 
-These methods are used in the MainWindow class, where MainWindow will display instances of ScheduleView when various commands
-are performed.
+The visual representation refers to the graphics you see when you view a group or an individual's schedule in TimeBook. We will first describe how the graphics are created.
+All of these graphics are created in the `ScheduleView` class. The object oriented domain model below illustrates the problem domain of the `ScheduleView` class in TimeBook.
 
-Given below is an example of how the Nodes (containers) in MainWindow changes with respect to the show command.
+.Object oriented domain model for `ScheduleView`.
+image::./yijie/ScheduleViewDomainModel.png[svdm,500,500]
 
-Step 1. After the user launches the application, the MainWindow will consist of 4 main Nodes: `CommandBox`, `TabsPanel`, `ResultDisplay` and `DefaultDetailWindow`.
+The `ScheduleView` class in TimeBook follows the above model closely. Let's walk you through how the graphics are created.
 
-image::VisualRepresentationCD0.png[]
+. Following the model, we have a class `PersonTimeslot` that behaves like an event time slot. Each `PersonTimeslot` object thus have a date, a start time and an end time.
+. Separate the given `PersonTimeslot` objects into lists by dates and sort the time slots according to start times. Each list acts as a `Schedule` for a particular date.
+. For each date, create a *VBox* (a container to to stack `Block` objects vertically). Eventually, each *VBox* will contain all the time slot blocks for the a particular date.
+.. Condition: If the first `PersonTimeslot` in the list starts after 8am (TimeBook's schedule start time), stack an empty `Block` in the *VBox* with the same height as the
+duration between 8am and the start time of this `PersonTimeslot` object to represent the initial offset region.
+. Loop through each `PersonTimeslot` object in the list, stack a coloured `Block` in the same *VBox*. Each of the `Block` should have the same height as the duration between the start
+and end time of its corresponding `PersonTimeslot` object.
+. Stack in empty `Block` to fill the gaps between the end time of the current `PersonTimeslot` and the start time of the next `PersonTimeslot` in the list.
 
-Step 2a. Suppose the user has a friend named Ben in the application. The user executes `show n/ Ben` in order to view Ben's details
-and his schedule. The state of MainWindow will now have another set of 4 Nodes: `CommandBox`, `ResultDisplay`, `ScheduleView` and `PersonDetailCard`.
+Now that you have seen how the graphics for TimeBook are created, the next step would be to control what graphics to show. As such,
+ we made use of an abstract class `ScheduleViewManager` to control the creation of `ScheduleView` objects.
+The two classes that extend from `ScheduleViewManager` are `IndividualScheduleViewManager` and `GroupScheduleViewManager`.
 
-image::VisualRepresentationCD1.png[]
+The following methods are implemented in `ScheduleViewManager` to control the schedules displayed in the window.
 
-Step 2b. Alternatively, suppose the user has a group named CS2103T team project. The user executes `show g/ CS2103T team project` in
-order to view the group's schedule and information. The state of MainWindow will now have a different set of 4 Nodes: `CommandBox`, `ScheduleView`,
-`ResultDisplay` and `GroupInformation`
+* `ScheduleViewManager#getInstanceOf(ScheduleDisplay)` -- Instantiates the `ScheduleViewManager` with a given `ScheduleDisplay` object. The `ScheduleDisplay` object contains
+all the information needed to generate a schedule view.
+* `ScheduleViewManager#scrollNext()` -- Scrolls the schedule shown down. Once it reaches the bottom, it will start back at the top.
+* `ScheduleViewManager#toggleNext()` -- Modifies the schedule shown to show the next week's schedule. The schedule shown can at most show up to 4 weeks in advance. Once the fourth week is reached, it will start back at the first week.
+* `ScheduleViewManager#filterPerson(List<Name>)` Filters the schedule shown to the given list of names. This method only works when the schedule shown belongs to group.
 
-image::VisualRepresentationCD2.png[]
+A sample usage of the ScheduleViewManager is described below.
 
-[NOTE]
-If the user keys in a name or group that is not present in the application, a CommandException will be thrown to indicate
-that such name or group is not found in the application.
+Step 1. The user wants to view a group called "Three musketeers" consisting of 3 members, Alice, Ben and Carl in TimeBook and executes the command
+`show g/Three musketeers` in the command line. The state of `ScheduleViewManager` will be initialised to show only the group's schedule for the first week as shown in the object diagram below.
 
-The following sequence diagram shows how the show command eventually lead to changes in the UI to show the visual representation
-of an individual's or group's schedule.
+.Initial state of GroupScheduleViewManager after the `show` command is executed.
+image::./yijie/gsvm_state1.png[gsvm1,800,500]
 
-image::VisualRepresentationSD0.png[]
-image::VisualRepresentationSD1.png[]
+Step 2. Suppose the user thinks that arranging a group meeting on the first week is too rushed, so he executes the `togglenext` command to view the group's schedule for the next week.
+The state of `ScheduleViewManager` is then modified to show the second week of the group's schedule as shown in the diagram below.
+
+.State of GroupScheduleViewManager after the `togglenext` command is executed.
+image::./yijie/gsvm_state2.png[gsvm1,800,500]
+
+Step 3. Suppose the user now wants to inspect some of his group members' schedules, and he executes the `lookat` command to inspect Alice's and Carl's schedules.
+The state of `ScheduleViewManager` is once again modified to only show the specified group members' schedules in the object diagram below.
+
+.State of the GroupScheduleViewManager after the `lookat` command is executed.
+image::./yijie/gsvm_state3.png[gsvm1,800,500]
+
+Now that we have the full picture of how the graphics are created and controlled, we are ready to show how the user obtain a visual representation of a person or group's schedule using the `show` command.
+The following sequence diagram shows the sequence of events that lead to changes in the UI when an example of the `show` command is executed for a group called *CS2103*.
+
+.Sequence diagram for the `show` command.
+image::./yijie/showCommandSequenceDiagram.png[]
+
+In order to make the diagram look less messy, a reference diagram shown below is created to show what happens in the *get schedule view* frame.
+
+.Reference frame that was omitted from the sequence diagram.
+image::./yijie/showCommandSdFrame.png[scsdf, 600, 600]
+
+Details of how the graphics are created within the `ScheduleView` have been described above and thus, are omitted in the diagram.
 
 ==== Design Considerations
+|===
+| Aspect: | Choice | Pros | Cons
+.3+| Amount of detail present in schedule view.
+| 1. Enable users to see schedules up to 1 week in advance.
+| 1. Easy to implement.
 
-===== Aspect: User experience of the schedule view.
-* **Alternative 1 (current choice):** Use a separate container for headers and schedule contents (table cells & blocks).
-** Pros: User can read the schedule in our application a lot more easier.
-** Cons: Duplicated codes in the ScheduleView class to generate the separate containers.
-* **Alternative 2:** A single container to contain the schedule view.
-** Pros: Easier to implement, lesser lines of codes.
-** Cons: UX will decrease due to increase difficulty to read schedules in the application.
+2. Less likely for bugs when invoking other commands such as select and popup.
+| 1. Users may experience difficulty to plan meetings 2 or more weeks in advance.
 
-===== Aspect: Amount of detail present in schedule view.
-* **Alternative 1:** Enable users to see schedules up to 1 week in advance.
-** Pros: Easy to implement.
-** Cons: Users may experience difficulty to plan meetings 2 or more weeks in advance.
-* **Alternative 2 (current choice):** Enable users to see schedules up to 4 weeks in advance.
-** Pros: Most users will be able to plan most of their meetings. (Up to 1 month in advance).
-** Cons: Slightly more challenging to implement in order to make sure that the schedule view is not cluttered.
+| 2. Enable users to see schedules up to 4 weeks in advance. **(Current choice)**
+| 1. Most users should be able to plan most of their meetings.
+| 1. Slightly more challenging to implement.
 
-===== Aspect: Color schemes for time slot blocks in schedule view.
-* **Alternative 1 (current choice):** Select 10 good contrast colours to dark theme for schedules.
-** Pros: More aesthetically pleasing to the user.
-** Cons: Groups that have more than 10 members will have the same colours for their schedule.
-* **Alternative 2:** Randomly generate colours depending on group size.
-** Pros: All members in a group will very likely have different colours to indicate their schedule.
-** Cons: Schedules with darker colours cannot be seen from a dark theme UI.
+2. Slower as each request will take 4 times as long.
+
+| 2. Enable users to see schedules up to an indefinite weeks in advance.
+| 1. Every users should be able to plan their meetings.
+| 1. Slow requests as every query will regenerate a new set of graphics.
+
+4+| We chose to allow users to see schedules up to 4 weeks in advance mainly due to usability. We recognise that most group meetings do not happen
+within a short period of 1 week as it may seem rushed for everyone in a group. We also found that it is unnecessary to enable users to see their schedules
+after the 1 month mark since it is most likely to not have been updated yet. Thus, showing schedules for up to 4 weeks should be sufficient for our design.
+|===
+
+|===
+| Aspect: | Choice | Pros | Cons
+.2+| Viewing some group member's schedule in a group using the `lookat` command.
+| 1. Filter, but do not recalculate the free time slot to the filtered group members from the command. **(Current choice)**
+| 1. Easier to implement..
+
+2. User can still keep track of the entire group's schedule.
+
+| 1. Users may be misled to think that the `lookat` command is not working as it does not update the displayed free time slots.
+
+| 2. filters, recalculate and display the common free time slot for the filtered members.
+| 1. There will not be any misleading empty blocks in a group's schedule.
+
+| 1. Difficult to implement.
+
+2. Each query will take a lot longer to process the locations data.
+
+4+| We understand that users may want to inspect the schedules of some of his or her group members while still keeping track
+of the entire group's common free time slots. This would be useful for users who want to organise partial group meetings
+with some of his or her group members before or after the official group meeting (where everyone attends).
+Furthermore, filtering a group member can easily be done by just creating a new group and adding group members to it.
+
+|===
+// end::visualrep[]
 
 
 // tag::Closest-Common-Location[]
