@@ -2,7 +2,6 @@ package seedu.address.logic.commands.cli;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_STUDY_PLAN;
-import static seedu.address.logic.commands.cli.AddModuleCommand.MESSAGE_SEMESTER_BLOCKED;
 import static seedu.address.logic.commands.cli.AddModuleCommand.MESSAGE_SEMESTER_DOES_NOT_EXIST;
 
 import seedu.address.logic.commands.Command;
@@ -43,10 +42,6 @@ public class SetCurrentSemesterCommand extends Command {
 
         if (model.getSemester(this.sem) == null) {
             throw new CommandException(MESSAGE_SEMESTER_DOES_NOT_EXIST);
-        }
-
-        if (model.getSemester(this.sem).isBlocked()) {
-            throw new CommandException(MESSAGE_SEMESTER_BLOCKED);
         }
 
         model.setSemester(sem);

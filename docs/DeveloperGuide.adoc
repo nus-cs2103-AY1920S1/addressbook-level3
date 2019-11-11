@@ -1180,6 +1180,72 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file or running `java -jar csmodbuddy.jar` in command prompt/terminal. +
     Expected: The most recent window size and location is retained.
 
+=== Executing basic commands
+
+. Undo +
+.. Test case: `undo` +
+Expected:
+The previous command will be undone. However, note that `undo` does not work for commands that simply display information, such as `help`, or to commands that alter commits, such as `commit`.
+
+. Redo +
+.. Test case: `redo` +
+Expected:
+The command that was undone will be redone. 
+
+=== Executing module-related commands
+
+. Adding a module 
+.. Prerequisites
+... Module must be a valid Computer Science core module.
+... The current ModulePlanner must have an existing active study plan.
+... The active study plan must have the given semester.
+... The semester must not be blocked.
+... Study plan does not have any semester that contains the given module already.
+.. Test case: `addmod y2s1 cs2102` + 
+Expected: 
+If there exists an active study plan, the study plan has the given semester and the study plan does not contain any semester that has `CS2102`, then `CS2102` will be added to `Y2S1`. Else, an error message will show according to which criteria it failed.
+.. Test case: `addmod y2s1 cs2103 cs2104` + 
+Expected: 
+`CS2103` and `CS2104` will be added to `Y2S1`. Else, an error message will show according to which criteria it failed.
+
+. Removing a module 
+.. Prerequisites
+... Module must be a valid Computer Science core module.
+... The current ModulePlanner must have an existing active study plan.
+... The active study plan must have the given semester.
+... The semester must not be blocked.
+... Module exists in the given semester.
+.. Test case: `removemod cs2102 y2s1`  + 
+Expected: 
+If there exists an active study plan, the study plan has the given semester and the semester contains `CS2102`, then `CS2102` will be removed to `Y2S1`. Else, an error message will show according to which criteria it failed.
+
+=== Executing semester-related commands
+
+. Set current semester
+.. Prerequisites
+... The current ModulePlanner must have an existing active study plan.
+... The active study plan must have the given semester.
+.. Test case: `setcurrent y1s1` +
+Expected: `Y1S1` will be reflected as the current semester in the GUI. Modules in the previous semesters will have the `Completed` tag assigned to them, and the MC count of the study plan will be updated as well.
+
+. Blocking a semester
+.. Prerequisites
+... The current ModulePlanner must have an existing active study plan.
+... The active study plan must have the given semester.
+... Semester is not blocked. 
+.. Test case: `block y1s1 LOA` +
+Expected:
+If there exists an active study plan, the study plan has the given semester, then the semester will be blocked and it will reflect in the GUI as a darker shade of grey. The reason will also be shown. 
+
+. Unblocking a semester
+.. Prerequisites
+... The current ModulePlanner must have an existing active study plan.
+... The active study plan must have the given semester.
+... Semester is blocked.
+.. Test case: `unblock y1s1 LOA` +
+Expected:
+If there exists an active study plan, the study plan has the given blocked semester, then the semester will be unblocked and it will reflect in the GUI. 
+
 === Executing tagging-related commands
 
 . Tagging a module

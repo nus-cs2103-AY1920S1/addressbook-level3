@@ -90,6 +90,7 @@ public class AddModuleCommand extends Command {
             resultString.append("\n");
         }
         resultString.setLength(resultString.length() - 1);
+        model.updateAllCompletedTags();
         model.addToHistory();
         return new CommandResult(resultString.toString());
     }
