@@ -39,16 +39,32 @@ public class AddBudgetCommand extends UndoableCommand {
 
     private final Budget toAdd;
 
+    /**
+     * Creates an AddBudgetCommand to add the specified {@code Budget}
+     *
+     * @param budget The budget to be added to MooLah.
+     */
     public AddBudgetCommand(Budget budget) {
         requireNonNull(budget);
         toAdd = budget;
     }
 
+    /**
+     * Returns a description of this AddBudgetCommand.
+     *
+     * @return A string that describes this AddBudgetCommand.
+     */
     @Override
     public String getDescription() {
         return String.format(COMMAND_DESCRIPTION, toAdd.getDescription(), toAdd.getAmount());
     }
 
+    /**
+     * Validates this AddBudgetCommand with the current model, before execution.
+     *
+     * @param model The current model.
+     * @throws CommandException If there already exists an identical budget in model.
+     */
     @Override
     protected void validate(Model model) throws CommandException {
         requireNonNull(model);
@@ -58,6 +74,12 @@ public class AddBudgetCommand extends UndoableCommand {
         }
     }
 
+    /**
+     * Executes this AddBudgetCommand with the current model.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return A CommandResult consisting of success message and panel change request.
+     */
     @Override
     protected CommandResult execute(Model model) {
         requireNonNull(model);
@@ -66,6 +88,12 @@ public class AddBudgetCommand extends UndoableCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), BudgetPanel.PANEL_NAME);
     }
 
+    /**
+     * Checks whether another object is identical to this AddBudgetCommand.
+     *
+     * @param other The other object to be compared.
+     * @return True if the other object is a AddBudgetCommand with the same budget to add, false otherwise.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

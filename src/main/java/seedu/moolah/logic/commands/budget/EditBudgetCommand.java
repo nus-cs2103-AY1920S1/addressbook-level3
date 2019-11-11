@@ -27,7 +27,7 @@ import seedu.moolah.model.general.Timestamp;
 import seedu.moolah.ui.budget.BudgetListPanel;
 
 /**
- * Edits the details of an existing budget in the MooLah.
+ * Edits the details of an existing budget in MooLah.
  */
 public class EditBudgetCommand extends UndoableCommand {
     public static final String COMMAND_WORD = GenericCommandWord.EDIT + CommandGroup.BUDGET;
@@ -52,8 +52,10 @@ public class EditBudgetCommand extends UndoableCommand {
     private final EditBudgetDescriptor editBudgetDescriptor;
 
     /**
-     * @param index of the budget in the filtered budget list to edit
-     * @param editBudgetDescriptor details to edit the budget with
+     * Creates an EditBudgetCommand to edit the budget with the specified {@code index}.
+     *
+     * @param index Index of the budget in the budget list.
+     * @param editBudgetDescriptor Details to edit the budget with.
      */
     public EditBudgetCommand(Index index, EditBudgetDescriptor editBudgetDescriptor) {
         requireNonNull(index);
@@ -63,11 +65,23 @@ public class EditBudgetCommand extends UndoableCommand {
         this.editBudgetDescriptor = new EditBudgetDescriptor(editBudgetDescriptor);
     }
 
+    /**
+     * Returns a description of this EditBudgetCommand.
+     *
+     * @return A string that describes this EditBudgetCommand.
+     */
     @Override
     public String getDescription() {
         return String.format(COMMAND_DESCRIPTION, index.getOneBased());
     }
 
+    /**
+     * Validates this EditBudgetCommand with the current model, before execution.
+     *
+     * @param model The current model.
+     * @throws CommandException If the index is invalid, or the budget to edit is default budget, or if the command
+     * will result in duplicate budgets.
+     */
     @Override
     protected void validate(Model model) throws CommandException {
         requireNonNull(model);
@@ -87,6 +101,12 @@ public class EditBudgetCommand extends UndoableCommand {
         }
     }
 
+    /**
+     * Executes this EditBudgetCommand with the current model.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return A CommandResult consisting of success message and panel change request.
+     */
     @Override
     protected CommandResult execute(Model model) {
         requireNonNull(model);
@@ -102,8 +122,8 @@ public class EditBudgetCommand extends UndoableCommand {
     }
 
     /**
-     * Creates and returns a {@code Expense} with the details of {@code expenseToEdit}
-     * edited with {@code editExpenseDescriptor}.
+     * Creates and returns a {@code Budget} with the details of {@code budgetToEdit}
+     * edited with {@code editBudgetDescriptor}.
      */
     private static Budget createEditedBudget(Budget budgetToEdit, EditBudgetDescriptor editBudgetDescriptor) {
         assert budgetToEdit != null;
@@ -135,8 +155,8 @@ public class EditBudgetCommand extends UndoableCommand {
     }
 
     /**
-     * Stores the details to edit the expense with. Each non-empty field value will replace the
-     * corresponding field value of the expense.
+     * Stores the details to edit the budget with. Each non-empty field value will replace the
+     * corresponding field value of the budget.
      */
     public static class EditBudgetDescriptor {
         private Description description;

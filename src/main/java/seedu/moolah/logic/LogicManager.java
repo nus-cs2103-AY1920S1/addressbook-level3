@@ -40,6 +40,15 @@ public class LogicManager implements Logic {
         mooLahParser = new MooLahParser();
     }
 
+    /**
+     * Executes the command entered by the user.
+     *
+     * @param commandText The command as entered by the user.
+     * @param commandGroup The command group pertaining to the input.
+     * @return Returns a command result produced from running the command.
+     * @throws CommandException If the command fails to run.
+     * @throws ParseException If the command fails to parse.
+     */
     @Override
     public CommandResult execute(String commandText, String commandGroup) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -55,6 +64,7 @@ public class LogicManager implements Logic {
 
     /**
      * Saves any changes in MooLah or in user preferences into Storage.
+     *
      * @throws CommandException If there is an IO error.
      */
     public void save() throws CommandException {
@@ -95,6 +105,11 @@ public class LogicManager implements Logic {
         return model.getFilteredEventList();
     }
 
+    /**
+     * Deletes a transpired event from the model.
+     *
+     * @param event The event to be deleted.
+     */
     @Override
     public void deleteTranspiredEvent(Event event) {
         model.deleteEvent(event);
@@ -106,6 +121,13 @@ public class LogicManager implements Logic {
         }
     }
 
+    /**
+     * Adds an expense corresponding to a transpired event.
+     *
+     * @param event The event which the expense corresponds to.
+     * @return A command result produced from running the adding of the expense.
+     * @throws CommandException If the command fails to run.
+     */
     @Override
     public CommandResult addExpenseFromEvent(Event event) throws CommandException {
         Expense toBeAdded = event.convertToExpense();
@@ -116,10 +138,6 @@ public class LogicManager implements Logic {
 
         return commandResult;
     }
-    //@Override
-    //public ObservableList<Budget> getFilteredBudgetList() {
-    //  return model.getFilteredBudgetList();
-    //}
 
     @Override
     public Budget getPrimaryBudget() {
@@ -151,6 +169,12 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
+    /**
+     * Records initial status of primary budget before executing a command.
+     *
+     * @return A boolean array containing initial {@code isHalf}, {@code isNear}, {@code isExceeded}
+     * flags of the primary budget.
+     */
     @Override
     public boolean[] recordInitialPrimaryBudgetStatus() {
         Budget primaryBudget = getPrimaryBudget();
@@ -160,6 +184,12 @@ public class LogicManager implements Logic {
         return new boolean[]{initialIsExceeded, initialIsNear, initialIsHalf};
     }
 
+    /**
+     * Records final status of primary budget after executing a command.
+     *
+     * @return A boolean array containing final {@code isHalf}, {@code isNear}, {@code isExceeded}
+     * flags of the primary budget.
+     */
     @Override
     public boolean[] recordFinalPrimaryBudgetStatus() {
         Budget primaryBudget = getPrimaryBudget();

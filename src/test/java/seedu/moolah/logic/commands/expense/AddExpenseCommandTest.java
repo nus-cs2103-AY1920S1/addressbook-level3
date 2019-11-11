@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.Stack;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -47,8 +46,6 @@ public class AddExpenseCommandTest {
         Expense validExpense = new ExpenseBuilder().build();
 
         List<Expense> expectedExpensesAdded = Arrays.asList(validExpense);
-        Stack<ModelStub> expectedPastModels = new Stack<>();
-        expectedPastModels.push(new ModelStubAcceptingExpenseAdded(modelStub));
 
         CommandResult commandResult = new AddExpenseCommand(validExpense).run(modelStub);
 
@@ -242,11 +239,6 @@ public class AddExpenseCommandTest {
 
         @Override
         public void setMooLahFilePath(Path mooLahFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void notifyAboutTranspiredEvents(List<Event> events) {
             throw new AssertionError("This method should not be called.");
         }
 

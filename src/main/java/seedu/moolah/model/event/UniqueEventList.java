@@ -13,8 +13,8 @@ import seedu.moolah.model.event.exceptions.EventNotFoundException;
 
 /**
  * A list of events that enforces uniqueness between its elements and does not allow nulls.
- * An event is considered unique by comparing using {@code Event#isSameEvent(Event)}.
- * As such, adding and updating of events uses Expense#isSameEvent(Event) for equality so
+ * An event is considered unique by comparing using {@code Event#equals(Event)}.
+ * As such, adding and updating of events uses Event#equals(Event) for equality so
  * as to ensure that the event being added or updated is unique in terms of identity in
  * the UniqueEventList. However, the removal of an event uses Event#equals(Object) so
  * as to ensure that the event with exactly the same fields will be removed.

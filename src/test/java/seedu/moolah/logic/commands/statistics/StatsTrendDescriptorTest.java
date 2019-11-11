@@ -13,7 +13,6 @@ import seedu.moolah.testutil.StatsTrendDescriptorBuilder;
 
 class StatsTrendDescriptorTest {
 
-
     @Test
     public void equals() {
         // same values -> returns true

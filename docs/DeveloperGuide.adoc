@@ -44,6 +44,16 @@ MooLah is a desktop CLI application that help users track their expenses.
 The App supports many other extensions such as budgeting, planning and reminders.
 In particular, it is tailored to students in National University of Singapore who dine frequently in school canteens.
 
+=== Before We Begin
+
+Here are some widely-used symbols in this document:
+
+[NOTE]
+Contains essential information that explains a concept more clearly.
+
+[TIP]
+Contains extra information that might be useful.
+
 == Setting Up
 This section contains information on steps to set up the developer environment on your computer.
 
@@ -94,9 +104,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `deleteexpense 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `deleteexpense 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -184,7 +194,7 @@ link:{repoURL}/src/main/java/seedu/moolah/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `MooLahParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a expense).
+.  The command execution can affect the `Model` (e.g. adding an expense).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -211,7 +221,6 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Budget>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * exposes an unmodifiable `ObservableList<Event>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
 
 [[Design-Storage]]
 === Storage component
@@ -458,21 +467,21 @@ takes in a `Timestamp` and switches the budget window to a period anchored by th
 
 Given below is an example usage scenario of `SwitchPeriodCommand`: +
 
-*Step 1.* The user has a monthly budget "school" that recurs on the 5th of each month. Suppose the current date is
+*Step 1.* The user has a monthly budget "school" that recurs on `the 5th of each month`. Suppose the current date is
 `10 Nov`. As a result, the current budgeting period will be `5 Nov - 4 Dec`.
 
 *Step 2.* The user wants to view expenses in September. As such, the user executes `switchperiod t/20-09`
 (`20-09` is interchangeable with any other dates within `5 Sep - 4 Oct`). This command calls
-`BudgetWindow#normalize(Timestamp anchor)`, which shifts the window's start and end dates to `5 Sep` and `4 Oct` respectively,
+`BudgetWindow#normalize`, which shifts the window's start and end dates to `5 Sep` and `4 Oct` respectively,
 while maintaining the fixed period -- `MONTH`. As a result, the user sees expenses tracked under the budget during `5 Sep - 4 Oct`.
 
-The `BudgetWindow#normalize(Timestamp anchor)` method is also called upon adding a new `Budget` to MooLah. No matter how
+The `BudgetWindow#normalize` method is also called upon adding a new `Budget` to MooLah. No matter how
 far the start date inputted by the user is from now, it will be normalized to the current period, such that expenses added
 subsequently will correctly be reflected in the budget panel.
 
-Each budget, once added, will recur infinitely. This is achieved by `Budget#refresh()`, along the `Timekeeper` class.
+Each budget, once added, will recur infinitely. This is achieved by `Budget#refresh()`, along with the `Timekeeper` class.
 Every 10 seconds, `Timekeeper` checks if it is a new day, and call `Budget#refresh()` if necessary. Subsequently,
-`BudgetWindow#normalize(Timestamp anchor)` is called; the anchor passed in is current time. As a result, the `Budget` is
+`BudgetWindow#normalize` is called; the anchor passed in is current time. As a result, the `Budget` is
 successfully normalized to the current period.
 
 //==== Add, Edit, Delete Expense from a Budget
@@ -522,7 +531,7 @@ as the budget, except: (i) it flattens the `BudgetWindow` field into start date,
 
 The following activity diagram summarizes what happens to budgets when the app launches and when a new expense is added:
 
-image::BudgetActivityDiagram.png[width=50%]
+image::BudgetActivityDiagram.png[width=55%]
 
 ==== Integration with Undo-Redo
 Budgeting-related commands integrate well with Undo-Redo feature, by extending `UndoableCommand`. Undoable commands are
@@ -535,11 +544,9 @@ change is reflected backend, it will not show in frontend because the Budgets in
 the same object. This task is handled by `Budget#deepCopy()`, which is widely called from `UniqueBudgetList`, in every method
 that modifies the existing budgets.
 
-//table for all undoable commands
-
 ==== Design Considerations
 
-===== Aspect: Since `Budget` already keeps a list of `Expense`, should `Expense` have a `Budget` field?
+===== Aspect: Since Budget already keeps a list of Expense, should Expense have a Budget field?
 
 * **Alternative 1:** `Expense` has a `Budget` field
 ** Pros: Easier to manage expenses.
@@ -557,7 +564,7 @@ disallows duplicate budget names, a name is sufficient to identify a `Budget`. B
 when creating Json files. Also, the resulting `JsonAdaptedExpense` file will not be too long, since the `budgetName` property
 stores only the budget name instead of the full `Budget` object.
 
-===== Aspect: Can one `Expense` be tracked under multiple `Budget`? Or under no `Budget` at all?
+===== Aspect: Can one Expense be tracked under multiple Budget? Or under no Budget at all?
 
 * **Alternative 1:** Every `Expense` must be tracked under one, and only one `Budget`.
 ** Pros: Budgets would be a partition of all expenses, which makes generating statistics (pie charts, etc.) easier.
@@ -577,24 +584,23 @@ Besides, it leads to neater statistics.
 
 ===== Aspect: How should JsonAdaptedBudget keep track of the budget's expenses?
 
-* **Alternative 1:** JsonAdaptedBudget stores a list of JsonAdaptedExpenses
-** Pros: More intuitive, improving readability of json file. Also eases reconstruction of MooLah from storage file,
-since JsonAdaptedExpenses can be easily converted to model type Expenses.
+* **Alternative 1:** `JsonAdaptedBudget` stores a list of `JsonAdaptedExpense`
+** Pros: More intuitive, improving readability of Json file. Also eases reconstruction of MooLah from storage file,
+since `JsonAdaptedExpense` can be easily converted to model type `Expense`.
 ** Cons: Json file is subject to user modification. If expenses are modified such that those in general expense list
 differ from their counterparts in budget's expense list, this will cause data inconsistency and introduce bugs into
 MooLah.
 
-* **Alternative 2:** JsonAdaptedBudget stores a list of UniqueIdentifiers
-** Pros: Guards against accidental user modification of json file.
-** Cons: More hassle when reconstructing MooLah from storage, since the JsonAdaptedBudget#toModelType() will need to
-refer to MooLah's expense list, identify those expenses by their UniqueIdentifiers, and add them to the budget.
+* **Alternative 2:** `JsonAdaptedBudget` stores a list of `UniqueIdentifier`
+** Pros: Guards against accidental user modification of Json file.
+** Cons: More hassle when reconstructing MooLah from storage, since `JsonAdaptedBudget#toModelType` will need to
+refer to MooLah's expense list, identify those expenses by their `UniqueIdentifier`, and add them to the budget.
 
 * **Solution (Current implementation):**
-Adopt Alternative 2. Since every expense has a unique identifier, a list of UniqueIdentifiers, supplemented with a list
+Adopt Alternative 2. Since every expense has a unique identifier, a list of `UniqueIdentifier`, supplemented with a list
 of MooLah's general expenses, is sufficient to correctly reconstruct those expenses tracked under this budget. The
-benefit of protecting MooLah from external json modification outweighs the extra hassle in reconstructing MooLah from
+benefit of protecting MooLah from external Json modification outweighs the extra hassle in reconstructing MooLah from
 storage.
-
 // end::budget[]
 
 // tag::events[]
@@ -602,40 +608,47 @@ storage.
 === Events feature
 ==== Implementation
 
-The Events feature allows users to add events that are supposed to occur on a future date. On launch, MooLah will
-remind users of upcoming events. MooLah will also notify the user about any events that are supposed to have
-transpired, and allow them to automatically add these events as expenses.
+The Events feature allows users to add events that are supposed to occur on a future date.
 
-The Events feature supports the `add`, `delete` and `events` command words.
+On launch, MooLah will remind users of upcoming events. While the app is open, MooLah will also notify the user about any events that have transpired,
+and allow them to automatically add these events as expenses.
 
-Events are added the same way expenses are added on the command line. When the user inputs an add command,
-MooLah determines whether an event or an expense should be added based on the date the user inputted in his command.
-This is illustrated below:
+image::EventClassDiagram.png[]
 
-image::AddExpenseOrEventActivityDiagram.png[]
+Like expenses, events hold two Descriptions (one for its details and one fir the budget it belongs to), a Price, a Timestamp
+and a Category. The `setBudget` method of Event is used for the Event to remember which budget it was added to. This facilitates
+the potential conversion of the Event into an Expense through the `convertToExpense` method. This method is called when the user
+accepts the automated addition of an expense from the corresponding event, into the budget that the event was added into a while back.
+Since Event's fields are a subset of that of Expense, all its fields are passed into the Expense constructor during the conversion, and a
+unique identifier is then generated to complete the creation of the expense, allowing it to be added to MooLah.
 
-The following sequence diagram shows how MooLah handles transpired events on launch:
+The Events feature supports the `addevent`, `deleteevent`, `editevent` and `listevent` command words.
+
+As mentioned earlier, MooLah displays reminders of upcoming events during launch. The implementation is shown below:
+
+image::DisplayReminders.png[]
+
+To allow for accurate prompting of transpired events, MooLah tracks system time every 10 seconds using a `Timer` running
+on a parallel thread. An event is then deemed to have transpired if its timestamp has gone past system time.
+The following sequence diagram shows how MooLah handles transpired events:
 
 image::TranspiredEventsSequenceDiagram.png[]
 
-1. When MooLah launches, the `start` method of `UiManager` is called. `UiManager` then calls the `handleTranspiredEvents`
-of `MainWindow`, which fetches all transpired events and notifies the user about them. It does so by first obtaining the
-transpired events from the `Timekeeper` class by calling a series of getter methods.
+1. When MooLah launches, the `start` method of `UiManager` is called. Every 10 seconds, `UiManager` calls `updateTime` of
+Timekeeper to update system time, then calls the `handleTranspiredEvents` of `MainWindow`, which fetches all transpired
+events and notifies the user about them. It does so by first obtaining the transpired events from the `Timekeeper` class.
 
 2. Once the transpired events have been obtained, for each transpired event, a new `TranspiredEventWindow` will be
-constructed. The transpired event will then be passed via `show`, a method of the newly constructed `TranspiredEventWindow`.
+constructed. The transpired event is deleted from the model and will then be passed via `show`, a method of the newly constructed `TranspiredEventWindow`.
 `show` will create a popup window that details the transpired event, and asks the user whether it should be added as an
 expense. This popup window will have a 'Yes' and 'No' button.
 
-3. If the user presses the 'Yes' button, the original command that the user inputted to add this particular event is fetched
-and passed to the `execute` method of `LogicManager`, which executes command line inputs. Since the timestamp within this
-original command now denotes a past or present date, an expense will be added.
+3. If the user presses the 'Yes' button, the event is passed to the `addExpenseFromEvent` method of `LogicManager`, where
+it is then converted into its corresponding expense, and a command to add the expense is run.
 
 4. If the user presses the 'No' button, the expense is not added.
 
 5. After pressing either button, the popup window closes.
-
-NOTE: As of Week 10, adding expenses to the same budget the event was added to is still a work in progress.
 
 ==== Design Considerations
 
@@ -650,10 +663,10 @@ NOTE: As of Week 10, adding expenses to the same budget the event was added to i
 ** Cons: The distinction between events and expenses is more blurry to the user
 
 * **Solution (Current Implementation): **
-Adopt Alternative 2. Since an event is ultimately an optional future expense that triggers on its
-due date, it is significantly more intuitive and natural to allow users to add events the same way they add expenses.
-MooLah can then easily tell whether the user intends to add an expense or an event by looking at the timestamp
-the user inputs in the command.
+Adopt Alternative 1. Although Alternative 2 is more intuitive, it is not suited to our current implementation of
+generic command words. Since command words such as `add` and `delete` now result in different commands based on which
+panel the user is on, MooLah's parser would not know whether users want to add an event or expense if they type `add` while on an event
+or expense panel. This necessitates the splitting of expense and event commands into two separate command words.
 
 
 ===== Future Implementation (Coming in v2.0)
@@ -666,6 +679,7 @@ the user's decision) that can then be added as expenses when their due dates are
 // tag::statsdg[]
 === Statistics Feature
 
+==== Implementation
 The statistics feature allows users to have an alternative view for the entries in `MooLah`.
 It is facilitated by the `Statistics` interface, which is part of the `model` package, and is implemented by 3 classes
 `PieChartStatistics`, `TabularStatistics` and `TrendStatistics`. Each of the implementing classes will be invoked when
@@ -695,7 +709,7 @@ as well as its design considerations.
 
 ==== `statsbasic`
 
-===== Implementation
+
 
 The purpose of the `statsbasic` command word is to request `MooLah` to visualise the total expenditure across
 expenses of different categories as a percentage of the total expenditure of all expenses tracked under the budget
@@ -723,44 +737,49 @@ If the end date happens to be before the start date, a `ParseException` will be 
 
 Step 4. The filled `desc` will be returned to the `LogicManager` where a new `StatsCommand` command, `statsCommand` will be created with `desc`
 
-Figure 1. below illustrates the details from Steps 2 to 4.
-
-image::BasicStatisticsParserToCommand.png[]
-
-Figure 1. Reference Diagram for creating a `StatsCommand`
 
 
-Step 4. The `LogicManager` calls `StatsCommand#run()`, where the `StatsCommand` will be validated before getting executed.
+Step 5. The `LogicManager` calls `StatsCommand#run()`, where the `StatsCommand` will be validated before getting executed.
 
-Step 5. During execution, `StatsCommand` calls `ModelManager#getPrimaryBudget()` to retrieve the primary budget to calculate statistics from.
-After which, `StatsCommand` will call `createPieChartStatistics', which takes in `desc` and the primary budget.
+Step 6. During execution, `StatsCommand` calls `ModelManager#getPrimaryBudget()` to retrieve the primary budget to calculate statistics from.
+After which, `StatsCommand` will call `createPieChartStatistics`, which takes in `desc` and the primary budget.
 
-Step 6. To construct the time interval required for statistics, information from `desc` is being processed.
+Step 7. To construct the time interval required for statistics, information from `desc` is being processed.
 If there are unspecified inputs inside `desc`, the time interval will be constructed with some information from the primary budget.
 
-Step 7. The `PieChartStatistics` object will be created with the constructed interval as well as the expenses the primary budget tracks.
+Step 8. The `PieChartStatistics` object will be created with the constructed interval as well as the expenses the primary budget tracks.
 After which, `StatsCommand` will call `PieChartStatistics` implementation of `populateData()` to fill up its other fields
 
-Step 8. `StatsCommand` calls `ModelManager#setStatistics(statistics)` which updates the `Statistics` attribute in `ModelManager`.
+Step 9. `StatsCommand` calls `ModelManager#setStatistics(statistics)` which updates the `Statistics` attribute in `ModelManager`.
 
-Step 9. A `CommandResult` is then created and returned to `LogicManager`, which will then force a switch
+Step 10. A `CommandResult` is then created and returned to `LogicManager`, which will then force a switch
 to the `Statistics Panel` where a Pie Chart will be generated.
 
+The following sequence diagram shows how the `statsbasic` operation works:
 
-Figure 2. below illustrates the details from Steps 6 to 9.
+image::BasicStatisticsCommandSequenceDiagram.png[]
 
-image::CreatePieChartReference.png[]
+Figure 1. Sequence Diagram for executing a `StatsCommand`
+
+// end::statsdg[]
+
+Figure 2. below illustrates the details from Steps 2 to 4.
+
+image::BasicStatisticsParserToCommand.png[]
 
 Figure 2. Reference Diagram for creating a `StatsCommand`
 
 
-The following sequence diagram shows how the `statsbasic` operation works as a big picture:
+Figure 3. below illustrates the details from Steps 6 to 9.
 
-image::BasicStatisticsCommandSequenceDiagram.png[]
+image::CreatePieChartReference.png[]
 
-Figure 3. Sequence Diagram for executing a `StatsCommand`
+Figure 3. Reference Diagram for creating a `StatsCommand`
 
 
+
+
+// tag::statsdesign[]
 
 ==== Design Considerations
 
@@ -769,7 +788,7 @@ suitable visual representation for `statsbasic` particular use case.
 
 * ** Alternative 1:** Table view
 ** Pros: Sequential view, can capture number of entries
-** Cons: May be a duplicate of the `ListExpense` command, just sorted via categories
+** Cons: May be a duplicate of the `ListExpense` command, just grouping expenses via categories
 
 * ** Alternative 2:** Pie chart
 ** Pros: Offers a visual view of size to represent the expenditure under each category
@@ -781,8 +800,7 @@ inclusion of `Statistics` is the appreciation of percentage expenditure in each 
 observed in its chronological order using `ListExpense` while individual view of expenses under a category can be accessed
 using `FindExpense`. Offering a visual view on expenditure under each category complements with the existing implementation
 of sequential view in the primary budget.
-
-NOTE: Once again, this question will be better addressed holistically once all 3 features has been rolled out.
+// end::statsdesign[]
 
 ===== Future Implementation (Coming in v2.0)
 
@@ -796,17 +814,16 @@ can be a possible complementary feature to a prediction feature to pre-empt user
 Last of all, more modes can be added to all existing commands, such as comparing with periods across different budgets
 other than being restricted within the same budget
 
+// tag::alias[]
 
-
-// end::statsdg[]
-
-
-// category::Alias[]
 === Alias feature
-==== Implementation
 The Alias feature allows users to assign inputs they may use very often to a shortcut, and execute the input by entering
 the shortcut, (a.k.a ``Alias``), in place of the full or partial command.
 
+
+==== Implementation
+
+.AliasMappings Class Diagram
 image::AliasMappingsClassDiagram.png[AliasMappingsClassDiagram]
 
 These user defined ``Alias``es are saved in an ``AliasMappings`` object within ``UserPref`` as seen in the above diagram.
@@ -824,19 +841,35 @@ to validate that an `Alias` will not cause an infinite loop by chaining multiple
 - ``UserPref#setAliasMappings(AliasMappings mappings)`` -- To overwrite all the `Alias` saved by the user.
 
 
+===== Alias creation
+.AddAliasCommand Class Diagram
 image::AliasCommandClassDiagram.png[]
 
 In order for the user to save an ``Alias``, they first define it using the ``AliasCommand``. The ``AliasCommand`` command extends
 `UndoableCommand` to allow users to undo defining an `Alias`. The following sequence diagram describe in more detail how an ``Alias``
 is added.
 
+****
+Note: +
+Alias and AliasMapping are in Model and not Core. This change has yet to be reflected in the following sequence diagrams.
+****
+
+.AddAliasCommand execution Sequence Diagram
 image::HighLevelAddAliasSequenceDiagram.png[]
+
+
 [None]
 . 1. The user enters a command with the following syntax `` alias a/ <name> i/ <input>``.
 . 2. The `UI` passes this command string to the `LogicManager` which passes it onto the `MooLahParser`.
 . 3. The parser extracts the argument string and passes it to an ``AliasCommandParser``.
 
+****
+ref : extract arguments create alias
+
+.AliasCommandParser Sequence Diagram
 image::ParseAliasCommandSequenceDiagram.png[]
+****
+
 [None]
 . 4. The ``AliasCommandParser`` uses the ``ArgumentTokenizer`` to tokenize the argument string and extract the
 ``alias name`` and ``input`` fields into an ``ArgumentMultimap``.
@@ -844,7 +877,13 @@ image::ParseAliasCommandSequenceDiagram.png[]
 . 6. An `AliasCommand` is created containing this new `Alias` to add to the `UserPref`.
 . 7. This is passed back to the `LogicManager` to call `AliasCommand#run()`.
 
+****
+ref: validate command
+
+.AliasCommand #Validate Sequence Diagram
 image::verifyAlias.png[]
+****
+
 [None]
 . 8. The `AliasCommand` is validated using `AliasCommand#validate()`. The `Alias` is checked to ensure it does not
 [None]
@@ -852,19 +891,38 @@ image::verifyAlias.png[]
     ** b. Have an input beginning with a supported `Alias`.
 . If is not valid, handled exception is thrown.
 
+****
+ref: execute command
+
+.AliasCommand #execute Sequence Diagram
 image::addAlias.png[]
+****
 [None]
 . 9. If it was validated that the `Alias` can be added.
 . 10. The `Alias` is then added to the `AliasMappings` object within `UserPref`.
 . 11. The `Alias` is now usable  by the user.
 
 
-When a user enters an ``input`` to be executed, the ``MooLahParser`` will first try to parse first token in
-the ``input`` as a ``CommandWord``, failing which, it will try to parse it as an ``Alias``. If it successfully does so,
-it replaces the first token in the original command string with the ``input`` stored in the ``Alias``.
-Finally, the ``MooLahParser`` re-parses the modified ``input``.
+===== Usage of aliases in input
+.Activity Diagram showing the a high level view of the events that occur when parsing a command.
+image::CommandParsingActivityDiagram.png[]
+
+When a user enters an ``input`` to be executed, the ``MooLahParser`` will do the following:
+
+. Attemps to parse the ``input`` as an input which begins with a valid ``CommandWord``
+. If that fails, it will try to parse it as an input which begins with an ``Alias``.
+.. If it successfully does so, it replaces the alias in the original `input` with the ``input`` stored in the ``Alias``.
+.. Finally, the ``MooLahParser`` re-parses the modified ``input``.
+. If this too fails, an exception is thrown indicating that the command was invalid
+
 
 ==== Design Considerations
+
+===== Potential Recusive aliases
+As users may modify the data files of MooLah, they may modify the aliases directly. As such it was necessary to validate
+that the modified aliases will not cause infinite recursion. This is done by traversing between aliases which chain to each other
+and ensuring that none of them lead back to themselves. Otherwise, if it is detected that an alias can loop to itself, the
+alias data is reset.
 
 ===== Aspect: Why can an `Alias` only be used at the beginning of an input versus anywhere within an input.
 * ** Alternative 1(Chosen):** Beginning only
@@ -889,10 +947,11 @@ However, that is far out of the scope of the module and would require much more 
 Another alternative would have been to have an alias name follow the following convention `'aliasName'` (i.e. some character before and after)
 clear what is an `Alias` within an input.
 
-===== Future Implementation (Coming in v2.0)
 The purpose behind this feature was to make CLI input less troublesome, so users do not need to type in the full input string
 to carry out commands they may use frequently. In v2.0 we want to look into using data analysis track users' input habits in
 order to make suggestions on possible shortcuts or Aliases they may find convenient to have.
+
+// end::alias[]
 
 ===== Aspect: Data structure to store Aliases.
 
@@ -916,87 +975,137 @@ It also makes it easier to prevent sharing of alias names between aliases and a 
 set cannot contain duplicates, and makes it easier to handle overwriting of existing aliases with same name.
 
 
-// end::Alias[]
 
+// tag::CommandLine[]
+=== Easier Command-Line feature
+==== Necessity of feature.
+Due to the constraints of this project, the application had to be designed such that the main interaction
+between the user and the application was the Command Line Interface. However, this required the user to be able to
+remember the commands as well as the syntax for these commands, or be forced to heavily refer to the user guide or to
+refer to the error messages.
 
-// category::SyntaxAutofill[]
-=== Syntax Highlighting and Autofill feature
-==== Implementation
-The Autofill feature was implemented to make it less important for users to remember the appropriate syntax for each command which
-can be a common issue in CLI based applications. This feature utilises regular expressions and JavaFX's TextFormatter to extend the
-functionality of the existing TextField used in the original AB3 application.
+The Easier Command-Line feature was implemented to remove the need to refer to the user guide just to
+find out the syntax needed to use a command, as well as to provide some quality-of-life features found in most Command Line
+Interfaces not present in the original Address Book 3. This feature consists of several features:
 
-The Autofill feature also inserts `placeholders` into the text area to make it clearer which arguments each prefix delimit in the input.
-e.g. `add d/ <description> p/ <price> c/ <category>`. These `placeholder` are removed when the user types over them and
-are filtered from the input and not parsed by the `Parser` if the user forgets to type over them. The following diagram briefly describe
-the logic used to insert auto fill a command's syntax.
+.Command Box class diagram
+image::CommandBoxClassDiagram.png[]
 
-::image:AutoFillActivityDiagram.png[]
+. Syntax highlighting
+. Input Suggestion and auto complete
+. Input History
+. Context based Generic Commands
 
+==== Syntax highlighting Implementation
 The Syntax highlighting feature was implemented to make it easier to differentiate the different arguments after typing
 as well as to implement some basic realtime input validation. This feature utilises RichTextFX's StyleClassTextArea to
-apply different styles to different regions of the text, and regular expressions to determine which to highlight.
+apply different styles to different regions of the text, and regular expressions to determine how to to highlight user input.
 
-::image:SyntaxHighlightingActivityDiagram.png[]
+.Activity diagram of depicting the events triggering text to be highlighted
+image::SyntaxHighlightingActivityDiagram.png[width=70%, align=center]
 
-Because RichTextFX's TextAreas do not support JavaFX's TextFormatter, the `SyntaxHighlightingTextArea` actually has two different
-TextAreas. One as the visible TestArea (RichTextFX) and one as the functional one (JavaFX).
+As it would be quite resource intensive to recalculate the syntax highlighting every time the user types,
+the updated highlighting is only computed after a delay of 300 milliseconds after the user stops typing.
 
-::image:SyntaxHighlightingTextAreaClassDiagram.png[]
+When the `MainWindow` is initialized and the inner UI parts are created, the commands which are supported by the `syntax
+highlighting` feature are configured. Each `SyntaxHighlightingSupportedInput` object contains a `CommandWord` to highlight
+prefixes the command supports. When it is created it creates a regex pattern such as below.
+----
+(?<command-word>COMMAND)|(?<prefix0>PREFIX0)|(?<prefix1>PREFIX1)|...
 
-The two TextArea are layered on top of each other. The invisible functional TextArea overlays the visible one, and mirrors the TextProperty of the
-visible one mirrors the functional TextArea. The KeyEvents which occur in the functional text area are also mirrored by the visible text area.
+(?<command-word>addalias)|(?<prefix0> a/)|(?<prefix1> i/)(?<arg>\S+)
+----
+This pattern is used to find the command word in the user input, as well as the prefixes.
 
-==== Design Considerations
-===== Aspect: Which configuration of Input fields to use? - RichTextFX TextArea alone, JavaFX alone, both together?
-* ** Alternative 1:**  JavaFX alone (JavaFX `TextField`) and manually place coloured elements to handle highlighting.
-** Pros: Already supports single line input.
-** Pros: Easy to implement autofill.
-** Cons: Does not inherently support styling of text with multiple styles.
-** Cons: Manually inserting worked, but not all the time.
 
-* ** Alternative 2:** `RichTextFX StyleClassTextArea` and ``Listener``s to handle formatting of text.
-** Pros: Supports styling of text.
-** Cons: Needs have certain `Events` blocked and functionality removed in order to act as a single line input field. e.g.
-preventing users from pasting text with newlines and the enter key event from making a new line.
-** Cons: Does not support javafx `TextFormatter`, intermediate results (unwanted text) can possibly be evaluated.
+==== Syntax highlighting Design Considerations
+===== Aspect: How long should the delay between updating text and recomputing highlighting?
+* ** Alternative 1:**  Text is re-highlighted immediately upon a change to the text
+** Pros: Looks much more natural without a delay
+** Cons: Much more resource intensive as typing involves multiple changes to the text.
 
-* ** Alternative 3(Chosen):** Both
-** Pros: Utilise best of both worlds, with `TextFormatter` and `RichTextFX StyleClassTextArea`
-** Cons: Need to properly align the two text areas so visible text and caret position is accurate.
-** Cons: Needs have certain `Events` blocked and functionality removed in order to act as a single line input field. e.g.
-preventing users from pasting text with newlines and the enter key event from making a new line.
+* ** Alternative 2 (Chosen):** Text is re-highlighted after a delay
+** Pros: Can reduce the computations needed to highlight the text.
+** Cons: Does not look at natural, and is less helpful in validating input.
 
 * **Solution (Current Implementation): **
-With alternative 1, using a `TextFlow` was a problem when the text needed to remain in
-a single line. Manually layering coloured elements over the text was also an issue as the the position and size of elements
-eeded to be recalculated every time the text change, the UI moved, or was resized.
+In the end, despite the fact alternative 1 was more natural looking, alternative 2 was chosen as this option would make
+the application less taxing for less powerful systems.
 
-While it was possible to use RichTextFX text areas alone, the text that the user inputs before it is formatted
-still enters the text area. Which interferes with realtime parsing as the text is not properly sanitized, which was
-why the uses `TextFormatter` was necessary.
+===== Aspect: Extent of input validation
+* ** Alternative 1:**  All parts of the input are validated (including the arguments)
+** Pros: This would make it more obvious to the user what is valid
+** Cons: This is more resource intensive
 
-This meant only alternative 3 was viable, but because of layer of the two text areas, the events causing a change in text
-or what text was visible needed to be properly mirrored from the invisible to the visible text area. As a result, certain behaviours
-supported by a normal textfield needed to be blocked to ensure proper alignment e.g. copy and paste.
+* ** Alternative 2 (Chosen):** Only the command word and prefixes are validated.
+** Pros: Less resource intensive while still being helpful to the user
+** Cons: Not as helpful to the user.
 
-At the moment, mass deletion and selection of text (e.g. Ctrl/Cmd+A > Backspace) has been prevented in order to properly align the
-two textarea.
+* **Solution (Current Implementation): ** +
+In the end, despite the fact alternative 1 provides more use to the user, input is already validated when it is parsed,
+and the error provides sufficient details on what is wrong with the user input. Validation by constantly parsing the text and then
+applying some sort of style to indicate an invalid input does not give as detailed information on why the input is invald.
+While it may be a nice feature to have, it may not be worth the resources required to repeatedly calculate the
+positions I should move my bones.
 
-===== Future Implementation (Coming in v2.0)
-MooLah v2.0 should support better real time parsing of input and support validation of input without requiring the user
+In future implementations, MooLah v2.0 should support better real time parsing of input and support validation of input without requiring the user
 to enter the command as well as a more functional input field.
 
+==== Suggestion Feature Implementation.
+The Suggestion feature is the main part of this feature and provides users with suggestions of valid inputs they may need.
+There are three states of the suggestion feature
 
-// end::SyntaxAutofill[]
+1. Disabled
+2. Suggesting command word
+3. Suggesting prefixes
+
+When the user chooses to disable the feature, the suggestion feature does not analyse the user input.
+
+.Activity Diagram depicting what
+image::SuggestionActivityDiagram.png[width=60%,align=center]
+
+When the user chooses to enable it, if the user has only entered one or zero tokens (a string of characters without spaces),
+the suggestion menu will be populated with command words which begin with the user input.
+If the user has entered multiple tokens, and the command word (first token) if a valid command, the suggestion menu
+searches for the command's supported prefixes and populates the menu with the prefixes the user has not entered yet.
+
+This feature uses the ``ArgumentTokenizer`` from the ``Logic`` to determine what prefixes are present in the input
+and which ones have yet to be provided by the user.
+
+==== Suggestion Feature Design Considerations
+===== Aspect: Automatically complete upon typing, or show suggestions and auto complete upon selection
+
+* ** Alternative 1:**  Auto complete upon typing
+
+** Pros: This would make result in the least keystrokes required to enter a command.
+** Cons: Requires a lot of logic for behaviour of autocomplete depending what the user is typing or deleting
+form the input and a very rigid syntax for commands.
+
+* ** Alternative 2(Chosen):**  Show suggestions and complete upon selection
+** Pros: Gives user more information on what commands are available and allows for more options for command syntax.
+** Cons: Requires more steps to use suggestion
+
+* **Solution (Current Implementation): ** +
+Between the two, Alternative 1 was the first way this feature was implemented. However, as the number of commands increased,
+the time taken to generate the suggestions increased to a point where suggestions were not shown immediately. Alternative 2 was
+chosen as this method is less prone to bugs, less resource intensive, and allows the menu to display more information
+for the user such as what each prefix stands for.
+
+In the future, MooLah v2.0 will support suggestions for arguments on top of prefixes and command words.
 
 
-// category::dataencryption[]
-=== [Proposed] Data Encryption
+==== Input History Feature Implementation.
+This feature enables users to re-enter previous input without having to retype the entire input.
+It is a relatively simple feature which saves user input into a list and iterates through the list when the user
+presses the `up` or `down` arrow keys. When a user enters a new input, the position of the iterator is reset.
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Generic Command Implementation
+This feature allows allows different commands to use the same command word. As MooLah has around 30 commands with only the current
+features, it may becomes a problem that command words become very long in order to make it clear what the command
+does when there are multiple commands which do similar things in different context. This feature reduces the ambiguity of
+a command by enabling certain common command words to behave differently depending on which `panel` of the UI the user is viewing.
 
-// end::dataencryption[]
+// end::CommandLine[]
 
 === Logging
 
@@ -1019,14 +1128,18 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
+This section contains information on how to edit, publish, convert documentation, as well as relevant tools and settings.
 
 Refer to the guide <<Documentation#, here>>.
 
 == Testing
+This section contains information on running tests and troubleshooting.
 
 Refer to the guide <<Testing#, here>>.
 
 == Dev Ops
+
+This section contains information on project workflow and useful automation tools.
 
 Refer to the guide <<DevOps#, here>>.
 
@@ -1046,9 +1159,9 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*:
 
-* manage contacts faster than a typical mouse/GUI driven app
+* manage expenses faster than a typical mouse/GUI driven app
 * optimized for students in National University of Singapore
-* make prediction for future spending based on extrapolation from past statistics and upcoming important dates
+* make prediction for future spending based on extrapolation from past statistics and upcoming important dates (Coming in v2.0)
 * customizable categories, budgets and aliases
 * flexible forms of viewing a summary of expenses
 * give input suggestions while typing
@@ -1236,8 +1349,6 @@ Use case ends.
 +
 Use case ends.
 
-==Idk why==
-
 [discrete]
 === Use case: Viewing Statistics summary
 
@@ -1364,12 +1475,6 @@ Use case ends.
 Use case ends
 
 
-
-
-
-
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
@@ -1383,19 +1488,19 @@ _{More to be added}_
 .  Should adhere to the project scope (e.g. Not required to have digital wallet support).
 .  Should be able to work without internet connection.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
 [[alias]] Alias::
 A user-defined keyword that represents a specific Expense, acting as a quality-of-life replacement for common Expenses.
+
+[[CLI]] Command-Line Interface::
+A means of interacting with a computer program where the user issues commands to the program in the form of successive lines of text.
+
+
 
 [appendix]
 == Product Survey
@@ -1458,7 +1563,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample expenses. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -1466,26 +1571,140 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting an expense
 
-=== Deleting a expense
-
-. Deleting a expense while all expenses are listed
+Deleting an expense while all expenses are listed
 
 .. Prerequisites: List all expenses using the `listexpense` command. Multiple expenses in the list.
 .. Test case: `deleteexpense 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First expense is deleted from the list. Details of the deleted expense shown in the result display message.
 .. Test case: `deleteexpense 0` +
-   Expected: No expense is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `deleteexpense`, `deleteexpense x` (where x is larger than the list size) _{give more}_ +
+   Expected: No expense is deleted. Error details shown in the result display message.
+.. Other incorrect delete commands to try: `deleteexpense`, `deleteexpense x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Adding a budget
 
-=== Saving data
+Adding a budget to MooLah
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: None.
+.. Test case: `addbudget d/school p/100 sd/01-10 pr/month` +
+   Expected: A budget "school" is added to MooLah, and set as primary budget. The GUI is switched to the Budget Panel.
+.. Test case: `addbudget d/school p/100` +
+   Expected: No budget is added. Error details shown in the result display message.
+.. Test case: `addbudget d/default budget` +
+   Expected: No budget is added. Error details shown in the result display message.
+.. Other incorrect addbudget commands to try: `addbudget`, `addbudget p/100`, `addbudget p/0`
+   Expected: Similar to previous.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Editing a budget
 
-_{ more test cases ... }_
+Editing a budget in MooLah while all budgets are listed
+
+.. Prerequisites: List all budgets using the `listbudget` command. Multiple budgets in the list.
+.. Test case: `editbudget 2 d/abc` +
+   Expected: Second budget's description is updated to "abc".
+.. Test case: `editbudget 2 p/400` +
+   Expected: Second budget's limit is updated to 400. Percentage in progress bar is updated accordingly.
+.. Test case: `editbudget 1 d/abc` +
+   Expected: No budget is edited. Error details shown in the result display message.
+.. Other incorrect editbudget commands to try: `editbudget 2`, `editbudget x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Deleting a budget
+
+. Deleting a budget by index while all budgets are listed
+
+.. Prerequisites: List all budgets using the `listbudget` command. Multiple budgets in the list.
+.. Test case: `deletebudget-id 2` +
+   Expected: Second budget is deleted from the list. Details of the deleted budget shown in the result display message.
+.. Test case: `deletebudget-id 1` +
+   Expected: No budget is deleted. Error details shown in the result display message.
+.. Other incorrect deletebudget-id commands to try: `deletebudget-id`, `deletebudget-id x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+. Deleting a budget by name
+
+.. Prerequisites: None.
+.. Test case: `deletebudget d/school` (suppose budget "school" exists) +
+   Expected: Budget "school" is deleted from MooLah. Details of the deleted budget shown in the result display message.
+.. Test case: `deletebudget d/default budget` +
+   Expected: No budget is deleted. Error details shown in the result display message.
+.. Other incorrect deletebudget commands to try: `deletebudget`, `deletebudget d/x` (where x does not exist) +
+   Expected: Similar to previous.
+
+=== Switching the primary budget
+
+Switching the primary budget to another budget
+
+.. Prerequisites: None.
+.. Test case: `switchbudget d/school` (suppose budget "school" exists and is not primary) +
+   Expected: Budget "school" becomes the primary budget. GUI switches to primary budget panel.
+.. Test case: `switchbudget d/holiday` (suppose budget "holiday" is already primary) +
+   Expected: No action taken. Error details shown in the result display message.
+.. Other incorrect switchbudget commands to try: `switchbudget`, `switchbudget d/x` (where x does not exist) +
+   Expected: Similar to previous.
+
+=== Switching budget period
+
+Switching the budget period to view past expenses
+
+.. Prerequisites: None.
+.. Test case: `switchperiod t/01-09` +
+   Expected: Period of primary budget is switched to the period containing 1 Sep.
+.. Test case: `switchperiod t/now` +
+   Expected: Period of primary budget is switched to the period containing the current date.
+.. Test case: `switchperiod t/01-12` +
+   Expected: No action taken. Error details shown in the result display message.
+.. Other incorrect switchperiod commands to try: `switchperiod` +
+   Expected: Similar to previous.
+
+=== Listing all budgets
+
+Listing all budgets in MooLah
+
+.. Prerequisites: None.
+.. Test case: `listbudget` +
+   Expected: GUI switches to budget list panel to show a list of all budgets. The primary budget is marked with red border.
+.. Test case: `listbudget d/abc` +
+   Expected: No action taken. Error details shown in the result display message.
+
+=== Clearing all budgets
+
+Clearing all budgets in MooLah
+
+.. Prerequisites: None.
+.. Test case: `clearbudget` +
+   Expected: GUI switches to the budget list panel. All budgets except default budget are deleted. Default budget is marked with red border.
+
+=== Deleting an expense from budget panel
+
+.. Prerequisites: Go to primary budget panel using the `view priamry budget` command. Multiple expenses in the list.
+.. Test case: `deleteexpense-primary 1` +
+   Expected: First expense is deleted from the list. Details of the deleted expense shown in the result display message.
+.. Test case: `deleteexpense-primary 0` +
+   Expected: No expense is deleted. Error details shown in the result display message.
+.. Other incorrect deleteexpense-primary commands to try: `deleteexpense-primary`, `deleteexpense-primary x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Editing an expense from budget panel
+
+.. Prerequisites: Go to primary budget panel using the `view primary budget` command. Multiple expenses in the list.
+.. Test case: `editexpense-primary 1 d/a` +
+   Expected: First expense's description is updated to "a".
+.. Test case: `editexpense-primary 1 p/5` +
+   Expected: First expense's price is updated to 5. Percentage in progress bar is updated accordingly.
+.. Test case: `editexpense-primary 1` +
+   Expected: No expense is edited. Error details shown in the result display message.
+.. Other incorrect editexpense-primary commands to try: `editexpense-primary`, `editexpense-priamry x d/a` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Testing events
+.. Test case: `addevent d/ test p/ 10 c/ Shopping t/ a week from now` +
+   Expected: A success message will appear.
+.. Now, view the event list using either `listevent` or `view event list`.
+   Expected: The event with description `test` should be at the bottom of the event list.
+.. Edit the expense via the command `editevent <INDEX> t/ now`, where <INDEX> is the index of the event you want to test. +
+   Expected: A success message will appear.
+.. Within 10 seconds, a popup will appear to prompt for the automatic addition of an expense corresponding to the event.
+Pressing 'Yes' will add the expense into whichever primary budget you were on when you added the event.

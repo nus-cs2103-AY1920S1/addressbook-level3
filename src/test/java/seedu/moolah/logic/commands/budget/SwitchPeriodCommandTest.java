@@ -15,6 +15,8 @@ import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.general.Timestamp;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ModelHistory;
 
 public class SwitchPeriodCommandTest {
     private static final Timestamp SEP_15 = new Timestamp(
@@ -36,9 +38,13 @@ public class SwitchPeriodCommandTest {
         try {
             Timestamp validInput = Timestamp.createTimestampIfValid("01-10-2019").get();
             SwitchPeriodCommand command = new SwitchPeriodCommand(validInput);
+            ModelHistory expectedModelHistory = new ModelHistory();
+            expectedModelHistory.addToPastChanges(new ModelChanges(command.getDescription())
+                    .setMooLah(model.getMooLah()));
             CommandResult commandResult = command.run(model);
             assertEquals(model.getPrimaryBudget().getWindowStartDate(), SEP_15);
             assertEquals(model.getPrimaryBudget().getWindowEndDate(), OCT_14);
+            assertEquals(model.getModelHistory(), expectedModelHistory);
             assertEquals(String.format(SwitchPeriodCommand.MESSAGE_SWITCH_PERIOD_SUCCESS, validInput),
                     commandResult.getFeedbackToUser());
         } catch (CommandException e) {

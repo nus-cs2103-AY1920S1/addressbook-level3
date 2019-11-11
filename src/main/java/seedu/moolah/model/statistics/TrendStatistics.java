@@ -40,7 +40,7 @@ public class TrendStatistics implements Statistics {
 
     private List<Double> periodicBudgetLimits = new ArrayList<>();
 
-    private List<ArrayList<Double>> periodicCategoricalExpenses = new ArrayList<>();
+    private List<List<Double>> periodicCategoricalExpenses = new ArrayList<>();
 
     private String title;
 
@@ -66,8 +66,6 @@ public class TrendStatistics implements Statistics {
      * Gathers the data to be used for the elements of the trend line
      */
     private void generateTrendLine() {
-        ArrayList<ArrayList<ArrayList<Expense>>> data = new ArrayList<>();
-
 
         BudgetPeriod period = primaryBudget.getBudgetPeriod();
         Timestamp windowStartDate = primaryBudget.getWindowStartDate();
@@ -82,7 +80,7 @@ public class TrendStatistics implements Statistics {
             Timestamp nextLocalStartDate = localStartDate.plus(period.getPeriod());
             Timestamp localEndDate = nextLocalStartDate.minusDays(1);
 
-            ArrayList<ArrayList<Expense>> categorisedPeriodicExpenses =
+            List<List<Expense>> categorisedPeriodicExpenses =
                     getCategorisedPeriodicExpenses(localStartDate, localEndDate);
 
             if (budgetLimitMode) {
@@ -98,7 +96,6 @@ public class TrendStatistics implements Statistics {
             validDate = nextLocalStartDate;
 
         }
-        //shown to the user, should be exactly what they counted
         this.setTitle(String.format("Periodic trendline from %s to %s in the unit of %ss",
                 startDate.showDate(), endDate.showDate(),
                 period));
@@ -130,19 +127,19 @@ public class TrendStatistics implements Statistics {
      */
     private void flatMapAdd(List<Double> categorisedExpenditureAtPeriod) {
         for (int i = 0; i < categorisedExpenditureAtPeriod.size(); i++) {
-            ArrayList<Double> categoricalExpenses = periodicCategoricalExpenses.get(i);
+            List<Double> categoricalExpenses = periodicCategoricalExpenses.get(i);
             categoricalExpenses.add(categorisedExpenditureAtPeriod.get(i));
         }
     }
 
-    private ArrayList<ArrayList<Expense>> getCategorisedPeriodicExpenses(Timestamp startDate, Timestamp endDate) {
+    private List<List<Expense>> getCategorisedPeriodicExpenses(Timestamp startDate, Timestamp endDate) {
         TabularStatistics statistics = new TabularStatistics(expenses, startDate, endDate);
-        ArrayList<ArrayList<Expense>> dataWithTotal = statistics.extractRelevantExpenses(startDate, endDate);
+        List<List<Expense>> dataWithTotal = statistics.extractRelevantExpenses(startDate, endDate);
         dataWithTotal.remove(dataWithTotal.size() - 1);
         return dataWithTotal;
     }
 
-    private double getExpenditureForCategory(ArrayList<Expense> categorisedExpenses) {
+    private double getExpenditureForCategory(List<Expense> categorisedExpenses) {
         double total = 0;
         for (Expense expense : categorisedExpenses) {
             total += Double.parseDouble(expense.getPrice().value);
@@ -150,23 +147,23 @@ public class TrendStatistics implements Statistics {
         return total;
     }
 
-    private double getTotalExpenditure(ArrayList<ArrayList<Expense>> data) {
+    private double getTotalExpenditure(List<List<Expense>> data) {
         double total = 0;
-        for (ArrayList<Expense> categorisedExpenses : data) {
+        for (List<Expense> categorisedExpenses : data) {
             total += getExpenditureForCategory(categorisedExpenses);
         }
         return total;
     }
 
-    private List<Double> getCategoricalExpenditure(ArrayList<ArrayList<Expense>> data) {
+    private List<Double> getCategoricalExpenditure(List<List<Expense>> data) {
         ArrayList<Double> result = new ArrayList<>();
-        for (ArrayList<Expense> categorisedExpenses : data) {
+        for (List<Expense> categorisedExpenses : data) {
             result.add(getExpenditureForCategory(categorisedExpenses));
         }
         return result;
     }
 
-    public List<ArrayList<Double>> getPeriodicCategoricalExpenses() {
+    public List<List<Double>> getPeriodicCategoricalExpenses() {
         return periodicCategoricalExpenses;
     }
 
@@ -178,13 +175,10 @@ public class TrendStatistics implements Statistics {
         return dates;
     }
 
-    public List<Double> getPeriodicTotalExpenditure() {
+    private List<Double> getPeriodicTotalExpenditure() {
         return periodicTotalExpenditures;
     }
 
-    public List<Double> getPeriodicBudgetLimits() {
-        return periodicBudgetLimits;
-    }
 
     public boolean isBudgetLimitMode() {
         return budgetLimitMode;

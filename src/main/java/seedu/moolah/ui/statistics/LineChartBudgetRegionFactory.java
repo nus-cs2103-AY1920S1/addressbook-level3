@@ -42,7 +42,6 @@ public class LineChartBudgetRegionFactory implements StatisticsRegionFactory {
         expenseTrendLine.setName("Total money spent");
         XYChart.Series<String, Number> budgetLimitTrendLine = new XYChart.Series<String, Number>();
         budgetLimitTrendLine.setName("Budget limit");
-        //need a better hard-coded parser
         for (int i = 0; i < dates.size(); i++) {
             expenseTrendLine.getData().add(
                     new XYChart.Data<String, Number>(dates.get(i).showDate(), periodicTotal.get(i)));

@@ -14,8 +14,21 @@ endif::[]
 
 * Our unique expense tracker app, MooLah, is tailored to students from National University of Singapore.
 It helps users cultivate good financial management habits through tracking their expenses and setting periodic budgets.
-With MooLah, you can spend smart and save smart.
-* This is a desktop application. It has a GUI but most of the user interactions occur using a CLI (Command Line Interface).
+With MooLah, you can *spend smart and save smart*.
+
+* MooLah improves user experience through autocomplete and prefix suggestions, significantly boosting efficiency.
+MooLah also adopts an external library Natty, a natural language time parser, so that it accepts
+more intuitive input format for time. MooLah's robust budgeting feature allows users to track expenses under different
+budgets, monitor their spending through the progress bar, and receive timely notification when important thresholds are
+reached. With MooLah's powerful statistics, users can view a summary of their spending in various modes, be
+it a pie chart, a table or a trend line. Besides, users can plan ahead and set up reminders for future events.
+Furthermore, the menu feature is specially tailored to students in National University of Singapore, allowing them to
+record a food item expense directly from preset menus in school canteens. Almost all commands in MooLah support
+undo-redo, increasing tolerance for occasional mistakes and thus creating a seamless user experience.
+All these solid and well-developed features make MooLah a perfect personal financial assistant.
+
+* This is a desktop application. It has a GUI (Graphical User Interface),
+but most of the user interactions occur using a CLI (Command Line Interface).
 
 == Site Map
 

@@ -1,0 +1,41 @@
+@startuml
+!include ../style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor black
+skinparam classBackgroundColor UI_COLOR
+skinparam classBorderColor white
+skinparam classFontColor white
+skinparam classFontColor white
+skinparam linetype ortho
+skinparam classAttributeFontColor white
+
+package UI {
+class UiPart
+package textfield {
+    class CommandBox
+    class CommandTextField
+    class InputHistory
+    class SyntaxHighlightingSupportedInput
+    class AutoFillSuggestionMenu
+    class AutoFillSuggestionSupportedCommand
+}
+}
+package RichTextFx {
+class StyleClassTextArea
+}
+
+package Logic {
+
+}
+
+CommandTextField . Logic
+CommandBox --up|> UiPart
+CommandBox *--> CommandTextField
+CommandTextField *--> InputHistory
+CommandTextField "*" o---> SyntaxHighlightingSupportedInput
+CommandTextField *--> AutoFillSuggestionMenu
+AutoFillSuggestionMenu "*" o---> AutoFillSuggestionSupportedCommand
+CommandTextField --right--|> StyleClassTextArea
+
+@enduml

@@ -26,17 +26,67 @@ class PieChartStatistics {
 +Timestamp: getStartDate()
 +Timestamp: getEndDate()
 -generatePieChartData()
--generatePercentages(ArrayList<ArrayList<Expense>>, ArrayList<Double>, ArrayList<Integer>, ArrayList<String>,String)
+-generatePercentages(List<List<Expense>>, List<Double>, List<Integer>, List<String>,String)
 -extractRelevantExpenses(Timestamp,Timestamp)
 -List<Category> collateBudgetCategories(ObservableList<Expense>)
 }
 
-class TabularStatistics {
--WIP
-}
+
+
+
 class TrendStatistics {
--WIP
+-Timestamp: startDate
+-Timestamp: endDate
+-Budget: primaryBudget
+-boolean: budgetLimitMode
+-ObservableList<Expense>: expenses
+-List<Timestamp>: dates
+-List<Double>: periodicTotalExpenditures
+-List<Double>: periodicBudgetLimits
+-List<List<Double>>: periodicCategoricalExpenses
+-String title
+
+-generateTrendLine()
+-findClosestWindowStartDate(Timestamp, Timestamp, BudgetPeriod): Timestamp
+-flatMapAdd(List<Double> categorisedExpenditureAtPeriod)
+-getCategorisedPeriodicExpenses(Timestamp, Timestamp): List<List<Expense>>
+-getExpenditureForCategory(List<Expense>): double
+-getTotalExpenditure(List<List<Expense>>): double
+-getCategoricalExpenditure(List<List<Expense>>): List<Double>
++getPeriodicCategoricalExpenses(): List<List<Double>>
+-{{static}} hasInterval (Timestamp, Timestamp, BudgetPeriod): boolean
++getDates(): List<Timestamp>
+-getPeriodicTotalExpenditure(): List<Double>
++ isBudgetLimitMode(): boolean
++ getStartDate(): Timestamp
++getEndDate(): Timestamp
++toString(): String
 }
+
+class TabularStatistics {
+-Timestamp: firstStartDate
+-Timestamp: firstEndDate
+-Timestamp: secondStartDate
+-Timestamp: secondEndDate
+-int: categorySize
+-ObservableList<Expense>: expenses
+-List<FiveElementTableEntry>: unionDifferenceTable
+-String title
+-generateTableData()
+-createEmptyTableWithoutPercentage(): List<ThreeElementTableEntry>
+-secondMinusFirst(List<ThreeElementTableEntry>, List<ThreeElementTableEntry>): List<ThreeElementTableEntry>
+-extractRelevantExpenses(Timestamp startDate, Timestamp endDate): List<List<Expense>>
+-convertDataToFigures(List<List<Expense>>,List<ThreeElementTableEntry>)
+-{static} combine(List<ThreeElementTableEntry>, List<ThreeElementTableEntry>): List<FiveElementTableEntry>
++toString(): String
++{static} createEmptyTableWithTotal(): List<FiveElementTableEntry>
+-{static} replaceWith(List<FiveElementTableEntry>, List<FiveElementTableEntry>): List<FiveElementTableEntry>
+}
+
+
+
+
+
 
 
 
@@ -47,3 +97,5 @@ Statistics <|-- TrendStatistics
 
 
 @enduml
+
+

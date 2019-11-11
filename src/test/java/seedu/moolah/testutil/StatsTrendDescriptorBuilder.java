@@ -3,7 +3,6 @@ package seedu.moolah.testutil;
 import seedu.moolah.logic.commands.statistics.StatsTrendDescriptor;
 import seedu.moolah.model.general.Timestamp;
 import seedu.moolah.model.statistics.Mode;
-import seedu.moolah.model.statistics.TrendStatistics;
 
 /**
  * A utility class to help with building StatsTrendDescriptor objects.
@@ -18,17 +17,6 @@ public class StatsTrendDescriptorBuilder {
 
     public StatsTrendDescriptorBuilder(StatsTrendDescriptor descriptor) {
         this.descriptor = new StatsTrendDescriptor(descriptor);
-    }
-
-    //dk if its right to make it biased because a TabularStatistics dont follow the same signature
-    /**
-     * Returns an {@code StatsTrendDescriptor} with fields containing {@code statistics}'s details
-     */
-    public StatsTrendDescriptorBuilder(TrendStatistics statistics) {
-        descriptor = new StatsTrendDescriptor();
-        descriptor.setStartDate(statistics.getStartDate());
-        descriptor.setEndDate(statistics.getEndDate());
-        descriptor.setMode(statistics.isBudgetLimitMode());
     }
 
     /**
@@ -47,7 +35,6 @@ public class StatsTrendDescriptorBuilder {
         return this;
     }
 
-    //not sure if I want to change this to enum soon, for now just put the object
     /**
      * Sets the {@code String} of the {@code StatsDescriptor} that we are building.
      */

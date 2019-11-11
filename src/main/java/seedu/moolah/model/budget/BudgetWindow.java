@@ -5,6 +5,7 @@ import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Objects;
 
 import seedu.moolah.model.general.Timestamp;
@@ -17,6 +18,12 @@ public class BudgetWindow {
     private Timestamp endDate;
     private final BudgetPeriod period;
 
+    /**
+     * Constructs a BudgetWindow with a start date and a period.
+     *
+     * @param startDate The start date of this BudgetWindow.
+     * @param period The fixed length of this BudgetWindow.
+     */
     public BudgetWindow(Timestamp startDate, BudgetPeriod period) {
         requireAllNonNull(startDate, period);
         this.startDate = startDate.toStartOfDay();
@@ -49,11 +56,23 @@ public class BudgetWindow {
                 && isBeforeOrEqualEndDate(timestamp);
     }
 
+    /**
+     * Checks if a timestamp is after or equal to the start date of this BudgetWindow.
+     *
+     * @param timestamp The timestamp to be compared with the start date.
+     * @return True if the timestamp is after or equal to the start date, false otherwise.
+     */
     private boolean isAfterOrEqualStartDate(Timestamp timestamp) {
         requireNonNull(timestamp);
         return timestamp.dateIsAfter(startDate.minusDays(1));
     }
 
+    /**
+     * Checks if a timestamp is before or equal to the end date of this BudgetWindow.
+     *
+     * @param timestamp The timestamp to be compared with the end date.
+     * @return True if the timestamp is before or equal to the end date, false otherwise.
+     */
     private boolean isBeforeOrEqualEndDate(Timestamp timestamp) {
         requireNonNull(timestamp);
         return timestamp.dateIsBefore(endDate.plusDays(1));
@@ -68,24 +87,24 @@ public class BudgetWindow {
         requireNonNull(rawAnchor);
         LocalDateTime anchor = rawAnchor.toStartOfDay().fullTimestamp;
         LocalDateTime normalized;
+        int currentDayOfMonth = startDate.getDayOfMonth();
 
         switch(period) {
         case YEAR:
             int currentDayOfYear = startDate.getDayOfYear();
             int anchorDayOfYear = anchor.getDayOfYear();
+            int currentMonth = startDate.getMonthValue();
             normalized = (anchorDayOfYear >= currentDayOfYear)
-                    ? anchor.withMonth(startDate.getMonthValue())
-                    .withDayOfMonth(startDate.getDayOfMonth())
-                    : anchor.minusYears(1)
-                    .withMonth(startDate.getMonthValue())
-                    .withDayOfMonth(startDate.getDayOfMonth());
+                    ? withDayOfMonthValid(anchor.withMonth(currentMonth),
+                    currentDayOfMonth)
+                    : withDayOfMonthValid(anchor.minusYears(1).withMonth(currentMonth),
+                    currentDayOfMonth);
             break;
         case MONTH:
-            int currentDayOfMonth = startDate.getDayOfMonth();
             int anchorDayOfMonth = anchor.getDayOfMonth();
             normalized = (anchorDayOfMonth >= currentDayOfMonth)
-                    ? anchor.withDayOfMonth(currentDayOfMonth)
-                    : anchor.minusMonths(1).withDayOfMonth(currentDayOfMonth);
+                    ? withDayOfMonthValid(anchor, currentDayOfMonth)
+                    : withDayOfMonthValid(anchor.minusMonths(1), currentDayOfMonth);
             break;
         case WEEK:
             long daysDiff = ChronoUnit.DAYS.between(startDate.getDate(), anchor.toLocalDate());
@@ -100,7 +119,39 @@ public class BudgetWindow {
     }
 
     /**
+     * Returns a LocalDateTime with specified day of month. If the specified day of month is larger than
+     * total number of days in the month, the last day of month is taken instead.
+     *
+     * @param anchor The original LocalDateTime object.
+     * @param dayOfMonth The specified day of month.
+     * @return A new LocalDateTime object with the specified day of month, other fields unchanged.
+     */
+    private LocalDateTime withDayOfMonthValid(LocalDateTime anchor, int dayOfMonth) {
+        boolean isLeapYear = isLeapYear(anchor.getYear());
+        int anchorMonthLength = anchor.getMonth().length(isLeapYear);
+        if (anchorMonthLength < dayOfMonth) {
+            return anchor.withDayOfMonth(anchorMonthLength);
+        } else {
+            return anchor.withDayOfMonth(dayOfMonth);
+        }
+    }
+
+    /**
+     * Checks if a given year is leap year.
+     *
+     * @param year The year to check.
+     * @return True if the year is leap year, false otherwise.
+     */
+    private boolean isLeapYear(int year) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        return cal.getActualMaximum(Calendar.DAY_OF_YEAR) > 365;
+    }
+
+    /**
      * Calculates proper end date based on given start date and period.
+     *
+     * @return A Timestamp representing the end date of this BudgetWindow.
      */
     private Timestamp calculateEndDate() {
         Timestamp endDate = startDate.plus(period.getPeriod());
@@ -111,11 +162,22 @@ public class BudgetWindow {
         return endDate.minusDays(1).toEndOfDay();
     }
 
+    /**
+     * Creates a hash code by hashing all relevant attributes of this BudgetWindow object.
+     *
+     * @return A hash code of this BudgetWindow object.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(startDate, endDate, period);
     }
 
+    /**
+     * Checks whether another object is identical to this BudgetWindow.
+     *
+     * @param other The other object to be compared.
+     * @return True if the other object is a BudgetWindow with the same attributes, false otherwise.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -132,6 +194,11 @@ public class BudgetWindow {
                 && otherWindow.endDate.getDate().equals(endDate.getDate());
     }
 
+    /**
+     * Generates a string representation of this BudgetWindow.
+     *
+     * @return A string that describes the period, start and end dates.
+     */
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

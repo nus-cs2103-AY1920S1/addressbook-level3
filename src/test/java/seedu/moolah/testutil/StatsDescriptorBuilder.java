@@ -2,7 +2,6 @@ package seedu.moolah.testutil;
 
 import seedu.moolah.logic.commands.statistics.StatsDescriptor;
 import seedu.moolah.model.general.Timestamp;
-import seedu.moolah.model.statistics.PieChartStatistics;
 
 
 /**
@@ -18,16 +17,6 @@ public class StatsDescriptorBuilder {
 
     public StatsDescriptorBuilder(StatsDescriptor descriptor) {
         this.descriptor = new StatsDescriptor(descriptor);
-    }
-
-    //dk if its right to make it biased because a TabularStatistics dont follow the same signature
-    /**
-     * Returns an {@code StatsDescriptor} with fields containing {@code statistics}'s details
-     */
-    public StatsDescriptorBuilder(PieChartStatistics statistics) {
-        descriptor = new StatsDescriptor();
-        descriptor.setStartDate(statistics.getStartDate());
-        descriptor.setEndDate(statistics.getEndDate());
     }
 
     /**

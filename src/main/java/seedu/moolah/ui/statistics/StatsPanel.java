@@ -37,9 +37,6 @@ public class StatsPanel extends Panel {
         statisticsHolder.getChildren().add(statistics);
     }
 
-    //again standardise the notation of category, categorical and total
-
-    //what do I do with methods of the same erasure? Add boolean or should I just rearrange?
 
     @Override
     public void view() {

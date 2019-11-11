@@ -13,6 +13,7 @@ import seedu.moolah.model.Model;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.alias.Alias;
+import seedu.moolah.model.modelhistory.ModelChanges;
 import seedu.moolah.model.modelhistory.ModelHistory;
 import seedu.moolah.testutil.AliasTestUtil;
 
@@ -57,9 +58,11 @@ class DeleteAliasCommandIntegrationTest {
         Alias alias = AliasTestUtil.ALIAS_A_TO_B;
         assertEquals(expectedModel, model);
         model.addUserAlias(alias);
-        DeleteAliasCommand deleteAliasCommand = new DeleteAliasCommand(alias.getAliasName());
+        DeleteAliasCommand command = new DeleteAliasCommand(alias.getAliasName());
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()).setUserPrefs(model.getUserPrefs()));
         try {
-            deleteAliasCommand.run(model);
+            command.run(model);
+            assertEquals(model, expectedModel);
             assertEquals(model.getAliasMappings(), expectedModel.getAliasMappings());
         } catch (Exception e) {
             throw new AssertionError("Should not throw exception.");

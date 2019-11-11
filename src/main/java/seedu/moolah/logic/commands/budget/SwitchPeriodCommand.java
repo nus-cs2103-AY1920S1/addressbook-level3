@@ -30,19 +30,36 @@ public class SwitchPeriodCommand extends UndoableCommand {
 
     private final Timestamp pastDate;
 
+    /**
+     * Creates an SwitchPeriodCommand to switch the budget window to a past period that contains the
+     * specified {@code pastDate}.
+     *
+     * @param pastDate The date to anchor a past period.
+     */
     public SwitchPeriodCommand(Timestamp pastDate) {
         requireNonNull(pastDate);
         this.pastDate = pastDate;
     }
 
+    /**
+     * Returns a description of this SwitchPeriodCommand.
+     *
+     * @return A string that describes this SwitchPeriodCommand.
+     */
     @Override
     public String getDescription() {
         return String.format(COMMAND_DESCRIPTION, pastDate);
     }
 
+
+    /**
+     * Validates this SwitchPeriodCommand with the current model, before execution.
+     *
+     * @param model The current model.
+     * @throws CommandException If the period to switch to is a future period.
+     */
     @Override
     protected void validate(Model model) throws CommandException {
-        // No validation necessary.
         Budget currentPeriod = model.getPrimaryBudget().deepCopy().normalize(Timestamp.getCurrentTimestamp());
 
         if (pastDate.dateIsAfter(currentPeriod.getWindowEndDate())) {
@@ -50,6 +67,12 @@ public class SwitchPeriodCommand extends UndoableCommand {
         }
     }
 
+    /**
+     * Executes this SwitchPeriodCommand with the current model.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return A CommandResult consisting of success message and panel change request.
+     */
     @Override
     protected CommandResult execute(Model model) {
         requireNonNull(model);
@@ -60,6 +83,12 @@ public class SwitchPeriodCommand extends UndoableCommand {
                 BudgetPanel.PANEL_NAME);
     }
 
+    /**
+     * Checks whether another object is identical to this SwitchPeriodCommand.
+     *
+     * @param other The other object to be compared.
+     * @return True if the other object is a SwitchPeriodCommand with the same anchor date, false otherwise.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

@@ -21,7 +21,7 @@ import seedu.moolah.model.general.Timestamp;
  * Handles all comparisons between system time and the time fields of Expenses, Events and Budgets.
  */
 public class Timekeeper {
-    public static final long UPPER_THRESHOLD = 7;
+    public static final long THRESHOLD = 7;
     private static Timestamp systemTime = new Timestamp(LocalDateTime.now());
     private Logic logic;
     private ObservableList<Event> events;
@@ -67,7 +67,7 @@ public class Timekeeper {
     }
 
     /**
-     * Removes events with timestamps on this current day or before this current day. Returns these transpired events.
+     * Returns events with timestamps that are past the system time and tied to budgets that are still existing.
      *
      * @return A list of transpired events.
      */
@@ -92,9 +92,7 @@ public class Timekeeper {
     public String displayReminders() {
         for (Event event : events) {
             Optional<Reminder> potentialReminder = createReminderIfValid(event);
-            if (potentialReminder.isPresent()) {
-                reminders.add(potentialReminder.get());
-            }
+            potentialReminder.ifPresent(reminder -> reminders.add(reminder));
         }
 
         StringBuilder remindersMessage =
@@ -109,8 +107,7 @@ public class Timekeeper {
     }
 
     /**
-     * Dummy.
-     *
+     * Refreshes all budgets (except default budget) in MooLah.
      */
     public void refreshBudgets() {
         for (Budget budget : budgets) {
@@ -133,29 +130,6 @@ public class Timekeeper {
         return (isUrgent(timestamp)) ? Optional.of(new Reminder(event, daysLeft)) : Optional.empty();
     }
 
-    //    /**
-    //     * Calculates how many days outdated the given timestamp is.
-    //     *
-    //     * @param timestamp The given timestamp.
-    //     * @return How many days outdated the given timestamp is. Can be negative.
-    //     */
-    //    public static String formatTimeOutdated(Timestamp timestamp) {
-    //        LocalDateTime temp = systemTime.fullTimestamp;
-    //
-    //        long daysLeft = temp.until(timestamp.fullTimestamp, ChronoUnit.DAYS);
-    //        temp = temp.plusDays(daysLeft);
-    //
-    //        long hoursLeft = temp.until(timestamp.fullTimestamp, ChronoUnit.HOURS);
-    //        temp = temp.plusHours(hoursLeft);
-    //
-    //        long minutesLeft = temp.until(timestamp.fullTimestamp, ChronoUnit.MINUTES);
-    //
-    //        String timeRemaining = String.format("%d days, %d hours and %d minutes",
-    //                Math.abs(daysLeft), Math.abs(hoursLeft), Math.abs(minutesLeft));
-    //
-    //        return timeRemaining;
-    //    }
-
     private static long calculateDaysRemaining(Timestamp timestamp) {
         long daysLeft = systemTime.getFullTimestamp().until(timestamp.getFullTimestamp(), ChronoUnit.DAYS);
         return daysLeft;
@@ -163,19 +137,25 @@ public class Timekeeper {
 
     private static boolean isUrgent(Timestamp timestamp) {
         long daysLeft = calculateDaysRemaining(timestamp);
-        return daysLeft < UPPER_THRESHOLD && !hasTranspired(timestamp);
+        return daysLeft < THRESHOLD && !hasTranspired(timestamp);
     }
 
     /**
-     * Checks whether a timestamp is past the timestamp representing the current system time.
+     * Checks whether a timestamp has gone past the timestamp representing the current system time.
      *
      * @param timestamp The timestamp to be checked.
-     * @return Whether the timestamp is past system time.
+     * @return Whether the timestamp has gone past system time.
      */
     public static boolean hasTranspired(Timestamp timestamp) {
         return timestamp.isBefore(systemTime);
     }
 
+    /**
+     * Checks whether a timestamp is still in the future when compared to current system time.
+     *
+     * @param timestamp The timestamp to be checked.
+     * @return Whether the timestamp is still in the future.
+     */
     public static boolean isFutureTimestamp(Timestamp timestamp) {
         return timestamp.isAfter(systemTime);
     }
