@@ -9,17 +9,10 @@
 
 == Overview
 
-The Module Appeal Management System (MAMS) is a desktop app that aims to combine Command Line Interface (CLI) style commands
-with a triple-pane GUI for easy navigation of appeals, module information, and student particulars. This app is particularly
-aimed towards *module appeal administrators who prefer to work through their heavy backload of module appeals without ever having to
-leave the comfort of the keyboard for their mouse*. The MAMS system can quickly bring up entire lists of students, appeals, and modules for
+The Module Appeal Management System (MAMS) is a desktop appeal management app for module appeal administrators. The MAMS system can quickly bring up entire lists of students, appeals, and modules for
 side-by-side comparison, with specific display commands to view the expanded details of any particular object in question. The MAMS system also provides
 a suite of commands for resolving appeals, overriding MC limits, and leaving special notes on students.
-
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoC.
-
-[NOTE]
-This portfolio was adapted from the AddressBook - Level 3 project.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
@@ -38,22 +31,28 @@ This feature improves the user experience significantly by providing a convenien
 ** Highlights: This enhancement affects other commands since it will be used together with other commands often.
 For example, to filter all appeals requesting to add a particular module and perform checks in one go.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com/AY1920S1-CS2103-T11-2/main/tree/master/src/main/java/mams[Functional code]] [https://github.com/AY1920S1-CS2103-T11-2/main/tree/master/src/test/java/mams[Test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Set up project schedule tracking using issues
-*** Helped to manage releases `v1.3` on GitHub
+*** Managed project schedule tracking
+*** Migrated user stories to GitHub issues
+*** Managed issues on GitHub and assigned issues to corresponding Milestones and team members
+*** Managed releases `v1.3` on GitHub
 ** Refactoring of original code base:
 *** Removed original Add/Delete/Clear commands and related tests https://github.com/AY1920S1-CS2103-T11-2/main/pull/60[#60]
+*** Changed prefixes to suit our app and performed related refactoring https://github.com/AY1920S1-CS2103-T11-2/main/pull/85[#85]
+** Enhancements to existing features:
+*** Rectified disagreement in sample data https://github.com/AY1920S1-CS2103-T11-2/main/pull/206[#206]
+*** Edited TestUtils to rectify data disagreement for more meaningful tests https://github.com/AY1920S1-CS2103-T11-2/main/pull/211[#211]
 ** Documentation:
-*** Convert the first draft of User Guide to ascii doc https://github.com/AY1920S1-CS2103-T11-2/main/pull/25[#25]
-*** sdf
+*** Converted the first draft of User Guide to ascii doc https://github.com/AY1920S1-CS2103-T11-2/main/pull/25[#25]
+*** Enhanced the class diagram of logic component in Developer Guide https://github.com/AY1920S1-CS2103-T11-2/main/pull/214[#214]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T11-2/main/pull/92[#92]
-*** Reported bugs and suggestions for other teams (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Reviewed UG and reported suggestions for other teams in class()
+*** Reported bugs and suggestions for other teams (examples:  https://github.com/chensu2436/ped/issues/8[1], https://github.com/chensu2436/ped/issues/6[2], https://github.com/chensu2436/ped/issues/7[3])
+*** Reviewed User Guide and Developer Guide, and reported suggestions for other teams in class
 
 == Contributions to the User Guide
 
@@ -71,9 +70,10 @@ include::../UserGuide.adoc[tag=find]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=logic]
-
 include::../DeveloperGuide.adoc[tag=clash]
 
 include::../DeveloperGuide.adoc[tag=find]
 
+include::../DeveloperGuide.adoc[tag=uc4]
+
+include::../DeveloperGuide.adoc[tag=test4]

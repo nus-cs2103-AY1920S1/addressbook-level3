@@ -1052,8 +1052,8 @@ of appeals by default.
 1.  Admin views the details of the appeals in the displayed list
 2.  Admin requests to view appeal details of 2nd appeal in the list.
 3.  MAMS shows the appeal details(student particulars, module requested)
-4.  Admin requests to check potential clash of module requested by
-student with student’s existing modules
+4.  Admin requests to check potential clash between module requested by
+student and student’s existing modules
 5.  MAMS shows that there are no clashes
 6.  Admin requests to add module to student
 7.  MAMS adds module to student
@@ -1103,24 +1103,25 @@ higher workload
 *Use case ends.*
 
 [discrete]
+// tag::uc4[]
 === UC04: Approve request from a student to add a module with clashes in timetable
 
 *MSS*
 
-Pre-condition: System has only just been opened, and is showing a list
-of appeals by default.
+Pre-condition: MAMS shows an expanded view of an appeal from a student requesting to add a module.
 
-1.  Admin requests to check potential clash of module requested by
-student with student’s existing modules.
+1.  Admin requests to check potential clash between module requested by
+student and student’s existing modules.
 2.  MAMS shows that there are clashes.
-3.  Admin requests to add the module to the student with clashes.
+3.  Admin reads the appeal reason and requests to add the module to the student, allowing clashes.
 4.  MAMS asks for confirmation to add the module to the student.
-5.  Admin adds a remark to the approval case.
-6.  Admin adds the student to the module.
-7.  Admin requests to approve appeal.
+5.  Admin confirms to add the module to the student.
+6.  MAMS adds the module to the student.
+7.  Admin resolves the approval case and adds a remark saying timetable clash allowed.
 8.  MAMS marks appeal as approved.
 +
 *Use case ends.*
+// end::uc4[]
 
 [discrete]
 === UC05: Viewing Command History
@@ -1262,8 +1263,6 @@ student/appeal/module data from different semesters.
 .  Should be able to hold up to 40000 students and 1000 modules without a noticeable sluggishness in performance for typical usage.
 [appendix]
 
-
-
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
@@ -1306,8 +1305,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Backup and Restoring
 
 . Dealing with missing/corrupted data files
@@ -1324,4 +1321,31 @@ _{ more test cases ... }_
 
 .. All undoable commands are undid, the final result is checked against the previous state to ensure that the undo function correctly reverts the data back to the previous state.
 
+// tag::test4[]
+=== Check Clash
+. Check timetable clashes for in an appeal
+.. Input format: `clash a/INDEX` example: `clash a/1`
+.. Expected output:
+... If it is an appeal requesting to add or drop module, clash details will be shown in the message bar when clash is detected, or "no clash detected" when there is no clash.
+... If For other types of appeal, a reminder of "no need to check clash" will be shown in the message bar.
+. Check timetable clashes between 2 modules
+.. Input format: `clash m/INDEX m/INDEX` or `clash m/MODULE_CODE m/MODULE_CODE` example: `clash m/1 m/2` `clash m/cs1010 m/cs1231`
+.. Expected output: relevant clash details will be shown in the message bar
+. Check timetable clashes in a student's current timetable
+.. Input format: `clash s/INDEX` example: `clash s/3`
+.. Expected output: relevant clash details will be shown in the message bar
+. Other forms of input will be considered invalid and a message of command usage or other relevant message will be shown in the message bar.
+Example: `clash a/1 a/2` `clash y/ s/1`
+. Invalid index or module code will be detected and relevant message will be shown in the message bar. Example: `clash m/123 m/3` `clash a/999999`
+
+=== Find
+. Valid input format: `find [a/KEYWORD...] [m/KEYWORD..] [s/KEYWORD]`
+.. Example: `find a/unresolved` `find s/larry m/cs1231` `find m/cs10 data`
+.. Expected: Number of results found will be shown in the message bar.
+Specified lists will be updated to show items containing any of the keywords.
+.. The order of the prefixes does not matter.
+.. If there is only 1 search result in a list, it will default to show the expanded view of that item.
+.. Invalid prefix will be considered as a keyword. eg. `find s/celina y/` "y/" will be taken as a keyword to be found in the student list.
+
+// end::test4[]
 
