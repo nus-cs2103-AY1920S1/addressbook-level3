@@ -63,7 +63,7 @@ alternatives was necessary to implement the feature in a way that doesn’t disr
 
 * *Minor enhancement*: Designed the overall GUI of the StudyBuddyPro application.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=chanjunren[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=chanjunren[Functional code]]
 
 * *Other contributions*:
 
