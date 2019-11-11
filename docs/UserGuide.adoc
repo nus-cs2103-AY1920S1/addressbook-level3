@@ -664,6 +664,10 @@ image::TaskStats.png[]
 The resultant statistics displayed shows the proportion of tasks that are undone, in progress and completed,
 as well as the time taken for each task inputted into +Work.
 
+[NOTE]
+The time spent on each task can only be calculated if the task involved has been marked as `DOING`, and then `DONE`.
+If you immediately mark an `UNBEGUN` task as `DONE`, the task will be marked as 'done from time of input'.
+
 '''
 
 
