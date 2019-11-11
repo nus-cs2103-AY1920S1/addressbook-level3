@@ -168,6 +168,18 @@ for serializing and deserializing using the Jackson Library.
 .Snippet of Storage Component Class Diagram to illustrate how an item in the replenish list is stored.
 image::condensed_storage_class_diagram.png[]
 
+===== Design Considerations
+
+====== Aspect: Storage of replenish list and main list
+* **Alternative 1 (current choice): Store both lists in the same JSON file**
+** Pros: Updating the storage would be less cumbersome as only one file needs to be read and written into.
+** Cons: Challenging to find a suitable and efficient data structure that wraps both lists for storage into a single file.
+
+* **Alternative 2: Store both lists as separate JSON files**
+** Pros: Easier to implement as there is no need to find a data structure to wrap both lists for storage.
+** Cons: Makes updating the storage troublesome as both files need to be updated at the same time for any changes made to the lists.
+
+
 ==== Moving items in the main list into the replenish list
 An `XpireItem` in the main list can be transferred to the replenish list using the `ShiftToReplenishCommand`.
 Any `XpireItem` whose quantity is `0` will also be automatically added to the replenish list.
@@ -208,15 +220,6 @@ If an item with the same `Name` and `ExpiryDate` already exists on the main list
 However, only the tags of the item on the main list will be retained.
 
 ===== Design Considerations
-
-====== Aspect: Storage of replenish list and main list
-* **Alternative 1 (current choice): Store both lists in the same JSON file**
-** Pros: Updating the storage would be less cumbersome as only one file needs to be read and written into.
-** Cons: Challenging to find a suitable and efficient data structure that wraps both lists for storage into a single file.
-
-* **Alternative 2: Store both lists as separate JSON files**
-** Pros: Easier to implement as there is no need to find a data structure to wrap both lists for storage.
-** Cons: Makes updating the storage troublesome as both files need to be updated at the same time for any changes made to the lists.
 
 ====== Aspect: Handling of items that have run out
 * **Alternative 1 (current choice): Automatically shift an item to the replenish list when the item's quantity reaches 0**
@@ -1122,7 +1125,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
