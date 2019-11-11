@@ -62,7 +62,7 @@ contains one of the keyword(s) in their _title, topics, description, status_ or 
 * *Minor enhancement*: Added a Problem Display Panel to the Questions and Workspace Tab.
 
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=zhangj1an&tabRepo=AY1920S1-CS2103T-F14-1%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=zhangj1an&tabRepo=AY1920S1-CS2103T-F14-1%2Fmain%5Bmaster%5D[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=zhangj1an&tabRepo=AY1920S1-CS2103T-F14-1%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=zhangj1an&tabRepo=AY1920S1-CS2103T-F14-1%2Fmain%5Bmaster%5D[Test code]]
 
 * *Other contributions*:
 
@@ -102,13 +102,13 @@ include::../UserGuide.adoc[tag=customqn]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-
+include::../DeveloperGuide.adoc[tag=architecture]
 include::../DeveloperGuide.adoc[tag=storage]
 
 include::../DeveloperGuide.adoc[tag=problem_description]
 
 include::../DeveloperGuide.adoc[tag=appendix]
-
+include::../DeveloperGuide.adoc[tag=appendix2]
 
 
 

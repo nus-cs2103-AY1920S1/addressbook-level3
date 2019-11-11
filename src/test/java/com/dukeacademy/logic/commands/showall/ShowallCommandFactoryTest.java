@@ -1,4 +1,4 @@
-package com.dukeacademy.logic.commands.list;
+package com.dukeacademy.logic.commands.showall;
 
 import static com.dukeacademy.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,7 +17,7 @@ import com.dukeacademy.model.state.ApplicationState;
 import com.dukeacademy.testutil.MockQuestionsLogic;
 
 
-public class ListCommandFactoryTest {
+public class ShowallCommandFactoryTest {
     @TempDir public Path tempFolder;
 
     private MockQuestionsLogic questionsLogic;
@@ -31,15 +31,17 @@ public class ListCommandFactoryTest {
 
     @Test
     void getCommandWord() {
-        ListCommandFactory factory = new ListCommandFactory(questionsLogic, applicationState);
+        ShowallCommandFactory
+            factory = new ShowallCommandFactory(questionsLogic, applicationState);
         assertEquals("showall", factory.getCommandWord());
     }
 
     @Test
     void getCommand() throws InvalidCommandArgumentsException {
-        ListCommandFactory factory = new ListCommandFactory(questionsLogic, applicationState);
+        ShowallCommandFactory
+            factory = new ShowallCommandFactory(questionsLogic, applicationState);
         Command command = factory.getCommand("    ");
-        assertTrue(command instanceof ListCommand);
+        assertTrue(command instanceof ShowallCommand);
 
         assertThrows(InvalidCommandArgumentsException.class,
             "Showall command does not take any arguments", () -> factory

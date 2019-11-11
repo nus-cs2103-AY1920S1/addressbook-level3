@@ -450,16 +450,22 @@ Imports new questions into the application through a text file.
 *Format:* `loadquestions [filename]`
 
 ****
-* Your text file should be located at the Desktop.
+* Your text file should be located in the `../DukeAcademy/newQuestions/` directory. The `DukeAcademy` folder
+is located in the same directory as where you put the jar file.
 * Your text file should follow the format specified at <<Custom-Questions>>.
-* The questions in the text file will only be loaded after entering this command.
-* Your questions will be loaded immediately.
 ****
 
 *Examples:*
 
 * `loadquestions my_problem_set.txt` +
-Loads the questions from the file "my_problem_set.txt" located on your desktop.
+Loads the questions from the file "my_problem_set.txt" located in the `../DukeAcademy/newQuestions/` directory.
+
+We have prepared a dummy problem set for you to try out as shown in diagram below.
+
+image::default_problem_set.png[width="1000"]
+
+Type `loadquestions NewProblems.txt` (case sensitive), and
+two new questions titled `Apple` and `Banana` will be loaded onto Duke Academy.
 //end::load[]
 
 === Exit the application: `exit`
@@ -526,7 +532,7 @@ level, solution, as well as algorithm category. Check out <<Custom-Questions>> f
 
 //tag::customqn[]
 [[Custom-Questions]]
-== Load Your Custom Questions
+== Format for Custom Questions
 image::custom_questions.png[width="920"]
 
 * Create a .txt file.
@@ -554,13 +560,13 @@ Output::
 
 * Title, Description can be any non-empty string.
 
-* Difficulty can only be EASY, MEDIUM or HARD. (Must be capitalized)
+* Difficulty can only be `EASY`, `MEDIUM` or `HARD`. (Must be capitalized)
 
-* Topics can only be ARRAY, LINKED_LIST, HASHTABLE, TREE, GRAPH, RECURSION, DIVIDE_AND_CONQUER, DYNAMIC_PROGRAMMING, SORTING, or OTHERS. (Must be capitalized)
+* Topics can only be `ARRAY`, `LINKED_LIST`, `HASHTABLE`, `TREE`, `GRAPH`, `RECURSION`, `DIVIDE_AND_CONQUER`, `DYNAMIC_PROGRAMMING`, `SORTING`, or `OTHERS`. (Must be capitalized)
 
 * One question can only have one title, description and difficulty. It can have multiple topics separated by `,`. It can have multiple test cases, each begin with a `TestCase::` identifier.
 
-* For sample questions, refer to the `DukeAcademy/newQuestions/NewProblems.txt` file.
+* For sample questions, refer to the `../DukeAcademy/newQuestions/NewProblems.txt` file.
 
 //end::customqn[]
 
