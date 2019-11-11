@@ -544,7 +544,7 @@ which can be checked using the command `loan list` or by pressing the hotkey men
 // end::kenneth-ppp-loan-split-2[]
 // end::loans[]
 
-// tag::rules[]
+// tag::ruleExtract1[]
 === Automating with rules: `rule`
 
 *Introducing the _Rule Engine_.*
@@ -571,11 +571,13 @@ The picture above shows a transaction added with the command: +
 `txn dn/out x/200 d/Treat friends to buffet food!`
 
 As you can see, 2 of the rules from <<Figure1>> were applied on the transaction, and added categories to it.
+// end::ruleExtract1[]
 
 WARNING: All rules will be executed from the top of the list downwards.
 Typically, this is the order in which the rules were added.
 Rules with conflicting actions will therefore be allowed.
 
+// tag::ruleExtract2[]
 ==== Add a new rule: `rule add`
 
 Adds a new rule to the rule engine.
@@ -583,11 +585,13 @@ Both the predicate and action have to be specified.
 A rule can be formed using either expressions or scripts, or both.
 
 Format: `rule add p/<expression | script name> a/<expression | script name>`
+// end::ruleExtract2[]
 
 NOTE: Note that scripts used in rules are not validated; make sure they are free from error.
 Predicate scripts that do not return a boolean _will be executed_, but will therefore implicitly return false.
 Action scripts will be executed if the predicate returns true, and any return value will be discarded.
 
+// tag::ruleExtract3[]
 ****
 *Expression Formatting Guide:*
 
@@ -604,6 +608,7 @@ Action scripts will be executed if the predicate returns true, and any return va
 ** A value can be a number or a string of length not more than 180 characters
 It can contain the following special characters: +
 !#$%&'*+=?`+_+/[{|}]~^.-
+// end::ruleExtract3[]
 
 * **Action**: In the order of `<action operator> [<value>]`
 ** An action operator can be one of the following:
@@ -639,7 +644,6 @@ add the category "Food" to that transaction.
 * `rule add p/IsMonthlyAllowance a/set_desc Monthly Allowance` +
 Adds a new rule that specifies that if the script named "IsMonthlyAllowance"
 returns true, change the transaction's description to "Monthly Allowance".
-// end::rules[]
 
 ==== List rules: `rule list`
 
@@ -676,7 +680,7 @@ Examples:
 * `rule delete 5` +
 Deletes the 5th rule in the list.
 
-// tag::ruleswap[]
+// tag::ruleExtract4[]
 ==== Swap two rules: `rule swap`
 
 NOTE: Ths will affect the execution order of the rules.
@@ -690,7 +694,7 @@ Examples:
 
 * `rule swap 2 4` +
 Swaps the ordering of the 2nd rule and the 4th rule.
-// end::ruleswap[]
+// end::ruleExtract4[]
 
 // tag::scripting[]
 [[Scripting]]
