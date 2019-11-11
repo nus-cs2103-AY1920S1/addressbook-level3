@@ -153,19 +153,12 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Bank Account data.
-* exposes an unmodifiable `ObservableList<BankOperation>` and `ObservableList<Budget>`
-that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change due to user command.
+* stores the User State data.
+* exposes an unmodifiable `ObservableList<BankAccountOperation>`, `ObservableList<Budget>`, `ObservableList<LedgerOperation>` and `ObservableList<Projection>`
+that can be 'observed'. +
+For example, the UI can be bound to these lists so that the UI automatically updates when the data in the lists change due to user commands.
 * does not depend on any of the other three components.
 
-//[NOTE]
-//As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference.
-//This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
-//An example of how such a model may look like is given below. +
-//+
-//image:BetterModelClassDiagram.png[]
-
-//TODO: update
 [[Design-Storage]]
 === Storage Component
 
@@ -459,6 +452,31 @@ Then, it compares the _user_'s projected balance amount at the point of the budg
 A surplus is indicated when the former is greater than the latter, and a deficit is indicated when the former is smaller
 than the latter.
 
+Given below is an example usage scenario and how the project command executes at each step.
+
+**Step 1**. The user launches the application.
+
+**Step 2**. If the user does not have at least *5* transactions, he / she adds transactions until
+there are sufficient transactions to project upon. Then, the user executes the `project` command.
+
+**Step 3**. Upon executing the command, `LogicManager` uses `MainParser#parse()` to parse the input from the user.
+
+**Step 4**. `MainParser` determines which command is being used and creates `ProjectCommandParser` to further parse
+the input from the user.
+
+**Step 5**. `ProjectCommandParser` parses the argument and checks if a valid date and category was provided. +
+
+* If an invalid date or category was provided, or if no date was provided, `ProjectCommandParser` throws an exception and terminates.
+
+* Otherwise, it returns a `ProjectCommand`, which contains a `Date` and possibly a `Category` specified by the user.
+
+**Step 6**. `LogicManager` uses `ProjectCommand#execute()` to project the user's balance and budget states at the time
+of the specified `Date`.
+
+**Step 7**. `ProjectCommand` uses `Model#commitUserState()` to save the latest state of the application. It then
+returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user at the end.
+
+
 ===== Activity Diagram
 
 The activity diagram below depicts how a projection is made.
@@ -496,10 +514,34 @@ a set number (e.g. 500) of transactions.
 ==== Design Considerations
 // end::project[]
 
+// tag::display[]
 === Display Feature: `display`
 This feature provides a graphical view of an existing projection to the _user_. +
 
 ==== Current Implementation
+Given below is an example usage scenario and how the display command executes at each step.
+
+**Step 1**. The user launches the application.
+
+**Step 2**. If the user does not have any existing projections, he / she creates one or more projections.
+Then, the user executes the `display` command.
+
+**Step 3**. Upon executing the command, `LogicManager` uses `MainParser#parse()` to parse the input from the user.
+
+**Step 4**. `MainParser` determines which command is being used and creates `DisplayCommandParser` to further parse
+the input from the user.
+
+**Step 5**. `DisplayCommandParser` parses the argument and checks if a valid type and index was provided. +
+
+* If an invalid type or index was provided, or if no type or index was provided, `DisplayCommandParser` throws an exception and terminates.
+
+* Otherwise, it returns a `DisplayCommand`, which contains a `Type` and an `Index` specified by the user.
+
+**Step 6**. `LogicManager` uses `ProjectCommand#execute()` to display the specified `projection` in a
+new window.
+
+**Step 7**. `DisplayCommand` returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user at the end.
+
 The following activity diagram depicts how the `display` command is executed.
 
 .Activity Diagram of the Display Command
@@ -510,7 +552,6 @@ a sequence diagram is provided below.
 
 .Sequence Diagram of the Display Command
 image::DisplaySequenceDiagram.png[]
-
 
 // end::display[]
 

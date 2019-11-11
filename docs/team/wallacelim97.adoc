@@ -1,0 +1,121 @@
+= Wallace Lim - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+
+== Overview
+
+The purpose of this portfolio is to document my contributions to _PalPay_,
+a software engineering project under the module
+_CS2103T - Software Engineering_. PalPay is a personal finance management application.
+It is mostly written in Java, and has roughly 15,000 Lines of Code (LoC).
+Being a Command Line Interface (CLI) application, it is controlled mainly through
+the Command Line in the app, while displaying output through a Graphical User Interface (GUI)
+written in JavaFX.
+
+My main role within the team was to implement the *Projection* feature, which utilises
+a machine learning algorithm to predict the user's account balance and budget statuses at a specified point of time
+in the future. I was also in charge of implementing the *Display* feature, which
+further enhances the *Projection* feature by providing users with a graphical
+representation of their balance and budget states.
+
+== Summary of contributions
+
+* *Code contributed*: My contributions to _PalPay_ can be viewed here -  https://ay1920s1-cs2103t-w12-3.github.io/publish-RepoSense/#search=wallacelim97&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=wallacelim97&tabRepo=AY1920S1-CS2103T-W12-3%2Fmain%5Bmaster%5D[RepoSense]
+
+* *Major enhancement*: Implemented the `Projection` feature, along with various functions associated with it.
+
+** What it does:
+*** Uses https://en.wikipedia.org/wiki/Gradient_descent[Gradient Descent] to project the user's account balance
+in the future
+*** Allows users to predict whether they will meet their budget goals based on past income/outflow trends
+
+** Justification: While most finance tracking applications have relatively robust income/outflow tracking functions,
+few offer the ability to project future financial states - something which is sorely needed
+for effective financial planning
+
+** Highlights: By utilizing the Gradient Descent algorithm, the `Projection` feature is guaranteed to find the best-fit projection
+line graph based on past transactions, with an extremely minute error tolerance (= 1E-11).
+The feature also automatically adjusts all relevant projections whenever transactions or budgets
+are added, deleted or updated, offering considerable convenience to the user, who thus does not need to update
+them manually.
+
+* *Minor enhancement*: Developed the `display` feature, which offers an elegant, graphical representation
+of the user's projections.
+
+* *Other contributions*:
+
+** Project management:
+*** Authored and assigned multiple issues. (Issues:
+https://github.com/AY1920S1-CS2103T-W12-3/main/issues/82[#82],
+https://github.com/AY1920S1-CS2103T-W12-3/main/issues/84[#84],
+https://github.com/AY1920S1-CS2103T-W12-3/main/issues/17[#17],
+https://github.com/AY1920S1-CS2103T-W12-3/main/issues/19[#19],
+https://github.com/AY1920S1-CS2103T-W12-3/main/issues/20[#20]
+)
+*** Reviewed and merged pull requests.11
+(Pull requests: https://github.com/AY1920S1-CS2103T-W12-3/main/pull/70[#70],
+https://github.com/AY1920S1-CS2103T-W12-3/main/pull/133[#133])
+*** Fixed numerous bugs. (Examples:
+https://github.com/AY1920S1-CS2103T-W12-3/main/issues/186[#186],
+https://github.com/AY1920S1-CS2103T-W12-3/main/issues/185[#185]
+)
+
+** Enhancements to existing features:
+*** Refactor `Transactions` into _Operations_, such that the `Model` can be overloaded
+to achieve polymorphism. (Pull requests: https://github.com/AY1920S1-CS2103T-W12-3/main/pull/95[#95])
+*** Refactor `VersionedBankAccount` into `VersionedUserState` that allows for the integration of the `Ledger`
+class, without associating the balances of `BankAccount` and `Ledger`.
+(Pull request:
+https://github.com/AY1920S1-CS2103T-W12-3/main/pull/133[#133])
+*** Wrote comprehensive unit test cases for the `Split` and `Receive` commmands and parsers.
+(Pull requests: https://github.com/AY1920S1-CS2103T-W12-3/main/pull/70[#70],
+https://github.com/AY1920S1-CS2103T-W12-3/main/pull/114[#114],
+https://github.com/AY1920S1-CS2103T-W12-3/main/pull/202[#202],
+https://github.com/AY1920S1-CS2103T-W12-3/main/pull/205[#205])
+
+** Documentation:
+*** Reformatted the User Guide for a more sequential flow.
+*** Wrote the details for the following commands in the User Guide.
+**** Split
+**** Receive
+*** Created UML diagrams to help in the explanation of `split` and `receive` commands in the Developer Guide.
+
+** Community:
+*** Reported bugs and suggestions for other teams in the module. (Examples:
+https://github.com/AY1920S1-CS2103-T14-2/main/issues/194[T14-2 #194],
+https://github.com/AY1920S1-CS2103-T14-2/main/issues/195[T14-2 #195],
+https://github.com/AY1920S1-CS2103T-T12-4/main/issues/208[T12-4 #208],
+https://github.com/AY1920S1-CS2103T-T12-4/main/issues/207[T12-4 #207],
+https://github.com/AY1920S1-CS2103T-T12-4/main/issues/202[T12-4 #202]
+)
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide.
+They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=project]
+
+include::../UserGuide.adoc[tag=display]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=project]
+
+include::../DeveloperGuide.adoc[tag=display]
+
+'''
