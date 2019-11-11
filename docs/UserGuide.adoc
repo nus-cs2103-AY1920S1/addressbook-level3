@@ -400,6 +400,8 @@ image::redo-result.png[width="450"]
 --
 //end::undo-redo[]
 
+// tag::calendar[]
+
 === Displaying the list of engagements for a specified date (calendar view only): `calendar c/opendisplay`
 Opens a separate window displaying the list of engagements for the specified date. Only one such window is allowed per date.
 Nothing will happen if this command is used with a date which already has an open engagements list window.
@@ -462,6 +464,8 @@ Alternatively, you may click on the blue button with the left arrow next to the 
 to change the display to the previous month. The button will not work if the calendar is displaying January 0001.
 
 This command closes any open engagement windows from the current month before updating the display to the previous month.
+
+// end::calendar[]
 
 === Typing game : `tab game`
 Changes the current window to the start window with a kbd:[Start] button.
