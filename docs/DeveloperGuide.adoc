@@ -1,4 +1,4 @@
-﻿= T.A.rence - Draft Developer Guide
+﻿= T.A.rence - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -61,13 +61,15 @@ For example, the `Logic` component (see the class diagram given below) defines i
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
 
+// tag::architecture[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `deleteStudent 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `deleteStudent 1` command
 image::ArchitectureSequenceDiagram.png[]
+// end::architecture[]
 
 The sections below give more details of each component.
 // tag::ui[]
@@ -193,7 +195,7 @@ The sequence diagram below shows the interaction with the Logic components as de
 
 image::AddStudentCommandSequenceDiagram.png[]
 
-// tag::Edit Feature[]
+// tag::edit[]
 === Edit feature
 
 The `edit` feature aims to help users update student details in our application.
@@ -228,8 +230,7 @@ image::EditCommandSequenceDiagram.png[]
 * **Alternative 2:** Modify the existing version of the student directly.
 ** Pros: Will use less memory
 ** Cons: Will have to go through each of the student/tutorial/module lists and update them. Which involves many layers of looping (higher chance of regressions).
-
-// tag::autocorrect[]
+// end::edit[]
 === Autocorrect feature
 
 Autocorrect lets T.A.rence find similar commands to the user's input, allowing it to catch minor typing mistakes.

@@ -241,7 +241,7 @@ public class ParserUtil {
             String[] weekRange = m.group().split("-");
             int start = Integer.parseInt(weekRange[0]);
             int end = Integer.parseInt(weekRange[1]);
-            if (start < 1 || end > 13 ) {
+            if (start < 1 || end > 13) {
                 throw new ParseException(Week.MESSAGE_CONSTRAINTS);
             } else if ((start > end) || (start == end)) {
                 throw new ParseException((MESSAGE_INVALID_WEEK_RANGE));

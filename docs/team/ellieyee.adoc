@@ -73,23 +73,25 @@ https://coveralls.io/github/AY1920S1-CS2103-T14-2/main?branch=master[Coveralls] 
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#deleting-a-module-deletemodule[deleteModule]
+include::../UserGuide.adoc[tag=FeatureDeleteModule]
 
-include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#deleting-a-tutorial-deletetutorial[deleteTutorial]
+include::../UserGuide.adoc[tag=FeatureDeleteTutorial]
 
-include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#deleting-a-student-deletestudent[deleteStudent]
+include::../UserGuide.adoc[tag=FeatureDeleteStudent]
 
-include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#editing-a-student-edit[edit]
+include::../UserGuide.adoc[tag=FeatureEditStudent]
 
-include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#searching-student-by-name-find[find]
+include::../UserGuide.adoc[tag=FeatureFind]
 
-include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#listing-students-from-a-tutorial-list[list]
+include::../UserGuide.adoc[tag=FeatureDisplayScore]
 
-include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#display-tutorial-class-test-results-displayassignmentscore[displayAssignmentScore]
+include::../UserGuide.adoc[tag=FeatureDisplayAssignments]
 
-include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#display-tutorial-class-attendance-displayattendance[displayAttendance]
+include::../UserGuide.adoc[tag=FeatureDisplayAttendance]
 
-include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#changing-the-ui-tab-cd[cd]
+include::../UserGuide.adoc[tag=FeatureList]
+
+include::../UserGuide.adoc[tag=FeatureCd]
 
 == Contributions to the Developer Guide
 
@@ -97,6 +99,10 @@ include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#ch
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include:: https://github.com/Ellieyee/main/blob/pp-update/docs/DeveloperGuide.adoc#edit-feature[edit]
+include::../DeveloperGuide.adoc[tag=architecture]
 
-include:: https://github.com/Ellieyee/main/blob/pp-update/docs/DeveloperGuide.adoc#list-feature[tag=list]
+include::../DeveloperGuide.adoc[tag=ui]
+
+include::../DeveloperGuide.adoc[tag=edit]
+
+include::../DeveloperGuide.adoc[tag=list]
