@@ -33,9 +33,9 @@ This symbol indicates important information.
 
 `report` A grey highlight(called a monospace) indicates that this is a command that can be inputted into the command line and executed by the application.
 
-#ReportCommand# A yellow highlight indicates that the text is a Class or Object.
+*_ReportCommand_* Text that is bold and italicised indicates that the text is a Class or Object.
 
-#_Logic#getStatistics()_# A yellow italicised highlight indicates a method call of an Object(method name is indicated after the # symbol).
+_Logic#getStatistics()_ Text that is italicised only indicates a method call of an Object(method name is indicated after the # symbol).
 
 == Summary of contributions
 This section shows a summary of my coding, documentation, and other helpful contributions to the
