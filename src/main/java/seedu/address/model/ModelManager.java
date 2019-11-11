@@ -90,6 +90,23 @@ public class ModelManager implements Model {
     }
 
 
+    //=========== Notebook ================================================================================
+
+    @Override
+    public void setNotebook(ReadOnlyNotebook notebook) {
+        this.notebook.resetData(notebook);
+        filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
+        filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
+        filteredLessons = new FilteredList<>(this.notebook.getLessonList());
+        filteredLessonLists = new FilteredList<>(this.notebook.getLessonWeekList());
+    }
+
+    @Override
+    public ReadOnlyNotebook getNotebook() {
+        return notebook;
+    }
+
+
     //=========== Classroom ================================================================================
 
     @Override
@@ -105,22 +122,6 @@ public class ModelManager implements Model {
     @Override
     public Classroom getClassroom(Classroom classroom) {
         return notebook.getClassroom(classroom);
-    }
-
-    //=========== Notebook ================================================================================
-
-    @Override
-    public void setNotebook(ReadOnlyNotebook notebook) {
-        this.notebook.resetData(notebook);
-        filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
-        filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
-        filteredLessons = new FilteredList<>(this.notebook.getLessonList());
-        filteredLessonLists = new FilteredList<>(this.notebook.getLessonWeekList());
-    }
-
-    @Override
-    public ReadOnlyNotebook getNotebook() {
-        return notebook;
     }
 
     @Override
@@ -141,30 +142,19 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Classroom> getClassroomList() {
-        return notebook.getClassroomList();
+    public void deleteClassroom(Classroom target) {
+        notebook.removeClassroom(target);
+        filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
+        filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
     }
+
+
+    //=========== Student ================================================================================
 
     @Override
     public boolean hasStudent(Student student) {
         requireNonNull(student);
         return notebook.hasStudent(student);
-    }
-
-    @Override
-    public boolean hasAssignment(Assignment assignment) {
-        requireNonNull(assignment);
-        return notebook.hasAssignment(assignment);
-    }
-
-    @Override
-    public void deleteStudent(Student target) {
-        notebook.deleteStudent(target);
-    }
-
-    @Override
-    public void deleteAssignment(Assignment target) {
-        notebook.deleteAssignment(target);
     }
 
     @Override
@@ -174,9 +164,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addAssignment(Assignment assignment) {
-        notebook.addAssignment(assignment);
-        updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
+    public void deleteStudent(Student target) {
+        notebook.deleteStudent(target);
     }
 
     @Override
@@ -185,20 +174,45 @@ public class ModelManager implements Model {
         notebook.setStudent(target, editedStudent);
     }
 
+    //=========== Assignment ================================================================================
+
+    @Override
+    public boolean hasAssignment(Assignment assignment) {
+        requireNonNull(assignment);
+        return notebook.hasAssignment(assignment);
+    }
+
+    @Override
+    public void deleteAssignment(Assignment target) {
+        notebook.deleteAssignment(target);
+    }
+
+    @Override
+    public void addAssignment(Assignment assignment) {
+        notebook.addAssignment(assignment);
+        updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
+    }
+
     @Override
     public void setAssignment(Assignment target, Assignment editedAssignment) {
         requireAllNonNull(target, editedAssignment);
         notebook.setAssignment(target, editedAssignment);
     }
 
+
+    //=========== Display Operations =====================================================================
+
+    @Override
     public boolean isDisplayStudents() {
         return notebook.isDisplayStudents();
     }
 
+    @Override
     public void displayStudents() {
         notebook.displayStudents();
     }
 
+    @Override
     public void displayAssignments() {
         notebook.displayAssignments();
     }
@@ -212,7 +226,6 @@ public class ModelManager implements Model {
             return "";
         } else {
             final StringBuilder builder = new StringBuilder();
-            //builder.append(filteredLessons.get(0));
             for (int i = 0; i < filteredLessons.size(); i++) {
                 builder.append("---------------------------------------");
                 builder.append("\n" + filteredLessons.get(i) + "\n");
@@ -220,6 +233,9 @@ public class ModelManager implements Model {
             return builder.toString();
         }
     }
+
+
+    //=========== Lesson ================================================================================
 
     @Override
     public void addLesson(Lesson lesson) {
@@ -244,12 +260,6 @@ public class ModelManager implements Model {
         notebook.removeLesson(target);
     }
 
-    @Override
-    public void deleteClassroom(Classroom target) {
-        notebook.removeClassroom(target);
-        filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
-        filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
-    }
 
     @Override
     public void setLesson(Lesson target, Lesson editedLesson) {
@@ -258,16 +268,8 @@ public class ModelManager implements Model {
     }
 
 
-    //=========== Filtered Student List Accessors =============================================================
+    //=========== Filtered List Accessors =============================================================
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Student} backed by the internal list of
-     * {@code Caretaker}
-     */
-    /**
-     * Returns an unmodifiable view of the list of {@code Student} backed by the internal list of
-     * {@code Caretaker}
-     */
     @Override
     public ObservableList<Student> getFilteredStudentList() {
         return filteredStudents;
@@ -286,6 +288,12 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<UniqueLessonList> getFilteredLessonWeekList() {
         return filteredLessonLists;
+    }
+
+
+    @Override
+    public ObservableList<Classroom> getClassroomList() {
+        return notebook.getClassroomList();
     }
 
     @Override
@@ -311,8 +319,6 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredLessonLists.setPredicate(predicate);
     }
-
-
 
 
     //=========== Undo and Redo Operations =============================================================
@@ -341,6 +347,9 @@ public class ModelManager implements Model {
     public void saveState() {
         caretaker.saveState();
     }
+
+
+    //=========== Utility Operations ===================================================================
 
     @Override
     public boolean equals(Object obj) {

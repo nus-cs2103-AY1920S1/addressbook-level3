@@ -65,27 +65,26 @@ public class ParserUtil {
         return new Name(trimmedName);
     }
     /**
-     * Parses a {@code String name} into a {@code String}.
+     * Parses a {@code String assignmentName} into a {@code AssignmentName}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code assignmentName} is invalid.
      */
-    public static AssignmentName parseAssignmentName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!AssignmentName.isValidAssignmentName(trimmedName)) {
+    public static AssignmentName parseAssignmentName(String assignmentName) throws ParseException {
+        requireNonNull(assignmentName);
+        String trimmedAssignmentName = assignmentName.trim();
+        if (!AssignmentName.isValidAssignmentName(trimmedAssignmentName)) {
             throw new ParseException(AssignmentName.MESSAGE_CONSTRAINTS);
         }
-        return new AssignmentName(trimmedName);
+        return new AssignmentName(trimmedAssignmentName);
     }
 
     /**
-     * Parses a {@code String grades} into a {@code List<Integer>}.
+     * Parses a {@code String grades} into a {@code List<String>}.
      * Leading and trailing whitespaces will be trimmed.
-     * String grades will be split by whitespace, converted to Integer and stored in List.
+     * String grades will be split by whitespace and stored in list.
      *
-     * @return output The grades string to be used in updating assignment.
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code grades} is invalid.
      */
     public static List<String> parseAssignmentGrades(String grades) throws ParseException {
         requireNonNull(grades);
@@ -104,12 +103,11 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String grades} into a {@code List<Integer>}.
+     * Parses a {@code String grade} into a {@code String}.
      * Leading and trailing whitespaces will be trimmed.
-     * String grades will be split by whitespace, converted to Integer.
+     * String grade will be converted to String for output.
      *
-     * @return output The grades string to be used in updating assignment.
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code grade} is invalid.
      */
     public static String parseSingleAssignmentGrade(String grade) throws ParseException {
         requireNonNull(grade);
@@ -123,8 +121,8 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String assignmentDeadline} into a {@code AssignmentDeadline}.
-     * @param assignmentDeadline String representing assignmentDeadline.
-     * @return AssignmentDeadline object.
+     * Leading and trailing whitespaces will be trimmed.
+     *
      * @throws ParseException if the given {@code assignmentDeadline} is invalid.
      */
     public static AssignmentDeadline parseAssignmentDeadline(String assignmentDeadline) throws ParseException {
@@ -266,8 +264,8 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String time} into a {@code Time}.
-     * @param time String representing time.
-     * @return Time object.
+     * Leading and trailing whitespaces will be trimmed.
+     *
      * @throws ParseException if the given {@code time} is invalid.
      */
     public static Time parseTime(String time) throws ParseException {
@@ -292,8 +290,6 @@ public class ParserUtil {
 
     /**
      * Parses the classroom name.
-     * @param classroomName classroomname to check
-     * @return trimmed classroom name
      */
     public static String parseClassroomName(String classroomName) {
         String trimmedName = classroomName.trim();
@@ -301,11 +297,9 @@ public class ParserUtil {
     }
 
     /**
-     * parses filename into displaypicture
-     * ensures format is valid
-     * @param fileName
-     * @return displayPicture
-     * @throws ParseException
+     * Parses a {@code String fileName} into an {@code String} to be used as file name for DisplayPicture.
+     *
+     * @throws ParseException if the given {@code fileName} is invalid.
      */
     public static String parseDisplayPicture(String fileName) throws ParseException {
         requireNonNull(fileName);

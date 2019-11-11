@@ -9,9 +9,6 @@ import seedu.address.logic.commands.SetClassroomCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.classroom.Classroom;
 
-
-
-
 /**
  * Parses input arguments and creates a new SetClassroomCommand object
  */
@@ -25,9 +22,7 @@ public class SetClassroomCommandParser implements Parser<SetClassroomCommand> {
     public SetClassroomCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CLASSROOM);
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_CLASSROOM)
-                    || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_CLASSROOM)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetClassroomCommand.MESSAGE_USAGE));
         }
 

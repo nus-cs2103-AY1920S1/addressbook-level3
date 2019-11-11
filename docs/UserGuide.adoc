@@ -71,12 +71,12 @@ Examples:
 Allows a user to delete the selected classroom, if the user no longer needs the classroom or entered its name wrongly. +
 Classroom must be in the current list of classrooms, and classroom name cannot be empty. +
 
-Format: `deleteclassroom c/CLASS_NAME`
+Format: `deleteclass c/CLASS_NAME`
 
 Examples:
 
-* `deleteclassroom c/4E7`
-* `deleteclassroom c/3E8`
+* `deleteclass c/4E7`
+* `deleteclass c/3E8`
 
 ==== Setting Classroom: setclass
 
@@ -107,7 +107,7 @@ There are several fields in each lesson as shown below:
 * Day - Prefix: day/
 ** Day should be an integer between 1-7.
 
-=== Adding: addlesson
+==== Adding: addlesson
 
 Adds a lesson to the lesson list of the notebook, +
 feature to repeat lessons will be implemented in v2.0 +
@@ -131,7 +131,7 @@ Examples:
 [NOTE]
 The index and day index provided must be valid and at least one field must be edited.
 
-=== Deleting: deletelesson
+==== Deleting: deletelesson
 
 Deletes a lesson at the specified index in the day list of reminder panel. +
 Day index represents day in week, e.g. Monday: 1, Tuesday: 2 +
@@ -145,7 +145,7 @@ Examples:
 [NOTE]
 The index and day index provided must be valid and at least one field must be edited.
 
-=== Finding: findlesson
+==== Finding: findlesson
 
 Finds lessons which match the given keyword. +
 Format: 'findlesson KEYWORD'

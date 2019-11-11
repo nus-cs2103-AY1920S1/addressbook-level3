@@ -23,7 +23,7 @@ import seedu.address.model.lesson.Time;
 import seedu.address.model.lesson.UniqueLessonList;
 
 /**
- * Edits the details of an existing lesson in the classroom.
+ * Edits the details of an existing lesson in the notebook.
  */
 public class EditLessonCommand extends Command {
 

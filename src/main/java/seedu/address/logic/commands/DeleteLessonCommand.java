@@ -13,7 +13,7 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
 
 /**
- * Command to delete a lesson.
+ * Deletes a lesson identified using it's displayed index from the notebook.
  */
 public class DeleteLessonCommand extends Command {
     public static final String COMMAND_WORD = "deletelesson";

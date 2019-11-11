@@ -27,7 +27,6 @@ import seedu.address.logic.commands.GetStudentGradesCommand;
 import seedu.address.logic.commands.GetUnsubmittedAssignmentsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAssignmentCommand;
-import seedu.address.logic.commands.ListLessonCommand;
 import seedu.address.logic.commands.ListStudentCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ResetDisplayPictureCommand;
@@ -125,9 +124,6 @@ public class NotebookParser {
 
         case EditLessonCommand.COMMAND_WORD:
             return new EditLessonCommandParser().parse(arguments);
-
-        case ListLessonCommand.COMMAND_WORD:
-            return new ListLessonCommand();
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommandParser().parse(arguments);

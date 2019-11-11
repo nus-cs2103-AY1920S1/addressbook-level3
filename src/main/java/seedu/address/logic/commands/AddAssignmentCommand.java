@@ -33,7 +33,6 @@ public class AddAssignmentCommand extends Command {
     /**
      * Creates an AddAssignmentCommand to add the specified {@code Assignment}
      */
-
     public AddAssignmentCommand(Assignment assignment) {
         requireNonNull(assignment);
         toAdd = assignment;

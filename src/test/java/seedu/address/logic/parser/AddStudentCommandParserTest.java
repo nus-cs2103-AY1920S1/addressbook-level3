@@ -47,6 +47,10 @@ import seedu.address.model.student.Student;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.StudentBuilder;
 
+/**
+ * contains unit tests for
+ * {@code AddStudentCommandParser}
+ */
 public class AddStudentCommandParserTest {
     private AddStudentCommandParser parser = new AddStudentCommandParser();
 

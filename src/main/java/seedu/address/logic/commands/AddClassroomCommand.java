@@ -24,6 +24,9 @@ public class AddClassroomCommand extends Command {
 
     private final Classroom toAdd;
 
+    /**
+     * Creates an AddClassroomCommand to add a Classroom with the specified {@code String}
+     */
     public AddClassroomCommand(String classroomName) {
         requireNonNull(classroomName);
         toAdd = new Classroom(classroomName);

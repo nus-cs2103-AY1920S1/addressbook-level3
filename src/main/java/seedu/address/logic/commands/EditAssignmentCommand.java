@@ -20,7 +20,7 @@ import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.student.Student;
 
 /**
- * Edits the details of an existing student in the classroom.
+ * Edits the details of an existing assignment in the classroom.
  */
 public class EditAssignmentCommand extends Command {
 

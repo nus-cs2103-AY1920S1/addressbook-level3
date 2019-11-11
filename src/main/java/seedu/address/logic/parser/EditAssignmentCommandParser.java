@@ -14,6 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new EditAssignmentCommand object
  */
 public class EditAssignmentCommandParser implements Parser<EditAssignmentCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditAssignmentCommand
      * and returns an EditAssignmentCommand object for execution.

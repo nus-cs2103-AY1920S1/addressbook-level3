@@ -34,7 +34,7 @@ public class Assignment {
     }
 
     /**
-     * Initialises the grades for students as "Not submitted" for new assignments
+     * Initialises the grades for students as "Not submitted" for new assignments.
      * @param studentNames students name to serve as keys during initialisation.
      */
     public void initialiseGrades(List<String> studentNames) {
@@ -44,26 +44,36 @@ public class Assignment {
         }
     }
 
+    /**
+     * Gets the AssignmentName.
+     * @return AssignmentName of the assignment.
+     */
     public AssignmentName getAssignmentName() {
         return this.assignmentName;
     }
 
+    /**
+     * Gets the AssignmentDeadline
+     * @return AssignmentDeadline of the assignment.
+     */
     public AssignmentDeadline getAssignmentDeadline() {
         return this.assignmentDeadline;
     }
 
+    /**
+     * Gets the AssignmentGrades
+     * @return AssignmentGrades of the assignment.
+     */
     public Map<String, String> getGrades() {
         return this.assignmentGrades.getGrades();
     }
 
     /**
      * Parses a {@code List<String> grades} and {@code List<String> newGrades} to update assignmentGrades.
-     *
      */
     public void setGrades(List<String> studentNames, List<String> newGrades) {
         requireAllNonNull(studentNames, newGrades);
         this.assignmentGrades.setGrades(studentNames, newGrades);
-        //this.isCompleted = true;
         checkCompletion();
     }
 
@@ -135,6 +145,25 @@ public class Assignment {
         return otherAssignment != null
                    && otherAssignment.getAssignmentName().equals(getAssignmentName());
     }
+    /**
+     * Returns true if both assignments have the same identity and data fields.
+     * This defines a stronger notion of equality between two assignments.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Assignment)) {
+            return false;
+        }
+
+        Assignment otherAssignment = (Assignment) other;
+        return otherAssignment.getAssignmentName().equals(getAssignmentName())
+                && otherAssignment.getAssignmentDeadline().equals(getAssignmentDeadline())
+                && otherAssignment.getGrades().equals(getGrades());
+    }
 
     @Override
     public String toString() {
@@ -158,12 +187,5 @@ public class Assignment {
 
     public void setCompletionStatus(boolean isCompleted) {
         this.isCompleted = isCompleted;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                       || (other instanceof Assignment // instanceof handles nulls
-                       && assignmentName.equals(((Assignment) other).assignmentName));
     }
 }

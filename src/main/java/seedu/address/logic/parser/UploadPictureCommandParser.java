@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 //@@author SebastianLie
 /**
- * parses input arguments and return UploadPictureCommand
+ * Parses input arguments and return UploadPictureCommand
  */
 public class UploadPictureCommandParser implements Parser<UploadPictureCommand> {
 
