@@ -599,7 +599,7 @@ manage time properly. It will be under statistics tab, accessed via command `tab
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Download the jar in the other computer and copy the entire data folder over.
+*A*: Download the jar in the other computer and copy the entire data folder over to the same directory. Run Weme and update the preferences.json if necessary.
 
 == Command Summary
 
