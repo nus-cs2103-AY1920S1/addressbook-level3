@@ -183,9 +183,10 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
-// tag::earnings[]
+
 === Earnings Feature
 
+// tag::earnings[]
 ==== Add Earnings
 
 The `add_earnings` command allows for tutors to add their earnings into TutorAid.
@@ -400,7 +401,7 @@ This command, `auto`, allows the user to add all the earnings that has been prev
  has been used on the particular earnings. You can refer to the activity diagram below to have a clearer understanding.
 
 .Auto Command Activity Diagram
-image::AutoActivityDiagram.png[width="600"]
+image::AutoActivityDiagram.png[width="700"]
 
 *Overview*
 The auto command is facilitated by `AutoCommand`.
