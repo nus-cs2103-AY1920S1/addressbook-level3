@@ -43,6 +43,9 @@ in. The calendar window also updates itself in real-time as engagements are adde
 between different areas of the codebase. The implementation involved parsing dates, which can be notoriously tedious in programming.
 ** Credits: The UI code for the calendar window was adapted from https://github.com/SirGoose3432/javafx-calendar.
 
+* *Minor enhancement*: Added the help window for the help command. This gives the user a quick command summary and also links to
+the user guide which contains more detailed information.
+
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lyskevin&tabRepo=AY1920S1-CS2103T-F14-3%2Fmain%5Bmaster%5D[Link]]
 
 ** Project management:
@@ -93,9 +96,13 @@ The calendar's display then switches to December 2019 and the engagement list wi
 
 This command does not work if the application is in another tab or the specified date is invalid.
 
-.Engagement list for 01/11/2019
-image::calendar-open-display.png[width="450", align="center"]
+.Calendar view for November 2019
+image::calendar-view-modified.png[width="450", float="left"]
+[.left]
+.Engagement list for 29/10/2019 (circled date)
+image::calendar-open-display.png[]
 {empty} +
+
 The above calendar window opens up after entering `calendar c/opendisplay d/29/10/2019` into the input box while in the
 calendar view for November 2019. This does not change the display to October 2019 because 29/10/2019 is displayed in
 the calendar view for November 2019, albeit at the top left corner.
@@ -108,34 +115,6 @@ Closes the open engagements list window for the specified date. This command doe
 if in another tab, the specified date is invalid, or there is no open engagements list window for the specified date.
 
 Format: `calendar c/closedisplay d/[date]`. The date must follow a DD/MM/YYYY format. The range of allowable years is 0001 to 9999.
-
-=== Changing the calendar display to the next month (calendar view only): `calendar c/nextmonth`
-Changes the calendar view to the month following the currently displayed one. This command does not work if the
-application is in another tab or if attempting to go above the maximum allowable year of 9999.
-
-Format: `calendar c/nextmonth`
-
-.Changing to the next month from November 2019
-image::calendar-next-month.png[width="450", align="center"]
-{empty} +
-Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
-to change the display to the next month. The button will not work if the calendar is displaying December 9999.
-
-This command closes any open engagement windows from the current month before updating the display to the next month.
-
-=== Changing the calendar display to the previous month (calendar view only): `calendar c/previousmonth`
-Changes the calendar view to the month prior to the currently displayed one. This command does not work if the
-application is in another tab or if attempting to go below the minimum allowable year of 0001.
-
-Format: `calendar c/previousmonth`
-
-.Changing to the previous month from November 2019
-image::calendar-previous-month.png[width="450", align="center"]
-{empty} +
-Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
-to change the display to the previous month. The button will not work if the calendar is displaying January 0001.
-
-This command closes any open engagement windows from the current month before updating the display to the previous month.
 
 == Contributions to the Developer Guide
 
@@ -237,3 +216,16 @@ by opening the engagements list window for that particular date.
 ** Cons: Might end up distorting the shape of the calendar window's cells since some engagements have more information than others.
 The alternative would be to add fixed constraints to the size of each cell but then information would get cut off.
 
+== PROJECT: Duke Chatbot
+
+A CLI-based which interacts with the user and acts as a task manager (https://github.com/lyskevin/duke[Link]).
+
+== PROJECT: Slim Jeans Recipe Calorie Counter
+
+A website which is tailored towards counting calories for recipes which are provided by the user (https://lyskevin.pythonanywhere.com[Link]).
+
+== PROJECT: Kattis Repository
+
+A GitHub repository containing my own solutions to Kattis problems. Kattis is a popular competitive programming website which is used
+by many programmers to hone their skills (https://github.com/lyskevin/Kattis[Link]).
+ 
