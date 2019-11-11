@@ -52,17 +52,18 @@ showcases some of my coding and documentation abilities, and the challenges I fa
 
 ==== Implemented the `watch` feature
 
-===== What it does
+*What it does*
 
 The `watch` feature allows users to update their watch list if a show has been watched.
 It also helps users to keep track of where they are in a TV series in terms
 of seasons and episodes.
 
-===== Justification
+*Justification*
+
 The `watch` feature enables users to keep track of shows that they have and have not watched so that they can plan
 out what they want to watch in the future.
 
-===== Highlights
+*Highlights*
 
 This enhancement resulted in a need to change the storage structure of the shows to include the episodes and tv seasons.
 Its implementation was a challenge since it required structural change of the show objects, splitting them into movies and tv shows.
