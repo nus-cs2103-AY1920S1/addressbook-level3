@@ -28,13 +28,15 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the App.
+Given below is a quick overview of each component.
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`].
+It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -79,9 +81,12 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework.
+The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.
+For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -99,11 +104,11 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+. `Logic` uses the `AddressBookParser` class to parse the user command.
+. This results in a `Command` object which is executed by the `LogicManager`.
+. The command execution can affect the `Model` (e.g. adding a person).
+. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+. In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("del t/1")` API call.
 
@@ -114,20 +119,21 @@ NOTE: The lifeline for `DeleteIdCommandParser` should end at the destroy marker 
 // end::logic[]
 
 [[Design-Model]]
+// tag::model[]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.png[width=70%, scaledwidth=12cm, align="center"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the `DriverManager`, `TaskManager`, `CustomerManager`
+* stores the `DriverManager`, `TaskManager`, `CustomerManager` and `IdManager`
 * exposes unmodifiable `ObservableList` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
+// end::model[]
 
 [[Design-Storage]]
 // tag::storage-component[]
@@ -156,25 +162,23 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 
-// tag::task-scheduling[]
-=== Task Scheduling
+// tag::driver-task-scheduling[]
+=== Driver-Level Task Scheduling
 
 ==== Design Considerations
-* A `Schedule` should be a collection of non-overlapping `EventTime` object, and is always sorted
-* Should be able to notify the user if a better time slot is available, while giving users the liberty to exercise
-their own judgments
 
+* A `Schedule` should be a collection of non-overlapping `EventTime` object, and is always sorted
+* Should be able to notify the user if a better time slot is available, while giving users the liberty to exercise their own judgments
 
 ==== Implementation
 
 Every `Driver` keeps track of a `Schedule` class, which is backed by a naturally sorted, TreeSet of `EventTime` objects.
 
-Before a new `EventTime` is added to the schedule, the method checks against the set of object to ensure
-the addition will not result in overlapping `EventTime` in the schedule. This operation works in logarithmic time
-thanks to the tree structure.
+Before a new `EventTime` is added to the schedule, the method checks against the TreeSet of `EventTime` to ensure the addition will not result in overlapping `EventTime` in the schedule.
+This operation works in logarithmic time thanks to the tree structure.
 
-In order to better utilise a driver, we implement a method to suggest an earlier alternative
-time slot in a schedule. When adding a time to a schedule, this method will:
+In order to better utilise a driver, we implement a method to suggest an earlier alternative time slot in a schedule.
+When adding a time to a schedule, this method will:
 
 * Calculate the duration of proposed `EventTime`
 * Perform a linear greedy search in the schedule, to find the first slot that can fit the duration
@@ -182,31 +186,62 @@ time slot in a schedule. When adding a time to a schedule, this method will:
 [NOTE]
 Since the schedule guarantees no overlapping `EventTime`, there is no complication in handling the start and end times.
 
-In order to enforce the optimised scheduling method above, the program will block every `assign` command that has a
-suboptimal proposed time, unless the user uses the `force` argument. Moreover, the `assign` and `free` command are the
-only commands that modify the `Driver` and `EventTime` attributes of a `Task`, so that all drivers will have an
-optimised schedule, unless `force assign` is used.
+In order to enforce the optimised scheduling method above, the program will block every `assign` command that has a suboptimal proposed time, unless the user uses the `force` argument.
+Moreover, the `assign` and `free` command are the only commands that modify the `Driver` and `EventTime` attributes of a `Task`, so that all drivers will have an optimised schedule, unless `force assign` is used.
 
 The following activity diagram summarizes the checks happened when user executes an `assign` command.
 
-image::AssignActivityDiagram.png[]
+.The Activity Diagram for assign command
+image::AssignActivityDiagram.png[width=50%,scaledwidth=12cm,align="center"]
 
 After the above checks has passed, `assign` command will:
 
 * Set the `Driver` and `EventTime` attributes in the `Task`
-* Add the proposed `EventTime` to the `Driver`'s `Schedule`
+* Add the proposed `EventTime` to the `Driver` 's `Schedule`
 
 
 Similarly, calling `free` command will:
 
-* Remove the existing `EventTime` from the `Driver`'s `Schedule`
+* Remove the existing `EventTime` from the `Driver` 's `Schedule`
 * Set the `Driver` and `EventTime` attributes to `null`
+// end::driver-task-scheduling[]
+// tag::task-scheduling[]
+
+=== Global-Level Task Scheduling
+
+==== Design Considerations
+
+* The global-level scheduler needs to consider the task's details (eg. the customer and address) and all the drivers' schedules, in order to optimize manpower allocation
+* The scheduler needs to be extendable, ie. easily incorporate new rules
+
+==== Implementation
+
+The `ScheduleOptimizer` class is a component in the Logic Layer, that have access to the entire model, in order to gather information about all drivers and tasks.
+The object instantiates with `Model` and `Task`, and is designed to be discarded after use.
+
+It will return a `Candidate` object, which is a wrapper class of `javafx.util.Pair<Driver,Optional<EventTime>>`.
+This can be used by the caller to assign the task to the suggested driver at the suggested time.
+
+It exposes a convenient `ScheduleOptimizer#start` method, to start optimizing, based on the rules implement in the Optimizer.
+The `start` method uses a functional pipeline approach, by piping the Optional output of the rules.
+It is implemented so that, the next stage of the pipeline will only be triggered when this stage of the pipeline fails to find a candidate (ie. returns an empty Optional).
+
+The Optimizer consists of two rules as of now: `ScheduleOptimizer#driverEarliestFit` and `ScheduleOptimizer#prioritizeSameCustomer`.
+Both methods are nullary functions that return a `Optional<Candidate>`.
+
+Any new rule just need to follow the same method signature as the existing rules, and be added to the pipeline in the `ScheduleOptimizer#start` method.
+
+
+
+
 // end::task-scheduling[]
 
 
 // tag::task-feature[]
 === Task Feature (E.g. Add Delivery Task)
+
 ==== Implementation
+
 The *Add Delivery Task* feature adds a new task into a task list. +
 It uses the `AddTaskCommand`, which extends `Command`, to add a `Task` into the `TaskManager`.
 `AddTaskCommandParser` is also utilised to parse and validate the user inputs before sending it to `AddTaskCommand` to execute.
@@ -217,8 +252,8 @@ The attributes of Task is as follows:
 image::Task.png[]
 
 As seen in the above class diagram, `driver` and `eventTime` are optional fields that are not mandatory when adding a task.
-They will be assigned subsequently using `assign` command. (Refer to Assign feature)
-The mandatory fields for users are: 'description', 'date' and 'Customer'.
+They will be assigned subsequently using `assign` command.
+(Refer to Assign feature) The mandatory fields for users are: 'description', 'date' and 'Customer'.
 After the validation is completed, `AddTaskCommand` will fetch `Customer` using the `customerId` through the `CustomerManager`.
 A unique id will also be allocated to the task for differentiation.
 
@@ -230,8 +265,7 @@ image::AddTaskCommand.png[]
 image::ModelInteractWithManagers.png[]
 
 [NOTE]
-The flow of how the task is being accessed and managed as shown above is the same for other task related command
-such as edit task command (`editT`) and delete task command (`del`).
+The flow of how the task is being accessed and managed as shown above is the same for other task related command such as edit task command (`editT`) and delete task command (`del`).
 
 ==== Design Considerations
 
@@ -239,11 +273,15 @@ such as edit task command (`editT`) and delete task command (`del`).
 
 * **Alternative 1 (current choice):** Task class contains Driver and Customer classes as attributes.
 ** Pros: Centralised Task class that encapsulates all the information, which makes it easy to manage task.
-** Cons: Task will have to depend on Driver and Customer. Decreases testability.
+** Cons: Task will have to depend on Driver and Customer.
+Decreases testability.
 * **Alternative 2:** Driver and Customer classes have Task class as attribute.
-** Pros: Easy to access tasks through the respective classes. (Driver and Customer classes)
-** Cons: Having 2 classes depend on Task class. Decreases testability.
+** Pros: Easy to access tasks through the respective classes.
+(Driver and Customer classes)
+** Cons: Having 2 classes depend on Task class.
+Decreases testability.
 // end::task-feature[]
+
 
 
 
@@ -263,8 +301,7 @@ It is implemented with the help of an external library, https://github.com/itext
 [NOTE]
 Regarding iText's license, it can be used for free in situations where you distribute your software for free.
 It is a Affero General Public License (AGPL) library. +
-Information updated as of 6 November 2019.
-For more information, please visit the https://itextpdf.com/en[iText official website].
+Information updated as of 6 November 2019. For more information, please visit the https://itextpdf.com/en[iText official website].
 
 To show how the PDF document is generated, *generating PDF Task Summary will be used as an example* for this showcase.
 The following sequence diagram shows how the user command `savepdf` is being executed and handled.
@@ -312,6 +349,7 @@ image::GeneratePdfActivityDiagram.png[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
+
 ==== Proposed Implementation
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
@@ -326,27 +364,33 @@ These operations are exposed in the `Model` interface as `Model#commitAddressBoo
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time.
+The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book.
+The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new person.
+The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command.
+The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore.
+The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case.
+If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -357,13 +401,20 @@ NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but du
 The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore.
+The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case.
+If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`.
+Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`.
+Thus, the `addressBookStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`.
+Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged.
+We designed it this way because it no longer makes sense to redo the `add n/David ...` command.
+This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -386,15 +437,18 @@ image::CommitActivityDiagram.png[]
 
 * **Alternative 1 (current choice):** Use a list to store the history of address book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice.
+For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
+Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
 === Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+We are using `java.util.logging` package for logging.
+The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
@@ -416,6 +470,7 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 === Customer Feature
 ==== Add Customer
 ===== Implementation
+
 The *Add Customer* feature adds a new Customer into a Customer list. +
 It uses the `AddCustomerCommand`, which extends `Command`, to add a `Customer` into the `CustomerManager`.
 `AddCustomerCommandParser` is also utilised to parse and validate the user inputs before sending it to `AddCustomerCommand` to execute.
@@ -477,6 +532,7 @@ all essential details. Allow the space for working map showing the location of t
 === Driver Feature
 ==== Add Driver
 ===== Implementation
+
 The *Add Driver* feature adds a new Driver into a Driver list. +
 It uses the `AddDriverCommand`, which extends `Command`, to add a `Driver` into the `DriverManager`.
 `AddDriverCommandParser` is also utilised to parse and validate the user inputs before sending it to `AddCustomerCommand` to execute.
@@ -589,21 +645,23 @@ _{More to be added}_
 
 *MSS*
 
-1.  Delivery Manager requests the list of drivers
-2.  Deliveria shows a list of drivers
-3.  Delivery Manager requests to delete a specific driver in the list
-4.  Deliveria deletes the driver
+1. Delivery Manager requests the list of drivers
+2. Deliveria shows a list of drivers
+3. Delivery Manager requests to delete a specific driver in the list
+4. Deliveria deletes the driver
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a.
+The list is empty.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a.
+The given index is invalid.
 +
 [none]
 ** 3a1. Deliveria shows an error message.
@@ -615,16 +673,17 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User creates a delivery task
-2.  Deliveria adds the task to a list of delivery tasks
-3.  Deliveria prints to assure that the task is added
+1. User creates a delivery task
+2. Deliveria adds the task to a list of delivery tasks
+3. Deliveria prints to assure that the task is added
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Task given in invalid format
+* 1a.
+Task given in invalid format
 [none]
 ** 1a1. Deliveria shows an error message
 ** 1a2. Use case resumes at step 1
@@ -647,7 +706,8 @@ Use case ends.
 *Extension*
 
 [none]
-* 3a. If driver is unavailable to take up the task
+* 3a.
+If driver is unavailable to take up the task
 [none]
 ** 3a1. Deliveria prompts that driver is busy
 ** 3a2. Deliveria shows the available time of the driver
@@ -659,22 +719,21 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to maintain up to 100 drivers and 1000 tasks without performance degradation.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Should comply with the company's privacy regulations and safely store the data files.
-.  Should be able to scale quickly and adaptable for different companies.
-
-
-
+. Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+. Should be able to maintain up to 100 drivers and 1000 tasks without performance degradation.
+. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. Should comply with the company's privacy regulations and safely store the data files.
+. Should be able to scale quickly and adaptable for different companies.
 
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
+[[mainstream-os]]
+Mainstream OS::
 Windows 10, MacOS Mojave, Ubuntu
 
-[[private-contact-detail]] Private contact detail::
+[[private-contact-detail]]
+Private contact detail::
 A contact detail that is not meant to be shared with others
 
 [appendix]
@@ -708,11 +767,14 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample contacts.
+The window size may not be optimum.
 
 . Saving window preferences
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Resize the window to an optimum size.
+Move the window to a different location.
+Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
@@ -722,11 +784,16 @@ _{ more test cases ... }_
 
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all persons using the `list` command.
+Multiple persons in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First contact is deleted from the list.
+Details of the deleted contact shown in the status message.
+Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No person is deleted.
+Error details shown in the status message.
+Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 

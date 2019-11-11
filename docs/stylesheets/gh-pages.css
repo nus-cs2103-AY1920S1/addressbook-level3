@@ -79,6 +79,12 @@ table.tableblock > .title,
     }
 }
 
+@media print {
+    a[href]:after {
+        content: none !important;
+    }
+}
+
 /* Utilities */
 
 .container {

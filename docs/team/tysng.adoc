@@ -5,7 +5,7 @@
 
 == PROJECT: Deliveria
 
----
+//---
 
 == Overview
 
@@ -14,40 +14,61 @@ Deliveria is a *desktop application* that allows a *delivery manager* to *manage
 While it consists of a _Graphical User Interface_ (GUI) that is user-friendly,
 Deliveria is *optimized for those who prefer* to work with a _Command Line Interface_ (CLI) which allows fast management of the delivery tasks in an organisation.
 
+Our team of four students worked on the software for the past two months. We started with the code base of `AddressBook Level 3`,
+an open-source JavaFX application for Software Engineering education purposes. Over the past months, we changed the AddressBook to
+suit the needs of our target users.
+
+We follow a semi-Agile approach, and we have released four milestones on a biweekly release schedule. The latest version is v1.4.
+
+
+
 == Summary of contributions
 
-* *Major enhancement*: added the feature to *schedule delivery tasks*, with *automatic suggestions based on the driver's existing schedule*
-** What it does: allows the user to assign a driver to a task, and schedule this task to be completed in the future, without causing time clashes with the existing tasks of the driver
-** Justification: This is a core feature of the product. By enabling this feature, we help the managers to better utilise the human resources, save time in planning the task, and deliver the orders with satisfaction
-** Highlights: The command will automatically suggest a better time slot, so as to ensure that all drivers' schedules are the most optimised. At the same time, we are giving the managers the freedom to exercise their own judgement, and override the automatic stuggestions
-** Credits: The choice of a backing data structure is inspired by a CS2040 Practical Exam question
+* *Major enhancement*: added the feature to *schedule delivery tasks*, with *automatic suggestions based on the driver's existing schedule* and *task specifications*.
+** What it does:
+- Allows the user to automatically schedule a task to be completed by a driver in the future, without causing time clashes with the existing tasks of the driver.
+- Optimizes the driver and time slot allocated such that, the drivers's schedules are fully utilised, and tasks that deliver to the same address are delivered by the same driver.
+** Justification: This is a core feature of the product. By enabling this feature, we help the managers to better utilise the human resources, save time in planning the task, and deliver the orders with satisfaction.
+** Highlights: The command will automatically suggest the driver and a time for a task, so as to ensure that drivers' schedules are optimised on a company level. At the same time, we are giving the managers the freedom to exercise their own judgement, and override the automatic suggestions.
+** Where to find it:
+- User-facing command: `suggest`, `assign`, `free`
+- Logic-level component: `ScheduleOptimizer`, `Candidate`
+- Model-level component: `Schedule`, `EventTime`, `SchedulingSuggestion`
 
 * *Minor enhancement*:
-** [TBC] added a feature to correct the user's spelling mistakes in a command, by suggesting the most similar command word
-** changed three existing classes to generic classes, so as to reduce 600+ lines of repetitive code
+** Implemented a `GlobalClock` object for the ease of development, testing and debugging:
+- by switching the `testEnv` in `config.json`, the user can freeze the time at a specific point, so that
+the time-based methods have deterministic behaviour
+** Improved the presentation of the driver's unavailable time in the GUI:
+- instead of showing two connecting time (eg. `1500 - 1600, 1600 - 1700`), the program will concatenate the two connecting time and show as one (eg. `1500 - 1700`).
 
-* *Code contributed*: [TBC] [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:  [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=tysng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=tysng&tabRepo=AY1920S1-CS2103T-F14-4%2Fmain%5Bmaster%5D[RepoSense]]
 
-* *Other contributions*: [TBC]
+* *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Created the team repo, enabled Continuous Integration, Github Pages Deployment.
+*** Implemented code review policy and enabled branch protection rules, and worked on various work flow related chores to maintain a clean commit history.
+*** Spearheaded the feature planning (https://github.com/AY1920S1-CS2103T-F14-4/main/projects/2[Brainstorming Board], https://github.com/AY1920S1-CS2103T-F14-4/main/projects/1[Dev Board]).
+*** Managed releases `v1.1` - `v1.4` (4 releases) on https://github.com/AY1920S1-CS2103T-F14-4/main/releases[Github].
+
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Changed three existing classes to generic classes, ie. `EntityManager<T extends Person>`, `ReadOnlyEntityManager<T extends Person>`, and `UniqueEntityList<T extends Person>`, so as to reduce 600+ lines of repetitive code (Pull Request https://github.com/AY1920S1-CS2103T-F14-4/main/pull/95[#95]).
+
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updated User Guide, Developer Guide (Pull Request https://github.com/AY1920S1-CS2103T-F14-4/main/pull/236[#236], https://github.com/AY1920S1-CS2103T-F14-4/main/pull/108[#108])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Reviewed more than 90% of the team members' pull requests: PR with non-trivial review comments: https://github.com/AY1920S1-CS2103T-F14-4/main/pull/91[#91], https://github.com/AY1920S1-CS2103T-F14-4/main/pull/102[#102], https://github.com/AY1920S1-CS2103T-F14-4/main/pull/115[#115]
+*** Contributed to forum discussions (Link:  https://github.com/nus-cs2103-AY1920S1/forum/issues/140#issuecomment-545887173[1])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/tysng/ped/issues/6[1], https://github.com/tysng/ped/issues/4[2])
+
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Written a `Makefile` to simplify the execution of unit testing and style checks (https://github.com/AY1920S1-CS2103T-F14-4/main/pull/62[#62])
 
-_{you can add/remove categories in the list above}_
 
+
+
+<<<
 == Contributions to the User Guide
 
 
@@ -55,21 +76,30 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=getting-started]
+
+include::../UserGuide.adoc[tag=suggest-command]
+
 include::../UserGuide.adoc[tag=assign-command]
 
 include::../UserGuide.adoc[tag=free-command]
 
+
+
+<<<
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+
+include::../DeveloperGuide.adoc[tag=driver-task-scheduling]
+
+<<<
+
 include::../DeveloperGuide.adoc[tag=task-scheduling]
 
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+<<<
+include::../DeveloperGuide.adoc[tag=model]
