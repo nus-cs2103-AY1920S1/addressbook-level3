@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.model.activity.Activity;
+import seedu.address.ui.util.UiUtil;
 
 /**
  * An UI component that displays contact-specific information of an {@code Activity}.
@@ -11,8 +12,12 @@ import seedu.address.model.activity.Activity;
 public class ActivityHistoryCard extends UiPart<Region> {
     private static final String FXML = "ActivityHistoryCard.fxml";
 
-    public final Activity activity;
-    public final double transferAmt;
+    private static final String ACTIVITY_OWED_CLASS = "activity-owed";
+    private static final String ACTIVITY_OWING_CLASS = "activity-owing";
+    private static final String ACTIVITY_NEUTRAL_CLASS = "activity-neutral";
+
+    private final Activity activity;
+    private final double transferAmt;
 
     @FXML
     private Label title;
@@ -25,14 +30,16 @@ public class ActivityHistoryCard extends UiPart<Region> {
         this.transferAmt = transferAmt;
 
         title.setText(activity.getTitle().toString());
-        if (transferAmt < 0) {
-            netTransfer.setStyle("-fx-text-fill: maroon");
-            netTransfer.setText(String.format("Owes $%.2f", -transferAmt));
-        } else if (transferAmt > 0) {
-            netTransfer.setStyle("-fx-text-fill: darkgreen");
-            netTransfer.setText(String.format("Owed $%.2f", transferAmt));
+
+        if (transferAmt == 0) {
+            netTransfer.getStyleClass().add(ACTIVITY_NEUTRAL_CLASS);
+            netTransfer.setText("No outstanding debt to or from this activity.");
+        } else if (transferAmt < 0) {
+            netTransfer.getStyleClass().add(ACTIVITY_OWING_CLASS);
+            netTransfer.setText("Owes " + UiUtil.formatAmount(-transferAmt));
         } else {
-            netTransfer.setText("Not involved in any expenses yet.");
+            netTransfer.getStyleClass().add(ACTIVITY_OWED_CLASS);
+            netTransfer.setText("Owed " + UiUtil.formatAmount(transferAmt));
         }
     }
 

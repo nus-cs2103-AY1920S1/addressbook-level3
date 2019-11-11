@@ -18,7 +18,9 @@ import seedu.address.model.person.Person;
 public class PersonDetailsPanel extends UiPart<Region> {
     private static final String FXML = "PersonDetailsPanel.fxml";
 
-    public final Person person;
+    private static final String NO_EMAIL_MESSAGE = "no email provided";
+
+    private final Person person;
 
     @FXML
     private ScrollPane detailsPane;
@@ -41,8 +43,17 @@ public class PersonDetailsPanel extends UiPart<Region> {
 
         name.setText(person.getName().toString());
         phone.setText(person.getPhone().toString());
-        email.setText(person.getEmail().toString());
         address.setText(person.getAddress().toString());
+
+        String emailString = person.getEmail().toString();
+        boolean hasEmail = emailString.length() > 0;
+
+        if (hasEmail) {
+            email.setText(emailString);
+        } else {
+            email.setText(NO_EMAIL_MESSAGE);
+        }
+
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
@@ -50,7 +61,8 @@ public class PersonDetailsPanel extends UiPart<Region> {
         activities.stream()
                 .forEach(activity -> {
                     Double transferAmount = activity.getTransferAmount(person.getPrimaryKey());
-                    activityHistory.getChildren().add(new ActivityHistoryCard(activity, transferAmount).getRoot());
+                    ActivityHistoryCard newNode = new ActivityHistoryCard(activity, transferAmount);
+                    activityHistory.getChildren().add(newNode.getRoot());
                 });
     }
 }
