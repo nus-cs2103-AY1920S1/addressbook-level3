@@ -1,0 +1,30 @@
+@startuml
+package logic.commands {
+    abstract class Command
+    class PdfCommand
+}
+package logic.interactive.parser {
+    class Parser
+    interface InteractiveParser
+}
+
+package model {
+    class Report
+    class ModelManager
+    interface Model
+    class Engagement
+}
+package util {
+    class PdfUtil
+}
+
+Model <|.. ModelManager
+Command <|-- PdfCommand
+PdfCommand ..> ModelManager
+ModelManager ..> PdfUtil
+Report *-> Engagement
+PdfUtil ..> Report
+Parser ..|> InteractiveParser
+Parser ..> PdfCommand
+
+@enduml

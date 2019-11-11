@@ -1,0 +1,41 @@
+@startuml
+package ui.game {
+    class StartWindow
+    class Tab
+    class MainWindow
+    abstract class UiPart<Region>
+    class GameWindow <<Singleton>>
+    class PlayerInformation
+    class GameBody
+    class MovingWord
+    class HighlighterUtil
+}
+
+package game {
+    class Player
+    class Words
+}
+
+UiPart <- Tab
+UiPart <|-- MainWindow
+UiPart <|- StartWindow
+UiPart <|-- GameWindow
+UiPart <|-- GameBody
+UiPart <|-- PlayerInformation
+UiPart <|-- MovingWord
+
+MainWindow *--> Tab
+MainWindow ..> StartWindow
+StartWindow -right--> "0...1" GameWindow
+GameWindow -down--> "1" GameBody
+GameWindow -down--> "1" PlayerInformation
+
+MovingWord .left.> HighlighterUtil :generated using >
+MovingWord .down.> Words :.get() from >
+MovingWord .down.> Player :updates >
+GameWindow .down.> Player :updates >
+GameBody .down.> Player
+GameBody .right.> "*" MovingWord
+PlayerInformation <.down.> Player :bounded with
+
+@enduml

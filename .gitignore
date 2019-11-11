@@ -14,8 +14,14 @@ src/main/resources/docs/
 /preferences.json
 /*.log.*
 
-# Test sandbox files
-src/test/data/sandbox/
+/reports
 
 # MacOS custom attributes files created by Finder
 .DS_Store
+
+/docs/images/appveyor/
+
+/test/data/sandbox/serialize.json
+/test/data/sandbox/invalidList.json
+
+src/test/data/sandbox/serialize.json

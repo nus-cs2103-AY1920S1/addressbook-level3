@@ -6,15 +6,29 @@ skinparam classBackgroundColor LOGIC_COLOR
 
 package Logic {
 
+package Interactive {
 package Parser {
-Interface Parser <<Interface>>
-Class AddressBookParser
-Class XYZCommandParser
-Class CliSyntax
-Class ParserUtil
+Interface InteractiveParser <<Interface>>
+Class Parser
 Class ArgumentMultimap
 Class ArgumentTokenizer
+Class InputProcessor
+Class CliSyntax
 Class Prefix
+
+package State {
+Class StateUtil
+Class "{abstract}\nState" as State
+Class "{abstract}\nEndState" as EndState
+Class "{abstract}\nPenultimateState" as PenultimateState
+Interface OptionalState <<Interface>>
+Class XYZState
+Class XYZEndState
+}
+
+}
+
+
 }
 
 package Command {
@@ -35,28 +49,30 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager --->"1" Parser
+LogicManager ---> Model
 
-XYZCommandParser ..> XYZCommand : creates >
-XYZCommandParser ..|> Parser
-XYZCommandParser ..> ArgumentMultimap
-XYZCommandParser ..> ArgumentTokenizer
-ArgumentTokenizer .left.> ArgumentMultimap
-XYZCommandParser ..> CliSyntax
-CliSyntax ..> Prefix
-XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
-ArgumentTokenizer .down.> Prefix
 XYZCommand -up-|> Command
-LogicManager .left.> Command : executes >
+Command -up-> CommandResult
+Command ..> Model
 
-LogicManager --> Model
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+Parser .up.|> InteractiveParser
+Parser ..> ArgumentMultimap
+Parser ..> ArgumentTokenizer
+Parser ..> InputProcessor
+Parser ..> CliSyntax
+Parser -right-> State
+Parser ...> OptionalState
 
-Logic ..> CommandResult
-LogicManager .down.> CommandResult
-Command .up.> CommandResult
-CommandResult -[hidden]-> Parser
+ArgumentTokenizer ..> Prefix
+CliSyntax ..> Prefix
+
+State ..> StateUtil
+XYZState -up-|> State
+XYZState ..> XYZEndState
+EndState -up-|> State
+PenultimateState -|> State
+EndState ..> Command
+XYZEndState ..> XYZCommand
+
 @enduml

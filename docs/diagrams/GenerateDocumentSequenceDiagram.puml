@@ -1,0 +1,68 @@
+@startuml
+
+box Logic
+participant ":LogicManager" as LogicManager
+participant ":TypeeParser" as TypeeParser
+participant ":PdfCommandParser" as PdfCommandParser
+participant "p:PdfCommand" as PdfCommand
+participant ":CommandResult" as CommandResult
+end box
+
+box PdfUtil
+participant ":PdfUtil" as PdfUtil
+end box
+
+[-> LogicManager : execute("pdf i/1 to/Harry from/Ron")
+activate LogicManager
+
+LogicManager -> TypeeParser : parseCommand("pdf i/1 to/Harry from/Ron")
+activate TypeeParser
+
+create PdfCommandParser
+TypeeParser -> PdfCommandParser
+activate PdfCommandParser
+
+PdfCommandParser --> TypeeParser
+deactivate PdfCommandParser
+
+TypeeParser -> PdfCommandParser : parse("i/1 to/Harry from/Ron")
+activate PdfCommandParser
+
+create PdfCommand
+PdfCommandParser -> PdfCommand
+activate PdfCommand
+
+PdfCommand --> PdfCommandParser : p
+deactivate PdfCommand
+
+PdfCommandParser --> TypeeParser : p
+deactivate PdfCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+PdfCommandParser -[hidden]-> TypeeParser
+destroy PdfCommandParser
+
+TypeeParser --> LogicManager : p
+deactivate TypeeParser
+
+LogicManager -> PdfCommand : execute()
+activate PdfCommand
+
+PdfCommand -> PdfUtil : generateDocument(engagement)
+activate PdfUtil
+
+PdfUtil --> PdfCommand
+deactivate PdfUtil
+
+create CommandResult
+PdfCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> PdfCommand
+deactivate CommandResult
+
+PdfCommand --> LogicManager : result
+deactivate PdfCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

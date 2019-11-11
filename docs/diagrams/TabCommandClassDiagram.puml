@@ -1,0 +1,34 @@
+@startuml
+package ui {
+    class MainWindow {
+        fetchTabInformation(tabName:String): Tab
+    }
+    abstract class UiPart<Region>
+}
+
+package model {
+    class Tab
+}
+
+package logic.interactive.parser {
+    interface InteractiveParser
+    class Parser
+    class State
+}
+
+package logic.commands {
+    class TabCommand
+    abstract class Command
+    class CommandResult
+}
+
+UiPart <|-- MainWindow
+MainWindow *--> Tab
+Command <|-- TabCommand
+TabCommand ..> CommandResult
+MainWindow ..> Parser
+Parser ..> TabCommand
+Parser *-> State
+Parser ..|> InteractiveParser
+MainWindow ..> CommandResult
+@enduml

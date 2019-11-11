@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Typee - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `SC09-F14-3`      Since: `Aug 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -26,13 +26,9 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::Typee_UML-Architecture.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
+The *_Architecture Diagram_* given above explains the high-level design of the App.
 
 `Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -44,14 +40,14 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of four components
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
-Each of the four components
+The first four components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -64,9 +60,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete i/1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete i/1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -79,9 +75,10 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `EngagementListPanel`, `StatusBarFooter`, `HelpWindow`
+, `Tab`, `TabListPanel`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.
 
 The `UI` component,
 
@@ -94,22 +91,22 @@ The `UI` component,
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
+{empty} +
+
+[NOTE]
+The package state contains additional packages that represent state machines for each `Command`. These packages have been
+omitted for brevity. +
+XYZ refers to any arbitrary command. For example: +
+`XYZEndState` can be `AddEndState` and `XYZCommand` can be `AddCommand`.
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `InteractiveParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
-
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
-
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -122,14 +119,9 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the engagement list data.
+* exposes an unmodifiable `ObservableList<Engagement>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -142,83 +134,106 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the engagement list data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `com.typee.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+//tag::tab-switch[]
+=== Tab Switch Feature
+Tab switch feature is a type of Command that allows users to switch to respective windows for using different features in the system. +
+Tab switch function is implemented in using both CLI and GUI approach; user can execute tab-switch by typing command in the input text-area or by interaction with the UI component (Button).
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+==== Implementation Structure
+
+[.float_group]
+[.clearfix]
+---
+.TabCommand Class Diagram and fetchTabInfo Activity Diagram
+image::tabcmd_and_tabFetch_activity.png[width="750", float="left"]
+---
+
+1. User is required to use a `Command`; `TabCommand` in order to switch the window to another window.
+* Upon first startup of the system, system will display the `EngagementList` window by default.
+2. New Ui Model class `Tab` is implemented to contain the respective fxml controller classes in a OOP manner.
+
+MainWindow will have an additional method `fetchTabInformation(tabName)`. After the parser executes the `TabCommand`, it will return a CommandResult with `Tab` property. +
+System will then check whether the input name matches with one of the tab names in the system. If there is a match, system will fetch the tab information and return the `Tab` object. If no match is found, system will return with an empty tab with only name attached.
+
+//end::tab-switch[]
+
+// tag::undoredo[]
+=== Undo/Redo feature
+==== Implementation
+
+The undo/redo mechanism is facilitated by `HistoryManager`.
+It extends `EngagementList` with an undo/redo history, stored internally as an `historyList` and `versionPointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `HistoryManager#saveState()` -- Saves the current engagement list state in its history.
+* `HistoryManager#undo()` -- Restores the previous engagement list state from its history.
+* `HistoryManager#redo()` -- Restores a previously undone engagement list state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#saveEngagementList()`, `Model#undoEngagementList()` and `Model#redoEngagementList()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `HistoryManager` will be initialized with the initial engagement list state, and the `versionPointer` pointing to that single engagement list state.
 
-image::UndoRedoState0.png[]
+image::UndoRedoState0.png[width="450", align="center"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete i/5` command to delete the 5th person in the engagement list. The `delete` command calls `Model#saveEngagementList()`, causing the modified state of the engagement list after the `delete 5` command executes to be saved in the `historyList`, and the `versionPointer` is shifted to the newly inserted engagement list state.
 
-image::UndoRedoState1.png[]
+image::UndoRedoState1.png[width="450", align="center"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add t/meeting ...` to add a new engagement. The `add` command also calls `Model#saveEngagementList()`, causing another modified engagement list state to be saved into the `historyList`.
 
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
+image::UndoRedoState2.png[width="450", align="center"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If a command fails its execution, it will not call `Model#saveEngagementList()`, so the engagement list state will not be saved into the `historyList`.
+
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoEngagementList()`, which will shift the `versionPointer` once to the left, pointing it to the previous engagement list state, and restores the engagement list to that state.
+
+image::UndoRedoState3.png[width="450", align="center"]
+
+[NOTE]
+If the `versionPointer` is at index 0, pointing to the initial engagement list state, then there are no previous engagement list states to restore. The `undo` command uses `Model#hasNoUndoableCommand()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoSequenceDiagram.png[]
+image::UndoSequenceDiagram.png[width="750", align="center"]
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `UndoCommand` and `UndoState` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoEngagementList()`, which shifts the `versionPointer` once to the right, pointing to the previously undone state, and restores the engagement list to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `versionPointer` is at index `historyList.size() - 1`, pointing to the latest engagement list state, then there are no undone engagement list states to restore. The `redo` command uses `Model#hasNoRedoableCommand()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `sort p/start o/ascending`. Commands that do not modify the engagement list, such as `sort`, will usually not call `Model#saveEngagementList()`, `Model#undoEngagementList()` or `Model#redoEngagementList()`. Thus, the `historyList` remains unchanged.
 
-image::UndoRedoState4.png[]
+image::UndoRedoState4.png[width="450", align="center"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#saveEngagementList()`. Since the `versionPointer` is not pointing at the end of the `historyList`, all engagement list states after the `versionPointer` will be purged. We designed it this way because it no longer makes sense to redo the `add d/meeting ...` command. This is the behavior that most modern desktop applications follow.
 
-image::UndoRedoState5.png[]
+image::UndoRedoState5.png[width="450", align="center"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[]
+image::CommitActivityDiagram.png[width="190", align="center"]
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire engagement list.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -227,20 +242,449 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
+* **Alternative 1 (current choice):** Use a list to store the history of engagement list states.
+** Pros: Easy to implement.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `historyList` and `engagementList`.
+* **Alternative 2:** Use `jdeveloper.history.HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+//tag::sort[]
 
-_{Explain here how the data encryption feature will be implemented}_
+=== Sort feature
+==== Implementation
 
-// end::dataencryption[]
+The sort mechanism is facilitated by `EngagementComparator`.
+The `EngagementComparator` is an enum class that implements Java Comparator<Engagement> and specifies the comparing logic of 8 different orders, namely `START_TIME`, `START_TIME_REVERSE`, `END_TIME`, `END_TIME_REVERSE`, `ALPHABETICAL`, `ALPHABETICAL_REVERSE`, `PRIORITY`, and `PRIORITY_REVERSE`.
+Each positive sequence comparator compares two `Engagements` with the field specified within its name in ascending order, and `_REVERSE` comparators compare in descending order.
+
+Additionally, the `Model` interface is modified to support the following methods:
+
+* `Model#setComparator(Comparator<Engagement>)` -- Sets the designated comparator in model.
+* `Model#updateSortedEngagementList()` -- Executes the sorting method with the `currentComparator` in model to sort the internal list.
+* `Model#getSortedEngagementList()` -- Returns the current internal engagement list as an unmodifiable `ObservableList`.
+
+These operations are implemented in the `ModelManager` class as `ModelManager#setComparator(Comparator<Engagement>)`, `ModelManager#updateSortedEngagementList()` and `ModelManager#getSortedEngagementList()` respectively.
+
+Given below is an example usage scenario and how the sort mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `currentComparator` will be initialized as `null`.
+
+image::SortListState0.png[width="450", align="center"]
+
+Step 2. The user executes `sort p/priority o/ascending` command to sort the engagement list in ascending order of priority. The `sort` command calls `Model#setComparator()`, causing the `currentComparator` in ModelManager to assume the value `EngagementComparator#PRIORITY`. The command then calls `Model#updateSortedEngagementList` to execute the sorting.
+
+image::SortListState1.png[width="450", align="center"]
+
+NOTE: The parsing of `sort` follows the interactive parsing structure *_Typee_* adopts, where various stages are created while parsing. See Sequence Diagram below.
+
+The following sequence diagram shows how the sort operation works:
+
+image::SortSequenceDiagram.png[width="750", align="center"]
+
+NOTE: The lifeline for `SortCommand` and the 3 Stages should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Step 3. The user executes `add t/meeting ... p/high` to add a new engagement. The `add` command also calls `Model#updateSortedEngagementList()` with `currentComparator`, causing the execution of sorting after the new engagement is added to the list, to preserve the current ordering.
+
+image::SortListState2.png[width="450", align="center"]
+
+[NOTE]
+If the `currentComparator` assumes the initial value `null` when `Model#updateSortedEngagementList` is called, the method will simply catch the `NullPointerException` thrown by `java.object.requireNonNull` which will essentially abort the attempt to sort with an empty catch block. The initial chronological order is preserved in this case.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the engagement list or alter the order of the list, such as `list`, will usually not call `Model#setComparator(Comparator<Engagement>)`, or `Model#updateSortedEngagementList()`. Thus, the internal `ObservableList` remains unchanged.
+
+image::SortListState3.png[width="450", align="center"]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::SortUpdateActivityDiagram.png[width="190", align="center"]
+
+==== Design Considerations
+
+===== Aspect: How sort executes
+
+* **Alternative 1 (current choice):** Use the `List.sort(Comparator<T>)` function to sort the list.
+** Pros: Has trivial support for features that updates the predicate of `FilteredList`, like `Find`.
+** Cons: There is a need to sort the list each time a command that modifies the elements of the list is executed, which may result in performance issues in case the list size is large.
+* **Alternative 2:** Replace the `FilteredList` in `ModelManager` with a `SortedList`.
+** Pros: Sorting the list is more intuitive, and the ordering of the engagements is automatically preserved whenever a command that modifies the list elements is executed.
+** Cons: Features like `find` command may lose functionality and needs extra modification.
+
+//end::sort[]
+
+//tag::report[]
+
+=== Engagement Report Generation
+This feature allows user to generate a pre-selected engagement in to a report and save it as a document file. The document file will be created in a .pdf format.
+
+==== Implementation Structure
+
+.PdfCommand Implementation Class Diagram
+image::PdfCommandClassDiagram.png[width="500"]
+
+The feature will be implemented as an additional type of Command; `PdfCommand`
+
+* Proposed syntax of the PdfCommand is as follow: `pdf i/ENGAGEMENT_LIST_INDEX t/RECEIVER f/SENDER`.
+
+Util class `PdfUtil` will be implemented for handling all pdf document creation related methods. It will be implemented under `util` package and it will be able to deliver few essential features
+that are necessary for document creation.
+
+** Able to generate a full report document based on the `Engagement` as input.
+** Use different templates for each other types of `Engagement` such as `Appointment`, `Interview` and `Meeting`. Document template will follow general email format:
+Receiver, Engagement Information written in a table, Sender and signature with address and company logo.
++
+To fulfill the document format, `Report` class needs to be implemented in order to model all necessary properties that has to be in the document. It 3 following properties;
+
+***  `engagement`: specific engagement information to include in the document
+*** `to`: A `Person` who is receiving the document
+*** `from`: A `Person` who is either a receptionist or a secretary who is sending the document.
+
+Below is the sequence diagram for document generation which displays the concept of how this feature will be implemented by multiple interaction between different architecture components.
+
+.Sequence diagram for document generation.
+image::GenerateReportSequenceDiagram.png[width="500"]
+
+==== UI Design
+`ReportWindow` will be the UI container which helps the user to interact using `PdfCommand`.
+The window will include dynamic tree-view that is directly linked to the external directory in the file-system; `reports/`
+
+===== UI Components & Features
+Table below explains the components that are included in the `ReportWindow` with its purpose and features.
+
+.Report Window UI Components
+[%header, cols="10%, 10%, 40%, 40%"]
+|===
+|
+|UI Component
+|Feature
+|Purpose
+
+| `Refresh Button`
+| Button
+| Refreshes the tree-view file directory.
+| To help user refresh the directory when there is a system glitch or when document (.pdf) is manually added in the `reports/` directory.
+
+| `Delete Button`
+| Button
+| Deletes the selected document item in the tree-view file directory.
+| To assist users who prefer using mouse instead of typing command in keyboard can delete documents easily.
+
+| `File_Explorer`
+| Scrollable Tree View
+|
+1. Displays the list of document generated previously and stored under the directory `reports/`.
+
+2. Each list item is clickable with a mouse click action of opening the document.
+| To allow user to manage documents more time efficiently.
+|===
+//end::report[]
+
+=== Calendar Window
+
+The `CalendarWindow` provides a visual representation of stored engagements over a monthly period.
+Users can choose to change the month being displayed and also open scrolling text windows which
+show more detailed descriptions of the stored engagements for a particular day.
+
+==== Implementation Structure
+.Structure of the Calendar Window
+image::CalendarWindowClassDiagram.png[]
+{empty} +
+The `CalendarWindow` is part of the `MainWindow`. Specifically, it is one possible `Tab` which can be
+displayed. The `CalendarWindow` class and any of its associated UI components can be found under the `com.typee.ui.calendar` package.
+
+The following sequence diagram shows the creation of a `CalendarWindow` instance when the user switches to the
+calendar window tab.
+
+.CalendarWindow Initialization Sequence Diagram
+image::CalendarWindowSequenceDiagram.png[]
+{empty} +
+
+==== UI Design
+The `CalendarWindow` class was designed with the observer pattern in mind. The calendar's display and any open engagements
+list windows are automatically updated as engagements are added to or deleted from the application. `CalendarDateCell` and
+`EngagementListViewCell` both have a reference to an `ObervableList` of engagements in order to conform to the observer pattern.
+The following table shows all UI components which are used and their respective purposes.
+
+.Calendar Window UI Components
+[%header, cols=4*]
+|===
+|
+|UI Component Type
+|Feature
+|Purpose
+
+| `DateDisplayGrid`
+| GridPane
+| Displays a grid which represents 35 calendar dates.
+| Shows the user the days of the month which is currently being displayed.
+
+| `CalendarDateStackPane`
+| StackPane
+| Displays the date of a single `CalendarDateCell` and the number of engagements for that date.
+| Provides the user with some general engagement information for a particular date.
+
+| `PreviousMonthButton`
+| Button
+| Switches the calendar's display to the previous month.
+| Allows the user to navigate to the previous month.
+
+| `CalendarTitle`
+| Text
+| Indicates the month and year currently being displayed by the calendar window.
+| Informs the month and year currently being displayed by the calendar window.
+
+| `NextMonthButton`
+| Button
+| Switches the calendar's display to the next month.
+| Allows the user to navigate to the next month.
+
+| `EngagementListView`
+| ListView
+| Displays a list of engagements for a particular date.
+| Lets the user see more detailed information about all of his/her engagements for a particular date
+
+| `EngagementListViewCell`
+| ListCell
+| Displays information for a single engagement.
+| Allows the user to see detailed information about a single engagement. This is used as the cell factory for ListView.
+
+|===
+
+==== Command Execution Workflows
+
+The following are the four commands which interact with `CalendarWindow`. They are accompanied by their respective activity diagrams
+which are used to model their workflows:
+
+* `CalendarOpenDisplayCommand` -- Opens the engagements list window for the specified date.
+
+.Open Display Activity Diagram
+image::CalendarOpenDisplayActivityDiagram.png[]
+{empty} +
+
+* `CalendarCloseDisplayCommand` -- Closes the engagements list window for the specified date.
+
+.Close Display Activity Diagram
+image::CalendarCloseDisplayActivityDiagram.png[]
+{empty} +
+
+* `CalendarNextMonthCommand` -- Changes the calendar window's display to the month after the currently displayed month.
+
+.Next Month Activity Diagram
+image::CalendarNextMonthActivityDiagram.png[]
+{empty} +
+
+* `CalendarOpenDisplayCommand` -- Changes the calendar window's display to the month prior to the currently displayed month.
+
+.Previous Month Activity Diagram
+image::CalendarPreviousMonthActivityDiagram.png[]
+{empty} +
+
+==== Design Considerations
+
+===== Aspect: Deciding whether to let engagements list windows from other months remain open when changing the displayed month
+
+* **Alternative 1 (current choice):** Only engagements list windows from the current month can be opened. Switching to other months
+causes all opened engagements list windows to be closed.
+** Pros: Easier to implement and does not take up much memory.
+** Cons: Does not let users view engagement lists from different months simultaneously.
+* **Alternative 2:** Letting engagements list windows remain open, regardless of the month, until they are closed by users.
+** Pros: Users are able to view side-by-side comparisons of their engagement lists across different months.
+** Cons: Introduces additional dependencies because many references to `ObervableList` instances must be maintained.
+
+===== Aspect: Information being displayed in each calendar cell
+
+* **Alternative 1 (current choice):** Only display the number of engagements for each date.
+** Pros: Does not take up a lot of on-screen space. More detailed information about each day's engagements can be viewed
+by opening the engagements list window for that particular date.
+** Cons: The information shown in the calendar window is very generalized.
+* **Alternative 2:** Display the descriptions (and maybe more detailed information) of each date's engagements.
+** Pros: Shows more detailed information in the calendar window.
+** Cons: Might end up distorting the shape of the calendar window's cells since some engagements have more information than others.
+The alternative would be to add fixed constraints to the size of each cell but then information would get cut off.
+
+// tag::typinggame[]
+=== Game Feature
+==== Implementation
+The game feature is implemented using the singleton pattern using the singleton class `GameWindow` which is created
+by button-click in `StartWindow`. This means that there can only be one `gameInstance` at any given time with the exception
+of the game being over. The two diagrams below show the UML sequence diagram and activity diagram of the game window, which
+gives a high level overview of the game.
+
+.Summary Sequence Diagram of Game Window
+image::GameSequenceDiagram.png[]
+//image::GameActivityDiagram.png[float="left"]
+image::GameActivityDiagram.png[width="60%"]
+.Activity Diagram of the Game Window
+
+`GameWindow` has three main components `PlayerInformation`, `GameBody` and `Player`.
+
+.Structure of the Game Window
+image::GameWindowClassDiagram.png[]
+
+The component `GameBody` makes use of `javafx.animation.AnimationTimer` API to continuously loop `MovingWords` objects moving from top
+to bottom of the window using `GameBody#loopWords()`. `MovingWords` are created using
+`HighlighterUtil#convertToTextFlowUsing(String word)`
+, which appears as a `TextFlow` object of `javafx.scene.text` API.
+
+Player input is represented as  a `javafx.beans.property.StringProperty` in `Player`.
+Based on player input, `MovingWords` are updated using
+`HighlighterUtil#convertToTextFlowUsing(String playerInput, String word)`
+, which appears as a highlighted `TextFlow` object. In order to update the `MovingWords` object, the API
+`javafx.animation.AnimationTimer` is used by calling `MovingWords#continuouslyUpdate()`.
+
+The component `PlayerInformation` is bound to `Player` using `javafx.beans.property` API and is also updated when
+`MovingWords#continuouslyUpdate()` is called.
+
+The table below summarises the various purposes of the 3 main Game Window UI components.
+
+.Game Window UI Components
+[%header, cols=4*]
+|===
+|
+|UI Component Type
+|Feature
+|Purpose
+
+| `PlayerInformation`
+| Scrollable Stack Pane
+| Displays the user's score and health points.
+| To inform user about the in-game progress.
+
+| `GameBody`
+| AnchorPane
+| Displays the animation of the game.
+| To allow the user to view the animation of the moving words in a continuous manner.
+
+| `MovingWords`
+| Scrollable Stack Pane
+| Displays the individual word.
+| To allow user to know the next word to type.
+|===
+
+==== Design Considerations
+
+===== Aspect: Singleton pattern design of Game Window
+
+* **Alternative 1 (current choice):** Game Window with Singleton pattern design
+** Pros: +
+*** Prevent users from instantiating multiple Game Windows which may cause performance issues or even cause the application
+to crash.
+** Cons:
+*** Reduced testability as it is difficult to replace Singleton objects with stubs, and increased coupling across code base.
+
+* **Alternative 2:** Game Window without Singleton pattern design
+** Pros: Increased testability and reduced coupling.
+** Cons: There could be the risk of users being able to instantiate hundreds or thousands of GameWindows which would cause
+performance issues or application crash issues.
+
+// end::typinggame[]
+
+//tag::interactive-parsing[]
+=== Interactive Parsing
+
+==== Overview
+
+Interactive parsing allows users to build a command sequentially, as opposed to doing it entirely in one shot. A user that wishes to
+add an interview can simply type `add t/interview` to receive prompts on what to enter next.
+
+This feature was conceived to make the application easy to use for amateur users.
+
+==== Design & Implementation
+
+Important Classes:
+
+* `InteractiveParser` - The interface exposed to `LogicManager`. The parser implements this interface.
+* `Parser` - A concrete implementation of `InteractiveParser` that enables interactive parsing.
+* `State` - An abstract class that represents the individual states the application can be in while parsing and building a `Command`.
+* `EndState` - An abstract class that extends from `State`. Represents the final `State` of a parsed command, from which a `Command` object can be built.
+
+The interface `InteractiveParser` is the connecting interface between the `LogicManager` and the main `Parser`. This interface is
+designed by contract (DbC - proposed by Bertrand Meyer). The interface exposes four methods to the `LogicManager`, namely:
+
+* `parseInput()` - Parses the entered input.
+* `fetchResult()` - Returns the response to be showed to the user in a `CommandResult` object.
+* `hasParsedCommand()` - Returns true if the `Parser` has finished parsing a `Command` fully.
+* `makeCommand()` - Makes and returns the `Command` the user intends to execute.
+
+To achieve interaction, the `Parser` keeps track of the `State` of the current `Command` being built. `State` is an abstract class that represents
+the individual states the application can be at in the midst of building a `Command`. `EndState` is an abstract class that extends from `State`,
+from which `Command` objects can be built. As and when valid inputs are entered, the `Parser` updates
+the current `State` to the subsequent `States` of the corresponding `Command`.
+
+The `Parser` starts at an idle, inactive `State` Upon entering `add t/meeting`, the `State` being tracked is changed twice - first
+to the `State` corresponding to the type of the `Engagement` and then to the `State` responsible for the start date-time.
+
+Such `State` changes happen sequentially until all the arguments necessary for the `Command` have been supplied. When all necessary arguments are present,
+the `State` being tracked transitions into an `EndState`. Once the tracked `State` transitions into an `EndState`, the `Parser` builds the `Command`
+which is executed by the `LogicManager`.
+
+The structure of the interactive parser is detailed in the UML diagram below.
+
+.Class diagram of the interactive parser. This figures shows an example of a state machine inside the package `State`.
+image::InteractiveParserDiagram.png[]
+{empty} +
+
+[NOTE]
+The above diagram only shows the component of the package `State` that handles the `PdfCommand`. The other packages have been
+omitted for brevity.
+
+Parsing of user entered inputs can be viewed as parsing a small, finite context-free language. The command built by a sequence of inputs
+is uniquely determined by the sequence of inputs entered by the user and happens to be deterministic. +
+
+This observation allows the `Parser` to be modeled by a *finite state machine*. A finite state machine is an
+abstract computational model which consists of a machine comprising several states. At a particular point in time, only one state
+of the state machine is active. The machine transitions from one state to another state if certain conditions are met.
+
+In the context of Typee's `Parser`, the parser of each individual `Command` is a distinct finite state machine. The condition to be
+satisfied to transition to another state is the validation of user-entered inputs.
+
+The incorporation of state machines into the `Parser` is done by implementing a slightly modified version of the *state pattern*
+documented by the *Gang of Four* (GoF).
+
+Upon initiating the parsing (building) of a `Command`, the state machine that corresponds to the required `Command` is instantiated and set
+to its initial state. This state becomes the `State` tracked by the `Parser` Subsequent inputs are tokenized by the `ArgumentTokenizer` class,
+processed by the `InputProcessor` class and forwarded to the current `State`. If the input is deemed valid, the `Parser` invokes the `transition()`
+method of the current `State` to proceed to the next `State`. This process is repeated until an `EndState` is reached. Throughout this process, the
+user receives feedback from the `Parser` in the form of an encapsulated `CommandResult` object.
+
+Below is a sequence diagram illustrating the processes that occur when the user enters `add t/meeting s/15/11/2019/1500 e/15/11/2019/1600`.
+
+.Sequence diagram illustrating how the `Parser` parses the entered input and returns the result to the GUI in the form of a `CommandResult` object.
+image::InteractiveParserSequenceDiagram.png[]
+{empty} +
+
+[NOTE]
+The sequence diagram incorrectly extends the life-line of the three destroyed `State` classes. This is due to a limitation of PlantUML.
+
+The high-level working of the `Parser` can be summarized by the activity diagram shown below.
+
+.Activity diagram illustrating the high level functionality.
+image::InteractiveParsingActivityDiagram.png[]
+{empty} +
+
+[NOTE]
+"parameter present" refers to the parameter required by a particular state.
+
+==== Design Considerations
+
+===== Aspect : Abstract model
+* **Alternative 1 (current design)** : Finite state machine
+** Pros:
+*** Highly flexible - Entire command, one argument at a time and multiple arguments at a time - all are supported.
+*** Easily extensible - Adding a new command will require almost no changes in any of the existing classes.
+*** Supports optional arguments with the help of the `OptionalState` interface.
+** Cons:
+*** Tedious to implement a state machine for each individual command.
+
+* **Alternative 2** : Use a list based implementation to keep track of arguments entered.
+** Pros:
+*** Easy to implement and keep track of arguments
+** Cons:
+*** Very hard to implement optional states.
+*** Cannot execute commands like `Help` at any point in time without hard-coding it in the `Parser`.
+
+//end::interactive-parsing[]
 
 === Logging
 
@@ -277,53 +721,144 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
+//Updated by Ko Gi Hun 30/09/19
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* receptionists / secretaries in corporations.
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+* requires submitting large amount of structured reports or documents
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: increase productivity by managing appointments faster than a typical mouse/ GUI driven app and by
+increasing typing speed.
 
 [appendix]
+
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |secretary |add an appointment |organise and schedule meetings/appointments
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |secretary |request ro edit a specific appointment |fix any misinformation that I typed wrongly
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |secretary under a busy manager |find specific appointments fast |schedule appointments efficiently
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |secretary |have the option to clear the appointment list |restart from scratch
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |secretary |undo my previous commands |recall commands made by mistake
+
+|`* * *` |secretary |redo recalled commands |retrieve the commands undone by mistake
+
+|`* * *` |secretary |select and delete a specific appointment from the list |manage inactive or cancelled appointments
+
+|`* * *` |busy secretary |able to see the appointments in calendar view |enjoy better convenience
+
+|`* * *` |user |save and load data from a local file |keep the appointment list locally
+
+|`* *` |secretary under a busy manager |sort all appointments |see them in the order I want
+
+|`* *` |user |have a command to terminate the application |
+
+|`* *` |advanced user |be able to execute compound statements |improve efficiency
+
+|`*` |highly motivated secretary |have a typing warm-up |prepare myself for an important events like important meetings.
+
+|`*` |highly driven secretary |have a way to practice typing |improve my efficiency during work by increasing my typing
+speed
+
+|`*` |fast-typer |have a way to amend trivial spelling errors |improve typing efficiency
+
+|`*` |secretary |generate a PDF file of a selected appointment |make a distributable copy of the appointment
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Typee` and the *Actor* is the `user`,
+unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+// Updated by Sudharshan
+//tag::use-case-add[]
+=== Use case: (UC01) Add appointment
+*MSS*
+
+1. User requests to add an appointment.
+2. System adds the corresponding appointment to the existing appointment list.
+3. System displays the updated appointment list
+and notifies the user.
++
+Use case ends
+
+*Extensions*
+
+* 1a. User supplies the necessary information.
++
+Use case ends
+* 1b. User supplies invalid information.
+** 1b1. System notifies user about the invalid information.
++
+Use case ends
+* 1c. Appointment clashes with an existing appointment.
+** 1c1. System notifies user about the conflict.
++
+Use case ends
+
+//end::use-case-add[]
+//Updated by Yu Chen
+[discrete]
+=== Use case: (UC02) List appointments
+*MSS*
+
+1.  User requests to list appointments
+2.  System displays the list of appointments
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. The list of appointments is empty
++
+Use case ends.
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+//Jun Hao
+[discrete]
+=== Use case: (UC03) Find appointment
+*MSS*
+
+1.  User requests to find appointments
+2.  User provides fields that the user wants to use to find appointments
+3.  System finds and displays the list of relevant appointments
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: (UC04) Delete appointment
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list appointments
+2.  System displays the list of appointments
+3.  User requests to delete a specific appointment in the list
+4.  System deletes the appointment
 +
 Use case ends.
 
@@ -337,46 +872,269 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. System shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: (UC05) Exit application
+
+*MSS*
+
+1. User requests to exit the application
+2. System displays exit message
+3. System exits
++
+Use case ends
+
+[discrete]
+=== Use case: (UC06) Request help information
+
+[discrete]
+=== Use case: (UC07) Save updated Appointment data
+*MSS*
+
+1. User make changes in the appointment list, or a specific appointment via CRUD.
+2. System saves the updated data
+3. System displays the updated appointment data
++
+Use case ends
+
+//updated by Ko Gi Hun 7/10/19
+[discrete]
+=== Use case: (UC08) Edit selected appointment
+*MSS*
+
+1. User requests to list appointments
+2. System displays the list of appointments
+3. User keys in index and provide fields that the user wants to edit
+4. System edits the selected appointment accordingly
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The list is empty
++
+Use case ends.
+* 3a. User keys in invalid index
+[none]
+** 3a1. System shows error message.
++
+Use case resumes at step 2.
+* 3b. User does not provide any field to edit.
+[none]
+** 3b1. System shows error message.
++
+Use case resumes at step 2.
+
+//tag::undoredo-uc[]
+[discrete]
+=== Use case: (UC09) Undo previous command
+*MSS*
+
+1.  User requests to undo command
+2.  System reverts the appointment list to its previous state
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There is no previous command
++
+Use case ends.
+
+[discrete]
+=== Use case: (UC10) Redo previous command
+*MSS*
+
+1.  User requests to redo command
+2.  System reverts the appointment list to its previous undone state
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There is no previous undone command
++
+Use case ends.
+//end::undoredo-uc[]
+
+// Updated by Kevin
+[discrete]
+=== Use case: (UC11) Switch tabs
+
+*MSS*
+
+1. User requests to switch to a specified tab.
+2. System switches to the appropriate tab.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Requested tab is invalid.
+[none]
+** 1a1. System shows error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: (UC12) Calendar mode
+
+*MSS*
+
+1. User specifies a date to view engagements for.
+2. System shows the engagements for the specified date.
+
+*Extensions*
+
+[none]
+* 1a. User specifies an invalid date.
+[none]
+** 1a1. System shows error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: (UC13) Calendar mode month switching
+
+*MSS*
+
+1. User specifies a month to switch the display to.
+2. System updates the calendar view to display appointments for the specified month.
+
+*Extensions*
+
+[none]
+* 1a. User specifies an invalid month.
+[none]
+** 1a1. System shows error message.
++
+Use case resumes at step 1.
+
+//Updated by Jun Hao
+//tag::use-case-game[]
+[discrete]
+=== Use case: (UC14) Typing game
+
+*MSS*
+
+1.  User requests to start the typing game
+2.  System shows typing game window which displays the specific word(s) to type.
+3.  User plays the game by typing the word(s).
+4.  Typing game updates the User's score and health points accordingly.
+Steps 2-4 are repeated for as many rounds as required until User runs out of health points.
+5.  Typing game shows the final score of the User when the game ends.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User exits game
++
+Use case ends.
+//end::use-case-game[]
+
+[discrete]
+//Updated by Ko Gi Hun 30/09/19
+//tag::use-case-pdf[]
+=== Use case: (UC15) Generate appointment document in PDF format
+
+*MSS*
+
+1. User enters information for generating PDF of an engagement for a selected engagement.
+2. System generates a PDF file in a specific external directory
+3. System shows successful message
+4. System opens the generated document.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. System receives invalid input.
+[none]
+** 2a1. System shows error message.
++
+Use case resumes at step 1.
+[none]
+* 2b. User inputs duplicate information that already exists in the directory.
+[none]
+** 2b1. System shows error message.
++
+Use case resumes at step 1.
+//end::use-case-pdf[]
+
+[discrete]
+=== Use case: (UC16) Sort appointments
+*MSS*
+
+1.  User requests to sort appointments
+2.  User specifies the property to sort regarding to
+3.  User specifies the order of ascending or descending
+4.  System sorts the list of appointments by the specified order
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. User does not specify property
+[none]
+** 2a1. System shows error message
++
+Use case ends.
+[none]
+* 2b. User specifies an invalid property
+[none]
+** 2b1. System shows error message
++
+Use case ends.
+[none]
+* 3a. User does not specify order
+[none]
+** 3a1. System shows error message
++
+Use case ends.
+[none]
+* 3b. User specifies an invalid order
+[none]
+** 3b1. System shows error message
++
+Use case ends.
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  Should come with automated unit tests and open source code.
+.  Should work on both 32-bit and 64-bit environments.
+.  Application should not exceed 100MB in size.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
+//tag::glossary[]
 [appendix]
+
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[secretary]] Secretary::
+A person employed by an individual or in an office to assist with correspondence, make appointments,
+and carry out administrative tasks.
 
-[appendix]
-== Product Survey
+[[manager]] Manager::
+The person that the secretary is assigned to work for.
 
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[engagement]] Engagement::
+An arrangement, meeting or interview managed and maintained by a secretary, for the manager to meet someone at a particular time and place.
+//end::glossary[]
 
 [appendix]
 == Instructions for Manual Testing
@@ -400,26 +1158,340 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
 
-=== Deleting a person
+=== Adding an engagement
 
-. Deleting a person while all persons are listed
+(i) Test case: `add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+Expected: Status bar shows the successful addition of engagement with its details. The engagement list is updated accordingly.
 
-_{ more test cases ... }_
+(ii) Test case: `add t/ s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
 
-=== Saving data
+Expected: The engagement is not added. Status bar shows prompt for a valid engagement type due to invalid engagement type.
 
-. Dealing with missing/corrupted data files
+(iii) Test case: `add t/meeting s/ e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+Expected: The engagement is not added. Status bar shows prompt for a valid start time due to invalid start time.
 
-_{ more test cases ... }_
+(iv) Test case: `add t/meeting s/16/11/2019/1500 e/ l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
+
+Expected: The engagement is not added. Status bar shows prompt for a valid end time due to invalid end time.
+
+(v) Test case: `add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/ d/Team Meeting a/John | Smith p/High`
+
+Expected: The engagement is not added. Status bar shows prompt for a valid location due to invalid location.
+
+(vi) Test case: `add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/ a/John | Smith p/High`
+
+Expected: The engagement is not added. Status bar shows prompt for due to invalid description.
+
+(vii) Test case: `add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/ p/High`
+
+Expected: The engagement is not added. Status bar shows prompt for a valid attendees due to invalid attendees.
+
+(vii) Test case: `add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/高`
+
+Expected: The engagement is not added. Status bar shows prompt for a valid priority due to invalid priority.
+
+(viii) Test case: +
+The sequence of commands is as follows:
+```
+add
+t/meeting
+s/16/11/2019/1500
+e/16/11/2019/1600
+l/Meeting Room 2
+d/Team Meeting
+a/John | Smith
+p/High
+```
+Expected: Status bar shows the successful addition of engagement with its details. The engagement list is updated accordingly.
+
+(ix) Test case: +
+The sequence of commands is as follows:
+```
+add
+t/appointment
+s/01/01/2019/0900
+e/01/01/2019/1000
+l/Meeting Room 3
+d/Team Discussion
+a/John Smith
+p/None
+```
+Expected: Status bar shows the successful addition of engagement with its details. The engagement list is updated accordingly.
+
+(x) Test case: +
+The sequence of commands is as follows:
+```
+add
+t/meeting
+s/16/11/2019/1500
+e/16/11/2019/1600
+l/Meeting Room 2
+d/Team Meeting
+a/John | Smith
+p/😄
+```
+Expected: The engagement is not added. Status bar shows prompt for a valid priority due to invalid priority.
+
+=== Listing an engagement
+
+(i) Test case: `list` +
+
+Expected: Status bar shows the successful listing of engagement. The full engagement list is shown.
+
+(ii) Test case: `123 list` +
+
+Expected: Status bar shows the successful listing of engagement. The full engagement list is shown.
+
+(iii) Test case: `list 123` +
+
+Expected: Status bar shows the successful listing of engagement. The full engagement list is shown.
+
+=== Deleting an engagement
+
+(i) Test case: `delete i/3` +
+
+Expected: If there are 3 or more engagements in the engagement list, the 3rd engagement is deleted.
+Status bar shows the successful deletion of engagement with its details. The engagement list is updated accordingly.
+Otherwise, the engagement is not deleted due to invalid index.
+
+(ii) Test case: +
+The sequence of commands is as follows:
+```
+delete
+i/3
+```
+Expected: If there are 3 or more engagements in the engagement list, the 3rd engagement is deleted.
+Status bar shows the successful deletion of engagement with its details. The engagement list is updated accordingly.
+Otherwise, the engagement is not deleted due to invalid index.
+
+(ii) Test case: `delete i/-1` +
+
+Expected: The engagement is not deleted due to invalid index.
+
+(iii) Test case: +
+The sequence of commands is as follows:
+```
+delete
+i/-1
+```
+Expected: The engagement is not deleted due to invalid index.
+
+=== Finding an engagement
+
+(i) Test case: `find d/Singapore based`
+
+Expected: Engagements containing description keyword will be shown. e.g.  will show
+all engagements containing the description `Singapore based`. +
+e.g. `singapore based internship appointment`, `Singapore based project meeting`
+
+(ii) Test case: +
+The sequence of commands is as follows:
+```
+find
+d/Singapore based
+```
+Expected: Engagements containing description keyword will be shown. e.g.  will show
+all engagements containing the description `Singapore based`. +
+e.g. `singapore based internship appointment`, `Singapore based project meeting`
+
+(iii) Test case: `find l/Com Basement`
+
+Expected: Engagements matching the full exact keyword will be shown. e.g. will show
+all engagements containing the location `Com Basement`. Note that engagement with location `Basement Room 6` will not be shown.
+
+(iv) Test case: +
+The sequence of commands is as follows:
+```
+find
+l/Com Basement
+```
+Expected: Engagements matching the full exact keyword will be shown. e.g. will show
+all engagements containing the location `Com Basement`. Note that engagement with location `Basement Room 6` will not be shown.
+
+(v) Test case: `find a/Hans`
+
+Expected: Engagements containing attendee keyword will be shown. e.g. `find a/Hans` will show
+all engagements containing the attendee `Hans`. +
+e.g. `Hansen Gruber`, `hans christian`
+
+(vi) Test case: `find a/Hans` +
+The sequence of commands is as follows:
+```
+find
+a/Hans
+```
+
+Expected: Engagements containing attendee keyword will be shown. e.g. `find a/Hans` will show
+all engagements containing the attendee `Hans`. +
+e.g. `Hansen Gruber`, `hans christian`
+
+(vii) Test case: `find p/High`
+
+Expected: Engagements containing high priority will be shown.
+
+(viii) Test case: +
+The sequence of commands is as follows:
+```
+find
+p/High
+```
+
+Expected: Engagements containing high priority will be shown.
+
+(ix) Test case: `find a/Hans p/high`
+
+Expected: Engagements containing the attendee `Hans` and with high priority will be shown.
+
+(ix) Test case: +
+The sequence of commands is as follows:
+```
+find
+a/Hans p/high`
+```
+Expected: Engagements containing the attendee `Hans` and with high priority will be shown.
+
+
+//tag::yuchen-test[]
+=== Sorting the engagement list
+
+(i) Test case: +
+The sequence of commands is as follows:
+```
+sort
+p/start
+o/ascending
+```
+Expected: The list should be sorted in ascending order of start time.
+
+(ii) Test case: Executing the sort command by giving all attributes at once
+```
+sort p/start o/ascending
+```
+Expected: This should give the exact same result as the previous stepwise command.
+
+=== Undo and Redo
+
+(i) Test case: Executing the undo command
+The sequence of commands is as follows: +
+
+```
+delete i/1 (provided there is at least 1 engagement in the list)
+undo
+```
+
+Expected: The previously deleted engagement should reappear in the list.
+
+(ii) Test case: Executing the redo command
+The sequence of commands is as follows: +
+
+```
+delete i/1 (provided there is at least 1 engagement in the list)
+undo
+redo
+```
+Expected: The recovered engagement should disappear in the list.
+//end::yuchen-test[]
+
+=== Calendar commands
+
+All listed commands assume that the application is in the calendar tab.
+
+(i) Test case: +
+The sequence of commands is as follows:
+```
+calendar c/opendisplay d/11/11/2019
+```
+Expected: The engagements display window for 11/11/2019 opens up.
+
+(ii) Test case: +
+The sequence of commands is as follows:
+```
+calendar c/closedisplay d/11/11/2019
+```
+Expected: When executed immediately after executing the command in (i), the engagements display window for 11/11/2019 closes.
+
+(iii) Test case: +
+The sequence of commands is as follows:
+```
+calendar c/opendisplay d/10/10/2019
+```
+Expected: The calendar window switches from the currently displayed month (assuming that it is not displaying October 2019) to October 2019.
+The engagements display window for 10/10/2019 opens up.
+
+(iii) Test case: +
+The sequence of commands is as follows:
+```
+calendar c/nextmonth
+```
+Expected: All open engagements list windows are closed and the calendar displays the month after the currently displayed month.
+
+(iv) Test case: +
+The sequence of commands is as follows:
+```
+calendar c/previousmonth
+```
+Expected: All open engagements list windows are closed and the calendar displays the month prior to the currently displayed month.
+
+=== Tab
+
+(i) Test case: `tab b/engagement` +
+Expected: The current tab switches to engagement tab
+
+(ii) Test case: `tab b/calendar` +
+Expected: The current tab switches to calendar tab
+
+(iii) Test case: `tab b/game` +
+Expected: The current tab switches to game tab
+
+(iv) Test case: `tab b/report` +
+Expected: The current tab switches to report tab
+
+=== Game
+
+(i) Test case: Click on `Start` button of the starting window of the game tab.
+Expected: New game window opens.
+
+(ii) Test case: Click on `Close` button of the game window.
+Expected: Game window closes.
+
+=== Generating PDF
+
+(i) Test case:
+
+```
+pdf
+i/1 (provided at least 1 engagement in the list)
+f/Jason
+t/Gi Hun
+```
+
+Expected: A PDF file is generated with the content of the _first engagement_ in list, with sender set to _Gi Hun_ and reciver set to _Jason_. The file can be seen in the documents explorer tree view.
+
+(ii) Test case:
+
+```
+Click the refresh button
+```
+
+Expected: Documents explorer tree view refreshes.
+
+(iii) Test case:
+
+```
+Single click on an existing document in documents explorer tree view
+Click the delete button
+Select OK in pop-up dialog
+```
+
+Expected: Selected document is deleted from directory.
+
+(iv) Test case:
+
+```
+Double click on an existing document in documents explorer tree view
+```
+
+Expected: Selected document opens in the default `.pdf` file viewer

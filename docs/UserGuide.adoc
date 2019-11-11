@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Typee - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,166 +12,800 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F14-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `SC09-F14-3`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Typee is a Command Line Interface (CLI) application for managing engagements such as appointments, interviews and meetings.
+It is designed for secretaries and receptionists who prefer to work with a CLI while still enjoying the benefits of a
+Graphical User Interface (GUI). Head over to <<Quick Start>> to see how to get the application running!
 
+
+// tag::quick-start[]
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+1. Ensure you have Java `11` or above installed in your Computer.
+2. Download the latest `typee.jar`.
+3. Copy the file to the folder that you want to use as the home folder for your Typee application.
+4. Enter the command `java -jar typee.jar` on your terminal to start the app. The GUI should appear in a few seconds.
+5. Type a command in the text box and press `Enter` to execute it.
 +
-image::Ui.png[width="790"]
+image::Ui.png[width="750"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* *`list`* : Lists all engagements.
+* **`tab` ** `b/game` : Switches main window to start window of the game.
+* **`add`** `t/appointment s/09/11/2019/1200 e/09/11/2019/1330 l/NUS d/Meeting on Monday a/Ben|Tom p/HIGH` : +
+Adds an engagement to the engagements list with the following details: +
+Engagement type: Appointment +
+Start time: 09/11/2019 at 1200 hours +
+End time: 09/11/2019 at 1330 hours +
+Location: NUS +
+Description: Meeting on Monday +
+Attendees: Ben and Tom +
+Priority: High +
+* **`pdf` ** `i/1 t/Jason f/Harry`: Generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
+* **`delete`** `i/3` : Deletes the 3rd appointment shown in the current list.
+* *`exit`* : Exits the app.
 
-.  Refer to <<Features>> for details of each command.
+Refer to <<Features>> for details of each command.
+//end::quick-start[]
 
 [[Features]]
 == Features
 
-====
-*Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
+//tag::interactive-parsing[]
+=== Interactive Parsing
 
-=== Viewing help : `help`
+==== About
 
-Format: `help`
+Typically, engagement managing software require users to enter the entire command in one shot.
 
-=== Adding a person: `add`
+For example, a user that wishes to add a meeting must type out the following: -
+`add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+This can prove to be rather tedious and cumbersome as users must remember every detail of a command.
+
+Typee overcomes this by allowing users to interact with its interface and build commands sequentially. Users just need
+to type the relevant command word to get prompted about subsequent inputs.
+
+.The interactive component of Typee is highlighted above.
+image::interactive_parsing_0.png[width='520']
+{empty} +
+
+With interactive parsing, the aforementioned 'Add' command reduces to the following sequence of inputs: -
+```
+add
+t/meeting
+s/16/11/2019/1500
+e/16/11/2019/1600
+l/Meeting Room 2
+d/Team Meeting
+a/John | Smith
+p/High
+```
+
+.Typee's prompt in response to the user entering `add`
+image::interactive_parsing_1.png[height='90' width="800"]
+{empty} +
+
+Experienced users that have a grasp of the structure and format of various commands can also benefit from this feature.
+Interactive parsing allows multiple arguments to be input simultaneously, as long as the entered arguments adhere to a
+set of rules detailed in a later subsection.
+
+The same 'Add' command can be constructed this way by a fairly experienced user: -
+```
+add t/meeting
+s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2
+d/Team Meeting
+a/John | Smith p/High
+```
+
+.A user about to pass 3 arguments to Typee in one input, following `add`.
+image::interactive_parsing_2.png[height='90' width='800']
+{empty} +
+
+.Typee's response to the above input.
+image::interactive_parsing_3.png[height='90' width='800']
+{empty} +
+
+Finally, a highly experienced user can create an 'Add' command in the conventional manner, i.e. by typing out
+the entire command at once. This is identical to the format introduced in the beginning of this section: -
+`add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
+
+
+==== Supported Commands
+
+*All commands* are parsed and built interactively. Each command, however, adheres to its own structure. Individual commands'
+structures and idiosyncrasies are detailed in the sections belonging to the respective commands.
+
+In general, commands are of two types - *static* and *dynamic*.
+
+At any point of time, the user can enter `// current` to view the current input constraints and
+input `// clear` to stop parsing the current command. These are examples of *dynamic* commands.
+
+Static commands are executed one at a time, whereas dynamic commands can be built at any point of time, even while
+parsing an ongoing static command.
+
+Examples:
+
+'Add' and 'Delete' are static commands. The following input sequence is invalid: -
+```
+add t/meeting
+delete
+```
+
+'Help' and 'Exit' are dynamic commands. Therefore, the following input sequence is *valid*: -
+
+```
+add t/meeting
+help
+s/11/01/2019/1500
+exit
+```
+
+[NOTE]
+Calling another dynamic command in the midst of building a `Tab` command will erase the details of the command preceding
+'Tab'. This happens if the command preceding `Tab` isn't fully built. +
+For example: `add t/meeting` `tab` `// current` `b/calendar` will erase the information of the add command.
+
+==== Valid Input Sequences
+
+Valid input sequences can be one of three types.
+
+* One argument per input - `add` `t/meeting` ... `p/high`
+* Entire command in an input - `add t/meeting s/11/01/2019/1600 ... p/High`
+* More than one argument, but not the entire command in an input - `add t/meeting` `s/11/01/2019/1600 e/11/01/2019/1700` ...
+
+After the last argument is specified, the required command is built and executed, carrying out the operation
+intended by the user.
+
+*The order of arguments entered is important*. Consider the 'Add' command. The ideal ordering is as follows: -
+`add t/ s/ e/ l/ d/ a/ p/`
+
+When users resort to any of the three aforementioned forms of supplying arguments, they are required to conform to the
+specified ordering.
+
+When the arguments aren't in order, then the input is *parsed as far as possible, in the expected order of the arguments*.
+
+For example, `add t/meeting l/Meeting Room 2` is parsed till the argument for `t/`. The parameter location is deemed
+invalid and the user is prompted to enter a start date-time.
+
+This happens because the parser expects an argument for `s/`, but there is no such argument.
+As a consequence, all arguments that are supposed to be entered after `s/` (like `l/`) are not parsed.
+
+.Typee's response to `add t/meeting l/Meeting Room 2`.
+image::interactive_parsing_6.png[width='800' height='90']
+{empty} +
+
+
+Similarly, `add t/meeting s/15/01/2019/1500 d/desc p/low` is parsed till `s/` and a prompt is raised to enter a valid end date-time, leaving `d/`
+and `p/` untouched.
+
+.Typee's response to `add t/meeting s/15/01/2019/1500 d/desc p/low`.
+image::interactive_parsing_7.png[width='800' height='90']
+{empty} +
+
+
+[NOTE]
+There lies a quirk with respect to the ordering of inputs if the parser has sufficient arguments. +
+Consider the case when the user inputs `add t/meeting e/15/11/2019/1500 s/15/11/2019/1400`. This input is deemed *valid* even
+though `e/` and `s/` are flipped. This is because after 't/', the parser expects to find an `s/`, which is in-turn contained in the input.
+
+
+*Thus, to summarize, the parser continues parsing in the order of the expected arguments, as long as the corresponding prefixes are found in the input.*
+
+==== Erroneous Inputs
+
+Erroneous inputs occur in three mutually exclusive categories.
+
+* Inputs with invalid arguments
+* Inputs with multiple arguments for the same parameter.
+* Inputs with valid arguments, but irrelevant additional arguments.
+
+An example of the first case is as follows: `add t/teeming`. "Teeming" is an invalid engagement type. Typee flags this inaccuracy
+and prompts the user to enter an acceptable engagement type instead. Since Typee has already begun building an 'Add' command,
+the subsequent input must begin with `t/...`
+
+.A user about to enter an invalid input.
+image::interactive_parsing_4.png[height='90' width='800']
+{empty} +
+
+.Typee's response to the invalid input.
+image::interactive_parsing_5.png[height='90' width='800']
+{empty} +
+
+
+Attempting to replace the argument for a parameter or supply different arguments to the same parameter will result in Typee rejecting
+the user input.
+
+For example, the input `add t/meeting t/interview` will be rejected.
+
+The following sequence will also be rejected since it attempts to overwrite an argument.
+```
+add
+t/meeting
+s/15/11/2019/1500
+t/interview
+```
+
+Last but not least, Typee will reject cases wherein the user supplies excessive and irrelevant arguments.
+`add t/meeting s/16/11/2019/1600 e/16/11/2019/1700 l/COM-1 d/Meeting a/Damith p/High o/High` will be rejected because `o/`
+is not a parameter for the 'Add' command.
+
+//end::interactive-parsing[]
+
+// tag::tab-command[]
+=== Switch to different windows: `tab`
+
+Switches to a different menu in the application window. +
+Format: `tab b/MENU_NAME`
+
+* Typee has four major features/menus. They comprise of:
+** Engagements List
+** Typing Game
+** Calendar View
+** Report Generator
+
+Users can switch between respective windows in order to make full use of the application.
+
+[NOTE]
+`Engagement` window is set to default window upon starting the application.
+
+If user wants to switch to different windows, simply enter the tab command. Tab names can be seen on the top of the application display in green boxes. +
+
+For example, user enters `tab b/calendar`
+, which the system will switch to calendar view window with a result display message set to "Switched to window: Calendar". Refer to the screenshot below.
+
+[NOTE]
+Users who prefer using mouse over typing can alternatively click the green tabs on the top to switch to different menu windows.
+
+image::tab_2.png[width="600"]
+//end::tab-command[]
+
+Users can start building a command in one tab, switch tabs midway and finish building the command in another tab.
+This can be achieved by the following sequence of inputs.
+```
+add
+t/meeting s/15/11/2019/1600 e/15/11/2019/1700
+tab
+b/calendar
+l/COM-1 d/Meeting a/Damith p/High
+```
+
+=== Adding an engagement: `add`
+
+Adds an engagement to the system. There are three types of engagements; `Appointment`, `Meeting` and `Interview` +
+Format: `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION d/DESCRIPTION a/ATTENDEES[Separated by '|'] p/PRIORITY`
+
+.Enters Add Engagement Command in Command Input Text field.
+image::add_1.png[width="800" height='90']
+{empty} +
+
+Examples:
+
+* `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 d/CS2103T Discussion a/John | Elijah | Sam p/High` +
+Adds an engagement with following information;
+** Engagement Type: Meeting
+** Start Time: 18/10/2019/1500
+** End Time: 18/10/2019/1800
+** Location: COM-2-B1-03
+** Engagement Description: CS2103T Discussion
+** Attendees: John, Elijah, Sam
+** Priority: High
+
+After user enters the above command, Typee will store the information and append it to the displayed list of engagements.
+
+.Engagement successfully saved in system storage.
+image::add_2.png[width="800"]
+{empty} +
 
 [TIP]
-A person can have any number of tags (including 0)
+The arguments to this command can be entered sequentially, leveraging the interaction offered by Typee. +
+Example: `add` `t/meeting` `s/11/11/2019/1500` ... `p/High`
 
-Examples:
+The table below summarizes the parameters of the add command.
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+[%header, cols=3*]
+|===
+|Parameter
+|Prefix
+|Constraints
 
-=== Listing all persons : `list`
+|Engagement type
+|`t/`
+|Engagements must be one of 'meeting', 'appointment' or 'interview'.
 
-Shows a list of all persons in the address book. +
+|Start Date-Time
+|`s/`
+|This is when the engagement to be added begins. +
+The start date-time must be entered in the `dd/MM/yyyy/HHmm` format.
+
+|End Date-Time
+|`e/`
+|This is when the engagement to be added ends. +
+The end date-time must be entered in the `dd/MM/yyyy/HHmm` format and occur *after* the start time.
+
+|Location
+|`l/`
+|The location of the engagement. The location must be non-empty.
+
+|Description
+|`d/`
+|A brief description of what the engagement is about. The description must be non-empty and less than 100 characters long.
+
+|Attendees
+|`a/`
+|The list of people who will be present at the engagement. Individuals must be separated by
+a vertical line.
+
+|Priority
+|`p/`
+|Priority level of the engagement. The priority level can be one of 'Low', 'Medium', 'High' or 'None'.
+|===
+
+If the engagement to be added clashes with an existing one, the user will be notified of the add command's rejection. +
+An engagement clashes with another engagement if *all* of the below conditions are satisfied:
+
+* There is an overlap in the time-slot occupied by the engagements.
+* The engagements are held at the same location
+
+[NOTE]
+The list of attendees *does not* represent unique people. This is why attendees aren't considered in engagement conflict resolution.
+
+
+=== Listing all engagements : `list`
+
+Lists all engagements. +
 Format: `list`
 
-=== Editing a person : `edit`
+This command is useful in retrieving the original engagement list after executing commands that modify the viewed list, like `find`.
+This command can be executed in any tab but its results will only be shown in the engagements tab.
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+//tag::sort[]
+=== Sorting all engagements : `sort`
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Sorts the list of all engagements in the engagement list by the order specified by user. +
+Format: `sort p/PROPERTY o/ORDER`
 
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+[TIP]
+Properties supported: `start` (Start time), `end` (End time), `priority` and `description` +
+Orders supported: `ascending` and `descending`.
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `sort` +
+`p/start` +
+`o/ascending` +
+Sorts the list displayed in ascending order of start time.
 
-// tag::delete[]
-=== Deleting a person : `delete`
+[.clearfix]
+--
+.Engagement list before sorting
+image::before-sort.png[width="450", float="left"]
+.Engagement list after the execution of `sort`
+image::after-p.png[width="450", float="left"]
+.Engagement list after the execution of `p/start`
+image::after-o.png[width="450", float="left"]
+[.left]
+.Engagement list after the execution of `o/ascending`
+image::after-sort.png[width="450"]
+--
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+TIP: `sort` command can be done in one shot by giving all attributes at once. e.g. figure below shows the execution of `sort p/start o/ascending`.
+
+.Sorting engagement list by providing attributes at once
+image::after-oneshot-sort.png[width="450"]
+
+[TIP]
+After sorting, commands that require INDEX as an input field (e.g. `delete`) will take in INDEX with regards to the new list  displayed. e.g. `delete i/1` will delete the current first engagement displayed.
+//end::sort[]
+
+=== Locating engagements by attendee, description, location and priority: `find`
+
+Finds engagements whose names contain any of the given keywords. Engagements can be in different types: `Appointment`, `Meeting` and `Interview`.
+Searches can be interactive or non-interactive.
+
+Format: `find l/LOCATION d/DESCRIPTION a/ATTENDEES p/PRIORITY`
+
+Valid tags: `d/`, `l/`, `a/`, `p/` +
+
+With interactive parsing, the `find` command is used in following sequence of inputs:
+
+```
+find
+d/Singapore based a/Hans
+```
+The non-interactive equivalent of this sequence is `find d/Singapore based a/Hans`.
+
+```
+find
+l/Com Basement
+```
+The non-interactive equivalent of this sequence is `find l/Com Basement`.
+
+[%header, cols="15%, 10%, 75%"]
+|===
+|Search parameter
+|Tag
+|Notes
+
+|Description
+|`d/`
+|Engagements containing description keyword will be shown. e.g. `find d/Singapore based` will show
+all engagements containing the description `Singapore based`. +
+e.g. `singapore based internship appointment`, `Singapore based project meeting`
+
+|Location
+|`l/`
+|Only exact full words will be matched e.g. `find l/Com Basement` is not equivalent to `find l/Com Basement Room 6`
+
+|Attendees
+|`a/`
+|Engagements containing attendee keyword will be shown. e.g. `find a/Hans` will show
+all engagements containing the attendee `Hans`. +
+e.g. `Hansen Gruber`, `hans christian`
+
+|Priority
+|`p/`
+|Finds engagements according to priority. e.g.`find p/High`, `find p/Medium`, `find p/Low`, `find p/None`
+|===
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* All search are case insensitive. e.g `find a/hans` is equivalent to `find a/Hans`
+* All searches works for alpha-numeric values only.
+* At least one search parameter should be specified.
+* The order of the prefixes does not matter. e.g. `find a/Hans p/high` is equivalent to `find p/high a/Hans`
+* Similarly, the two sequences below are similar.
+```
+find
+a/Hans d/Singapore based
+```
+```
+find
+d/Singapore based a/Hans
+```
+More examples:
+
+* `find a/John` +
+Returns engagements with `john` or `John Doe`
+```
+find
+a/Betsy d/Project Meeting l/NUS p/None
+```
+Returns any engagement having attendee `Betsy`, description `Project Meeting`, location `NUS`, and priority `None`.
+****
+
+=== Deleting an engagement : `delete`
+
+Deletes the specified engagement from the engagement list. +
+Format: `delete i/INDEX`
+
+****
+* Deletes the engagement at the specified `INDEX`.
+* The index refers to the index number shown in the displayed engagement list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+```
+list
+delete i/2
+```
+Deletes the 2nd engagement in the engagement manager.
+```
+find p/Low
+delete i/1
+```
+Deletes the 1st engagement in the results of the `find` command.
 
-// end::delete[]
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all engagements from the engagement manager. +
 Format: `clear`
+
+//tag::undo-redo[]
+
+=== Undoing the previous command : `undo`
+Undoes the previous command, provided that it exists. +
+Format: `undo`
+
+[TIP]
+Undo supports the following commands that modify the engagement list: `add`, `delete` and `clear`.
+
+Examples:
+
+* `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John, Elijah, Sam d/CS2103T Discussion p/High` +
+`undo` +
+Undoes the add command, i.e. the engagement with the description `CS2103T Discussion` will no longer be in the appointment manager.
+
+* `delete i/1` +
+`undo` +
+Undoes the delete command, i.e. restores the first engagement in the original displayed list.
+
+[.float-group]
+[.clearfix]
+--
+.Engagement list before the command `delete i/1`
+image::after-list.png[width="450", float="left"]
+[.left]
+.Engagement list after deletion
+image::deletion-before-undo.png[width="450"]
+--
+
+.Engagement list after the command `undo`
+image::undo-result.png[width="450"]
+
+=== Redoing the previous command : `redo`
+Redoes the previous `undo` command. There must be a valid undo command to redo, otherwise this command does nothing. +
+Format: `redo`
+
+Examples:
+
+* `delete i/1` +
+`undo` (reverts the `delete i/1` command) +
+`redo` (reapplies the `delete i/1` command) +
+
+Redoes the previous undo command, i.e. the engagement deleted before `undo` will be removed again from the engagement manager.
+
+[.clearfix]
+--
+.Engagement list after the command `undo`
+image::undo-result.png[width="450", float="left"]
+[.left]
+.Engagement list after the command `redo`
+image::redo-result.png[width="450"]
+--
+//end::undo-redo[]
+
+=== Displaying the list of engagements for a specified date (calendar view only): `calendar c/opendisplay`
+Opens a separate window displaying the list of engagements for the specified date. Only one such window is allowed per date.
+Nothing will happen if this command is used with a date which already has an open engagements list window.
+
+Format: `calendar c/opendisplay d/[date]`. The date must follow a DD/MM/YYYY format. The range of allowable years is 0001 to 9999.
+
+If a date from another month is used to open an engagement list window, the calendar view will switch to
+display that specified month. This command can be used to quickly switch to another month which is not immediately before or
+after the currently displayed month.
+
+All engagement list windows will be closed if something is done to change the displayed calendar month
+(e.g. using the `calendar c/nextmonth` command). This includes using this command as mentioned in the above paragraph.
+
+Example: The calendar is currently displaying information for November 2019 and there are engagement list windows open for three dates
+in the display. If `calendar c/opendisplay d/11/12/2019` is entered into the input box, all three engagement list windows will be closed.
+The calendar's display then switches to December 2019 and the engagements list window for 11 December 2019 opens up.
+
+This command does not work if the application is in another tab or the specified date is invalid.
+
+[.float-group]
+[.clearfix]
+--
+.Calendar view for November 2019
+image::calendar-view-modified.png[width="450", float="left"]
+[.left]
+.Engagements list for circled date
+image::calendar-open-display.png[width="450"]
+--
+{empty} +
+
+The above calendar window opens up after entering `calendar c/opendisplay d/29/10/2019` into the input box while in the
+calendar view for November 2019. This does not change the display to October 2019 because 29/10/2019 is displayed in
+the calendar view for November 2019, albeit at the top left corner.
+
+Alternatively, you may click on any of the individual cells within the calendar window grid to open the engagement list
+for that date.
+
+=== Closing a displayed list of engagements for a specified date (calendar view only): `calendar c/closedisplay`
+Closes the open engagements list window for the specified date. This command does not work if the application
+if in another tab, the specified date is invalid, or there is no open engagements list window for the specified date.
+
+Format: `calendar c/closedisplay d/[date]`. The date must follow a DD/MM/YYYY format. The range of allowable years is 0001 to 9999.
+
+=== Changing the calendar display to the next month (calendar view only): `calendar c/nextmonth`
+Changes the calendar view to the month following the currently displayed one. This command does not work if the
+application is in another tab or if attempting to go above the maximum allowable year of 9999.
+
+Format: `calendar c/nextmonth`
+
+[.float-group]
+[.clearfix]
+--
+.Calendar view for November 2019
+image::calendar-view.png[width="450", float="left"]
+[.left]
+.After `nextmonth` command
+image::calendar-next-month.png[width="450"]
+--
+{empty} +
+
+Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
+to change the display to the next month. The button will not work if the calendar is displaying December 9999.
+
+This command closes any open engagement windows from the current month before updating the display to the next month.
+
+=== Changing the calendar display to the previous month (calendar view only): `calendar c/previousmonth`
+Changes the calendar view to the month prior to the currently displayed one. This command does not work if the
+application is in another tab or if attempting to go below the minimum allowable year of 0001.
+
+Format: `calendar c/previousmonth`
+
+[.float-group]
+[.clearfix]
+--
+.Calendar view for November 2019
+image::calendar-view.png[width="450", float="left"]
+[.left]
+.After `previousmonth` command
+image::calendar-previous-month.png[width="450"]
+--
+{empty} +
+
+Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
+to change the display to the previous month. The button will not work if the calendar is displaying January 0001.
+
+This command closes any open engagement windows from the current month before updating the display to the previous month.
+
+// tag::game[]
+=== Typing game : `tab b/game`
+Changes the current window to the TypingGame window which has a kbd:[Start] button.
+
+.Starting window of the TypingGame Window
+image::StartWindow.png[width="400"]
+Click the kbd:[Start] button to open the game in a new window.
+
+There are moving words that you can type in order to score points. Once you correctly type the specified word,
+the word disappears and the increase in points is reflected in the player information panel in the game window.
+
+.Sample game play
+image::GameWindow.png[width="300" float="left"]
+
+.Sample game play when game is over
+image::GameOver.png[width="300" float="left]
+
+[TIP]
+Press kbd:[SPACEBAR] or kbd:[Enter] to clear the text area which is located at the bottom of the screen.
+
+When you fail to type the word before the moving word reaches the bottom of screen, the decrease in health points
+is reflected in the player information panel in the game window.
+
+[NOTE]
+As the game progresses, the words move faster, hence increasing difficulty such that you can improve your typing speed.
+
+[WARNING]
+Closing the game midway would result in loss of in-game progress.
+
+After the health points reaches zero, `GAME OVER` is displayed as shown below.
+
+
+Once the game is over, you can manually close the application by clicking the kbd:[x] on the top right hand corner of the window.
+If you want to play the game again, click the kbd:[Start] button shown in the Start window.
+// end::game[]
+
+// tag::pdf-command[]
+
+=== Generating a PDF file of engagement : `pdf`
+==== Usage
+Pdf Command allows user to create a document of selected engagement in a given format of document template.
+Document template can be customised based on the customers's requirements, however, default document format will be in an email format,
+where the user can set who the user is going to send this document to inform an engagement. +
+
+Format: `pdf i/LIST_INDEX f/FROM t/RECEIVER` +
+
+For example, if the user wants to create a document of an engagement, which has a list index of 1, which can by observed in `engagement` window.
+User sets the sender as `John`, which is the user's name, and sets `receiver` as `Harry`. Hence, user enters `pdf i/1 f/John t/Harry` to generate the document.
+
+[NOTE]
+User can generate multiple report documents with the same engagement, but with different SENDER and RECEIVER names. +
+System will not allow generating documents that already exists in the directory.
+
+Once user enters the command, system will automatically open the generated document and display the command result in the output panel, showing "Engagement Report successfully generated."
+
+NOTE: User can alternatively click the green refresh button on top right of the documents explorer to refresh the documents directory.
+
+.refresh button and delete button.
+image::pdf_function_btns.png[width="450", float="left"]
+[.left]
+.After clicking refresh button
+image::pdf_2.png[width="450"]
+
+NOTE: Do not manually modify the document file name in the `reports/` directory as it might cause system failure in recognising the documents.
+
+--
+.pdf document sample
+image::pdf_sample.png[width="400", float="left"]
+
+[.left]
+User can also double click the list item in the documents explorer tree view to open the document file on their local computer file system. Below is the sample of generated document from the system.
+--
+
+*Deleting Documents* +
+Instead of directing the actual directory in the local system, user can simply click the red `x` button, next to the refresh
+button to delete the selected document list item. Once system displays the popup message to confirm the user's decision, user will click the `OK` button to confirm deletion. +
+
+Delete function will only available when user has pre-selected the document list item and the selected item must be a .pdf form, not directory.
+Below is the screenshot after user clicks the delete button.
+
+.pdf delete pop up message and after click
+image::pdf_delete_before_after.png[align="center", width="750"]
+
+Now, once system successfully deleted the selected document, system will display the status message above the documents explorer. Below is the screenshot of the system status message after deletion.
+
+
+
+NOTE: PDF generation and deletion operations cannot be undone via `undo` command.
+
+==== Error Handling
+
+1. Documents Explorer in Report Window only displays files with .pdf format in reports/ directory. Files with different format will not be displayed in the explorer.
++
+.duplicate file exception message displayed in status text field.
+image::pdf_error_2.png[width="600"]
+2. System will not allow user to delete directories in the documents explorer tree view.
+3. System will throw an exception message in the status field if user locks the document.
++
+.file deletion exception message displayed in the status text field.
+image::pdf_error_1.png[width="600"]
+
+// end::pdf-command[]
+
+=== Help window : `help`
+
+.The help window
+image::help-window.png[width="600"]
+
+Format: `help`
+
+The user can type `help` in the input text area to open up a help window. It displays a basic command summary and a link to
+the user guide, which has more detailed information about using Typee.
 
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+//Updated by Ko Gi Hun 30/09/19
+=== Saving and loading the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+The appointment manager's data is saved in the hard disk automatically after any command that changes the data. +
+
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Relevant data will be loaded from the external file when the application starts.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Typee folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION d/DESCRIPTION a/ATTENDEES p/PRIORITY` +
+e.g. `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 d/CS2103T Discussion a/John | Elijah | Sam p/HIGH`
+* *Tab*: `tab b/MENU_NAME`
+** *Add Engagement* : `tab b/engagement`
+** *Calendar* : `tab b/calendar`
+** *Game* : `tab b/game`
+** *Report* : `tab b/report`
+* *Calendar* : `calendar c/CALENDAR_COMMAND`
+** *Open Display* : `calendar c/opendisplay d/DATE` +
+e.g. `calendar c/opendisplay d/11/11/2019`
+** *Close Display* : `calendar c/closedisplay d/DATE` +
+e.g. `calendar c/closedisplay d/11/11/2019`
+** *Next Month* : `calendar c/nextmonth`
+** *Previous Month* : `calendar c/previousmonth`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+* *Delete* : `delete i/INDEX` +
+** `delete i/3`
+* *PDF* : `pdf i/INDEX to/RECEIVER from/SENDER`
+* *Redo* : `redo`
+* *Sort* : `sort p/PROPERTY o/ORDER`
+* *Undo* : `undo`
 * *List* : `list`
+* *Find* `find l/LOCATION d/DESCRIPTION a/ATTENDEES p/PRIORITY`
 * *Help* : `help`

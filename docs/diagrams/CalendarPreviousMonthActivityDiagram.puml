@@ -1,0 +1,14 @@
+@startuml
+start
+:User executes next month command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([Min year and month reached (January 0001)])
+    :Exception thrown;
+else ([else])
+    :Switch display to previous month;
+endif
+stop
+@enduml

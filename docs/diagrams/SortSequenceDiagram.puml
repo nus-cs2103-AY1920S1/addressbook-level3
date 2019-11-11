@@ -1,0 +1,107 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":Parser" as Parser LOGIC_COLOR
+participant ":PropertyState" as PropertyState LOGIC_COLOR
+participant "o:OrderState" as OrderState LOGIC_COLOR
+participant "s:SortEndState" as SortEndState LOGIC_COLOR
+participant "c:SortCommand" as SortCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":EngagementComparator" as EngagementComparator MODEL_COLOR
+participant ":HistoryManager" as HistoryManager MODEL_COLOR
+end box
+[-> LogicManager : execute("sort p/priority o/ascending")
+activate LogicManager
+
+LogicManager -> Parser : parseInput(sort)
+activate Parser
+
+create PropertyState
+Parser -> PropertyState
+activate PropertyState
+PropertyState --> Parser
+Parser -> PropertyState : transition()
+
+create OrderState
+PropertyState -> OrderState
+activate OrderState
+
+OrderState --> PropertyState
+deactivate OrderState
+PropertyState --> Parser : o
+deactivate PropertyState
+PropertyState -[hidden]-> Parser : pp
+destroy PropertyState
+
+Parser -> OrderState : transition()
+activate OrderState
+
+create SortEndState
+OrderState -> SortEndState
+activate SortEndState
+
+SortEndState --> OrderState
+deactivate SortEndState
+OrderState --> Parser : s
+deactivate OrderState
+OrderState -[hidden]-> Parser : pp
+destroy OrderState
+
+Parser --> LogicManager
+LogicManager -> Parser : makeCommand()
+
+Parser -> SortEndState : buildCommand()
+activate SortEndState
+
+SortEndState -> EngagementComparator : makeEngagementComparator()
+activate EngagementComparator
+EngagementComparator -> SortEndState : PRIORITY_ASCENDING
+deactivate EngagementComparator
+
+create SortCommand
+SortEndState -> SortCommand
+activate SortCommand
+
+SortCommand --> SortEndState
+deactivate SortCommand
+
+SortEndState --> Parser : c
+deactivate SortEndState
+SortEndState -[hidden]-> Parser : s
+destroy SortEndState
+
+Parser --> LogicManager : c
+deactivate Parser
+
+LogicManager -> SortCommand : execute()
+activate SortCommand
+
+SortCommand -> Model : setComparator()
+activate Model
+Model --> SortCommand
+deactivate Model
+
+SortCommand -> Model : updateSortedEngagementList()
+activate Model
+
+Model -> HistoryManager : sort()
+activate HistoryManager
+HistoryManager --> Model :
+deactivate HistoryManager
+
+Model --> SortCommand
+deactivate Model
+
+SortCommand --> LogicManager : result
+deactivate SortCommand
+SortCommand -[hidden]-> LogicManager : result
+destroy SortCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

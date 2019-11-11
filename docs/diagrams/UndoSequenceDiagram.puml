@@ -3,42 +3,56 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":Parser" as Parser LOGIC_COLOR
+participant ":UndoState" as UndoState LOGIC_COLOR
 participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
+participant ":HistoryManager" as HistoryManager MODEL_COLOR
 end box
 [-> LogicManager : execute(undo)
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(undo)
-activate AddressBookParser
+LogicManager -> Parser : parseInput(undo)
+activate Parser
+
+create UndoState
+Parser -> UndoState
+activate UndoState
+UndoState --> Parser
+Parser --> LogicManager
+
+LogicManager -> Parser : makeCommand()
+Parser -> UndoState : buildCommand()
 
 create UndoCommand
-AddressBookParser -> UndoCommand
+UndoState -> UndoCommand
 activate UndoCommand
 
-UndoCommand --> AddressBookParser
+UndoCommand --> UndoState
 deactivate UndoCommand
 
-AddressBookParser --> LogicManager : u
-deactivate AddressBookParser
+UndoState -> Parser : u
+deactivate UndoState
+UndoState -[hidden]-> Parser : result
+destroy UndoState
+
+Parser --> LogicManager : u
+deactivate Parser
 
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoAddressBook()
+UndoCommand -> Model : undoEngagementList()
 activate Model
 
-Model -> VersionedAddressBook : undo()
-activate VersionedAddressBook
-
-VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
-VersionedAddressBook --> Model :
-deactivate VersionedAddressBook
+Model -> HistoryManager : undo()
+activate HistoryManager
+HistoryManager -> HistoryManager :resetData(ReadOnlyEngagementList)
+HistoryManager --> Model :
+deactivate HistoryManager
 
 Model --> UndoCommand
 deactivate Model

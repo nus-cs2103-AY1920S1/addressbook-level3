@@ -2,6 +2,6 @@
 :site-section: ContactUs
 :stylesDir: stylesheets
 
-* *Bug reports, Suggestions* : Post in our https://github.com/se-edu/addressbook-level3/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
+* *Bug reports, Suggestions* : Post in our https://github.com/AY1920S1-CS2103T-F14-3/main/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
 * *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
-* *Email us* : You can also reach us at `damith [at] comp.nus.edu.sg`
+* *Email us* : You can also reach us at `lyskevin@gmail.com` (Kevin), `e0318604@u.nus.edu` (Gi Hun), `yuchen_hu@u.nus.edu` (Yuchen), `e0341290@u.nus.edu` (Sudharshan), `e0309667@u.nus.edu` (Jun Hao)

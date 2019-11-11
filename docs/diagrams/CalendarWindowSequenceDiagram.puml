@@ -1,0 +1,105 @@
+@startuml
+!include style.puml
+
+actor User
+
+box "<color:black>UI</color>" CALENDAR_SEQUENCE_COLOR
+participant ":MainWindow" as MainWindow MODEL_COLOR
+participant ":Tab" as Tab MODEL_COLOR
+participant ":CalendarWindow" as CalendarWindow MODEL_COLOR
+participant ":CalendarDateCell" as CalendarDateCell MODEL_COLOR
+end box
+
+box "<color:black>Logic</color>" CALENDAR_SEQUENCE_COLOR_2
+participant ":Logic" as Logic LOGIC_COLOR
+end box
+
+User -> MainWindow: "tab c/calendar"
+activate MainWindow
+
+MainWindow -> Logic: execute("tab calendar")
+activate Logic
+
+create Tab
+Logic -> Tab
+activate Tab
+
+Tab --> Logic
+deactivate Tab
+
+Logic --> MainWindow
+deactivate Logic
+
+MainWindow -> MainWindow: fetchTabInformation(tabName)
+activate MainWindow
+
+create CalendarWindow
+MainWindow -> CalendarWindow: new CalendarWindow(logic.getFilteredEngagementList())
+activate CalendarWindow
+
+CalendarWindow -> CalendarWindow: initializeUiDisplay()
+activate CalendarWindow
+
+loop 35 times
+
+    create CalendarDateCell
+    CalendarWindow -> CalendarDateCell
+    activate CalendarDateCell
+
+    CalendarDateCell --> CalendarWindow
+    deactivate CalendarDateCell
+
+end
+
+CalendarWindow --> CalendarWindow
+deactivate CalendarWindow
+
+CalendarWindow -> CalendarWindow: populateCalendar()
+activate CalendarWindow
+
+loop 35 times
+
+    CalendarWindow -> CalendarDateCell: setDate(date)
+    activate CalendarDateCell
+
+    CalendarDateCell --> CalendarWindow
+    deactivate CalendarDateCell
+
+    loop For engagements in the engagements list
+
+        opt Engagement has same date as CalendarDateCell
+            CalendarWindow -> CalendarDateCell: add(engagement)
+            activate CalendarDateCell
+
+            CalendarDateCell --> CalendarWindow
+            deactivate CalendarDateCell
+        end
+
+    end
+
+    CalendarWindow -> CalendarDateCell: updateEngagementCountDisplay()
+    activate CalendarDateCell
+
+    CalendarDateCell --> CalendarWindow
+    deactivate CalendarDateCell
+
+end
+
+CalendarWindow --> CalendarWindow
+deactivate CalendarWindow
+
+CalendarWindow --> MainWindow
+deactivate CalendarWindow
+
+deactivate MainWindow
+
+MainWindow -> Tab: setController(calendarWindow)
+activate Tab
+
+Tab --> MainWindow
+deactivate Tab
+
+MainWindow --> User
+deactivate MainWindow
+
+@enduml
