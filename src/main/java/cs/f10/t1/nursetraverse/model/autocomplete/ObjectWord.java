@@ -1,4 +1,8 @@
-package cs.f10.t1.nursetraverse.autocomplete;
+//@@author francislow
+
+package cs.f10.t1.nursetraverse.model.autocomplete;
+
+import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
 
 /**
  * Represents an object word(eg: patient, med, medcon) in application
@@ -10,6 +14,6 @@ public class ObjectWord extends AutoCompleteWord {
 
     @Override
     public String getConnectorChar() {
-        return "-";
+        return "";
     }
 }

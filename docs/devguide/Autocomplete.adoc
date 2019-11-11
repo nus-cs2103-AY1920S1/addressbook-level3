@@ -1,29 +1,67 @@
-==== Proposed Implementation
-The auto-complete mechanism extends NurseTraverse with 2 functionalities, word completion and word suggestions. To support word suggestions of only compatible words, several lists are created and the list in operation will be switched during runtime by `AutoCompletePanel#resetList()`
+=== Overview Of Implementation
+The auto-complete mechanism extends NurseTraverse with 3 functionalities +
 
-Given below is an example usage scenario and how the word suggestion and word completion function behaves at each step.
+- Completing word in command box
+- Suggesting of words that are compatible with previous sub-commands
+- Guide for user to select from the various sub-commands +
+
+*Given below is an example usage scenario of autocompletion* +
 
 Step 1:
-When the user launches the application, an instance of the object, command and prefix autocomplete word list will be initialised in `AutoCompleteStorage`(created in `AutoCompletePanel`), which implements the following operations:
+When the user launches the application, an instance of the object, command and prefix autocomplete word list will be initialised in `AutoCompleteStorage`, which implements the following operations:
 
 * `AutoCompleteWordStorage#getOListAllCommandWord()` — returns the observable list of command words stored
 * `AutoCompleteWordStorage#getOListAllPrefixWord()` — returns the observable list of prefix words stored
 * `AutoCompleteWordStorage#getOListAllObjectWord()` — returns the observable list of object words stored
-* `AutoCompleteWordStorage#generateOListAllIndexWord(String objectName)` — generate an observable list of index words corresponding to object when called
+* `AutoCompleteWordStorage#generateOListAllIndexWord(String objectName)` — generate an observable list of index words corresponding to previous object word when called
 
-The auto-complete panel will be set to object list by default.
+The auto-complete panel will be set to object list when user first start the application.
 
-Step 2: Whenever user types a key in the command line, `CommandBox` will call `AutoCompletePanel#updateListView(String currentPhraseInCommandBox)`.
+Step 2: Whenever user types a key in the command line, `CommandBox` will notify `AutoCompletePanelManager` to perform changes based on userinput
 
-This will update the number of matched words with the current list and runs 3 sets of algorithms, through word list handler classes.
+This will update the number of matched words with the current list and 3 sets of algorithms will be run +
 
-First, `AutoCompletePanel#resetList()` will switch the current list based on what is typed.
+- `AutoCompleteListHandler#chooseList()` +
+-> Based on the number of matched words(pre-processed in the `AutoCompletePanelManager`) +
+-> List will be chosen from `AutoCompleteStorage`
 
-Second, `AutoCompleteListFilter#filterList()` will filter the chosen list to only words that are compatible with previous correctly typed full words. Eg: prefix list will be filtered to only be compatible with “pat-add” user command, the words that come before prefix.
+- `AutoCompleteListHandler#filterList()` +
+-> The chosen list will then be filter to only words that are compatible with previous correctly typed full words. +
+-> This is done by iterating through all the matched word and checking if `AutoCompleteWord` has a list of associated words +
+-> If the `AutoCompleteWord` has a list of associated words, this method will attempt to match the associated words with the matched words while filter out all incompatible words in the chosen list in the process  +
+(Eg: prefix list will be filtered to only be compatible with “pat-add” user command, the words that come before prefix.)
 
-Lastly, `AutoCompleteListUpdater#updateSuggestedWordsInList()` will update the chosen list which was filtered to fit the key that is partially typed. Eg: User typed “ad”. “add” and “add-medcon” which are both in the current list will be suggested.
+- `AutoCompleteListHandler#updateList()` +
+-> Update the filtered list to fit the last partially typed word +
+-> The last partially typed word in `CommandBox` will be checked against the filtered list +
+-> If the word in the filter list does not start with the last partially typed word, it will be filtered out +
+(Eg: User typed “pat-ad”. “add” and “add-medcon” which are both in the current list will be suggested since they both starts with "ad".)
 
-==== Design Considerations
+The following sequence and activity diagrams illustrates the general flow when user input is detected +
+
+image::AutocompleteSequenceDiagram1.png[Up key pressed]
+image::AutocompleteSequenceDiagram2.png[Shift key pressed]
+image::AutocompleteSequenceDiagram3.png[Any other key pressed]
+image::GeneratingListActivityDiagram.png[ref generating list]
+
+
+Shown below is the sequence diagram for the guided system when selecting suggestion word +
+
+image::GuideSystemSequenceDiagram.png[]
+
+=== Design Considerations
+===== Aspect: Communication between `UiPart` s +
+(`CommandBox`, `AutoCompletePanel` and `ResultDisplay`) +
+
+* **Alternative 1:** Pass references of each UiParts components around
+** Pros: Simpler to call methods as required, code will be easier to understand and implementation will take less effort
+** Cons: Code will be harder to track since any component with reference to the UiPart can manipulate its property
+
+* **Alternative 2(current choice):** Implement facades and observer patterns
+** Pros: Code is easier to maintain
+** Cons: Less readability
+
+=== Logic Design Considerations
 ===== Aspect: Method to suggest auto-complete words
 
 * **Alternative 1:** Have several lists. First word list, Second word list, etc
@@ -38,6 +76,13 @@ Lastly, `AutoCompleteListUpdater#updateSuggestedWordsInList()` will update the c
 ** Pros: User will be guided. Very user friendly. Panel will be more organised as words are suggested in sets of the same type.
 ** Cons: Parsing of command line input can be tedious.
 
-==== Logic Design Considerations
+=== UI Design Considerations
+===== Aspect: Location of autocomplete panel
 
-==== UI Design Considerations
+* **Alternative 1:** Place it as a floating window
+** Pros: User is able to resize and can be moved around easily
+** Cons: A floating window may block out some of the UI of the application, and user will have to re-place the autocomplete panel every time the application starts
+
+* **Alternative 2(current choice):** Fix it permanently at a pre-set location
+** Pros: Simpler and user will get use to the its location easier since it is pre-set
+** Cons: Less customisable for user

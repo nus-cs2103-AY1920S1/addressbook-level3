@@ -1,8 +1,14 @@
+//@@author francislow
+
 package cs.f10.t1.nursetraverse.autocomplete;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
+import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.AssociableWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.CommandWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.ObjectWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.PrefixWord;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,9 +23,31 @@ public class AutoCompleteListHandler {
     }
 
     /**
-     * Choose initial list to be suggested
+     * Generate final list to be set in autocomplete panel
+     *
+     * @param matchedWords Linkedlist of matched words
+     * @param parsedUserInputList list of parsed userinput {objectword, commandword, ...}
+     * @return An observable list of final suggested autocomplete words
      */
-    public ObservableList<AutoCompleteWord> chooseList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords) {
+    public ObservableList<AutoCompleteWord> generateList(LinkedList<AutoCompleteWord> matchedWords,
+                                                         LinkedList<String> parsedUserInputList) {
+        // Choose initial list
+        ObservableList<AutoCompleteWord> chosenList = chooseList(matchedWords);
+        // Filter list based on previous matched words
+        ObservableList<AutoCompleteWord> filteredList = filterList(matchedWords, chosenList);
+        // Update list based on userinput
+        ObservableList<AutoCompleteWord> updatedList = updateList(matchedWords, filteredList, parsedUserInputList);
+
+        return updatedList;
+    }
+
+    /**
+     * Choose initial list to be suggested
+     *
+     * @param matchedAutoCompleteWords Linkedlist of matched words
+     * @return chosenList
+     */
+    private ObservableList<AutoCompleteWord> chooseList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords) {
         ObservableList<AutoCompleteWord> currentList;
         if (matchedAutoCompleteWords.size() == 0) {
             // Set to object list
@@ -49,37 +77,7 @@ public class AutoCompleteListHandler {
     }
 
     /**
-     * Update list of autocomplete words to be suggested according to current phrase in command box textfield
-     *
-     * @param currentList       list to be updated
-     * @param segments          Array of segments of the full command in textfield
-     * @param firstSegmentParts Linkedlist of parts in first segment of segments array
-     * @return updatedList
-     */
-    public ObservableList<AutoCompleteWord> updateList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords,
-                                                       ObservableList<AutoCompleteWord> currentList, String[] segments,
-                                                       LinkedList<String> firstSegmentParts) {
-        ObservableList<AutoCompleteWord> updatedList = FXCollections.observableArrayList();
-
-        LinkedList<String> combinedList = new LinkedList<>(firstSegmentParts);
-        combinedList.addAll(Arrays.asList(segments).subList(1, segments.length));
-
-        if (matchedAutoCompleteWords.size() == combinedList.size()) {
-            return currentList;
-        } else {
-            for (AutoCompleteWord autoCompleteWord : currentList) {
-                if (autoCompleteWord.getSuggestedWord().startsWith(combinedList.get(matchedAutoCompleteWords.size()))) {
-                    updatedList.add(autoCompleteWord);
-                }
-            }
-            // Add '-' to each object word displayed for user understanding
-            addDashToObjectWordList(updatedList);
-            return updatedList;
-        }
-    }
-
-    /**
-     * Filter unrelated words from either prefix or command wordlist
+     * Filter unrelated words from either the chosen prefix or command wordlist
      *
      * @param listToBeSuggested list to be filtered
      * @return filteredList
@@ -123,16 +121,28 @@ public class AutoCompleteListHandler {
     }
 
     /**
-     * Add - for each word in object list, for user understanding in the autocomplete panel ui
+     * Update list of autocomplete words to be suggested according to current phrase in command box textfield
      *
-     * @param objectList list for words to add dash to
+     * @param matchedAutoCompleteWords Linkedlist of matched words
+     * @param currentList List to be updated
+     * @param parsedUserInputList list of parsed userinput {objectword, commandword, ...}
+     * @return updatedList
      */
-    public void addDashToObjectWordList(ObservableList<AutoCompleteWord> objectList) {
-        if (objectList.size() != 0 && objectList.get(0) instanceof ObjectWord) {
-            for (int i = 0; i < objectList.size(); i++) {
-                objectList.set(i, new ObjectWord(objectList.get(i).getSuggestedWord() + "-",
-                        objectList.get(i).getDescription()));
+    private ObservableList<AutoCompleteWord> updateList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords,
+                                                       ObservableList<AutoCompleteWord> currentList,
+                                                       LinkedList<String> parsedUserInputList) {
+        ObservableList<AutoCompleteWord> updatedList = FXCollections.observableArrayList();
+
+        if (matchedAutoCompleteWords.size() == parsedUserInputList.size()) {
+            return currentList;
+        } else {
+            for (AutoCompleteWord autoCompleteWord : currentList) {
+                if (autoCompleteWord.getSuggestedWord()
+                        .startsWith(parsedUserInputList.get(matchedAutoCompleteWords.size()))) {
+                    updatedList.add(autoCompleteWord);
+                }
             }
+            return updatedList;
         }
     }
 }

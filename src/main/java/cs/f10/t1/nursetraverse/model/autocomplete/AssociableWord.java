@@ -1,4 +1,6 @@
-package cs.f10.t1.nursetraverse.autocomplete;
+//@@author francislow
+
+package cs.f10.t1.nursetraverse.model.autocomplete;
 
 import java.util.LinkedList;
 
