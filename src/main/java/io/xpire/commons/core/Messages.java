@@ -10,7 +10,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_INDEX = "The item index provided is invalid.\n"
             + "The index must be present on the list.\n";
-    public static final String MESSAGE_INVALID_REMINDER_THRESHOLD = "%s is not a valid reminder threshold.";
     public static final String MESSAGE_INVALID_TAGS = "Tags are not in the item specified!";
     public static final String MESSAGE_SUGGESTIONS = " Did you mean %s?";
     public static final String MESSAGE_EMPTY_LIST = "Command not executed. The current list is empty!";

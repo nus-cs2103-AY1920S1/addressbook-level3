@@ -12,8 +12,8 @@ import io.xpire.commons.util.StringUtil;
  */
 public class ReminderThreshold {
 
-    public static final String MESSAGE_CONSTRAINTS = "Invalid value! Reminder threshold should be a non-negative"
-            + " integer no greater than 36500. \n";
+    public static final String MESSAGE_CONSTRAINTS = "Invalid value! Reminder threshold should be an unsigned"
+            + "  non-negative integer no greater than 36500. \n";
     public static final String MESSAGE_CONSTRAINTS_LOWER = "Reminder before 1/10/2019 are not accepted in Json file"
             + " to prevent outdated reminder.";
     public static final String DEFAULT_THRESHOLD = "0";
