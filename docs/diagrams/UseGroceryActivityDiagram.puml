@@ -9,11 +9,10 @@ start
 
 if () then ([unit types are consistent])
     if () then ([units are consistent])
-        :Execute reduction;
     else([else])
         :Convert units;
-        :Execute Reduction;
     endif
+        :Execute Reduction;
 else([else])
     :Throw InvalidUnitException;
 endif

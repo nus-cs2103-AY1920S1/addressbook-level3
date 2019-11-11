@@ -13,7 +13,7 @@ import seedu.ifridge.model.food.NameContainsKeywordsPredicate;
 import seedu.ifridge.model.food.TagContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all grocery items in grocery list whose name or tag contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindGroceryCommand extends Command {

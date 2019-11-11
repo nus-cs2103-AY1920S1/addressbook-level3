@@ -3,7 +3,7 @@
 
 skinparam maxMessageSize 200
 
-group sd
+group sd fda
 
 box Logic LOGIC_COLOR_T1
 participant "rwc:ReportWasteCommand" as ReportWasteCommand LOGIC_COLOR

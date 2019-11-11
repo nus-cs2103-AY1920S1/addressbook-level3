@@ -16,7 +16,7 @@ import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.exceptions.InvalidUnitException;
 
 /**
- * Adds a person to the address book.
+ * Adds a grocery item to the grocery list.
  */
 public class AddGroceryCommand extends Command {
 
@@ -41,7 +41,7 @@ public class AddGroceryCommand extends Command {
     private final GroceryItem toAdd;
 
     /**
-     * Creates an AddGroceryCommand to add the specified {@code Person}
+     * Creates an AddGroceryCommand to add the specified {@code GroceryItem}
      */
     public AddGroceryCommand(GroceryItem food) {
         requireNonNull(food);
