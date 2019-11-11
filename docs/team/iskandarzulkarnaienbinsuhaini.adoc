@@ -1,0 +1,96 @@
+= Iskandar Zulkarnaien - Project Portfolio for ORGA__Nice__
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== About the project
+This project portfolio serves to showcase my contributions to the development and documentation of ORGA__Nice__.
+The following sections will introduce the ORGA__Nice__ project and my role in its development.
+
+=== What is ORGA__Nice__?
+ORGA__Nice__ is a team project done by a group of five developers including myself. We are second year Computer Science
+students from the National University of Singapore. ORGA__Nice__ was developed as part of CS2103T, an introductory
+Software Engineering module. ORGA__Nice__ is a desktop application created to help hospital administration staff manage
+organ transplants. ORGA__Nice__ was developed with the assumption that they prefer typing compared to other forms of
+usage. ORGA__Nice__ is adapted from AddressBook-Level3, an address book management application that utilises a Command
+Line Interface (CLI).
+
+This is what ORGA__Nice__ looks like:
+
+.The graphical user interface for ORGANice
+image::ORGANiceComponents.png[width="790" height="500"]
+
+These are the main features of ORGA__Nice__:
+
+* Managing patients, donors and doctors
+* Matching patients with potential donors
+* Sorting matches by priority, compatibility and organ expiry date
+* Finding persons by attributes
+* Managing administrative work relating to organ transplants
+
+=== How did I contribute?
+My role was to design and implement the find by attribute feature and handle the automatic generation of dummy data on
+initial application startup. The following sections illustrate the contributions I have made in implementing said
+features, including the relevant documentation for both users and developers.
+
+Do note the following symbols and formatting used in this document:
+
+NOTE:       This sentence contains important information
+
+`find`   A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command box
+and executed by the application.
+
+== Summary of contributions
+This section shows a summary of my coding, documentation and other helpful contributions to the team project.
+
+*Feature Implemeted*: I added the ability to search for persons based on their attributes.
+
+* What it does: Allows the user to search for specific persons (i.e. patients, doctors and donors) based on their
+attributes (e.g. name).
+* Justification: This feature improves the product significantly as a user can look for specific persons quickly rather
+than having to scroll through the entire list of persons in ORGA__Nice__.
+* Highlights: This feature performs fuzzy matching on the inputted name, NRIC and phone number to allow for relevant
+search results to be displayed even if the user makes a typo.
+
+*Code contributed*: Click https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=TheRealRavager&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=TheRealRavager&tabRepo=AY1920S1-CS2103T-T13-1%2Fmain%5Bmaster%5D[here]
+to view my code contributions.
+
+*Other contributions*:
+
+* NRIC Checksum Validation (Pull Request https://github.com/AY1920S1-CS2103T-T13-1/main/commit/36a54c909e8a621bacfb0626b0161179f6c3a2d6[#255])
+* Dummy Data Generation (Pull Request https://github.com/AY1920S1-CS2103T-T13-1/main/commit/9707403685db8ad694d45602b892f3ddece18e5d[#172])
+* Git Workflow Management:
+** Helped team members resolve Git related issues such as merge conflicts and taught them how to use more complicated
+features such as rebasing and stashing.
+** Helped the team migrate to a branching Git workflow (Issue https://github.com/AY1920S1-CS2103T-T13-1/main/issues/39[#39])
+** Set up team's GitHub repository including branch protection and requiring Travis checks and reviews before merging.
+* Documentation:
+** Updated User Guide and Developer Guide to reflect changes to `find` (Pull Request [PLACEHOLDER])
+** Added a guide for developer to understand how classes interact among each other in the form mode feature to Developer Guide: https://github.com/AY1920S1-CS2103T-T13-1/main/pull/154[#154]
+* Community:
+** Contributed to forum discussions (Examples: PLACEHOLDER)
+** Reviewed Pull Requests (PLACEHOLDER)
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+{start of extract}
+
+include::../UserGuide.adoc[tag=add]
+
+{end of extract}
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+{start of extract}
+
+include::../DeveloperGuide.adoc[tag=formmode]
+
+{end of extract}

@@ -481,7 +481,7 @@ The find feature is facilitated by `FindCommand`, `ExactFindCommand` and `Person
 ===== ExactFindCommand
 `ExactFindCommand` extends `Command` with a `predicate` that is used to determine whether a given `person` should be
 displayed. It implements `Command#execute(Model model)` which replaces the `predicate` of the current
-`model.filteredPersons` with the input predicate of `FindCommand`, which triggers an update *INSERT JAVAFX STUFF. +
+`model.filteredPersons` with the input predicate of `ExactFindCommand`. +
 
 TODO
 
