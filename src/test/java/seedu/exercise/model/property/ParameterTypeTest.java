@@ -38,7 +38,6 @@ public class ParameterTypeTest {
 
         // Valid text -> return true
         assertTrue(ParameterType.isValidText("This is a very long sentence which should be accepted"));
-        assertTrue(ParameterType.isValidText(" "));
         assertTrue(ParameterType.isValidText("a"));
     }
 
@@ -48,9 +47,9 @@ public class ParameterTypeTest {
         assertFalse(ParameterType.isValidNumber("-3.4")); // No negative numbers allowed
         assertFalse(ParameterType.isValidNumber("30/09/2019")); // Contains punctuation
         assertFalse(ParameterType.isValidNumber("Only alphabets")); // Only letters
+        assertFalse(ParameterType.isValidNumber("3.141592654")); // Floating point number not allowed
 
         // Valid number -> return true
-        assertTrue(ParameterType.isValidNumber("3.141592654")); // Floating point number allowed
         assertTrue(ParameterType.isValidNumber("3")); // Integers allowed
         assertTrue(ParameterType.isValidNumber("0")); // 0 allowed
         assertTrue(ParameterType.isValidNumber("929481290194910942091")); // Large number

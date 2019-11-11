@@ -820,8 +820,8 @@ property in the `add` and `edit` command to include information for the new prop
 * Every word in the full name of each custom property will be changed to Start Case style, where the first letter of each
 word is capitalised with the other letters in lower case e.g. `enD DaTe` will be changed to `End Date`.
 * The date entered for custom properties with a `DATE` parameter must follow the same requirements as that of <<addexercise, add>> command.
-* The text entered for custom properties with a `TEXT` parameter can contain only alphabets.
-* The number entered for custom properties with a `NUMBER` parameter must be non-negative.
+* The text entered for custom properties with a `TEXT` parameter can contain only alphabets and spaces.
+* The number entered for custom properties with a `NUMBER` parameter must be a non-negative integer.
 * You need not include the custom properties when adding a new exercise to the app.
 ****
 
@@ -855,7 +855,7 @@ image::CustomRating.png[align="center", width=85%, scaledwidth=15cm]
 
 You can now add a new exercise with `Rating`!
 
-* `add t/exercise n/Run d/07/11/2019 c/400 q/2.4 u/km r/5`
+* `add t/exercise n/Dancing d/07/11/2019 c/400 q/2 u/hours r/5`
 
 Expected Result:
 
@@ -881,22 +881,22 @@ Example:
 
 * `custom rm/Rating`
 
-Before the execution, the `Rating` property will be present in exercises that have them.
+Before the execution, the `Rating` property will be present in exercises that have it.
 
-.A rating of 4.5 for exercise 6
-image::EditCustomRating.png[align="center", width=85%, scaledwidth=15cm]
+.A rating of 5 for exercise 6
+image::AddCustomRating.png[align="center", width=85%, scaledwidth=15cm]
 
-.A rating of 3.5 for exercise 7
-image::EditAnotherCustomRating.png[align="center", width=85%, scaledwidth=15cm]
+.A rating of 3 for exercise 7
+image::EditAnotherCustomrating.png[align="center", width=85%, scaledwidth=15cm]
 
 After the execution, the `Rating` property will be removed from all of the exercises and the app
 as illustrated in the next few figures.
 
 .Rating in exercise 6 is removed
-image::RunRatingRemoved.png[align="center", width=85%, scaledwidth=15cm]
+image::DancingRatingRemoved.png[align="center", width=85%, scaledwidth=15cm]
 
 .Rating in exercise 7 is also removed
-image::BenchPressRatingRemoved.png[align="center", width=85%, scaledwidth=15cm]
+image::RunningRatingRemoved.png[align="center", width=85%, scaledwidth=15cm]
 
 // end::customfeature[]
 
@@ -904,10 +904,10 @@ image::BenchPressRatingRemoved.png[align="center", width=85%, scaledwidth=15cm]
 
 Before the execution, both exercises 6 and 7 have a rating attached to them.
 
-.A rating of 4.5 for exercise 6
-image::EditCustomRating.png[align="center", width=85%, scaledwidth=15cm]
+.A rating of 5 for exercise 6
+image::AddCustomRating.png[align="center", width=85%, scaledwidth=15cm]
 
-.A rating of 3.5 for exercise 7
+.A rating of 3 for exercise 7
 image::EditAnotherCustomRating.png[align="center", width=85%, scaledwidth=15cm]
 
 After the execution, only exercise 6 has its rating property removed.
@@ -936,7 +936,7 @@ Example:
 Expected Result:
 
 .A window showing the custom properties you have defined is opened
-image::ViewCustom.png[align="center", width=85%, scaledwidth=15cm]
+image::ViewCustom.png[align="center", width=400]
 
 === Exiting the program : `exit`
 

@@ -2,7 +2,7 @@ package seedu.exercise.model.property.custom;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.core.ValidationRegex.ONLY_ALPHABETS_AND_SPACE;
-import static seedu.exercise.commons.core.ValidationRegex.ONLY_NON_NEGATIVE_NUMBERS;
+import static seedu.exercise.commons.core.ValidationRegex.ONLY_NON_NEGATIVE_INTEGER;
 
 /**
  * Encapsulates the different parameter types that a custom property can take in.
@@ -14,8 +14,10 @@ public enum ParameterType {
 
     public static final String PARAMETER_CONSTRAINTS = "Parameter types should be one of the following: Number, "
         + "Date or Text";
-    public static final String TEXT_CONSTRAINTS = "Text should contain only alphabets and should not be blank.";
-    public static final String NUMBER_CONSTRAINTS = "Number should contain only numbers and should not be blank.";
+    public static final String TEXT_CONSTRAINTS = "Text should contain only alphabets and spaces and "
+        + "should not be blank.";
+    public static final String NUMBER_CONSTRAINTS = "Number should be a non-negative integer and should not "
+        + "be blank.";
     private final String parameterName;
 
     ParameterType(String parameterName) {
@@ -54,7 +56,7 @@ public enum ParameterType {
      * @return true if and only if the given value is a valid number
      */
     public static boolean isValidNumber(String value) {
-        return value.matches(ONLY_NON_NEGATIVE_NUMBERS);
+        return value.matches(ONLY_NON_NEGATIVE_INTEGER);
     }
 
     /**

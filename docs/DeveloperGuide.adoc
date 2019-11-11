@@ -502,7 +502,7 @@ is just to ensure that a predefined command is entered and is passed to the corr
 it directly.
 
 2. If the data structure holding the `CustomProperty` object is to be made static, it means that this information is
-shared among all of the `PropertyBook` instances if Choice 2 was implemented. Thus, `PropertyBook`
+shared among all of the `PropertyBook` instances if Choice 2 is implemented. Thus, `PropertyBook`
 is acting like a singleton and so, a singleton class will be appropriate.
 
 //end::customfeature[]

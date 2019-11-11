@@ -2,6 +2,7 @@ package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_REMOVE_CUSTOM;
 
 import java.util.List;
@@ -29,7 +30,8 @@ import seedu.exercise.model.resource.Exercise;
 public class CustomRemoveCommand extends CustomCommand {
 
     public static final String MESSAGE_USAGE_CUSTOM_REMOVE = "Parameters: "
-        + PREFIX_REMOVE_CUSTOM + "FULL NAME\t"
+        + PREFIX_REMOVE_CUSTOM + "FULL NAME"
+        + " [" + PREFIX_INDEX + "INDEX" + "]\t"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_REMOVE_CUSTOM + "Rating ";
 
