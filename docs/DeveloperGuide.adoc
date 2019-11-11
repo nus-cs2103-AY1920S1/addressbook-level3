@@ -871,15 +871,15 @@ Changing of system time would be required. +
 Do not launch the application till instructed.
 
 . Notify user when user miss their breakfast.
-    .. Test case: Set system time to anytime after 10am, clean launch the application, and leave it for as long as the user want to test.
+    .. Test case: Set system time to anytime after 10am, clean launch the application, and leave it for as long as the user want to test. +
         Expected: When the application first launch, a notification will be prompted. Followed by every 10 minutes for as long as the application is running.
 
 . Notify user when user miss their lunch.
-    .. Test case: set the system time to 8am, clean launch the application, `add n/cereal c/300`, set the system time to 3pm, leave it for as long as the user wants to test.
+    .. Test case: set the system time to 8am, clean launch the application, `add n/cereal c/300`, set the system time to 3pm, leave it for as long as the user wants to test. +
         Expected: A notification indicating that lunch have been missed would be prompted every 10 minutes.
 
 . Notify user when user miss their dinner.
-    .. Test case: set the system time to 8am, clean launch the application, `add n/cereal c/300`, set the system time to 9pm, leave it for as long as the user wants to test.
+    .. Test case: set the system time to 8am, clean launch the application, `add n/cereal c/300`, set the system time to 9pm, leave it for as long as the user wants to test. +
         Expected: A notification indicating that dinner have been missed would be prompted every 10 minutes.
 // end::notificationTesting[]
 
