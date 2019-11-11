@@ -615,8 +615,7 @@ While in "learner" mode, TutorAid can map wrong commands to the actions of known
 the help of `JsonAdaptedCommand` and the fact that commands are now modelled as a `CommandObject` that contains their `CommandWord` and `CommandAction`.
 
 A TreeMap is now being used in the process of parsing commands. New command classes such as `UnknownCommand`, `NewCommand` and `CancelCommand` were also created.
-// end::learncustomcommands[]
-// tag::stepsCustomCommands[]
+
 Given below is an example usage scenario and how the learn custom command mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time. The `TutorAidParser` will be initialized and all basic
@@ -639,8 +638,6 @@ Step 6. The user inputs a valid command. `TutorAidParser#checkCommand(String use
 
 Step 7. `NewCommand` has a `CommandResult` with an `isUnknown` value of `false`. This will trigger TutorAid back to normal mode. Normal commands can then be performed as `TutorAidParser#parseCommand(String userInput)` will now be called again instead of `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`.
 
-// end::stepsCustomCommands[]
-// tag::diagramsCustomCommands[]
 The following sequence diagrams shows how the learn custom command operation works:
 
 Firstly an unknown command is supplied,
@@ -652,8 +649,7 @@ NOTE: The lifeline for `UnknownCommand` should end at the destroy marker (X) but
 After which, a known command is supplied,
 
 image::NewCommandDiagram.png[width="700"]
-// end::diagramsCustomCommands[]
-// tag::activityCustomCommands[]
+
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::LearnCustomCommandsActivityDiagram.png[width="500"]
@@ -669,8 +665,8 @@ image::LearnCustomCommandsActivityDiagram.png[width="500"]
 ** Pros: We do not need to maintain a separate data structure, and just reuse what is already in the codebase. We also
 do not need to waste time populating a TreeMap.
 ** Cons: Every single query costs O(n) time to check if the command exists.
+// end::learncustomcommands[]
 
-// end::activityCustomCommands[]
 // tag::undoAndRedo[]
 === Undo/Redo feature
 
