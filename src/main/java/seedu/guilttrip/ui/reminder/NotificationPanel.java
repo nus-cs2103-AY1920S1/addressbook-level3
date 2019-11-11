@@ -16,7 +16,7 @@ import seedu.guilttrip.ui.UiPart;
  * Side panel for reminders.
  */
 public class NotificationPanel extends UiPart<Region> {
-    private static final String FXML = "/reminder/NotificationListPanel.fxml";
+    private static final String FXML = "reminder/NotificationListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(NotificationPanel.class);
 
     @FXML

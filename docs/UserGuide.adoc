@@ -447,6 +447,44 @@ Format: `deleteBudget <index>`
 
 Example: `deleteBudget 2`
 
+=== WishList
+
+==== Add WishList : `addWishlist`
+Adds a new item to your current wishlist
+
+Format: `addWish n/<Description> cat/<Category> amt/<Price> d/<Date>`
+
+Examples:
+
+* `add typ/Wish n/deck mala cat/food amt/5.60 d/2019 10 28`
+* `add typ/Wish n/deck mala cat/food amt/5.60 d/01/01/2020`
+
+==== Delete WishList : `deleteWish`
+Deletes the item at the stated index from your current wishlist
+
+Format: `deleteWish <index>`
+
+Examples:
+
+* `deleteWishlist 3`
+
+==== Edit Wish in WishList : `editWish`
+edit the description, date, or tags of your wishes.
+
+Format: `editWishlist <index> [n/<Description>] [cat/<Category>] [amt/<Price>] [d/<Date>] [tag/<Tag>]`
+
+Examples:
+
+* `editWishlist 1 n/1 try the chinatown ri ri hong mala!`
+* `editWishlist 1 amt/20 tag/mala tag/expensive`
+
+==== Purchase WishList : `purchase` [coming in v2.0]
+Purchases the item at the stated index from your current wishlist
+
+Format: `purchase <index>`
+
+Example: `purchase 1`
+
 === Loan [coming in v2.0]
 ==== Adding a Loan : `addLoan` [coming in v2.0]
 Adds a new loan with the given description, amount and interest (in percentage) and calculates the total outstanding amount based on the interest.
@@ -713,49 +751,10 @@ Example:
 
 * `removeCondition 1`
 
-
 ==== Delete Reminder : `deleteReminder`
 Deletes the selected Reminder.
 
 Format: `deleteReminder`
-
-=== WishList
-
-==== Add WishList : `addWishlist`
-Adds a new item to your current wishlist
-
-Format: `addWish n/<Description> cat/<Category> amt/<Price> d/<Date>`
-
-Examples:
-
-* `add typ/Wish n/deck mala cat/food amt/5.60 d/2019 10 28`
-* `add typ/Wish n/deck mala cat/food amt/5.60 d/01/01/2020`
-
-==== Delete WishList : `deleteWish`
-Deletes the item at the stated index from your current wishlist
-
-Format: `deleteWish <index>`
-
-Examples:
-
-* `deleteWishlist 3`
-
-==== Edit Wish in WishList : `editWish`
-edit the description, date, or tags of your wishes.
-
-Format: `editWishlist <index> [n/<Description>] [cat/<Category>] [amt/<Price>] [d/<Date>] [tag/<Tag>]`
-
-Examples:
-
-* `editWishlist 1 n/1 try the chinatown ri ri hong mala!`
-* `editWishlist 1 amt/20 tag/mala tag/expensive`
-
-==== Purchase WishList : `purchase` [coming in v2.0]
-Purchases the item at the stated index from your current wishlist
-
-Format: `purchase <index>`
-
-Example: `purchase 1`
 
 === Undo/Redo
 ==== Undo previous command : `undo`

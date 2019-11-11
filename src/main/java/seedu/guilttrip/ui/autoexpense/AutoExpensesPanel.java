@@ -15,7 +15,7 @@ import seedu.guilttrip.ui.UiPart;
  * Side panel for budgets.
  */
 public class AutoExpensesPanel extends UiPart<Region> {
-    private static final String FXML = "/autoexpense/AutoExpenseListPanel.fxml";
+    private static final String FXML = "autoexpense/AutoExpenseListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(AutoExpensesPanel.class);
 
     @FXML

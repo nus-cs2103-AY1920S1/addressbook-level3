@@ -19,7 +19,7 @@ import seedu.guilttrip.ui.UiPart;
  */
 public class ConditionCard extends UiPart<Region> {
 
-    private static final String FXML = "/condition/ConditionListCard.fxml";
+    private static final String FXML = "condition/ConditionListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.

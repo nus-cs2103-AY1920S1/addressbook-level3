@@ -15,7 +15,7 @@ import seedu.guilttrip.ui.UiPart;
  */
 public class ExpenseCard extends UiPart<Region> {
 
-    private static final String FXML = "/expense/ExpenseCard.fxml";
+    private static final String FXML = "expense/ExpenseCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
