@@ -1,18 +1,7 @@
 = Bahety Arjavi - Project Portfolio
-:site-section: DeveloperGuide
-:toc:
-:toc-title:
-:toc-placement: preamble
-:toclevels: 3
-:imagesDir: images
-:stylesDir: stylesheets
-:xrefstyle: full
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-:warning-caption: :warning:
-endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103T-T13-2/tree/master
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
 
 == PROJECT: Mortago
 
