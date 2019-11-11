@@ -235,8 +235,7 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the theme based on {@code guiSettings}.
      */
     private void setTheme(Theme savedTheme) {
-        this.theme = savedTheme; // this.theme = light
-        System.out.println("saved theme: " + Theme.getThemeAsString(savedTheme));
+        this.theme = savedTheme;
         switchThemeTo(savedTheme);
     }
 
