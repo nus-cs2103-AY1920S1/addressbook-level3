@@ -261,6 +261,7 @@ image::CommitActivityDiagram.png[width="190", align="center"]
 // end::undoredo[]
 
 //tag::sort[]
+
 === Sort feature
 ==== Implementation
 
@@ -319,6 +320,7 @@ image::SortUpdateActivityDiagram.png[width="190", align="center"]
 * **Alternative 2:** Replace the `FilteredList` in `ModelManager` with a `SortedList`.
 ** Pros: Sorting the list is more intuitive, and the ordering of the engagements is automatically preserved whenever a command that modifies the list elements is executed.
 ** Cons: Features like `find` command may lose functionality and needs extra modification.
+
 //end::sort[]
 
 //tag::report[]
