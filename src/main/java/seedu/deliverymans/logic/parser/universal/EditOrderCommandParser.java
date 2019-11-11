@@ -43,7 +43,7 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
 
         try {
             if (argMultimap.getValue(PREFIX_NAME).isPresent()
-                    || ParserUtil.hasRepeatedPrefix(args, PREFIX_NAME, PREFIX_CUSTOMER, PREFIX_RESTAURANT)) {
+                    && !ParserUtil.hasRepeatedPrefix(args, PREFIX_NAME, PREFIX_CUSTOMER, PREFIX_RESTAURANT)) {
                 name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             } else {
                 throw new ParseException("");
