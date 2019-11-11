@@ -304,7 +304,6 @@ image::AddSequenceDiagram.png[]
 
 NOTE: The lifeline for `AddCommandParser` and `AddIntervieweeCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-
 ====
 * See the general logic sequence diagram in <<Logic component, Section 2.3: Logic component>> for a more complete view of how
 `Storage` is affected as well.
