@@ -864,6 +864,7 @@ unless specified otherwise)
 
 [discrete]
 // Updated by Sudharshan
+//tag::use-case-add[]
 === Use case: (UC01) Add appointment
 *MSS*
 
@@ -888,6 +889,7 @@ Use case ends
 +
 Use case ends
 
+//end::use-case-add[]
 //Updated by Yu Chen
 [discrete]
 === Use case: (UC02) List appointments

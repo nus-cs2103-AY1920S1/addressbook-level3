@@ -115,7 +115,7 @@ Carrying out the aforementioned changes was an elaborate, demanding and structur
 
 ** [teal]#*Project Management*#
 *** [red]#*Managing Issue Tracker*#
-**** The following https://github.com/AY1920S1-CS2103T-F14-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+assignee%3Ajun-ha0+is%3Aclosed+[issues link]
+**** The following https://github.com/AY1920S1-CS2103T-F14-3/main/issues?q=is%3Aissue+is%3Aclosed+assignee%3Auggi121[issues link]
 displays the issue trackers I managed.
 
 *** [red]#*Managing milestones*#
@@ -123,9 +123,9 @@ displays the issue trackers I managed.
 
 ==== Community
 *** [teal]#*PR Reviews:*#
-**** The following links https://github.com/AY1920S1-CS2103T-F14-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+reviewed-by%3Ajun-ha0+is%3Aclosed+[Typee PR]
-https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/11#discussion_r338907618[MoneyGoWhere PR] https://github.com/nus-cs2103-AY1920S1/duke/pull/199#issuecomment-526903163[krusagiz]
-display the Pull Requests I reviewed.
+**** The following links https://github.com/AY1920S1-CS2103T-F14-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+reviewed-by%3Auggi121+is%3Aclosed+[Typee PR]
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/11#discussion_r338907618[MoneyGoWhere PR]
+display the pull requests I have reviewed.
 
 === Code contributed
 
@@ -138,41 +138,184 @@ displays my code contribution.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=game]
-=== Typing game : `tab b/game`
-Changes the current window to the TypingGame window which has a kbd:[Start] button.
+//include::../UserGuide.adoc[tag=interactive-parsing]
+=== Interactive Parsing
 
-.Starting window of the TypingGame Window
-image::StartWindow.png[width="400"]
-Click the kbd:[Start] button to open the game in a new window.
+==== About
 
-There are moving words that you can type in order to score points. Once you correctly type the specified word,
-the word disappears and the increase in points is reflected in the player information panel in the game window.
+Typically, engagement managing software require users to enter the entire command in one shot.
 
-.Sample game play
-image::GameWindow.png[width="300" float="left"]
+For example, a user that wishes to add a meeting must type out the following: -
+`add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
 
-.Sample game play when game is over
-image::GameOver.png[width="300" float="left]
+This can prove to be rather tedious and cumbersome as users must remember every detail of a command.
 
-[TIP]
-Press kbd:[SPACEBAR] or kbd:[Enter] to clear the text area which is located at the bottom of the screen.
+Typee overcomes this by allowing users to interact with its interface and build commands sequentially. Users just need
+to type the relevant command word to get prompted about subsequent inputs.
 
-When you fail to type the word before the moving word reaches the bottom of screen, the decrease in health points
-is reflected in the player information panel in the game window.
+.The interactive component of Typee is highlighted above.
+image::interactive_parsing_0.png[width='520']
+{empty} +
+
+With interactive parsing, the aforementioned 'Add' command reduces to the following sequence of inputs: -
+```
+add
+t/meeting
+s/16/11/2019/1500
+e/16/11/2019/1600
+l/Meeting Room 2
+d/Team Meeting
+a/John | Smith
+p/High
+```
+
+.Typee's prompt in response to the user entering `add`
+image::interactive_parsing_1.png[height='90' width="800"]
+{empty} +
+
+Experienced users that have a grasp of the structure and format of various commands can also benefit from this feature.
+Interactive parsing allows multiple arguments to be input simultaneously, as long as the entered arguments adhere to a
+set of rules detailed in a later subsection.
+
+The same 'Add' command can be constructed this way by a fairly experienced user: -
+```
+add t/meeting
+s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2
+d/Team Meeting
+a/John | Smith p/High
+```
+
+.A user about to pass 3 arguments to Typee in one input, following `add`.
+image::interactive_parsing_2.png[height='90' width='800']
+{empty} +
+
+.Typee's response to the above input.
+image::interactive_parsing_3.png[height='90' width='800']
+{empty} +
+
+Finally, a highly experienced user can create an 'Add' command in the conventional manner, i.e. by typing out
+the entire command at once. This is identical to the format introduced in the beginning of this section: -
+`add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
+
+
+==== Supported Commands
+
+*All commands* are parsed and built interactively. Each command, however, adheres to its own structure. Individual commands'
+structures and idiosyncrasies are detailed in the sections belonging to the respective commands.
+
+In general, commands are of two types - *static* and *dynamic*.
+
+At any point of time, the user can enter `// current` to view the current input constraints and
+input `// clear` to stop parsing the current command. These are examples of *dynamic* commands.
+
+Static commands are executed one at a time, whereas dynamic commands can be built at any point of time, even while
+parsing an ongoing static command.
+
+Examples:
+
+'Add' and 'Delete' are static commands. The following input sequence is invalid: -
+```
+add t/meeting
+delete
+```
+
+'Help' and 'Exit' are dynamic commands. Therefore, the following input sequence is *valid*: -
+
+```
+add t/meeting
+help
+s/11/01/2019/1500
+exit
+```
 
 [NOTE]
-As the game progresses, the words move faster, hence increasing difficulty such that you can improve your typing speed.
+Calling another dynamic command in the midst of building a `Tab` command will erase the details of the command preceding
+'Tab'. This happens if the command preceding `Tab` isn't fully built. +
+For example: `add t/meeting` `tab` `// current` `b/calendar` will erase the information of the add command.
 
-[WARNING]
-Closing the game midway would result in loss of in-game progress.
+==== Valid Input Sequences
 
-After the health points reaches zero, `GAME OVER` is displayed as shown below.
+Valid input sequences can be one of three types.
+
+* One argument per input - `add` `t/meeting` ... `p/high`
+* Entire command in an input - `add t/meeting s/11/01/2019/1600 ... p/High`
+* More than one argument, but not the entire command in an input - `add t/meeting` `s/11/01/2019/1600 e/11/01/2019/1700` ...
+
+After the last argument is specified, the required command is built and executed, carrying out the operation
+intended by the user.
+
+*The order of arguments entered is important*. Consider the 'Add' command. The ideal ordering is as follows: -
+`add t/ s/ e/ l/ d/ a/ p/`
+
+When users resort to any of the three aforementioned forms of supplying arguments, they are required to conform to the
+specified ordering.
+
+When the arguments aren't in order, then the input is *parsed as far as possible, in the expected order of the arguments*.
+
+For example, `add t/meeting l/Meeting Room 2` is parsed till the argument for `t/`. The parameter location is deemed
+invalid and the user is prompted to enter a start date-time.
+
+This happens because the parser expects an argument for `s/`, but there is no such argument.
+As a consequence, all arguments that are supposed to be entered after `s/` (like `l/`) are not parsed.
+
+.Typee's response to `add t/meeting l/Meeting Room 2`.
+image::interactive_parsing_6.png[width='800' height='90']
+{empty} +
 
 
-Once the game is over, you can manually close the application by clicking the kbd:[x] on the top right hand corner of the window.
-If you want to play the game again, click the kbd:[Start] button shown in the Start window.
+Similarly, `add t/meeting s/15/01/2019/1500 d/desc p/low` is parsed till `s/` and a prompt is raised to enter a valid end date-time, leaving `d/`
+and `p/` untouched.
 
+.Typee's response to `add t/meeting s/15/01/2019/1500 d/desc p/low`.
+image::interactive_parsing_7.png[width='800' height='90']
+{empty} +
+
+
+[NOTE]
+There lies a quirk with respect to the ordering of inputs if the parser has sufficient arguments. +
+Consider the case when the user inputs `add t/meeting e/15/11/2019/1500 s/15/11/2019/1400`. This input is deemed *valid* even
+though `e/` and `s/` are flipped. This is because after 't/', the parser expects to find an `s/`, which is in-turn contained in the input.
+
+
+*Thus, to summarize, the parser continues parsing in the order of the expected arguments, as long as the corresponding prefixes are found in the input.*
+
+==== Erroneous Inputs
+
+Erroneous inputs occur in three mutually exclusive categories.
+
+* Inputs with invalid arguments
+* Inputs with multiple arguments for the same parameter.
+* Inputs with valid arguments, but irrelevant additional arguments.
+
+An example of the first case is as follows: `add t/teeming`. "Teeming" is an invalid engagement type. Typee flags this inaccuracy
+and prompts the user to enter an acceptable engagement type instead. Since Typee has already begun building an 'Add' command,
+the subsequent input must begin with `t/...`
+
+.A user about to enter an invalid input.
+image::interactive_parsing_4.png[height='90' width='800']
+{empty} +
+
+.Typee's response to the invalid input.
+image::interactive_parsing_5.png[height='90' width='800']
+{empty} +
+
+
+Attempting to replace the argument for a parameter or supply different arguments to the same parameter will result in Typee rejecting
+the user input.
+
+For example, the input `add t/meeting t/interview` will be rejected.
+
+The following sequence will also be rejected since it attempts to overwrite an argument.
+```
+add
+t/meeting
+s/15/11/2019/1500
+t/interview
+```
+
+Last but not least, Typee will reject cases wherein the user supplies excessive and irrelevant arguments.
+`add t/meeting s/16/11/2019/1600 e/16/11/2019/1700 l/COM-1 d/Meeting a/Damith p/High o/High` will be rejected because `o/`
+is not a parameter for the 'Add' command.
 
 == Contributions to the Developer Guide
 
@@ -180,84 +323,10 @@ If you want to play the game again, click the kbd:[Start] button shown in the St
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-=== Game Feature
-==== Implementation
-The game feature is implemented using the singleton pattern using the singleton class `GameWindow` which is created
-by button-click in `StartWindow`. This means that there can only be one `gameInstance` at any given time with the exception
-of the game being over. The two diagrams below show the UML sequence diagram and activity diagram of the game window, which
-gives a high level overview of the game.
+include::../DeveloperGuide.adoc[tag=interactive-parsing]
 
-.Summary Sequence Diagram of Game Window
-image::GameSequenceDiagram.png[align="center"]
-//image::GameActivityDiagram.png[float="left"]
-image::GameActivityDiagram.png[width="30%" align="center"]
-.Activity Diagram of the Game Window
-
-`GameWindow` has three main components `PlayerInformation`, `GameBody` and `Player`.
-
-.Structure of the Game Window
-image::GameWindowClassDiagram.png[align="center"]
-
-The component `GameBody` makes use of `javafx.animation.AnimationTimer` API to continuously loop `MovingWords` objects moving from top
-to bottom of the window using `GameBody#loopWords()`. `MovingWords` are created using
-`HighlighterUtil#convertToTextFlowUsing(String word)`
-, which appears as a `TextFlow` object of `javafx.scene.text` API.
-
-Player input is represented as  a `javafx.beans.property.StringProperty` in `Player`.
-Based on player input, `MovingWords` are updated using
-`HighlighterUtil#convertToTextFlowUsing(String playerInput, String word)`
-, which appears as a highlighted `TextFlow` object. In order to update the `MovingWords` object, the API
-`javafx.animation.AnimationTimer` is used by calling `MovingWords#continuouslyUpdate()`.
-
-The component `PlayerInformation` is bound to `Player` using `javafx.beans.property` API and is also updated when
-`MovingWords#continuouslyUpdate()` is called.
-
-The table below summarises the various purposes of the 3 main Game Window UI components.
-
-.Game Window UI Components
-[%header, cols=4*]
-|===
-|
-|UI Component Type
-|Feature
-|Purpose
-
-| `PlayerInformation`
-| Scrollable Stack Pane
-| Displays the user's score and health points.
-| To inform user about the in-game progress.
-
-| `GameBody`
-| AnchorPane
-| Displays the animation of the game.
-| To allow the user to view the animation of the moving words in a continuous manner.
-
-| `MovingWords`
-| Scrollable Stack Pane
-| Displays the individual word.
-| To allow user to know the next word to type.
-|===
-
-==== Design Considerations
-
-===== Aspect: Singleton pattern design of Game Window
-
-* **Alternative 1 (current choice):** Game Window with Singleton pattern design
-** Pros: +
-*** Prevent users from instantiating multiple Game Windows which may cause performance issues or even cause the application
-to crash.
-** Cons:
-*** Reduced testability as it is difficult to replace Singleton objects with stubs, and increased coupling across code base.
-
-* **Alternative 2:** Game Window without Singleton pattern design
-** Pros: Increased testability and reduced coupling.
-** Cons: There could be the risk of users being able to instantiate hundreds or thousands of GameWindows which would cause
-performance issues or application crash issues.
-
-//include::../DeveloperGuide.adoc[tag=typinggame]
-
-include::../DeveloperGuide.adoc[tag=use-case-game]
+include::../DeveloperGuide.adoc[tag=use-case-add]
 
 == OTHER PROJECTS: Duke
 
-(https://github.com/jun-ha0/duke[Duke application - a personal assistant chat bot]).
+(https://github.com/uggi121/duke[Duke application - a personal assistant chat bot]).
