@@ -65,6 +65,9 @@ features' `list` commands.
 respective Command Results to show in the Command Result Box. An invalid command will result in a red border around
 the Command Entry Box and an appropriate error message will be displayed in the Command Result Box, as shown in an
 example in Figure 2 below.
++
+Additionally, you may press the `enter` key anywhere in the app and it will automatically focus on the Command Entry
+Box - no mouse required!
 
 .Adding a non-existent course into the Course Planner will result in a display like this
 image::ug/ErrorMessage.png[]
