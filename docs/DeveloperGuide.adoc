@@ -741,7 +741,7 @@ whether an athlete has been selected and displays the selected athlete's persona
 The diagram below summarises the steps of the example scenario when a user executes the `select` command:
 
 .Activity diagram of `select` command execution
-image::SelectActivityDiagram.png[width=400]
+image::SelectActivityDiagram.png[width=330]
 
 The implementation was done this way because the Ui component interacts with both the Logic and Model component.
 Firstly, the Ui component takes in the input from the user and allows `[green]#SelectCommandParser#` in Logic component
@@ -752,7 +752,7 @@ app. The Ui listens for any changes made to the Model data, and updates the Ui t
 The following sequence diagram shows how the `select` feature works:
 
 .Sequence Diagram of `select` Command
-image::SelectCommandSequenceDiagram.png[]
+image::SelectCommandSequenceDiagram.png[width=600]
 
 ==== Design considerations
 There were some decisions that I had to make as I was designing the `select` feature and had to compare which methods

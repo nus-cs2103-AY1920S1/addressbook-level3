@@ -1020,15 +1020,15 @@ how to add images into the folder:
 
 * Create a folder named `images` in the same directory as your executable jar file.
 
-image::creatingFile.png[width ="790"]
+image::creatingFile.png[width ="600"]
 
 * Ensure that the file name is correct.
 
-image::imageFile.png[width="790"]
+image::imageFile.png[width="600"]
 
 * Add the image files that you want to use into the folder.
 
-image::addingPhotos.png[width="790"]
+image::addingPhotos.png[width="600"]
 //end::FAQ[]
 == Command Summary
 
