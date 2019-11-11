@@ -478,7 +478,7 @@ Examples:
 * `add typ/Wish n/deck mala cat/food amt/5.60 d/2019 10 28`
 * `add typ/Wish n/deck mala cat/food amt/5.60 d/01/01/2020`
 
-=== List Wish : `listWish`
+==== List Wish : `listWish`
 Lists all the wishes on the main panel.
 
 Format: `listWish`
@@ -656,7 +656,8 @@ Example Usage:
 Sorts the aforementioned list currently displayed according to sort type which can be `amount`, `time`, `description`,
 `tags` and `category`, and sort sequence which can be in `ascending`, `descending` order.
 
-[NOTE] Sorting of Budget by Amount refers to the original Budget Total Amount.
+[NOTE]
+Sorting of Budget by Amount refers to the original Budget Total Amount.
 
 Format: `sortExpense typ/<sort type> s/<sort sequence>`
 
