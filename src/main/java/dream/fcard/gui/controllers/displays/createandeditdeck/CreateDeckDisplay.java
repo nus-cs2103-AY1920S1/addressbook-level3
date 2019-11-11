@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 
 /**
@@ -56,6 +57,12 @@ public class CreateDeckDisplay extends VBox {
             fxmlLoader.load();
             onSaveDeck.setOnAction(e -> onSaveDeck());
             cancelButton.setOnAction(e -> Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true));
+            deckNameInput.setOnKeyPressed(e -> {
+                KeyCode code = e.getCode();
+                if (code.equals(KeyCode.ENTER)) {
+                    onSaveDeck();
+                }
+            });
         } catch (IOException e) {
             //TODO: replace or augment with a logger
             e.printStackTrace();
