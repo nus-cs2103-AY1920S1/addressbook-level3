@@ -15,8 +15,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.appstatus.PageStatus;
 import seedu.address.model.diary.DiaryEntry;
-import seedu.address.model.diary.photo.Photo;
-import seedu.address.model.diary.photo.PhotoTest;
+import seedu.address.model.diary.photo.DiaryPhoto;
+import seedu.address.model.diary.photo.DiaryPhotoTest;
 
 public class AddPhotoCommandIntegrationTest {
     @Test
@@ -37,7 +37,7 @@ public class AddPhotoCommandIntegrationTest {
         expectedModel.setPageStatus(pageStatus2);
 
         assertDoesNotThrow(() -> {
-            Photo testPhoto = PhotoTest.getValidTestPhoto();
+            DiaryPhoto testPhoto = DiaryPhotoTest.getValidTestPhoto();
             diaryEntry2.getPhotoList().addPhoto(testPhoto);
 
             AddPhotoCommand addPhotoCommand = new AddPhotoCommand(testPhoto);
@@ -57,7 +57,7 @@ public class AddPhotoCommandIntegrationTest {
 
 
         assertDoesNotThrow(() -> {
-            Photo testPhoto = PhotoTest.getValidTestPhoto();
+            DiaryPhoto testPhoto = DiaryPhotoTest.getValidTestPhoto();
             AddPhotoCommand addPhotoCommand = new AddPhotoCommand(testPhoto);
 
             assertCommandFailure(addPhotoCommand, model, MESSAGE_NO_DIARY_ENTRY);

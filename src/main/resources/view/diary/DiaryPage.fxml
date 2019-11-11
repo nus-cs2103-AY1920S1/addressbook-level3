@@ -4,8 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<BorderPane style="-fx-background-color: #403F4C;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane style="-fx-background-color: #403F4C;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <left>
         <VBox fx:id="sideBarLeft" alignment="CENTER_LEFT" prefWidth="90.0" />
     </left>

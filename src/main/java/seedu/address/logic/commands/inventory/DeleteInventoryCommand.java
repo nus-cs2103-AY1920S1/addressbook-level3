@@ -30,7 +30,8 @@ public class DeleteInventoryCommand extends Command {
 
         requireNonNull(model);
 
-        model.getPageStatus().getTrip().getInventoryList().remove(index);
+        //model.getPageStatus().getTrip().getInventoryList().removeFromInventoryPage(index);
+        model.getPageStatus().getTrip().getInventoryList().removeFromInventoryPage(index);
 
         return new CommandResult(MESSAGE_SUCCESS, false);
     }

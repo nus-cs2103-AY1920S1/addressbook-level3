@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.common.Photo;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.ExpenseList;
@@ -20,7 +21,6 @@ import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.day.DayList;
-import seedu.address.model.trip.Photo;
 import seedu.address.model.trip.Trip;
 import seedu.address.storage.diary.JsonAdaptedDiary;
 
@@ -38,7 +38,7 @@ class JsonAdaptedTrip {
     private final JsonAdaptedDiary diary;
     private final List<JsonAdaptedDay> dayList = new ArrayList<>();
     private final List<JsonAdaptedExpense> expenseList = new ArrayList<>();
-    private final Optional<JsonAdaptedTripPhoto> photo;
+    private final Optional<JsonAdaptedPhoto> photo;
 
     //Added by Karan Dev Sapra
     private final List<JsonAdaptedInventory> inventoryList = new ArrayList<>();
@@ -56,7 +56,7 @@ class JsonAdaptedTrip {
             @JsonProperty("dayList")List<JsonAdaptedDay> dayList,
             @JsonProperty("expenseList")List<JsonAdaptedExpense> expenseList,
             @JsonProperty("diary") JsonAdaptedDiary diary,
-            @JsonProperty("photo") Optional<JsonAdaptedTripPhoto> photo,
+            @JsonProperty("photo") Optional<JsonAdaptedPhoto> photo,
             @JsonProperty("inventoryList") List<JsonAdaptedInventory> inventoryList) {
         this.name = name;
         this.startDate = startDate;
@@ -97,7 +97,7 @@ class JsonAdaptedTrip {
         );
         this.diary = new JsonAdaptedDiary(source.getDiary());
         if (source.getPhoto().isPresent()) {
-            this.photo = Optional.of(new JsonAdaptedTripPhoto(source.getPhoto().get()));
+            this.photo = Optional.of(new JsonAdaptedPhoto(source.getPhoto().get()));
         } else {
             this.photo = Optional.empty();
         }

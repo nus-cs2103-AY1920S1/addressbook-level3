@@ -10,10 +10,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.common.Photo;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
-import seedu.address.model.itinerary.Photo;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.event.Event;
 import seedu.address.model.itinerary.event.EventList;
@@ -29,7 +29,7 @@ public class JsonAdaptedDay {
     private final Optional<String> description;
     private final String destination;
     private final Optional<Double> totalBudget;
-    private final Optional<JsonAdaptedDayPhoto> photo;
+    private final Optional<JsonAdaptedPhoto> photo;
     private final List<JsonAdaptedEvent> eventList = new ArrayList<>();
 
     /**
@@ -42,7 +42,7 @@ public class JsonAdaptedDay {
                           @JsonProperty("description") Optional<String> description,
                           @JsonProperty("totalBudget") Optional<Double> totalBudget,
                           @JsonProperty("eventList") List<JsonAdaptedEvent> eventList,
-                          @JsonProperty("photo") Optional<JsonAdaptedDayPhoto> photo
+                          @JsonProperty("photo") Optional<JsonAdaptedPhoto> photo
     ) {
         this.startTime = from;
         this.endTime = to;
@@ -74,7 +74,7 @@ public class JsonAdaptedDay {
             this.totalBudget = Optional.empty();
         }
         if (source.getPhoto().isPresent()) {
-            this.photo = Optional.of(new JsonAdaptedDayPhoto(source.getPhoto().get()));
+            this.photo = Optional.of(new JsonAdaptedPhoto(source.getPhoto().get()));
         } else {
             this.photo = Optional.empty();
         }

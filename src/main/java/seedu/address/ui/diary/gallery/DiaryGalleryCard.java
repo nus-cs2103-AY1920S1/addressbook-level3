@@ -8,12 +8,12 @@ import javafx.scene.layout.AnchorPane;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.parser.ParserDateUtil;
-import seedu.address.model.diary.photo.Photo;
+import seedu.address.model.diary.photo.DiaryPhoto;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.components.PersonCard;
 
 /**
- * Abstraction of a diary gallery card able to display a {@link Photo}.
+ * Abstraction of a diary gallery card able to display a {@link DiaryPhoto}.
  */
 class DiaryGalleryCard extends UiPart<AnchorPane> {
 
@@ -21,7 +21,7 @@ class DiaryGalleryCard extends UiPart<AnchorPane> {
 
     private static final int BOUND_WIDTH_PADDING = 10;
 
-    private final Photo photo;
+    private final DiaryPhoto photo;
     private final Index displayIndex;
 
     @FXML
@@ -33,7 +33,7 @@ class DiaryGalleryCard extends UiPart<AnchorPane> {
     @FXML
     private ImageView photoImageView;
 
-    public DiaryGalleryCard(Photo photo, Index displayIndex) {
+    public DiaryGalleryCard(DiaryPhoto photo, Index displayIndex) {
         super(FXML);
         this.photo = photo;
         this.displayIndex = displayIndex;

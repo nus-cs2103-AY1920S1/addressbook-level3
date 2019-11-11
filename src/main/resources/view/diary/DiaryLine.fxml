@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="lineGrid" alignment="CENTER" hgap="5.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="lineGrid" alignment="CENTER" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@diaryLine.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
-      <ColumnConstraints percentWidth="99.0" />
+      <ColumnConstraints percentWidth="98.0" />
       <ColumnConstraints minWidth="-Infinity" percentWidth="0.0" />
       <ColumnConstraints percentWidth="2.0" />
    </columnConstraints>
@@ -23,14 +23,18 @@
             <Insets />
          </GridPane.margin>
       </Label>
-      <HBox fx:id="photoCardsDisplay" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="10.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <GridPane.margin>
-            <Insets bottom="15.0" top="15.0" />
-         </GridPane.margin>
-      </HBox>
+      <ScrollPane fx:id="photoCardsScroller" fitToHeight="true" prefViewportHeight="180.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <content>
+            <HBox fx:id="photoCardsDisplay" alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="10.0" style="-fx-background-color: transparent;">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="15.0" right="15.0" />
+               </padding>
+            </HBox>
+         </content>
+      </ScrollPane>
       <Text fx:id="lineIndexText" strokeType="OUTSIDE" strokeWidth="0.0" text="LineIndex" textAlignment="RIGHT" GridPane.columnIndex="2" />
    </children>
 </GridPane>

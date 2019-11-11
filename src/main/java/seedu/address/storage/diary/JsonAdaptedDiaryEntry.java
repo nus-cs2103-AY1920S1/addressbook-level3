@@ -15,9 +15,9 @@ import javafx.collections.FXCollections;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.diary.DiaryEntry;
-import seedu.address.model.diary.photo.Photo;
+import seedu.address.model.diary.photo.DiaryPhoto;
 import seedu.address.model.diary.photo.PhotoList;
-import seedu.address.storage.diary.photo.JsonAdaptedPhoto;
+import seedu.address.storage.diary.photo.JsonAdaptedDiaryPhoto;
 
 /**
  * Jackson-friendly version of {@link DiaryEntry}.
@@ -27,7 +27,7 @@ class JsonAdaptedDiaryEntry {
 
     private final int dayIndex;
     private final String diaryText;
-    private final List<JsonAdaptedPhoto> photos;
+    private final List<JsonAdaptedDiaryPhoto> photos;
 
     /**
      * Constructs a {@code JsonAdaptedDiary} with the given diary details.
@@ -36,7 +36,7 @@ class JsonAdaptedDiaryEntry {
     public JsonAdaptedDiaryEntry(
             @JsonProperty("dayIndex") int dayOneBasedIndex,
             @JsonProperty("diaryText") String diaryText,
-            @JsonProperty("photos") List<JsonAdaptedPhoto> photos) {
+            @JsonProperty("photos") List<JsonAdaptedDiaryPhoto> photos) {
         requireAllNonNull(dayOneBasedIndex, diaryText);
         this.dayIndex = dayOneBasedIndex;
         this.diaryText = diaryText;
@@ -54,8 +54,8 @@ class JsonAdaptedDiaryEntry {
         this.dayIndex = source.getDayNumber();
         this.diaryText = source.getDiaryText();
         this.photos = FXCollections.observableArrayList();
-        for (Photo photo : source.getPhotoList().getObservablePhotoList()) {
-            this.photos.add(new JsonAdaptedPhoto(photo));
+        for (DiaryPhoto photo : source.getPhotoList().getObservablePhotoList()) {
+            this.photos.add(new JsonAdaptedDiaryPhoto(photo));
         }
     }
 
@@ -65,8 +65,8 @@ class JsonAdaptedDiaryEntry {
      * @throws IllegalValueException if there were any data constraints violated in the adapted diary entry.
      */
     public DiaryEntry toModelType() throws IllegalValueException {
-        List<Photo> photoList = new ArrayList<Photo>();
-        for (JsonAdaptedPhoto photo : photos) {
+        List<DiaryPhoto> photoList = new ArrayList<DiaryPhoto>();
+        for (JsonAdaptedDiaryPhoto photo : photos) {
             photoList.add(photo.toModelType());
         }
         PhotoList modelPhotoList = new PhotoList(photoList);

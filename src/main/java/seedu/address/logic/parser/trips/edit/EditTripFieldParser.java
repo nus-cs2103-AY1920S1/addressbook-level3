@@ -19,6 +19,7 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserDateUtil;
+import seedu.address.logic.parser.common.PhotoUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.trips.TripParserUtil;
 
@@ -76,7 +77,7 @@ public class EditTripFieldParser implements Parser<EditTripFieldCommand> {
         }
         if (argMultimap.getValue(PREFIX_DATA_FILE_PATH).isPresent()) {
             editTripDescriptor.setPhoto(
-                    TripParserUtil.parseFilePath(argMultimap.getValue(PREFIX_DATA_FILE_PATH).get(), imageFile));
+                    PhotoUtil.parseFilePath(argMultimap.getValue(PREFIX_DATA_FILE_PATH).get(), imageFile));
         }
         if (!editTripDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditTripFieldCommand.MESSAGE_NOT_EDITED);

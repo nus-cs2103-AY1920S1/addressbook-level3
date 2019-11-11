@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATA_FILE_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_TIME_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_CHOOSER;
-import static seedu.address.model.diary.photo.Photo.MAXIMUM_DESCRIPTION_LENGTH;
+import static seedu.address.model.diary.photo.DiaryPhoto.MAXIMUM_DESCRIPTION_LENGTH;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -24,8 +24,9 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserDateUtil;
+import seedu.address.logic.parser.common.PhotoUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.diary.photo.Photo;
+import seedu.address.model.diary.photo.DiaryPhoto;
 
 /**
  * {@link Parser} for parsing the given user input into a {@link AddPhotoCommand}.
@@ -64,7 +65,7 @@ public class AddPhotoParser implements Parser<AddPhotoCommand> {
         String description = parseDescription(argMultimap, imageFile);
 
         try {
-            Photo photo = new Photo(filePath, description, localDateTime);
+            DiaryPhoto photo = new DiaryPhoto(filePath, description, localDateTime);
             return new AddPhotoCommand(photo);
         } catch (IllegalArgumentException ex) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ex.getMessage()));
@@ -75,6 +76,8 @@ public class AddPhotoParser implements Parser<AddPhotoCommand> {
      * Parses the file path to be used for the photo from the {@code argMultimap}.
      * If not specified, it uses the path of the {@code imageFile}.
      * Assumes the alternative {@code imageFile} exists and is of a valid extension if non-null.
+     * {@link PhotoUtil}'s {@code parseFilePath} is not used here as an instance of
+     * {@link DiaryPhoto} is needed instead of {@link seedu.address.model.common.Photo}.
      *
      * @param argMultimap The {@link ArgumentMultimap} to use.
      * @param imageFile The {@link File} image file.
