@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.event;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.util.EventUtil.formatIndexVEventPair;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.event.EventIndexCommand.MESSAGE_SUGGESTION_EVENT;
@@ -20,9 +22,11 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
 /**
- * Test Event Index Command
+ * Test Event Index Command. Note that this is a integration test as it uses the modelManager directly.
  */
 public class EventIndexCommandTest {
+    private static final String VALID_DESIRED_EVENT_NAME = "valid event name";
+    private static final String VALID_OTHER_DESIRED_EVENT_NAME = "other valid event name";
     private Model model = new ModelManager();
 
     public EventIndexCommandTest() {
@@ -65,6 +69,27 @@ public class EventIndexCommandTest {
         Model model = new ModelManager();
         EventIndexCommand indexCommand = new EventIndexCommand("test name");
         assertThrows(CommandException.class, NO_EVENT, () -> indexCommand.execute(model));
+    }
+
+    @Test
+    public void equals() {
+        EventIndexCommand indexEventCommand = new EventIndexCommand(VALID_DESIRED_EVENT_NAME);
+        EventIndexCommand otherIndexEventCommand = new EventIndexCommand(VALID_OTHER_DESIRED_EVENT_NAME);
+
+        // same object -> returns true
+        assertTrue(indexEventCommand.equals(indexEventCommand));
+
+        // same values -> returns true
+        assertTrue(indexEventCommand.equals(new EventIndexCommand(VALID_DESIRED_EVENT_NAME)));
+
+        // different types -> returns false
+        assertFalse(indexEventCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(indexEventCommand.equals(null));
+
+        // different note -> returns false
+        assertFalse(indexEventCommand.equals(otherIndexEventCommand));
     }
 
 }
