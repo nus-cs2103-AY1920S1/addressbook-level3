@@ -550,7 +550,7 @@ Note that that above sequence of events are very likely to those for the other c
 .Activity Diagram of the Financial Tracker feature
 image::FinancialTrackerActivityDiagram.png[]
 
-The above activity shows how `edits` command works.
+The above activity shows how `edit` command works.
 
 // end::financialtracker[]
 
