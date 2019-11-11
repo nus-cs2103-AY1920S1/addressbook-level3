@@ -320,9 +320,10 @@ public class State {
     }
 
     /**
+     * Returns the 1-based index of the deck with given deck name.
+     * Assumes the the deck of the deck name exists.
      *
-     *
-     * @param deckName
+     * @param deckName String of name of deck.
      * @return Integer value of the index of deck.
      */
     public int getIndexOfDeck(String deckName) {
