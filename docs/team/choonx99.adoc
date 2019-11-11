@@ -15,43 +15,107 @@ include::overview.adoc[]
 
 * *Major enhancement*: added the ability to create/edit and delete budgets
 ** What it does: allows the user to better manage their expenses by having customizable budgets to track their expenses for them.
-** Justification: This feature is fundamental in an application that tracks expenses.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis on every aspect of the app and design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Justification: This feature is fundamental in an application that tracks expenses. It is important for users to be able to track how much they are spending according to how much has been set aside (budget)
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis on every aspect of the app and design alternatives. The implementation too was challenging as it required changes to all existing commands.
 ** Credits: AddressBook Level 3
 
-* *Minor enhancements*: Updated certain existing commands to work well with the major enhancement without creating separate commands. Example: Delete command will be able to delete an expense or a budget depending on what the user is viewing instead of creating a separate DeleteBudget command.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancements*:
+*** Updated certain existing commands to work well with the major enhancement without creating separate commands. +
+These commands include: AddExpense, Delete, Clear, ListDefaultExpenses, EditExpenseCommand. +
+Example: Delete command will be able to delete an expense or a budget depending on what the user is viewing instead of creating a separate DeleteBudget command.
 
 * *Other contributions*:
 
-** Project management:
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** link:https://github.com/AY1920S1-CS2103-T14-4/main/pull/25[#25] Refactored AddressBook test to MYMorise test
+*** link:https://github.com/AY1920S1-CS2103-T14-4/main/pull/151[#151] Updated the GUI color scheme
+*** link:https://github.com/AY1920S1-CS2103-T14-4/main/pull/143[#143] Wrote additional tests for existing features to increase coverage from 52% to 60%
+*** link:https://github.com/AY1920S1-CS2103-T14-4/main/pull/9[#9], link:https://github.com/AY1920S1-CS2103-T14-4/main/pull/18[#18],
+link:https://github.com/AY1920S1-CS2103-T14-4/main/pull/62[#62], link:https://github.com/AY1920S1-CS2103-T14-4/main/pull/76[#76]
+Consistent updates to User Guide, App icon and refactoring it from AddressBook to MYMorise
 
-_{you can add/remove categories in the list above}_
+== Code Contributed
+
+Full code contributed can be found at link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=choonx99&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]
+
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+*Budget Feature*
 
-include::../UserGuide.adoc[tag=dataencryption]
+=== Listing all budgets in the budget list : `listBudgets`
+Shows a list of all budgets. +
+Format: `listBudgets`
+
+An example is provided to show how the listBudgets command will result after the call.
+
+image::ListBudgetUI.png[]
+
+=== Viewing a budget : `view`
+Views an existing budget in the budget list. +
+Format: `view INDEX`
+
+****
+* Views the expenses stored in the budget, and shows the amount of money left in the budget.
+****
+
+An example is provided to show how the View command will result after the call.
+
+image::ViewBudgetUI.png[]
+
+=== Adding a budget : `budget`
+Specifies a budget for a period beginning from the specified start date to an end date. +
+Format: `budget n/NAME a/AMOUNT [c/CURRENCY] d/STARTDATE ed/ENDDATE`
+
+****
+* Sets a budget for a period beginning from STARTDATE (dd/MM/yyyy) to ENDDATE (dd/MM/yyyy) (inclusive). All expenses made during
+that period after the budget is set, will be included into the budget and the budget will deduct the expense
+to indicate how much funds are left available to spend.
+* Only expenses made that fall into the budget period after the budget is set will
+be included into the budget. Expenses created before the budget is set but falls into the budget period
+will not be included into the budget. They will remain in the default expense list.
+* Budgets may not have overlapping dates. +
+Example: There is an existing budget with
+start date 12/1/2019 and end date 18/1/2019, then new budgets to be added cannot have start date and/or
+end dates from 12/1/2019 to 18/1/2019 (inclusive)
+****
+[TIP]
+A budget with no currency specified will have the default currency set.
+[TIP]
+User may input time in the format "HHMM" in the [d/DATE] portion to specify current date with specified time
+
+Examples:
+
+* `budget n/Japan Travel a/4000 c/USD d/9/10/2019 ed/19/10/2019` +
+Sets a budget of SGD4000 for the period from Wed, 9th Oct 2019 to Sat, 19th Oct 2019.
+* `budget n/January 2019 Budget a/800 c/SGD d/1/1/2019 ed/31/1/2019` +
+Sets a budget of SGD800 for the period from Tue, 1st Jan 2019 to Thu, 31st Jan 2019.
+
+An example is provided to show how the budget command will result after the call.
+
+image::AddBudgetUI.png[]
+
+=== Editing a budget : `editBudget`
+Edits an existing budget in the budget list. +
+Format: `editBudget INDEX [n/NAME] [a/AMOUNT] [c/CURRENCY]…`
+
+****
+* Edits the budget at the specified `INDEX`. The index refers to the index number shown in the displayed budget list.
+The index *must be a positive integer* 1, 2, 3, …​ The index is relative to what is displayed on the GUI rather than
+the actual index of the budget in MYMorise.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `editBudget 1 n/Japan Travel a/4000` +
+Edits the name and the amount of the first budget to `Japan Travel` and `4000` respectively.
+* `editBudget 2 c/USD` +
+Edits the currency of the second budget to `USD` only. Other fields remain unchanged.
 
 == Contributions to the Developer Guide
 
@@ -59,7 +123,70 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+=== Budget Feature
+==== Overview
+The Budget feature allows users to track their expenses in relation to the budget set. Expenses created by the user after a budget is set and falls into a budget period will
+automatically be added into that budget.
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+The feature allows the user to view a list of all the budgets created in the app. From the list of budgets, users may view any specific budget
+showing all the expenses allocated into the budget, along with the amount left in the budget.
+Users may add, delete, edit a budget as well as the expenses inside the budget.
+
+==== Implementation
+The `BudgetList` stores all the budgets created in the App. To facilitate the adding, deleting and editing of budgets, the BudgetList provides a
+few operations such as: +
+`BudgetList#addBudget(budget)` - Add a new budget into the list of budgets in the budget list. +
+`BudgetList#setBudget(budget, editedBudget)` - Edit a current existing budget to a different budget +
+`BudgetList#removeBudget(budget)` - Remove a specified budget
+
+Given below is an activity diagram to show how a budget is added.
+
+image::AddBudgetActivityDiagram.png[]
+
+Given below is an activity diagram to show how an expense is added after the implementation of budget.
+
+image::AddExpenseActivityDiagram.png[]
+
+Given below is a sequence diagram to show when a Delete command is called.
+
+image::DeleteSequenceDiagram.png[]
+
+Given below is a class diagram of a Budget.
+
+image::BudgetClassDiagram.png[]
+
+Notice that the budget consists of 2 Amounts and 2 Dates. +
+The 2 Amounts refer to the Budget Amount set by the user and the Budget Amount
+currently left after deducting all expenses in the budget. +
+The 2 Dates refer to the Start Date of the Budget and the End Date of the budget. All expenses added after the budget is created,
+and fall within this 2 dates, will be automatically added into the budget.
+
+Given below is an example of a object diagram of a newly created Budget.
+
+image::BudgetObjectDiagram.png[]
+
+The Budget consists of an ExpenseList which holds all expenses added into the Budget.
+
+==== Design Consideration
+There were 2 main design choices we had to choose from for the implementation of the Budget Feature. +
+
+*Aspect: A single source of truth* +
+The model consists of an expense list and a budget list.
+
+- *Alternative 1:* Have a master expense list to store all expenses created and a budget list that consist of an internal
+expense list that stores copies of the expenses from master expense list that fall into the budget. In this option, commands that affect expenses, will require
+an update in the master expense list and the expense lists inside budgets affected. +
+    * Pros: Easy to implement, easy to keep track of a overall expenses.
+* Cons: Multiple objects of the same expense. An update to an expense in the overall expense list will require a same update
+to the same expense located in the budget. May result in bugs when commands affect expenses.
+
+- *Alternative 2:* Have a default expense list that stores only expenses that do not fall into a budget, and a budget list that consist
+of an internal expense list that stores the expenses that fall into a budget when the expense is added or edited. In this option, there is only
+1 copy of any expense created by the user. Any edit or delete of an expense affects directly to the original expense object.
+* Pros: Achieve a single source of truth. Does not introduce possible bugs that may be present if there were multiple copies of the same expense.
+* Cons: More complex to implement. In order to view all expenses in the app, the program will have to loop through the default expense list
+and the expense lists of every single budget.
+
+*Alternative 2* was chosen. Reason is because a single source of truth would eliminate duplicate entries of the same data. This would
+also reduce the possibility of bugs that may come with duplicate entries.
 

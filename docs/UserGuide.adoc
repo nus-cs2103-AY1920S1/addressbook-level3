@@ -149,7 +149,7 @@ Views an existing budget in the budget list. +
 Format: `view INDEX`
 
 ****
-* Views the expenses stored in the budget, and shows the amount of money left in the budget.
+* Views the expenses stored in the budget, and shows the percentage amount of money left in the budget.
 ****
 
 An example is provided to show how the View command will result after the call.
@@ -230,6 +230,17 @@ Deletes the first expense in the results of the find command.
 * `listBudgets` +
 `delete 2`
 Deletes the second budget in the budget list in MYMorise.
+
+An example is provided to show how the Delete command will result after the call when user is viewing the default expense list.
+
+Before calling Delete:
+
+image::BeforeDeleteUI.png[]
+
+After calling Delete:
+
+image::AfterDeleteUI.png[]
+
 // end::delete[]
 
 === Automatic currency conversion for foreign currencies
@@ -257,6 +268,16 @@ Format: `clear`
 
 Using `clear` while viewing an expense list will delete all expenses in that list. +
 Using `clear` while viewing the budget list will delete all budgets in the list.
+
+An example is provided to show how the Clear command will result after the call when user is viewing a specific budget.
+
+Before calling Clear:
+
+image::BeforeClearUI.png[]
+
+After calling Clear:
+
+image::AfterClearUI.png[]
 
 === Autocomplete
 Equip with IDE-like autocomplete function for faster input and
