@@ -27,7 +27,7 @@ image::../images/Plan2TravelSS.png[]
 ** Highlights:
 . Current implementation of using Hashmap to store prefix and their arguments does not maintain the order of the prefixes that are being added. As the new enhancement require information of the order of activities to schedule as specified by the user, I have to implement a new way to store those prefixes to maintain their insertion order.
 . This enhancement can easily be extended to schedule multiple activities at one time.
-. There were many cases to consider to ensure that there were no overlap of activity but still provide a schedule that best suit the requirement of the user.
+. There were many cases to consider to ensure that there were no overlap of activities and we have to still provide a schedule that best suit the requirement of the user.
 
 
 * *Minor enhancement*: added *the ability to schedule an activity to a day*.
@@ -40,13 +40,13 @@ Therefore, this command is crucial in allowing user to input activity into a par
 
 * *Minor enhancement*: added the model for *Activity*.
 ** What it does: Forms the backbone of most commands which require activity.
-** Justification: Our application is designed for students to plan their activities, and therefore this enhancement would later be involved in most of any other enhancements that take place in future.
+** Justification: Our application is designed for students to plan their activities, and therefore this enhancement is crucial as it would later be involved in most of any other enhancements that take place in future.
 ** Highlights:
 . This enhancement requires an understanding of how a typical activity should consist of so that it does not violate the law of demeter.
 
 * *Other contributions*:
 ** Enhancement to existing features:
-*** Wrote test for exisiting feature to improve coverage https://github.com/AY1920S1-CS2103T-T09-1/main/pull/106[#106]https://github.com/AY1920S1-CS2103T-T09-1/main/pull/216[#216]
+*** Wrote tests for existing feature to improve coverage https://github.com/AY1920S1-CS2103T-T09-1/main/pull/106[#106] https://github.com/AY1920S1-CS2103T-T09-1/main/pull/216[#216]
 ** Documentation:
 *** Contributed to the User Guide and Developer Guide for this project. See below for more details.
 ** Community:
@@ -60,6 +60,8 @@ Therefore, this command is crucial in allowing user to input activity into a par
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+
+include::../DeveloperGuide.adoc[tag=scheduleactivity]
 
 === Scheduling an activity to a day: `schedule`
 
@@ -112,7 +114,6 @@ Examples:
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=scheduleactivity]
 === Schedule feature
 
 *_Plan²travel_* allows user to schedule an activity from the activity list to a specified time of a day.
