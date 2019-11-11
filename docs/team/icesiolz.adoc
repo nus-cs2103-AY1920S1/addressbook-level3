@@ -107,10 +107,12 @@ Refactored the UI classes as well as the DarkTheme.css file so that it is able t
 |_Given below are sections I contributed to the User Guide for my main feature. They showcase my ability to write documentation targeting end-users._
 |===
 
-.Calendar Feature +
-image::icesiolz/UG2.png[]
+Firstly, I designed the heading banners to make the UG more friendly as compared to plain text headings.
+image::icesiolz/UG5.png[]
 
-The calendar feature provides a more user friendly way to look at a list of events. Typing `show C` will bring up the calendar view.
+Secondly, I rearranged the features of the UG into better headings such as Visual Features, Navigation Features, CLI Features etc. This improves readability of the UG.
+
+Thirdly, I wrote the Theme Feature, Calendar Feature, Navigation Feature and Game Feature portion of the UG. I will show the Game Feature portion of the UG here below.
 
 .Game Feature EASY
 image::icesiolz/UG3.png[]
