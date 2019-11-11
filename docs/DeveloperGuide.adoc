@@ -658,7 +658,7 @@ image::ReportWindow.png[]
 ** Cons: At any point in using CaloFit, the statistics are not updated since the object is only created when the "report" command is entered.
 * **Alternative 2:** Every command creates a new updated *_Statistics_* object.
 ** Pros: Logging of statistics can be accurate, and statistics are always updated.
-** Cons: Unnecessary as user does not need to see the statistics other than through a "report" command and results in every command having to do more work and interact with the #Model# more, possibly creating more bugs.
+** Cons: Unnecessary as user does not need to see the statistics other than through a "report" command and results in every command having to do more work and interact with the *_Model_* more, possibly creating more bugs.
 * **Explanation of Choice:** Since the user only needs to see the updated statistics when a "report" command is executed, we only need to generate a new *_Statistics_* object with the updated values for that command, hence **Alternative 1** is chosen to avoid adding unnecessary complexity to each command.
 
 ===== Aspect: Data structure to store the statistics in CaloFit.
@@ -669,7 +669,7 @@ image::ReportWindow.png[]
 * **Alternative 2:** Store the values as a *_List_* in the *_Model_*.
 ** Pros: The statistics can be updated easily through the *_Model_* itself by updating the elements in the *_List_*. Accessing the statistics to display is easier as well.
 ** Cons: Burdens the *_Model_* with a responsibility that is largely irrelevant to its current ones, which is to keep track of the Objects that make up the CaloFit model.
-* **Explanation of Choice:** To try and enforce Single Responsibility Principle as much as possible and avoid adding irrelavant functionality to #Model#.
+* **Explanation of Choice:** To try and enforce Single Responsibility Principle as much as possible and avoid adding irrelavant functionality to *_Model_*.
 // end::report[]
 
 
@@ -973,7 +973,7 @@ Expected: Quantity of carbonara consumed will be 1. Quantity of beef stew consum
 .. Test Case: `add n/carbonara c/689`, followed by `report`. +
 Expected: Maximum will be 689, Minimum will be 0, and Average will be 22.
 .. Test case: `add n/carbonara c/689`, `add n/beef stew c/200`, followed by `report`. +
-Expected: Maximum will be 889, Minimum will be 0, and Average will be 29(for 30 day months) or 28(for 31 day months).
+Expected: Maximum will be 889, Minimum will be 0, and Average will be 30(for 30 day months) or 29(for 31 day months).
 .. Test case: same as previous, with additional `add n/beef stew c/200` before `report` on a different day in the same month. +
 Expected: Maximum will be 889, Minimum will be 0, and Average will be 36(for 30 day months) or 35(for 31 day months).
 [NOTE]

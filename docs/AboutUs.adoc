@@ -20,36 +20,40 @@ Role: Project Advisor
 
 '''
 
-=== Maurice
+=== Tan Xiang Sheng, Maurice
 image::mauricetxs.png[width="150", align="left"]
 {empty}[http://github.com/MauriceTXS[Github]]
+{empty}[https://ay1920s1-cs2103t-w11-4.github.io/main/team/mauricetxs.html[Project Portfolio Page]]
 
 Role: Chief Executive Officer +
 Responsibilities: UI
 
 '''
 
-=== Felix
+=== Ng Wen Jun, Felix
 image::felixnwj.png[width="150", align="left"]
 {empty}[http://github.com/FelixNWJ[Github]]
+{empty}[https://ay1920s1-cs2103t-w11-4.github.io/main/team/felixnwj.html[Project Portfolio Page]]
 
 Role: Chief Operating Officer +
 Responsibilities: Data
 
 '''
 
-=== Ryan
+=== Ryan Chew Jing Rong
 image::iltep64.png[width="150", align="left"]
 {empty}[http://github.com/iltep64[Github]]
+{empty}[https://ay1920s1-cs2103t-w11-4.github.io/main/team/iltep64.html[Project Portfolio Page]]
 
 Role: Chief Technical Officer +
 Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Pin Sern
+=== Fang Pin Sern
 image::fangpinsern.png[width="150", align="left"]
 {empty}[http://github.com/fangpinsern[Github]]
+{empty}[https://ay1920s1-cs2103t-w11-4.github.io/main/team/fangpinsern.html[Project Portfolio Page]]
 
 Role: Intern +
 Responsibilities: Database and DevOps
