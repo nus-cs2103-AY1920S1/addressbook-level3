@@ -775,7 +775,7 @@ update of items.
 the inventory.
 * After every checkout, the sales made will be recorded as one transaction which will be then labelled as "Items sold"
 under the category "Sales" and person will be the cashier-in-charge. The Home tab will be updated with this transaction.
-* Once there are items on the cart, `Cashier Mode` will automatically be turned on. When `Cashier Mode` is turned on, you cannot
+* Whenever there are items on the cart, `Cashier Mode` will automatically be turned on. When `Cashier Mode` is turned on, you cannot
 make any modification to existing items in the inventory except for the adding of new items.
 
 [NOTE]
@@ -786,7 +786,7 @@ Due to size limitation, you will not be allowed to add any items into the table 
 are advised to reduce the quantity of items or checkout separately in another cart.
 
 [NOTE]
-The description is case-insensitive. Regardless of the case, as long as the description matches, it can be added to the cart.
+The description and category are case-insensitive. Regardless of the case, as long as the description matches, it can be added to the cart.
 
 ====
 

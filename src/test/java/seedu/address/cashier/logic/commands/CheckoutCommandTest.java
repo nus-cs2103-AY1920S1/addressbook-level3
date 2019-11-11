@@ -51,7 +51,7 @@ public class CheckoutCommandTest {
     }
 
     @Test
-    public void execute_validTotalAmountValidChange_successful() throws Exception {
+    public void execute_validTotalAmountValidChange_successful() {
         CheckoutCommand checkoutCommand = new CheckoutCommand(VALID_TOTAL_AMOUNT, VALID_CHANGE);
         Person cashier = new PersonBuilder().build();
         model.setCashier(cashier);

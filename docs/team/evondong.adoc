@@ -202,11 +202,6 @@ Examples:
 ** [blue]`add c/stationary d/pancake q/3` - Adds 3 similar items which have the description "pancake"
 ** [blue]`add d/pancake q/3` - Adds 3 similar items which have the description "pancake"
 
-//[NOTE]
-//The items will only be displayed according to the category in the response box if both description and quantity fields are not specified
-//and the category field is valid.
-//Else, *only suggestions* will be shown in the response box according to the mistyped description.
-
 [NOTE]
 The system will allow a valid item to be added even if the category of the item does *not* match with the
 specified category inputted.
@@ -283,7 +278,7 @@ The following section showcases my contribution to the developer guide for featu
 This section will show further details of the `Logic` Component of the Inventory tab and Cashier tab.
 Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component:
 
-[caption = "Figure 38. "]
+[caption = "Figure 8. "]
 .Structure of `Parser` for the Inventory and Cashier tabs
 image::CashierInventoryParser3.png[width="350"]
 
@@ -341,7 +336,7 @@ If description and quantity are both valid, the `ModelManager` will add the item
 
 The following sequence diagram shows how the add command works which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
-[caption = "Figure 39. "]
+[caption = "Figure 45. "]
 .Sequence Diagram of Add Command in Cashier Tab (cashier package)
 image::AddCommandCashierSeq.png[width="300"]
 
@@ -355,7 +350,7 @@ it is initially false.
 
 The following activity diagram shows the steps proceeding after the user input an add command:
 
-[caption = "Figure 40. "]
+[caption = "Figure 46. "]
 .Activity Diagram of Add Command (cashier package)
 image::AddCommandCashierActivity.png[width="750"]
 
@@ -387,7 +382,7 @@ immediately set to false.
 
 The following sequence diagram shows how the checkout command is executed:
 
-[caption = "Figure 44. "]
+[caption = "Figure 50. "]
 .Sequence Diagram of Checkout Command (cashier package)
 image::CheckoutCommandCashierSeq1.png[width="300"]
 
@@ -398,17 +393,9 @@ called to read in the entire inventory data file and transaction will be added t
 
 The following sequence diagram shows how the transaction and inventory are updated:
 
-[caption = "Figure 45. "]
+[caption = "Figure 51. "]
 .Sequence Diagram of how Transaction and Inventory get Updated (cashier package)
 image::CheckoutCommandCashierSeq2.png[width="600"]
-
-//As seen below, if the amount inputted is less than the total amount of items, the user will be prompted to key in a valid value.
-//
-//The following activity diagram shows the steps after the user input a checkout command:
-//
-//.Activity Diagram of Checkout Command (cashier package)
-//
-//image::CheckoutCommandCashierActivityDiag.png[width="490"]
 
 {End of Third Extract from Developer Guide}
 

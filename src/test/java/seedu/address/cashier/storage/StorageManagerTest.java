@@ -21,16 +21,7 @@ import seedu.address.transaction.model.transaction.Transaction;
 public class StorageManagerTest {
 
     private Storage storage;
-    /*private seedu.address.person.model.Model personModel;
-    private seedu.address.transaction.model.Model transactionModel = null;
-    private seedu.address.inventory.model.Model inventoryModel;
-    private seedu.address.transaction.logic.Logic transactionLogic;
-    private seedu.address.inventory.logic.Logic inventoryLogic;*/
     private seedu.address.transaction.storage.Storage transactionStorage;
-    /*private seedu.address.inventory.storage.Storage inventoryStorage;*/
-    //private seedu.address.reimbursement.logic.Logic reimbursementLogic = null;
-    //private seedu.address.reimbursement.storage.Storage reimbursementStorage = null;
-    //private Model model;
 
     public StorageManagerTest() throws Exception {
         try {
@@ -38,13 +29,11 @@ public class StorageManagerTest {
             File iFile;
             File tFile;
             File rFile;
-            //Storage storage;
             CheckAndGetPersonByNameModel personModel;
             seedu.address.transaction.model.Model transactionModel = null;
             seedu.address.inventory.model.Model inventoryModel;
             seedu.address.transaction.logic.Logic transactionLogic;
             seedu.address.inventory.logic.Logic inventoryLogic;
-            //seedu.address.transaction.storage.Storage transactionStorage;
             seedu.address.inventory.storage.Storage inventoryStorage;
             model = new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
                     TypicalTransactions.getTypicalTransactionList());
