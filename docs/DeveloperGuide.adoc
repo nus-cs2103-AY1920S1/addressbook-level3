@@ -234,11 +234,11 @@ or the schedules changes.
 * exposes a list of `ObservableList<Interviewee>` that can be 'observed' by the UI.
 * does not depend on any of the three components.
 
-// tag::storage[]
 ==== Schedule
 The `Schedule` objects are filled up and created by the imported interviewer's availability. The inner data of a `Schedule` object is the same as the corresponding availability
 table in the imported interviewer's availability. The data of the `Schedule` can be changed after running the scheduling algorithm.
 
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 

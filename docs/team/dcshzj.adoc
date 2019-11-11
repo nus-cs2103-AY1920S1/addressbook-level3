@@ -30,12 +30,12 @@ The main feature of Scheduler is to match interviewees with the available time s
 ** Project management:
 *** Ensuring that the team is keeping up with weekly progress to ensure almost 100% of the tasks for each milestone is hit.
 *** Managed the allocation of issues and PRs to corresponding milestones and the triaging of issues reported.
+*** Necessary general code enhancements on renaming the product from AddressBook to Scheduler (Pull requests https://github.com/AY1920S1-CS2103-F09-1/main/pull/104[#104] and https://github.com/AY1920S1-CS2103-F09-1/main/pull/159[#159]).
 ** Enhancements to existing features:
-*** Expanded the functionality of the user preferences storage to allow for the customisation of the email message body sent to interviewees (Pull request https://github.com/AY1920S1-CS2103-F09-1/main/pull/107[#107])
-*** Developed unit tests for various aspects of the codebase to bring the code coverage from 70% to 80%. (Pull requests https://github.com/AY1920S1-CS2103-F09-1/main/pull/158[#158] https://github.com/AY1920S1-CS2103-F09-1/main/pull/168[#168] https://github.com/AY1920S1-CS2103-F09-1/main/pull/172[#172] https://github.com/AY1920S1-CS2103-F09-1/main/pull/180[#180] https://github.com/AY1920S1-CS2103-F09-1/main/pull/184[#184])
-*** Designed and developed integration tests to ensure compatibility among different aspects of the program.
+*** Expanded the functionality of the user preferences storage to allow for the customisation of the email message body sent to interviewees (Pull request https://github.com/AY1920S1-CS2103-F09-1/main/pull/107[#107]).
+*** Developed unit and integration tests for various aspects of the codebase to bring the code coverage from 70% to 80%. (Pull requests https://github.com/AY1920S1-CS2103-F09-1/main/pull/158[#158] https://github.com/AY1920S1-CS2103-F09-1/main/pull/168[#168] https://github.com/AY1920S1-CS2103-F09-1/main/pull/172[#172] https://github.com/AY1920S1-CS2103-F09-1/main/pull/180[#180] https://github.com/AY1920S1-CS2103-F09-1/main/pull/184[#184]).
 ** Documentation:
-*** Documented the use of the email feature in both the user and developer guide (Pull requests https://github.com/AY1920S1-CS2103-F09-1/main/pull/34[#34] https://github.com/AY1920S1-CS2103-F09-1/main/pull/77[#77] https://github.com/AY1920S1-CS2103-F09-1/main/pull/100[#100])
+*** Documented the use of the email feature in both the user and developer guide (Pull requests https://github.com/AY1920S1-CS2103-F09-1/main/pull/34[#34] https://github.com/AY1920S1-CS2103-F09-1/main/pull/77[#77] https://github.com/AY1920S1-CS2103-F09-1/main/pull/100[#100]).
 ** Community:
 *** PRs reviewed: https://github.com/AY1920S1-CS2103-F09-1/main/pull/61[#61] https://github.com/AY1920S1-CS2103-F09-1/main/pull/88[#88] https://github.com/AY1920S1-CS2103-F09-1/main/pull/90[#90] https://github.com/AY1920S1-CS2103-F09-1/main/pull/95[#95] https://github.com/AY1920S1-CS2103-F09-1/main/pull/150[#150] https://github.com/AY1920S1-CS2103-F09-1/main/pull/152[#152] https://github.com/AY1920S1-CS2103-F09-1/main/pull/167[#167] https://github.com/AY1920S1-CS2103-F09-1/main/pull/176[#176] https://github.com/AY1920S1-CS2103-F09-1/main/pull/179[#179] https://github.com/AY1920S1-CS2103-F09-1/main/pull/181[#181]
 
