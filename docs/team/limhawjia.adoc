@@ -1,72 +1,158 @@
 = Lim Haw Jia - Project Portfolio
 :site-section: AboutUs
-:imagesDir: ../images
-:stylesDir: ../stylesheets
+:imagesDir: ../images/hj_ppp
+:stylesDir: ../stylesheets/
+:sectnums:
 
-== PROJECT: Duke Academy
+== Project: Duke Academy
 
-'''
+Duke Academy is a Java based programming practice application equipped with a wide range of questions related to the field of Data Structures and Algorithms.
 
 == Overview
 
-Duke Academy is a Java programming platform equipped with a library of programming questions related to the field of Data Structures and Algorithms, as well as an automated judging system. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 15 kLoC.
+Duke Academy was built to emulate a Command Line Application where users interact with the GUI by typing commands into a command box.
+This is to allow new learners to also familiarize themselves with using a Command Line Interface, an invaluable skill for all programmers.
 
-== Summary of contributions
+[.text-center]
+.Main GUI of Duke Academy
+image::DukeAcademyGUI.png[align="center" width="800"]
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+Duke Academy is an integrated platform with a built-in text editor, an auto-grader and a note-taking feature.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+DukeAcademy can also be used as a teaching tool by educators as they can set their own questions to be loaded by their students using our simplified text format.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+== My Roles and Contributions
 
-* *Other contributions*:
+The following segment illustrates the different roles and tasks that I have performed for our team in detail.
+It also provides a bit of justification for the different choices that I have made pertaining to these roles and tasks.
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+=== Change underlying architecture to suit our needs [refactor]
+
+_Due to the increased complexity of our product, a large part of the existing architecture of AddressBook3 had to be changed.
+Most of the changes can be summarized into the 3 following sections :_
+
+
+==== *Separate Logic component*
+
+  * Split the old `Logic` interface in AddressBook3 into separate interfaces, each with their own specialized functions.
+  * The new interfaces are `CommandLogic`, `QuestionsLogic`, `ProgramSubmissionLogic` and `NotesLogic`.
+  * Each interface facilitates operations pertaining to a different part of our application.
+====
+Justification :
+
+* Functionality of our application can be split into more cohesive components
+* Reduce coupling to make the codebase more  testable and maintainable
+====
+==== *Implemented Observer pattern* +
+
+  * Created a new simple and lightweight observable class that can be customized using Java generics.
+
+====
+Justification :
+
+** Enable UI components to observe and reflect changes in the application state without introducing them as unnecessary dependencies.
+** JavaFX's native Observable class was over-engineered for our use case.
+====
+
+==== *Refactor Command pattern*
+
+* Change the implementation of the Command pattern to be more flexible.
+* `execute()` no longer depends on `Model`.
+* Parsing of command arguments is now handled by individual commands.
+* Open-closed principle is maintained by registering commands into `CommandLogic` with a `Supplier`.
+* `Supplier` is in charge of injecting dependencies into the various commands.
+
+====
+Justification :
+
+* New commands no longer depend on `Model` and have their own dependencies.
+* New commands require their own unique argument parsing logic.
+====
+
+=== Program evaluation feature [feature]
+
+* *What it does* : +
+  Allows users' solutions to be automatically evaluated by our application. The solution is evaluated against test cases specified in the `Question` class.
+
+* *Justification* : +
+  It is difficult to come up with your own test cases to evaluate your solutions whenever you attempt programming questions. It is also very cumbersome to run each test case manually. Allowing users to automatically have their solutions evaluated will allow them to focus more on their learning.
+
+* *Highlights* :
+** Compile and runtime errors are also displayed to the user in the event that they occur so that users are able to learn from their mistakes.
+** A _Time Limit Exceeded_ error is displayed if the user's program takes too long to complete. This will allow users to know if their solutions are properly optimized.
+
+.Program evaluation example
+image::ProgramEvaluation.png[align="center" width="800"]
+
+.Compile error example
+image::CompileError.png[align="center" width="800"]
+
+=== Note-taking feature [feature]
+* What it does : +
+  Allows users to record notes in the form of text or a simple sketch.
+
+* Justification : +
+  Being able to pen down ideas is extremely useful when coming up with solutions to programming questions. Furthermore, being able to take notes for future reference will help to reinforce our users' learning.
+
+* Highlights : +
+  In addition to taking notes in the form of text, user's are also able to sketch their ideas within a a sketch pad and have them saved for future reference. This is particularly useful when dealing with data structures.
+
+.Notes page preview
+image::NotePage.png[align="center" width="800"]
+
+=== Tabs [feature]
+* What it does  : +
+  Splits the various functions of the application -- _browsing and viewing of questions_, _attempting of questions and evaluation of results_, _note-taking_, into individual tabs.
+
+* Justification : +
+  Separating the various functions of our application into their own separate tabs will reduce clutter and enable users to be more organized in their learning.
+
+* Highlights : +
+  In line with the _Command Line_ theme, the user is able to switch tabs by typing the command _"tab"_ instead of using a mouse-click.
+
+== Other Contributions
+
+** Project management
+*** Managed and enforced branching workflow on GitHub
+*** Set up auto-publishing of docs (https://github.com/AY1920S1-CS2103T-F14-1/main/commit/ccde6b5fba8b4d5294678804d0e63c03804ce24c[commit])
+*** Managed releases `v1.3` - `v1.4` on GitHub (2 releases)
+** Product design:
+*** Updated the GUI layout and color scheme (Pull requests https://github.com/AY1920S1-CS2103T-F14-1/main/pull/112[#112])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Cosmetic tweaks to contents of the User Guide (Pull requests https://github.com/AY1920S1-CS2103T-F14-1/main/pull/13[#13] https://github.com/AY1920S1-CS2103T-F14-1/main/pull/34[#34])
+*** Actively contributed to the writing of the User Guide and Developer Guide (Pull requests https://github.com/AY1920S1-CS2103T-F14-1/main/pull/77[#77] https://github.com/AY1920S1-CS2103T-F14-1/main/pull/83[#83]  https://github.com/AY1920S1-CS2103T-F14-1/main/pull/185[#185] https://github.com/AY1920S1-CS2103T-F14-1/main/pull/190[#190])
+** Testing:
+*** Wrote tests to validate the code base (Pull requests https://github.com/AY1920S1-CS2103T-F14-1/main/pull/87[#87] https://github.com/AY1920S1-CS2103T-F14-1/main/pull/88[#88])
+*** Actively wrote tests for most major pull requests
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Reported bugs and suggestions for other teams in the class (https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/25[Liberry])
 
-_{you can add/remove categories in the list above}_
+== Code Contributions
+
+Click the links below to view my code contributions on RepoSense.
+On RepoSense, you can select options to view my functional code and test code.
+
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=F14&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=limhawjia&tabRepo=AY1920S1-CS2103T-F14-1%2Fmain%5Bmaster%5D[Functional code]
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=F14&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=limhawjia&tabRepo=AY1920S1-CS2103T-F14-1%2Fmain%5Bmaster%5D[Test code]
 
 == Contributions to the User Guide
 
+Given below are some of the sections that I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+include::../UserGuide.adoc[tag=overview]
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=beforestart]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=submit]
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+Given below are some of the sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=logic]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=logic1]
 
+include::../DeveloperGuide.adoc[tag=programevaluation]
 
-== PROJECT: PowerPointLabs
-
-'''
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=programevaluationalternative]

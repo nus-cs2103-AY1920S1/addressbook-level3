@@ -93,7 +93,7 @@ public class SubmitCommand implements Command {
         }
 
         // Give user feedback
-        String feedback = "Submitted your program for question : " + question.getTitle() + "\nResult : ";
+        String feedback = "Submitted your program for question : " + question.getTitle() + " Result : ";
         if (isSuccessful) {
             feedback = feedback + "success";
         } else {
