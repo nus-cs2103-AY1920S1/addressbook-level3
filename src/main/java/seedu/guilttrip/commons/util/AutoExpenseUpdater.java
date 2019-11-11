@@ -27,7 +27,6 @@ public class AutoExpenseUpdater extends Task<Void> {
         for (AutoExpense autoExpense : model.getFilteredAutoExpenses()) {
             autoExpense.generateNewExpenses().stream().forEach(model::addExpense);
         }
-        model.commitGuiltTrip();
     }
 
     @Override
