@@ -1029,6 +1029,20 @@ NOTE: The inventory item to delete must exclusively be a non-event-specific inve
 
 
 
+=== Help
+The help feature gives the user an avenue to find additional help. It consists of only one command `help` with no other fields.
+
+NOTE: Help can be called from any page in _TravelPal_
+
+Upon executing the command `help` the user is shown a link to the _User Guide_ (this document). A popup will appear containing the link to our _User Guide_:
+
+image::help.png[title="The help popup",width=400]
+
+=== Exit
+Exiting the app is a simple task of closing the application safely. Enter the command `exit` into the command bar and press enter to exit _TravelPal_.
+
+_TravelPal's_ window should close without any errors. Thank you for using _TravelPal_
+
 == General info
 
 ====
