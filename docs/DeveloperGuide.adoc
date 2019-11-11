@@ -74,6 +74,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+//tag::ui[]
 [[Design-Ui]]
 === UI component
 
@@ -91,6 +92,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes through the Observer pattern. The UI updates as the `ObservableList` changes.
+//end::ui[]
 
 [[Design-Logic]]
 === Logic component
