@@ -25,30 +25,34 @@ import seedu.revision.model.RevisionTool;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
-import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
+import seedu.revision.testutil.builder.EditAnswerableDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
 
-    public static final String VALID_QUESTION_ALPHA = "Amy Bee";
-    public static final String VALID_QUESTION_BETA = "Bob Choo";
-    public static final String VALID_QUESTION_TYPE = "mcq";
+    public static final String VALID_MCQ_QUESTION_1 = "What type of project is AB3?";
+    public static final String VALID_MCQ_QUESTION_2 = "Which of the following is not true?";
+    public static final String VALID_TF_QUESTION_1 = "As per the textbook, "
+            + "PR reviews is one of the two ways of reviewing code";
+    public static final String VALID_TF_QUESTION_2 = "Linters are a subset of dynamic (not static) analysis tools";
+    public static final String VALID_SAQ_QUESTION_1 = "What does Boundary Value Analysis suggests?";
+
+
+    public static final String VALID_QUESTION_TYPE_MCQ = "mcq";
     public static final String VALID_DIFFICULTY_ALPHA = "1";
     public static final String VALID_DIFFICULTY_BETA = "3";
-    public static final String VALID_CATEGORY_ALPHA = "Block 312, Amy Street 1";
     public static final String VALID_CATEGORY_GREENFIELD = "greenfield";
     public static final String VALID_CATEGORY_UML = "UML";
 
     public static final String QUESTION_TYPE_MCQ = " " + PREFIX_QUESTION_TYPE + "mcq";
-    public static final String QUESTION_DESC_ALPHA = " " + PREFIX_QUESTION + VALID_QUESTION_ALPHA;
-    public static final String QUESTION_DESC_BETA = " " + PREFIX_QUESTION + VALID_QUESTION_BETA;
+    public static final String QUESTION_DESC_ALPHA = " " + PREFIX_QUESTION + VALID_MCQ_QUESTION_1;
+    public static final String QUESTION_DESC_BETA = " " + PREFIX_QUESTION + VALID_MCQ_QUESTION_2;
     public static final String CORRECT_ANSWER_DESC_BROWNFIELD = " " + PREFIX_CORRECT + "Brownfield";
-    public static final String CORRECT_ANSWER_DESC_GREENFIELD = " " + PREFIX_CORRECT + "Greenfield";
     public static final String MCQ_WRONG_ANSWER_DESC = " " + PREFIX_WRONG + "Greenfield " + PREFIX_WRONG + "Blackfield "
             + PREFIX_WRONG + "Whitefield";
-    public static final String QUESTION_TYPE_DESC = " " + PREFIX_QUESTION_TYPE + VALID_QUESTION_TYPE;
+    public static final String QUESTION_TYPE_DESC = " " + PREFIX_QUESTION_TYPE + VALID_QUESTION_TYPE_MCQ;
     public static final String DIFFICULTY_DESC_ALPHA = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_ALPHA;
     public static final String DIFFICULTY_DESC_BETA = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_BETA;
     public static final String CATEGORY_DESC_UML = " " + PREFIX_CATEGORY + VALID_CATEGORY_UML;
@@ -61,22 +65,34 @@ public class CommandTestUtil {
     // category cannot just be whitespace
     public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "";
 
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditCommand.EditAnswerableDescriptor DESC_ALPHA;
     public static final EditCommand.EditAnswerableDescriptor DESC_BETA;
 
+    public static final CommandResultBuilder COMMAND_RESULT_BUILDER_CORRECT_HELP_FALSE_EXIT_FALSE =
+            new CommandResultBuilder().withCorrect(true)
+            .withHelp(false).withExit(false);
+
+
+    public static final CommandResultBuilder COMMAND_RESULT_BUILDER_WRONG_HELP_FALSE_EXIT_FALSE =
+            new CommandResultBuilder().withCorrect(false)
+            .withHelp(false).withExit(false);
+
     private static final Answer correctAnswer = new Answer("CORRECT");
     private static final ArrayList<Answer> defaultCorrectAnswerList = new ArrayList<>(Arrays.asList(correctAnswer));
     private static final Answer wrongAnswer = new Answer("WRONG");
     private static final ArrayList<Answer> defaultWrongAnswerList = new ArrayList<>(Arrays.asList(wrongAnswer));
 
+
+
     static {
-        DESC_ALPHA = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_ALPHA)
+        DESC_ALPHA = new EditAnswerableDescriptorBuilder().withQuestion(VALID_MCQ_QUESTION_1)
                 .withCorrectAnswerList(defaultCorrectAnswerList).withWrongAnswerList(defaultWrongAnswerList)
                 .withDifficulty(VALID_DIFFICULTY_ALPHA).withCategories(VALID_CATEGORY_UML).build();
-        DESC_BETA = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BETA)
+        DESC_BETA = new EditAnswerableDescriptorBuilder().withQuestion(VALID_MCQ_QUESTION_2)
                 .withCorrectAnswerList(defaultCorrectAnswerList).withWrongAnswerList(defaultWrongAnswerList)
                 .withDifficulty(VALID_DIFFICULTY_BETA)
                 .withCategories(VALID_CATEGORY_GREENFIELD, VALID_CATEGORY_UML).build();

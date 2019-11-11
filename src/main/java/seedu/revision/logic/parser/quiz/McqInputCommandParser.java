@@ -1,6 +1,7 @@
 package seedu.revision.logic.parser.quiz;
 
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.revision.ui.bar.Timer.TIMER_UP_SKIP_QUESTION;
 
 import seedu.revision.logic.commands.quiz.McqInputCommand;
 import seedu.revision.logic.parser.QuizParser;
@@ -20,7 +21,7 @@ public class McqInputCommandParser implements QuizParser<McqInputCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public McqInputCommand parse(String args, Answerable currentAnswerable) throws ParseException {
-        if (args.matches("\\b(?i)[a-d]|[n]\\b")) {
+        if (args.matches("\\b(?i)[a-d]\\b") || args.equals(TIMER_UP_SKIP_QUESTION)) {
             return new McqInputCommand(args, currentAnswerable);
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, McqInputCommand.MESSAGE_USAGE));

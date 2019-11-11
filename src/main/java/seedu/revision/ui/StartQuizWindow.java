@@ -1,5 +1,8 @@
 package seedu.revision.ui;
 
+import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.revision.ui.bar.Timer.TIMER_UP_SKIP_QUESTION;
+
 import java.util.Iterator;
 import java.util.Optional;
 
@@ -14,6 +17,9 @@ import seedu.revision.logic.Logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.main.CommandResultBuilder;
+import seedu.revision.logic.commands.quiz.McqInputCommand;
+import seedu.revision.logic.commands.quiz.SaqInputCommand;
+import seedu.revision.logic.commands.quiz.TfInputCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
@@ -75,6 +81,7 @@ public class StartQuizWindow extends ParentWindow {
     //to keep track of the total number of questions answered so far at every level of the quiz
     private int accumulatedSize = 0;
 
+    /** Current progress of the user in the quiz. Used by {@code ProgressIndicatorBar}.**/
     private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(
             this, "currentProgressIndex", 0);
 
@@ -153,6 +160,11 @@ public class StartQuizWindow extends ParentWindow {
     @Override
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+
+            if (commandText.equals(TIMER_UP_SKIP_QUESTION) && !timer.isTimeUp()) {
+                throwParseExceptionWhenUserSkipsQuestion();
+            }
+
             CommandResult commandResult = logic.execute(commandText, currentAnswerable);
             if (commandResult.isCorrect()) {
                 totalScore++;
@@ -233,21 +245,19 @@ public class StartQuizWindow extends ParentWindow {
 
         task.setOnSucceeded(e -> {
             Optional<ButtonType> result = nextLevelDialog.showAndWait();
-            if (result.isPresent()) {
-                if (result.get() == nextLevelDialog.getNoButton()) {
-                    handleExit();
-                } else {
-                    //Reset UI in the window
-                    levelLabel.updateLevelLabel(nextLevel);
-                    currentProgressIndex.set(0);
-                    progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
-                            getSizeOfCurrentLevel(nextAnswerable),
-                            "%.0f/" + getSizeOfCurrentLevel(nextAnswerable));
-                    //Start a new timer for the next level
-                    this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
-                    progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
-                    scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
-                }
+            if (result.isPresent() && result.get() == nextLevelDialog.getNoButton()) {
+                handleExit();
+            } else {
+                //Reset UI in the window
+                levelLabel.updateLevelLabel(nextLevel);
+                currentProgressIndex.set(0);
+                progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
+                        getSizeOfCurrentLevel(nextAnswerable),
+                        "%.0f/" + getSizeOfCurrentLevel(nextAnswerable));
+                //Start a new timer for the next level
+                this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
+                progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
+                scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
             }
         });
 
@@ -314,7 +324,7 @@ public class StartQuizWindow extends ParentWindow {
     }
 
     /**
-     * Closes the application.
+     * Closes quiz mode and enters configuration mode by displaying the {@code MainWindow}.
      */
     @FXML
     protected void handleExit() {
@@ -327,24 +337,24 @@ public class StartQuizWindow extends ParentWindow {
                 + "(normal / arcade / custom) to try another quiz!");
     }
 
-    public StackPane getLevelPlaceholder() {
-        return levelPlaceholder;
-    }
-
-    public CommandBox getCommandBox() {
-        return commandBox;
+    /**
+     *
+     * @throws ParseException when uses attempts to skip question using internal command.
+     */
+    private void throwParseExceptionWhenUserSkipsQuestion() throws ParseException {
+        if (currentAnswerable instanceof Mcq) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, McqInputCommand.MESSAGE_USAGE));
+        } else if (currentAnswerable instanceof TrueFalse) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TfInputCommand.MESSAGE_USAGE));
+        } else {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaqInputCommand.MESSAGE_INVALID_INPUT_TIMER_UP));
+        }
     }
 
     public LevelLabel getLevelLabel() {
         return levelLabel;
-    }
-
-    public ResultDisplay getQuestionDisplay() {
-        return questionDisplay;
-    }
-
-    public AnswersGridPane getAnswersGridPane() {
-        return answersGridPane;
     }
 
     public ProgressIndicatorBar getProgressIndicatorBar() {
@@ -354,4 +364,6 @@ public class StartQuizWindow extends ParentWindow {
     public Timer getTimer() {
         return timer;
     }
+
+
 }

@@ -6,7 +6,7 @@ import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess
 import static seedu.revision.logic.commands.CommandTestUtil.showAnswerableAtIndex;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_FIRST_ANSWERABLE;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_SECOND_ANSWERABLE;
-import static seedu.revision.testutil.TypicalMcqs.getTypicalRevisionTool;
+import static seedu.revision.testutil.TypicalMcqs.getTypicalMcqs;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ import seedu.revision.model.answerable.Answerable;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalRevisionTool(), new UserPrefs(), new History());
+    private Model model = new ModelManager(getTypicalMcqs(), new UserPrefs(), new History());
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws ParseException {

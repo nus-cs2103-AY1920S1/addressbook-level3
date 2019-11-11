@@ -1,6 +1,7 @@
 package seedu.revision.logic.commands.quiz;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.revision.ui.bar.Timer.TIMER_UP_SKIP_QUESTION;
 
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.CommandResult;
@@ -25,6 +26,10 @@ public class TfInputCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
+        if (tfInput.equalsIgnoreCase(TIMER_UP_SKIP_QUESTION)) {
+            return new CommandResultBuilder().withCorrect(false).build();
+        }
+
         Answer selectedAnswer;
         switch (tfInput.toLowerCase()) {
         case "true":
@@ -37,17 +42,21 @@ public class TfInputCommand extends Command {
         case "f":
             selectedAnswer = new Answer("false");
             break;
-        case "n":
-            return new CommandResultBuilder().withCorrect(false).build();
         default:
             selectedAnswer = null;
         }
 
         requireNonNull(selectedAnswer);
-        boolean result = currentAnswerable.isCorrect(selectedAnswer);
+        boolean result = currentAnswerable.isAnswerCorrect(selectedAnswer);
 
         return new CommandResultBuilder().withCorrect(result).build();
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof TfInputCommand // instanceof handles nulls
+                && tfInput.equalsIgnoreCase(((TfInputCommand) other).tfInput));
+    }
 
 }
