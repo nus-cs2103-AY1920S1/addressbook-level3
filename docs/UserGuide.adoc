@@ -924,14 +924,26 @@ we estimate at least a few seconds before the window will be loaded.
 ** User will be able to export their charts to pdf with a click of a button.
 
 
-=== Export data: `export`
+// tag::export[]
 
+=== Export data: `export`
 
 Exports application data into csv file. +
 If csv file of the input file name exists, the application data will be exported to the existing file. +
 If csv file of the input file name does not exist, the application data will be exported into a new file. +
 
+. Write the export command: `Export FILENAME`
+
+****
+image::ExportCommand.png[width="800"]
+****
+. The CSV file of file name "FILENAME" will be created in the data folder.
+****
+image::exportCSV.png[width="800"]
+****
 [underline]#Format#: `export FILE_NAME` +
+
+// end::export[]
 
 // tag::autocomplete[]
 === Autocomplete
@@ -1057,6 +1069,8 @@ checking for duplicates.
 
 === Other commands
 
+// tag::import[]
+
 ==== Import data : `import` `[coming in v2.0]`
 
 
@@ -1065,6 +1079,8 @@ If csv file of the input file exists, the file will be imported. +
 If csv file of the input file does not exist, command will not be executed. +
 
 [underline]#Format#: `import FILE_NAME`
+
+// end::import[]
 
 ==== Saving the data
 
@@ -1084,12 +1100,16 @@ All data files will be password-protected with a unique password of at least 8 c
 
 Notification page to show reminders or alerts of upcoming schedules.
 
+// tag::exportPDF[]
+
 ==== Export data to PDF  `[coming in v2.0]`
 
 
 Export the application data in SML to PDF format.
 
 [underline]#Format#: `export pdf`
+
+// end::exportPDF[]
 
 ==== Add a new product `[coming in v2.0]`
 

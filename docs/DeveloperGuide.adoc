@@ -158,6 +158,8 @@ An example of how such `UniqueList<Tag>` and `UniqueList<Customer>` interacts is
  +
 image:BetterModelClassDiagram.png[]
 
+// tag::storage[]
+
 [[Design-Storage]]
 === Storage component
 
@@ -171,6 +173,8 @@ The `Storage` component,
 * can save `UserPref` objects in JSON format and read it back.
 * can save the Customer Book data, Phone Book data, Order Book data and Schedule Book data in JSON format and read them
  back.
+
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -594,6 +598,8 @@ as one would need to understand the parsing.
 
 // end::find[]
 
+// tag::export[]
+
 === Export feature
 ==== Implementation
 
@@ -622,6 +628,32 @@ At the end, the strings are appended to get the full CSV file containing the var
 * **Alternative 2:** Creating CSV formatted string straight from the Model.
 ** Pros: Easier to implement on the fly the decided layout of created CSV file.
 ** Cons: Harder to maintain. Had to code for the various cases in different data.
+
+==== Current Implementation
+===== Break down of the command.
+Below is a more in-depth explanation at each step.
+
+Step 1: User inputs a the export command e.g `Export FILENAME`
+
+The commandBox executes it and the MainWindow runs its executeCommand(commandText) method. Referring to the sequence diagram below, this results in logic.execute(commandText) being called and the ExportParser parses the input from the user, returning a Command object.
+
+Step 2: The logic then calls command.execute(command)
+
+When this happens the `ExportCommand` execute creates a new CommandResult object and return that to Logic, completing the execution of the user input command.
+
+Step 3: The commandResult executes `getCSVString()` which accesses JsonFiles in the data folder of Storage to parse the data into CSV strings and returns the data.
+
+Step 4: The commandResult creates CSV file in data folder and returns in the end of execution.
+
+Shown below is a quick summary of step 1-4 (Full complete diagram):
+
+image::ExportSequenceDiagram.png[]
+
+==== Notes to developer
+Developers working on adding features to this module should take note of these limitations that we have put in place for `v1.4` of SML:
+
+- File names are limited to the maximum character limit of Mac and Window users of 255 characters.
+- Simplified handling of file name which only allows file names to be alphanumeric.
 
 // end::export[]
 
@@ -1106,12 +1138,21 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `undo` +
    Expected: All the orders that were in the OrderBook will be shown.
 
+// tag::savingData[]
+
 === Saving data
 
 . Data is automatically saved after every command.
 
-.. When the application is relaunched, it will check for the validity of the data.
-Any corrupted data in any of the data files (customer, phone, order, schedule, archived order) will cause SML to start with an empty data book for that particular corrupted type of data.
+.. If all files are missing, sample data files will be loaded.
+
+.. Dependency flows from schedulebook to orderbook to phonebook and customerbook.
+.. If file "a" has dependency on file "b", and file "a" is missing, both empty file "a" and "b" will be loaded.
+.. If file is corrupted i.e. wrong string input, sample file will be loaded.
+
+_{ more test cases ... }_
+
+// end::savingData[]
 
 === Testing Statistics
 
@@ -1119,6 +1160,7 @@ Any corrupted data in any of the data files (customer, phone, order, schedule, a
 
 .. Prerequisites: Ensure that archived order panel has suitable `Completed` and `scheduled` orders. Only these orders
 will show up in the calculation
+
 .. Test case: `generate-s s/revenue d1/2018.12.13 d2/2019.11.13` +
     Expected: Chart is displayed in popup window
 
@@ -1130,5 +1172,4 @@ will show up in the calculation
 . `delete-c`
 . `find-c`
 . `export`
-
 
