@@ -51,9 +51,15 @@ The `bookmark` command allows the user to add a question to the list of bookmark
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=dashboard]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=bookmark]
+
+include::../UserGuide.adoc[tag=deletebookmark]
+
+include::../UserGuide.adoc[tag=dashboard]
+
+include::../UserGuide.adoc[tag=help]
 
 == Contributions to the Developer Guide
 
@@ -61,6 +67,6 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=ui]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=bookmark]

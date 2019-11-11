@@ -231,22 +231,27 @@ e.g. `browse [category]...` can be used as
 `browse easy linkedlist hashtable recursion` (i.e. 4 entries), etc.
 ====
 
+//tag::help[]
 === Access Help Tab: `help`
 
-Navigates to the *Help* Tab.
+Navigates to the *Help* Tab. +
+The *Help* tab contains a quick overview of commands used in Duke Academy, and also a URL to the official User Guide.
 
 *Format:* `help`
 
 image::help.png[width="1000"]
+//end::help[]
 
+//tag::dashboard[]
+=== Access Dashboard: `dashboard`
 
-=== Access Home Tab: `home`
+Navigates to the *Dashboard* Tab. +
+The Dashboard allows the user to keep track of his learning journey and progress made in Duke Academy.
 
-Navigates to the *Home* Tab.
-
-*Format:* `home`
+*Format:* `dashboard`
 
 image::home.png[width="1000"]
+//end::dashboard[]
 
 //tag::showall[]
 
@@ -259,6 +264,8 @@ Navigates to the *Questions* Tab and displays all available questions.
 image::listallquestions.png[width="1000"]
 
 //end::showall[]
+
+//tag::bookmark[]
 === Adding bookmark: `bookmark`
 
 Bookmarks a specific question.
@@ -271,7 +278,9 @@ Bookmarks a specific question.
 ****
 
 image::bookmark.png[width="1000"]
+//end::bookmark[]
 
+//tag::deletebookmark[]
 === Removing bookmark: `deletebookmark`
 
 Removes the bookmark from a specific question.
@@ -282,6 +291,7 @@ Removes the bookmark from a specific question.
 * The id of a question can be found next to its title.
 * The question with the bookmark removed will disappear from the list of bookmarked questions located within your *Personal Dashboard*.
 ****
+//end::deletebookmark[]
 
 //tag::find[]
 === Find question by title : `find`
