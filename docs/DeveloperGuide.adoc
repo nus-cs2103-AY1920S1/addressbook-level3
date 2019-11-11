@@ -337,7 +337,7 @@ show more detailed descriptions of the stored engagements for a particular day.
 
 ==== Implementation Structure
 .Structure of the Calendar Window
-image::CalendarWindowClassDiagram.png[]
+image::CalendarWindowClassDiagram.png[align="center"]
 {empty} +
 The `CalendarWindow` is part of the `MainWindow`. Specifically, it is one possible `Tab` which can be
 displayed. The `CalendarWindow` class and any of its associated UI components can be found under the `com.typee.ui.calendar` package.
@@ -346,7 +346,7 @@ The following sequence diagram shows the creation of a `CalendarWindow` instance
 calendar window tab.
 
 .CalendarWindow Initialization Sequence Diagram
-image::CalendarWindowSequenceDiagram.png[]
+image::CalendarWindowSequenceDiagram.png[align="center"]
 {empty} +
 
 ==== UI Design
@@ -408,25 +408,25 @@ which are used to model their workflows:
 * `CalendarOpenDisplayCommand` -- Opens the engagements list window for the specified date.
 
 .Open Display Activity Diagram
-image::CalendarOpenDisplayActivityDiagram.png[]
+image::CalendarOpenDisplayActivityDiagram.png[align="center"]
 {empty} +
 
 * `CalendarCloseDisplayCommand` -- Closes the engagements list window for the specified date.
 
 .Close Display Activity Diagram
-image::CalendarCloseDisplayActivityDiagram.png[]
+image::CalendarCloseDisplayActivityDiagram.png[align="center"]
 {empty} +
 
 * `CalendarNextMonthCommand` -- Changes the calendar window's display to the month after the currently displayed month.
 
 .Next Month Activity Diagram
-image::CalendarNextMonthActivityDiagram.png[]
+image::CalendarNextMonthActivityDiagram.png[align="center"]
 {empty} +
 
 * `CalendarOpenDisplayCommand` -- Changes the calendar window's display to the month prior to the currently displayed month.
 
 .Previous Month Activity Diagram
-image::CalendarPreviousMonthActivityDiagram.png[]
+image::CalendarPreviousMonthActivityDiagram.png[align="center"]
 {empty} +
 
 ==== Design Considerations
