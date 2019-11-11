@@ -5,37 +5,42 @@
 
 == PROJECT: Scheduler
 
-
-
 == Overview
 
 People who hold leadership positions, especially those in student-led clubs, have to usually schedule interviews with those interested in applying to
-leadership positions during recruitment period. Usually, there are clashing preferred time slots between interviewees, which the interviewer has to resolve.
-We found that the current practice of constant back-and-forth messaging between interviewees and interviewers to resolve this to
-be inefficient. We therefore came up with Scheduler, a desktop application used to automate and streamline the process of interview scheduling.
-
-Its main feature is matching interviewees with interview time slots to generate an optimal interview timetable, and works with
-two types of data: data on interviewees and interviewers.
+leadership positions during recruitment period. Usually, there are clashing preferred time slots between interviewees, which the interviewer has to slowly and manually resolve.
+We therefore came up with Scheduler, a desktop application used to automate and streamline the process of interview scheduling.
+Scheduler matches interviewees with interview time slots to generate an optimal interview timetable.
 The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoC.
+
+.Graphical user interface of Scheduler
+image::Ui.png[]
 
 == Summary of contributions
 
 * *Major enhancement*: added the *ability to manually `add`, `edit` and `delete` entities (interviewees and interviewers)* in Scheduler.
+
 ** What it does: This allows the user to manually alter the data currently in Scheduler .
+
 ** Justification: This feature is necessary to the product as interview schedules change frequently - interviewees may suddenly
 be unable to attend an interview, withdraw from the interview. Interviewers may also be forced to
 withdraw due to urgent business. There may also be more applicants, and hence interviewees. In these cases, the ability to
 manually change data in Scheduler is essential.
-** Highlights: This enhancement deeply affects the foundational structure of Scheduler. It required an in-depth understanding of
-the existing code base. The implementation was also challenging as it required changes to existing commands and needed to be
-designed such that enhancements could be easily added. The large number of possible input arguments for these commands also required extensive testing
-to ensure Scheduler was bug-free.
+
+** Highlights:
+
+*** This enhancement deeply affects the foundational structure of Scheduler in `Logic` and `Model`.
+*** It required an in-depth understanding of the existing code base, as well as other concepts like regex expressions to ensure input validity and the Jackson library to convert objects to JSON format.
+*** The implementation was also challenging as it required changes to existing commands and deletion of irrelevant fields. The large number of possible
+input arguments for these commands (e.g the `add` command has 8 possible input prefixes) also each required extensive testing to ensure users could not input invalid values.
 ** Credits: Joshua Bloch, author of Effective Java, for his ideas on Builder patterns as a way to generate objects with optional parameters.
 
-* *Minor enhancement*: added the ability to `clear` all entities from Scheduler's internal model.
+** Relevant pull requests: https://github.com/AY1920S1-CS2103-F09-1/main/pull/46[#46], https://github.com/AY1920S1-CS2103-F09-1/main/pull/60[#60], https://github.com/AY1920S1-CS2103-F09-1/main/pull/66[#66],
+https://github.com/AY1920S1-CS2103-F09-1/main/pull/86[#86], https://github.com/AY1920S1-CS2103-F09-1/main/pull/90[#90], https://github.com/AY1920S1-CS2103-F09-1/main/pull/102[#102], https://github.com/AY1920S1-CS2103-F09-1/main/pull/156[#156]
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kendrickang&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=KendrickAng&tabRepo=AY1920S1-CS2103-F09-1%2Fmain%5Bmaster%5D[Functional code]]
- [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kendrickang&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=KendrickAng&tabRepo=AY1920S1-CS2103-F09-1%2Fmain%5Bmaster%5D[Test code]]
+* *Minor enhancement*: Added the `clear` command, allowing the user to clear all entities and schedules from Scheduler's internal model.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kendrickang&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=KendrickAng&tabRepo=AY1920S1-CS2103-F09-1%2Fmain%5Bmaster%5D[View on RepoSense]]
 
 * *Other contributions*:
 
