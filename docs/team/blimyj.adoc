@@ -1,0 +1,83 @@
+= Bryan Lim Yan Jie - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ELISA
+
+== Overview
+
+My team of 5 were tasked with morphing or enhancing a basic command line interace (CLI) desktop address book application for our Software Engineering Project.
+
+We were all computing students who were experiencing high amounts of stress from juggling the never-ending list of responsibilities we had.
+We then realised that this was not a problem that was unique to ourselves, thus we resolved to develop an application to help reduce the stress of individuals like us.
+We decided to morph the project into a student assistant we called ELISA. Our Extremely Intelligent n' Loud Student Assistant.
+We decided that ELISA could help us through 5 ways.
+
+1. She could help keep track of our tasks & events
+2. She could help us focus on one task at a time when we feel overwhelmed.
+3. She could remind us so that we don't have to constantly scan through the lists to ensure that we remember everything we need to.
+4. She could entertain us.
+
+This is how our user interface looks like:
+
+image::blimyjUI.png[]
+
+My role was to implement the reminder and snooze functionality as well as Team Management.
+
+== Summary of contributions
+
+In this section, I will be briefly going through my contributions to this team project. For the full extent of my contributions to the project, please visit https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=blimyj[here].
+
+* *Major enhancement*: added *the ability to undo/redo previous commands*
+** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.3.5` (5 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+** Tools:
+*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
