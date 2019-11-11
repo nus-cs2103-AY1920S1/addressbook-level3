@@ -2,8 +2,9 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:stylesheet: asciidoctor.css
 
-== Project: DukeCooks <Insert Logo?>
+== Project: DukeCooks image:DukeCooks_Logo.png[align="center", width="50"]
 
 == What is DukeCooks?
 
@@ -19,8 +20,7 @@ executed all within a single line, saving you even more time!
 
 == Who developed DukeCooks?
 
-DukeCooks is developed by a group of Year 2 Computing students from the National University of Singapore.
-
+DukeCooks is developed by a group of Year 2 students from: http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == What is in this document?
 
@@ -35,35 +35,73 @@ to DukeCooks in the following 3 main areas:
 
 == Contributions to Overall Project
 
-=== Major Enhancement
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+=== Building the diary feature
 
-=== Minor enhancement
+The diary feature provide users with the ability to share their fitness and health tips. Furthermore, it allows users to
+view diaries in a simple and intuitive manner. The initial works for building the diary feature includes heavy referencing from the existing
+Address Book 3 (AB3) codebase.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+=== Major Enhancements
+
+==== Enhancement 1: Creating the `ViewDiaryCommand`
+
+The `ViewDiaryCommand` is created to allow users to switch views between different diaries
+
+This is specially designed so that users can switch diary views, without having to rely on clicking the mouse.
+
+The functionality of `ViewDiaryCommand` is quite similar to that of `ListCommand` in AB3. I have modified the `ListCommand`
+in AB3 to allow the user to provide an diary index and only display that corresponding diary.
+
+==== Enhancement 2: Creating the `AddPageCommand` Page Input Form
+
+If `AddPageCommand` is executed, it opens a Page Input Form for users to enter their page details.
+
+As a page's details can get quite lengthy, the Page Input Form is created to help users by providing a GUI
+interface that is more suited for lengthy inputs.
+
+This enhancement required heavy works in terms of GUI and I had to ensure that the inputs provided in the Page Input Form
+are first validated before it can be executed as a command.
+
+=== Minor Enhancements
+
+==== Enhancement: Adding icons and colours to pages
+
+I have added different icons and colours to represent a page's type. There are currently 3 different page types: health, exercise and food.
+By differentiating the pages through colours and icons, users are able to quickly identify the
+different page types with one glance.
+
+=== Code Contribution
+Visit this https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=bigjunnn&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[link] to check out my contributions made to DukeCooks.
 
 === Other contributions
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*Project management*
 
-_{you can add/remove categories in the list above}_
+- Managed releases `v1.1`, `v1.2`, `v1.3` (3 releases) on GitHub
+
+*Documentation*
+
+- Minor cosmetic tweaks to contents of User Guide and Developer Guide.
++
+(PR https://github.com/AY1920S1-CS2103T-T10-2/main/pull/181[#181])
+
+*Bug Reports*
+
+- Reported bugs and suggestions for other teams within the same class
++
+(https://github.com/bigjunnn/ped/issues/1[Issue 1],
+https://github.com/bigjunnn/ped/issues/2[Issue 2],
+https://github.com/bigjunnn/ped/issues/3[Issue 3],
+https://github.com/bigjunnn/ped/issues/4[Issue 4],
+https://github.com/bigjunnn/ped/issues/5[Issue 5],
+https://github.com/bigjunnn/ped/issues/6[Issue 6],
+https://github.com/bigjunnn/ped/issues/7[Issue 7])
+
+*Tool Integration*
+
+- Integrated DukeCooks with https://www.appveyor.com/[AppVeyor] (Continuous Integration tool), https://www.netlify.com/[Netlify] (Deployment Preview tool) and https://coveralls.io/[Coveralls] (Code Coverage tool).
++
+(PR https://github.com/AY1920S1-CS2103T-T10-2/main/pull/35[#35])
 
 == Contributions to User Guide
 
@@ -73,9 +111,7 @@ _{you can add/remove categories in the list above}_
 You may visit this https://ay1920s1-cs2103t-t10-2.github.io/main/UserGuide.html[link], to view the full User Guide._
 |===
 
-//include::../UserGuide.adoc[tag=delete]
-
-//include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=diary]
 
 == Contributions to Developer Guide
 
@@ -84,11 +120,4 @@ You may visit this https://ay1920s1-cs2103t-t10-2.github.io/main/UserGuide.html[
 You may visit this https://ay1920s1-cs2103t-t10-2.github.io/main/DeveloperGuide.html[link], to view the full Developer Guide._
 |===
 
-//include::../DeveloperGuide.adoc[tag=undoredo]
-
-//include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-//---
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=diary]
