@@ -19,12 +19,6 @@ image::DukeAcademyGUI.png[align="center"]
 Duke Academy is an integrated platform with a built-in text editor, an auto-grader and a note-taking feature.
 It provides all the tools needed for a good practice session so that its users will never have to tab out to another application.
 
-.Text editor and auto-grader
-image::TextEditorAndGrader.png[align="center]
-
-.Note-taking feature
-image::NotesFeature.png[align="center"]
-
 DukeAcademy can also be used as a teaching tool by educators as they can set their own questions to be loaded by their students using our very own simplified text file format.
 
 Duke Academy is written in Java, and has about 15 kLoC.
@@ -37,45 +31,65 @@ It also provides a bit of justification for the different choices that I have ma
 === Change underlying architecture to suit our needs - [refactor]
 
 |===
-|_Due to the increased complexity of our product, a large part of the existing architecture had to be changed.
-Most of the changes can be summarized into the 4 following sections :_
+|_Due to the increased complexity of our product, a large part of the existing architecture of AddressBook3 had to be changed.
+Most of the changes can be summarized into the 3 following sections :_
 |===
 
-. *Separated Logic component into cohesive parts*
+==== *Separate Logic component*
 
-  * What it does : +
-  Splits the old Logic interface in AddressBook3 into different interface with their own specialized functions.
-  The new interfaces are `CommandLogic`, `QuestionsLogic`, `ProgramSubmissionLogic` and `NotesLogic`. Each interface serves as a facade to facilitate operations pertaining to different aspects of our app.
-  * Justification : +
-  As the complexity of our app increased, we realized that the functionality of the application can be split into 4 cohesive units. Each unit deals with _commands_, _questions_, _program evaluation_ and  _notes_ respectively. Thus, instead of using a single logic class to encapsulate all of those functionalities, each cohesive unit was made into its own logic class, keeping them loosely coupled.
-  This helped to make our codebase more testable and maintainable.
+  * Split the old `Logic` interface in AddressBook3 into separate interfaces, each with their own specialized functions.
+  * The new interfaces are `CommandLogic`, `QuestionsLogic`, `ProgramSubmissionLogic` and `NotesLogic`.
+  * Each interface facilitates operations pertaining to a different part of our application.
+====
+Justification : +
+As the complexity of our app increased, we realized that the functionality of the application can be split into 4 separate cohesive units. Each unit deals with a different aspect
+of our application. These aspects are _commands_, _questions_, _program evaluation_ and  _notes_ respectively.
+Instead of using a single logic class to encapsulate all of the functionality, each cohesive unit was made into its own logic class, keeping them loosely coupled.
+This helped to make the codebase more testable and maintainable.
+====
 
-. *Implemented Observer pattern* +
+==== *Implemented Observer pattern* +
 
-  * What it does : +
-  Provides a simple and lightweight observable class that can be customized using Java generics.
-  This enables various different components such as the UI to observe changes to the state of the application without introducing them as unnecessary dependencies.
-  * Justification : +
-  The existing AddressBook3 implementation made use of JavaFX's native ObservableList class to display the list of contacts.
-  However, as we needed to observe other objects, we realized that JavaFX's native Observable class was slightly too over-engineered for our use cases.
+  * Created a new simple and lightweight observable class that can be customized using Java generics.
+  * Allow various different components such as the UI to observe changes to the state of the application without introducing them as unnecessary dependencies.
+====
+Justification : +
+The existing AddressBook3 implementation made use of JavaFX's native ObservableList class to display the list of contacts.
+However, as we needed to observe other objects, we realized that JavaFX's native Observable class was slightly too over-engineered for our use cases.
+====
 
-. *Refactor Command pattern*
+==== *Refactor Command pattern*
 
-  * What it does : +
-  Change the implementation of the Command pattern to be more flexible. The `execute()` function of the `Ccommand` interface no longer takes in a `Model`. Argument parsing is also handled by the `Command` itself.
-  Open-closed principle is maintained by requiring commands to be registered into the `CommandLogic` with a `Supplier` functional interface. The https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Supplier.html[`Supplier`] is in charge of injecting different dependencies that various commands need.
+* Change the implementation of the Command pattern to be more flexible.
+* `execute()` no longer takes in `Model` as argument. Parsing of command arguments is also handled by the `Command` itself.
+* Open-closed principle is maintained by requiring commands to be registered into the `CommandLogic` with a https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Supplier.html[`Supplier`].
+* The https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Supplier.html[`Supplier`] is in charge of injecting dependencies into the various commands.
 
-  * Justification : +
-  The previous implementation of the `Command` in AddressBook3 was inflexible in the sense that the execution of each command requires a `Model`. The command arguments also had to follow a fixed format. However, as the complexity of our application grew, our commands started to vary. Most Commands no longer relied on a `Model` for execution and started to have their own unique sets of argument parsing rules.
+====
+Justification : +
+The previous implementation of the `Command` in AddressBook3 requires its execution to rely on a `Model` instance. The command arguments also had to follow a fixed format. However, as the complexity of our application grew, our commands started to vary. Most commands no longer relied on a `Model` to be executed. Commands also started to have their own unique rules for parsing arguments.
+====
 
 === Program evaluation feature - [feature]
-* What it does : +
-  Allows users' solutions to be automatically graded by our application. The user's solution is evaluated against test cases specified in the `Question` class.
-* Justification : +
+
+* *What it does* : +
+  Allows users' solutions to be automatically evaluated by our application. The solution is evaluated against test cases specified in the `Question` class.
+
+* *Justification* : +
   It is difficult to come up with your own test cases to evaluate your solutions whenever you attempt programming questions. It is also very cumbersome to run each test case manually. Allowing users to automatically have their solutions evaluated will allow them to focus more on their learning.
-* Highlights :
+
+* *Highlights* :
 ** Compile and runtime errors are also displayed to the user in the event that they occur so that user's are able to learn from their mistakes.
 ** A _Time Limit Exceeded_ error is displayed if the user's program takes too long to complete. This will enable users to know if their solutions are properly optimized.
+
+.Program evaluation example
+image::ProgramEvaluation.png[align="center" width="1000"]
+
+.Compile error example
+image::CompileError.png[align="center" width="1000"]
+
+.Timeout error example
+image::TimeLimitExceeded.png[align="center" width="1000"]
 
 === Note-taking feature - [feature]
 * What it does : +
@@ -86,6 +100,9 @@ Most of the changes can be summarized into the 4 following sections :_
 
 * Highlights : +
   In addition to taking notes in the form of text, user's are also able to sketch their ideas within a a sketch pad and have them saved for future reference. This is particularly useful when dealing with data structures.
+
+.Notes page preview
+image::NotePage.png[align="center" width="1000"]
 
 === Tabs - [feature]
 * What it does  : +

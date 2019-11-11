@@ -211,7 +211,7 @@ The help page is where you can get a quick summary of all of the features and co
 //tag::beforestart[]
 [[BeforeStart]]
 == Before you start
-. The programe evaluator searches for a class with the class name `Main` as the entry point into your program. Please ensure
+. The evaluator searches for a class with the class name `Main` as the entry point into your program. Please ensure
 that you declare your *main method* in a class called `Main`.
 
 . The program evaluator uses *stdin* to feed your program inputs and *stdout* to receive your program's outputs. Thus,

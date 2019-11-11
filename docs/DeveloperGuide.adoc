@@ -96,8 +96,8 @@ The `UI` component,
 === Logic components
 
 ==== Overview
-There are 4 main logic components found in the architecture of Duke Academy. They are `CommandLogic`, `QuestionsLogic`, `ProgramSubmissionLogic` and `NotesLogic`.
-Each logic component serves as a *facade* for the basic operations by the application with regards to *Commands*, *Questions*, *ProgramSubmission* and *Notes*.
+There are 4 main logic components in the architecture of Duke Academy. They are `CommandLogic`, `QuestionsLogic`, `ProgramSubmissionLogic` and `NotesLogic`.
+Each logic component serves as a *facade* for basic operations with regards to *Commands*, *Questions*, *ProgramSubmission* and *Notes*.
 
 They orchestrate the execution of these operations internally and expose a simple interface for other components, such as the `UI` to utilize.
 
@@ -118,7 +118,7 @@ image::CommandLogicClassDiagram.png[]
 .Class diagram of the QuestionLogic interface
 image::QuestionsLogicClassDiagram.png[]
 - Deals with all CRUD operations pertaining to the questions found in the application.
-- Keeps track a _selected question_ which represents the `Question` that is currently being viewed by the user in the `UI`.
+- Keeps track a _selected question_ which represents the `Question` that is currently being viewed by the user.
 ====
 
 ====
@@ -126,9 +126,9 @@ image::QuestionsLogicClassDiagram.png[]
 [[fig-ProgramSubmissionLogicClassDiagram]]
 .Class diagram of the ProgramSubmissionLogic interface
 image::ProgramSubmissionLogicClassDiagram.png[]
-- Orchestrates the evaluation of the user's program submissions.
-- Keeps track of a _currently attempting_ question which is used as the `Question` that user program submissions are tested against.
-- Uses the `UserProgramChannel` interface to enable other components such as the `UI` to serve as a source for `UserProgram` submissions without introducing them as dependencies.
+- Performs the evaluation of the user's program submissions.
+- Keeps track of a _currently attempting_ question which is used to test user program submissions.
+- Uses the `UserProgramChannel` interface to enable other components such as the `UI` to serve as a source for `UserProgram` without introducing them as dependencies.
 ====
 
 ====
@@ -161,18 +161,19 @@ The standard implementation of the CommandLogic is the `CommandLogicManager` cla
 .Associations of the CommandLogicManager
 image::CommandLogicManager.png[]
 
-- Works by requiring its users to register a `CommandSupplier` functional interface with a specific key.
-- `Command` can also be registered with a `CommandFactory` which encapsulates the Key-CommandSupplier relation.
-
-- Subsequent calls to `executeCommand()` will attempt to match the command String to all the registered keys
-- Matching key is used to retrieve the correct `CommandSupplier`.
-
+- For commands to be parsed by `CommandLogic`,  they have to be registered with `registerCommand()`.
+- A `CommandSupplier` and a command word is required to register a `Command`
+- A `Command` can also be registered with a `CommandFactory`.
+- When `executeCommand(commandText)` is invoke, `CommandLogicManager` searches all previously registered commands for the right one to execute.
 - Storage of these keys and the parsing of the `commandText` argument is performed by `CommandParser`.
 
 ====
-* `CommandSupplier` only accepts the arguments of the command.
+* `CommandSupplier` is a functional interface that returns a `Command`.
+* Each `CommandSupplier` is mapped to a command word
+* This command word is used to search for the appropriate `Command`
+* `CommandParser` splits the text input of the user into the command word and arguments.
+* Each `Command` is  responsible for parsing its own arguments.
 * `InvalidCommandArgumentException` is thrown if the arguments do not match the specification of the command.
-* `CommandParser` splits the command String into the registered key and arguments to retrieve the corresponding command.
 ====
 
 ====
@@ -184,21 +185,21 @@ image::CommandLogicSequence.png[]
 
 . `Command` is registered upon startup by the application driver
 
-. `Command` and matching key is stored in `CommandParser` by `CommandLogicManager`
+. `Command` and matching command word is stored in `CommandParser` by `CommandLogicManager`
 
 . User enters command text
 
-. Application driver passes the command text as a String to `CommandLogicManager`
+. Application driver passes the command text as String to `CommandLogicManager`
 
-. `CommandLogicManager` passes on command text to `CommandParser` for parsing and `Command` retrieval
+. `CommandLogicManager` passes command text to `CommandParser` for parsing and `Command` retrieval
 
-. `CommandLogicManager` executes retrieved `Command`
+. `CommandLogicManager` receives and executes `Command`
 ====
 
 ==== QuestionsLogic implementation
-The standard implementation of the `QuestionsLogic` interface is the `QuestionsLogicManager`. This implementation stores the questions
-in the application in the form of a `QuestionBank`. It saves any changes made to the `QuestionBank` immediately using a `QuestionBankStorage`.
-_(View <<Design-Storage>> for more details.)_
+The standard implementation of the `QuestionsLogic` interface is the `QuestionsLogicManager`. It stores questions
+in the form of a `QuestionBank`
+_(View <<Design-Storage>> for more details)_.
 
 *Overview:*
 
@@ -206,24 +207,25 @@ _(View <<Design-Storage>> for more details.)_
 .Associations of the QuestionLogicManager
 image::QuestionsLogicManager.png[]
 
-- `QuestionsLogicManager` allows other components of the application to make changes to the current state of questions using its methods.
+- Allows other components of the application to make changes to existing questions using its inteface.
 
-- Other components of the application can observe the current state of questions by getting an `ObservableList` of all the questions in the application through `getAllQuestionsList()` and `getFilteredQuestionsList()`.
+- Other components of the application can observe the current state of questions by getting an `ObservableList` through `getAllQuestionsList()` and `getFilteredQuestionsList()`.
 
-- `ObservableList` from `getFilteredQuestionsList()` is a filtered list of the questions in the application. This filter can be changed by `setFilter(predicate)`.
-
+- `ObservableList` from `getFilteredQuestionsList()` is a filtered list. The filter can be changed by `setFilter(predicate)`.
 
 ====
-* The `QuestionsLogicManager` constructor takes in a `QuestionBankStorage` instance which is used to load the initial `QuestionBank` and to save subsequent revisions to it.
+* `QuestionsLogicManager` constructor takes in a `QuestionBankStorage` instance which is used to load the initial `QuestionBank` and to save subsequent changes to it.
 
-* The main bulk of the CRUD operations are handled by the `QuestionBank` class. the `QuestionLogicManager` orchestrate the invocation of the `QuestionBank` methods along with storage of the changes.
+* The main bulk of the CRUD operations are handled by `QuestionBank`.
+
+* `QuestionLogicManager` saves the `QuestionBank` after each change.
 ====
 
 
 ==== ProgramSubmissionLogic implementation
-The standard implementation of the `ProgramSubmissionLogic` is the `ProgramSubmissionLogicManager`. This implementation
-relies on the `TestExecutor` class to execute users' program submissions locally on their machine.
-_(View <<Implementation-ProgramEvaluation>> for more details.)_
+The standard implementation of the `ProgramSubmissionLogic` is the `ProgramSubmissionLogicManager`. It
+relies on `TestExecutor` to execute users' program submissions
+_(View <<Implementation-ProgramEvaluation>> for more details)_.
 
 *Overview:*
 
@@ -231,18 +233,16 @@ _(View <<Implementation-ProgramEvaluation>> for more details.)_
 .Associations of the ProgramSubmissionLogicManager
 image::ProgramSubmissionLogicManager.png[]
 
-- ProgramSubmissionLogicManager` works by keeping track of a `Question` that is "currently attempted" by the user. Subsequent calls to `submitUserProgram(userProgram)` or `submitUserProgramFromSubmissionChannel()`
-   run the user's program against test cases found in this `Question`.
-- Other components can set the "currently attempted" `Question` through the `setCurrentQuestion(question)`.
+- Keeps track of a _currently attempting_ `Question`.
+- _Currently attempting_ `Question` can be set through `setCurrentQuestion(question)`.
+-`submitUserProgram(userProgram)` or `submitUserProgramFromSubmissionChannel()` evaluates the program against test cases found in the _currently attempting_ `Question`.
 - Other components can observe the latest `TestResult` through an observable provided by `getTestResultObservable()` without having `ProgramSubmissionLogicManager` depending on them.
-- Other components can serve as the source of the user program to be evaluated by `ProgramSubmissionLogicManager`  by providing a functional interface `UserProgramChannel` without the `ProgramSubmissionLogicManager` having to depend on them.
-
 ====
 * `ProgramSubmissionLogicManager` instantiates the `TestExecutor` using the `StandardCompilerEnvironment`, `StandardCompiler` and `StandardProgramExecutor`.
 
-* `ProgramSubmissionLogicManager` holds a reference to `StandardCompilerEnvironment` so that it can close the environment and delete any temporary files that were created in the `closeSubmissionLogicManager()` method.
+* `ProgramSubmissionLogicManager` holds a reference to `StandardCompilerEnvironment` so that it can be closed by `closeSubmissionLogicManager()`.
 
-* It is *important* that the main app driver closes the `StandardCompilerEnvironment` through the `closeSubmissionLogicManager()` method before the app is exited to remove any temporary files that were created.
+* It is *important* that the application invokes `closeSubmissionLogicManager()` method exiting to remove any temporary files that were created.
 ====
 
 ====
@@ -250,35 +250,35 @@ image::ProgramSubmissionLogicManager.png[]
 .Sequence diagram of program submissions
 image::ProgramSubmissionSequence.png[]
 
-*The basic sequence of submitting a user's program for evaluation from a `UI`  component is as follows:*
+*The basic sequence of submitting a program from a `UI`  component is as follows:*
 
-. Register the `UI` component as the new  `UserProgramChannel` of `ProgramSubmissionLogicManager` through `setProgramSubmissionChannel(channel)`.
-. Set the _currently attempting_ question using the `setCurrentQuestion(question)` method.
+. Register the `UI` component as the new  `UserProgramChannel`.
+. Set the _currently attempting_ question using `setCurrentQuestion(question)`.
 . Invoke the `submitUserProgramFromSubmissionChannel()`.
-. User program is retrieved from the `UI` component and evaluated against the test cases of the _currently attempting_ question.
+. User program is retrieved from the `UI` component and evaluated against the _currently attempting_ question.
 ====
 
 
 ==== NotesLogic implementation
-The standard implementation of the `NotesLogic` interface is the `NotesLogicManager`. This implementation relies on `SketchManager` to handle the loading and writing of the *Sketch* png image files.
-It also stores the notes in the application in the form of a `NoteBank`. It saves any changes made to the `NoteBank` immediately using a `NoteBankStorage`.
-_(View <<Design-Storage>> for more details.)_
+The standard implementation of the `NotesLogic` interface is the `NotesLogicManager`. It relies on `SketchManager` to handle loadiand saving of the *Sketches*.
+It also stores the notes in the application in the form of a `NoteBank`. _(View <<Design-Storage>> for more details.)_
 
 *Overview:*
 
 [[fig-NotesLogicManagerAssociations]]
 .Associations of the NotesLogicManager
 image::NotesLogicManager.png[]
-- `NotesLogicManager` allows other components of the application to make changes to the current state of notes using its methods.
-- Other components of the application can also observe the current state of notes by getting an `ObservableList` of all the questions in the application through `getAllNotesList()`
-- Other components can also serve as sources for Notes by providing a `NoteSubmissionChannel` interface without having to introduce them as dependencies.
+- Allows other components of the application to make changes to the current state of notes using its interface.
+- Other components of the application can also observe the current state of notes by getting an `ObservableList` through `getAllNotesList()`
 
 ====
-* The `NotesLogicManager` constructor takes in a `NoteBankStorage` instance which is used to load the initial `QuestionBank` and to save subsequent revisions to it.
+* `NotesLogicManager` constructor takes in a `NoteBankStorage` instance which is used to load the initial `QuestionBank` and to save subsequent revisions to it.
 
-* The main bulk of the CRUD operations are handled by the `NoteBank` class. the `NotesLogicManager` orchestrate the invocation of the `QuestionBank` methods along with storage of the changes.
+* The main bulk of the CRUD operations are handled by the `NoteBank` class.
 
-* Note that `NoteSubmissionChannels` are required to produce a pair of values -- a `Note` and a `WritableImage` instance to represent the user's sketch for that `Note`.
+* `NotesLogicManager` saves the `NoteBank` methods along after each change
+
+* `NoteSubmissionChannel` is required to provide a pair of values -- a `Note` and a `WritableImage` instance to represent the user's sketch.
 ====
 
 ====
@@ -362,22 +362,18 @@ The evaluation of the user's programs is facilitated by the `solutions` package.
 
 ==== Entry point
 
-It contains the class `TestExecutor`
-which contains a single method `runTestCases(testCases, program)`. This method is used to run a user's program against
-a series of test cases.
-
-The method utilizes the classes `TestCase` and `UserProgram` to model the data needed for evaluation.
+* `TestExecutor` contains a single method `runTestCases(testCases, program)` which evaluates a `UserProgram` against
+a list of `TestCase`.
 
 ====
-*TestCase* - stores an input and an expected value
+*TestCase* - stores an input and an expected value.
 
 [[fig-TestCaseResultClassDiagram]]
 .Class diagram for TestCaseResult
 image::TestCaseClassDiagram.png[width=240]
 
 
-*UserProgram* - stores the main class name and the program's source code a String (note that the specified class name
-must match the source code for it to be successfully evaluated)
+*UserProgram* - stores the name of the class which contains the _main method_ along with the source code (_note that the class name must match the source code for it to be evaluated successfully_).
 
 [[fig-UserProgramClassDiagram]]
 .Class diagram for UserProgram
@@ -385,11 +381,10 @@ image::UserProgramClassDiagram.png[width=240]
 
 ====
 
-The result of the evaluation is returned as a `TestResult` object.
+* The result of the program evaluation is returned as a `TestResult` object.
 
 ====
-*TestResult* - encapsulates all the possible outcomes of evaluating the user's program. It is composed of other model
-classes -- `TestCaseResult`, `CompileError`.
+*TestResult* - encapsulates all possible outcomes of evaluating the user's program. It is contains `TestCaseResult` and `CompileError`.
 
 [[fig-TestResultClassDiagram]]
 .Class diagram for TestResult
@@ -399,45 +394,45 @@ image::TestResultDiagram.png[]
 
 ==== Implementation overview
 
-The evaluation of a user's program is done in 3 main steps, each handled by a specialized interface. The 3 steps include:
+The evaluation of a user's program is done in 4 main steps, each handled by a specialized interface. The 3 steps include:
 
 ====
-1. Create a Java file inside a temporary directory in the user's file system and writing the user's program to it.
+. Create a Java file inside a temporary directory and write the source code into the file.
 
-2. Compile that Java file into an executable Java Class file. Catch and store compile errors if any.
+. Compile the Java file. Catch and store any compile errors.
 
-3. Execute the main Class file and provide the inputs of the specified test cases. Collect and store any output from the program.
+. Execute the generated Class file and provide the inputs of the test cases.
 
-4. Encapsulate the output, errors and results in a model class
+. Collect and store any output from the program.
+
+. Package the output, errors and results as a `TestResult` instance.
 ====
 
-This is done by `TestExecutor` with the help of three interfaces that are made available through dependency injection --
-`CompilerEnvironment`, `Compiler`, `ProgramExecutor`.
+The 3 specialized interfaces are `CompilerEnvironment`, `Compiler` and `ProgramExecutor`. They provided through dependency injection in the `TestExecutor` constructor.
 
-Each interface has its specialized role in the evaluation process.
-`TestExecutor` acts as an orchestrator to tie all their functionalities together.
+`TestExecutor` acts as an orchestrator for the 3 interfaces.
 
 ====
-*CompilerEnvironment* - in charge of creating a temporary folder in the user's file system to create and write Java files.
-This temporary folder is deleted after `closed()`. Utilizes the model class `JavaFile`.
+*CompilerEnvironment* - in charge of creating a temporary folder in the user's file system to create Java files.
+This temporary folder is deleted in `closed()`. Uses `JavaFile`.
 
 [[fig-CompilerEnvironmentAssociations]]
 .Associations of CompilerEnvironment
 image::CompilerEnvironment.png[]
 
-*Compiler* - in charge of compiling the Java files into Class files at a given file path. Utilizes the model class `ClassFile`.
+*Compiler* - in charge of compiling the Java files into Class files at a given file path. Uses `ClassFile`.
 
 [[fig-CompilerAssociations]]
 .Associations of Compiler
 image::Compiler.png[]
 
-*ProgramExecutor* - in charge of executing the compiled Class files. Utilizes the model class `ProgramOutput`.
+*ProgramExecutor* - in charge of executing the compiled Class files. Uses `ProgramOutput`.
 
 [[fig-ProgramExecutorAssociations]]
 .Associations of ProgramExecutor
 image::ProgramExecutor.png[]
 
-*Models:*
+*Models classes:*
 
 * *JavaFile* - contains the canonical name and class path of a Java file with various convenience methods. Note that the file must actually exist or
 an `FileNotFoundException` is thrown during instantiation.
@@ -450,64 +445,62 @@ an `FileNotFoundException` is thrown during instantiation.
 
 *The basic flow of a program evaluation is as follows:*
 
-. `TestExecutor` calls `clearEnvironment()` of `CompilerEnvironment` to remove any redundant files from previous program
-evaluations.
-
-. `TestExecutor` calls `createJavaFile()` of `CompilerEnvironment` to create the Java file with the class name and source code specified
-in the `UserProgram` argument.
-
-. `TestExecutor` calls `compileJavaFile()` of `Compiler` to compile the newly created Java file.
-
-. For each test case passed in the argument, `TestExecutor` calls `executeProgram` of `StandardProgramExecutor` with the input from the
-test case to retrieve the `CompletableFuture` async task of running the test case.
-
-. `TestExecutor` sets a timeout on the async tasks and maps each `ProgramOutput` received into a `TestCaseResult` model instance.
-
-. `TestExecutor` packs all the data collected from the execution of the test cases into a single `TestResult` instance.
-
 [[fig-TestExecutorSequenceDiagram]]
 .Sequence diagram for the evaluation of a user's program
 image::TestExecutorSequenceDiagram.png[align:center]
 
+. `TestExecutor` calls `clearEnvironment()` of `CompilerEnvironment` to remove any leftover files from previous program evaluations.
+
+. `TestExecutor` calls `createJavaFile()` of `CompilerEnvironment` to create the Java file with the correct class name and source code.
+
+. `TestExecutor` calls `compileJavaFile()` of `Compiler` to compile the newly created Java file.
+
+. For each test case, `TestExecutor` calls `executeProgram` of `StandardProgramExecutor` with the corresponding input to retrieve a `CompletableFuture` of the results.
+
+. `TestExecutor` sets a timeout on the `CompletableFuture` and maps the result into a `TestCaseResult`.
+
+. `TestExecutor` packages all the errors and results into a single `TestResult` instance.
+
+
 ====
 
-Note that if the evaluation `CompletableFuture` async task timesout before it is completed, an errored `TestCaseResult` with a "Time limit exceeded!" error message is returned instead.
+* Note that if the evaluation `CompletableFuture` async task timesout before it is completed, an errored `TestCaseResult` with a "Time limit exceeded!" error message is returned instead.
 
-Compile errors and runtime errors will also be reflected in the `TestResult` and `TestCaseResult` models respectively.
+* Compile errors and runtime errors will also be reflected in the `TestResult` and `TestCaseResult` models respectively.
 
 ====
 
 ==== Implementation details
-The implementations of `CompilerEnvironment`, `Compiler` and `ProgramExecutor` used in the application are as follows:
+The implementations of `CompilerEnvironment`, `Compiler` and `ProgramExecutor` are as follows:
 
-* *StandardCompilerEnvironment* - this implementation utilizes Java11's native Files library to handle creation, deletion and writing of files.
+* *StandardCompilerEnvironment* - utilizes Java11's native Files package:
 
-    - Creates a temporary folder when instantiated at the file path injected through its constructor.
+    - Creates a temporary folder when instantiated at the file path specified during instantiation.
 
     - All files are created in this temporary folder.
 
-    - The temporary folder is deleted in the `close()` method.
+    - The temporary folder is deleted in `close()`.
 
-    - When tasked to create a new file, it first creates an empty file in the temporary folder before writing the contents of the user's program to the file
+    - When tasked to create a new file, it first creates an empty file in the temporary folder before writing the contents of the source code to the file
 
-* *StandardCompiler* - this implementation utilizes Java11's native JavaCompiler library to programmatically compile Java files.
+* *StandardCompiler* - utilizes Java11's native JavaCompiler package to programmatically compile Java files:
 
-    - Compile errors recorded by the `DiagnosticsListener` class from the compilation task is parsed and rethrown as `CompilerException` and `CompileContentException`.
-    - `CompilerException` represents compile errors caused by the JavaCompiler library while `CompileContentException` represents errors caused by the user's program.
+    - Compile errors recorded by the `DiagnosticsListener` class from the compilation task is parsed and thrown as `CompileContentException`.
 
-* *StandardProgramExecutor* - this implementation utilizes Java11's native Runtime class to execute programs programatically.
+* *StandardProgramExecutor* - utilizes Java11's native Runtime class to execute programs programmatically:
 
-    - To execute a program, `exec(String command)` of the Runtime instance is called.
-    - A command to compile the specified `ClassFile` is generated using its class path and canonical name attributes.
-    - The method returns a `Process` instance that executes the program on a separate thread.
-    - `StandardProgramExecutor` accesses the input stream of the process and feeds the program the necessary inputs.
-    - `StandardProgramExecutor` access the output and error stream of the process and collects any produced output or errors.
-    - The process is destroyed and the collected output and errors and packaged as a `ProgramOutput` instance.
+    - `exec(String command)` of the `Runtime` class is used to execute programs on a separate process.
+    - Each process has its own input and output streams.
+    - Test inputs are fed into the input stream.
+    - Results and errors are collected from the output stream.
+    - The process is destroyed upon completion.
+
 //end::programevaluation[]
+
 
 === Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+`java.util.logging` package is used for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
@@ -523,7 +516,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 [[Implementation-Configuration]]
 === Configuration
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g test output path, logging level) through the configuration file (default: `config.json`).
 
 === Home Page
 
