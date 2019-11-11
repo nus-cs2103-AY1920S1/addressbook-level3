@@ -23,15 +23,15 @@ image::Ui.png[]
 ** What it does: This allows the user to manually alter the data currently in Scheduler .
 
 ** Justification: This feature is necessary to the product as interview schedules change frequently - interviewees may suddenly
-be unable to attend an interview, withdraw from the interview. Interviewers may also be forced to
+be unable to attend an interview and withdraw from the interview. Interviewers may also be forced to
 withdraw due to urgent business. There may also be more applicants, and hence interviewees. In these cases, the ability to
 manually change data in Scheduler is essential.
 
 ** Highlights:
 
 *** This enhancement deeply affects the foundational structure of Scheduler in `Logic` and `Model`.
-*** It required an in-depth understanding of the existing code base, as well as other concepts like regex expressions to ensure input validity and the Jackson library to convert objects to JSON format.
-*** The implementation was also challenging as it required changes to existing commands and deletion of irrelevant fields. The large number of possible
+*** It requires an in-depth understanding of the existing code base, concepts like regex expression design to ensure input validity and the Jackson library to convert objects to JSON format.
+*** The implementation was also challenging as it required changes to existing commands and deletion of irrelevant fields that were highly coupled to other components. The large number of possible
 input arguments for these commands (e.g the `add` command has 8 possible input prefixes) also each required extensive testing to ensure users could not input invalid values.
 ** Credits: Joshua Bloch, author of Effective Java, for his ideas on Builder patterns as a way to generate objects with optional parameters.
 
