@@ -687,15 +687,15 @@ Deletes the specified Transaction, Budget, Ledger or Projection from PalPay. +
 Format: `delete TYPE+INDEX`
 
 ****
-* `TYPE` accepts either `t` (Transaction), `b` (Budget), `l` (Ledger) or `p` (Projection). (e.g. `delete b1` refers to deleting a *Budget* of index 1).
+* `TYPE` accepts either `t` (Transaction), `b` (Budget), `l` (Ledger) or `p` (Projection). (e.g. `delete b1` refers to deleting a _Budget_ of index 1).
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `delete b 1` or `delete 1` or `delete 1b` will not work).
 * Example: `delete t1` will delete the first transaction from the list of transactions.
 ****
 
 ==== Important Details:
 
-* PalPay deletes items based on the entry index of the target item. You can only delete a maximum of 1 entry per command. (i.e. `delete t1 t2 b1` or `delete t1 t2` will not work)
-* You can only delete an existing transaction or budget. Nothing will be deleted if the transaction or budget of `INDEX` does not exists.
+* PalPay deletes an item based on the entry index of the target item. You can delete a maximum of 1 entry per command. (i.e. `delete t1 t2 b1` or `delete t1 t2` will not work)
+* You can only delete an existing _Transaction_ or _Budget_. Nothing will be deleted if the _Transaction_ or _Budget_ index does not exists.
 
 ==== Example Usage:
 
@@ -703,14 +703,17 @@ Format: `delete TYPE+INDEX`
 
 . Note the index of the entry you want to delete. In this example, *entry 5* is the field we will be deleting.
 +
+.Delete Transaction Command
 image::delete_ug_1.png[]
 +
-. Since we are deleting a *Transaction* entry of index 5, we will input `t` into our `TYPE` field and `5` into our `INDEX` field.
+. Since we are deleting a _Transaction_ entry of index 5, we will input "t" into our `TYPE` field and "5" into our `INDEX` field.
 +
+.Delete Transaction Input
 image::delete_ug_2.png[]
 +
 . Success message will be displayed upon successful deletion.
 +
+.Delete Transaction Successful
 image::delete_ug_3.png[]
 
 ===== Example Commands:
