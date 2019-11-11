@@ -1861,6 +1861,7 @@ such as a spending with empty `name`, `cost` or `date` parameter.
 .. Test case: `import p/./moneygowhere.csv` +
    Expected: Only valid spending will be added to the spending list, whereas error details specifying which spending is invalid will be shown in the results display.
 
+
 === Exporting Spending Data
 . Exporting all spending into `moneygowhere.csv` file
 
