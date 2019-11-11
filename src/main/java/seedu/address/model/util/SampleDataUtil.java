@@ -10,6 +10,7 @@ import seedu.address.model.TutorAid;
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.ReminderTime;
 import seedu.address.model.task.TaskTime;
 
 
@@ -40,6 +41,17 @@ public class SampleDataUtil {
                 .map(TaskTime::new)
                 .collect(Collectors.toSet());
         return new TreeSet<>(taskTimes);
+
+    }
+
+    /**
+     * Returns a tag set containing the list of strings given.
+     */
+    public static TreeSet<ReminderTime> getReminderTimeSet(String... strings) {
+        Set<ReminderTime> reminderTimes = Arrays.stream(strings)
+                .map(ReminderTime::new)
+                .collect(Collectors.toSet());
+        return new TreeSet<>(reminderTimes);
 
     }
 
