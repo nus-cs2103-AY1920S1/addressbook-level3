@@ -23,6 +23,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Repeater> PREDICATE_SHOW_ALL_REPEATERS = unused -> true;
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
+    Predicate<Loan> PREDICATE_SHOW_ALL_LOANS = unused ->true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -164,6 +165,12 @@ public interface Model {
     void payLoan(Loan target);
 
     public void setCurrentLoanId(LoanId loanId);
+
+    /**
+     * Updates the filter of the filtered loan list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredLoanList(Predicate<Loan> predicate);
 
     /**
      * Replaces the given repeater {@code target} with {@code editedRepeater}.
