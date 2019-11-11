@@ -154,15 +154,18 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag:uniqueIdentificationNumber[]
+// tag::uniqueIdentificationNumber[]
+
 === Unique Identification Number
 
 In Mortago, you will find that each entity is assigned a unique `IdentificationNumber`.
 
-* `IdentificationNumbers` in Mortago consist of two parts: `String typeOfEntity` that tells you whether it is a worker, body or fridge, and `Integer idNum` that refers to its unique ID number.
-* Each `IdentificationNumber` is automatically generated within the application, based on the next sequential ID number available.
+* The `IdentificationNumber` for each entity is a central aspect of Mortago as most interactions with and identification of entities in the application are made through their `IdentificationNumbers`.
 * You can identify different entities solely based on their `IdentificationNumber` due to its uniqueness, without relying on attributes such
 as `name` which may have similar duplications within the system.
+* `IdentificationNumbers` in Mortago consist of two parts: `String typeOfEntity` that tells you whether it is a worker, body or fridge, and `Integer idNum` that refers to its unique ID number.
+* Each `IdentificationNumber` is automatically generated within the application, based on the next sequential ID number available.
+
 
 ==== Implementation
 
@@ -236,18 +239,82 @@ When the number of entities grows exponentially, the ID number can become arbitr
 ** Cons:
 *** Harder to implement, especially for unit testing since a unique `IdentificationNumber` cannot be duplicated usually.
 
-Alternative 2 is chosen due to the comprehensive benefits of utilizing `HashMap` in terms of:
+Alternative 2 is chosen due to the comprehensive benefits of utilizing `HashMap` given below:
 
 * Tracking of unique keys
 * Catering for deletion of ID numbers and filling of the gap
 * Increasing the ease of accessibility of mapped entities
 
 The difficulty in testing can be circumvented by executing `UniqueIdentificationNumberMaps::clearAllEntries()`
-before each unit test to reset the `HashMaps`. This resets the `HashMaps` and allows the newly added entities to start with the first ID number, simulating a fresh launch of the application.
+before each unit test. This resets the `HashMaps` and allows the newly added entities to start with the first ID number, simulating a fresh launch of the application.
+
 // end::uniqueIdentificationNumber[]
 
+// tag::photo[]
+=== Photo Feature
+
+When adding a worker in Mortago, you can assign a photo to the worker so as to identify your workers. This is especially useful when you are more visual oriented as this allows you to identify your workers more easily when sieving through a long list of workers.
+
+==== Implementation
+
+This section covers how the `Photo` feature is implemented. To gain a better overview of its implementation, you can refer to the following class diagram that illustrates how `Photo` and `Worker` are associated with the `Ui` component.
+
+.Class Diagram of Photo Feature
+image::PhotoClassDiagram.png[]
+
+Here, notice that a `WorkerCard` contains an `ImageView` which serves to display the `Photo`. The `ImageView` displays the `Photo` by first retrieving the file path of the photo through the `Worker` in `WorkerCard`. This is demonstrated in the following code snippet:
+
+```
+displayPhoto.setImage(new Image(worker.getPhoto().get().getPathToDataDirectory()));
+```
+
+This brings us to explain how `Photo` is constructed, as demonstrated in the following diagram and the sequence of steps further below.
+
+.Activity Diagram of Adding a Photo
+image::PhotoActivityDiagram.png[]
+
+. When the user wishes to add a photo, the user can do this through the add or update command.
+. Before constructing a `Photo` object, the validity of the absolute file path of the image is checked first through the `Photo::isValidPhoto(pathToPhoto)` method, as part of a defensive programming measure.
+[TIP]
+This method checks whether the image file exists, using `FileUtil::isFileExists(Path)` as seen in Figure 11, and whether it ends with the common image file extensions: `.jpeg`, `.jpg` and `.png`.
+. If the file is valid, the `Photo` object is constructed.
+. In its construction, the image file is copied into the `data/images/` directory (where all images are stored) and this path is saved as an instance variable, `dataDirectory`. The `Photo` is then assigned to an instance variable in `Worker`.
+[IMPORTANT]
+Copying the image file allows the application to retrieve it even when the user has deleted the original file.
+
+After construction of the `Photo`, when the image needs to be retrieved, `Photo#getPathToDataDirectory` needs to be called to obtain the modified file path to the image, which can then be used for display via the `ImageView` node. The following code snippet shows how the file path is modified so that it can be used directly for image retrieval and display.
+
+```
+    /**
+     * Returns the file path of the copied photo in the data directory.
+     * Intended for {@code ImageView} to reference to the photo.
+     */
+    public String getPathToDataDirectory() {
+        return "file://" + Paths.get(dataDirectory).toAbsolutePath().toUri().getPath();
+    }
+```
+
+Note that appending `file://` to the front is necessary for file retrieval.
+
+==== Design Considerations
+
+When designing `Photo`, it is important to consider the user profile. Given that our users are generally fast at typing and prefers a Command Line Interface, some thoughts had to be made to design how the user can upload the photo.
+
+===== Aspect: How the user uploads the photo
+
+* **Alternative 1 (current choice)**: Users must specify the absolute file path of the image file
+** Pros: This ensures accurate retrieval of the file.
+** Cons: Users require additional steps to obtain the absolute file path of the file.
+* **Alternative 2 (current choice)**: Users can upload their image file through a popup dialog
+** Pros: Graphical dialog allows visual navigation towards where the file is.
+** Cons: Users might find it slow to navigate through a graphical interface.
+
+Alternative 1 is chosen due to the user profile of our application. As they prefer typing over using the mouse, it will be much faster for them to provide the absolute file path as compared to navigating through a graphical dialog.
+
+// end::photo[]
+
 // tag::undoredo[]
-=== Undo/Redo feature
+=== Undo/Redo Feature
 The undo/redo feature allows you to undo a command that you have made or redo a command you have undone.
 
 ==== Implementation
@@ -643,8 +710,8 @@ Alternative 1 is the current choice because manager will be able to save time an
 // end::genpdf[]
 
 // tag::statistics[]
-=== Statistics feature
-==== Current Implementation
+=== Statistics Feature
+==== Implementation
 
 The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days (default view) and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched. Users can switch the view to a specified week, month, or view.
 
@@ -712,7 +779,7 @@ Thus, designing an aesthetic and functional dashboard is a crucial aspect for Mo
 
 This section illustrates the motivations made behind Mortago's color scheme.
 
-===== 4.6.1.1. Current Implementation
+===== 4.6.1.1. Implementation
 
 Mortago draws upon the guidelines specified in https://material.io/design/color/dark-theme.html#[Material.io] to design a dark theme
 that enhances visual ergonomics and minimises eye strain due to the bright luminance emitted by screens.
@@ -754,21 +821,20 @@ This section details an aspect considered when designing Mortago's color scheme.
 
 
 * **Alternative 1 (current choice)**: Background is brighter than the surface.
-** Pros: Easier to create drop shadows to simulate elevation
+** Pros: Drop shadows designed to simulate elevation are more realistic
 ** Cons: A deviation from what Material.io dictates
 
 * **Alternative 2**: Background is darker than the surface.
 ** Pros: A different representation of elevation can be achieved
 ** Cons: Overall visual brightness will be brighter compared to Alternative 1
 
-Alternative 1 was chosen because, aside from the pros that it has to offer, bulk of the screen space in the Mortago is taken up by surfaces to optimize the amount of information available to the user,
-hence by giving surfaces a darker brightness, this improves *overall* visual ergonomics.
+Alternative 1 was chosen because, aside from the pros that it has to offer, bulk of the screen space in the Mortago is taken up by surfaces to optimize the amount of information available to the user, hence by giving surfaces a darker brightness, this improves *overall* visual ergonomics.
 
 ==== Replacing Window's Title Bar
 
 This section details how the default window's title bar is replaced with a custom title bar.
 
-===== 4.6.2.1. Current Implementation
+===== 4.6.2.1. Implementation
 
 In spirit with designing a sleek and functional dashboard, the standard Windows platform title bar was removed. This exposes the user interface to become one that is self-contained, while providing extra space at the top that allows more details to be shown to the user.
 
@@ -824,13 +890,13 @@ Three buttons were manually created and customised to simulate the original wind
 * Notice also that the button is assigned to different `FXML` ids for the `if` and `else` blocks. This allows the button image to change accordingly, which is defined in the `DarkTheme.css` stylesheet.
 
 Finally, the last thing is to rebuild the resizability of the window.
-The implementation of this feature is adapted from a https://stackoverflow.com/questions/19455059/allow-user-to-resize-an-undecorated-stage[post] in StackOverFlow. Briefly,  `ResizableWindow::enableResizableWindow()` allows the Windows to be resizable by implementing a helper class `ResizeListener`. The helper class listens to mouse events and tracks the mouse's movements to pinpoint the coordinates of the mouse. This determines the change in size of the Window, which will then be resized accordingly.
+The implementation of this feature is adapted from this hyperlinked https://stackoverflow.com/questions/19455059/allow-user-to-resize-an-undecorated-stage[post] in StackOverFlow. Briefly,  `ResizableWindow::enableResizableWindow()` allows the Windows to be resizable by implementing a helper class `ResizeListener`. The helper class listens to mouse events and tracks the mouse's movements to pinpoint the coordinates of the mouse. This determines the change in size of the Window, which will then be resized accordingly.
 
 ===== 4.6.2.2. Design Consideration
 
-The following section details an aspect to consider when removing the title bar.
+The following section details an aspect to consider when designing the title bar.
 
-===== Aspect: Removing the default window's title bar
+===== Aspect: Designing the default window's title bar
 
 
 * **Alternative 1 (current choice)**: Replace the default title bar with a custom title bar
