@@ -395,7 +395,7 @@ public class MainWindow extends UiPart<Stage> {
         //assignmentListPanelPlaceholder.getChildren().clear();
         //assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
     }
-
+    //@author sheryltay28
     /**
      * schedules a lesson.
      * @param lesson Lesson object.
@@ -410,7 +410,7 @@ public class MainWindow extends UiPart<Stage> {
             }
         });
     }
-
+    //@author sheryltay28
     /**
      * method to add a listener to lesson observable list.
      * whenever a lesson is added to the list, a scheduler is created.
