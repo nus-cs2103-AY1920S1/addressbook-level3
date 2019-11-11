@@ -250,7 +250,7 @@ Enters settings page, so that the user can customise the game play.
 
 <<<
 
-=== Card Commands image:card_commands_icon.png[width="29.5"]
+=== _Card_ Commands image:card_commands_icon.png[width="29.5"]
 (Available in Open mode)
 
 ==== Add a _card_: `add`
@@ -327,7 +327,7 @@ Format: `clear`
 
 <<<
 
-=== WordBank Commands image:load_mode_icon.png[load, 22]
+=== _WordBank_ Commands image:load_mode_icon.png[load, 22]
 (Available in Home mode)
 
 ==== Select a _WordBank_: `select`
@@ -405,7 +405,7 @@ You can also drag and drop a _WordBank_ outside of _Dukemon_, and into your comp
 
 <<<
 
-=== WordBank Statistics Commands image:statistics-icon.png[width="32"]
+=== _WordBank_ Statistics Commands image:statistics-icon.png[width="32"]
 (Available in Open mode)
 
 ==== Resetting the _WordBank_ statistics: `reset`
@@ -632,10 +632,10 @@ image::annotated_game_results_ui.png[width=500]
 
 <<<
 
-=== WordBank Statistics
+=== _WordBank_ Statistics
 The _WordBank_ statistics is shown in the _Open_ mode and contains all information regarding the selected _WordBank_.
 
-.Wordbank Statistics UI.
+._WordBank_ Statistics UI.
 image::annotated_wb_statistics_ui.png[width=500]
 
 NOTE: The high score and fastest clear timing of a _WordBank_ will not be reset upon adding/deleting _cards_.
