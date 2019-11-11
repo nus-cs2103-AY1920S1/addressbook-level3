@@ -1,15 +1,15 @@
-= John Doe - Project Portfolio
+= Stephen Chua - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: SugarMummy
 
 ---
 
 == Overview
 
-SugarMummy is a desktop application used to manage a type-II diabetic lifestyle. The user interacts with it using a CLI, and it has a GUI created with JavaFx. It is written in Java and has about 17 kLOC.
+SugarMummy is a desktop application used to manage a type-II diabetic lifestyle. The user interacts with it using a CLI, and it has a GUI created with JavaFx. It is written in Java and has about 30 kLOC.
 
 == Summary of contributions
 
@@ -28,7 +28,6 @@ SugarMummy is a desktop application used to manage a type-II diabetic lifestyle.
 *** Detailed Data Logging feature in the User Guide: https://github.com/AY1920S1-CS2103-T16-1/main/pull/127[#127], https://github.com/AY1920S1-CS2103-T16-1/main/pull/128[#128]
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
