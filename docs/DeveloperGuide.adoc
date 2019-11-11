@@ -397,14 +397,14 @@ Within the function call, the actual update of balances is handled in `Ledger#ha
 
 
 .Activity diagram for creating a `Split` object
-image::SplitBehaviour.png[]
+image::SplitBehaviour.png[pdfwidth=60%]
 
 ==== Design Considerations
 
 Below shows how the classes involved with `Ledger` interact with each other.
 
 .Class diagram for operations that deal with Ledger
-image::LedgerOperationDiagram.png[]
+image::LedgerOperationDiagram.png[pdfwidth=60%]
 
 Current implementation of `Split` class encourages code reuse by abstracting the delegating the task of rebalancing to another class. +
 However, this introduces coupling as the behavior of `Split` is now inexplicably tied to `LendMoney`.
