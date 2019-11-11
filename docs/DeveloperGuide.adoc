@@ -374,7 +374,6 @@ image::AutoCompleteAddExample.png[]
 
 ===== How the UI works
 
-<<<<<<< HEAD
 The command box uses a custom `AutoCompleteTextField` which extends from JavaFX's
 `TextField`. It stores a reference to a `SortedSet` of strings. When the input is
 changed, it automatically compares the input with this set of suggestions. If any
@@ -383,11 +382,6 @@ suggestions to determine which suggestion is more similar to the input. The degr
 similarity is determined by the index of the first character of the matching region.
 
 image::AutoCompleteCommandExample.png[]
-=======
-The command box uses a custom `AutoCompleteTextField` which extends from JavaFX's `TextField`, which adds an additional listener for changes in the input text.
-This listener reads the entire input text on each character change and performs comparisons with a predefined set of strings.
-For all predefined strings that match the input text, they are sorted according to their "closeness", and a maximum of 5 is displayed.
->>>>>>> master
 
 The smaller the index, the more similar the suggestion is.
 
@@ -440,12 +434,7 @@ infinite structure, a `Graph` would be overkill.
 
 ===== Specifics
 
-<<<<<<< HEAD
 This is an example sequence diagram for `add-c n/`.
-=======
-To achieve this, the underlying data structure used is a directed `Graph` with every `Node` storing a reference to a set of values,
-and a `Map<String, Node>` to represent outgoing edges. The keys of this map represent the possible prefixes for the next argument of the input text, such as `c/` or `e/`.
->>>>>>> master
 
 image::AutoCompleteSequenceDiagram.png[]
 
@@ -852,8 +841,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*`|handphone seller|use an in-built messenger to communicate with my customer| talk to them without switching to another application.
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
