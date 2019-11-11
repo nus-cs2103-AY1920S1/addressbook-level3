@@ -24,6 +24,7 @@ Class Description
 Class Amount
 Class ExpenseList
 Class Archive
+Class Date
 }
 
 Package Tag {
@@ -58,6 +59,7 @@ ExpenseList <|-right Archive
 Expense *--> Name
 Expense *--> Amount
 Expense *--> Description
+Expense *--> Date
 Expense o--> "*" Tag
 
 Description -[hidden]right-> Amount
