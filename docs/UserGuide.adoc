@@ -491,7 +491,7 @@ Need to decide on a meeting timing, but having trouble finding a time where all 
 ** Timetables have been assigned to the members with the command `setTimetable`
 
 [NOTE]
-`generate` would not give an error if some members do not have timetable assigned to them. Ensure that you have done `setTimetable` for each of the members in the project before using `generate`.
+`generate` would *not* give an error if some members do not have timetable assigned to them. Ensure that you have done `setTimetable` for each of the members in the project before using `generate`.
 
 Format: `generate d/DURATION [r/TIMERANGE]`
 
