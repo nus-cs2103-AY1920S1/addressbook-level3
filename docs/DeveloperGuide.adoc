@@ -634,7 +634,7 @@ The image below represents the Class Diagram for Closest Common Location compone
 
 [#img-GmapsClassDiagram]
 .Class Diagram for Closest Common Location Component
-image::gmaps/GmapsClassDiagram.png[GmapsClassDiagram1]
+image::gmaps/GmapsClassDiagram.png[GmapsClassDiagram]
 
 
 *There are 3 main aspects to the implementation of this component.*
