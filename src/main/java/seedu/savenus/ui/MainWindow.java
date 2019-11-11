@@ -439,7 +439,8 @@ public class MainWindow extends UiPart<Stage> {
                     || commandResult.getFeedbackToUser().equals(InfoCommand.THEME_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.TOP_UP_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.WITHDRAW_INFO)
-                    || commandResult.getFeedbackToUser().equals(InfoCommand.SHOW_INFO)) {
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.SHOW_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.VIEW_SORT_INFO)) {
                 if (infoWindow.isShowing()) {
                     infoWindow.closeWindow();
                 }
