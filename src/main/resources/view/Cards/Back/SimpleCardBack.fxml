@@ -8,7 +8,7 @@
 <fx:root id="cardholder" alignment="BOTTOM_CENTER" prefHeight="350.0" prefWidth="300.0" spacing="10.0" styleClass="light-background" stylesheets="@../../defaultStyles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
       <Label fx:id="answerLabel" alignment="CENTER" maxWidth="280.0" text="Question goes here" textAlignment="CENTER" wrapText="true" />
-      <Button fx:id="correctButton" mnemonicParsing="false" text="I got it right!" textFill="GREEN" />
+      <Button fx:id="correctButton" mnemonicParsing="false" text="I got it correct!" textFill="GREEN" />
       <Button fx:id="wrongButton" mnemonicParsing="false" text="I got it wrong :(" textFill="RED" />
         <Button fx:id="seeFrontButton" mnemonicParsing="false" text="Flip to front" />
     </children>

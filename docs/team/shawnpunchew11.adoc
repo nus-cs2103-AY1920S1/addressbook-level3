@@ -21,13 +21,11 @@ Taking after reputable flashcard applications like Anki, FlashCard Pro provides 
 
 ** Allow users to test the cards in any order where they can skip to later questions and come back to skipped ones later on.
 
-** Stores user attempts and individual card results in each card.
-
-** Allows users to review cards at the end of the test and even repeat them to get the correct answer (though it will not contribute to their score if previously attempted).
+** Allows users to review cards at the end of the test and even repeat them to get the correct answer (though it will not contribute to their score).
 
 ** Results will be shown to the user at the end of the test.
 
-* Justification: This feature improves the product significantly by adding to its functionality because users can now do more with our application and hence derive more customer satisfaction out of it.
+* Justification: This feature improves the product significantly by adding to its functionality because it makes FlashCard Pro more than just a database for FlashCards by having some interactivity with the user. Users will be able to do self-learning with this added functionality.
 
 * Highlights:
 
@@ -36,22 +34,24 @@ Taking after reputable flashcard applications like Anki, FlashCard Pro provides 
 ** In addition, this feature is challenging because it requires in-depth analysis and design of the overall application architecture. It involved some complex design decisions such as making ExamRunner a singleton class as well as overall understanding in FXML, Regex and Logic code to tie the implementations of GUI and CLI together.
 ** Significant changes were made from the initial design when we changed our program structure to suit a MVC design pattern. This required thorough understanding of good software architecture as well as the Consumer functional interface.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=huiminlim&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]][https://github.com/AY1920S1-CS2103-F09-2/main/tree/master/src/test/java/dream/fcard/model[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=shawnp&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByAuthors&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shawnpunchew11&tabRepo=AY1920S1-CS2103-F09-2%2Fmain%5Bmaster%5D[Functional code]][https://github.com/AY1920S1-CS2103-F09-2/main/tree/master/src/test/java/dream/fcard/logic/exam[Test code]]
 
 * *Other contributions*:
 
-** Project management:
+** Testing:
 *** Alerted team about bugs found in issue tracker: https://github.com/AY1920S1-CS2103-F09-2/main/issues/326[#326]
+*** Did product testing to ensure that the test mechanism was bug-free, along with other features and GUI, and various system integration tests.
+*** Spent a great deal of time trying to fix our CI environment because our project suddenly failed Travis
 
 ** Enhancements to existing features:
-*** Wrote additional tests (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote additional tests (Please refer to [test code] link above.)
 
 ** Documentation:
+** Documentation:
+*** Did documentation in Developer Guide. (See <<Contributions to the Developer Guide>> below)
 *** Maintained the Command List Summary (See Section 7 of <<Contributions to the User Guide>> below)
 
-
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F13-2/main/pull/205[#205], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/91[#91]
 *** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/167[#167])
 
 

@@ -99,6 +99,7 @@ public class DeckDisplay extends VBox {
             TestDisplay testDisplay = new TestDisplay(exam);
             Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
             Consumers.doTask("TOGGLE_LIST_VIEW_OFF", true);
+            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You have entered test mode");
         }
     }
 

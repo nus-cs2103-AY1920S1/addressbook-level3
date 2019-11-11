@@ -1,4 +1,5 @@
 @startuml
+left to right direction
 (*) --> "load question"
 If "Times up?" then
 --> [No] If "End of Deck?" then
