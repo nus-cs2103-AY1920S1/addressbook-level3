@@ -66,14 +66,15 @@ By using the _Projections_ feature, you can project your:
 . Budget Deficits / Surpluses
 
 These projections are cast upon a specified `DATE`, and optionally, a specified `CATEGORY`. Upon casting a
-projection, it is automatically stored and thereafter accessible through the _Projection_ tab.
+projection, it is automatically stored and thereafter accessible through the _Projection_ tab via the `view`
+command (see <<View>>).
 
 
 [[Commands]]
 == Commands
 
 ====
-*Command Format*
+*Command Format* :
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user. +
 Example: For `in $/AMOUNT n/ITEM d/DATE`, `AMOUNT`, `ITEM` and `DATE` are parameters which can be used as
@@ -86,6 +87,25 @@ Example: `[n/NAME]...` can be used as `{nbsp}` (i.e. 0 times), `n/Amy`, `n/Amy n
 Example: If the command specifies `$/AMOUNT n/ITEM`, `n/ITEM $/AMOUNT` is also acceptable.
 * Parameters that need to be concatenated together are represented as `PARAM+PARAM`. +
 Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a space, such as `t1`.
+
+*Parameter Restrictions* :
+
+[width="100%",cols="30%,20%,<50%",options="header",]
+|=======================================================================
+| Parameter | Prefix | Restriction
+| AMOUNT | $/ | - a valid amount between 0 and 1000000 dollars exclusive +
+- a valid amount up to 2 decimal places
+| DATE | d/ |- a valid date with the format DDMMYY in the Gregorian calendar
+| DESCRIPTION | n/ | - a valid description with alphanumeric chacracters
+| CATEGORY | c/ | - a valid category with alphanumeric characters without space
+| TYPE | | - a valid type containing one character +
+`t` : Transaction +
+`b` : Budget +
+`l` : Ledger +
+`p` : Projection
+| INDEX | | - a valid entry number in the list
+|=======================================================================
+
 ====
 
 [[In]]
@@ -309,6 +329,9 @@ Examples:
 * `set $/100 d/010120120 c/BBT`
 * `set $/300 d/29022020 c/shopping`
 
+
+// tag::split[]
+
 [[Split]]
 === Splitting a Bill with Friends : `split`
 
@@ -371,7 +394,9 @@ image::SplitUneven1.png[]
 +
 .Uneven split results
 image::SplitUneven2.png[]
+// end::split[]
 
+// tag::receive[]
 [[Receive]]
 === Receiving Money from a Friend : `receive`
 
@@ -395,24 +420,18 @@ image::Receive1.png[]
 image::Receive2.png[]
 +
 Albert is removed from the *Ledger* since he no longer owes any money. *Ledger* balance is also updated accordingly.
+//end::receive[]
 
 [[Project]]
-=== Projecting Your Future Balance : `project`
+=== Projecting Future Balance and Budgets : `project`
 
 Cast a projection on your future balance amount and budget statuses based on your transaction history. +
-Format: `project d/DATE [c/CATEGORY]`
 
-****
-* `DATE` input only accepts dates in the following format: DDMMYYYY.
-* `DATE` input must be preceded by its tag `d/`.
-* `DATE` input must be set in the future.
-* `DATE` cannot be more than *720* days from the day of projection.
-* `CATEGORY` must be preceded by its tag `c/`.
-* There must be a minimum of *5* transactions in total, or in the specified `CATEGORY`
-for a projection to be successfully cast.
-* Should the number of `transactions` in a `projection` fall below *5*, the `projection`
-will be automatically deleted.
-****
+Format: `project d/DATE [c/CATEGORY]`
+[[Project-auto-cast]]
+[NOTE]
+If a `CATEGORY` is not specified, it will be set as `GENERAL` by default. `GENERAL` projections project
+upon *ALL* transactions, regardless of their categories.
 
 ==== Example Usage:
 
@@ -425,17 +444,64 @@ will be automatically deleted.
  Projected balance: $188.04
  You are on track to meeting your budget of $600 by 08122019, with a surplus of $484.32!
 
+==== Usage Constraints
+===== Command Format
+* `CATEGORY` must be preceded by its tag `c/`.
+A violation of any of the above will produce the following error message:
+****
+Invalid command format! +
+project: Project future balance based on past income/outflow. +
+Parameters: d/DATE [c/CATEGORY] +
+Example: project d/12122103 c/Food
+****
+===== Date Values +
+* `DATE` input must be set in the future.
+A violation of this constraint will produce the following
+error message:
+****
+Invalid command usage! +
+Date must be set in the future.
+****
+* `DATE` cannot be more than *720* days from the day of projection. +
+A violation of this constraint will produce the following error message:
+****
+Projections should be a maximum of 2 years (730 days) from now.
+****
+===== Minimum Number of Transactions
+* There must be a minimum of *5* transactions in total, or in the specified `CATEGORY`
+for a projection to be successfully cast.
+Should the requirement above be unmet, the following error message will be produced:
+****
+There are no transactions in [CATEGORY]. It is impossible to cast a projection.
+[NOTE]
+[GENERAL] will be displayed in place of [CATEGORY] if a `CATEGORY` is not specified. This is due to
+the auto-casting of uncategorised projections to the `GENERAL` category as explained <<Project-auto-cast, here>>.
+****
+* Should the number of transactions in a `projection` fall below *5*, it
+will be automatically deleted, as shown below:
+. Suppose there are *5* transactions, and a `GENERAL` projection, which projects upon them.
++
+.Five transactions under the projection tab
+image::project1.png[]
++
+[[Figure19]]
+.A projection which is cast based on the 5 transactions above
+image::project2.png[]
++
+. If a transaction being deleted causes the number of transactions being projected upon to fall below 5,
+the corresponding projection will automatically be deleted.
++
+.The fifth transaction has been deleted.
+image::project3.png[]
++
+.The project earlier seen in <<Figure19, Figure 19>> has been automatically deleted.
+image::project4.png[]
+
 === Display a Projection Graph: `display`
 
 Display a graphical representation of a `projection` in a new window.
 
 Format: `display PROJECTION_ID`
-
-****
-* A `Projection` with `PROJECTION_ID` must exist.
-* `Projection` graphs do not update automatically when a new `Transaction` or `Budget` is
-added or removed. Instead, they are statically rendered upon the `display` command.
-****
 
 ==== Example Usage
 
@@ -453,9 +519,25 @@ representation of the budget will be additionally displayed.
 image::display3.png[]
 +
 
+
+==== Usage Constraints
+===== Valid Projection ID
+* A `Projection` with `PROJECTION_ID` must exist.
+Attempting to display a non-existent `PROJECTION` will result in the following error message:
+****
+The projection index provided is invalid.
+****
+===== Static Graph Rendering
+* `Projection` graphs do not update automatically when a new `Transaction` or `Budget` is
+added or removed. Instead, they are statically rendered upon the `display` command.
+[NOTE]
+Due to the static nature of projection graphs, commands should *NOT* be executed while a projection
+graph is open, lest the behaviour of PalPay become unpredictable. +
+Consequently, a `display` command should *ALWAYS* be followed by closing the projection graph window, before
+any other actions are performed within _PalPay_.
+
 [[View]]
 // tag::view[]
-
 === Switching Tabs : `view`
 
 Want to switch tabs without using your mouse? You can switch to another tab with the `view` command.
@@ -484,7 +566,6 @@ image::view2.png[]
 +
 image::view3.png[]
 
-// end::view[]
 
 [[Delete]]
 // tag::delete[]

@@ -65,7 +65,6 @@ public class DeleteCommand extends Command {
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX);
             }
-            //TODO: updateProjectionsAfterDelete(Budget budget)
             Budget budgetToDelete = lastShownList.get(targetIndex.getZeroBased());
             model.delete(budgetToDelete);
             model.updateProjectionsAfterDelete(budgetToDelete);
@@ -84,7 +83,6 @@ public class DeleteCommand extends Command {
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, projectionToDelete),
                     false, false, Tab.PROJECTION);
-            // delete command for Split
         } else if (this.type.equals(Model.LEDGER_TYPE)) {
             ObservableList<LedgerOperation> lastShownList = model.getFilteredLedgerOperationsList();
 
