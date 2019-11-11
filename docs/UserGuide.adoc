@@ -985,11 +985,11 @@ The Home tab will be updated with this transaction and the remaining stock in th
 
 [NOTE]
 This command checks out and clears all the sales items, turning off the `Cashier Mode` until a new item is added into the cart.
-You can now modify the existing items on the Inventory tab.
+After turning executing this command, you can now modify the existing items on the Inventory tab.
 
 
 ==== Clears All the Sales Items in the Table
-This command clears all the sales item in the table.
+This command clears all the sales items in the table.
 
 * Command:
 [blue]`clear`
