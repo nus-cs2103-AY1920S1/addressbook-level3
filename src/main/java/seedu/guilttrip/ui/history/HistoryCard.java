@@ -11,7 +11,7 @@ import seedu.guilttrip.ui.UiPart;
  */
 public class HistoryCard extends UiPart<Region> {
 
-    private static final String FXML = "/history/HistoryListCard.fxml";
+    private static final String FXML = "history/HistoryListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.

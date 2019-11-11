@@ -460,8 +460,8 @@ image::addingBudget-2.png[]
 
 Other examples:
 
-* `addBudget c/Entertainment n/Nov Budget a/500.00 d/2019 11 01 p/1m t/fun`
-* `addBudget c/Food n/Mala Budget a/100.00 d/2019 09 10 p/50d`
+* `addBudget cat/Entertainment n/Nov Budget amt/500.00 d/2019 11 01 p/1m tg/fun`
+* `addBudget cat/Food n/Mala Budget amt/100.00 d/2019 09 10 p/50d`
 
 ==== Listing Budget : `listBudget`
 
@@ -1092,9 +1092,9 @@ do so.
 .. `sortBudget typ/<sort type> s/<sort sequence>`
 .. `sortWish typ/<sort type> s/<sort sequence>`
 .. `findExpense [cat/<category>] [n/<description>] [amt/<amount>] [d/<date>] [t/<tag>]`
-.. `findIncome [cat/<category>] [n/<description>] amt/<amount>] [d/<date>] [t/<tag>]`
-.. `findBudget [cat/<category>] [n/<description>] [d/<date>] [t/<tag>]`
-.. `findWish [cat/<category>] [n/<description>] [amt/<amount>] [d/<date>] [t/<tag>]`
+.. `findIncome [cat/<category>] [n/<description>] amt/<amount>] [d/<date>] [tg/<tag>]`
+.. `findBudget [cat/<category>] [n/<description>] [d/<date>] [tg/<tag>]`
+.. `findWish [cat/<category>] [n/<description>] [amt/<amount>] [d/<date>] [tg/<tag>]`
 
 . Reminders:
 .. `addReminder n/<Message> i/<Condition Index> [tkr/<Tracker Type>] [a/<Quota>]`
@@ -1114,14 +1114,14 @@ do so.
 .. `listConditions`
 
 . Wishlist:
-.. `addWish n/<Description> c/<Category> amt/<Price> d/<Date>`
+.. `addWish n/<Description> cat/<Category> amt/<Price> d/<Date>`
 .. `deleteWish <index>`
-.. `editWishlist <index> [n/<Description>] [c/<Category>] [amt/<Price>] [d/<Date>] [t/<Tag>]`
+.. `editWishlist <index> [n/<Description>] [cat/<Category>] [amt/<Price>] [d/<Date>] [tg/<Tag>]`
 .. `sortWishlistTime <ascending/ descending>`
 .. `sortWishlistPrice <ascending/ descending>`
 .. `sortWishlistName <ascending/descending>`
 .. `sortWishlistPriority <ascending/descending>`
-.. `findWish [c/<category>] [n/<description>] [amt/<amount>] [d/<date>] [t/<tag>]`
+.. `findWish [cat/<category>] [n/<description>] [amt/<amount>] [d/<date>] [tg/<tag>]`
 .. `purchase <index>`
 
 . Undo and Redo:

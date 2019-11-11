@@ -14,7 +14,7 @@ import seedu.guilttrip.ui.UiPart;
  * Side panel for budgets.
  */
 public class HistoryPanel extends UiPart<Region> {
-    private static final String FXML = "/history/HistoryListPanel.fxml";
+    private static final String FXML = "history/HistoryListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(HistoryPanel.class);
 
     @FXML

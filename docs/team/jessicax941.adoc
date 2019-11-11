@@ -7,7 +7,8 @@
 
 == Overview
 
-GuiltTrip is a finance tracker application, optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, GuiltTrip can get your finance tracker tasks done faster than traditional GUI apps. Users can track their spending, incomes, wishlist items and budgets all in one place. They could also add recurring expenses that will add expenses for users automatically based on a given frequency.
+Craving for a nice bowl of Mala but can’t seem to save up enough for it? guiltTrip() is the perfect platform for those
+*aspiring to be able to afford their Mala*, finally!
 
 == Summary of contributions
 
