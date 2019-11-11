@@ -108,130 +108,50 @@ following examples in this https://github.com/mrnewguy/ped/issues[link].
 
 We were put in charge of our own sections of the User Guide content while
 another member had styled and verified the cohesiveness of the User Guide as a
-whole. The following is a small excerpt of my section, which shows some commands of
-the `CcaTracker` feature in the User Guide:
+whole. The following is a small excerpt of my section in the User Guide. It shows the entire process of incrementing
+ a Cca's progress for a Cca. This process consists of both the `add-progress` and `increase-progress` command in the
+ `CcaTracker` feature.
 
 '''
 
-==== Add a CCA: `add-cca`
-To start, we can add some CCAs to the CCA Tracker. You will need to specify
-the name of the cca and the type of the CCA.
-
-Format: `add-cca n/NAME t/TYPE [e/EQUIPMENT]...`
-
-The `types` of the CCA are limited to the following:
-
-* `performingArt`
-* `sport`
-* `club`
-* `uniformedGroup`
-
-===== Example
-----
-add-cca n/Canoeing t/sport
-add-cca n/Piano t/performingArt e/piano e/musical score e/metronome
-add-cca n/Red cross t/uniformedGroup e/uniform e/first aid kit e/stretcher e/beret
-----
-
-==== Delete a CCA: `delete-cca`
-New semester, new CCAs - deleting outdated ones is a breeze.
-
-Format: `delete-cca INDEX`
-
-===== Example
-----
-delete-cca 1
-----
-
-[NOTE]
-`INDEX` corresponds to the **one based index** shown on the list of Ccas under the Ccas tab. This also means that the
-index must exist within this list!
-
-
-==== Edit a CCA: `edit-cca`
-If you have bought the latest tuner for your piano or some new running shoes, let `Jarvis`
-know so that the changes to your CCAs can be updated!
-
-Format: `edit-cca INDEX { n/NAME | t/TYPE | e/EQUIPMENT... | p/MILESTONE... | l/PROGRESS-LEVEL }`
-
-===== Example
-----
-edit-cca 1 n/Piano t/performingArt e/piano e/musical score e/metronome e/tuner e/piano book
-edit-cca 2 n/Running e/shoes e/water bottle e/snack bar
-edit-cca 2 p/beginner p/intermediate p/advanced p/half-marathon p/full marathon p/ultramarathon l/5
-----
-
-[NOTE]
-Note that you will have to re-type each `EQUIPMENT` if you wish to add additional `EQUIPMENT` to the selected cca!
-
-==== List a CCA: `list-cca`
-Lists all your CCAs in the CCA Tracker. Using `list-cca` while on another page of Jarvis will
-pull up the CCA Tracker tab.
-
-Format: `list-cca`
-
-
-==== Find a CCA: `find-cca`
-For a quick view of CCAs matching one or more keywords, `find-cca` will come in useful.
-
-.Display for find-cca
-image::ug/find-cca.png[]
-
-{sp} +
-
-Format: `find-cca KEYWORD...`
-
-===== Example
-----
-find-cca swimming
-find-cca canoeing guitar
-----
-
 ==== Add progress levels for a CCA: `add-progress`
-Often, we strive to reach certain milestones in our CCAs. For example, in learning the piano, you might be aiming to
+Often, we strive to reach certain milestones in our CCAs. For example, in learning the swimming, you might be aiming to
 progress through the various grade levels available. With `add-progress`,
-`Jarvis` can help you set and keep track of your progress towards each milestone in each of your CCAs.
+`Jarvis` can help you set and keep track of your progress towards each milestone in swimming.
 
 Format: `add-progress INDEX p/MILESTONE...`
 
-===== Example
-----
-add-progress 1 p/Grade 1 p/Grade 2 p/Grade 3 p/Grade 4 p/Grade 5 p/Grade 6 p/Grade 7 p/Grade 8 p/Diploma
-add-progress 2 p/LCP p/Corporal p/Sergeant p/Staff Sergeant p/Warrant Officer p/Senior Warrant Officer
-----
+==== Step 1
+Select a Cca which currently does not have a progress yet.
 
-==== Increment progress level: `increment-progress`
-Each time you have made progress towards any of your milestones, let `Jarvis` know! The progress bar for each CCA
-provides a clear view of how much closer you are to their respective milestones.
-
-.Display for increment-progress
-image::ug/increment-progress.png[]
-
-{sp} +
-
-In Figure 11 above, using `increment-progress` on Swimming will raise the progress percentage from 50% to
-62.5%.
-
-Format: `increment-progress INDEX`
-
-===== Example
-----
-increment-progress 1
-----
+.showing a `Cca` without a progress.
+image::ccatracker/mrnewgy-progressNotSet.png[]
 
 [NOTE]
-Note that progress can only be incremented if `add-progress` has previously been executed on that particular Cca.
+This step assumes that you have already added a swimming `Cca` to the `CcaTracker`.
 
 
-==== Add training date: `add-cca` [v2.0]
-Need a reminder on Cca trainings? Add training dates to each Cca. Note that the training date is an optional parameter.
+==== Step 2
+Add a progress to the selected `Cca` using the `add-progress` command.
 
-Format: `add-cca n/NAME t/TYPE [e/EQUIPMENT]... [d/TRAINING DATE]...`
+.showing a `Cca` with an added progress.
+image::ccatracker/mrnewgy-progressAdded.png[]
 
-===== Example
-----
-add-cca n/Piano t/performingArt d/1/12/2019 d/7/12/2019
-----
+==== Step 3
+Increment the progress on the selected `Cca` using the `increment-progress` command.
+
+.showing a `Cca` with the progress incremented.
+image::ccatracker/mrnewgy-progresIncremented.png[]
+
+Here is a more detailed explanation of each component in the `Progress Tracker` segment of each `Cca`.
+
+.detailed explanation of the Progress Tracker.
+image::ccatracker/mrnewgy-detailedProgressDescription.png[]
+
+
+[NOTE]
+Note that progress can only be incremented if `add-progress` has previously been executed on that particular Cca
+(see steps 1 and 2!)
 
 '''
 
