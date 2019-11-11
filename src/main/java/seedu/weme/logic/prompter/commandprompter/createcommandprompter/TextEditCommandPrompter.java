@@ -17,7 +17,10 @@ import static seedu.weme.logic.prompter.util.PrompterUtil.promptSimilarCreateArg
 import java.util.regex.Matcher;
 
 import seedu.weme.logic.commands.createcommand.TextEditCommand;
+import seedu.weme.logic.parser.exceptions.ParseException;
+import seedu.weme.logic.parser.util.ArgumentMultimap;
 import seedu.weme.logic.parser.util.ArgumentTokenizer;
+import seedu.weme.logic.parser.util.ParserUtil;
 import seedu.weme.logic.prompter.Prompter;
 import seedu.weme.logic.prompter.exceptions.PromptException;
 import seedu.weme.logic.prompter.prompt.CommandPrompt;
@@ -39,8 +42,8 @@ public class TextEditCommandPrompter implements Prompter {
             return new CommandPrompt(MESSAGE_USAGE, userInput);
         }
 
-        ArgumentTokenizer.tokenize(arguments, PREFIX_TEXT, PREFIX_X_COORDINATE, PREFIX_Y_COORDINATE,
-                PREFIX_COLOR, PREFIX_STYLE, PREFIX_SIZE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(arguments, PREFIX_TEXT, PREFIX_X_COORDINATE,
+                PREFIX_Y_COORDINATE, PREFIX_COLOR, PREFIX_STYLE, PREFIX_SIZE);
         LastArgument lastArgument = getLastArgument(arguments, PREFIX_TEXT, PREFIX_X_COORDINATE, PREFIX_Y_COORDINATE,
                 PREFIX_COLOR, PREFIX_STYLE, PREFIX_SIZE);
         if (lastArgument == null) {
@@ -60,6 +63,12 @@ public class TextEditCommandPrompter implements Prompter {
                 }
                 return new CommandPrompt(TextEditCommand.MESSAGE_USAGE, userInput);
             } catch (NumberFormatException e) {
+                throw new PromptException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+            }
+        } else {
+            try {
+                ParserUtil.parseIndex(argMultimap.getPreamble());
+            } catch (ParseException e) {
                 throw new PromptException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
             }
         }

@@ -71,8 +71,13 @@ public class MemeFindCommandPrompter implements Prompter {
                             .orElse(""));
         }
 
-        String inputWithoutLastArgument = PREAMBLE + String.join(" ",
-                Arrays.copyOfRange(tokens, 0, tokens.length - 1)) + COMMAND_DELIMITER;
+        String inputWithoutLastArgument;
+        if (tokens.length == 1) {
+            inputWithoutLastArgument = PREAMBLE;
+        } else {
+            inputWithoutLastArgument = PREAMBLE + String.join(" ",
+                    Arrays.copyOfRange(tokens, 0, tokens.length - 1)) + COMMAND_DELIMITER;
+        }
         return promptSimilarMemeArguments(model, inputWithoutLastArgument, lastArgument);
     }
 }
