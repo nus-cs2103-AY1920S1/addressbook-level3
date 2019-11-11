@@ -1,6 +1,6 @@
 package seedu.address.diaryfeature.logic.parser;
 
-
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,7 +24,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.parser.GoToParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import java.util.logging.Logger;
+
 
 /**
  * Overall user input parser.
@@ -32,6 +32,7 @@ import java.util.logging.Logger;
 public class DiaryBookParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Logger logger = LogsCenter.getLogger(JsonUtil.class);
+
     /**
      * Parses user input into command for execution.
      *
@@ -43,54 +44,52 @@ public class DiaryBookParser {
         if (!matcher.matches()) {
             logger.info("Couldn't match the command word");
             logger.info(matcher.toString());
-            return new ErrorCommand(new ParseException(matcher.toString()));
+            throw new EmptyArgumentException("");
         }
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-     //  try {
-            switch (commandWord) {
-                case AddCommand.COMMAND_WORD:
-                    return new AddCommandParser().parse(arguments);
+        //  try {
+        switch (commandWord) {
+        case AddCommand.COMMAND_WORD:
+            return new AddCommandParser().parse(arguments);
 
-                case DeleteCommand.COMMAND_WORD:
-                    return new DeleteCommandParser().parse(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
 
-                case GoToCommand.COMMAND_WORD:
-                    return new GoToParser().parse(arguments);
+        case GoToCommand.COMMAND_WORD:
+            return new GoToParser().parse(arguments);
 
-                case ExitCommand.COMMAND_WORD:
-                    return new ExitCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-                case ListCommand.COMMAND_WORD:
-                    return new ListCommand();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
-                case FindCommand.COMMAND_WORD:
-                    return new FindCommandParser().parse(arguments);
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
 
-                case FindSpecificCommand.COMMAND_WORD:
-                    return new FindSpecificCommandParser().parse(arguments);
+        case FindSpecificCommand.COMMAND_WORD:
+            return new FindSpecificCommandParser().parse(arguments);
 
-                case HelpCommand.COMMAND_WORD:
-                    return new HelpCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
-                case PrivateCommand.COMMAND_WORD:
-                    return new PrivateCommandParser().parse(arguments);
+        case PrivateCommand.COMMAND_WORD:
+            return new PrivateCommandParser().parse(arguments);
 
-                case UnPrivateCommand.COMMAND_WORD:
-                    return new UnPrivateCommandParser().parse(arguments);
+        case UnPrivateCommand.COMMAND_WORD:
+            return new UnPrivateCommandParser().parse(arguments);
 
-                case UnLockCommand.COMMAND_WORD:
-                    return new UnLockCommandParser().parse(arguments);
+        case UnLockCommand.COMMAND_WORD:
+            return new UnLockCommandParser().parse(arguments);
 
-                case SetDetailsCommand.COMMAND_WORD:
-                    return new SetDetailsCommandParser().parse(arguments);
+        case SetDetailsCommand.COMMAND_WORD:
+            return new SetDetailsCommandParser().parse(arguments);
 
-                default:
-                    return new ErrorCommand(new DiaryUnknownException());
-            }
-        //} catch (EmptyArgumentException error) {
-        //    return new ErrorCommand(error);
-      //  }
+        default:
+            return new ErrorCommand(new DiaryUnknownException());
+        }
+
     }
 
 }

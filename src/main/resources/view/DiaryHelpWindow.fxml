@@ -22,14 +22,14 @@
                 <children>
                <VBox prefHeight="200.0" prefWidth="100.0">
                   <children>
-                     <HBox prefHeight="47.0" prefWidth="515.0">
+                     <HBox>
                         <children>
-                                <Label fx:id="helpMessage" prefHeight="17.0" prefWidth="445.0" text="Get Help from the user guide">
+                                <Label fx:id="helpMessage" prefHeight="17.0" prefWidth="407.0" text="Get Help from the user guide" wrapText="true">
                                     <HBox.margin>
                                         <Insets right="5.0" />
                                     </HBox.margin>
                                 </Label>
-                                <Button fx:id="copyButton" mnemonicParsing="false" onAction="#copyUrl" text="Copy URL">
+                                <Button fx:id="copyButton" mnemonicParsing="false" onAction="#copyUrl" text="Copy URL" wrapText="true">
                                     <HBox.margin>
                                         <Insets left="5.0" />
                                     </HBox.margin>
@@ -38,74 +38,74 @@
                      </HBox>
                      <HBox prefHeight="137.0" prefWidth="515.0">
                         <children>
-                           <TitledPane prefHeight="119.0" prefWidth="200.0" text=" add parameters">
+                           <TitledPane text=" add parameters">
                               <content>
                                  <VBox prefHeight="91.0" prefWidth="198.0">
                                     <children>
-                                       <HBox prefHeight="23.0" prefWidth="183.0">
+                                       <HBox>
                                           <children>
-                                             <Label prefHeight="17.0" prefWidth="171.0" text="title,date can't be empty" />
+                                             <Label text="title,date can't be empty" wrapText="true" />
                                           </children>
                                        </HBox>
-                                       <HBox prefHeight="22.0" prefWidth="177.0">
+                                       <HBox>
                                           <children>
-                                             <Label prefHeight="30.0" prefWidth="173.0" text="date: dd/mm/yyyy HHmm" />
+                                             <Label text="date: dd/mm/yyyy HHmm" wrapText="true" />
                                           </children>
                                        </HBox>
-                                       <HBox prefHeight="27.0" prefWidth="177.0">
+                                       <HBox>
                                           <children>
-                                             <Label prefHeight="25.0" prefWidth="169.0" text="memory,place are option" />
-                                          </children>
-                                       </HBox>
-                                    </children>
-                                 </VBox>
-                              </content>
-                           </TitledPane>
-                           <TitledPane prefHeight="120.0" prefWidth="186.0" text="delete, privacy parameters">
-                              <content>
-                                 <VBox prefHeight="92.0" prefWidth="184.0">
-                                    <children>
-                                       <HBox prefHeight="17.0" prefWidth="178.0">
-                                          <children>
-                                             <Label prefHeight="17.0" prefWidth="170.0" text="&quot;x&quot; is a positive integer" />
-                                          </children>
-                                       </HBox>
-                                       <HBox prefHeight="16.0" prefWidth="178.0">
-                                          <children>
-                                             <Label prefHeight="4.0" prefWidth="169.0" text="password/user: " />
-                                          </children>
-                                       </HBox>
-                                       <HBox prefHeight="17.0" prefWidth="178.0">
-                                          <children>
-                                             <Label prefHeight="17.0" prefWidth="179.0" text="more than 7 " />
-                                          </children>
-                                       </HBox>
-                                       <HBox prefHeight="100.0" prefWidth="200.0">
-                                          <children>
-                                             <Label prefHeight="17.0" prefWidth="173.0" text="alphanumeric chars" />
+                                             <Label text="memory,place are optional" wrapText="true" />
                                           </children>
                                        </HBox>
                                     </children>
                                  </VBox>
                               </content>
                            </TitledPane>
-                           <TitledPane prefHeight="200.0" prefWidth="200.0" text="find parameters">
+                           <TitledPane text="delete, privacy parameters">
                               <content>
-                                 <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <VBox>
                                     <children>
-                                       <HBox prefHeight="16.0" prefWidth="135.0">
+                                       <HBox>
                                           <children>
-                                             <Label prefHeight="17.0" prefWidth="128.0" text="&quot;something&quot;: cant be " />
+                                             <Label text="&quot;x&quot; is a positive integer" wrapText="true" />
                                           </children>
                                        </HBox>
-                                       <HBox prefHeight="13.0" prefWidth="135.0">
+                                       <HBox>
                                           <children>
-                                             <Label prefHeight="17.0" prefWidth="131.0" text="empty" />
+                                             <Label text="password/user: " wrapText="true" />
                                           </children>
                                        </HBox>
-                                       <HBox prefHeight="23.0" prefWidth="135.0">
+                                       <HBox>
                                           <children>
-                                             <Label prefHeight="17.0" prefWidth="132.0" text="prefix: t/d/p/m" />
+                                             <Label text="more than 7 " wrapText="true" />
+                                          </children>
+                                       </HBox>
+                                       <HBox>
+                                          <children>
+                                             <Label text="alphanumeric chars" wrapText="true" />
+                                          </children>
+                                       </HBox>
+                                    </children>
+                                 </VBox>
+                              </content>
+                           </TitledPane>
+                           <TitledPane text="find parameters" wrapText="true">
+                              <content>
+                                 <VBox>
+                                    <children>
+                                       <HBox>
+                                          <children>
+                                             <Label text="&quot;something&quot;: cant be " wrapText="true" />
+                                          </children>
+                                       </HBox>
+                                       <HBox>
+                                          <children>
+                                             <Label text="empty" wrapText="true" />
+                                          </children>
+                                       </HBox>
+                                       <HBox>
+                                          <children>
+                                             <Label text="prefix: t/d/p/m" wrapText="true" />
                                           </children>
                                        </HBox>
                                     </children>

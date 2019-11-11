@@ -16,47 +16,15 @@ Class ReadOnlyUserPrefs
 Class UserPrefs
 }
 
-namespace Achievements {
+namespace XYZ {
 namespace Model {
-Interface StatisticsModel <<Interface>>
-}
-}
-
-namespace Address {
-namespace Model {
-Interface AddressBookModel <<Interface>>
-}
-}
-
-namespace Calendar {
-namespace Model {
-}
-}
-
-namespace diaryFeature {
-namespace diaryModel {
-}
-}
-
-namespace FinancialTracker {
-namespace Model {
-}
-}
-
-namespace Itinerary {
-namespace Model {
+Class Model
 }
 }
 
 HiddenOutside ..> Model.Model
 
 Interface ObservableList <<Interface>>
-Interface Supplier <<Interface>>
-''''''''''LAYOUT''''''''''
-Model.UserPrefsModelManager .[hidden]down.|> Achievements
-Model.UserPrefsModelManager .[hidden]down.|> Address
-''''''''''''''''''''''''''
-
 
 ''''''''''MODEL''''''''''
 
@@ -66,19 +34,17 @@ Model.ModelManager .up.|> Model.Model
 
 ''''''''''Model Interface
 Model.Model .down.> Address.Model.AddressBookModel :gets >
-Model.Model .down.> Achievements.Model.StatisticsModel :supplies >
 Model.Model .down.> Model.UserPrefsModel :gets >
-Model.Model .right.>Supplier
+Model.UserPrefsModel ..> Model.ReadOnlyUserPrefs
 
 ''''''''''ModelManager Constructor
-''' composition or aggregation?
-Model.ModelManager o--> "1" Address.Model.AddressBookModel
-Model.ModelManager o--> "1" Model.UserPrefsModel
-Model.ModelManager ..> "1" Achievements.Model.StatisticsModel
-
+Model.ModelManager o-- "1" Address.Model.AddressBookModel
+Model.ModelManager o-- "1" Model.UserPrefsModel
 
 ''''''''''UserPrefsModelManager
 Model.UserPrefsModelManager .up.|> Model.UserPrefsModel
+Model.UserPrefsModelManager .left.> Model.ReadOnlyUserPrefs
+Model.UserPrefsModelManager o-- "1" Model.UserPrefs
 
 ''''''''''UserPrefs
 Model.UserPrefs .up.|> Model.ReadOnlyUserPrefs
@@ -88,17 +54,8 @@ Model.UserPrefs .up.|> Model.ReadOnlyUserPrefs
 ''''''''''ADDRESS''''''''''
 Address.Model.AddressBookModel .right.> ObservableList
 
-''''''''''STATISTICS''''''''''
-Achievements.Model.StatisticsModel .right.> ObservableList
-
 ''''''''''LAYOUT''''''''''
 Model.ModelManager -[hidden]down-> Model.UserPrefsModel
-Model.UserPrefsModelManager -[hidden]down->Address
-Model.UserPrefsModelManager -[hidden]down->Achievements
-Model.UserPrefsModelManager -[hidden]down->Calendar
-Model.UserPrefsModelManager -[hidden]down->diaryFeature
-Model.UserPrefsModelManager -[hidden]down->FinancialTracker
-Model.UserPrefsModelManager -[hidden]down->Itinerary
-Address -down[hidden]-> Achievements
+Model.UserPrefsModelManager -[hidden]down->XYZ
 ''''''''''''''''''''''''''
 @enduml

@@ -21,6 +21,7 @@ import seedu.address.ui.Page;
 import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
 import seedu.address.ui.ResultDisplay;
+import seedu.address.ui.UiPart;
 
 
 /**
@@ -84,7 +85,8 @@ public class DiaryPage extends UiPart<Region> implements Page {
      * Executes the command and returns the result.
      *
      */
-    private CommandResult executeCommand(String commandText) throws ParseException, CommandException, EmptyArgumentException {
+    private CommandResult executeCommand(String commandText) throws
+            ParseException, CommandException, EmptyArgumentException {
         try {
             CommandResult commandResult = logicHandler.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -100,7 +102,7 @@ public class DiaryPage extends UiPart<Region> implements Page {
         } catch (ParseException | EmptyArgumentException e) {
             logger.info("Invalid command: " + commandText + e);
             resultDisplay.setFeedbackToUser(e.toString());
-             throw e;
+            throw e;
         } catch (CommandException e) {
             logger.info("Invalid command: " + commandText + e);
             resultDisplay.setFeedbackToUser(e.getMessage());

@@ -10,7 +10,6 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.financialtracker.logic.parser.CliSyntax;
 import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.model.expense.Amount;
-import seedu.address.financialtracker.model.expense.Country;
 import seedu.address.financialtracker.model.expense.Date;
 import seedu.address.financialtracker.model.expense.Description;
 import seedu.address.financialtracker.model.expense.Expense;

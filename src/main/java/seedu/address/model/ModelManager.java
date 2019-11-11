@@ -32,9 +32,4 @@ public class ModelManager implements Model {
         return userPrefsModel;
     }
 
-    @Override
-    public Supplier<StatisticsModel> statisticsModelSupplier() {
-        return null;
-    }
-
 }
