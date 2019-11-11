@@ -1,0 +1,20 @@
+@startuml
+start
+:User wants to edit an expense;
+
+- User selects the appropriate country expense list
+
+if () then ([valid format])
+    :Financial Tracker try to edit the expense;
+    if () then ([at least 1 changes of the expense entries made])
+        :add and store the expense into the list;
+        :sort the expense list;
+    else ([no changes made])
+        :inform that the user did not edit anything;
+    endif
+
+else ([else])
+    :Informs user of incorrect use of command;
+endif
+stop
+@enduml

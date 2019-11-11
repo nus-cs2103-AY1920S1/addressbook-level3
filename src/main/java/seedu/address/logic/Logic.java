@@ -1,42 +1,71 @@
 package seedu.address.logic;
 
-import java.nio.file.Path;
-
-import javafx.collections.ObservableList;
+import seedu.address.achievements.logic.AchievementsLogic;
+import seedu.address.address.logic.AddressBookLogic;
+import seedu.address.calendar.logic.CalendarLogic;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.diaryfeature.logic.DiaryBookLogic;
+import seedu.address.financialtracker.logic.FinancialTrackerLogic;
+import seedu.address.itinerary.logic.ItineraryLogic;
+import seedu.address.storage.Storage;
+
 
 /**
- * API of the Logic component
+ * API of the AddressBookLogic component
  */
-public interface Logic {
-    /**
-     * Executes the command and returns the result.
-     * @param commandText The command as entered by the user.
-     * @return the result of the command execution.
-     * @throws CommandException If an error occurs during command execution.
-     * @throws ParseException If an error occurs during parsing.
-     */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
+
+public interface Logic extends GuiSettingsLogic {
+
+    Storage getStorage();
 
     /**
-     * Returns the AddressBook.
+     * Gets address book logic.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @return Address book logic
      */
-    ReadOnlyAddressBook getAddressBook();
-
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    AddressBookLogic getAddressBookLogic();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Gets achievements logic.
+     *
+     * @return Achievement logic
      */
-    Path getAddressBookFilePath();
+    AchievementsLogic getAchievementsLogic();
+
+    /**
+     * Gets diary logic.
+     *
+     * @return Diary logic
+     */
+    DiaryBookLogic getDiaryLogic();
+
+    /**
+     * Gets calendar logic.
+     *
+     * @return Calendar logic
+     */
+    CalendarLogic getCalendarLogic();
+
+    /**
+     * Gets itinerary logic.
+     *
+     * @return Itinerary logic
+     */
+    ItineraryLogic getItineraryLogic();
+
+    /**
+     * Gets financial tracker logic.
+     *
+     * @return Financial tracker logic
+     */
+    FinancialTrackerLogic getFinancialTrackerLogic();
+
+    /**
+     * Gets main logic.
+     *
+     * @return Main logic
+     */
+    public MainLogic getMainLogic();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -44,7 +73,7 @@ public interface Logic {
     GuiSettings getGuiSettings();
 
     /**
-     * Set the user prefs' GUI settings.
+     * Set gui settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
 }

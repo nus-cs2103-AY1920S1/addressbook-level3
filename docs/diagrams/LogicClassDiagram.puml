@@ -4,59 +4,201 @@ skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
 
-package Logic {
-
-package Parser {
-Interface Parser <<Interface>>
-Class AddressBookParser
-Class XYZCommandParser
-Class CliSyntax
-Class ParserUtil
-Class ArgumentMultimap
-Class ArgumentTokenizer
-Class Prefix
-}
-
-package Command {
-Class XYZCommand
-Class CommandResult
-Class "{abstract}\nCommand" as Command
-}
-
+namespace Logic {
 Interface Logic <<Interface>>
 Class LogicManager
+namespace Commands {
+Class CommandResult
+Class "{abstract}\nCommand" as Command
+Class XYZCommand
+}
+namespace Parser {
+Interface Parser <<Interface>>
+Class ArgumentMultimap
+Class ArgumentTokenizer
+Class ParserUtil
+Class Prefix
+Class XYZCommandParser
+}
 }
 
-package Model{
-Class HiddenModel #FFFFFF
+namespace Storage {
 }
 
+namespace Model {
+}
+
+
+namespace Achievements {
+namespace Model {
+}
+namespace Logic {
+interface AchievementsLogic <<interface>>
+Class AchievementsLogicManager
+namespace Commands {
+Class XYZCommand
+}
+namespace Parser {
+Class AchievementsParser
+Class XYZCommandParser
+}
+}
+}
+
+namespace Address {
+namespace Model {
+}
+namespace Logic {
+Interface AddressBookLogic <<interface>>
+Class AddressBookLogicManager
+namespace Commands {
+Class XYZCommand
+}
+namespace Parser {
+Class AddressBookParser
+Class CliSyntax
+Class XYZCommandParser
+}
+}
+}
+
+namespace Calendar {
+namespace Parser {
+}
+}
+
+namespace diaryFeature {
+namespace diaryParser {
+}
+}
+
+namespace FinancialTracker {
+namespace Parser {
+}
+}
+
+namespace Itinerary {
+namespace Parser {
+}
+}
+
+Interface ObservableList <<Interface>>
+Interface Supplier <<Interface>>
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Logic
 
-LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+''''''''''LOGIC''''''''''
+HiddenOutside ..> Logic.Logic
 
-XYZCommandParser ..> XYZCommand : creates >
-XYZCommandParser ..|> Parser
-XYZCommandParser ..> ArgumentMultimap
-XYZCommandParser ..> ArgumentTokenizer
-ArgumentTokenizer .left.> ArgumentMultimap
-XYZCommandParser ..> CliSyntax
-CliSyntax ..> Prefix
-XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
-ArgumentTokenizer .down.> Prefix
-XYZCommand -up-|> Command
-LogicManager .left.> Command : executes >
+''''''''''Logic
+Logic.Logic .left.> Storage
+Logic.Logic .down.> Address.Logic.AddressBookLogic :gets >
+Logic.Logic .down.> Achievements.Logic.AchievementsLogic :gets >
 
-LogicManager --> Model
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+''''''''''LogicManager
+Logic.LogicManager .up.|> Logic.Logic
+Logic.LogicManager ..> Model
+Logic.LogicManager o-right-> "1" Storage
+Logic.LogicManager o-right-> "1" Model
+Logic.LogicManager *-down-> "1" Address.Logic.AddressBookLogic
+Logic.LogicManager *-down-> "1" Achievements.Logic.AchievementsLogic
 
-Logic ..> CommandResult
-LogicManager .down.> CommandResult
-Command .up.> CommandResult
-CommandResult -[hidden]-> Parser
+''''''''''Command
+Logic.Commands.Command .up.> Logic.Commands.CommandResult
+
+''''''''''XYZ Command
+Logic.Commands.XYZCommand -up-|> Logic.Commands.Command
+
+''''''''''Parser
+Logic.Parser.XYZCommandParser .up.|> Logic.Parser.Parser
+
+''''''''''ParserUtil
+Logic.Parser.ParserUtil .down.>Logic.Parser.Prefix
+
+''''''''''ArgumentTokenizer
+Logic.Parser.ArgumentTokenizer .left.> Logic.Parser.ArgumentMultimap
+Logic.Parser.ArgumentTokenizer .down.> Logic.Parser.Prefix
+
+'''''''''''''''''''''''''''''''''
+
+''''''''''ADDRESS''''''''''
+
+''''''''''AddressBookLogic
+Address.Logic.AddressBookLogic .up.> Storage
+Address.Logic.AddressBookLogic .up.> Logic.Commands.CommandResult
+Address.Logic.AddressBookLogic .right.> ObservableList
+Address.Logic.AddressBookLogic .right.> Address.Model
+''''''''''
+
+''''''''''AddressBookLogicManager
+Address.Logic.AddressBookLogicManager .up.|> Address.Logic.AddressBookLogic
+Address.Logic.AddressBookLogicManager .up.> Logic.Commands.CommandResult
+Address.Logic.AddressBookLogicManager .up.> Logic.Commands.Command :executes >
+
+Address.Logic.AddressBookLogicManager o--> "1" Storage
+Address.Logic.AddressBookLogicManager o--> "1" Address.Model
+Address.Logic.AddressBookLogicManager *-down-> "1" Address.Logic.Parser.AddressBookParser
+
+
+''''''''''XYZCommand
+Address.Logic.Commands.XYZCommand -up-|> Logic.Commands.Command
+
+''''''''''Parser
+Address.Logic.Parser.AddressBookParser .down.> Logic.Commands.Command :creates >
+Address.Logic.Parser.AddressBookParser .down.> Address.Logic.Parser.XYZCommandParser
+
+''''''''''XYZCommandParser
+Address.Logic.Parser.XYZCommandParser .left.> Address.Logic.Commands.XYZCommand :creates >
+Address.Logic.Parser.XYZCommandParser .up.|> Logic.Parser.Parser
+Address.Logic.Parser.XYZCommandParser .up.> Logic.Parser.ArgumentMultimap
+Address.Logic.Parser.XYZCommandParser .up.> Logic.Parser.ArgumentTokenizer
+Address.Logic.Parser.XYZCommandParser .up.> Logic.Parser.ParserUtil
+Address.Logic.Parser.XYZCommandParser .up.> Logic.Parser.Prefix
+Address.Logic.Parser.XYZCommandParser ..> Address.Logic.Parser.CliSyntax
+
+''''''''''CliSyntax
+Address.Logic.Parser.CliSyntax .up.> Logic.Parser.Prefix
+
+''''''''''''''''''''''''''
+
+''''''''''ACHIEVEMENTS''''''''''
+
+''''''''''AchievementsLogic
+Achievements.Logic.AchievementsLogic .up.> Logic.Commands.CommandResult
+
+''''''''''AchievementsLogicManager
+Achievements.Logic.AchievementsLogicManager .up.|> Achievements.Logic.AchievementsLogic
+Achievements.Logic.AchievementsLogicManager .left.> Supplier
+Achievements.Logic.AchievementsLogicManager .up.> Logic.Commands.CommandResult
+Achievements.Logic.AchievementsLogicManager .up.> Logic.Commands.Command :executes >
+
+Achievements.Logic.AchievementsLogicManager *-down-> "1" Achievements.Logic.Parser.AchievementsParser
+Achievements.Logic.AchievementsLogicManager o-right-> "1" Achievements.Model
+
+''''''''''XYZCommand
+Achievements.Logic.Commands.XYZCommand -up-|> Logic.Commands.Command
+
+''''''''''AchievementsParser
+Achievements.Logic.Parser.AchievementsParser .up.> Logic.Commands.Command
+Achievements.Logic.Parser.AchievementsParser .down.> Achievements.Logic.Parser.XYZCommandParser :creates >
+
+
+''''''''''XYZCommandParser
+Achievements.Logic.Parser.XYZCommandParser .up.|> Logic.Parser.Parser
+Achievements.Logic.Parser.XYZCommandParser .left.> Achievements.Logic.Commands.XYZCommand :creates >
+
+''''''''''''''''''''''''''''''''
+
+''''''''''LAYOUT''''''''''
+Logic.LogicManager .[hidden]left.> Storage
+Logic.LogicManager .[hidden]down.> Achievements
+Logic.LogicManager .[hidden]down.> Address
+Logic.LogicManager .[hidden]down.> Logic.Commands
+Logic.Commands.XYZCommand .[hidden]down.> Achievements
+Logic.Commands.XYZCommand .[hidden]down.> Address
+Logic.Commands.XYZCommand .[hidden]down.> Calendar
+Logic.Commands.XYZCommand .[hidden]down.> diaryFeature
+Logic.Commands.XYZCommand .[hidden]down.> FinancialTracker
+Logic.Commands.XYZCommand .[hidden]down.> Itinerary
+Logic.Commands .[hidden]left.> Logic.Parser
+''''''''''''''''''''''''''
 @enduml

@@ -1,0 +1,18 @@
+#list-main {
+    -fx-background-color: linear-gradient(to bottom right, #654ea3, #eaafc8);
+    -fx-fit-to-height: true;
+    -fx-fit-to-width: true;
+}
+
+#list-wrapper {
+    -fx-padding: 25 30;
+    -fx-background-color: linear-gradient(to bottom right, #654ea3, #eaafc8);
+}
+
+#cards {
+    -fx-padding: 20 0;
+}
+
+.card {
+    -fx-padding: 10;
+}

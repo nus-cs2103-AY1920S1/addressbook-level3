@@ -1,0 +1,31 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class HiddenOutside #FFFFFF
+
+namespace DiaryModel {
+Class DiaryModel
+DiaryModel --> "1" DiaryBook
+namespace DiaryEntry {
+Class DiaryEntry
+DiaryEntry *-down-> Title
+DiaryEntry *-down-> Date
+DiaryEntry *-down-> Place
+DiaryEntry *-down-> Memory
+}
+namespace Details {
+Class Details
+Details *-down-> Username
+Details *-down-> Password
+}
+DiaryBook -left-> "*" DiaryList
+DiaryBook .left.> ObservableList
+DiaryBook -right-> "0...1"DiaryModel.Details
+DiaryList -down---> "*" DiaryModel.DiaryEntry
+DiaryList -left-> "1" DiaryModel.ObservableList
+}
+
+@enduml

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+
+<ComboBox fx:id="countriesDropdown" prefHeight="35.0" prefWidth="176.0" promptText="Singapore" style="-fx-text-fill: white; -fx-font-size: 15; -fx-background-color: white;" stylesheets="@FinancialTrackerPage.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets left="5.0" />
+   </padding>
+</ComboBox>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.layout.StackPane?>
+<StackPane>
+    <Label id="yearHeader" fx:id="yearHeader" alignment="TOP_CENTER" prefHeight="40.0" prefWidth="180.0" style="-fx-font-size: 30;" styleClass="header-text" text="2019" textAlignment="CENTER" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    </Label>
+</StackPane>
+

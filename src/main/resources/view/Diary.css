@@ -1,0 +1,115 @@
+//* Menu Bar Styling */
+ .menu-bar {
+     -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
+     -fx-selection-bar: #c471ed; /* style color of menubar when menu bar item is selected */
+ }
+
+ .menu-bar .label {
+   -fx-font-size: 14pt;
+   -fx-font-family: "Segoe UI";
+   -fx-text-fill: white;
+   -fx-opacity: 0.9;
+ }
+
+ .menu:default:hover,
+ .menu:hover {
+   -fx-background-color: #c471ed !important;
+ }
+
+ /* Menu Bar Items */
+ .context-menu {
+   -fx-background-color: derive(#AA076B, 30%);
+ }
+
+ .context-menu .label {
+   -fx-text-fill: white;
+ }
+
+ /* Scroll Bar */
+ .scroll-bar .thumb {
+   -fx-background-insets: 3;
+ }
+
+ .scroll-bar .increment-button,
+ .scroll-bar .decrement-button {
+   -fx-background-color: transparent;
+   -fx-padding: 0 0 0 0;
+ }
+
+ .scroll-bar .increment-arrow,
+ .scroll-bar .decrement-arrow {
+   -fx-shape: " ";
+ }
+
+ .scroll-bar:vertical .increment-arrow,
+ .scroll-bar:vertical .decrement-arrow {
+   -fx-padding: 1 8 1 8;
+ }
+
+ .scroll-bar:horizontal .increment-arrow,
+ .scroll-bar:horizontal .decrement-arrow {
+   -fx-padding: 8 1 8 1;
+ }
+
+ /* Header Styling */
+ #header {
+   -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
+ }
+
+ #header .label {
+   -fx-font-size: 20pt;
+   -fx-font-family: "Segoe UI";
+   -fx-text-fill: white;
+ }
+
+.border {
+    -fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
+}
+
+ /* Card Styling */
+ #cardPane {
+     -fx-background-color: transparent;
+     //-fx-background-color: linear-gradient(to right, #EA60A8, #AE5A99);
+     //-fx-background-radius: 5, 5;
+     /*-fx-border-width: 10;
+     -fx-border-style: none none solid none;
+     -fx-border-color: derive(-fx-base,26.4%);
+     */
+ }
+
+
+ #cardPane .label {
+   -fx-font-size: 12pt;
+   -fx-font-family: "Segoe UI";
+   -fx-text-fill: black;
+ }
+
+ #cardTitlePlaceholder .label {
+   -fx-font-size: 16pt;
+   -fx-font-family: "Segoe UI";
+   -fx-text-fill: #61045F;
+ }
+
+
+ /* Result Display */
+
+ .result-display {
+   -fx-background-color: transparent;
+   -fx-font-family: "Segoe UI";
+   -fx-font-size: 13pt;
+   -fx-text-fill: black;
+ }
+
+ .result-display .label {
+   -fx-text-fill: black !important;
+ }
+
+ /* Command Box Text Field */
+
+ .text-field {
+   -fx-font-size: 12pt;
+   -fx-font-family: "Segoe UI";
+ }
+ .error {
+     -fx-text-fill: #61045F !important; /* The error class should always override the default text-fill style */
+ }

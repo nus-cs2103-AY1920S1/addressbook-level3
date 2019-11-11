@@ -1,0 +1,50 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+package Model {
+Class Calendar
+Class Month
+Class ReadOnlyCalendar
+package Event {
+    Class "{abstract}\nEvent" as Event
+    Class Commitment
+    Class SchoolBreak
+    Class Holiday
+    Class Name
+    Class Info
+
+}
+package Date {
+    Class Date
+    Class Day
+    Enum MonthOfYear <<Enumeration>>
+    Class Year
+    Enum DayOfWeek <<Enumeration>>
+}
+}
+
+
+Calendar --down> "1" Month : currentViewOnlyMonth
+Calendar --> "*" Event : events
+Calendar ..|> ReadOnlyCalendar
+
+ReadOnlyCalendar --> "*" Event : events
+
+Commitment --up|> Event
+SchoolBreak --up|> Event
+Holiday --up|> Event
+
+Month --> "28...31" Date : dates of viewOnlyMonth
+Date --> MonthOfYear
+Date --> Day
+Date --> Year
+Day --up> DayOfWeek
+
+Event --> "1...2" Date
+Event --> "1" Name
+Event --> "0...1" Info
+
+@enduml
