@@ -498,7 +498,9 @@ Examples:
 Only `tutorials`/ `tut` / `lab` / `consultations` / `c` / `sectionals` / `s`
 arguments are allowed for `TYPE`.
 
-image:notes/addnote.png[width="350"]
+.Add Note Example
+image::notes/addnote.png[width="350", align="left"]
+
 
 ==== Edit Note: `editnote`
 To provide a great flexibility, editing of the notes is allowed.
@@ -513,7 +515,8 @@ Examples:
 * `editnote 3 note/check for meeting time`
 * `editnote 1 c/CS2103 type/tut note/update project content`
 
-image:notes/editnote.png[width="350"]
+.Edit Note Example
+image::notes/editnote.png[width="350", align="left"]
 
 ==== Delete Note: `deletenote` / `deletebutton`
 Let's say that if you would like to delete the note from the list there are two option available.
@@ -542,7 +545,8 @@ Examples:
 
 * `findnote CS2103T`
 
-image:notes/findnote.png[width="350"]
+.Find Note Example
+image::notes/findnote.png[width="350", align="left"]]
 
 ==== Listing all note : `listnote`
 To view the list of note. Type `listnote` to view the full list of note.
@@ -550,7 +554,8 @@ To view the list of note. Type `listnote` to view the full list of note.
 List all note. +
 Format: `listnote`
 
-image:notes/listnote.png[width="350"]
+.List Note Example
+image::notes/listnote.png[width="350", align="left"]
 
 //end::NotesUG[]
 
@@ -883,7 +888,8 @@ However, we plan to upgrade this feature as soon as v1.5 or v1.6.
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
+As of the current implementation, hashing is implemented in the account password. With this encryption, malicious user will not be able to view the content despite they have the access to the computer.
+However, we plan to provide a better encryption with SHA256 for our password hashing and AES128 for all the data save in the TutorAid as soon as v1.5 to provide a better security protection.
 // end::dataencryption[]
 
 == FAQ

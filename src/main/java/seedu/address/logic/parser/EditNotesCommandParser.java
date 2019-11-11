@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.note.EditNotesCommand;
-import seedu.address.logic.commands.note.EditNotesCommand.EditNotesDescriptor;
+import seedu.address.logic.commands.util.EditNotesDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
