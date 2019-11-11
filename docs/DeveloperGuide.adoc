@@ -981,22 +981,6 @@ Windows, Linux, Unix, OS-X
 [[IMS]] IMS::
 Incident Management System
 
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
