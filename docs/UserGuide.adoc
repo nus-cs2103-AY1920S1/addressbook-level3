@@ -562,6 +562,7 @@ image::scheduler/deleteevent.png[width=100%]
 After deleting that event from TimeBook, Bobby's schedule is automatically updated!
 
 //tag::schedule-command[]
+
 ==== Generate a Schedule: `schedule`
 ____
 Want to see a schedule between you and your friends? Simple use the `schedule` command!
@@ -831,10 +832,10 @@ image:./icons/warning.png[] Take note that if you are exporting a group's schedu
 
 Format:
 
-* `export` +
-
+* `export`
 
 //tag::select-command[]
+
 ==== Select Time Slot: `select`
 ____
 Want to get more information about a particular time slot? Want to know where the venue of that time slot is?
