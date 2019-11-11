@@ -145,12 +145,12 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
+// tag::Cris[]
 [[Design-Model]]
 === Model component
 
 ._Structure of the Model Component_
-image::ModelClassDiagram.png[]
+image::ModelClassDiagramNew.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -162,12 +162,14 @@ The `Model`,
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in both `Employee Book` and `Event Book`, which `Employee` can reference.
-This would allow our application to only require one `Tag` object per unique `Tag`, instead of each `Employee` needing their own `Tag` object.
-An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
+As a more OOP model, we can store a `Tag` list in both `Employee` and `Event`, which `AddMin+` can reference. This would allow our application to only require one `Tag` object per unique `Tag`, instead of each `Employee` or `Event` needing their own `Tag` object. An example of how such a model may look like is given below.
++
+image:BetterModelClassDiagramN.png[]
+
+image:BetterModelClassDiagramNew.png[]
+
+// end::Cris[]
 // tag::storage[]
 
 [[Design-Storage]]
@@ -607,17 +609,115 @@ Alternative 2 also helps prevent user confusion, as the list that is displayed i
 
 // end::generateschedule2[]
 
+// tag::Cris2[]
+
 === Finance
 
 ==== Implementation
 
-_WIP_
 
-==== Design Considerations
+The `Finance` Feature is implemented to allow users to get the salary details of all employees in an easy manner.
+The tab shows three salary related details which are 'Total Salary' 'Pending To Pay' 'Salary Paid'. Two commands were
+implemented, which are 'pay' and 'undo_pay', allowing the user to make the payment or undo the payment for the employee.
+The `Finance' take in three arguments:
 
-_WIP_
+1.  `employeeIndex` - index of event in the displayed employee list
+2. `employeePay` - the hourly salary for the specific employee
+3. `employeeSalaryPaid` - the total amount of salary has paid to the specific employee
 
-=== Logging
+Additionally, the `Finance` uses the following operations:
+
+* `EmployeeEventProcessor#findEmployeeTotalWorkedHours()` -- Find the total working hours for the specific employee.
+* `Employee#addSalaryPaid` -- Update the 'employeeSalaryPaid' for the specific employee.
+* `finance#updateCards()` -- Update the finance detail for all employees.
+
+The following class diagrams shows how the Finance` class and utility `EmployeeEventProcessor` class is implemented:
+
+._Class Diagram for Finance_
+image::FinanceClassDiagram.png[align="center", width = "300"]
+._Class Diagram for EmployeeEventProcessor_
+image::EmployeeEventProcessorClassDiagram.png[align="center", width = "300"]
+
+Given below is an example usage scenario and how the finance feature behaves at each step.
+
+._Program flow of the Finance Feature_
+image::FinanceFlowChart.png[align="center", width = "300"]
+
+**Step 1**. The user executes `pay 1 s/100` (undo_pay 1 s/100) with the intention to pay 100 dollar to
+the first employee in the employee list
+**Step 2**. The command checks if `eventIndex` is valid.
+
+**Step 3**. The command calls method of 'Employee#findEmployeeTotalWorkedHours` to get the
+total working hours for the specific employee and times `employeePay` to get the total salary.
+
+
+**Step 4**. The command calls method of 'Employee#getEmployeeSalaryPaid()` to get the
+`employeeSalaryPaid` for this specific employee from the storage .
+
+**Step 5**. The command checks if the value of payment/undo-payment is valid.
+[NOTE]
+The value of the payment/undo-payment should be positive integer. The value of the payment should be less
+than the value of 'Pending To Pay'. The value of the undo-payment should be less than the value of 'Salary Paid'.
+
+**Step 6**. The command calls `Employee#addSalaryPaid` to update the `employeeSalaryPaid` for this specific employee.
+[NOTE]
+For storage purposes, only the `Employee#employeeSalaryPaid` is saved.
+
+**Step 7**. The command calls `Finance#updatecard()` to update the `PendingToPay` of
+the employee card. The UI will update accordingly.
+
+**Step 8**. Done.
+
+
+The following sequence diagram shows how the auto allocation works:
+
+._Sequence Diagram of the Finance Command_
+image::FinanceSequenceDiagram.png[]
+
+
+
+===== Aspect: Storage of employees associated with event after successful command
+
+[width="100%", options="header" cols="3, 4, 4"]
+|========================================================================================
+|Feature      |Alternative 1 | Alternative 2
+|Storage of employees fields after pay/undo-pay command
+|Saves only the `Employee#employeeSalaryPaid` and `Employee#Pay` in storage.
+
+*Pros*: Easy to implement. Will use less memory.
+
+*Cons*: Future accesses the 'Pending To Pay' and 'Total Salary' require more time.
+
+Decision: Alternative 1 :
+
+I decided to proceed with this option* because it creates fewer fields in employees, the 'Pending To Pay'
+and 'Total Salary' is modified real time. User do not need to input so many fields when they add the employees.
+
+|Saves the `Employee#employeeSalaryPaid`, `Employee#Pay`, `Employee#employeePendingPay`, `Employee#employeeTotalSalary` in storage.
+
+*Pros*: Easy to access the 'Pending To Pay' and 'Total Salary'.
+
+*Cons*: when the user want to add employees, the user have type in all these fields.
+
+|The display of Finance section
+|Use CLI display
+
+*Pros*: Easy to implement. Size of jar file will be smaller.
+
+*Cons*: The UI is not user-friendly.
+
+|GUI display
+
+*Pros*: User easy to visualise.
+
+*Cons*: Jar file is larger.
+
+Decision: Alternative 2 :
+
+I decided to use GUI to display the finance section. It is easier for user to visualise the salary details of the specific employee.
+|========================================================================================
+// end::Cris2[]
+== Logging
 
 We are using `java.util.logging` package for logging.
 The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -1009,6 +1109,37 @@ Statistics pop-up window will be populated with statistical data based on the mo
 Open the data folder which should contain employeebook.json and eventbook.json files.
 .. Open one of the json file and corrupt the file.
 .. Open the jar file again, AddMin+ should still run with one of the list data loaded.
+//tag::Cris3[]
+=== Pay an employee
+
+. Pay an employee in the showing list
+
+.. Prerequisites: The employee has sufficient amount of 'Pending Pay'.
+.. Test case: `pay 1 s/10` +
+   Expected: Employee of ID '1' is paid $10 from the list.
+Details of the payment shown in the status message.
+.. Test case: `pay 1 s/-10` +
+   Expected: The employee is not paid.
+Error details shown in the status message.
+Status bar remains the same.
+.. Other incorrect delete commands to try: `pay`, `pay x`, `pay x s/10`, (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous
+
+=== Undo payment made to an employee
+
+. Undo payment made to an employee in the showing list
+
+.. Prerequisites: The employee has sufficient amount of 'Salary Paid'.
+.. Test case: `undo_pay 1 s/10` +
+   Expected: The 'Salary Paid' of Employee of ID '1' has been deducted $10.
+Details of the payment shown in the status message.
+.. Test case: `undo_pay 1 s/-10` +
+   Expected: The command is not executed.
+Error details shown in the status message.
+Status bar remains the same.
+.. Other incorrect delete commands to try: `undopay`, `undo_pay x`, `undo_pay x s/10`, (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+//end::Cris3[]
 
 
 
