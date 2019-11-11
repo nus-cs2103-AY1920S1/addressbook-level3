@@ -366,7 +366,6 @@ implementation of this function,
 
 The following are code snippets of each of the chosen implementations above:
 
-.Code snippet of calculation of summary statistics.
     public double getTotalExpenses() {
         Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
         return transactionStream
@@ -376,7 +375,6 @@ The following are code snippets of each of the chosen implementations above:
             .sum() * -1;
     }
 
-.Code snippet of notifications implementation.
     private void checkIfNotify() {
         List<OverallCommandResult> notifications = overviewLogic.checkNotifications();
         for (OverallCommandResult notif: notifications) {
