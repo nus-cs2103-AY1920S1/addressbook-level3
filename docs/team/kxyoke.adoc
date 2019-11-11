@@ -122,7 +122,7 @@ _Start of extract from Mark User Guide_
 
 include::../UserGuide.adoc[tag=annotatecommand]
 
-include::../UserGuide.adoc[tag=offlinecommand]
+//include::../UserGuide.adoc[tag=offlinecommand]
 
 _End of extract from Mark User Guide_
 
@@ -135,9 +135,9 @@ We also had to update the original AB3 Developer Guide to reflect the design of 
 
 _Start of extract from Mark Developer Guide_
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=annotation]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+//include::../DeveloperGuide.adoc[tag=dataencryption]
 
 _End of extract from Mark Developer Guide_
 
