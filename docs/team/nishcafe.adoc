@@ -7,4 +7,28 @@
 Jarvis was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team.
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
-=== Anisha Joseph
+=== Anisha Joseph - Project Portfolio for Jarvis
+
+==== About the Project
+`Jarvis` was developed by a group of 5 students (including myself) from NUS School of Computing (Computer Science) as
+part of a module - CS2103T Software Engineering. The module specifications were to morph a basic command line
+interface desktop addressbook application into an application that manages any type of data of our choosing. As such,
+we decided to create a student life organiser, that manages students' tasks, finances, courses and co-curricular
+activities (CCA). Through `Jarvis`, students can better organise the major aspects of their student life.
+
+The Graphical User Interface of `Jarvis`
+.Jarvis' Graphical User Interface (GUI)
+image::startup-gui-dg.png[]
+
+==== Summary of Contributions
+
+
+==== Contributions to the User Guide
+
+The User Guide for `Jarvis`
+
+
+
+==== Contributions to the Developer Guide
+
+
