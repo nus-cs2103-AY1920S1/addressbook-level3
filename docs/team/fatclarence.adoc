@@ -166,7 +166,7 @@ This section shows the additions that I have made to the User Guide to provide i
 the Savings feature works.
 
 |===
-| _I wrote the descriptions and commands for the savings feature (including commands for v2.0).
+| _I wrote the descriptions and commands for the savings feature, including commands for v2.0.
 My description of the `save` command is replicated below
 while my full write-ups can be found https://github.com/AY1920S1-CS2103T-F13-2/main/blob/master/docs/UserGuide.adoc#savings[here]._
 |===
