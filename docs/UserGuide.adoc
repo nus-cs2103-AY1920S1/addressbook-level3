@@ -144,6 +144,7 @@ For example, `find mod\ cs ma title\ linear algebra` will produce results of all
 Alternatively, you can simply click on the search button on the top left hand corner (shortcut key: F2) and select search. Input your
 keywords in the fields provided within the popup.
 
+.Searching using GUI
 image::userguide/SearchGui.png[]
 
 [TIP]

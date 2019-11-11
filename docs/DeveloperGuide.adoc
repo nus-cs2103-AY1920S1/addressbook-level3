@@ -267,7 +267,7 @@ for the keywords.:
 .Activity diagram for search predicates.
 image::SearchActivityDiagram.png[]
 
-Figure 12 above shows how each predicate checks for the keyword. Do note that `DescriptionContainsKeywordsPredicate`
+The figure above shows how each predicate checks for the keyword. Do note that `DescriptionContainsKeywordsPredicate`
 and `TitleContainsKeywordsPredicate` requires their specified field to contain *all* of the keywords, while the rest of the
 predicates returns true as long as their field contains *at least one* of the keyword.
 
@@ -285,7 +285,7 @@ image::FindSequenceDiagram.png[]
 
 NOTE: The lifeline for `FindCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-As represented in Figure 13, when a `FindCommandParser` is constructed by `ModuleBookParser#parseCommand`, the `FindCommandParser` would construct a list
+As represented in the figure above, when a `FindCommandParser` is constructed by `ModuleBookParser#parseCommand`, the `FindCommandParser` would construct a list
 of `Predicate<module>` based on the parsed arguments, which is used to construct a `FindCommand`.
 
 During the execution of `FindCommand#execute()`, each predicate is chained and applied to the `FilteredList`.
