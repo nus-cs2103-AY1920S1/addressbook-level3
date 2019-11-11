@@ -7,8 +7,7 @@
 
 Package " "<<Rectangle>>{
     Class GUI UI_COLOR
-    Class DiaryParser LOGIC_COLOR
-    Class DiaryCommand LOGIC_COLOR
+    Class DiaryLogic LOGIC_COLOR
     Class Storage STORAGE_COLOR
     Class DiaryModel MODEL_COLOR
     Class Commons LOGIC_COLOR_T2
@@ -21,21 +20,22 @@ Class "<$administrator>\nDeveloper" as Developer MODEL_COLOR_T2
 Class "<$documents>\nJson File" as File UI_COLOR_T1
 
 User -right-> GUI
-GUI -right-> DiaryParser
-DiaryParser -right-> DiaryCommand
-DiaryCommand -down-> DiaryModel
-DiaryModel -right-> Storage
+GUI -right-> DiaryLogic
+DiaryLogic -down-> DiaryModel
+DiaryLogic -right-> Storage
 DiaryModel -up-> GUI
 
 
 Storage .up.> Commons
-DiaryParser .up.> Commons
+DiaryLogic .up.> Commons
 GUI .up.> Commons
 
 Logs -right- Commons
 Storage .right.>File
 Developer <-right-> Test
 Test -up-> DiaryModel
+Test -up-> DiaryLogic
+
 
 
 

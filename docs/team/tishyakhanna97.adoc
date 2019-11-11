@@ -4,15 +4,16 @@
 :stylesDir: ../stylesheets
 
 = Tishya Khanna - Project Portfolio
+_
 
-
-// add picture of travezy
 
 == Introduction
 
 This project portfolio has been written to elaborate on my
-contributions to a team-based software engineering project in the NUS Computing
-module CS2103T.In this module, my team of five was tasked to create an application, with reference to
+contributions to a *team-based software engineering project* in the NUS Computing
+module CS2103T.
+
+In this module, my team of five was tasked to create an application, by morphing
 the https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book - Level 3].
 
 === Constraints
@@ -42,71 +43,82 @@ However, we were allowed to transform the concept of the application by incremen
 
 Keeping the above constraints in mind, we created *TravEzy*, a desktop-based CLI travel application.
 Our application [.underline]#erases# the logistical nightmare that haunts regular travellers.
+
+
 Instead of having to deal with several applications to organise and document
 a single trip, users can now combine critical travel applications such as
 calendars, itinerary planners, diaries and budgeting tools into one convenient
 and intuitive interface.
 
-Our product is targeting NUS students who are avid travellers. Given their
+Our product is for NUS students who are avid travellers. Given their
 busy schedules and love for travelling, *TravEzy* is the optimal
 solution for their travel needs.
 
-=== Overview of my contribution
+=== Overview of my contributions
 
 I took up the responsibility of implementing the _Diary Feature_ , end to end, in TravEzy. While this was my main task, I also
-worked on the common code base and design. In addition, I provided structure and content for critical documentation such as the User and
+worked on the common code base and design.
+
+In addition, I provided structure and content for critical documentation such as the User and
 Developer guides. I shall elaborate more in the following sections.
-
-
-In order to increase readability, I have included a legend of the formatting and symbols used in this portfolio.
-
-IMPORTANT: This symbol is to highlight important information
-
-``command``: Text which is contained in a grey box (as can be seen on the left) refers to _commands_ that the user
-can type into the command line in order to interact with TravEzy
-
-_Components_: Text which is italicised refers to technical components in the application
-
-*Highlight* Bold text is mainly for titles
-
-[underline]#attention# Underlined text is used to highlight certain key words and phrases
-
-
 
 
 == Summary of contributions
 
-My contributions, summarised below, have been ordered with respect to the importance and impact on the project.
+Given that the largest feature that I implemented was the Diary, I have discussed it in detail below.
 
-*Major enhancement:*::
-*Diary Feature*
-* What is this:
-** The Diary Feature represents a real-life diary. In this implementation, every user has a _Diary Book_ which contains a list (in the form of a _Diary List_) of all
+=== Diary Feature
+
+image::DiaryPPP.png[width=400]
+
+*Introduction to the feature:*
+
+* The Diary Feature represents a real-life diary. In this implementation, every user has a _Diary Book_ which contains a list (in the form of a _Diary List_) of all
 his/her _Diary Entries_.
-* Why is this necessary:
-** As part of our market validation process, we observed that most student travellers enjoy journaling and recording their trips in a text format.
-This feature allows for users to do exactly that, with the some additional features to increase convenience and usability.
-* Highlights:
-** Other than being able to do add, delete and display diary entries, this implementation of the diary feature also allows users to find specific
-entries, sort through entries and encrypt private memories to keep them safe.
+
+*Market Validation:*
+
+* As part of our market validation process, we observed that most student travellers enjoy journaling and recording their trips in a text format.
+This feature allows for users to do exactly that, with some additional features to increase convenience and usability.
+
+==== Highlights:
+
+Other than being able to  add, delete and display diary entries, this implementation of the diary feature also allows users to find specific
+entries and encrypt private memories to keep them safe.
+
+=====  ``find`` and ``findSpecific``
+
+Looking through a large number of diary entries can be challenging, and that's why,
+I implemented a basic ``find`` command which allows users to run through all their entries quickly and find entries
+which match their query. The ``findSpecific`` command takes this functionality to the next level by allowing users to segment their diary entries
+based on the different componenets of an entry (Title, Date etc)
+
+=====  ``setDetails``
+
+Most diaries are for personal thoughts and opinions, and thus, I implemented the  ``private`` command which allows users to
+protect their memories. In order to further safeguard entries, I implemented the ``setDetails`` command which allows
+users to password protect their memories. Finally, to fully protect the users, I encrypted their data to ensure that no
+unauthorised users can read private information straight from the storage files.
+
+*Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=tishyakhanna97&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code]
 
 
-*Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-
-*Minor enhancement:*::
-*Delay Function*
-* Added a delay function which allows users to see an exit message when leaving the application
-*
+=== Other Contributions
 
 
-* *Other contributions*:
+*Other contributions*:
 
-** Project management:
-*** Created and managed milestones (V1.1 - V1.3)
-*** Created and managed https://github.com/AY1920S1-CS2103T-T17-2/main/labels[labels]
-*** Enabled Autopublishing of documentation using Travis
-** Documentation:
-*** Personalised the About us, Contact, Product Website
+* *Delay Function*
+** Added a delay function which allows users to see an exit message when leaving the application https://github.com/AY1920S1-CS2103T-T17-2/main/commit/233d4463ff8657f2803ce8f3a92d70654295e633[Delay]
+* *Solve Common Bugs*
+** Solved common bugs such as https://github.com/AY1920S1-CS2103T-T17-2/main/commit/775ab0090de60af65d6f336fb22b6a34790a9461[CodeWindow]
+* *Project management:*
+** Created and managed milestones (V1.1 - V1.3)
+** Created and managed https://github.com/AY1920S1-CS2103T-T17-2/main/labels[labels]
+** Enabled Autopublishing of documentation using Travis
+** Provided feedback and input to teammates https://github.com/AY1920S1-CS2103T-T17-2/main/pull/157[21], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/156[22]
+* *Documentation:*
+** Personalised the About us, Contact, Product Website
 https://github.com/tishyakhanna97/main/commit/d49c5d2e27baefd2c33f61856c4ee2d6d5899f87[1],
 https://github.com/tishyakhanna97/main/commit/4fd7f51316b6220a2235a7306c2055279b8451d6[2],
 https://github.com/tishyakhanna97/main/commit/2135c8af4518e07c7f45aa8df5d4a8018ac8f062[3],
@@ -114,10 +126,10 @@ https://github.com/tishyakhanna97/main/commit/947fbe848dad7823e7ed05c5a584e056af
 https://github.com/tishyakhanna97/main/commit/d56afcb37369b9bd91363b2eb6a8e215acf4870d[5],
 https://github.com/tishyakhanna97/main/commit/bdfe41963fd43d52149406c69c1cecf900e0c37e[6],
 https://github.com/tishyakhanna97/main/commit/acde2a53650e9ef78d6078cb5b96f849e9f4f191[7]
-*** Transformed the structure and language of the User Guide and Developer Guide to increase readability and make it more user friendly.
+** Transformed the structure and language of the User Guide and Developer Guide to increase readability and make it more user friendly.
 https://github.com/tishyakhanna97/main/commit/f49233f32a3b2c6c841f59755d0c0fa96e8f4590[8],
-https://github.com/tishyakhanna97/main/commit/341deffba3e3b00970f9160feb37a2134ffc1c22[9]
-
+https://github.com/tishyakhanna97/main/commit/341deffba3e3b00970f9160feb37a2134ffc1c22[9],
+https://github.com/AY1920S1-CS2103T-T17-2/main/commit/00ebf7dda94401bc4c980f850d6bffef9b81e0f8[10]
 
 
 == Contributions to the User Guide
@@ -125,108 +137,178 @@ https://github.com/tishyakhanna97/main/commit/341deffba3e3b00970f9160feb37a2134f
 
 
 In this section, I shall be sharing some of the portions from the *TravEzy* Userguide which I wrote.
-I shall be focusing on the ``find``, ``findSpecific`` and ``encrypt`` commands.
+I shall be focusing on the ``find``, ``findSpecific`` and ``setDetails`` commands.
+They showcase my ability to write documentation targeting end-users.
 
-=== Find a Diary Entry which include a certain word inside: ``find``
+=== Find diary entries ``find``
 
 "Hey, when did I go to Spain?" It can be hard to remember
-all the details of your trips. That's why, this Diary allows you to *Find*
+all the details of your trips. That's why, this _Diary_ lets you look through all your entries quickly, to give you the entry that *you* want!
 
-*Find entries containing a certain text: ``find``*
+*Format:* +
+``find TARGET``
 
-Finds all entries which contain your input text. There is one parameter, which
-is the text that you want to find.
+*Example:*
 
-The _Command Word_ is ``find``.
+    find rugby
 
-Format: ``list input``
+TIP: To search for _Dates_, enter them in the same format as before, when you added the _Diary Entry_ (dd/mm/yyyy HHMM)
 
-Example: I want to look at an old entry, it had something to do with "Aruba"...
+*Step by step:*
 
+That was the craziest Rugby World Cup ever! Who lost?
 
-
-The user enters the command ``find Aruba``
-
-image::DiaryFindCommand.png[]
-
-And gets a list of all _Diary Entries_ which match the command:
-
-image::DiaryFindCommandResult.png[]
+Step 1: Type ``find rugby`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
 
 
+image::DiaryFindBefore.png[width=400]
 
-=== Find a Diary Entry by narrowing down your search `FindSpecific`
+Step 2: TravEzy will tell you if your `find` command was successful in the _Result Display_, as can be seen where the number *2* is, in the picture below.
 
-Let's narrow down your search!
+Step 3: You can see the matching _Diary Entries_ in your _Diary List Panel_, similar to number *3* in the picture below.
 
 
-*Find entries containing a certain text in a specific field : ``findSpecific``*
 
-Finds all entries which contain your input text, in the highlighted field. There is one parameter, which
-is the text that you want to find, with the relevant _PREFIX_.
+image::DiaryFindAfter.png[width=400]
 
-The _Command Word_ is ``findSpecific``.
 
-Format: ``list input``
 
-Example: I remember that i titled the trip "Temp", but I cant remember where I went on those trips...
 
-The user enters the command ``find Temp``
+=== Find specific diary entries ``findSpecific``
 
-image::DiaryFindSpecificCommand.png[]
+Let's narrow down your search! The _Diary_ allows you to look through specific sections of each _Diary Entry_ to find the exact entry that you want!
 
-And gets a list of all _Diary Entries_ which match the command:
 
-image::DiaryFindSpecificCommandResult.png[]
+*Format:* +
+ ``findSpecific [t/TITLE] [d/DATE TIME] [p/PLACE] [m/MEMORY]``
 
-IMPORTANT: The ``find`` and `findSpecific` commands can't be used for empty parameters!
+*Example:*
+
+
+    findSpecific d/12/12/2019
+
+
+*Step by step:*
+
+
+You know that you had a trip on the 12th of December 2019, but you can't remember what you did...
+
+
+Step 1: Type ``findSpecific d/12/12/2019`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
+
+image::DiaryFindSpecificBefore.png[width=400]
+
+Step 2: TravEzy will tell you if your `findSpecific` command was successful in the _Result Display_, as can be seen where the number *2* is, in the picture below.
+
+Step 3: You can see the specific matching _Diary Entries_ in your _Diary List Panel_, similar to number *3* in the picture below.
+
+
+
+image::DiaryFindSpecificAfter.png[width=400]
+
+
+=== Keep your diary protected ``setDetails``
+
+You never know who may use your laptop when you're away. The _Diary_ can help you to protect your memories to stop hackers from looking at your private memories with a _username_ and _password_.
+If you ``setDetails``, you will not be able to use the ``unprivate`` command and will have to use the ``unlock`` command (See below).
+
+*Format:* +
+``setDetails user/USERNAME password/PASSWORD``
+
+*Example:*
+
+
+    setDetails user/youcanthackme password/youreallycanthackme
+
+
+WARNING: You can only set your details once! After that, you will have to delete TravEzy if you forget your password and need to unlock entries. This is done to ensure *NO ONE* misues your personal information
+
+
+TIP: Keep your username and password long to keep those pesky hackers out! Minimally, make sure your username and password are alphanumeric and 8 characters long
+
+
+*Step by step:*
+
+
+Better set a password to protect your memories against prying eyes
+
+Step 1: Type ``setDetails user/youcanthackme password/youreallycanthackme`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
+
+
+image::DiarySetDetailsBefore.png[width=400]
+
+
+Step 2: TravEzy will tell you if your `unprivate` command was successful in the _Result Display_, as can be seen where the number *2* is, in the picture below.
+
+
+
+image::DiarySetDetailsAfter.png[width=400]
+
+
 
 == Contributions to the Developer Guide
 
-=== Diary
+Given below is a sample of the sections that I contributed to the Developer Guide.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
 
-==== Architecture
-
-.Architecture Diagram for Diary Feature
-image::DiaryArchitecture.png[]
-
-The architecture diagram above explains the high-level design and implementation of the Diary Feature within TravEzy.
+=== Sequence of Find Command
+.Sequence Diagram for the Find Command
 
 
-`Diary Model` has multiple classes which form the basis of a Diary.
-This implementation starts at the root object, which is a `DiaryEntry`. These entries
-are stored within a `DiaryList`, which are then encapsulated within a `DiaryBook`
-
-After receiving user input from `DiaryUi`, `DiaryParser`
-changes the input to a executable format, and `DiaryCommand` allows for execution of the user input.
+image::DiaryFindCommandSequenceDiagram.png[width=400]
 
 
+Above, we have the sequence diagram for the ``FindCommand`` in the _Diary_. In this case, we have taken the scenario of finding any `DiaryEntries` which contain the word "temp".
 
-==== UI component
+Process:
 
-.Structure of DiaryUi
-image::DiaryUI.png[]
+. Upon receiving the instruction from ``Logic`` to parse the input `find temp`, the ``DiaryBookParser`` begins parsing the input to match it (based on the _Command Word_) to the appropriate _Parser_
 
-`DiaryUI`, which is represented above, consists of  `DiaryPage`, which encapsulates all the smaller Ui components.
+. In this case, given that the _Command Word_ is ``find`` the appropriate _Parser_ is the ``FindCommandParser``, which is created and then begins to ``parse("temp")``
 
-*The main components are the:*
+. This in turn creates a new ``FindPredicate``, based on the input ``temp``. This ``FindPredicate`` will be used to filter through the ``DiaryModel`` to get the matching ``DiaryEntries``
 
-* `CommandBox` -> Captures user input
+. With the ``FindPredicate``, a new ``FindCommand`` is created which is returned to logic and executed
 
-* `ResultDisplay` -> Returns the output after the user input has passed through the DiaryCommand
+. This execution leads to the ``find(temp)`` command being executed on the ``DiaryModel``, which returns the updated ``DiaryModel`` with the matching ``DiaryEntries``
 
-* `DiaryListPanel` -> Shows an easily readable version of the current DiaryBook
-
-All of these components inherit from the abstract `UiPart` Class
+. This model is then returned to the user in the form of the ``Command Result``, and is visible on the GUI in the form of a list of the matching `DiaryEntries`.
 
 
+NOTE: The lifeline for FindCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+
+=== Logic of Unprivate and Unlock  Commands
+
+
+Given the similar function of the 2 commands, ``unprivate`` and ``unlock``, there is a more detailed explanation of the differences between the commands below.
+
+
+.Activity Diagram for the Unprivate Command
+
+image::DiaryUnPrivateActivityDiagram.png[width=400]
+
+
+Above, is the logical flow for the Unprivate Command. In brief, it allows a user to unprivate any private entry *IF* there are no ``Details`` set. As a result, the command can be input like this:
+
+``unprivate 1``
+
+NOTE: `1` is the index of the Diary Entry which is to be unprivated
+
+.Activity Diagram for the UnLock Command
+
+image::DiaryUnLockActivityDiagram.png[width=400]
+
+Above, is the logical flow for the Unlock Command. In brief, it allows a user to unlock any private entry *IF* there are ``Details`` and the ``Details`` input by the user match the original ``Details`` set by the user.As a result, the command can be input like this:
+
+``unlock 1 user/username password/password``
+
+NOTE: `1` is the index of the Diary Entry which is to be unlocked and ``user/username`` and ``password/password`` are the relevant Details.
+
+
+In summary, the ``unlock`` command is only to be used when the user has already set ``Details``. Otherwise, the user has to use the ``unprivate`` command to see private ``DiaryEntries``
 
 
 
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

@@ -173,6 +173,7 @@ image::../images/calendarScreenshots/suggest2.png[Suggest result,width=600]
 
 To view all my contributions to the user guide, please click https://github.com/AY1920S1-CS2103T-T17-2/main/blob/master/docs/UserGuide.adoc#calendar[here].
 
+
 == Contributions to the Developer Guide
 
 This section provides the contributions I have made to the developer guide.
@@ -250,6 +251,7 @@ a|The calendar stores the events in an interval search tree.
 * Cons: Implementation of interval search tree is tedious.
 * I chose this option because performance efficiency is essential if TravEzy is to scale. Furthermore, I can use the interval search tree to implement enhancements for ``add`` and ``delete`` commands more easily. 
 
+
 | Required date format for user input
 a|The usual date format like dd/mm/yyyy (for example, 12/05/2019 to specify 12 May 2019).
 
@@ -263,4 +265,3 @@ a|Allow users to specify day, month and year in whichever order they want.
 * I chose this implementation because it allows users to specify dates in the format which they are most familiar with.
 
 |===
-
