@@ -2,6 +2,15 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+:source-highlighter: rouge
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:warning-caption: :warning:
+endif::[]
 
 == About The Project
 
@@ -94,6 +103,8 @@ Starts a time trial for flashcards with specified tags <TAG>.
     Example usage: timetrial cs2103tuml hard
 
     Expected output: Time trial started
+
+All of the flashcards containing the specified tags will be then displayed sequentially in the activity below.
 
 * At least one tag must be specified.
 * If more than one tag is specified, selects all flashcards that contains all of the specified tags.
