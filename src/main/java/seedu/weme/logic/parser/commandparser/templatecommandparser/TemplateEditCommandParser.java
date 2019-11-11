@@ -37,8 +37,7 @@ public class TemplateEditCommandParser implements Parser<TemplateEditCommand> {
         }
 
         if (!argMultimap.arePrefixesPresent(PREFIX_NAME) || argMultimap.getValue(PREFIX_NAME).get().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                TemplateEditCommand.MESSAGE_NOT_EDITED));
+            throw new ParseException(TemplateEditCommand.MESSAGE_NOT_EDITED);
         }
 
         Name editedName = new Name(argMultimap.getValue(PREFIX_NAME).get());

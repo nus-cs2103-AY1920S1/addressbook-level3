@@ -47,8 +47,8 @@ public class Template implements Archivable {
     }
 
     /**
-     * Returns true if both templates have either the same name or the same image path.
-     * This defines a stronger notion of equality between two templates.
+     * Returns true if both templates have the same name.
+     * This defines a weaker notion of equality between two templates.
      */
     public boolean isSameTemplate(Template otherTemplate) {
         if (otherTemplate == this) {
@@ -56,8 +56,7 @@ public class Template implements Archivable {
         }
 
         return otherTemplate != null
-            && (otherTemplate.getName().equals(getName())
-            || otherTemplate.getImagePath().equals(getImagePath()));
+            && otherTemplate.getName().equals(getName());
     }
 
     /**
