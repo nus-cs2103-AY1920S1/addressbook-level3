@@ -5,6 +5,7 @@ import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_GROCERY_ITEMS;
+import static seedu.ifridge.model.food.Amount.MESSAGE_INCORRECT_UNIT;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -19,6 +20,7 @@ import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
+import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.ExpiryDate;
 import seedu.ifridge.model.food.GroceryItem;
@@ -44,7 +46,7 @@ public class EditGroceryCommand extends Command {
             + PREFIX_NAME + "Pisang Goreng "
             + PREFIX_TAG + "fried";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited grocery item: %1$s";
+    public static final String MESSAGE_EDIT_GROCERY_ITEM_SUCCESS = "Edited grocery item: %1$s";
     public static final String MESSAGE_NOT_EDITED =
             "At least one different field (name, expiry date, or tag) must be provided.";
     public static final String MESSAGE_DUPLICATE_GROCERY_ITEM = "This food item already exists in the grocery list";
@@ -86,11 +88,18 @@ public class EditGroceryCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_GROCERY_ITEM);
         }
 
+        UnitDictionary unitDictionary = model.getUnitDictionary();
+        try {
+            unitDictionary.checkUnitDictionary(editedGroceryItem, model);
+        } catch (InvalidUnitException e) {
+            throw new CommandException(MESSAGE_INCORRECT_UNIT);
+        }
+
         model.setGroceryItem(groceryItemToEdit, editedGroceryItem);
         model.commitGroceryList();
         model.commitWasteList();
         model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedGroceryItem));
+        return new CommandResult(String.format(MESSAGE_EDIT_GROCERY_ITEM_SUCCESS, editedGroceryItem));
     }
 
     /**
