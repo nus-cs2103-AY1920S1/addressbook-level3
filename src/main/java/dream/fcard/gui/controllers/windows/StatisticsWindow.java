@@ -50,6 +50,14 @@ public class StatisticsWindow extends ScrollPane {
     @FXML
     private TableView<Session> sessionsTableView;
     @FXML
+    private Label testSessionsTotal;
+    @FXML
+    private Label testSessionsTotalExplainer;
+    @FXML
+    private Label testSessionsThisWeek;
+    @FXML
+    private Label testSessionsThisWeekExplainer;
+    @FXML
     private ScrollPane deckTableScrollPane;
     @FXML
     private TableView<Deck> deckTableView;
@@ -86,13 +94,14 @@ public class StatisticsWindow extends ScrollPane {
 
     /** Retrieves and displays numerical stats, like the total number of login sessions. */
     private void displaySummaryStats() {
-        int numSessions = userStats.getSessionList().getNumberOfSessions();
+        SessionList totalSessionList = userStats.getSessionList();
+
+        int numSessions = totalSessionList.getNumberOfSessions();
         this.totalSessions.setText(String.valueOf(numSessions));
         this.totalSessionsExplainer.setText("login"
             + (numSessions == 1 ? " session" : " sessions") + " all time");
 
-        SessionList sublistForThisWeek = SessionListUtil.getSublistForThisWeek(
-            userStats.getSessionList());
+        SessionList sublistForThisWeek = SessionListUtil.getSublistForThisWeek(totalSessionList);
         int numSessionsThisWeek = sublistForThisWeek.getNumberOfSessions();
         this.sessionsThisWeek.setText(String.valueOf(numSessionsThisWeek));
         this.sessionsThisWeekExplainer.setText("login"
@@ -111,6 +120,19 @@ public class StatisticsWindow extends ScrollPane {
 
         String averageDuration = userStats.getSessionList().getAverageDurationAsString();
         this.averageDuration.setText("Average duration per login: " + averageDuration);
+
+        SessionList totalTestSessionList = deckStats.getTotalSessionList();
+        int numTestSessions = totalTestSessionList.getNumberOfSessions();
+        this.testSessionsTotal.setText(String.valueOf(numTestSessions));
+        this.testSessionsTotalExplainer.setText("total test "
+            + (numTestSessions == 1 ? "session" : "sessions") + " all time");
+
+        SessionList testSessionSublistForThisWeek = SessionListUtil.getSublistForThisWeek(
+            totalTestSessionList);
+        int numTestSessionsThisWeek = testSessionSublistForThisWeek.getNumberOfSessions();
+        this.testSessionsThisWeek.setText(String.valueOf(numTestSessionsThisWeek));
+        this.testSessionsThisWeekExplainer.setText("total test "
+            + (numTestSessionsThisWeek == 1 ? "session" : "sessions") + " this week");
     }
 
     /** Allows the relevant DeckStatisticsWindow to be opened when a row of the deckTableView is double-clicked. */

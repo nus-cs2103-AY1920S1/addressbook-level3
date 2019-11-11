@@ -189,6 +189,15 @@ public class DeckStats extends Stats implements JsonInterface {
         return totalNumberOfCards;
     }
 
+    /** Gets the total session list for test sessions involving all decks. */
+    public SessionList getTotalSessionList() {
+        SessionList totalSessionList = new SessionList();
+        for (SessionList sessionList : this.deckHashMap.values()) {
+            totalSessionList.addSessions(sessionList);
+        }
+        return totalSessionList;
+    }
+
     @Override
     public JsonValue toJson() {
         JsonObject obj = new JsonObject();
