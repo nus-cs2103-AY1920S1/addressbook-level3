@@ -240,38 +240,44 @@ Format: `help`
 // tag::addfirst[]
 ==== Add a show: `add`
 
-Adds a show to the watchlist +
+User can add a show they are interested to watch in the watchlist by using +
+`add` command.
+
+[TIP]
+*`add` can only work in **Watchlist page** and **Watched page**.*
 
 Format: `add n/SHOW_NAME t/SHOW_TYPE [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR_NAME]...`
 
-* `SHOW_NAME`, `DESCRIPTION` and `ACTOR_NAME` can be any words
-* `DATE_OF_RELEASE` must be in the format dd/MM/yyyy
+* Only `SHOW_NAME`, `SHOW_TYPE` are compulsory fields. Rest is optional.
 * `SHOW_TYPE` can only be 'movie' or 'tv'
 * `WATCHED` can only be 'true' or 'false'
+* `SHOW_NAME`, `DESCRIPTION` and `ACTOR_NAME` can be any words
+* `DATE_OF_RELEASE` must be in the format dd/MM/yyyy
 * `RUNNING_TIME` can be any number above 0
-[TIP]
-A show can have any number of actors (including 0)
-[TIP]
-`add` would only work in **Watchlist page** and **Watched page**.
+* `ACTOR_NAME` can be more than one.
+
 
 Examples:
 
 * `add n/Titanic t/movie`
 * `add n/Friends t/tv`
-* `add n/John Wick t/movie d/24 OCTOBER 2014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
-* `add n/Joker t/movie d/3 OCTOBER 2019 w/false r/122 s/In Gotham City, mentally-troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him face-to-face with his alter-ego: "The Joker". a/Joaquin Phoenix`
+* `add n/John Wick t/movie d/24/10/014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
+* `add n/Joker t/movie d/3/10/2019 w/false r/122 s/In Gotham City, mentally-troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him face-to-face with his alter-ego: "The Joker". a/Joaquin Phoenix`
 
-// tag::addfirst[]
+// end::addfirst[]
 
 // tag::addsecond[]
 ==== Adding a show from search result page: `add`
 
-Adds a show from search result page after user has already search for show +
+This is an extension to the `add` feature.
+After user has searched from the show, user can add a show found in the search result page into their watchlist.
 
 Format: `add INDEX`
 
+INDEX is a positive integer and is limited to the number of shows found in search result page.
+
 [TIP]
-This add command can only be used if user is currently at search page, and has already searched for show using the search online command.
+This add command can only be used if user is currently at `search page`, and has already searched for show using the search online command.
 
 Example Usage:
 
@@ -279,11 +285,11 @@ Pre-condition: User has already searched for a show using search online command.
 
 image::add1.png[width="790"]
 
-Step 1. User click (or press kbd:[3]) on search page. User then input `add 1` on command box.
+Step 1. User click (or use keyboard `3` key) on search page. User then input `add 1` on command box.
 
 image::add2.png[width="790"]
 
-Step 2. User click (or press kbd:[1]) on watch list page. User will see `Joker`
+Step 2. User click (or press keyboard `1` key) on watch list page. User will see `Joker`
 movie added to watch list.
 
 image::add3.png[width="790"]
@@ -502,15 +508,17 @@ Returns shows within the watchlist with actor named "Tom"
 // tag::sync[]
 ==== Synchronise user's show data: `sync`
 
-If user has lack of information about a certain show in their watch list. User can use `sync` command.
+If user has lack of information about a certain show in their watch list, User can use `sync` command.
 Synchronise, `sync`, command will transfer all the information about a certain show (for example: show A) found in
 search result page with a show (for example: show A') that has the same name as Show A found in watch list.
 
 ====
-Note: `Sync` will write over all the information of show with same name found in watchlist.
+Note: `Sync` will *WRITE OVER* all the information of show with same name found in watchlist.
 ====
 
 Format: `sync INDEX`
+
+INDEX is a positive integer and is limited to the number of shows found in search result page.
 
 *Example Usage*
 
@@ -522,14 +530,13 @@ Step 1. User searches for `Titanic` show in search page.
 
 image::Sync2.png[width="790"]
 
-Step 2. `Titanic` result page will be displayed.
+Step 2. `Titanic` result page will be displayed. User input `sync 2` to synchronise movie at index 2 of the list with a movie
+of same name found in watchlist.
 
 image::Sync4.png[width="790"]
 
 image::Sync5.png[width="790"]
 
-User input `sync 2` to synchronise movie at index 2 of the list with a movie
-of same name in watchlist.
 
 Step 3. Go to watchlist. New information of `Titanic` in watchlist will be displayed.
 
