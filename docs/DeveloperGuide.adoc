@@ -123,7 +123,9 @@ The `UI` component,
 * Looks at the prefix commandType given in the CommandResult(returned after every Command is executed), as displays the specific link:{repoURL}/src/main/java/seedu/address/ui/EntityListPanel.java[`EntityListPanel`] respectively.
 
 ==== Design Considerations
-1. Ways to update different entity list
+These are some design considerations for the UI component.
+
+===== Aspect: Ways to update different entity list
 * Alternative 1: The system collects information form Model after each command, to display the entity list as the command result.
 ** Pros: Easy to implement with existing Model interface
 ** Cons: High degree of dependency between UI components and Model components(high coupling).
@@ -135,7 +137,7 @@ The `UI` component,
 
 Decision: We have decided to go with alternative  2 because low dependency will ensure testability and maintainability of the system.
 
-2. How to generate EntityCard and ListPanel to display different entities
+===== Aspect: How to generate EntityCard and ListPanel to display different entities
 * Alternative 1: Implement different classes that inherits EntityCard, like TeamCard, ParticipantCard and MentorCard respectively. Additionaly, implement different classes that extents ListPanel, like TeamListPanel and more.
 ** Pros: Easy to implement and style respective cards and list panels.
 ** Cons: Logic is duplicated many times, one for each type of entity. For example, ParticipantCard and Mentorcard are similar for most fields, except the extra field of Organisation and Specialisation.
@@ -243,7 +245,10 @@ If there are any errors along the way, it will be logged but the error would be 
 Moreover, if there is an during a model operation, it will not be saved.
 
 ==== Design Considerations
-1. Synchronization of data
+
+These are some design considerations for Model.
+
+===== Aspect: Synchronization of data
     * The role of `ModelManager` is to ensure that the data is in sync with each other across all 3 `EntityList`
 objects. The reason behind this is because for example, the `Participant` object in `ParticipantList` is a separate
 object from the one inside `Team`. It was not possible due to make the `Participant` object hold a reference
@@ -254,7 +259,7 @@ is sync across all 3 `EntityList` objects.
 Alfred, only `ModelManager` needs to be aware of `Storage` to ensure that only it can save/read data. This would
 hence help to synchronize data better.
 
-2. Single Responsibility Principle and Inheritance
+===== Aspect: Single Responsibility Principle and Inheritance
     * Each class in `Model` is only responsible for a single task. For example, `TeamList` is only concerned
 with managing the `Team` entities stored in it. This would help to improve testability and code quality, especially
 since the size of the `Model` codebase is substantial
@@ -262,13 +267,13 @@ since the size of the `Model` codebase is substantial
 `EntityList` and `Entity`. Inheritance was used to show this relationship and to reduce the need for code
 duplication.
 
-3. Open Closed Principle
+===== Aspect: Open Closed Principle
     * `Model` exposes many functions. However, in line with the Open Closed Principle, modifications to `Model`
 come in the form of exposing new methods on it and creating new attributes on the `ModelManager` object. The methods
 on `ModelManager` were also implemented as simply as possible so that future methods can build on them. This way,
 future modifications do not need to edit existing code, reducing the likelihood of regression bugs.
 
-4. Design of the `Entity` objects
+===== Aspect: Design of the `Entity` objects
 * *Alternative 1*: Make the `Team` object the single source of truth (only `Team` has references to `Participant`
 and `Mentor`)
     - Pros: This would facilitate the serialization on `Storage`
@@ -363,8 +368,9 @@ object, and the entire list of participants in the JSON file is in turn generate
 the ParticipantList to a List of `JsonAdaptedParticipant`.
 
 ==== Design Considerations
+The following are some design considerations for the Storage component.
 
-1. Data Integrity
+===== Aspect: Data Integrity
 
 * The individual `JsonAdaptedEntity` classes perform validation on every field in the JSON file for each Entity as
 it attempts to convert the JSON data into an Entity in Alfred. Should the data prove to be invalid, an error is thrown
@@ -374,7 +380,7 @@ inconsistencies in Alfred.
 * In future implementations, it would be best to ensure that the JSON file is encrypted and secured to minimise
 opportunities for tampering with the data.
 
-2. Single Responsibility Principle
+===== Aspect: Single Responsibility Principle
 
 * Each class exists for a very specific purpose. A class is provided for each Entity.
 * Purpose (From Top-Down):
@@ -382,13 +388,13 @@ opportunities for tampering with the data.
 ** Serializing EntityList: `JsonSerializableEntityList`
 ** Serializing one Entity: `JsonAdaptedEntity`
 
-3. Interface Segregation
+===== Aspect: Interface Segregation
 
 * Each interface is kept as minimal as possible and targets a specific Entity type.
 * AlfredStorage is an interface that extends multiple interfaces to expose the read/save functionality
 required by Model.
 
-4. Dependency Inversion
+===== Aspect: Dependency Inversion
 
 * Alfred's Model is dependent on the interface AlfredStorage, and the implementation is provided through AlfredStorageManager.
 Hence, all functionality provided are first stipulated in the AlfredStorage interface.
@@ -489,7 +495,7 @@ image::ImportCommandErrorFileActivityDiagram.png[]
 
 When designing this feature, different aspects - list below - were considered.
 
-===== Aspect 1: Storing of File Path
+===== Aspect: Storing of File Path
 
 * *Alternative 1:* Store as a `String`
 
@@ -501,7 +507,7 @@ When designing this feature, different aspects - list below - were considered.
 
 Alternative 2 was chosen because of the additional benefits `Path` class provides. Additional overhead of `Path` class (`File` class could also have been used) proved more effective than storing as `Strings`.
 
-===== Aspect 2: Representation of an Invalid Line in CSV File
+===== Aspect: Representation of an Invalid Line in CSV File
 
 * *Alternative 1:* Represent as a `String` and print to user
 
@@ -518,7 +524,7 @@ Alternative 2 was chosen because of the additional benefits `Path` class provide
 
 We chose Alternative 2 because `Error` class will be able to provide a more detailed explanation more simply than using a `String`. By displaying to the user the line number and the reason why the line was not able to be imported into Alfred would save user tons of time trying to locate where the line is in the CSV file and why it caused a problem. However, we figured that knowing the line number would not help much in locating the line in the CSV file if the file is huge, hence the next aspect.
 
-===== Aspect 3: Display of Errors
+===== Aspect: Display of Errors
 
 * *Alternative 1:* Display to user through `CommandResult` box of the GUI
 
@@ -534,7 +540,7 @@ We chose Alternative 2 because `Error` class will be able to provide a more deta
 
 This aspect has no **(Current Choice)** attached to any alternative because Alfred utilizes both. As mentioned before, Alternative 2 will be carried out if the user specifies an error file path. Then, whether or not the user has provided the error file path, Alfred will still include an error message in the `CommandResult` box if there are any.
 
-===== Aspect 4: Assigning of Participants and/or Mentor to Teams through `ImportCommand`
+===== Aspect: Assigning of Participants and/or Mentor to Teams through `ImportCommand`
 
 * *Alternative 1:* Do not allow assigning to Teams through `ImportCommand`
 
@@ -589,7 +595,7 @@ The overall flow is the same so you can refer to the aforementioned <<ExportComm
 
 ==== Design Consideration
 
-===== Aspect 1: Selective Exporting of Data
+===== Aspect: Selective Exporting of Data
 
 * *Alternative 1:* Do not allow selective exporting
 
@@ -609,7 +615,7 @@ The overall flow is the same so you can refer to the aforementioned <<ExportComm
 
 For now, we have chosen *Alternative 2*. We thought allowing the user to choose a specific entity type would be sufficient. But implementing *Alternative 3* can be done in the future to make Alfred even more customizable for the user. It would not replace *Alternative 2* but the two will exist side by side. Depending on the additional parameters inputted by the user, commands will execute differently.
 
-===== Aspect 2: Type of Files to Support
+===== Aspect: Type of Files to Support
 
 * *Alternative 1 (Current Choice):* Support CSV file only
 
@@ -922,8 +928,9 @@ The following sequence diagram shows how the `home` operation works:
 image::HomeCommandSequenceDiagram.png[][width=790,height=480]
 
 ==== Design Considerations
+The following are some design considerations for the `home` command.
 
-1. Finding the distribution of Teams and Mentors by subjects
+===== Aspect: Finding the distribution of Teams and Mentors by subjects
 
 * Alternative 1: Implementing methods to keep track of number of mentors or participant under the respective TeamList or ParticipantList class.
 **	Pros: Each of TeamList or  Participant list will have their individual responsibilities in keeping track of the distribution of its teams or mentors.
@@ -1093,16 +1100,15 @@ Though the above diagram and steps are designed in the context of a `score add` 
 
 To develop the `score` feature a few considerations and decisions had to be made with regards to how to implement the feature at various steps. This section focuses on some of the aspects wherein we faced dilemmas and how we addressed them.
 
-
-*Aspect:* How to implement the Score Commands
+===== Aspect: How to implement the Score Commands
 
 Currently, Alfred's score commands all inherit from a single `ScoreCommand` abstract class rather than each command class inheriting directly from the command class. This was done in order to provide a concrete base for the score commands, but more importantly also to make better use of polymorphism within our codebase. This use of polymorphism allows the Alfred codebase to avoid several code repetitions, for example by facilitating the use of a single parser class to parse the `score` commands as it can then simply return a `ScoreCommand` object regardless of which specific `score` command is called. Thanks to this, we avoid having to make a parser for every single `score` command.
 
-*Aspect:* How to implement `score sub` (Subtract Score Command)
+===== Aspect: How to implement `score sub` (Subtract Score Command)
 
 While traditionally a subtract command would be implemented using an add command only with negated values, this is not quite possible in Alfred's case. Within Alfred `Score` objects have a strict restriction that they cannot be created with negative values as a team's score can never be negative. This restriction cannot be relaxed as it ensures that any data being imported into Alfred does not violate this property either. Due to this the `score sub` command could be implemented by reusing the `AddScoreCommand` and hence why it has its own command class `SubtractScoreCommand`.
 
-*Aspect:* Implementation of `score reset` command
+===== Aspect: Implementation of `score reset` command
 
 * *Alternative 1:* Create a `ResetScoreCommand` class
 
@@ -1196,10 +1202,10 @@ Secondly, `Model` calls its own method `setSimpleLeaderboard(comparators, subjec
 
 [[Leaderboard-DesignConsideration]]
 
-==== Leaderboard Design Considerations
+==== Design Considerations
 There were several questions we asked ourselves over the course of developing the leaderboard feature. The following contains certain aspects we had to consider during the development stage and details how and why we decided to use a certain methodologies over others.
 
-*Aspect:* How to store the sorted list of participants
+===== Aspect: How to store the sorted list of participants
 
 * *Alternative 1:* Use the existing List in `ModelManager` storing the teams.
 
@@ -1215,7 +1221,7 @@ There were several questions we asked ourselves over the course of developing th
 
 Due to the overwhelming benefits and conveniences that a new `SortedList` of teams would bring in the development of Alfred's `leaderboard` and `getTop K` commands, particularly with the convenience of sorting it allows through its API, we decided to rely on "Alternative 2" with regards to this dilemma.
 
-*Aspect:* Designing Leaderboard's Command Classes
+===== Aspect: Designing Leaderboard's Command Classes
 
 * *Alternative 1:* Use a single `LeaderboardCommand` class
 
@@ -1231,7 +1237,7 @@ We decided to follow "Alternative 2". Firstly, if a single class were being used
 
 // end::leaderboardCommand[]
 
-*Aspect:* Where to Write Algorithms used by `leaderboard` (and `getTop K`) Command
+===== Aspect: Where to Write Algorithms used by `leaderboard` (and `getTop K`) Command
 
 * *Alternative 1:* Write the methods as private within `ModelManager` itself
 ** Pros: Relevant code is in close proximity to where it is being called allowing for easy reference of what is being done and quick rectification if needed.
@@ -1285,11 +1291,11 @@ From the above diagram it can be inferred that the implementation of random winn
 
 The first difference is that the `TopTeamsCommandParser` object now returns a `topKRandomCommand` object. Secondly, the `topKRandomCommand` object calls the `setTopKRandom(3, comparators, subjectName)` method of `Model`. It essentially modifies the `sortedTeamList` within `Model` to only show the top three teams (within a certain subject category if specified) as per their scores and the relevant tiebreakers as per the list of comparators `comparators`, and breaks any remaining ties based on the random method.
 
-==== Design Consideration for Get Top Teams
+==== Design Considerations
 
 Since the implementation of the `getTop K` command is almost identical to that of the `leaderboard` command, the design considerations made for the `leaderboard` command apply to the implementation of this feature as well (See <<Leaderboard-DesignConsideration>>). However, there were some unique aspects we had to consider with regards to the `getTop K` command, all of which is detailed below.
 
-*Aspect:* Where to Store the Top K Teams
+===== Aspect: Where to Store the Top K Teams
 
 * *Alternative 1 (Current Choice):* Use the `SortedList` in `ModelManager` used for  the `leaderboard` command.
 
@@ -1303,7 +1309,7 @@ Since the implementation of the `getTop K` command is almost identical to that o
 
 After careful consideration, "Alternative 1" was chosen as it would make fewer modification to `ModelManager` and the `UI` component, particularly with regards to adding duplicate code to handle the two different lists. Moreover, since the calls to `ModelManager` 's methods reset the `SortedList` storing the sorted teams, there is likely to be lesser confusion and room for error when handling a single list for the two different commands.
 
-*Aspect:* Handling Situation when `K` is greater than the number of teams
+===== Aspect: Handling Situation when `K` is greater than the number of teams
 
 * *Alternative 1 (Current Choice):* Show all the teams in the hackathon
 
@@ -1317,7 +1323,7 @@ After careful consideration, "Alternative 1" was chosen as it would make fewer m
 
 We decided to prioritise user convenience in this situation and rather than displaying an error every time he inputs a value too large for `K` in the `getTop K` command, we decided to show all the teams. This aspect of the feature has been made abundantly clear in the User Guide and seeks to minimise user frustration especially since we do not want the user to worry too much about remembering how many teams have signed up.
 
-*Aspect:* Implementation of Leaderboard
+===== Aspect: Implementation of Leaderboard
 
 * *Alternative 1:* Implement `leaderboard` command with `getTop K` command keeping `K` as the size of the teamlist
 
@@ -1352,11 +1358,11 @@ Secondly, if no subject is specified by the user, then the default value of the 
 
 Note that the diagram above assumes there are no syntax errors made by the user when typing out the command. In case of any errors in the command, a `ParseException` would be thrown warning the user of such a situation. These have been excluded from the above diagram to prevent overcrowding and a deviation from the basic logic.
 
-==== Design Considerations for Tiebreaking
+==== Design Considerations
 
 Though this was a relatively straightforward subset of our `leaderboard` and `getTop K` command, there were still a few, small design considerations made.
 
-*Aspect:* Signaling No Subject Filtering
+===== Aspect: Signaling No Subject Filtering
 
 * *Alternative 1:* Use Java's Optional class with the optional variable being empty.
 ** Pros: Less prone to misuse which can cause exceptions.
@@ -1372,7 +1378,7 @@ Though this was a relatively straightforward subset of our `leaderboard` and `ge
 
 In the end "Alternative 2" was favoured over the other two alternatives. Although the misuse of null can lead to unwanted exceptions, it has been carefully used to ensure that at no point is null value used other than to check once whether the variable's value is null or not. This careful implementation ensures that the variable is used selectively at only once place thereby making sure that no possibility `NullPointerException" occurs at any other part of the code. Although "Alternative 3" is a standard solution to null input parameters, in this case it would not serve its purpose too well as calling the overloaded constructor would require additional logic to check whether or not the subject is mentioned and then depending on this result which command needs to be created and returned. Java's Optional class provides a good alternative, however it was not selected as it leads to needless wrapping and unwrapping of the variable.
 
-*Aspect:* Where to create comparators
+===== Aspect: Where to create comparators
 
 * *Alternative 1:* Create comparators when parsing each tiebreak method
 ** Pros: Easier to implement as it does not require additional classes.
@@ -1383,7 +1389,7 @@ In the end "Alternative 2" was favoured over the other two alternatives. Althoug
 
 In the end, "Alternative 2" was selected as it follows better software engineering practices by making better use of abstraction. Despite requiring slightly more code and classes, it would still be better than "Alternative 1" which breaks the Single Responsibility Principle as the parser class would have to be changed for changes in tiebreak methods in addition to changes in methods of parsing.
 
-*Aspect:* How to separate tiebreak methods
+===== Aspect: How to separate tiebreak methods
 
 * *Alternative 1:* Each tiebreak method preceded by a new tiebreak prefix ("tb/")
 
