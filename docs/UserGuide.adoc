@@ -286,7 +286,6 @@ Examples:
 * Only one status is allowed at a time.
 ****
 
-// tag::includeNotes[]
 === Notes
 ==== Add Note: `addnote`
 
@@ -331,7 +330,6 @@ Examples:
 List all note. +
 Format: `listnote`
 
-// end::includeNotes[]
 === Student List
 
 ==== Add a student: 'add'
