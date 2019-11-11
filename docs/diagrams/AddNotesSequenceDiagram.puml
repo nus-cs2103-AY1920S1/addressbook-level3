@@ -13,10 +13,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("addnote mod/....")
+[-> LogicManager : execute("addnote c/....")
 activate LogicManager
 
-LogicManager -> TutorAidParser : parseCommand("addnote mod/....")
+LogicManager -> TutorAidParser : parseCommand("addnote c/....")
 activate TutorAidParser
 
 create AddNotesCommandParser
@@ -26,7 +26,7 @@ activate AddNotesCommandParser
 AddNotesCommandParser --> TutorAidParser
 deactivate AddNotesCommandParser
 
-TutorAidParser -> AddNotesCommandParser : parse("mod/...")
+TutorAidParser -> AddNotesCommandParser : parse("c/...")
 activate AddNotesCommandParser
 
 create AddNotesCommand

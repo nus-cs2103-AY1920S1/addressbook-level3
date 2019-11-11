@@ -1,0 +1,76 @@
+= TeoShyanJie - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Introduction
+
+image::TeoShyanJie.png[width="200", align="left"]
+{empty}[https://github.com/TeoShyanJie[github]] [https://www.linkedin.com/in/shyan-jie-teo-49007510a/[linkedin]]
+
+Hello! My name is Teo Shyan Jie. I am currently a Year 3 Computer Science Major at National University of Singapore.
+
+This project portfolio aims to document the contribution that I have made during the development of TutorAid. TuturAids is a project my team and I have developed throughout our studies in CS2103T module. TutorAid is one of the great software that is developed with great amount of benefits and I hope that teaching assistant can enjoy the benefits that this software brings and aids them along their journey in teaching.
+
+== PROJECT: TutorAid
+
+== Overview
+
+TutorAid is a software build by a team of 5 Computer Science Software Engineering Student. I were tasked to implement the features of Notes for our software engineering project. We chose to morph the addressbook 3 to a teaching assistant assisting software which is called TutorAid. TutorAid is an imporved version of addressbook 3 which allows teaching assistant record student attandence, module management, earning management and notes taking.
+
+This is how TutorAid looks like:
+
+.TutorAid Graphical User Interface
+image::Ui.png[]
+
+== Role
+
+My main role was to design the `Notes` features which allows teaching assistant to record their notes based on the module and the type of class they are teaching. Notes consists a variety of functions which allow great flexibility for teaching assitant which is `add`, `edit`, `delete`, `find` and also `list`. The list of functions allows teaching assistant to create note, make an amendment from the note, delete the note or find the desire the note from the list of notes. Besides, I also wrote all sort of test cases to ensure that all the code that I wrote has reached the expected quality and reduce the chance of errors in the code.
+
+== Summary of contributions
+This sections will show my contribution to the team project which consists of my code, documentation and other helpful informations.
+
+*Enhancement added*: Added the `Notes` features with `add`, `edit`, `delete`, `find` and `list` commands.
+
+* What it does: allow user to `add` the desire notes, `edit` to make amend to the note that want to change, `delete` the desire note, `find` the specific note from the list of notes and last but not least `list` down all the notes that previously have save in TutorAid.
+
+* Justification: Notes is a very important features in TutorAid as it provides a great flexibility to teaching assistant. With the `add` functions, teaching assistant will be able to add the note based on the module he/she teaches and the type of class that they teach with any content of the note. However, when mistake is made on the note amendment is needed. Hence, `edit` functions is added which allow teaching assistant to edit the note either on module, class type or the content. Therefore, there is no need to worry about getting worry of typing error while taking note. Besides, `delete` function allow teaching assistant to remove the notes that are unwanted. When the notes save getting more, it is very difficult to find the notes that desire. Hence `find` function is implemented to aid this problem. It allows to search for any related keywords such as the module code, class type or the content itself. Last but not least, `list` function. This is significantly important as after the searching of notes, viewing the list of notes allow teaching assistant to check all the notes that are save.
+
+* Implementations:
+
+*Code contributed*: [https://github.com/AY1920S1-CS2103T-F14-2/main/commits?author=TeoShyanJie[All Commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=TeoShyanJie[Project Code Dashboard]]
+
+*Other contributions*
+
+** Project Management:
+**** Manage release `v1.3.1` to `v1.4` (2 release) on Github.
+**** Manage to assign feature with labels and milestone: (Pull request: https://github.com/AY1920S1-CS2103T-F14-2/main/issues/50[#50], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/100[#100], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/180[#180])
+**** Ensure that all test is pass then merge to the team repository: (Pull request: https://github.com/AY1920S1-CS2103T-F14-2/main/pull/322[#322], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/344[#344])
+
+** Enhancements to existing features:
+**** Implement variety of test cases for features which increase coverage from 44% to 48%: (Pull request: https://github.com/AY1920S1-CS2103T-F14-2/main/pull/343[#343])
+
+** Documentation:
+**** Made improvement to Developer Guide with diagram and details issues: (Pull request: https://github.com/AY1920S1-CS2103T-F14-2/main/pull/243[#243])
+**** Improve UserGuide to allow reader to have a clearer understanding on how does the software works: (Pull request: https://github.com/AY1920S1-CS2103T-F14-2/main/pull/212[#212])
+
+** Community:
+**** Review and provide feedback to each of the team members commits: (Pull request: https://github.com/AY1920S1-CS2103T-F14-2/main/pull/216[#216], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/337[#337])
+
+** Tools:
+**** setup Netlify for team repository
+**** setup Travis for team repository
+
+== Contributions to User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=includeNotes]
+
+== Contributions to Developer Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../DeveloperGuide.adoc[tag=NotesDG]
