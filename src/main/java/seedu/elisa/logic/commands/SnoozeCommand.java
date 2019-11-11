@@ -69,10 +69,10 @@ public class SnoozeCommand extends UndoableCommand {
             if (index.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
             }
-
             oldItem = lastShownList.get(index.getZeroBased());
             snoozedItem = oldItem.changeReminder(
                     oldItem.getReminder().get().changeOccurrenceDateTime(newReminderOccurrence));
+
         } else {
             try {
                 oldItem = model.getLatestOccurredReminder();
@@ -83,8 +83,7 @@ public class SnoozeCommand extends UndoableCommand {
             snoozedItem = oldItem.changeReminder(
                     oldItem.getReminder().get().changeOccurrenceDateTime(newReminderOccurrence));
         }
-
-        model.replaceItem(oldItem, snoozedItem);
+        model.editItem(oldItem, snoozedItem);
         if (!isExecuted()) {
             model.getElisaCommandHistory().clearRedo();
             setExecuted(true);

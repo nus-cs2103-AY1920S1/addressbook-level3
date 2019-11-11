@@ -16,6 +16,7 @@ import java.util.TimerTask;
 import javafx.beans.property.SimpleBooleanProperty;
 import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.item.Item;
+import seedu.elisa.commons.core.item.Reminder;
 import seedu.elisa.commons.core.item.Task;
 import seedu.elisa.commons.exceptions.IllegalValueException;
 import seedu.elisa.logic.commands.Command;
@@ -203,7 +204,8 @@ public class ItemModelManager implements ItemModel {
 
         if (item.hasReminder()) {
             reminderList.add(item);
-            if (item.getReminder().get().getOccurrenceDateTime().isAfter(LocalDateTime.now())) {
+            if ((!futureReminders.contains(item))
+                    && item.getReminder().get().getOccurrenceDateTime().isAfter(LocalDateTime.now())) {
                 futureReminders.add(item);
             }
         }
@@ -324,16 +326,9 @@ public class ItemModelManager implements ItemModel {
      * @param newItem the item that will replace the previous item
      */
     public void replaceItem(Item item, Item newItem) {
-        int index = visualList.indexOf(item);
-        if (index >= 0) {
-            if (visualList.belongToList(newItem)) {
-                visualList.setItem(index, newItem);
-            } else {
-                visualList.remove(index);
-            }
-        }
+        int index = itemStorage.indexOf(item);
 
-        if ((index = itemStorage.indexOf(item)) >= 0) {
+        if (index >= 0) {
             itemStorage.setItem(index, newItem);
         }
 
@@ -370,11 +365,46 @@ public class ItemModelManager implements ItemModel {
                 reminderList.remove(index);
             }
 
-            //Old reminder must be in active since it already rang.
-            //Find the old reminder from activeReminders and remove it.
-            activeReminders.remove(item);
-            //Put the new reminder in futureReminders if it will be rung later.
-            futureReminders.add(newItem);
+            if (!item.getReminder().equals(newItem.getReminder())) {
+                if (newItem.getReminder().isEmpty()) {
+                    if (activeReminders.contains(item)) {
+                        activeReminders.remove(item);
+                    }
+
+                    if (futureReminders.contains(item)) {
+                        futureReminders.remove(item);
+                    }
+
+                } else {
+                    //means that newItem has a reminder that is diff from old reminder
+                    //if old had nothing just add to corresponding
+                    //if old had a reminder, remove it
+                    if (item.getReminder().isPresent()) {
+                        if (activeReminders.contains(item)) {
+                            activeReminders.remove(item);
+                        }
+
+                        if (futureReminders.contains(item)) {
+                            futureReminders.remove(item);
+                        }
+                    }
+                    Reminder newReminder = newItem.getReminder().get();
+
+                    if (newReminder.getOccurrenceDateTime().isAfter(LocalDateTime.now())) {
+                        //Add to futureReminders if it is to occur later.
+                        futureReminders.add(newItem);
+                        //Otherwise do not add
+                    }
+                }
+            }
+        }
+
+        if ((index = visualList.indexOf(item)) >= 0) {
+            if (visualList.belongToList(newItem)) {
+                visualList.setItem(index, newItem);
+            } else {
+                visualList.remove(index);
+            }
         }
 
         if (priorityMode.getValue()) {
@@ -430,6 +460,7 @@ public class ItemModelManager implements ItemModel {
         eventList.clear();
         reminderList.clear();
         calendarList.clear();
+        futureReminders.clear();
     }
 
     /**
