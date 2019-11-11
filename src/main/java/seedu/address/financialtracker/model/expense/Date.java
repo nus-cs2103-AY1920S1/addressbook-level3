@@ -67,8 +67,8 @@ public class Date {
     }
 
     /**
-     * Formats the date in the event to dd/MM/yyyy.
-     * @param date attribute in the given event.
+     * Formats the date in the expense to dd/MM/yyyy.
+     * @param date attribute in the given expense.
      * @return formatted date based on dd/MM/yyyy.
      */
     private String formatDate(String date) {
