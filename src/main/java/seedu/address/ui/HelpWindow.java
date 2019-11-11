@@ -1,13 +1,18 @@
+//@@author LeonardTay748
 package seedu.address.ui;
 
+import java.io.InputStream;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
+import javafx.geometry.Orientation;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
+import seedu.address.Main;
 import seedu.address.commons.core.LogsCenter;
 
 /**
@@ -15,17 +20,14 @@ import seedu.address.commons.core.LogsCenter;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
-
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
+    private static final Stage stage = new Stage();
+    private static final InputStream x = Main.class.getResourceAsStream("/images/Commands.png");
+    private final Image image = new Image(x, 867, 1601, true, false);
 
     @FXML
-    private Button copyButton;
-
-    @FXML
-    private Label helpMessage;
+    private ImageView imageView;
 
     /**
      * Creates a new HelpWindow.
@@ -33,8 +35,7 @@ public class HelpWindow extends UiPart<Stage> {
      * @param root Stage to use as the root of the HelpWindow.
      */
     public HelpWindow(Stage root) {
-        super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
+        super(FXML, stage);
     }
 
     /**
@@ -64,6 +65,15 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void show() {
         logger.fine("Showing help page about the application.");
+        imageView.setImage(image);
+
+        FlowPane root = new FlowPane(Orientation.HORIZONTAL);
+        root.getChildren().addAll(imageView);
+        ScrollPane sp = new ScrollPane();
+        sp.setContent(root);
+        Scene scene = new Scene(sp, 550, 400);
+        stage.setScene(scene);
+
         getRoot().show();
         getRoot().centerOnScreen();
     }
@@ -89,14 +99,4 @@ public class HelpWindow extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
-    /**
-     * Copies the URL to the user guide to the clipboard.
-     */
-    @FXML
-    private void copyUrl() {
-        final Clipboard clipboard = Clipboard.getSystemClipboard();
-        final ClipboardContent url = new ClipboardContent();
-        url.putString(USERGUIDE_URL);
-        clipboard.setContent(url);
-    }
 }

@@ -1,0 +1,11 @@
+{
+  "flashcards": [ {
+    "question": "",
+    "answer": "Valid Answer",
+    "rating": "good"
+  } ],
+  "deadlines" : [ {
+    "task" : "Valid Task",
+    "date" : "10/10/2019"
+  }]
+}

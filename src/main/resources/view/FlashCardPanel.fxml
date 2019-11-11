@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<HBox id="flashcardPane" fx:id="flashcardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="200" />
+        </columnConstraints>
+        <VBox alignment="CENTER" minHeight="105" GridPane.columnIndex="0">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="15" />
+            </padding>
+            <HBox fx:id="questionBox" spacing="5" alignment="CENTER">
+                <Label fx:id="questionId" text = "Question:" styleClass="cell_big_label">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                  <TextArea fx:id="testquestion" text="\$first" styleClass="test-box" wrapText="true" />
+            </HBox>
+            <Separator fx:id="separator" >
+                <padding>
+                    <Insets top="20" bottom = "20"></Insets>
+                </padding>
+            </Separator>
+            <HBox fx:id = "answerBox" spacing="5" alignment="CENTER">
+                <Label fx:id="answerId" text ="Answer:" styleClass="cell_big_label">
+                    <minWidth>
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <TextArea fx:id="testanswer" styleClass="test-box" wrapText="true" />
+            </HBox>
+        </VBox>
+    </GridPane>
+</HBox>

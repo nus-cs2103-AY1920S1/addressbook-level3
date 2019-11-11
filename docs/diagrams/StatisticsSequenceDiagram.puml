@@ -1,0 +1,71 @@
+//@@author LeonardTay748
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":StatsCommand" as StatsCommand LOGIC_COLOR
+participant ":logic" as Logic LOGIC_COLOR
+end box
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":StatsWindow" as StatsWindow UI_COLOR
+end box
+
+box MODEL MODEL_COLOR_T1
+participant ":model" as Model MODEL_COLOR
+end box
+
+box JavaFx EXTERNAL_LIBRARY_COLOR_T1
+participant ":Scene" as Scene EXTERNAL_LIBRARY_COLOR
+participant ":FlowPane" as FlowPane EXTERNAL_LIBRARY_COLOR
+participant ":Stage" as Stage EXTERNAL_LIBRARY_COLOR
+end box
+
+
+[-> LogicManager : parseCommand(stats)
+activate LogicManager
+
+    LogicManager -> StatsCommand : execute(model)
+    activate StatsCommand
+        LogicManager <-- StatsCommand : CommandResult
+    deactivate StatsCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+[-> MainWindow : executeCommand(stats)
+activate MainWindow
+
+
+       MainWindow -> MainWindow : handleStats()
+           activate MainWindow
+
+                MainWindow -> StatsWindow : isShowing()
+                activate StatsWindow
+                MainWindow <-- StatsWindow : result
+                deactivate StatsWindow
+
+                alt result = false
+                MainWindow -> Logic :
+                activate Logic
+                Logic -> LogicManager : getModel()
+                activate LogicManager
+                Logic <-- LogicManager : model
+                deactivate LogicManager
+                Logic -> MainWindow : model
+                deactivate Logic
+
+                MainWindow -> StatsWindow : show(model)
+                ref over StatsWindow, Model, Scene, Stage : show statistics
+                MainWindow <-- StatsWindow :
+                MainWindow <-- MainWindow :
+
+           deactivate MainWindow
+           [<-- MainWindow :
+           deactivate MainWindow
+
+       end
+
+@enduml

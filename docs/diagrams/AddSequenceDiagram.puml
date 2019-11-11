@@ -1,0 +1,79 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":KeyboardFlashCardsParser" as KeyboardFlashCardsParser LOGIC_COLOR
+participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant "a:AddCommand" as AddCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":FlashCard" as FlashCard LOGIC_COLOR
+
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("add q>1+1 a>2 c>math")
+activate LogicManager
+
+LogicManager -> KeyboardFlashCardsParser : parseCommand("add q>1+1 a>2 c>math")
+activate KeyboardFlashCardsParser
+
+create AddCommandParser
+KeyboardFlashCardsParser -> AddCommandParser : AddCommandParser()
+activate AddCommandParser
+
+AddCommandParser --> KeyboardFlashCardsParser
+deactivate AddCommandParser
+
+KeyboardFlashCardsParser -> AddCommandParser : parse("q>1+1 a>2 c>math")
+activate AddCommandParser
+
+create FlashCard
+AddCommandParser -> FlashCard: FlashCard(qn, ans, r, c)
+activate FlashCard
+
+FlashCard --> AddCommandParser: fc
+deactivate FlashCard
+
+create AddCommand
+AddCommandParser -> AddCommand: AddCommand(fc)
+activate AddCommand
+
+
+AddCommand --> AddCommandParser : a
+deactivate AddCommand
+
+AddCommandParser --> KeyboardFlashCardsParser : a
+deactivate AddCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddCommandParser -[hidden]-> KeyboardFlashCardsParser
+destroy AddCommandParser
+
+KeyboardFlashCardsParser --> LogicManager : a
+deactivate KeyboardFlashCardsParser
+
+LogicManager -> AddCommand : execute(model)
+activate AddCommand
+
+AddCommand -> Model : addFlashCard(fc)
+activate Model
+
+Model --> AddCommand
+deactivate Model
+
+create CommandResult
+AddCommand -> CommandResult: CommandResult()
+activate CommandResult
+
+CommandResult --> AddCommand : result
+deactivate CommandResult
+
+AddCommand --> LogicManager : result
+deactivate AddCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

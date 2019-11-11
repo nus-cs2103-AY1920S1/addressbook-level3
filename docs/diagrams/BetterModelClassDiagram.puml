@@ -4,18 +4,17 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniquePersonList
-AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniquePersonList
-UniqueTagList -[hidden]down- UniquePersonList
+KeyboardFlashCards *-right-> "1" UniqueFlashCardList
+KeyboardFlashCards *-right-> "1" UniqueCategoryList
+UniqueCategoryList -[hidden]down- UniqueFlashCardList
+UniqueCategoryList -[hidden]down- UniqueFlashCardList
 
-UniqueTagList *-right-> "*" Tag
-UniquePersonList o-right-> Person
+UniqueCategoryList *-right-> "*" Category
+UniqueFlashCardList o-right-> FlashCard
 
-Person o-up-> "*" Tag
+FlashCard o-up-> "*" Category
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+FlashCard *--> Question
+FlashCard *--> Answer
+FlashCard *--> rating
 @enduml

@@ -7,8 +7,11 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyKeyboardFlashCards;
+import seedu.address.model.category.Category;
+import seedu.address.model.deadline.Deadline;
+import seedu.address.model.flashcard.FlashCard;
 
 /**
  * API of the Logic component
@@ -24,19 +27,26 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the KeyboardFlashCards.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getKeyboardFlashCards()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyKeyboardFlashCards getAddressBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of flashcards */
+    ObservableList<FlashCard> getFilteredFlashCardList();
+
+
+    /** Return an unmodifiable view of the category list**/
+    ObservableList<Category> getCategoryList();
+
+    /** Returns an unmodifiable view of the filtered list of deadline */
+    ObservableList<Deadline> getFilteredDeadlineList();
 
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getKeyboardFlashCardsFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -47,4 +57,6 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    Model getModel();
 }

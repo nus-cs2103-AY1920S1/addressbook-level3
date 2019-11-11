@@ -1,0 +1,29 @@
+@startuml
+start
+:User executes export command, with a specified category and file path;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([file path is valid and represents\na document or JSON file])
+    if () then ([Category exists and is non-empty])
+        :Obtain all FlashCards from category;
+        if () then ([file path is for document file])
+            :Create a new document;
+        else ([file path is for a JSON file])
+            :Create a new JSON file;
+        endif
+        repeat
+            :Write FlashCard to file;
+        repeat while () is ([more FlashCards\nto write])
+        ->[all FlashCards written];
+        :Save file to given file path;
+        :Display success message;
+    else ([else])
+        :Display error message;
+    endif
+else ([else])
+    :Display error message;
+endif
+stop
+@enduml

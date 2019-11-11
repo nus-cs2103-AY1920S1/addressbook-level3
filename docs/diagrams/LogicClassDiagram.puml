@@ -1,5 +1,6 @@
 @startuml
 !include style.puml
+skinparam linetype ortho
 skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
@@ -8,7 +9,7 @@ package Logic {
 
 package Parser {
 Interface Parser <<Interface>>
-Class AddressBookParser
+Class KeyboardFlashCardsParser
 Class XYZCommandParser
 Class CliSyntax
 Class ParserUtil
@@ -35,8 +36,8 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager -->"1" KeyboardFlashCardsParser
+KeyboardFlashCardsParser .left.> XYZCommandParser: creates >
 
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser

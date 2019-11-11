@@ -1,0 +1,65 @@
+@startuml
+!include style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+
+
+Package Logic <<Rectangle>>{
+    Class ExportCommand LOGIC_COLOR
+    Class ImportCommand LOGIC_COLOR
+    Class ExportCommandParser LOGIC_COLOR
+    Class ImportCommandParser LOGIC_COLOR
+    Abstract Class Command LOGIC_COLOR
+    Class Parser <<interface>> LOGIC_COLOR
+}
+
+Command <|- ExportCommand LOGIC_COLOR
+Command <|- ImportCommand LOGIC_COLOR
+Parser <|.. ExportCommandParser LOGIC_COLOR
+Parser <|.. ImportCommandParser LOGIC_COLOR
+
+Parser .. Command LOGIC_COLOR
+ExportCommandParser .. ExportCommand LOGIC_COLOR
+ImportCommandParser .. ImportCommand LOGIC_COLOR
+
+
+
+Package seedu.address.model.export <<Rectangle>>{
+    Class DirectoryPath
+    Class DocumentExportUtil
+    Class DocumentFilePath
+    Class DocumentPath
+    Abstract Class ExportPath
+    Class ExportPathFactory
+    Class JsonExportFilePath
+    Class JsonExportPath
+    Class JsonExportUtil
+    Class JsonImportUtil
+}
+
+ExportPath <|- DocumentPath
+ExportPath <|- JsonExportPath
+
+DocumentPath *-- DocumentFilePath
+DocumentPath *-- DirectoryPath
+
+JsonExportPath *-- JsonExportFilePath
+JsonExportPath *-- DirectoryPath
+
+ExportPathFactory .up. ExportPath
+
+DocumentExportUtil .. DocumentPath
+JsonExportUtil .. JsonExportPath
+JsonImportUtil .. JsonExportPath
+
+
+
+ExportCommand "0..1" --> "1" ExportPath LOGIC_COLOR
+ImportCommand "0..1" --> "1" ExportPath LOGIC_COLOR
+
+ExportCommandParser .. ExportPath LOGIC_COLOR
+ImportCommandParser .. ExportPath LOGIC_COLOR
+@enduml

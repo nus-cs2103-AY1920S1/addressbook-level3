@@ -1,0 +1,10 @@
+//@@author LeonardTay748
+@startuml
+start
+:User executes help command;
+:Gets image of command summary;
+:Displays image ;
+
+stop
+
+@enduml

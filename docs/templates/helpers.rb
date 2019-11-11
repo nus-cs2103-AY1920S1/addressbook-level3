@@ -45,7 +45,7 @@ module Slim::Helpers
 
   ##
   # Creates an HTML tag with the given name and optionally attributes. Can take
-  # a block that will run between the opening and closing tags.
+  # a block that will run between the opening and closing categories.
   #
   # @param name [#to_s] the name of the tag.
   # @param attributes [Hash]

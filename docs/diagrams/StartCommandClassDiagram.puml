@@ -1,0 +1,41 @@
+@startuml
+!include style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam linetype ortho
+
+
+
+Package Logic <<Rectangle>>{
+    Class StartCommandParser LOGIC_COLOR
+    Class Parser <<interface>> LOGIC_COLOR
+    Class KeyboardFlashCardsParser LOGIC_COLOR
+}
+
+Package Command <<Rectangle>> {
+    Class StartCommand LOGIC_COLOR
+    Abstract Class Command LOGIC_COLOR
+}
+
+Package Model <<Rectangle>>{
+    Class Model <<interface>> MODEL_COLOR
+    Class ModelManager MODEL_COLOR
+    Class FlashCardTestModel MODEL_COLOR
+    Class CategoryContainsAnyKeywordsPredicate MODEL_COLOR
+}
+
+CategoryContainsAnyKeywordsPredicate .[hidden]left.>ModelManager
+Command <|- StartCommand LOGIC_COLOR
+Command ..> Model LOGIC_COLOR
+StartCommandParser "\ncreates"..> StartCommand LOGIC_COLOR
+KeyboardFlashCardsParser "creates"..> Command LOGIC_COLOR
+Parser <|.. StartCommandParser LOGIC_COLOR
+StartCommand "\nuses"..> CategoryContainsAnyKeywordsPredicate LOGIC_COLOR
+StartCommand "updates"--> KeyboardFlashCardsParser LOGIC_COLOR
+
+ModelManager -|> Model MODEL_COLOR
+ModelManager "uses" --> FlashCardTestModel MODEL_COLOR
+@enduml
+

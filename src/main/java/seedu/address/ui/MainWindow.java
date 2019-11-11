@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -16,6 +18,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.calendar.CalendarWindow;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -23,17 +26,22 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
+    private static String stylesheet;
     private static final String FXML = "MainWindow.fxml";
+    private static Stage primaryStage;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private Stage primaryStage;
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private FlashCardListPanel flashCardListPanel;
+    private DeadlineListPanel deadlineListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatsWindow statsWindow;
+    private CategoryListPanel categoryListPanel;
+    private CalendarWindow calendarWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,7 +50,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane flashcardListPanelPlaceholder;
+
+    @FXML
+    private StackPane categoryListPanelPlaceholder;
+
+    @FXML
+    private StackPane deadlineListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -56,13 +70,13 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-
+        setStyleSheet(logic.getGuiSettings());
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statsWindow = new StatsWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -107,13 +121,19 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        flashCardListPanel = new FlashCardListPanel(logic.getFilteredFlashCardList());
+        flashcardListPanelPlaceholder.getChildren().add(flashCardListPanel.getRoot());
+
+        categoryListPanel = new CategoryListPanel(logic.getCategoryList());
+        categoryListPanelPlaceholder.getChildren().add(categoryListPanel.getRoot());
+
+        deadlineListPanel = new DeadlineListPanel(logic.getFilteredDeadlineList());
+        deadlineListPanelPlaceholder.getChildren().add(deadlineListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getKeyboardFlashCardsFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -131,6 +151,37 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
     }
+    //@@ author shutingy
+    public static void setStyleSheet(GuiSettings guiSettings) {
+        stylesheet = guiSettings.getStyleSheets();
+        primaryStage.getScene().getStylesheets().add(stylesheet);
+    }
+    //@@ author shutingy
+    public static void setStylesheet(String newStylesheet) {
+        primaryStage.getScene().getStylesheets().remove(stylesheet);
+        stylesheet = newStylesheet;
+        primaryStage.getScene().getStylesheets().add(stylesheet);
+    }
+    //@@ author shutingy
+
+    /**
+     * modified the flashcardList for test mode
+     */
+    public void updateScene(TestFlashCardPanel testFlashCardPanel) {
+        requireNonNull(testFlashCardPanel);
+        flashcardListPanelPlaceholder.getChildren().add(testFlashCardPanel.getRoot());
+    }
+    //@@ author shutingy
+
+    /**
+     * update the scene when test mode ended.
+     */
+    @FXML
+    public void handleEndTest() {
+        flashcardListPanelPlaceholder.getChildren().clear();
+        flashcardListPanelPlaceholder.getChildren().add(flashCardListPanel.getRoot());
+    }
+
 
     /**
      * Opens the help window or focuses on it if it's already opened.
@@ -144,6 +195,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the stats window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleStats() {
+        if (!statsWindow.isShowing()) {
+            statsWindow.show(logic.getModel());
+        } else {
+            statsWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -154,14 +217,16 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY(),
+                 stylesheet);
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        statsWindow.hide();
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public FlashCardListPanel getFlashCardListPanel() {
+        return flashCardListPanel;
     }
 
     /**
@@ -179,8 +244,22 @@ public class MainWindow extends UiPart<Stage> {
                 handleHelp();
             }
 
+            if (!(commandResult.isShowStats())) {
+                statsWindow.hide();
+            } else {
+                handleStats();
+            }
+
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isTestMode()) {
+                updateScene(commandResult.getTestFlashCardPanel());
+            }
+
+            if (commandResult.isEndTest()) {
+                handleEndTest();
             }
 
             return commandResult;

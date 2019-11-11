@@ -1,0 +1,74 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":ExportCommand" as ExportCommand LOGIC_COLOR_T4
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":DocumentPath" as DocumentPath MODEL_COLOR_T3
+participant "<<class>>\n:DocumentExportUtil" as DocumentExportUtil MODEL_COLOR_T4
+end box
+
+box org.apache.poi.xwpf.usermodel EXTERNAL_LIBRARY_COLOR_T1
+participant ":XWPFDocument" as XWPFDocument EXTERNAL_LIBRARY_COLOR
+end box
+
+[-> ExportCommand : execute(model)
+activate ExportCommand
+
+ExportCommand -> ExportCommand : categoryToPredicate(category)
+activate ExportCommand
+ExportCommand <-- ExportCommand : predicate
+deactivate ExportCommand
+
+ExportCommand -> Model : getFilteredFlashCardListNoCommit(predicate)
+activate Model
+ExportCommand <-- Model : list
+deactivate Model
+
+ExportCommand -> ExportCommand : wipeTransientData(list)
+activate ExportCommand
+ExportCommand <-- ExportCommand : list
+deactivate ExportCommand
+
+ExportCommand -> DocumentPath : export(list)
+activate DocumentPath
+
+DocumentPath -> DocumentExportUtil : exportFlashCardsToDocument(list, documentPath)
+activate DocumentExportUtil
+
+create XWPFDocument
+DocumentExportUtil -> XWPFDocument : XWPFDocument()
+activate XWPFDocument
+
+DocumentExportUtil <-- XWPFDocument : document
+deactivate XWPFDocument
+
+loop while there are still FlashCards to write
+    DocumentExportUtil -> XWPFDocument : createParagraph()
+    activate XWPFDocument
+
+    DocumentExportUtil <-- XWPFDocument
+    deactivate XWPFDocument
+end
+
+DocumentExportUtil -> DocumentExportUtil : writeDocumentToFile(document, documentPath)
+activate DocumentExportUtil
+
+DocumentExportUtil <-- DocumentExportUtil
+deactivate DocumentExportUtil
+
+DocumentPath <-- DocumentExportUtil
+deactivate DocumentExportUtil
+destroy XWPFDocument
+
+ExportCommand <-- DocumentPath
+deactivate DocumentPath
+
+[<-- ExportCommand : commandResult
+deactivate ExportCommand
+destroy DocumentPath
+
+@enduml

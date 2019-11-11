@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= KeyboardFlashCards (KFC) - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,14 +14,40 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `T12-4`      Since: `Sept 2019`
+
+//@@author LeowWB
+
+== Introduction
+
+This document details various aspects of the implementation of the _KeyboardFlashCards_ application. It serves as
+a guide for any software developer who wishes to maintain or add on to the project - as such, it is extremely
+detailed and technical, and a certain degree of expertise may be required to fully understand everything here.
+
+_KeyboardFlashCards_ (KFC) is a desktop flashcard manager application. It is primarily targeted at university
+undergraduates, particularly computing students. As such, it is optimized for users who prefer to work with a
+Command Line Interface (CLI) while still enjoying the benefits of a Graphical User Interface (GUI).
+
+The application is written entirely in the Java programming language, with a GUI implemented using JavaFX. Its code base
+currently contains an approximate 25 KLoC.
+
+The following admonitions will occasionally appear throughout this document; you may wish to take note of them.
+Here is what each of them means:
+
+NOTE: A point of information that you may wish to take note of
+
+CAUTION: A cautionary warning
+
+TIP: A tip or word of advice
+
+//@@author
 
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
 
 == Design
-
+This section will show you the designs for varies component of _KeyboardFlashCards_.
 [[Design-Architecture]]
 === Architecture
 
@@ -53,7 +79,7 @@ The rest of the App consists of four components.
 
 Each of the four components
 
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Defines its _API_ in an `interface` with the same question as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
@@ -67,11 +93,15 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+image::ArchitectureSequenceDiagram.png[width=600]
 
 The sections below give more details of each component.
 
+
 [[Design-Ui]]
+
+// tag::ui[]
+
 === UI component
 
 .Structure of the UI Component
@@ -79,7 +109,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CategoryListPane`, `CommandBox`, `ResultDisplay`, `FlashCardListPanel`, `StatusBarFooter`, `DeadlineListPane` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -87,6 +117,8 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+// end::ui[]
 
 [[Design-Logic]]
 === Logic component
@@ -98,9 +130,9 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `FlashCardsParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a flashCard).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -122,14 +154,14 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the KeyboardFlashCards' data.
+* exposes an unmodifiable `ObservableList<FlashCard>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Category` list in `KeyboardFlashCards`, which `FlashCard` can reference. This would allow `KeyboardFlashCards` to only require one `Category` object per unique `Category`, instead of each `Flashcard` needing their own `Category` object. An example of how such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[]
+image:BetterModelClassDiagram.png[width=600]
 
 [[Design-Storage]]
 === Storage component
@@ -142,7 +174,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the KeyboardFlashCards data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -153,95 +185,447 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+//@@author shutingy
+// tag::addflashcard[]
+=== Add feature
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
+The `add` feature allows the user to add `FlashCard`(s) with compulsory field of `QUESTION` and `ANSWER`. `CATEGORY` are optional fields which the user can add to the flashcard later using the `edit` feature.
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+Following are the prefixes for each field: +
+- q> : `QUESTION` +
+- a> : `ANSWER` +
+- c> : `CATEGORY`
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Given below is an example usage scenario of `add` :
 
-image::UndoRedoState3.png[]
+The user executes `add q>1+1 a>2 c>math` to add new `FlashCard`.
+
+The following sequence diagram shows how the `add` operation works:
+
+image::AddSequenceDiagram.png[]
+
+
+The `add` feature does not allow adding of duplicate `FlashCard`(s).
+If the `FlashCard` exists in the storage, an error will be shown.
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+Duplicate `FlashCard`(s) refers to `FlashCard`(s) that have the exact same question and answer.
 
-The following sequence diagram shows how the undo operation works:
+The following activity diagram summarizes what happens when a user executes an `add` command:
 
-image::UndoSequenceDiagram.png[]
+image::AddActivityDiagram.png[width="300"]
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+==== Design considerations
+===== Aspect: How to implement add
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+* **Alternative 1(current choice):** Use command `add` together with
+prefixes like `q>`, `a>` and `c>`
+** pros: Easier to implement and easier to process the data.
+** cons: User might miss the prefixes hence adding wrong `FlashCard`(s)
+* **Alternative 2:** Make use of the GUI. After user execute `add` command,
+ an **add `FlashCard` window** would pop up and there is segment for individual fields.
+** pros: More user friendly and void user input error.
+** cons: Harder to implement.
+
+NOTE: **Alternative 1** was preferred as we have constraints using command line interface.
+In addition, there was limited time.
+// end::addflashcard[]
+
+//@@author: dalsontws
+// tag::deadline[]
+
+=== Add and Remove Deadline feature
+==== Implementation
+
+The deadline feature allows the user to add tasks with specific due dates, with a compulsory field
+of `TASK` and `DUE DATE`.
+
+The following are new classes used to integrate the `Deadline` feature.
+
+* `Deadline` -- Object class, containing important information such as the `Task` and `DueDate`.
+* `UniqueDeadlineList` -- Contains a `ObservableList` of `Deadline` objects. The list will be initialised from the storage
+at start up of application. A `Comparator` class was added to arrange the list according to ascending `DueDate`.
+* `DeadlineCommand` --  Embodies the `Deadline` command by the user. It will hold all the information about
+the `Deadline` that will be added.
+* `DeadlineCommandParser` -- Parses user input and uses it to construct a `DeadlineCommand` instance.
+* `RemoveCommand` --  Holds information on which `Deadline` to be removed. Contains an `Index` object.
+* `RemoveCommandParser` -- Parses user input and uses it to construct a `RemoveCommand` instance.
+
+In addition, various Exception classes are added to handle possible runtime errors while adding or removing `Deadline`(s).
+This is done to ensure that the user specified `Deadline` is valid for storage and processing.
+
+* `DuplicateDeadlineException` -- This exception is thrown when the user attempts to add an identical `Deadline` object
+is added into the existing `UniqueDeadlineList`.
+* `DeadlineNotFoundException` -- This exception is thrown when the user attempts to remove a `Deadline` object that does
+not exist in the `UniqueDeadlineList`.
+
+For the add `Deadline` feature - `deadline`, the following are the prefixes for each field +
+- t> : `TASK` +
+- d> : `DUE DATE`
+- For `DUE DATE` : Date format must be in dd/MM/yyyy
+i.e. 01/01/2020
+
+NOTE: The upper cased `Deadline` represents the object class that contains `Task` and `DueDate`, while the lower-cased
+`deadline` represents the command used to add `Deadline` objects into our storage.
+
+Given below is an example usage scenario of `deadline` command:
+
+The user executes `deadline t>Complete Homework d>04/10/2020` to add new `Deadline` to the task
+of completing homework by the 4th October 2020.
+
+NOTE: The `deadline` feature does not allow adding of duplicate/identical `Deadline`(s). Also, new `Deadline`(s) must
+be later than the current date and is a valid type of date i.e. 29/02/2019 is invalid as 2019 is not a leap year.
+
+The following sequence diagram shows how the `deadline` operation works:
+
+image::DeadlineSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes a `deadline` command.
+
+image::DeadlineActivityDiagram.png[width=320,height=480]
+
+The `remove` command works in a similar way, and hence the sequence and activity diagrams will be omitted for redundancy.
+
+==== Design considerations
+===== Aspect: How to implement Deadline
+
+* **Alternative 1(current choice):** Use command `deadline` together with
+prefixes like `t>` and `d>`
+** Pros: Easier to implement
+** Cons: User might miss the prefixes hence adding wrong `Deadline`(s)
+* **Alternative 2:** Make use of the GUI. after user execute `deadline` command,
+ an **add `deadline` window** would pop up with a section for individual fields
+** Pros: More user friendly
+** Cons: Difficult to implement. Might be slower for the user to key in `Deadline`(s) as compared to using a one liner with prefixes
+
+// end::deadline[]
+
+//@@author dalsontws
+// tag::badflashcard[]
+
+=== Bad rating feature
+==== Implementation
+
+The `bad` feature allows the user to rate specific `FlashCard`(s) as "Bad" if they did not perform well on them.
+These rated `FlashCard`(s) will then we stored as a `Deadline` dated 3 days later, where the user will then be reminded to
+re-test them.
+
+This is a simple implementation of a type of https://en.wikipedia.org/wiki/Evidence-based_education[evidence-based]
+learning technique known as https://en.wikipedia.org/wiki/Spaced_repetition[Spaced Repetition]. This is used as a form of
+active recall technique which is said to overcome forgetting, theorised by Hermann Ebbinghaus, and his theory of
+https://en.wikipedia.org/wiki/Forgetting_curve[Forgetting Curve].
+
+The following are new classes used to integrate the "Bad" `FlashCard` rating feature.
+
+* `BadQuestions` -- Main object class for the feature. Makes use of a `HashMap` of key-value pairing of a Date `String`
+that is converted to a `LocalDate` class as the key, and the value is a `ArrayList` of `FlashCard`(s). This allows ease of
+search for "Bad" rated `FlashCard`(s) based on the date stored.
+* `BadCommand` -- Contains a `ObservableList` of `Deadline` objects. The list will be initialised from the storage
+at start up of application. A `Comparator` class was added to arrange the list according to ascending `DueDate`.
+* `ListBadCommand` --  Embodies the `Deadline` command by the user. It will hold all the information about
+the `Deadline` that will be added.
+* `RemoveBadCommand` -- Parses user input and uses it to construct a `DeadlineCommand` instance.
+
+In addition, two Exception classes are added to handle possible runtime errors while adding new "Bad" `FlashCard`(s).
+This is done to ensure that the user specified "Bad" `FlashCard` is valid for storage and processing.
+
+* `NoBadFlashCardException` -- This exception is thrown when the user attempts to add an identical `Deadline` object
+is added into the existing `UniqueDeadlineList`.
+* `DuplicateFlashCardAndDeadlineException` -- This exception is thrown when the user attempts to add an identical `Deadline` object
+is added into the existing `UniqueDeadlineList`.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+Following are the prefixes for each field: +
+- `bad INDEX` +
+i.e. bad 2
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+==== Design considerations
+===== Aspect: How to store "Bad" FlashCard in storage
 
-image::UndoRedoState4.png[]
+* **Alternative 1(current choice):** Use a `HashMap` with the specified date as the key and the values as `ArrayList` of
+`FlashCard`(s). Use of the Google Gson library to save and fetch `HashMap` from and to Json format.
+** Pros: Easier for searching and sorting purposes, as entire `FlashCard` object is stored and easily
+referred using the date as key. Can fetch more than just the answer of the `FlashCard`
+** Cons: Separated from the `FlashCard` `UniqueFlashCardList`, which might confuse the user as there will be two
+different lists of `FlashCard`
+* **Alternative 2:** Use similar implementation as how `FlashCard` and `Deadline` objects are stored in storage;
+use an `ObservableList` that can be displayed in GUI.
+** Pros: Easier to implement, clearer for user to see and fetch these "Bad" rated `FlashCard`(s)
+** Cons: Difficult to manipulate in the future, especially when we want to implement automated test reminders for these
+"Bad" rated `FlashCard`(s). A `HashMap` will allow easy fetching using the specified date as key
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+// end::badflashcard[]
 
-image::UndoRedoState5.png[]
+//@@author LeowWB
 
-The following activity diagram summarizes what happens when a user executes a new command:
+// tag::flashcardexportimport[]
 
-image::CommitActivityDiagram.png[]
+=== Exporting/Importing of FlashCards
 
-==== Design Considerations
+==== About
 
-===== Aspect: How undo & redo executes
+Our application currently supports the exporting of `FlashCards` to two file formats ('.docx' and '.json'), and importing of `FlashCards` from one
+file format ('.json'). Through these features, a user can easily transfer their _KFC_ data to an external file, and another user
+can just as easily transfer the same data back into their own copy of _KFC_.
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+==== Implementation
 
-===== Aspect: Data structure to support the undo/redo commands
+The Export/Import feature is primarily facilitated by the following classes:
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+* `ExportCommand` -- Embodies an `export` command by the user; carries information about which `FlashCards` are to be exported, and to where
+* `ExportCommandParser` -- Parses user input and uses it to construct an `ExportCommand` instance
+* `ImportCommand` -- Embodies an `import` command by the user; carries information about where `FlashCards` are to be imported from
+* `ImportCommandParser` -- Parses user input and uses it to construct an `ImportCommand` instance
+* `ExportPath` -- Represents the path to a specific file - either absolute or relative to the application directory
+* `ExportPathFactory` -- Parses the user-provided file path and creates instances of `ExportPath`
 
+NOTE: The "export" in `ExportPath` is to be taken as a noun, not a verb. An `ExportPath`, therefore, is not the path that we export to, but the
+path of an export. `ExportPaths` are used in both exporting and importing of files.
+
+`ExportPath` is an abstract class that follows the factory pattern. Each subclass of `ExportPath` represents the path to a specific file of a
+specific extension (e.g. an instance of `DocumentPath` represents the path to a specific document). Instances of these subclasses are created by
+`ExportPathFactory#getExportPath(String)`, which determines the appropriate subclass to create based on the extension of the provided file path String.
+Once created, an `ExportPath` will expose the following relevant methods:
+
+* `getPath()` -- Returns a Java `Path` object that represents this `ExportPath`
+* `export(List<FlashCard> list)` -- Exports the given `List` of `FlashCards` to the file path embodied by this `ExportPath`
+* `importFrom()` -- Attempts to import `FlashCards` from the file path represented by this `ExportPath`
+
+CAUTION: Not all `ExportPath` subclasses will implement the `importFrom()` method. `DocumentPath`, for example, does not.
+
+Because `ExportPath` follows the factory pattern, any class that deals with `ExportPath` or its subclasses need not know which particular subclass it is
+dealing with exactly. Each `ExportPath` subclass will implement its own `export` and `import` methods, which, when called, will perform the required operations
+without any further hassle. Of course, due to the Separation of Concerns principle, the `ExportPath` subclasses will not handle these directly.
+Instead, they will delegate the work to other utility classes, which, in turn, interface with the external libraries necessary to complete the task.
+TIP: The exporting/importing functionality is extremely easy to extend - you can add support for a new format simply through the creation of new subclasses of `ExportPath`.
+
+NOTE: You can find all relevant classes in the `seedu.address.model.export` package. The only exceptions are `ExportCommand`, `ImportCommand`, `ExportCommandParser`, and `ImportCommandParser`, which can be found in the `seedu.address.logic` package.
+
+The following table shows the classes and methods that you may have to deal with when exporting to or importing from each format:
+
+image::ExportDgTable.png[width="75%"]
+
+_Table 1: Overview of classes and methods involved in the Export/Import feature_
+
+The number of classes supporting the Export/Import feature is rather large. These classes also span more than one
+package in the application. The following class diagram will help you to better understand the associations and relationships
+between these classes:
+
+image::ExportClassDiagram.png[]
+
+_Figure 1: Class diagram of the classes directly relevant to importing and exporting_
+
+The following sequence diagram shows the classes, methods, and interactions involved
+when the user tries to `export` to a document file:
+
+image::ExportSequenceDiagram.png[]
+
+_Figure 2: Sequence diagram showing the process of exporting to a document file_
+
+The following activity diagrams provide a general overview of the events that occur when a user executes an `export` or `import` command:
+
+image:ExportActivityDiagram.png[width=440,height=518]
+image:ImportActivityDiagram.png[width=383,height=513]
+
+_Left - Figure 3: Activity diagram of the execution of an `export` command_ +
+_Right - Figure 4: Activity diagram of the execution of an `import` command_
+
+==== Design considerations
+
+|===
+|_This section describes some of the design considerations that went into the implementation of this feature._
+|===
+
+===== Aspect: Implementation of exporting functionality for different file formats
+
+* **Alternative 1 (current choice):** Have a single `export` command - leave file formats to be handled by underlying classes
+** Pros: Is easier for user to remember; can easily be extended to support additional file formats
+** Cons: Is harder to implement
+* **Alternative 2:** Have a separate command for exporting to each format (e.g. `exportdoc`, `exportjson`, etc.)
+** Pros: Is easier to implement
+** Cons: Results in user having more commands to remember; new commands must be added to support new file formats
+
+NOTE: **Alternative 1** was preferred for its ease of extensibility.
+
+===== Aspect: Method of obtaining desired `FlashCards` for exporting
+
+* **Alternative 1:** Update the `Model` to show all desired `FlashCards`, then export all of said `FlashCards`
+** Pros: Is easy to implement as it makes use of existing logic in `Model`; user receives immediate visual feedback regarding which specific `FlashCards` were exported
+** Cons: May cause confusion - name of `export` command does not imply that the selected `FlashCards` will also be shown to the user
+* **Alternative 2 (current choice):** Implement a new method in `Model` that returns the selected `FlashCards`, without updating the on-screen list
+** Pros: Will not cause confusion to user - `export` command does exactly what one would expect it to do
+** Cons: Is harder to implement and might result in duplication of logic
+
+NOTE: **Alternative 2** was preferred as it provides users with an experience closer to what they would expect.
+
+// end::flashcardexportimport[]
+
+//@@author keiteo
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::TestMode[]
+=== Test mode
+Test mode allows users to start a flash card test from a selected list of tags. If no parameters are provided, all
+'FlashCard'(s) contained in the system will be tested.
 
-_{Explain here how the data encryption feature will be implemented}_
+The following activity diagram shows the typical scenario of a `FlashCard` test. Note that special commands such as
+`skip` and `end` are omitted for brevity.
 
+image::TestModeActivityDiagram.png[width="600"]
+
+==== Implementation
+This feature is supported by the following classes:
+
+* `KeyboardFlashCardsParser` to control the flow of command in the entire program
+* `StartCommandParser` to parse arguments for StartCommand
+* `ModelManager` which stores `FlashCardTestModel`, an aggregation of `FlashCards`, to be used for test mode
+* `CategoryContainsAnyKeywordsPredicate` to search and generate a list of `FlashCards` with relevant tags
+* `StartCommand` to set the application to test mode, starting the `FlashCard` test
+* `ShowAnswerCommand` allows the user to view the answer to the `FlashCard` currently tested
+* `NextQuestionCommand` is an abstract class that allows its subclasses to fetch the next `FlashCard`
+* `RateQuestionCommand` extends `NextQuestionCommand`, and allows the users to rate the `FlashCard`
+* `SkipQuestionCommand` extends `NextQuestionCommand`, and allows the users to skip the question
+* `EndTestCommand` allows the use to end the test mode anytime, enabling normal commands such as `listall`
+
+The following class diagram shows the structure of the `StartCommand` class.
+The class diagrams for other test commands are omitted due to similarities.
+
+image::StartCommandClassDiagram.png[width="600"]
+
+The following sequence diagram shows the intended case for the `start` command:
+
+image::StartSequenceDiagram.png[]
+
+==== Design considerations
+Aspect: Data structure to support `FlashCardTestModel`:
+
+* **Alternative 1 (Current choice):** `LinkedList` implementation:
+** Pros: Very efficient, with O(1) complexity removing the head of the list every time a question is tested
+** Cons: Less memory efficient than `ArrayList`
+* **Alternative 2:** ArrayList implementation:
+** Pros: More memory efficient than `LinkedList`
+** Cons: To obtain the same performance as `LinkedList`, the last index/size of the `ArrayList` has to be constantly tracked.
+This slightly decreases code readability compared to the `LinkedList` implementation.
+* **Alternative 3:** Queue interface:
+** Pros: Use of `Queue` interface brings simplicity to code structure and readability while having the same performance
+as a `LinkedList` implementation
+** Cons: Potential coupling by using `Queue` instead of `List` interface
+
+NOTE: **Alternative 1** is preferred due to better readability while maintaining O(1) efficiency, i.e. `remove(0)`
+instead of `remove(list.size() - 1)` in `ArrayList` to remove either ends of the list.
+
+Aspect: Hiding of the list of `FlashCards` during test mode:
+
+* **Alternative 1 (Current choice):** Adding a new scene in test mode:
+** Pros: No need to mutate the `ObservableList` to hide the `FlashCards` as the
+new scene is layered on top of it
+** Cons: Use of multiple scenes will be needed, hence the implementation will be slightly complicated
+* **Alternative 2:** Hiding and showing `FlashCards` by changing `ObservableList`:
+** Pros: Simple to implement
+** Cons: Potentially interferes with other functions, such as the updating of statistics
+
+NOTE: **Alternative 1** is preferred as it does not interfere with the `ObservableList` to hide/show
+the list of `FlashCards`, hence reducing the potential for bugs and side-effects.
+
+// end::TestMode[]
 // end::dataencryption[]
 
+//@@author LeonardTay748
+// tag::statistics[]
+=== Statistics feature
+The statistics feature allows users to view the overall statistics in a single pop-up window.
+
+==== Implementation
+This feature is supported by the following classes:
+
+* `StatsCommand` -- Carries the message to be displayed to the user.
+* `MainWindow` -- Opens a specific window as required.
+* `StatsWindow` -- Builds the statistics window display.
+* `Model` -- To provide a list of 'FlashCard'(s) given a rating predicate and the statistics from test mode.
+* `Stage` -- To create the pop-up window.
+* `Scene` -- To create an object that contains all the physical contents of the pop-up window.
+* `FlowPane` -- To create the layout of the pop-up window.
+
+The sequence diagram below shows how the statistics operation works.
+
+image::StatisticsSequenceDiagram.png[]
+
+The sequence diagram below details how these other classes (i.e. `Stage`, `Scene` and `FlowPane`) work with `StatsWindow` to create the statistics pop-up window.
+
+image::StatisticsShow.png[width="600"]
+
+The activity diagram below summarizes what happens when a user executes the `stats` command.
+
+image::StatisticsActivityDiagram.png[width="300"]
+
+
+==== Design considerations
+The following aspect was a consideration when designing the statistics feature.
+
+Aspect: Methods to collect statistics
+
+* **Alternative 1 (Current choice):** Collect total number of good/hard/easy 'FlashCard'(s) using predicates and those completed in test mode using the model.
+** Pros: This is easy to implement.
+** Cons: This requires extra lines of code to combine all the statistics.
+
+
+* **Alternative 2:** Collect all statistics using the model.
+** Pros: This allows the collection of all statistics with minimal methods involved.
+** Cons: This requires constant updating of the model when new 'FlashCard'(s) are added, removed or edited.
+
+Alternative 1 was chosen simply because it was easier to implement within the given period of time.
+
+// end::statistics[]
+
+// tag::help[]
+=== Help feature
+The help feature allows a user to refer to a summary of commands supported by the application.
+
+==== Implementation
+This feature is supported by the following classes:
+
+* `HelpCommand` -- Carries the message to be displayed to the user.
+* `MainWindow` -- Opens a specific window as required.
+* `HelpWindow` -- Builds the help window display.
+* `Image` -- To convert a png file into an `Image` object.
+* `ImageView` -- To convert an `Image` object into a view.
+* `Stage` -- To display the view.
+
+The sequence diagram below shows how the help operation works.
+
+image::HelpSequenceDiagram.png[]
+
+The sequence diagram below details how these other classes (i.e. `Stage`, `Image` and `ImageView`) work with `HelpWindow` to create the help pop-up window.
+
+image::HelpShow.png[width="600"]
+
+The activity diagram below summarizes what happens when a user executes the `help` command.
+
+image::HelpActivityDiagram.png[width="300"]
+
+
+==== Design considerations
+The following aspect was a consideration when designing the help feature.
+
+
+Aspect: Ways to display the command summary
+
+* **Alternative 1 (Current choice):** Display a snapshot with all the commands supported by the application.
+** Pros: The display can be quickly ammended with any addition or removal of command(s).
+** Cons: The size of the snapshot displayed needs to be large to ensure sufficient picture resolution.
+
+
+* **Alternative 2:** Display as text.
+** Pros: This results in a higher-resolution display of the command summary.
+** Cons: This requires changing the code.
+
+
+Alternative 1 was chosen simply because it was easier to update the displayed command summary.
+
+// end::help[]
+
+//@@author
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -270,60 +654,77 @@ Refer to the guide <<Documentation#, here>>.
 
 Refer to the guide <<Testing#, here>>.
 
-== Dev Ops
+== DevOps
 
 Refer to the guide <<DevOps#, here>>.
 
 [appendix]
-== Product Scope
+== Product scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* is a student that needs to revise for exams
+* has a need to remember certain things
 * prefer desktop apps over other types
-* can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: learning platform to help students remember things easily, test their knowledge on certain subjects and at the same time be reminded on important study sessions and exams
 
 [appendix]
-== User Stories
+== User stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+| Priority | As a... | I want to... | So that I can...
+| `* * *` | user who is familiar with command line | type commands into a command line interface | perform tasks faster
+| `* * *` | university student | use flashcards to remember things easily | prepare better for my exams
+| `* * *` | meticulous student | set priorities of each subject I am studying  | study subjects in an orderly manner
+| `* * *` | forgetful student | set exam reminders | remember when to start studying for my exams
+| `* * *` | busy student | exit the <<test, test>> mode at any time  | perform other tasks
+| `* * *` | meticulous student  | search for a particular flashcard | review a specific flashcard whenever I want
+| `* * *` | new user | key in part of a command and let the program suggest the rest | key in commands more easily
+| `* * *` | student | see a timer next to each flashcard | know how long I&#39;ve spent answering the current question
+| `* * *` | student studying multiple subjects | categorize my flashcards under different modules | study them in such a manner
+| `* * *` | meticulous student | sort my subjects  | study subjects in an orderly manner
+| `* * *` | meticulous student | make use of colour codes  | highlight and know my weaknesses
+| `* * *` | advanced user | search through my content   | find subjects/topics easily
+| `* * *` | meticulous student   | use the calendar to plan my study |  so that I will not miss any subject
+| `* * *` | meticulous student | view what tasks are overdue | know what I have not done
+| `* * *` | meticulous student | a mock <<test, test>> timer to simulate exam situation | be prepared for my upcoming exams
+| `* * *` | meticulous student | label difficult questions | the flash cards will appear more frequently for better knowledge absorption
+| `* * *` | student | move backward through the flashcards  | recall the previous question/answer
+| `* *`  | meticulous student | view my overall statistics | monitor my performance over time
+| `* *`  | meticulous student | use the scoring system  | know how well prepared I am
+| `* *`  | conscientious user | hide the answer until I finish all the questions | remember better
+| `* *`  | meticulous student | check the correctness of my answer | know whether my answer was right
+| `* *`  | busy student | use a night mode  | study in a dark environment
+| `* *`  | student with many friends | export flashcards in a simple shareable format | share with my friends
+| `* *`  | artistic student | customise the theme | have a better user experience
+| `* *`  | colour blind student | have special accessibility options  | see my flashcards clearly
+| `*` | competitive student | export and share my statistics with my friends | compare my performance to theirs
+| `*` | forgetful student | key in my answer | see my own attempt to compare with the correct answer
+| `*` | competitive student | compare my results with others | be recognised for my skills and knowledge
 
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
-== Use Cases
+== Use cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `KeyboardFlashCards` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list all 'FlashCard'(s) in a <<category, category>>
+2.  System shows a list of 'FlashCard'(s) with index
+3.  User requests to delete a 'FlashCard' in the list by providing <<category, category>> and index
+4.  System deletes the 'FlashCard'
+
 +
 Use case ends.
 
@@ -334,26 +735,75 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given <<category, category>> is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. System shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+* 3b. The given index is invalid.
++
+[none]
+** 3b1. System shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Edit FlashCard
+
+*MSS*
+
+1.  User requests to list all flashcards in a <<category, category>>
+2.  System shows a list of flashcards with index
+3.  User requests to edit a flashcard in the list by providing <<category, category>> and index
+4.  System provides a pop-up for user to enter changes
+5.  User enters changes
+6.  System updates flashcard with the user input
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given <<category, category>> is invalid.
++
+[none]
+** 3a1. System shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The given index is invalid.
++
+[none]
+** 3b1. System shows an error message.
++
+Use case resumes at step 2.
 
 [appendix]
-== Non Functional Requirements
+== Non-functional requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 2000 flash cards without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 4000 (2 times that of flash cards?) tags without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  The programme should be able to respond within 1 second.
+.  The file export format to be shared with friends should be backwards compatible.
+.  The user interface should be intuitive enough for users familiar with the command line and/or vim.
+.  The source code should be open source.
+.  Flash card tests should be not be executable if there are no flash cards in the system.
+.  Old flash cards should still be working every time there's an update to the programme.
 
 [appendix]
 == Glossary
+
+[[category]] Category::
+A tag that can be assigned to a 'FlashCard' for better categorisation
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
@@ -361,32 +811,37 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
+[[test]] Test::
+The state in which the user is shown their 'FlashCard'(s) one-by-one and in succession, allowing them to test their understanding of the covered content
+
 [appendix]
 == Product Survey
 
-*Product Name*
+*KeyboardFlashCards*
 
-Author: ...
+Author: AY1920S1-CS2103T-T12-4
 
 Pros:
 
-* ...
-* ...
+* Has a convenient CLI
+* Has a highly customizable interface
+* Can easily export to cheat sheet
+* Can help manage deadlines
+* Has a comprehensive search feature
 
 Cons:
 
-* ...
-* ...
+* Does not have cloud integration
 
 [appendix]
-== Instructions for Manual Testing
+== Instructions for manual testing
 
 Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Launch and shutdown
 
 . Initial launch
 
@@ -400,26 +855,136 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a FlashCard
 
-=== Deleting a person
+. Deleting a 'FlashCard' while all 'FlashCard'(s) are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all 'FlashCard'(s) using the `list` command. Multiple 'FlashCard'(s) in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No 'FlashCard' is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Exporting FlashCards
+
+. Exporting with a valid path
+
+.. Prerequisites: The `CS2100` category exists.
+.. Test case: `export c>CS2100 p>document.docx`
+   Expected: `document.docx` is created in application directory, containing questions and answers from the `CS2100` category.
+
+
+. Exporting a non-existent category
+
+
+.. Prerequisites: The `CS2100` category does not exist.
+.. Test case: `export c>CS2100 p>document.docx`
+   Expected: Error message is shown, indicating that no FlashCards were found matching the specified category.
+
+
+. Exporting to a protected file path
+
+.. Prerequisites: User is on Windows and _KFC_ has not been granted special permissions; `CS2100` category exists.
+.. Test case: `export c>CS2100 p>C:\document.docx`
+   Expected: Error message is shown
+
+
+=== Importing FlashCards
+
+. Importing from a valid JSON file, no duplicates
+
+.. Prerequisites: The `cs2100.json` file exists in the application directory, and is valid (not corrupted); the `cs2100` category does not exist; all cards in the JSON file do not exist
+.. Test case: `import p>cs2100.json`
+   Expected: Success message is shown, indicating number of FlashCards imported; new category is created
+
+. Importing from an invalid JSON file
+
+.. Prerequisites: The `cs2100.json` file exists in the application directory but is corrupted.
+.. Test case: `import p>cs2100.json`
+   Expected: Error message is shown
+
+. Importing from a valid JSON file, all duplicates
+
+.. Prerequisites: The `cs2100.json` file exists in the application directory, and is valid; all FlashCards in the JSON file already exist
+.. Test case: `import p>cs2100.json`
+   Expected: Success message is shown, but no new FlashCards are imported - success message indicates that there were no new FlashCards to import
+
+=== Adding deadline
+
+. Adding with date in wrong format
+
+.. Test case: `deadline t>task d>01-JAN-2020`
+.. Expected: Error message is shown
+
+. Adding with invalid date
+
+.. Test case: `deadline t>task d>99/99/9999`
+   Expected: Error message is shown
+
+. Adding with valid date, in the past
+
+.. Test case: `deadline t>task d>01/01/1000`
+   Expected: Error message is shown
+
+. Adding with valid date in the future
+
+.. Prerequisite: 01/01/2099 is still in the future
+.. Test case: `deadline t>task d>01/01/2099`
+   Expected: Success; new deadline added to panel on right
+
+
+=== Testing
+
+. Starting with non-existent category
+
+.. Prerequisite: `CS2100` category does not exist
+.. Test case: `start cs2100`
+.. Expected: Test is not started; _KFC_ informs user that there are no FlashCards to test
+
+. Starting with existent category
+
+.. Prerequisite: `CS2100` category exists
+.. Test case: `start cs2100`
+.. Expected: Test begins successfully
+
+
+. Getting answer during test
+
+.. Prerequisite: Test has started; question has been shown; answer has not been requested.
+.. Test case: `ans`
+.. Expected: Answer is shown
+
+
+=== Viewing stats
+
+. Opening stats window
+
+.. Test case: `stats`
+.. Expected: Stats window appears; three graphs are visible in the window
+
+
+=== Changing theme
+
+. Changing to dark theme from another theme
+
+.. Prerequisites: Not currently in dark theme
+.. Test case: `theme dark`
+.. Expected: Theme changes to dark; success message shown
+
+. Changing to dark theme when already in dark theme
+
+.. Prerequisites: Already in dark theme
+.. Test case: `theme dark`
+.. Expected: _KFC_ informs user that they are already in dark theme
+
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. Test case: Missing data file +
+   Expected: Application starts up as per normal. A default data set is loaded.
+.. Test case: Corrupted data file +
+   Expected: Application starts up as per normal. No data is loaded.

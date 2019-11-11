@@ -1,0 +1,16 @@
+//@@author LeonardTay748
+@startuml
+start
+:User executes stats command;
+repeat
+:Gets an updated FlashCard list based on given predicate;
+:Gets the size of the list;
+:Number of predicate++ ;
+repeat while () is  ([number of predicate < 3])
+:Gets performance data;
+:Gets test statistics;
+:Displays all statistics ;
+
+stop
+
+@enduml

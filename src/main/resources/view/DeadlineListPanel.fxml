@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.layout.BorderPane?>
+<VBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1">
+      <BorderPane>
+            <center>
+                  <Label fx:id = "deadlineTitle" text="Deadlines" textAlignment="CENTER"
+                         wrapText="false" alignment="CENTER" layoutX="14" layoutY="14"
+                   styleClass="cell_big_label" textOverrun="CLIP" />
+            </center>
+      </BorderPane>
+
+      <ListView fx:id="deadlineListView" VBox.vgrow="ALWAYS" />
+
+</VBox>

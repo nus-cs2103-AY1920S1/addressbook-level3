@@ -97,6 +97,7 @@
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
+    -fx-background-radius:30;
 }
 
 .list-cell:filled:even {
@@ -122,14 +123,16 @@
 
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
-    -fx-text-fill: #010504;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+
 }
 
 .stack-pane {
@@ -154,7 +157,7 @@
 }
 
 .result-display .label {
-    -fx-text-fill: black !important;
+    -fx-text-fill: white !important;
 }
 
 .status-bar .label {
@@ -312,6 +315,25 @@
     -fx-border-width: 0;
 }
 
+#flashcardPane {
+    -fx-background-color: #383838;
+    -fx-background-radius: 5;
+
+}
+.test-box {
+    -fx-background-color: transparent, white, transparent, white;
+    -fx-border-color: white;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+#testquestion .content, #testanswer .content {
+    -fx-background-color: #383838;
+}
+
+
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;
@@ -328,7 +350,7 @@
     -fx-text-fill: white;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#filterField, #flashCardListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
@@ -337,16 +359,50 @@
     -fx-background-radius: 0;
 }
 
-#tags {
+#categories {
+    -fx-hgap: 10;
+    -fx-vgap: 6;
+}
+
+#categories .label {
+    -fx-text-fill: white;
+    -fx-background-color: #3e7b91;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 40;
+    -fx-background-radius: 30;
+    -fx-font-size: 13;
+}
+
+#resulttext {
+    -fx-fill: white;
+}
+
+#deadlinetext {
+    -fx-fill:white;
+}
+
+#rating {
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
 
-#tags .label {
+#rating .label {
     -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
+    -fx-background-color: #191c9a;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#categoryTitle {
+    -fx-text-fill: #00bfff;
+    -fx-font-weight: bold;
+}
+
+#deadlineTitle {
+    -fx-text-fill: #FF0000;
+    -fx-font-weight: bold;
+}
+
+

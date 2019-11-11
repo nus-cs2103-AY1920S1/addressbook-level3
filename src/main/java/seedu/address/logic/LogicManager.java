@@ -10,11 +10,13 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.KeyboardFlashCardsParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyKeyboardFlashCards;
+import seedu.address.model.category.Category;
+import seedu.address.model.deadline.Deadline;
+import seedu.address.model.flashcard.FlashCard;
 import seedu.address.storage.Storage;
 
 /**
@@ -26,12 +28,17 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final KeyboardFlashCardsParser keyboardFlashCardsParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        keyboardFlashCardsParser = new KeyboardFlashCardsParser();
+    }
+
+    @Override
+    public Model getModel() {
+        return model;
     }
 
     @Override
@@ -39,11 +46,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = keyboardFlashCardsParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveAddressBook(model.getKeyboardFlashCards());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,18 +59,28 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyKeyboardFlashCards getAddressBook() {
+        return model.getKeyboardFlashCards();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<FlashCard> getFilteredFlashCardList() {
+        return model.getFilteredFlashCardList();
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public ObservableList<Category> getCategoryList() {
+        return model.getCategoryList();
+    }
+
+    public ObservableList<Deadline> getFilteredDeadlineList() {
+        return model.getFilteredDeadlineList();
+    }
+
+
+    @Override
+    public Path getKeyboardFlashCardsFilePath() {
+        return model.getKeyboardFlashCardsFilePath();
     }
 
     @Override

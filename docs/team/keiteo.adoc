@@ -1,0 +1,109 @@
+= Keith Teo - Project Portfolio for KeyboardFlashCards
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Introduction
+
+This project portfolio highlights the contributions I have made for my project, _KeyboardFlashCards_ (KFC).
+Done as a major part of our introductory software engineering module in the National University of Singapore,
+we started off by morphing an address book application into our very own product,
+a flashcard manager that is purely controlled using the Command-Line Interface (CLI). This is the key constraint of the
+project, as users can only perform tasks by typing commands on the keyboard.
+The application started off with 10kLoC and now it has 17kLoC.
+
+This is a 6-week software engineering project, where we worked in a team of 5 with other students from the NUS School of Computing.
+Our team consists of 3 second year students majoring in Computer Science, including myself, and 2 Computer Engineering students in their final year of study.
+
+Our finalised product, KFC, is an educational tool that aims to make remembering things easy, while at the
+same time helping our users, computing students familiar with the CLI, to save time with simple and quick keyboard commands. We wanted
+to provide an efficient way to study for our peers to NUS School of Computing. Hence, we came up with an easy to use,
+flashcard manager using CLI for efficient and quick storage of important revision material to aid their study.
+
+Here is a screenshot of our project:
+
+image::annotatedUi.png[width="1000"]
+
+== Summary of contributions
+
+|===
+|_This section is a summary of the contributions I have made to the team project. It includes code, documentation, and other types of helpful contributions._
+|===
+
+* *Major enhancement*: I designed and implemented *test mode*.
+** What it does: Test mode allows users to test themselves using their flashcards. Individual flashcards will be shown in a series defined by the user;
+the flashcard question will be displayed followed by its answer. This feature is a collection of
+test commands to start test, display answer, rate flashcard, skip questions and finally end the test anytime.
+** Justification: This feature is an integral part of the application as it allows users to test themselves by going through
+the flashcards one by one. This way it helps users to better study the contents of the flashcards.
+** Highlights: I implemented neat mini-feature that has a hidden flag to check whether the application is in test mode. This way, regular
+commands such as `listall` and `add` commands will be blocked during test mode, and users are only allowed to input test commands.
+In addition, I implemented an optional category field for the start test command for users to selectively
+test flashcards from the their desired categories.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=t12&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=keiteo&tabRepo=AY1920S1-CS2103T-T12-4%2Fmain%5Bmaster%5D[Contributed Code]]
+
+* *Other contributions*:
+
+** Project management
+*** Managed releases v1.2.1 - v1.3.3 (4 releases) on GitHub
+*** Set up automatic deployment of the project website (using Netlify)
+
+** Documentation
+*** Wrote a marketing blurb for the home page:
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/30[#30]
+
+*** Updated User and Developer Guides for features pertaining to the test feature:
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/146[#146]
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/165[#165]
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/241[#241]
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/244[#244]
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/250[#250]
+
+*** Updated the application version number:
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/157[#157]
+
+** Community
+*** Reviewed the following PRs (with non-trivial review comments):
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/46[#46]
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/97[#97]
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/100[#100]
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/101[#101]
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/103[#103]
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/114[#114]
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/122[#122]
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/127[#127]
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/128[#128]
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/150[#150]
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/151[#151]
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/153[#153]
+
+*** Reported bugs and suggestions for other teams in the class (examples:
+    https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/53[1],
+    https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/133[2],
+    https://github.com/keiteo/ped/issues/4[3]
+)
+** Tools
+*** Integrated new Github plugins (Netlify, Codacy) to the team repository:
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/64[#64]
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/111[#111]
+
+*** Enabled assertions in gradle:
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/162[#162]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=TestMode]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=TestMode]
+

@@ -1,0 +1,24 @@
+@startuml
+start
+:User executes Deadline command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([task and due date
+ prefixes are present])
+    :Parse the input string
+    to respective fields;
+    :Create Deadline;
+    if () then([Exact Deadline does
+    not exist in storage ])
+      :Add Deadline to Storage;
+      :Update GUI Deadline list;
+    else ([else])
+      :Display error message;
+    endif
+else ([else])
+  :Display error message;
+endif
+stop
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+start
+:User starts test mode;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([User inputs tag(s) to test])
+    :Filter to get relevant FlashCards with the input tag(s);
+    :Start test mode for the selected FlashCards;
+else ([No tag inputs])
+  :Start test mode for all FlashCards;
+endif
+while () is ([Test model has FlashCards to test])
+    :Show question;
+    :User requests to view answer;
+    :User rates the FlashCard;
+endwhile ([Test model is empty])
+:End test mode;
+stop
+@enduml

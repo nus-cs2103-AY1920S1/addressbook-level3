@@ -29,6 +29,10 @@ checkstyle {
     toolVersion = '8.1'
 }
 
+run {
+    enableAssertions(true)
+}
+
 jacocoTestReport {
     reports {
         xml.enabled false
@@ -44,6 +48,8 @@ test {
 dependencies {
     String jUnitVersion = '5.4.0'
     String javaFxVersion = '11'
+
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
@@ -61,13 +67,15 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.0'
+
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'KeyboardFlashCards1.4.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -133,8 +141,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
+        'site-name': 'KeyboardFlashCards',
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-T12-4/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
