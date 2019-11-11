@@ -21,6 +21,13 @@ public class TrueFalse extends Answerable {
         super(question, correctAnswerList, new ArrayList<>(), difficulty, categories);
     }
 
+    @Override
+    public boolean isAnswerCorrect(Answer selectedAnswer) {
+        return correctAnswerList.stream()
+                         .map(Answer::toString)
+                         .anyMatch(ans -> ans.equalsIgnoreCase(selectedAnswer.toString()));
+    }
+
     /**
      * Empty TrueFalse Answer used for validation.
      * @return empty TrueFalse Answer.

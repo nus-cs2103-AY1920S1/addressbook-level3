@@ -25,7 +25,7 @@ public class JsonSerializableRevisionToolTest {
         JsonSerializableRevisionTool dataFromFile = JsonUtil.readJsonFile(TYPICAL_ANSWERABLES_FILE,
                 JsonSerializableRevisionTool.class).get();
         RevisionTool addressBookFromFile = dataFromFile.toModelType();
-        RevisionTool typicalAnswerablesAddressBook = TypicalMcqs.getTypicalRevisionTool();
+        RevisionTool typicalAnswerablesAddressBook = TypicalMcqs.getTypicalMcqs();
         assertEquals(addressBookFromFile, typicalAnswerablesAddressBook);
     }
 

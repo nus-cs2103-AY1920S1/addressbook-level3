@@ -6,7 +6,7 @@ import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import static seedu.revision.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.revision.testutil.Assert.assertThrows;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_FIRST_ANSWERABLE;
-import static seedu.revision.testutil.TypicalMcqs.MCQ_STUB;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_C;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,8 +31,8 @@ import seedu.revision.logic.parser.main.ParserManager;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 import seedu.revision.testutil.AnswerableUtil;
-import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
 import seedu.revision.testutil.McqBuilder;
+import seedu.revision.testutil.builder.EditAnswerableDescriptorBuilder;
 
 public class ParserManagerTest {
 
@@ -105,8 +105,8 @@ public class ParserManagerTest {
 
     @Test
     public void parseCommand_mcqInput() throws Exception {
-        assertTrue(parser.parseCommand("A", MCQ_STUB) instanceof McqInputCommand);
-        assertTrue(parser.parseCommand("d", MCQ_STUB) instanceof McqInputCommand);
+        assertTrue(parser.parseCommand("A", MCQ_C) instanceof McqInputCommand);
+        assertTrue(parser.parseCommand("d", MCQ_C) instanceof McqInputCommand);
     }
 
     //TODO: Add TrueFalse and SAQ
@@ -126,6 +126,6 @@ public class ParserManagerTest {
     @Test
     public void parseCommand_unknownQuizCommand_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-            McqInputCommand.MESSAGE_USAGE), () -> parser.parseCommand("unknownCommand", MCQ_STUB));
+            McqInputCommand.MESSAGE_USAGE), () -> parser.parseCommand("unknownCommand", MCQ_C));
     }
 }

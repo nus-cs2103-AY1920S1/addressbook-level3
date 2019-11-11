@@ -97,7 +97,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram2.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -117,7 +117,6 @@ The Revision Tool uses two Parser interfaces (`Parser` and `QuizParser`) to pars
 
 .Class Diagram of ParserManager to display how parsers are created in both modes.
 image::ParserClassDiagram.png[width=500]
-
 
 As shown in the figure above, the `ParserManager` class is responsible for creating the respective parsers for Configuration and Quiz Mode.
 This was designed while taking into consideration that the Quiz Mode Parsers (i.e. XYZParsers) will require
@@ -165,7 +164,6 @@ The `Model`,
 //end::shaun-designmodel[]
 
 //tag::wilfred-answerable[]
-
 ==== The `Answerable` Class
 
 .Class Diagram of the Answerable Class
@@ -222,10 +220,11 @@ The add questions mechanism is facilitated by `AddCommand`.
 It extends `Command` that will read a user command and execute the command result.
 Additionally, it implements the following operations:
 
-* `AddCommand#addMcq()` -- Adds a mcq question to the test bank.
-* `AddCommand#addShortAns()` -- Adds a short answer question to the test bank.
+* `AddCommand#addMcq()` -- Adds a mcq question to the question bank.
+* `AddCommand#addShortAns()` -- Adds a short answer question to the question bank.
+* `AddCommand#addTf()` -- Adds a True False answer question to the question bank.
 
-These operations are exposed in the `Model` interface as `Model#addMcqCommand()` and `Model#addShortAnsCommand()` respectively.
+These operations are exposed in the `Model` interface as `Model#addMcqCommand()`, `Model#addTfCommand()` and `Model#addShortAnsCommand()` respectively.
 
 Given below is an example usage scenario and how the add questions mechanism behaves at each step.
 
@@ -249,16 +248,17 @@ If a command fails its execution, it will not save the question into the `revisi
 
 ===== Aspect: How add executes
 
-* **Alternative 1 (current choice):** Read and parse the command to execute it
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
+** User enters the command "add ...".
+** Command is taken in and parsed to validate if it is a valid command.
+** Add command is executed.
+** New question is saved in the question bank.
 
 ===== Aspect: Format of the add command
 
-* **Alternative 1 (current choice):** Use a single line containing all the information of the question.
+** Use a single line containing all the information of the question.
 ** Pros: Faster for user to add a question.
 ** Cons: Hard for user to memorize the long sequence which may cause invalid command input.
-* **Alternative 2:** Use multiple steps to guide user on adding the question.
+* **Other alternative we considered:** Use multiple steps to guide user on adding the question.
 ** Pros: User do not have to memorize the correct format and less chance for an invalid command input.
 ** Cons: Slow to add questions, requiring multiple steps to fully complete a question.
 
@@ -359,6 +359,55 @@ move on to the next question.
 For Custom Mode, the game play is the same except that user can choose the category and difficulty of questions. +
 For Arcade Mode, when a users enters a wrong answer, the quiz will end.
 //end::wilfred-implementation[]
+
+//tag::shaun-restore[]
+=== Restore feature
+==== Implementation
+The restore mechanism is facilitated by `RestoreCommand`.
+It extends `Command` that will read a user command and execute the command result.
+Additionally, it implements the following operations:
+
+* `#handleRestore()` -- Prompts the user with an alert box if he really wishes to execute the restore function.
+* `#setRevisionTool()` -- Clears the current question bank and reset it with our own default questions.
+
+These operations are exposed in the `Model` interface as `Model#setRevisionTool()` and from `MainWindow` as `#handleRestore()` respectively.
+
+==== Design Considerations
+* When implementing the restore feature, we didn't want users to face a problem if they entered the command accidentally hence the alert popup was implemented, to prompt users if they really want to carry out the command before executing it.
+* With this popup, users will now be more cautious when trying to restore and only do so when they really want to reset their revision tool.
+* Furthermore, the questions that we included in the default revision tool question bank are questions taken from the lecture quiz and weekly quiz which are most probably deemed important by the professor himself.
+
+===== Aspect: How Restore executes
+** User enters the command "restore".
+** Command is taken in and a popup is shown to reconfirm if the user would like to carry out the restore command.
+** Upon clicking yes, restore command will be handled.
+** Current questions will be deleted and default questions will reset to the revision tool.
+
+//end::shaun-restore[]
+
+//tag::shaun-autocomplete[]
+=== AutoComplete feature
+==== Implementation
+* A set of commands and auto completed text are saved in a set.
+* When users type a command on the text box, method `#populatePopup` will be called where the user's command will be matched against our SortedSet.
+* If there is a match, a contextMenu showing all possible auto complete text will show up.
+* This method is implemented such that the results in the contextMenu will change and show as the user is typing and this would make it more intuitive for users.
+
+==== Design Considerations
+* The main design consideration here would be to have value added auto complete list to pop up.
+* How we managed that is to show:
+** The basic command
+** Basic command + possible parse commands where they can easily fill in.
+
+image::AutoComplete2.png[]
+
+===== Aspect: How AutoComplete works
+** Users wishes to enter an "Add" command `add type/mcq q/What is 1 + 1 y/2 x/1 x/3 x/4 cat/easy diff/1`
+** Upon typing either "a", "ad" or even "add", the auto complete context menu will pop up showing possible auto complete list, mainly:
+*** add
+*** add type/ q/ y/ x/ cat/ diff/
+** Upon seeing that, users will be able to select those options or use those as a guideline to complete his commands more intuitively.
+//end::shaun-autocomplete[]
 
 === Logging
 
@@ -607,14 +656,16 @@ be prompted to restart or end the quiz.
 
 //end::wilfred-use-case[]
 
+//tag::shaun-appendix[]
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  RevisionTool should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  RevisionTool be able to hold up to 1000 questions without any significant reduction in performance for typical usage.
+.  A user with above slow typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  RevisionTool should be able to run without any internet connectivity.
+.  RevisionTool does not require any further installation upon downloading the jar file.
 
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -622,25 +673,14 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[Answerables]] Answerables::
+A set of question answers, which includes :
+* Type: MCQ, True False, Short Answered Question
+* Question
+* Correct Answers (Can contain multiple answers)
+* Wrong Answers (Can contain multiple answers)
+* Category
+* Difficulty
 
 [appendix]
 == Instructions for Manual Testing
@@ -660,11 +700,30 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Saving window preferences
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Resize the window to an optimum size. Move the window to a different location. Close the window by using the `x` button at the top right hand corner or by using the command `exit`.
+.. Re-launch the app by double clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding an answerable
+
+. Adding a MCQ to the current list
+
+.. Test case: `add type/mcq q/What is 1 + 1 y/2 x/1 x/3 x/4 cat/easy diff/1` +
+Expected: new MCQ answerable will be created and appended at the bottom of the list. Details of the the added answerable will be shown at the bottom of the list, and the correct answer will be highlighted in green.
+
+. Adding a True False to the current list
+
+.. Test case: `add type/tf q/What is 1 + 1 = 2 y/true cat/easy diff/1` +
+Expected: new True False answerable will be created and appended at the bottom of the list. Details of the added answerable will be shown at the bottom of the list, and only the correct answer will be shown and highlighted in green.
+
+. Adding a Short Answer Question (SAQ) to the current list
+
+.. Test case: `add type/saq q/What is smaller than 10 but bigger than 7? y/8 y/9 cat/easy diff/1` +
+Expected: new SAQ answerable will be created and appended at the bottom of the list. Details of the added answerable will be shown at the bottom of the list and all the correct answers state will be highlighted in green.
+
+. Adding an Answerable that already exist in the Revision Tool
+.. Test case: `add type/mcq q/What is 1 + 1 y/2 x/1 x/3 x/4 cat/easy diff/1` +
+Expected: No new answerable will be added as the question already exist in the Revision Tool. An error message will be thrown, informing users that the answerable already exist in the Revision Tool.
 
 === Deleting an answerable
 
@@ -678,12 +737,24 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Starting quiz
+
+. Starting a quiz
+.. Test case: `start mode/normal` +
+Expected: Start quiz window will pop up with a question showing under the command box and the answers in the result box further below. Answer the questions using the CLI accordingly to see the progress bar move till quiz completion. Users will be prompted if he wishes to proceed to level 2.
+.. Test case: `start mode/arcade` +
+Expected: Start quiz window will pop up similar to previous test case. The only difference would be that once the quiz proceeds and an incorrect answer is input, the quiz ends and the score will be shown. This is the "hard mode" of our quiz mode.
+.. Test case `start mode/custom timer/3` +
+Expected: Start quiz window will pop up similar to previous test case. The difference here will be the timer. Instead of the 30 seconds timer per question, the new timer (seen at the bottom right beside the status progress bar) will be at 3 seconds as set by the user.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. If there is a missing answerables data file, the RevisionTool will automatically create a default data file with all the default answerables inside.
+.. If there is a corrupted answerable data file, the RevisionTool will automatically start with a list of empty file. Users will then be able to use the `#restoreCommand` here to get a list of default answerables or alternatively, create a new set of answerables manually.
 
-_{ more test cases ... }_
+. To identify missing/corrupted data files:
+.. `.\data\revisiontool.json`
+.. `.\data\history.json`
+//end::shaun-appendix[]

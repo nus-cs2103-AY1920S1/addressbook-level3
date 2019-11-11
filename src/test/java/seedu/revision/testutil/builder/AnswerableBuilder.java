@@ -1,4 +1,4 @@
-package seedu.revision.testutil;
+package seedu.revision.testutil.builder;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,7 +17,7 @@ import seedu.revision.model.util.SampleDataUtil;
  */
 public abstract class AnswerableBuilder<T extends Answerable> {
 
-    public static final String DEFAULT_QUESTION = "Greenfield projects are easier than brownfield projects";
+    public static final String DEFAULT_QUESTION = "Is this a question?";
     public static final String DEFAULT_DIFFICULTY = "1";
     public static final String DEFAULT_CATEGORY = "CATEGORY";
 
@@ -89,5 +89,4 @@ public abstract class AnswerableBuilder<T extends Answerable> {
      * @return the subclass of answerable.
      */
     public abstract T build();
-
 }

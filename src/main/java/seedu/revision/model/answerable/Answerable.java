@@ -43,19 +43,6 @@ public abstract class Answerable {
         this.categories.addAll(categories);
     }
 
-    public Answerable (ArrayList<Answer> correctAnswerList,
-                       ArrayList<Answer> wrongAnswerList) {
-        this.question = new Question("Question");
-        this.correctAnswerList = correctAnswerList;
-        this.wrongAnswerList = wrongAnswerList;
-        ArrayList<Answer> combinedList = new ArrayList<>();
-        combinedList.addAll(wrongAnswerList);
-        combinedList.addAll(0, correctAnswerList);
-        this.combinedAnswerList = combinedList;
-        //System.out.println(combinedList);
-        this.difficulty = new Difficulty("1");
-        this.categories.add(new Category("cat"));
-    }
 
     public Question getQuestion() {
         return question;

@@ -13,12 +13,11 @@ import static seedu.revision.logic.commands.CommandTestUtil.MCQ_WRONG_ANSWER_DES
 import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_DESC_ALPHA;
 
 import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_TYPE_DESC;
-import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_ALPHA;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_UML;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_ALPHA;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
-import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_ALPHA;
+import static seedu.revision.logic.commands.CommandTestUtil.VALID_MCQ_QUESTION_1;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.revision.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -35,7 +34,7 @@ import seedu.revision.logic.parser.main.EditCommandParser;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Question;
 import seedu.revision.model.category.Category;
-import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
+import seedu.revision.testutil.builder.EditAnswerableDescriptorBuilder;
 
 public class EditCommandParserTest {
 
@@ -49,7 +48,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_QUESTION_ALPHA, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_MCQ_QUESTION_1, MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
@@ -101,7 +100,7 @@ public class EditCommandParserTest {
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_QUESTION_DESC + CORRECT_ANSWER_DESC_BROWNFIELD
-                + MCQ_WRONG_ANSWER_DESC + VALID_CATEGORY_ALPHA + VALID_DIFFICULTY_ALPHA, Question.MESSAGE_CONSTRAINTS);
+                + MCQ_WRONG_ANSWER_DESC + VALID_DIFFICULTY_ALPHA, Question.MESSAGE_CONSTRAINTS);
 
         // editing question type is not allowed
         assertParseFailure(parser, "1" + QUESTION_TYPE_DESC + QUESTION_DESC_ALPHA,
@@ -116,7 +115,7 @@ public class EditCommandParserTest {
                 + QUESTION_DESC_ALPHA + CATEGORY_DESC_UML;
 
         EditCommand.EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder()
-                .withQuestion(VALID_QUESTION_ALPHA).withDifficulty(VALID_DIFFICULTY_BETA)
+                .withQuestion(VALID_MCQ_QUESTION_1).withDifficulty(VALID_DIFFICULTY_BETA)
                 .withCategories(VALID_CATEGORY_GREENFIELD, VALID_CATEGORY_UML).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -141,7 +140,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_THIRD_ANSWERABLE;
         String userInput = targetIndex.getOneBased() + QUESTION_DESC_ALPHA;
         EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder()
-                .withQuestion(VALID_QUESTION_ALPHA).build();
+                .withQuestion(VALID_MCQ_QUESTION_1).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
