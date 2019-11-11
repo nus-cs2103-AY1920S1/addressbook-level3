@@ -677,6 +677,7 @@ Updating a *Budget* entry.
 image::update_ug_4.png[]
 +
 . Put `b` as your `TYPE` input and key in the fields you want to change. In this case, we will be changing both the date and amount of this Budget.
+When you update the amount of a budget, the budget will be re-initialised (reset to 100%).
 +
 image::update_ug_5.png[]
 +
