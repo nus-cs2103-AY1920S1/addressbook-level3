@@ -1,0 +1,89 @@
+= Hoon Chee Ping - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SecureIT
+
+---
+
+== Overview
+
+To be copied from UG.
+
+== Summary of contributions
+
+*Major enhancement*
+
+Implemented a series of commands and features to manage user's password. This includes adding a `Password` model
+and its subclasses of `Description`, `Username`, `PasswordValue`, `Website`, `ModifiedAt`, `ExpiryMode`. In addition,
+I implemented the supportive commands to the password model such as `AddPasswordCommand`, `FindPasswordCommand`, `CopyCommand`, `DeletePasswordCommand`,
+`ReadPasswordCommand` and `EditPasswordCommand`  commands.
+
+*What it does*
+
+* Allows the user manage passwords and keep track of when they should change their passwords.
+
+*Justification*
+
+* Many small and medium enterprises now have a plethora of accounts to use for day-to-day activities.
+It is hard to keep track of all the passwords without compromising on security. This feature aims to alleviate the password management
+on businesses and improve data security.
+
+*Highlights*
+
+*  A new `Password` model was created to support the management of passwords.
+Numerous commands were also implemented for this enhancement.
+This enhancement requires in depth analysis of the current structure of the architecture as it relies on all the existing components.
+In addition, Software Engineering Principles, such as SOLID, YAGNI and DRY Principles, were used.
+Defensive programming is also evident throughout the enhancement.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+*Other contributions*:
+
+** Project management:
+*** Set up team repository and other essential tools such as Travis on GitHub
+*** Maintained the team repository by managing issue tracking, issue assigment and milestones.
+
+** Enhancements to existing features:
+*** Enhanced the UI of the existing application (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com[#36], https://github.com[#38])
+
+** Documentation:
+*** Developer Guide:
+**** Updated Use Case (Pull Request: https://github.com/AY1920S1-CS2103T-F11-3/main/commit/e03d222a8f5aac7ec6d382314eedd0bd0d6e7e06[#6])
+**** Updated UML diagrams for current implementation (Pull Request: TBC)
+*** User Guide:
+**** Updated Basic Information for better clarity to address users (Pull Request: TBC)
+**** Added in icons for better clarity (Pull Request: TBC)
+
+** Repackaging of the product:
+*** Enhanced UI of the application (Pull Request: TBC)
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
