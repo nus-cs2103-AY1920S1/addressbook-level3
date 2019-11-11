@@ -331,17 +331,19 @@ image::scheduler/scheduleGeneratorActivityDiagram.png[width=100%,pdfwidth=100%]
 
 ==== Design Considerations
 
-===== Aspect: How the `ScheduleDisplay` is generated and stored
+|===
+| Aspect: | Choice | Pros | Cons
+.2+| How the `ScheduleDisplay` is generated and stored
+| 1. Generates the `ScheduleDisplay` in runtime only when the application needs to show a schedule to the user. **(Current choice)**
+| 1. Saves memory space, and does not need to compute the `ScheduleDisplay` of every group and person upon startup.
+| 1. May have performance issues in runtime as the `ScheduleDisplay` is only generated when required.
 
-* **Alternative 1 (current choice):** Generates the `ScheduleDisplay` in runtime only when the application
-needs to show a schedule to the user.
-** Pros: Saves memory space, and does not need to compute the `ScheduleDisplay` of every group and person upon startup.
-** Cons: May have performance issues in runtime as the `ScheduleDisplay` is only generated when required.
+| 2. Upon startup, generate each Group's `ScheduleDisplay` and store them within the `Group` object.
+| 1. Better runtime performance as the `ScheduleDisplay` is already generated.
+| 1. Will have perfomance issues in terms of memory usage. Each Group's and Person's `ScheduleDisplay` will also have to be generated and stored in memory.
 
-* **Alternative 2:** Upon startup, generate each Group's `ScheduleDisplay` and store them within the `Group` object.
-** Pros: Better runtime performance as the `ScheduleDisplay` is already generated.
-** Cons: Will have perfomance issues in terms of memory usage. Each Group's and Person's `ScheduleDisplay` will also
-have to be generated and stored in memory.
+//4+| Justification goes here
+|===
 //end::scheduler[]
 
 // tag::suggestions[]
@@ -425,23 +427,33 @@ image::command-suggestions/ActivityDiagram.svg[pdfwidth=65%]
 // tag::suggestions-design-considerations[]
 ==== Design Considerations
 
-===== Aspect: How command suggestions gets its suggestions
+|===
+| Aspect: | Choice | Pros | Cons
+.2+| How command suggestions gets its suggestions
+| 1. Ask ``Suggester``s for suggestions every time anything changes **(Current choice)**
+| 1. Easy to implement.
+| 1. May have performance issues in terms of CPU and memory usage as ``Suggester``s are created and run every time the command changes or the caret is moved.
 
-* **Alternative 1 (current choice):** Ask ``Suggester``s for suggestions every time anything changes
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of CPU and memory usage as ``Suggester``s are created and run every time the command changes or the caret is moved.
-* **Alternative 2:** Cache suggestions based on entered command and caret position
-** Pros: Will use less CPU, may use less memory.
-** Cons: Difficult to properly account for all the conditions that should cause a cache invalidation/recalculation of suggestions.
+| 2. Cache suggestions based on entered command and caret position
+| 1. Will use less CPU, may use less memory.
+| 1. Difficult to properly account for all the conditions that should cause a cache invalidation/recalculation of suggestions.
 
-===== Aspect: Data structure to pass around the command arguments
+4+| Correctness of suggestions is preferred over additional CPU/memory usage as caching suggestions but improperly invalidating them can lead to user (and developer) confusion. In this design, ``Suggester``s can still choose to implement their own cache if necessary.
+|===
 
-* **Alternative 1 (current choice):** Create an `ArgumentList` to store the ordered sequence of arguments.
-** Pros: Provides ``Suggester``s with flexibility in providing suggestions since the relative ordering of arguments is preserved. For example, it is possible to suggest different values for each `class/` argument based on the left-closest `mod/` argument for the following command: `addmod n/Alice mod/CS2103T class/ mod/CS2101 class/`.
-** Cons: Increased complexity in extracting command arguments for simpler ``Suggester``s.
-* **Alternative 2:** Reuse `ArgumentMultimap`
-** Pros: We do not need to maintain a separate data structure due to reuse, and developers familiar with how `ArgumentTokenizer.tokenize()` works for writing a `Command` can transfer their knowledge when writing ``Suggester``s for their own commands.
-** Cons: ``Suggester``s are restricted in terms of the flexibility of their suggestions, as they lack info about the relative ordering of all the arguments.
+|===
+| Aspect: | Choice | Pros | Cons
+.2+| Data structure to pass around the command arguments
+| 1. Create an `ArgumentList` to store the ordered sequence of arguments. **(Current choice)**
+| 1. Provides ``Suggester``s with flexibility in providing suggestions since the relative ordering of arguments is preserved.
+| 1. Increased complexity in extracting command arguments for simpler ``Suggester``s.
+
+| 2. Reuse `ArgumentMultimap`
+| 1. We do not need to maintain a separate data structure due to reuse, and developers familiar with how `ArgumentTokenizer.tokenize()` works for writing a `Command` can transfer their knowledge when writing ``Suggester``s for their own commands.
+| 1. ``Suggester``s are restricted in terms of the flexibility of their suggestions, as they lack info about the relative ordering of all the arguments.
+
+4+| The chosen design allows for more complex ``Suggester`` behaviour. For example, this design enables the suggestion of different values for each `class/` argument based on the left-closest `mod/` argument for the following command: `addmod n/Alice mod/CS2103T class/ mod/CS2101 class/`.
+|===
 // end::suggestions-design-considerations[]
 // end::suggestions[]
 
