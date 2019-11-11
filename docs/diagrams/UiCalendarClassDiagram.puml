@@ -33,7 +33,7 @@ package Logic <<Rectangle>> {
 package Model <<Rectangle>> {
     Class EventSource
     Class TaskSource
-    Interface ModelListsListener <<Interface>>
+    Interface ModelDataListener <<Interface>>
 }
 
 Class HiddenOutside #FFFFFF
@@ -41,7 +41,7 @@ HiddenOutside .down.> UiManager
 
 '==== UiManager ====
 UiManager *--> MainWindow
-UiManager ..|> ModelListsListener
+UiManager ..|> ModelDataListener
 
 '==== MainWindow =====
 MainWindow *-down--> CalendarPanel

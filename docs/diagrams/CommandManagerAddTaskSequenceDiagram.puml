@@ -1,0 +1,81 @@
+@startuml
+
+' Style
+skinparam boxPadding 10
+skinparam shadowing false
+
+box Logic
+    participant CommandManager
+    participant CommandParser
+    participant CommandKeywordParser
+    participant AddTaskCommandBuilder
+    participant AddTaskCommand
+end box
+
+box Model
+    participant ModelManager
+end box
+
+box Ui
+    participant UserOutputListener
+end box
+
+[-> CommandManager : onCommandInput("add_task Homework")
+activate CommandManager
+
+CommandManager -> CommandParser : parse("add_task Homework")
+activate CommandParser
+
+CommandParser -> CommandKeywordParser : parse("add_task")
+activate CommandKeywordParser
+
+create AddTaskCommandBuilder
+CommandKeywordParser -> AddTaskCommandBuilder
+activate AddTaskCommandBuilder
+CommandKeywordParser <-- AddTaskCommandBuilder : builder
+deactivate AddTaskCommandBuilder
+
+CommandParser <-- CommandKeywordParser : builder
+deactivate CommandKeywordParser
+
+CommandParser -> AddTaskCommandBuilder : acceptPhrase("Homework")
+activate AddTaskCommandBuilder
+CommandParser <-- AddTaskCommandBuilder
+deactivate AddTaskCommandBuilder
+
+CommandParser -> AddTaskCommandBuilder : build()
+activate AddTaskCommandBuilder
+
+create AddTaskCommand
+AddTaskCommandBuilder -> AddTaskCommand
+activate AddTaskCommand
+AddTaskCommandBuilder <-- AddTaskCommand : command
+deactivate AddTaskCommand
+
+CommandParser <-- AddTaskCommandBuilder : command
+deactivate AddTaskCommandBuilder
+destroy AddTaskCommandBuilder
+
+CommandManager <-- CommandParser : command
+deactivate CommandParser
+
+CommandManager -> AddTaskCommand : execute()
+activate AddTaskCommand
+
+AddTaskCommand -> ModelManager : setModelData()
+activate ModelManager
+AddTaskCommand <-- ModelManager
+deactivate ModelManager
+
+CommandManager <-- AddTaskCommand  : output
+deactivate AddTaskCommand
+destroy AddTaskCommand
+
+CommandManager -> UserOutputListener : onUserOutput(output)
+activate UserOutputListener
+CommandManager <-- UserOutputListener
+deactivate UserOutputListener
+
+[<-- CommandManager
+deactivate CommandManager
+@enduml

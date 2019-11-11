@@ -45,24 +45,24 @@ public class CommandParser implements Parser<Command> {
         state3.addPattern("\\s+", matches -> state4);
         // ASCII quotation marks
         state4.addPattern("\"(.*?)\"(?=\\s|$)", matches -> {
-            this.commandBuilder.acceptSentence(matches.get(1));
+            this.commandBuilder.acceptPhrase(matches.get(1));
             return state3;
         });
         state4.addPattern("'(.*?)'(?=\\s|$)", matches -> {
-            this.commandBuilder.acceptSentence(matches.get(1));
+            this.commandBuilder.acceptPhrase(matches.get(1));
             return state3;
         });
         // Unicode: English quotation marks
         state4.addPattern("“(.*?)”(?=\\s|$)", matches -> {
-            this.commandBuilder.acceptSentence(matches.get(1));
+            this.commandBuilder.acceptPhrase(matches.get(1));
             return state3;
         });
         state4.addPattern("‘(.*?)’(?=\\s|$)", matches -> {
-            this.commandBuilder.acceptSentence(matches.get(1));
+            this.commandBuilder.acceptPhrase(matches.get(1));
             return state3;
         });
         state4.addPattern("[^\\s]+", matches -> {
-            this.commandBuilder.acceptSentence(matches.get(0));
+            this.commandBuilder.acceptPhrase(matches.get(0));
             return state3;
         });
 

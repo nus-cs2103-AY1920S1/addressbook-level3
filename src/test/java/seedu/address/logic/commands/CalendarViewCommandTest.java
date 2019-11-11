@@ -15,8 +15,8 @@ class CalendarViewCommandTest {
         assertDoesNotThrow(() -> {
             UiManagerStub uiManager = new UiManagerStub();
             Command command = CalendarViewCommand.newBuilder(uiManager)
-                    .acceptSentence(OPTION_CALENDAR_SCREEN_DATE)
-                    .acceptSentence(calendarDate)
+                    .acceptPhrase(OPTION_CALENDAR_SCREEN_DATE)
+                    .acceptPhrase(calendarDate)
                     .build();
 
             command.execute();

@@ -6,6 +6,8 @@ import java.util.Objects;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
 
+// @@author bruceskellator
+
 /**
  * Represents a snapshot of Horo's events and tasks.
  * It is immutable. All events and tasks are unique.

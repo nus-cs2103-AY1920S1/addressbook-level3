@@ -22,13 +22,13 @@ class DeleteEventCommandTest {
         String[] indexes = new String[]{"0", "1", "2"};
         String[] tags = new String[]{"a", "b", "c"};
         assertDoesNotThrow(() -> DeleteEventCommand.newBuilder(null)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(indexes[2])
-            .acceptSentence(OPTION_TAGS)
-            .acceptSentence(tags[0])
-            .acceptSentence(tags[1])
-            .acceptSentence(tags[2])
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(indexes[2])
+            .acceptPhrase(OPTION_TAGS)
+            .acceptPhrase(tags[0])
+            .acceptPhrase(tags[1])
+            .acceptPhrase(tags[2])
             .build());
     }
 
@@ -69,9 +69,9 @@ class DeleteEventCommandTest {
         assertEquals(5, model.getEvents().size());
 
         assertDoesNotThrow(() -> DeleteEventCommand.newBuilder(model)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(indexes[2])
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(indexes[2])
             .build()
             .execute());
 
@@ -95,9 +95,9 @@ class DeleteEventCommandTest {
         assertEquals(2, model.getEvents().size());
 
         assertThrows(CommandException.class, () -> DeleteEventCommand.newBuilder(model)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(indexes[2])
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(indexes[2])
             .build().execute());
 
         assertEquals(2, model.getEvents().size());
@@ -121,9 +121,9 @@ class DeleteEventCommandTest {
         assertEquals(5, model.getEvents().size());
 
         assertDoesNotThrow(() -> DeleteEventCommand.newBuilder(model)
-            .acceptSentence(OPTION_TAGS)
-            .acceptSentence(tags[0])
-            .acceptSentence(tags[1])
+            .acceptPhrase(OPTION_TAGS)
+            .acceptPhrase(tags[0])
+            .acceptPhrase(tags[1])
             .build()
             .execute());
 
@@ -154,11 +154,11 @@ class DeleteEventCommandTest {
         assertEquals(5, model.getEvents().size());
 
         assertDoesNotThrow(() -> DeleteEventCommand.newBuilder(model)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(OPTION_TAGS)
-            .acceptSentence(tags[0])
-            .acceptSentence(tags[1])
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(OPTION_TAGS)
+            .acceptPhrase(tags[0])
+            .acceptPhrase(tags[1])
             .build()
             .execute());
 
@@ -188,11 +188,11 @@ class DeleteEventCommandTest {
         assertEquals(5, model.getEvents().size());
 
         assertThrows(CommandException.class, () -> DeleteEventCommand.newBuilder(model)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(OPTION_TAGS)
-            .acceptSentence(tags[0])
-            .acceptSentence(tags[1])
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(OPTION_TAGS)
+            .acceptPhrase(tags[0])
+            .acceptPhrase(tags[1])
             .build()
             .execute());
 

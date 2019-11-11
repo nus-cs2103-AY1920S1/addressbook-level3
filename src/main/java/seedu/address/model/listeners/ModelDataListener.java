@@ -8,4 +8,5 @@ import seedu.address.model.ModelData;
 public interface ModelDataListener {
 
     void onModelDataChange(ModelData modelData);
+
 }

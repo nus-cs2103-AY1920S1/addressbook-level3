@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<!-- @@author Kyzure -->
 <StackPane fx:id="eventCardBase" alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox fx:id="eventDetails" style="-fx-background-color: transparent;" StackPane.alignment="CENTER_LEFT">

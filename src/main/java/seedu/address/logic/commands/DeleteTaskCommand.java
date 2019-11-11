@@ -21,6 +21,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UserOutput;
 
+//@@author bruceskellator
+
 /**
  * Represents a Command that deletes TaskSources from the Model.
  */

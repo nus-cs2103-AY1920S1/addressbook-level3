@@ -31,21 +31,21 @@ class EditEventCommandTest {
         String remind = "11/11/1111 08:00";
         String[] tags = new String[]{"a", "b", "c"};
         assertDoesNotThrow(() -> EditEventCommand.newBuilder(null)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(indexes[2])
-            .acceptSentence(OPTION_DESCRIPTION)
-            .acceptSentence(description)
-            .acceptSentence(OPTION_START_DATE_TIME)
-            .acceptSentence(start)
-            .acceptSentence(OPTION_END_DATE_TIME)
-            .acceptSentence(end)
-            .acceptSentence(OPTION_REMIND_DATE_TIME)
-            .acceptSentence(remind)
-            .acceptSentence(OPTION_TAGS)
-            .acceptSentence(tags[0])
-            .acceptSentence(tags[1])
-            .acceptSentence(tags[2])
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(indexes[2])
+            .acceptPhrase(OPTION_DESCRIPTION)
+            .acceptPhrase(description)
+            .acceptPhrase(OPTION_START_DATE_TIME)
+            .acceptPhrase(start)
+            .acceptPhrase(OPTION_END_DATE_TIME)
+            .acceptPhrase(end)
+            .acceptPhrase(OPTION_REMIND_DATE_TIME)
+            .acceptPhrase(remind)
+            .acceptPhrase(OPTION_TAGS)
+            .acceptPhrase(tags[0])
+            .acceptPhrase(tags[1])
+            .acceptPhrase(tags[2])
             .build());
     }
 
@@ -64,8 +64,8 @@ class EditEventCommandTest {
         assertEquals(3, model.getEvents().size());
 
         assertThrows(CommandException.class, () -> EditEventCommand.newBuilder(model)
-            .acceptSentence(OPTION_DESCRIPTION)
-            .acceptSentence(description)
+            .acceptPhrase(OPTION_DESCRIPTION)
+            .acceptPhrase(description)
             .build()
             .execute());
 
@@ -91,9 +91,9 @@ class EditEventCommandTest {
         assertEquals(3, model.getEvents().size());
 
         assertThrows(CommandException.class, () -> EditEventCommand.newBuilder(model)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(indexes[2])
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(indexes[2])
             .build()
             .execute());
 
@@ -126,10 +126,10 @@ class EditEventCommandTest {
         assertEquals(3, model.getEvents().size());
 
         assertDoesNotThrow(() -> EditEventCommand.newBuilder(model)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(OPTION_DESCRIPTION)
-            .acceptSentence(description)
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(OPTION_DESCRIPTION)
+            .acceptPhrase(description)
             .build()
             .execute());
 
@@ -162,10 +162,10 @@ class EditEventCommandTest {
         assertEquals(3, model.getEvents().size());
 
         assertDoesNotThrow(() -> EditEventCommand.newBuilder(model)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(OPTION_START_DATE_TIME)
-            .acceptSentence(newStart.toUserString())
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(OPTION_START_DATE_TIME)
+            .acceptPhrase(newStart.toUserString())
             .build()
             .execute());
 
@@ -198,10 +198,10 @@ class EditEventCommandTest {
         assertEquals(3, model.getEvents().size());
 
         assertDoesNotThrow(() -> EditEventCommand.newBuilder(model)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(OPTION_END_DATE_TIME)
-            .acceptSentence(end.toUserString())
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(OPTION_END_DATE_TIME)
+            .acceptPhrase(end.toUserString())
             .build()
             .execute());
 
@@ -234,10 +234,10 @@ class EditEventCommandTest {
         assertEquals(3, model.getEvents().size());
 
         assertDoesNotThrow(() -> EditEventCommand.newBuilder(model)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(OPTION_REMIND_DATE_TIME)
-            .acceptSentence(remind.toUserString())
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(OPTION_REMIND_DATE_TIME)
+            .acceptPhrase(remind.toUserString())
             .build()
             .execute());
 
@@ -270,12 +270,12 @@ class EditEventCommandTest {
         assertEquals(3, model.getEvents().size());
 
         assertDoesNotThrow(() -> EditEventCommand.newBuilder(model)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(OPTION_TAGS)
-            .acceptSentence(tags.get(0))
-            .acceptSentence(tags.get(1))
-            .acceptSentence(tags.get(2))
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(OPTION_TAGS)
+            .acceptPhrase(tags.get(0))
+            .acceptPhrase(tags.get(1))
+            .acceptPhrase(tags.get(2))
             .build()
             .execute());
 
@@ -300,11 +300,11 @@ class EditEventCommandTest {
         assertEquals(2, model.getEvents().size());
 
         assertThrows(CommandException.class, () -> EditEventCommand.newBuilder(model)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(indexes[2])
-            .acceptSentence(OPTION_DESCRIPTION)
-            .acceptSentence(description)
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(indexes[2])
+            .acceptPhrase(OPTION_DESCRIPTION)
+            .acceptPhrase(description)
             .build()
             .execute());
 
@@ -329,10 +329,10 @@ class EditEventCommandTest {
         assertEquals(3, model.getEvents().size());
 
         assertThrows(CommandException.class, () -> EditEventCommand.newBuilder(model)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(OPTION_DESCRIPTION)
-            .acceptSentence(description)
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(OPTION_DESCRIPTION)
+            .acceptPhrase(description)
             .build()
             .execute());
 

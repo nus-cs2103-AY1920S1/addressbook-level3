@@ -18,7 +18,7 @@ class WeekViewCommandTest {
             UiManagerStub uiManager = new UiManagerStub();
 
             Command command = WeekViewCommand.newBuilder(uiManager)
-                    .acceptSentence(calendarDate)
+                    .acceptPhrase(calendarDate)
                     .build();
 
             command.execute();

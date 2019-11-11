@@ -93,6 +93,7 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.show();
     }
 
+    //@@author Kyzure
     /**
      * Fills up all the placeholders of this window.
      */
@@ -115,6 +116,7 @@ public class MainWindow extends UiPart<Stage> {
         editInnerParts();
     }
 
+    //@@author Kyzure
     /**
      * Edits the size of the nodes based on the user's screen size.
      */
@@ -135,6 +137,7 @@ public class MainWindow extends UiPart<Stage> {
         delayResize();
     }
 
+    //@@author Kyzure
     /**
      * Changes the View Panel to show the Calendar Panel.
      */
@@ -145,7 +148,7 @@ public class MainWindow extends UiPart<Stage> {
         viewTitle.setText("Calendar");
     }
 
-
+    //@@author Kyzure
     /**
      * Changes the View Panel to show the Calendar Panel of a certain date in the timeline.
      *
@@ -156,7 +159,7 @@ public class MainWindow extends UiPart<Stage> {
         viewCalendar();
     }
 
-
+    //@@author Kyzure
     /**
      * Changes the View Panel to show the Calendar Panel of a certain week in the timeline.
      *
@@ -167,6 +170,7 @@ public class MainWindow extends UiPart<Stage> {
         viewCalendar();
     }
 
+    //@@author Kyzure
     /**
      * Changes the View Panel to show the Calendar Panel of a certain month.
      *
@@ -177,6 +181,7 @@ public class MainWindow extends UiPart<Stage> {
         viewCalendar();
     }
 
+    //@@author Kyzure
     /**
      * Changes the View Panel to show the List Panel.
      */
@@ -187,6 +192,7 @@ public class MainWindow extends UiPart<Stage> {
         viewTitle.setText("List");
     }
 
+    //@@author Kyzure
     /**
      * Changes the View Panel to show the Log Panel.
      */
@@ -197,6 +203,7 @@ public class MainWindow extends UiPart<Stage> {
         viewTitle.setText("Log");
     }
 
+    //@@author Kyzure
     /**
      * Creates a pop-up of the output using the same LogBox in the LogPanel and animates it.
      */
@@ -238,6 +245,7 @@ public class MainWindow extends UiPart<Stage> {
         popUpAnimation.play();
     }
 
+    //@@author Kyzure
     /**
      * Creates a color scheme from the a list of the constant color values in the CSS file.
      * @param color The color of the object.
@@ -257,6 +265,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    //@@author Kyzure
     /**
      * Changes of the calendar screen of the calendar
      */
@@ -265,6 +274,7 @@ public class MainWindow extends UiPart<Stage> {
         viewCalendar();
     }
 
+    //@@author Kyzure
     /**
      * Adds Listeners that re-sizes the calendar panel when the width has been changed.
      */
@@ -279,6 +289,7 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    //@@author Kyzure
     /**
      * Re-sizes the CalendarPanel after a certain delay.
      *
@@ -311,6 +322,7 @@ public class MainWindow extends UiPart<Stage> {
     private void welcomeMessage() {
         onUserOutput(new UserOutput(WELCOME_MESSAGE), ColorTheme.WELCOME);
     }
+
 
     /**
      * Changes the UI based on the new events and tasks list.

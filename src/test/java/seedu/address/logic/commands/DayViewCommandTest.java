@@ -18,7 +18,7 @@ class DayViewCommandTest {
             UiManagerStub uiManager = new UiManagerStub();
 
             Command command = DayViewCommand.newBuilder(uiManager)
-                    .acceptSentence(calendarDate)
+                    .acceptPhrase(calendarDate)
                     .build();
 
             command.execute();

@@ -6,8 +6,10 @@ import seedu.address.logic.UndoRedoManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.ui.UserOutput;
 
+//@@author bruceskellator
+
 /**
- * Represents a Command which adds an EventSource to the Model.
+ * Represents a Command which redoes the previously undone command.
  */
 public class RedoCommand extends Command {
 

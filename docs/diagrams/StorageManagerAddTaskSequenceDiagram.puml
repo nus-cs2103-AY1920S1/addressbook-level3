@@ -1,0 +1,47 @@
+@startuml
+
+' Style
+skinparam boxPadding 10
+skinparam shadowing false
+
+box Logic
+    participant AddTaskCommand
+end box
+
+box Model
+    participant ModelManager
+end box
+
+box Logic
+    participant StorageManager
+end box
+
+[-> AddTaskCommand : execute()
+activate AddTaskCommand
+
+AddTaskCommand -> ModelManager : setModelData()
+activate ModelManager
+
+ModelManager -> StorageManager : onModelDataChange()
+activate StorageManager
+
+opt eventsFile != null
+StorageManager ->] : saveEvents()
+StorageManager <--
+end
+
+opt tasksFile != null
+StorageManager ->] : saveTasks()
+StorageManager <--
+end
+
+ModelManager <-- StorageManager
+deactivate StorageManager
+
+AddTaskCommand <-- ModelManager
+deactivate ModelManager
+
+[<-- AddTaskCommand
+deactivate AddTaskCommand
+destroy AddTaskCommand
+@enduml

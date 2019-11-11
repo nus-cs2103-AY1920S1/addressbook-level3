@@ -8,6 +8,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.ui.UiPart;
 
+//@@author Kyzure
 /**
  * An Ui that stores the logged feedback from the program to the user.
  */

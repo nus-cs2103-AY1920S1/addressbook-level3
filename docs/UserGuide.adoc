@@ -20,18 +20,16 @@ By: `Team AY1920S1-CS2103T-F12-1`      Since: `Sept 2019`      Licence: `MIT`
 
 *Horo* is a command-line interface scheduling application. It helps the user maintain a to-do list and a calendar, and posts timely reminders on their desktop. This User Guide provides documentation of *Horo*'s functionalities. Users may refer to this guide as a reference for what the application can do, as well as the commands that Horo will accept..
 
-{empty} +
-
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `horo.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for Horo.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
+* It is prefable to change your `horo.jar` location to an empty folder.
 .  If double-clicking fails to start the app then do the following steps:
 *  Open up Command Prompt
 *  Change directory to your `horo.jar` location saved location.
-** It is prefable to change your `horo.jar` location to an empty folder.
 *  Type `java -jar horo.jar` and GUI should appear in a few seconds.
 +
 .Startup Screen Shot of Horo
@@ -45,8 +43,6 @@ image::Ui.png[width="790"]
 * `*exit*` : exits Horo.
 
 .  Refer to <<Features>> for details of each command.
-
-{empty} +
 
 [[Features]]
 == Features
@@ -63,9 +59,10 @@ image::Ui.png[width="790"]
 * Command parameters are prefixed by `--`, and they are optional.
 - E.g. `*--date* 09/2019`
 - E.g. `*calendar* *--date* 09/2019`
-====
 
-{empty} +
+* Commands with extra arguments given are truncated.
+- E.g. `*calendar* 09/2019` will only execute the `calendar` command, and remove the `09/2019` portion.
+====
 
 ====
 *Command Format for this User Guide*
@@ -82,16 +79,12 @@ image::Ui.png[width="790"]
 - `*-d* "Buy Groceries"`
 ====
 
-{empty} +
-
 === Asking for help : `help` **`[coming in v2.0]`**
 
 Provides a guide if you ever need help with Horo's commands and command formats.
 
 Command Format: +
 `*help*`
-
-{empty} +
 
 === Calendar, Events and Task
 
@@ -107,14 +100,12 @@ The following commands are related to Events and Tasks, which Horo recognises as
 - Can be marked as done. **`[coming in v2.0]`**
 - If not accomplished by its due date, will be automatically archived into an undone list.
 
-{empty} +
+__Note: For Events, Remind date must be before Start date, and Start date must be before End date. Likewise for Tasks, Remind date must be before the Due date__
 
 ==== Adding Events
 
 .Add Event Command
 image::AddEventCommandScreenShot.png[]
-
-{empty} +
 
 You may use the `add_event` command to add an event to the calendar.
 
@@ -132,35 +123,26 @@ Argument Format: +
 `REMIND_DATE` : `"DD/MM/YYYY HH:MM"`
 
 Examples: +
-`*add_event* “Rori’s Birthday” “18/08/2019 16:00”` +
-`*add_event* “Rori’s Birthday” “18/08/2019 16:00” *--end* “18/08/2019 20:00”` +
-`*add_event* “Rori’s Birthday” “18/08/2019 16:00” *--end* “18/08/2019 20:00” *--remind* “18/08/2019 12:00” *--tag* Birthday Rori`
-
-{empty} +
+`*add_event* "Rori's Birthday" "18/08/2019 16:00"` +
+`*add_event* "Rori's Birthday" "18/08/2019 16:00" *--end* "18/08/2019 20:00"` +
+`*add_event* "Rori's Birthday" "18/08/2019 16:00" *--end* "18/08/2019 20:00" *--remind* "18/08/2019 12:00" *--tag* Birthday Rori`
 
 ==== Deleting Events
 
 .Delete Event Command
 image::DeleteEventCommandScreenShot.png[]
 
-.Index found on the top right of the event.
-image::EventCardScreenShot.png[]
-
-
-{empty} +
-
 You may use the `delete_event` command to delete one or more events from the calendar. +
-Note that deletion is based of a zero-indexing that is found on the event's top right corner. +
 
 Command Format: +
 `*delete_event* INDEX...`
-{empty} +
 
 Command Parameters: +
 `*--tag* TAG...` +
 
 Remarks: +
 Events which match both `INDEX` and `TAG` will be deleted.
+`INDEX` can be found on the event's top right corner.
 
 Examples: +
 `*delete_event* 1` +
@@ -169,14 +151,10 @@ Examples: +
 `*delete_event* *--tag* Birthday Rori` : Deletes events tagged as `Birthday` and `Rori`. +
 `*delete_event* 1 2 3 *--tag* Birthday Rori` : Deletes events 1, 2 and 3 only if they have been tagged as `Birthday` and `Rori`.
 
-{empty} +
-
 ==== Editing Events
 
 .Edit Event Command
 image::EditEventCommandScreenShot.png[]
-
-{empty} +
 
 You may use the `edit_event` command to edit one or more existing events.
 
@@ -196,20 +174,18 @@ Argument Format: +
 `REMIND_DATE` : `"DD/MM/YYYY HH:MM"`
 
 Remarks: +
-Events which matches `INDEX` will be edited.
+
+* Events which matches `INDEX` will be edited.
+* Specifying the tag when editing an Event will replace the tag entirely instead of appending it.
 
 Examples: +
 `*edit_event* 1 2 3 *--tag* Rori` : Edits events 1, 2 and 3. +
-`*edit_event* 1 *--description* “Play Monster Hunter” *--start* “17/08/2019 19:00” *--remind* “17/08/2019 12:00” *--tag* Kyzure`
-
-{empty} +
+`*edit_event* 1 *--description* "Play Monster Hunter" *--start* "17/08/2019 19:00" *--remind* "17/08/2019 12:00" *--tag* Kyzure`
 
 ==== Adding Tasks
 
 .Adds Task to Task List
 image::AddTaskCommandScreenShot.png[]
-
-{empty} +
 
 You may use the `add_task` command to add a task to the to-do list.
 
@@ -224,11 +200,9 @@ Argument Format: +
 `DUE_DATE` : `"DD/MM/YYYY HH:MM"`
 
 Examples: +
-`*add_task* “Buy Rori a birthday cake”` +
-`*add_task* “Buy Rori a birthday cake” *--due* “18/08/2019 12:00”` +
-`*add_task* “Buy Rori a birthday cake” *--tag* "Birthday Rori"`
-
-{empty} +
+`*add_task* "Buy Rori a birthday cake"` +
+`*add_task* "Buy Rori a birthday cake" *--due* "18/08/2019 12:00"` +
+`*add_task* "Buy Rori a birthday cake" *--tag* "Birthday Rori"`
 
 ==== Deleting Tasks
 
@@ -237,8 +211,6 @@ image::DeleteTaskCommandScreenShot.png[]
 
 .Index found on the top right of the task.
 image::TaskCardScreenShot.png[]
-
-{empty} +
 
 You may use the `delete_task` command to delete one or more tasks from the to-do list. +
 Note that deletion is based of a zero-indexing that is found on the task's top right corner. +
@@ -259,14 +231,10 @@ Examples: +
 `*delete_task* *--tag* Birthday Rori` : Deletes tasks tagged as `Birthday` and `Rori`. +
 `*delete_task* 1 2 3 *--tag* Birthday Rori` : Deletes tasks 1, 2 and 3 only if they have been tagged as `Birthday` and `Rori`.
 
-{empty} +
-
 ==== Editing Tasks
 
 .Edit Task for Tasks
 image::EditTaskCommandScreenShot.png[]
-
-{empty} +
 
 The `edit_task` command edits 1 or more existing events. Events should be specified by their index only. +
 
@@ -281,11 +249,13 @@ Command Parameters: +
 Argument Format: +
 `DUE_DATE` : `"DD/MM/YYYY HH:MM"` +
 
+Remarks: +
+
+* Specifying the tag when editing a Task will replace the tag entirely instead of appending it.
+
 Examples: +
 `*edit_task* 1 2 3 *--tag* Present` : Edits tasks 1, 2 and 3. +
-`*edit_task* 1 *--description* “Buy Rori a present” *--due* “17/08/2019 12:00” *--tag* Present`
-
-{empty} +
+`*edit_task* 1 *--description* "Buy Rori a present" *--due* "17/08/2019 12:00" *--tag* Present`
 
 ==== Making recurring Events: `recur` **`[coming in v2.0]`**
 
@@ -304,8 +274,6 @@ Examples: +
 ****
 * This will make Events 1, 2 and 3 recur daily on the Calendar.
 ****
-
-{empty} +
 
 ==== Finding Events and Tasks **`[coming in v2.0]`**
 
@@ -326,8 +294,6 @@ Examples: +
 `*find* *--tag* Birthday` +
 `*find* *--tag* Birthday Pet`
 
-{empty} +
-
 ==== Completing Tasks **`[coming in v2.0]`**
 
 The `done` command marks a Task as complete. Tasks may be specified by index, or by their associated tags.
@@ -343,8 +309,6 @@ Examples: +
 `*done* 1 2 3`
 `*done* --tag Birthday` +
 `*done* 1 2 3 --tag Birthday`
-
-{empty} +
 
 === Tagging System **`[coming in v2.0]`**
 The following commands are related to the tagging of Events and Tasks, which gives you finer control over editing your events and tasks.
@@ -363,8 +327,6 @@ Examples: +
 `*tag_event* 1 2 3`
 `*tag_event* 1 2 3 *--tag* Birthday`
 
-{empty} +
-
 ==== Adding Tags to Tasks**`[coming in v2.0]`**
 
 The `tag_task` command adds tags to the specified Tasks.
@@ -378,8 +340,6 @@ Command Parameters: +
 Examples: +
 `*tag_task* 1 2 3`
 `*tag_task* 1 2 3 *--tag* Birthday`
-
-{empty} +
 
 ==== Removing Tags from events **`[coming in v2.0]`**
 
@@ -395,8 +355,6 @@ Example: +
 `*untag_event* 1 2 3` +
 `*untag_event* 1 2 3 *--tag* Birthdays`
 
-{empty} +
-
 ==== Removing Tags from Tasks **`[coming in v2.0]`**
 
 The `untag_task` command removes tags from the specified Tasks.
@@ -411,8 +369,7 @@ Examples: +
 `*untag_task* 1 2 3` +
 `*untag_task* 1 2 3 *--tag* Birthdays`
 
-{empty} +
-
+// tag::uiCalendarView[]
 === UI
 The following commands are related to the changing the display of the UI.
 
@@ -422,8 +379,6 @@ Take note that UI-related commands are not affected by the `undo` and `redo` com
 
 .Calendar View Command for Calendar
 image::Ui.png[]
-
-{empty} +
 
 The `calendar` command switches the display to the Calendar View, which displays a calendar of the specified month and year in addition to a timeline of the specified day, week or month.
 
@@ -441,19 +396,18 @@ Argument Format: +
 `MONTH_YEAR` : `MM/YYYY`
 
 Example: +
-`*calendar*` : Switch back to calendar view, without changing the date. +
+`*calendar*` : Switches back to calendar view without changing the date. +
 `*calendar* *--date* 10/2019`
 
-{empty} +
+// end::uiCalendarView[]
 
+// tag::uiTimelineDay[]
 ==== Changing Timeline to a given day
 
 .Day View Command for the Timeline
 image::DayViewCommandScreenShot.png[]
 
-{empty} +
-
-The `day` command sets the timeline in the Calendar View to that of the specified day. In addition, this command will cause a switch to the Calendar View if it is not the current display.
+The `day` command sets the timeline in the Calendar View to that of the specified day. Furthermore, this command will switch the current view to Calendar View as well.
 
 Command Format: +
 `*day* DATE`
@@ -464,16 +418,14 @@ Argument Format: +
 Example: +
 `*day* 11/10/2019`
 
-{empty} +
+// end::uiTimelineDay[]
 
 ==== Changing Timeline to a given week
 
 .Week View Command for the Timeline
 image::WeekViewCommandScreenShot.png[]
 
-{empty} +
-
-The `week` command sets the timeline in the Calendar View to the week of the specified day of the month. In addition, this command will cause a switch to the Calendar View if it is not the current display.
+The `week` command sets the timeline in the Calendar View to the week of the specified day of the month, as well as switching the current view to Calendar View.
 
 Command Format: +
 `*week* DATE`
@@ -484,16 +436,12 @@ Argument Format: +
 Example: +
 `*week* 01/11/2019`
 
-{empty} +
-
 ==== Changing Timeline to a given month
 
 .Month View Command for the Timeline
 image::MonthViewCommandScreenShot.png[]
 
-{empty} +
-
-The `month` command sets the timeline in the Calendary view to that of the specified month. In addition, this command will cause a switch to the Calendar View if it is not the current display.
+The `month` command sets the timeline in the Calendar view to that of the specified month and switches the current view to Calendar View.
 
 Command Format: +
 `*month* MONTH_YEAR`
@@ -504,21 +452,15 @@ Argument Format: +
 Example: +
 `*month* 11/2019`
 
-{empty} +
-
 ==== Changing Screen View to List View
 
 .List View Command
 image::ListCommandScreenShot.png[]
 
-{empty} +
-
 The `list` command will switch the display to the List View, which displays a list of upcoming events on the left, and a to-do list of tasks on the right side.
 
 Command Format and Example: +
 `*list*`
-
-{empty} +
 
 ==== Changing Screen View to Log View
 
@@ -530,8 +472,8 @@ The `log` command switches the display to the Log View, which displays a catalog
 Command Format and Example: +
 `*log*`
 
-{empty} +
-
+// tag:notification[]
+// tag:chenggengppp[]
 === Notification System
 Horo will post notifications to your system tray to remind you that an event is starting or that a task is due.
 
@@ -540,7 +482,6 @@ Take note that Horo can only post reminders as long as the application is open. 
 .Horo tray icon
 image::HoroIconScreenShot.png[]
 
-{empty} +
 Also take note that notifications are switched on by default upon launch. This status is not carried over between sessions. If you would like to switch notifications off, you would have to do so whenever you start Horo up.
 
 You can tell if notifications are switched on by mousing over the icon in the system tray.
@@ -548,15 +489,12 @@ You can tell if notifications are switched on by mousing over the icon in the sy
 .Mousing over the Horo tray icon
 image::IconMouseOverScreenShot.png[]
 
-{empty} +
 
 ==== Notification Popups
 When Horo posts a notification, it should appear at the bottom-right side of the screen, where the system tray should be.
 
 .A Popup Notification
 image::PopUpScreenShot.png[]
-
-{empty} +
 
 Take note that that following commands are UI-related commands, and are thus unaffected by the `undo` and `redo` commands (For more information, see <<Undo-Redo>>).
 
@@ -566,19 +504,19 @@ The `notif_on` command switches notifications on. +
 Command Format: +
 `*notif_on*`
 
-{empty} +
 1. If you would like to switch notifications on, type the command *`notif_on`* into the command box and press kbd:[Enter] to execute it. +
 
 .`notif_on` command in the Command Box
 image::NotificationOnCommandBoxScreenShot.png[]
 
 {empty} +
-2. An in-app popup should appear, displaying “Notifications switched on”. The log view should also record this action. +
+2. An in-app popup should appear, displaying "Notifications switched on". The log view should also record this action. +
 
 .Feedback for the `notif_on` command
 image::NotificationOnFeedbackScreenShot.png[]
 
 {empty} +
+// end:chenggengppp[]
 
 ==== Switch notifications off
 The `notif_off` command switches notifications off. +
@@ -586,19 +524,19 @@ The `notif_off` command switches notifications off. +
 Command Format: +
 `*notif_off*`
 
-{empty} +
 1. If you would like to switch notifications off, type the command *`notif_off`* into the command box and press kbd:[Enter] to execute it. +
 
 .`notif_off` command in the Command Box
 image::NotificationOffCommandBoxScreenShot.png[]
 
 {empty} +
-2. An in-app popup should appear, displaying “Notifications switched off”. The log view should also record this action. +
+2. An in-app popup should appear, displaying "Notifications switched off". The log view should also record this action. +
 
 .Feedback for the `notif_off` command
 image::NotificationOffFeedbackScreenShot.png[]
 
 {empty} +
+// end:notification[]
 
 === Undo-Redo
 The following commands allow you to undo and redo previously input commands.
@@ -611,6 +549,8 @@ The below commands will only affect state-changing, and not UI-related commands.
 * *add_task*
 * *delete_task*
 * *edit_task*
+* *import*
+* *export*
 
 
 ==== Undo
@@ -618,46 +558,154 @@ The below commands will only affect state-changing, and not UI-related commands.
 .Undo Command
 image::UndoCommandScreenShot.png[]
 
-{empty} +
-
 The `undo` command undoes the previous command. +
 Commands can be undone up to the program's launch.
 
 Command Format: +
 `*undo*`
 
+Example:
+Suppose that you have deleted the wrong task from Horo. Rather than having to type the `add_task` command
+along with the description of the deleted task (to add back the wrongly deleted task), you can simply type in `undo`,
+which will revert Horo to the state before the deletion of the wrong task was executed.
+
+This means Horo is now restored to its desired state, as if you did not commit the deletion mistake at all!
+You can now proceed to delete the right task.
+
+Illustration:
+Suppose that we wanted to delete task 2 in the list, but deleted task 3 instead.
+(Horo also has a list view on top of the calendar view; I will illustrate the feature with with the list view)
+
+To undo:
+
+1. Type undo in the command box, and press the Enter key to execute it. +
+
+.`undo` command in the Command Box
+image::undoScenario1.png[]
+
 {empty} +
+2. The result box will display the message: "Previous command has been undone!" +
+
+.Feedback for the `undo` command
+image::undoScenario2.png[]
+
+{empty} +
+3. You can see that the wrongly deleted task (task 3) is visible in the list once again. +
+
+.Result of the `undo` command
+image::undoScenario3.png[]
+
+[NOTE]
+*The `undo` command undoes previous commands in reverse chronological order.* +
+{empty} +
+Suppose that you have executed the following commands in this order: +
+{empty} +
+1.	Adding a task +
+2.	Editing a task +
+{empty} +
+Now, if you execute the `undo` command, you will first revert Horo to the state before a task was edited.
+Then, if you execute `undo` again, you will revert Horo to the state before a task was added. +
+{empty} +
+*The `undo` command only works on state-changing commands.* +
+{empty} +
+State-changing commands are those that manipulate task and event data stored in Horo. Examples include `add_task`, `delete_task` and `edit_task`.
+`Undo` commands only work on these types of commands because there is an actual change in the state of Horo that can be undone. +
+{empty} +
+On the other hand, non-state-changing commands include `find` and `help`. These commands are only concerned with producing
+user output for the user in the GUI, but do not modify any of the data stored in Horo. As such, these types of commands
+are ignored by the `undo` operation since there is nothing to `undo`. +
+{empty} +
+As such, if we first add a task to Horo, then we call the `help` command, calling `undo` will ignore the `help` command and proceed
+to revert Horo to before a task was added. +
+{empty} +
+*The `undo` command only executes if there are previous states to revert back to.* +
+{empty} +
+If no command has been previously executed, or if Horo has already been reverted to the earliest possible state by multiple `undos`,
+then calling `undo` further will amount to no effect.
 
 ==== Redo
 
 .Redo Command
 image::RedoCommandScreenShot.png[]
 
-{empty} +
-
 The `redo` command redoes a previously undone command.
-The `redo` command is able to redo any undone commands that have not been succeeded by a separate state-changing command (e.g. add_event, delete_event, edit).
+The `redo` command is able to redo any undone commands that have not been succeeded by a separate state-changing command
+(e.g. add_event, delete_event, edit).
 
-For example, suppose you added an event `"Attend Horo's Birthday"` and ran the `undo` command, thus removing the event from Horo.
-Now, if you run `redo`, the previous state of Horo before the latest `undo` command was executed will be restored;
-`"Attend Horo's Birthday"` will once again appear in Horo.
-
-However, if you had executed any state-changing command (except for `undo` or `redo`) just after undoing the `add_event` command,
+If you had executed any state-changing command (except for `undo` or `redo`) just after undoing the `add_event` command,
 calling redo will then amount to no effect.
 
 If you've ever used another application with undo-redo functionality, just imagine that Horo's undo-redo functions are as intuitive as theirs.
 
+
 Command Format: +
 `*redo*`
 
-{empty} +
 
+Illustration:
+Suppose that you wrongly deleted task 3 from the list, but actually wanted to delete task 2 instead.
+As a result, you type in the `undo` command, and Horo is restored to the previous state where task 3 still exists.
+
+However, now you decide that you want to remove task 3 from the list after all. Without having to key in the `delete_task` command,
+you can simply type in `redo` and the most recent command that was undone (the deletion of task 3) will be re-executed.
+This results in a list where task 3 is deleted.
+
+To redo:
+
+1. Type redo in the command box, and press the Enter key to execute it. +
+
+.`redo` command in the Command Box
+image::undoScenario4.png[]
+
+{empty} +
+2. The result box will display the message "Previous undone command has been redone!" +
+
+.Feedback for the `redo` command
+image::undoScenario5.png[]
+
+{empty} +
+3. You can see that task 3 has been removed from the list. +
+
+.Result of the `redo` command
+image::undoScenario6.png[]
+
+[NOTE]
+*The `redo` command redoes previously undone commands in reverse chronological order.* +
+{empty} +
+Suppose that you have executed the following commands in this order: +
+{empty} +
+1.	Adding a task +
+2.	Editing a task +
+{empty} +
+As discussed in Undoing a previous command, if we run `undo` twice, we will revert Horo to before a task was edited,
+and then revert Horo to before a task was added. +
+Our sequence of `undo` commands are in this order: +
+{empty} +
+1.	Undo editing of a task +
+2.	Undo adding of a task +
+{empty} +
+Now, if we run the `redo` command, Horo will be restored to the state after the task was added. If we execute redo again,
+Horo will be restored to the state after the task was edited. +
+{empty} +
+*The `redo` command only executes if the most recent state-changing command(s) are undo commands.* +
+{empty} +
+If no `undo` command has been executed since the starting up of Horo, or `undo` commands have been executed
+but other state-changing commands were executed after those `undos`, then executing the `redo` command amounts to no effect. +
+{empty} +
+For example, let's say I deleted a task from the list, undid that deletion, and then added another task to the list.
+Executing the `redo` command here will not do anything because `add_task` was executed after the `undo`.
+
+// tag::ics[]
 === iCalendar (ICS) Integration
 
 Horo stores data in the ICS format. Files saved in this format have the extension `.ics`.
-This allows for data to be imported to and exported from other calendar applications that also use the `.ics` format.
+This allows for data to be imported from and exported to other calendar applications that also use the `.ics` format.
 
-==== Export current calendar
+This means you can export and import your calendar events and todo items straight from Google Calendar into Horo,
+and vice versa!
+It also means that you can export and import your save data between different machines running Horo.
+
+==== Export Current Data
 
 .Export Command
 image::ExportCommandScreenShot.png[]
@@ -668,6 +716,9 @@ image::ExportFileScreenShot.png[]
 The `export` command exports your current calendar as an ICS file to the specified directory.
 If no directory is specified, the file will be created in the same directory as Horo.
 
+If you want to export the ICS file to a certain directory like your desktop,
+all you have to do is specify it with the `*--directory*` parameter.
+
 Command Format: +
 `*export*` +
 `*export* *--directory* DIRECTORY`
@@ -675,15 +726,14 @@ Command Format: +
 Example: +
 `*export* *--directory* "C:\Users\USER_NAME\Desktop\Horo"`
 
-{empty} +
+==== Import other ICS Data
 
-==== Import other calendar
-
-.Import Command
-image::ImportCommandScreenShot.png[]
 
 .Imported File
 image::ImportFileScreenShot.png[]
+
+.Import Command
+image::ImportCommandScreenShot.png[]
 
 The `import` command imports an ICS file from the specified filepath.
 
@@ -692,8 +742,7 @@ Command Format: +
 
 Example: +
 `*import* "C:\Users\USER_NAME\Desktop\OtherCalendars\Others.ics"`
-
-{empty} +
+// end::ics[]
 
 === Exiting the program
 
@@ -702,14 +751,12 @@ Exits the program.
 Command Format: +
 `*exit*`
 
-{empty} +
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app on the other computer and overwrite the empty data file it creates with Horo's save file.
 
-{empty} +
 
 == Command Summary
 

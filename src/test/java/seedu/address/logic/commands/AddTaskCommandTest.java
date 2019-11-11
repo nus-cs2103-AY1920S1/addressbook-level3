@@ -21,13 +21,13 @@ public class AddTaskCommandTest {
         String due = "11/11/1111 11:00";
         String[] tags = new String[] {"a", "b", "c"};
         assertDoesNotThrow(() -> AddTaskCommand.newBuilder(null)
-            .acceptSentence(description)
-            .acceptSentence(OPTION_DUE_DATE_TIME)
-            .acceptSentence(due)
-            .acceptSentence(OPTION_TAGS)
-            .acceptSentence(tags[0])
-            .acceptSentence(tags[1])
-            .acceptSentence(tags[2])
+            .acceptPhrase(description)
+            .acceptPhrase(OPTION_DUE_DATE_TIME)
+            .acceptPhrase(due)
+            .acceptPhrase(OPTION_TAGS)
+            .acceptPhrase(tags[0])
+            .acceptPhrase(tags[1])
+            .acceptPhrase(tags[2])
             .build());
     }
 
@@ -39,7 +39,7 @@ public class AddTaskCommandTest {
         assertEquals(0, model.getTasks().size());
 
         assertDoesNotThrow(() -> AddTaskCommand.newBuilder(model)
-            .acceptSentence(description)
+            .acceptPhrase(description)
             .build()
             .execute());
 
@@ -55,7 +55,7 @@ public class AddTaskCommandTest {
         assertEquals(0, model.getTasks().size());
 
         assertDoesNotThrow(() -> AddTaskCommand.newBuilder(model)
-            .acceptSentence(description)
+            .acceptPhrase(description)
             .build()
             .execute());
 
@@ -63,7 +63,7 @@ public class AddTaskCommandTest {
         assertEquals(1, model.getTasks().size());
 
         assertThrows(CommandException.class, () -> AddTaskCommand.newBuilder(model)
-            .acceptSentence(description)
+            .acceptPhrase(description)
             .build()
             .execute());
 

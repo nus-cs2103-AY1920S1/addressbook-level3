@@ -9,16 +9,35 @@ box Ui UI_COLOR_T1
 participant ":MainWindow" as MainWindow UI_COLOR
 participant ":CalendarPanel" as CalendarPanel UI_COLOR
 participant "ListPanel" as ListPanel UI_COLOR
-participant "LogPanel" as LogPanel UI_COLOR
 end box
 
 '==== UiManager ===='
 [-> UiManager : onModelListChange(lists)
 activate UiManager
+
 UiManager -> UiManager : sortDateEventList(events)
+activate UiManager #0000A2
+UiManager --> UiManager : events
+deactivate UiManager
+UiManager -[hidden]-> UiManager
+
 UiManager -> UiManager : sortDateTaskList(tasks)
+activate UiManager #0000A2
+UiManager --> UiManager : tasks
+deactivate UiManager
+UiManager -[hidden]-> UiManager
+
 UiManager -> UiManager : addEventIndex(events)
+activate UiManager #0000A2
+UiManager --> UiManager : eventHash
+deactivate UiManager
+UiManager -[hidden]-> UiManager
+
 UiManager -> UiManager : addTaskIndex(tasks)
+activate UiManager #0000A2
+UiManager --> UiManager : taskHash
+deactivate UiManager
+UiManager -[hidden]-> UiManager
 
 '==== MainWindow ====
 UiManager -> MainWindow : onModelListChange(events, tasks, eventHash, taskHash)
@@ -55,25 +74,12 @@ UiManager -[hidden]--> UiManager
 [-> UiManager : onUserOutput(output, colorTheme)
 activate UiManager
 
-'==== MainWindow ====
-UiManager -> MainWindow : onUserOutput(output. colorTheme)
+UiManager -> MainWindow : onUserOutput(output, colorTheme)
 activate MainWindow
-MainWindow -> MainWindow : getColor(colorTheme)
-
-'==== LogPanel ====
-MainWindow -> LogPanel : createLogBox(feedbackToUser, colorTheme)
-
-activate LogPanel
-LogPanel --> MainWindow
-deactivate LogPanel
-LogPanel -[hidden]--> LogPanel
-
-'==== MainWindow ====
-MainWindow -> MainWindow : createPopUpBox
-MainWindow -[hidden]> MainWindow
 MainWindow --> UiManager
 deactivate MainWindow
 
+UiManager -->[
 deactivate UiManager
 UiManager -[hidden]--> UiManager
 @enduml

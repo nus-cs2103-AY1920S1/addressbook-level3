@@ -11,7 +11,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.model.tasks.TaskSource;
 
-
+//@@author Kyzure
 /**
  * An UI component that displays information of a {@code Event}.
  */

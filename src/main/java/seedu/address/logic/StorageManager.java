@@ -30,10 +30,13 @@ public class StorageManager implements ModelDataListener {
     private Path eventsFile;
     private Path tasksFile;
 
+    private boolean start;
+
     public StorageManager(ModelManager model) {
         this.mapper = new ObjectMapper()
             .enable(SerializationFeature.INDENT_OUTPUT);
         this.model = model;
+        this.start = true;
     }
 
     public void setEventsFile(Path eventsFile) {
@@ -74,7 +77,12 @@ public class StorageManager implements ModelDataListener {
                 .map(TaskSourceBuilder::build)
                 .collect(Collectors.toList());
 
-            this.model.setModelData(new ModelData(events, tasks));
+            if (this.start) {
+                // Ignore changes to model made by itself.
+                this.start = false;
+                this.model.setModelData(new ModelData(events, tasks));
+                this.start = true;
+            }
         } catch (IOException e) {
             throw new StorageIoException();
         }
@@ -82,6 +90,10 @@ public class StorageManager implements ModelDataListener {
 
     @Override
     public void onModelDataChange(ModelData modelData) {
+        if (!start) {
+            return;
+        }
+
         try {
             Files.createDirectories(this.eventsFile.getParent());
             Files.createDirectories(this.tasksFile.getParent());

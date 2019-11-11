@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.ui.UiPart;
 
+//@@author Kyzure
 /**
  * An UI component that displays the feedback to the user.
  */
