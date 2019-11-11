@@ -1126,4 +1126,3 @@ positive integer), `binitemexpiry day/30`, `binitemexpiry yrs/30` +
 
 [NOTE]
 While entering commands, you can also navigate to previous commands using the up/down keyboard keys.
-
