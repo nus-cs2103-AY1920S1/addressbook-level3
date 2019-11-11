@@ -54,6 +54,7 @@ public class SearchCommand extends Command {
         genreList = searchShowsHashMap.get(SearchKey.KEY_GENRE);
         isWatchedList = searchShowsHashMap.get(SearchKey.KEY_IS_WATCHED);
         fromOnlineList = searchShowsHashMap.get(SearchKey.KEY_FROM_ONLINE);
+
         try {
             onlineSearch = new ApiManager();
         } catch (OnlineConnectionException e) {
@@ -64,10 +65,6 @@ public class SearchCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (emptyCompulsoryKeyword()) {
-            throw new CommandException("Make sure keyword(s) for n/, a/ or g/ is not empty.\n"
-                    + SearchMessages.MESSAGE_USAGE);
-        }
 
         searchByName(model);
         searchByGenre(model);
@@ -347,15 +344,6 @@ public class SearchCommand extends Command {
         for (Movie movie : movies) {
             searchResult.add(movie);
         }
-    }
-
-    /**
-     * Returns whether there is any compulsory keyword present.
-     * One of the following keyword needs to be present: show name, actor or genre.
-     * @return True if all compulsory keyword is empty.
-     */
-    private boolean emptyCompulsoryKeyword() {
-        return nameList.isEmpty() && actorList.isEmpty() && genreList.isEmpty();
     }
 
     /**

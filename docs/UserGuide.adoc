@@ -324,7 +324,7 @@ To mark an unwatched show in the watchlist as watched, use the command format li
 Format: `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
 
 [TIP]
-Before marking TV show's seasons and episodes, you may want to use the <<Synchronise user's show data: `sync`, `sync`>>
+Before marking TV show's seasons and episodes, you may want to use the <<Synchronise user\'s show data: `sync`, `sync`>>
 command to ensure that the TV show's season and episode details are up to date.
 
 *Example Usage:*
@@ -348,6 +348,7 @@ image::WatchedTheOffice.png[width="790"]
 
 Alternatively, you may click on the watched checkbox to toggle between whether a show is watched as indicated by the red arrow in the image below.
 
+.Marking a show using the checkbox
 image::TheOfficeWatchCommand.png[width="790"]
 
 ****
@@ -399,7 +400,8 @@ Edits the name and actor name of the 1st show in the list to be `Joker` and `Joa
 * `edit 2 a/` +
 Clears all existing actors of the 2nd show in the list.
 
-// tag::search[]
+//tag::search[]
+
 ==== Search for a show: `search`
 
 Searches for shows whose names contain any of the given keywords from the online database, unless specified to be from
@@ -447,7 +449,7 @@ Not only full words will be matched. e.g. "Joke" will also match with "Joker".
 ====
 {sp} +
 *Example Usage:* +
-You may want to search for movies named "Avengers" and also movies with an actor called "Tom".
+You may want to search for movies named "Avengers" and also movies with an actor named "Tom".
 As shown below, assume that your watchlist only has a movie "Avengers: Endgame" that you have watched.
 
 .Current *Watched Page* with a movie watched "Avengers: Endgame"
@@ -465,7 +467,7 @@ image::searchCommand.png[width="790"]
 {sp} +
 After you have entered the command, you will be led to the *Search page* as shown below.
 
-.User Interface of the *Search Page*
+.Graphical Interface of the *Search Page*
 image::emptySearchPage.png[width="790"]
 
 [TIP]
@@ -474,7 +476,7 @@ command, such as the one in Step 2 below.
 
 {sp} +
 [start=2]
-2. Enters `search n/Avengers a/Tom t/movie` into the command box in the *Search Page* as shown below.
+1. Enters `search n/Avengers a/Tom t/movie` into the command box in the *Search Page* as shown below.
 
 .Entering of the `search` command to search for shows
 image::searchAvengerUserInput.png[width="790"]
@@ -492,7 +494,7 @@ You can go to the other pages in the mean time. Do allow some time for the searc
 
 {sp} +
 [start=3]
-3. Search page shows the list of shows based on `search n/Avengers a/Tom t/movie`.
+1. Search page shows the list of shows based on `search n/Avengers a/Tom t/movie`.
 
 {sp} +
 *Scenario A: You are offline* +
@@ -523,10 +525,11 @@ Returns movies from the online database with the genre "Action"
 * By actor: (from watchlist only)
 ** `search a/Tom o/no w/no` +
 Returns shows within the watchlist with actor named "Tom"
+
 // end::search[]
 
 // tag::sync[]
-==== Synchronise user's show data: `sync`
+==== Synchronise user\'s show data: `sync`
 
 If user has lack of information about a certain show in their watch list, User can use `sync` command.
 Synchronise, `sync`, command will transfer all the information about a certain show (for example: show A) found in

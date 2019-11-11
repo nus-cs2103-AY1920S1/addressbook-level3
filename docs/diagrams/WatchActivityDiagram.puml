@@ -1,4 +1,24 @@
 @startuml
+skinparam backgroundColor white
+skinparam activity {
+  StartColor RoyalBlue
+  EndColor RoyalBlue
+  BackgroundColor RoyalBlue
+  arrowColor Blue
+  activityDiamondBackgroundColor Blue
+  activityBarColor blue
+  BorderColor blue
+  ControlBackgroundColor white
+  FontColor Snow
+  FontName Impact
+}
+
+skinparam activityDiamond {
+    BackgroundColor Snow
+    BorderColor blue
+    FontSize 24
+}
+
 start
 :User executes Watch command;
 
