@@ -271,6 +271,7 @@ Expected output:
 
     Cleared all flashcards/notes/cheatsheets!
 
+
 === Clearing entire application's data: `clear all`
 
 [WARNING]
@@ -537,6 +538,8 @@ Expected output:
 ```
 Time trial started
 ```
+
+All of the flashcards containing the specified tags will be then displayed sequentially in the activity below.
 
 * At least one tag must be specified.
 * If more than one tag is specified, selects all flashcards that contains all of the specified tags.
