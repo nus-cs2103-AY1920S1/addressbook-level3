@@ -337,26 +337,6 @@ public class StartQuizWindow extends ParentWindow {
                 + "(normal / arcade / custom) to try another quiz!");
     }
 
-    public StackPane getLevelPlaceholder() {
-        return levelPlaceholder;
-    }
-
-    public CommandBox getCommandBox() {
-        return commandBox;
-    }
-
-    public LevelLabel getLevelLabel() {
-        return levelLabel;
-    }
-
-    public ProgressIndicatorBar getProgressIndicatorBar() {
-        return progressIndicatorBar;
-    }
-    public Timer getTimer() {
-        return timer;
-    }
-
-
     /**
      *
      * @throws ParseException when uses attempts to skip question using internal command.
@@ -372,4 +352,18 @@ public class StartQuizWindow extends ParentWindow {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaqInputCommand.MESSAGE_INVALID_INPUT_TIMER_UP));
         }
     }
+
+    public LevelLabel getLevelLabel() {
+        return levelLabel;
+    }
+
+    public ProgressIndicatorBar getProgressIndicatorBar() {
+        return progressIndicatorBar;
+    }
+
+    public Timer getTimer() {
+        return timer;
+    }
+
+
 }
