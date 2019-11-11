@@ -38,45 +38,6 @@ public class DeleteCommandTest {
         assertCommandSuccess(deleteCommand, calendarModel, expectedMessage, expectedModel);
     }
 
-    //    @Test
-    //    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-    //        Index outOfBoundIndex = Index.fromOneBased(calendarModel.getFilteredTaskList().size() + 1);
-    //        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
-    //
-    //        assertCommandFailure(deleteCommand, calendarModel, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    //    }
-    //
-    //    @Test
-    //    public void execute_validIndexFilteredList_success() {
-    //        showPersonAtIndex(calendarModel, INDEX_FIRST_PERSON);
-    //
-    //        Task taskToDelete = calendarModel.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased());
-    //        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-    //
-    //        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, taskToDelete);
-    //
-    //        CalendarModel expectedModel
-    //                = new CalendarModelManager(calendarModel.getCalendarAddressBook(), new CalendarUserPrefs());
-    //        expectedModel.deleteTask(taskToDelete);
-    //        showNoTask(expectedModel);
-    //
-    //        assertCommandSuccess(deleteCommand, calendarModel, expectedMessage, expectedModel);
-    //    }
-    //
-    //    @Test
-    //    public void execute_invalidIndexFilteredList_throwsCommandException() {
-    //        showPersonAtIndex(calendarModel, INDEX_FIRST_PERSON);
-    //
-    //        Index outOfBoundIndex = INDEX_SECOND_PERSON;
-    //        // ensures that outOfBoundIndex is still in bounds of address book list
-    //        assertTrue(
-    //            outOfBoundIndex.getZeroBased() < calendarModel.getCalendarAddressBook().getPersonList().size());
-    //
-    //        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
-    //
-    //        assertCommandFailure(deleteCommand, calendarModel, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    //    }
-
     @Test
     public void equals() {
         DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PERSON);
