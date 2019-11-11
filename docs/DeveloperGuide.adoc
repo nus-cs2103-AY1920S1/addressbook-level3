@@ -318,7 +318,7 @@ which states that objects should not navigate internal structures of other objec
 The `Event` object is constructed with a start date and an end date as class attributes, both of which are `EventDate` objects, which represents a single day by itself. Our implementation of `Event` does not assume that the event will be occurring consecutively from the start to the end date, and requires the user to manually assign each specific date with the time period that the Event is in process.
 
 [NOTE]
-In our implementation, when the Event is instantiated, a mapping of the start and end date of the period 0800-1800 is automatically created.
+In our implementation, when the Event is instantiated, the time period of 0800-1800 is automatically created and mapped to the Start & End Dates of the Event.
 
 To achieve this functionality, there exists an `EventDayTime` object that encapsulates the period of the day. It has two class attributes - both of which are `LocalTime` objects to represent the start and end time.
 
@@ -331,19 +331,20 @@ It requires the use of the following objects/methods from the `event` package.
 * `EventDate#datesUntil` - Returns a Stream of `EventDates` from the Start to End Date. Used to auto-set a DateTime mapping for all dates.
 
 [NOTE]
-To improve user productivity and effectiveness, omitting the target date from the command text will automatically create the mapping for the all dates, start and end inclusive.
+To improve user productivity and effectiveness, omitting the target date from the command text will automatically create the mapping for every date from the Event's start to end date, inclusive.
+Alternatively, by specifying both a start and end date range in the command text, a mapping for the range will be created.
 
 Given below is an example usage scenario of the program functionality when a user attempts to assign a Date & Time to an already existent Event.
 
-**Step 1**. The User executes the command `set_ev_dt 2 on/18/10/2019 time/0900-2000`, with the intention to assign the date of 18th October 2019, time period 9am-8pm to the second event currently displayed in the event list. Alternatively, if the date is omitted, i.e. `set_ev_dt 2 time/0900-2000`, the time period 0900-2000 will be automatically assigned for all dates from the start to end date of the Event.
+**Step 1**. The User executes the command `set_ev_dt 2 on/18/10/2019 time/0900-2000`, with the intention to assign the date of 18th October 2019, time period 9am-8pm to the second event currently displayed in the event list. If the date is omitted, i.e. `set_ev_dt 2 time/0900-2000`, the time period 0900-2000 will be automatically assigned for all dates from the start to end date of the Event. Alternatively, if the end date is stated, i.e. `set_ev_dt 2 on/18/10/2019 time/22/10/2019 time/0900-2000`, the time period of 0900-2000 will be assigned for all dates from 18th to 22nd of October.
 
 **Step 2**. The parser checks if input format is correct, and attempts to create `Index`, `EventDate` and `EventDayTime` objects from it
 
-**Step 3**. The command checks if the index of the event stated exists on the displayed list, and if the stated date is within the start and end date of the Event. (Input Validation)
+**Step 3**. The command checks if the index of the event stated exists on the displayed list, and if the stated dates is within the start and end date of the Event. (Input Validation)
 
 **Step 4**. The command calls `Event#assignDateTime()` on the referenced Event object to add the EventDate-EventDayTime mapping into `EventDateTimeMap`.
 
-**Step 5**. Repeat Step 4 if the target date was omitted in the command, until all dates from the Start to End (inclusive) has been added to the `EventDateTimeMap`.
+**Step 5**. If only a single target date is stated, continue to Step 6. Else, the system will repeat Step 4 through the entire date range - which is either the start and end date of the `Event` or the range specified by the user.
 
 **Step 6**. DateTimeMapping is converted a String to save and update in Storage.
 
@@ -352,7 +353,7 @@ Given below is an example usage scenario of the program functionality when a use
 [NOTE]
 If the command execution fails, a `ParseException` (from Step 2) or a `CommandException` (from Step 3) will be thrown, specifiying the reason of the error.
 
-The following sequence diagram shows how the `AssignDateCommand`  works:
+The following sequence diagram shows how the `AssignDateCommand` works:
 
 ._Sequence Diagram for AssignDateCommand Command_
 image::SetDateTimeSequenceDiagram.png[]

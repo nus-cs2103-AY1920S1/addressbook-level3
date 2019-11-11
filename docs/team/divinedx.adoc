@@ -48,7 +48,7 @@ This is a short section that aims to get the reader familiar and up to speed wit
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=DivineDX&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=DivineDX&tabRepo=AY1920S1-CS2103T-T11-3%2Fmain%5Bmaster%5D[tp Code Dashboard]]
 
-* *Functional Code Contributed*: 
+* *Functional Code Contributed*:
 ** *Event*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/model/event/Event.java[`Event`], https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/model/event/EventDate.java[`EventDate`], https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/model/event/EventDateTimeMap.java[`EventDateTimeMap`], https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/model/event/EventDayTime.java[`EventDayTime`]]
 ** *Command*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/commands/employee/FetchEmployeeCommand.java[`FetchEmployee`],
 https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/commands/event/AssignDateCommand.java[`AssignDate`],
@@ -61,12 +61,12 @@ https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/a
 ** *Parser*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/commands/event/ClearDateMappingCommand.java[`AssignDate`], https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/parser/event/DeleteDateMappingCommandParser.java[`DeleteDateMapping`], https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/parser/event/ClearDateMappingCommandParser.java[`ClearDateMapping`], https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/parser/event/AddEventCommandParser.java[`AddEvent`], https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/parser/event/EditEventCommandParser.java[`EditEvent`]]
 ** *Processor*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/processor/EmployeeEventProcessor.java[*EmployeeEvent Processor*]]
 
-* *Test Code Contributed*: 
+* *Test Code Contributed*:
 ** *Event*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/model/event/EventDateTest.java[`EventDate`],
 https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/model/event/EventDateTimeMapTest.java[`EventDateTimeMap`],
 https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/model/event/EventDayTimeTest.java[`EventDayTime`]]
 ** *Parser*: [https://github.com/AY1920S1-CS2103T-T11-3/main/tree/master/src/main/java/seedu/address/logic/parser/event[`EventParsers`],
-https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/logic/parser/CommandParserTestUtil.java[`CommandParserTest`]] 
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/logic/parser/CommandParserTestUtil.java[`CommandParserTest`]]
 
 * *Other contributions*:
 

@@ -126,7 +126,10 @@ public class AssignDateCommand extends Command {
             EventDate eventStartDate = eventToAssign.getStartDate();
             EventDate eventEndDate = eventToAssign.getEndDate();
 
-            if (eventStartDate.isAfter(startDate) || eventEndDate.isBefore(endDate)) {
+            EventContainsKeyDatePredicate startDateCheck = new EventContainsKeyDatePredicate(startDate);
+            EventContainsKeyDatePredicate endDateCheck = new EventContainsKeyDatePredicate(endDate);
+
+            if (!startDateCheck.test(eventToAssign) || !endDateCheck.test(eventToAssign)) {
                 throw new CommandException(MESSAGE_DATE_NOT_IN_EVENT_RANGE);
             }
 

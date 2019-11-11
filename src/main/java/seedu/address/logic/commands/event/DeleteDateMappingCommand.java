@@ -14,6 +14,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventContainsKeyDatePredicate;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDateTimeMap;
 import seedu.address.ui.MainWindow;
@@ -68,10 +69,9 @@ public class DeleteDateMappingCommand extends Command {
 
         if (endDateRange.isPresent()) { //delete for a range
             EventDate endDate = endDateRange.get();
-            EventDate eventStartDate = targetEvent.getStartDate();
-            EventDate eventEndDate = targetEvent.getEndDate();
-
-            if (eventStartDate.isAfter(startOrTargetEventDate) || eventEndDate.isBefore(endDate)) {
+            EventContainsKeyDatePredicate startDateCheck = new EventContainsKeyDatePredicate(startOrTargetEventDate);
+            EventContainsKeyDatePredicate endDateCheck = new EventContainsKeyDatePredicate(endDate);
+            if (!startDateCheck.test(targetEvent) || !endDateCheck.test(targetEvent)) {
                 throw new CommandException(MESSAGE_DATE_NOT_IN_EVENT_RANGE);
             }
 
