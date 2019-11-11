@@ -112,15 +112,28 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 
 == Features
-
+// tag::UI[]
 === User-Interface
+
+The UI consists of three parts: sidebar, command bar and various pages that could appear in the main panel.
+The following sections introduce these UI parts in details.
+
+==== Sidebar
+
+EzWatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the side bar at the left of the main page of the graphical user interface. Moreover, keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] bring you to each page respectively.
+====
+Note: If user has selected the command box, type kbd:[1], kbd:[2], kbd:[3], kbd:[4] and enter to bring you to each page respectively.
+====
+
+==== Command bar
+
+Users input commands in the command bar and any feedback will be displayed below the text area of command bar.
 
 ==== Watchlist Page
 
-The watchlist is the default page that is opened upon start-up of `EzWatchlist`.
+The watchlist page is the default page that is opened upon start-up of `EzWatchlist`.
 It shows the user’s unwatched movies and television series.
-The watchlist page also contains a command bar to allow the user to input commands.
-The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `1`.
+The user can navigate to this list by clicking the “Watchlist” tab on the side bar or by using the keyboard short-cut `1`.
 
 **Characteristics of the watchlist page:**
 
@@ -143,10 +156,11 @@ The user has the option to view the list of shows that have been marked as watch
 
 ==== Search Page
 
-The user can navigate to the search page to find a specific movie or television by searching for its name. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `3`.
+The user can navigate to the search page to find a specific movie or television by searching for its name. The user can navigate to this list by clicking the “Search” tab on the side bar or by using the keyboard short-cut `3`.
 [NOTE]
 The search function may require some time to load the data from the API.
 
+.Main page of the UI: search page
 image::search_page.png[width="790"]
 
 
@@ -154,26 +168,28 @@ image::search_page.png[width="790"]
 
 The user can navigate to the statistics page to find a summary of his watching habits,
 preferences and history according to what is present in his lists.
-Examples include: movies he added but might have forgotten to watch,
-up to 3 most favourite genres of the user and recommendations etc.
+Examples include:
 
+* Movies added but might have forgotten to watch
+* Up to 3 most favourite genres
+* Recommendations
+
+The user can navigate to this list by clicking the “Statistics” tab on the side bar or by using the keyboard short-cut `4`.
 [NOTE]
-The statistics function may require some time to load the data from the API.
+The statistics function may require some time to load the data from the API the first time you start the application,
+or after you have made changes to your watchlist.
 
-The user can navigate to the statistics page to find a summary of his watching habits, preferences and history according to what is present in his lists. Examples include: Ten most recent movies he watched, ten favourite movies of the user etc. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `4`.
 
+
+.Main page of the UI: statistics page
 image::statistics_page.png[width="790"]
 
-==== Sidebar
-
-EzWatchlist gives users the ability to navigate easily through the **Watchlist page**, **Watchedlist page**, **Search page** and **Statistics pages** through the use of the graphical user interface at the left of the main page. Moreover, keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] bring you to each page respectively.
-====
-Note: If user has selected the command box, type kbd:[1], kbd:[2], kbd:[3], kbd:[4] and enter to bring you to each page respectively.
-====
 
 ==== Details Page (Coming in v2.0)
 
 Upon clicking a movie or tv show title, a pop-up window will emerge, with a detailed view of the movie or tv show. This page provides the user with more information about the show, like the year, cast and ratings. The user also has the ability to edit the details here.
+
+// end::UI[]
 
 // tag::advancedfeatures[]
 === Advanced Features
@@ -308,7 +324,7 @@ To mark an unwatched show in the watchlist as watched, use the command format li
 Format: `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
 
 [TIP]
-Before marking TV show's seasons and episodes, you may want to use the <<Synchronise user's show data: `sync`, `sync`>>
+Before marking TV show's seasons and episodes, you may want to use the <<Synchronise user\'s show data: `sync`, `sync`>>
 command to ensure that the TV show's season and episode details are up to date.
 
 *Example Usage:*
@@ -384,7 +400,8 @@ Edits the name and actor name of the 1st show in the list to be `Joker` and `Joa
 * `edit 2 a/` +
 Clears all existing actors of the 2nd show in the list.
 
-// tag::search[]
+//tag::search[]
+
 ==== Search for a show: `search`
 
 Searches for shows whose names contain any of the given keywords from the online database, unless specified to be from
@@ -414,11 +431,9 @@ Special commands to take note of: +
 ====
 ====
 [NOTE]
-Do take note of the following expected command outputs: +
 When searching based on genre online, only movies will be searched. +
 {sp} +
-For `[o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`, if multiple entries are entered, only the last would be considered. +
-e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers t/tv". +
+For `[o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`, if multiple entries are entered, only the last would be considered. e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers t/tv". +
 {sp} +
 Space between prefix and slash is not acceptable. e.g. "n /Avengers" will throw an error. +
 Space after prefix is acceptable. e.g. "n/   Avengers" will be interpreted as "n/Avengers".
@@ -432,7 +447,7 @@ Not only full words will be matched. e.g. "Joke" will also match with "Joker".
 ====
 {sp} +
 *Example Usage:* +
-You may want to search for movies named "Avengers" and also movies with an actor called "Tom".
+You may want to search for movies named "Avengers" and also movies with an actor named "Tom".
 As shown below, assume that your watchlist only has a movie "Avengers: Endgame" that you have watched.
 
 .Current *Watched Page* with a movie watched "Avengers: Endgame"
@@ -450,7 +465,7 @@ image::searchCommand.png[width="790"]
 {sp} +
 After you have entered the command, you will be led to the *Search page* as shown below.
 
-.User Interface of the *Search Page*
+.Graphical Interface of the *Search Page*
 image::emptySearchPage.png[width="790"]
 
 [TIP]
@@ -459,7 +474,7 @@ command, such as the one in Step 2 below.
 
 {sp} +
 [start=2]
-2. Enters `search n/Avengers a/Tom t/movie` into the command box in the *Search Page* as shown below.
+1. Enters `search n/Avengers a/Tom t/movie` into the command box in the *Search Page* as shown below.
 
 .Entering of the `search` command to search for shows
 image::searchAvengerUserInput.png[width="790"]
@@ -477,7 +492,7 @@ You can go to the other pages in the mean time. Do allow some time for the searc
 
 {sp} +
 [start=3]
-3. Search page shows the list of shows based on `search n/Avengers a/Tom t/movie`.
+1. Search page shows the list of shows based on `search n/Avengers a/Tom t/movie`.
 
 {sp} +
 *Scenario A: You are offline* +
@@ -501,17 +516,20 @@ Examples:
 ** `search n/Joker o/no` +
 Returns shows with the name "Joker" within the watchlist
 ** `search n/Avengers g/Science Fiction t/movie n/Spiderman` +
-Returns movies from the online database with the name "Avenger" or "Spiderman" and movies with the genre "Science Fiction"
+(If online) Returns movies from the online database with the name "Avenger" or "Spiderman" and movies with the genre "Science Fiction" +
+(If offline) Returns movies from the internal database, watchlist and watched-list with the name "Avenger" or "Spiderman" and movies with the genre "Science Fiction"
 * By genre:
 ** `search g/Action t/movie` +
-Returns movies from the online database with the genre "Action"
+(If online) Returns movies from the online database with the genre "Action" +
+(If offline) Returns movies from the internal database, watchlist and watched-list with the genre "Action"
 * By actor: (from watchlist only)
 ** `search a/Tom o/no w/no` +
 Returns shows within the watchlist with actor named "Tom"
+
 // end::search[]
 
 // tag::sync[]
-==== Synchronise user's show data: `sync`
+==== Synchronise user\'s show data: `sync`
 
 If user has lack of information about a certain show in their watch list, User can use `sync` command.
 Synchronise, `sync`, command will transfer all the information about a certain show (for example: show A) found in

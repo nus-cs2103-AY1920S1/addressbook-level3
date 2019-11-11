@@ -1,19 +1,18 @@
-= Michelle Yong Kai Wen - Project Portfolio for EzWatchList
+= Michelle Yong Kai Wen: Project Portfolio for EzWatchList
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
 == 1. Introduction
 
----
-
-The purpose of the portfolio is to document my roles and contributions to the project in terms of code, the user and
-developer guides.
+The purpose of the portfolio is to document my roles and contributions to the project,
+link:https://ay1920s1-cs2103t-f13-4.github.io/main/index.html[EzWatchlist] in terms of the code, the User Guide and
+the Developer Guide.
 
 === 1.1 Overview
 
 In a team of 5 software engineering students, we were tasked to enhance a basic command line interface desktop
-addressbook application for our software engineering project. We chose to morph it into a watchlist for movie and
+address book application for our software engineering project. We chose to morph it into a watchlist for movie and
 television series called EzWatchList.
 
 My role was to design the code for the `search` feature and ensure proper documentation of the code in general. I had
@@ -27,12 +26,12 @@ EzWatchList is a desktop application, designed for those who types fast and pref
 Interface (CLI) for managing movies and television series watchlist. It helps users keep track of the shows they had
 watched or wish to watch, reducing the hassle of having to search for shows frequently.
 
+._Graphical User Interface_ of EzWatchlist
 image::Ui.png[]
-_Figure 1: The graphical interface for Ezwatchlist_
 
 [width="100%",cols="5,^15"]
 |===
-| [Note] |  This symbol indicates information and tips to take note of.
+| [NOTE] |  This symbol indicates information and tips to take note of.
 | `Search` | A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command
 line and executed by the application.
 | (different front/colour text) | This indicates that it is a class, method or field in the code.
@@ -49,16 +48,16 @@ I modified the `search` command. +
 * Justification:
 * Highlights:
 * Credits:
-* Code contributed +
-Below is a sample of my code: +
- // screenshot of code
+* Code contributed
+
+Below is a sample of my code:
 
 Please click here to see the above full code and here for other sample of my code.
 
 Other contributions: +
 
 * Project Management:
-* Enhancements to exisiting features:
+* Enhancements to existing features:
 * Documentation:
 * Community:
 * Tools:
@@ -70,4 +69,3 @@ include::../UserGuide.adoc[tag=search]
 === 1.5 Contributions to the Developer Guide
 
 include::../DeveloperGuide.adoc[tag=search]
-
