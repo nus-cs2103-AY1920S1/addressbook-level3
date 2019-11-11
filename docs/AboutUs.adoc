@@ -35,7 +35,7 @@ Responsibilities: UI
 
 === Xiaodong Jia
 image::podocarp.png[width="150", align="left"]
-{empty}[https://github.com/podocarp[github]]
+{empty}[https://github.com/podocarp[github]][https://ay1920s1-cs2103t-w11-2.github.io/main/team/podocarp.html[Project Portfolio page]]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
