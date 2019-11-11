@@ -2319,6 +2319,10 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Notes
 
+[NOTE]
+The test cases for this part are meant to be independent of each other. If there are existing data that causes the command to fail through purposeful or intended, validation, testers
+are expected to change to fields to attain the expected result.(e.g. to maintain the unique property of notes title et cetera)
+
 . Adding a note in the notes panel.
 
 .. Test case: `note note/Tuesday desc/Grade 6A prelim papers priority/high` +
@@ -2350,7 +2354,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Test case: `note delete 1` +
    Expected: First note is deleted from the list. Details of the deleted note shown in the status message. Notes panel is updated.
-.. Test case: `delete 0` +
+.. Test case: `note delete 0` +
    Expected: No note is deleted. Error details shown in the status message. No change observed in the notes panel.
 .. Other incorrect delete commands to try: `note delete`, `note delete x` (where x is larger than the list size), `note delete one` +
 Expected: Shows appropriate error messages of why the command failed.
@@ -2403,8 +2407,8 @@ Expected: Shows appropriate error messages of why the command failed.
    Expected: Shows error message that a student with the same name already exists in the student list.
 .. Test case: `student name/2231` +
    Expected: Shows error message that student names can only contain alphabets and spaces.
-.. Test case: `student name/Test Student tag/Tag` +
-   Expected: Adds student "Test Student" with tag "Tag"
+.. Test case: `student name/Test StudentTwo tag/Tag` +
+   Expected: Adds student "Test StudentTwo" with tag "Tag"
 .. Other incorrect add commands to try: `student name/new student tag/`, `student name/new student tag/tag with space` +
    Expected: Shows error message regarding reason for command failure or the correct command syntax.
 
@@ -2549,7 +2553,7 @@ and "Unmarked Student" at index 2, who is not marked.
 === Event
 
 . Adding a event to the event list.
-.. Prerequisites: The event list already already contains one event with event name "Test Event",
+.. Prerequisites: The event list already contains one event with event name "Test Event",
 startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00". The recurrence type and color number do not matter as long
 as it is valid.
 
@@ -2558,7 +2562,7 @@ as it is valid.
 .. Test case: `event eventName/Test Event startDateTime/2019-11-01T03:00 endDateTime/2019-11-01T04:00 recur/none color/1` +
    Expected: Shows error message that will result in duplicate event being created
 .. Test case: `event eventName/\n` +
-   Expected: Shows error message that event name cannot contain backslash.
+   Expected: Shows error message for invalid command.
 .. Test case: `event eventName/teacher meeting startDateTime/2019-11-15T07:00 endDateTime/2019-11-15T06:00 recur/none color/1` +
    Expected: Shows error message for invalid date range
 .. Test case: `event eventName/teacher meeting startDateTime/2019-11-15T07:00 endDateTime/2019-11-15T09:00 recur/none color/24` +
