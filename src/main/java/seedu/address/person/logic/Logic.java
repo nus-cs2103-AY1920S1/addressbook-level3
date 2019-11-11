@@ -5,11 +5,11 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.address.person.commons.core.GuiSettings;
-import seedu.address.person.logic.commands.CommandResult;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.logic.parser.exceptions.ParseException;
 import seedu.address.person.model.ReadOnlyAddressBook;
 import seedu.address.person.model.person.Person;
+import seedu.address.util.CommandResult;
 
 /**
  * API of the Logic component

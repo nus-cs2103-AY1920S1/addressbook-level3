@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.person.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.person.model.Model;
+import seedu.address.util.CommandResult;
 
 /**
  * Lists all persons in the address book to the user.

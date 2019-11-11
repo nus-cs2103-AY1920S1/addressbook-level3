@@ -1,5 +1,6 @@
 package seedu.address.inventory.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import seedu.address.inventory.model.exception.NoSuchIndexException;
@@ -19,9 +20,9 @@ public interface Model {
 
     void deleteItem(int index);
 
-    void writeInInventoryFile() throws Exception;
+    void writeInInventoryFile() throws IOException, NoSuchIndexException;
 
-    void setItem(int i, Item editedItem) throws Exception;
+    void setItem(int i, Item editedItem);
 
     boolean hasItemInInventory(Item item);
 

@@ -9,8 +9,10 @@ import seedu.address.inventory.logic.commands.exception.CommandException;
 import seedu.address.inventory.logic.parser.exception.InvalidNumberException;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
+import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.person.commons.util.CollectionUtil;
+import seedu.address.util.CommandResult;
 
 /**
  * Edits an item to the inventory list.
@@ -37,7 +39,7 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model)
-            throws Exception {
+            throws CommandException, NoSuchIndexException, InvalidNumberException {
         Item itemToEdit = model.findItemByIndex(index);
         Item editedItem = createdEditedItem(itemToEdit, editItemDescriptor);
 

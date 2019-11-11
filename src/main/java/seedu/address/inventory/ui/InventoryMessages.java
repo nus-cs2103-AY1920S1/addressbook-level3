@@ -40,7 +40,7 @@ public class InventoryMessages {
     public static final String NO_SUCH_INDEX_INVENTORY = "There is no item at the inputted index.\nPlease make sure "
             + "the index is within the table.";
 
-    public static final String MESSAGE_EDITED_ITEM = "Edited item from:\n%s\nto:%s";
+    public static final String MESSAGE_EDITED_ITEM = "Edited item from:\n%s\nto:\n%s";
 
     public static final String MESSAGE_DUPLICATE = "The given input is the same as that of item specified.";
 

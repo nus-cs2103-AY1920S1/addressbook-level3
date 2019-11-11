@@ -8,12 +8,12 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.inventory.logic.commands.CommandResult;
 import seedu.address.inventory.model.ModelManager;
 import seedu.address.inventory.storage.StorageManager;
 import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.inventory.util.InventoryList;
 import seedu.address.testutil.TypicalItem;
+import seedu.address.util.CommandResult;
 
 public class LogicManagerTest {
     @Test

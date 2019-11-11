@@ -536,7 +536,7 @@ the `TransactionList` object in original order when [blue]`sort reset` is called
 |Alternative 1 was implemented. Alternative 1 allowed exporting of the data file in the desired order anytime while treasurerPro was running while
 alternative 2 meant that the data file would be updated only when treasurerPro is exited. The implementation is shownin <<lists, Figure 24>>, below the table.
 
-|The Members t's `Model` interface is passed as parameters into Home tab's `Logic` to give `Logic` access to all public methods
+|The Members tab's `Model` interface is passed as parameters into Home tab's `Logic` to give `Logic` access to all public methods
 of `ModelManager`.
 |A new interface is made to allow the only used method of Members tab's `ModelManager` to be accessed in Home tab's
 `Logic`.
@@ -815,12 +815,40 @@ This section explains the design considerations for some crucial implementations
 |===
 |Alternative 1 |Alternative 2 |Conclusion and Explanation
 
+| `ModelManager` could contain a separate `InventoryList` that stores the original list in order to restore the original
+order when [blue]`sort reset` is called.
+
+*Pros*: It is relatively fast.
+
+*Cons*: It takes up a lot of memory.
+
+| Each `Item` could store a copy of the original ID as a private attribute. When [blue]`sort reset` is called, the list
+is sorted by the original ID.
+
+*Pros*: Keeping one list is better for memory complexity.
+
+*Cons*: Sorting could be slightly slow.
+
+| Alternative 2 has been chosen. The time complexity of sorting is not very high, but it has a much higher advantage in
+memory complexity.
+
+| An ArrayList is used to store `Item` objects in the `InventoryList`.
+
+*Pros*: It retrieves most elements more efficiently.
+
+*Cons*: The head and tail are not retrieved as efficiently.
+
+| A LinkedList is used to store `Item` objects in the `InventoryList`.
+
+*Pros*: The head and tail of the list can be retrieved via linear time complexity.
+
+*Cons*: Every other element would be slower to retrieve.
 |
-
-*Pros*:
-
-*Cons*:
-
+Alternative 1 has been implemented. An ArrayList has better performance for the get and set methods than a LinkedList
+for elements not in the head and tail.
+As it is natural for the number of items in the inventory to be high, and the get and set methods would naturally be
+frequently used in the `ModelManager`, the ArrayList seems to be a better choice.
+|
 |===
 
 === Cashier Tab
@@ -2056,7 +2084,7 @@ Expected: The sales notification threshold is set to 80%, and the application wi
 .. Before the application is open, corrupt some of the text files by deleting parts of it. +
 Then, open the application. +
 Expected: If the transactionHistory.txt file is changed, the Home and Reimbursements tab will start with an empty table.
-If the inventoryInformation.txt file is changed, the Inventory tab will start with an empty table.
+If the inventoryInformation.txt file is changed, the app will not open. To remedy, delete the txt file.
 If the mytasks.txt and tasks.txt files are changed, the Overview tab lose the notification reminders set.
 If the addressbook.json is changed, the sample address book data would be populated in the Members tab.
-Changing the reimbursementInformation should not cause any issues.
+If the reimbursementInformation.txt is altered, all deadline data will be lost.

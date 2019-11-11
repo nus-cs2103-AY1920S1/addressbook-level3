@@ -9,6 +9,7 @@ import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.util.CommandResult;
 
 /**
  * Deletes an item identified using its displayed index from the sales list.

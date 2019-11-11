@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import seedu.address.person.commons.core.GuiSettings;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.logic.commands.Command;
-import seedu.address.person.logic.commands.CommandResult;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.logic.parser.AddressBookParser;
 import seedu.address.person.logic.parser.exceptions.ParseException;
@@ -16,6 +15,7 @@ import seedu.address.person.model.Model;
 import seedu.address.person.model.ReadOnlyAddressBook;
 import seedu.address.person.model.person.Person;
 import seedu.address.person.storage.Storage;
+import seedu.address.util.CommandResult;
 
 /**
  * The main LogicManager of the app.

@@ -22,7 +22,6 @@ public class StorageManager implements Storage {
 
     public InventoryList getInventoryList() throws IOException {
         ArrayList<Item> inventoryArrayList = new ArrayList<>();
-        //File f = new File(filepath);
         file.getAbsoluteFile().getParentFile().mkdirs();
         file.createNewFile();
         BufferedReader bfr = new BufferedReader(new FileReader(file));

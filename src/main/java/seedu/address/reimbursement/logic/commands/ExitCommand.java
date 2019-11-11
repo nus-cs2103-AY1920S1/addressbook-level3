@@ -2,6 +2,7 @@ package seedu.address.reimbursement.logic.commands;
 
 import static seedu.address.reimbursement.ui.ReimbursementMessages.MESSAGE_EXIT_ACKNOWLEDGEMENT;
 
+import seedu.address.util.CommandResult;
 
 /**
  * Terminates the program.
