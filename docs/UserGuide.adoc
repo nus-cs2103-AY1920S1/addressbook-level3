@@ -60,7 +60,7 @@ Callouts are rectangular boxes with an icon and words to explain certain informa
 This represents a *note*. A note represents additional information. Do take a look as they might be relevant to you!
 
 [TIP]
-This represents a *tip*. A tip means something that is handy, and may aid you in getting through the application. Tips are usually less crucial, and you may decide to omit them.
+This represents a *tip*. A tip means something that is handy, and may aid you in getting through the application. Tips are usually less crucial, and you may decide to skip them.
 
 [WARNING]
 This represents a *warning*. A warning denotes something of great significance, and you should pay close attention to the statement.
@@ -85,6 +85,7 @@ Examples:
 
 Each command will display the tab specified.
 // end::view[]
+
 // tag::set[]
 === Set name/start date : `set`
 
@@ -94,6 +95,7 @@ Format: `set [n/NAME] [sd/START_DATE]`
 * The name provided cannot exceed 30 characters long.
 * The start date provided needs to be in dd-mm-yyyy format.
 // end::set[]
+
 // tag::addaccommodation[]
 
 === Adding an accommodation: `add accommodation`
@@ -453,7 +455,7 @@ Schedules the second activity in the activity list under day 2 at the specified 
 
 // end::schedule[]
 
-=== Unscheduling activities from a day: `unschedule activity`
+=== Unscheduling activities from a day: `unschedule`
 
 Unschedules an activity from a day +
 Format: `unschedule ACTIVITY_INDEX d/DAY_INDEX`
@@ -534,6 +536,80 @@ This command would not work if there are no activities scheduled in the day.
 
 // end::optimise[]
 
+// tag::new[]
+
+=== Planning a new trip: `new`
+
+Creates a new, empty trip plan with the desired name and saves it
+
+Format: `new n/NAME`
+
+* Compulsory field, name, must be present.
+* Name cannot exceed 30 characters.
+* Name can only contain alphanumeric characters and spaces, and cannot be left empty.
+* Name of an existing saved trip cannot be used.
+
+Examples:
+
+* `new n/Iceland Trip`
+
+Creates a new, empty trip plan that has the name "Iceland Trip" and saves it.
+
+// end::new[]
+
+// tag::load[]
+
+=== Review an existing trip: `load`
+
+Loads an existing, saved trip plan with the desired name.
+
+Format: `load n/NAME`
+
+* Compulsory field, name, must be present.
+* Unsaved trip plans cannot be loaded.
+* A saved trip plan that is viewable cannot be reloaded.
+
+Example:
+
+* `load n/Greenland Trip`
+
+Loads an existing, saved trip plan that has the name "Greenland Trip".
+
+// end::load[]
+
+// tag::copyto[]
+
+=== Make a copy of an existing trip: `copyto`
+
+Creates a copy of an existing trip using a different name and saves it.
+
+Format: `copyto n/NAME`
+
+* Compulsory field, name, must be present.
+* Name cannot exceed 30 characters.
+* Name can only contain alphanumeric characters and spaces, and cannot be left empty.
+* Name of an existing saved trip cannot be used.
+* Name is the only visible difference between the copy and the original trip plan.
+
+Examples:
+
+* `copyto n/London Trip`
+
+Creates a copy of the current viewable, saved trip plan. The trip plan copy will have the
+name "London Trip".
+
+// end::copyto[]
+
+// tag::clear[]
+
+=== Clears existing trip: `clear`
+
+Clears all information in existing trip plan, except for trip name and saves the cleared trip plan.
+
+Format: `clear`
+
+// end::clear[]
+
 // tag::undoredocommand[]
 
 === Undo: `undo`
@@ -609,23 +685,14 @@ image::CommandAutoComplete.png[]
 
 image::PrefixAutoComplete.png[]
 
-=== Loading the data: `load`[Work in progress]
-
-The user can load the desired schedule with the schedule name. Else, the user can add a new schedule +
-Format: `load SCHEDULE_NAME`
-
-Examples:
-
-* `load beijing`
-
 === Look up history of inputs: `history`[Coming in v2.0]
 
 Lists the inputs that have been entered +
 Format: `history`
 
-=== Export schedule: `export`[Coming in v2.0]
+=== Export trip plan: `export`[Coming in v2.0]
 
-Exports the schedule into a pdf +
+Exports the trip plan into a pdf +
 Format: `export`
 
 === Auto-correct[Coming in v2.0]
@@ -710,7 +777,10 @@ Format: `exit`
 |===
 | *Command*
 | optimise DAY_INDEX
-| set
+| set [n/NAME] [sd/START_DATE]
+| new n/NAME
+| load n/NAME
+| copyto n/NAME
 | undo
 | redo
 | clear
