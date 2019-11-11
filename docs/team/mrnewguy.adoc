@@ -81,16 +81,19 @@ https://github.com/AY1920S1-CS2103T-T10-1/main/pull/189[#189]
 +
 I also oversaw the changing of the graphical user interface layout from the original AB3 layout to our new layout. This
 new layout was chosen because we believed that the command box would be better suited to be placed at the bottom of
-the tabs rather than on top of it, as it allowed for the user to better see the changes to the UI as new commands are
-entered.
+the tabs rather than on top of it, as it allowed for the user to better visualise the changes to the UI as new commands
+are entered.
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/323[#323]
 
 ** Added the helpdesk box
 +
 In an attempt to streamline the user experience even further, I implemented
-the Helpdesk box. This serves as a mini 'user guide' to the user so that they will know whatever commands can be used
-for each feature.
+the Helpdesk box. This serves as a mini 'user guide' to the user so that they will know all the commands that can be
+used for each feature.
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/343[#343]
++
+.showing the helpdesk that I implemented
+image::ccatracker/mrnewgy-helpdesk.png[]
 
 
 * *Community*
@@ -210,22 +213,9 @@ feature details.
 ==== Feature details
 
 CcaTracker has 7 specific commands that support the given operations to mutate
-the state of the `Model`. Each command is represented as seperate class:
-
-* `AddCcaCommand` -- Adds a `Cca` to the `CcaTracker`.
-
-* `DeleteCcaCommand` -- Deletes a `Cca` from the `CcaTracker`.
-
-* `EditCcaCommand` -- Edits the selected `Cca` in the `CcaTracker`.
-
-* `FindCcaCommand` -- Finds a `Cca` from the `CcaTracker` based on the
-keywords specified .
-
-* `ListCcaCommand` -- Lists all the `Cca` from the `CcaTracker`.
-
-* `AddProgressCommand` -- Adds a progress tracker to a cca.
-
-* `IncreaseProgressCommand` -- Increments the progress level of a cca.
+the state of the `Model`. Each command is represented as seperate class. They include the following classes:
+`AddCcaCommand`, `DeleteCcaCommand`, `EditCcaCommand`, `FindCcaCommand`, `ListCcaCommand`, `AddProgressCommand` and
+`IncreaseProgressCommand`.
 
 For brevity's sake, we will illustrate only 1 specific command and its
 execution on model.
