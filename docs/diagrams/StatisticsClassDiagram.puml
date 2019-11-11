@@ -41,19 +41,20 @@ class TrendStatistics {
 -boolean: budgetLimitMode
 -ObservableList<Expense>: expenses
 -List<Timestamp>: dates
--List<Double> periodicTotalExpenditures
--List<Double> periodicBudgetLimits
--List<List<Double>> periodicCategoricalExpenses
--String title;
+-List<Double>: periodicTotalExpenditures
+-List<Double>: periodicBudgetLimits
+-List<List<Double>>: periodicCategoricalExpenses
+-String title
+
 -generateTrendLine()
 -findClosestWindowStartDate(Timestamp, Timestamp, BudgetPeriod): Timestamp
 -flatMapAdd(List<Double> categorisedExpenditureAtPeriod)
--List<List<Expense>> getCategorisedPeriodicExpenses(Timestamp, Timestamp)
--getExpenditureForCategory(List<Expense> categorisedExpenses): double
--getTotalExpenditure(List<List<Expense>> data): double
--getCategoricalExpenditure(List<List<Expense>> data): List<Double>
-+List<List<Double>> getPeriodicCategoricalExpenses()
--{{static}} hasInterval (Timestamp validDate, Timestamp endDate, BudgetPeriod period): boolean
+-getCategorisedPeriodicExpenses(Timestamp, Timestamp): List<List<Expense>>
+-getExpenditureForCategory(List<Expense>): double
+-getTotalExpenditure(List<List<Expense>>): double
+-getCategoricalExpenditure(List<List<Expense>>): List<Double>
++getPeriodicCategoricalExpenses(): List<List<Double>>
+-{{static}} hasInterval (Timestamp, Timestamp, BudgetPeriod): boolean
 +getDates(): List<Timestamp>
 -getPeriodicTotalExpenditure(): List<Double>
 + isBudgetLimitMode(): boolean
@@ -63,13 +64,13 @@ class TrendStatistics {
 }
 
 class TabularStatistics {
--Timestamp firstStartDate;
--Timestamp firstEndDate;
--Timestamp secondStartDate;
--Timestamp secondEndDate;
--int categorySize;
--ObservableList<Expense> expenses;
--List<FiveElementTableEntry> unionDifferenceTable;
+-Timestamp: firstStartDate
+-Timestamp: firstEndDate
+-Timestamp: secondStartDate
+-Timestamp: secondEndDate
+-int: categorySize
+-ObservableList<Expense>: expenses
+-List<FiveElementTableEntry>: unionDifferenceTable
 -String title
 -generateTableData()
 -createEmptyTableWithoutPercentage(): List<ThreeElementTableEntry>
