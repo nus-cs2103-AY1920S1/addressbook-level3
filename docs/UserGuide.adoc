@@ -838,9 +838,9 @@ image::UG-BudgetExample2.PNG[width="600"]
 --
 image::tip.png[width = "80", float = "left"]
 --
-Clicking on one of the data-points of any line +
-will cause a tooltip similar to the one shown in the picture +
-above to pop up.
+Hovering your mouse pointer over one of the data-points +
+of any line will cause a tooltip similar to the one +
+shown in the picture above to pop up.
 
 ====
 
