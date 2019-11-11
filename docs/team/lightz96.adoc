@@ -68,7 +68,7 @@ and ensure that it works correctly.
 *** Managed issues assigned to me from version 1.0 to version 1.4 (https://github.com/AY1920S1-CS2103T-W12-2/main/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aclosed+assignee%3Alightz96+[Issues assigned])
 ** Enhancement to existing features
 *** Revamped the entire user interface. (Pull request https://github.com/AY1920S1-CS2103T-W12-2/main/pull/193[#193])
-*** Added the ability to view the usage of a specific command. (Pull request https://github.com/AY1920S1-CS2103T-W12-2/main/pull/167[#167], https://github.com/AY1920S1-CS2103T-W12-2/main/pull/187[#187])
+*** Added the ability to view the usage of a specific command. (Pull requests https://github.com/AY1920S1-CS2103T-W12-2/main/pull/167[#167], https://github.com/AY1920S1-CS2103T-W12-2/main/pull/187[#187])
 ** Documentation
 *** Inserted content from external files (E.g. SettingUp.adoc) into Developer Guide and changed to THRIFT context. (Pull Request https://github.com/AY1920S1-CS2103T-W12-2/main/pull/233[#233])
 ** Community
@@ -101,7 +101,7 @@ include::../DeveloperGuide.adoc[tag=undo]
 
 (End of extract)
 
-Please click on this link to see a sequence diagram of how *undo* works in general: https://ay1920s1-cs2103t-w12-2.github.io/main/DeveloperGuide.html#GeneralUndoSequence[General sequence diagram for UndoCommand].
+Please click on this link to see the sequence diagram of how *undo* works in general: https://ay1920s1-cs2103t-w12-2.github.io/main/DeveloperGuide.html#GeneralUndoSequence[General sequence diagram for UndoCommand].
 
 (Start of extract)
 
@@ -109,7 +109,7 @@ include::../DeveloperGuide.adoc[tag=redo]
 
 (End of extract)
 
-Please click on this link to see a sequence diagram of how *redo* works in general: https://ay1920s1-cs2103t-w12-2.github.io/main/DeveloperGuide.html#GeneralRedoSequence[General sequence diagram for RedoCommand].
+Please click on this link to see the sequence diagram of how *redo* works in general: https://ay1920s1-cs2103t-w12-2.github.io/main/DeveloperGuide.html#GeneralRedoSequence[General sequence diagram for RedoCommand].
 
 (Start of extract)
 
