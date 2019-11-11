@@ -351,7 +351,7 @@ Alternative 1 was selected, as it is much faster to implement compared to altern
 
 // end::orders[]
 
-// tag::deliverymen statistics
+// tag::statsfeature[]
 === Deliverymen status statistics feature
 
 Tracking the amount of available manpower you have at any point in time is very crucial to deal with sudden changes in food orders.
@@ -395,7 +395,7 @@ image::StatisticsFeatureClassDiagram.png[]
 The `DeliverymenDatabase` acts as an agent for both components to parse information around. This helps to maintains a clear
 separation of concerns to carry out different functions.
 
-Also, the following sequence diagram shows how the `stats` operation works:
+The following sequence diagram shows how the `stats` operation works:
 
 .Sequence Diagram of Retrieving Deliverymen Statistics
 image::DeliverymenStatistics.png[]
@@ -424,7 +424,7 @@ This can affect the runtime of the command when the enhancements get more compli
 ** Cons: Harder to manage in future as the app is improved due to coupling between status management and statistics management.
 Changes to status-related issues may cause regressions to the statistics feature.
 
-// end::deliverymen statistics
+// end::statsfeature[]
 
 // tag::auto tagging customer cuisine
 === Automated tagging of customer
@@ -776,3 +776,22 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Test case: `-delete_order n/Order 1` +
     Expected: AlexYeoh99 will have no more tags on his `CustomerCard`.
+
+// tag::statuscase[]
+=== Switching the status of a deliveryman
+
+. Switching the deliveryman status from *AVAILABLE* to *UNAVAILABLE*, or vice versa.
+
+.. Prerequisites: Currently in deliverymen context. The customers in the database are default from the Sample Util data. The current status of the deliveryman is either *AVAILABLE* or *UNAVAILABLE*; it cannot be *DELIVERING*.
+
+.. Test case: `switch 1` +
+    (NOTE: For default data, the first deliveryman is 'Damith' with the status *AVAILABLE*)  +
+    Expected: The status of the first deliveryman, 'Damith', has been switched to *UNAVAILABLE*.
+
+.. Test case: `switch 2` +
+    (NOTE: For default data, the second deliveryman is 'Donald Trump' with the status *DELIVERING*) +
+    Expected: The status of the second deliveryman, 'Donald Trump', remains unchanged. Error details shown in the status message.
+
+.. Test case: `switch 0` +
+    Expected: No change in any deliveryman status. Error details shown in the status message.
+// end::statuscase[]

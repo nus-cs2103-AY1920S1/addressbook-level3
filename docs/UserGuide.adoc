@@ -736,6 +736,7 @@ image::userguide\AutoTag.png[width="790"]
 
 // end::restaurantCommand[]
 
+// tag::deliverymenCommand[]
 {nbsp} +
 
 === Deliverymen commands
@@ -893,6 +894,7 @@ the red border is a summary of the analysis.
 If you just want a brief update on the current state of your deliverymen, the textual analysis displayed inside the red
 border summarizes it all for you!
 
+// end::deliverymenCommand[]
 {nbsp} +
 
 {nbsp} +
