@@ -28,6 +28,8 @@ training sessions as well as track the performances of their athletes. One of th
 that the primary input to the application has to be CLI as it is meant for users who can type fast and prefer typing
 over the use of mouse. The duration of this project spanned over a period of 6 weeks.
 
+This is what Athletick looks like when coaches or captains first launch the application:
+
 .Main Window of Athletick
 image::athletick.png[width=500]
 
@@ -44,10 +46,7 @@ sections will elaborate more on this feature which includes relevant documentati
 
 Note the following symbols and formatting used in this document:
 
-[horizontal]
-NOTE:: This symbol indicates important information
-`command`:: A grey highlight indicates a command that can be executed.
-`[green]#component#`:: Green text with grey highlight indicates a component, class, object or method in the architecture of the application.
+include::../DeveloperGuide.adoc[tag=symbol]
 
 == Summary of contributions
 This section shows a summary of my contributions to the team project.
@@ -87,23 +86,23 @@ test cases.
 `i/FILENAME.png`. (Pull request: https://github.com/AY1920S1-CS2103T-T12-3/main/pull/75[#75])
 
 * Documentation
-** Updated developer guide to standardise the style and formatting. (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/225[#225])
+** Updated developer guide to standardise the style and formatting. (Pull request: https://github.com/AY1920S1-CS2103T-T12-3/main/pull/225[#225])
 //link to green changes
 ** Added documentation for `select` feature in the User Guide.
-(Pull request: https://github.com/AY1920S1-CS2103T-T12-3/main/pull/118[#118]
+(Pull requests: https://github.com/AY1920S1-CS2103T-T12-3/main/pull/118[#118]
 , https://github.com/AY1920S1-CS2103T-T12-3/main/pull/119[#119]
 , https://github.com/AY1920S1-CS2103T-T12-3/main/pull/134[#134]
 , https://github.com/AY1920S1-CS2103T-T12-3/main/pull/203[#203]
 )
 //link to pr
 ** Added documentation for `select` feature in the Developer Guide.
-(Pull request: https://github.com/AY1920S1-CS2103T-T12-3/main/pull/203[#203]
+(Pull requests: https://github.com/AY1920S1-CS2103T-T12-3/main/pull/203[#203]
 , https://github.com/AY1920S1-CS2103T-T12-3/main/pull/225[#225]
 , https://github.com/AY1920S1-CS2103T-T12-3/main/pull/256[#256]
 )
 
 * Community
-** Tested other team's application and reported bugs with some feedback on what could be improved (example:
+** Tested other team's application and reported bugs with some feedback on what could be improved (examples:
 https://github.com/ChangUo79/ped/issues/4[4],
 https://github.com/ChangUo79/ped/issues/5[5],
 https://github.com/ChangUo79/ped/issues/6[6])
@@ -116,7 +115,7 @@ https://github.com/AY1920S1-CS2103T-T12-3/main/pull/75[#75]
 Given below are sections I contributed to the user guide. They showcase my ability to write documentation targeting
 end-users.
 
-{Start of extract}
+{Start of user guide extract}
 
 include::..\UserGuide.adoc[tag=select]
 
@@ -124,17 +123,17 @@ include::..\UserGuide.adoc[tag=select]
 
 include::..\UserGuide.adoc[tag=FAQ]
 
-{End of extract}
+{End of user guide extract}
 
 == Contributions to the developer guide
 
 Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation
 and the technical depth of my contributions to the project.
 
-{Start of extract}
+{Start of developer guide extract}
 
 include::..\DeveloperGuide.adoc[tag=select]
 
 include::..\DeveloperGuide.adoc[tag=photo]
 
-{End of extract}
+{End of developer guide extract}
