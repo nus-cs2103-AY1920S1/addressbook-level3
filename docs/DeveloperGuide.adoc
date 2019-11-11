@@ -306,17 +306,11 @@ The above activity diagram shows how ``smartSuggest`` command works.
 
 === Itinerary
 
-The itinerary feature in TravEzy allows users to organize their events by giving a certain time they planned to
-finish each event.
+The itinerary feature in TravEzy allows users to organize their events and view these events in one convenient _Event List_.
 
 Current, the itinerary feature supports the basic commands of add, delete, edit and marking your events as done.
-It also includes other more advanced commands such as search, sort and wish(TM).
-
-[TIP]
-Not sure what you should do during a certain duration of time?
-Use the wish function in the itinerary and TravEzy will grant you three event suggestions based on your past entries.
-These suggestions are
-personalized for each user!
+In addition, it also includes other more advanced commands such as search and sort to better organize your events.
+With these implementations, _TravEzy_ aims to be at the frontier of convenience.
 
 The itinerary feature implements the aforementioned feature based on the use cases below:
 
@@ -333,11 +327,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the i
 Inputs given by the user are channeled from the text UI and parsed in the logic package before different commands
 are formed which generates the model and updates the itinerary object which contains the event list.
 
-[CAUTION]
-The Calendar and Itinerary window work in tandem with each other. Due to their dependency,
-modification to one of the feature might result in the the other feature breaking.
-
-The `text UI`, `logic` and `storage` all stem from the common package of the main TravEzy application.
+The `text UI`, `logic manager` and `storage manager` all stem from the common package of the main TravEzy application.
 However, in the `parser` package of itinerary, it contains various parser objects for the different command.
 This is to ensure that each command in the itinerary have only one parser validating the command.
 
@@ -362,25 +352,27 @@ the UI automatically updates when the data in the list change.
 throughout TravEzy.
 
 [IMPORTANT]
-A plausible extension to the itinerary model is give users the ability to *tag* each of their events based
-on different priority. This has ever since been implemented in v1.3
+A plausible extension to the itinerary model is to have the location field dictated by a dropdown bar, similar to the
+Priority Dropdown Bar.
 
 Alternative implementation to the proposed extension:
 
-* Use javaFX drop down menu to only users to tag based on priority: +
+* Use javaFX drop down menu to select the location of the event: +
 +
-PROS: Can use tagging as a search condition and easier for storage / maintenance purposes. +
-+
-CONS: Limiting the users to only a certain set of taggings.
+PROS: Can use location as a search condition and easier for storage / maintenance purposes. +
+Standardize the UI layout with _TravEzy_ Financial Tracker which also has a Dropdown bar for location.
 
-* Allow user to type in tagging during the add command template: +
++
+CONS: Limiting the users to only a certain set of locations.
+
+* Allow user to type in location during the add command template: +
 
     add title/[title] date/[date] time/[time] l/[location] d/[description]
 +
-PROS: Allows the user to put in any tag they want to allow for more variety. Search function is still
-applicable for tags but users would need to know the specific tag they used for that particular event. +
+PROS: Allows the user to put in any location they want to allow for more variety. Search function is still
+applicable for location but users would need to know the specific location they used for that particular event. +
 +
-CONS: Harder to maintain the individual tags in the storage since there could be a lot of tags that
+CONS: Harder to maintain the individual locations in the storage since there could be a lot of locations that
 are being defined by the user.
 
 ==== Itinerary search command
@@ -437,27 +429,6 @@ Running through all the events in the event list will ensure that all the events
 
 This sequential approach in implementing the `SearchCommand` will ensure that all the current events are being looked through
 based on the specific search condition and only the filtered list will be given as a result.
-
-==== Future Extensions
-
-As indicated in the user guide, there are several features which are yet to be implemented during v1.3 and even during
-v1.4. These feature include the undo, redo and wish command which are supposedly included during the v1.3 or v1.4
-of the TravEzy itinerary implementation. However, due to the sheer number of features that are already implemented
-in the Travezy itinerary during v1.3, these features will be postponed to the next version instead. While implementing
-the TravEzy, we have in mind to provide you with quality instead of quantity. Hence, after much consideration, these
-features are left to later versions instead.
-
-That being said, stay tuned for TravEzy v2.0 for these cool features such as undo-ing your previous action calls that
-you have made in TravEzy itinerary, and if you happen to undo the wrong command, fret not since the redo command will
-also be implement in compliment to the undo command so that you as a user can call redo and revert back the undo call
-too! Lastly, there is this awesome feature in the upcoming which is the wish command, what it does is that TravEzy will
-refer back to the user's storage and look through all the past events that the user has inputted in his itinerary list.
-Then based on these information provided, TravEzy will suggest 3 events that are suitable for the user to consider and
-add it into his current itinerary event list. These 3 events that TravEzy itinerary suggest will be something that the
-user will definitely enjoy doing or something that the user has to urgently do. Since it is personalized for each user
-and anaylzed carefully with the previous event entries.
-
-Hope that you are excited as I am in all these cool features that are coming up in v2.0.
 
 // tag::financialtracker[]
 === Financial Tracker
