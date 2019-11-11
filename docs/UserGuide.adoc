@@ -8,16 +8,16 @@
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
-ifdef::env-github[]
+ifdef::env-github[width="500"]
 :tip-caption: :bulb:
 :note-caption: :information_source:
-endif::[]
+endif::
 :repoURL: https://github.com/AY1920S1-CS2103T-T12-1/main
 
 By: `CS2103T-T12-1`      Since: `Sept 2019`      Licence: `MIT`
 
+<<<
 // tag::introduction[]
-
 == Introduction
 
 +Work is a project management tool that allows students to successfully achieve your objectives for their project.
@@ -36,7 +36,7 @@ Happy working!
 .  Copy the file to the folder you want to use as the home folder for your +Work.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="400"]
+image::Ui.png[]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -50,9 +50,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Features]]
 == Features
-
 ====
-
 *Command Format*
 
 * The command begins with the type of command to be executed
@@ -137,7 +135,7 @@ Format: `settings` +
 
 Entering the `settings` command will bring you to the following page:
 
-image::Settings.png[]
+image::Settings.png[width="500"]
 
 [NOTE]
 You can refer to section 3.7 on specific settings-related commands to apply.
@@ -149,7 +147,7 @@ Displays a list of possible commands for the user +
 You can toggle through the command list (either through up down keys or mouse) and it will paste the correct syntax into the command line. +
 Format: `help`
 
-image::Help.png[]
+image::Help.png[width="500"]
 
 ==== Undo a command: `undo`
 
@@ -161,11 +159,11 @@ Example:
 
 * Suppose you accidentally deleted task **#6** using the `delete-task` command
 
-image::before-undo.PNG[]
+image::before-undo.PNG[width="500"]
 
 * Entering the `undo` command will bring back the deleted task
 
-image::after-undo.PNG[]
+image::after-undo.PNG[width="500"]
 
 [WARNING]
 Once you restart +Work, you won't be able to `undo` commands from the previous session!
@@ -197,20 +195,20 @@ Example: `add-member mn/New Member mi/NM mt/UG` can be executed as follows:
 
 *Step 1:* +Work initially contains a list of 6 project members, as shown below.
 
-image::BeforeAdd.png[]
+image::BeforeAdd.png[width="500"]
 
 *Step 2:* To add a new project member into +Work, you enter the command `add-member mn/New Member mi/NM mt/UG` into the
 command prompt box.
 
-image::DuringAdd.png[]
+image::DuringAdd.png[width="500"]
 
 *Step 3:* After you hit kbd:[Enter], the  result box will display the message "New member added", and a new member with name 'New Member', member ID 'NM' and tag 'UG' is added to +Work.
 
-image::DoneAdd.png[]
+image::DoneAdd.png[width="500"]
 
 The addition of a new member can also be seen from the list of members as shown below:
 
-image::ListAdd.png[]
+image::ListAdd.png[width="500"]
 
 [IMPORTANT]
 Member ID is an alphanumeric ID set by you, and cannot be changed once the member is created.
@@ -233,7 +231,7 @@ Example: `set-image mi/NM im/C:\Desktop\NewUserImage.png` can be executed as fol
 
 *Step 1:* +Work initially contains a list of project members with default profile pictures, as shown below.
 
-image::BeforeSet.png[]
+image::BeforeSet.png[width="500"]
 
 *Step 2:* To update the profile picture of the project member with member ID 'NM' in +Work to a specified image, you
 enter the command `set-image mi/NM im/C:\Desktop\NewUserImage.png` into the command prompt box.
@@ -241,7 +239,7 @@ enter the command `set-image mi/NM im/C:\Desktop\NewUserImage.png` into the comm
 *Step 3:* After you kbd:[Enter] the command, the member 'New Member' with member ID 'NM' has a new profile
 picture, specified by the image path you entered.
 
-image::SetImage.png[]
+image::SetImage.png[width="500"]
 
 
 [NOTE]
@@ -271,7 +269,7 @@ Example: `edit-member mi/NM mn/No Longer New mt/edited` can be executed as follo
 
 *Step 1:* +Work initially contains a list of 7 project members, as shown below.
 
-image::BeforeEdit.png[]
+image::BeforeEdit.png[width="500"]
 
 *Step 2:* To edit the member name and tag of 'New Member' with member ID 'NM', you enter the command
 `edit-member mi/NM mn/No Longer New mt/edited` into the command prompt box.
@@ -279,7 +277,7 @@ image::BeforeEdit.png[]
 *Step 3:* After you kbd:[Enter] the command, the member with member ID 'NM' and tag 'UG' is edited,
 with a new member name 'No Longer New' and new tag 'edited'.
 
-image::AfterEdit.png[]
+image::AfterEdit.png[width="500"]
 
 ==== List existing members: `list-members` +
 To get a list of all members added to +Work, used the command `list-members` following the format below. +
@@ -287,7 +285,7 @@ Format: `list-members` +
 
 Example: Entering `list-members` into the command prompt will result in the following:
 
-image::ListMembers.png[]
+image::ListMembers.png[width="500"]
 
 As seen from the above, all existing project members in +Work will be listed.
 
@@ -299,7 +297,7 @@ Example: `remove-member mi/GS` can be executed as follows:
 
 *Step 1:* +Work now contains a list of 7 project members, as shown below.
 
-image::BeforeRemove.png[]
+image::BeforeRemove.png[width="500"]
 
 *Step 2:* To remove project member 'No Longer New', with member ID 'NM' from +Work, you enter the command
 `remove-member mi/NM` into the command prompt box.
@@ -307,7 +305,7 @@ image::BeforeRemove.png[]
 *Step 3:* After you kbd:[Enter] the command, the member 'No Longer New' is no longer a project member in +Work, as
 seen from the list of members below.
 
-image::AfterRemove.png[]
+image::AfterRemove.png[width="500"]
 
 
 ==== Assign a task to a member: `assign` +
@@ -321,12 +319,12 @@ Example: `assign ti/1 mi/GS` can be executed as follows:
 'Gabriel Seow' with member ID 'GS'. The task 'Review Budget' has task ID 1, prompting you to enter the command
 `assign ti/1 mi/GS`.
 
-image::BeforeAssign.png[]
+image::BeforeAssign.png[width="500"]
 
 *Step 2:* After you kbd:[Enter] the command, the task 'Review Budget' with task ID '1' is added under member
 'Gabriel Seow' with member id 'GS', as seen from the image below.
 
-image::AfterAssign.png[]
+image::AfterAssign.png[width="500"]
 
 ==== Removing a task from a member: `fire` +
 To remove a task from a specific team member, use the `fire` command in the format below. +
@@ -339,12 +337,12 @@ Example: `fire ti/1 mi/GS` can be executed as follows:
 from being assigned to task 'Review Budget'. The task 'Review Budget' has task ID 1, prompting you to enter the command
 `fire ti/1 mi/GS`.
 
-image::BeforeFire.png[]
+image::BeforeFire.png[width="500"]
 
 *Step 2:* After you kbd:[Enter] the command, the task 'Review Budget' with  task id 1 is removed from member
 'Gabriel Seow' with member id 'GS'  as seen from the image below.
 
-image::AfterFireMember.png[]
+image::AfterFireMember.png[width="500"]
 
 '''
 // end::MemberCommands[]
@@ -368,13 +366,13 @@ Example:
 * Suppose you want to add a task called "Finish up milestones settings" to your project. First type `add-task tn/Finish up milestone settings`
 as show below.
 
-image::add-task-preview.png[]
+image::add-task-preview.png[width="500"]
 
 * Hit the kbd:[Enter] key and you will see that the task is added to your project! +
 [IMPORTANT]
 The prompt displayed as a result of performing `add-task` is further explained in <<Multiline Commands>>.
 
-image::add-task-res-list.png[]
+image::add-task-res-list.png[width="500"]
 
 ==== Deleting a task: `delete-task`
 
@@ -386,11 +384,11 @@ Example:
 * Suppose you want to remove the second task in your list. First type `delete-task ti/2` into the command
 box as shown below.
 
-image::delete-task-preview.png[]
+image::delete-task-preview.png[width="500"]
 
 * Hit the kbd:[Enter] key and you will see that the task is removed from your project!
 
-image::delete-task-res-list.png[]
+image::delete-task-res-list.png[width="500"]
 
 ==== Editing a task: `edit-task`
 
@@ -406,11 +404,11 @@ Example:
 * Suppose you wanted to update the task name of the fourth task in the diagram below to become "Update event website". +
 Type `edit-task ti/4 tn/Update event website` into the command box as shown below.
 
-image::edit-task-preview.png[]
+image::edit-task-preview.png[width="500"]
 
 * Hit the kbd:[Enter] key and you will see that the task name has been edited!
 
-image::edit-task-res-list.png[]
+image::edit-task-res-list.png[width="500"]
 
 ==== Listing all existing tasks: `list-tasks`
 
@@ -421,11 +419,11 @@ Example:
 
 * Type `list-tasks` in the command box as shown below.
 
-image::list-tasks-preview.png[]
+image::list-tasks-preview.png[width="500"]
 
 * Hit the kbd:[Enter] key and you will see all your tasks! You should see a window similar to the one below.
 
-image::list-tasks.png[]
+image::list-tasks.png[width="500"]
 
 
 ==== Setting a task's status to `done`: `done-task`
@@ -437,16 +435,16 @@ Example:
 
 * After finishing the task "Shirts for Freshman Open Day" shown below, you would want to mark it as completed. To do so, first navigate to task list view using `list-tasks`.
 
-image::list-tasks-preview.png[]
+image::list-tasks-preview.png[width="500"]
 
 * Type `done-task ti/5` into the command box as shown below.
 
-image::done-task-preview-list.png[]
+image::done-task-preview-list.png[width="500"]
 
 * Hit the kbd:[Enter] key and the task will been marked as `done`! You should see a window similar to the one below when you navigate back to `home`.
 Notice that "Shirts for freshman open day" has been moved to `done`.
 
-image::done-task-result-dashboard.png[]
+image::done-task-result-dashboard.png[width="500"]
 
 [NOTE]
 If a task previously had a deadline, it will be removed once it is marked as `done`
@@ -476,20 +474,20 @@ Example:
 
 * To set a deadline for the task "Shirts for Freshman Open Day" shown below, first navigate to the task list view using `list-tasks`.
 
-image::list-tasks-preview.png[]
+image::list-tasks-preview.png[width="500"]
 
 * Suppose the deadline for your task is on the 20th of November 2019 at 6pm, enter +
 `set-deadline ti/5 at/20-11-2019 18:00` into the command box as shown below.
 
-image::set-deadline-list-preview.png[]
+image::set-deadline-list-preview.png[width="500"]
 
 * Hit the kbd:[Enter] key and you will see that a deadline has been set!.
 
-image::set-deadline-res-list.png[]
+image::set-deadline-res-list.png[width="500"]
 
 Now, navigate to the dashboard by entering `home`. Hit the kbd:[Enter] key and you will see that the deadline can be seen! You should see a window similar to the one below.
 
-image::set-deadline-res-dashboard.png[]
+image::set-deadline-res-dashboard.png[width="500"]
 
 [TIP]
 The "Upcoming deadlines" sidebar (right side of above picture) helps you keep track of tasks which are due in *two weeks* or less.
@@ -579,11 +577,11 @@ Example:
 
 * Let's say you want to schedule a __2__ hour meeting in the upcoming week, between __11th Nov 8 a.m__ and __15th Nov 5 p.m__. After entering the details in the correct format, as such
 
-image::find-meeting-time-entry.PNG[]
+image::find-meeting-time-entry.PNG[width="500"]
 
 * Hit kbd:[Enter] and +Work will display a list of suitable timings as well as the team members that are available for that timing
 
-image::find-meeting-time-timings.PNG[]
+image::find-meeting-time-timings.PNG[width="500"]
 
 [NOTE]
 If there are no suitable timings, +Work will notify you as well
@@ -601,17 +599,17 @@ Example:
 
 * After using the `find-meeting-time` command, you are given the following timings
 
-image::possible-meeting-timings.PNG[]
+image::possible-meeting-timings.PNG[width="500"]
 
 * After looking through the suitable timings, you choose meeting **#5** as your preferred timing
 
-image::preferred-meeting-time.PNG[]
+image::preferred-meeting-time.PNG[width="500"]
 
 * Using the index of meeting **#5**, enter the command `add-meeting meeting/5`
 
 * You can then view the recently added meeting at the `home` page
 
-image::updated-meeting-time.PNG[]
+image::updated-meeting-time.PNG[width="500"]
 
 ==== Remove a team meeting: `delete-meeting`
 
@@ -651,11 +649,11 @@ When you enter this command, it adds the item “eggs” for $2.40 to the invent
 
 ** First, type `add-inv i/eggs p/2.40 ti/2 mi/AR` into the command box as shown below.
 
-image::Add-inv_1.PNG[]
+image::Add-inv_1.PNG[width="500"]
 
 ** Then, hit the kbd:[Enter] key and you will see that the inventory has been added! You should see a window like the one below.
 
-image::Add-inv_2.PNG[]
+image::Add-inv_2.PNG[width="500"]
 
 ==== Deleting an inventory: `delete-inv`
 
@@ -670,15 +668,15 @@ This command deletes the third item from the inventory list. The following pictu
 
 ** First, find the index of inventory that you want to delete, by navigating to inventory list view using `list-inv`.
 
-image::Delete-inv_1.PNG[]
+image::Delete-inv_1.PNG[width="500"]
 
 ** Then, type `delete-inv ii/6` into the command box as shown below.
 
-image::Delete-inv_2.PNG[]
+image::Delete-inv_2.PNG[width="500"]
 
 ** Hit the kbd:[Enter] key and you will see that the inventory has been deleted! You should see a window like the one below.
 
-image::Delete-inv_3.PNG[]
+image::Delete-inv_3.PNG[width="500"]
 
 ==== List existing inventories: `list-inv` +
 To get a list of all inventories added to +Work, used the command `list-inv` following the format below. +
@@ -686,7 +684,7 @@ Format: `list-inv` +
 
 Example: Entering `list-inv` into the command prompt will result in the following:
 
-image::list-inv.PNG[]
+image::list-inv.PNG[width="500"]
 
 ==== Editing a inventory: `edit-inv`
 
@@ -706,11 +704,11 @@ This command edits the 4th inventory from the inventory list as shown by `list-i
 
 ** First, type `edit-inv ii/4 i/toys ti/4 mi/AR` into the command box as shown below.
 
-image::Edit-inv_1.PNG[]
+image::Edit-inv_1.PNG[width="500"]
 
 ** Hit the kbd:[Enter] key and you will see that the 4th inventory has been edited! The name has been changed to toys, task has been changed to the task with index 4, and finally member has been changed to member with index “AR”. You should see a window like the one below.
 
-image::Edit-inv_2.PNG[]
+image::Edit-inv_2.PNG[width="500"]
 
 
 
@@ -731,11 +729,11 @@ This command creates and opens a pdf file of inventories that is classified acco
 
 ** First, type `pdf ty/members` into the command box as shown below.
 
-image::pdf-inv_1.PNG[]
+image::pdf-inv_1.PNG[width="500"]
 
 ** Hit the kbd:[Enter] key and you will see that the default PDF viewer will open to show the PDF report. You should see a report like the one below.
 
-image::pdf-inv_2.PNG[]
+image::pdf-inv_2.PNG[width="500"]
 // end::Inventory[]
 
 '''
@@ -751,7 +749,7 @@ Format: `member-stats` +
 
 Calling the `member-stats` command will result in the statistics being displayed as follows:
 
-image::MemberStats.png[]
+image::MemberStats.png[width="500"]
 
 [NOTE]
 The resultant statistics displayed shows the proportion and number of tasks and inventory items allocated to each
@@ -764,7 +762,7 @@ Format: `task-stats` +
 
 Calling the `task-stats` command will result in the statistics being displayed as follows:
 
-image::TaskStats.png[]
+image::TaskStats.png[width="500"]
 
 [NOTE]
 The resultant statistics displayed shows the proportion of tasks that are undone, in progress and completed,
@@ -783,7 +781,7 @@ If you immediately mark an `UNBEGUN` task as `DONE`, the task will be marked as 
 ==== Adding a task: `add-task`
 As mentioned in the earlier part of user guide, to add a task to the project, use the `add-task` command in the format below. This will result in a series of questions that allow you to add deadline and a member to the task. The following flowchart shows this series of feedbacks from the application and user inputs.
 
-image::ml-task_1.PNG[]
+image::ml-task_1.PNG[width="500"]
 
 Format (to add task): `add-task [t/TASK_NAME]` +
 Format (for yes): `yes` +
@@ -802,27 +800,27 @@ A new task will be added to the project dashboard, which prompts a sequence of q
 
 ** First, type the `add-task` command
 
-image::ml-task_2_1.PNG[]
+image::ml-task_2_1.PNG[width="500"]
 
 ** This prompts the feedback asking for your choice to add deadline and member
 
-image::ml-task_2_2.PNG[]
+image::ml-task_2_2.PNG[width="500"]
 
 ** Type `yes` to add deadline or member
 
-image::ml-task_2_3.PNG[]
+image::ml-task_2_3.PNG[width="500"]
 
 ** This prompts to add the details
 
-image::ml-task_2_4.PNG[]
+image::ml-task_2_4.PNG[width="500"]
 
 ** Type `add-d at/10-12-2019 18:00 mi/AR` to set deadline at 10-10-2019 18:00 and assign the member with member id “AR” to the task.
 
-image::ml-task_2_5.PNG[]
+image::ml-task_2_5.PNG[width="500"]
 
 ** This sets the deadline and assigns the member successfully! You should see a window like this.
 
-image::ml-task_2_6.PNG[]
+image::ml-task_2_6.PNG[width="500"]
 
 ==== Changing a task status to done: `done-task` +
 [IMPORTANT]
@@ -830,7 +828,7 @@ only for tasks that are tagged “Inventory”
 
 As mentioned in the earlier part of user guide, to change the task status to “done”, use the `done-task` command in the format below. If the task is tagged as "Inventory", this will result in a series of questions that allow you to add the task as an inventory. The following flowchart shows this series of feedbacks from the application and user inputs.
 
-image::ml-task_3.PNG[]
+image::ml-task_3.PNG[width="500"]
 
 Format (for done task): `done-task [ti/TASK_ID]` +
 Format (for yes): `yes` +
@@ -848,23 +846,23 @@ The task with index 8 will have its task status changed to done. Since the task 
 
 ** First, type `done-task ti/8`
 
-image::ml-task_4_1.PNG[]
+image::ml-task_4_1.PNG[width="500"]
 
 ** This prompts the feedback asking for your choice to add it as an inventory.
 
-image::ml-task_4_2.PNG[]
+image::ml-task_4_2.PNG[width="500"]
 
 ** After typing `yes` as the user input, feedback will prompt you to add the details.
 
-image::ml-task_4_3.PNG[]
+image::ml-task_4_3.PNG[width="500"]
 
 ** Type `add-i p/5.50 mi/AB` to set the price at $5.50 and to assign the member with member id “AB” to the inventory
 
-image::ml-task_4_4.PNG[]
+image::ml-task_4_4.PNG[width="500"]
 
 ** This sets the price and assigns the member successfully! You should see a window like this.
 
-image::ml-task_4_5.PNG[]
+image::ml-task_4_5.PNG[width="500"]
 // end::Multiline[]
 
 
@@ -875,11 +873,11 @@ image::ml-task_4_5.PNG[]
 +Work will automatically prompt you on the various possible commands based on input and help you paste the correct command format into the command line if chosen. +
 For example, when you type `add-mem` into the command-line, +Work will prompt you to select `add-member` from the drop down menu.
 
-image::AutoCompletePre.png[]
+image::AutoCompletePre.png[width="500"]
 
 After selecting `add-member`, +Work will paste `add-member mn/ mi/ mt/` into your command-line automatically!
 
-image::AutoCompletePost.png[]
+image::AutoCompletePost.png[width="500"]
 
 
 [TIP]
@@ -908,11 +906,11 @@ Example:
 
 * Type `theme light` into the command box as shown below.
 
-image::theme-light-preview.png[]
+image::theme-light-preview.png[width="500"]
 
 * Hit the kbd:[Enter] key and +Work switches to the `light` theme! As seen below, your choice of `light` is highlighted as well.
 
-image::theme-light-res.png[]
+image::theme-light-res.png[width="500"]
 
 * Similarly, `theme dark` switches to the `dark` theme.
 
@@ -932,20 +930,20 @@ Example:
 
 * Type `clock twelve` into the command box as shown below.
 
-image::clock-twelve-preview.png[]
+image::clock-twelve-preview.png[width="500"]
 
 * Hit the kbd:[Enter] key and +Work switches the time format to the 12 hour clock! As seen below, the new format is highlighted as well.
 
-image::clock-twelve-res-settings.png[]
+image::clock-twelve-res-settings.png[width="500"]
 
 * Now when you navigate to any view which has time sensitive data, you will see that the format has been switched. For example, if you were to switch
 back to the dashboard by entering `home` you should see a window similar the one shown below.
 
-image::clock-twelve-res-dashboard.png[]
+image::clock-twelve-res-dashboard.png[width="500"]
 
 * Similarly, `clock twenty_four` switches to the 24 hour clock.
 
-// end::settings[]
+// end::settings[width="500"]
 '''
 
 === Saving Data
@@ -962,13 +960,12 @@ There is no need to save manually.
 *Q*: Can I export the claims report as a word document? +
 *A*: No, the application only supports exporting of files in PDF format.
 
-<<<<<<< HEAD
 *Q*: What if +Work cannot find a timing where everyone is free? +
 *A*: +Work cannot guarantee to find a meeting time that can suit every team member, but it will provide a list of the best possible timings when the *most* number of members are available.
-=======
+
 *Q*: What if the calendar cannot find a timing where everyone is free? +
 *A*: There will be a list showing the number of available members for the time period you specified, so it will be easier for the user to choose the best possible your meeting.
->>>>>>> fc226fa6ab4bfcabf99c0c6d3a13fa912e69a0d9
+
 
 *Q*: My project has a budget, does the application help me keep track of the projects financial status? +
 *A*: Using /inventory the application can keep track of current expenses for each task and the member who purchased it, however, there are currently no accounting services available.
@@ -1069,6 +1066,7 @@ Our team is currently working hard on the following exciting features! Make sure
 updates in the future.
 
 // tag::version-2.0[]
+
 === Cloud Integration `[coming in v2.0]`
 
 Collaborate online with your teammates, and store your project details such as members calendars in the cloud.
