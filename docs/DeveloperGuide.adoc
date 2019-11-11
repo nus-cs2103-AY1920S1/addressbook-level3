@@ -623,6 +623,12 @@ to initialise `RunWorkoutCommand`. The Command object will then run its execute 
 UniqueWorkoutList to obtain the target `Workout`. The target workout and message will then be passed back to the Ui through
 the CommandResult object. The Ui will then boot a new `RunWorkoutWindow` with the targeted workout.
 
+.Activity Diagram of RunWorkoutWindow
+image::RunWorkoutActivityDiagram.png[]
+
+The user will then run each set of each exercise until the workout is complete. The full loop is demonstrated in the
+activity diagram in Figure 17.
+
 .Sequence Diagram of UpdateWorkoutCommand
 image::RunWorkoutSequenceDiagram1.png[]
 
