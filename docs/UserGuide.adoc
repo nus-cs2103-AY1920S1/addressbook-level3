@@ -332,6 +332,7 @@ image::WatchedTheOffice.png[width="790"]
 
 Alternatively, you may click on the watched checkbox to toggle between whether a show is watched as indicated by the red arrow in the image below.
 
+.Marking a show using the checkbox
 image::TheOfficeWatchCommand.png[width="790"]
 
 ****
