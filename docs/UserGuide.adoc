@@ -117,9 +117,9 @@ need to provide.
 *** `add -b /religion Buddhism /status arrived`
 *** `add -b /status arrived /religion Buddhism`
 * `ATTRIBUTES` that are tagged with `...` and in square parentheses must be supplied with at least one `ATTRIBUTE`.
-** For the filter command: `filter [/attributeName attributeValue ...]`::
-*** `filter /name John` and `filter /sex female` are valid commands.
-*** `filter` is an invalid command.
+** For the filter command: `filter -FLAG [/attributeName attributeValue ...]`::
+*** `filter -w /sex male` and `filter -b /sex female /cod car accident` are valid commands.
+*** `filter -b` is an invalid command.
 
 * You are not required to provide `ATTRIBUTES` contained in parentheses.
 ** For example, the following 3 commands are valid for the add command, with the abridged format: `add -b /name name /sex sex /doa dateOfAdmission (/religion religion) (/status status)`.
@@ -128,9 +128,9 @@ need to provide.
 *** `add -b /name John /sex Male /doa 12/12/2011 /religion Buddhism /status arrived`
 
 * You must provide *at least one* `ATTRIBUTE` when `ATTRIBUTES` are tagged with `...` and contained in square parentheses (`[]`).
-** For the filter command: `filter [/attributeName attributeValue ...]`:
-*** `filter /name John` and `filter /sex female` are valid commands.
-*** `filter` is an invalid command.
+** For the filter command: `filter -FLAG [/attributeName attributeValue ...]`::
+*** `filter -w /sex male` and `filter -b /sex female /cod car accident` are valid commands.
+*** `filter -b` is an invalid command.
 
 
 === Identification Number
@@ -549,6 +549,8 @@ pending police report`. John Doe's ID is no longer listed in the notifs panel.
 image::notif-command/Notif5.png[]
 
 // end::notifs[]
+
+// tag::filter[]
 
 ==== Filter all entries: `filter`
 You can filter all entries according to the given keywords in any of an entry’s attributes by entering a filter command with the given format below.
