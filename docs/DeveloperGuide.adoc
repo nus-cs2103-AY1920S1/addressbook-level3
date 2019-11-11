@@ -400,13 +400,13 @@ Please refer to the following Use case for an example of the uses of Undo/Redo.
 
 MSS:
 
-. There exists 2 decks: Deck1 and Deck 2.
+. The user creates 2 decks: Deck1 and Deck2.
 
-. The user wishes to delete Deck 1, but accidentally deletes Deck 2.
+. The user wishes to delete Deck1, but accidentally deletes Deck2.
 
-. In order to recover Deck 2, the user types in the command `undo` into the CLI.
+. In order to recover Deck2, the user types in the command `undo` into the CLI.
 
-. Deck 2 is recovered.
+. Deck2 is recovered.
 
 Use case ends.
 
@@ -421,7 +421,7 @@ Use case ends.
 
 ==== General Activity Diagram of Undo/Redo
 
-* *Before an Undo/Redo command is called:* +
+* *Before an Undo/Redo command is called:*
 .Activity diagram for deck altering commands
 image::DeckAlteringCommandsActivityDiagram.PNG[]
 
@@ -429,7 +429,7 @@ Whenever the `State`'s `decks` are altered, `State.addCurrDecksToDeckHistory()` 
 current `State.decks` to `State.deckHistory`. Also, `State.resetUndoHistory()` which re-initialises `State.undoHistory`.
 Then, the changes to State are carried out.
 
-* *When an Undo/Redo command is called:* +
+* *When an Undo/Redo command is called:*
 .Activity diagram for Undo/Redo
 image::UndoRedoActivityDiagram.PNG[]
 
