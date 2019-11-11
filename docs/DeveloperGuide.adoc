@@ -231,9 +231,13 @@ The reminders implementation is facilitated by the reminder class, and heavily m
 
 image::ReminderClassDiagram.png[]
 
-For instance, the class diagram above shows the relation between the classes that help to implement the reminder feature.
-There are 2 types of reminders. General and entry reminders. General reminders are not tied to any specific entry, and sent the user notifications whenever an entry matching the user specified conditions is entered in the app. These specified conditions include entry type, a lower and upper quota for the entry amount, a specified time period in which an entry takes place, or a list of tags which the entry must have.
+* The class diagram above shows the relation between the classes that help to implement the reminder feature.
 
+====== There are 2 types of reminders. General and entry reminders. 
+
+General reminders are not tied to any specific entry, and sent the user notifications whenever an entry matching the user specified conditions is entered in the app. These specified conditions include entry type, a lower and upper quota for the entry amount, a specified time period in which an entry takes place, or a list of tags which the entry must have.
+
+image::GeneralReminderSequenceDiagram.png[]
 
 * The sequence diagram above illustrates what happens when an entry fulfils all conditions in an entry.
 
@@ -247,7 +251,9 @@ There are 2 types of reminders. General and entry reminders. General reminders a
 
 5)  The number of conditions met is reset a the end of the process so the reminders may continue to produce notifications when subsequent entries meeting the requirements are keyed into the system.
 
-An entry reminder targets a specific expense/ income or wish. It is set to send notifications at a specified period at specified intervals before the date of the event.  
+An entry reminder targets a specific expense/ income or wish. It is set to send notifications at a specified period at specified intervals before the date of the event.
+
+image::EntryReminderSequenceDiagram.png[]
 
 1) This is made possible with TimeUtil, which is a singleton class with a single instance checking the local date at periodic intervals and updating its listeners (Using the ObservableSupport) of the current date. 
 
