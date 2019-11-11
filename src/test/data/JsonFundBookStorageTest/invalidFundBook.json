@@ -1,0 +1,20 @@
+{
+  "currentRepeaterUniqueId": "0",
+  "currentLoanId": "0",
+  "transactions": [ {
+    "description" : "Invalid amount tx",
+    "amount" : "2.107",
+    "category" : "transportation",
+    "date" :{
+      "day" : "20",
+      "month" : "7",
+      "year" : "2018"
+    },
+    "transactionType" : "exp",
+    "repeaterUniqueId" : ""
+  } ],
+  "repeaters" : [],
+  "loans" :  [],
+  "budgets" : []
+}
+

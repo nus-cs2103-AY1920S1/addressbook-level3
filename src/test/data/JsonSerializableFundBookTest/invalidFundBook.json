@@ -1,0 +1,30 @@
+{
+  "currentRepeaterUniqueId" : "0",
+  "currentLoanId" : "0",
+  "transactions" : [ {
+    "description" : "Allowance from Daddy",
+    "amount" : "500",
+    "category" : "allowance",
+    "date" : {
+      "day" : "5",
+      "month" : "2",
+      "year" : "2019"
+    },
+    "transactionType" : "in",
+    "repeaterUniqueId" : ""
+  }, {
+    "description" : "Bus to @#&%#@*$*",
+    "amount" : "2.10",
+    "category" : "transportation",
+    "date" :{
+      "day" : "20",
+      "month" : "7",
+      "year" : "2018"
+    },
+    "transactionType" : "exp",
+    "repeaterUniqueId" : ""
+  } ],
+  "repeaters" : [],
+  "loans" : [],
+  "budgets" : []
+}
