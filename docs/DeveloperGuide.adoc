@@ -153,7 +153,25 @@ Decision: We have decided to proceed with alternative 2 because this alternative
 [[Design-Logic]]
 === Logic component
 
-The logic component of Alfred handles the various commands within Alfred and the parsing of the user input to convert them into such commands. It's primary purpose is to execute these commands which leads to an update in `Model` (depending on the command) and return an appropriate feedback message to the UI component to display to the user. The logic component's primary structure is unchanged from the AB3 codebase, though it has been heavily modified to accommodate the new commands implemented with regards to Alfred, as can be seen from the class diagram below which highlights the high level structure of the logic component.
+The `Logic` component of Alfred handles the various commands within Alfred and
+the parsing of the user input to convert them into such commands.
+It's primary purpose is to execute these commands which leads to an update in `Model`
+(depending on the command) and return an appropriate feedback message to the UI component to
+display to the user. It does this through a set of allocators, parsers and commands.
+
+Allocators are relevant for commands which involve a specific entity, such as `find participant`. The
+allocator will allocate the appropriate `FindParticipantCommandParser` to parse the input. If the input
+is valid, parsers will then generate a command object to be returned. This command object is then
+executed in `LogicManager`. However, `Logic` does not concern itself with the details of the execution.
+That is abstracted away via polymorphism and delegated to `Model`. Executing a command then returns
+a `CommandResult` object, which will then be processed to conclude the command execution flow.
+
+If any errors are encountered along the way, an error is thrown and the flow terminates.
+
+The `Logic` component's primary structure is unchanged from the AB3 codebase,
+though it has been heavily modified to accommodate the new commands implemented with regards to
+Alfred, as can be seen from the class diagram below which highlights the high level structure
+of the logic component.
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
