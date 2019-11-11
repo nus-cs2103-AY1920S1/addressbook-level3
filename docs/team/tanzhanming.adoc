@@ -108,7 +108,7 @@ Please follow these links to see my code: [https://github.com/AY1920S1-CS2103T-W
 ** Updated the original `**HelpWindow**` to display the command list and to take the user to the FinSec userguide directly instead of simply providing them with a link. (Pull request https://github.com/AY1920S1-CS2103T-W12-1/main/pull/78[#78])
 
 * Documentation:
-** Contributed multiple diagrams in the user guide and developer guide of FinSec to explain the execution and implementation of the `budget` and `help` commands. 
+** Contributed multiple diagrams in the user guide and developer guide of FinSec to explain the execution and implementation of the `budget` and `help` commands.
 (Pull requests https://github.com/AY1920S1-CS2103T-W12-1/main/pull/189[#189], https://github.com/AY1920S1-CS2103T-W12-1/main/pull/193[#193])
 
 * Community:
