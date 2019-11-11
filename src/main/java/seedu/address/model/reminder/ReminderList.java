@@ -23,6 +23,7 @@ public class ReminderList implements Iterable<Reminder> {
     private final ObservableList<Reminder> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+
     /**
      * Returns true if the list contains an equivalent task as the given argument.
      */
@@ -32,8 +33,8 @@ public class ReminderList implements Iterable<Reminder> {
     }
 
     /**
-     * Adds a task to the list.
-     * The task must not already exist in the list.
+     * Adds a Reminder to the list.
+     * The Reminder must not already exist in the list.
      */
     public void add(Reminder toAdd) {
         requireNonNull(toAdd);
@@ -44,9 +45,9 @@ public class ReminderList implements Iterable<Reminder> {
     }
 
     /**
-     * Replaces the task {@code target} in the list with {@code editedTask}.
+     * Replaces the Reminder {@code target} in the list with {@code editedReminder}.
      * {@code target} must exist in the list.
-     * The task identity of {@code editedTask} must not be the same as another existing task in the list.
+     * The Reminder identity of {@code editedReminder} must not be the same as another existing Reminder in the list.
      */
     public void setReminder(Reminder target, Reminder editedReminder) {
         requireAllNonNull(target, editedReminder);
@@ -69,8 +70,8 @@ public class ReminderList implements Iterable<Reminder> {
     }
 
     /**
-     * Replaces the contents of this list with {@code tasks}.
-     * {@code tasks} must not contain duplicate tasks.
+     * Replaces the contents of this list with {@code reminder}.
+     * {@code reminder} must not contain duplicate reminder.
      */
     public void setReminders(List<Reminder> reminders) {
         requireAllNonNull(reminders);
@@ -82,8 +83,8 @@ public class ReminderList implements Iterable<Reminder> {
     }
 
     /**
-     * Removes the equivalent task from the list.
-     * The task must exist in the list.
+     * Removes the equivalent reminder from the list.
+     * The reminder must exist in the list.
      */
     public void remove(Reminder toRemove) {
         requireNonNull(toRemove);

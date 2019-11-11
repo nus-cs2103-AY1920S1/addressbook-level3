@@ -35,6 +35,7 @@ public class JsonAdaptedCommand {
      * Converts a given {@code CommandObject} into this class for Jackson use.
      */
     public JsonAdaptedCommand(CommandObject source) {
+        assert source != null : "can't store a null object to file";
         commandAction = source.getCommandAction().action;
         commandWord = source.getCommandWord().word;
     }

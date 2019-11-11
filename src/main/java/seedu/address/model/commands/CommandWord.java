@@ -32,6 +32,14 @@ public class CommandWord {
     }
 
     /**
+     * Returns a defensive copy of the {@code CommandWord}.
+     */
+    public CommandWord copy() {
+        CommandWord copiedCommandWord = new CommandWord(this.toString());
+        return copiedCommandWord;
+    }
+
+    /**
      * Returns true if a given string is a valid command word.
      */
     public static boolean isValidWord(String test) {

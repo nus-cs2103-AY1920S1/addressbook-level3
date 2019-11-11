@@ -9,16 +9,16 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ClassType {
     public static final String MESSAGE_CONSTRAINTS =
             "Types should only contain the registered types of notes. "
-                    + "Eg. tutorials(tut)/lab/consultations(c)/sectionals(s)/preparation_time(p)";
+                    + "Eg. tutorials(tut)/lab/consultations(c)/sectionals(s)";
 
-    public static final String VALIDATION_REGEX = "tutorials|tut|lab|consultations|c|sectionals|s|preparation_time|p";
+    public static final String VALIDATION_REGEX = "tutorials|tut|lab|consultations|c|sectionals|s";
 
     public final String type;
 
     /**
      * Constructs a {@code Type}.
      *
-     * @param type A valid amount.
+     * @param type A valid class type.
      */
     public ClassType(String type) {
         requireNonNull(type);
@@ -27,7 +27,7 @@ public class ClassType {
     }
 
     /**
-     * Returns true if a given string is a valid amount.
+     * Returns true if a given string is a valid class type.
      */
     public static boolean isValidClassType(String test) {
         return test.matches(VALIDATION_REGEX);

@@ -2,13 +2,14 @@ package seedu.address.model.reminder;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.TreeSet;
 
 /**
  * Represents a Reminder in the calendar.
  */
-public class Reminder {
+public class Reminder implements Comparable<Reminder> {
     // Identity fields
     private final ReminderDescription reminderDescription;
     private final TreeSet<ReminderTime> reminderTimeSet = new TreeSet<>();
@@ -32,6 +33,9 @@ public class Reminder {
         return reminderTimeSet;
     }
 
+    public ReminderTime getStartTime() {
+        return reminderTimeSet.first();
+    }
 
     /**
      * Returns true if both tasks has the same description.
@@ -91,5 +95,12 @@ public class Reminder {
                 .append("Time: ")
                 .append(getTime());
         return builder.toString();
+    }
+
+    @Override
+    public int compareTo(Reminder reminder) {
+        Date st = this.getStartTime().getStartTime();
+        Date st2 = reminder.getStartTime().getStartTime();
+        return st.compareTo(st2);
     }
 }

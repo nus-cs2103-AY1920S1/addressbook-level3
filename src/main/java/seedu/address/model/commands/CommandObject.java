@@ -19,7 +19,7 @@ public class CommandObject {
     }
 
     public CommandWord getCommandWord() {
-        return commandWord;
+        return commandWord.copy();
     }
 
     public void setCommandWord(CommandWord commandWord) {
@@ -27,7 +27,7 @@ public class CommandObject {
     }
 
     public CommandAction getCommandAction() {
-        return commandAction;
+        return commandAction.copy();
     }
 
     public void setCommandAction(CommandAction commandAction) {
