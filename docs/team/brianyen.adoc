@@ -2,46 +2,87 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:experimental:
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: Alfred - The Hackathon Butler
 
 ---
 
 == Overview
+As part of a Software Engineering project, my team and I were tasked with transforming an existing AddressBook desktop application
+into any application of our choice, so long as it maintained a Command Line Interface and had a Graphical Display. We chose to
+transform the existing application into a Hackathon manager that is capable of managing the different workflows required for any
+Human Resource/Administrative Manager to organise a Hackathon. Named after Batman's trusty butler, Alfred allows Hackathon
+organisers to keep track of the individuals taking part in the Hackathon, assign participants to teams, visualise statistics
+and even import data from .csv files.
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+After several rounds of iterations and improvements, we are proud to present Alfred:
+
+.Alfred's User Interface
+image::UiIntro.png[]
+
+My main contribution to the team was to adapt the existing Storage implementation to fit the new application's purpose, and
+to implement the `undo`, `redo` and `history` features. In addition to this, I also implemented the Command History Navigation
+feature, which allows users to navigate to previously executed commands using keyboard shortcuts - a near-universal convenience
+feature provided in several Command Line prompts.
 
 == Summary of contributions
+=== Features Contributions
+* *Major Enhancement* Adapted Storage to fit the needs of Alfred.
+** Purpose: My contribution was to allow Alfred's data types to be stored to and read from disc.
+I also ensured that Alfred's various EntityLists could be serialized
+to JSON and saved to disc in a convenient manner, while guaranteeing that all data read from disc is first validated before
+being sent to Alfred so that corrupted data will not cause further problems upstream.
+** Justification: Storage is a key component in Alfred and ensures that all data changes can be automatically saved and
+persisted. This is critical for Alfred. Hackathon-organising is a long-term, large-scale effort, so being able to save your
+data reliably is key to the application's success.
+** Highlights: There is no need for users to save their data as Alfred always automatically saves the data to Storage.
+* *Major Enhancement* Created an undo/redo feature.
+** Purpose: Allows users to undo/redo previously executed commands. This allows users to easily correct mistakes while using Alfred.
+** Justification: Should users make a mistake or have a need to reverse previously executed commands, this feature allows them
+to quickly revert changes by invoking the `redo` command, improving their overall productivity and streamlining workflows with the application. Should they
+change their mind and actually wish to execute the command again, there is no need for them to re-type and execute the command,
+as they can simply invoke the `redo` command.
+** Highlights: You can undo/redo multiple commands at once, by invoking `undo N`/`redo N`, where N is an integer.
+* *Minor Enhancement* Allow users to view the history of previously executed commands
+** Purpose: Allows users to keep track of the changes they make
+** Justification: Especially after invoking several commands, it can be difficult for users to remember the order of commands they
+had previously executed. Hence, the `history` command provides a convenient visualisation of previously executed commands to
+better inform users on which commands they would like to `undo`/`redo`.
+* *Minor Enhancement* Allow users to navigate to previously executed commands using the ALT + UP/DOWN Arrow Keys
+* Purpose: Allow quick access to previously executed commands, as opposed to re-typing everything.
+* Justification: This is a convenience feature that most Command Line prompts have, so it is a nice feature for Alfred to
+include, given that Alfred is ultimately a Command Line Interface.
+** Highlights: Users can navigate up to 50 previous commands.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+=== Code Contributions
+These are some of the code I have written (my contributions are not limited to these files):
+** Functional Code
+*** https://github.com/AY1920S1-CS2103T-F11-1/main/tree/master/src/main/java/seedu/address/storage[Storage Code]
+*** https://github.com/AY1920S1-CS2103T-F11-1/main/blob/master/src/main/java/seedu/address/model/ModelHistoryManager.java[Model History Code]
+*** https://github.com/AY1920S1-CS2103T-F11-1/main/blob/master/src/main/java/seedu/address/model/CommandHistoryManager.java[Command History Code]
+** Test Code
+*** https://github.com/AY1920S1-CS2103T-F11-1/main/tree/master/src/test/java/seedu/address/storage[Storage Test Code]
+*** https://github.com/AY1920S1-CS2103T-F11-1/main/blob/master/src/test/java/seedu/address/model/ModelHistoryManagerTest.java[Model History Test Code]
+*** https://github.com/AY1920S1-CS2103T-F11-1/main/blob/master/src/test/java/seedu/address/model/CommandHistoryManagerTest.java[Command History Test Code]
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+=== Other Contributions
+These are some of the other ways I have helped my team along the way to develop Alfred.
 
-* *Other contributions*:
-
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+* Project management:
+** Helped manage releases `v1.2` - `v1.4` on GitHub
+* Tests
+** Helped write tests to ensure that test code coverage is maintained at a healthy level
+** These tests helped ensure that the implementation of new features by my teammates can be verified to not break existing features.
+* Documentation:
+** In charge of team's Documentation.
+** Helped standardise the format for both User Guide and Developer Guide
+** Helped proof-read the User Guide and Developer Guide and inform teammates of any areas that require changes, with the readability
+of the documentation being a top priority.
+* Community:
+** reviewed PRs (with non-trivial review comments)
+** participated actively in discussions with my teammates for their features
 
 == Contributions to the User Guide
 
@@ -50,9 +91,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=history]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=commandhistorynavigation]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +101,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=undo]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=storage]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
