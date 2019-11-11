@@ -40,6 +40,9 @@ public class PersonList {
         try {
             findPerson(personDescriptor.getName());
         } catch (PersonNotFoundException e) {
+            if (personDescriptor.getName().equals(user.getName())) {
+                throw new DuplicatePersonException(personDescriptor.getName());
+            }
             Person person = new Person(personDescriptor);
             this.persons.add(person);
             return person;
@@ -74,14 +77,20 @@ public class PersonList {
      * @return user
      * @throws NoPersonFieldsEditedException
      */
-    public User editUser(PersonDescriptor personDescriptor) throws NoPersonFieldsEditedException {
+    public User editUser(PersonDescriptor personDescriptor)
+            throws NoPersonFieldsEditedException, DuplicatePersonException {
 
         if (!personDescriptor.isAnyFieldEdited()) {
             throw new NoPersonFieldsEditedException();
         }
 
         if (!personDescriptor.getName().equals(Name.emptyName())) {
-            user.setName(personDescriptor.getName());
+            try {
+                findPerson(personDescriptor.getName());
+                throw new DuplicatePersonException();
+            } catch (PersonNotFoundException e) {
+                user.setName(personDescriptor.getName());
+            }
         }
         if (!personDescriptor.getPhone().equals(Phone.emptyPhone())) {
             user.setPhone(personDescriptor.getPhone());
@@ -123,6 +132,9 @@ public class PersonList {
                 findPerson(otherName);
                 throw new DuplicatePersonException();
             } catch (PersonNotFoundException e) {
+                if (personDescriptor.getName().equals(user.getName())) {
+                    throw new DuplicatePersonException();
+                }
                 toEdit.setName(personDescriptor.getName());
             }
         }

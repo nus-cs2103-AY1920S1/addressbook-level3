@@ -250,7 +250,8 @@ public class ModelManager implements Model {
         return personList.editPerson(name, personDescriptor);
     }
 
-    public User editUser(PersonDescriptor personDescriptor) throws NoPersonFieldsEditedException {
+    public User editUser(PersonDescriptor personDescriptor)
+            throws NoPersonFieldsEditedException, DuplicatePersonException {
         return personList.editUser(personDescriptor);
     }
 

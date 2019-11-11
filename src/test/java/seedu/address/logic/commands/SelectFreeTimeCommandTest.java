@@ -27,7 +27,7 @@ import seedu.address.testutil.modelutil.TypicalModel;
 class SelectFreeTimeCommandTest {
     private ModelManager model;
     private GroupName tempGroupName = new GroupName("tempSuccessfulGroup");
-    private LocalDateTime dateTimeStub = LocalDateTime.of(2019, 11, 10, 21, 00);
+    private LocalDateTime dateTimeStub = LocalDateTime.now();
 
     @BeforeEach
     void init() throws CommandException {
