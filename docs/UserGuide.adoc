@@ -61,6 +61,17 @@ guide.
 Want a quick summary of all the available commands? You can find them at our <<Command Summary, Command Summary>>
 section.
 
+== Quick Start
+
+.  Ensure you have Java `11` or above installed in your Computer.
+.  Download the latest `DukeCooks` from here (Include link).
+.  Copy the file to the folder you want to use as the home folder for DukeCooks.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
++
+image::Ui.png[width="790"]
+
+.  Refer to <<Features>> for details of each command.
+
 === Quick Look at DukeCooks
 
 Welcome to DukeCooks! The only planner you ever need for a healthier lifestyle! +
@@ -84,17 +95,6 @@ Start making a task list for the things you plan to do and never have to forget 
 * Workout Planner - Create custom workouts and track your progress!
 * Health - (Fill in a simple line for your feature?)
 * Diary - Create diary posts to share with your friends and family!
-
-== Quick Start
-
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `DukeCooks` from here (Include link).
-.  Copy the file to the folder you want to use as the home folder for DukeCooks.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-
-.  Refer to <<Features>> for details of each command.
 
 == Commands
 === General
@@ -293,14 +293,14 @@ Step 4. You can view the task relating to the keyword under the Dashboard.
 [caption="Figure 3.2.6b: "]
 image::findtask2.png[width="500"]
 
-==== pass:[<u>Viewing completed/incompleted tasks</u>]
+==== pass:[<u>Viewing completed/incomplete tasks</u>]
 
 Look at all those tasks!
 
 To view completed tasks: +
 Command: `list taskcomplete`
 
-For incompleted tasks: +
+For incomplete tasks: +
 Command: `list taskincomplete`
 
 ==== pass:[<u>Postponing a task's date</u>] `Coming in v2.0`

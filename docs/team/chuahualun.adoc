@@ -256,14 +256,14 @@ Step 4. You can view the task relating to the keyword under the Dashboard.
 [caption="Figure 9: "]
 image::findtask2.png[width="500"]
 
-=== pass:[<u>Viewing completed/incompleted tasks</u>]
+=== pass:[<u>Viewing completed/incomplete tasks</u>]
 
 Look at all those tasks!
 
 To view completed tasks: +
 Command: `list taskcomplete`
 
-For incompleted tasks: +
+For incomplete tasks: +
 Command: `list taskincomplete`
 
 === pass:[<u>Postponing a task's date</u>] `Coming in v2.0`

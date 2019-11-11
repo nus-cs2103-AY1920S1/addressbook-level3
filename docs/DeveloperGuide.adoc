@@ -909,10 +909,50 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
+The following is a Use Case diagram for the Dashboard.
+
+.Dashboard Use Case Diagram
+[caption="Figure 11: "]
+image::DashboardUseCase.png[width="200"]
+
 (For all use cases below, the *System* is `DukeCooks` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: UC01 - Adding recipes
+=== Use case: UC01 - Mark as complete
+
+A use case for marking a task as complete.
+....
+Software System: DukeCooks
+UseCase: UC01 - Mark as complete
+Actors: User
+MSS:
+1. User completes a task and wants to marked it as complete.
+2. User selects a task according to it's index number to mark as
+complete.
+3. User enters the command `done task` followed by the index
+number in the command box.
+4. DukeCooks finds the inputted index number and corresponding
+task and marks it as complete.
+5. DukeCooks updates the Dashboard to reflect the changes made.
+6. DukeCooks returns a message: Task is marked as complete, for
+the user.
+
+Extensions:
+1a. User is not currently at the Dashboard.
+    1a1. User enters `goto dashboard`.
+    1a2. DukeCooks displays the Dashboard to the user.
+Use case resumes from step 2.
+
+3a. DukeCooks detects an error in the entered data.
+    3a1. DukeCooks displays an error message.
+    3a2. User enters new data.
+
+Steps 3a1. and 3a2. are repeated until the data entered are correct.
+Use case resumes from step 4.
+....
+
+[discrete]
+=== Use case: UC02 - Adding recipes
 
 *MSS*
 
@@ -938,45 +978,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: UC02 - Suggesting Food
-The following is a Use Case diagram for the Dashboard.
 
-.Dashboard Use Case Diagram
-[caption="Figure 11: "]
-image::DashboardUseCase.png[width="200"]
-
-A use case for marking a task as complete.
-....
-Software System: DukeCooks
-UseCase: UC01 - Mark as complete
-Actors: User
-MSS:
-    1. User completes a task and wants to marked it as complete.
-    2. User selects a task according to it's index number to mark as
-complete.
-    3. User enters the command `done task` followed by the index
-number in the command box.
-    4. DukeCooks finds the inputted index number and corresponding
-task and marks it as complete.
-    5. DukeCooks updates the Dashboard to reflect the changes made.
-    6. DukeCooks returns a message: Task is marked as complete, for
-the user.
-
-Extensions:
-1a. User is not currently at the Dashboard.
-    1a1. User enters `goto dashboard`.
-    1a2. DukeCooks displays the Dashboard to the user.
-Use case resumes from step 2.
-
-3a. DukeCooks detects an error in the entered data.
-    3a1. DukeCooks displays an error message.
-    3a2. User enters new data.
-
-Steps 3a1. and 3a2. are repeated until the data entered are correct.
-Use case resumes from step 4.
-....
-
-[discrete]
 === Use case: UC03 - Adding Calorie Intake
 
 *MSS*
