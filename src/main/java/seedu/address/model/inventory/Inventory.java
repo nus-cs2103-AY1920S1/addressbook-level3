@@ -1,9 +1,9 @@
 package seedu.address.model.inventory;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Placeholder javadoc.

@@ -70,6 +70,13 @@ public abstract class ItineraryParserUtil {
         return new Budget(trimmedBudget);
     }
 
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing edges will be trimmed.
+     * @param name
+     * @return
+     * @throws ParseException if teh given {@code name} is invalid.
+     */
     public static Inventory parseAddInventory(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();

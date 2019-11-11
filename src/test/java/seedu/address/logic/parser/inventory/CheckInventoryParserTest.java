@@ -1,19 +1,12 @@
 package seedu.address.logic.parser.inventory;
 
-import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestFactory;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.inventory.CheckInventoryCommand;
-import seedu.address.logic.commands.itinerary.days.EnterDayCommand;
-
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.inventory.CheckInventoryCommand;
 
 class CheckInventoryParserTest {
 

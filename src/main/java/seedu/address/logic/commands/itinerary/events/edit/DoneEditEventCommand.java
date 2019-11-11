@@ -57,7 +57,8 @@ public class DoneEditEventCommand extends Command {
 
                 //Added by Karan Dev Sapra
                 if (eventToAdd.getInventoryList().isPresent()) {
-                    model.getPageStatus().getTrip().getInventoryList().addEventInventoryList(eventToAdd.getInventoryList().get());
+                    model.getPageStatus().getTrip().getInventoryList()
+                            .addEventInventoryList(eventToAdd.getInventoryList().get());
                 }
 
                 commandResult = new CommandResult(String.format(MESSAGE_CREATE_EVENT_SUCCESS, eventToAdd), true);
@@ -76,12 +77,14 @@ public class DoneEditEventCommand extends Command {
 
                 //Added by Karan Dev Sapra
                 if (eventToEdit.getInventoryList().isPresent()) {
-                    model.getPageStatus().getTrip().getInventoryList().removeEventInventoryList(eventToEdit.getInventoryList().get());
+                    model.getPageStatus().getTrip().getInventoryList()
+                            .removeEventInventoryList(eventToEdit.getInventoryList().get());
                 }
 
                 //Added by Karan Dev Sapra
                 if (eventToAdd.getInventoryList().isPresent()) {
-                    model.getPageStatus().getTrip().getInventoryList().addEventInventoryList(eventToAdd.getInventoryList().get());
+                    model.getPageStatus().getTrip().getInventoryList()
+                            .addEventInventoryList(eventToAdd.getInventoryList().get());
                 }
 
                 commandResult = new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, eventToAdd), true);

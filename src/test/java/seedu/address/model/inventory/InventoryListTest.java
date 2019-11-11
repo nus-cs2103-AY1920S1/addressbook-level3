@@ -1,18 +1,21 @@
 package seedu.address.model.inventory;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.inventory.exceptions.DuplicateInventoryException;
-import seedu.address.model.inventory.exceptions.InventoryNotFoundException;
-import seedu.address.testutil.InventoryBuilder;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.model.ModelTestUtil.VALID_INTEGER_1;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static seedu.address.model.ModelTestUtil.VALID_INTEGER_1;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import seedu.address.model.inventory.exceptions.DuplicateInventoryException;
+import seedu.address.model.inventory.exceptions.InventoryNotFoundException;
+import seedu.address.testutil.InventoryBuilder;
 
 class InventoryListTest {
 

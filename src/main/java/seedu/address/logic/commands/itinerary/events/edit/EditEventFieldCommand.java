@@ -3,17 +3,25 @@ package seedu.address.logic.commands.itinerary.events.edit;
 import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.CollectionUtil.isAllPresent;
-import static seedu.address.logic.parser.CliSyntax.*;
+
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_INVENTORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BOOKING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_INVENTORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import java.time.LocalTime;
-
 import java.util.Optional;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
@@ -36,8 +44,6 @@ import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.day.DayList;
 import seedu.address.model.itinerary.event.Event;
-
-import javax.swing.text.html.Option;
 
 /**
  * Placeholder.
@@ -78,7 +84,8 @@ public class EditEventFieldCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        //System.out.println("model's event's inventoryList's size is " + model.getPageStatus().getEvent().getInventoryList().get().getSize());
+        //System.out.println("model's event's inventoryList's size is " +
+        // model.getPageStatus().getEvent().getInventoryList().get().getSize());
 
         requireNonNull(model);
         EditEventDescriptor currentDescriptor = model.getPageStatus().getEditEventDescriptor();
@@ -224,7 +231,7 @@ public class EditEventFieldCommand extends Command {
                         try {
                             inventoryList.remove(index);
                         } catch (InventoryNotFoundException e) {
-
+                            continue;
                         }
                     }
                 });
@@ -232,18 +239,19 @@ public class EditEventFieldCommand extends Command {
 
             newDescriptor.inventoryList.ifPresentOrElse(inventoryList -> {
 
-                    if (oldDescriptor.inventoryList.isPresent()) {
+                if (oldDescriptor.inventoryList.isPresent()) {
 
-                        oldDescriptor.inventoryList.get().addAll(inventoryList);
+                    oldDescriptor.inventoryList.get().addAll(inventoryList);
 
-                        setInventoryList(oldDescriptor.inventoryList.get());
+                    setInventoryList(oldDescriptor.inventoryList.get());
 
-                        //inventoryList.getList().addAll(0, oldDescriptor.getInventoryList().get().getList());
-                    } else {
-                        setInventoryList(inventoryList);
-                    }
+                    //inventoryList.getList().addAll(0, oldDescriptor.getInventoryList().get().getList());
 
-                    //setInventoryList(inventoryList);
+                } else {
+                    setInventoryList(inventoryList);
+                }
+
+                //setInventoryList(inventoryList);
 
 
             }, () -> oldDescriptor.inventoryList.ifPresent(this::setInventoryList));
@@ -287,7 +295,7 @@ public class EditEventFieldCommand extends Command {
 
                     inventoryList = Optional.of(new ArrayList<Inventory>());
 
-                    for (int i =0; i<this.inventoryList.get().getSize(); i++){
+                    for (int i = 0; i < this.inventoryList.get().getSize(); i++) {
                         inventoryList.get().add(this.inventoryList.get().getList().get(i));
                     }
 
@@ -302,7 +310,8 @@ public class EditEventFieldCommand extends Command {
                 LocalDateTime newStartDate = LocalDateTime.of(currentDay, startTime.get());
                 LocalDateTime newEndDate = LocalDateTime.of(currentDay, endTime.get());
 
-                return new Event(name.get(), newStartDate, newEndDate, expense, destination.get(), description, inventoryList);
+                return new Event(name.get(), newStartDate, newEndDate, expense, destination.get(),
+                        description, inventoryList);
 
 
             } else {
@@ -358,7 +367,7 @@ public class EditEventFieldCommand extends Command {
             if (this.inventoryList.isPresent()) {
                 inventoryList = Optional.of(new ArrayList<Inventory>());
 
-                for (int i =0; i<this.inventoryList.get().getSize(); i++){
+                for (int i = 0; i < this.inventoryList.get().getSize(); i++) {
                     inventoryList.get().add(this.inventoryList.get().getList().get(i));
                 }
             }
@@ -499,14 +508,11 @@ public class EditEventFieldCommand extends Command {
                     && getEndTime().equals(e.getEndTime())
                     && getDestination().equals(e.getDestination())
                     && getBudget().equals(e.getBudget())
-
-//                    && getInventoriesToDelete().equals(e.getInventoriesToDelete())
+                    //&& getInventoriesToDelete().equals(e.getInventoriesToDelete())
                     && getInventoryList().equals((e.getInventoryList()))
-
                     && getDescription().equals(e.getDescription());
-//                    && getInventory().equals((e.getInventory()))
-
-//                    && getBooking().equals((e.getBooking()));
+                    //&& getInventory().equals((e.getInventory()))
+                    //&& getBooking().equals((e.getBooking()));
         }
 
         @Override
@@ -520,10 +526,10 @@ public class EditEventFieldCommand extends Command {
                     builder.append(" End time: ").append(ParserDateUtil.getDisplayTime(endDate)));
             this.destination.ifPresent(destination -> builder.append(" Destination: ").append(destination));
             this.totalBudget.ifPresent(totalBudget -> builder.append(" Total Budget: ").append(totalBudget));
-
-
-            this.inventoriesToDelete.ifPresent(inventoriesToDelete -> builder.append(" Inventory Items Deleted: ").append(inventoriesToDelete.size()));
-            this.inventoryList.ifPresent(inventoryList -> builder.append(" Inventory Items Added: ").append(inventoryList.getSize()));
+            this.inventoriesToDelete.ifPresent(inventoriesToDelete -> builder
+                    .append(" Inventory Items Deleted: ").append(inventoriesToDelete.size()));
+            this.inventoryList.ifPresent(inventoryList -> builder.append(" Inventory Items Added: ")
+                    .append(inventoryList.getSize()));
 
 
             this.description.ifPresent(description -> builder.append(" Description: ").append(description));

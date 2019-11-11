@@ -10,15 +10,12 @@ import seedu.address.model.booking.Booking;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.inventory.Inventory;
 
-import seedu.address.model.inventory.InventoryList;
-
 import seedu.address.model.itinerary.Description;
 
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.Event;
 
-import javax.swing.text.html.Option;
 
 /**
  * Builder class to accommodate optional properties using builder pattern.
@@ -110,9 +107,11 @@ public class EventBuilder {
         return this;
     }
 
+    /**
+     * Builds and returns and Event.
+     * @return An Event.
+     */
     public Event build() {
-
-
         return new Event(name, startDate, endDate, booking, totalBudget, destination, description, inventoryList);
 
     }

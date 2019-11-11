@@ -2,6 +2,9 @@ package seedu.address.model.inventory.exceptions;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 
+/**
+ * Exception for when the Inventory is unable to be removed.
+ */
 public class InventoryNotRemovableException extends CommandException {
 
     public static final String MESSAGE = "Failed to delete your inventory item, "

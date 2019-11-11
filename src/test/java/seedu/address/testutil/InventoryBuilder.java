@@ -23,7 +23,7 @@ public class InventoryBuilder {
     /**
      * Constructs a InventoryBuilder instance from the specified Inventory().
      *
-     * @param Inventory to use.
+     * @param inventory to use.
      * @return new InventoryBuilder instance.
      */
     public static InventoryBuilder of(Inventory inventory) {

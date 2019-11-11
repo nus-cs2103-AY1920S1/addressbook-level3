@@ -1,22 +1,16 @@
 package seedu.address.logic.parser.inventory;
 
-import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestFactory;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.inventory.UncheckInventoryCommand;
-
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.inventory.UncheckInventoryCommand;
 
 class UncheckInventoryParserTest {
 
-    private static final int TEST_FACTORY_COUNT = 10;
+    //private static final int TEST_FACTORY_COUNT = 10;
 
     @Test
     void parse_inputNull_throwsNullPointer() {

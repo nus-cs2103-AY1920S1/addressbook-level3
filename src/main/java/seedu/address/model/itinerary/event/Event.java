@@ -4,15 +4,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import seedu.address.model.booking.Booking;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.inventory.Inventory;
-
-import seedu.address.model.inventory.InventoryList;
 
 import seedu.address.model.itinerary.Description;
 
@@ -50,7 +47,8 @@ public class Event {
      * Constructs an {@code Event}.
      */
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate, Booking booking,
-                 Expense expense, Location destination, Description description, Optional<List<Inventory>> inventoryList) {
+                 Expense expense, Location destination, Description description,
+                 Optional<List<Inventory>> inventoryList) {
 
 
         requireAllNonNull(name, startDate, endDate);
@@ -71,7 +69,8 @@ public class Event {
 
     // temporary constructor until we implement booking and inventoryList, accepts null for now
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
-                 Expense expense, Location destination, Description description, Optional<List<Inventory>> inventoryList) {
+                 Expense expense, Location destination, Description description,
+                 Optional<List<Inventory>> inventoryList) {
 
         requireAllNonNull(name, startDate, endDate, expense, description);
 
@@ -93,9 +92,9 @@ public class Event {
     /**
      * Constructs a trip with optional expense field.
      */
-    public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
-
-                 Optional<Expense> expense, Location destination, Optional<Description> description, Optional<List<Inventory>> inventoryList) {
+    public Event(Name name, LocalDateTime startDate, LocalDateTime endDate, Optional<Expense> expense,
+                 Location destination, Optional<Description> description,
+                 Optional<List<Inventory>> inventoryList) {
 
 
         requireAllNonNull(name, startDate, endDate, expense);

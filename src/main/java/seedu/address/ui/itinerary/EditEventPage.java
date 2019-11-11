@@ -1,9 +1,6 @@
 package seedu.address.ui.itinerary;
 
-
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.logic.parser.ParserDateUtil.DATE_FORMATTER;
-
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_INVENTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
@@ -16,11 +13,11 @@ import static seedu.address.logic.parser.ParserDateUtil.TIME_FORMATTER;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.*;
+
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.itinerary.events.edit.CancelEditEventCommand;
@@ -34,9 +31,6 @@ import seedu.address.ui.components.form.TextFormItem;
 import seedu.address.ui.components.form.TimeFormItem;
 import seedu.address.ui.template.Page;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * WARNING INCOMEPLETE: TODO: FIELDS FOR INVENTORY AND BOOKING.
@@ -59,7 +53,7 @@ public class EditEventPage extends Page<AnchorPane> {
 
     //private TextFormItem eventBookingFormItem;
 
-    ListView<Inventory> listView;
+    private ListView<Inventory> listView;
 
     @javafx.fxml.FXML
     private VBox formItemsPlaceholder;
@@ -223,9 +217,10 @@ public class EditEventPage extends Page<AnchorPane> {
         mainWindow.executeGuiCommand(commandText);
     }
 
+    /*
     public static class HBoxCell extends HBox {
-        Label label = new Label();
-        Button button = new Button();
+        private Label label = new Label();
+        private Button button = new Button();
 
         HBoxCell(String labelText, String buttonText) {
             super();
@@ -238,7 +233,7 @@ public class EditEventPage extends Page<AnchorPane> {
 
             this.getChildren().addAll(label, button);
         }
-    }
+    }*/
 
 
 

@@ -3,7 +3,6 @@ package seedu.address.model.inventory;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +20,6 @@ import seedu.address.model.inventory.exceptions.InventoryNotRemovableException;
 public class InventoryList {
 
     //public final ObservableList<Expense> internalList = FXCollections.observableArrayList();
-
-    private HashMap<String, Integer> eventInstances;
 
     public final ObservableList<Inventory> list = FXCollections.observableArrayList(inventory ->
             new Observable[] {
@@ -68,6 +65,11 @@ public class InventoryList {
         list.add(toAdd);
     }
 
+    /**
+     * Adds all the elements of listToAdd that are not already in the list
+     * @param listToAdd List to Add
+     * @throws DuplicateInventoryException
+     */
     public void addAll (InventoryList listToAdd) throws DuplicateInventoryException {
         requireNonNull(listToAdd);
 
@@ -75,12 +77,18 @@ public class InventoryList {
             try {
                 add(item);
             } catch (DuplicateInventoryException e) {
-
+                continue;
             }
         }
 
     }
 
+    /**
+     * Adds the Inventory List items related to a specific Event
+     * to the Main Inventory List (and increases the eventInstances count)
+     * @param eventInventoryList Inventory List items related to a specific Event
+     * @throws InventoryNotFoundException
+     */
     public void addEventInventoryList (List<Inventory> eventInventoryList) {
         requireNonNull(eventInventoryList);
 
@@ -110,6 +118,12 @@ public class InventoryList {
         }
     }
 
+    /**
+     * Removes the Inventory List items related to a specific Event
+     * from the Main Inventory List (or decreases the eventInstances count)
+     * @param eventInventoryList Inventory List items related to a specific Event
+     * @throws InventoryNotFoundException
+     */
     public void removeEventInventoryList (List<Inventory> eventInventoryList) throws InventoryNotFoundException {
         requireNonNull(eventInventoryList);
 
@@ -213,10 +227,19 @@ public class InventoryList {
         return list.hashCode();
     }
 
+    /**
+     * Returns the length of the inventory list
+     * @return The list's length
+     */
     public int getSize () {
         return this.list.size();
     }
 
+    /**
+     * Marks a specific item in the Inventory List as not done
+     * @param index Index of item to be marked
+     * @throws InventoryNotFoundException
+     */
     public void markNotDone (Index index) throws InventoryNotFoundException {
 
         try {
@@ -229,6 +252,11 @@ public class InventoryList {
         }
     }
 
+    /**
+     * Marks a specific item in the Inventory List as done
+     * @param index Index of item to be marked
+     * @throws InventoryNotFoundException
+     */
     public void markDone (Index index) throws InventoryNotFoundException {
 
         try {

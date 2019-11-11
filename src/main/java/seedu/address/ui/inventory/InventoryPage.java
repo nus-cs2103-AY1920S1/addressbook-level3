@@ -1,12 +1,12 @@
 package seedu.address.ui.inventory;
 
-import javafx.beans.property.ReadOnlyObjectWrapper;
+import java.util.function.Function;
+
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 
 import javafx.fxml.FXML;
 
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -16,7 +16,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.scene.layout.AnchorPane;
 
-import javafx.util.Callback;
 import seedu.address.logic.Logic;
 import seedu.address.model.Model;
 
@@ -25,8 +24,6 @@ import seedu.address.model.inventory.InventoryList;
 
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.template.PageWithSidebar;
-
-import java.util.function.Function;
 
 /**
  * {@code Page} class implementing the itinerary landing page.

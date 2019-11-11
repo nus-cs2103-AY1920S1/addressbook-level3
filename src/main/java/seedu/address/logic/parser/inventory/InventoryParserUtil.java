@@ -1,15 +1,22 @@
 package seedu.address.logic.parser.inventory;
 
-import seedu.address.logic.parser.exceptions.ParseException;
+import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.inventory.Inventory;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.inventory.Name;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Abstract Class has helper functions that can be used for parsing Inventory-related commands.
+ */
 public abstract class InventoryParserUtil {
 
+    /**
+     * Parses the name if it is valid
+     * @param name Name to parse
+     * @return Parsed Name
+     * @throws ParseException
+     */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();

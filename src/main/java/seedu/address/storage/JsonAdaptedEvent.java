@@ -11,18 +11,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
-import seedu.address.model.inventory.Inventory;
-import seedu.address.model.inventory.InventoryList;
-
-
 import seedu.address.model.expense.Expense;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.itinerary.Description;
-
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.Event;
 
-import javax.swing.text.html.Option;
 
 /**
  * Jackson friendly version of {@code Event}.
@@ -53,7 +48,7 @@ public class JsonAdaptedEvent {
             @JsonProperty("destination") String destination, @JsonProperty("description") Optional<String> description,
                             @JsonProperty("expense") Optional<JsonAdaptedExpense> expense,
                             @JsonProperty("inventoryList") Optional<List<JsonAdaptedInventory>> inventoryList) {
-    //, @JsonProperty("booking")Optional<Booking> booking
+        //, @JsonProperty("booking")Optional<Booking> booking
         this.name = name;
         this.startTime = from;
         this.endTime = to;
@@ -192,7 +187,8 @@ public class JsonAdaptedEvent {
             modelDescription = Optional.empty();
         }
 
-        return new Event(modelName, modelStartTime, modelEndTime, modelExpense, modelDestination, modelDescription, modelInventoryList);
+        return new Event(modelName, modelStartTime, modelEndTime, modelExpense, modelDestination,
+                modelDescription, modelInventoryList);
 
     }
 }

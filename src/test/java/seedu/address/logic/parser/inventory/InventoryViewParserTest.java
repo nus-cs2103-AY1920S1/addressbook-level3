@@ -1,11 +1,12 @@
 package seedu.address.logic.parser.inventory;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.parser.exceptions.ParseException;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.parser.exceptions.ParseException;
 
 class InventoryViewParserTest {
 

@@ -2,19 +2,19 @@ package seedu.address.logic.parser.itinerary.eventview.edit;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_INVENTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BOOKING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_INVENTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_INVENTORY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_INVENTORY;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.Optional;
 
@@ -112,7 +112,7 @@ public class EditEventFieldParser implements Parser<EditEventFieldCommand> {
                 try {
                     inventoryList.add(inventory);
                 } catch (DuplicateInventoryException e) {
-
+                    continue;
                 }
             }
 

@@ -21,7 +21,8 @@ public class JsonAdaptedInventory {
      * Constructs a {@code JsonAdaptedInventory} with the given JsonAdaptedInventory details.
      */
     @JsonCreator
-    public JsonAdaptedInventory(@JsonProperty("name") String name, @JsonProperty("isDone") boolean isDone, @JsonProperty("eventInstances") int eventInstances) {
+    public JsonAdaptedInventory(@JsonProperty("name") String name, @JsonProperty("isDone") boolean isDone,
+                                @JsonProperty("eventInstances") int eventInstances) {
         this.name = name;
         this.isDone = isDone;
         this.eventInstances = eventInstances;
