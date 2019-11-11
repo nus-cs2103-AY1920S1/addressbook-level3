@@ -466,7 +466,7 @@ NOTE: **Alternative 2** was preferred as it provides users with an experience cl
 // tag::dataencryption[]
 === Test mode
 Test mode allows users to start a flash card test from a selected list of tags. If no parameters are provided, all
-flashcards contained in the system will be tested.
+'FlashCard'(s) contained in the system will be tested.
 
 The following activity diagram shows the typical scenario of a `FlashCard` test. Note that special commands such as
 `skip` and `end` are omitted for brevity.
@@ -540,7 +540,7 @@ This feature is supported by the following classes:
 * `StatsCommand` -- Carries the message to be displayed to the user.
 * `MainWindow` -- Opens a specific window as required.
 * `StatsWindow` -- Builds the statistics window display.
-* `Model` -- To provide a list of FlashCards given a rating predicate and the statistics from test mode.
+* `Model` -- To provide a list of 'FlashCard'(s) given a rating predicate and the statistics from test mode.
 * `Stage` -- To create the pop-up window.
 * `Scene` -- To create an object that contains all the physical contents of the pop-up window.
 * `FlowPane` -- To create the layout of the pop-up window.
@@ -563,14 +563,14 @@ The following aspect was a consideration when designing the statistics feature.
 
 Aspect: Methods to collect statistics
 
-* **Alternative 1 (Current choice):** Collect total number of good/hard/easy flashcards using predicates and those completed in test mode using the model.
+* **Alternative 1 (Current choice):** Collect total number of good/hard/easy 'FlashCard'(s) using predicates and those completed in test mode using the model.
 ** Pros: This is easy to implement.
 ** Cons: This requires extra lines of code to combine all the statistics.
 
 
 * **Alternative 2:** Collect all statistics using the model.
 ** Pros: This allows the collection of all statistics with minimal methods involved.
-** Cons: This requires constant updating of the model when new FlashCards are added, removed or edited.
+** Cons: This requires constant updating of the model when new 'FlashCard'(s) are added, removed or edited.
 
 Alternative 1 was chosen simply because it was easier to implement within the given period of time.
 
@@ -718,10 +718,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1.  User requests to list all flashcards in a <<category, category>>
-2.  System shows a list of flashcards with index
-3.  User requests to delete a flashcard in the list by providing <<category, category>> and index
-4.  System deletes the flashcard
+1.  User requests to list all 'FlashCard'(s) in a <<category, category>>
+2.  System shows a list of 'FlashCard'(s) with index
+3.  User requests to delete a 'FlashCard' in the list by providing <<category, category>> and index
+4.  System deletes the 'FlashCard'
 
 +
 Use case ends.
@@ -801,7 +801,7 @@ Use case resumes at step 2.
 == Glossary
 
 [[category]] Category::
-A tag that can be assigned to a flashcard for better categorisation
+A tag that can be assigned to a 'FlashCard' for better categorisation
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
@@ -810,7 +810,7 @@ Windows, Linux, Unix, OS-X
 A contact detail that is not meant to be shared with others
 
 [[test]] Test::
-The state in which the user is shown their flashcards one-by-one and in succession, allowing them to test their understanding of the covered content
+The state in which the user is shown their 'FlashCard'(s) one-by-one and in succession, allowing them to test their understanding of the covered content
 
 [appendix]
 == Product Survey
@@ -855,13 +855,13 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Deleting a FlashCard
 
-. Deleting a flashCard while all flashCards are listed
+. Deleting a 'FlashCard' while all 'FlashCard'(s) are listed
 
-.. Prerequisites: List all flashCards using the `list` command. Multiple flashCards in the list.
+.. Prerequisites: List all 'FlashCard'(s) using the `list` command. Multiple 'FlashCard'(s) in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No flashCard is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No 'FlashCard' is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
