@@ -1,0 +1,117 @@
+= Balam Sai Rohit Reddy - Project Portfolio Page
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Overview
+
+This documents gives an insight to the contributions I made to EatMe, a personalized food diary application.
+I worked along with a team of 4 other Computer Science Students to morph the existing Address Book 3
+application into EatMe.
+
+EatMe helps users to keep track of the places they have been to, mouthwatering
+dishes that they consumed, and also stay up to date with the latest trends in the world of food.
+Users interact with it using a Command Line Interface (CLI) and it also has a Graphical User Interface (GUI)
+created using JavaFX. The application is written in Java and has about 10 kLoC.
+
+This is how the application looks like:
+image:Eatme.PNG[]
+
+== Summary of Contributions
+
+* *Code contributed* : https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=ROHITREDDYBALAM[Code contributed]
+
+* *Major enhancement*: Added the *Review (Add, Edit, Delete)* feature
+
+** EatMe being a food 'diary' app, the central feature is the ability to write down your experiences, view them
+in the future, and make changes if necessary. The review feature allows users to add reviews to an eatery, edit the reviews added and even delete them.
+
+** In the process of morphing the Address Book into EatMe, all the attributes of an Eatery only had
+a single piece of information associated with them, like the Address attribute. However, a review
+consists of description, price, rating and time of the meal. This arrangement made it quite challenging
+to store and edit reviews. On the brighter side, the user can now decide where and what to eat quickly
+by taking a glance at the reviews' costs and ratings. In the event that the users input a review wrongly,
+they can edit or delete them at their will.
+
+** Relevant PRs: https://github.com/AY1920S1-CS2103T-W11-3/main/pull/77[#77], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/90[#90],
+https://github.com/AY1920S1-CS2103T-W11-3/main/pull/172[#172]
+
+image:Review.PNG[]
+
+
+
+
+* *Other enhancements*: Added the *AddTag* and *RemoveTag* features
+
+** Originally, the only way to add or remove tags was by using the `edit` command, which replaced
+all the existing tags with the new input. If an eatery was tagged as `#good`, `#expensive`, `#Chinese`, `#elder-friendly`,
+and the user wanted to delete the `#expensive` tag, he would have had to input
+`edit [id] \t good \t Chinese \t elder-friendly` as the existing tags were replaced by the new ones.
+It is very frustrating if the eatery is associated with multiple tags and the user just wants to edit one.
+
+** So, I came up with the *AddTag* and *RemoveTag* features that operate only on the tags specified by the user.
+Now, `removetag [id] \t expensive` is used to remove the `#expensive` tag. Likewise, `addtag [id] \t ...`
+will be used to add the required tags. The effects are cumulative, allowing the user to operate efficiently.
+
+** Relevant PRs: https://github.com/AY1920S1-CS2103T-W11-3/main/pull/155[#155]
+
+* *Other Contributions:*
+
+** Initial Phase:
+
+*** Came up with the idea to morph Address Book into a food diary.
+*** Refactored Address Book (removed Phone number, Email fields) to make it more suitable for handling eateries.
+*** Relevant PRs: https://github.com/AY1920S1-CS2103T-W11-3/main/pull/57[#57],
+https://github.com/AY1920S1-CS2103T-W11-3/main/pull/59[#59]
+
+** Project Management:
+
+*** Drafting a rough project plan with reasonable deadlines.
+*** Keeping track of issues on Github.
+
+** Documentation:
+
+*** Updated the User Guide with new information (PRs https://github.com/AY1920S1-CS2103T-W11-3/main/pull/173[#173]).
+*** Updated the Developer Guide with new information and diagrams (PRs https://github.com/AY1920S1-CS2103T-W11-3/main/pull/81[#81],
+https://github.com/AY1920S1-CS2103T-W11-3/main/pull/179[#179], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/191[#191]).
+*** Suggested changes to documentation updates (PRs https://github.com/AY1920S1-CS2103T-W11-3/main/pull/10[#10]).
+
+** Community
+
+*** Reviewed Pull Requests (with non-trivial comments): PRs https://github.com/AY1920S1-CS2103T-W11-3/main/pull/95[#95],
+https://github.com/AY1920S1-CS2103T-W11-3/main/pull/73[#73]
+
+== Contributions to the User Guide
+
+|===
+|Given below are the sections that I contributed to the User Guide.
+|===
+
+include::../UserGuide.adoc[tag=edit]
+
+
+include::../UserGuide.adoc[tag=review]
+
+
+include::../UserGuide.adoc[tag=editreview]
+
+
+include::../UserGuide.adoc[tag=deletereview]
+
+** Apart from these, I wrote the documentation for *addtag* and *removetag* as well.
+
+== Contributions to the Developer Guide
+
+|===
+|Given below are the sections that I contributed to the User Guide.
+|===
+
+include::../DeveloperGuide.adoc[tag=revieweatery]
+
+
+include::../DeveloperGuide.adoc[tag=editreview]
+
+
+include::../DeveloperGuide.adoc[tag=deletereview]
+
+** Apart from these, I wrote the documentation for *addtag* and *removetag* as well.

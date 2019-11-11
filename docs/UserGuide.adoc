@@ -142,7 +142,7 @@ Examples:
 * `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese \t good-for-groups \t non-aircon`
 // end::add[]
 
-// tag:: edit[]
+// tag::edit[]
 ===== Editing an eatery: `edit`
 
 Edits an existing eatery in the application.
@@ -162,6 +162,7 @@ Examples:
 * `edit 1 \a NUS Biz School`
 // end::edit[]
 
+//tag::addtag[]
 ===== Tagging an eatery: `addtag`
 
 Adds tags to an eatery.
@@ -175,7 +176,9 @@ Format: `addtag [index] \t [tag] {\t [tags]...}`
 Examples:
 
 * `addtag 2 \t hawker \t good-for-sharing`
+//end::addtag[]
 
+//tag::removetag[]
 ===== Removing tags from an eatery: `removetag`
 
 Removes tags from an eatery.
@@ -189,6 +192,7 @@ Format: `removetag [index] \t [tags]...`
 Examples:
 
 * `removetag 2 \t hawker`
+//end::removetag[]
 
 ===== Finding an eatery: `find`
 
@@ -224,9 +228,10 @@ Examples:
 
 * `show 2`
 
+//tag::review[]
 ===== Reviewing an eatery: `review`
 
-Leaves a review for an eatery.
+Leaves a review for the specified eatery. +
 
 Format: `review [index] \d [description] \p [price per person] \r [rating] \w [date in DD/MM/YYYY format]`
 
@@ -239,9 +244,12 @@ Examples:
 
 * `review 2 \d Nice Condensed Milk Pork Ribs \p 15 \r 4 \w 23/10/2019`
 
+//end::review[]
+
+//tag::editreview[]
 ===== Editing a review: `editreview`
 
-Edits an eatery's review. The `show` command helps to view an eatery's reviews.
+Edits an eatery's review. Use the `show` command first to view an eatery's reviews.
 
 Format: `editreview [index] {\d [description]} {\p [price per person]} {\r [rating]} {\w [date in DD/MM/YYYY format]}`
 
@@ -258,9 +266,12 @@ Examples:
 
 image::EditReviewCommand.png[width="790"]
 
+//end::editreview[]
+
+//tag::deletereview[]
 ===== Deleting a review: `deletereview`
 
-Deletes an eatery's review. The `show` command helps to view an eatery's reviews.
+Deletes an eatery's review. Use the `show` command first to view an eatery's reviews.
 
 Format: `deletereview [index]`
 
@@ -269,6 +280,7 @@ Examples:
 * `deletereview 2`
 
 image::DeleteReviewCommand.png[width=""790"]
+//end::deletereview[]
 
 // tag::close[]
 ===== Marking an eatery as closed: `close`
