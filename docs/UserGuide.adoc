@@ -347,6 +347,7 @@ Example:
 
 // end::redo[]
 
+// tag::test[]
 === Start test with flashcards : `test`
 
 ****
@@ -416,6 +417,7 @@ Do note that premature ending of a test will still count towards your Statistics
 
 * Upon running their programs, if they pass all test cases, their results will automatically be counted.
 ====
+//end::test[]
 
 // tag::stats[]
 === Viewing user statistics : `stats`

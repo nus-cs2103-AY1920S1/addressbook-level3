@@ -281,6 +281,8 @@ The GUI of the application is started up by the `UiManager` class, when the appl
 The `GUI` class handles operations on the GUI, such as rendering nodes to the application window,
 and passing user command input to the `Responder` class.
 
+// tag::test[]
+
 === Test
 ==== Proposed Implementation
 
@@ -348,6 +350,9 @@ Step 5. For untimed test, repeat steps 3 and 4 until the end of deck is reached.
 *** Allows the project to be open for extension. Developers may potentially develop other kinds of Exam modes (eg. speed round whereby there's a limited time *per card*)
 ** Cons:
 *** Relatively redundant at the current version (`v1.4`)
+// end::test[]
+
+
 
 === Running a code flashcard
 .Activity diagram for creating a code flashcard
