@@ -74,6 +74,10 @@ public class SampleData {
                     Slot.fromString("03/03/2019 16:30-17:00"), Slot.fromString("03/03/2019 17:00-17:30")))
             .build();
 
+    /**
+     * Generate the list of sample interviewee.
+     * @return ReadOnlyList of the list of interviewees
+     */
     public static ReadOnlyList<Interviewee> getSampleIntervieweeList() {
         IntervieweeList intervieweeList = new IntervieweeList();
         intervieweeList.addEntity(SAMPLE_INTERVIEWEE_ALICE);
@@ -82,6 +86,10 @@ public class SampleData {
         return intervieweeList;
     }
 
+    /**
+     * Generate the list of sample interviewee.
+     * @return ReadOnlyList of the list of interviewers
+     */
     public static ReadOnlyList<Interviewer> getSampleInterviewerList() {
         InterviewerList interviewerList = new InterviewerList();
         interviewerList.addEntity(SAMPLE_INTERVIEWER_AARON);

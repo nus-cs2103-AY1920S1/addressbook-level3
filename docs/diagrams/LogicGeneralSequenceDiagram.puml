@@ -42,10 +42,10 @@ deactivate XYZCommand
 XYZCommandParser --> SchedulerParser
 deactivate XYZCommandParser
 
-destroy XYZCommandParser
-
 SchedulerParser --> LogicManager
 deactivate SchedulerParser
+
+destroy XYZCommandParser
 
 LogicManager -> XYZCommand: execute(model)
 activate XYZCommand
@@ -54,8 +54,6 @@ ref over XYZCommand: See Section 3: Implementation\nfor concrete examples of how
 
 XYZCommand --> LogicManager
 deactivate XYZCommand
-
-destroy XYZCommand
 
 LogicManager -> ModelManager: getMutableIntervieweeList()
 activate ModelManager
@@ -82,6 +80,9 @@ StorageManager --> LogicManager
 deactivate StorageManager
 
 [<--LogicManager
+
+destroy XYZCommand
+
 deactivate LogicManager
 
 @enduml

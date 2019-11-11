@@ -55,16 +55,25 @@ public class UiManager implements Ui {
         mainWindow.scheduleDataUpdated(logic.getTitlesLists(), logic.getObservableLists());
     }
 
+    /**
+     * Select tab to schedule.
+     */
     public void changeTabSchedule() {
-        mainWindow.changeTab(0);
-    }
-
-    public void changeTabInterviewer() {
         mainWindow.changeTab(2);
     }
 
-    public void changeTabInterviewee() {
+    /**
+     * Select tab to interviewer.
+     */
+    public void changeTabInterviewer() {
         mainWindow.changeTab(1);
+    }
+
+    /**
+     * Select tab to interviewee.
+     */
+    public void changeTabInterviewee() {
+        mainWindow.changeTab(0);
     }
 
     /**

@@ -56,25 +56,25 @@
                 <URL value="@TabView.css" />
               </stylesheets>
             <tabs>
+              <Tab fx:id="intervieweeTab" text="Interviewee">
+                <StackPane fx:id="intervieweeListPlaceholder" xmlns="http://javafx.com/javafx/8"
+                           xmlns:fx="http://javafx.com/fxml/1" minWidth="340" prefWidth="340" styleClass="pane-with-border">
+                  <padding>
+                    <Insets bottom="10" left="10" right="10" top="10" />
+                  </padding>
+                </StackPane>
+              </Tab>
+              <Tab fx:id="interviewerTab" text="Interviewer">
+                <StackPane fx:id="interviewerListPlaceholder" xmlns="http://javafx.com/javafx/8"
+                           xmlns:fx="http://javafx.com/fxml/1" minWidth="340" prefWidth="340" styleClass="pane-with-border">
+                  <padding>
+                    <Insets bottom="10" left="10" right="10" top="10" />
+                  </padding>
+                </StackPane>
+              </Tab>
                 <Tab fx:id="scheduleTab" text="Schedules">
                   <StackPane fx:id="schedulePanelPlaceholder" xmlns="http://javafx.com/javafx/8"
                              xmlns:fx="http://javafx.com/fxml/1" minWidth="340" prefWidth="340" styleClass="pane-with-border">
-                    <padding>
-                      <Insets bottom="10" left="10" right="10" top="10" />
-                    </padding>
-                  </StackPane>
-                </Tab>
-                <Tab fx:id="intervieweeTab" text="Interviewee">
-                  <StackPane fx:id="intervieweeListPlaceholder" xmlns="http://javafx.com/javafx/8"
-                           xmlns:fx="http://javafx.com/fxml/1" minWidth="340" prefWidth="340" styleClass="pane-with-border">
-                    <padding>
-                      <Insets bottom="10" left="10" right="10" top="10" />
-                    </padding>
-                  </StackPane>
-                </Tab>
-                <Tab fx:id="interviewerTab" text="Interviewer">
-                  <StackPane fx:id="interviewerListPlaceholder" xmlns="http://javafx.com/javafx/8"
-                         xmlns:fx="http://javafx.com/fxml/1" minWidth="340" prefWidth="340" styleClass="pane-with-border">
                     <padding>
                       <Insets bottom="10" left="10" right="10" top="10" />
                     </padding>

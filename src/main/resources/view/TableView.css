@@ -1,13 +1,3 @@
-//Style of entire tableView
-.table-view {
-    /*-fx-background-color: transparent;*/
- }
-
- //Style of entire tableView when is getting focused
-.table-view:focused {
-    /*-fx-background-color: transparent;*/
-}
-
 //Style of each column header in the tableView
 .table-view .column-header {
      -fx-background-color: transparent;
