@@ -392,27 +392,25 @@ Split a bill with your friends +
 Format: `split $/AMOUNT n/NAME1 a/DESCRIPTION [d/DATE] [n/NAME2]... [s/SHARE]...`
 
 ====
-* `DESCRIPTION` encompasses more details for the bill being split. User can make use of this
-field to determine nature of bill.
+* `DESCRIPTION` is prefixed with `a/`, unlike for other commands
 * `[SHARE]` defines portion of bill to be paid by each person
-** if no shares are given, `amount` will be split evenly across all people, including user
-** user is included in the bill if number of shares is *1* more than number of people
-*** user's share will be the first listed share
+** if no shares are given, `AMOUNT` will be split evenly across all people, including user
+** you are included in the bill if number of shares is *1* more than number of people
+*** your share of the bill will be the first listed share
 ** each person's share is assigned in order
 *** i.e. last person's share is the last share listed
-** shares cannot be negative numbers
-** *shares can be 0 but result is not guaranteed to be meaningful*
 ====
+CAUTION: shares can be 0 but result is not guaranteed to be meaningful
 
 ===== Ledger GUI
 
 .Sample Ledger Graphical User Interface
 image::LedgerUI.png[pdfwidth=60%]
 
-This is how the *Ledger* looks when you switch to the *Ledger* tab. +
+This is how the _Ledger_ looks when you switch to the splits tab. +
 The left shows the people who has unresolved balances with you, while the right lists
-all transactions that have to do with the *Ledger*. +
-*Ledger*'s balance is separate from the *BankAccount*. It is displayed in the same position,
+all transactions that have to do with the _Ledger_. +
+_Ledger_'s balance is separate from PalPay's balance. It is displayed in the same position,
 at the bottom right corner.
 
 ==== Example Usage:
@@ -431,9 +429,9 @@ image::SplitEven1.png[pdfwidth=70%]
 .Splitting evenly (result)
 image::SplitEven2.png[pdfwidth=70%]
 +
-For an even split of $1000, each person pays $200. Therefore *Ledger* shows $200 on the tab of each person.
-*Ledger* balance does not include the amount spent by the user. In this bill, the user is owed $800 in total
-from the rest of his friends. Therefore *Ledger* balance is -$800, as shown in the bottom right.
+For an even split of $1000, each person pays $200. Therefore _Ledger_ shows $200 on the tab of each person.
+_Ledger_ balance *does not* include the amount spent by the user. In this bill, the user is owed $800 in total
+from the rest of his friends. Therefore _Ledger_ balance is -$800, as shown in the bottom right.
 
 * `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7 a/kbbq dinner`
 
@@ -454,7 +452,7 @@ image::SplitUneven2.png[pdfwidth=70%]
 [[Receive]]
 === Receiving Money from a Friend : `receive`
 
-Receives money from 1 friend +
+Receives money from a friend +
 Format: `receive $/AMOUNT n/NAME1 [d/DATE] [a/DESCRIPTION]`
 
 ==== Example usage:
@@ -473,7 +471,7 @@ image::Receive1.png[pdfwidth=70%]
 .Receive payment result
 image::Receive2.png[pdfwidth=70%]
 +
-Albert is removed from the *Ledger* since he no longer owes any money. *Ledger* balance is also updated accordingly.
+Albert is removed from the _Ledger_ since he no longer owes any money. _Ledger_ balance is also updated accordingly.
 //end::receive[]
 
 [[Project]]
