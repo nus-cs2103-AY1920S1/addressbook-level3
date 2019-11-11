@@ -5,7 +5,6 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package ui.itinerary <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
 Interface Model <<Interface>>
 Interface Logic <<Interface>>
 Class EditTripPage
