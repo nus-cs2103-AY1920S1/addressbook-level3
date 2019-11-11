@@ -33,15 +33,33 @@ public class SampleDataUtil {
         // sample memes from resources folder
         List<MemeFieldsContainer> memeFields = List.of(
                 new MemeFieldsContainer("memes/5642dc30-927c-4e02-805d-831ea16bc68e.png",
-                        "A meme about doge.", "doge", "cute"), // doge
+                        "", "doge", "cute"), // doge
                 new MemeFieldsContainer("memes/74b9fc9f-a545-4bbc-98d5-09596a9166a9.jpg",
-                        "A meme about Char and charmander.", "charmander", "cute"), // charmander
+                        "char char?", "charmander", "cute"), // charmander
                 new MemeFieldsContainer("memes/8de6b9f5-32a5-4eab-aebe-f47c2257e7d5.png",
-                        "A meme about joker.", "joker"), // joker
+                        "Sites in a nutshell", "joker"), // joker
                 new MemeFieldsContainer("memes/ab6e1ed6-6025-4e84-b5da-8555ef1e0b05.png",
-                        "A meme about toy.", "toy", "funny"), // toy
+                        "Our app rn", "toy", "funny"), // toy
                 new MemeFieldsContainer("memes/b3afd215-8746-4113-aa19-1747d3578f41.jpg",
-                        "A meme about a test.", "test", "funny") // test
+                        "Pon PE sua", "test", "funny"), // test
+                new MemeFieldsContainer("memes/2ce63128-e706-4892-87fd-4618cadd8d51.jpg",
+                        "Not a true story", "programming", "programmerhumor"), // errors
+                new MemeFieldsContainer("memes/3539d75b-d840-4ded-aed8-9d661b93d46c.jpg",
+                        "Unsang heroes", "programming"), // stackoverflow
+                new MemeFieldsContainer("memes/3f8b3924-4910-4171-a9f9-67ad9bfd84c8.jpg",
+                        "Us rn", "hmm"), // jetbrains
+                new MemeFieldsContainer("memes/b10b6ab4-52b7-44a3-a317-ca39449a0379.gif",
+                        "Why hawaii happened", "reallifeconsequences"), // UI gif
+                new MemeFieldsContainer("memes/7e438d2c-bab2-4ec9-bfa9-01ceea6b5b42.jpg",
+                        "Field is a lie", "csgg"), // google everything!
+                new MemeFieldsContainer("memes/781f6250-bf30-4d2b-87fd-01def759d342.jpg",
+                        "Me dealing with javafx", "javafx"), // css
+                new MemeFieldsContainer("memes/16ae22bc-97e8-48c9-b181-3f070e8c6253.jpg",
+                        "tech debt at its finest"), // weird func
+                new MemeFieldsContainer("memes/be28e3ba-26fc-4c13-988b-9404d21ef6b4.jpg",
+                        "git commit; git push -f;"), // grind
+                new MemeFieldsContainer("memes/62e5bd42-7916-4eb5-80f3-2671897b06f7.jpg",
+                        "is this 2040", "personallyattacked") // compile & run
         );
         return createSampleMemes(memeFields, userPrefs);
     }
@@ -69,11 +87,19 @@ public class SampleDataUtil {
                 "/home/me/CS/Y2S1/ProgrammingMemes/CS2103.jpg")
                 .collect(Collectors.toSet());
         Set<String> descriptionRecords = Stream.of(
-                "A meme about doge.",
-                "A meme about Char and charmander.",
-                "A meme about joker.",
-                "A meme about toy.",
-                "A meme about a test.",
+                "char char?",
+                "Sites in a nutshell",
+                "Our app rn",
+                "Pon PE sua",
+                "Not a true story",
+                "Unsang heroes",
+                "Us rn",
+                "Why hawaii happened",
+                "Field is a lie",
+                "Me dealing with javafx",
+                "tech debt at its finest",
+                "git commit; git push -f;",
+                "is this 2040",
                 "OMG my favorite meme!!!",
                 "T$T: head = null",
                 "CS2103 is so fun!",
@@ -98,6 +124,12 @@ public class SampleDataUtil {
                 "best",
                 "favorite",
                 "weme",
+                "programmerhumor",
+                "personallyattacked",
+                "javafx",
+                "csgg",
+                "reallifeconsequences",
+                "hmm",
                 "wow")
                 .collect(Collectors.toSet());
         Set<String> nameRecords = Stream.of(
