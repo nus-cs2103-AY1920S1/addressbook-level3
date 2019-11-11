@@ -19,13 +19,17 @@ Incident Management System is a desktop incident Manager application used for te
 ** Highlights: This enhancement is easily extendable to various data within the Incident model, and has been designed to easily accommodate additional parameters. It required an in-depth analysis of design alternatives, as the implementation was challenging, requiring a good understanding of how to parse multiple parameters with multiple words for each parameter, and consideration of the abstraction of said parameters.
 ** Credits: _Extended from the FindPerson command in the initial AB3_
 
-* *Major enhancement*: Implemented *initial Incident GUI layout*
+* *Major enhancement*: Implemented *initial Incident GUI layout* [https://github.com/AY1920S1-CS2103-T11-1/main/pull/59[#59]]
 ** Summary: Modified the GUI for a new panel for displaying Incidents and the relevant information in the initial implementation.
 ** Highlights: This enhancement required an in-depth understanding of the GUI design and the JavaFX library, as well as great familiarity with the initial Incident class. Further abstraction of the Incident class was also executed to ensure SLAP principlese were adhered to.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=yoshi275[View on RepoSense]]
 
 * *Other contributions*:
+** Add Netlify bot to repo and add badge to README [https://github.com/AY1920S1-CS2103-T11-1/main/pull/18[#18]]
+** Remove irrelevant Developer Guide sections [https://github.com/AY1920S1-CS2103-T11-1/main/pull/128[#128]]
+** Make minor aesthetic and usability edits to the GUI [https://github.com/AY1920S1-CS2103-T11-1/main/pull/289[#289]]
+
 
 == Contributions to the User Guide
 

@@ -17,8 +17,8 @@ src/main/resources/docs/
 # Test sandbox files
 src/test/data/sandbox/
 
-# HTML files
-docs/DeveloperGuide.html
+# Ignore HTML files
+docs/*.html
 
 # MacOS custom attributes files created by Finder
 .DS_Store
