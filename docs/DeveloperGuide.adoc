@@ -250,12 +250,12 @@ Tab switch function is implemented in using both CLI and GUI approach; user can 
 image::tabcmd_and_tabFetch_activity.png[width="750", float="left"]
 ---
 
-1. User has to use a specific `Command`; `TabCommand` in order to switch the window to another window.
-* Upon first startup of the system, by system default, system will display the `EngagementList` window.
+1. User is required to use a `Command`; `TabCommand` in order to switch the window to another window.
+* Upon first startup of the system, system will display the `EngagementList` window by default.
 2. New Ui Model class `Tab` is implemented to contain the respective fxml controller classes in a OOP manner.
 
 MainWindow will have an additional method `fetchTabInformation(tabName)`. After the parser executes the `TabCommand`, it will return a CommandResult with `Tab` property. +
-Next, system checks whether the input name matches with one of the tab names in the system. If there is a match, system will fetch the tab information and return the `Tab` object. If no match is found, system will return withn an empty tab with only name attached.
+System will then check whether the input name matches with one of the tab names in the system. If there is a match, system will fetch the tab information and return the `Tab` object. If no match is found, system will return with an empty tab with only name attached.
 
 //end::tab-switch[]
 
@@ -309,19 +309,19 @@ Table below explains the components that are included in the `ReportWindow` with
 | `Refresh Button`
 | Button
 | Refreshes the tree-view file directory.
-| To help user to refresh the directory when there is a system glitch or manually adds document (.pdf) in the `reports/` directory.
+| To help user refresh the directory when there is a system glitch or when document (.pdf) is manually added in the `reports/` directory.
 
 | `Delete Button`
 | Button
 | Deletes the selected document item in the tree-view file directory.
-| To assist users who prefer using mouse (GUI over CLI) deletes document easily.
+| To assist users who prefer using mouse instead of typing command in keyboard can delete documents easily.
 
 | `File_Explorer`
 | Scrollable Tree View
 |
 1. Displays the list of document generated previously and stored under the directory `reports/`.
 
-2. Each list item is clickable with a MouseClick action of opening the document.
+2. Each list item is clickable with a mouse click action of opening the document.
 | To allow user to manage documents more time efficiently.
 |===
 //end::report[]

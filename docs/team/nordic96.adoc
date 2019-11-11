@@ -21,9 +21,8 @@ Main UI is composed of 4 parts;
 * *Command Output Display*: Command output after execution displays here.
 * *Command Input text field*: User enters command
 * Typee divides engagements into 3 types; _Appointments_, _Meetings_ and _Interviews_.
-* Typee application interacts with the users by separating application features into different menu windows. Each menu name is displayed in
-the left-end of the application window, where user can switch to different windows anytime by using command.
-* Typee is a CLI (Command Line Interface) based application, with a mixture of simple GUI interacting features.
+* Typee application interacts with the users by separating application features into different menu windows. Each menu name is displayed in a green tab at the top of the display.
+* Typee is a CLI (Command Line Interface) based application, with a mixture of minimal graphical interacting features.
 
 === Summary of contributions
 
@@ -31,7 +30,7 @@ the left-end of the application window, where user can switch to different windo
 
 * *Major enhancement*:
 1. added *the ability to switch windows to other menu windows*
-*** *What it does*: allows the user to switch the main window to load different menu windows to utilise different features any time.
+*** *What it does*: allows the user to switch the main window to load different menu windows so that users can utilise different features any time.
 *** *Justification*: In terms of user interface, by placing different feature interactions and forms in separate windows makes the application look more organised.
 *** *Highlights*: New class `Tab` was implemented in the model and existing class `CommandResult` had to check if the command if the command type is `tab` command. This was a necessary implementation as
 the `MainWindow`, which is the root UI component of the main UI had to load external fxml file to the empty component during the command process. Structure of the MainWindow had to be modified appropriately so that
@@ -42,8 +41,8 @@ switching command.
 2. added *the ability to generate reports into a document form (pdf) based on the selected engagement*.
 *** *What it does*: allows users to generate a report into pdf format document, where user can simply select the engagement that the user wants to generate into
 document and attach it to email to the corresponding receiver.
-*** *Justification*: Secretaries and receptionists are not responsible only in task management. They have other tasks that consume many of their time during office work. In order to improve their task performance more time efficiently, the feature allows users to save time instead of manually typing the document while referring to
-the engagement information one by one. With a simple 1 line command, Typee generates a document, so that the user only need to attach the document their email.
+*** *Justification*: Secretaries and receptionists are not responsible only in task management. They have other tasks that consume many of their time during office work. In order to improve their task performance time efficiently, the feature allows users to save time instead of manually typing the document while referring to
+the engagement information one by one. With a simple 1 line command, Typee generates a document, so that users can skip the document preparation process and instantly attach the document to the emails that they are sending to.
 Document template is fully customisable, hence it makes the application flexible so that any corporations can use our application to fit their company document conventions formats.
 *** *Credits*:
     **** https://https://commons.apache.org/proper/commons-io/[Commons-IO] : file extension validation method is used for scanning document files in external directory for pdf generation feature.

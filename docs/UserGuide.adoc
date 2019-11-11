@@ -63,6 +63,8 @@ Refer to <<Features>> for details of each command.
 
 Format: `help`
 
+User can simply type in the `help` command in the input text area to gain additional information of the usage of our application. +
+Once `help` command is executed, system will pop out a dialog window that includes our development web page and some examples of the commands.
 
 // tag::tab-command[]
 === Switch to different windows: `tab`
@@ -70,7 +72,7 @@ Format: `help`
 Switches to a different menu in the application window. +
 Format: `tab b/MENU_NAME`
 
-* Typee has 4 major features/menus. They comprise of:
+* Typee has four major features/menus. They comprise of:
 ** Engagements List
 ** Typing Game
 ** Calendar View
