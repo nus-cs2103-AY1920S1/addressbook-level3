@@ -51,7 +51,7 @@ natural language date-time parsing (e.g. 'tomorrow', '1 week ago').
 * *Other contributions*:
 
 ** Project management:
-*** Oversaw code quality across the project (i.e. made sure code adhered to good software engineering principles)
+*** Oversaw code quality across the project (i.e. made sure code adhered to good software engineering principles) (https://github.com/AY1920S1-CS2103T-T11-1/main/pull/288[Example])
 *** Managed and assigned issues that arose from the bug-testing session of the Mock Practical Examination
 ** Testing:
 *** Refactored existing tests to include the newly added datetime field of expenses
