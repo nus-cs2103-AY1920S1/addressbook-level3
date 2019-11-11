@@ -40,6 +40,7 @@ Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
+// tag::commons[]
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
@@ -48,6 +49,16 @@ The following class plays an important role at the architecture level:
 * `Events` : Used by classes to store, access and modify details regarding events.
 * `Reminders` : Used by classes to store, access and modify details regarding reminders.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
+
+.Class Diagram of the Item
+image::ItemClassDiagram.png[]
+* An `Item` can contain an task, event or reminder. However it must contain at least one of the three.
+* The `ItemBuilder` class ensures the validation of the above rule when `build()` is called..
+* An `Item` is immutable in order to support thread safety.
+* An `Item` is created via the ItemBuilder class.
+* Setter methods of `Item` create a new `Item` through `ItemBuilder` to ensure immutability.
+
+// end::commons[]
 
 The rest of the App consists of four components.
 
@@ -553,12 +564,17 @@ The design considerations for the classes are shown below:
 |*(Current)* Singleton pattern for AutoRescheduleManager |Ensure that only one instance can be instantiated as there should only be one manager for all the RescheduleTask. If there are multiple managers, it would be hard to keep track of all of them and it would be difficult to coordinate all the tasks. | Difficult to create tests for AutoResheduleManager. Could have many hidden dependencies, which makes code harder to maintain.
 |===
 
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
 // end::dataencryption[]
 
+// tag::addreminder[]
+=== Add Reminder feature
+
+// end::addreminder[]
+
+// tag::snoozereminder[]
+=== Snooze Reminder feature
+
+// end::snoozereminder[]
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
