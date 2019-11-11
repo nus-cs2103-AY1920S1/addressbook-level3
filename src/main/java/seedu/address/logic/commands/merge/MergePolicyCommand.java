@@ -95,13 +95,32 @@ public class MergePolicyCommand extends MergeCommand {
         }
         boolean hasDifferentStartAge = !originalPolicy.getStartAge().equals(inputPolicy.getStartAge());
         if (hasDifferentStartAge) {
+            String originalStartAge = originalPolicy.getStartAge().age;
+            if (originalStartAge.equals(StartAge.AGE_ZERO)) {
+                originalStartAge = StartAge.MESSAGE_NO_MINIMUM_AGE;
+            }
+
+            String inputStartAge = inputPolicy.getStartAge().age;
+            if (inputStartAge.equals(StartAge.AGE_ZERO)) {
+                inputStartAge = StartAge.MESSAGE_NO_MINIMUM_AGE;
+            }
+
             differentFields.add(new String[]{
-                StartAge.DATA_TYPE, originalPolicy.getStartAge().age, inputPolicy.getStartAge().age});
+                StartAge.DATA_TYPE, originalStartAge, inputStartAge});
         }
         boolean hasDifferentEndAge = !originalPolicy.getEndAge().equals(inputPolicy.getEndAge());
         if (hasDifferentEndAge) {
+            String originalEndAge = originalPolicy.getEndAge().age;
+            if (originalEndAge.equals(EndAge.AGE_INFINITY)) {
+                originalEndAge = EndAge.MESSAGE_NO_MAXIMUM_AGE;
+            }
+
+            String inputEndAge = inputPolicy.getEndAge().age;
+            if (inputEndAge.equals(EndAge.AGE_INFINITY)) {
+                inputEndAge = EndAge.MESSAGE_NO_MAXIMUM_AGE;
+            }
             differentFields.add(new String[]{
-                EndAge.DATA_TYPE, originalPolicy.getEndAge().age, inputPolicy.getEndAge().age});
+                EndAge.DATA_TYPE, originalEndAge, inputEndAge});
         }
 
         return null;

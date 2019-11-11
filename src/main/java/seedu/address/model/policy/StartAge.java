@@ -12,6 +12,7 @@ public class StartAge {
     public static final String MESSAGE_CONSTRAINTS =
             "Ages should only contain numbers, cannot be blank and cannot exceed 120.";
     public static final String DATA_TYPE = "START AGE";
+    public static final String MESSAGE_NO_MINIMUM_AGE = "No minimum age";
 
     /*
      * The first character of the address must not be a whitespace,

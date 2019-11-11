@@ -12,6 +12,7 @@ public class EndAge {
     public static final String MESSAGE_CONSTRAINTS =
             "Ages should only contain numbers, cannot be blank and cannot exceed 120.";
     public static final String DATA_TYPE = "END AGE";
+    public static final String MESSAGE_NO_MAXIMUM_AGE = "No maximum age";
 
     /*
      * The first character of the address must not be a whitespace,
