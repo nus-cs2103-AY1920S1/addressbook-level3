@@ -16,9 +16,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.autocomplete.CommandInformation;
@@ -69,6 +71,7 @@ public class AutoScheduleCommand extends UndoableCommand {
             new ArrayList<>()
     );
 
+    private final Logger logger = LogsCenter.getLogger(AutoScheduleCommand.class);
     private List<NameOrTagWithTime> schedulePlan;
     private Optional<Address> address;
     private List<Index> days;
@@ -158,6 +161,7 @@ public class AutoScheduleCommand extends UndoableCommand {
             // Not due to redo method of AutoScheduleEvent
             updateEventStack(this, initialModel);
         }
+        logger.info("Autoschedule successfully executed");
         return new CommandResult(Messages.MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, new UiFocus[]{UiFocus.AGENDA});
     }
 

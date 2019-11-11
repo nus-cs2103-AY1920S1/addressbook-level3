@@ -892,7 +892,56 @@ Expected: Adds two days to the itinerary. Else, invalid message will be shown.
 Expected: No days is added. Error details shown in the feedback display.
 .. Other incorrect add commands to try: `add days abc`, `add days -1` +
 Expected: Similar to previous
+=== Editing an activity
 
+.  Editing an activity's name
+.. Test case: `Edit activity 1 n/Visit Mount Fuji`
+   Expected: The first activity in the activity list has its name being edited to `Visit Mount Fuji`.
+
+.  Editing an activity's address
+.. Test case: `Edit activity 1 a/Tokyo`
+   Expected: The first activity in the activity list has its address being edited to `Tokyo`.
+
+=== Editing an accommodation
+
+.  Editing an accommodation's name
+.. Test case: `Edit accommodation 1 n/Shinjuku hotel`
+   Expected: The first activity in the activity list has its name being edited to `Shinjuku hotel`.
+
+.  Editing an accommodation's address
+.. Test case: `Edit accommodation 1 a/Tokyo`
+   Expected: The first accommodation in the accommodation list has its address being edited to `Tokyo`.
+
+=== Editing a contact
+
+.  Editing a contact's name
+.. Test case: `Edit contact 1 n/Uncle Bob`
+   Expected: The first contact in the contact list has its name being edited to `Uncle Bob`.
+
+.  Editing a contact's phone number
+.. Test case: `Edit contact 1 a/90001112`
+   Expected: The first contact in the contact list has its phone number being edited to `90001112`.
+
+=== Deleting a contact
+.  Removes a contact from contact list
+.. Test case: `delete contact 2`
+   Expected: Deletes the 2nd contact in the contact list.
+
+=== Deleting an activity
+.  Removes an activity from contact list
+.. Test case: `delete activity 2`
+   Expected: Deletes the 2nd activity in the activity list.
+
+=== Deleting an accommodation
+.  Removes an accommodation from accommodation list
+.. Test case: `delete accommodation 2`
+   Expected: Deletes the 2nd accommodation in the accommodation list.
+
+=== Autoschedule
+.  Generate a schedule for specified day(s) based on the tags or activity name given.
+.. Prerequisites: Ensure the tag or activity name is present in activity list.
+.. Test case: `autoschedule t/sightseeing 1030 t/dining 1200 d/1`
+   Expected: An activity of sightseeing tagged has been scheduled at 1030 followed by another activity of dining tagged scheduled at 1200 on day 1.
 
 === Scheduling activities
 ==== Schedule
@@ -904,6 +953,11 @@ Expected: Schedules activity 1 into day 1 at time 10am.
 Expected: Nothing is scheduled. Invalid message shown.
 .. Other incorrect add commands to try: `schedule d/1 st/1111`, `schedule 1 d/1` +
 Expected: Similar to previous
+=== Undo a delete command
+.   Retrieve the information that has been deleted.
+..  Prerequisites: `Delete activity 1` has been executed.
+..  Test case: `undo`
+..  Expected: The activity initially in the first index of the activity list has been added back to the activity list.
 
 === Unschedule activity from day
 * Unschedules an activity from a day
@@ -914,6 +968,29 @@ Expected: Unschedules the first activity in day 1.
 Expected: Nothing is unscheduled. Invalid message shown.
 .. Other incorrect add commands to try: `unschedule 1`, `unschedule 1 d/16` +
 Expected: Similar to previous
+=== Undo an add command
+.   Delete the information that has been added.
+..  Prerequisites: `add activity n/Visit Mount Fuji a/Tokyo du/30` has been executed.
+..  Test case: `undo`
+..  Expected: The activity `Visit Mount Fuji` is deleted from the activity list.
+
+=== Undo an edit command
+.   Return back to the original state before it has been edited.
+..  Prerequisites: `edit contact n/Bob` has been executed.
+..  Test case: `undo`
+..  Expected: The contact name of `Bob` is deleted and is replaced by the original name before it has been edited.
+
+===  Optimise a day
+.    Remove all overlapping for the day and generate a schedule with the lowest budget for the day being optimised.
+..   Prerequisites: There are activities scheduled for the specified day to optimise.
+..   Test case: `optimise 1`
+..   Expected: Activities that are non-overlapping and they have the lowest cost in total are chosen for that day.
+
+=== List activity
+.   All activities in activity list are listed
+..  Test case: `list activity`
+..  Expected: All activities are listed in the information panel.
+
 
 === Set
 * Sets the name or start date of the itinerary
