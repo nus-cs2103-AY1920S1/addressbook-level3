@@ -18,7 +18,7 @@ CS2103T Software Engineering. For this module, we were provided with a working s
 could enhance or morph to suit our target audience.
 
 PalPay is a student application that effectively tackles the problem of the lack of a centralised platform to
-manage their finances. PalPay provides the ability to easily track their expenses and manage their finances.
+manage their finances. Hence, PalPay provides the ability to easily track their expenses and manage their finances.
 
 For the project, my main role was to develop the undo and redo feature for the application. Additionally,
 I was tasked to develop the view, sort and filter features.
@@ -92,7 +92,7 @@ https://github.com/nus-cs2103-AY1920S1/forum/issues/110[#110])
 They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=view]
+include::../UserGuide.adoc[tag=view]
 
 //include::../UserGuide.adoc[tag=sort]
 

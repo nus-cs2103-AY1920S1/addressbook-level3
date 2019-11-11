@@ -6,12 +6,12 @@ import seedu.address.model.Model;
 import seedu.address.model.UserState;
 
 /**
- * Clears the address book.
+ * Clears PalPay.
  */
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Bank Account has been cleared!";
+    public static final String MESSAGE_SUCCESS = "PalPay has been cleared!";
 
 
     @Override

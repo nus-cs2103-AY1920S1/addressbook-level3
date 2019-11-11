@@ -8,12 +8,10 @@ Package Model <<Rectangle>> {
     Interface ReadOnlyBankAccount <<Interface>>
     Interface Model <<Interface>>
     Interface ReadOnlyLedger <<Interface>>
-    'Interface ReadOnlyUserPrefs <<Interface>>
     Class BankAccount
     Class ReadOnlyBankAccount
     Class Model
     Class ModelManager
-    'Class UserPrefs
     Class Ledger
     Class VersionedBankAccount
 
@@ -60,8 +58,8 @@ Package Model <<Rectangle>> {
     Class Time
     }
 
-    Package Tag {
-    Class Tag
+    Package Category {
+    Class Category
     }
 
     Package Projection {
@@ -129,29 +127,9 @@ ReceiveMoney o--> Person
 ' budget
 BankAccount o--> "1" UniqueBudgetList
 UniqueBudgetList o--> "*" Budget
-Budget *--> Amount
-Budget *--> Date
-Budget *--> "*" Tag
+Budget o--> Amount
+Budget o--> Date
+Budget o--> "*" Category
 
-' person
-Person o--> Amount
-'Person *--> Name
-'Person *--> Phone
-'Person *--> Email
-'Person *--> Address
-'Person *--> "*" Tag
-
-'Name -[hidden]right-> Phone
-'Phone -[hidden]right-> Address
-'Address -[hidden]right-> Email
-
-'BankAccount *--> "1" UniqueTransactionList
-'BankAccount *--> "1" UniqueBudgetList
-'Transaction *--> Amount
-'Transaction *--> Date
-'Transaction *--> Person
-'Transaction *--> "*" Tag
-'InTransaction .up.|> Transaction
-'OutTransaction .up.|> Transaction
 
 @enduml

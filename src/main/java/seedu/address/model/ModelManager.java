@@ -16,8 +16,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.ProjectCommand;
 import seedu.address.model.person.Person;
 import seedu.address.model.projection.Projection;
-import seedu.address.model.projection.ProjectionGraph;
-import seedu.address.model.projection.UniqueProjectionList;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;

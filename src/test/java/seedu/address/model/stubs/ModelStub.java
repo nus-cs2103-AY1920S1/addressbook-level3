@@ -196,12 +196,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void updateProjectionsAfterUpdate(BankAccountOperation toUpdate, BankAccountOperation updated) {
+    public void updateProjectionsAfterDelete(Budget budget) {
+
     }
 
     @Override
-    public void updateProjectionsAfterDelete(Budget budget) {
-
+    public void updateProjectionsAfterUpdate(BankAccountOperation toUpdate, BankAccountOperation updated) {
     }
 
     @Override
