@@ -872,7 +872,7 @@ Alfred will recognize each of the entity headers and will not count it as an err
 
 ----
 
-You can also download a sample CSV file https://tinyurl.com/yhw6vs4v[here] to try it out for yourself. +
+You can also download a sample CSV file https://drive.google.com/uc?export=download&id=1zvGJMoJgVO9PSTx7xY0qMtng1eUw7xLh[here] to try it out for yourself. +
 
 Assuming Alfred has no data, we can see that lines 3, 6, and 11 will fail.
 
