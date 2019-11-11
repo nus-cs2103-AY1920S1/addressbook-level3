@@ -97,7 +97,7 @@ public class StatsDisplay extends UiPart<Region> {
         }
 
         if (budget.isBudgetPositive()) {
-            Double amountLeft = budget.getAmountLeft().getValue();
+            double amountLeft = budget.getAmountLeft().getValue();
             for (Map.Entry<Tag, Double> entry : taggedExpenses.entrySet()) {
                 String tagName = entry.getKey().tagName.equals("") ? "Untagged" : entry.getKey().tagName;
                 Double totalAmount = entry.getValue();
@@ -130,7 +130,7 @@ public class StatsDisplay extends UiPart<Region> {
 
         for (Budget budget : displayData) {
             String budgetName = budget.getName().fullName;
-            Double totalAmount = budget.getConvertedAmount().getValue();
+            double totalAmount = budget.getConvertedAmount().getValue();
             String name = budgetName + "-" + String.format("%.1f",
                 totalAmount / getOverallAmountFromBudgets(displayData) * 100) + "%";
             PieChart.Data data = new PieChart.Data(name, totalAmount);
