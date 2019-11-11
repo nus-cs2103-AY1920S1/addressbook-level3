@@ -18,7 +18,7 @@ public class MealPlanRecipesContainsKeywordsPredicate implements Predicate<MealP
     @Override
     public boolean test(MealPlan mealPlan) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(mealPlan.getRecipes(), keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCaseIgnoreSpace(mealPlan.getRecipes(), keyword));
     }
 
     @Override

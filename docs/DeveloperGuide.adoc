@@ -181,11 +181,12 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
 
 [NOTE]
 ====
-XYZListPanel refers to the 5 different individual components in our application.
-The 5 different components are:
+XYZListPanel refers to the 6 different individual components in our application.
+The 6 different components are:
 
 * Dashboard
-* RecipeBook
+* Recipe Book
+* Meal Plan
 * Exercise
 * Health
 * Diary
@@ -215,9 +216,9 @@ link:{repoURL}/src/main/java/dukecooks/logic/Logic.java[`_Logic.java_`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete recipe 1")` API call.
+Given below is the Sequence Diagram for simplified interactions within the `Logic` component for the `execute("delete recipe 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete recipe 1` Command
+.Simplified Interactions Inside the Logic Component for the `delete recipe 1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -247,7 +248,7 @@ XYZ refers to the 5 different individual components in our application.
 The 5 different components are:
 
 * Dashboard
-* RecipeBook
+* Recipe Book
 * Exercise
 * Health
 * Diary
@@ -418,10 +419,10 @@ This choice was chosen as it reduces the chance of errors and is a safer option.
 |===
 // end::dashboard[]
 
-=== RecipeBook feature
-The current implementation of RecipeBook consists of the following:
+=== Recipe Book feature
+The current implementation of Recipe Book consists of the following:
 
-* Each `Recipe` consists of a unique `Name`
+* Each `Recipe` consists of a unique `RecipeName`
 * Each `Recipe` contains an Set of `Ingredient`
 * Each `Recipe` consists of a unique `Calories`
 * Each `Recipe` consists of a unique `Carbohydrates`
@@ -441,7 +442,7 @@ image::RecipeClassDiagram.png[]
 * `AddRecipeCommand` - Adds a `Recipe` into `DukeCooks`
 * `DeleteRecipeCommand` - Deletes a `Recipe` from `DukeCooks`
 * `EditRecipeCommand` - Edits the specified `Recipe`
-* `FindRecipeCommand` - Finds all `Recipe` whose `name` contains user-specified keywords
+* `FindRecipeCommand` - Finds all `Recipe` whose `RecipeName` contains user-specified keywords
 
 All the above recipe commands behave similarly. The commands will be parsed in `DukeCooksParser` and based on their
 types (i.e Add, Delete, Edit etc), the corresponding variant parsers will be invoked (i.e `AddRecipeCommandParser`,
@@ -452,24 +453,85 @@ The figure below describes the execution of an `DeleteRecipeCommand`.
 The input provided is `delete recipe 1`.
 
 .DeleteRecipeCommand Sequence Diagram
-image::DeleteSequenceDiagram.png[]
+image::DeleteRecipeSequenceDiagram.png[]
 
 After a successful execution, the recipe with the specified index will be deleted from the recipe book.
 
-The current implementation makes use of an Sets to store the `Ingredient` objects.
-This is the easiest way to implement the `Ingredient` component of the recipe as it builds on the existing codebase
-of ab3.
+The DeleteRecipeCommand will also delete the recipe from all meal plans that by filtering through all saved meal plans,
+checking for the existence of the recipe it is about to delete, and replace that meal plan with a new one. This is done
+using MealPlan#removeRecipe.
+
+*Design Considerations*
+
+The current implementation uses the DeleteRecipeCommand to do dynamic deletion of recipes from meal plans whenever
+a recipe is deleted.
 
 *Alternatives*
 
-An alternative would be to use an ArrayList instead of Sets to store `Ingredient` objects. This would make the
-implementation of `Ingredient` specific objects easier as they could be referenced through indexing of the ArrayList,
-which is more straight forward.
+An alternative would be create an update command that would update meal plans upon any changes made to the recipe book,
+be it deletion or editing of recipes. This means that the user must manually call for a command that goes through the meal plans
+to validate that they are up to date with the recipe book commands.
 
 *Our Choice*
 
-We will soon implement ArrayLists instead as the current implementation of `Ingredient` objects using Sets do not allow
-for ease of use for the user whenever the user wishes to edit `Ingredient` objects present within a `Recipe`.
+We chose to have the updating of the recipes within meal plans to be done whenever a relevant recipe operation occures,
+namely recipe deletion and edition. This provides a better user experience as the user will never need to remember that
+they have to run an update every single time they modify their recipes. A similar design consideration and choice was made
+for EditRecipeCommand.
+
+=== Meal Plan feature
+The current implementation of Meal Plan consists of the following:
+
+* Each `Meal Plan` consists of a unique `MealPlanName`
+* Each `Meal Plan` contains 7 Lists of `RecipeName`
+* Each class has their respective getter methods
+
+The class diagram below gives an overview of the `Meal Plan` class.
+
+.Meal Plan Class Diagram
+image::MealPlanClassDiagram.png[]
+
+==== Implementation of meal plan commands
+
+`MealPlan` class supports multiple commands. It includes:
+
+* `AddMealPlanCommand` - Adds a `MealPlan` into `DukeCooks`
+* `DeleteMealPlanCommand` - Deletes a `MealPlan` from `DukeCooks`
+* `EditMealPlanCommand` - Edits the specified `MealPlan`
+* `FindMealPlanCommand` - Finds all `MealPlan` whose `MealPlanName` contains user-specified keywords
+* `FindMealPlanWithCommand` Finds all `MealPlan` whose days contain user-specified `RecipeName`.
+
+All the above meal plan commands behave similarly. The commands will be parsed in `DukeCooksParser` and based on their
+types (i.e Add, Delete, Edit etc), the corresponding variant parsers will be invoked (i.e `AddMealPlanCommandParser`,
+`DeleteMealPlanCommandParser` etc). After which, the corresponding command will be executed (i.e `AddMealPlanCommand`,
+`DeleteMealPlanCommand` etc).
+
+The figure below describes the execution of an `DeleteMealPlanCommand`.
+The input provided is `delete mealplan 1`.
+
+.DeleteRecipeCommand Sequence Diagram
+image::DeleteMealPlanSequenceDiagram.png[]
+
+After a successful execution, the meal plan with the specified index will be deleted from the meal plan book.
+
+*Design Considerations*
+
+The current implementation of `MealPlan` stores recipe data only in the form of `RecipeName`.
+
+*Alternatives*
+
+An alternative would be for meal plans to save all the data the recipe contains within it, namely all of its ingredients,
+nutritional value, and once implemented, the difficulty, preparation time, and image, all saved within the meal plan. This
+would make the viewing of the meal plan easier as all the relevant information is being stored within the meal plan.
+
+*Our Choice*
+
+We decided to only capture `RecipeName` information within the meal plan, as we concluded that the meal plan need not know
+of a recipe's nutritional value, difficulty, preparation time, or image location until the meal plan is viewed by the user.
+This allows for smaller storage of meal plans as each meal plan does not need to hold that much information about the recipes
+that it contains. Only when the meal plan is viewed will it use the `RecipeName` data it has to query for the rest of that
+recipe's information. Additionally, only storing the `RecipeName` makes the implementation of dynamic updating between meal
+plans and recipes much easier.
 
 === Workout Planner feature
 ==== Implementation
