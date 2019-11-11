@@ -555,6 +555,67 @@ Set of predicates can but do not need to include `AllContainsKeywordsPredicate`,
 
 // end::finding[]
 
+// recur:recurring[]
+=== Recurring Expenses
+==== Proposed Implementation
+The recurring expenses feature supports the adding of recurring expenses into Billboard. Recurring expenses have a start date and a end date.
+The date of the first expense will be the start date, and subsequent expenses will defer from the previous expenses by a date interval specified by the user.
+The recurring expense feature supports the following operations:
+
+* Listing all the recurrences
+* Adding a new recurrence which will add recurring expenses to the list of expenses
+* Editing an existing recurrence [Coming in V2.0]
+* Deleting an existing recurrence [Coming in V2.0]
+
+These actions are facilitated by the `Recurrence` and `RecurrenceList` classes:
+
+image::RecurrenceClassDiagram.png[]
+
+`*RecurrenceList*` is used in `*ModelManager*` to manage all recurrences. Its respective operations are called to access and manipulate recurrence expenses when an recurrence command is entered. +
+Such operations include:
+
+* `*RecurrenceList#add(Recurrence)*` - Adds the given recurrence to the current list of recurrence objects.
+* `*RecurrenceList#contains(Recurrence)*` - Checks if the specified recurrence by the given recurrence name exists.
+* `*RecurrenceList#remove(Recurrence)*` - Deletes the given recurrence from the current list of recurrence objects. (Assumes given recurrence already exists)
+* `*RecurrenceList#setRecurrence(Recurrence, Recurrence)*` - Set existing recurrence to new recurrence
+* `*RecurrenceList#setRecurrences(RecurrenceList)*` - Set the list of recurrences to the given recurrence list
+* `*RecurrenceList#setRecurrences(List<Recurrence>)*` - Set the list of recurrences to the given recurrence list
+
+These operations are exposed in the `*Model*` interface respectively as:
+
+* `*Model#addRecurrence(Recurrence)*`
+* `*Model#hasRecurrence(String)*`
+* `*Model#removeRecurrence(Recurrence)*`
+* `*Model#removeRecurrence(int)*`
+* `*Model#setRecurrences(RecurrenceList)*`
+* `*Model#setRecurrences(List<Recurrence>)*`
+* `*Model#getRecurrences()*`
+
+Given below is an example usage scenario and how the recurrence mechanism behaves at each step.
+
+Step 1.
+The user launches the application. The `Model` is initialized with saved data. All expenses are loaded into `FilteredList`. No recurrence data is saved for now so model starts with an empty `RecurrenceList`
+
+Step 2.
+User enters the command `recur add n/name d/description a/amount sd/startDate ed/endDate interval/interval` to add recurring expenses that matches conditions set by user input. `BillboardParser` parses the command, creating a `RecurringCommandParser`.
+The `RecurringCommandParser` then parses `add n/name d/description a/amount sd/startDate ed/endDate interval/interval` to create a `AddRecurrenceCommandParser` to parse all the variables.
+The variables are then used to create the `AddRecurrenceCommand`.
+
+The layered parsing process can be visualised below:
+{nbsp} +
+image:AddRecurrenceCommandSequenceDiagram.png[]
+
+Step 3.
+`LogicManager` executes the `AddRecurrenceCommand`. During execution, `AddRecurrenceCommand` calls `Model#addRecurrence(Recurrence)` and `Model#addExpense(Expense)`on the new recurrence and expenses created.
+`Model#incrementCount(Set<Tag>)` is then called on the set of `Tag`. The expense are then updated and shown on the UI.
+
+The following activity diagram summarizes what happens when a user executes a new `*AddRecurrenceCommand*`:
+
+.`*AddRecurrenceCommand*` activity diagram
+image::AddRecurrenceCommandActivityDiagram.png[]
+
+// end::recurring[]
+
 // tag::statistics[]
 === Statistics
 Billboard includes a dynamically updating statistics panel containing a chart. It has the following functionality: +

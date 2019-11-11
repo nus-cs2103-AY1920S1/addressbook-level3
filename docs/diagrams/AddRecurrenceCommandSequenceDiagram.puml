@@ -9,11 +9,6 @@ participant ":AddRecurrenceCommandParser" as AddRecurrenceCommandParser LOGIC_CO
 participant "a:AddRecurrenceCommand" as AddRecurrenceCommand LOGIC_COLOR
 end box
 
-box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
-participant ":RecurrenceList" as RecurrenceList MODEL_COLOR
-participant ":Billboard" as Billboard MODEL_COLOR
-end box
 [-> LogicManager : execute(recur add n/buy food a/1 \n sd/1/1/2019 ed/1/2/2019 interval/week)
 activate LogicManager
 
@@ -44,68 +39,6 @@ deactivate BillboardParser
 
 LogicManager -> AddRecurrenceCommand : execute()
 activate AddRecurrenceCommand
-
-AddRecurrenceCommand -> Model : hasRecurrence(recurrence)
-activate Model
-
-Model -> RecurrenceList : hasRecurrence(recurrence)
-activate RecurrenceList
-
-RecurrenceList --> Model : hasRecurrence
-deactivate RecurrenceList
-
-Model --> AddRecurrenceCommand : hasRecurrence
-deactivate Model
-
-group !hasExpense
-    AddRecurrenceCommand -> Model : AddExpense(newArchive)
-    activate Model
-
-    Model -> RecurrenceList : AddRecurrence(newArchive)
-    activate RecurrenceList
-
-    RecurrenceList --> Model
-    deactivate RecurrenceList
-
-    Model --> AddRecurrenceCommand
-    deactivate Model
-
-RecurrenceList --> Model : hasRecurrence
-deactivate RecurrenceList
-
-Model --> AddRecurrenceCommand : hasRecurrence
-deactivate Model
-
-group !hasRecurrence
-    AddRecurrenceCommand -> Model : AddRecurrence(newArchive)
-    activate Model
-
-    Model -> RecurrenceList : AddRecurrence(newArchive)
-    activate RecurrenceList
-
-    RecurrenceList --> Model
-    deactivate RecurrenceList
-
-    Model --> AddRecurrenceCommand
-    deactivate Model
-
-Billboard --> Model
-deactivate Billboard
-
-Model --> AddRecurrenceCommand
-deactivate Model
-
-AddRecurrenceCommand -> Model : AddArchiveExpense(archiveName, expenseTobeArchived)
-activate Model
-
-Model -> RecurrenceList : AddArchiveExpense(archiveName, expenseTobeArchived)
-activate RecurrenceList
-
-RecurrenceList --> Model
-deactivate RecurrenceList
-
-Model --> AddRecurrenceCommand
-deactivate Model
 
 AddRecurrenceCommand --> LogicManager : result
 deactivate AddRecurrenceCommand
