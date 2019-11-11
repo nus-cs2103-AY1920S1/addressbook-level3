@@ -765,7 +765,7 @@ The method expands a folder if it is not already expanded, and then recursively 
 
 ==== Design considerations
 
-The following are a few design considerations made in deciding how to implement the folders feature:
+The following are a few design considerations made in deciding how to implement the folders feature.
 
 ===== Aspect: How the folder hierarchy is saved into storage
 

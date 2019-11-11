@@ -85,7 +85,7 @@ folders, and autotags in Mark.
 +
 [#imgId-dashboard]
 .Mark's Dashboard tab
-image::ui-screenshots/Ui_DashboardTab.png[@Dashboard Tab View, 600, 400]
+image::Ui.png[@Dashboard Tab View, 600, 400]
 
 * The **Online** tab contains a web browser, which you can use to search for
 and view web pages.
@@ -147,17 +147,29 @@ E.g. if the command specifies `u/URL n/NAME`, `n/NAME u/URL` is also acceptable.
 The following commands carry out general operations in Mark.
 
 ==== Viewing help: *`help`*
-Shows the list of commands in the bookmark manager.
+Displays a link that you can copy to this page.
 
 Format: *`help`*
 
 ==== Switching tabs: *`tab`*
 
-Switches the current app view to the <<Tabs, tab>> that corresponds to the given
-index. For your convenience, you can use keywords `dash`, `on` or `off` instead of an index.
+You can switch the current app view to a another <<Tabs, tab>> with this command.
+
+Just provide an index as specified below. For your convenience, you can also use keywords `dash`, `on` or `off` instead of an index.
 
 Format: `*tab* INDEX` or `*tab* KEYWORD`
 
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* You want to go to the dashboard. So you type `*tab* 1` and press kbd:[Enter].
++
+image::ui-screenshots/TabUI1.png[]
+* You see the dashboard tab instead of the previously showing online tab.
++
+image::ui-screenshots/TabUi2.png[]
+
+Parameter constraints:
 ****
 * `INDEX` is `1`, `2` or `3`, which correspond to the
 <<Dashboard,Dashboard>>, Online, and Offline tabs respectively.
@@ -165,10 +177,7 @@ Format: `*tab* INDEX` or `*tab* KEYWORD`
 <<Dashboard,Dashboard>>, Online, and Offline tabs respectively.
 ****
 
-Examples:
-
-* `*tab* 1` +
-Goes to the <<Dashboard,Dashboard>> tab.
+Other examples:
 
 * `*tab* on` +
 Goes to the Online tab which is a web view.
@@ -291,9 +300,19 @@ file `mark/data/bookmarks/myBookmarks.json`.
 
 ==== Clearing all data: *`clear`*
 
-Clears all data from Mark. All bookmarks, folders, autotags, and reminders will be cleared.
+You can start your life anew with Mark! With this command, all bookmarks, folders, autotags, and reminders will be cleared.
 
 Format: `*clear*`
+
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* You decide that Mark is too cluttered, and so out of frustration you type `clear` into the command box and smash kbd:[Enter].
++
+image::ui-screenshots/ClearCommandUi1.png[]
+* Mark is now empty!
++
+image::ui-screenshots/ClearCommandUi2.png[]
 
 ==== Exiting the program: *`exit`*
 
@@ -318,11 +337,23 @@ Format: `*list*`
 [[finding-bookmarks]]
 ==== Locating bookmarks by name, URL, tag or folder: *`find`*
 
-Finds bookmarks that contain any of the given keywords in their name or
+With this command, you can find bookmarks that contain any of the given keywords in their name or
 URL, or that are tagged with the given tag(s) or stored under the given folder(s).
 
 Format: `*find* [KEYWORD]... [t/TAG]... [f/FOLDER]...`
 
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* You decide to search for a bookmark with `Website` or `Video` in its name or url, or with the tag `Fun`.
+You type `*find* Website Video t/Fun` and press kbd:[Enter].
++
+image::ui-screenshots/FindCommandUi1.png[]
+* Opps! You realise you have no life. You only have CS2103T-related bookmarks and no fun bookmarks.
++
+image::ui-screenshots/FindCommandUi2.png[]
+
+Parameter constraints:
 ****
 * At least one keyword, tag or folder must be provided.
 * The list of keywords to be searched must be before tags and folders.
@@ -334,7 +365,7 @@ Format: `*find* [KEYWORD]... [t/TAG]... [f/FOLDER]...`
 * Bookmarks matching at least one search criterion will be returned (i.e. OR search).
 ****
 
-Examples:
+Other examples:
 
 * `*find* Website Video t/Fun` +
 Returns all the bookmarks with CS2103T or Video in its name or URL, and all bookmarks tagged with Fun.
@@ -416,10 +447,22 @@ Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookma
 [[editing-bookmarks]]
 ==== Editing a bookmark: *`edit`*
 
-Edits an existing bookmark in the bookmark manager.
+IVLE changed to LumiNUS? No worries! With the edit command you can easily fix your incorrect bookmarks.
 
 Format: `*edit* INDEX [u/URL] [n/NAME] [r/REMARK] [f/FOLDER] [t/TAG]...`
 
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* Your school learning management system has changed hands, so you enter the command `*edit* 2 n/LumiNUS u/https://luminus.nus.edu.sg`
+ and press kbd:[Enter].
++
+image::ui-screenshots/EditCommandUi1.png[]
+* Yay! Now all that's left to do is to appreciate the new cutting-edge technology...
++
+image::ui-screenshots/EditCommandUi2.png[]
+
+Parameter constraints:
 ****
 * The bookmark at the specified `INDEX` will be edited. The index refers to the index
 number shown in the displayed bookmark list. The index must be a
@@ -432,7 +475,7 @@ adding of tags is not cumulative.
 any tags after it.
 ****
 
-Examples:
+Other examples:
 
 * `*edit* 1 n/CS2103T Website f/AY1920S1` +
 Edits the name and folder of the 1st bookmark to be CS2103T Website and AY1920S1 respectively.
@@ -442,17 +485,29 @@ Clears all existing tags from the 2nd bookmark.
 
 ==== Deleting a bookmark: *`delete`*
 
-Deletes the specified bookmark from the bookmark manager.
+Mark values your right to data privacy. Unlike competing software from major industry leaders, you can actually delete bookmarks you don't want anymore.
 
 Format: `*delete* INDEX`
 
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* You receive the heartbreaking news that Club Penguin is now closed forever. Painfully, you type `*delete* 1` (of course you only have 1 bookmark, Club Penguin is your life)
+ and press kbd:[Enter].
++
+image::ui-screenshots/DeleteCommandUi1.png[]
+* What else do you have to live for?
++
+image::ui-screenshots/DeleteCommandUi2.png[]
+
+Parameter constraints:
 ****
 * Deletes the bookmark at the specified INDEX.
 * The index refers to the index number shown in the displayed bookmark list.
 * The index must be a positive integer `1`, `2`, `3`, …​
 ****
 
-Examples:
+Other examples:
 
 * `*list*` +
 `*delete* 2` +
@@ -494,7 +549,8 @@ Adds a Favorite tag to the second bookmark in the bookmark manager.
 The following commands carry out operations on folders in Mark.
 The results of these operations can be viewed in the folder hierarchy of dashboard tab.
 
-image::FolderHierarchy.png[]
+.Folder hierarchy as seen in the dashboard tab
+image::ui-screenshots/FolderHierarchy.png[]
 
 IMPORTANT: The bookmarks that are displayed in the folder hierarchy correspond to the bookmarks in the bookmarks list on the left. +
  +
@@ -515,13 +571,13 @@ For example:
 
 * You want to expand all unexpanded folders by one level with just one command. Type `*expand*` in the command box and hit kbd:[Enter].
 +
-image::ExpandCommandUi1.png[]
+image::ui-screenshots/ExpandCommandUi1.png[]
 // unexpanded folders
 * You see all folders expanded by one level.
 +
-image::ExpandCommandUi2.png[]
+image::ui-screenshots/ExpandCommandUi2.png[]
 
-
+Parameter constraints:
 ****
 * `LEVEL` should be a positive integer.
 * If `LEVEL` is higher than the maximum possible level of folders to expand, it will simply expand all of them.
@@ -543,12 +599,13 @@ For example:
 
 * You want to collapse the deepest expanded folders by one level with just one command. Type `*collapse*` in the command box and hit kbd:[Enter].
 +
-image::CollapseCommandUi1.png[]
+image::ui-screenshots/CollapseCommandUi1.png[]
 // expanded folders
 * You see the deepest expanded folders collapsed by one level.
 +
-image::CollapseCommandUi2.png[]
+image::ui-screenshots/CollapseCommandUi2.png[]
 
+Parameter constraints:
 ****
 * `LEVEL` should be a positive integer.
 * If `LEVEL` is higher than the maximum possible level of folders to collapse, it will simply collapse all of them.
@@ -574,12 +631,13 @@ For example:
 
 * You notice you have 20 bookmarks all related to CS2103T. You decide to create a folder for them, so you enter the command `*folder* CS2103T` and hit kbd:[Enter].
 +
-image::AddFolderCommandUi1.png[]
+image::ui-screenshots/AddFolderCommandUi1.png[]
 // dashboard tab, showing many CS2103T related bookmarks not in folder
 * You see a new empty folder `CS2103T` appear in the dashboard.
 +
-image::AddFolderCommandUi2.png[]
+image::ui-screenshots/AddFolderCommandUi2.png[]
 
+Parameter constraints:
 ****
 * `ROOT` is the topmost folder already created by Mark, and all folders will be descendants of this folder.
 * `FOLDER_NAME` must NOT be an existing folder. (Note that it can't be `ROOT` also, since it already exists.)
@@ -605,13 +663,13 @@ For example:
 
 * You recently broke up, and want to edit the folder `Dear` containing all your previous memories to `Ex`. So you enter the command `*folder-edit* Dear t/Ex` and hit kbd:[Enter].
 +
-image::EditFolderCommandUi1.png[]
+image::ui-screenshots/EditFolderCommandUi1.png[]
 // dashboard tab, showing Dear folder with links of photo albums etc.
 * You see folder `Dear` renamed to `Ex`. All your bookmarks previously in the folder `Dear` have also been edited to now be in the folder `Ex`.
 +
-image::EditFolderCommandUi2.png[]
+image::ui-screenshots/EditFolderCommandUi2.png[]
 
-// More details about command constraints
+Parameter constraints:
 ****
 * `FROM_FOLDER_NAME` and `TO_FOLDER_NAME` must start with an alphanumeric character, and can only contain alphanumeric characters and spaces.
 * `FROM_FOLDER_NAME` must exist be an existing folder. (Note that you cannot edit the `ROOT` folder.)
@@ -632,13 +690,13 @@ For example:
 
 * You see an unused folder `CS2101` in the Dashboard, and input `*folder-delete* CS2101` into the command box.
 +
-image::DeleteFolderCommandUi1.png[]
+image::ui-screenshots/DeleteFolderCommandUi1.png[]
 // dashboard tab, showing CS2101 folder with no bookmarks/subfolders
 * You no longer see folder `CS2101` appear in the folders section of the Dashboard.
 +
-image::DeleteFolderCommandUi2.png[]
+image::ui-screenshots/DeleteFolderCommandUi2.png[]
 
-// More details about command constraints
+Parameter constraints:
 ****
 * `FOLDER_NAME` must start with an alphanumeric character, and can only contain alphanumeric characters and spaces.
 * `FOLDER_NAME` must be an existing folder.
