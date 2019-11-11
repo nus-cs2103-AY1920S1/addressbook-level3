@@ -747,6 +747,49 @@ image::overallRank_activity.png[]
 
 //end::overallRank[]
 
+==== Finding competition feature
+The user can filter the competitions in the system by keywords contained in the fields
+of the competitions.
+
+Format: `findCompetition [KEYWORD 1] ... [KEYWORD N]`
+
+Example:
+`findCompetition NUS Open 2019`
+
+Pros:
+
+* Allows for user the flexibility of specifying multiple keywords allowing them to change
+the search scope easily.
+
+* Easy to implement.
+
+Cons:
+
+* User will have to scroll through the filtered competition list if the keywords are contained by
+many competitions in the system.
+
+==== Finding participation feature
+The user can filter the participations in the system by keywords contained in the competition
+name or the person name of the participation.
+
+Format: `findParticipation [KEYWORD 1] ... [KEYWORD N]`
+
+Example:
+`findParticipation NUS Axel`
+
+Pros:
+
+* Allows for user the flexibility of specifying multiple keywords allowing them to change
+the search scope easily.
+
+* Easy to implement.
+
+Cons:
+
+* User will have to scroll through the filtered participation list if the keywords are contained by
+many participations in the system.
+
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.

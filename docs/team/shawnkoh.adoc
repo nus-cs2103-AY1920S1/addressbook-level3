@@ -34,20 +34,13 @@ by supplying an athlete's name as a keyword.
 * *Other contributions*:
 
 ** Project management: <to be amended>
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Helped to manage releases `v1.2` - `v1.4` (3 releases) on GitHub
+
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Updated User Guide: https://github.com[#137]
+*** Updated Developer Guide: https://github.com[#137]
+
 
 _{you can add/remove categories in the list above}_
 
@@ -56,6 +49,30 @@ _{you can add/remove categories in the list above}_
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+
+==== Finding participations: `findParticipation`
+Finds and lists all participations in the participation list,
+whose competition name or person name contain any of the inputted keyword(s).
+
+Format: `findParticipation [KEYWORD 1] ... [KEYWORD N]`
+
+Examples:
+
+* `findParticipation NUS Open 2019 Bob`
+
+* `findParticipation Alex`
+
+
+==== Finding an existing competition: findCompetition
+Finds and lists all competitions in the system whose name or dates contains any of the argument keywords.
+Keyword matching is case insensitive.
+
+Format: `findCompetition [KEYWORD 1] ... [KEYWORD N]`
+
+Example:
+`findCompetition NUS Open 2019`
+
+//end::findParticipation[]
 
 include::../UserGuide.adoc[tag=OverallRank]
 
@@ -68,6 +85,79 @@ include::../UserGuide.adoc[tag=findComp]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+== Implementation
+
+//tag::overallRank[]
+
+==== Overall Rank feature
+The user can list the persons in the system by the number of times they won a competition.
+
+Format: `overallRank`
+
+Due to time limitations we have not allowed the user to specify any other ranking method but given
+the design of our system which is highly extensible, it would not be hard to do so in future
+versions.
+
+Pros:
+
+* Takes in no parameters so user will make minimal mistakes.
+
+* Avoid complications between unmatched name and person.
+
+* Easy to implement.
+
+Cons:
+
+* User will have to scroll through the person list if it is very long to find a specific name.
+.Activity Diagram of the overallRank Command
+image::overallRank_activity.png[]
+
+//end::overallRank[]
+
+
+==== Finding competition feature
+The user can filter the competitions in the system by keywords contained in the fields
+of the competitions.
+
+Format: `findCompetition [KEYWORD 1] ... [KEYWORD N]`
+
+Example:
+`findCompetition NUS Open 2019`
+
+Pros:
+
+* Allows for user the flexibility of specifying multiple keywords allowing them to change
+the search scope easily.
+
+* Easy to implement.
+
+Cons:
+
+* User will have to scroll through the filtered competition list if the keywords are contained by
+many competitions in the system.
+
+==== Finding participation feature
+The user can filter the participations in the system by keywords contained in the competition
+name or the person name of the participation.
+
+Format: `findParticipation [KEYWORD 1] ... [KEYWORD N]`
+
+Example:
+`findParticipation NUS Axel`
+
+Pros:
+
+* Allows for user the flexibility of specifying multiple keywords allowing them to change
+the search scope easily.
+
+* Easy to implement.
+
+Cons:
+
+* User will have to scroll through the filtered participation list if the keywords are contained by
+many participations in the system.
+
 
 include::../DeveloperGuide.adoc[tag=overallRank]
 

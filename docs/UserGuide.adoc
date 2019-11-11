@@ -254,14 +254,15 @@ Examples:
 
 //tag::findParticipation[]
 
-==== Finding participations in a competition: `findParticipation`
-Finds and lists all athletes in the participation list, who participate in a competition(s) with some keyword(s).
+==== Finding participations: `findParticipation`
+Finds and lists all participations in the participation list,
+whose competition name or person name contain any of the inputted keyword(s).
 
 Format: `findParticipation [KEYWORD 1] ... [KEYWORD N]`
 
 Examples:
 
-* `findParticipation NUS Open 2019`
+* `findParticipation NUS Open 2019 Bob`
 
 * `findParticipation Alex`
 
