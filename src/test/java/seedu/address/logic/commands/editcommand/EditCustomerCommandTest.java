@@ -34,7 +34,7 @@ import seedu.address.testutil.CustomerBuilder;
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * Contains integration tests (interaction with the Model)
  * and unit tests for EditCustomerCommand.
  */
 public class EditCustomerCommandTest {
@@ -123,7 +123,7 @@ public class EditCustomerCommandTest {
     public void execute_duplicateCustomerFilteredList_failure() {
         showCustomerAtIndex(model, INDEX_FIRST_CUSTOMER);
 
-        // edit customer in filtered list into a duplicate in address book
+        // edit customer in filtered list into a duplicate in customer book
         Customer customerInList = model.getCustomerBook().getList().get(INDEX_SECOND_CUSTOMER.getZeroBased());
         EditCustomerCommand editCommand = new EditCustomerCommand(INDEX_FIRST_CUSTOMER,
                 new EditCustomerDescriptorBuilder(customerInList).build());
@@ -149,7 +149,7 @@ public class EditCustomerCommandTest {
     public void execute_invalidCustomerIndexFilteredList_failure() {
         showCustomerAtIndex(model, INDEX_FIRST_CUSTOMER);
         Index outOfBoundIndex = INDEX_SECOND_CUSTOMER;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of customer book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getCustomerBook().getList().size());
 
         EditCustomerCommand editCommand = new EditCustomerCommand(outOfBoundIndex,

@@ -24,7 +24,7 @@ public class HistoryCommandTest {
         Model expectedModel = new ModelManager(getTypicalCustomerBook(), getTypicalPhoneBook(), getTypicalOrderBook(),
                 getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
 
-        assertCommandSuccess(new HistoryCommand(), model, CommandHistory.getCommandHistory(),
+        assertCommandSuccess(new HistoryCommand(), model, new CommandHistory(),
                 HistoryCommand.MESSAGE_FAILURE, expectedModel);
     }
 
@@ -34,7 +34,7 @@ public class HistoryCommandTest {
                 getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalCustomerBook(), getTypicalPhoneBook(), getTypicalOrderBook(),
                 getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
-        CommandHistory commandHistory = CommandHistory.getCommandHistory();
+        CommandHistory commandHistory = new CommandHistory();
 
         String firstCommand = "clear-c";
         commandHistory.add("clear-c");
