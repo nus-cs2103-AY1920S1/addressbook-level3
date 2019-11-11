@@ -253,6 +253,7 @@ my ability to write documentation of technical concepts and the technical-depth 
 
 === Current enhancement
 {Start of First Extract from Developer Guide}
+
 :sectnums!:
 ==== 2.3.1. Details on `Logic` Implementation for the Home and Reimbursements Tab
 This section will show further details of the `Logic` component of the Home tab and Reimbursements tab.
