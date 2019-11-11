@@ -430,64 +430,58 @@ change in the user's operating system.
 === Undo/Redo feature
 ==== Implementation
 
-The undo/redo mechanism is facilitated by 4 different components, namely `CloneModel`,  `State`, `StackManager`, and `UndoableHistoryManager`.
+The undo/redo mechanism is facilitated by 4 different components: `CloneModel`,  `State`, `StackManager`, and `UndoableHistoryManager`.
 
-A `CloneModel` is a cloned version of the `Model` class and contains the items in Xpire and ReplenishList and UserPrefs.
+A `CloneModel` is a cloned version of the `Model` class and contains UserPrefs and the the items in `Xpire` and `ReplenishList`.
 
-A `State` represents the status of Xpire at that point in history and contains the corresponding CloneModel as well as the `ListType` which is the current view of the application (either the main list or the replenish list), a `XpireMethodOfSorting` which determines how the items in Xpire are sorted, as well as a predicate which is set on the filter of the current list in view.
+A `State` represents the status of `Xpire` at that point in history and contains the corresponding `CloneModel`, `ListType` which is the current view of the application, a `XpireMethodOfSorting` which determines how the items in `Xpire` are sorted, as well as a `predicate` that filters items in the current view.
 
-The undo/redo mechanism is supported by a StackManager which stores internally all the states and +
+The undo/redo mechanism is also supported by a `StackManager` which stores internally all the states and +
 decides when to pop or clear, depending on the command.
 There are two stacks that are stored in StackManager internally, the Undo and the Redo Stacks.
-The Undo stack is a double-ended Queue which functions as a stack whilst the Redo stack is a typical stack.
-These stacks are initialised and cleared upon beginning/ending every session.
+The Undo stack is a double-ended Queue (`ArrayDeque`) which simulates as a stack whilst the Redo stack is a `Stack`. Both classes are imported from java.util.
+These stacks are initialised and cleared upon beginning/ending every session of the application.
 
 [NOTE]
 Currently, the undo/redo mechanism only supports up to 10 undo commands. This is enforced in order to save memory by not storing too many states in one session which may slow down the application. +
 Consequently, this implementation would mean that the Undo Stack has to drop the first state from the front if there are already 10 states store, thus influencing the design of the two stacks. +
-Therefore, an double-ended queue was used to replicate a Stack as well as support O(1) deleting operations from the front.
+Therefore, an double-ended queue was used to replicate a Stack as it supports O(1) deleting operations from the front.
 
 The `UndoableHistoryManager` is a generic class that stores inputs as well as Commands so that Undo/Redo commands are able to feedback to the user what commands have been undone or redid.
 
-At every command (Other than `undo`/`redo`/`help`/`exit`/`export`/`tag (show)`, the state is stored internally. +
+At every command (besides `undo`/`redo`/`help`/`exit`/`export`/`tag (show)`, the state is stored internally. +
 When an undo command is executed, it will pop the previous state and update the model via `update`. +
 The state that was undid will then be pushed into the Redo stack, should the user types in a redo command.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The two internal stacks in `StackManager` will be initialised.
+Step 1. The user launches the application for the first time. The two internal stacks in `StackManager` will be initialised. Both stacks should be empty as there are no previous commands by the user. The current state is s0, the initial state of `Xpire`.
 
-Both stacks should be empty as there are no previous commands by the user. The current state is s0, the initial state of Xpire.
+Step 2. The user executes `delete|5` command to delete the 5th item in `Xpire`. The `delete` will then save the previous state, s0, by pushing it into the Undo Stack. The current state will be the new state `s1` that has the 5th item in `Xpire` deleted.
 
-image::UndoRedo/UndoRedoStep1.png[]
+.Step 1 & Step 2
 
-Step 2. The user executes `delete|5` command to delete the 5th item in Xpire. The `delete` will then save the previous state, s0, by pushing it into the Undo Stack.
+image::UndoRedo/UndoRedoStep1and2.png[width="790"]
 
-The current state will be the new state `s1` that has the 5th item in Xpire deleted.
-
-image::UndoRedo/UndoRedoStep2.png[]
-
-Step 3. The user executes `add|Apple|30/10/2019|3` to add a new item. Similar to Step 2, The `add` command will then save the previous state, s1 by pushing it into the Undo Stack.
-
-The current state will be the new state `s2` with the item Apple added.
-
-image::UndoRedo/UndoRedoStep3.png[]
+Step 3. The user executes `add|Apple|30/10/2019|3` to add a new item. Similar to Step 2, The `add` command will then save the previous state, s1 by pushing it into the Undo Stack. The current state will be the new state `s2` with the item Apple added.
 
 [NOTE]
-If a command fails its execution, it will not save the previous state, thus the state will not be pushed into the UndoStack.
+If a command fails its execution, it will not save the previous state, thus the state will not be pushed into the Undo Stack.
 
 Step 4. The user now decides that adding the item was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will then update the current model with the model in the previous state.
 
 Internally within StackManager, the most recent state, s1, will be popped from the Undo Stack to become the current state. At the same time, s2, the new state with the added item, will be pushed into the Redo Stack.
 
-image::UndoRedo/UndoRedoStep4.png[]
+.Step 3 & Step 4
+
+image::UndoRedo/UndoRedoStep3and4.png[width="790"]
 
 [NOTE]
 If there are no commands to undo (e.g. at the start of a new Xpire session), undo will return an Error to the user instead. This is done by checking whether the UndoStack is empty.
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoRedo/UndoSequenceDiagram.png[]
+image::UndoRedo/UndoSequenceDiagram.png[width="790"]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -500,23 +494,21 @@ From Step 4, there are 3 scenarios which showcases the behaviour of StackManager
 
 Step 5a. The user suddenly decides that he should not have undid the previous AddCommand, thus he wants to redo the action. This is done by inputting 'redo' in Xpire.
 
-Internally within Stack Manager, the current state will be the popped state, s2, from the Redo Stack. The current state, s1, will then be psuehd back into the Undo Stack.
+Within Stack Manager, the current state will be the popped state, s2, from the Redo Stack. The current state, s1, will then be pushed back into the Undo Stack. The current states and their locations should be the same as after the execution of the Add command in Step 3.
 
-The current states and their locations should be the same as after the execution of the Add command in Step 3.
+Step 5b. The user decides to further undo his actions, which now includes the first Delete command. The initial state, s0, will then be popped from the Undo Stack and set as the current state. The current state, s1, will then be pushed into the Redo Stack.
 
-image::UndoRedo/UndoRedoStep5a.png[]
+.Step 5a & Step 5b
 
-Step 5b. The user decides to further undo his actions, which now includes the first Delete command. The initial state, s0, will then be popped from the Undo Stack and set as the current state.
-
-The current state, s1, will then be pushed into the Redo Stack.
-
-image::UndoRedo/UndoRedoStep5b.png[]
+image::UndoRedo/UndoRedoStep5aand5b.png[width="790"]
 
 Step 5c. The user may also decide to execute some other command (which is the most likely scenario) other than Undo/Redo. For instance, the user inputs `tag|2|#Fruit`.
 
 When this happens, the existing states in the Redo Stack will be cleared. The state s1, will then be pushed into the Undo Stack whilst the current state will be the new state s3 that includes the new Tag command.
 
-image::UndoRedo/UndoRedoStep5c.png[]
+.Step 5c
+
+image::UndoRedo/UndoRedoStep5c.png[width="790"]
 
 [PROPOSED] [v2.0] A CommandHistory that is integrated and allows users to fast-forward or go back in time to a state/version of the application instantly, as well as view the changes for each item instantly.
 
@@ -526,13 +518,13 @@ Not all commands will save states to StackManager. Exit and Help commands will n
 The following activity diagram summarises what happens when a user executes a new command:
 
 .Activity Diagram for Undo/Redo Commands
-image::UndoRedo/ActivityDiagramUndoRedoCommand.png[]
+image::UndoRedo/ActivityDiagramUndoRedoCommand.png[width="790"]
 
 ==== Design Considerations
 
 The following class diagram shows the entirety of the Undo/Redo system and its associations.
 
-image::UndoRedo/UndoRedoSystemClassDiagram.png[]
+image::UndoRedo/UndoRedoSystemClassDiagram.png[width="790"]
 
 There are two classes that inherit from the abstract class `State` which are `FilteredState` and `ModifiedState`. +
 The states that are stored at each valid and undoable command depends on the type of command itself as `FilteredState` only copies over the predicate and method of sorting but not the backend Xpire or ReplenishList data. Thus, commands that do not alter Items such as `Sort` and `Check` commands will instantiate a `FilteredState`. +
@@ -592,7 +584,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 // end::dataencryption[]
 
 // tag::tag[]
-=== Tag
+=== Tag Feature
 
 This feature allows users to tag specific items in the list. Items can only have a maximum of 5 tags and all of the tags are parsed in Sentence-Case and must not be more than 20 characters long each.
 
@@ -605,8 +597,13 @@ This implementation is under `Logic` and `Model` components.
 Below is an activity diagram of what happens when a user keys in a Tag Command.
 
 .Activity Diagram for executing Tag Command
-image::Tag/ActivityDiagramTagCommand.png[]
+image::Tag/ActivityDiagramTagCommand.png[width="790"]
 
+
+Below is a sequence diagram of what happens when a user keys in a Tag Command in the main list view. Note that the diagram has been simplified and assumes that all arguments are valid.
+
+.Sequence Diagram for executing Tag Command
+image::Tag/SequenceDiagramTagCommand.png[width="790"]
 
 // end::tag[]
 
