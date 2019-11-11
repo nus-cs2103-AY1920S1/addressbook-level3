@@ -42,7 +42,7 @@
          <HBox prefHeight="18.0" prefWidth="400.0">
             <children>
                <Label styleClass="cell_small_label" text="Attendees: " />
-            <Label fx:id="attendees" prefHeight="17.0" styleClass="cell_small_label" text="\$attendees" wrapText="true"/>
+            <Label fx:id="attendees" prefHeight="17.0" prefWidth="414.0" styleClass="cell_small_label" text="\$attendees" wrapText="true"/>
             </children>
          </HBox>
          <Label fx:id="description" styleClass="cell_small_label" text="\$description" textOverrun="CLIP" wrapText="true"/>
