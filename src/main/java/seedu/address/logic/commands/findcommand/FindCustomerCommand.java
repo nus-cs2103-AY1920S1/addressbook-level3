@@ -14,6 +14,7 @@ import seedu.address.model.customer.predicates.CustomerContainsKeywordsPredicate
 /**
  * Finds and lists all customers in customer book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
+ * @@author zhixianggg
  */
 public class FindCustomerCommand extends Command {
 
