@@ -141,8 +141,7 @@ The `Storage`
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
-* This includes instances of Entry subclasses(Expense, Income, Wish, AutoExpenditure, Budget, TrackerReminder, etc.)
-* DateReminder data are stored in Entry data.
+* This includes instances of Entry subclasses(Expense, Income, Wish, AutoExpenditure, Budget, Reminders etc.)
 
 [[Design-Statistics]]
 === Statistics component
@@ -230,13 +229,31 @@ Cons: Might not be as OOP as other designs.
 ==== Implementation
 The reminders implementation is facilitated by the reminder class, and heavily makes use of the observable pattern to keep track with property changes in the GuilTrip model to display messages in a timely fashion.
 
+image::ReminderClassDiagram.png[]
+
 For instance, the class diagram above shows the relation between the classes that help to implement the reminder feature.
 There are 2 types of reminders. General and entry reminders. General reminders are not tied to any specific entry, and sent the user notifications whenever an entry matching the user specified conditions is entered in the app. These specified conditions include entry type, a lower and upper quota for the entry amount, a specified time period in which an entry takes place, or a list of tags which the entry must have.
 
-The sequence diagram above illustrates what happens when an entry fulfils all conditions in an entry.
-When an expense is logged in to GuiltTrip.java, in addition to being stored in the Expense List, the expense is also passed into the Condition Manager, which iterates through its list of conditions to see which conditions are met by the entry. Each condition makes use of a self-implemented ObservableSupport class that enables it to function as an Observable object, with the reminders being its listeners. When a condition is met, it notifies the reminder it belongs to. The reminders keep track of the number of conditions met, and only when all conditions are met does it make use of ObservableSupport to notify the reminderlist about a change in its status. The reminder list generates a notification corresponding to the reminder and adds it to an observable list which is displayed by the Ui. The number of conditions met is reset a the end of the process so the reminders may continue to produce notifications when subsequent entries meeting the requirements are keyed into the system.
 
-An entry reminder targets a specific expense/ income or wish. It is set to send notifications at a specified period at specified intervals before the date of the event.  This is made possible with TimeUtil, which is a singleton class with a single instance checking the local date at periodic intervals and updating its listeners (Using the ObservableSupport) of the current date. All entry reminders are listeners of TimeUtil. Similar to General Reminder, when it is time to send a notification, it notifies the reminder list which generates a corresponding notification and sets the next date to notify the user. Once the date of the event itself has passed, the reminder is deactivated and not saved the next time GuiltTrip is closed.
+* The sequence diagram above illustrates what happens when an entry fulfils all conditions in an entry.
+
+1)  When an expense is logged in to GuiltTrip.java, in addition to being stored in the Expense List, the expense is also passed into the Condition Manager, which iterates through its list of conditions to see which conditions are met by the entry. 
+
+2)  Each condition makes use of a self-implemented ObservableSupport class that enables it to function as an Observable object, with the reminders being its listeners. 
+
+3)  When a condition is met, it notifies the reminder it belongs to. The reminders keep track of the number of conditions met, and only when all conditions are met does it make use of ObservableSupport to notify the reminderlist about a change in its status. 
+
+4)  The reminder list generates a notification corresponding to the reminder and adds it to an observable list which is displayed by the Ui. 
+
+5)  The number of conditions met is reset a the end of the process so the reminders may continue to produce notifications when subsequent entries meeting the requirements are keyed into the system.
+
+An entry reminder targets a specific expense/ income or wish. It is set to send notifications at a specified period at specified intervals before the date of the event.  
+
+1) This is made possible with TimeUtil, which is a singleton class with a single instance checking the local date at periodic intervals and updating its listeners (Using the ObservableSupport) of the current date. 
+
+2) All entry reminders are listeners of TimeUtil. When the updated current date equals the date to send a notification, it notifies the reminder list which generates a corresponding notification and sets the next date to notify the user. 
+
+3) Once the date of the event itself has passed, the reminder is deactivated and not saved the next time GuiltTrip is closed.
 
 === Design Considerations:
 1)	Alternative 1 (current method): Users must first select a reminder before they can edit or remove reminders.
