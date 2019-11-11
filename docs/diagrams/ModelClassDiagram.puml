@@ -32,6 +32,7 @@ Package Reminder {
 class Reminder
 class ReminderList
 class ReminderMessage
+enum ReminderType <<enumeration>>
 }
 
 Package Budget {
@@ -70,6 +71,7 @@ SpendingBook *--> "1" ReminderList
 ReminderList o--> "*" Reminder
 Reminder *--> ReminderMessage
 Reminder *--> Date
+Reminder *-left-> ReminderType
 
 ModelManager -right->"1" Reminder : filtered and sorted list
 

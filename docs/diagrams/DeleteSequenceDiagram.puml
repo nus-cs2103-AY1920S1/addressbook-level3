@@ -48,7 +48,7 @@ deactivate SpendingBookParser
 LogicManager -> DeleteCommand : execute()
 activate DeleteCommand
 
-DeleteCommand -> Model : deletePerson(1)
+DeleteCommand -> Model : deleteSpending(1)
 activate Model
 
 Model --> DeleteCommand

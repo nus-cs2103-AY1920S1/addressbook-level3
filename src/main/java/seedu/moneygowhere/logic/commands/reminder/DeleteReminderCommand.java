@@ -3,7 +3,10 @@ package seedu.moneygowhere.logic.commands.reminder;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.commons.core.Messages;
 import seedu.moneygowhere.commons.core.index.Index;
 import seedu.moneygowhere.logic.commands.CommandResult;
@@ -29,6 +32,8 @@ public class DeleteReminderCommand extends ReminderCommand {
 
     private final Index targetIndex;
 
+    private final Logger logger = LogsCenter.getLogger(DeleteReminderCommand.class);
+
     public DeleteReminderCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
@@ -44,6 +49,7 @@ public class DeleteReminderCommand extends ReminderCommand {
 
         Reminder reminderToDelete = lastShownReminderList.get(targetIndex.getZeroBased());
         model.deleteReminder(reminderToDelete);
+        logger.log(Level.INFO, String.format(MESSAGE_DELETE_REMINDER_SUCCESS, reminderToDelete));
         return new CommandResult(String.format(MESSAGE_DELETE_REMINDER_SUCCESS, reminderToDelete));
     }
 

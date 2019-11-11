@@ -4,6 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_MESSAGE;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.logic.commands.CommandResult;
 import seedu.moneygowhere.logic.commands.ReminderCommand;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
@@ -25,6 +29,8 @@ public class AddReminderCommand extends ReminderCommand {
 
     public static final String MESSAGE_SUCCESS = "New Reminder added: %1$s";
 
+    private final Logger logger = LogsCenter.getLogger(AddReminderCommand.class);
+
     private final Reminder reminderToAdd;
 
     /**
@@ -38,8 +44,8 @@ public class AddReminderCommand extends ReminderCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         model.addReminder(reminderToAdd);
+        logger.log(Level.INFO, String.format(MESSAGE_SUCCESS, reminderToAdd));
         return new CommandResult(String.format(MESSAGE_SUCCESS, reminderToAdd));
     }
 

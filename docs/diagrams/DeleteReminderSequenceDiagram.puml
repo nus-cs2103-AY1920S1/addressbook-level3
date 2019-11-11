@@ -3,7 +3,8 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":MoneyGoWhereParser" as MoneyGoWhereParser LOGIC_COLOR
+participant ":SpendingBookParser" as SpendingBookParser LOGIC_COLOR
+participant ":ReminderCommandParser" as ReminderCommandParser LOGIC_COLOR
 participant ":DeleteReminderCommandParser" as DeleteReminderCommandParser LOGIC_COLOR
 participant "d:DeleteReminderCommand" as DeleteReminderCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -13,20 +14,30 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("dreminder 1")
+[-> LogicManager : execute("reminder delete 1")
 activate LogicManager
 
-LogicManager -> MoneyGoWhereParser : parseCommand("dreminder 1")
-activate MoneyGoWhereParser
+LogicManager -> SpendingBookParser : parseCommand("reminder delete 1")
+activate SpendingBookParser
+
+create ReminderCommandParser
+SpendingBookParser -> ReminderCommandParser
+activate ReminderCommandParser
+
+ReminderCommandParser --> SpendingBookParser
+deactivate ReminderCommandParser
+
+SpendingBookParser -> ReminderCommandParser : parse("delete 1")
+activate ReminderCommandParser
 
 create DeleteReminderCommandParser
-MoneyGoWhereParser -> DeleteReminderCommandParser
+ReminderCommandParser -> DeleteReminderCommandParser
 activate DeleteReminderCommandParser
 
-DeleteReminderCommandParser --> MoneyGoWhereParser
+DeleteReminderCommandParser --> ReminderCommandParser
 deactivate DeleteReminderCommandParser
 
-MoneyGoWhereParser -> DeleteReminderCommandParser : parse("1")
+ReminderCommandParser -> DeleteReminderCommandParser : parse("1")
 activate DeleteReminderCommandParser
 
 create DeleteReminderCommand
@@ -36,14 +47,20 @@ activate DeleteReminderCommand
 DeleteReminderCommand --> DeleteReminderCommandParser : d
 deactivate DeleteReminderCommand
 
-DeleteReminderCommandParser --> MoneyGoWhereParser : d
+DeleteReminderCommandParser --> ReminderCommandParser : d
 deactivate DeleteReminderCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteReminderCommandParser -[hidden]-> MoneyGoWhereParser
+DeleteReminderCommandParser -[hidden]-> ReminderCommandParser
 destroy DeleteReminderCommandParser
 
-MoneyGoWhereParser --> LogicManager : d
-deactivate MoneyGoWhereParser
+ReminderCommandParser --> SpendingBookParser : d
+deactivate ReminderCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ReminderCommandParser -[hidden]-> SpendingBookParser
+destroy ReminderCommandParser
+
+SpendingBookParser --> LogicManager : d
+deactivate SpendingBookParser
 
 LogicManager -> DeleteReminderCommand : execute()
 activate DeleteReminderCommand

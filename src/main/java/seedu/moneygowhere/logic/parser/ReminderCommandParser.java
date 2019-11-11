@@ -11,7 +11,7 @@ import seedu.moneygowhere.logic.commands.reminder.DeleteReminderCommand;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new ReminderCommand object
  */
 public class ReminderCommandParser implements Parser<ReminderCommand> {
 
