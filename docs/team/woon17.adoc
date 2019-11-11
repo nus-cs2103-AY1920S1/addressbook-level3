@@ -15,7 +15,7 @@ ClerkPro is a desktop application used for managing clinic's appointments, queue
 
 This section’s purpose is to summarise my contributions for the duration of this project. For more details about the contributions, click the link to the corresponding pull request.
 
-* *Major enhancement 1*: added *Appointments management* feature
+* *Major enhancement 1*: added *Appointment Management* feature
 
 ** What it does: The Appointment feature enables users to manage appointments for patients by providing basic Create, Read, Update, Delete (CRUD) of appointments. User is also able to find missed appointments and settle each missed appointment efficiently.
 

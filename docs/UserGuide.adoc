@@ -251,6 +251,9 @@ Format: `resume <ENTRY_ID>`
 
 === Appointment Management
 
+NOTE: Before you process any commands in appointment management, please ensure you have a patient with referenceid of E0000001A by using `patient E0000001A`. +
+You can refer to `newpatient` command to register this patient if the patient is not registered.
+
 ==== Displays appointments: `appointments` ====
 
 Displays a sorted list of upcoming appointments for the patient that is associated to the given `REFERENCE_ID`.
