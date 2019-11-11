@@ -3,14 +3,14 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== Introduction
-
-image::TeoShyanJie.png[width="200", align="left"]
+****
+image::teoshyanjie.png[width="200", align="left"]
 {empty}[https://github.com/TeoShyanJie[github]] [https://www.linkedin.com/in/shyan-jie-teo-49007510a/[linkedin]]
 
 Hello! My name is Teo Shyan Jie. I am currently a Year 3 Computer Science Major at National University of Singapore.
 
 This project portfolio aims to document the contribution that I have made during the development of TutorAid. TuturAids is a project my team and I have developed throughout our studies in CS2103T module. TutorAid is one of the great software that is developed with great amount of benefits and I hope that teaching assistant can enjoy the benefits that this software brings and aids them along their journey in teaching.
+****
 
 == PROJECT: TutorAid
 
