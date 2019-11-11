@@ -160,6 +160,12 @@ public interface Model {
      */
     void setAssignment(Assignment target, Assignment editedAssignment);
 
+    /**
+     * Replaces all the current key value {@code oldStudent} with {@code newStudent}.
+     * Does this for all the assignments.
+     */
+    void updateAllAssignmentsWithName(Student oldStudent, Student newStudent);
+
 
 
     //=========== Lesson ================================================================================

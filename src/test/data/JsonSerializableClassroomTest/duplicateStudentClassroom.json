@@ -1,14 +1,47 @@
 {
+  "classroomName" : "4E7",
   "students": [ {
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "alice@example.com",
-    "address": "123, Jurong West Ave 6, #08-111",
-    "tagged": [ "friends" ]
+    "name" : "Alex Yeoh",
+    "phone" : "87438807",
+    "email" : "alexyeoh@gmail.com",
+    "parentPhone" : "98103329",
+    "address" : "Blk 30 Geylang Street 29, #06-40",
+    "displayPicture" : "/images/themyth.png",
+    "medicalCondition" : "Sinus",
+    "tagged" : [ "English REP" ]
   }, {
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "pauline@example.com",
-    "address": "4th street"
+    "name" : "Alex Yeoh",
+    "phone" : "87438807",
+    "email" : "alexyeoh@gmail.com",
+    "parentPhone" : "98103329",
+    "address" : "Blk 30 Geylang Street 29, #06-40",
+    "displayPicture" : "/images/themyth.png",
+    "medicalCondition" : "Sinus",
+    "tagged" : [ "English REP" ]
+  } ],
+  "assignments" : [ {
+    "assignmentName" : "Math Assignment 1",
+    "assignmentDeadline" : "23/11/2019 1800",
+    "names" : [ "Alex Yeoh", "Bernice Yu", "Charlotte Oliveiro", "David Li", "Irfan Ibrahim", "Roy Balakrishnan" ],
+    "marks" : [ "Not submitted.", "Not submitted.", "Not submitted.", "Not submitted.", "Not submitted.", "Not submitted." ],
+    "isCompleted" : false
+  }, {
+    "assignmentName" : "English Assignment 3",
+    "assignmentDeadline" : "29/11/2019 2359",
+    "names" : [ "Alex Yeoh", "Bernice Yu", "Charlotte Oliveiro", "David Li", "Irfan Ibrahim", "Roy Balakrishnan" ],
+    "marks" : [ "Not submitted.", "Not submitted.", "Not submitted.", "Not submitted.", "Not submitted.", "Not submitted." ],
+    "isCompleted" : false
+  }, {
+    "assignmentName" : "Math Tutorial 3",
+    "assignmentDeadline" : "01/12/2019 1400",
+    "names" : [ "Alex Yeoh", "Bernice Yu", "Charlotte Oliveiro", "David Li", "Irfan Ibrahim", "Roy Balakrishnan" ],
+    "marks" : [ "Not submitted.", "Not submitted.", "Not submitted.", "Not submitted.", "Not submitted.", "Not submitted." ],
+    "isCompleted" : false
+  }, {
+    "assignmentName" : "English Essay 1",
+    "assignmentDeadline" : "02/12/2019 2359",
+    "names" : [ "Alex Yeoh", "Bernice Yu", "Charlotte Oliveiro", "David Li", "Irfan Ibrahim", "Roy Balakrishnan" ],
+    "marks" : [ "Not submitted.", "Not submitted.", "Not submitted.", "Not submitted.", "Not submitted.", "Not submitted." ],
+    "isCompleted" : false
   } ]
 }
