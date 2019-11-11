@@ -4,6 +4,8 @@
 :stylesDir: ../stylesheets
 :xrefstyle: full
 :experimental:
+:icons: font
+:note-caption: :information_source:
 
 == PROJECT: ClerkPro
 
