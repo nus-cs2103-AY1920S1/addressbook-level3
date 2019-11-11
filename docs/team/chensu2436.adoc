@@ -23,7 +23,7 @@ This portfolio was adapted from the AddressBook - Level 3 project.
 
 == Summary of contributions
 
-* *Major enhancement 1*: added *the ability to check clashes for various cases*
+* *Major enhancement 1: added the ability to check clashes for various cases*
 ** What it does: allows the admin to check timetable clash between 2 modules or in a student's current timetable;
 Provides a shortcut for the admin to retrieve information on timetable clash in appeals requesting to add or drop modules.
 ** Justification: Checking timetable clash is one of the most important checks that an admin needs to perform before he/she decides to approve or reject an appeal.
@@ -31,28 +31,29 @@ This feature improves the user experience significantly because it provides a co
 ** Highlights: There are a few types of checks can be performed. Therefore, the user inputs for this command can take various forms and are highly flexible.
 An in-depth analysis of design alternatives is required to deal with these variations.
 
-* *Major enhancement 2*: enhanced the find command that allows the user to ...
-** What it does:
-** Justification:
-** Highlights: This enhancement affects existing commands and commands to be added in future.
-provide shorcuts...
+* *Major enhancement 2: enhanced the find command that allows the user to search in different lists*
+** What it does: allows the admin to search multiple keywords in multiple lists at the same time.
+** Justification: There are a huge number of appeals, modules and students given the size of the university.
+This feature improves the user experience significantly by providing a convenient way to search items that he/she is more interested in.
+** Highlights: This enhancement affects other commands since it will be used together with other commands often.
+For example, to filter all appeals requesting to add a particular module and perform checks in one go.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
+*** Set up project schedule tracking using issues
 *** Helped to manage releases `v1.3` on GitHub
-*** issue trackers
-** Enhancements to existing `find` features:
-*** Wrote tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Refactoring of original code base:
+*** Removed original Add/Delete/Clear commands and related tests https://github.com/AY1920S1-CS2103-T11-2/main/pull/60[#60]
 ** Documentation:
-*** First draft of User Guide to aodc
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Convert the first draft of User Guide to ascii doc https://github.com/AY1920S1-CS2103-T11-2/main/pull/25[#25]
+*** sdf
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T11-2/main/pull/92[#92]
+*** Reported bugs and suggestions for other teams (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Reviewed UG and reported suggestions for other teams in class()
 
 == Contributions to the User Guide
 
