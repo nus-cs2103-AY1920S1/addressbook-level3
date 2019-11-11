@@ -371,6 +371,31 @@ image::GetUnsubmittedActivityDiagram.png[]
 
 // end::getunsubmitted[]
 
+// tag::Lesson[]
+=== Lesson Feature
+==== Implementation
+
+The Lesson class works with high similarity to the Student Class implemented.
+A UniqueList of Lessons exist in the Notebook alongside the UniqueList of Classrooms, and serve to keep track of lessons for the user.
+Additionally, it implements the following operations through Commands:
+
+* `UniqueLessonList#addLesson()` -- Adds a new Lesson object to the UniqueLessonList.
+* `UniqueLessonList#remove()` -- Removes a Lesson object from the UniqueLessonList.
+* `Lesson#set()` -- Updates the Lesson with user input.
+
+// end::Lesson[]
+
+// tag::Schedule[]
+=== Scheduling Feature
+==== Implementation
+When a new Lesson is added to the UniqueLessonList, a listener attached to the list will be triggered and it will create a scheduler to schedule the lesson.
+Once the timing of lesson is reached, an alert box will be created in the GUI to serve as a reminder.
+
+The following activity and sequence diagram shows how the scheduling operation works:
+
+image::SchedulingActivityDiagram.png[]
+
+image::
 
 === Logging
 

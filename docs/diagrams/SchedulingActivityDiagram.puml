@@ -1,5 +1,6 @@
 @startuml
 start
+:Add Lesson to UniqueLessonList;
 :Observable list detects changes in UniqueLessonList;
 :Schedules alert for Lesson;
 :Creates alert box in GUI;
