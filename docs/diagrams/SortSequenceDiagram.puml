@@ -3,8 +3,10 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":TypeeParser" as TypeeParser LOGIC_COLOR
-participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
+participant ":Parser" as Parser LOGIC_COLOR
+participant ":PropertyState" as PropertyState LOGIC_COLOR
+participant ":OrderState" as OrderState LOGIC_COLOR
+participant ":SortEndState" as SortEndState LOGIC_COLOR
 participant "s:SortCommand" as SortCommand LOGIC_COLOR
 participant ":ParserUtil" as ParserUtil LOGIC_COLOR
 end box
@@ -14,43 +16,68 @@ participant ":Model" as Model MODEL_COLOR
 participant ":EngagementComparator" as EngagementComparator MODEL_COLOR
 participant ":HistoryManager" as HistoryManager MODEL_COLOR
 end box
-[-> LogicManager : execute("sort priority ascending")
+[-> LogicManager : execute("sort p/priority o/ascending")
 activate LogicManager
 
-LogicManager -> TypeeParser : parseCommand(sort)
-activate TypeeParser
+LogicManager -> Parser : parseInput(sort)
+activate Parser
 
-create SortCommandParser
-TypeeParser -> SortCommandParser : parse()
-activate SortCommandParser
+create PropertyState
+Parser -> PropertyState
+activate PropertyState
+PropertyState --> Parser
+Parser -> PropertyState : transition()
 
-SortCommandParser -> SortCommandParser : parseOrder()
+create OrderState
+PropertyState -> OrderState
+activate OrderState
 
-SortCommandParser -> ParserUtil : parseComparator()
-activate ParserUtil
+OrderState --> PropertyState : o
+deactivate OrderState
+PropertyState --> Parser : o
+deactivate PropertyState
+PropertyState -[hidden]-> Parser : pp
+destroy PropertyState
 
-ParserUtil -> EngagementComparator : getComparator()
+Parser -> OrderState : transition()
+activate OrderState
+
+create SortEndState
+OrderState -> SortEndState
+activate SortEndState
+
+SortEndState --> OrderState : s
+deactivate SortEndState
+OrderState --> Parser : s
+deactivate OrderState
+OrderState -[hidden]-> Parser : pp
+destroy OrderState
+
+Parser --> LogicManager
+LogicManager -> Parser : makeCommand()
+
+Parser -> SortEndState : buildCommand()
+activate SortEndState
+
+SortEndState -> EngagementComparator : makeEngagementComparator()
 activate EngagementComparator
-EngagementComparator -> ParserUtil : PRIORITY_ASCENDING
+EngagementComparator -> SortEndState : PRIORITY_ASCENDING
 deactivate EngagementComparator
 
-ParserUtil -> SortCommandParser : PRIORITY_ASCENDING
-deactivate ParserUtil
-
 create SortCommand
-SortCommandParser -> SortCommand
+SortEndState -> SortCommand
 activate SortCommand
 
-SortCommand --> SortCommandParser
+SortCommand --> SortEndState
 deactivate SortCommand
 
-SortCommandParser --> TypeeParser : s
-deactivate SortCommandParser
-SortCommandParser -[hidden]-> TypeeParser : s
-destroy SortCommandParser
+SortEndState --> Parser : c
+deactivate SortEndState
+SortEndState -[hidden]-> Parser : s
+destroy SortEndState
 
-TypeeParser --> LogicManager : s
-deactivate TypeeParser
+Parser --> LogicManager : c
+deactivate Parser
 
 LogicManager -> SortCommand : execute()
 activate SortCommand

@@ -126,7 +126,7 @@ Format: `list`
 === Sorting all appointments : `sort`
 
 Sorts the list of all appointments in the appointment list by the order specified by user. +
-Format: `sort p/ PROPERTY o/ORDER`
+Format: `sort p/PROPERTY o/ORDER`
 
 [TIP]
 Properties supported: `start` (Start time), `end` (End time), `priority` and `description` +
@@ -187,6 +187,7 @@ Clears all appointments from the appointment manager. +
 Format: `clear`
 
 //tag::undo-redo[]
+
 === Undoing the previous command : `undo`
 Undoes the previous command, provided that it exists. +
 Format: `undo`

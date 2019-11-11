@@ -203,7 +203,7 @@ The `redo` command does the opposite -- it calls `Model#redoEngagementList()`, w
 [NOTE]
 If the `versionPointer` is at index `historyList.size() - 1`, pointing to the latest engagement list state, then there are no undone engagement list states to restore. The `redo` command uses `Model#hasNoRedoableCommand()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `sort start ascending`. Commands that do not modify the engagement list, such as `sort`, will usually not call `Model#saveEngagementList()`, `Model#undoEngagementList()` or `Model#redoEngagementList()`. Thus, the `historyList` remains unchanged.
+Step 5. The user then decides to execute the command `sort p/start o/ascending`. Commands that do not modify the engagement list, such as `sort`, will usually not call `Model#saveEngagementList()`, `Model#undoEngagementList()` or `Model#redoEngagementList()`. Thus, the `historyList` remains unchanged.
 
 image::UndoRedoState4.png[width="450", align="center"]
 
@@ -414,9 +414,11 @@ Step 1. The user launches the application for the first time. The `currentCompar
 
 image::SortListState0.png[width="450", align="center"]
 
-Step 2. The user executes `sort priority ascending` command to sort the engagement list in ascending order of priority. The `sort` command calls `Model#setComparator()`, causing the `currentComparator` in ModelManager to assume the value `EngagementComparator#PRIORITY`. The command then calls `Model#updateSortedEngagementList` to execute the sorting.
+Step 2. The user executes `sort p/priority o/ascending` command to sort the engagement list in ascending order of priority. The `sort` command calls `Model#setComparator()`, causing the `currentComparator` in ModelManager to assume the value `EngagementComparator#PRIORITY`. The command then calls `Model#updateSortedEngagementList` to execute the sorting.
 
 image::SortListState1.png[width="450", align="center"]
+
+NOTE: The parsing of `sort` follows the interactive parsing structure *_Typee_* adopts, where various stages are created while parsing. See Sequence Diagram below.
 
 The following sequence diagram shows how the sort operation works:
 
