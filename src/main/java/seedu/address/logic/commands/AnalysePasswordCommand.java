@@ -46,6 +46,9 @@ public class AnalysePasswordCommand extends Command {
             requireNonNull(model);
             model.updateFilteredPasswordList(PREDICATE_SHOW_ALL_PASSWORDS);
             List<Password> passwords = model.getFilteredPasswordList();
+            if (passwords.isEmpty()) {
+                return new CommandResult("Erorr. No passwords to be analysed.");
+            }
             List<Analyser> analysers = getRequiredAnalysers();
             AnalysisReport analysisReport = new AnalysisReport();
             for (Analyser analyser : analysers) {
