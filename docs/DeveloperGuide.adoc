@@ -574,7 +574,9 @@ The add claim `add_reminder` mechanism is facilitated by `addReminderCommand` an
 following input from the user: `Description`, `Time`, which will construct `Reminder` objects.
 
 .Add Reminder Command Sequence Diagram
-##diagram to be added
+image::reminders/AddReminderSequenceDiagram.png[]
+NOTE: The lifeline for `AddReminderParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 
 The `addReminderCommand` implements `Parser` with the following operation:
 
@@ -582,7 +584,7 @@ The `addReminderCommand` implements `Parser` with the following operation:
 individual objects based on the prefixes `rd/` and `rt/`. The `String` value after the respective prefixes
 will create the respective objects. A validation check will be done to ensure that the strings that are entered
 by the user is entered correctly. If any of the strings entered are invalid, an error will be shown to the user to
-enter the correct format of the respectives objects.
+enter the correct format of the respective objects.
 
 ** `description` would use `ParserUtil#parseReminderDescription()` to ensure that the description typed by the user is in the correct format.
 
@@ -593,13 +595,12 @@ enter the correct format of the respectives objects.
 * `addReminderParser` would then return a `addReminderCommand` object with the parameter, `Reminder` object.
 
 The following activity diagram summarizes what happens when a user executes a new command.
-
-##diagram to be added
-
+//end::reminders[]
+image::reminders/AddReminderActivityDiagram.png[]
+//tag::reminders2[]
 *Example Scenerio*
 
-* Step 1: The user enters `add_reminder rd/teach rt/23/01/2019` to add a reminder for teaching classes.
-This adds an `Notes` object that the user has added to record what needs to be done for the class.
+* Step 1: The user enters `add_reminder rd/teach rt/23/01/2019 13:00, 23/01/2019 15:00` to add a reminder for teaching classes.
 
 * Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
 
@@ -616,7 +617,51 @@ check with the rest of the prior `Reminder` object, to ensure that there is no d
 
 * Step 6: `addReminderCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new
 `Reminder` object have been successfully added.
-//end::reminders[]
+
+==== Delete Reminders
+This command allows the user to delete reminders from the existing reminders list through its index.
+
+The delete reminders command is facilitated by the `DeleteReminderCommand` and `DeleteReminderParser`.
+
+The delete reminder command is part of the logic component of our application. It interacts with the model component of our software application.
+
+*Overview*
+
+The `DeleteReminderParser` implements `Parser` with the following operation:
+
+* `DeleteReminderParser#parse()` - This operation will take in an `int` input from the user, that the
+user wants to delete, which will correspond to the index shown on the reminders list on the application. This will delete
+the reminders in the reminders list. If an invalid format is entered or an invalid index is entered, there will be a prompt
+from the commmand parser.
+
+*Current Implementation*
+
+The delete earnings command is executed by the `DeleteReminderCommand`. Currently, the deletion of any earnings is done based
+on the `INDEX` of the reminders entry.
+
+During the design of our delete reminders function, we considered between two alternatives.
+
+.Delete Reminder Sequence Diagram
+image::reminders/DeleteReminderSequenceDiagram.png[]
+
+*Example Scenerio*
+
+* Step 1: The user enters `delete_reminder 1` to delete a reminder with index 1.
+
+* Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
+
+* Step 3: `TutorAidParser` would match the command word given by the user with the correct command. In this example,
+the given command is `delete_reminder`, thus, `deleteReminderParser` object would be created with the user's input.
+
+* Step 4: `deleteReminderParser` performs a validation check on each of the respective objects through
+`deleteReminderParser#parse()`.
+
+* Step 5: `LogicManager` would execute `deleteReminderCommand#execute`. In this particular method, the `Reminder` object will be
+of that index will be deleted from the current unique filtered reminder list.
+
+* Step 6: `deleteReminderCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new reminder list.
+
+//end::reminders2[]
 
 // tag::learncustomcommands[]
 === Learn wrong commands as custom commands feature
@@ -749,13 +794,16 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 image::UndoRedoState4.png[]
 
 Step 6. The user executes `clear`, which calls `Model#commitTutorAid()`. Since the `currentStatePointer` is not pointing at the end of the `tutorAidStateList`, all tutor aid states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add_task c/CS2103T ...` command. This is the behavior that most modern desktop applications follow.
+// end::undoAndRedo[]
 
 image::UndoRedoState5.png[]
-// end::undoAndRedo[]
+
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::CommitActivityDiagram.png[]
+
+// tag::undoAndRedo[]
 
 ==== Design Considerations
 
@@ -767,6 +815,21 @@ image::CommitActivityDiagram.png[]
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
+
+//tag::tabswitch[]
+=== Tab Change feature
+
+Tab Change feature is a type of Command that allows users to change to respective windows for using different features in the system.
+Tab change function is implemented in using both CLI and GUI. User can execute tab change by typing command in the command box or by interaction with the GUI component (Menu Bar)
+
+//end::tabswitch[]
+
+==== Implementation
+
+.Activity Diagram
+image::reminders/tabchange.png[]
+
+User will execute `change_tab` command with the parameters of `tab/TAB`. Using this, TutorAid will display the list and the view that the user wishes to see, effectively changing tabs.
 
 
 
@@ -814,7 +877,7 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage calendar and track earnings faster than a typical mouse/GUI driven app
+*Value proposition*: manage students, tasks, notes, earnings and reminders faster than a typical mouse/GUI driven app. Helps to improve workflow by organizing all teaching-related information in one common place and hence saves time.
 
 // tag::userStoriesAndCase[]
 [appendix]
@@ -827,6 +890,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
+|`* * *` |tutor |track all the information about my students | remember key info about them easily when I need it
+
 |`* * *` |tutor |add a new class | check the details of the task when I want
 
 |`* * *` |tutor |edit an existing task |update task information when I need
@@ -836,6 +901,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |tutor | check my existing classes| attend the classes in time
 
 |`* * *` | tutor| check the information of my classes| know more about my students' situation
+
+|`* *` | tutor | see who's not coming for class | check up on them
 
 |`* *` | user | know what's the command format | key in the correct command
 
@@ -879,8 +946,6 @@ Use case ends.
 ** 3a1. TutorAid shows an error message.
 +
 Use case resumes at step 2. +
-
-
 
 
 [discrete]
@@ -1071,8 +1136,6 @@ _{More to be added}_
 .  Should be able to hold up to 1000 tasks without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
@@ -1083,23 +1146,6 @@ Windows, Linux, Unix, OS-X
 A contact detail that is not meant to be shared with others
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1107,13 +1153,14 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Launch
 
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+
 
 . Saving window preferences
 
@@ -1149,13 +1196,12 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First person is deleted from the list. Details of the deleted person shown in the status message.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No person is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete Tom` +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
 
 === Adding an earning
 
@@ -1227,8 +1273,156 @@ _{ more test cases ... }_
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+// tag::ManualTestTask[]
+=== Adding a task
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Add a task and list all tasks out with the added task.
 
-_{ more test cases ... }_
+.. Test case: `add_task c/CS2103T mark/Y tt/13/09/2019 13:00, 20/09/2019 16:00` +
+   Expected: A marked task with Class Id "CS2103T" and Task Time "13/09/2019 13:00 to 16:00" was added to the task list. Details of the added task shown in the status message. Task list shown in Main window.
+.. Test case: `add_task` +
+   Expected: No task is added. Error details and correct format shown in the status message.
+.. Other incorrect command format to try: `add_task task`, `add_task c/ mark/ tt/`
+
+=== Editing a task
+
+. Edit a task and list all tasks out with the edited task.
+
+.. Test case: `edit_task 1 c/CS2103` +
+   Expected: The first task in the task list's Class Id changed to CS2103. Details of the edited task shown in the status message. Task list shown in Main window.
+.. Test case: `edit_task c/cs2103` +
+   Expected: No task is changed. Error details and correct format shown in the status message.
+.. Other incorrect command format to try: `edit_task` `edit_task 1 c/`
+.. Reminder: Make sure the index of the task is not larger than the total number of tasks in task list.
+
+// end::ManualTestTask[]
+
+=== Deleting a task
+
+. Delete a task and list all tasks out without the deleted task.
+
+.. Test case: `delete_task 1` +
+   Expected: The first task in the task list was deleted. Details of the deleted task shown in the status message. Task list shown in Main window.
+.. Test case: `delete_task` +
+   Expected: No task is deleted. Error details and correct format shown in the status message.
+.. Other incorrect command format to try: `delete_task 0` `delete_task 1 c/`
+.. Reminder: Make sure the index of the task is not larger than the total number of tasks in task list.
+.. Reminder: If you add a marked task then delete it, remember to delete it in Reminder also so that you can add another marked task with same Class Id.
+
+=== Finding a task
+
+. Find tasks by their Class Id or its Task Time.
+
+.. Test case: `find_task_by_module cs2100` +
+   Expected: All tasks that Class Id contains "cs2100" (regardless case of the letters) were shown in the MainWindow. Number of tasks found were stated in the status message.
+.. Test case: `find_task_by_date 20/10/2019` +
+   Expected: All tasks that Task Time contains "20/10/2019" were shown in the MainWindow. Number of tasks found were stated in the status message.
+.. Test case: `find_task_by_module` +
+   Expected: Error details and correct format shown in the status message.
+.. Other incorrect command format to try: `find_task_by_date`, `find_task_by_date 13/10/2019 15/10/2019`
+.. Reminder: Tasks can be found by multiple numbers of Class Ids but only one Date.
+
+=== Listing all tasks
+
+. List out all tasks.
+
+.. Test case: `list_task` +
+   Expected: All tasks were listed in Main Window.
+.. Test case: `list tasks` +
+   Expected: Error details shown in the status message.
+
+=== Undoing/Redoing commands
+
+. Undo or redo previous commands.
+
+.. Test case: `delete_task 1` + `undo` +
+   Expected: The previously deleted task reappeared in the list.
+.. Test case: `delete_task 1` + `undo` + `redo` +
+   Expected: The recovered task was deleted again from the list.
+
+=== Listing by class
+
+. List out all students in the class.
+
+.. Test case: `list_class CS2030` +
+   Expected: All students in class CS2030 are shown.
+.. Test case: `list_class CS2030 CS2040` +
+   Expected: All students in class CS2030 and CS2040 are shown.
+.. Test case: `list_class RANDOM STRING` +
+   Expected: No students are shown.
+
+=== Mass Assigning Class
+
+. Assigns the class to all students indicated.
+
+.. Test case: `assign_class 1,2,3 c/CS2030` +
+   Expected: Students at index 1,2 and 3 are assigned to class CS2030. (assuming the list size is at least 3)
+.. Test case: `assign_class 1,2,3 c/CS2030` +
+   Expected: Nobody is assigned to class CS2030. (assuming the list size is less than 3)
+.. Test case: `assign_class 1,2,100 c/CS2030` +
+   Expected: Nobody is assigned to class CS2030. (assuming the list size is 5)
+
+=== Mass Marking Attendance
+
+. Increases the attendance of indicated students by one.
+
+.. Test case: `mark_attendance 1,2,3` +
+   Expected: Students at index 1,2 and 3 have their attendance increased (assuming the list size is at least 3)
+.. Test case: `mark_attendance 1,2,3` +
+   Expected: Nobody has their attendance increased (assuming the list size is less than 3)
+.. Test case: `mark_attendance 1,2,100` +
+   Expected: Nobody has their attendance increased  (assuming the list size is 5)
+
+=== Mass Marking Participation
+
+. Increases the participation of indicated students by one.
+
+.. Test case: `mark_participation 1,2,3` +
+   Expected: Students at index 1,2 and 3 have their participation increased (assuming the list size is at least 3)
+.. Test case: `mark_participation 1,2,3` +
+   Expected: Nobody has their participation increased (assuming the list size is less than 3)
+.. Test case: `mark_participation 1,2,100` +
+   Expected: Nobody has their participation increased  (assuming the list size is 5)
+
+=== Setting picture
+
+. Sets the profile picture of the indicated student
+
+.. Test case: `set_pic 1 pic/test.jpg` +
+   Expected: Student at index 1 is given test.jpg as his profile picture. (assuming test.jpg is in the same directory as TutorAid)
+.. Test case: `set_pic 1 pic/test.docx` +
+   Expected: Error occurs. Only .jpg/.png/.gif/.bmp is supported.
+.. Test case: `set_pic 1 pic/test.jpg` +
+   Expected: Error occurs. TutorAid can't find the picture. (assuming test.jpg is not in the same directory as TutorAid)
+.. Test case: `set_pic 100 pic/test.jpg` +
+   Expected: Error occurs. Index is invalid. (assuming a list size of 10 and test.jpg is in the same directory as TutorAid)
+
+
+=== Unknown wrong command
+
+. Learns a wrong command the user typed in as a basic command.
+
+.. Test case: `gibberish` +
+   Expected: TutorAid prompts the user for the command word they intended to execute. (assuming gibberish is not yet learned)
+.. Test case: `ad n/Caesar c/CS1000` +
+   Expected:  TutorAid prompts the user for the command word they intended to execute. (assuming ad is not yet learned)
+... Test case: `cancel` +
+   Expected: The unknown command is discarded and normal operations can resume.
+... Test case: `gibberish` +
+   Expected: TutorAid prompts the user for the command word they intended to execute. (assuming gibberish is not yet learned)
+... Test case: `add n/Caesar c/CS2100` +
+   Expected: TutorAid can't learn full commands. Prompts the user which command word they want to map the last unknown command to again.
+... Test case: `add` +
+   Expected: TutorAid learns the last unknown command as `add`
+
+
+=== Delete Custom Command
+
+. Deletes a wrong custom command previously learnt.
+
+.. Test case: `deleteCustomCommand VALIDCUSTOMCOMMAND` +
+   Expected: The custom command is deleted.
+.. Test case: `deleteCustomCommand INVALIDCUSTOMCOMMAND` +
+   Expected: Error. Invalid command, TutorAid can't find such a command to delete.
+.. Test case: `deleteCustomCommand BASICCOMMAND` +
+   Expected: Error. You can't delete a basic built-in command.

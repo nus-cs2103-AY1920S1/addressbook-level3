@@ -17,4 +17,4 @@ hide State3
 
 class Pointer as "Current State" #FFFFF
 Pointer -up-> State1
-@end
+@enduml

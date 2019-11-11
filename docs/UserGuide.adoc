@@ -57,7 +57,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 
 * *`help`* : Links you to the User Guide so you can view how to use all the available commands.
-* **`add_task`**`c/CS2103T Lecture mark/Y tt/20/9/2019 16:00, 20/9/2019 18:00` : adds a classId named CS2103T that is on 20th September 2019 4pm.
+* **`add_task`**`c/CS2103T Lecture mark/Y tt/20/09/2019 16:00, 20/09/2019 18:00` : adds a classId named CS2103T that is on 20th September 2019 4pm.
 * **`claim_earnings`**`2 claim/approved` : marks that the claim for this earnings has been approved.
 * *`exit`* : exits the app
 
@@ -114,8 +114,11 @@ that different accounts will see different data.
 
 The Tab that you are currently on will be shown on the bottom right corner +
 
+//end::userinterface[]
+
 image::tabstatus.png[width=600"]
 
+//tag::userinterface2[]
 ==== Change tab : `tab`
 
 Change tab to any of the available ones. +
@@ -130,8 +133,12 @@ Examples (All available destinations listed):
 * `change_tab tab/notepad`
 * `change_tab tab/task`
 
+//end::userinterface2[]
+
 .Tab Change GUI
 image::tabchange.png[width=600]
+
+//tag::userinterface3[]
 
 The user may alternatively choose to change tab by using the Items on the Menu Bar.
 
@@ -139,9 +146,11 @@ The user may alternatively choose to change tab by using the Items on the Menu B
 
 Delete Button for Reminders and Notes for quick and easy removal of Reminder or Note.
 
+//end::userinterface3[]
+
 .Delete Button GUI
 image::reminders/deletebutton.png[width=600]
-//end::userinterface[]
+
 
 === Tasks
 
@@ -163,12 +172,15 @@ The Reminder created will have the Task's `MODULE` as its `DESCRIPTION` and the 
 
 Examples:
 
-* `add_task c/CS2103T mark/Y tt/13/09/2019 13:00, 20/09/2019 16:00 tt/21/09/2019 13:00, 21/09/2019 15:00` +
+* `add_task c/CS2103T mark/Y tt/13/09/2019 13:00, 20/09/2019 16:00 tt/21/09/2019 13:00, 21/09/2019 15:00`
+* `add_task c/MA1521 Tutorial mark/N tt/02/11/2020 14:00, 02/11/2020 15:00`
 
 image:UserGuide/add_task.png[width="500"]
 image:UserGuide/add_task_2.png[width="500"]
 
-* `add_task c/MA1521 Tutorial mark/N tt/02/11/2020 14:00, 02/11/2020 15:00`
+****
+* The Reminder created will have the Task's `MODULE` as its `DESCRIPTION` and the Task's `TASK_TIME` as its `DATE`.
+****
 
 // end::tasks[]
 ==== Editing task: `edit_task`
@@ -178,7 +190,8 @@ Format: `edit_task INDEX [c/CLASSID] [mark/STATUS] [tt/TASK_TIME]`
 
 [TIP]
 INDEX must be a positive integer. +
-At least one element inside task should be edited.
+At least one element inside task should be edited. +
+If key in a Task Time, it can be empty.
 
 
 Examples:
@@ -189,6 +202,11 @@ image:UserGuide/edit_task.png[width="500"]
 image:UserGuide/edit_task_2.png[width="500"]
 
 * `edit_task 1 tt/19/10/2019 12:00, 19/10/2019 14:00 mark/N`
+
+****
+* If the task `Mark` was originally N and the user edited it to Y, a Reminder for the Task *WILL NOT* be created. Reminders will only be created at the creation of the task.
+* Likewise, editing the `Mark` from Y to N will not delete the Reminder that was created at the creation of said Task.
+****
 
 
 ==== Deleting task: `delete_task`
@@ -205,6 +223,13 @@ Examples:
 
 image:UserGuide/delete_task.png[width="500"]
 image:UserGuide/delete_task_2.png[width="500"]
+
+****
+* Deleting a task does not delete the Reminder associated with it.
+* Senario: After creating a Task with `Mark`, Y, a Reminder will be created as well. User deleted said task with `delete_task` command. This removes the task but not the Reminder.
+* If the user creates a new Task with the same description as a Reminder, and `Mark` Y, the program would create the Task, then attempt to create the Reminder and this would cause a __Duplicate Reminder Error__ .
+* To prevent this, remember to deleted associated Reminder as well.
+****
 
 ==== Finding tasks based on Module : `find_task_by_module`
 
@@ -224,12 +249,12 @@ Examples:
 image:UserGuide/find_task_1.png[width="500"]
 image:UserGuide/find_task_2.png[width="500"]
 
-* `find_task_by_module CS2103T, cs2100`
+* `find_task_by_module CS2103T cs2100`
 
 ==== Finding tasks based on Date : `find_task_by_date`
 
 Find specific tasks by Date and list them. +
-Format: `find_task_by_date DATE ...`
+Format: `find_task_by_date DATE`
 
 ****
 * The `DATE` should be in the format dd/MM/YYYY. e.g 12/10/2019
@@ -265,8 +290,9 @@ If there is a Task starting on that date, only the Task's `DESCRIPTION` and `STA
 * If there is a Task starting on that date, only the Task's `DESCRIPTION` and `START_TIME` will be displayed on the calendar.
 ****
 
-image:calendarview.png[width="700"]
 //end::calendar[]
+
+image:calendarview.png[width="700"]
 
 //tag::reminders[]
 === Reminders
@@ -274,6 +300,7 @@ image:calendarview.png[width="700"]
 ==== Add Reminder
 
 Adds reminders. +
+Reminders must be unique and cannot have the same `DESCRIPTION` +
 Format: `add_reminder rd/DESCRIPTION rt/START_TIME, END_TIME` +
 
 [TIP]
@@ -281,6 +308,7 @@ A Reminder can have more than one time slots.
 
 ****
 * `START_TIME` and `END_TIME` must be in the format "dd/MM/YYYY HH:mm, dd/MM/YYYY HH:mm".
+* The `END_TIME` must be after the `START_TIME`.
 * If there are multiple task times, they will be automatically sorted based on their `START_TIME`.
 ****
 
@@ -288,11 +316,13 @@ Examples:
 
 * `add_reminder rd/CS2103T Homework rt/13/10/2019 13:00, 13/10/2019 15:00`
 
+//end::reminders[]
+
 image:reminders/add_reminder.png[width="500"]
 
 image:reminders/add_reminder_2.png[width="500"]
 
-
+//tag::reminders2[]
 ==== Delete Reminder
 
 Removes the reminder. +
@@ -306,12 +336,16 @@ Examples:
 * `INDEX` must be a positive integer.
 ****
 
+//end::reminders2[]
+
 image:reminders/delete_reminder.png[width="500"]
 
 image:reminders/delete_reminder_2.png[width="500"]
 
 .Deleting a Reminder using the delete button
 image::reminders/deletebutton.png[width="500"]
+
+//tag::reminders3[]
 
 Reminders can also be deleted easily by clicking the delete button
 
@@ -329,17 +363,20 @@ Format: `find_reminder_by_description DESCRIPTION ...`
 Examples:
 
 * `find_reminder_by_description CS2103T`
+* `find_reminder_by_description CS2103T, cs2100`
+
+//end::reminders3[]
 
 image:reminders/find_reminder_1.png[width="500"]
 
 image:reminders/find_reminder_2.png[width="500"]
 
-* `find_reminder_by_description CS2103T, cs2100`
+//tag::reminders4[]
 
 ==== Finding Reminders based on Date : `find_reminder_by_date`
 
 Find specific reminders by date and list them. +
-Format: `find_reminders_by_date DATE ...`
+Format: `find_reminder_by_date DATE ...`
 
 ****
 * The `DATE` should be in the format dd/MM/YYYY. e.g 12/10/2019
@@ -347,13 +384,15 @@ Format: `find_reminders_by_date DATE ...`
 
 Examples:
 
-* `find_reminders_by_date 13/10/2019`
+* `find_reminder_by_date 13/10/2019`
+
+//end::reminders4[]
 
 image:reminders/find_reminder_3.png[width="500"]
 
 image:reminders/find_reminder_4.png[width="500"]
 
-
+//tag::reminders5[]
 ==== Listing all reminders : `list_reminder`
 
 List all reminders. +
@@ -368,8 +407,9 @@ Format: `list_reminder`
 The Reminder Window will pop up when Tutoraid is first loaded up. +
 It will list all the Reminders at hand.
 
+//end::reminders5[]
+
 image:reminders/reminderwindow.png[width="500"]
-//end::reminders[]
 
 === Earnings
 
@@ -454,16 +494,18 @@ Only one status is allowed at a time.
 // tag::startEarningsTag[]
 ==== Auto Add Weekly Earnings: `weekly_earnings`
 
+
 Automates the additon of earnings. +
-Format: `weekly_earnings INDEX count/NUMBER_OF_WEEKS
+Format: `weekly_earnings INDEX count/NUMBER_OF_WEEKS`
+
 
 .Weekly Earnings Example
 image::WeeklyEarnings.png[width="400", align="left"]
 
 Examples:
 
-* `weekly_earnings 2 count/2
-* `weekly_earnings 3 count/13
+* `weekly_earnings 2 count/2`
+* `weekly_earnings 3 count/13`
 
 ****
 * Only numbers in the range of 0 - 13 (inclusive) are valid.
@@ -502,6 +544,9 @@ of 09/02/2019, the earnings will not be added.
 Adds Note to the list of notes. +
 Format: `addnote c/MODULE_CODE type/CLASS_TYPE note/NOTE_CONTENT`
 
+.Add Note Example
+image::notes/addnote.png[width="350", align="left"]
+
 Examples:
 
 * `addnote c/CS2103T type/lab note/Check for project submission date`
@@ -510,7 +555,8 @@ Examples:
 Only `tutorials`/ `tut` / `lab` / `consultations` / `c` / `sectionals` / `s`
 arguments are allowed for `TYPE`.
 
-image:notes/addnote.png[width="350"]
+
+
 
 ==== Edit Note: `editnote`
 To provide a great flexibility, editing of the notes is allowed.
@@ -518,14 +564,15 @@ To provide a great flexibility, editing of the notes is allowed.
 Update any Note in the list of notes. +
 Format: `editnote INDEX c/MODULE_CODE type/CLASS_TYPE note/NOTE_CONTENT`
 
+.Edit Note Example
+image::notes/editnote.png[width="350", align="left"]
+
 Examples:
 
 * `editnote 1 c/CS2103T`
 * `editnote 2 type/lab`
 * `editnote 3 note/check for meeting time`
 * `editnote 1 c/CS2103 type/tut note/update project content`
-
-image:notes/editnote.png[width="350"]
 
 ==== Delete Note: `deletenote` / `deletebutton`
 Let's say that if you would like to delete the note from the list there are two option available.
@@ -535,8 +582,10 @@ Delete Note in the list of notes. +
 Format: `deletenote INDEX`
 
 Option 2:
-Delete Note with DeleteButton. +
-image:notes/deletebutton.png[width="350"]
+Delete Note with DeleteButton.
+
+.Delete Button Example
+image::notes/deletebutton.png[width="350", align="left"]
 
 Examples:
 
@@ -550,11 +599,13 @@ In order to find the desire note, finding with keyword such as the module_code, 
 Delete Note in the list of notes. +
 Format: `findnote KEYWORD`
 
+.Find Note Example
+image::notes/findnote.png[width="350", align="left"]]
+
 Examples:
 
 * `findnote CS2103T`
 
-image:notes/findnote.png[width="350"]
 
 ==== Listing all note : `listnote`
 To view the list of note. Type `listnote` to view the full list of note.
@@ -562,7 +613,8 @@ To view the list of note. Type `listnote` to view the full list of note.
 List all note. +
 Format: `listnote`
 
-image:notes/listnote.png[width="350"]
+.List Note Example
+image::notes/listnote.png[width="350", align="left"]
 
 //end::NotesUG[]
 
@@ -678,6 +730,17 @@ The picture specified must be in either .jpg, .png or .bmp format. It must also 
 Examples:
 
 * `set_pic 2 pic/Tom.jpg`
+
+==== Reminders Feature Improvements [Coming in v2.0]
+
+Improvements on Reminders Feature such as increased integration with Tasks. To include real time notifications on upcoming Reminders. Add categories of Reminders eg. urgent, important.
+
+[NOTE]
+Reminders to be more flexible such as allowing deletion of reminders associated with certain task.
+
+Examples:
+
+* `reminder_cat cat/Important` (Categorizes reminder as important)
 
 ==== View serial absentees with defined threshold: 'absentees' [Coming in v2.0]
 
@@ -851,7 +914,8 @@ Format: `logout`
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
+As of the current implementation, hashing is implemented in the account password. With this encryption, malicious user will not be able to view the content despite they have the access to the computer.
+However, we plan to provide a better encryption with SHA256 for our password hashing and AES128 for all the data save in the TutorAid as soon as v1.5 to provide a better security protection.
 // end::dataencryption[]
 
 == FAQ
@@ -873,7 +937,7 @@ _{explain how the user can enable/disable data encryption}_
 `edit_task INDEX [mark/STATUS] [tt/TASK_TIME]` +
 `delete_task 1` +
 `find_task_by_module MODULE ...` +
-`find_task_by_date DATE ...` +
+`find_task_by_date DATE` +
 `list_task`
 * *Reminder* : +
 `add_reminder rd/DESCRIPTION rt/REMINDER_TIME...` +

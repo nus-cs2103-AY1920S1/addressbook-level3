@@ -65,7 +65,6 @@ import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Type;
 import seedu.address.model.note.ClassType;
 import seedu.address.model.note.Content;
-import seedu.address.model.note.ModuleCode;
 import seedu.address.model.person.Attendance;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Participation;
@@ -345,21 +344,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String code} into an {@code ModuleCode}.
-     * @param code String of module code.
-     * @return ModuleCode.
-     * @throws ParseException if the given {@code code} is invalid.
-     */
-    public static ModuleCode parseModuleCode(String code) throws ParseException {
-        requireNonNull(code);
-        String trimmedCode = code.trim();
-        if (!ModuleCode.isValidModuleCode(trimmedCode)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
-        }
-        return new ModuleCode(trimmedCode);
-    }
-
-    /**
      * Parses a {@code String content} into an {@code Content}.
      * @param content String of content.
      * @return Content.
@@ -369,7 +353,7 @@ public class ParserUtil {
         requireNonNull(content);
         String trimmedContent = content.trim();
         if (!Content.isValidContent(trimmedContent)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Content.MESSAGE_CONSTRAINTS);
         }
         return new Content(trimmedContent);
     }
@@ -384,7 +368,7 @@ public class ParserUtil {
         requireNonNull(type);
         String trimmedType = type.trim();
         if (!ClassType.isValidClassType(trimmedType)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(ClassType.MESSAGE_CONSTRAINTS);
         }
         return new ClassType(trimmedType);
     }
