@@ -39,6 +39,14 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     }
 
     /**
+     * Returns true if the list contains a clashing time appointment as the given argument.
+     */
+    public boolean clashes(Appointment toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isOverlappingTime);
+    }
+
+    /**
      * Adds an appointment to the list.
      * The appointment must not already exist in the list.
      */

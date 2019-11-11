@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.ModelManager;
 import cs.f10.t1.nursetraverse.model.UserPrefs;
+import cs.f10.t1.nursetraverse.testutil.TypicalAppointments;
 import cs.f10.t1.nursetraverse.testutil.TypicalIndexes;
 import cs.f10.t1.nursetraverse.testutil.TypicalPatients;
 
@@ -22,8 +23,10 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getStagedPatientBook(), new UserPrefs());
+        model = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs(),
+                                 TypicalAppointments.getTypicalAppointmentBook());
+        expectedModel = new ModelManager(model.getStagedPatientBook(), new UserPrefs(),
+                                         model.getStagedAppointmentBook());
     }
 
     @Test

@@ -1,13 +1,22 @@
 package cs.f10.t1.nursetraverse.model;
 
+import static cs.f10.t1.nursetraverse.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
+import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.commons.exceptions.CopyError;
 import cs.f10.t1.nursetraverse.commons.exceptions.IllegalValueException;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.appointment.UniqueAppointmentList;
+import cs.f10.t1.nursetraverse.model.datetime.EndDateTime;
+import cs.f10.t1.nursetraverse.model.datetime.RecurringDateTime;
+import cs.f10.t1.nursetraverse.model.datetime.StartDateTime;
+import cs.f10.t1.nursetraverse.model.patient.Patient;
 import cs.f10.t1.nursetraverse.storage.JsonSerializableAppointmentBook;
 import javafx.collections.ObservableList;
 
@@ -18,6 +27,7 @@ import javafx.collections.ObservableList;
 public class AppointmentBook implements ReadOnlyAppointmentBook {
 
     private final UniqueAppointmentList appointments;
+    private final UniqueAppointmentList finishedAppointments;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -28,6 +38,7 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
      */
     {
         appointments = new UniqueAppointmentList();
+        finishedAppointments = new UniqueAppointmentList();
     }
 
     public AppointmentBook() {}
@@ -51,12 +62,37 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
     }
 
     /**
+     * Replaces the contents of the finishedAppointment list with {@code appointments}.
+     * {@code appointments} must not contain duplicate appointments.
+     */
+    public void setFinishedAppointments(List<Appointment> appointments) {
+        if (appointments.isEmpty()) {
+            List<Appointment> empty = new ArrayList<>();
+            this.finishedAppointments.setAppointments(empty);
+        } else {
+            this.finishedAppointments.setAppointments(appointments);
+        }
+    }
+
+    /**
      * Resets the existing data of this {@code AppointmentBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAppointmentBook newData) {
         requireNonNull(newData);
 
-        setAppointments(newData.getAppointmentList());
+        List<Appointment> newAppointmentList = newData.getAppointmentList();
+
+        Predicate<Appointment> toKeep = appt -> StartDateTime.isAfterSystemDateTime(appt.getStartDateTime().toString());
+        Predicate<Appointment> finished = appt -> !StartDateTime.isAfterSystemDateTime(appt.getStartDateTime()
+                                                                                            .toString());
+
+        List<Appointment> toSetAppointmentList = newAppointmentList.stream().filter(toKeep)
+                                                 .collect(Collectors.toList());
+        setAppointments(toSetAppointmentList);
+
+        List<Appointment> toSetFinishedAppointmentList = newAppointmentList.stream().filter(finished)
+                                                         .collect(Collectors.toList());
+        setFinishedAppointments(toSetFinishedAppointmentList);
     }
 
     //// appointment-level operations
@@ -67,6 +103,14 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
     public boolean hasAppointment(Appointment appointment) {
         requireNonNull(appointment);
         return appointments.contains(appointment);
+    }
+
+    /**
+     * Returns true if an appointment with clashing time as {@code appointment} exists in the appointment book.
+     */
+    public boolean hasClashingAppointment(Appointment appointment) {
+        requireNonNull(appointment);
+        return appointments.clashes(appointment);
     }
 
     /**
@@ -98,12 +142,82 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
     }
 
     /**
+     * Replaces all appointments with {@code patientToEdit} in the list with {@code editedPatient}.
+     */
+    public void editAppointments(Patient patientToEdit, Patient editedPatient) {
+        requireAllNonNull(patientToEdit, editedPatient);
+        List<Appointment> newAppointments = new ArrayList<>();
+        for (Appointment appt : appointments) {
+            if (appt.getPatient().equals(patientToEdit)) {
+                appt.setPatient(editedPatient);
+            }
+            newAppointments.add(appt);
+        }
+        setAppointments(newAppointments);
+    }
+
+    /**
      * Removes {@code key} from this {@code AppointmentBook}.
      * {@code key} must exist in the appointment book.
      */
     public void removeAppointment(Appointment key) {
         requireNonNull(key);
         appointments.remove(key);
+
+        if (key.getFrequency().isRecurringFrequency()) {
+            addRecurringAppointment(key);
+        }
+    }
+
+    /**
+     * Removes {@code key} from this {@code AppointmentBook}.
+     * Unlike usual {@code removeAppointment} method, this does not add the next recurring appointment,
+     * but permanently deletes it.
+     * {@code key} must exist in the appointment book.
+     */
+    public void removeRecurringAppointment(Appointment key) {
+        requireNonNull(key);
+        appointments.remove(key);
+    }
+
+    /**
+     * Removes all appointments with this {@code patient} from this {@code AppointmentBook}.
+     */
+    public void removeAppointments(Patient patient, Index patientIndex) {
+        requireNonNull(patient);
+        List<Appointment> keepAppointments = new ArrayList<>();
+        for (Appointment appt : appointments) {
+            if (!appt.getPatient().equals(patient)) {
+                int currPatientIndex = appt.getPatientIndex().getOneBased();
+                int targetPatientIndex = patientIndex.getOneBased();
+
+                if (currPatientIndex > targetPatientIndex) {
+                    appt.setPatientIndex(Index.fromOneBased(currPatientIndex - 1));
+                }
+                keepAppointments.add(appt);
+            }
+        }
+        setAppointments(keepAppointments);
+    }
+
+    /**
+     * Adds same appointment with the next date time if previous one was deleted and was recurring.
+     * @param key
+     */
+    public void addRecurringAppointment(Appointment key) {
+        RecurringDateTime frequency = key.getFrequency();
+        StartDateTime nextStartDateTime = new StartDateTime(frequency
+                                                            .getNextAppointmentDateTime(key.getStartDateTime()));
+        EndDateTime nextEndDateTime = new EndDateTime(frequency
+                                                      .getNextAppointmentDateTime(key.getEndDateTime()));
+        Index patientIndex = key.getPatientIndex();
+        Patient patient = key.getPatient();
+        String description = key.getDescription();
+
+        Appointment nextAppointment = new Appointment(nextStartDateTime, nextEndDateTime, frequency, patientIndex,
+                                                      description);
+        nextAppointment.setPatient(patient);
+        addAppointment(nextAppointment);
     }
 
     //// util methods
@@ -112,7 +226,7 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
         try {
             return new JsonSerializableAppointmentBook(this).toModelType();
         } catch (IllegalValueException e) {
-            throw new CopyError("Error copying AppointmentBook");
+            throw new CopyError("Error copying AppointmentBook", e);
         }
     }
 

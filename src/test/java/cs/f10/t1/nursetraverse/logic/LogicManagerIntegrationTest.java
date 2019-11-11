@@ -10,9 +10,11 @@ import org.junit.jupiter.api.io.TempDir;
 
 import cs.f10.t1.nursetraverse.model.ModelManager;
 import cs.f10.t1.nursetraverse.model.UserPrefs;
+import cs.f10.t1.nursetraverse.storage.JsonAppointmentBookStorage;
 import cs.f10.t1.nursetraverse.storage.JsonPatientBookStorage;
 import cs.f10.t1.nursetraverse.storage.JsonUserPrefsStorage;
 import cs.f10.t1.nursetraverse.storage.StorageManager;
+import cs.f10.t1.nursetraverse.testutil.TypicalAppointments;
 import cs.f10.t1.nursetraverse.testutil.TypicalPatients;
 
 /**
@@ -30,8 +32,11 @@ public class LogicManagerIntegrationTest {
         JsonPatientBookStorage patientBookStorage =
                 new JsonPatientBookStorage(temporaryFolder.resolve("patientBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(patientBookStorage, userPrefsStorage);
-        logic = new LogicManager(new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs()), storage);
+        JsonAppointmentBookStorage appointmentBookStorage =
+                new JsonAppointmentBookStorage(temporaryFolder.resolve("appointmentBook.json"));
+        StorageManager storage = new StorageManager(patientBookStorage, userPrefsStorage, appointmentBookStorage);
+        logic = new LogicManager(new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs(),
+                                                  TypicalAppointments.getTypicalAppointmentBook()), storage);
     }
 
     @Test

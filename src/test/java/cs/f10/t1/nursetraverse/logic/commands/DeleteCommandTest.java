@@ -18,6 +18,7 @@ import cs.f10.t1.nursetraverse.model.ModelManager;
 import cs.f10.t1.nursetraverse.model.UserPrefs;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 import cs.f10.t1.nursetraverse.model.patient.exceptions.PatientHasOngoingVisitException;
+import cs.f10.t1.nursetraverse.testutil.TypicalAppointments;
 import cs.f10.t1.nursetraverse.testutil.TypicalIndexes;
 import cs.f10.t1.nursetraverse.testutil.TypicalPatients;
 
@@ -27,7 +28,8 @@ import cs.f10.t1.nursetraverse.testutil.TypicalPatients;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs(),
+                                           TypicalAppointments.getTypicalAppointmentBook());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -36,8 +38,10 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PATIENT_SUCCESS, patientToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getStagedPatientBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getStagedPatientBook(), new UserPrefs(),
+                                                      model.getStagedAppointmentBook());
         expectedModel.deletePatient(patientToDelete);
+        expectedModel.deleteAppointments(patientToDelete, TypicalIndexes.INDEX_FIRST_PATIENT);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
@@ -59,8 +63,10 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PATIENT_SUCCESS, patientToDelete);
 
-        Model expectedModel = new ModelManager(model.getStagedPatientBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getStagedPatientBook(), new UserPrefs(),
+                                               model.getStagedAppointmentBook());
         expectedModel.deletePatient(patientToDelete);
+        expectedModel.deleteAppointments(patientToDelete, TypicalIndexes.INDEX_FIRST_PATIENT);
         showNoPatient(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);

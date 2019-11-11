@@ -134,9 +134,6 @@ public class MainWindow extends UiPart<Stage> {
         ongoingVisitListPanel = new OngoingVisitListPanel(logic.getObservableOngoingVisitList());
         ongoingVisitPanelPlaceholder.getChildren().add(ongoingVisitListPanel.getRoot());
 
-        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
-        appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -154,6 +151,12 @@ public class MainWindow extends UiPart<Stage> {
         commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
+        historyPanel = new HistoryPanel(logic.getObservableHistoryList());
+        historyPanelPlaceholder.getChildren().add(historyPanel.getRoot());
+
+        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
+        appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
+
         // Add observers into commandBox observer list
         commandBox.addObserver(autoCompletePanelManager);
         commandBox.addObserver(resultDisplay);
@@ -164,9 +167,6 @@ public class MainWindow extends UiPart<Stage> {
                 patientTabPage,
                 ongoingVisitTabPage,
                 appointmentTabPage);
-
-        historyPanel = new HistoryPanel(logic.getObservableHistoryList());
-        historyPanelPlaceholder.getChildren().add(historyPanel.getRoot());
     }
 
     /**

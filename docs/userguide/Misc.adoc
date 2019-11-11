@@ -1,7 +1,13 @@
 
 == Miscellaneous
-=== Viewing help : `app-help`
+=== Viewing help: `app-help`
 
 Directs you to this page.
 
 Format: `app-help`
+
+=== Exiting the application: `app-exit`
+
+You can exit the program using `app-exit`.
+
+Format: `app-exit`

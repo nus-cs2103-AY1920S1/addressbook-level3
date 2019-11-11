@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.TextFlow?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
@@ -27,12 +28,13 @@
                 <Label fx:id="patientName" text="\$first" styleClass="cell_big_label" />
             </HBox>
             <FlowPane fx:id="recurDateTime" />
-            <Label fx:id="startDateTime" styleClass="cell_small_label" text="\$startDateTime" />
-            <Label fx:id="endDateTime" styleClass="cell_small_label" text="\$endDateTime" />
-            <Label fx:id="frequency" styleClass="cell_small_label" text="\$frequency" />
             <Label fx:id="patientPhone" styleClass="cell_small_label" text="\$phone" />
             <Label fx:id="patientEmail" styleClass="cell_small_label" text="\$email" />
             <Label fx:id="patientAddress" styleClass="cell_small_label" text="\$address" />
+            <TextFlow fx:id="startDateTime" styleClass="cell_small_label" />
+            <TextFlow fx:id="endDateTime" styleClass="cell_small_label" />
+            <FlowPane fx:id="frequency" styleClass="cell_small_label" />
+
         </VBox>
     </GridPane>
 </HBox>

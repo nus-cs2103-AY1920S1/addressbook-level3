@@ -1,3 +1,5 @@
+//@@author gabrielchao
+
 package cs.f10.t1.nursetraverse.logic.commands;
 
 import java.util.List;
@@ -5,6 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
+import cs.f10.t1.nursetraverse.model.AppointmentBook;
 import cs.f10.t1.nursetraverse.model.HistoryRecord;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.ModelManager;
@@ -20,9 +23,9 @@ public class RedoCommandTest {
 
         MutatorCommand commandToUndo = new DummyMutatorCommand("1");
         String expectedUndoMessage = UndoCommand.makeResultString(List.of(
-                new HistoryRecord(commandToUndo, new PatientBook())));
+                new HistoryRecord(commandToUndo, new PatientBook(), new AppointmentBook())));
         String expectedRedoMessage = String.format(RedoCommand.MESSAGE_REDO_SUCCESS,
-                new HistoryRecord(commandToUndo, new PatientBook()).toString());
+                new HistoryRecord(commandToUndo, new PatientBook(), new AppointmentBook()).toString());
 
         CommandTestUtil.assertCommandSuccess(commandToUndo, model,
                 String.format(DummyMutatorCommand.RESULT_PREAMBLE, "1"), expectedModel);
@@ -40,12 +43,12 @@ public class RedoCommandTest {
         MutatorCommand dummyCommand2 = new DummyMutatorCommand("2");
         MutatorCommand dummyCommand3 = new DummyMutatorCommand("3");
         String expectedUndoMessage = UndoCommand.makeResultString(List.of(
-                new HistoryRecord(dummyCommand3, new PatientBook()),
-                new HistoryRecord(dummyCommand2, new PatientBook())));
+                new HistoryRecord(dummyCommand3, new PatientBook(), new AppointmentBook()),
+                new HistoryRecord(dummyCommand2, new PatientBook(), new AppointmentBook())));
         String firstExpectedRedoMessage = String.format(RedoCommand.MESSAGE_REDO_SUCCESS,
-                new HistoryRecord(dummyCommand2, new PatientBook()).toString());
+                new HistoryRecord(dummyCommand2, new PatientBook(), new AppointmentBook()).toString());
         String secondExpectedRedoMessage = String.format(RedoCommand.MESSAGE_REDO_SUCCESS,
-                new HistoryRecord(dummyCommand3, new PatientBook()).toString());
+                new HistoryRecord(dummyCommand3, new PatientBook(), new AppointmentBook()).toString());
 
         CommandTestUtil.assertCommandSuccess(dummyCommand1, model,
                 String.format(DummyMutatorCommand.RESULT_PREAMBLE, "1"), expectedModel);
@@ -74,9 +77,9 @@ public class RedoCommandTest {
 
         MutatorCommand commandToUndo = new DummyMutatorCommand("1");
         String expectedUndoMessage = UndoCommand.makeResultString(List.of(
-                new HistoryRecord(commandToUndo, new PatientBook())));
+                new HistoryRecord(commandToUndo, new PatientBook(), new AppointmentBook())));
         String expectedRedoMessage = String.format(RedoCommand.MESSAGE_REDO_SUCCESS,
-                new HistoryRecord(commandToUndo, new PatientBook()).toString());
+                new HistoryRecord(commandToUndo, new PatientBook(), new AppointmentBook()).toString());
 
         CommandTestUtil.assertCommandSuccess(commandToUndo, model,
                 String.format(DummyMutatorCommand.RESULT_PREAMBLE, "1"), expectedModel);

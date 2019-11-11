@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path patientBookFilePath = Paths.get("data" , "patientBook.json");
+    private Path appointmentBookFilePath = Paths.get("data" , "appointmentBook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setPatientBookFilePath(newUserPrefs.getPatientBookFilePath());
+        setAppointmentBookFilePath(newUserPrefs.getAppointmentBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -56,6 +58,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.patientBookFilePath = patientBookFilePath;
     }
 
+    public Path getAppointmentBookFilePath() {
+        return appointmentBookFilePath;
+    }
+
+    public void setAppointmentBookFilePath(Path appointmentBookFilePath) {
+        requireNonNull(appointmentBookFilePath);
+        this.appointmentBookFilePath = appointmentBookFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -68,12 +79,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && patientBookFilePath.equals(o.patientBookFilePath);
+                && patientBookFilePath.equals(o.patientBookFilePath)
+                && appointmentBookFilePath.equals(o.appointmentBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, patientBookFilePath);
+        return Objects.hash(guiSettings, patientBookFilePath, appointmentBookFilePath);
     }
 
     @Override
@@ -81,6 +93,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + patientBookFilePath);
+        sb.append("\nLocal appointments data file location : " + appointmentBookFilePath);
         return sb.toString();
     }
 

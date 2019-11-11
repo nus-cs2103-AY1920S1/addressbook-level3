@@ -48,8 +48,8 @@ public class ModelManager implements Model {
 
     //Appointment list
 
-    private final AppointmentBook baseAppointmentBook;
-    private final AppointmentBook stagedAppointmentBook;
+    private AppointmentBook baseAppointmentBook;
+    private AppointmentBook stagedAppointmentBook;
     // Modifiable list containing current stagedAppointmentBook patients
     private final ObservableList<Appointment> stagedAppointments;
     // Unmodifiable view for the UI linked to stagedAppointments
@@ -58,16 +58,21 @@ public class ModelManager implements Model {
     private Predicate<Appointment> previousPredicateAppointments = PREDICATE_SHOW_ALL_APPOINTMENTS;
 
     /**
-     * Initializes a ModelManager with the given patientBook and userPrefs.
+     * Initializes a ModelManager with the given patientBook and userPrefs and appointmentBook.
      */
-    public ModelManager(ReadOnlyPatientBook patientBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyPatientBook patientBook, ReadOnlyUserPrefs userPrefs,
+                        ReadOnlyAppointmentBook appointmentBook) {
         super();
-        CollectionUtil.requireAllNonNull(patientBook, userPrefs);
+        CollectionUtil.requireAllNonNull(patientBook, userPrefs, appointmentBook);
 
-        logger.fine("Initializing with patient book: " + patientBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with patient book: " + patientBook + " and user prefs " + userPrefs
+                    + " and appointment book: " + appointmentBook);
 
         this.basePatientBook = new PatientBook(patientBook);
         this.stagedPatientBook = this.basePatientBook.deepCopy();
+        this.baseAppointmentBook = new AppointmentBook(appointmentBook);
+        this.stagedAppointmentBook = this.baseAppointmentBook.deepCopy();
+
         this.historyManager = new HistoryManager(MAX_HISTORY_SIZE);
         this.userPrefs = new UserPrefs(userPrefs);
 
@@ -81,16 +86,13 @@ public class ModelManager implements Model {
         refreshStagedData();
 
         //Initializing appointment related book and appointments
-        this.baseAppointmentBook = new AppointmentBook();
-        this.stagedAppointmentBook = this.baseAppointmentBook.deepCopy();
-
         stagedAppointments = FXCollections.observableArrayList();
         filteredAppointments = new FilteredList<>(FXCollections.unmodifiableObservableList(stagedAppointments));
         refreshStagedAppointments();
     }
 
     public ModelManager() {
-        this(new PatientBook(), new UserPrefs());
+        this(new PatientBook(), new UserPrefs(), new AppointmentBook());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -126,6 +128,17 @@ public class ModelManager implements Model {
     public void setPatientBookFilePath(Path patientBookFilePath) {
         requireNonNull(patientBookFilePath);
         userPrefs.setPatientBookFilePath(patientBookFilePath);
+    }
+
+    @Override
+    public Path getAppointmentBookFilePath() {
+        return userPrefs.getAppointmentBookFilePath();
+    }
+
+    @Override
+    public void setAppointmentBookFilePath(Path appointmentBookFilePath) {
+        requireNonNull(appointmentBookFilePath);
+        userPrefs.setAppointmentBookFilePath(appointmentBookFilePath);
     }
 
     //=========== PatientBook ================================================================================
@@ -275,6 +288,9 @@ public class ModelManager implements Model {
         return stagedPatientBook.getPatientListByIndexes(indexes);
     }
 
+    // Undo/Redo/History specific methods
+    //@@author gabrielchao
+
     /**
      * Returns an unmodifiable view of the full list of {@code Patient} backed by {@code stagedPatients}
      */
@@ -285,35 +301,38 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hasStagedChanges() {
-        return !basePatientBook.equals(stagedPatientBook);
+        return !basePatientBook.equals(stagedPatientBook) || !baseAppointmentBook.equals(stagedAppointmentBook);
     }
 
     @Override
     public void commit(MutatorCommand command) {
-        historyManager.pushRecord(command, basePatientBook);
-        changeBaseTo(stagedPatientBook);
+        historyManager.pushRecord(command, basePatientBook, baseAppointmentBook);
+        changeBaseTo(stagedPatientBook, stagedAppointmentBook);
     }
 
     @Override
     public void discardStagedChanges() {
         stagedPatientBook = basePatientBook.deepCopy();
+        stagedAppointmentBook = baseAppointmentBook.deepCopy();
         refreshStagedData();
+        refreshStagedAppointments();
     }
 
     @Override
     public List<HistoryRecord> undoTo(HistoryRecord record) throws NoSuchElementException {
-        List<HistoryRecord> poppedRecords = historyManager.popRecordsTo(record, stagedPatientBook);
-        changeBaseTo(record.getCopyOfPatientBook());
+        List<HistoryRecord> poppedRecords = historyManager.popRecordsTo(record, stagedPatientBook,
+                                                                        stagedAppointmentBook);
+        changeBaseTo(record.getCopyOfPatientBook(), record.getCopyOfAppointmentBook());
         return poppedRecords;
     }
 
     @Override
     public HistoryRecord redo() throws IllegalStateException {
-        Optional<HistoryRecord> redoneRecord = historyManager.popRedo(stagedPatientBook);
+        Optional<HistoryRecord> redoneRecord = historyManager.popRedo(stagedPatientBook, stagedAppointmentBook);
         if (redoneRecord.isEmpty()) {
             throw new IllegalStateException("Cannot redo: previous MutatorCommand was not an undo");
         }
-        changeBaseTo(redoneRecord.get().getCopyOfPatientBook());
+        changeBaseTo(redoneRecord.get().getCopyOfPatientBook(), redoneRecord.get().getCopyOfAppointmentBook());
         return redoneRecord.get();
     }
 
@@ -322,10 +341,18 @@ public class ModelManager implements Model {
         return historyManager.asUnmodifiableObservableList();
     }
 
-    private void changeBaseTo(PatientBook patientBook) {
+    /**
+     * Changes base patient book and appointment book to {@code patientBook} and {@code appointmentBook} respectively.
+     * @param patientBook
+     * @param appointmentBook
+     */
+    private void changeBaseTo(PatientBook patientBook, AppointmentBook appointmentBook) {
         basePatientBook = patientBook;
         stagedPatientBook = basePatientBook.deepCopy();
+        baseAppointmentBook = appointmentBook;
+        stagedAppointmentBook = baseAppointmentBook.deepCopy();
         refreshStagedData();
+        refreshStagedAppointments();
     }
 
     /**
@@ -335,6 +362,8 @@ public class ModelManager implements Model {
         stagedPatients.setAll(stagedPatientBook.getPatientList());
         updateOngoingVisitList();
     }
+
+    //@@author
 
     //=========== Filtered Patient List Accessors =============================================================
 
@@ -405,8 +434,28 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasClashingAppointment(Appointment appointment) {
+        requireNonNull(appointment);
+        return stagedAppointmentBook.hasClashingAppointment(appointment);
+    }
+
+    @Override
     public void deleteAppointment(Appointment target) {
         stagedAppointmentBook.removeAppointment(target);
+        refreshStagedAppointments();
+        refreshFilteredAppointmentList();
+    }
+
+    @Override
+    public void deleteRecurringAppointment(Appointment target) {
+        stagedAppointmentBook.removeRecurringAppointment(target);
+        refreshStagedAppointments();
+        refreshFilteredAppointmentList();
+    }
+
+    @Override
+    public void deleteAppointments(Patient target, Index targetIndex) {
+        stagedAppointmentBook.removeAppointments(target, targetIndex);
         refreshStagedAppointments();
         refreshFilteredAppointmentList();
     }
@@ -415,6 +464,8 @@ public class ModelManager implements Model {
     public void addAppointment(Appointment appointment) {
         stagedAppointmentBook.addAppointment(appointment);
         refreshStagedAppointments();
+        sortStagedAppointments();
+        replaceStagedAppointmentBook(stagedAppointments);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
@@ -423,10 +474,25 @@ public class ModelManager implements Model {
         CollectionUtil.requireAllNonNull(target, editedAppointment);
 
         stagedAppointmentBook.setAppointment(target, editedAppointment);
+        refreshStagedAppointments();
+        sortStagedAppointments();
+        replaceStagedAppointmentBook(stagedAppointments);
+    }
+
+    @Override
+    public void setAppointments(Patient patientToEdit, Patient editedPatient) {
+        CollectionUtil.requireAllNonNull(patientToEdit, editedPatient);
+
+        stagedAppointmentBook.editAppointments(patientToEdit, editedPatient);
+        refreshStagedAppointments();
     }
 
     private void refreshStagedAppointments() {
         stagedAppointments.setAll(stagedAppointmentBook.getAppointmentList());
+    }
+
+    private void sortStagedAppointments() {
+        FXCollections.sort(stagedAppointments, COMPARATOR_APPOINTMENTS_SORTED_BY_DATE_AND_TIME);
     }
 
     /**
@@ -478,8 +544,10 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return stagedPatientBook.equals(other.stagedPatientBook)
+                && stagedAppointmentBook.equals(other.stagedAppointmentBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPatients.equals(other.filteredPatients);
+                && filteredPatients.equals(other.filteredPatients)
+                && filteredAppointments.equals(other.filteredAppointments);
     }
 
 }

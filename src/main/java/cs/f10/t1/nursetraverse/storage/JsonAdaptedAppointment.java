@@ -10,11 +10,12 @@ import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.datetime.EndDateTime;
 import cs.f10.t1.nursetraverse.model.datetime.RecurringDateTime;
 import cs.f10.t1.nursetraverse.model.datetime.StartDateTime;
+import cs.f10.t1.nursetraverse.model.patient.Patient;
 
 /**
  * Jackson-friendly version of {@link Appointment}.
  */
-@JsonPropertyOrder({"startDateTime", "endDateTime", "frequency", "patient", "description"})
+@JsonPropertyOrder({"startDateTime", "endDateTime", "frequency", "patientIndex", "patient", "description"})
 public class JsonAdaptedAppointment {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Appointment's %s field is missing!";
@@ -26,9 +27,11 @@ public class JsonAdaptedAppointment {
     @JsonProperty("endDateTime")
     private final String endDateTime;
     @JsonProperty("frequency")
-    private final String frequency;
+    private final Long[] frequency;
+    @JsonProperty("patientIndex")
+    private final Integer patientIndex;
     @JsonProperty("patient")
-    private final Index patientIndex;
+    private JsonAdaptedPatient patient;
     @JsonProperty("description")
     private final String description;
 
@@ -38,13 +41,15 @@ public class JsonAdaptedAppointment {
     @JsonCreator
     public JsonAdaptedAppointment(@JsonProperty("startDateTime") String startDateTime,
                                   @JsonProperty("endDateTime") String endDateTime,
-                                  @JsonProperty("frequency") String frequency,
-                                  @JsonProperty("patient") Index patientIndex,
+                                  @JsonProperty("frequency") Long[] frequency,
+                                  @JsonProperty("patientIndex") Integer patientIndex,
+                                  @JsonProperty("patient") JsonAdaptedPatient patient,
                                   @JsonProperty("description") String description) {
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.frequency = frequency;
         this.patientIndex = patientIndex;
+        this.patient = patient;
         this.description = description;
     }
 
@@ -54,8 +59,9 @@ public class JsonAdaptedAppointment {
     public JsonAdaptedAppointment(Appointment source) {
         startDateTime = source.getStartDateTime().toJacksonJsonString();
         endDateTime = source.getEndDateTime().toJacksonJsonString();
-        frequency = source.getFrequency().toJacksonJsonString();
-        patientIndex = source.getPatientIndex();
+        frequency = source.getFrequency().getFreqArray();
+        patientIndex = source.getPatientIndex().getOneBased();
+        patient = new JsonAdaptedPatient(source.getPatient());
         description = source.getDescription();
     }
 
@@ -70,6 +76,9 @@ public class JsonAdaptedAppointment {
                     StartDateTime.class.getSimpleName()));
         }
         if (!StartDateTime.isValidDateTime(startDateTime)) {
+            throw new IllegalValueException(StartDateTime.MESSAGE_CONSTRAINTS);
+        }
+        if (!StartDateTime.isAfterSystemDateTime(startDateTime)) {
             throw new IllegalValueException(StartDateTime.MESSAGE_CONSTRAINTS);
         }
         final StartDateTime modelStartDateTime = new StartDateTime(startDateTime);
@@ -93,19 +102,27 @@ public class JsonAdaptedAppointment {
         if (!RecurringDateTime.isValidFrequency(frequency)) {
             throw new IllegalValueException(RecurringDateTime.MESSAGE_CONSTRAINTS);
         }
-        Long[] freqArray = RecurringDateTime.frequencyStringToLong(frequency);
-        final RecurringDateTime modelFrequency = new RecurringDateTime(freqArray);
+        final RecurringDateTime modelFrequency = new RecurringDateTime(frequency);
 
         if (patientIndex == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Index.class.getSimpleName()));
         }
-        final Index modelPatientIndex = patientIndex;
+        final Index modelPatientIndex = Index.fromOneBased(patientIndex);
+
+        if (patient == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Patient.class.getSimpleName()));
+        }
+        final Patient modelPatient = patient.toModelType();
 
         final String modelDescription = description;
 
-        return new Appointment(modelStartDateTime, modelEndDateTime, modelFrequency, modelPatientIndex,
-                modelDescription);
+        Appointment modelAppointment = new Appointment(modelStartDateTime, modelEndDateTime, modelFrequency,
+                modelPatientIndex, modelDescription);
+        modelAppointment.setPatient(modelPatient);
+
+        return modelAppointment;
     }
 
 }

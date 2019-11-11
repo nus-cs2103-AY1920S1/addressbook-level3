@@ -11,6 +11,7 @@ import cs.f10.t1.nursetraverse.model.ModelManager;
 import cs.f10.t1.nursetraverse.model.UserPrefs;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 import cs.f10.t1.nursetraverse.testutil.PatientBuilder;
+import cs.f10.t1.nursetraverse.testutil.TypicalAppointments;
 import cs.f10.t1.nursetraverse.testutil.TypicalPatients;
 
 /**
@@ -22,14 +23,16 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs());
+        model = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs(),
+                                 TypicalAppointments.getTypicalAppointmentBook());
     }
 
     @Test
     public void execute_newPatient_success() {
         Patient validPatient = new PatientBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getStagedPatientBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getStagedPatientBook(), new UserPrefs(),
+                                               model.getStagedAppointmentBook());
         expectedModel.addPatient(validPatient);
 
         assertCommandSuccess(new AddCommand(validPatient), model,

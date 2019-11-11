@@ -8,14 +8,14 @@ How Visits, VisitTodos and VisitTasks are stored can be seen in <<Design-Model>>
 * To identify the `Patient` that is currently being visited and the `Visit` that is ongoing
 * To ensure that the state is saved even if the application shuts down during an ongoing visit
 * To ensure there is no duplication of data by storing only the indexes for reference
-* Although there is a reference to the `Patient` in the `Visit` class, it is not stored in the JSON file. Thus, the `Patient` needs to be stored together with the `Visit` as a pair in `PatientBook`.
+* Although there is a reference to the `Patient` in the `Visit` class, this reference is only implied in the JSON file. To maximize efficiency such that the application does not have to search every patient to find an ongoing visit every time the application is opened, the `Patient` needs to be stored together with the `Visit` as a pair in `PatientBook`.
 
 `Model` implements the following operations:
 
-* `Model#setNewOngoingVisit(Visit visit)` -- Record a new ongoing `Visit` of person in the model. This `Visit` must be retrieved unmodified from a `Patient`, or an `IllegalArgumentException` will be thrown so only use this to begin visits.
+* `Model#setNewOngoingVisit(Visit visit)` -- Record a new ongoing `Visit` of person in the model. This `Visit` must be retrieved unmodified from a `Patient`, or an `IllegalArgumentException` will be thrown (so only use this to begin visits).
 * `Model#updateOngoingVisit(Visit updatedVisit)` -- Update an ongoing `Visit` in the model. This will update the ongoing `Visit` and update the `Visit` in the `Patient`. Use this to update an ongoing `Visit` when there is already a `Visit`.
-* `Model#unsetOngoingVisit()` -- Set the ongoing visit of person in the model and address book to null (for cancelling or deleting visits).
-* `Model#patientHasOngoingVisit(Person person)` -- Return true if the person has an ongoing visit.
+* `Model#unsetOngoingVisit()` -- Set the ongoing visit of person in the model and patient book to null (for cancelling or deleting visits).
+* `Model#patientHasOngoingVisit(Person person)` -- Returns true if the person has an ongoing visit.
 * `Model#getObservableOngoingVisitList()` -- Returns a `ObservableList<Visit>` containing the ongoing `Visit` if there is an ongoing `Visit`.
 
 ==== Model Design Considerations
@@ -38,13 +38,13 @@ How Visits, VisitTodos and VisitTasks are stored can be seen in <<Design-Model>>
 
 A `Patient` 's `Visit` s, `VisitTodo` are displayed together with his details on `pat-list` and `pat-find` in a `TitledPane`.
 
-An ongoing `Visit` is displayed in another tab named "Current Visit" using  `OngoingVisitListPanel` containing `OngoingVisitCard` which contains `VisitTaskTableView`. Likewise, in `pat-list` and `pat-find` use `FinishedVisitCard` s each containing a `VisitTaskTableView` to display the `Visit` s and `VisitTask` s.
+An ongoing `Visit` is displayed in another tab named "Current Visit" using  `OngoingVisitListPanel` containing `OngoingVisitCard` which contains `VisitTaskTableView`. Likewise, `pat-list` and `pat-find` use `FinishedVisitCard` s each containing a `VisitTaskTableView` to display the `Visit` s and `VisitTask` s.
 
 ===== Changing of tabs on running the appropriate command
 
 The application currently does not change tabs when an appropriate command is run (e.g. if you're on the Patient tab and you run visit-now-update, it will stay on the Patient tab). This is actually by design as it allows users to multitask across tabs.
 
-If in future iterations there is a need to change the tab on running an appropriate command, there are some consideration on how to implement the changing of tabs programmatically (e.g. when someone executes the command to begin a visit), which necessitates some additional coupling between `Model` and `Ui`. The proposed implementation may be to use the Observer pattern: `Model` would contain a subject that would notify its observers whenever a component (e.g. `Patient` or `Visit`) is listed/added/updated/deleted/etc, and `Ui` could observer this subject and update itself accordingly.
+If in future iterations there is a need to change the tab on running an appropriate command, there are some considerations on how to implement the changing of tabs programmatically (e.g. when someone executes the command to begin a visit), which necessitates some additional coupling between `Model` and `Ui`. The proposed implementation may be to use the Observer pattern: `Model` would contain a subject that would notify its observers whenever a component (e.g. `Patient` or `Visit`) is listed/added/updated/deleted/etc, and `Ui` could observer this subject and update itself accordingly.
 
 ==== UI Design Considerations
 
@@ -74,10 +74,10 @@ Visit Management is used when the user wants to visit a patient and record their
 
 image::VisitManagementUseCase.png[]
 
-The possible workflow a user can take when these set of actions is depicted in the following diagram. Take note that the application will always start without an ongoing visit and this is an assumption is applied in the activity diagram. Also note that the terms "visit" and "ongoing visit" are interchangeable, as a user can only cancel, update or finish an ongoing visit.
+The possible workflow a user can take when these set of actions is depicted in the following diagram. Take note that the application will always start without an ongoing visit and this assumption is implied in the activity diagram. Also note that the terms "visit" and "ongoing visit" are interchangeable, as a user can only cancel, update or finish an ongoing visit.
 
 image::VisitActivityDiagram.png[width="600"]
 
-The most complex part of this use case is in when the user decides to update the ongoing visit. The sequence of events when updating an ongoing visit is detailed in this link:images/UpdateOngoingVisitSequenceDiagram.png[sequence diagram]. Note that this sequence diagram is _not_ exhaustive to help you understand without going into too much detail. (e.g. Exception handling is omitted).
+The most complex part of this use case is in when the user decides to update the ongoing visit. The sequence of events when updating an ongoing visit is detailed in this link:images/UpdateOngoingVisitSequenceDiagram.png[sequence diagram]. Note that this sequence diagram is _not_ exhaustive to help you understand without going into too much detail. (e.g. Exception handling is omitted and in-depth code is placed into ref fragments which are not included in this developer guide).
 
 image::UpdateOngoingVisitSequenceDiagram.png[]

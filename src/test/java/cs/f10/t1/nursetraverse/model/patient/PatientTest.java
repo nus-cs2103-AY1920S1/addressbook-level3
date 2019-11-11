@@ -7,6 +7,7 @@ import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.VALID_PHONE
 import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static cs.f10.t1.nursetraverse.model.datetime.EndDateTimeTest.VALID_END_DATE_TIME;
 import static cs.f10.t1.nursetraverse.testutil.Assert.assertThrows;
+import static cs.f10.t1.nursetraverse.testutil.TypicalAppointments.getTypicalAppointmentBook;
 import static cs.f10.t1.nursetraverse.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 import static cs.f10.t1.nursetraverse.testutil.TypicalPatients.ALICE;
 import static cs.f10.t1.nursetraverse.testutil.TypicalPatients.BOB;
@@ -109,7 +110,7 @@ public class PatientTest {
 
     @Test
     public void visitIntegration() {
-        Model model = new ModelManager(getTypicalPatientBook(), new UserPrefs());
+        Model model = new ModelManager(getTypicalPatientBook(), new UserPrefs(), getTypicalAppointmentBook());
         Patient visitedPatient = model.getFilteredPatientList().get(INDEX_FIRST_PATIENT.getZeroBased());
         assertEquals(Optional.empty(), visitedPatient.getVisitByIndex(-1));
         assertNotEquals(Optional.empty(), visitedPatient.getVisitByIndex(0));

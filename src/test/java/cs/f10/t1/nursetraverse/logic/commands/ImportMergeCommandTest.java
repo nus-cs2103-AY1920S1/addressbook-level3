@@ -7,10 +7,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import cs.f10.t1.nursetraverse.commons.util.FileUtil;
+import cs.f10.t1.nursetraverse.model.AppointmentBook;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.ModelManager;
 import cs.f10.t1.nursetraverse.model.PatientBook;
 import cs.f10.t1.nursetraverse.model.UserPrefs;
+import cs.f10.t1.nursetraverse.testutil.TypicalAppointments;
 import cs.f10.t1.nursetraverse.testutil.TypicalCsv;
 import cs.f10.t1.nursetraverse.testutil.TypicalPatients;
 
@@ -24,7 +26,8 @@ public class ImportMergeCommandTest {
     private static File tempFile;
     private static File emptyFile;
 
-    private Model model = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs(),
+                                           TypicalAppointments.getTypicalAppointmentBook());
 
     @BeforeAll
     public static void setUp() throws IOException {
@@ -69,13 +72,15 @@ public class ImportMergeCommandTest {
     @Test
     public void execute_validCsv_success() {
         PatientBook testPatientBook = new PatientBook();
+        AppointmentBook testAppointmentBook = new AppointmentBook();
         testPatientBook.setPatients(TypicalPatients.getTypicalPatientsWithoutVisit());
-        Model testModel = new ModelManager(testPatientBook, new UserPrefs());
+        Model testModel = new ModelManager(testPatientBook, new UserPrefs(), testAppointmentBook);
 
         PatientBook expectedPatientBook = new PatientBook();
+        AppointmentBook expectedAppointmentBook = new AppointmentBook();
         expectedPatientBook.setPatients(TypicalPatients.getTypicalPatientsWithoutVisit());
         expectedPatientBook.addPatient(TypicalPatients.HOON);
-        Model expectedModel = new ModelManager(expectedPatientBook, new UserPrefs());
+        Model expectedModel = new ModelManager(expectedPatientBook, new UserPrefs(), expectedAppointmentBook);
 
         CommandTestUtil.assertCommandSuccess(
                 new ImportMergeCommand(

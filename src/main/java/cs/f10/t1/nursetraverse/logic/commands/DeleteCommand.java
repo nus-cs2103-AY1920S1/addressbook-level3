@@ -46,6 +46,7 @@ public class DeleteCommand extends MutatorCommand {
             throw new CommandException(MESSAGE_INVALID_PATIENT_HAS_ONGOING_VISIT);
         }
         model.deletePatient(patientToDelete);
+        model.deleteAppointments(patientToDelete, targetIndex);
         return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, patientToDelete));
     }
 
