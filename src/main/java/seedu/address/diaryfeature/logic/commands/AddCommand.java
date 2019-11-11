@@ -2,8 +2,8 @@ package seedu.address.diaryfeature.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 import seedu.address.diaryfeature.model.DiaryModel;
+import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -15,8 +15,8 @@ public class AddCommand extends Command<DiaryModel> {
 
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_SUCCESS = "New entry added:";
-    private final DiaryEntry toAdd;
     public static final String MESSAGE_DUPLICATE_ERROR = "This entry already exists!";
+    private final DiaryEntry toAdd;
 
 
     /**

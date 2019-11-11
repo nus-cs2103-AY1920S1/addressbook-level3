@@ -12,8 +12,6 @@ import seedu.address.diaryfeature.model.diaryEntry.Title;
  * Checks user input
  */
 public class Validators {
-    private static final String ALPHANUMERIC_STRING_REGEX = "[a-zA-Z0-9]+";
-    private static final String NUMBER_REGEX = "[0-9]+";
     static final int HOUR_LOWER_RANGE = 00;
     static final int HOUR_UPPER_RANGE = 23;
     static final int MIN_LOWER_RANGE = 00;
@@ -25,6 +23,9 @@ public class Validators {
     static final int DAY_LOWER_RANGE = 01;
     static final int DAY_UPPER_RANGE = 31;
     static final int DATE_AND_TIME_LENGTH = 15;
+    private static final String ALPHANUMERIC_STRING_REGEX = "[a-zA-Z0-9]+";
+    private static final String NUMBER_REGEX = "[0-9]+";
+
 
     /**
      * Check if user input is null
@@ -122,6 +123,11 @@ public class Validators {
                 matchesAlphaNumeric(input);
     }
 
+    /**
+     *
+     * @param input
+     * @return
+     */
     public static boolean isValidEncryptedDetail(String input) {
         return isCorrectDetailsLength(input, Username.USERNAME_MIN_LENGTH)
                 &&
@@ -164,13 +170,22 @@ public class Validators {
                 isValidNumber(yearAsString, YEAR_LOWER_RANGE, YEAR_UPPER_RANGE)
         );
 
+        /**
+         *
+         */
         boolean secondCheck = isValidDayMonthYear(getInt(dayAsString),
                 getInt(monthAsString), getInt(yearAsString));
         return firstCheck && secondCheck;
 
     }
 
-
+    /**
+     *
+     * @param day
+     * @param month
+     * @param year
+     * @return
+     */
     private static boolean isValidDayMonthYear(int day, int month, int year) {
         int[] oddMonth = {1, 3, 5, 7, 8, 10, 12}; //31 days
         int[] evenMonth = {2, 4, 6, 9, 11}; //30 days

@@ -1,6 +1,5 @@
 package seedu.address.diaryfeature.model;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -45,10 +44,18 @@ public class DiaryBook {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean hasDetails() {
         return (details.isPresent());
     }
 
+    /**
+     *
+     * @param input
+     */
     public void setinnerDetails(Optional<Details> input) {
         if (input.isEmpty()) {
             details = Optional.empty();
@@ -57,6 +64,11 @@ public class DiaryBook {
         }
     }
 
+    /**
+     *
+     * @param input
+     * @return
+     */
 
     public boolean checkDetails(Details input) {
         if (details.isEmpty()) {

@@ -11,13 +11,15 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions.DiaryEntryParseException;
 import seedu.address.diaryfeature.model.DiaryBook;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-
+/**
+ * Json diary book
+ */
 public class JsonDiaryBookStorage implements DiaryBookStorage {
-    private static final Logger logger = LogsCenter.getLogger(seedu.address.diaryfeature.storage.JsonDiaryBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(
+            seedu.address.diaryfeature.storage.JsonDiaryBookStorage.class);
     private Path filePath;
 
     public JsonDiaryBookStorage(Path filePath) {

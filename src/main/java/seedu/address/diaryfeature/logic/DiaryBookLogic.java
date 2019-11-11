@@ -35,6 +35,9 @@ public class DiaryBookLogic {
     private final DiaryBookStorage storage;
     private final DiaryBookParser diaryBookParser;
 
+    /**
+     *
+     */
     public DiaryBookLogic() {
         JsonDiaryBookStorage storage = new JsonDiaryBookStorage(Paths.get("data", "diaryBook.json"));
         Optional<DiaryBook> diaryBookOptional;
@@ -56,6 +59,14 @@ public class DiaryBookLogic {
         this.diaryBookParser = new DiaryBookParser();
     }
 
+    /**
+     *
+     * @param commandText
+     * @return
+     * @throws CommandException
+     * @throws ParseException
+     * @throws EmptyArgumentException
+     */
     public CommandResult execute(String commandText) throws CommandException, ParseException, EmptyArgumentException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
@@ -72,10 +83,18 @@ public class DiaryBookLogic {
         return commandResult;
     }
 
+    /**
+     *
+     * @return
+     */
     public ObservableList<DiaryEntry> getFilteredDiaryEntryList() {
         return diaryModel.getFilteredDiaryEntryList();
     }
 
+    /**
+     *
+     * @return
+     */
     public DiaryBookStatistics getStatistics() {
         return new DiaryBookStatisticsManager();
     }

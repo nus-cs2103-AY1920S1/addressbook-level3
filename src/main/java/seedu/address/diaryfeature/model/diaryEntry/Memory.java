@@ -1,17 +1,18 @@
 package seedu.address.diaryfeature.model.diaryEntry;
 
+/**
+ * Memory
+ */
 public class Memory {
 
-    public static final String MESSAGE_CONSTRAINTS = "" +
-            "Memory, while optional, if input, " +
-            "can't be the empty string, can't only be spaces ";
+    public static final String MESSAGE_CONSTRAINTS = ""
+            + "Memory, while optional, if input, "
+            + "can't be the empty string, can't only be spaces ";
 
     public static final int MEMORY_MAX_LENGTH = 100;
-
-
+    private static final String HIDDEN_MESSAGE = "*****";
     private final String memory;
     private boolean isPrivate = false;
-    private static final String HIDDEN_MESSAGE = "*****";
     private String showMemory;
 
     /**
@@ -70,8 +71,8 @@ public class Memory {
      * @return a copy of this memory
      */
     public Memory copy () {
-        Memory copyMemory =  new Memory(memory);
-        if(this.isPrivate) {
+        Memory copyMemory = new Memory(memory);
+        if (this.isPrivate) {
             copyMemory.setPrivate();
         }
         return copyMemory;

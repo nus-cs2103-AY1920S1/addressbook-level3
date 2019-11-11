@@ -1,8 +1,11 @@
 package seedu.address.diaryfeature.model.details;
 
+/**
+ *
+ */
 public class Username {
-    public static final String MESSAGE_CONSTRAINTS = "" +
-            "Username has to be at least 8 characters, is case insensitive and has to be alphanumeric ";
+    public static final String MESSAGE_CONSTRAINTS = ""
+            + "Username has to be at least 8 characters, is case insensitive and has to be alphanumeric ";
     public static final int USERNAME_MIN_LENGTH = 8;
     private final String userName;
 
