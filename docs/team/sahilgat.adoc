@@ -141,21 +141,256 @@ requests with issues and closing issues when completed. (Pull request https://10
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write clear and concise
+documentation that helps the non-technical end user use the application. I also took active effort to ensure my writing
+was as friendly and inviting as possible. Note that some sections have been omitted which may affect coherence while
+reading._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+== Introduction
 
-include::../UserGuide.adoc[tag=dataencryption]
+StudyBuddyPro is a student application that aims to simplify the hassle of revision
+by providing a suite of tools for effective revision.
+
+StudyBuddyPro is optimized for students who prefer to work with
+a Command Line Interface (CLI) while still having the benefits of a
+Graphical User Interface (GUI).
+
+Moreover, StudyBuddyPro comes geared with pre-loaded features specially
+catered for computing students. So whether you're a computing student getting
+used to a CLI for the first time or if you're a CLI expert who wants to reap
+the benefits of a fast typing speed, give StudyBuddyPro a try!
+
+If you're interested, head over to the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#2-quick-start[Quick Start]
+section to get started!
+
+== Quick Start
+
+NOTE: Please ensure you have Java 11 or above installed before proceeding!
+
+1. Download the latest version of `StudyBuddyPro.jar` https://github.com/AY1920S1-CS2103T-W13-3/main/releases[here].
+
+2. Place the file in the folder you want to set as the home directory. All data and
+miscellaneous files associated with StudyBuddyPro will be placed in this folder.
+
+3. Double-click `StudyBuddyPro.jar` to launch the application. The GUI should appear in a few seconds, and
+should look like the screen shown below. If not,
+please
+refer to the first question in the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#8-FAQ[FAQ]
+for help!
+
++
+.GUI of StudyBuddyPro application displayed on startup
+image::Ui.PNG[width="700"]
++
+
+4. Type a command in the command box execute it by pressing kbd:[Enter]. Typed commands
+will appear in the CLI highlighted in the purple box in the diagram above. Refer to the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#9-command-summary[Command Summary]
+section for a quick overview of all the available commands!
+
++
+[TIP]
+The blue box in the diagram above with the "Flashcards", "Notes" and "Cheatsheets" logo
+can be used to quickly check which mode you are in! Switching into a mode will highlight
+the relevant mode's logo in an orange circle, as shown in this
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#5-flashcard-feature[figure].
++
+
+5. Output from the command will be shown in the boxes highlighted in orange and green in
+the diagram above. The green box is used to display a flashcard, note or cheatsheet
+while the orange box outputs feedback from commands.
+
+== Flashcard Feature
+
+[TIP]
+====
+Good news - StudyBuddyPro comes with some preloaded flashcards, specially catered for you as a
+computing student! Be sure to take a look! Psst - here's a hint for our more tech-savvy
+users: You can delete your _flashcards.json_ file in the StudyBuddyPro data folder to restore
+these default flashcards at any time. Of course, your current flashcards will be deleted as well!
+====
+
+Sick and tired of cramming all your revision at the last minute? Why not give our
+Flashcards feature a try! This feature can help you create your very own flashcards to
+help you consistently revise. With our built-in reminder features and timetrial modes to
+test yourself, use this feature and be on track to better revising habits today!
+
+[IMPORTANT]
+====
+All the operations in this section assume that the user is in the _flashcard_ mode. To be sure
+you are _flashcard_ mode, please ensure you used the `switch fc` command before this. Your
+screen should now look like the one found in the screenshot below.
+====
+
+image::FlashcardSuccess.PNG[width="700"]
+
+=== How to create a flashcard: `add`
+
+Adds a flashcard from user input question <QUESTION> and answer <ANSWER>.
+
+    Format: add q/QUESTION a/ANSWER t/TITLE [tag/TAG]...
+
+Example usage:
+
+    add q/What is 100 Binary in its Decimal form? a/4 t/Binary Stuff tag/CS2100
+
+Expected output:
+```
+New flashcard added:
+    New flashcard added: Title: Binary Stuff
+    Tags: [cs2100]
+```
+
+=== Editing a flashcard: `edit` (Coming in v2.0)
+
+Edits a flashcard's question, answer, title, or tags. The flashcard will be referred to by their original title
+`ORIGINAL_TITLE`.
+
+    Format: edit ORIGINAL_TITLE [q/NEW_QUESTION] [a/ANSWER] [t/TITLE] [tag/TAG]...
+
+* At least one of the optional fields must be provided.
+
+Example usage:
+
+    edit IntelliJ Question 1 q/What is the meaning of SLAP? a/Single Layer of Abstraction Principle t/SE Question 1
+
+Expected output:
+```
+Edited flashcard:
+    Title: SE Question 1
+    Question: What is the meaning of SLAP?
+    Tags: [cs2100]
+```
+
+* Notice how the fields that are not edited retain their original information. For example,
+the _tag_ field was not changed and so the original _cs2100_ tag was retained.
+
+* Multiple fields can be edited at the same time. In the example, the _question_, _answer_
+and _title_ fields were all edited at once.
+
+=== How to view a list of all available flashcards: `list`
+
+Lists all flashcards.
+
+   Format: list
+
+Example usage:
+
+    list
+
+Expected output:
+```
+Listed all flashcards:
+    Title: Pipelineing Question 1
+    Tags: [CS2100]
+```
+
+=== How to delete a flashcard: `delete`
+
+Deletes the flashcard by <FLASHCARD_INDEX>.
+
+The user will be prompted again to confirm their deletion.
+
+   Format: delete (index)
+
+Example usage:
+
+    delete 6
+
+Expected output:
+```
+Are you sure you would like to delete the following flashcard?
+    Title: Binary Question 1
+    Tags: [cs2100]
+    Please use `delete 6` again to confirm your deletion..
+```
+
+Upon keying in `delete 6` again, then the flashcard will be deleted.
+
+Expected output:
+
+```
+Deleted Flashcard:  Title: Binary Question 1
+    Tags: [cs2100]
+```
+
+=== Find out what flashcards to revise today, or ones you may have missed: `remind`
+
+This feature helps the user check which flashcards are due for revision today and which flashcards
+overdue for revision. Don't worry, StudyBuddyPro automatically sets the date the flashcard should next be
+viewed at for optimal learning. These increments also scale with time i.e. newer flashcards will
+have to be viewed more often.
+
+[TIP]
+Be sure to check in everyday to see which flashcards you have due!
+
+[NOTE]
+StudyBuddyPro only marks a flashcard as revised and removes it from the due and
+overdue flashcard list when you see the flashcard's _answer_ not just its question! For
+example, simply using the `view` command without the `show` command to reveal the flashcard's
+answer will not trick the system. Sorry, it's for your own good!
+
+Example usage:
+
+    remind
+
+If no flashcards due for revision today and no overdue flashcards:
+
+Expected output:
+```
+Well done - No due or overdue flashcards!
+```
+
+If there are flashcards due for revision today but no overdue flashcards:
+
+Expected output:
+```
+Here are the flashcards due today:
+1. Math Question 1 - What is 2 x 2?
+```
+
+If there are no flashcards due for revision today but there are overdue flashcards:
+
+Expected output:
+```
+Here are your overdue flashcards:
+1. Math Question 1 - What is 2 x 2? (Was due on 2019-10-30)
+```
+
+If there are both flashcards due for revision today and overdue flashcards:
+
+Expected output:
+```
+Here are the flashcards due today:
+1. Math Question 1 - What is 2 x 2?
+Here are your overdue flashcards:
+1. Math Question 2 - What is 3 x 2? (Was due on 2019-10-30)
+```
+
+== FAQ
+
+*Q*: Help! Double-clicking `StudyBuddyPro.jar` does not launch the application - what
+should I do? +
+*A*: Trying running the application from the command line using the following command:
+`java -jar StudyBuddyPro.jar`. Windows users can use the Command Prompt application to
+do this while Mac users can use the Terminal application.
+
+*Q*: The preloaded deck of flashcards is overdue for revision and StudyBuddyPro says the last viewed date for
+those preloaded flashcards was when I first opened StudyBuddyPro, even though I never even
+viewed those flashcards! How is this possible? +
+*A*: StudyBuddyPro assumes all the default flashcards will be viewed when the application
+was first opened. Aren't you curious to see what we collated for you?
+
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my advanced
+technical knowledge through the depth of my contributions. They also showcase my ability
+to explain complicated technical information in an easy-to-read, digestible manner. This was achieved
+in a variety of ways, such as the use of examples and industry standard technical diagrams._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-_{Include summary}_

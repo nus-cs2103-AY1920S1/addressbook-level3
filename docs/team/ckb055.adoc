@@ -106,6 +106,13 @@ Displays a full list of all tags currently in StudyBuddyPro.
 
 Each StudyBuddyItem has a set of tags tied to them. `filterall` allows the user to list all StudyBuddy items with matching tags in the application. The user is able to use this command regardless of which mode they are currently in.
 
+[IMPORTANT]
+====
+* The user must specify at least one tag.
+* The user is able to specify multiple tags.
+* CheatSheets that match all of the specified tags will be displayed.
+====
+
 Let’s say the user wishes to view the definition of pipelining. Pipelining is taught in CS2100, a Computer Organization module taught in the School of Computing at NUS. Hence, the user can make use of filterall to find all flashcards, cheatsheets and notes that are tagged “CS2100”. Note that for simplicity, all tags will be converted to lowercase upon input. Hence, ‘CS2100’ will be read as ‘cs2100’ by our application.
 
     Format: filterall tag/TAG [tag/TAG]...
@@ -122,8 +129,6 @@ Let’s say the user wishes to view the definition of pipelining. Pipelining is 
     CheatSheet: 7.
     Title: cs2100 stuff
     Tags: [cs2100]
-    Contents: [ 1. Pipelining is a process where.. ]
-        [ 2. Question: What is 101 Binary in its Decimal form?; Answer: 5 ]
     Note: 5.
     Title: Pipelining Definition
     Content: Pipelining is a process where..
@@ -174,13 +179,17 @@ The user will be prompted once to confirm their deletion.
     Expected output:
     Are you sure you would like to delete the following cheatsheet?
     Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
-    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
-        [ 2. 110 in Binary is 6 is Decimal ]
     Please use `delete 8` again to confirm your deletion.
 
 Upon deleting any StudyBuddyItem (Flashcard, Note, NoteFragment, CheatSheet), the user will be prompted once to confirm his deletion. The user would need to key in the delete command once more to confirm his/her deletion.
 
 This will prevent any accidental deletion of wrong items.
+
+[IMPORTANT]
+
+Inputting invalid commands will *NOT* offer another prompt to the user.
+For example, calling `delete 3`, then an `invalid command` and then `delete 3` again will immediately delete the 3rd item without a prompt.
+
 
 === Editing a tag: `edit tag/` (proposed in v2.0)
 
