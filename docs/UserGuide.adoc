@@ -147,19 +147,32 @@ This _actually_ deletes all your commands, use with caution! The undo feature ma
 [NOTE]
 Archived expenses are not cleared. +
 
-=== Managing recurring expenses
+=== Managing recurring expenses `recur`
+This feature allows you to add recurring expenses to Billboard. This feature is especially useful when you have expenses that are almost exactly the same except for the date that the expenses are created.
 
 . _Add a new recurrence: recur add_ +
 Adds an recurrence to records. +
 Usage:
 
- recur add [NAME] [DESCRIPTION] [AMOUNT] [START DATE] [END DATE] [INTERVAL]
+ recur add n/[NAME] d/<DESCRIPTION> a/[AMOUNT] sd/[START DATE] ed/[END DATE] interval/[INTERVAL]
 +
 Example:  +
 `recur add n/pay school fees d/yearly nus tuition fees a/8000 sd/1/8/2018 ed/1/8/2021 interval/yearly` +
 Adds an recurring expense to record where the name is "pay school fees", description is “yearly nus tuition fees”,
  amount of payment is 8000, first payment is on 1 Auguest 2018, last payment is on 1 August 2021, payment interval is
   yearly. +
+{nbsp} +
+1. Enter command `recur add n/weekly spending a/20 sd/1/1/2019 ed/1/2/2019 interval/week`
+{nbsp} +
+image:recur_1.png[] +
+{nbsp} +
+2. Application will show you the details of the recurrence that you have added
+{nbsp} +
+image:recur_2.png[] +
+{nbsp} +
+3. Enter the list command to see the added expenses.
+{nbsp} +
+image:recur_3.png[] +
 {nbsp} +
 
 . _Edit an existing recurrence: recur edit_ +
@@ -338,20 +351,30 @@ image:tagging/listtagtwo.png[] +
 {nbsp} +
 
 // end::tagging[]
+
 [[Find]]
 === Finding expenses by attributes: `find`
+This feature allows you to search for specific expenses through use of various parameters. You can find expense by keyword, upper and lower amount limits, as well as upper and lower date limits.
 
 . _Find : find_ +
 Find expenses that satisfies conditions specified in the arguments. +
 {nbsp} +
 Usage:
 
- find [d/KEYWORD[ KEYWORD…]] [a/LOWER AMOUNT LIMIT] [al/UPPER AMOUNT LIMIT] [sd/START DATE] [ed/END DATE]
+ find <d/KEYWORD< KEYWORD…>> <a/LOWER AMOUNT LIMIT> <al/UPPER AMOUNT LIMIT> <sd/START DATE> <ed/END DATE>
 +
 Example: +
 `find d/lunch book a/2 al/20 sd/1/1/2019 ed/1/10/2019` +
 Finds all expenses that contain the keyword ‘lunch’ or 'book' and amount between 2 and 20 dollars
 and date between 1 Jan 2019 to 1 Oct 2019 in any of its attributes. +
+{nbsp} +
+1. Type in `find d/buy a/50` +
+{nbsp} +
+image:find_1.png[] +
+{nbsp} +
+2. Application will show you expenses that contain keyword `buy` and are of amount `50` or above. +
+{nbsp} +
+image:find_2.png[] +
 {nbsp} +
 
 === Sorting expenses by attributes: `[Coming in v2.0]`
