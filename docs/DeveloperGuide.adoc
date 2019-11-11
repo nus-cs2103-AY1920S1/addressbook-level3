@@ -669,9 +669,9 @@ This process is further illustrated in the following sequence diagram:
 image::AddBudgetSequenceDiagram.png[]
 // end::budgetadd[]
 
+// tag::overviewanalytics[]
 === Analytics
 
-// tag::overviewanalytics[]
 [[overviewanalytics]]
 ==== Overview of the Analytics Model
 
@@ -916,6 +916,7 @@ This command is unique in the sense that if month is not specified, the report i
 month is specified, the report is specific to both a month *and* a year. This is different from the other commands that
 are only specific to a year, *or* a month and a year. Hence, there is an extra if-condition in the execution loop of the
 `ExpenditureRankingCommand` to account for this discrepancy.
+// end::exprankanalytics[]
 
 ===== Implementation
 

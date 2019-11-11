@@ -653,6 +653,7 @@ Examples:
 * `loansort s/DATE` +
 Loans shown sorted by any given constrain, date or value owed.
 
+// tag::overviewanalytics[]
 === Analytics
 
 Have you ever wondered where all your money is going?
@@ -677,7 +678,9 @@ image::AnalyticsCell.png[]
 [NOTE]
 For all commands in the analytics feature, if the optional arguments `m/MONTH` and/or `y/YEAR` are not provided,
 results for the current month and/or year in the system time will be displayed.
+// end::overviewanalytics[]
 
+// tag::expenditureanalytics[]
 ==== Viewing expenditure trend: `expenditure`
 Format: `expenditure [y/YEAR]`
 
@@ -696,7 +699,9 @@ Examples:
 Displays monthly expenditure trend for current year.
 * `expenditure y/2019` +
 Displays monthly expenditure trend for 2019.
+// end::expenditureanalytics[]
 
+// tag::incomeanalytics[]
 ==== Viewing income trend: `income`
 Format: `income [y/YEAR]`
 
@@ -715,7 +720,9 @@ Examples:
 Displays monthly income trend for current year.
 * `income y/2019` +
 Displays monthly income trend for 2019.
+// end::incomeanalytics[]
 
+// tag::balanceanalytics[]
 ==== Viewing balance trend: `balance`
 Format: `balance [y/YEAR]`
 
@@ -737,7 +744,9 @@ Examples:
 Displays monthly balance trend for current year.
 * `balance y/2019` +
 Displays monthly balance trend for 2019.
+// end::balanceanalytics[]
 
+// tag::breakdownanalytics[]
 ==== Viewing expenditure breakdown by category: `breakdown`
 Format: `breakdown [m/MONTH] [y/YEAR]`
 
@@ -757,7 +766,9 @@ Examples:
 Displays expenditure breakdown by category for current month.
 * `breakdown m/7 y/2019` +
 Displays expenditure breakdown by category for July 2019.
+// end::breakdownanalytics[]
 
+// tag::catrankanalytics[]
 ==== Viewing expenditure category ranking chart: `catrank`
 Format: `catrank [m/MONTH] [y/YEAR]`
 
@@ -786,7 +797,9 @@ Examples:
 Displays expenditure category ranking chart for current month.
 * `catrank m/7 y/2019` +
 Displays expenditure category ranking chart for July 2019.
+// end::catrankanalytics[]
 
+// tag::mthrankanalytics[]
 ==== Viewing expenditure ranking chart by month: `mthrank`
 Format: `mthrank [y/YEAR]`
 
@@ -812,7 +825,9 @@ Examples:
 Displays expenditure ranking chart by month for current year.
 * `mthrank y/2019` +
 Displays expenditure ranking chart by month for 2019.
+// end::mthrankanalytics[]
 
+// tag::exprankanalytics[]
 ==== Viewing expenditure ranking chart: `exprank`
 Format: `exprank [m/MONTH] [y/YEAR]`
 
@@ -838,6 +853,7 @@ Displays expenditure ranking chart for current year.
 Displays expenditure ranking chart for 2019.
 * `exprank m/7 y/2019` +
 Displays expenditure ranking chart for July 2019.
+// end::exprankanalytics[]
 
 == FAQ
 
