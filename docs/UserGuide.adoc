@@ -143,9 +143,7 @@ Hence, the user *should not have administrative privilege to unregister any pati
 
 Updates the particulars of a patients +
 
-NOTE: Must be in the patient listing screen for this command to be accepted. +
-
-IMPORTANT: Editing tags will overwrite all existing tags. +
+NOTE: Editing tags will overwrite all existing tags. Must not edit when patient is in queue or being served. +
 
 Format: `editpatient -entry <ENTRY_ID> [-id <PATIENT_REFERENCE_ID>] [-name <NAME>] [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
@@ -180,14 +178,14 @@ Hence, the user *should not have administrative privilege to unregister any staf
 
 If user is in the doctors listing screen, updates any change for doctor’s profiles. +
 
-NOTE: Must be in the staff listing screen for this command to be accepted. +
-
-IMPORTANT: Editing tags will overwrite all existing tags. +
+NOTE: Editing tags will overwrite all existing tags. Must not edit when the doctor is on duty. +
 
 Format: `editdoctor -entry <ENTRY_ID> [-id <STAFF_REFERENCE_ID>] [-name <NAME>] [-phone <PHONE_NUM>]
 [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
 
 * e.g. `editdoctor -entry 1 -phone 91234567 -email johndoe@example.com`
+
+// tag::queue[]
 
 ==== Marks the doctor as on-duty: `onduty` ====
 
@@ -221,7 +219,7 @@ Removes a patient from the queue based on their queue position. +
 
 Format: `dequeue <QUEUE_INDEX>`
 
-* e.g.
+* e.g. `dequeue E0000001A`
 
 ==== Assigns next patient to an available doctor : `next` ====
 //todo add doctor first
@@ -230,7 +228,7 @@ Assigns the next patient in the queue to a doctor. +
 
 Format: `next <ENTRY_ID>`
 
-* e.g.
+* e.g. `next 1`
 
 ==== Doctor takes a break: `break`  ====
 
@@ -238,7 +236,7 @@ Avoids directing patients to a doctor. e.g. Doctor is on a lunch break +
 
 Format: `break <ENTRY_ID>`
 
-* e.g.
+* e.g. `break 1`
 
 ==== Doctor resumes his/her duty: `resume` ====
 
@@ -246,7 +244,9 @@ Allows patients to be directed to a doctor. e.g. Doctor is back from his/her bre
 
 Format: `resume <ENTRY_ID>`
 
-* e.g.
+* e.g. `resume 1`
+
+// end::queue[]
 
 === Appointment Management
 
@@ -257,7 +257,7 @@ If no keyword is given, all upcoming appointments will be displayed. +
 
 Format: `appointments [<REFERENCE_ID>]`
 
-* e.g.
+* e.g. `appointments E0000001A`
 
 ==== Schedules an appointment: `newappt` ====
 
@@ -274,14 +274,14 @@ The optional field `[-reoccur <INTERVALS>]` can be `-reoccur w`, `-reoccur m`, o
 
 Format: `newappt -id <PATIENT_REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-reoccur <INTERVALS> -num <NUMBER_OF_TIMES>]`
 
-* e.g.
+* e.g. `newappt -id E0000001A -start 12/12/19 0900 -end 12/12/19 1000 -reoccur m -num 2`
 
 ==== Acknowledges a appointment: `ackappt` ====
 
 Acknowledges the most upcoming appointment only if patient arrives on the same day and the arriving time is before the appointment's end time +
 Format: `ackappt <REFERENCE_ID>`
 
-* e.g.
+* e.g. `ackappt E0000001A`
 
 ==== Cancels an appointment: `cancelappt` ====
 Cancels the specified appointment. +
@@ -290,7 +290,7 @@ NOTE: To avoid accidental cancellation of another patient's appointments, the us
 
 Format: `cancelappt <ENTRY_ID>`
 
-* e.g.
+* e.g. `cancelappt 1`
 
 ==== Changes the appointment date: `editappt` ====
 
@@ -303,7 +303,7 @@ NOTE: The operation is rejected if there are insufficient staff doctors on duty 
 
 Format: `editappt -entry <ENTRY_ID> -start <START_TIMING> [-end <END_TIMING>]`
 
-* e.g.
+* e.g. `editappt -entry 1 -start 12/12/19 1300 -end 12/12/19 1400`
 
 
 ==== Lists patients who have missed their appointments: `missappt` ====
@@ -315,7 +315,7 @@ NOTE: An appointment is considered missed if the appointment was not acknowledge
 
 Format: `missappt`
 
-* e.g.
+* e.g. `missappt`
 
 ==== Sets missed appointments as settled/notified: `settleappt` ====
 
@@ -326,7 +326,7 @@ NOTE: Only missed appointments can be settled. The user must first display the m
 
 Format: `settleappt <ENTRY_ID>`
 
-* e.g.
+* e.g. `settleappt 1`
 
 ==== Shows the empty slots: `slot` (v2.0) ====
 
@@ -343,7 +343,7 @@ If no keyword is given, all upcoming appointments will be displayed. +
 
 Format: `shifts [<REFERENCE_ID>]`
 
-* e.g.
+* e.g. `shifts S0111111A`
 
 ==== Adds a duty shift for a doctor: `newshift` ====
 
@@ -353,7 +353,7 @@ Otherwise, only one shift will be added. +
 
 Format: `newshift -id <STAFF_REFERENCE_ID> -start <START_TIMING> -end <END_TIMING> [-reoccur REOCCURRING -num REOCCURRING_TIMES]`
 
-* e.g.
+* e.g. `newshift -id W0000001A -start 12/12/19 0900 -end 12/12/19 2100 -reoccur m -num 2`
 
 ==== Cancels a duty shift for a doctor: `cancelshift` ====
 
@@ -365,7 +365,7 @@ NOTE: The operation is rejected if it results in there being more appointments t
 
 Format: `cancelshift <ENTRY_ID>`
 
-* e.g.
+* e.g. `cancelshift 1`
 
 ==== Changes the duty shift for a doctor: `editshift` ====
 
@@ -379,7 +379,7 @@ The patient's appointment affected by the deletion of the duty shift must be res
 
 Format: `editshift -entry <ENTRY_ID> -start <START_TIMING> -end <END_TIMING>`
 
-* e.g.
+* e.g. `editshift -entry 1 -start 12/12/19 1200 -end 12/12/19 2100`
 
 === Inventory Commands (v2.0) ===
 
@@ -439,6 +439,7 @@ All except search actions can be re-done.
 
 Format: `redo`
 
+// tag::summary[]
 == Commands Summary ==
 
 * *Patient Management* +
@@ -491,4 +492,6 @@ Format: `redo`
 ** exit: `exit`
 ** undo: `undo`
 ** redo: `redo`
+// end::summary[]
+
 

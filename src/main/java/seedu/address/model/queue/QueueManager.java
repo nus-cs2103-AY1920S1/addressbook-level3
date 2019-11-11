@@ -85,6 +85,21 @@ public class QueueManager {
         return false;
     }
 
+    /**
+     * Checks if a doctor is on duty
+     *
+     * @param id of the doctor on duty
+     * @return boolean which indicates whether the doctor is on duty
+     */
+    public boolean isDoctorOnDuty(ReferenceId id) {
+        for (Room room : roomList) {
+            if (room.getDoctor().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void setPatientInQueue(ReferenceId target, ReferenceId editedId) {
         queueList.setPerson(target, editedId);
     }

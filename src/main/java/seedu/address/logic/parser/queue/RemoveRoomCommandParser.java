@@ -1,6 +1,8 @@
 //@@author wongsm7
 package seedu.address.logic.parser.queue;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -33,7 +35,11 @@ public class RemoveRoomCommandParser implements Parser<ReversibleActionPairComma
      * @throws ParseException if the user input does not conform the expected format
      */
     public ReversibleActionPairCommand parse(String args) throws ParseException {
-        index = ParserUtil.parseIndex(args);
+        try {
+            index = ParserUtil.parseIndex(args);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveRoomCommand.MESSAGE_USAGE));
+        }
 
         if (lastShownList.size() < index.getOneBased()) {
             throw new ParseException(MESSAGE_INVALID_INDEX);

@@ -158,6 +158,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean isDoctorOnDuty(ReferenceId id) {
+        return queueManager.isDoctorOnDuty(id);
+    }
+
+    @Override
     public void changePatientRefIdInQueue(ReferenceId idToEdit, ReferenceId editedId) {
         queueManager.setPatientInQueue(idToEdit, editedId);
     }
