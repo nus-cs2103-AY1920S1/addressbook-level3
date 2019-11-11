@@ -18,12 +18,12 @@ import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.tag.Tag;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_NAME = "Or@nge";
+    private static final String INVALID_TAG = "#vegan";
 
-    private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_NAME = "Orange";
+    private static final String VALID_TAG_1 = "delicious";
+    private static final String VALID_TAG_2 = "healthy";
 
     private static final String WHITESPACE = " \t\r\n";
 
