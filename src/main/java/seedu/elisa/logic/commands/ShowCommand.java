@@ -77,4 +77,19 @@ public class ShowCommand extends UndoableCommand {
     public String getCommandWord() {
         return COMMAND_WORD;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof ShowCommand)) {
+            return false;
+        } else {
+            ShowCommand other = (ShowCommand) obj;
+            return other.targetList.equalsIgnoreCase(targetList)
+                    && other.targetView.equalsIgnoreCase(targetView);
+        }
+    }
 }
