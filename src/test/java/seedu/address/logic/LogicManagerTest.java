@@ -1,81 +1,72 @@
 package seedu.address.logic;
 
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-///**import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-//import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-// **/
-///**import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;**/
-//import static seedu.address.testutil.Assert.assertThrows;
-///**import static seedu.address.testutil.TypicalPersons.AMY;**/
-//
-//import java.io.IOException;
-//import java.nio.file.Path;
-//
-///**import org.junit.jupiter.api.BeforeEach;**/
-//
-///**import org.junit.jupiter.api.Test;**/
-//
-//import org.junit.jupiter.api.io.TempDir;
-//
-///**import seedu.address.logic.commands.AddCommand;**/
-//
-//import seedu.address.logic.commands.CommandResult;
-///**import seedu.address.logic.commands.ListCommand;**/
-//import seedu.address.logic.commands.exceptions.CommandException;
-//import seedu.address.logic.parser.exceptions.ParseException;
-//import seedu.address.model.Model;
-//import seedu.address.model.ModelManager;
-//import seedu.address.model.ReadOnlyAddressBook;
-//import seedu.address.model.UserPrefs;
-///**import seedu.address.model.person.Person;**/
-//import seedu.address.storage.JsonAddressBookStorage;
-///**import seedu.address.storage.JsonUserPrefsStorage;
-//import seedu.address.storage.StorageManager;
-//import seedu.address.testutil.PersonBuilder;**/
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.testutil.Assert.assertThrows;
 
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.io.TempDir;
-//import seedu.address.model.Model;
-//import seedu.address.model.ModelManager;
-//import seedu.address.storage.JsonAddressBookStorage;
-//import seedu.address.storage.JsonUserPrefsStorage;
-//
-//import java.io.IOException;
+import java.io.IOException;
+import java.nio.file.Path;
+
+import org.junit.jupiter.api.io.TempDir;
+
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.event.ReadOnlyEvents;
+import seedu.address.model.note.ReadOnlyNotesRecord;
+import seedu.address.model.question.ReadOnlyQuestions;
+import seedu.address.model.quiz.ReadOnlyQuizzes;
+import seedu.address.model.student.ReadOnlyStudentRecord;
+import seedu.address.storage.JsonAddressBookStorage;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.StorageManager;
+import seedu.address.storage.event.JsonEventStorage;
+import seedu.address.storage.note.JsonNotesRecordStorage;
+import seedu.address.storage.question.JsonQuestionStorage;
+import seedu.address.storage.quiz.JsonQuizStorage;
+import seedu.address.storage.student.JsonStudentRecordStorage;
+
 
 public class LogicManagerTest {
-//    private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
-//
-//    @TempDir
-//    public Path temporaryFolder;
-//
-//    private Model model = new ModelManager();
-//    private Logic logic;
-//
-//    @BeforeEach
-//    public void setUp() {
-//        JsonAddressBookStorage addressBookStorage =
-//                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
-//        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-//        //StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-//        //logic = new LogicManager(model, storage);
-//    }
+    private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
-//    @Test
-//    public void execute_invalidCommandFormat_throwsParseException() {
-//        String invalidCommand = "uicfhmowqewca";
-//        assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
-//    }
+    @TempDir
+    public Path temporaryFolder;
+
+    private Model model = new ModelManager();
+    private Logic logic;
+
+    @BeforeEach
+    public void setUp() {
+        JsonAddressBookStorage addressBookStorage =
+                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        JsonStudentRecordStorage studentRecordStorage =
+                new JsonStudentRecordStorage(temporaryFolder.resolve("studentRecord.json"));
+        JsonQuizStorage quizStorage = new JsonQuizStorage(temporaryFolder.resolve("quiz.json"));
+        JsonQuestionStorage questionStorage = new JsonQuestionStorage(temporaryFolder.resolve("question.json"));
+        JsonNotesRecordStorage notesRecordStorage =
+                new JsonNotesRecordStorage(temporaryFolder.resolve("notesRecord.json"));
+        JsonEventStorage eventStorage = new JsonEventStorage(temporaryFolder.resolve("events.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, studentRecordStorage,
+                questionStorage, quizStorage, notesRecordStorage, eventStorage);
+        logic = new LogicManager(model, storage);
+    }
+
+    @Test
+    public void execute_invalidCommandFormat_throwsParseException() {
+        String invalidCommand = "uicfhmowqewca";
+        assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
+    }
 //
 //
-//    @Test
-//    public void execute_commandExecutionError_throwsCommandException() {
-//        String deleteCommand = "delete 9";
-//        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-//    }
+    @Test
+    public void execute_commandExecutionError_throwsCommandException() {
+        String deleteCommand = "delete 9";
+        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
 //
 //
 //    /**@Test
@@ -152,30 +143,86 @@ public class LogicManagerTest {
 //        assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
 //    }
 //
-//    /**
-//     * Executes the command and confirms that
-//     * - the {@code expectedException} is thrown <br>
-//     * - the resulting error message is equal to {@code expectedMessage} <br>
-//     * - the internal model manager state is the same as that in {@code expectedModel} <br>
-//     * @see #assertCommandSuccess(String, String, Model)
-//     */
-//    private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-//            String expectedMessage, Model expectedModel) {
-//        assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
-//        assertEquals(expectedModel, model);
-//    }
-//
-//    /**
-//     * A stub class to throw an {@code IOException} when the save method is called.
-//     */
-//    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-//        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
-//            super(filePath);
-//        }
-//
-//        @Override
-//        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-//            throw DUMMY_IO_EXCEPTION;
-//        }
-//    }
+
+    /**
+     * Executes the command and confirms that
+     * - the {@code expectedException} is thrown <br>
+     * - the resulting error message is equal to {@code expectedMessage} <br>
+     * - the internal model manager state is the same as that in {@code expectedModel} <br>
+     */
+    private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
+                                      String expectedMessage, Model expectedModel) {
+        assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
+        assertEquals(expectedModel, model);
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called for the student record.
+     */
+    private static class JsonStudentRecordIoExceptionThrowingStub extends JsonStudentRecordStorage {
+        private JsonStudentRecordIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveStudentRecord(ReadOnlyStudentRecord studentRecord, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called for the quiz storage.
+     */
+    private static class JsonQuizIoExceptionThrowingStub extends JsonQuizStorage {
+        private JsonQuizIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveQuizzes(ReadOnlyQuizzes quizzes, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called for the question storage.
+     */
+    private static class JsonQuestionIoExceptionThrowingStub extends JsonQuestionStorage {
+        private JsonQuestionIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveQuestions(ReadOnlyQuestions questions, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called for the notes storage.
+     */
+    private static class JsonNotesStorageIoExceptionThrowingStub extends JsonNotesRecordStorage {
+        private JsonNotesStorageIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveNotesRecord(ReadOnlyNotesRecord notesRecord, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called for the events storage.
+     */
+    private static class JsonEventsStorageIoExceptionThrowingStub extends JsonEventStorage {
+        private JsonEventsStorageIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveEvents(ReadOnlyEvents events, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
 }
