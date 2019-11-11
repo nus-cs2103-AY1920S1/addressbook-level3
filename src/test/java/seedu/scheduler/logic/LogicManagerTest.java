@@ -7,9 +7,9 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.DEPARTMENT_DESC_AMY
 import static seedu.scheduler.logic.commands.CommandTestUtil.EMAIL_NUS_WORK_DESC_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.scheduler.logic.commands.CommandTestUtil.ROLE_DESC_AMY_INTVR;
 import static seedu.scheduler.logic.commands.CommandTestUtil.SLOT_DESC_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_ROLE_AMY_INTVR;
 import static seedu.scheduler.testutil.Assert.assertThrows;
 import static seedu.scheduler.testutil.TypicalPersons.AMY_INTERVIEWER_MANUAL;
 
@@ -82,7 +82,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + ROLE_DESC_AMY_INTVR + NAME_DESC_AMY + PHONE_DESC_AMY
+        String addCommand = AddCommand.COMMAND_WORD + " " + VALID_ROLE_AMY_INTVR + NAME_DESC_AMY + PHONE_DESC_AMY
                 + TAG_DESC_FRIEND + EMAIL_NUS_WORK_DESC_AMY + DEPARTMENT_DESC_AMY + SLOT_DESC_AMY;
         ModelManager expectedModel = new ModelManager();
         expectedModel.addInterviewer(AMY_INTERVIEWER_MANUAL);

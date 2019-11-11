@@ -1,6 +1,5 @@
 package seedu.scheduler.logic.parser;
 
-import static seedu.scheduler.commons.core.Messages.MESSAGE_CRITICAL_ERROR;
 import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_DEPARTMENT;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_FACULTY;
@@ -8,10 +7,11 @@ import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_NUS_WORK_EMAIL;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_PERSONAL_EMAIL;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_SLOT;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_YEAR_OF_STUDY;
+import static seedu.scheduler.model.person.RoleType.INTERVIEWEE;
+import static seedu.scheduler.model.person.RoleType.INTERVIEWER;
 
 import java.util.List;
 import java.util.Set;
@@ -30,8 +30,6 @@ import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.Interviewer;
 import seedu.scheduler.model.person.Name;
 import seedu.scheduler.model.person.Phone;
-import seedu.scheduler.model.person.Role;
-import seedu.scheduler.model.person.RoleType;
 import seedu.scheduler.model.person.Slot;
 import seedu.scheduler.model.tag.Tag;
 
@@ -46,43 +44,39 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ROLE, PREFIX_NAME, PREFIX_PHONE, PREFIX_TAG,
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_TAG,
                         PREFIX_FACULTY, PREFIX_YEAR_OF_STUDY, PREFIX_DEPARTMENT, PREFIX_SLOT, PREFIX_PERSONAL_EMAIL,
                         PREFIX_NUS_WORK_EMAIL);
 
-        // common prefixes - present across interviewers and interviewees
-        if (!arePrefixesPresent(argMultimap, PREFIX_ROLE, PREFIX_NAME, PREFIX_PHONE)
-                || !argMultimap.getPreamble().isEmpty()) {
+        // parse the fields differently depending on the preamble.
+        if (argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
-        // hierarchical parsing
-        if (role.getRole().equals(RoleType.INTERVIEWEE)) {
-            return parseAddIntervieweeCommand(argMultimap, name, phone, tagList);
-        } else if (role.getRole().equals(RoleType.INTERVIEWER)) {
-            return parseAddInterviewerCommand(argMultimap, name, phone, tagList);
+        if (argMultimap.getPreamble().equals(INTERVIEWEE.toString().toLowerCase())) {
+            return parseAddIntervieweeCommand(args);
+        }
+        if (argMultimap.getPreamble().equals(INTERVIEWER.toString().toLowerCase())) {
+            return parseAddInterviewerCommand(args);
         }
 
-        // control flow should not reach here.
-        throw new AssertionError(MESSAGE_CRITICAL_ERROR);
+        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 
     /**
      * Parses the argument multimap into an AddIntervieweeCommand.
      */
-    private AddIntervieweeCommand parseAddIntervieweeCommand(ArgumentMultimap argMultimap, Name name, Phone phone,
-                                                             Set<Tag> tagSet) throws ParseException {
-        if (!arePrefixesPresent(argMultimap, PREFIX_FACULTY, PREFIX_YEAR_OF_STUDY, PREFIX_FACULTY,
+    private AddIntervieweeCommand parseAddIntervieweeCommand(String args) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_TAG,
+                PREFIX_FACULTY, PREFIX_YEAR_OF_STUDY, PREFIX_DEPARTMENT, PREFIX_SLOT, PREFIX_PERSONAL_EMAIL,
+                PREFIX_NUS_WORK_EMAIL);
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_FACULTY, PREFIX_YEAR_OF_STUDY,
                 PREFIX_DEPARTMENT, PREFIX_SLOT, PREFIX_PERSONAL_EMAIL, PREFIX_NUS_WORK_EMAIL)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         // Get all necessary fields from argMultimap
+        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Faculty faculty = ParserUtil.parseFaculty(argMultimap.getValue(PREFIX_FACULTY).get());
         Integer yearOfStudy = ParserUtil.parseYearOfStudy(argMultimap.getValue(PREFIX_YEAR_OF_STUDY).get());
         List<Slot> availableTimeslots = ParserUtil.parseSlots(argMultimap.getAllValues(PREFIX_SLOT));
@@ -91,6 +85,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Emails emails = new Emails().addPersonalEmail(personalEmail).addNusEmail(nusWorkEmail);
         List<Department> departmentChoices =
                 ParserUtil.parseDepartments(argMultimap.getAllValues(PREFIX_DEPARTMENT));
+        Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         // An interviewee should not be allocated the same timeslots.
         if (CollectionUtil.collectionHasDuplicate(availableTimeslots)) {
@@ -117,15 +112,21 @@ public class AddCommandParser implements Parser<AddCommand> {
     /**
      * Parses the argument multimap into an AddInterviewerCommand.
      */
-    private AddInterviewerCommand parseAddInterviewerCommand(ArgumentMultimap argMultimap, Name name, Phone phone,
-                                                             Set<Tag> tagSet) throws ParseException {
-        if (!arePrefixesPresent(argMultimap, PREFIX_DEPARTMENT, PREFIX_NUS_WORK_EMAIL, PREFIX_SLOT)) {
+    private AddInterviewerCommand parseAddInterviewerCommand(String args)
+            throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_TAG,
+                PREFIX_DEPARTMENT, PREFIX_NUS_WORK_EMAIL, PREFIX_SLOT);
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_DEPARTMENT, PREFIX_NUS_WORK_EMAIL,
+                PREFIX_SLOT)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         // Get all necessary values from argMultimap.
+        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Department department = ParserUtil.parseDepartment(argMultimap.getValue(PREFIX_DEPARTMENT).get());
         Email nusWorkEmail = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_NUS_WORK_EMAIL).get());
         List<Slot> availableTimeslots = ParserUtil.parseSlots(argMultimap.getAllValues(PREFIX_SLOT));
+        Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         // An interviewer should not have the same availabilities.
         if (CollectionUtil.collectionHasDuplicate(availableTimeslots)) {
