@@ -31,7 +31,7 @@ the user and developer guides in relation to these enhancements.
 ** Justification: This feature allows the user to have a quick overview of the state of his manpower with a simple command so that he can be aware of any potential shortage of deliverymen.
 ** Highlights: This enhancement has high development potential in future when the app is further enhanced as the statistics can begin to employ predictive capabilities with regards to demand over the next few weeks.
 
-* *Major feature*: implemented *the management of deliverymen status*
+* *Major feature*: implemented *the management of deliverymen and their status*
 ** What it does: allows the user to easily manipulate the list of deliverymen as well as updating their respective status
 ** Justification: This feature allows for efficient management of deliverymen and convenient navigation of the lists of deliverymen through the status buttons as well as unique colors to denote different status.
 ** Highlights: This enhancement required an in-depth analysis of design alternatives for the deliverymen interface. The implementation for the color change and buttons was challenging as it required an excellent knowledge in JavaFX.
