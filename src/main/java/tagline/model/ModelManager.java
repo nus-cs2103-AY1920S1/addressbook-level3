@@ -393,12 +393,7 @@ public class ModelManager implements Model {
 
     @Override
     public Tag createOrFindTag(Tag tag) {
-        if (tagManager.hasTag(tag)) {
-            return findTag(tag).get();
-        }
-
-        tagManager.addTag(tag);
-        return tag;
+        return tagManager.createOrFindTag(tag);
     }
 
     @Override

@@ -38,6 +38,11 @@ public interface TagModel {
     void deleteTag(Tag tag);
 
     /**
+     * Register the given tag inside TagManager.
+     */
+    Tag createOrFindTag(Tag tag);
+
+    /**
      * Returns an unmodifiable view of the filtered tag list.
      */
     ObservableList<Tag> getFilteredTagList();

@@ -557,12 +557,12 @@ image::GroupSequenceDiagram.png[]
  the members in `Group`.
 // end::groupcontacts[]
 
-=== [Proposed] Tagging feature
+=== Tagging feature
 ==== Description
 
 The user can tag a note with many tags by using <<UserGuide#note-tag, `note tag`>> command.
 
-==== Proposed Implementation
+==== Implementation
 
 In order to add tagging feature we will need to take a look at two processes, which are the tag command creation and the
  execution of the command.
@@ -575,11 +575,12 @@ Given below is an example scenario when a user tag a note with 2 tags.
 
 **Step 1:** The user command will be passed to `TaglineParser`, all the way to the `TagNoteParser`.
 
-image::CreatingTagNoteCommand.png[]
+image::CreatingTagNoteCommand.png[width=600]
 
 **Step 2:** `NoteParserUtil` will be used to create a `noteId` object.
 
-**Step 3:** Finally, `TagParserUtil` will be used to create `tag` objects. All of them will be aggregated inside a `tagList`.
+**Step 3:** Finally, `TagParserUtil` will be used to create `tag` objects. All of them will be aggregated inside a
+`tagList` before being passed to the `TagNoteCommand` Constructor.
 
 This whole process has created a `TagNoteCommand` object from user input.
 
@@ -589,16 +590,17 @@ Now, we will take a look on how we are executing the tagging command.
 
 Given below is an example scenario when the tagging command gets executed.
 
-**Step 1:** The `TagNoteCommand` will first exchange each tag with a tagId through model. Internally, model will have to
-interact with TagManager which will find the tag or create it if it does not exist.
+**Step 1:** The `TagNoteCommand` interact with `NoteManager` through `model` to find the note to be tagged.
 
-image::ExecutingTagNoteCommand.png[]
+image::ExecutingTagNoteCommand.png[width=600]
 
-**Step 2:** The `TagNoteCommand` then interact with `NoteManager` in order to find the corresponding note.
+**Step 2:** The `TagNoteCommand` then exchange each tag with another tag which is registered inside the model.
+Internally, model will have to interact with `TagManager` which will find the registered tag or register one if it does
+not exist inside model.
 
-**Step 3:** Finally, each `tagId` will be added to note through `NoteManager`.
+**Step 3:** Finally, the note will be tagged with the registered tag using model.
 
-This whole process has executed the `TagNoteCommand`.
+This whole process has successfully executed the `TagNoteCommand`.
 
 // tag::note-filter[]
 === Note filtering feature
@@ -1139,3 +1141,74 @@ Expected: No note is created. An error message is returned with the error detail
    *Expected*: Group _ao3_ is deleted and all groups remaining groups (if any) are being displayed, contact of contactID 1 still exists in Addressbook. Status message indicates "Success! now showing all groups.".
 .. *Test case*: `group delete archive of our own` +
    *Expected*: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".
+
+=== Tagging a note
+
+. *Prerequisites*: Enter `note list` command to view all notes. Ensure that note with id `1` exists. Otherwise,
+take any other note or create one and replace all id `1` with the chosen note's id in each of the following test cases.
+
+. Tagging a note with hash tag.
+.. *Prerequisites*: Note with id `1` is not tagged with `#any topic`, `#topic1`, `#topic2`, and `#topic3`.
+.. *Test case*: `note tag 1 --t #any topic` +
+   *Expected*: Note successfully tagged with `#any topic` which should be reflected in the response message and in
+the note view.
+.. *Test case*: Enter `note tag 1 --t #any topic` twice +
+   *Expected*: The first time we enter the command, it should succeed normally as described in the previous test case
+whereas the second time we enter the same command, we would get an error message saying that the tag has been tagged
+to the note.
+.. *Test case*: `note tag 1 --t #topic1 --t #topic2 --t #topic3` +
+   *Expected*: Note successfully tagged with the three hash tag which should be reflected in the response message and in
+the note view.
+.. *Test case*: Enter `note tag 1 --t #topic1 --t #topic2` then enter `note tag 1 --t #topic1 --t #topic3` +
+   *Expected*: The first time we enter the command, it should succeed normally as described in the previous test case
+whereas the second time we enter the next command, we would get an error message saying that there are tags which have
+been tagged to the note. In this case, it is `#topic1`
+.. *Test case*: Enter `note tag 1 --t #0123456789012345678901234567890` +
+   *Expected*: We will get an error message saying that the maximum character for hash tag is 30.
+
+. Tagging a note with contact tag
+
+. Tagging a note with group tag
+
+. Tagging a note with all types of tag
+.. *Prerequisites*: There is a contact with id `1`, otherwise you may choose any other existing contact id. There is a
+group with name `BTS`, otherwise you may create one. Note
+with id `1` is not tagged with `#topic`, `@00001` and `%BTS`.
+.. *Test case*: `note tag 1 --t #topic --t @00001 --t %BTS` +
+   *Expected*: Note successfully tagged with the three hash tag which should be reflected in the response message and in
+the note view.
+
+=== Untagging a note
+
+. *Prerequisites*: Enter `note list` command to view all notes. Ensure that note with id `1` exists. Otherwise,
+take any other note or create one and replace all id `1` with the chosen note's id in each of the following test cases.
+. Untagging a note with hash tag.
+.. *Prerequisites*: Note with id `1` is tagged with `#any topic`, `#topic1`, `#topic2`, and `#topic3`.
+.. *Test case*: `note untag 1 --t #any topic` +
+   *Expected*: Note successfully untagged with `#any topic` which should be reflected in the response message and in
+the note view.
+.. *Test case*: Enter `note untag 1 --t #any topic` twice +
+   *Expected*: The first time we enter the command, it should succeed normally as described in the previous test case
+whereas the second time we enter the same command, we would get an error message saying that the tag is not tagged
+to the note.
+.. *Test case*: `note untag 1 --t #topic1 --t #topic2 --t #topic3` +
+   *Expected*: Note successfully untagged with the three hash tag which should be reflected in the response message
+and in the note view.
+.. *Test case*: Enter `note untag 1 --t #topic1 --t #topic2` then enter `note tag 1 --t #topic1 --t #topic3` +
+   *Expected*: The first time we enter the command, it should succeed normally as described in the previous test case
+whereas the second time we enter the next command, we would get an error message saying that there are tags which are
+not tagged to the note. In this case, it is `#topic1`
+.. *Test case*: Enter `note untag 1 --t #0123456789012345678901234567890` +
+   *Expected*: We will get an error message saying that the maximum character for hash tag is 30.
+
+. Untagging a note with contact tag
+
+. Untagging a note with group tag
+
+. Untagging a note with all types of tag
+.. *Prerequisites*: There is a contact with id `1`, otherwise you may choose any other existing contact id. There is a
+group with name `BTS`, otherwise you may create one. Note
+with id `1` is tagged with `#topic`, `@00001` and `%BTS`.
+.. *Test case*: `note untag 1 --t #topic --t @00001 --t %BTS` +
+   *Expected*: Note successfully untagged with the three hash tag which should be reflected in the response message
+and in the note view.

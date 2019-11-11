@@ -52,6 +52,16 @@ public class TagManager implements TagModel {
         tagBook.removeTag(tag);
     }
 
+    @Override
+    public Tag createOrFindTag(Tag tag) {
+        if (hasTag(tag)) {
+            return findTag(tag).get();
+        }
+
+        addTag(tag);
+        return tag;
+    }
+
     /**
      * Find tag in the tag book.
      * @param tag A tag to be searched.
