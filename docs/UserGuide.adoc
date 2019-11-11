@@ -398,6 +398,7 @@ image::scheduler/deleteperson.png[width=100%]
 
 As you can see, after deleting Freddie, he is removed from our persons tab!
 
+// tag::showperson[]
 ==== Show person: `show`
 
 Want to arrange a private meeting with someone in TimeBook?
@@ -412,31 +413,36 @@ Example:
 
 . Type `show n/Bobby` in the command line as shown below: +
 +
+.Command box
 image::showpersoncommand.png[]
 . Hit the kbd:[Enter] key and you should see details of the person!
 You should see a window similar to the one below.
 +
+.Result after executing the `show` command for Bobby
 image::showpersonresult.png[]
 
+// tag::navigationforshow[]
 *****
 image:./icons/lightbulb.png[] You can use the command `scroll` to help you scroll the schedule view without touching your mouse!
 
-image:./icons/lightbulb.png[] You can use the command `togglenext` see next week's schedule! You may see this person's schedule up to 4 weeks in advance.
-After you've reached the fourth week's schedule, the next `togglenext` command will reset the schedule view back to the first week's schedule.
+image:./icons/lightbulb.png[] You can use the command `togglenext` see the schedule for next week! You may see this schedule up to 4 weeks in advance.
+After you've reached the fourth week's schedule, the next `togglenext` command will start back on the first week's schedule.
 
 image:./icons/important.png[] Unfortunately, TimeBook does not let you see a schedule that has already passed.
-
 *****
-___
+// end::navigationforshow[]
+
+// end::showperson[]
 
 === Schedule Management
 
 // tag::addmod[]
+// tag::addmod-short[]
 ==== Add Module to Schedule: `addmod`
 
 Want to add an NUS module to you or your friend's schedule on TimeBook? You can do so with the `addmod` command! If you already have your timetable on NUSMods, check out <<Add Modules via NUSMods Link: `addmods`,the `addmods` command>>!
 
-Format: `addmod [n/NAME] m/MODULE_CODE cl/CLASS_1_TYPE:CLASS_1_NUMBER,CLASS_2_TYPE:CLASS_2_NUMBER,...`
+Format: `addmod [n/NAME] m/MODULE_CODE cl/CLASS_1_TYPE:CLASS_1_NUMBER,...`
 
 ****
 * Currently supports academic year 2019/2020 and semester 1 only.
@@ -452,6 +458,8 @@ This adds CS2103T lecture G01 to your schedule.
 This adds CS3230 lecture 1 and tutorial 08 to John's schedule.
 * `addmod n/John m/CS2100 cl/LEC:1,TUT:01,LAB:08` +
 This adds CS2100 lecture 1, tutorial 01 and lab 08 to John's schedule.
+
+// end::addmod-short[]
 
 *How do I add an NUS module to my schedule?*
 
@@ -747,64 +755,69 @@ image::scheduler/deletegroup.png[width=100%]
 
 Deleteing a group will automatically update your groups tab!
 
+// tag::showgroup1[]
+
 ==== Show group: `show`
 
-Want to schedule your next group meeting?
-You can view a group's schedule up to 4 weeks in advance. +
+Want to see your group's schedules to plan for your next group meeting? The `show` command is what you need to see
+the schedules of your group members! You can view a group's schedule up to 4 weeks in advance. +
 Format: `show g/GROUP_NAME`
 
 ****
 * Shows the description, members and aggregated schedules for this group.
 ****
+// end::showgroup1[]
 
 [IMPORTANT]
 ====
 include::UserGuide.adoc[tag=alice-full]
 ====
 
+// tag::showgroup2[]
 Examples:
 
-. Type `show g/CS2103` in the command line as shown below +
+. Let's say you want to organise a group meeting for a group named CS2103. Simply enter `show g/CS2103` in the command line as shown below +
 +
+.Command box
 image::showgroupcommand.png[]
 
 . Hit the kbd:[Enter] key and you should see the details of this group in a similar window below.
+
 +
-image::showgroupresult.png[]
+[[showgroupresult]]
 
-*****
-image:./icons/lightbulb.png[] You can use the command `scroll` to help you scroll the schedule view without touching your mouse!
+.Result after executing `show g/CS2103`
+image::showgroupresult.png[sgr,900,600]
 
-image:./icons/lightbulb.png[] You can use the command `togglenext` to help you show next week's schedule!
-After you've reached the fourth week's schedule, the next `togglenext` command will reset the schedule view back to the first week's schedule.
+include::UserGuide.adoc[tag=navigationforshow]
 
-*****
 
 ==== Look at some members: `lookat`
 Suppose that all of your group members are extremely busy and the common free time is too short to do any productive work,
-you may use the `lookat` command to see if you can meet with some of your group members. You must be viewing a group's
+you may use the `lookat` command to see if you can meet with some of your group members. You *must* be viewing a group's
 schedule in order for this command to work.
 
 Format:
 
 * `lookat [n/Name]...`
 
-The `lookat` command takes in any number of `n/Name` and highlights the group members according to name.
+The `lookat` command takes in any number of `n/Name` arguments and highlights the group members according to name.
 
 Example:
 
-Suppose your group schedule looks like the one below.
-//Image1
+Let's use the same schedule exactly like the one shown <<#showgroupresult, above>>.
 
-* Simply type `lookat n/Bobby n/Denise` if you are interested in inspecting both of their schedules!
-You should see that Bobby's and Denise's schedule become highlighted.
-//Image2
+* Type `lookat n/Bobby n/Denise` if you are interested to inspect both Bobby's and Denise's schedules!
+You should see that both of these schedules become highlighted.
+
+.Zoom in of Bobby and Denise's schedule
+image::lookatgroupresult.png[lagr,800,500]
 
 *****
-image:./icons/important.png[] Empty blocks represent the free time slots for the group members that you are looking at.
-The green blocks still represent the common free time slots for the entire group.
+image:./icons/important.png[] *Empty blocks* represent the free time slots for the group members that you are looking at.
+The green blocks still represent the common free time slots for the entire group!
 *****
-
+// end::showgroup2[]
 
 === Advanced Features
 
@@ -827,7 +840,7 @@ Opens up https://nusmods.com/modules/CS2103T on your default browser.
 Opens up https://nusmods.com/modules/CS2101 on your default browser.
 // end::showmod[]
 
-==== Export VR (Visual Representation): `export`
+==== Export: `export`
 
 Want to share a schedule with your friends?
 This command exports a visualisation representation of the schedule (timetable) of a group or person to a PNG file! +
@@ -840,7 +853,7 @@ image:./icons/warning.png[] Take note that if you are exporting a group's schedu
 
 Format:
 
-* `export`
+* Simply enter the `export` command to export the currently shown schedule in TimeBook! +
 
 //tag::select-command[]
 
@@ -1088,11 +1101,11 @@ There is no need to save manually.
 Who is Alice? / How do I store my details and schedule?::
 // tag::alice-full[]
 // tag::alice-brief[]
-When you first start using TimeBook, it will create a hidden person called `Alice` to store your details and schedule. This profile will be a member of every group you create.
+When you first start using TimeBook, it will create a hidden person called `Alice` to store your details and schedule. This profile will be a member of every group you create. Note that you, as a user, are not present in TimeBook's contacts list!
 // end::alice-brief[]
  +
 {nbsp} +
-To personalize TimeBook and make it yours, rename `Alice` by entering the command `edituser n/Your Name Here`. If you'd like to fill in more details, you can do so using the <<edit-user-command,`edituser` command>>.
+To personalize TimeBook and make it yours, rename `Alice` by entering the command `edituser n/Your Name Here`. If you'd like to fill in more details, you can do so using the <<edit-user-command, `edituser`>> command.
 // end::alice-full[]
 +
 {nbsp} +
@@ -1123,7 +1136,6 @@ We understand that you may encounter a weird error message and are unsure of wha
 | Internal Error. Please try again later  | You'll see this error when our remote database cannot handle your requests.
 |===
 
-+
 {nbsp} +
 
 == Command Summary

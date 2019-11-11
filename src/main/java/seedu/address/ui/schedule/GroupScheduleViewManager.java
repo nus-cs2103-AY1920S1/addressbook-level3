@@ -43,8 +43,9 @@ public class GroupScheduleViewManager extends ScheduleViewManager {
         ArrayList<WeekSchedule> weekSchedules = filteredPersonSchedules
                 .stream().map(personSchedule -> personSchedule.getScheduleDisplay().get(weekNumberShown))
                 .collect(Collectors.toCollection(ArrayList::new));
-        super.scheduleView = new ScheduleView(weekSchedules, "Week " + (weekNumberShown + 1) + " "
-                + groupName.toString(), dateToShow);
+        String title = "Week " + (weekNumberShown + 1) + " " + groupName.toString();
+
+        super.scheduleView = new ScheduleView(weekSchedules, title, dateToShow);
         //Required to set the free time schedule first before generating the schedule.
         super.scheduleView.setFreeTime(freeSchedules.get(weekNumberShown));
         super.scheduleView.generateSchedule();
@@ -84,9 +85,9 @@ public class GroupScheduleViewManager extends ScheduleViewManager {
         for (int i = 0; i < originalPersonSchedules.size(); i++) {
             weekSchedules.add(originalPersonSchedules.get(i).getScheduleDisplay().get(weekNumberShown));
         }
+        String title = "Week " + (weekNumberShown + 1) + " " + groupName.toString();
 
-        ScheduleView copy = new ScheduleView(weekSchedules,
-                groupName.toString(), currentDate.plusDays(7 * weekNumberShown));
+        ScheduleView copy = new ScheduleView(weekSchedules, title, currentDate.plusDays(7 * weekNumberShown));
         copy.setFreeTime(freeSchedules.get(weekNumberShown));
         copy.generateSchedule();
         return copy;

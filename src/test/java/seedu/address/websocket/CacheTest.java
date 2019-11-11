@@ -24,8 +24,6 @@ import seedu.address.model.module.ModuleSummaryList;
 
 class CacheTest {
 
-    private String placesJsonPath = "src/test/resources/ApiResponseCache/GoogleMapsApi/PlacesTest.json";
-
     @Test
     void loadHoliday() {
         Holidays holidays = Cache.loadHolidays().get();
