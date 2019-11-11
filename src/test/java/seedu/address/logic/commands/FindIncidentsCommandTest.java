@@ -3,16 +3,16 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INCIDENTS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_INCIDENTS_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_SINGLE_INCIDENT_LISTED;
-import static seedu.address.commons.core.Messages.MESSAGE_INCIDENTS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalIncidents.FIFTH_INCIDENT;
+import static seedu.address.testutil.TypicalIncidents.FIRST_INCIDENT;
+import static seedu.address.testutil.TypicalIncidents.SECOND_INCIDENT;
+import static seedu.address.testutil.TypicalIncidents.SEVENTH_INCIDENT;
+import static seedu.address.testutil.TypicalIncidents.THIRD_INCIDENT;
 import static seedu.address.testutil.TypicalIncidents.getTypicalIncidentManager;
-import static seedu.address.testutil.TypicalIncidents.firstIncident;
-import static seedu.address.testutil.TypicalIncidents.secondIncident;
-import static seedu.address.testutil.TypicalIncidents.thirdIncident;
-import static seedu.address.testutil.TypicalIncidents.fifthIncident;
-import static seedu.address.testutil.TypicalIncidents.seventhIncident;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -110,7 +110,7 @@ public class FindIncidentsCommandTest {
         Command command = new FindIncidentsCommand(Arrays.asList(idKeywordsPredicate));
         expectedModel.updateFilteredIncidentList(idKeywordsPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(secondIncident), model.getFilteredIncidentList());
+        assertEquals(Arrays.asList(SECOND_INCIDENT), model.getFilteredIncidentList());
     }
 
     @Test
@@ -130,7 +130,7 @@ public class FindIncidentsCommandTest {
         Command command = new FindIncidentsCommand(Arrays.asList(nameKeywordsPredicate));
         expectedModel.updateFilteredIncidentList(nameKeywordsPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(fifthIncident), model.getFilteredIncidentList());
+        assertEquals(Arrays.asList(FIFTH_INCIDENT), model.getFilteredIncidentList());
     }
 
     @Test
@@ -140,7 +140,7 @@ public class FindIncidentsCommandTest {
         Command command = new FindIncidentsCommand(Arrays.asList(nameKeywordsPredicate));
         expectedModel.updateFilteredIncidentList(nameKeywordsPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(seventhIncident, thirdIncident), model.getFilteredIncidentList());
+        assertEquals(Arrays.asList(SEVENTH_INCIDENT, THIRD_INCIDENT), model.getFilteredIncidentList());
     }
 
     @Test
@@ -150,7 +150,7 @@ public class FindIncidentsCommandTest {
         Command command = new FindIncidentsCommand(Arrays.asList(nameKeywordsPredicate));
         expectedModel.updateFilteredIncidentList(nameKeywordsPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(seventhIncident, fifthIncident, thirdIncident), model.getFilteredIncidentList());
+        assertEquals(Arrays.asList(SEVENTH_INCIDENT, FIFTH_INCIDENT, THIRD_INCIDENT), model.getFilteredIncidentList());
     }
 
     @Test
@@ -170,7 +170,7 @@ public class FindIncidentsCommandTest {
         Command command = new FindIncidentsCommand(Arrays.asList(descriptionPredicate));
         expectedModel.updateFilteredIncidentList(descriptionPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(thirdIncident), model.getFilteredIncidentList());
+        assertEquals(Arrays.asList(THIRD_INCIDENT), model.getFilteredIncidentList());
     }
 
     @Test
@@ -180,7 +180,7 @@ public class FindIncidentsCommandTest {
         Command command = new FindIncidentsCommand(Arrays.asList(descriptionPredicate));
         expectedModel.updateFilteredIncidentList(descriptionPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(seventhIncident, firstIncident), model.getFilteredIncidentList());
+        assertEquals(Arrays.asList(SEVENTH_INCIDENT, FIRST_INCIDENT), model.getFilteredIncidentList());
     }
 
     @Test
@@ -190,7 +190,7 @@ public class FindIncidentsCommandTest {
         Command command = new FindIncidentsCommand(Arrays.asList(descriptionPredicate));
         expectedModel.updateFilteredIncidentList(descriptionPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(seventhIncident, thirdIncident, firstIncident), model.getFilteredIncidentList());
+        assertEquals(Arrays.asList(SEVENTH_INCIDENT, THIRD_INCIDENT, FIRST_INCIDENT), model.getFilteredIncidentList());
     }
 
     @Test
@@ -214,7 +214,7 @@ public class FindIncidentsCommandTest {
         Command command = new FindIncidentsCommand(Arrays.asList(descriptionPredicate, idKeywordsPredicate));
         expectedModel.updateFilteredIncidentList(combinedPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(seventhIncident), model.getFilteredIncidentList());
+        assertEquals(Arrays.asList(SEVENTH_INCIDENT), model.getFilteredIncidentList());
     }
 
     @Test
@@ -226,7 +226,7 @@ public class FindIncidentsCommandTest {
         Command command = new FindIncidentsCommand(Arrays.asList(descriptionPredicate, nameKeywordsPredicate));
         expectedModel.updateFilteredIncidentList(combinedPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(seventhIncident, thirdIncident), model.getFilteredIncidentList());
+        assertEquals(Arrays.asList(SEVENTH_INCIDENT, THIRD_INCIDENT), model.getFilteredIncidentList());
     }
 
     /**
