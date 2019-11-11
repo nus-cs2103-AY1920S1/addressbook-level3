@@ -108,6 +108,8 @@ Refactored the UI classes as well as the DarkTheme.css file so that it is able t
 |===
 
 Firstly, I designed the heading banners to make the UG more friendly as compared to plain text headings.
+
+.UG banner
 image::icesiolz/UG5.png[]
 
 Secondly, I rearranged the features of the UG into better headings such as Visual Features, Navigation Features, CLI Features etc. This improves readability of the UG.
