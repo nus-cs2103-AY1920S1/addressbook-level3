@@ -42,7 +42,7 @@ public class EditStaffDetailsCommand extends ReversibleCommand {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Staff details: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This staff member has already been registered.";
-    public static final String MESSAGE_DOCTOR_ON_DUTY = "You cannot edit while the doctor is on duty";
+    public static final String MESSAGE_DOCTOR_ON_DUTY = "Cannot edit while the doctor is on duty";
 
     private final Person personToEdit;
     private final Person editedPerson;
