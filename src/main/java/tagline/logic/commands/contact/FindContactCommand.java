@@ -18,7 +18,7 @@ public class FindContactCommand extends ContactCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_KEY + " " + COMMAND_WORD
             + ": Finds all contacts whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+            + "the specified keywords (case-insensitive) and displays them as a list.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_KEY + " " + COMMAND_WORD + " alice bob charlie";
 

@@ -159,13 +159,15 @@ Examples:
 * `contact create --n John --p 81234567 --a 21 Kent Ridge Rd`
 * `contact create --n Dwayne Johnson --p 81234567 --e d.johnson@gmail.com --d Friend from CS2100`
 
+NOTE: Contacts with the same name is allowed only if they have different phone number and email address.
+
 ==== List all contacts: `list`
 
 Lists all contacts in the application.
 
 Format:
 
-`list`
+`contact list`
 
 ==== Display the profile of a person: `show`
 

@@ -25,9 +25,9 @@ public class ShowContactCommand extends ContactCommand {
     public static final String MESSAGE_FAILED = "Failed to find contact with id: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_KEY + " " + COMMAND_WORD
-        + ": Shows a contact profile whose id matches the id given in the query\n"
+        + ": Shows a contact profile whose id matches the id given in the command\n"
         + "Parameters: CONTACT_ID (must be a positive integer)\n"
-        + "Example: " + COMMAND_WORD + " 1";
+        + "Example: " + COMMAND_KEY + " " + COMMAND_WORD + " 1";
 
     private final ContactId contactId;
     private final ContactIdEqualsSearchIdPredicate predicateContact;

@@ -34,8 +34,7 @@ public class EditContactCommand extends ContactCommand {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_KEY + " " + COMMAND_WORD
-            + ": Edits the details of the contact identified "
-            + "by the index number used in the displayed contact list. "
+            + ": Edits the details of the contact identified by its id. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
@@ -43,7 +42,7 @@ public class EditContactCommand extends ContactCommand {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]...\n"
-            + "Example: " + COMMAND_WORD + " 12345 "
+            + "Example: " + COMMAND_KEY + " " + COMMAND_WORD + " 12345 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
