@@ -25,7 +25,7 @@ public abstract class UndoableCommand extends Command {
     private ReadOnlyDataBook<Schedule> previousScheduleBook;
     private ReadOnlyDataBook<Order> previousArchivedOrderBook;
 
-    private String successMessage;
+    private String successMessage = "";
 
     protected abstract CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
                                                             UndoRedoStack undoRedoStack) throws CommandException;

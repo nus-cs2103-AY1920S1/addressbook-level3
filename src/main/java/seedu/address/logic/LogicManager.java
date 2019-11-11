@@ -73,7 +73,8 @@ public class LogicManager implements Logic {
             undoRedoStack.push(command);
 
             if (command instanceof UndoableCommand) {
-                ((UndoableCommand) command).saveSuccessMessage(commandResult.getFeedbackToUser());
+                UndoableCommand undoableCommand = ((UndoableCommand) command);
+                undoableCommand.saveSuccessMessage(commandResult.getFeedbackToUser());
             }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
