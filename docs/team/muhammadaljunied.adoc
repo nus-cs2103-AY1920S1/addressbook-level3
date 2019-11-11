@@ -30,6 +30,29 @@ The fallback in poor/lack of internet conditions is a pre-loaded exchange rate s
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=aljunied&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=muhammadaljunied&tabRepo=AY1920S1-CS2103-T14-4%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=aljunied&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=muhammadaljunied&tabRepo=AY1920S1-CS2103-T14-4%2Fmain%5Bmaster%5D[Test code]]
 
+==== PRs
+* UG & DG edits
+https://github.com/AY1920S1-CS2103-T14-4/main/pull/12[#12],
+https://github.com/AY1920S1-CS2103-T14-4/main/pull/84[#84],
+* Implement Currency to Expense
+https://github.com/AY1920S1-CS2103-T14-4/main/pull/64[#64],
+https://github.com/AY1920S1-CS2103-T14-4/main/pull/77[#77],
+* Bugfixes
+https://github.com/AY1920S1-CS2103-T14-4/main/pull/144[#144],
+https://github.com/AY1920S1-CS2103-T14-4/main/pull/150[#150],
+https://github.com/AY1920S1-CS2103-T14-4/main/pull/156[#156],
+https://github.com/AY1920S1-CS2103-T14-4/main/pull/159[#159],
+https://github.com/AY1920S1-CS2103-T14-4/main/pull/161[#161],
+https://github.com/AY1920S1-CS2103-T14-4/main/pull/163[#163]
+https://github.com/AY1920S1-CS2103-T14-4/main/pull/165[#165]
+* Exchange data http support
+https://github.com/AY1920S1-CS2103-T14-4/main/pull/145[#145]
+* UI Edits
+https://github.com/AY1920S1-CS2103-T14-4/main/pull/147[#147]
+* Refactors for team
+https://github.com/AY1920S1-CS2103-T14-4/main/pull/149[#149]
+* Testcases
+https://github.com/AY1920S1-CS2103-T14-4/main/pull/7156[#156]
 
 == Contributions to the User Guide
 
@@ -40,6 +63,38 @@ Initial format and structure of user guide together with all discussed User Stor
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+[[Design-Model]]
+=== Model component
+
+.Structure of the Model Component
+image::ModelClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+
+The `Model`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores a `BudgetList` object that represents the user's budgets.
+* stores an `ExpenseList` object that represents the user's untagged expenses.
+* stores an `ExchangeData` object that represents the foreign exchange rates for conversion of currencies.
+* exposes an unmodifiable `ObservableList<Expense>` and an unmodifiable `ObservableList<Budget>` that can be 'observed' e.g. the UI can be bound to either list so that the UI automatically updates when the data in the list change.
+
+[[Design-Storage]]
+=== Storage component
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+
+The `Storage` component,
+
+* can save `UserPref` objects in json format and read it back.
+* can save `Budget` objects in json format and read it back.
+* can save `Expense` objects in json format and read it back.
+* can read `Exchange` objects in json format.
+
 
 === Currency Conversion
 ==== Implementation
@@ -67,3 +122,26 @@ The `ExchangeDataSingleton` is updated with the new  `ExchangeData` using the `E
 Conversions are done in `Expense#getConvertedAmount` for conversion back into the base currency (SGD) and `Expense#getConvertedAmount(Currency currency)` for conversions to any other currency. As most transactions in the app that require the conversion of currency involve an expense (including recomputing `amountLeft` of `Budget`), the computation is done in the expense. The following are the instance where the currency is converted:
 
 * Whenever an expense is displayed on the `ExpenseCard` or `CommandResult`, its converted value will be computed and displayed together with its conversion rate and original amount.
+
+The following sequence diagram shows how currency conversion works:
+
+image::CurrencyConversionSequenceDiagram.png[]
+
+
+
+==== Design Consideration
+There were 3 main design choices we had to choose from for the implementation of the Currency Conversion Feature. +
+
+- *Alternative 1:* Do not store currency rates when expenses are added with a selected currency and simply store the currency. +
+    * Pros: Easy to implement, recompute the amount of the expense based on the present day currency exchange rate.
+* Cons: If there was a crash in any currency, the expense amount will no longer be timeless. For instance, if an expense of of 10 MYR was stored today and was converted to 3 SGD (converted at 3.33), then the exchange rate became 2.0 the following day, the budget would reflect the amount left wrongly when it was recomputed the next day.
+
+- *Alternative 2:* Persist all the exchange rates to file every time the app is launched to ensure that the user's expenses are computed based on the exchange rate that was on that specific day. The specific exchange rate used is not stored in the expense itself.
+* Pros: Achieve timeless expense which will provide the most accurate values when computing the budget amount left.
+* Cons: Slightly harder to implement as there are multiple sources for exchange rate data based on dates. This will also bloat the amount of space requirement of the app as time persists.
+
+- *Alternative 3:* Store the specific exchange rate used together with the expense whenever it is added, update the exchange rates daily and only persist the latest rates.
+* Pros: Achieve timeless expense which will provide the most accurate values when computing the budget amount left, without the need to store historical exchange rates. Reduced space used and single source of truth for computing exchange rates.
+* Cons: Expenses added in the past that have their currencies changed will not be able to use the exchange rate of that specific day.
+
+*Alternative 3* was chosen as it was a balance between the cons across all 3 considerations, and the timelessness of an expense carries more weight than the unlikely event that the user would need to alter the currency of a past expense.
