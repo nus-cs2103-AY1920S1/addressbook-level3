@@ -1,0 +1,50 @@
+@startuml
+!include style.puml
+
+Abstract Class Command LOGIC_COLOR_T1
+
+Class FindPasswordCommand LOGIC_COLOR_T1{
+}
+
+Class AddPasswordCommand LOGIC_COLOR_T1{
+}
+
+Class DeletePasswordCommand LOGIC_COLOR_T1{
+}
+
+Class ReadPasswordCommand LOGIC_COLOR_T1{
+}
+
+Class EditPasswordCommand LOGIC_COLOR_T1{
+}
+
+Abstract Class CopyPasswordCommand LOGIC_COLOR_T1{
+}
+
+Class CopyPasswordValueCommand LOGIC_COLOR_T1{
+}
+
+Class CopyUsernameCommand LOGIC_COLOR_T1{
+}
+
+Class CopyWebsiteCommand LOGIC_COLOR_T1{
+}
+
+CopyPasswordCommand -up-|> Command
+CopyPasswordValueCommand -up-|> CopyPasswordCommand
+CopyUsernameCommand -up-|> CopyPasswordCommand
+CopyWebsiteCommand -up-|> CopyPasswordCommand
+
+FindPasswordCommand -up-|> Command
+AddPasswordCommand -up-|> Command
+DeletePasswordCommand -up-|> Command
+ReadPasswordCommand -up-|> Command
+EditPasswordCommand -up-|> Command
+
+
+
+show members
+
+skinparam classFontColor #000000
+skinparam classAttributeIconSize 0
+@enduml

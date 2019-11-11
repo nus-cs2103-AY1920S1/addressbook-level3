@@ -144,6 +144,89 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+
+=== Password Management
+==== Model
+The `Password` model is created to support the password management feature of our application.
+It stores the information of all the passwords created by the user. The class diagram of the `Password` model is as follows:
+
+image::PasswordClassDiagram.png[]
+
+The `Password` model consists of a `Password` class which has its attributes implemented as
+separate classes to follow *Single Responsibility Principle*. The attributes are as follows:
+
+`Username`: The username of the password model
+
+`PasswordValue`: The actual password value of the password model
+
+`PasswordDescription`: The description of the password model.
+
+`Website`: The website where the password is being used for.
+
+`PasswordModifiedAt`: The local date when the password is last modified.
+
+`PasswordExpiredAt`: The local date 1 year after the password is last modified.
+
+`ExpiryMode`: It has 3 modes: `HEALTHY`, `EXPIRING`, `EXPIRED`, depending on how close local time is when compared to the expiry date of the password.
+
+The `Password` are stored in a `UniquePasswordList` in the `PasswordBook` and the existing model manager is extended to
+add the functionality managing passwords into the application. Minimal functionality are added to adhere to the *YAGNI* principle.
+
+==== Design Considerations:
+===== Aspect: Model Manager for Password.
+This would be similar for all other models including `File` model, `Card` model, `Note` model and `Password` model.
+
+* **Alternative 1 (current choice):** The current model manager is extended to handle the filtered lists of all the models.
+** Pros: Adheres to *DRY* design principle as it extends the functionality of the model manager without repeating.
+** Cons: It might increase coupling in the model manager.
+
+* **Alternative 2:** Create another `Model` interface and another `Model Manager` class.
+** Pros: Easy to implement.
+** Cons: Does not adhere to *DRY* design principle, where additional `Model Manager` class are created.
+
+==== Logic
+In this feature, you are able to `add`, `read`, `edit`, `find`, `list`, `delete` and `copy`. Additional `Parser` and `Command`
+classes are included to enhance the functionality. The class diagram for all `Command` classes available for `Password` model is as follows:
+
+image::CopyCommand.png[]
+
+
+===== Aspect: Logic Manager for Password model.
+This would be similar for all other models such as the `File` model, `Card` model, `Note` model and `Password` model.
+
+* **Alternative 1 (current choice):** The current logic manager is extended to handle the model parsers. The logic manager
+checks for the current mode of the system and decides which model parser class to use.
+** Pros: This adheres to the Open-closed principle in SOLID. Same command words can be used in different modes and it does not increase coupling in the application.
+** Cons: Hard to implement. Requires another command to switch modes. Similar command classes will need to be implemented in different model such as `AddPasswordCommand`, `AddNoteCommand`, `AddCardCommand`.
+However, all the fields in the command classes are different and separating them into different classes reduces coupling.
+* **Alternative 2:** Extending one parser class to handle all the different commands. Different command will have different `add` command words.
+
+** Pros: Easy to implement.
+** Cons: User will have to remember different command words for the same `add` command for different modes. This will decrease the usability of the application.
+
+==== Copy Command:
+===== Current Implementation:
+`CopyPasswordValueCommand` class, `CopyWebsiteCommand` class and `CopyUsernameCommand` class extends `CopyPasswordCommand` class.
+
+These three classes are implemented together with `CopyCommandParser` class to create the functionality of copying the required details onto clipboard using CLI.
+Since this is a command that would be used frequently, command alias are added to increase the efficiency for the user.
+The activity diagram below describes the flow of the `CopyPasswordCommand`:
+
+Some diagram.
+
+The following sequence diagram describes the detailed interactions between any `CopyPasswordCommand` and the architecture:
+
+==== Design Considerations:
+===== Aspect: Implementation of `CopyPasswordCommand`
+* **Alternative 1 (current choice):** The `CopyPasswordCommand` class extends `Command` class. `CopyPasswordValueCommand` class, `CopyWebsiteCommand` class and `CopyUsernameCommand` class extend `CopyPasswordCommand`.
+** Pros: This follows closely to *Polymorphism* and *Inheritance* concepts as all three commands share the similar functionality.
+The common functionality is abstracted out and placed inside the `CopyPasswordCommand`.
+** Cons: Any further enhancement of the child commands will have to follow `Liskov Substitution Principle` and it needs to be more restrictive than the parent command.
+
+* **Alternative 2:** `CopyPasswordValueCommand`, `CopyWebsiteCommand` , `CopyUsernameCommand` will extend `Command` class.
+** Pros: Easy to implement. `PasswordBookParser` can directly check for the command word instead of splitting into 2 command words.
+** Cons: Violates *DRY* design principle.
+
 // tag::generate[]
 
 === Generate Password
@@ -171,8 +254,6 @@ The generation of truly random passwords is made possible through the use of the
 It provides a cryptographically strong random number generator (RNG) that will be used in the password generation.
 
 The intricacies will be further reviewed in the **Implementation** section below.
-
-
 
 ==== Implementation
 
@@ -377,116 +458,234 @@ Also, considering the fact that each password is capped at a length of 25, time 
 // end::analyse[]
 
 // tag::dataencryption[]
-=== Data Encryption
+=== General Data Encryption
 
 ==== Initialization and Validation
 
-All data files of SecureIT are encrypted with a master password set by the user. The initialization and validation of the master password is handled by `TestStorage`.
+We encrypt all the data files of SecureIT with a master password set by the user. The initialization and validation of the master password are handled by `*TestStorage*`.
 
-The following sequence diagram shows how the master password is initialized when the user uses the app for the first time, and validated for subsequent uses of the app.
+The following diagram shows how the master password is initialized when the user uses the app for the first time and validated for subsequent uses of the app.
 
-image::InitPasswordSequenceDiagram.png[]
+image::InitPasswordActivityDiagram.png[]
 
-Note that the main components of the app (`Storage`, `Ui`, `Logic`, `Model`) can only be initialised with a correct master password.
+Note that to protect users' data, the main components of the app (`*Storage*`, `*Ui*`, `*Logic*`, `*Model*`) can only be initialised with a correct master password.
 
-The app does not store the master password itself. Instead, during initialization, the app encrypts a magic word using the password and stores it in the storage. For validation, the app tries to decrypt the stored magic word using the password given and compares if the original word is obtained. If the password given is correct, the decrypted magic word should be the same as the original one.
+Also, the app does not store the master password itself. Instead, during initialization, the app encrypts a magic word using the password and stores it in the file system. For validation, the app tries to decrypt the stored magic word using the password given and checks if the original word is obtained. If the password given is correct, the original magic word should be obtained.
 
 ==== Encryption Method
 
-The following sequence diagram explains how the `EncryptionUtil` class encrypts an input byte array (`byte[] input`) using using a password (`String pwd`).
+The following sequence diagram explains how the `*EncryptionUtil*` class encrypts an input byte array using a password.
 
 image::EncryptionUtilSequenceDiagram.png[]
 
-Before the encryption, both a key (`SecretKey key`) and a set of parameter specification (`PBEParameterSpec paramSpec`) are required. The key is generated from the password string and a specified encryption method (`PBEWithMD5AndTripleDES`) via a utility class (`SecretKeyFactory`). On the other hand, the parameter specification is generated with hardcoded parameters (`SALT`, `ITERATION`). Hardcoded parameters ensure that the same password can always be correctly validated at different times.
+The process of encrypting a byte array is outlined as follows:
 
-Finally, a `Cipher` class is constructed with the same encryption method specified above (`PBEWithMD5AndTripleDES`) and initialised with the key and the set of parameter specifications. The `doFinal` method conducts the actual encryption on the input array and returns the encrypted byte array.
+Step 1. A key (`*SecretKey key*`) is generated from the password string (`*pwd*`) and a specified encryption method (`*PBEWithMD5AndTripleDES*`) via a utility class (`*SecretKeyFactory*`).
 
-The decryption process is similar to the encryption process, except that the `ENCRYPT_MODE` is changed to `DECRYPT_MODE`. The same password is necessary to decrypt an encrypted byte array to its original content.
+Step 2. A set of parameter specification (`*PBEParameterSpec paramSpec*`) is generated with hardcoded parameters (`*SALT*`, `*ITERATION*`). Hardcoded parameters ensure that the same password can always be correctly validated at different times.
+
+Step 3. A `*Cipher*` class is constructed with the same encryption method specified above (`*PBEWithMD5AndTripleDES*`) and initialised with the key and the set of parameter specifications.
+
+Step 4. The `*doFinal*` method conducts the actual encryption on the input array and returns the encrypted byte array.
+
+The decryption process is similar to the encryption process, except that the `*ENCRYPT_MODE*` is changed to `*DECRYPT_MODE*`. The same password is necessary to decrypt an encrypted byte array to its original content.
 
 // end::dataencryption[]
 
-=== Notes Feature
-==== Key basic features
-=======
-Within the notes feature, the user will be able to perform operations to `add`, `open`, `delete` and `edit` a note.
+// tag::fileencryption[]
+=== File Management
+SecureIT does not store users' encrypted files directly. Instead, it reads the files' data, carries out the encryption, and replaces the original files with encrypted ones in users' file system. Meanwhile, it also maintains records of files that it encrypts, represented by `*EncryptedFile*` class, in an internal data structure, `*FileBook*`.
 
-The `open` command allows users to open the note in a separate panel to edit and save through the UI of the app.
-The following sequence diagram illustrates how the note is retrieved and editable via the `open` command.
+The following diagram illustrates how the record of an encrypted file is represented internally.
+
+image::FileModelClassDiagram.png[Diagram, 700]
+
+The `*FileBook*`, managed by the app's `*ModelManager*`, keeps a `*UniqueFileList*`. The list encapsulates an internal mechanism to prevent file duplication. Each entry in the list represents a record of an encrypted file.
+
+An `*EncryptedFile*` must have the following attributes:  a `*FileName*`, a `*FilePath*`, and a `*FileStatus*`. While the first two attributes allow the app to locate the file, the file status provides users with an indication of the current state of the file. It defaults to `*ACTIVE*` for newly encrypted/added files.
+
+Two timestamps, `*EncryptedAt*` and `*ModifiedAt*`, provide users with more details about the file. These two attributes may not always be available. For example, encrypted files added with `add` command do not contain this information.
+
+Lastly, while a `*ViewableFile*` contains the file's content for preview. It is a generic class which is extendable to accommodate even more file types in future. The `*FilePreviewPanel*`, which is a `*UI*` component, depends on `*ViewableFile*` to render the preview.
+
+==== Logic
+
+The user can perform the following operations: `encrypt`, `decrypt`, `add`, `remove`, `move`, `rename`, and `preview`. There are two differences between the commands of the file manager and those of the address book. First, some file commands require a password for execution. Second, most file commands involve interaction with the external file system.
+
+The solution to the first difference is a `*FileCommandParser*` class which is similar to the `*Parser*` class, but it packages the password within the commands during parsing. It is illustrated in the class diagram below:
+
+image::FileCommandParserClassDiagram.png[]
+
+To address the second difference, we separate the access to the file system from the parser. For example, during encryption, at the parsing stage, an `*EncryptedFile toAdd*` is created without the knowledge of the actual file. Both the validation and encryption are carried out only at the execution stage. This is illustrated in the following sequence diagram:
+
+image::EncryptSequenceDiagram.png[]
+
+==== Design Considerations
+
+Below is a summary of my considerations and analysis while developing the file manager:
+
+. When to do file validation with the file system
++
+*Alternative 1*: When a command is parsed +
+*Pros*: There is no need to construct `*EncryptedFile*` objects for invalid files. +
+*Cons*: Both the command parsing and execution require interaction with the file system. `*Parser*` violates the single responsibility principle.
++
+*Alternative 2*: When a command is executed +
+*Pros*: Interaction with the file system only occurs during execution. Easier to debug. +
+*Cons*: Need to construct `*EncryptedFile*` when file information is not yet available. Cannot initialise `*ModifiedAt*` in the constructor.
++
+We choose alternative 2 because according to single responsibility principle, `*Parser*` should only convert user input to correct command format, without the knowledge of files.
+
+. How to implement the file preview feature
++
+*Alternative 1*: UI components read file content +
+*Pros*: There is no need to create extra classes in `*Model*`, such as `*ViewableFile*`. +
+*Cons*: UI components have to interact directly with the file system.
++
+*Alternative 2*: Read file content during command execution +
+*Pros*: File system access is limited to command execution time only. +
+*Cons*: Need to pass the file content to the UI components via `*CommandResult*`.
++
+We choose alternative 2 because it is better to keep all access to file system in one place.
+
+// end::fileencryption[]
+
+=== Notes Feature
+==== Open Note
+
+The user is able to open a note in the note book in a separate panel to easily read and edit its contents.
+
+The following sequence diagram illustrates how the note is retrieved and edited through the UI via the `open` command.
 
 image::OpenNoteSequenceDiagram.png[]
 
 Below is the sub-diagram for retrieving the note through the `open` command.
-****
-* Note that the sequence diagram for `add`, `delete` and `edit` commands are similar to the one below, hence are omitted.
-****
 
 image::OpenNoteSequenceDiagramRef.png[]
+
+****
+* Note that the sequence diagram for the `edit` command is similar to the `open` command shown above, hence is omitted.
+****
+
+Given below is an example usage of scenario of the `open` command in notes, where a user intends to open a note to read
+or edit its contents.
+
+*Step 1.* Through the `goto note` command, the user arrives at the notes component of the app. The user then executes the command
+`open 1`.
+
+*Step 2.* The app recognises that it is an `open` command and proceeds to check if the index `1` given is a valid index using
+the `ParserUtil#parseIndex()` method.
+
+*Step 3.* If the index given by the user is valid, the corresponding note will be retrieved. This note is shown to the user in a panel on the right
+within the app.
+
+*Step 4.* The user proceeds to edit the `Title`, `Description` and `Content` field of the note through this panel and saves his
+edits using the save button. This executes the `Logic#EditNoteCommand()` which edits the note in the note book.
+
+*Step 5.* The note book is now updated with the note edited by the user.
+
 
 ==== Undo/Redo
 ===== Implementation
 The undo/redo mechanism is facilitated by the VersionedNoteBook, which extends NoteBook with a undo/redo history.
-This history is stored in two stacks - the undo stack which store the history of NoteBooks before the current state and
-the redo stack which stores the history of NoteBooks after the current state. The key operations that support this mechanisms are:
+This history is stored in two stacks - the undo stack and the redo stack. The undo stack stores the states of NoteBooks
+before the current state and the redo stack which stores the states of NoteBooks after the current state.
+The key operations that support this mechanisms are:
 
-`VersionedNoteBook#commit()` — Saves the current NoteBook state and its corresponding command in its history.
+`VersionedNoteBook#commit()` — Saves the current NoteBook state and its corresponding command in the undo stack.
 
-`VersionedNoteBook#undo()` — Restores the previous note book state from its history and returns its corresponding command
-to inform the user what command is undone.
+`VersionedNoteBook#undo()` — Restores the previous note book state from the undo stack and returns its corresponding command
+to inform the user what command is undone. It also stores the current state of the note book into the redo stack.
 
-`VersionedNoteBook#redo()` — Restores a previously undone note book state from its history and returns its corresponding
-command to inform the user what command is redone.
+`VersionedNoteBook#redo()` — Restores a previously undone note book state from the redo stack and returns its corresponding
+command to inform the user what command is redone. It also stores the current state of the note book into the undo stack.
 
-Below is a comprehensive activity diagram to illustrate how the undo/redo mechanism works.
+Below is a comprehensive activity diagram to illustrate how the undo & redo mechanism works.
 
 image::UndoRedoActivityDiagram.png[]
 
-Undo-able and redo-able commands are commands that modify the modifies the note book. They include: `add`, `delete`,
-`clear`, `edit` and `open`. `open` command is considered undo-able and redo-able because it updates the number of access
-to the note opened.
+Not all commands are undo-able. Undo-able commands are those that modifies the note book which includes: `add`, `delete`,
+`clear`, `edit` and `open`.
 
-On an undo command, the current state of the note book is first stored in the history (NoteBook's redo stack) before being
-reverted to the previous notebook state. The previous notebook state is then removed from its history (NoteBook's undo stack).
+====
+* The `open` command is considered undo-able because it updates the number of access
+to the note that is opened.
+====
 
-Similarly, on a redo command, the current state of the note book is first stored in the history (NoteBook's undo stack) before being
-restored to the next notebook state. The next notebook state is then removed from its history (NoteBook's redo stack).
+Below is an example run through of how the undo command is executed:
 
+. User executes `undo` command which calls the `VersionedNoteBook#undo()`.
+. This method call first checks if the undo stack is empty.
+.. The undo stack will be empty if no undo-able command were called prior
+to calling the `undo` command.
+.. The undo mechanism will only proceed only if the undo stack is not empty,
+else an `InvalidUndoException` will be thrown.
+. The current state of the note book is then checked against the previous state of the note book.
+.. In the event that they are the same, the
+previous note book state is popped from the undo stack and the `undo` command is called recursively (starting from step 2).
+This recursive call is performed until either the current and previous note book state are different or until the undo stack is empty.
+.. In the event that they are different, proceed on to step 4.
 
-When an undoable command is executed, the current state of the `NoteBook` is checked against its previous NoteBook state in
-its history within the commit command. The current state of the `NoteBook` is only saved to its history if it is not equals to
-the previous one. Similarly, the same check is done on `VersionedNoteBook#undo()` command, and only if the current state is not
-equal to the previous one, will the current state be set to the state of its previous `NoteBook`. This is to prevent users from being
-able to perform undo and redo actions when there is no change to be undone or redone.
+. The current state of the note book is first stored in the redo stack.
+. The note book is then reverted to the previous note book state. This same previous note book state is removed from
+the undo stack.
+. Undo command is complete.
+
+====
+* Step 3 is to prevent users from being able to perform `undo` actions when there is no change to be undone.
+====
+
 
 ===== Design Considerations
 
 ====== Aspect: How undo & redo executes
 * Alternative 1 (current choice): Saves the entire note book.
-** Pros: Easy to implement and can check if current state of note book is equals to previous state of note book easily.
+** Pros: Less complex and easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 
 * Alternative 2: Individual command knows how to undo/redo by itself.
 ** Pros: Makes use of lesser memory.
-** Cons: More complex to implement and more prone to bugs because each individual command must be correct to work correctly.
+** Cons: More complex to implement and more prone to bugs as each individual command must be correct to work correctly.
 
-The reason why we chose alternative 1 is to introduce less bugs by adopting a less complex implementation which works
-well with our undo & redo mechanism.
+*The reason why we chose alternative 1:*
+By adopting a simpler implementation, we aim to introduce less bugs into system. Furthermore, this implementation better
+supports future extensions as undoable commands can be added much easier.
 
 ===== Aspect: Data structure to support the undo/redo commands
 * Alternative 1 (current choice): Use two stacks to store the history of note book states - one for undo, one for redo.
 ** Pros: Very easy to implement.
 ** Cons: Using two data structures may incur additional overhead in terms of memory.
 
-* Alternative 2: Use a single linked list to store the history of note book states that supports both undo and redo.
+* Alternative 2: Use a single linked list to store the history of note book states which supports both undo and redo.
 ** Pros: May incur less overhead in terms of memory usage as only one data structure is used.
 ** Cons: More complex to implement.
 
-The reason why we chose alternative 1 is because it is less complex to implement and the code is much cleaner for better
-readability which helps in future extensions.
+*The reason why we chose alternative 1:*
+It is less complex to implement and the code is much cleaner for better readability which also helps in future extensions.
 
 ==== Sort Note feature
 
+Sorting of notes is handled by the MultipleSortByCond class, which allows the notes in the NoteBook to be sorted in
+three different ways - by date modified, date added or number of access.
 
-=======
+Below is a
+class diagram to illustrate how the NoteBook class and MultipleSortByCond class interact with one another.
+
+image::SortNoteClassDiagram.png[]
+
+Sorting the note book rearranges the notes according to the sort conditions provided.
+
+More than one of the conditions can be used to sort the notes in the note book at one time, with the first condition
+having the greatest precedence.
+
+Example: `sort by/NumOfAccess DateAdded`
+
+* NumOfAccess and DateAdded are the sort conditions, with NumOfAccess having greater precedence over DateAdded.
+
+This is handled by the `MultipleSortByCond#buildComparator()`, which takes in the sort conditions specified by the user and returns a `MultipleCondNoteComparator` object that is used to sort the list of notes
+in NoteBook.
+
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

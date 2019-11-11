@@ -127,11 +127,11 @@ image::tip.png[width = "20", float = "left"]
 * You can toggle the eye icon to see your password. Be wary of surveillance by secret agents or people standing behind you
 ====
 
-This reminder will be shown 30 days before your password expires.
+You will see this reminder 30 days before your password expires.
 
 image::PasswordExpiring.png[width="300"]
 
-This reminder will be shown if you have *not* changed your password for over a year.
+You will see this reminder if you have *not* changed your password for over a year.
 
 image::PasswordExpired.png[width="300"]
 
@@ -431,15 +431,15 @@ Example: `delete 1`
 
 === File
 
-SecureIT has a file manager which helps you keep secret files that you do not wish others to see. Using your master password, SecureIT convert your files into encrypted code which other apps cannot understand.
+SecureIT has a file manager which helps you keep confidential files that you do not wish others to see. Using your master password, SecureIT converts your files into an encrypted format which cannot be read by other applications.
 
 To access the file manager, simply enter `goto file` in the command box.
 
 ==== Encrypting a file : `encrypt`
 
-Encrypts a local file as specified by its file path. The file's content is converted into encrypted code which other apps cannot understand. Encrypted files have the prefix `[LOCKED]` in their file names.
+You can encrypt a local file using its file path. You may also tag the file at the same time for easy reference later on.
 
-As you encrypt the file, you may tag the file at the same time for easy reference later on.
+Encrypted files have the prefix `[LOCKED]` in their file names.
 
 Format: `encrypt FILEPATH [t/TAG]...`
 
@@ -472,7 +472,7 @@ image::warning.png[width = "20", float = "left"]
 
 ==== Decrypting a file : `decrypt`
 
-Decrypts a local file as specified by the displayed index number.
+You can decrypt a local file using its displayed index number.
 
 Format: `decrypt INDEX`
 
@@ -490,9 +490,7 @@ image::tip.png[width = "20", float = "left"]
 
 ==== Adding an encrypted file : `add`
 
-Adds an encrypted file as specified by its file path. The file must be encrypted by SecureIT previously.
-
-As you add the file, you may tag the file at the same time for easy reference later on.
+You can add an encrypted file using its file path. You may tag the file at the same time for easy reference later on. The file must be encrypted by SecureIT previously.
 
 Format: `add FILENAME [t/TAG]...`
 
@@ -512,7 +510,7 @@ image::tip.png[width = "20", float = "left"]
 
 ==== Removing a file : `remove`
 
-Removes an encrypted file record as specified by the displayed index number.
+You can remove an encrypted file record using its displayed index number.
 
 Please note that only the file record within SecureIT is removed. The actual file is not deleted from the file system.
 
@@ -531,7 +529,7 @@ image::warning.png[width = "20", float = "left"]
 
 ==== Renaming an encrypted file : `rename`
 
-Renames an encrypted file as specified by its index number. The prefix `[LOCKED]` is retained.
+You can rename an encrypted file using its index number. The prefix `[LOCKED]` is retained.
 
 Format: `rename INDEX TARGET_FILENAME`
 
@@ -548,7 +546,7 @@ image::tip.png[width = "20", float = "left"]
 
 ==== Moving an encrypted file : `move`
 
-Moves an encrypted file as specified by its index number. The target directory must be a real directory (not a shortcut, alias, symbolic link, etc.)
+You can move an encrypted file using its index number. The target directory must be a real directory (not a shortcut, alias, symbolic link, etc.)
 
 Format: `move INDEX TARGET_DIRECTORY`
 
@@ -569,7 +567,7 @@ image::tip.png[width = "20", float = "left"]
 
 ==== Finding encrypted files : `find`
 
-Finds matching encrypted files as specified by the search keywords.
+You can find matching encrypted files using the search keywords.
 
 To return from search results, use `list` command.
 
@@ -588,28 +586,42 @@ image::tip.png[width = "20", float = "left"]
 
 ==== Listing all files : `list`
 
-Lists all encrypted files managed by SecureIT.
+You can list all encrypted files managed by SecureIT.
 
 Format: `list`
 
-==== Viewing an encrypted file : `preview` [coming soon]
+==== Viewing an encrypted file : `preview`
 
-Previews an encrypted file as specified by its index number. You can only preview `.txt`, `.jpg` and `.png` files.
+You can preview an encrypted file using its index number. You can only preview `.txt`, `.jpg`, `.png`, `.pdf`, and `.docx` files.
 
 Format: `preview INDEX`
 
 Example: `preview 1`
 
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* The app may freeze for some time if the file to be previewed is large. Please do not force exit the app.
+* The file preview is for your reference only. Due to various standards on file formats, the preview can be different from the actual file. For example, your annotations on PDF files may not be correctly displayed, and the text format of Word files may not be retained in the preview.
+====
+
 ===  Note
+Want to have a secure place to write down some of your confidential information? SecureIT's notes feature is here to help!
+
 Accessing note directory : `goto note`
 
 ==== Creating a note : `add`
 
-Adds a note to the app.
+Simply `add` a note into SecureIT using our `add` command!
 
 Format: `add ti/TITLE d/DESCRIPTION t/TAG [c/CONTENT] `
 
-Example: `add ti/Diary d/documentation of 2020 t/Personal c/day1 documentation`
+Example: `add ti/Work Schedule t/Work d/daily work schedule c/go to event X tomorrow at 8am `
+
+image::AddNoteCommand2.png[width="500"]
 
 ====
 --
@@ -622,40 +634,13 @@ image::warning.png[width = "20", float = "left"]
 * Content field with c/ prefix is optional.
 ====
 
-==== Accessing a note : `open`
-
-Opens the note corresponding to the index in the app.
-
-Format: `open INDEX`
-
-Example: `open 1`
-
-====
---
-image::tip.png[width = "20", float = "left"]
---
-*Tip*
-
-* Opens a new panel on the right that allows you to read and edit easily.
-* Click on save button after editing to save changes made to the content of the note.
-====
-
-==== Deleting a note: `delete`
-
-Deletes a note as specified by the user.
-
-Format: `delete INDEX`
-
-Example: `delete 1`
-
 ==== Editing a note: `edit`
 
-Edits a note specified by the user.
+Want to update or make changes to any parts of your note? Make use of our `edit` command!
 
-Format: `edit INDEX [ti/TITLE] [d/DESCRIPTION] [t/TAG c/CONTENT]`
+Format: `edit INDEX [ti/TITLE] [d/DESCRIPTION] [t/TAG]... [c/CONTENT]`
 
-Example: `edit 1 ti/NewTitle d/NewDescription t/NewTag c/NewContent`
-Example: `edit 1 ti/NewTitle`
+Example: `edit 1 ti/April Daily Work Schedule`
 
 
 ====
@@ -668,13 +653,48 @@ image::warning.png[width = "20", float = "left"]
 * You are not allowed to edit notes to have the same title.
 ====
 
+==== Accessing a note : `open`
+
+Too much hassle to type out everything in the `edit` command to make a small change to your note? Want to read
+your note and edit your note easily? The `open` command is designed for you!
+
+Format: `open INDEX`
+
+Example: `open 1`
+
+Opens a new panel on the right that allows you to read and edit easily.
+
+image::OpenNote2.png[width="500"]
+
+Click on save button after editing to save changes made to the content of the note.
+
+image::OpenNote3.png[width="500"]
+
+image::OpenNote4.png[width="500"]
+
+
+
+==== Deleting a note: `delete`
+
+The note is no longer relevant? You can `Delete` it!
+
+Format: `delete INDEX`
+
+Example: `delete 1`
+
+image::DeleteNote2.png[width="500"]
+
+
 ==== Finding a note: `find`
 
 Finds a note as specified by the user.
 
 Format: `find TEXT`
 
-Example:`find Personal_diary`
+Example:`find diet`
+
+image::FindNote2.png[width="500"]
+
 ====
 --
 image::tip.png[width = "20", float = "left"]
@@ -687,19 +707,31 @@ image::tip.png[width = "20", float = "left"]
 
 ==== Sorting notes: `sort`
 
-Sorts notes in ways specified by the user.
+Want to be able to access your notes more easily? `Sort` them up using three different conditions to view notes most relevant to
+you at the top of the list!
+
+Available sorting conditions include:
+
+. NumOfAccess
+. DateAdded
+. DateModified
 
 Format: `sort by/SORTBYCONDITION1 SORTBYCONDITION2`
 
-Example: `sort by/DateModified`
+Example: `sort by/NumOfAccess DateModified`
+
+image::SortNote2.png[width="500"]
+
 ====
 --
 image::tip.png[width = "20", float = "left"]
 --
 *Tip*
 
-* You can sort by multiple conditions separated by a whitespace.
-* The leftmost condition takes the greatest precedence in sorting.
+* You can sort by one or more conditions separated by a whitespace.
+* The first condition takes the greatest precedence in sorting.
+EG: NumOfAccess condition in above example has greater precedence
+over DateModified condition.
 ====
 ====
 --
@@ -712,14 +744,30 @@ image::warning.png[width = "20", float = "left"]
 * SORTBYCONDITION is not case-sensitive.
 ====
 
+=== Clearing all entries : `clear`
+
+Want to delete all the notes in your note book but too much trouble to perform `delete` for every one of them?
+Make use of our `clear` command!
+
+You can clear all entries from your note book one single command.
+
+Format: `clear`
+
+image:: Clear1.png
+
 ==== Undo notes action: `undo`
 
-Undo last action on notes.
+Made a mistake in the notes feature? Worry not for you can `undo` your mistake!
+
+Using our `undo` feature will also inform you of exactly what action is being undone!
 
 Format: `undo`
 
 Example: `undo`
 
+Undoing a `clear` command:
+
+image::Undo2.png[width="500"]
 ====
 --
 image::tip.png[width = "20", float = "left"]
@@ -732,11 +780,16 @@ image::tip.png[width = "20", float = "left"]
 
 ==== Redo notes action: `redo`
 
-Redo last undone action on notes.
+Regret making that undo action? Once again, worry not for you can `redo` your action!
+
+Using our `redo` feature will also inform you of exactly what action is being redone!
 
 Format: `redo`
 
 Example: `redo`
+Redoing a `clear` command:
+
+image::Redo1.png[width="500"]
 
 ====
 --
@@ -747,11 +800,6 @@ image::tip.png[width = "20", float = "left"]
 * You can redo as many commands as you wish until there are no more commands that can be redone.
 * If you perform a new undo-able command, all existing redo-able commands will be cleared.
 ====
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the current book user is on. +
-Format: `clear`
 
 === Exiting the program : `exit`
 

@@ -19,7 +19,7 @@ public class CopyUsernameCommand extends CopyPasswordCommand {
     public static final String COMMAND_WORD = "username";
     public static final String COMMAND_WORD1 = "u";
 
-    public static final String MESSAGE_SUCCESS = "Copied username";
+    public static final String MESSAGE_SUCCESS = "Copied username to clipboard!";
 
     private final Index targetIndex;
 
