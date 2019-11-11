@@ -17,7 +17,7 @@
 
 <!--onCloseRequest="#handleExit"-->
 
-<fx:root minHeight="720.0" minWidth="1000.0" resizable="false" title="treasurerPro (tP)" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="680.0" minWidth="1000.0" resizable="false" title="treasurerPro (tP)" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/Leo_32.png" />
   </icons>

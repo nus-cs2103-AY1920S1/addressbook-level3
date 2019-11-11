@@ -212,6 +212,11 @@ As for the complete additions, please refer to
 https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#reimbursements-tab[reimbursement tab section]
 in the developer guide.
 
+The following is an overview class diagram for reimbursement tab:
+
+.Overview class diagram of reimbursements tab (reimbursement package)
+image::Reimbursement/ReimbursementTabClassDiagram.png[width="700"]
+
 === Deadline command feature
 
 This command is used to add a deadline date to a reimbursement for a person.

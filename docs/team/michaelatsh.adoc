@@ -1,6 +1,6 @@
 = Tang Shi Hui, Michaela – Project Portfolio for treasurerPro (tP)
 :site-section: ProjectPortfolio
-:toc:
+//:toc:
 :toc-title:
 :sectnums:
 :imagesDir: ../images
@@ -90,6 +90,9 @@ This section showcases some of my contributions to the User Guide.
 [[AddCommandInventory]]
 ==== 5.4.1. Add an Item:
 This command allows you to add an item to the table and saves it into the system.
+
+[NOTE]
+Description and category can be empty, but their field prefixes (d/ and c/) must be present.
 
 * Command:
 `add d/DESCRIPTION c/CATEGORY q/QUANTITY co/COST_PER_UNIT [p/PRICE]`

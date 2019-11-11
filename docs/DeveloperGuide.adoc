@@ -23,10 +23,12 @@ By: `CS2103T-T13-3`      Since: `September 2019`      Licence: `MIT`
 Refer to the guide <<SettingUp#, here>>.
 
 == Design
+
 This section will illustrate and detail the overall design of the software for treasurerPro.
 
 [[Design-Architecture]]
 === Architecture
+
 This section illustrates the overall architecture of the software for treasurerPro.
 
 .Architecture Diagram
@@ -43,8 +45,8 @@ treasurerPro is divided primarily into 6 packages which contain implementation f
 . Cashier package: Cashier tab
 . Overview package: Overview tab
 
-Each package uses either TXT or JSON based storage. Within the package, they share a similar structure,
-consisting of the following components:
+Each package uses either TXT or JSON based storage.
+Within the package, they share a similar structure, consisting of the following components:
 
 . <<Design-Ui,*`UI`*>>: The UI of the package.
 . <<Design-Logic,*`Logic`*>>: Executes commands sent to that package.
@@ -79,14 +81,13 @@ The following class plays an important role at the architecture level:
 ==== How the architecture components interact with each other
 
 Commands in treasurerPro are tab-specific.
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues
-the command `delete 1` in the Transactions tab.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1` in the Transactions tab.
 
 .Component interactions for `delete 1` command within the Home tab.
 image::ArchitectureSequenceDiagram.png[]
 
-A command inputted by the user is received by `MainWindow`, and forwarded to the respective `Logic` according to the
-tab the user is currently on. Further details of the interactions between `Logic`, `Model` and `Storage` are given below.
+A command inputted by the user is received by `MainWindow`, and forwarded to the respective `Logic` according to the tab the user is currently on.
+Further details of the interactions between `Logic`, `Model` and `Storage` are given below.
 
 [[Design-Ui]]
 === UI component
@@ -113,6 +114,7 @@ The `UI` component:
 
 [[Design-Logic]]
 === Logic component
+
 This section will show the structures of the `Logic` component of the different tabs.
 The diagram below shows a generalised view of the `Logic` component within the packages.
 
@@ -138,6 +140,7 @@ Further details on the implementation of the `Parser` and `Command` can be found
 
 [[RTLogic]]
 ==== Details on `Logic` Implementation for the Home and Reimbursements Tab
+
 This section will show further details of the `Logic` component of the Home tab and Reimbursements tab.
 
 Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component which is a reference for <<fig-LogicClassDiagram>>:
@@ -146,8 +149,7 @@ Given below is a Class Diagram showing the structure of `Parser` within the `Log
 image::LogicForR&T.png[]
 
 [NOTE]
-The `XYZTabParser` represents the `TransactionTabParser` for Home Tab and `ReimbursementTabParser` for the Reimbursements
-tab.
+The `XYZTabParser` represents the `TransactionTabParser` for Home Tab and `ReimbursementTabParser` for the Reimbursements tab.
 
 The parsers represented by the `ABCParser` and `DEFParser` are:
 
@@ -174,12 +176,10 @@ The parsers represented by the `ABCParser` and `DEFParser` are:
 ** `ExitCommandParser`
 ** `SortCommandParser`
 
-In addition, the `Logic` object
-for Home and Reimbursements Tab contains the `GetPersonByNameOnlyModel` since `Logic` only uses
-the `ModelManager#getPersonByName` method
-in the person package.
+In addition, the `Logic` object for Home and Reimbursements Tab contains the `GetPersonByNameOnlyModel` since `Logic` only uses the `ModelManager#getPersonByName` method in the person package.
 
 ==== Details on `Logic` Implementation for Members Tab
+
 [[PLogic]]
 This section will show further details of the `Logic` Component of the Members Tab.
 This is integrated from the existing `AddressBook`.
@@ -190,6 +190,7 @@ image::LogicForAB.png[]
 
 [[ICLogic]]
 ==== Details on `Logic` Implementation for the Inventory and Cashier Tab
+
 This section will show further details of the `Logic` Component of the Inventory tab and Cashier tab.
 Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component:
 
@@ -217,8 +218,8 @@ The parsers represented by the `ABCParser` are:
 ** `CheckoutCommandParser`
 ** `ClearCommandParser`
 
-
 ==== Details on `Logic` Implementation for the Members Tab
+
 [[PLogic]]
 This section will show further details of the `Logic` Component of the Members tab.
 This is integrated from the existing `AddressBook`.
@@ -228,6 +229,7 @@ Given below is a Class Diagram showing the structure of `Parser` within the `Log
 image::LogicForAB.png[]
 
 ==== Details on `Logic` Implementation for the Overview Tab
+
 [[OverviewLogic]]
 This section will show further details of the `Logic` Component of the Overview tab.
 Given below is a Class Diagram showing the structure of `Parser` within the `Logic` Component:
@@ -242,6 +244,7 @@ The parsers represented by the `ABCParser` are:
 
 [[Design-Model]]
 === Model component
+
 This section will show the structures of the `Model` Component of the different tabs.
 The diagram below shows a generalised view of the `Model` component within the packages.
 
@@ -251,9 +254,8 @@ image::ModelCD.png[]
 [NOTE]
 `XYZObjects` are only present in the `transaction`, `reimbursement`, `person`, `cashier` and `inventory` packages.
 
-
-
 ==== Details on the `Model` Implementation for the Home Tab
+
 The `Model` of the Home tab:
 
 * stores a `TransactionList` object that represents the list of all transactions data
@@ -263,6 +265,7 @@ The `Model` of the Home tab:
 *API for transaction package* : link:{repoURL}/src/main/java/seedu/address/transaction/model/Model.java[`Model.java`]
 
 ==== Details on the `Model` Implementation for the Reimbursements Tab
+
 The `Model` of the Reimbursment tab:
 
 * stores a `ReimbursementList` object that represents the list of all reimbursements data
@@ -271,6 +274,7 @@ The `Model` of the Reimbursment tab:
 *API for reimbursements package* : link:{repoURL}/src/main/java/seedu/address/reimbursement/model/Model.java[`Model.java`]
 
 ==== Details on the `Model` Implementation for the Members Tab
+
 The `Model` of the Members tab:
 
 * stores a `UserPref` object that represents the user's preferences for `person` package.
@@ -281,12 +285,13 @@ The `Model` of the Members tab:
 *API for person package* : link:{repoURL}/src/main/java/seedu/address/person/model/Model.java[`Model.java`]
 
 ==== Details on the `Model` Implementation for the Inventory Tab
+
 To be filled in :)
 
 *API for inventory package* : link:{repoURL}/src/main/java/seedu/address/inventory/model/Model.java[`Model.java`]
 
-
 ==== Details on the `Model` Implementation for the Cashier Tab
+
 The `Model` of the Cashier tab:
 
 * stores an `InventoryList` object that represents the list of all items in the inventory
@@ -294,20 +299,18 @@ The `Model` of the Cashier tab:
 * accesses the `TransactionList` object from transaction package that represents the list of all transactions data
 
 [NOTE]
-This `Inventory List` is different from the one in the `Model` of inventory package. This is so that the `Inventory List` in
-the `Model` of cashier package cannot add or delete any items in the inventory. This means that `Inventory List` in cashier
-package access different set of methods which modifies only the quantity of the item.
+This `Inventory List` is different from the one in the `Model` of inventory package.
+This is so that the `Inventory List` in the `Model` of cashier package cannot add or delete any items in the inventory.
+This means that `Inventory List` in cashier package access different set of methods which modifies only the quantity of the item.
 
 *API for cashier package* : link:{repoURL}/src/main/java/seedu/address/cashier/model/Model.java[`Model.java`]
 
-
 ==== Details on the `Model` Implementation for the Overview Tab
+
 The `Model` of the Overview tab:
 
-* stores an array of 6 double values representing the budget goal, expense goal, sales goal, budget threshold, expense
-threshold and sales threshold respectively
-* stores three booleans indicating whether notifications for budget, expenses and sales have already been shown, valid
-for the current session only
+* stores an array of 6 double values representing the budget goal, expense goal, sales goal, budget threshold, expense threshold and sales threshold respectively
+* stores three booleans indicating whether notifications for budget, expenses and sales have already been shown, valid for the current session only
 * exposes getter and setter method to read and write the goals and thresholds
 * does not depend on any of the other components
 
@@ -315,47 +318,53 @@ for the current session only
 
 [[Design-Storage]]
 === Storage component
+
 This section will show the structures of the `Storage` component of the different tabs.
 The diagram below shows a generalised view of the `Storage` component within the person package.
 
 .Structure of the Storage Component for Members tab in person package
 image::ABStorageCD.png[]
 
-The following diagram shows a generalised view of the `Storage` component within the other packages for transaction,
-reimbursement, inventory, cashier and overview.
+The following diagram shows a generalised view of the `Storage` component within the other packages for transaction, reimbursement, inventory, cashier and overview.
 
 .Structure of the Storage Component for Home, Reimbursements, Inventory, Cashier and Overview tabs
 image::StorageCD.png[]
 
 ==== Details on the `Storage` Implementation for the Home Tab
+
 * can save a `TransactionList` object in text format and read it back
 
 *API for transaction package* : link:{repoURL}/src/main/java/seedu/address/transaction/storage/Storage.java[`Storage.java`]
 
 ==== Details on the `Storage` Implementation for the Reimbursements Tab
+
 * can save a `ReimbursementList` object in text format
 * can take in a `TransactionList` object and read text file to get a `ReimbursementList` object
 
 *API for reimbursements package* : link:{repoURL}/src/main/java/seedu/address/reimbursement/storage/Storage.java[`Storage.java`]
 
 ==== Details on the `Storage` Implementation for the Members Tab
+
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back
 
 *API for person package* : link:{repoURL}/src/main/java/seedu/address/person/storage/Storage.java[`Storage.java`]
 
 ==== Details on the `Storage` Implementation for the Inventory Tab
+
 To be filled in :)
 
 *API for inventory package* : link:{repoURL}/src/main/java/seedu/address/inventory/storage/Storage.java[`Storage.java`]
 
 ==== Details on the `Storage` Implementation for the Cashier Tab
+
 * accesses the `TransactionList` from transaction package via `Logic` to append new transactions to the list
 * accesses the `InventoryList` from inventory package via `Logic` to update the current stock left
 
 *API for cashier package* : link:{repoURL}/src/main/java/seedu/address/cashier/storage/Storage.java[`Storage.java`]
 
 ==== Details on the `Storage` Implementation for the Overview Tab
+
 * can save Overview tab goals and threshold in txt format and read it back
 
 *API for overview package* : link:{repoURL}/src/main/java/seedu/address/overview/storage/Storage.java[`Storage.java`]
@@ -367,58 +376,57 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 [[Implementation]]
 == Implementation
+
 This section describes some noteworthy details on how certain features are implemented and works.
-There are a total of 6 tabs in our application for each feature: Home Tab, Members Tab, Reimbursement Tab,
-Inventory Tab, Cashier Tab, Overview Tab.
+
+There are a total of 6 tabs in our application for each feature: Home tab, Members tab, Reimbursement tab,
+Inventory tab, Cashier tab, Overview tab.
 
 === Home Tab
-This tab will help to show records of individual transactions from miscellaneous spending, revenue from sales and
-cost of buying items to sell. Each transaction will require an input of its date, description, category, amount
-and member that is accountable for it.
 
-Revenue from each cashier checkout will also be automatically inputted as
-a transaction with *positive* amount in this tab with the person being the cashier. The inputted transactions that corresponds to
-a spending with a *negative* amount will be tabulated for each member in the reimbursement tab to keep track of reimbursements.
+This tab will help to show records of individual transactions from miscellaneous spending, revenue from sales and cost of buying items to sell.
+Each transaction will require an input of its date, description, category, amount and member that is accountable for it.
+
+Revenue from each cashier checkout will also be automatically inputted as a transaction with *positive* amount in this tab with the person being the cashier.
+The inputted transactions that corresponds to a spending with a *negative* amount will be tabulated for each member in the reimbursement tab to keep track of reimbursements.
 
 ==== Add Command Feature
-This section explains the implementation of the Add command feature in the Home tab.
-This feature adds transaction to the table and data file. All fields in the transactions are compulsory
-to be inputted by the user: date, description, category, amount, person full name. The person's name inputted
-has to match a name already existing in the `AddressBook` which is shown in the Members tab.
 
-Thus, this feature requires access to the `CheckAndGetPersonByNameOnlyModel#getPersonByName` inside the
-person package which contains the `AddressBook` implementation to check for the validity of the name entered when inside `AddCommandParser` which
-creates the `Transaction` object. The following Sequence Diagram shows how the `Transaction` object is created from `AddCommandParser` which is represented in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>
+This section explains the implementation of the Add command feature in the Home tab.
+This feature adds transaction to the table and data file.
+All fields in the transactions are compulsory to be inputted by the user: date, description, category, amount, person full name.
+The person's name inputted has to match a name already existing in the `AddressBook` which is shown in the Members tab.
+
+Thus, this feature requires access to the `CheckAndGetPersonByNameOnlyModel#getPersonByName` inside the person package which contains the `AddressBook` implementation to check for the validity of the name entered when inside `AddCommandParser` which creates the `Transaction` object.
+The following Sequence Diagram shows how the `Transaction` object is created from `AddCommandParser` which is represented in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>
 as a generic parser:
 
 .Sequence Diagram of the Parser for the ddd command
 image::HomeAddCommandParser.png[]
 
 This is the definition of the methods shown above:
+
 [[getPersonByName]]
 * `AddCommandParser#parse(args, pd)`: It parses the given user input (args) and creates an `AddCommand` object.
 * `CheckAndGetPersonByNameOnlyModel#getPersonByName()`: It returns the `Person` object in `AddressBook` that matches the given name.
 
-The `AddCommand` is created and the newly created `Transaction` object is passed into its
-constructor. The following Sequence Diagram is the reference from <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+The `AddCommand` is created and the newly created `Transaction` object is passed into its constructor.
+The following Sequence Diagram is the reference from <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
 .Sequence Diagram of the Add command in the Home tab (transaction package)
-
 image::HomeAddCommandSD.png[]
 
 This is the definition of the methods shown above:
+
 [[resetPredicate]]
 * `Model#resetPredicate()`: It resets the `Predicate` object in `ModelManager` to evaluate all `Transaction` objects to true.
 * `Model#addTransaction(transaction): It adds the given `Transaction` object to its `TransactionList` objects attributes.
 
-Thus, when the `Model#resetPredicate()` method is called in the `AddCommand`, the UI table will immediately shows the full
-transaction list regardless of the list shown at the start of the <<activityDiagramAdd, Activity Diagram>>. If the prior command was a find command,
-then the list in the beginning of the Activity Diagram would be a filtered list but after the Add command is executed,
-the full list of transactions would be shown.
+Thus, when the `Model#resetPredicate()` method is called in the `AddCommand`, the UI table will immediately shows the full transaction list regardless of the list shown at the start of the <<activityDiagramAdd, Activity Diagram>>.
+If the prior command was a find command, then the list in the beginning of the Activity Diagram would be a filtered list but after the Add command is executed, the full list of transactions would be shown.
 
-After the command is executed, the `LogicManager` updates the in-app list of transactions via the `ModelManager` and updates
-the data file via the `StorageManager`. The following Sequence Diagram shows how the updating of the list of transactions in the app and
-in the data file:
+After the command is executed, the `LogicManager` updates the in-app list of transactions via the `ModelManager` and updates the data file via the `StorageManager`.
+The following Sequence Diagram shows how the updating of the list of transactions in the app and in the data file:
 
 [[updateTL]]
 .Sequence Diagram of updating the transaction list in the Home tab (transaction package)
@@ -427,47 +435,38 @@ image::HomeAddCommandMMSM.png[]
 [NOTE]
 This update of the list of transactions is done for every command that is executed successfully in the Home tab.
 
-Finally, the `StorageManager` and `ModelManager` inside the Reimbursement package will be updated with the latest `TransactionList` object
-to generate an updated list of reimbursements for the user to view in the Reimbursements tab. The following Sequence Diagram shows how
-the Reimbursements tab is updated from the `MainWindow`:
+Finally, the `StorageManager` and `ModelManager` inside the Reimbursement package will be updated with the latest `TransactionList` object to generate an updated list of reimbursements for the user to view in the Reimbursements tab.
+The following Sequence Diagram shows how the Reimbursements tab is updated from the `MainWindow`:
 
 [[update-reimbursement]]
 .Sequence Diagram of updating the reimbursement list in the Reimbursements tab (transaction package)
 image::TUpdateRinMainWindow.png[]
 
 [NOTE]
-This update of the Reimbursements tab is done for every command after the list of transactions is updated (shown in <<updateTL, 3.1.1. Add Command Feature: Figure 15>>)
-when there is a command executed successfully in the Home tab.
+This update of the Reimbursements tab is done for every command after the list of transactions is updated (shown in <<updateTL, 3.1.1. Add Command Feature: Figure 15>>) when there is a command executed successfully in the Home tab.
 
 [[activityDiagramAdd]]
-To better illustrate the flow of events from the moment a user inputs a command till the completion of the command,
-the Activity Diagram for the Add command is shown below:
+To better illustrate the flow of events from the moment a user inputs a command till the completion of the command, the Activity Diagram for the Add command is shown below:
 
 .Activity Diagram of the add command in the Home tab (transaction package)
-
 image::HomeTabActivityDiagramAddCommand.png[]
 
-As shown, when a user does not input all the compulsory fields or input a name that does not match anyone in
-the `AddressBook`, a response to inform the user of the incorrect input is shown and when a successful addition is
-done, a response message is shown as well by our mascot, Leo.
+As shown, when a user does not input all the compulsory fields or input a name that does not match anyone in the `AddressBook`, a response to inform the user of the incorrect input is shown and when a successful addition is done, a response message is shown as well by our mascot, Leo.
 
-Since the Reimbursements tab tabulates the amount to be reimbursed to a person, if the inputted amount is a negative
-amount to indicate a spending that needs to be reimbursed, the Reimbursements tab will update and show this record.
+Since the Reimbursements tab tabulates the amount to be reimbursed to a person, if the inputted amount is a negative amount to indicate a spending that needs to be reimbursed, the Reimbursements tab will update and show this record.
 
 [[DeleteCommandHome]]
 ==== Delete Command Feature
+
 This section explains the implementation of the Delete command in the Home tab.
-This feature allows for 2 types of deletion, by
-the index shown in the table or by the person's name. Inputting the person's name will cause all transactions linked to
-that person to be deleted.The following Activity Diagram shows the steps needed to delete a new transaction:
+This feature allows for 2 types of deletion, by the index shown in the table or by the person's name.
+Inputting the person's name will cause all transactions linked to that person to be deleted.The following Activity Diagram shows the steps needed to delete a new transaction:
 
 .Activity Diagram of the delete command in the Home tab (transaction package)
-
 image::HomeTabActivityDiagramDeleteCommand.png[]
 
-The above Activity Diagram assumes the index to be within the bounds of the table but if it is not, a response will
-be shown about the incorrect input. Also, as shown above, responses will be shown to indicate if an input is incorrect or
-when a successful deletion is done.
+The above Activity Diagram assumes the index to be within the bounds of the table but if it is not, a response will be shown about the incorrect input.
+Also, as shown above, responses will be shown to indicate if an input is incorrect or when a successful deletion is done.
 
 For the implementation, the `DeleteCommandParser` which is represented in <<GeneralLogicSD, 2.3. Logic component: Figure 5>> as a generic parser creates either a `DeleteIndexCommand` or `DeleteNameCommand` object according to the user input.
 The following Sequence Diagram shows how the `DeleteNameCommand` is created with the definition of `CheckAndGetPersonByNameOnlyModel#getPersonByName` defined in
@@ -479,55 +478,52 @@ image::DeleteCommandParser.png[]
 The following Sequence Diagram shows how the command to delete transactions according to the specified name works after it is created which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
 .Sequence Diagram of the Delete command being executed in the Home tab (transaction package)
-
 image::HomeDeleteNameCommand.png[]
 
-In addition, the `Model#resetPredicate()` method defined in <<resetPredicate, 3.1.1. Add Command Feature>> is not called in the `DeleteNameCommand`. If the prior input is a
-Find command and the list at the start of the Activity Diagram shows
-a filtered list, the table in the UI will continue to show the filtered list after the current Delete Command.
-To view the full transaction list, the user would be required to enter the
-back command where `BackCommand` calls `Model#resetPredicate()`. The Sequence Diagram for the `BackCommand` is shown in the
-following section <<BackCommandSD, 3.1.3. Back Command Feature>>
+In addition, the `Model#resetPredicate()` method defined in <<resetPredicate, 3.1.1. Add Command Feature>> is not called in the `DeleteNameCommand`.
+If the prior input is a Find command and the list at the start of the Activity Diagram shows a filtered list, the table in the UI will continue to show the filtered list after the current Delete Command.
+To view the full transaction list, the user would be required to enter the back command where `BackCommand` calls `Model#resetPredicate()`.
+The Sequence Diagram for the `BackCommand` is shown in the following section <<BackCommandSD, 3.1.3. Back Command Feature>>
 
 After this, the list of transactions and the Reimbursement tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 16>>
 and <<update-reimbursement, 3.1.1. Add Command feature: Figure 17>>
 respectively.
 
 The implementation of the command to delete transactions according to the specified index would be similar but does not require interaction with the `CheckAndGetPersonByNameOnlyModel` from the
-`AddressBook` in the person package inside its branch in `DeleteCommandParser`. In `DeleteIndexCommand`, it also calls the
-`Model#findTransactionInFilteredListByIndex(index)` and `Model#deleteTransaction(index)` instead which deletes the `Transaction` object according
-to its position in the filtered transaction list.
+`AddressBook` in the person package inside its branch in `DeleteCommandParser`.
+In `DeleteIndexCommand`, it also calls the
+`Model#findTransactionInFilteredListByIndex(index)` and `Model#deleteTransaction(index)` instead which deletes the `Transaction` object according to its position in the filtered transaction list.
 
 ==== Back Command Feature
+
 [[BackCommandSD]]
 This section explains the implementation of the Back command feature in the Home tab.
-The `BackCommand` is called to show the full list of transactions when the table is showing
-a filtered list. It is not initialised by a specific command parser as shown in as shown in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>
+The `BackCommand` is called to show the full list of transactions when the table is showing a filtered list.
+It is not initialised by a specific command parser as shown in as shown in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>
 but initialised by the `TransactionTabParser` instead.
 The following detailed Sequence Diagram shows how the Back command works:
 
 .Sequence Diagram of the Back command being executed in the Home tab (transaction package)
-
 image::HomeTabBackCommandSequenceDiagram.png[]
 
 ==== Sort Command Feature
+
 This section explains the implementation of the Sort Command feature in the Home tab.
-The `SortCommand` allows for 3 types of sort, by name in
-alphabetical order, by amount (from least to most) and by date (from oldest to most recent).
+The `SortCommand` allows for 3 types of sort, by name in alphabetical order, by amount (from least to most) and by date (from oldest to most recent).
 
 The following Sequence Diagram shows how the Sort command works which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
 .Sequence Diagram of the Sort command being executed in the Home tab (transaction package)
-
 image::HomeTabSortSD.png[]
 
-When a user inputs the Sort command, it is only checked that it is one of the 3 types or it will show a response about
-the incorrect user input. When it is successfully sorted, there will also be a response message shown.
+When a user inputs the Sort command, it is only checked that it is one of the 3 types or it will show a response about the incorrect user input.
+When it is successfully sorted, there will also be a response message shown.
 
-Similar to the Delete command in <<DeleteCommandHome, 3.1.2. Delete Command Feature>>, the `Model#resetPredicate()` method is not called. If the UI table is showing a filtered
-list of transactions, the back command has to be entered to call that method from `BackCommand` to reset the predicate.
+Similar to the Delete command in <<DeleteCommandHome, 3.1.2. Delete Command Feature>>, the `Model#resetPredicate()` method is not called.
+If the UI table is showing a filtered list of transactions, the back command has to be entered to call that method from `BackCommand` to reset the predicate.
 
 ==== Overall Design Considerations
+
 This section's table explains the design considerations for some implementations in the Home tab.
 
 |===
@@ -561,143 +557,178 @@ image::homeDG/2lists.png[width = "400"]
 image::homeDG/facadeForDesignConsiderations.png[width = "400"]
 
 === Members Tab
+
 This tab will help to keep track of the contact details of members in the club or society for the treasurer.
 
 ==== Delete Command Feature
-This feature allows for deletion by
-the index shown in the the Members tab. This tab integrates the existing `AddressBook`.
+
+This feature allows for deletion by the index shown in the the Members tab.
+This tab integrates the existing `AddressBook`.
 The following Sequence Diagram shows how the Delete command works:
 
 .Sequence Diagram of the delete command in the Member tab (transaction package)
-
 image::MembersDeleteSD.png[]
 
-Before, the deletion is done, there will be a check to the `TransactionModel` to ensure that the member is not linked
-to any transaction records since every transaction must be linked to a `Person` in the `Members Tab` (`AddressBook`).
+Before, the deletion is done, there will be a check to the `TransactionModel` to ensure that the member is not linked to any transaction records since every transaction must be linked to a `Person` in the `Members Tab` (`AddressBook`).
 
 === Reimbursements Tab
-This tab helps to show reimbursements
-that the user has not paid to a person.
+
+This tab helps to show reimbursements that the user has not paid to a person.
 Each reimbursement is auto extracted from transactions and grouped by person in transactions.
 So, each reimbursement shows the total amount that the user needs to reimburse a person.
 And there can not be two reimbursements that refer to the same person.
 
-The user can add deadline to a reimbursement, mark a reimbursement,
-find a reimbursement and sort reimbursements.
+The user can add deadline to a reimbursement, mark a reimbursement, find a reimbursement and sort reimbursements.
+
+The following is an overview class diagram for reimbursement tab:
+
+.Overview class diagram of reimbursements tab (reimbursement package)
+image::Reimbursement/ReimbursementTabClassDiagram.png[]
 
 ==== Deadline Command feature
+
 This command is used to add a deadline date to a reimbursement for a person.
-Deadline command requires access to the `Model` of the
-person package which the `AddressBook` implementation is contained in.
-Deadline field should be provided in a valid date format. The
-person's name inputted has to match a person's name already existing in the `Reimbursement` which is shown in the Reimbursement
-tab.
+Deadline command requires access to the `Model` of the person package which the `AddressBook` implementation is contained in.
+Deadline field should be provided in a valid date format.
+The person's name inputted has to match a person's name already existing in the `Reimbursement` which is shown in the Reimbursement tab.
 
 The following Sequence Diagram shows the execution of Deadline command:
 
-.Sequence Diagram of Deadline Command in the Reimbursements Tab (reimbursement package)
+.Sequence Diagram of Deadline Command in the Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementDeadlineCommandSD.png[]
 
-As shown, a user needs to add a deadline to a reimbursement by specifying
-the person's name and providing a date.
+As shown, a user needs to add a deadline to a reimbursement by specifying the person's name and providing a date.
 The `DeadlineCommandParser` creates a `DeadlineCommand` with person and deadline date information.
 This `DeadlineCommand` is returned back to `LogicManager` of reimbursement and is executed by calling `addDeadline` method in
-`ModelManager`. After the operations, `LogicManager` gets updated reimbursement list from `ModelManager` and displays the deadline in reimbursement list.
+`ModelManager`.
+After the operations, `LogicManager` gets updated reimbursement list from `ModelManager` and displays the deadline in reimbursement list.
 After that, the deadline is saved into a `.txt` file.
 
-.Activity Diagram of Deadline command in the Reimbursements Tab (reimbursement package)
+.Activity Diagram of Deadline command in the Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementTabActivityDiagramDeadlineCommand.png[]
 
-As shown by the above activity diagram, when a user inputs a person who does not exist in any
-reimbursement or keys in an invalid data format, our app displays the expected format of the deadline command.
-Otherwise, when the execution is successful,
-a response informs the user that deadline is successfully added to the reimbursement.
+As shown by the above activity diagram, when a user inputs a person who does not exist in any reimbursement or keys in an invalid data format, our app displays the expected format of the deadline command.
+Otherwise, when the execution is successful, a response informs the user that deadline is successfully added to the reimbursement.
 
 ==== Find Command feature
+
 This command is used to find a reimbursement that contains the person's name.
-The find command requires access to `Model` of the
-person package which the `AddressBook` implementation is contained in.
+The find command requires access to `Model` of the person package which the `AddressBook` implementation is contained in.
 Person field should be provided and the person's name should exist in reimbursement list.
 
-.Sequence Diagram of Find Command in Reimbursements Tab (reimbursement package)
+.Sequence Diagram of Find Command in Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementFindCommandSD.png[]
 
 A user needs to find a reimbursement by providing the person's name.
 As shown in the above figure, `FindCommand` is executed by calling `findReimbursement` method in
-`ModelManager`. After the operations, that reimbursement is returned
-and reimbursement tab only shows a `filteredList` which contains this single reimbursement.
+`ModelManager`.
+After the operations, that reimbursement is returned and reimbursement tab only shows a `filteredList` which contains this single reimbursement.
 
 [[ReimbursementTabActivityDiagramFindCommand]]
-.Activity Diagram of Find Command in Reimbursements Tab (reimbursement package)
+.Activity Diagram of Find Command in Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementTabActivityDiagramFindCommand.png[]
 
 The above activity diagram shows the steps needed for find command.
 The person's name is checked whether it exists in reimbursement list.
-If not, our app informs the user that command is incorrect. If command is valid, the reimbursement
-is found and displayed in the tab.
+If not, our app informs the user that command is incorrect.
+If command is valid, the reimbursement is found and displayed in the tab.
 
 ==== Back Command feature
+
 This command is used to return to the original list after executing find command
 
-.Sequence Diagram of Back Command in Reimbursements Tab (reimbursement package)
+.Sequence Diagram of Back Command in Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementBackCommandSD.png[]
 
 `BackCommand` execution updates `filteredList` inside `ModelManager` to the original full `reimbursementList`.
 After the operations, the original full reimbursement list is displayed.
 
 ==== Done Command feature
+
 This command is used to mark a reimbursement that has been done.
-Done command requires access to `Model` of the
-person package which the `AddressBook` implementation is contained in.
+Done command requires access to `Model` of the person package which the `AddressBook` implementation is contained in.
 Person field should be provided and the person's name should exist in reimbursement list.
 
 [[ReimbursementDoneCommandSD]]
-.Sequence Diagram of Done Command in Reimbursements Tab (reimbursement package)
+.Sequence Diagram of Done Command in Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementDoneCommandSD.png[]
 
 A user needs to mark a reimbursement as done by specifying the person's name for the specific reimbursement.
 The `DeadlineCommandParser` creates a `DoneCommand` with person's information.
 As shown in the above figure, `DoneCommand` is returned back to `LogicManager`
 and it is executed by calling `doneReimbursement` method in
-`ModelManager`. After the operations, that reimbursement is deleted from reimbursement list
-and the status of transactions that consist of this reimbursement is updated to `True`.
+`ModelManager`.
+After the operations, that reimbursement is deleted from reimbursement list and the status of transactions that consist of this reimbursement is updated to `True`.
 Then the updated reimbursement list is displayed and this new list without that deleted reimbursement is saved.
 
-The following figure shows how transactions' status is updated. Firstly, the reimbursement
-which contains the person's name updates status of all transactions that made up of the reimbursement.
+The following figure shows how transactions' status is updated.
+Firstly, the reimbursement which contains the person's name updates status of all transactions that made up of the reimbursement.
 Then `LogicManager` gets the updated transaction list and passes this list to `StorageManager`
 of transaction tab to save it.
 
 [[ReimbursementUpdateTransactionsSD]]
-.Sequence Diagram of updating transactions in Reimbursements Tab (reimbursement package)
+.Sequence Diagram of updating transactions in Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementUpdateTransactionsSD.png[]
 
 <<ReimbursementTabActivityDiagramDoneCommand, The following activity diagram>> shows the steps needed for done command.
 The person's name is checked whether it exists in reimbursement list.
-If not, our app informs the user that command is incorrect. If command is valid, the reimbursement
-containing the provided person's name is deleted from reimbursement list and will not be displayed.
+If not, our app informs the user that command is incorrect.
+If command is valid, the reimbursement containing the provided person's name is deleted from reimbursement list and will not be displayed.
 
 [[ReimbursementTabActivityDiagramDoneCommand]]
-.Activity Diagram of Done Command in Reimbursements Tab (reimbursement package)
+.Activity Diagram of Done Command in Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementTabActivityDiagramDoneCommand.png[]
 
 ==== Sort Command feature
+
 This command is used to sort reimbursements and the user can choose to sort based on name, amount or deadline.
 
-.Sequence Diagram of Sort Command in Reimbursements Tab (reimbursement package)
+.Sequence Diagram of Sort Command in Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementSortCommandSD.png[]
 
 As shown in the above figure, `SortXYZCommand` is executed by calling `sortListByXYZ` method in
-`ModelManager`. And reimbursement list is sorted using `SortByXYZ` comparator.
+`ModelManager`.
+And reimbursement list is sorted using `SortByXYZ` comparator.
 For `SortAmountCommand`, the list will be sorted in descending order of absolute value of amount.
 For `SortNameCommand`, the list will be sorted in descending alphabetical order of person's name.
 For `SortDeadlineCommand`, the list will be sorted in the order that nearest deadlines are at the front.
 
+==== Overall design considerations
+
+This section's table explains the design considerations for some implementations in the reimbursement tab.
+
+.Table of design considerations and comparisons
+|===
+|Aspect|Alternative 1 |Alternative 2 |Conclusion and Explanation
+
+|How [blue]`done` command in reimbursement tab updates transactions model and storage.
+|The `reimbursementLogic` keeps a `transactionModel` and a `transactionStorage` to update transactions.
+|`MainWindow` calls methods from `reimbursementLogic` and `transactionLogic` when a command is executed.
+|Alternative 2 is chosen.
+`transactionLogic` follows Façade pattern to prevent exposing the internal details of the transaction tab.
+So, instead of directly manipulating model and storage of transactions from `reimbursementLogic`,
+the operations are done through `transactionLogic` as shown in the <<facade, code snippet>> below the table.
+
+|How reimbursement records are saved and read from `.txt` files
+|The reimbursement tab saves all the information of transactions that make up a reimbursement into `reimbursementInformation.txt`.
+|The reimbursement tab only saves person's name, amount and the deadline information into `reimbursementInformation.txt`.
+When launching the application, reimbursement tab reads the transactions information from `transactionHistory.txt`.
+|Alternative 2 is chosen.
+Alternative 2 does not save duplicate information that has already been saved into `transactionHistory.txt`.
+So, alternative 2 is more efficient.
+|===
+
+[[facade]]
+.Code snippet of `transactionLogic` facade class in `MainWindow`
+image::Reimbursement/codeSnippetTransactionLogic.png[]
+
+
 === Inventory Tab
 
 This tab will help to keep records of all items currently in the club’s possession.
-Each item will require an input of its description, category, quantity, and cost per unit. Optionally, if the item is
-meant for sale, the price can be inputted as well.
+
+Each item will require an input of its description, category, quantity, and cost per unit.
+Optionally, if the item is meant for sale, the price can be inputted as well.
 
 ==== Add Item Feature
 This section explains the implementation of the add command feature of the Inventory Tab,
@@ -713,6 +744,9 @@ The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Log
 
 .Sequence Diagram of the Add Command in the Inventory Tab (inventory package)
 image::inventoryDG/AddCommandSeqDiagram.png[]
+
+//.Class Diagram of Inventory tab (inventory package)
+//image::InventoryTabClassDiagram.png[]
 
 If the description of the `Item` being added matches that of an existing `Item`, the new `Item`’s quantity is added to
 that of the existing `Item` and the cost per unit is recalculated. This is handled within the `AddCommandParser`,
@@ -790,27 +824,27 @@ This section explains the design considerations for some crucial implementations
 |===
 
 === Cashier Tab
+
 This tab will act as a shopping cart to add and record sales items that are to be sold from the inventory.
 
-Upon every successful checkout, all the sales items sold will recorded as one transaction, which will subsequently be
-appended to the list of transactions on the Home tab. In addition, the stock remaining in the inventory will be updated
-accordingly in the Inventory tab.
+Upon every successful checkout, all the sales items sold will recorded as one transaction, which will subsequently be appended to the list of transactions on the Home tab.
+In addition, the stock remaining in the inventory will be updated accordingly in the Inventory tab.
 
 ==== Add Sales Item Feature
+
 This feature allows the adding of sales items to the cart.
 
-Only sales items can be added to the cart. If the price of an item is zero, it is not available for sale. The
-system will prohibit any addition of such an item to the cart.
+Only sales items can be added to the cart.
+If the price of an item is zero, it is not available for sale.
+The system will prohibit any addition of such an item to the cart.
 
-Adding of a sales item to the cart will require an input of its description and quantity. An optional field for
-category is provided to guide the cashier to find the desired item. If only the category field is inputted,
+Adding of a sales item to the cart will require an input of its description and quantity.
+An optional field for category is provided to guide the cashier to find the desired item.
+If only the category field is inputted,
 `Model` will search all the sales items in the `Inventory List`
 according to the specified category and suggestions would be shown by Leo, the assistant.
 
-If the description inputted does not match any valid item, the `Model` will call the `getRecommendedItems(description)` method,
-which will in turn call `getCombination(arr, arr.length)` method to return an ArrayList containing all subsets of
-the inputted description that are of at least length 3. These subsets are then compared
-with the actual description of all items in the inventory to check if either contains the other.
+If the description inputted does not match any valid item, the `Model` will call the `getRecommendedItems(description)` method, which will in turn call `getCombination(arr, arr.length)` method to return an ArrayList containing all subsets of the inputted description that are of at least length 3. These subsets are then compared with the actual description of all items in the inventory to check if either contains the other.
 
 The following is a code snippet from `getCombination(char[] arr, int n)` method:
 
@@ -833,66 +867,57 @@ The following is a code snippet from `getCombination(char[] arr, int n)` method:
                         .toCollection(ArrayList::new));
     }
 
+.Code snippet of `getCombination(char[] arr, int n)` method from Cashier package
+
 The `getCombination(arr, arr.length)` method in the above snippet consists of 3 nested loops. The first loop decides the
 starting character. The second loop takes each of the characters on the right of the starting character as the ending character.
 The last loop appends all the characters from the starting character to the ending character. After iterating through the nested loops,
 the ArrayList `result` is passed into a stream to filter out all subsets of length less than 3.
 
 `AddCommandParser` will carry out multiple checks to check the validity of the inputs. `hasItemInInventory(description)`
-and `hasSufficientQuantityToAdd(description, quantity)` methods will be called to ensure the item has sufficient stock
-left in the inventory. +
+and `hasSufficientQuantityToAdd(description, quantity)` methods will be called to ensure the item has sufficient stock left in the inventory. +
 There will also be checks to ensure that the item specified is available for sale.
 
 If description and quantity are both valid, the `ModelManager` will add the item into the sales list as shown in Figure 2.
 
-[NOTE]
-If the user added an item such that the total amount exceed $999999.99, the system will prohibit the addition of that item.
-
 The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the `AddCommand` works:
 
-.Sequence Diagram of Add Command in Cashier Tab (cashier package)
 
+.Sequence Diagram of Add Command in Cashier tab (cashier package)
 image::AddCommandCashierSeq.png[]
 
-
 [NOTE]
-After every add command, the quantity of items in the Inventory Tab will still remain the same. The remaining stock
+After every add command, the quantity of items in the Inventory tab will still remain the same. The remaining stock
 will only be updated after the Checkout Command.
 
+
 [NOTE]
-Once the item is added, boolean `onCashierMode` in ModelManager  will be immediately set to true if
-it is initially false.
+Once the item is added, boolean `onCashierMode` in ModelManager will be immediately set to true if it is initially false.
 
 The following activity diagram shows the steps proceeding after the user input an add command:
 
 .Activity Diagram of Add Command (cashier package)
-
 image::AddCommandCashierActivity.png[]
 
-
 ==== Setting the Cashier Feature
-This feature allows an existing person in the `Address Book` to be set as a cashier. The only field required is
-the name of an existing person.
+
+This feature allows an existing person in the `Address Book` to be set as a cashier.
+The only field required is the name of an existing person.
 
 To set a cashier, the person's name inputted has to match an existing name in the `AddressBook` as shown on Members tab.
 This means that SetCommandParser requires access to the `Model` of the Person package where the `AddressBook` implementation is. +
-If the person's name cannot be found in the `Model` of the Person package, a response message will be shown by Leo,
-informing the user that there is no such person.
+If the person's name cannot be found in the `Model` of the Person package, a response message will be shown by Leo, informing the user that there is no such person.
 
-The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows
-how the SetCashierCommandParser checks for an existing person:
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the SetCashierCommandParser checks for an existing person:
 
 .Sequence Diagram of SetCashierCommandParser (cashier package)
-
 image::SetCashierCommandSeq1.png[]
 
 If the specified name is valid, the `Model` of the cashier package will set the person as cashier.
 
-The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>,
-shows how the set cashier command works:
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the set cashier command works:
 
 .Sequence Diagram of Set Cashier Command (cashier package)
-
 image::SetCashierCommandSeq2.png[]
 
 If the inputted name is invalid, the user will be prompted to enter a valid name.
@@ -900,44 +925,38 @@ If the inputted name is invalid, the user will be prompted to enter a valid name
 The following activity diagram shows the steps after the user input a set cashier command:
 
 .Activity Diagram of Set Cashier Command (cashier package)
-
 image::SetCashierCommandActivity.png[]
 
 ==== Checkout Feature
+
 This feature records all the sales items in the table as one sales transaction under the `Sales` category.
 
-The Home tab will be updated with the new transaction labelled as `Items sold`. The remaining stock of the sales items
-will also be updated on the Inventory tab.
+The Home tab will be updated with the new transaction labelled as `Items sold`.
+The remaining stock of the sales items will also be updated on the Inventory tab.
 
-During the execution of the command, `getCashier()` method will be called which will return a person. This person will
-be used to create a `Transaction` object. If the cashier is null, the command cannot proceed and Leo will
-prompt the user to set a cashier. +
-If the amount inputted is valid and cashier has been set, the `ModelManager` will create a new
-transaction of the sales made.
-
-[NOTE]
-After the execution of the above methods, a clear command will then be called to clear all the sales items on the tab.
+During the execution of the command, `getCashier()` method will be called which will return a person.
+This person will be used to create a `Transaction` object.
+If the cashier is null, the command cannot proceed and Leo will prompt the user to set a cashier. +
+If the amount inputted is valid and cashier has been set, the `ModelManager` will create a new transaction of the sales made.
 
 [NOTE]
-After checkout command is executed, boolean `onCashierMode` in ModelManager  will be
-immediately set to false.
+After the execution of the above methods, a clear command will then be called automatically to clear all the sales items on the tab.
 
-The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>,
-shows how the checkout command is executed:
+[NOTE]
+After checkout command is executed, boolean `onCashierMode` in ModelManager will be immediately set to false.
+
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the checkout command is executed:
 
 .Sequence Diagram of Checkout Command (cashier package)
-
 image::CheckoutCommandCashierSeq1.png[]
 
-The `Cashier Logic` will call relevant methods to update the inventory list and newly-generated transaction
-to the respective `.txt file`. +
+The `Cashier Logic` will call relevant methods to update the inventory list and newly-generated transaction to the respective `.txt file`. +
 To update the view on the Inventory tab and Transaction tab, transaction will be added to the transaction `Model` and
 `readInUpdatedList()` method of inventory `Model` will called to read in the entire inventory data file.
 
 The following sequence diagram shows how the transaction and inventory are updated:
 
 .Sequence Diagram of how transaction and inventory get updated (cashier package)
-
 image::CheckoutCommandCashierSeq2.png[]
 
 If the amount inputted is less than the total amount of items, the user will be prompted to key in a valid value.
@@ -945,12 +964,11 @@ If the amount inputted is less than the total amount of items, the user will be 
 The following activity diagram shows the steps after the user input a checkout command:
 
 .Activity Diagram of Checkout Command (cashier package)
-
 image::CheckoutCommandCashierActivityDiag.png[]
 
 ==== Overall Design Considerations
 
-This section explains the design considerations for some crucial implementations in the Cashier Tab.
+This section explains the design considerations for some crucial implementations in the Cashier tab.
 
 |===
 |Alternative 1 |Alternative 2 |Conclusion and Explanation
@@ -1007,7 +1025,8 @@ methods from different sources and eliminates any chances of uncoordinated data 
 
 === Overview Tab
 
-This tab displays various summary statistics for the data within treasurerPro. There are four main statistics shown:
+This tab displays various summary statistics for the data within treasurerPro.
+There are four main statistics shown:
 
 . Expense Summary: Pie chart of expenditure by category.
 . Inventory Summary: Pie chart of inventory by category.
@@ -1016,38 +1035,37 @@ This tab displays various summary statistics for the data within treasurerPro. T
 
 The above summaries are automatically updated whenever new data is entered from any of the other tabs.
 
-There are two main user features within this tab: a feature allowing the user to set goals, and a feature for the user
-to set percentage thresholds for notifications.
+There are two main user features within this tab: a feature allowing the user to set goals, and a feature for the user to set percentage thresholds for notifications.
 
 ==== Set Command Feature
+
 This feature allows the user to set a goal for their budget, expense or sales targets.
 
-The following sequence diagram depicts how the Set Command operates, and is an extension of the general sequence diagram
-found in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+The following sequence diagram depicts how the Set Command operates, and is an extension of the general sequence diagram found in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
 .Sequence Diagram of Set Command in the Overview package.
 image::OverviewSetCommandSD.png[]
 
-After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to
-the data file.
+After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to the data file.
 
 ==== Notify Command Feature
-This feature allows the user to set a percentage threshold for notifications. Upon hitting that percentage for a
-particular financial goal, the user will automatically be notified of it with a message from Leo.
 
-The following sequence diagram depicts how the Notify Command operates, and is an extension of the general sequence
-diagram found in <<GeneralLogicSD, 2.3 Logic component: Figure 5>>:
+This feature allows the user to set a percentage threshold for notifications.
+Upon hitting that percentage for a particular financial goal, the user will automatically be notified of it with a message from Leo.
+
+The following sequence diagram depicts how the Notify Command operates, and is an extension of the general sequence diagram found in <<GeneralLogicSD, 2.3 Logic component: Figure 5>>:
 
 .Sequence Diagram of Notify Command in the Overview Package
 image::OverviewNotifyCommandSD.png[]
 
-After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to
-the data file. The full execution of the command is shown in the activity diagram below:
+After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to the data file.
+The full execution of the command is shown in the activity diagram below:
 
 .Activity Diagram of Notify Command in the Overview Package
 image::OverviewNotifyActivityDiagram.png[]
 
 ==== Design Considerations
+
 In order to display the summary statistics shown to the user within the Overview tab, they must first be calculated.
 Several design considerations were made as to how these calculations would be made, as shown in the table below:
 
@@ -1099,7 +1117,6 @@ implementation of this function,
 
 The following are code snippets of each of the chosen implementations above:
 
-.Code snippet of calculation of summary statistics.
     public double getTotalExpenses() {
         Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
         return transactionStream
@@ -1109,7 +1126,6 @@ The following are code snippets of each of the chosen implementations above:
             .sum() * -1;
     }
 
-.Code snippet of notifications implementation.
     private void checkIfNotify() {
         List<OverallCommandResult> notifications = overviewLogic.checkNotifications();
         for (OverallCommandResult notif: notifications) {
@@ -1326,7 +1342,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
-
 [appendix]
 == Use Cases
 
@@ -1440,8 +1455,7 @@ Use case resumes from step 4
 
 *Preconditions*
 
-* User inputs spending as a negative amount and sales revenue is inputted as a positive amount
-for the transaction.
+* User inputs spending as a negative amount and sales revenue is inputted as a positive amount for the transaction.
 
 *MSS*
 
@@ -1476,8 +1490,7 @@ Lion replies with wrong input message if input is invalid
 Lion replies with wrong input if invalid index inputted
 
 * 3a.
-User input back command for table to show all transactions if find command was prior to the
-delete command
+User input back command for table to show all transactions if find command was prior to the delete command
 
 [discrete]
 === Use Case 4: Delete a transaction by the person's name
@@ -1500,16 +1513,14 @@ delete command
 Lion replies with wrong input if invalid index inputted
 
 * 3a.
-User input back command for table to show all transactions if find command was prior to the
-delete command
+User input back command for table to show all transactions if find command was prior to the delete command
 
 [discrete]
 === Use Case 5: Edit a transaction
 
 *Preconditions*
 
-* User inputs spending as a negative amount and sales revenue is inputted as a positive amount
-for the transaction.
+* User inputs spending as a negative amount and sales revenue is inputted as a positive amount for the transaction.
 
 * There is transactions shown in the table
 
@@ -1527,8 +1538,7 @@ for the transaction.
 Lion replies with wrong input message if there is invalid index or person given
 
 * 3a.
-User input back command for table to show all transactions if find command was prior to the
-delete command
+User input back command for table to show all transactions if find command was prior to the delete command
 
 [discrete]
 === Use Case 6: Sort transactions
@@ -1714,24 +1724,6 @@ Contains items that are stored either to be sold or to be used for functional pu
 Cashier Mode::
 Automatically switches on when there are sales items in the cart on the `Cashier Tab`
 
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
 [appendix]
 == Instructions for Manual Testing
 
@@ -1746,8 +1738,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-Expected: Shows the GUI with an empty table for Home tab, Reimbursements tab, Inventory tab,
-Cashier tab and Overview tab.
+Expected: Shows the GUI with an empty table for Home tab, Reimbursements tab, Inventory tab, Cashier tab and Overview tab.
 Shows a set of sample members in the Members Tab.
 The window size will be optimum and cannot be re-sized.
 The window position may not be optimum but can be moved.
@@ -1760,7 +1751,7 @@ Expected: The data of all the tabs except Cashier tab is retained.
 
 === Navigating Between Tabs
 
-.  Navigating between tabs
+. Navigating between tabs
 
 .. Type `go [home] [members] [reimbursement] [inventory] [cashier] [overview]` +
 Expected: The specified tab should be showing in the UI
@@ -1783,8 +1774,7 @@ Expected: Leo responds with error and no transaction is added.
 
 . Deleting transactions
 
-.. Prerequisites: There are at least one transaction at all times in the Home tab and
-there are some transactions linked to 'Alex Yeoh'.
+.. Prerequisites: There are at least one transaction at all times in the Home tab and there are some transactions linked to 'Alex Yeoh'.
 .. Test case 1: [blue]`delete p/Alex Yeoh` +
 Expected: The transaction with the 'Alex Yeoh' linked to it is deleted from the table.
 Leo responds with the number of transactions deleted.
@@ -1797,9 +1787,7 @@ Leo responds with details of the transaction deleted.
 Expected: No Transaction is deleted.
 Leo responds with details of the invalid index inputted.
 
-.. Other incorrect Delete commands to try: [blue]`delete`, `delete x` (where x is more than the last ID
-in the table), [blue]`delete p/Jack` (Jack is not linked
-to any transactions) +
+.. Other incorrect Delete commands to try: [blue]`delete`, `delete x` (where x is more than the last ID in the table), [blue]`delete p/Jack` (Jack is not linked to any transactions) +
 Expected: Leo responds with error and no transaction is deleted.
 
 . Editing transactions
@@ -1813,15 +1801,12 @@ Leo responds with the details of the transaction edited that is a spending.
 Expected: The transaction with ID 1 is edited with the specified parameters.
 Leo responds with the details of the transaction edited that is an earning.
 
-.. Other incorrect Edit commands to try: [blue]`edit`, `edit x a/12` (where x is more than the last ID
-in the table), [blue]`edit 1 p/Jack` (Jack is not linked
-to any transactions) +
+.. Other incorrect Edit commands to try: [blue]`edit`, `edit x a/12` (where x is more than the last ID in the table), [blue]`edit 1 p/Jack` (Jack is not linked to any transactions) +
 Expected: Leo responds with error and no transaction is edited.
 
 . Finding transactions
 
-.. Prerequisites: There are a few transactions at all times in the Home tab with some
-with linked to 'Alex Yeoh' and 'Alex Low'.
+.. Prerequisites: There are a few transactions at all times in the Home tab with some with linked to 'Alex Yeoh' and 'Alex Low'.
 .. Test case 1: [blue]`find alex` +
 Expected: The transactions linked to 'Alex Yeoh' and 'Alex Low' are shown.
 Leo responds with the number of matching transactions.
@@ -1831,26 +1816,23 @@ Expected: The transactions linked to 'Alex Yeoh' are shown.
 Leo responds with the number of matching transactions.
 
 .. Test case 2b: Any other subsequent commands except Add command +
-Expected: The transactions linked to 'Alex Yeoh' are shown and the commands are carried out
-according to the filtered table. If a Sort command is entered, the filtered table is sorted.
+Expected: The transactions linked to 'Alex Yeoh' are shown and the commands are carried out according to the filtered table.
+If a Sort command is entered, the filtered table is sorted.
 .. Test case 2c: Type [blue]`back` +
-Expected: The full list of transactions are shown. If a Sort command was entered,
-the full list of transactions would be sorted.
+Expected: The full list of transactions are shown.
+If a Sort command was entered, the full list of transactions would be sorted.
 
 . Sorting transactions
 
 .. Prerequisites: There are some transactions in the table with varied dates, person and amounts.
 .. Test case 1: [blue]`sort name` +
-Expected: The transactions are sorted by their names, without taking into account
-of upper or lower cases.
+Expected: The transactions are sorted by their names, without taking into account of upper or lower cases.
 
 .. Test case 2: [blue]`sort amount` +
-Expected: The transactions are sorted by their amounts from the smallest (most negative) to
-largest amount.
+Expected: The transactions are sorted by their amounts from the smallest (most negative) to largest amount.
 
 .. Test case 3: [blue]`sort date` +
-Expected: The transactions are sorted by their dates from the oldest to the most
-recent.
+Expected: The transactions are sorted by their dates from the oldest to the most recent.
 
 === Testing Members Tab Features
 
@@ -1876,8 +1858,7 @@ Expected: Similar to previous.
 
 . Deleting a person when it has a transaction record
 
-.. Prerequisites: The person in the list to be deleted to have transaction records in
-the Home tab.
+.. Prerequisites: The person in the list to be deleted to have transaction records in the Home tab.
 .. Test case 1: `delete ID` (where ID is the index of the person with a linked transaction) +
 Expected: Unable to delete the person.
 
@@ -1895,8 +1876,8 @@ Expected: Similar to previous.
 
 . Finding a person
 
-.. Prerequisites: There are a few people at all times in the Members tab. 'Alex Yeoh' and 'Alex Low'
-are present in the list.
+.. Prerequisites: There are a few people at all times in the Members tab.
+'Alex Yeoh' and 'Alex Low' are present in the list.
 .. Test case 1: [blue]`find alex` +
 Expected: 'Alex Yeoh' and 'Alex Low' are shown.
 Leo responds with the number of matching person.
@@ -1906,16 +1887,65 @@ Expected: The person 'Alex Yeoh' is shown.
 Leo responds with the number of matching person.
 
 .. Test case 2b: Any other subsequent commands except Add command +
-Expected: The person 'Alex Yeoh' is shown and the commands are carried out
-according to the filtered table.
+Expected: The person 'Alex Yeoh' is shown and the commands are carried out according to the filtered table.
 .. Test case 2c: Type [blue]`list` +
 Expected: The full list of people are shown.
 
 === Testing Reimbursements Tab Features
 
+. Adding a deadline to a reimbursement
+.. Prerequisites: The member 'Alex Yeoh' is present in reimbursement tab.
+And the member 'Jack' is not present in reimbursement tab.
+.. Test case 1: [blue]`deadline p/Alex Yeoh dt/12-Dec-2019` +
+Expected: deadline `12-Dec-2019` is added to the reimbursement for `Alex Yeoh`
+.. Test case 2: [blue]`deadline p/Alex Yeoh dt/32-Dec-2019` +
+Expected: Leo responds with an error message that the date format is invalid
+.. Test case 3: [blue]`deadline p/Jack dt/12-Dec-2019` +
+Expected: Leo responds with an error message that the person is not in reimbursement list.
+
+. Marking a reimbursement as done
+.. Prerequisites: The member 'Alex Yeoh' is present in reimbursement tab.
+And the member 'Jack' is not present in reimbursement tab.
+.. Test case 1: [blue]`done p/Alex Yeoh` +
+Expected: The reimbursement for `Alex Yeoh` is removed from the reimbursement list.
+.. Test case 2: [blue]`done p/Jack` +
+Expected: Leo responds with an error message that the person is not in the reimbursement list.
+
+. Finding a reimbursement for a person
+.. Prerequisites: The member 'Alex Yeoh' is present in reimbursement tab.
+And the member 'Jack' is not present in reimbursement tab.
+.. Test case 1: [blue]`find p/Alex Yeoh` +
+Expected: The reimbursement for `Alex Yeoh` is displayed in the tab.
+.. Test case 2: [blue]`find p/Jack` +
+Expected: Leo responds with an error message that the person is not in the reimbursement list.
+
+. Sorting reimbursements
+.. Test case 1: [blue]`sort date` +
+Expected: The reimbursements are sort based on the urgency of the deadline.
+.. Test case 2: [blue]`sort name` +
+Expected: The reimbursements are sorted based on alphabetical order of the names.
+.. Test case 3: [blue]`sort amount` +
+Expected: The reimbursements are sorted based on amount of money.
+.. Test case 4: [blue]`sort` +
+Expected: Leo responds with an error message that
+sort command is invalid.
+.. Test case 5: [blue]`sort amount date` +
+Expected: Leo responds with an error message that
+sort command is invalid.
+
+. Going back to display the full list
+.. Prerequisites: The [blue]`find` or [blue]`deadline` commands have been used.
+.. Test case 1: [blue]`back` +
+Expected: The full reimbursement list is now displayed.
+.. Test case 2: [blue]`ba` +
+Expected: Leo responds with an error message that the command is invalid.
+
 === Testing Inventory Tab Features
+. Adding an item
+.. Prerequisites: The description, category,
 
 === Testing Cashier Tab Features
+
 . Adding an item
 
 .. Prerequisites: There is an item with description "cup" and quantity of at least 3 in the inventory. +
@@ -1937,8 +1967,7 @@ Response message that cup has been deleted successfully shown.
 . Editing an item
 .. Prerequisites: There are some sales items in the Inventory tab. +
 Test case: [blue]`edit i/1 q/2` +
-Expected: Quantity of first item on the cart is updated to 2.
-Response message that cup has been edited successfully shown.
+Expected: Quantity of first item on the cart is updated to 2. Response message that cup has been edited successfully shown.
 
 . Setting cashier
 .. Prerequisites: There is an existing member called "Alice" on the Members tab. +
@@ -1959,8 +1988,25 @@ Expected: If amount inputted is sufficient, the total amount and change is shown
 Cashier on the bottom row is reset and all items in the cart are cleared.
 Response message that items has been checked out successfully shown.
 
-
 === Testing Overview Tab Features
+. Setting goals
+.. Test case 1: [blue]`set b/500` +
+Expected: The budget goal is set to 500.
+.. Test case 2: [blue]`set e/500` +
+Expected: The expense goal is set to 500.
+.. Test case 3: [blue]`set s/500` +
+Expected: The sales target is set to 500.
+
+. Setting notification thresholds
+.. Test case 1: [blue]`notify b/80` +
+Expected: The budget notification threshold is set to 80%, and the application will notify you when you hit
+80% of the goal.
+.. Test case 2: [blue]`notify e/80` +
+Expected: The expense notification threshold is set to 80%, and the application will notify you when you hit
+80% of the goal.
+.. Test case 3: [blue]`notify s/80` +
+Expected: The sales notification threshold is set to 80%, and the application will notify you when you hit
+80% of the goal.
 
 === Saving data
 
@@ -1969,8 +2015,8 @@ Response message that items has been checked out successfully shown.
 .. Prerequisites: There is existing data in the various data files.
 .. Before the application is open, corrupt some of the text files by deleting parts of it. +
 Then, open the application. +
-Expected: If the transactionHistory.txt file is changed, the Home and Reimbursements tab will start with an empty
-table. If the inventoryInformation.txt file is changed, the Inventory tab will start with an empty
-table. If the mytasks.txt and tasks.txt files are changed, the Overview tab lose the notification reminders
-set. If the addressbook.json is changed, the sample address book data would be populated in the Members tab.
+Expected: If the transactionHistory.txt file is changed, the Home and Reimbursements tab will start with an empty table.
+If the inventoryInformation.txt file is changed, the Inventory tab will start with an empty table.
+If the mytasks.txt and tasks.txt files are changed, the Overview tab lose the notification reminders set.
+If the addressbook.json is changed, the sample address book data would be populated in the Members tab.
 Changing the reimbursementInformation should not cause any issues.

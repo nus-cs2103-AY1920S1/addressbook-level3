@@ -65,7 +65,7 @@ Additionally, there are two common elements across all tabs. The command box, fo
 commands, and Leo, the mascot of treasurerPro, who acts as a personal assistant and guides the user.
 
 The following screenshot shows the User Interface of the application on first launch:
-image:Ui.png[width="600"]
+image:annotatedUi2.png[width="600"]
 
 == Summary of contributions
 I served as Team Lead for the project, and my responsibilities included designing the new User Interface, as well
@@ -165,6 +165,7 @@ https://github.com/nus-cs2103-AY1920S1/forum/issues/138[12])
 ** Added Codacy's code quality service to the team repository
 
 == Contributions to the User Guide
+{Start of extract from User Guide}
 
 :sectnums!:
 === 5.6 Overview Tab
@@ -264,11 +265,33 @@ The following screenshot shows an example of the notifications:
 
 image::overviewUG/NotificationExample.png[width="600"]
 
+{End of extract from User Guide}
+
 :sectnums:
 ==  Contributions to the Developer Guide
 The following section shows my additions to the treasurerPro Developer Guide for the Overview tab features.
 
 :sectnums!:
+
+{Start of first extract from Developer Guide}
+
+==== 2.3.5 Details on `Logic` Implementation for the Overview Tab
+[[OverviewLogic]]
+This section will show further details of the `Logic` Component of the Overview tab.
+Given below is a Class Diagram showing the structure of `Parser` within the `Logic` Component:
+
+.Structure of `Parser` for Overview Tab.
+image::OverviewLogicDiagram.png[]
+
+The parsers represented by the `ABCParser` are:
+
+* `SetCommandParser`
+* `NotifyCommandParser`
+
+{End of first extract from Developer Guide}
+
+{Start of second extract from Developer Guide}
+
 === 3.6 Overview Tab
 
 This tab displays various summary statistics for the data within treasurerPro. There are four main statistics shown:
@@ -366,7 +389,6 @@ implementation of this function,
 
 The following are code snippets of each of the chosen implementations above:
 
-.Code snippet of calculation of summary statistics.
     public double getTotalExpenses() {
         Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
         return transactionStream
@@ -376,11 +398,12 @@ The following are code snippets of each of the chosen implementations above:
             .sum() * -1;
     }
 
-.Code snippet of notifications implementation.
     private void checkIfNotify() {
         List<OverallCommandResult> notifications = overviewLogic.checkNotifications();
         for (OverallCommandResult notif: notifications) {
             lion.setResponse(notif.getFeedbackToUser());
         }
     }
+
+{End of second extract from Developer Guide}
 

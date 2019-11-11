@@ -18,7 +18,7 @@ By: `CS2103T-T13-3`      Since: `September 2019`      Licence: `MIT`
 
 == Introduction
 
-treasurerPro (tP) is for those who *prefer to use a desktop app for managing their club expenses*.
+treasurerPro (tP) is for treasurers of student co-curricular activities (CCAs)/student clubs who *prefer to use a desktop app for managing their club expenses*.
 More importantly, tP is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 If you can type fast, tP can get your expense management tasks done faster than traditional GUI apps.
@@ -112,6 +112,7 @@ This section will contain details on all commands available in the Home tab.
 it adds money to the club's funds).
 * The amount input should be negative if the transaction is an expenditure made by the club (that is, it deducts money
 from the club's funds).
+* Description and category of a transaction can be empty.
 
 [WARNING]
 The amount you may enter is limited to -999999.99 to 999999.99. If more decimal points are entered, it will be rounded
@@ -131,6 +132,7 @@ This command allows you to add a transaction to the table and saves it into the 
 [NOTE]
 The format of the date has to be in dd-MMM-yyyy format and is case-sensitive. (Eg. 24-Aug-2019 or 03-Sep-2019)
 The person specified must already exist in the Members tab and is case-sensitive.
+While all field prefixes must be present, the description and category can still be empty.
 
 [WARNING]
 If you are adding a transaction meant to represent sales revenue, the transaction *must* be positive-valued
@@ -654,6 +656,9 @@ To avoid this, you are advised to key in a number smaller than 10,000.
 ==== Add an Item:
 This command allows you to add an item to the table and saves it into the system.
 
+[NOTE]
+Description and category can be empty, but their field prefixes (d/ and c/) must be present.
+
 * Command:
 `add d/DESCRIPTION c/CATEGORY q/QUANTITY co/COST_PER_UNIT [p/PRICE]`
 
@@ -708,7 +713,6 @@ image::inventoryUG/DeleteStep1.png[width="600"]
 . Hit `Enter`
 
 Leo will respond with a success message and the item will be removed from the table as shown below:
-
 
 //.Screenshot of a successful user input for the Delete Command in the Inventory tab
 image::inventoryUG/DeleteSuccess.png[width="600"]
@@ -839,6 +843,12 @@ image::cashierUG/AddCommand3.png[width="600"]
 
 Leo will respond to the successful addition with a response message. The newly added item will be shown on the table.
 
+[NOTE]
+After you have executed this command, `Cashier Mode` will be immediately turned on. As long as `Cashier Mode` is turned on,
+the system will prohibit you from modifying any *existing items* in the Inventory tab except adding of items with new description.
+This is to ensure no one can tamper with the data in the inventory while a purchase is being made for security reasons.
+If you wish to alter any existing items in inventory, please enter the "clear" command on Cashier tab to turn off `Cashier Mode`.
+
 ==== Delete a Sales Item from the Table
 This command allows you to delete a sales item from the table.
 
@@ -863,6 +873,9 @@ image::cashierUG/DeleteCommand2.png[width="600"]
 
 Leo will respond to the successful deletion with a response message. The item will be deleted from the table.
 
+[NOTE]
+After deletion, if there are no more sales item on the cart, `Cashier Mode` will automatically turn off. You can then
+edit existing items in the inventory.
 
 ==== Edit the Quantity of a Sales Item
 This command allows you to edit the quantity of a sales item that already exists in the table.
@@ -970,6 +983,10 @@ image::cashierUG/CheckoutCommand2.png[width="600"]
 If checkout is successful, Leo will respond with a response message. The table will be cleared and the cashier will be reset. +
 The Home tab will be updated with this transaction and the remaining stock in the Inventory tab will also be updated.
 
+[NOTE]
+This command checks out and clears all the sales items, turning off the `Cashier Mode` until a new item is added into the cart.
+You can now modify the existing items on the Inventory tab.
+
 
 ==== Clears All the Sales Items in the Table
 This command clears all the sales item in the table.
@@ -980,7 +997,7 @@ This command clears all the sales item in the table.
 After clearing, the cashier will be reset as well.
 
 [NOTE]
-This command enables you to disable the `Cashier Mode` footnote:[`Cashier Mode` automatically turns on when the table in the Cashier tab
+This command enables you to turn off the `Cashier Mode` footnote:[`Cashier Mode` automatically turns on when the table in the Cashier tab
 is not empty. While the `Cashier Mode` is turned on, any modification to the inventory is prohibited except addition of items.].
 
 [CAUTION]
@@ -1005,7 +1022,6 @@ image::cashierUG/ClearCommand2.png[width="600"]
 
 If cleared successful, Leo will respond with a response message. The table will also be cleared and the cashier
 will be reset.
-
 
 === Overview Tab
 

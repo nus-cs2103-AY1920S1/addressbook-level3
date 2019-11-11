@@ -19,14 +19,20 @@ public class SortCommandParser implements IndependentCommandParser<SortCommand> 
      */
     public SortCommand parse(String arguments) throws ParseException {
         String[] argsArr = arguments.split(" ");
-        if (argsArr[1].equals("date")) {
-            return new SortDeadlineCommand();
-        } else if (argsArr[1].equals("name")) {
-            return new SortNameCommand();
-        } else if (argsArr[1].equals("amount")) {
-            return new SortAmountCommand();
-        } else {
+        if (argsArr.length != 2) {
             throw new ParseException(ReimbursementMessages.MESSAGE_INVALID_SORT_COMMAND_FORMAT);
+        } else {
+            assert argsArr.length == 2 : "sort command is invalid";
+            if (argsArr[1].equals("date")) {
+                return new SortDeadlineCommand();
+            } else if (argsArr[1].equals("name")) {
+                return new SortNameCommand();
+            } else if (argsArr[1].equals("amount")) {
+                return new SortAmountCommand();
+            } else {
+                throw new ParseException(ReimbursementMessages.MESSAGE_INVALID_SORT_COMMAND_FORMAT);
+            }
         }
+
     }
 }
