@@ -749,7 +749,7 @@ Thus, designing an aesthetic and functional dashboard is a crucial aspect for Mo
 
 This section illustrates the motivations made behind Mortago's color scheme.
 
-===== 4.6.1.1. Implementation
+===== 4.7.1.1. Implementation
 
 Mortago draws upon the guidelines specified in https://material.io/design/color/dark-theme.html#[Material.io] to design a dark theme
 that enhances visual ergonomics and minimises eye strain due to the bright luminance emitted by screens.
@@ -783,7 +783,7 @@ based on the brightness offset supplied.
 The primary color is also desaturated to reach a WCAG's AA standard of minimally 4:5:1.
 This facilitates a mild yet impressionable visual aspect to Mortago while minimizing eye strain, as saturated colors can cause optical vibrations against the dark surface and exacerbate eye strain.
 
-===== 4.6.1.2. Design Considerations
+===== 4.7.1.2. Design Considerations
 
 This section details an aspect considered when designing Mortago's color scheme.
 
@@ -804,7 +804,7 @@ Alternative 1 was chosen because, aside from the pros that it has to offer, bulk
 
 This section details how the default window's title bar is replaced with a custom title bar.
 
-===== 4.6.2.1. Implementation
+===== 4.7.2.1. Implementation
 
 In spirit with designing a sleek and functional dashboard, the standard Windows platform title bar was removed. This exposes the user interface to become one that is self-contained, while providing extra space at the top that allows more details to be shown to the user.
 
@@ -862,7 +862,7 @@ Three buttons were manually created and customised to simulate the original wind
 Finally, the last thing is to rebuild the resizability of the window.
 The implementation of this feature is adapted from this hyperlinked https://stackoverflow.com/questions/19455059/allow-user-to-resize-an-undecorated-stage[post] in StackOverFlow. Briefly,  `ResizableWindow::enableResizableWindow()` allows the Windows to be resizable by implementing a helper class `ResizeListener`. The helper class listens to mouse events and tracks the mouse's movements to pinpoint the coordinates of the mouse. This determines the change in size of the Window, which will then be resized accordingly.
 
-===== 4.6.2.2. Design Consideration
+===== 4.7.2.2. Design Consideration
 
 The following section details an aspect to consider when designing the title bar.
 
