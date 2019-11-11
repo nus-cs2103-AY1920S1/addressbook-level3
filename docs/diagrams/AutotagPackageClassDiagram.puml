@@ -26,7 +26,7 @@ SelectiveBookmarkTagger -up-|> BookmarkTagger
 
 BookmarkTagger -down--> Tag
 SelectiveBookmarkTagger -down-> BookmarkPredicate
-BookmarkPredicate -down> XYZContainsKeywordsPredicate
+BookmarkPredicate .down> XYZContainsKeywordsPredicate
 note top of XYZContainsKeywordsPredicate : XYZ = Name, Url, Folder
 
 @enduml
