@@ -74,22 +74,25 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+//tag::ui[]
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassUmlDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/difficulty/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of 7 parts e.g.`CommandBox`, `ResultDisplay`, `Workspace`, `NotesPage`, `HelpPage`, `Dashboard` and `QuestionsPage`. All these parts, including the `MainWindow`, inherit from the abstract `UiPart` class.
+Some of the 7 UI parts are also made up of other UI parts. For example, listed on the UML diagram, `QuestionsPage` is made up of `QuestionsListPanel`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/difficulty/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses the JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/difficulty/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Listens for changes through the Observer pattern. The UI updates as the `ObservableList` changes.
+//end::ui[]
 
 
 [[Design-Logic]]
@@ -522,7 +525,8 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-=== Home Page
+//tag::dashboard[]
+=== Dashboard
 
 The home page of Duke Academy is the main page that the user sees upon app initialization. Not only does it provide an
 introduction and greeting to the user, it also functions as a personal dashboard.
@@ -543,8 +547,23 @@ helper methods within the controller class, we can do some processing to the `Ob
 three pieces of data.
 
 These pieces of information will then be displayed on the Home Page through standard JavaFX controls.
+//end::dashboard[]
 
-=== Code Result Panel
+//tag::bookmark[]
+=== Bookmark Command
+.Sequence Diagram for the execution of a BookmarkCommand instance
+image::BookmarkCommandSequenceDiagram.png[]
+
+The sequence is as follows:
+
+1. User calls execute() on a BookmarkCommand object.
+2. The BookmarkCommand object calls getUserSelectedQuestion(), activating an instance of QuestionsLogic.
+3. The QuestionsLogic object returns userSelectedQuestion, which is the question the user chose to bookmark.
+4. If userSelectedQuestion is already bookmarked, the BookmarkCommand object calls notifyUserNoActionTaken() as a response to the user. Else, the BookmarkCommand object calls bookmarkUserSelectedQuestion(), and then calls notifyUserBookmarkSuccess() as a response to the user.
+//end::bookmark[]
+
+//tag::bookmark[]
+=== Program Evaluation Panel
 
 The code result panel is a panel below the editor that shows the evaluation of the user's program against the specified
 test cases in the question.
@@ -555,7 +574,7 @@ the various test cases.
 These information are then displayed on the Code Result Panel through standard JavaFX controls.
 
 //tag::problem_description[]
-== Problem Description Panel
+=== Problem Description Panel
 //end::problem_description[]
 
 == Documentation
