@@ -18,7 +18,7 @@ By: `Team CS2103T T09-1`      Since: `Sep 2019`      License: `MIT`
 
 == Introduction
 
-Plan^2^Travel is for those who *prefer to use a desktop app for planning an overseas trip*. More importantly, Plan^2^Travel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Plan^2^Travel can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Plan^2^Travel is for those who *prefer to use a desktop app for planning an overseas trip*. More importantly, Plan^2^Travel is optimized for those who prefer to work with a *Command Line Interface* (CLI) while still having the benefits of a *Graphical User Interface (GUI)*. If you can type fast, Plan^2^Travel can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`help`* : a list of commands available on Plan^2^Travel
-* **`add activity`**`n/Visit Gundam Museum a/Tokyo du/120 p/65543221` : adds an activity named `Visit Gundam Museum` at location `Tokyo` with a duration of 120 minutes and contact number `65543221` to the activity list.
+* `add activity n/Visit Gundam Museum a/Tokyo du/120 p/65543221` : adds an activity named `Visit Gundam Museum` at location `Tokyo` with a duration of 120 minutes and contact number `65543221` to the activity list.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,9 +46,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * All command words are CASE SENSITIVE.
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Eat lunch`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add activity n/NAME`, `NAME` is a parameter which can be used as `add activity n/Eat lunch`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Eat lunch t/Western` or as `n/Eat lunch`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 * Any two items enclosed within with `()` and has a `||` lying between them indicates that either one of the items has to be present.
 e.g. `(t/Dining || n/DisneyLand)` can be used as `t/Dining` or `n/DisneyLand`.
@@ -93,17 +93,21 @@ Format: `set [n/NAME] [sd/START_DATE]`
 
 * The name provided cannot exceed 30 characters long.
 * The start date provided needs to be in dd-mm-yyyy format.
+
+Examples:
+
+* `set n/India sd/11-11-2019`
+
 // end::set[]
 // tag::addaccommodation[]
 
 === Adding an accommodation: `add accommodation`
 
-Creates an accommodation to the accommodation list +
+Creates an accommodation and adds it to the accommodation list +
 Format: `add accommodation n/NAME a/ADDRESS [p/PHONE_NUMBER] [t/TAGS]`
 
-* Both compulsory fields, name and address, must be present.
 * Name must only contain alphanumeric characters and spaces (names with only white space would be treated as blank).
-* Address can take up any values (likewise, address with only white space would be treated as blank).
+* Address can take up any values (likewise, addresses with only white space would be treated as blank).
 
 Examples:
 
@@ -125,9 +129,9 @@ Edits an accommodation +
 Format: `edit accommodation INDEX [n/NAME] [a/ADDRESS] [p/PHONE_NUMBER] [t/TAGS]`
 
 * Edits the accommodation with the specified INDEX.
-* The index provided refers to the index number shown in the displayed accommodation list.
-* The index provided must be a positive integer.
-* The index provided must not exceed the number of accommodations in the accommodation list.
+** The index provided refers to the index number shown in the displayed accommodation list.
+** The index provided must be a positive integer.
+** The index provided must not exceed the number of accommodations in the accommodation list.
 * At least one of the optional fields must be provided.
 * Existing fields will be updated by the input fields.
 
@@ -147,9 +151,9 @@ Delete one or more accommodation from the accommodation list +
 Format: `delete accommodation INDEX...`
 
 * Deletes the accommodation at the specified INDEX.
-* The index provided refers to the index number shown in the displayed accommodation list.
-* The index provided must be a positive integer.
-* The index provided must not exceed the number of accommodations in the accommodation list.
+** The index provided refers to the index number shown in the displayed accommodation list.
+** The index provided must be a positive integer.
+** The index provided must not exceed the number of accommodations in the accommodation list.
 
 Examples:
 
@@ -168,19 +172,19 @@ Example:
 
 * `list accommodation`
 
-The tab of the activity list would drop down to show the list.
+The tab of the accommodation list would drop down to show the accommodations.
 
 // tag::viewaccommodation[]
 
 === Viewing a specific accommodation: `view accommodation`
 
-Allow user to view a specific accommodation in the list based on the index shown +
+Allows the user to view a specific accommodation in the list based on the index shown +
 Format `view accommodation ACCOMMODATION_INDEX`
 
 * Views the accommodation at the specified INDEX.
-* The index provided refers to the index number shown in the displayed accommodation list.
-* The index provided must be a positive integer.
-* The index provided must not exceed the number of accommodations in the accommodation list.
+** The index provided refers to the index number shown in the displayed accommodation list.
+** The index provided must be a positive integer.
+** The index provided must not exceed the number of accommodations in the accommodation list.
 
 Examples :
 
@@ -194,15 +198,14 @@ Shows a detailed view of the 3rd accommodation in the accommodation list.
 
 === Adding an activity: `add activity`
 
-Creates an activity to the activity list +
+Creates an activity and adds it to the activity list +
 Format: `add activity n/NAME a/ADDRESS du/DURATION [p/PHONE_NUMBER] [c/COST] [pr/PRIORITY] [t/TAGS]`
 
-* Compulsory fields, name, address and duration, must be present.
 * Name must only contain alphanumeric characters and spaces (names with only white space would be treated as blank).
-* Address can take up any values (likewise, address with only white space would be treated as blank).
+* Address can take up any values (likewise, addresses with only white space would be treated as blank).
 * Duration is in minutes and must be less than or equal to 1440 minutes.
 * Phone number should only contain numbers and must be at least 3 digits long.
-* Cost should only contain numbers and have at most 2 decimal places.
+* Cost should only contain numbers and have at most 2 decimal places. (Maximum cost is 10^25)
 * Priority should only contain numbers and range from 1 to 7 inclusive. (1 being the highest priority, 7 being the lowest).
 
 Examples:
@@ -225,9 +228,9 @@ Edits an activity +
 Format: `edit activity INDEX [n/NAME] [a/ADDRESS] [p/PHONE_NUMBER] [c/COST] [pr/PRIORITY] [t/TAGS]`
 
 * Edits the activity with the specified INDEX.
-* The index provided refers to the index number shown in the displayed activity list.
-* The index provided must be a positive integer.
-* The index provided must not exceed the number of activities in the activity list.
+** The index provided refers to the index number shown in the displayed activity list.
+** The index provided must be a positive integer.
+** The index provided must not exceed the number of activities in the activity list.
 * At least one of the optional fields must be provided.
 * Existing fields will be updated by the input fields.
 
@@ -247,9 +250,9 @@ Delete one or more activities from the activity list +
 Format: `delete activity INDEX...`
 
 * Deletes the activity at the specified INDEX.
-* The index provided refers to the index number shown in the displayed activity list.
-* The index provided must be a positive integer.
-* The index provided must not exceed the number of activities in the activity list.
+** The index provided refers to the index number shown in the displayed activity list.
+** The index provided must be a positive integer.
+** The index provided must not exceed the number of activities in the activity list.
 
 Examples:
 
@@ -268,19 +271,19 @@ Example:
 
 * `list activity`
 
-The tab of the activity list would drop down to show the list.
+The tab of the activity list would drop down to show the activities.
 
 // tag::viewactivity[]
 
 === Viewing a specific activity: `view activity`
 
-Allow user to view a specific activity in the list based on the index shown +
+Allows the user to view a specific activity in the list based on the index shown +
 Format `view activity ACTIVITY_INDEX`
 
 * Views the activity at the specified INDEX.
-* The index provided refers to the index number shown in the displayed activity list.
-* The index provided must be a positive integer.
-* The index provided must not exceed the number of activities in the activity list.
+** The index provided refers to the index number shown in the displayed activity list.
+** The index provided must be a positive integer.
+** The index provided must not exceed the number of activities in the activity list.
 
 Examples :
 
@@ -294,10 +297,9 @@ Shows a detailed view of the 3rd activity in the activity list.
 
 === Adding a contact: `add contact`
 
-Creates a contact to the contact list +
+Creates a contact and adds it the contact list +
 Format: `add contact n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAGS]`
 
-* Both compulsory fields, name and phone number, must be present.
 * Name must only contain alphanumeric characters and spaces (names with only white space would be treated as blank).
 * Phone number should only contain numbers and must be at least 3 digits long (numbers with only white space would be treated as blank).
 * Emails should be of the format local-part@domain
@@ -305,13 +307,13 @@ Format: `add contact n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAGS]`
 
 Examples:
 
-* `add contact n/Bob p/83746658`
+* `add contact n/Bob p/91392506`
 
-A contact with name, "Bob" and phone number, "83746658", is added to the contact list.
+A contact with name, "Bob" and phone number, "83747658", is added to the contact list.
 
-* `add contact n/Sheryl p/96667710 a/Buangkok`
+* `add contact n/Sheryl p/85516629 a/Buangkok`
 
-A contact with name, "Sheryl", phone number, "96667710", and address, "Buangkok", is added to the contact list.
+A contact with name, "Sheryl", phone number, "96668710", and address, "Buangkok", is added to the contact list.
 
 // end::addcontact[]
 
@@ -323,9 +325,9 @@ Edits an existing contact in the contact list +
 Format: `edit contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAGS]`
 
 * Edits the contact with the specified INDEX.
-* The index provided refers to the index number shown in the displayed contact list.
-* The index provided must be a positive integer.
-* The index provided must not exceed the number of contacts in the contact list.
+** The index provided refers to the index number shown in the displayed contact list.
+** The index provided must be a positive integer.
+** The index provided must not exceed the number of contacts in the contact list.
 * At least one of the optional fields must be provided.
 * Existing fields will be updated with the input fields.
 * Name must only contain alphanumeric characters and spaces (names with only white space would be treated as blank).
@@ -348,9 +350,9 @@ Deletes a contact from the contact list +
 Format: `delete contact INDEX`
 
 * Deletes the contact at the specified INDEX.
-* The index provided refers to the index number shown in the displayed contact list.
-* The index provided must be a positive integer.
-* The index provided must not exceed the number of contacts in the contact list.
+** The index provided refers to the index number shown in the displayed contact list.
+** The index provided must be a positive integer.
+** The index provided must not exceed the number of contacts in the contact list.
 
 Examples:
 
@@ -369,13 +371,13 @@ Format: `list contact`
 
 === Viewing a specific contact: `view contact`
 
-Allow user to view a specific contact in the list based on the index shown +
+Allows the user to view a specific contact in the list based on the index shown +
 Format `view contact CONTACT_INDEX`
 
 * Views the contact at the specified INDEX.
-* The index provided refers to the index number shown in the displayed contact list.
-* The index provided must be a positive integer.
-* The index provided must not exceed the number of contacts in the contact list.
+** The index provided refers to the index number shown in the displayed contact list.
+** The index provided must be a positive integer.
+** The index provided must not exceed the number of contacts in the contact list.
 
 Examples :
 
@@ -407,12 +409,13 @@ Extends the itinerary by 7 days.
 
 === Deleting a day: `delete day`
 
-Deletes day DAY_INDEX of the itinerary. +
+Deletes day at DAY_INDEX from the itinerary. +
 Format: `delete day DAY_INDEX`
 
-* The index provided refers to the index of the day in the itinerary.
-* The index provided must be a positive integer.
-* The index provided must not exceed the number of days in the itinerary.
+* Deletes the day at the specified INDEX.
+** The index provided refers to the index of the day in the itinerary.
+** The index provided must be a positive integer.
+** The index provided must not exceed the number of days in the itinerary.
 
 Examples:
 
@@ -424,12 +427,14 @@ Deletes day 2 from the itinerary.
 // tag::listday[]
 === List activities in a day: `list day`
 
-Lists the activities within day DAY_INDEX of the itinerary. +
+Lists the activities within the day at DAY_INDEX in the itinerary. +
 Format: `list day DAY_INDEX`
 
 Examples:
 
 * `list day 3`
+
+Lists activities within day 3 in the itinerary.
 
 Lists activities within day 3 of the itinerary.
 // end::listday[]
@@ -449,7 +454,7 @@ Examples:
 
 * `schedule 2 st/1000 d/2`
 
-Schedules the second activity in the activity list under day 2 at the specified starting time.
+Schedules the second activity in the activity list under day 2 to start at 1000hrs.
 
 // end::schedule[]
 
@@ -458,7 +463,8 @@ Schedules the second activity in the activity list under day 2 at the specified 
 Unschedules an activity from a day +
 Format: `unschedule ACTIVITY_INDEX d/DAY_INDEX`
 
-* The `ACTIVITY_INDEX` provided refers to the index of an activity in the day list(can be checked with the `list day` command) and the `DAY_INDEX` is the index of a day in the itinerary.
+* The `ACTIVITY_INDEX` provided refers to the index of an activity in the day list and the `DAY_INDEX` is the index of a day in the itinerary.
+* The indices provided refers to the index of an activity in the day and the index of a day in the itinerary.
 * The indices provided must be positive integers.
 * The indices provided must not exceed the number of activities in the day or the number of days in the itinerary.
 
@@ -466,7 +472,7 @@ Examples:
 
 * `unschedule 5 d/2`
 
-This remove the 5th activity from day 2.
+This remove the 5th activity from scheduled in day 2.
 
 [TIP]
 You can use the list day command to find out the index of the activity you wish to unschedule.
@@ -474,20 +480,26 @@ You can use the list day command to find out the index of the activity you wish 
 // tag::autoschedule[]
 
 === Auto Schedule: `autoschedule`
-Generates a list of activities for the specified days based on the *number of times it
-has been scheduled on the timetable.*. Activity with the *least number of time being scheduled on the timetable* will be chosen to be scheduled.
-For cases where there is two with the same lowest counts, the one with the higher priority will be chosen.
+Generates a list of activities for the specified days based on the activity's *priority* and the *number of times it
+has been scheduled in the timetable*. Activity with the *highest priority* and the *least number of times being scheduled in the timetable* will be chosen.
 
 If the end time of the activity chosen overlaps with the next activity's start time, the
-next activity with the next `lowest number of count in the timetable` will be checked. This process will repeat until it finds a suitable activity to schedule or that all the activities that it has checked is deemed unsuitable.
+activity with the `next highest priority` and `second lowest number of counts in the timetable` will be chosen. This process will repeat until a suitable activity to schedule is found.
 
+* *Start time* can be specified for activity to be scheduled at that timing.
+
+* A specific *activity name* can be specified using `n/` instead of `t/` if there is a desired activity to be scheduled.
+
+* *Location* for those activities can be specified as well.
+
+* The *day* to schedule for can be specified, otherwise it is assumed to be scheduled for all days.
 * Timing can be specified if there is an activity that is confirmed to do at that timing.
 * An `activity name` can be specified using `n/` instead of `t/` if there is an activity that has been confirmed to do.
 * Location for that `day` can be specified, otherwise it is assumed to be any location.
 * The `Day` to schedule for can be specified, otherwise it is assumed to be scheduled for all days.
 
 [WARNING]
-Ensure that activity with the specified name or tag is present in the activity list first before using the autoschedule command.
+The activity with the specified name or tag must be present in the activity list.
 
 [TIP]
 You may use `n/` to denote a specific activity name and specify the start time if you have confirmed to do an activity at a specific time.
@@ -515,9 +527,10 @@ the combination with the most activities would be chosen.
 
 Format: `optimise DAY_INDEX`
 
-* The index provided refers to the index of a day in the itinerary.
-* The index provided must be positive integer.
-* The index provided must not exceed the number of days in the itinerary.
+* Optimises the day at the specified DAY_INDEX.
+** The index provided refers to the index of a day in the itinerary.
+** The index provided must be positive integer.
+** The index provided must not exceed the number of days in the itinerary.
 
 Examples:
 
@@ -530,7 +543,7 @@ image::BeforeOptimise.png[]
 image::AfterOptimise.png[]
 
 [WARNING]
-This command would not work if there are no activities scheduled in the day.
+The day to be optimised must not be empty.
 
 // end::optimise[]
 
@@ -538,15 +551,10 @@ This command would not work if there are no activities scheduled in the day.
 
 === Undo: `undo`
 
-Allows user to undo by one action. Only Undoable commands executed previously by the user can
+Allows the user to undo by one action. Only Undoable commands executed previously can
 be undone. Refer to the list below for all possible undoable commands. +
 
 Format: `undo` +
-
-[NOTE]
-undo command cannot be chained (i.e. 'undo undo undo' does not result in 3 undos applied), but typed
-one at a time.
-
 // tag::undoredolist[]
 
 *List of UndoableCommand:*
@@ -565,32 +573,31 @@ one at a time.
 
 === Redo: `redo`
 
-Redo by one action. Only to be used after undo has been called. This command is to revert
-the changes of the latest undo. +
+Redo by one action. This command is to revert the changes of the latest undo. +
 
 Format: `redo` +
 
 [NOTE]
-redo command cannot be called after an Undoable command is executed by the user.
+redo command can only be called after undo.
 
 The *4 screenshots* below demonstrates the Undo/Redo command when the user executes `optimise budget command`.
 
-* Before optimise
+* `Before executing 'optimise'`
 
-.Day 2 has lots of overlapping activities
+.Day 2 contains overlapping activities
 image::BeforeOptimise.png[]
 
-* After optimise 2
+* `After executing 'optimise 2'`
 
 .Day 2 has been optimised, no overlaps.
 image::AfterOptimise.png[]
 
-* After undo
+* `After executing 'undo'`
 
 .Optimise command successfully undone
 image::AfterUndo.png[]
 
-* After redo
+* `After executing 'redo'`
 
 .Optimise command successfully redone, no overlaps.
 image::AfterOptimise.png[]
@@ -601,11 +608,11 @@ image::AfterOptimise.png[]
 
 While typing a command, suggestions from a dropdown menu will appear. The menu can be interacted with using the arrow keys, enter button or the mouse.
 
-* Autocomplete for commands
+* `Autocomplete for commands`
 
 image::CommandAutoComplete.png[]
 
-* Autocomplete for prefix
+* `Autocomplete for prefix`
 
 image::PrefixAutoComplete.png[]
 

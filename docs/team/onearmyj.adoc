@@ -43,13 +43,13 @@ app should provide a convenient way to rectify them.
 ** *Highlights:* This enhancement affects existing commands and commands to be added in future. It required an in-depth
 analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
-* *Functional Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/112[#112] |
-https://github.com/AY1920S1-CS2103T-T09-1/main/pull/127[#127] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/133[#133]
-| https://github.com/AY1920S1-CS2103T-T09-1/main/pull/194[#194] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/220[#220]
-| https://github.com/AY1920S1-CS2103T-T09-1/main/pull/230[#230] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/243[#243]
-| https://github.com/AY1920S1-CS2103T-T09-1/main/pull/269[#269]
+* *Functional Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/112[Update 1] |
+https://github.com/AY1920S1-CS2103T-T09-1/main/pull/127[Update 2] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/133[Update 3]
+| https://github.com/AY1920S1-CS2103T-T09-1/main/pull/194[Update 4] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/220[Update 5]
+| https://github.com/AY1920S1-CS2103T-T09-1/main/pull/230[Update 6] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/243[Update 7]
+| https://github.com/AY1920S1-CS2103T-T09-1/main/pull/269[Final Update]
 
-* *Test Code Contributed*:
+* *Test Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/277[Test 1] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/280[Test 2]
 
 
 === *Minor enhancement*: +
@@ -66,10 +66,10 @@ the code base is morphed, the team is able to proceed with implementing their in
 for storage component. With the insights gained, I was able to advise my teammates on how they should approach their
 implementations when working with these components.
 
-* *Functional Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/68[#68] |
-https://github.com/AY1920S1-CS2103T-T09-1/main/pull/73[#73] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/99[#99]
+* *Functional Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/68[Update 1] |
+https://github.com/AY1920S1-CS2103T-T09-1/main/pull/73[Update 2] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/99[Final Update]
 
-* *Test Code Contributed*:
+* *Test Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/111[Test]
 
 === *Other Contributions*:
 ** Tools:
