@@ -44,7 +44,7 @@ public class InventoryTabParserTest {
         }
     }
 
-    /*@Test
+    @Test
     public void parser_addCommand_notANumberUnsuccessful() {
         Command command = null;
         String input = "add d/item c/test q/number co/number p/number";
@@ -52,9 +52,9 @@ public class InventoryTabParserTest {
         try {
             command = parser.parseCommand(input, new InventoryList());
         } catch (Exception e) {
-            assertEquals(InventoryMessages.MESSAGE_NOT_A_NUMBER, e());
+            assertEquals(InventoryMessages.MESSAGE_NOT_A_NUMBER, e.getMessage());
         }
-    } */
+    }
 
     @Test
     public void parser_addCommand_successful() {
