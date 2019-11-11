@@ -259,15 +259,9 @@ Example:
 
 * `upload 3`
 
-<<<<<<< HEAD
-[WARNING]
-The index provided must be valid and the directory of the image uploaded is assumed to not change.
-If the image is moved or deleted after it is set as the display picture, the display picture will be empty when the user starts up Teacher's Notebook.
-=======
 [NOTE]
 The index provided must be valid (is an integer and exists in the student list). If the list has been filtered through the Finding Student command, the index provided corresponds to the index on the filtered list.
 The directory of the image uploaded is assumed to not change. If the image is moved or deleted after it is set as the display picture, the display picture will be empty when the user starts up Teacher's Notebook.
->>>>>>> 7d5f01e0143aaaa20af9a838f48946582c551357
 
 ==== Resetting display picture
 

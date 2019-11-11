@@ -22,9 +22,10 @@ It is written in Java, and has about 10 kLoC.
 
 The main features of the project are:
 
-- The ability to manage students and their information
+- The ability to manage students and their information, including keeping track of
+their grades, personal information and assignments.
 
-- The ability to manage and be reminded of lessons
+- The ability to manage, and be reminded of, lessons.
 
 - The ability to
 
