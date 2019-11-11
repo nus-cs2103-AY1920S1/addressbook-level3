@@ -342,7 +342,7 @@ The following sequence diagram shows how the `AddCommand` works which is referen
 
 [caption = "Figure 39. "]
 .Sequence Diagram of Add Command in Cashier Tab (cashier package)
-image::AddCommandCashierSeq.png[width="270"]
+image::AddCommandCashierSeq.png[width="300"]
 
 As seen below, multiple checks will be carried out by `AddCommandParser` to check the validity of the inputs. `hasItemInInventory(description)`
 and `hasSufficientQuantityToAdd(description, quantity)` methods will be called to ensure the item has sufficient stock
@@ -388,7 +388,7 @@ The following sequence diagram shows how the checkout command is executed:
 
 [caption = "Figure 44. "]
 .Sequence Diagram of Checkout Command (cashier package)
-image::CheckoutCommandCashierSeq1.png[width="280"]
+image::CheckoutCommandCashierSeq1.png[width="300"]
 
 The `Cashier Logic` will call relevant methods to update the inventory list and newly-generated transaction
 to the respective `.txt file`. +
