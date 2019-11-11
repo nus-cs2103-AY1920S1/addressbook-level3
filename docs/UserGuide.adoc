@@ -813,6 +813,7 @@ For each different attribute, there will be a prompt to suggest a change from th
 
 Examples:
 
+`add n/John Doe ic/S9999999J p/98765432 e/johndoe@example.com a/John street, block 123, #01-01 dob/12.12.1992 g/Male`
 `add n/John Doe ic/S9999999J p/91234567 e/johndoe@example.com a/John street, block 123, #01-01 dob/12.12.1992 g/Male`
 
 Expected Output:
@@ -824,7 +825,7 @@ Policies: [Health Insurance][Fire Insurance]
 Tags: [diabetic][high blood pressure]
 Your input:
 John Doe
-NRIC: S0000001J; Phone: 91234567; Email: johndoe@example.com; Address: John street, block 123, #01-01; Date of Birth: 12 December 1992; Gender: Male
+NRIC: S9999999J; Phone: 91234567; Email: johndoe@example.com; Address: John street, block 123, #01-01; Date of Birth: 12 December 1992; Gender: Male
 Do you wish to edit this person's profile?
 Please press enter or 'yes' to proceed or 'no' to skip.
 ```
