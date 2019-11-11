@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= DeliveryMANS - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,13 +12,23 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T12-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103-T12-2`   Since: `Sept 2019`  Licence: `NUS`
+
+== Introduction
+
+=== Software overview
+
+*DeliveryMANS* is a command-line application designed specifically for delivery centre administrators who are in charge of food delivery service. It encompasses a well-structured system for users to keep track and manage the entire delivery process. It facilitates food delivery service by coaliasing the delivery men, customers and restaurant menu. From auto-assigning deliverymen for deliveries when orders are made, to viewing statistics of the most popular dish of restaurants as well as customer ordering trends for further promotions, financial and business management decisions, *DeliveryMANs* is everything you need to help improve managing deliveries. With just a few simple commands, this delivery manager can help to kickstart your delivery service.
+
+=== Purpose
+
+This document has been created to explain the software architecture and implementations of *DeliveryMANS*. The intended audience for this document are software testers and future developers.
 
 == Setting up
 
-Refer to the guide <<SettingUp#, here>>.
+To setup *DeliveryMANS* on your system, please refer to the user guide <<UserGuide#Quick-start, here>>.
 
 == Design
 
@@ -61,6 +71,18 @@ For example, the `Logic` component (see the class diagram given below) defines i
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
 
+In addition, there are 4 different contexts that the App has:
+
+* `Universal`/`Order`
+* `Customer`
+* `Restaurant`
+* `Deliverymen`
+
+Each context will allow the application the execute commands in the context the application is currently in. For example, `Customer` commands can only be executed in the `Customer` context. This is to allow separation between the 4 contexts, and also the 4 databases the App has. The `Universal` context will also execute commands pertaining to `Order`.
+
+Because of this, the context are interchangeable in the diagrams below (and the one above) as changing the context will not change how the application is structured. For example, when the diagram is shown in a `Customer` context, it will also apply in a `Restaurant` context.
+
+However, there are differences between the 4 different context that will be explained in the <<Design-Model,*`Model`*>> section.
 [discrete]
 ==== How the architecture components interact with each other
 
@@ -79,7 +101,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `CustomerListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -98,38 +120,26 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `CustomerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a customer).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
-
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
-
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelArchitecture_alternative_.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the customer, restaurant, deliverymen and order data.
+* exposes an unmodifiable `ObservableList<>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -142,54 +152,64 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the customer, restaurant, deliverymen and order data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.deliverymans.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/redo feature
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The undo/redo feature lets users undo and redo changes to the data stored in the app, which were
+effected by commands they have executed.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+==== Implementation
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The main class containing the states of the data in the app is `UndoHistory`. The history is
+represented as a list of states. It includes the following methods:
+
+* `notifyChange()` -- Saves the current state in the history if it is not equal to the previous
+state, as defined by its `equals()` method.
+* `undo()` -- Moves its internal pointer backwards and returns the previous state.
+* `redo()` -- Moves its internal pointer forwards and returns the next state.
+
+`ModelManager` contains an `UndoHistory`, and exposes its functionality via similarly named
+methods. When `undo()` or `redo()` of `ModelManager` is called, it sets its own data to that
+returned by the respective methods of `UndoHistory`.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+The model data mentioned below encapsulates the data stored in the model (such as the restaurant,
+customer, and deliveryman data).
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `UndoHistory` will be initialized with the initial address book state, and the `current` state pointer pointing to that single model data state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes the `delete 5` command to delete the 5th customer in the address book. After each command, `LogicManager` calls `Model#notifyChange()`, causing the modified state of the data after the `delete 5` command executes to be saved in the `history` list, and the `current` state pointer is shifted to the newly inserted model data state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add u/David ...` to add a new person. `LogicManager` calls `Model#notifyChange()` again, causing another modified state to be saved into the `history` list.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command does not modify the data, when `UndoHistory` checks whether the current data is equal
+to the data in the previous state according to its `equals()` method, it will realise that it is
+indeed equal. It will then not store the state into the `history` list.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the person was a mistake, and undoes that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `current` state pointer once to the left, pointing it to the previous state, and restores the data to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `current` state pointer is at index 0, i.e. pointing to the initial state, then there are no previous states to restore. The `undo` command uses `Model#hasUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -197,16 +217,16 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redo()`, which shifts the `current` state pointer once to the right, pointing to the previously undone state, and restores the data to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `current` state pointer is at index `history.size() - 1`, i.e. pointing to the latest model data state, then there are no undone states to restore. The `redo` command uses `Model#hasRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. If a command does not modify the data, it will not be stored in the undo history as `UndoHistory` checks for equality with the previous state. Thus, the `history` list remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#notifyChange()`. Since the `current` state pointer is not pointing at the end of the `history` list, all model data states after the `current` state pointer will be purged. We designed it this way because it no longer makes sense to redo the `add u/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -216,51 +236,426 @@ image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
 
+This section discusses current and possible alternative methods to design the undo/redo function.
+
 ===== Aspect: How undo & redo executes
 
 * **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
+** Pros: Is easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
+* **Alternative 2:** Individual command knows how to undo/redo itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: Must ensure that the implementation of each individual command is correct.
 
-===== Aspect: Data structure to support the undo/redo commands
+Saving the entire address book was chosen because it is more straightforward. Adding logic to each
+command to undo itself would be too much work given the time constraints.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+===== Aspect: How undo states are copied
+
+* **Alternative 1 (current choice):** Make all objects in the databases immutable.
+** Pros: Easy to undo and redo, and objects which are not modified can be shared, saving memory.
+** Cons: Slightly more complex to understand, and every minor change requires updating the database
+with a new object.
+* **Alternative 2:** Add a clone method.
+** Pros: Slightly simpler to reason about.
+** Cons: Uses a lot of memory as each command executed requires cloning of all objects.
+
+Making all objects immutable was chosen as it was the original design of AB3 and saves memory.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::autocompletecommands[]
 
-_{Explain here how the data encryption feature will be implemented}_
+=== Autocomplete commands feature
 
-// end::dataencryption[]
+This is a feature which allows you to view all available commands matching the input keyword or letters, eliminating the need to memorize the commands or leave a browser tab open with the User Guide of this application.
 
-=== Logging
+==== Implementation
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+The autocomplete mechanism is facilitated by the `KeyListener` and a `Trie`, a tree-like abstract data type (ADT).
+The `KeyListener` passes the current input text in the input command box to the `TrieManager` via `LogicManager#getAutoCompleteResults()`.
+The `TrieManager` calls `Trie#autoCompleteCommandWord()` and a sorted list of matching commands is passed back to the `CommandBox` and is displayed on the `Ui` via a dropdown box below the user input command box.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+The underlying data structure used is a directed `Graph` with the `Trie` as a `Node` and `HashMap<Character, Trie>` to represent all outgoing edges.
+The `Keys` in the `HashMap` are `Characters` in the command words while the `Values` are the `Tries` containing the subsequent `Characters` in the command words.
+Each `Trie` contains a `List<String>` of command words, which is returned when `Trie#autoCompleteCommandWord()` is called.
 
-*Logging Levels*
+Given below is an example usage scenario and how the autocomplete mechanism behaves at each step.
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+Step 1: You launch the application. The `TrieManager` initializes the respective `Tries` with their context-specific command words using `Trie#insertCommand()`.
+The `Trie` adds each `Character` of the input `String` and new `Tries` into the `HashMap<Character, Trie>`, as well as the command word into the `List<String>`, recursively as illustrated by the activity diagram below.
 
-[[Implementation-Configuration]]
-=== Configuration
+image::AutoCompleteActivityDiagram.png[width="790"]
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+Step 2: You want to add an order to the database, however are uncertain how to spell the command and type in `_‘order’_`.
+The `KeyListener` passes the `String` in the `CommandBox` to the `Trie` via the `LogicManager` and `TrieManager`.
+The trie searches for relevant commands and pass them as a list back to the `CommandBox` via `Trie#getAutoCompleteCommandWord()`, `Trie#search()` and `Trie#getAllCommandWords()`.
+The ‘Ui’ displays the relevant results in a dropdown box below the user input command box.
+
+.Sequence diagram illustrating the handling of user input via autocomplete
+image::AutoCompleteSequenceDiagram.png[width="790"]
+
+
+Step 3: You can now complete the command you want by entering the relevant command shown in the dropdown box.
+
+image::AutoCompleteUi.png[width="790"]
+
+==== Design Considerations
+
+Below are a few design considerations of the autocomplete commands feature.
+
+===== Aspect: How autocomplete executes
+
+* **Alternative 1 (current choice):** Use a `KeyListener` to record and handle user inputs in the user input command box before they are entered.
+** Pros: Aesthetically pleasing, allows for on-the-fly display of results.
+** Cons: Laborious to implement, especially in terms of debugging and troubleshooting. It may also break Object-Oriented Programming (OOP) principles if not implemented properly.
+* **Alternative 2:** Handle user input only when the command is entered, utilizing the `Parser` to  handle user inputs and pass it to the `Trie` to be evaluated.
+** Pros: Adheres to current flow of command executions, will not break any OOP principles.
+** Cons: Tedious for the user, as the user will have to retype the whole command again. Furthermore, it does not look aesthetically pleasing.
+
+Alternative 1 was selected, as it is more user friendly, and leaves a better impression onto users compared to alternative 2.
+
+===== Aspect: Data structure to support the autocomplete commands feature
+
+* **Alternative 1 (current choice):** Use a `Trie` to store `Characters` of commands as keys.
+** Pros: Efficient and rapid searching, retrieving and displaying of results due to the tree-like ADT.
+** Cons: Tedious to implement, as `Tries` are not currently implemented in Java.
+* **Alternative 2:** Use a list to store all current commands.
+** Pros: Easy to implement as lists are already available in Java.
+** Cons: Inefficient and slow searching, because of the need to iterate through the entire list of commands while calling `.substring()` and `.contains()` methods.
+
+Alternative 1 was selected, as it allows for faster searching and listing of relevant commands compared to alternative 2.
+
+// end::autocompletecommands[]
+// tag::orders[]
+=== Order Manager
+Order Manager has some useful functions specifically catered towards the ease of management of orders.
+
+Firstly, the automated allocation of deliveryman once new orders are added or completed. When a new order is created on the database, or when an existing order is completed, a deliveryman will be assigned to deliver the new/existing pending orders based on whether he/she is present as well as whether he/she is currently preoccupied with delivering another order. This helps to ease the burden on the user as they would not need to manually allocate deliverymen to the orders. However, the feature to manually allocate is still present if the user wishes to do so.
+
+Secondly, the Order Manager allows for sorting of orders, based on date, customer, restaurant, menu or even deliveryman, depending on what information the user wishes to see to allow for better management.
+
+Additionally it implements the following operations:
+
+* `-add_order` - adds an order to the database.
+* `-assign_order` - assigns an available deliveryman to an existing order in the database.
+* `-complete_order` - updates the completion status of an existing order in the database.
+* `-delete_order` - removes an existing order in the database.
+* `-edit_order` - edits an existing order in the database.
+* `-list_orders` - lists all existing orders in the database.
+
+
+These operations are exposed in the `ModelManager` class as `ModelManager#addOrder()`, `ModelManager#getOrder()`, `ModelManager#setOrder()`, `ModelManager#deleteOrder()` and `ModelManager#assignUnassignedOrder()`.
+
+Order manager implements its own `Model`, `Command` and `Parser` for the `Logic Component`, `JsonOrderDatabaseStorage`, `JsonSerializableOrderDatabase`, `JsonAdaptedOrder` and `JsonAdaptedFoodOrder`, along with methods in the `StorageManager` for the `Storage Component` and lastly, `OrderCard` and `OrderListPanel` for displaying on the `Ui Component`.
+
+.Class diagram of `Order` in `Storage Component` to illustrate the design of `Order` components
+image::OrderClassDiagram.png[width="790"]
+
+==== Implementation
+Listed are the implementations of each command. The sequence of command execution for `Orders` is as follows: the `LogicManager` receives input from the user and calls `UniversalParser#parseCommand()`.
+The `UniversalParser` calls the respective `OrderCommandParser#parse()` to create new `OrderCommand` objects.
+The object is passed back to the `LogicManager`, and executed through `OrderCommand#execute()`. The `ModelManager` is used for the storing of changes to `Orders` (if any), and the `CommandResult` is passed back to the `LogicManager` to be displayed on the `Ui` for the user.
+
+.Sequence diagram illustrating the execution of `Order` commands
+image::OrderSequenceDiagram.png[width="790"]
+
+**Add command:** `-add_order`
+
+The add command adds an order to the `ModelManager` and `UniqueOrderList`. The `UniversalParser` invokes `AddOrderCommandParser#parse()`, which parses the target **customer**, **restaurant**, **food** and **quantity** from a *String* into *Name* and *Integer* objects.
+
+Only valid **customer**, **restaurant**, **food** and **quantity** are allowed. This validation is done through accessing `UniqueCustomerList` and `UniqueRestaurantList` through `ModelManager#getFilteredCustomerList()`, `ModelManager#getFilteredRestaurantList()` and calling their respective `isValidName()` methods. **Food** validity will be checked through retrieving the respective using `Restaurant#getMenu()` and `Menu#isValidName()`.
+
+Duplicated `Order` will be checked for using `ModelManager#hasOrder()` and is then added to the `UniqueOrderList` via `ModelManager#addOrder()`.
+
+**Delete command:** `-delete_order`
+
+The delete command deletes an `Order` from the `ModelManager` and `UniqueOrderList` by a specified index. The `UniversalParser` invokes `DeleteOrderCommandParser#parse()` and user input is used to get the index of the `Order` to be deleted.
+
+**Edit command:** `-edit_order`
+
+The edit command edits an `Order` in the `UniqueOrderList` of the `ModelManager` by its specified `ORDERNAME`. The `UniversalParser` invokes `EditOrderCommandParser#parse()` which parses the target **customer**, **restaurant**, **food** and **quantity** (if present) from a *String* into *Name* and *Integer* objects.
+
+Only valid **customer**, **restaurant**, **food** and **quantity** are allowed. This validation is done through accessing `UniqueCustomerList` and `UniqueRestaurantList` through `ModelManager#getFilteredCustomerList()`, `ModelManager#getFilteredRestaurantList()` and calling their respective `isValidName()` methods. **Food** validity will be checked through retrieving the respective using `Restaurant#getMenu()` and `Menu#isValidName()`.
+
+Valid edition of `Orders` will be checked through `AddOrderCommand#isValidOrder()`.
+
+**Assign command:** `-assign_order`
+
+The assign command assigns an unassigned `Order` to a random available **deliveryman** in the `UniqueOrderList` of the `ModelManager` by its specified `ORDERNAME`. The `UniversalParser` invokes `AssignOrderCommandParser#parse()` which parses the target **Order** from a *String* into a *Name* object.
+
+The **deliveryman** will then be allocated using `ModelManager#getOneAvailableDeliveryman()`.
+
+**Complete command:** `-complete_order`
+
+The complete command completes an `Order` that is already assigned by its specified `ORDERNAME` in the `UniqueOrderList` of the `ModelManager`. The `UniversalParser` invokes `CompleteOrderCommandParser#parse()` which parses the target **Order** from a *String* into a *Name* object.
+
+Validation will be done through checking the *Name* of the assigned **deliveryman** to ensure that it is not unassigned, as well as checking the completion status of the order using `Order#isCompleted()`.
+
+It also updates the **restaurant** and its **quantity** through `ModelManager#getFilteredRestaurantList()` and `Restaurant#updateQuantity()`.
+
+**List command:** `-list_order`
+
+The list command lists all orders currently in the `ModelManager`. The `UniversalParser` creates a new `ListOrderCommand` object, which changes the `Context` of the `ModelManager` to **Context.GLOBAL**.
+
+This then updates the `Ui` to display the order list.
+
+==== Design Considerations
+
+Below are a few design considerations of the Order manager class.
+
+===== Aspect: Data structure for modelling, storage and utilization of `Order`.
+
+* **Alternative 1 (current choice):** Make use of existing data structures as references to create new data structures needed for the implementation of an Order Manager.
+** Pros: Straightforward to implement.
+** Cons: Tedious to implement as several regions of the codebase needs to be edited for `Order` to run, display and save successfully.
+* **Alternative 2:** Implement data structures from scratch.
+** Pros: Pride and accomplishment of implementing data structures from scratch.
+** Cons: Tedious and time wasting to code the necessary classes.
+
+Alternative 1 was selected, as it is much faster to implement compared to alternative 2, given the short time spam of 6 weeks to complete the project.
+
+// end::orders[]
+
+// tag::statsfeature[]
+=== Deliverymen status statistics feature
+
+Tracking the amount of available manpower you have at any point in time is very crucial to deal with sudden changes in food orders.
+This is a feature which allows the user to effectively manage the deliverymen by providing relevant statistics in regards to their status.
+The user will be able to foresee and hence prepare for any sudden shortage or excess in manpower.
+Relevant statistics include current utilization level and activity level of the deliverymen.
+
+NOTE: A deliveryman can have any of the 3 status: *AVAILABLE*, *UNAVAILABLE*, *DELIVERING*. To effectively manage their status, 3 different lists
+are used to categorise all the deliverymen based on their status. This way of implementation is efficient when it comes to sorting or searching for a deliveryman.
+
+==== Implementation
+
+The statistics feature is primarily managed by the `StatisticsManager`, which has access to the status of every deliveryman in the database through the 3
+status lists - lists of available deliverymen, unavailable deliverymen and delivering deliverymen respectively.
+The `StatisticsManager` obtains these 3 status lists from the `StatusManager` and passes it to the `Analyzer` to compute the relevant data, which in turn
+returns a filled `StatisticsRecordCard` containing the computed statistics.
+
+From the status lists, the Analyzer computes two data:
+
+* Utilization Level
+** This signals to the user the amount of available manpower that is not utilized. It is the percentage of the number of deliverymen who are working (ie. delivering an order) over the number of active deliverymen (ie. available or delivering an order) .
+** It is computed as follows:
+*** *UtilizationLevel =  DeliveringMen / (AvailableMen + DeliveringMen) x 100*
+
+* Activity Level
+** This signals to the user the amount of active manpower. It is the percentage of the number of deliverymen who are active deliverymen over the total number of deliverymen.
+** It is computed as follows:
+*** *ActivityLevel =  (AvailableMen + DeliveringMen) / (TotalMen) x 100*
+
+With this structure, it implements the following operation:
+
+* `DeliverymenDatabase#analyzeDeliverymenStatus()` -- Retrieves a filled record card containing all the relevant statistics regarding deliverymen statuses
+
+
+This feature requires a high degree of interaction between the `Status` component and `Statistics` component of `DeliverymenDatabase`.
+This interaction of the relevant classes are illustrated in the class diagram below.
+
+.Partial Structure of Deliverymen Database
+image::StatisticsFeatureClassDiagram.png[]
+
+The `DeliverymenDatabase` acts as an agent for both components to parse information around. This helps to maintains a clear
+separation of concerns to carry out different functions.
+
+The following sequence diagram shows how the `stats` operation works:
+
+.Sequence Diagram of Retrieving Deliverymen Statistics
+image::DeliverymenStatistics.png[]
+
+As seen in Figure 10, for every use of the `stats` command, a `RecordCard` object is created. The `Analyzer` will take in the status lists and the `RecordCard`
+to compute and record the results onto the `RecordCard. Subsequently, it will return the edited `RecordCard` to the `StatisticsManager`.
+
+NOTE: The above explanation and sequence diagram (Figure 10) only illustrates what happens inside the `Model` component of the architecture
+when the `stats` command is used. The higher-level components such as `LogicManager`  are left out, even though they are
+also involved in the execution of this command.
+
+==== Design Considerations
+===== Aspect: Analysing the status lists
+
+This feature necessitates the analysis of the status lists. A consideration is the design of the architecture in which the statistics feature
+should be implemented. It may be subtle in the current version of *DeliveryMANS*, but will have significant implications when the app is further developed.
+
+* Alternative 1(current choice): Create another class (`StatisticsManager`) to deal with all the statistics-related methods.
+** Pros: Allows for a more structured and object-oriented way of executing out the `stats` command. This makes it easier to extend additional
+statistics-related enhancements in future, such as adding predictive capabilities to predict the utilisation level over the next few weeks.
+** Cons: More inefficient as the status lists from `StatusManager` have to be passed through different classes before reaching `StatisticsManager`.
+This can affect the runtime of the command when the enhancements get more complicated.
+
+* Alternative 2: Modify the existing `StatusManager` to handle statistics computation as well.
+** Pros: More convenient as the status lists can be directly obtained from the same class instead of having to pass it around.
+** Cons: Harder to manage in future as the app is improved due to coupling between status management and statistics management.
+Changes to status-related issues may cause regressions to the statistics feature.
+
+// end::statsfeature[]
+
+// tag::auto tagging customer cuisine
+=== Automated tagging of customer
+
+Tags determine the customer's favourite cuisine. It is helpful to the user as having this information will enable the user to make better analysis on the current trend of food. Although we can opt for the user to manually add in tags, it might be problematic once the number of customers in the database gets too large for a single user to handle. Thus, this feature aids the user by automatically tagging the customer based on the customer's order history.
+
+==== Implementation
+
+The `Tag` of the `Customer` is related to the `Tag` of the `Restaurant`. If an `Order` has been added to the database, the `Tag` of the `Restaurant` will be added to the `Tag` of the `Customer`. If the `Customer` has multiple ``Order``s, the `Tag` that will be shown on the `CustomerCard` will be the highest two ``Tag``s. This is the main process on how the application automatically tags the customers.
+
+An activity diagram below shows the automated tagging process when adding an order:
+
+[[fig-AutoTaggingDiagram]]
+.Activity diagram of tagging process
+image::plantuml/AutoTagAddActivityDiagram.png[]
+
+Another function called `changeMainTag()` is used to change the main ``Tag``s of the `Customer` to show on the `CustomerCard`. The activity diagram below shows how the application determines the top two ``Tag``s:
+
+[[fig-ChangingTagsDiagram]]
+.Activity diagram of changing ``Customer``'s main ``Tag``s
+image::plantuml/ChangeTagActivityDiagram.png[]
+
+==== Design considerations
+
+*Aspect: Method of editing ``Customer``'s ``Tag``s*
+
+* *Alternative 1 (current choice):* Adding, deleting and editing of `Order` will edit the ``Tag``s in `Customer`.
+
+** Pros: Only the commands that add, delete or edit an `Order` will require editing the ``Customer``'s ``Tag``s.
+
+** Cons: Creates more dependency between `Customer` and `Command` classes.
+
+* *Alterative 2:* `Customer` storing a list of ``Order``s and iterate through that list to get the number of ``Tag``s.
+
+** Pros: Editing ``Customer``'s ``Tag``s only happen in the `Customer` object itself and doesn't need to depend on information from other objects.
+
+** Cons: Every single change to any `Order` has to be reflected on ``Customer``'s `Order` list. Including edits to ``Order``s made in `Deliverymen` and `Restaurant` context. This makes `Customer` have a lot of dependency with other classes.
+
+We chose to go with the first alternative as `Customer` class will have lesser dependency with other classes when editing tags. In addition, displaying the ``Customer``'s order history will only require `Customer` to access the `OrderDatabase` to get the list of orders. Both of these requirements together still makes the `Customer` class have lesser dependency with other classes compared to implementing the second alternative that makes the `Customer` class have dependencies with every `Order` related classes.
+
+*Aspect: Method of storing ``Tag``s*
+
+* *Alternative 1 (current choice):* Using a map to store the ``Customer``'s ``Tag``s where key is the `Tag` and value is the number of tags.
+
+** Pros: Faster access of ``Tag``s in the map and getting the number of a certain ``Tag`` only takes O(1) time.
+
+** Cons: More memory is needed to store the information. A map to store all ``Tag``s and a set to store the main ``Tag``(s) to display on `CustomerCard`.
+
+* *Alternative 2:* Using a list that stores all ``Tag``s that are in `Customer`.
+
+** Pros: The list is capable of storing all of the ``Tag``s that `Customer` has.
+
+** Cons: The list needs to be iterated through to determine the top ``Tag``(s) of `Customer`.
+
+We chose to go with alternative 1 as we believe speed is more important to the user and sacrificing memory space is the better choice.
+
+// end::auto tagging customer cuisine
+// tag::editMode[]
+
+=== EditMode for restaurants
+A `Restaurant` object contains many attributes. On top of a `Name`, `Location`, `Rating` and a list of `Tag`,
+it also includes a list of `Food` as its menu, as well as a list of `Order`. This makes it difficult to edit
+an entire `Restaurant` object using just one `Command`.
+
+The EditMode feature allows editing of a specific `Restaurant` object's details (name, location, rating, tags),
+menu and orders individually under 1 interface, using different commands.
+
+==== Implementation
+**Model**:
+
+In addition to the `filteredRestaurantList` that contains all the restaurants in the restaurant database,
+`ModelManager` now contains a `editingRestaurantList`, which holds and allows access to the single restaurant
+currently under EditMode.
+
+When user inputs the `editmode INDEX` command:
+
+* The restaurant referenced by the `INDEX` in the list of restaurants will be placed
+in the `editingRestaurantList` via the function call `Model#setEditingRestaurant(Restaurant editingRestaurant`.
+* Subsequent commands that edit the restaurant, such as `AddFoodCommand`, `DeleteFoodCommand`, `AddRatingCommand`
+and `EditDetailsCommand` will create a new restaurant with the edited attributes.
+* The outdated restaurant will be replaced with the new edited restaurant
+in both the `filteredRestaurantList` and `editingRestaurantList` via the function call
+`Model#setRestaurant(Restaurant oldRestaurant, Restaurant newRestaurant)`.
+
+**Logic**:
+
+The `Logic` for EditMode is facilitated by `Context` enum type, which contains the following constants:
+`GLOBAL`, `CUSTOMER`, `RESTAURANT`, `DELIVERYMEN` and `EDITING`. It determines the `Context` the application is in,
+as well as the commands the user can access. It is contained inside `LogicManager` as an attribute. `EditModeCommand` is only
+accessible in `Context.RESTAURANT`, and entering a valid `EditModeCommand` will change the `Context` to `Context.EDITING`.
+
+The following class diagram shows the relevant structure of `Logic` and `Parser`:
+
+image::developerguide\ParserClassDiagram.png[]
+
+When the user inputs a command:
+
+* `userInput` will always be parsed by `UniversalParser` first, regardless of the current `Context`.
+The reason for this is to check for universal commands, which are accessible in all `Context`.
+* Subsequently, if the command word in `userInput` matches none of the universal commands, then `UniversalParser`
+will create a context specific `Parser` based on the current `Context`, i.e. `CustomerParser`, `RestaurantParser`,
+`DeliverymenParser`, `EditingParser`, which takes over and parses the `userInput`.
+Any context switching command will then change the `Context` in `LogicManager`.
+
+The following activity diagram summarises what happens when the user enters a command:
+
+image::developerguide\ParserActivityDiagram.png[]
+
+When user inputs the `editmode INDEX` command:
+
+* `UniversalParser` will parse it first.
+* Since `editmode` matches none of the universal commands, `UniversalParser` will create a new `RestaurantParser`
+(since current `Context` is `Context.RESTAURANT` as `EditModeCommand` is only accessible in said `Context`).
+* The new `RestaurantParser` will then parse the `userInput` and subsequently change the `Context` in `LogicManager` to `Context.EDITING`,
+unlocking commands to edit the restaurant, such as `AddFoodCommand`, `DeleteFoodCommand`, `AddRatingCommand`
+and `EditDetailsCommand`.
+
+**UI**:
+
+Commands that change the UI will either:
+
+* Pass its command class to `MainWindow` in the UI package if the command doesn't change the `Context`
+* Pass the new `Context` to `MainWindow` in the UI package if the command changes the `Context`.
+
+as the second parameter of the `CommandResult` returned by the command.
+
+When `MainWindow` receives the `CommandResult`, it will extract out either the command class or `Context` from
+`CommandResult` and make changes to the UI accordingly via the function call
+`MainWindow#changeDisplay(Context context)` or `MainWindow#changeDisplay(Class commandClassName)`.
+
+When user inputs the `EditModeCommand`:
+
+* Since `Context` is changed to `Context.EDITING`, it will be passed as the second parameter of the `CommandResult`
+returned by the `EditModeCommand`.
+* Upon receiving this new `Context`, `MainWindow` will call the function `changeDisplay(Context.EDITING)` to change
+the UI. An extra `StackPane` showing the restaurant under EditMode will be displayed,
+while the `SplitPane` displaying the list of restaurants originally will now be filled with the restaurant's `Food` menu
+and `Order` list.
+
+The following sequence diagram summarises how the `EditModeCommand` changes the UI:
+
+image::developerguide\MainWindowSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Structure of `Logic` and `Parser`
+* **Current:** `LogicManager` contains only the `UniversalParser`, which then creates a context-specific parser
+depending on the current `Context` in `LogicManager`.
+** Pros: Checking whether `userInput` is a universal command only needs to be done once in `UniversalParser`
+** Cons: Doesn't make as much sense for `UniversalParser` to be able to create other context-specific parsers.
+* **Alternative:** Instead of containing only the `UniversalParser`, which then creates the other 4 context-specific
+parsers, `LogicManager` contains all 5 parsers.
+** Pros: Makes more sense to have `LogicManager` containing all 5 parsers which parses `userInput` individually based
+on the current context.
+** Cons: Checking whether `userInput` is a universal command needs to be repeated in each parser.
+
+===== Aspect: Changing of UI
+* **Current:** If the `Command` that changes the UI does not change the `Context`, pass its command name
+to `MainWindow` instead of creating a new `Context` to signal a change in UI.
+** Pros: Does not create unnecessary `Context`.
+** Cons: 2 method signatures are needed for `MainWindow#changeDisplay` to change the UI.
+* **Alternative:** A new `Context` is created for every `Command` that changes the UI.
+** Pros: Only 1 method signature is needed for `MainWindow#changeDisplay` to change the UI.
+** Cons: Creates many unnecessary `Context` that `LogicManager` will never be in.
+
+// end::editMode[]
 
 == Documentation
 
@@ -280,12 +675,14 @@ Refer to the guide <<DevOps#, here>>.
 *Target user profile*:
 
 * has a need to manage a significant number of contacts
+* has to juggle among several fronts (customer side, deliverymen side and restaurant side) and act as the point of contact among them
+* prefers a centralised app that brings all 3 fronts together for better management
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Our application allows better management of all fronts for delivery-service-command-centre administrators, and allows for more efficiency and control in handling of daily tasks.
 
 [appendix]
 == User Stories
@@ -294,36 +691,41 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority |As an ... |I want to ... |So that I can...
+|`* * *` |Administrator |check on all of/ sort the deliverymen at once |better manage the deliverymen
 
-|`* * *` |user |add a new person |
+|`* * *` |Administrator |help customers add/edit/remove orders |better manage customers' orders
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Administrator |see the expected timings of the orders |know the priority of the orders
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |Administrator |add and remove food items from restaurants' menu  |update restaurants' menu
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |Administrator |add and remove restaurants |update the list of restaurants in the database
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |Administrator |edit restaurants' details |update the details of restaurants
+
+|`* * *` |Administrator |add ratings for restaurants |update the displayed ratings of restaurants
+
+
+|`* *` |Administrator |see the location of the deliverymen currently |track the progress of delivery (and update customers accordingly)
+
+|`*` |Administrator |view the schedule of deliverymen |see how many times deliverymen have delivered and reward them for their hard work
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `DeliveryMANS` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete restaurant
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list restaurants
+2.  DeliveryMANS shows a list of restaurants
+3.  User requests to delete a specific restaurant in the list
+4.  DeliveryMANS deletes the restaurant
 +
 Use case ends.
 
@@ -337,20 +739,16 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. DeliveryMANS shows an error message.
 +
 Use case resumes at step 2.
-
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 customers / restaurants / deliverymen without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -360,23 +758,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -392,7 +773,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample orders. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -400,26 +781,82 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Entering EditMode
 
-=== Deleting a person
+. Entering EditMode for a restaurant when all the restaurants are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all restaurants using the `-restaurant` command. Multiple restaurants in the list.
+.. Test case: `editmode 1` +
+   Expected: EditMode is entered for the first restaurant in the list.
+    An extra `StackPane` showing the restaurant under EditMode will be displayed,
+    while the `SplitPane` displaying the list of restaurants originally will now be filled with the
+    restaurant's `Food` menu and `Order` list.
+    Details of the restaurant shown in the status message.
+.. Test case: `editmode 0` +
+   Expected: EditMode is not entered for any restaurant.
+    Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `editmode`, `editmode x` (where x is larger than the restaurant list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+
+=== Deleting a restaurant
+
+. Deleting a restaurant
+
+.. Prerequisites: Currently in restaurant context. Multiple restaurants in the list.
+.. Test case: `delete 1` +
+   Expected: First restaurant is deleted from the list. Details of the deleted restaurant are shown in the status message.
+.. Test case: `delete 0` +
+   Expected: No restaurant is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: There are .json files in the data/ folder currently
 
-_{ more test cases ... }_
+.. Test case: Deleting `customerdatabase.json` in data/ +
+    Expected: Customer database in application will revert to default Sample Util data.
+
+.. Test case: Adding "a" to the top of the `deliverymendatabase.json` +
+    Expected: Deliverymen database will be wiped and start as an empty database.
+
+=== Tagging Customers
+
+. Adding orders to tag the customers automatically
+
+.. Prerequisites: The customers in the database are default from the Sample Util data.
+
+.. Test case: `-add_order c/PrettyCharlotte r/Prata House f/Cheese Prata q/1` +
+    Expected: `Indian` tag will be added to PrettyCharlotte's `CustomerCard`.
+
+.. Test case: `-add_order c/David r/Burger Palace f/Chicken Cheese Burger q/1`, `-add_order c/David r/Prata House f/Cheese Prata q/1` and `-add_order c/David r/Prata House f/Curry Fountain q/1` in this order +
+    Expected: `Burgers` tag will appear first and after adding the next 2 orders, `Indian` tag will replace `Japanese` tag because there are more `Indian` tags in David's order history.
+
+. Deleting orders to remove customer's tags automatically
+
+.. Prerequisites: The customers in the database are default from the Sample Util data.
+
+.. Test case: `-delete_order n/Order 1` +
+    Expected: AlexYeoh99 will have no more tags on his `CustomerCard`.
+
+// tag::statuscase[]
+=== Switching the status of a deliveryman
+
+. Switching the deliveryman status from *AVAILABLE* to *UNAVAILABLE*, or vice versa.
+
+.. Prerequisites: Currently in deliverymen context. The customers in the database are default from the Sample Util data. The current status of the deliveryman is either *AVAILABLE* or *UNAVAILABLE*; it cannot be *DELIVERING*.
+
+.. Test case: `switch 1` +
+    (NOTE: For default data, the first deliveryman is 'Damith' with the status *AVAILABLE*)  +
+    Expected: The status of the first deliveryman, 'Damith', has been switched to *UNAVAILABLE*.
+
+.. Test case: `switch 2` +
+    (NOTE: For default data, the second deliveryman is 'Donald Trump' with the status *DELIVERING*) +
+    Expected: The status of the second deliveryman, 'Donald Trump', remains unchanged. Error details shown in the status message.
+
+.. Test case: `switch 0` +
+    Expected: No change in any deliveryman status. Error details shown in the status message.
+// end::statuscase[]

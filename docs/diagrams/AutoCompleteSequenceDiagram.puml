@@ -1,0 +1,65 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+Participant ":CommandBox" as cbox UI_COLOR
+Participant ":LogicManager" as logic LOGIC_COLOR
+Participant ":TrieManager" as manager LOGIC_COLOR
+Participant ":Trie" as trie LOGIC_COLOR
+
+user -[USER_COLOR]> cbox : user_input
+activate cbox UI_COLOR
+
+cbox -[UI_COLOR]> logic : getAutoCompleteResults(user_input)
+activate logic LOGIC_COLOR
+
+logic -[LOGIC_COLOR]> manager : getAutoCompleteResults(user_input, currentContext)
+activate manager LOGIC_COLOR
+
+manager -[LOGIC_COLOR]> trie : autoCompleteCommandWord(user_input)
+activate trie LOGIC_COLOR
+
+trie -[LOGIC_COLOR]> trie : search(user_input)
+activate trie LOGIC_COLOR
+deactivate trie
+
+trie -[LOGIC_COLOR]> trie : getAllCommandWords()
+activate trie LOGIC_COLOR
+deactivate trie
+
+trie --[LOGIC_COLOR]> manager
+deactivate trie
+
+manager --[LOGIC_COLOR]> logic
+deactivate manager
+
+logic -[LOGIC_COLOR]> manager : hasPrefixes(user_input)
+activate manager LOGIC_COLOR
+
+manager -[LOGIC_COLOR]> trie : getPrefixes(user_input)
+activate trie LOGIC_COLOR
+
+trie -[LOGIC_COLOR]> trie : search(user_input)
+activate trie LOGIC_COLOR
+deactivate trie
+
+trie -[LOGIC_COLOR]> trie : getPrefixList()
+activate trie LOGIC_COLOR
+deactivate trie
+
+trie --[LOGIC_COLOR]> manager
+deactivate trie
+
+manager --[LOGIC_COLOR]> logic
+deactivate manager
+
+logic -[LOGIC_COLOR]> logic : getRelevantList(user_input)
+activate logic LOGIC_COLOR
+deactivate logic
+
+logic --[LOGIC_COLOR]> cbox
+deactivate logic
+
+cbox--[UI_COLOR]> user
+deactivate cbox
+@enduml

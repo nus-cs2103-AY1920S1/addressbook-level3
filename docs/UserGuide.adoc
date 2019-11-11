@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= DeliveryMANS – User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,166 +12,934 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T12-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103-T12-2`   Since: `Sept 2019`  Licence: `NUS`
 
 == Introduction
+This user guide serves to assist you in the navigation and utilization of our application, *DeliveryMANS*.
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+*DeliveryMANS* is a command-line application designed specifically for delivery centre administrators who are in charge of food delivery service. It encompasses a well-structured system for users to keep track and manage the entire delivery process. It facilitates food delivery service by coaliasing the delivery men, customers and restaurant menu. From auto-assigning deliverymen for deliveries when orders are made, to viewing statistics of the most popular dish of restaurants as well as customer ordering trends for further promotions, financial and business management decisions, *DeliveryMANS* is everything you need to help improve managing deliveries. With just a few simple commands, this delivery manager can help to kickstart your delivery service.
 
-== Quick Start
+Get started with <<Quick Start>> and begin managing your deliveries today!
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+== Quick start
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+Ensure you have Java 11 or above installed on your computer.
 
-.  Refer to <<Features>> for details of each command.
+Click https://github.com/AY1920S1-CS2103T-T12-2/main/releases[here] to download the JAR file for *DeliveryMANS*.
 
-[[Features]]
-== Features
+Open the application to begin. Refer to <<Commands>> for details of each command.
 
+// tag::features[]
+
+[[Commands]]
+== Commands
+
+This section covers the list of commands which you can enter into our application.
+
+**Command Types**
+
+* In *DeliveryMANS*, there are 2 types of commands: universal commands and context-specific commands.
+* Universal commands can be called under any context in the application.
+* Context-specific commands can only be accessed in a specific context. Context-specific commands comprise customer,
+restaurant and deliverymen commands, which can only be called under the customer, restaurant and deliverymen context
+respectively.
+
+
+**Command Format**
+
+* Command words for universal commands are prepended with "-"
+** Example Usage: `-help`.
+* Words in `UPPER_CASE` are parameters to be supplied by the user e.g. in `-add_order c/CUSTOMER r/RESTAURANT f/FOOD q/QUANTITY`,
+`CUSTOMER`, `RESTAURANT`, `FOOD` and `QUANTITY` are parameters to be supplied.
+** Example Usage: `-add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
+
+* Items with `…` after them can be used multiple times e.g. `f/FOOD...` can be used 1 or more:
+** Example Usage: `f/3 Piece Chicken Meal` or `f/Pepperoni Pizza f/Char Kway Teow`
+
+* Items with `[]` are optional and can be omitted e.g. `[t/TAG]...`
+// end::features[]
+
+// tag::universalCommand[]
+
+{nbsp} +
+
+=== Universal commands
+
+These are general commands to assist you in controlling the app, which are not directly related to the customer,
+restaurant and deliverymen.
+
+{nbsp} +
+
+==== Viewing help: `-help`
+
+This generates a list of commands and tips for you.
+
+Format: `-help`
+
+Example: `-help`
+
+
+{nbsp} +
+
+==== Switching context
+
+This command switches to a specific context for you to enter targeted commands. The list of contexts include:
+customer, deliveryman and restaurant. By default, the application will be in the universal context upon startup.
+
+===== Switching to customer context: `-customer`
+This command switches to the customer context for you to enter customer-specific commands.
+
+Format: `-customer`
+
+===== Switching to restaurant context: `-restaurant`
+This command switches to the restaurant context for you to enter restaurant-specific commands.
+
+Format: `-restaurant`
+
+===== Switching to deliveryman context: `-deliverymen`
+This command switches to the deliveryman context for you to enter deliveryman-specific commands.
+
+Format: `-deliverymen`
+
+{nbsp} +
+
+// end::universalCommand[]
+// tag::order[]
+
+==== Adding an order: `-add_order`
+This command allows you to add a new order to the database to be processed. The deliveryman to deliver the order will be allocated
+automatically based on the internal algorithms.
+
+Format: `-add_order c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
+
+Example:  `-add_order c/AlexYeoh r/KFC f/Chicken Nuggets q/100`
+
+[start]
+.Example use case
+
+. Type the command statement from the example above into the program and press *Enter* to execute it.
+
+image::userguide\AddOrder1.png[width="790"]
+
+[start=2]
+. If you are successful, the result box displays the message:
+`_"New order added:  Order Name: Order 7 Customer: AlexYeoh Restaurant: KFC Deliveryman: Donald Trump Food: Chicken Nuggets x100  Completed delivery: false"._`
+
+image::userguide\AddOrder2.png[width="790"]
+
+[start=3]
+. The order list shows the newly added order.
+
+image::userguide\AddOrder3.png[width="790"]
+
+[NOTE]
 ====
-*Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+.Requirements
+
+* A valid customer `c/CUSTOMER`, restaurant `r/RESTAURANT` and restaurant menu item `f/FOOD` must be provided and
+exists currently in the database.
+
+* The quantity of food `q/QUANTITY` to be delivered also be provided and be greater than 0.
 ====
-
-=== Viewing help : `help`
-
-Format: `help`
-
-=== Adding a person: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+====
 
-Examples:
+.Tip
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* Fill in the restaurant `r/RESTAURANT` before entering the restaurant menu item `f/FOOD` for the autocompletion feature to load the list of that restaurant's menu in a drop down box for you.
 
-=== Listing all persons : `list`
+image::userguide\AutoComplete1.png[width="790"]
+====
 
-Shows a list of all persons in the address book. +
-Format: `list`
+{nbsp} +
 
-=== Editing a person : `edit`
+==== Assigning an order: `-assign_order`
+This command allows you to automatically assign an available deliveryman to an existing order in the database based on the internal algorithms.
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `-assign_order n/ORDERNAME`
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Example:  `-assign_order n/Order 1`
 
-Examples:
+[start]
+.Example use case
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+. Type the command statement from the example above into the program and press *Enter* to execute it.
 
-=== Locating persons by name: `find`
+image::userguide\AssignOrder1.png[width="790"]
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+[start=2]
+. If you are successful, the result box displays the message:
+`_"Assigned Order:  Order Name: Order 1 Customer: AlexYeoh99 Restaurant: Burger Palace Deliveryman: Jackie Chan Food: Ginger Burger x2 Crispy Duck Burger x4 Pickle Burger x1  Completed delivery: false"._`
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+image::userguide\AssignOrder2.png[width="790"]
 
-Examples:
+[start=3]
+. The order list shows the newly assigned order.
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+image::userguide\AssignOrder3.png[width="790"]
 
-// tag::delete[]
-=== Deleting a person : `delete`
+[NOTE]
+====
 
-Deletes the specified person from the address book. +
+.Requirements
+
+* The order name `n/ORDERNAME` must exist in the order list.
+====
+
+{nbsp} +
+
+==== Completing an order: `-complete_order`
+This command allows you to complete an order in the database by its order name. The next unassigned order, if any, will automatically be assigned to an available deliveryman in the database.
+
+Format: `-complete_order n/ORDERNAME`
+
+Example:  `-complete_order n/Order 1`
+
+[start]
+.Example use case
+
+. Type the command statement from the example above into the program and press *Enter* to execute it.
+
+image::userguide\CompleteOrder1.png[width="790"]
+
+[start=2]
+. If you are successful, the result box displays the message:
+`_"Order completed:  Order Name: Order 1 Customer: AlexYeoh99 Restaurant: Burger Palace Deliveryman: Jackie Chan Food: Ginger Burger x2 Crispy Duck Burger x4 Pickle Burger x1  Completed delivery: true"._`
+
+image::userguide\CompleteOrder2.png[width="790"]
+
+[start= 3]
+. The order list shows the delivery status of the order as completed.
+
+image::userguide\CompleteOrder3.png[width="790"]
+
+[NOTE]
+====
+
+.Requirements
+
+* A deliveryman must already be assigned to the order before it can be completed.
+
+* The order name `n/ORDERNAME` must exist in the order list.
+====
+
+{nbsp} +
+
+==== Editing an order: `-edit_order`
+This command enables you to edit an order. The order to edit will have to be specified by its order name when you are entering the command.
+
+You can change:
+
+* The customer `c/CUSTOMER` who made the order
+
+* The restaurant `r/RESTAURANT` which the order was made from
+
+* The food `f/FOOD` ordered as well as its quantity `q/QUANTITY`
+
+Format: `-edit_order n/ORDERNAME [c/CUSTOMER] [r/RESTAURANT] [f/FOOD]... [q/QUANTITY]...`
+
+Example: `-edit_order n/Order 2 c/David`
+
+[start]
+.Example use case
+
+. Type the command statement from the example above into the program and press *Enter* to execute it.
+
+image::userguide\EditOrder1.png[width="790"]
+
+[start=2]
+. If you are successful, the result box displays the message:
+`_"Successful edition of order:  Order Name: Order 2 Customer: David Restaurant: Prata House Deliveryman: Donald Trump Food: Curry Waterfall x1 Plain Prata x2 Cheese Prata x4 Prata Bomb x10  Completed delivery: false"._`
+
+image::userguide\EditOrder2.png[width="790"]
+
+[start=3]
+. The order list shows the updated order.
+
+image::userguide\EditOrder3.png[width="790"]
+
+[NOTE]
+====
+
+.Requirements
+
+* The order name `n/ORDERNAME` must exist in the order list.
+
+* A customer `c/CUSTOMER`, restaurant `r/RESTAURANT` or restaurant menu item `f/FOOD` provided must be valid and exists currently in the database.
+
+* Optional items with '[]' tags may be ommitted e.g. `[r/RESTAURANT]`. However at least 1 tag has to be present for the order to be edited.
+====
+
+[TIP]
+====
+
+.Tip
+
+* Fill in the restaurant `r/RESTAURANT` before entering the restaurant menu item `f/FOOD` for the autocompletion feature to load the list of that restaurant's menu in a drop down box for you.
+
+image::userguide\AutoComplete2.png[width="790"]
+====
+
+{nbsp} +
+
+==== Deleting an order: `-delete_order`
+This command enables you to delete an unwanted/cancelled order in the database by its order name.
+
+Format: `-delete_order n/ORDERNAME`
+
+Example: `-delete_order n/Order 1`
+
+[start]
+.Example use case
+
+. Type the command statement from the example above into the program and press *Enter* to execute it.
+
+image::userguide\DeleteOrder1.png[width="790"]
+
+[start=2]
+. If you are successful, the result box displays the message:
+`_"Deleted Order:  Order Name: Order 1 Customer: AlexYeoh99 Restaurant: Burger Palace Deliveryman: Jackie Chan Food: Ginger Burger x2 Crispy Duck Burger x4 Pickle Burger x1  Completed delivery: true"._`
+
+image::userguide\DeleteOrder2.png[width="790"]
+
+[start=3]
+. The order list shows that the order has been deleted.
+
+image::userguide\DeleteOrder3.png[width="790"]
+
+[NOTE]
+====
+
+.Requirements
+* The order name `n/ORDERNAME` must exist in the order list.
+====
+
+{nbsp} +
+
+==== Listing all orders: `-list_orders`
+This command enables you to view all orders currently in the database.
+
+Format: `-list_orders`
+
+Example: `-list_orders`
+
+[start]
+.Example use case
+
+. Type the command statement from the example above into the program and press *Enter* to execute it.
+
+image::userguide\ListOrder1.png[width="790"]
+
+[start=2]
+. If you are successful, the result box displays the message:
+`_"Listed all orders"._`
+
+image::userguide\ListOrder2.png[width="790"]
+
+[start=3]
+. The order list shows all orders currently in the database.
+
+image::userguide\ListOrder3.png[width="790"]
+
+{nbsp} +
+
+// end::order[]
+// tag::undoRedo[]
+
+==== Undoing a command: `-undo`
+This command undoes the effects of a command that you have previously executed.
+
+Format: `-undo`
+
+Say you have accidentally executed a command and now want to reverse it. Just type `-undo` into the
+command line and press *Enter* like any other command. The result box will then show the following:
+
+_Successfully undid: (your previous command here)_
+
+The command which you last performed has now been reversed. Subsequent invocations of `-undo` will
+reverse commands which you have performed even earlier.
+
+The following is a step-by-step illustration of this process. Say you have just executed `delete 1`
+to delete Alex Yeoh from the customer list, and now realise that it was a mistake! In the image
+below, the result box confirms that Alex has been deleted, and his details are no longer in the
+customer list.
+
+image::userguide/UndoExample1.png[]
+
+To undo this deletion, just type `-undo` into the program as shown and press *Enter*.
+
+image::userguide/UndoExample2.png[]
+
+Success! The result box displays the undone command, and Alex is back in the customer list.
+
+image::userguide/UndoExample3.png[]
+
+{nbsp} +
+
+==== Redoing a command: `-redo`
+This command redoes the effects of a command that you have just undone, in effect undoing an undo.
+Similarly to `-undo`, this command can be used multiple times in succession to bring back multiple
+commands which you have undone earlier.
+
+Format: `-redo`
+
+After performing `-redo`, the result box will show:
+
+_Successfully redid: (your previous command here)_
+
+The operation of this command is similar to the `-undo` command which is illustrated above.
+
+{nbsp} +
+
+==== Listing of undo/redo actions: `-undo_list`
+This command lists the actions that can be undone and redone so that multiple actions can be redone
+at once with the `-undo_till` command.
+
+Format: `-undo_list`
+
+Upon executing the command, the result box will show something similar to the following:
+
+_Here are the actions that can be undone or redone, use -undo_till INDEX to undo or redo till that
+action._
+
+_1: (Undo) (command you previously executed here)_
+
+_3: (Redo) (command you previously undid here)_
+
+(Undo) indicates that the command was performed, and its effects can be undone. (Redo) indicates
+that the command has previously been undone, and can now be redone. After using this command, take
+note of the index of the command that you want to undo (or redo) until, and use the command
+`-undo_till INDEX` to perform the undo or redo.
+
+[NOTE]
+The undo list can be seen as a timeline of commands; it is not possible to undo only certain
+commands and not the other intervening commands.
+
+Say you have undone two commands and decided that you actually want both of the commands redone.
+First type `-undo_list` in the area indicated below by the red rectangle and press *Enter*.
+
+image::userguide/UndoList1.png[]
+
+The list of commands that can be undone or redone is then listed. In the image below, there
+are two commands that can be redone. To redo _till_ the last command, take note of the index of the
+last command, which is 3.
+
+image::userguide/UndoList2.png[]
+
+Now execute `-undo_till 3`. This command will be explained in more detail in the following section.
+
+{nbsp} +
+
+==== Undoing or redoing commands till a specific command: `-undo_till`
+This command undoes or redoes all commands from the current state until after a specific command.
+It takes in one parameter, INDEX, which is the index of the specific command. This index is obtained
+from the command described in the previous section, `-undo_list`.
+
+Format: `-undo_till INDEX`
+
+Example: `-undo_till 3`
+
+[NOTE]
+====
+.Requirement
+The index provided must be a valid index obtained from `-undo_list`.
+====
+
+From the previous section, the index of the command to redo till is 3. Type `-undo_till 3` in the
+app and press *Enter*. From the result box in the image below, it can be deduced that the first
+order was assigned a deliveryman and marked as completed, but these two commands were then undone.
+The image also shows that the deliveryman is now unassigned and the order is now shown as not
+delivered.
+
+image::userguide/UndoTill1.png[]
+
+Upon successful execution, the result box shows whether commands were undone or redone, and the
+specific command that has been undone or redone until. Also, the first order now has the deliveryman
+reassigned and delivery marked as completed!
+
+image::userguide/UndoTill2.png[]
+
+{nbsp} +
+
+// end::undoRedo[]
+// tag::universalCommand2[]
+
+==== Exiting the program: `-exit`
+This command exits the program.
+
+Format: `-exit`
+
+// end::universalCommand2[]
+// tag::customerCommand[]
+
+{nbsp} +
+
+=== Customer commands
+
+These are commands pertaining to customer context of *DeliveryMANS*. The screenshot below shows how the customer context will look like in *DeliveryMANS*.
+
+image::userguide\CustomerList.png[width="790"]
+
+This is a customer and its information. Each card will display the customer's username, favourite cuisine, name, phone number, address and the number of orders the customer has made.
+
+image::userguide\CustomerCard.png[]
+
+{nbsp} +
+
+==== Adding a customer: `add`
+
+This command allows you to add a new customer to the customer list. `USERNAME`, `NAME`, `PHONE` and `ADDRESS` are necessary to a customer.
+
+[NOTE]
+====
+
+The `USERNAME` of customer cannot be changed after adding.
+====
+
+Format: `add u/USERNAME n/NAME p/PHONE ad/ADDRESS`
+
+Example: `add u/JohnDoe n/John Doe p/91234567 ad/311, Clementi Ave 2, #02-25`
+
+{nbsp} +
+
+==== Editing a customer: `edit`
+
+This command allows you to edit an existing customer in the customer list. The index of a customer needs to be provided while the information to edit are optional.
+
+Format: `edit INDEX [n/NAME] [p/PHONE] [a/ADDRESS]`
+
+Example: `edit 1 n/John Woe p/97654321`
+
+
+.Example use case
+
+. You want to change John Doe's phone number but his address stays the same.
+
+. Simply type in `edit 1 p/97654321` into the command line and press enter.
+
+image::userguide\CustomerEdit.png[width="790"]
+
+[start=3]
+. The result box will display that the edit is successful and John Doe's phone number has changed.
+
+image::userguide\CustomerEditResult.png[width="790"]
+
+[NOTE]
+====
+
+.Requirements
+* The index `INDEX` provided must be within the customer list size and be greater than or equals to 1.
+====
+
+{nbsp} +
+
+==== Deleting a customer: `delete`
+
+This command allows you to delete an existing customer in the customer list. The index of a customer needs to be provided.
+
 Format: `delete INDEX`
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Example: `delete 1`
 
-Examples:
+[NOTE]
+====
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+.Requirements
+* The index `INDEX` provided must be within the customer list size and be greater than or equals to 1.
+====
 
-// end::delete[]
-=== Clearing all entries : `clear`
+{nbsp} +
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Viewing a customer's order history: `history`
 
-=== Exiting the program : `exit`
+This command allows you to view a customer's order history. The index of a customer needs to be provided.
 
-Exits the program. +
-Format: `exit`
+Format: `history INDEX`
 
-=== Saving the data
+Example: `history 1`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+.Example use case
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+. You want to view John Doe's order history.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+. Simply type in `history 1` into the command line and press enter.
 
-== FAQ
+image::userguide\CustomerHistory.png[width="790"]
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+[start=3]
+. John Doe's order history will be listed on the right panel.
 
-== Command Summary
+image::userguide/CustomerHistoryResult.png[width="790"]
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+[NOTE]
+====
+
+.Requirements
+* The index `INDEX` provided must be within the customer list size and be greater than or equals to 1.
+====
+
+// end::customerCommand[]
+
+{nbsp} +
+
+// tag::restaurantCommand[]
+
+=== Restaurant commands
+
+Commands in the restaurant context
+
+{nbsp} +
+
+==== Adding a restaurant: `add`
+This command adds a restaurant to the restaurant database.
+
+Format: `add n/NAME l/LOCATION [t/TAG]...`
+
+* `LOCATION` can only be one of the following locations: Jurong, Tuas, Woodlands, Bishan, City,
+Marina, Changi, Punggol.
+
+Example: `add n/KFC l/Jurong t/FastFood`
+
+{nbsp} +
+
+==== Deleting a restaurant: `delete`
+This command deletes the restaurant at the specified index in the restaurant list from the restaurant database.
+
+Format: `delete INDEX`
+
+* `INDEX` must be a positive integer from 1 to n, the number of restaurants in the restaurant list.
+
+Example: `delete 1`
+
+[NOTE]
+====
+.Note:
+
+* Deleting a restaurant will delete all its existing orders from the order database as well.
+====
+
+{nbsp} +
+
+==== Entering EditMode: `editmode`
+This command enters EditMode for the restaurant identified by the specified index in the restaurant list.
+Displays the restaurant's details, menu and current orders.
+Unlocks commands for editing details, adding and removing of food items
+in the menu, and adding of rating.
+
+Format: `editmode INDEX`
+
+* `INDEX` must be a positive integer from 1 to n, the number of restaurants in the restaurant list.
+
+Example: `editmode 3`
+
+image::userguide\EditMode.png[width="790"]
+
+{nbsp} +
+
+==== Editing restaurant's details (under EditMode): `editdetails`
+This command edits the details of the restaurant under EditMode.
+
+Format: `editdetails [n/NAME] [l/LOCATION] [t/TAG]…​`
+
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the restaurant will be removed i.e adding of tags is not cumulative.
+* You can remove all the restaurant’s tags by typing t/ without specifying any tags after it.
+
+Example: `editdetails n/Dr Hogs Barbeque l/Punggol t/Barbeque t/Western`
+
+image::userguide\EditDetails.png[width="790"]
+
+{nbsp} +
+
+[NOTE]
+====
+.Note:
+
+* Editing a restaurant's name will edit the restaurant name in all its existing orders as well.
+
+====
+
+{nbsp} +
+
+==== Adding food item (under EditMode): `add`
+This command adds a food item to the menu of the restaurant under EditMode.
+
+Format: `add n/NAME a/PRICE [t/TAG]...`
+
+* You can only tag a food item as "Recommended".
+
+Example: `add n/Chicken a/7.90 t/Recommended`
+
+{nbsp} +
+
+==== Deleting food item (under EditMode): `delete`
+This command deletes the food item at the specified index in the menu of the restaurant under EditMode.
+
+Format: `delete INDEX`
+
+* `INDEX` must be a positive integer from 1 to n, the number of food items in the restaurant's menu.
+
+Example: `delete 1`
+
+[NOTE]
+====
+.Note:
+* Deleting a food item from a restaurant will NOT delete the food item in the restaurant's orders as
+the order was made when the food item was still available.
+====
+
+{nbsp} +
+
+==== Adding a rating (under EditMode): `rate`
+This command adds a rating to the restaurant under EditMode and updates the new average rating of all the ratings
+added to date.
+
+Format: `rate RATING`
+
+* `RATING` must be a non-negative integer from 0 to 5.
+
+Example: `rate 4`
+
+{nbsp} +
+
+==== Exiting EditMode: `exitedit`
+This command exits EditMode for the specific restaurant and returns to the list of restaurants
+
+Format: `exitedit`
+
+{nbsp} +
+
+==== Auto-tagging of food item as "Popular"
+Food items with quantity ordered more than 1.5 times the average quantity ordered of food items in the restaurant
+will be automatically tagged as "Popular".
+
+Example (refer to image below):
+
+* 16 food items are ordered in Order 2 (1 + 2 + 6 + 7), an average quantity ordered of 4 per food item.
+* Quantity ordered of food items Cheese Prata and Prata Bomb (6 and 7 respectively) is more than 1.5 times
+the average quantity ordered. Automatically tagged as "Popular" upon completion of Order 2.
+
+image::userguide\AutoTag.png[width="790"]
+
+{nbsp} +
+
+[NOTE]
+====
+.Note:
+* Food items' quantity ordered will only be updated upon completion of an order.
+====
+
+// end::restaurantCommand[]
+
+// tag::deliverymenCommand[]
+{nbsp} +
+
+=== Deliverymen commands
+
+These are the commands you can use after entering the deliverymen context (via the command `-deliverymen`).
+The screenshot below shows how the deliverymen context looks like.
+
+image::userguide\DeliverymanContext.png[width="790"]
+
+For each deliveryman, his information will be displayed in the following vertical order: name, tag(s), current status and
+phone number. This is shown in another screenshot below.
+
+image::userguide\DeliverymanCard.png[width="790"]
+{nbsp} +
+
+[NOTE]
+====
+.Note:
+A deliveryman can have any of the 3 statuses: *AVAILABLE*, *UNAVAILABLE*, *DELIVERING*.
+====
+
+==== Adding a deliveryman: `add`
+
+This command allows you to add a new deliveryman to the deliverymen database. The name and phone number of the
+deliveryman must be provided.
+
+Format: `add n/NAME p/PHONE`
+
+Example: `add n/John Doe p/91234567`
+
+[NOTE]
+====
+.Requirements
+* The phone number must be at least 3 digits and not exceed 10 digits.
+====
+
+[NOTE]
+====
+.Note:
+* A newly-added deliveryman will be assigned with the default status *UNAVAILABLE*.
+* Tags cannot be added through this command. Refer to the `edit` command in <<Editing a deliveryman: `edit`, Section 3.4.2>> to add tags to a deliveryman.
+====
+
+{nbsp}
+
+==== Editing a deliveryman: `edit`
+
+This command allows you to edit an existing deliveryman in the deliverymen database. The index of the deliveryman to be
+edited must be provided. You can edit only the field that you wish to change, but at least one field must be edited
+(eg. name, phone number, tag(s)). You can also add more than one tag, as illustrated in *Example 2*.
+
+Format: `edit INDEX [n/NAME] [p/PHONE] [t/TAG]*`
+
+Example 1: `edit 1 n/John Hoe p/97654321`
+
+Example 2: `edit 1 t/active t/buff t/bestDeliveryman2019`
+
+[NOTE]
+====
+.Requirements
+* The index INDEX provided must be within the deliverymen list size and be at least 1.
+* Tags must not contain any whitespace.
+====
+
+{nbsp} +
+
+==== Deleting a deliveryman: `delete`
+
+This command allows you to delete an existing deliveryman from the deliverymen database. The index of the deliveryman to
+be deleted must be provided.
+
+Format: `delete INDEX`
+
+Example: `delete 1`
+
+[NOTE]
+====
+.Requirements
+* The index provided must be within the deliverymen list size and be at least 1.
+====
+
+{nbsp} +
+
+==== Listing status lists of deliverymen: `lists`
+
+This command allows you to view all the deliverymen sorted according to their statuses. For easy navigation,
+you can click on any of the three buttons, as shown in the red box of the screenshot below, to display the status list
+that you wish to view.
+
+image::userguide\DeliverymanLists.png[width="790"]
+
+Format: `lists`
+
+Example: `lists`
+
+{nbsp} +
+
+==== Changing status of a deliveryman: `status`
+
+This command allows you to switch the status of a deliveryman between *AVAILABLE* and *UNAVAILABLE*. Using this command
+will prompt the status lists as well (that can also be done through `lists` command explained in <<Listing status lists of deliverymen: `lists`, Section 3.4.4>>).
+
+Format: `status INDEX`
+
+Example: `status 3`
+
+[NOTE]
+====
+.Requirements
+* The index provided must be within the deliverymen list size and be at least 1.
+* The status of the deliveryman must be either *AVAILABLE* or *UNAVAILABLE*.
+====
+
+[NOTE]
+
+.Note:
+ You are not allowed to change the status of a deliveryman who has the status *DELIVERING*. It can only be changed
+through changes to orders assigned to him.
+
+.Example use case
+
+. Your deliveryman, Donald Trump, was on sick leave and his status is currently *UNAVAILABLE*. However, he just informed you
+that he has recovered and is ready to work again! You want to set his status back to *AVAILABLE*.
+
+. You search for his name and identify his index as `2`, as shown in the red border. Then you type in the command `status 2`.
+
+image::userguide\BeforeStatusSwitch.png[width="790"]
+
+[start=3]
+. The result box will display that the status of Donald Trump has been changed. And indeed, it has been switched to *AVAILABLE*!
+Also, you notice that the status lists have been prompted, as shown in the blue border.
+
+image::userguide\AfterStatusSwitch.png[width="790"]
+
+{nbsp} +
+
+==== Viewing the statistics of the deliverymen statuses: `stats`
+
+This command allows you to view the statistics of the current statuses of deliverymen. Relevant statistics such as the
+utilisation level will also be computed and displayed for your reference. A brief explanation of each statistic is
+provided as well.
+
+Format: `stats`
+
+Example: `stats`
+
+image::userguide\DeliverymanStats.png[width="790"]
+
+====
+In the screenshot above, the information inside the blue border is the statistics. The text shown inside
+the red border is a summary of the analysis.
+====
+
+[TIP]
+If you just want a brief update on the current state of your deliverymen, the textual analysis displayed inside the red
+border summarizes it all for you!
+
+// end::deliverymenCommand[]
+{nbsp} +
+
+{nbsp} +
+
+== Command summary
+
+**Command:** format
+
+* Universal commands
+- View help: `-help`
+- Add order: `-add_order c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
+- Assign order: `-assign_order n/ORDERNAME`
+- Complete order: `-complete_order n/ORDERNAME`
+- Edit order: `-edit_order n/ORDERNAME [c/CUSTOMER] [r/RESTAURANT] [f/FOOD]... [q/QUANTITY]...`
+- Delete order: `-delete_order n/ORDERNAME`
+- List orders: `-list_orders`
+- Switch to restaurant context: `-restaurant`
+- Switch to customer context: `-customer`
+- Switch to deliverymen context: `-deliverymen`
+- Undo command: `-undo`
+- Redo command: `-redo`
+- List undo/redo: `-undo_list`
+- Undo/redo till: `-undo_till INDEX`
+- Exit application: `-exit`
+
+* Customer commands
+- Add a customer: `add u/USERNAME n/NAME p/PHONE ad/ADDRESS`
+- Edit a customer: `edit INDEX [n/NAME] [p/PHONE] [ad/ADDRESS]`
+- Delete a customer: `delete INDEX`
+- View a customer's order history: `history INDEX`
+
+* Restaurant commands
+- Add a restaurant: `add n/NAME l/LOCATION [t/TAG]...`
+- Delete a restaurant: `delete INDEX`
+- Enter EditMode: `editmode INDEX`
+- Edit a restaurant's details (under EditMode) : `editdetails [n/NAME] [l/LOCATION] [t/TAG]…​`
+- Add a food item (under EditMode) : `add n/NAME a/PRICE [t/TAG]...`
+- Delete a food item (under EditMode) : `delete INDEX`
+- Add a rating (under EditMode) : `rate RATING`
+- Exit EditMode (under EditMode) : `exitedit`
+
+* Deliverymen commands
+- Add a deliveryman: `add n/NAME p/PHONE`
+- Delete a deliveryman: `delete INDEX`
+- Edit a deliveryman: `edit INDEX [n/NAME] [p/PHONE] [t/TAG]...`
+- List deliverymen sorted by status: `lists`
+- Switch status of a deliveryman: `status INDEX`
+- View statistics for deliverymen current statuses: `stats`

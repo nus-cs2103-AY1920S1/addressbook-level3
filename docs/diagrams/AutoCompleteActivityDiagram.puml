@@ -1,0 +1,23 @@
+@startuml
+start
+
+:Trie inserts command words;
+if () then (String.isEmpty())
+else ([else])
+        :Put first Character and new Trie
+        into HashMap of current Trie;
+        :Get Trie corresponding to
+        first Character in HashMap;
+    if () then ([String.length == 1])
+        :Add command word to Trie;
+        :Add prefixes to Trie;
+    else ([else])
+        :Get substring(1) of String;
+        :Call insertCommand(substring)
+        in current Trie;
+        :Call insertCommand(substring)
+        in corresponding Trie;
+    endif
+endif
+stop
+@enduml

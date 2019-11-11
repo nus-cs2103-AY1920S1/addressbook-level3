@@ -1,0 +1,72 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Interface Model <<Interface>>
+Interface ObservableList <<Interface>>
+Class ModelManager
+Class CustomerDatabase
+Class DeliverymenDatabase
+Class RestaurantDatabase
+Class OrderDatabase
+Class UniqueCustomerList
+Class UniqueDeliverymenList
+Class UniqueRestaurantList
+Class UniqueOrderList
+Class Customer
+Class Deliveryman
+Class Restaurant
+Class Order
+Class Food
+Class Name
+Class Phone
+Class Location
+Class Rating
+
+Package Status {
+Class StatusManager
+Class Status
+Class UniqueStatusList
+}
+
+ModelManager .up.|> Model
+Model .left.> ObservableList
+
+ModelManager o--> "1" CustomerDatabase
+ModelManager o--> "1" DeliverymenDatabase
+ModelManager o--> "1" RestaurantDatabase
+ModelManager o--> "1" OrderDatabase
+
+CustomerDatabase o--> "1" UniqueCustomerList
+DeliverymenDatabase o--> "1" UniqueDeliverymenList
+DeliverymenDatabase o--> "1" StatusManager
+RestaurantDatabase o--> "1" UniqueRestaurantList
+OrderDatabase o--> "1" UniqueOrderList
+
+UniqueCustomerList o--> "*" Customer
+UniqueDeliverymenList o--> "*" Deliveryman
+UniqueRestaurantList o--> "*" Restaurant
+UniqueOrderList o--> "*" Order
+UniqueStatusList o--> Status
+StatusManager o--> UniqueStatusList
+
+Order o--> Name
+Customer o--> Name
+Customer o--> Phone
+Deliveryman o--> Name
+Deliveryman o--> Phone
+Deliveryman o--> Status
+Restaurant o--> Name
+Restaurant o--> Food
+Restaurant o--> Location
+Restaurant o--> Rating
+Restaurant o--> "*" Order
+Order o-[hidden]left-> Food
+Status o-[hidden]left-> Deliveryman
+StatusManager o-[hidden]right-> UniqueDeliverymenList
+DeliverymenDatabase o-[hidden]right-> CustomerDatabase
+
+@enduml

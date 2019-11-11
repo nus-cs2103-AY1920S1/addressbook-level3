@@ -350,3 +350,68 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+
+#statusTag {
+    -fx-padding: 1 3 1 3;
+    -fx-background-color: grey;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+    -fx-wrap-text: true;
+}
+
+#statusLabel {
+    -fx-text-fill: olive;
+    -fx-font-size: 25;
+}
+
+#totalDeliverymenLabel {
+    -fx-font-size: 25;
+    -fx-border-radius: 2;
+    -fx-border-style: solid;
+    -fx-text-fill: black;
+    -fx-background-color: orange ;
+}
+
+#availableDeliverymenLabel {
+    -fx-font-size: 20;
+    -fx-border-radius: 2;
+    -fx-border-style: dashed;
+    -fx-text-fill: green;
+}
+
+#unavailableDeliverymenLabel {
+    -fx-border-radius: 2;
+    -fx-font-size: 20;
+    -fx-border-style: dashed;
+    -fx-text-fill: red;
+}
+
+#deliveringDeliverymenLabel {
+    -fx-font-size: 20;
+    -fx-border-style: dashed;
+    -fx-text-fill: yellow;
+}
+
+.default-color0.chart-pie { -fx-pie-color: green; }
+.default-color1.chart-pie { -fx-pie-color: red; }
+.default-color2.chart-pie { -fx-pie-color: yellow; }
+
+.chart-pie-label-line {
+    -fx-stroke: #8b4513;
+    -fx-fill: #8b4513;
+}
+
+.chart-pie-label {
+    -fx-fill: #8b4513;
+    -fx-font-size: 1em;
+}
+.chart-legend {
+    -fx-background-color:  #fafad2;
+    -fx-stroke: #daa520;
+}
+
+#deliveryStatus {
+
+}

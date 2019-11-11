@@ -1,0 +1,16 @@
+@startuml
+:User executes command;
+:UniversalParser parses command;
+
+if () then ([command is universal command])
+    :Return universal command;
+else ([else])
+    :ContextParser parses command;
+    if () then ([command is context-specific command])
+        :Return context-specific command;
+    else ([else])
+        :Throw ParseException;
+    endif
+endif
+stop
+@enduml

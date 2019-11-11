@@ -1,0 +1,50 @@
+@startuml
+!include style.puml
+
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "EditModeCommand" as EditModeCommand LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+[-> MainWindow : executeCommand("editmode 1")
+activate MainWindow
+
+MainWindow -> LogicManager : execute("editmode 1")
+activate LogicManager
+
+LogicManager -> EditModeCommand : execute()
+activate EditModeCommand
+
+create CommandResult
+EditModeCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditModeCommand : cr
+deactivate CommandResult
+
+EditModeCommand --> LogicManager : cr
+deactivate EditModeCommand
+
+LogicManager --> MainWindow : cr
+deactivate LogicManager
+
+MainWindow -> CommandResult : getContext()
+activate CommandResult
+
+CommandResult --> MainWindow : context
+deactivate CommandResult
+
+opt isNewContext
+     MainWindow -> MainWindow : changeDisplay(context)
+     activate MainWindow
+     deactivate MainWindow
+end
+
+[<--MainWindow
+deactivate MainWindow
+@enduml
