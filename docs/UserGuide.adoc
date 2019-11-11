@@ -161,7 +161,7 @@ Format: `showcore`
 Shows all focus area primary modules.
 
 Format: `showfocus`
-///end::showfocus[]
+//end::showfocus[]
 
 //tag::display[]
 ==== Display for invalid modules
@@ -215,8 +215,13 @@ Format:  `unblock SEMESTER`
 
 //tag::validmods[]
 ==== Viewing modules that can be taken in a given semester : `validmods`
-Shows all the modules that can be taken in a given semester, based only on whether its prerequisites have been met. +
-This semester need not necessarily exist in the module planner for you to view its valid modules. +
+Shows all the modules that can be taken in a given semester, based only on whether its prerequisites have been met.
+
+[NOTE]
+This semester need not necessarily exist in the module planner for you to view its valid modules.
+Moreover, certain modules such as the internship and dissertation may show up in early semesters,
+because their prerequisites are not expressible in terms of prerequisite modules.
+
 Format: `validmods SEMESTER`
 
 Example:

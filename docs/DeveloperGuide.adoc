@@ -1271,3 +1271,49 @@ priority tag, an error message will be shown.
 .. Test case: `listbypriority` +
 Expected:
 A left panel with a list of study plans sorted in the order such that their priorities are `high`, `low` and no priority.
+
+=== Executing information and verification-related commands
+
+. Checking for study plan requirements
+.. Prerequisite
+... There must be an active study plan.
+.. Test case: `check` +
+Expected:
+The study plan requirements for your current study plan should be checked based on 3 criteria:
+total MC count of the study plan (both completed and uncompleted), number of core modules taken,
+and number of focus area primaries taken. The study plan satisfies graduation requirements only if
+all 3 criteria are met.
+
+. Describing a module
+.. Test case: `description CS1101S`
+Expected:
+It should show the description of CS1101S, including module name, MC count, S/U-ability, prerequisites,
+and more.
+
+. Showing focus area primary modules
+.. Test case: `showfocus`
+Expected:
+It should show a list of all focus area primary modules in the left panel, regardless
+of whether they are in the study plan or not.
+
+. Showing core modules
+.. Test case: `showcore`
+Expected:
+It should show a list of all core modules in the left panel, regardless of whether
+they are already in the study plan or not.
+
+. Clearing all invalid modules
+.. Prerequisite
+... There should be modules in the right panel that are invalid, in that not all prerequisites
+have been satisfied.
+.. Test case: `clearinvalidmods`
+Expected:
+It should remove all modules that are invalid in the right panel. Note that this can
+cause new modules to become invalid as well.
+
+. Show valid modules
+.. Test case: `validmods y1s1`
+Expected:
+It should show all valid modules that can be taken in Y1S1. Note that this may include
+the dissertation and internship, as their prerequisites are not expressible in terms
+of prerequisite modules.
