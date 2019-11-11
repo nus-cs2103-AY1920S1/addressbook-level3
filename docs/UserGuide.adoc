@@ -444,7 +444,7 @@ Do note that only the results of the *first attempt* of each question will be co
 ****
 
 [TIP]
-Note that test creates the test deck by taking a subset of questions from the entire deck! So don't expect the entire deck to be inside :)
+Note that test creates the test deck by taking a few questions from the entire deck! So don't expect the entire deck to be inside test mode :)
 
 ==== Get next card: `next`
 
