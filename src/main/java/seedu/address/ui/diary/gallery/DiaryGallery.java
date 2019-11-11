@@ -6,7 +6,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.diary.photo.Photo;
+import seedu.address.model.diary.photo.DiaryPhoto;
 import seedu.address.model.diary.photo.PhotoList;
 import seedu.address.ui.UiPart;
 
@@ -17,7 +17,7 @@ public class DiaryGallery extends UiPart<VBox> {
     private static final String FXML = "diary/DiaryGallery.fxml";
 
     @FXML
-    private ListView<Photo> photosPlaceholder;
+    private ListView<DiaryPhoto> photosPlaceholder;
 
     private PhotoList photoList;
 
@@ -57,9 +57,9 @@ public class DiaryGallery extends UiPart<VBox> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Photo} using a {@code DiaryGalleryCard}.
      */
-    class PhotoListViewCell extends ListCell<Photo> {
+    class PhotoListViewCell extends ListCell<DiaryPhoto> {
         @Override
-        protected void updateItem(Photo photo, boolean empty) {
+        protected void updateItem(DiaryPhoto photo, boolean empty) {
             super.updateItem(photo, empty);
 
             if (empty || photo == null) {

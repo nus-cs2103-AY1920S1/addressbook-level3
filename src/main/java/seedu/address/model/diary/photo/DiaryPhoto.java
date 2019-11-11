@@ -10,12 +10,13 @@ import java.time.LocalDateTime;
 import javafx.scene.image.Image;
 
 import seedu.address.logic.parser.ParserDateUtil;
+import seedu.address.model.common.Photo;
 
 /**
  * Abstraction of a photo containing the path to an image, and a cached JavaFX instance of {@link Image}.
  * It also contains other information such as the display name of the photo and the date.
  */
-public class Photo extends seedu.address.model.common.Photo {
+public class DiaryPhoto extends Photo {
 
     /** The maximum length of the description the should have. */
     public static final int MAXIMUM_DESCRIPTION_LENGTH = 20;
@@ -45,14 +46,14 @@ public class Photo extends seedu.address.model.common.Photo {
      * @param dateTaken The date taken to be registered with this photo.
      * @throws IllegalArgumentException If either the {@code imagePath} or {@code description} violates the constraints.
      */
-    public Photo(Path imagePath, String description, LocalDateTime dateTaken) throws IllegalArgumentException {
+    public DiaryPhoto(Path imagePath, String description, LocalDateTime dateTaken) throws IllegalArgumentException {
         super(imagePath);
         requireAllNonNull(description, dateTaken);
         validateDescription(description);
         this.dateTaken = dateTaken;
     }
 
-    public Photo(String imagePath, String description, LocalDateTime dateTaken) throws IllegalArgumentException {
+    public DiaryPhoto(String imagePath, String description, LocalDateTime dateTaken) throws IllegalArgumentException {
         this(Paths.get(imagePath), description, dateTaken);
     }
 
@@ -103,11 +104,11 @@ public class Photo extends seedu.address.model.common.Photo {
             return true;
         }
 
-        if (!(obj instanceof Photo)) {
+        if (!(obj instanceof DiaryPhoto)) {
             return false;
         }
 
-        Photo otherPhoto = (Photo) obj;
+        DiaryPhoto otherPhoto = (DiaryPhoto) obj;
 
         return description.equals(otherPhoto.description)
                 && imageFilePath.equals(otherPhoto.imageFilePath)

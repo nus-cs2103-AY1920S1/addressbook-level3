@@ -12,7 +12,7 @@ import javafx.scene.control.ListView;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.diary.photo.Photo;
+import seedu.address.model.diary.photo.DiaryPhoto;
 import seedu.address.model.diary.photo.PhotoList;
 import seedu.address.ui.UiPart;
 
@@ -77,7 +77,7 @@ public class DiaryEntryDisplay extends UiPart<ListView<CharSequence>> {
                     String numbers = m.group("numbers");
                     String position = m.group("position");
 
-                    ArrayList<Photo> photos = parseImageSeparator(numbers);
+                    ArrayList<DiaryPhoto> photos = parseImageSeparator(numbers);
                     if (preText.trim().isEmpty() && postText.trim().isEmpty()) {
                         diaryLine = new DiaryLine(photos, lineNumber);
                     } else if (photos.size() == 0) {
@@ -97,15 +97,15 @@ public class DiaryEntryDisplay extends UiPart<ListView<CharSequence>> {
 
         /**
          * Parses the given string of space delimited numbers, and uses the {@code photoList} of the parent
-         * class {@link DiaryEntryDisplay} to return an {@link ArrayList} of {@link Photo}s with matching indices.
+         * class {@link DiaryEntryDisplay} to return an {@link ArrayList} of {@link DiaryPhoto}s with matching indices.
          * It will skip any token that is not a valid integer or is out of the bounds of the {@code photoList}.
          *
          * @param numbers The string of numbers to space delimited parse.
-         * @return {@link ArrayList} of {@link Photo}s with matching indices.
+         * @return {@link ArrayList} of {@link DiaryPhoto}s with matching indices.
          */
-        private ArrayList<Photo> parseImageSeparator(String numbers) {
+        private ArrayList<DiaryPhoto> parseImageSeparator(String numbers) {
             String[] numberStrings = numbers.trim().split("\\s+");
-            ArrayList<Photo> photos = new ArrayList<Photo>();
+            ArrayList<DiaryPhoto> photos = new ArrayList<DiaryPhoto>();
 
             for (String numberString : numberStrings) {
                 try {

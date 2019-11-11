@@ -13,12 +13,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
-import seedu.address.model.diary.photo.Photo;
+import seedu.address.model.diary.photo.DiaryPhoto;
 import seedu.address.ui.UiPart;
 
 /**
  * Custom JavaFX component controller representing a single line of items to be displayed in the diary.
- * These items can be a graphic such as {@link Photo}, a simple text string, or both.
+ * These items can be a graphic such as {@link DiaryPhoto}, a simple text string, or both.
  * It is backed using a JavaFX {@link GridPane} component, which allows adjusting the proportions the
  * text or graphic.
  * By default, the {@link GridPane} constraints are set to accommodate only a label without the graphic.
@@ -71,9 +71,9 @@ class DiaryLine extends UiPart<GridPane> {
     /**
      * Constructs a {@code DiaryLine} of only images, specified by the collection {@code photos}.
      *
-     * @param photos The {@link Collection} of {@link Photo}s to display.
+     * @param photos The {@link Collection} of {@link DiaryPhoto}s to display.
      */
-    DiaryLine(Collection<Photo> photos, String index) {
+    DiaryLine(Collection<DiaryPhoto> photos, String index) {
         super(FXML);
 
         lineIndexText.setText(index);
@@ -90,11 +90,11 @@ class DiaryLine extends UiPart<GridPane> {
      * Constructs a {@code DiaryLine} with text and an inline image, specified by the {@code photo}.
      *
      * @param text The {@link String} text of the diary line.
-     * @param photo The {@link Photo} instance to use for the image data.
+     * @param photo The {@link DiaryPhoto} instance to use for the image data.
      * @param placeOnLeft True if the image should be positioned on the left. Otherwise, it is positioned on
      *                    the right.
      */
-    DiaryLine(String text, Photo photo, boolean placeOnLeft, String index) {
+    DiaryLine(String text, DiaryPhoto photo, boolean placeOnLeft, String index) {
         super(FXML);
         requireNonNull(photo);
 

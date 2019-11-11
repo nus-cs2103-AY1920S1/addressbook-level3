@@ -16,20 +16,20 @@ public class PhotoListStub extends PhotoList {
     public PhotoListStub() {}
 
     @Override
-    public void addPhoto(Photo photo) {}
+    public void addPhoto(DiaryPhoto photo) {}
 
     @Override
-    public Photo deletePhoto(Index index) {
+    public DiaryPhoto deletePhoto(Index index) {
         return null;
     }
 
     @Override
-    public ObservableList<Photo> getObservablePhotoList() {
+    public ObservableList<DiaryPhoto> getObservablePhotoList() {
         return null;
     }
 
     @Override
-    public Optional<Photo> getPhoto(String searchTerm) {
+    public Optional<DiaryPhoto> getPhoto(String searchTerm) {
         return null;
     }
 
