@@ -12,6 +12,8 @@ Responsibilities: Code Quality
 
 == PROJECT: SecureIT
 
+This document outlines my contributions to the project *SecureIT*.
+
 == Overview
 With the increasing digitisation of all businesses, managing one's digital life has become highly complex.
 Having realised this problem, my group and I created **SecureIT** as part of our software engineering project.
@@ -21,6 +23,8 @@ SecureIT is designed to be an all-in-one management tool for all confidential in
 * Passwords | Secret Files | Secret Notes | Credit Cards
 
 image::EJPPPIntro.png[width="450"]
+
+SecureIT operates via a Command-Line Interface(CLI), and executes accordingly to the user inputted commands.
 
 == Summary of contributions
 |===
@@ -42,7 +46,7 @@ The implementation also required knowledge on the use of more complex data struc
 
 * *Major enhancement: the ability to generate random secure passwords.*
 
-** What is does: The password generation feature provides the ability to generate customisable, and truly random passwords.
+** What it does: The password generation feature provides the ability to generate customisable, and truly random passwords.
 
 ** Justification: This feature greatly improves the utility of SecureIT because it alleviates the user of needing to think of a password whenever he needs to create a new account. More importantly, the password provided is guaranteed to be random and thereby secure.
 
