@@ -13,35 +13,21 @@ The purpose of this portfolio showcases my contribution to the Athletick project
 
 === About the team
 
-We are a team of five year 2 computing students from National University
-of Singapore with diverse backgrounds. Four of us are majoring in Computer
-Science with different specialisations and one of us is majoring in Information
-Security.
+Our team comprises of five year 2 computing undergraduates from
+the National University of Singapore.
 
 === About the project
 
 This project is a 6 weeks long project for our software engineering module.
-We were tasked to either enhance or morph a basic command line interface desktop
-Address Book application and one of the main constraints of this project is that
-the application has to remain as a command line interface application.
+We were tasked to either enhance or morph a command line interface
+Address Book application and one of the main constraints for this project is that
+it has to remain as a command line interface application.
 
-What my team and I decided to do was to morph the existing address book application to a team
+What we decided to do was to morph the existing address book application to a team
 management application called Athletick. Athletick is designed for captains and
 coaches of timing-based performance sports to help take and keep track of attendance
-and performance of their teams.
-
-Some of the main features of Athletick include:
-
-* Taking and tracking of team's attendance.
-* Recording and tracking of team's performance.
-* Viewing of training calendar and performance graph.
-* Viewing of an athlete's profile.
-* Undoing and redoing of commands.
-
-This is what users see when they first launch Athletick:
-
-.The graphical user interface for Athletick.
-image::athletick.png[]
+and performance of their teams. Other main features of Athletick include viewing of the training calendar
+and performance graph.
 
 My role was to design and implement the code for the `undo` and `redo` features.
 The following sections illustrate these enhancements in more detail, as
@@ -64,10 +50,11 @@ This section shows a summary of my coding, documentation, and other helpful cont
 
 *Enhancement added*: I added the ability to undo/redo previous commands.
 
- * What it does: The `undo` command allows the user to undo a previous command. The user may
+ * What it does
+** The `undo` command allows the user to undo a previous command. The user may
 reverse this `undo` command with the `redo` command.
- * Justification:
-In the event that users have made a mistake or changed their minds about executing
+ * Justification
+** In the event that users have made a mistake or changed their minds about executing
 a command, the `undo` command enables them to revert to a version immediately before the mistaken command
 was executed. If they change their minds again and decide to execute the command after all,
 then the `redo` command enables them to do so easily.
