@@ -189,6 +189,7 @@ public class CreateCommand extends Command {
     public static void createJavascriptCard(String asserts) {
         asserts = asserts.replace("Enter your asserts below.", "").strip();
         if (asserts.isBlank()) {
+            StateHolder.getState().setCurrState(StateEnum.DEFAULT);
             Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a test case!");
             return;
         }
@@ -209,9 +210,17 @@ public class CreateCommand extends Command {
                 new String[]{"input/", "output/"}, cases);
         if (res.get(0).size() != res.get(1).size()) {
             //inputs not equal to output
+            StateHolder.getState().setCurrState(StateEnum.DEFAULT);
             Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Number of input/ must match number of output/");
             return;
         }
+        if (res.get(0).size() == 0 && res.get(1).size() == 0) {
+            //no test case
+            StateHolder.getState().setCurrState(StateEnum.DEFAULT);
+            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a test case!");
+            return;
+        }
+
         ArrayList<TestCase> testCases = new ArrayList<>();
         for (int i = 0; i < res.get(0).size(); i++) {
             String input = res.get(0).get(i).strip();
