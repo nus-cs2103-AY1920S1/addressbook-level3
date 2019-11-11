@@ -2,6 +2,9 @@ package seedu.moneygowhere.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.currency.Currency;
@@ -23,9 +26,10 @@ public class ExchangeRateCommand extends Command {
     public static final String MESSAGE_INVALID_CURRENCY = "Specified currency does not exist";
     public static final String MESSAGE_SAME_CURRENCY = "Specified currency SGD will return the same result.";
 
-
     private double amount;
     private String currencyCode;
+
+    private final Logger logger = LogsCenter.getLogger(ExchangeRateCommand.class);
 
     public ExchangeRateCommand() {
         amount = 0;
@@ -59,6 +63,7 @@ public class ExchangeRateCommand extends Command {
         }
 
         if (targetCurrency == null) {
+            logger.warning("Target currency " + currencyCode + " is invalid");
             throw new CommandException(MESSAGE_INVALID_CURRENCY);
         }
 

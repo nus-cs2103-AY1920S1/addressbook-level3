@@ -297,24 +297,24 @@ Similar to a typical Command Line Interface(CLI), the up and down key allows the
 ==== Implementation
 
 The up and down key mechanism is facilitated by the `logic` component of `MoneyGoWhere`.
-When ever a user inputted command is entered, it is stored internally in a list in `commandHistory` component of `Storage`.
+Whenever a user inputted command is entered, it is stored internally in a list in `commandHistory` component of `Storage`.
 `CommandHistory` has an internal index to keep track of its current position in the list.
 
 Additionally, it implements the following operations:
 
-* `Logic#getNextCommand()` -- Retrieves the more recent user input command with respect to the current index.
-* `Logic#getPrevCommand()` -- Retrieves the earliest user input command with respect to the current index.
+* `Logic#getNextCommand()` -- Retrieves the next user input command with respect to the current index.
+* `Logic#getPrevCommand()` -- Retrieves the previous user input command with respect to the current index.
 
 The index is initially set to -1, to indicate that that no user input has been inputted.
-When ever a user inputs a command, the command is stored at the end of the list and
+Whenever a user inputs a command, the command is stored at the end of the list and
 the index is set to the size of the list, to indicate that there are no commands beyond after this point.
 
-Calling `getNextCommand()` will cause the index to decrement by 1 and show the user input command stored at that index.
+Calling `getPrevCommand()` will cause the index to decrement by 1 and show the user input command stored at that index.
 When the index is currently 0, or the first user command inputted, pressing the up key will cause the index to result in -1.
 This returns the empty string, since there are no commands before this point. Any further up key press will have the same
 outcome, but the index will stay at -1.
 
-Calling `getPrevCommand()` will cause the index to increment by 1 and the user inputted command at that index will be returned.
+Calling `getNextCommand()` will cause the index to increment by 1 and the user inputted command at that index will be returned.
 If the index is currently the last possible value, the last user inputted command, pressing the down key will cause the
 index to increment by 1, which is outside the list, the empty string will be returned. Any further down key press
 will have the same outcome but the index will stay the list size or last possible index + 1.
@@ -336,7 +336,7 @@ The following steps explain the sequence diagram:
 4. `CommandHistory` returns the next user inputted command.
 5. The returned command is then showed to the user in the `CommandBox`.
 
-To summarize what happens when the user presses the down key:
+To summarize what determines the output when the user presses the down key:
 
 .Activity diagram for `getNextCommand()`
 image::GetNextCommandActivityDiagram.png[]
@@ -347,6 +347,9 @@ The following steps explain the activity diagram:
 2. `CommandHistory` will increment its index.
 3. If the index is not out of bounds, the user inputted command at the index will be returned
 4. Else, the index is set to the size of the list, and an empty string is returned.
+
+The sequence diagram and activity diagram for `getPrevCommand()` are similar to the sequence and activity diagram of `getNextCommand()` as shown above.
+The only difference is whether it returns the next command or the previous command.
 // end::updown[]
 
 // tag::find[]
@@ -931,6 +934,10 @@ double representing the desired monthly budget. The amount cannot exceed 1,000,0
 
 For example `budget 10000` sets the current monthly budget to 10000.
 
+[NOTE]
+The budget amount must be a positive number no greater than 1000000000 Singapore dollars and must only have two digits after
+the decimal point.
+
 The second functionality is done automatically by the program, which finds the total spending in the month and reduces
 the sum from the budget.
 
@@ -963,7 +970,7 @@ to parse the user input.
 5. The Budget in Model then set to the new amount.
 
 Budget also keeps track of the sum of all spending in order to show the user how much budget the user has left.
-Initially, it has totaled up all spending in the save file, and then the value is modified with when `add`, `delete` and `edit` commands are called.
+Initially, it has totaled up all spending in the save file, and then the value is modified when the `add`, `delete` and `edit` commands are called.
 
 The following sequence diagram will demonstrate how Budget modifies its value when the `add` command is used:
 
@@ -990,11 +997,11 @@ As well as `edit` command, which utilizes both `add` and `delete`.
 
 |Method to calculate sum of spending
 |Keep track of the sum and modifies the sum when `add`, `delete` and `edit` commands are called +
-Pros: Does not waste time to calculate sum, easy to implement. +
-Cons:
+Pros: Does not waste time to calculate sum. easy to implement. +
+Cons: We need to keep track of the sum when saving.
 |Calculate from `SpendingList` each time +
 Pros: Seems intuitive. +
-Cons: Is not efficient, we need to go through the entire each time/
+Cons: It is not efficient, we need to go through the entire each time to calculate sum.
 
 |===
 A combination of the two was chosen. During the initialization phase, we read through
@@ -1845,7 +1852,24 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `sort d/DESC n/ASC` +
    Expected: Spending entries are sorted in Date
 
-_{ more test cases ... }_
+=== Changing the displayed currency
+
+. Changing the displayed currency in the application
+
+.. Prerequisites: The currency should be in SGD and the spending list should have some items to display the full capability of this function as well.
+.. Test case: `currency USD` +
+   Expected: The application currency is changed to USD.
+.. Test case: `currency SGD` +
+   Expected: If the application was in SGD, an error message is shown saying that SGD is the currency in use.
+
+=== Viewing exchange rate or conversion rate
+
+. Views the exchange rate of all currencies, or converts a particular currency to SGD
+
+.. Test case: `exchangerate 5 USD` +
+   Expected: 5 USD is converted to SGD based on stored exchange rates and its equivalent amount is displayed.
+.. Test case: `exchangerate` +
+   Expected: All exchange rates stored by the application are displayed.
 
 === Importing Spending Data
 
@@ -1869,3 +1893,27 @@ such as a spending with empty `name`, `cost` or `date` parameter.
 Expected: All spending data will be exported into a `moneygowhere.csv` file at whichever folder the jar file is.
 .. Test case: `export p/C:\Users\user\Documents\MoneyGoWhere` +
 Expected: All spending data will be exported into `C:\Users\user\Documents\MoneyGoWhere\moneygowhere.csv`.
+
+=== Showing Statistics
+
+. Showing statistics based on spending listed in MoneyGoWhere
+
+.. Prerequisites: There should be existing spending with tags in MoneyGoWhere.
+.. Test case: `stats` +
+   Expected: Tab switches to Statistics tab if not already showing. MoneyGoWhere will display statistics for all spending.
+If there are no spending to be displayed, MoneyGoWhere will display a message showing that there is no data to show.
+.. Test case: `stats d/last week d/today` +
+   Expected: Tab switches to Statistics tab if not already showing. MoneyGoWhere will display statistics for spending that fall between last week and today.
+If there are no spending in the date range to be displayed, MoneyGoWhere will display a message showing that there is no data to show.
+
+=== Showing Graph
+
+. Showing graph based on spending listed in MoneyGoWhere
+
+.. Prerequisites: There should be existing spending with varying dates in MoneyGoWhere.
+.. Test case: `graph` +
+   Expected: Tab switches to Graph tab if not already showing. MoneyGoWhere will display graph for all spending.
+If there are no spending to be displayed, an empty graph is shown.
+.. Test case: `graph d/last week d/today` +
+   Expected: Tab switches to Graph tab if not already showing. MoneyGoWhere will display graph for spending that fall between last week and today.
+If there are no spending in the date range to be displayed, an empty graph is shown.
