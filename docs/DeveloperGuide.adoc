@@ -369,9 +369,10 @@ These are the stages shown in figure 15.
 .Activity Diagram for sendReminder
 image::SendReminderActivityDiagram.png[]
 
-The diagram above shows how `sendReminder` works. There are 2 possible error messages that can occur. Firstly,
+The diagram above shows how `sendReminder` works. There are 2 possible error messages for invalid input. Firstly,
 if the user inputs nothing as the duration and input cannot be empty error message is shown. Secondly,
-an error will be shown if the user non-numeric or negative or zero number as the duration of time.
+an error will be shown if the user non-numeric or negative or zero number as the duration of time. For a valid input,
+user will be required to checkout then signIn first before executing the command.
 
 
 ==== Design considerations
@@ -489,7 +490,7 @@ check for the correctness of the password input.
 sent by the team leaders.
 ** Cons: Expose users' password when users are trying to sign in. Users will need to change the account
 security settings to let less secure app access the account. Compromises account security.
-* **Alternative 2:** Hardcode an account in the application that is responsible for all mailing command/
+* **Alternative 2:** Hardcode an account in the application that is responsible for all mailing command.
 ** Pros: Do not expose users' password and Users do not need to change their Account security settings to
 send the emails.
 ** Cons: Members(recipient) receiving email from the users' may not know the origin of the email.

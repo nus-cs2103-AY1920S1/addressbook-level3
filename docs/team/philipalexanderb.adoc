@@ -1,4 +1,4 @@
-= Philip Alexander Boediman - Project Portfolio for MyProject
+= Philip Alexander Boediman - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesdir: ../stylesheets
@@ -8,7 +8,7 @@
 == Background
 
 Our experiences as Computer Science (CS) students who are involved in a lot of projects have motivated us, a team of
-5 nUS SoC students, to develop *_MyProject_* - an all-in-one project management application that helps the user manage
+5 NUS SoC students, to develop *_MyProject_* - an all-in-one project management application that helps the user manage
 his/her projects' administrative stuff in a single application. For students, by students, *_MyProject_* mainly targets team leaders w\
 who are responsible for directing and keeping track of the projects as well as students who are involved in a lot of projects in general.
 
@@ -30,21 +30,12 @@ this Addressbook into something useful that can help a particular group of peopl
 My main role was to design email related features. The following sections illustrate the enhancements that I have made as well as the relevant documentation
 that I have added to the user and developer guides in relation to these enhancements.
 
-These are what MyProject looks like:
-
-1 This is what the page looks like when the application first runs.
-
-.Graphical User Interface for MyProject home page
-image::UIMainPage.png[]
-
-2 This is what the page looks like after you have checked out into a project.
-
-.Graphical User Interface for MyProject project page
-image::Ui.png[]
-
 == Summary of contributions
 
 This section shows a summary of my coding, documentation and other helpful contribution towards the team project.
+
+=== Code Contributed:
+Please click the link to see my sample code: link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=philipalexanderb&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]
 
 === Major Enhancement - Email feature
 
@@ -105,9 +96,12 @@ added by the user will automatically be sorted based on the meeting time (earlie
 === Other contributions
 ** Project Management
 *** Tested team members' features and reported bugs for amendment.
-*** Implemented Time class which are widely used in the project.
+*** Implemented Time class which are widely used in the project. link:https://github.com/AY1920S1-CS2103T-T17-1/main/commit/dc82af6eabbe26f3f425e8ac8a889337acca54a4[#31]]
+*** Updated the Test classes so that it fits our current model. link:https://github.com/AY1920S1-CS2103T-T17-1/main/commit/6ebb6b09d4db4ca4807c2b117513a4246bececd3[#201]
 ** Documentation
 *** Proof-reading the project's User Guide and Developer Guide and made changes to it that suit our Project.
+*** Helped the team update some of the documentations link:https://github.com/AY1920S1-CS2103T-T17-1/main/commit/f14924a90ef2c04c4aa7fb38b524074241f289af[#222]
+link:https://github.com/AY1920S1-CS2103T-T17-1/main/commit/f7ac69bdd9b17f2ddcc5d3b82f80a47ddb7d0208[#189]
 
 == Contributions to the User Guide
 
@@ -137,24 +131,12 @@ To add a project meeting:
 
 1. Type `addProjectMeeting c/19/11/2019 1300 s/DIscussion on version 2` and press enter to execute it.Note that
 this project meeting will be held after the 4th meeting on 16/11/2019 1700 and before the 5th meeting on 29/11/2019 1300.
-image:addProjectMeeting1.png[]
+image:addProjectMeetingPPP1.png[]
 
 2. Success message with the respective information about the meeting will be displayed. The meeting added will
 be automatically sorted according to the dates and times in ascending order. Thus, the new meeting added will
 be placed as number 5.
-image:addProjectMeeting2.png[]
-
-==== Delete a meeting: `deleteMeeting` [Checkout]
-
-
-Deletes the specified meeting from the current working project.  +
-Format: `deleteMeeting INDEX`
-
-`INDEX` is the number used to identify this meeting in the meeting list.
-
-Example:
-
-* `deleteMeeting 1`
+image:addProjectMeetingPPP2.png[]
 
 === Email Features
 
@@ -162,7 +144,7 @@ Tired of switching between applications? We got you covered, below you will find
 emails right here within the application.
 
 [NOTE]
-Do keep in mind that only the user Account in our current version is only compatible with Gmail Account and please ensure that the Access to less secure app in the security setting is enabled before signing in!
+Do keep in mind that the user Account in our current version is only compatible with Gmail Account and please ensure that the Access to less secure app in the security setting is enabled before signing in!
 
 // tag::email[]
 ==== Sign in to your account: `signIn`
@@ -184,56 +166,6 @@ Please Turn on the access to less secure app in your account's security setting.
 This command is required to be executed before the remainder of the email commands can be executed. +
 The correctness of the email address used and the password will be checked.
 
-==== Log out from your account: `logOut`
-Logs out from your email account. +
-Format: `logOut`
-
-Example:
-
-* `logOut`
-
-==== Send an email: `sendMail`
-Sends an email to the specified person in your contacts. +
-Format: `sendMail r/RECIPIENT_EMAIL su/SUBJECT me/MESSAGE_BODY`
-
-`RECIPIENT_EMAIL` refers to the email address of the recipients. +
-`SUBJECT` refers to the email header. +
-`MESSAGE_BODY` refers to the email body.
-
-Example:
-
-* `sendMail r/example@gmail.com su/Test me/HelloWorld!`
-
-[NOTE]
-We will not check the correctness of the person's email address
-
-==== Broadcast an email: `broadcastMail` [Checkout]
-
-Sends an email to all members in the current working project. +
-Format: `broadcastMail su/SUBJECT me/MESSAGE_BODY`
-
-`SUBJECT` refers to the email header. +
-`MESSAGE_BODY` refers to the email body.
-
-Example:
-Let's say that a new task has just been added and you want to inform your group members of the new task. Instead of switching to another
-application to inform your group members, you can simply use the `broadcastMail` command to inform everyone in the group.
-
-To broadcast Email:
-
-1. Type `broadcastMail su/New Task Added me/Finalise UG and DG before 17th November` and press enter to execute it.
-Note that the `SUBJECT` will be sent as the email header and the `MESSAGE_BODY` will be sent as the email body.
-image:broadcastMail1.png[]
-
-2. A success message will be displayed in the box saying "Mail have been sent successfully!"
-image:broadcastMail2.png[]
-
-3. Members will receive the email that looks like the following:
-image:broadcastMail3.png[]
-
-[NOTE]
-We will not check the correctness of the members' email addresses
-
 ==== Send reminder: `sendReminder` [Checkout]
 
 Sends a reminder to all members from the current working project of the upcoming Meeting and Task that is due. +
@@ -252,10 +184,9 @@ To send reminder:
 
 1. Type `sendReminder d/7` and press enter to execute it.Note that the date at the time this screenshot was taken is 10/11/2019, thus,
 only meeting meetings 2-4 and task 1-3 will be sent as reminders to the members.
-image:sendReminder1.png[]
+image:sendReminderPPP1.png[]
 
 2. A success message will be displayed in the box saying "Reminders have been sent!"
-image:sendReminder2.png[]
 
 3. Members will receive an email with the tasks due and meetings happening within the next 7 days.
 image:sendReminder3.png[]
@@ -288,59 +219,15 @@ Here are some meeting related commands that can be executed by the app.
 . deleteProjectMeeting- removes a meeting from the project model based on index specified by user
 
 ==== Details
-As seen in figure 10, each meeting consists of 2 parameters namely description and time to show what is the meeting about
+As seen in figure 1, each meeting consists of 2 parameters namely description and time to show what is the meeting about
 and the date and time of the meeting respectively.
 A typical meeting will look like this on the app:
 
 image::ProjectMeeting.png[]
 
 
-=== Broadcast Mail feature
-==== Description of feature
-
-Broadcast an email to all members in the project.
-
-Similar to sendReminder, the basic implementation uses javax.Mail to send email to other email addresses. The Mailer class has static method sendEmail
-which is responsible for sending all kinds of email to a given recipient(s). User's email account information is
-stored in the Model class and subsequent queries regarding mailing will use this information that has been stored to send the email.
-Currently, only gmail server has been made available for use in sending the emails.
-
-[NOTE]
-User Email  Account Information is stored through the signIn command.
-
-==== Details
-BroadcastMail takes in a two String, an email Subject and Body.
-The subject will be the email title which are normally on the email header and the body
-will be the message body of the email.
-
-The following sequence diagram shows the process of broadcast email to the project members.
-
-.Sequence Diagram for broadcastMail
-image::BroadcastMailSequenceDiagram.png[]
-
-These are the stages shown in figure 15.
-
-. Parses the input to obtain the Subject and Body of the email.
-. Goes to `Project` to get the Members names.
-. Goes to `Model` to get the the members in the project.
-. Goes to `Model` to get the OwnerAccount information.
-. Sends email to all the members with header Subject and message Body.
-. Display the success message.
-
-.Activity Diagram for BroadcastMail
-image::BroadcastMailActivityDiagram.png[]
-
-The diagram above shows how `broadcastMail` works.
-
-==== Design considerations
-
-===== Aspect: Data structure to support the broadcastMail commands
-
-The alternatives are similar to sendReminder as the underlying problem lies in sending email
-to all the members in the project group.
-
-
 === Sending Reminder feature
+
 ==== Description of feature
 
 Sends reminder for tasks and meetings that are due in the number of days given by the user input.
@@ -361,7 +248,7 @@ The following sequence diagram shows the process of sending reminder to the proj
 .Sequence Diagram for sendReminder
 image::SendReminderSequenceDiagram.png[]
 
-These are the stages shown in figure 15.
+These are the stages shown in figure 2.
 
 . Parses the input to obtain the duration.
 . Goes to `Model` to get the the Meetings and Tasks.
@@ -375,10 +262,10 @@ These are the stages shown in figure 15.
 .Activity Diagram for sendReminder
 image::SendReminderActivityDiagram.png[]
 
-The diagram above shows how `sendReminder` works. There are 2 possible error messages that can occur. Firstly,
+The diagram above shows how `sendReminder` works. There are 2 possible error messages for invalid input. Firstly,
 if the user inputs nothing as the duration and input cannot be empty error message is shown. Secondly,
-an error will be shown if the user non-numeric or negative or zero number as the duration of time.
-
+an error will be shown if the user non-numeric or negative or zero number as the duration of time. For a valid input,
+user will be required to checkout then signIn first before executing the command.
 
 ==== Design considerations
 
@@ -414,7 +301,7 @@ The following sequence diagram shows the process of signing in to the user's acc
 .Sequence Diagram for signIn command
 image::SignInSequenceDiagram.png[]
 
-These are the stages shown in figure 15.
+These are the stages shown in figure 4.
 
 . Parses the input to obtain the Email address and Password.
 . Goes to `Model` to check if user has signed in.
@@ -422,10 +309,6 @@ These are the stages shown in figure 15.
 . Goes to `Model` to store the Email address and Password as `OwnerAccount`.
 . Display the success message.
 
-.Activity Diagram for SignIn
-image::SignInActivityDiagram.png[]
-
-The diagram above shows how `signIn` works.
 
 ==== Design considerations
 
@@ -446,7 +329,7 @@ check for the correctness of the password input.
 sent by the team leaders.
 ** Cons: Expose users' password when users are trying to sign in. Users will need to change the account
 security settings to let less secure app access the account. Compromises account security.
-* **Alternative 2:** Hardcode an account in the application that is responsible for all mailing command/
+* **Alternative 2:** Hardcode an account in the application that is responsible for all mailing command.
 ** Pros: Do not expose users' password and Users do not need to change their Account security settings to
 send the emails.
 ** Cons: Members(recipient) receiving email from the users' may not know the origin of the email.
