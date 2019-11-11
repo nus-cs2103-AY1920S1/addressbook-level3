@@ -10,6 +10,7 @@ import seedu.address.logic.parser.TravelPalParser;
 import seedu.address.logic.parser.diary.EnterDiaryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.inventory.EnterInventoryParser;
+import seedu.address.logic.parser.sidebar.EnterBookingsParser;
 import seedu.address.logic.parser.sidebar.EnterDayPageParser;
 import seedu.address.logic.parser.sidebar.EnterExpenseManagerParser;
 import seedu.address.logic.parser.sidebar.EnterItineraryPageParser;
@@ -68,8 +69,7 @@ public class NavbarViewParser implements PageParser {
         case INVENTORY:
             return new EnterInventoryParser().parse(arguments);
         case BOOKINGS:
-            //add your bookings parser here
-        //Add your navbar command type here, and in the enum.
+            return new EnterBookingsParser().parse(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
         }
