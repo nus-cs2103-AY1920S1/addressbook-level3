@@ -49,6 +49,9 @@ programmers), you can get used to it while working on your coding skills here in
 
 . Download the latest DukeAcademy.jar link:{repoURL}/releases[here].
 . Double-click the .jar file to start the app. The GUI should appear in a few seconds. If the app cannot be launched by double-clicking:
++
+For Windows:
+
 - Launch Notepad (or any text editor), then copy and paste the following line into the text editor.
 
  java -jar [name_of_file].jar
@@ -322,7 +325,7 @@ contains one of the keyword(s) in their _title, topics, description, status_ or 
 ****
 * *NOTE*: This function does *NOT* work for character sequences!
 +
-e.g. Searching for `su` will not yield questions that do not strictly contain the word "su".
+e.g. Searching for `su` will not yield questions with titles that do not strictly contain the word "su", such as "super".
 * The category is case insensitive.
 +
 e.g `easy` will match `Easy`.
@@ -357,8 +360,8 @@ image::view.png[width="1000"]
 
 *Examples:*
 
-* `view 2` +
-Displays the question with the id "2" in the right side window of the GUI.
+* `view 1` +
+Displays the question with the id "1" in the right side window of the GUI, as shown in the above picture.
 
 //end::find[]
 
