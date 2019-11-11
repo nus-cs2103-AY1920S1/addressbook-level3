@@ -16,9 +16,20 @@ endif::[]
 
 By: `Team AY1920S1-CS2103T-W11-4`      Since: `Sep 2019`      Licence: `MIT`
 
+
 == Introduction
 
 CaloFit is suitable for those who prefer to track their calories gained from day-to-day meals. CaloFit is primarily uses a Command Line Interface(CLI) while still displaying the results through a Graphical User Interface(GUI). You can set your daily calorie target and CaloFit will do its best to help you stay on track.
+
+As of our latest version, v1.4. CaloFit would be able to run on all computers, be it Windows, Mac, Linux and more!
+
+Currently our product would be able to let you set a desired calorie budget, track your meals, provide assistance to keep you on track, last but not least a monthly report will be provided for you!
+
+== About
+
+This user guide provides the user a simple yet useful utility guide on how CaloFit operates.
+
+There will be very minimal prior technical knowledge that the user would need to have in order to use Calofit.
 
 
 
@@ -187,6 +198,7 @@ image::FindCommandFindApplePieSuccess.png[]
 
 Format: `find MEAL_WORD`
 
+// tag::suggest[]
 === Suggesting Meal options: `suggest`
 
 Suggest possible meals based on user calorie intake budget. +
@@ -210,7 +222,9 @@ image::SuggestCommandBefore.png[]
 image::SuggestCommandAfter.png[]
 
 Format: `suggest`
+// end::suggest[]
 
+// tag::notification[]
 === Notification that a meal is missed
 
 A notification will automatically be prompted when the application starts up or every 10 minutes if a meal is missed. +
@@ -218,7 +232,8 @@ This feature cannot be disabled and will start once the application starts. +
 
 [NOTE]
 The first meal will always be breakfast, hence no matter at which timing, if the first meal is not consumed, it will always notify the user as breakfast missed. +
-If lunch have not been consumed after 8pm, notification will change and notify user that they have not consumed their dinner instead of lunch, as consuming two meals at once is not healthy.
+If lunch have not been consumed after 8pm, notification will change and notify user that they have not consumed their dinner instead of lunch, as consuming two meals at once is not healthy. +
+Notification of dinner will notify the user till 11.59pm, then it will be counted as breakfast.
 
 [NOTE]
 Notification will be prompted: +
@@ -243,6 +258,7 @@ image::NotificaitonMissedLunch.png[]
 * If dinner is missed this will be how it looks like
 
 image::NotificaitonMissedDinner.png[]
+// end::notification[]
 
 === Setting calorie intake budget: `set`
 
@@ -321,3 +337,16 @@ e.g. `suggest`
 e.g. `report`
 * *Help* : `help` +
 e.g. `help`
+
+
+== Trouble shooting/FAQ
+Q: Do I need to key in the date or time? +
+A: There won't be a need to as CaloFit automatically update the current system date and time for the user.
+
+Q: Do I have to pay for anything? +
+A: Currently CaloFit is totally free!
+
+Q: Will the dishes that I add be saved for future use? +
+A:
+
+== Product Glossary

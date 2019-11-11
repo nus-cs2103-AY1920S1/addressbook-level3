@@ -478,7 +478,7 @@ The notification feature prompts the user with new window if a meal had been mis
 
 ===== Implementation
 
-The notification feature is automatically activated when the application starts up. On start up, it is implemented through a  `NotificationHelper` that gets information from `Model#getMealLog().getTodayMeals()` method to check if there are any meal consumed and if a meal had been consumed. The `NotificationHelper` class would the do a check on the timestamp of the latest meals by using various methods in the `Notification` class, more details are given below. If a meal had been missed, a notification will be prompted to the user to consume his meal, this prompt will constantly pop up every 10 minutes until a meal had been consumed. If a meal had been consumed within the period then the user can continue using the application without any prompt.
+The notification feature is automatically activated when the application starts up. On start up, it is implemented through a `NotificationHelper` that gets information from `Model#getMealLog().getTodayMeals()` method to check if there are any meal consumed and if a meal had been consumed. The `NotificationHelper` class would the do a check on the timestamp of the latest meals by using various methods in the `Notification` class, more details are given below. If a meal had been missed, a notification will be prompted to the user to consume his meal, this prompt will constantly pop up every 10 minutes until a meal had been consumed. If a meal had been consumed within the period then the user can continue using the application without any prompt.
 
 [NOTE]
 Notification will be prompted: +
@@ -824,6 +824,57 @@ _{ more test cases ... }_
    Expected: Similar to previous.
 
 _{ more test cases ... }_
+
+// tag::findTesting[]
+=== Testing find feature
+
+[NOTE]
+Dish database should contain the dish name that the user is searching, otherwise nothing will be displayed.
+
+. Finding a particular dish
+    .. Test case: `find soup`. +
+        Expected: The list of  with "soup" in it.
+. Toggle between suggest and find
+    .. Test case: `suggest` followed by `find soup`. +
+        Expected: CaloFit will display the suggested list of dishes followed by the soup dishes that the user is looking for.
+// end::findTesting[]
+
+// tag::suggestTesting[]
+=== Testing suggest feature
+
+[NOTE]
+For suggestion to work: +
+Dish database cannot be empty. +
+Dish database have to contain dishes within remaining calorie budget. +
+Otherwise suggest feature will not work.
+
+. Suggesting dishes based on remaining calorie budget.
+    .. Test case: `set 1000` followed by `add n/rice c/600` +
+        Expected: Dishes with 400 calories and below will be displayed.
+. Toggle between find and suggest.
+    .. Test case: `find soup` followed by `suggest`. +
+        Expected: CaloFit will display the soup dishes that the user is looking for followed by the suggested list of dishes.
+// end::suggestTesting[]
+
+// tag:: notificationTesting[]
+=== Testing notification feature
+
+[NOTE]
+Changing of system time would be required. +
+Do not launch the application till instructed.
+
+. Notify user when user miss their breakfast.
+    .. Test case: Set system time to anytime after 10am, clean launch the application, and leave it for as long as the user want to test.
+        Expected: When the application first launch, a notification will be prompted. Followed by every 10 minutes for as long as the application is running.
+
+. Notify user when user miss their lunch.
+    .. Test case: set the system time to 8am, clean launch the application, `add n/cereal c/300`, set the system time to 3pm, leave it for as long as the user wants to test.
+        Expected: A notification indicating that lunch have been missed would be prompted every 10 minutes.
+
+. Notify user when user miss their dinner.
+    .. Test case: set the system time to 8am, clean launch the application, `add n/cereal c/300`, set the system time to 9pm, leave it for as long as the user wants to test.
+        Expected: A notification indicating that dinner have been missed would be prompted every 10 minutes.
+// end:: notification Testing[]
 
 // tag::reportTesting[]
 === Testing the generation of the report

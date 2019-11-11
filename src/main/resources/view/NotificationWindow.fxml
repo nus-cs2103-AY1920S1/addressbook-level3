@@ -16,12 +16,12 @@
         <Scene>
             <HBox alignment="CENTER">
                 <children>
-                    <Label fx:id="notificationMessage" text="Label">
+                    <Label fx:id="notificationMessage" text="Label" textAlignment="CENTER">
                         <HBox.margin>
                             <Insets right="5.0" />
                         </HBox.margin>
                         <font>
-                            <Font size="40.0" />
+                            <Font name="System Bold" size="25.0" />
                         </font>
                     </Label>
                 </children>
