@@ -1422,7 +1422,14 @@ These instructions only provide a starting point for testers to work on; testers
 
 ==== Changing tabs
 
-// TODO
+. Changing from one tab to another
+
+.. Test case 1: `tab 1` +
+   Expected: View switches to Dashboard tab.
+.. Test case 2: `tab on` +
+   Expected: View switches to Online tab.
+.. Test case 3: `tab off` +
+   Expected: View switches to Offline tab.
 
 ==== Opening a bookmark
 
@@ -1609,8 +1616,6 @@ Expected: An error occurs, saying that `X` (or `Y`) already exists.
 .. Test case: `folder-delete X` +
 Expected: An error occurs, saying that there are still bookmarks/folders in `X` and so cannot be deleted.
 
-_{ more test cases ... }_
-
 === Testing of cache
 
 // TODO
@@ -1789,7 +1794,7 @@ Expected: No reminder is edited in the reminder list. Error details shown in the
 
 .. Test case: `reminder-delete 1` +
 Expected: The first reminder in the list is deleted.
-.. Test case: `reminder-delete 0 ` +
+.. Test case: `reminder-delete 0` +
 Expected: No reminder is deleted in the reminder list. Error details shown in the status message. Status bar remains the same.
 .. Test case: `reminder-delete 6` +
 Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.

@@ -1447,7 +1447,7 @@ General notes are found at the bottom of the rightmost column on the offline cop
 |*Category* |*Commands*
 .8+|General
 | Help: `*help*`
-| Tab: `*tab* INDEX`
+| Tab: `*tab* INDEX` or `*tab* KEYWORD`
 | Undo: `*undo* [STEP=1]`
 | Redo: `*redo* [STEP=1]`
 | Export: `*export* FILENAME`
@@ -1471,8 +1471,10 @@ General notes are found at the bottom of the rightmost column on the offline cop
 | Edit folder: `*folder-edit* FROM_FOLDER_NAME t/TO_FOLDER_NAME`
 | Delete folder: `*folder-delete* FOLDER_NAME`
 
-.2+|Autotags
+.3+|Autotags
 | Add autotag: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
+[nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]... [nf/NOT_FOLDER]...`
+| Edit autotag: `*autotag-edit* TAG_NAME [t/NEW_TAG_NAME] [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
 [nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]... [nf/NOT_FOLDER]...`
 | Delete autotag: `*autotag-delete* TAG_NAME`
 
