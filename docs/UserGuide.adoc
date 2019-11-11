@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T10-2/main
 
-By: `CS2103T-T10-2`      Since: `Sep 2019`      Licence: `MIT`
+By: `DukeCooks`      Since: `Sep 2019`      Licence: `MIT`
 
 == Welcome to DukeCooks
 
