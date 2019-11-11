@@ -190,7 +190,16 @@ Listing all tags :
 
 Lists all StudyBuddyPro items with matching tags in the application.
 
+[IMPORTANT]
+====
+* The user must specify at least one tag.
+* The user is able to specify multiple tags.
+* CheatSheets that match all of the specified tags will be displayed.
+====
+
     Format: filterall tag/TAG [tag/TAG]...
+
+Let’s say the user wishes to view the definition of pipelining. Pipelining is taught in CS2100, a Computer Organization module taught in the School of Computing at NUS. Hence, the user can make use of filterall to find all flashcards, cheatsheets and notes that are tagged “CS2100”. Note that for simplicity, all tags will be converted to lowercase upon input. Hence, ‘CS2100’ will be read as ‘cs2100’ by our application.
 
 Example usage:
 
@@ -518,7 +527,8 @@ overdue for revision. Automatically suggests a new date the flashcard should nex
 viewed at for optimal learning. These increments scale with time i.e. suggested viewing
 dates are closer at the start and spread further after more viewings.
 
-[NOTE] StudyBuddyPro only marks a flashcard as revised and removes it from the due and
+[NOTE]
+StudyBuddyPro only marks a flashcard as revised and removes it from the due and
 overdue flashcard list when you see the flashcard's _answer_ not just its question! For
 example, simply using the `view` command without the `show` command to reveal the flashcard's
 answer will not trick the system. Sorry, it's for your own good!
@@ -564,8 +574,13 @@ Here are your overdue flashcards:
 
 [IMPORTANT]
 ====
-All the operations in this section assume that the user is in the _notes_ mode.
+All the operations in this section assume that the user is in the _notes_ mode. To be sure
+you are _notes_ mode, please ensure you used the `switch notes` command before this. Your
+screen should now look like the one found in the screenshot below.
 ====
+
+image::NotesSuccess.PNG[width="700"]
+
 
 === Creating a note: `add`
 
@@ -820,10 +835,20 @@ Edited Note:
 
 == CheatSheet Feature:
 
+Ever spent countless of hours rummaging through your notes just to dig up
+important information to add to your cheatsheet for your exams? Ever feared that you
+ might accidentally miss out on important information to add to your cheatsheet? Fret not! Our
+very own cheatsheet feature of StudyBuddyPro is here to help you auto-generate your important
+information, and to simply, save the day.
+
 [IMPORTANT]
 ====
-All the operations in this section assume that the user is in the _cheatsheet_ mode.
+All the operations in this section assume that the user is in the _cheatsheet_ mode. To be sure
+you are _cheatsheet_ mode, please ensure you used the `switch cs` command before this. Your
+screen should now look like the one found in the screenshot below.
 ====
+
+image::CheatSheetSuccess.PNG[width="700"]
 
 //tag::cheatsheetAdd[]
 
@@ -883,7 +908,6 @@ Expected output:
 Edited Cheatsheet:
 Title: cs2100 final cheatsheet
 Tags: [cs2100finals]
-Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
 ```
 
 [NOTE]
