@@ -19,9 +19,9 @@ Our team consists of five members. Four, including me, are Year 2 Computer Scien
 Year 4 Computer Engineering Undergraduate student.
 
 === About the Project
-This project was created as part of the “CS2103T Software Engineering” module, a project-driven software engineering
-module offered by the National University of Singapore (NUS). We were tasked with the assignment of morphing or
-enhancing an existing desktop application called AddressBook over the course of 13 weeks and chose the former. I am
+This project is part of the “CS2103T Software Engineering” module, a project-driven software engineering
+module currently offered by the National University of Singapore (NUS). We have been tasked with the assignment of
+morphing or enhancing an existing desktop application called AddressBook over the course of 13 weeks and chose the former. I am
 proud to present to you the end result of our hard work – treasurerPro.
 
 === About the Product
@@ -58,7 +58,7 @@ the application. It also indicates a generic command format for the command box 
 Text with this blue font and grey highlight indicates a command that can be inputted by the user.
 
 == Summary of Contributions
-My role was to design and write the code for the Inventory tab. This section will describe my contributions in greater
+My role is to design and write the code for the Inventory tab. This section will describe my contributions in greater
 detail.
 
 === Main Contributions
@@ -72,14 +72,15 @@ quantity and the cost per unit is recalculated appropriately.
 ** Function: This feature allows you to sort the list of items in 3 distinct ways – description, category and quantity.
 ** Justification: It aids you in re-ordering the list as you please. This can help you with various matters such as
 spotting items low in quantity and in need of restocking.
-** Highlights: If you change your mind, the `sort reset` command allows you to revert the list to the order it was in
-when the application was first opened.
+** Highlights: If you change your mind, the `sort reset` command allows you to revert the list to the order it had been
+in when the application was first opened.
 
 === Other Contributions
 * Documentation:
 * Community:
 ** Helped to fix teammates' test cases.
 ** Cleaned checkstyle errors in other teammates' packages.
+** Helped to edit other teammate's User Guide.
 
 == Contributions to the User Guide
 This section showcases some of my contributions to the User Guide.
@@ -153,12 +154,14 @@ Leo will respond with a success message and the item will be removed from the ta
 
 //.Screenshot of a successful user input for the Delete Command in the Inventory tab
 image::inventoryUG/DeleteSuccess.png[width="600"]
+
 {End of the extract from the User Guide}
 
 == Contributions to the Developer Guide
 This section showcases some of my contributions to the User Guide.
 
 {Start of the first extract from Developer Guide}
+
 :sectnums!:
 [[AddCommandInventory]]
 ==== 3.4.1. Add Item Feature
@@ -174,7 +177,7 @@ The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Log
 AddCommand works:
 
 .Sequence Diagram of the Add Command in the Inventory Tab (inventory package)
-image::inventoryDG/AddCommandSeqDiagram.png[]
+image::inventoryDG/AddCommandSeqDiagram.png[][alt=addSeq, width=300, height=400]
 
 If the description of the `Item` being added matches that of an existing `Item`, the new `Item`’s quantity is added to
 that of the existing `Item` and the cost per unit is recalculated. This is handled within the `AddCommandParser`,
@@ -188,7 +191,7 @@ returns a `Boolean` that represents the validity of the input.
 The following Sequence Diagram shows how the AddCommandParser creates an `Item`:
 
 .Sequence Diagram of the Add Command Parser in the Inventory Tab (inventory package)
-image::inventoryDG/AddCommandParserSeqDiagram.png[]
+image::inventoryDG/AddCommandParserSeqDiagram.png[][alt=addParserSeq, width=300, height=400]
 
 After the `Item` is created and the command is executed, the `LogicManager` updates the in-app `InventoryList` via the
 `ModelManager` and updates the data file via the `StorageManager`.
@@ -197,7 +200,7 @@ For a greater understanding of the flow of events and checks, you may consult th
 the steps that follow the input of an add command:
 
 .Activity Diagram of the Add Command in the Inventory Tab (inventory package)
-image::inventoryDG/AddCommandFlowChart.png[]
+image::inventoryDG/AddCommandFlowChart.png[][alt=addFlowChart, width=450, height=600]
 
 :sectnums!:
 [[DeleteCommandInventory]]
@@ -210,12 +213,60 @@ The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Log
 `DeleteCommand` works:
 
 .Sequence Diagram of the Delete Command in the Inventory Tab (inventory package)
-image::inventoryDG/DeleteCommandSeqDiagram.png[]
+image::inventoryDG/DeleteCommandSeqDiagram.png[][alt=deleteSeq, width=300, height=400]
 
 The `DeleteCommandParser` is responsible for checking the validity of the input, and does not allow any indexes that
 are less than 1 or greater than the largest index currently in the list. It can also take in a description as input and
 compares it against existing `Item` s in the `InventoryList`. This comparison is case-insensitive.
+
 {End of the first extract from Developer Guide}
+
 {Start of the second extract from Developer Guide}
+
+:sectnums!:
+[[OverallDesignConsiderationsInventory]]
+==== 3.4.5. Overall Design Considerations
+
+This section explains the design considerations for some crucial implementations in the Inventory Tab.
+
+|===
+|Alternative 1 |Alternative 2 |Conclusion and Explanation
+
+| `ModelManager` could contain a separate `InventoryList` that stores the original list in order to restore the original
+order when [blue]`sort reset` is called.
+
+*Pros*: It is relatively fast.
+
+*Cons*: It takes up a lot of memory.
+
+| Each `Item` could store a copy of the original ID as a private attribute. When [blue]`sort reset` is called, the list
+is sorted by the original ID.
+
+*Pros*: Keeping one list is better for memory complexity.
+
+*Cons*: Sorting could be slightly slow.
+
+| Alternative 2 has been chosen. The time complexity of sorting is not very high, but it has a much higher advantage in
+memory complexity.
+
+| An ArrayList is used to store `Item` objects in the `InventoryList`.
+
+*Pros*: It retrieves most elements more efficiently.
+
+*Cons*: The head and tail are not retrieved as efficiently.
+
+| A LinkedList is used to store `Item` objects in the `InventoryList`.
+
+*Pros*: The head and tail of the list can be retrieved via linear time complexity.
+
+*Cons*: Every other element would be slower to retrieve.
+|
+Alternative 1 has been implemented. An ArrayList has better performance for the get and set methods than a LinkedList
+for elements not in the head and tail.
+As it is natural for the number of items in the inventory to be high, and the get and set methods would naturally be
+frequently used in the `ModelManager`, the ArrayList seems to be a better choice.
+|
+|===
+
 {End of the second extract from Developer Guide}
 

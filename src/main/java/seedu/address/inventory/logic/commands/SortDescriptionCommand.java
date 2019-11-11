@@ -9,7 +9,7 @@ import seedu.address.util.CommandResult;
  */
 public class SortDescriptionCommand extends SortCommand {
     @Override
-    public CommandResult execute(Model model) throws Exception {
+    public CommandResult execute(Model model) {
         model.sortByDescription();
         return new CommandResult(InventoryMessages.MESSAGE_SORTED_BY_DESCRIPTION);
     }

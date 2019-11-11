@@ -9,7 +9,7 @@ import seedu.address.util.CommandResult;
  */
 public class SortResetCommand extends SortCommand {
     @Override
-    public CommandResult execute(Model model) throws Exception {
+    public CommandResult execute(Model model) {
         model.sortReset();
         return new CommandResult(InventoryMessages.MESSAGE_RESET_TO_ORIGINAL_ORDER);
     }
