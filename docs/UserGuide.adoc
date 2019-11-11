@@ -324,14 +324,19 @@ The end date-time must be entered in the `dd/MM/yyyy/HHmm` format and occur *aft
 
 |Attendees
 |`a/`
-|The list of people who will be present at the engagement. Individuals must be separated by +
-a vertical line - '|'.
+|The list of people who will be present at the engagement. Individuals must be separated by
+a vertical line.
 
 |Priority
 |`p/`
 |Priority level of the engagement. The priority level can be one of 'Low', 'Medium', 'High' or 'None'.
 |===
 
+If the engagement to be added clashes with an existing one, the user will be notified of the add command's rejection. +
+An engagement clashes with another engagement if *all* of the below conditions are satisfied:
+
+* There is an overlap in the time-slot occupied by the engagements.
+* The engagements are held at the same location
 
 .Engagement successfully saved in system storage.
 image::add_2.png[width="800"]
