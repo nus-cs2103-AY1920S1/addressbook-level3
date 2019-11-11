@@ -18,7 +18,6 @@
     <scene>
         <Scene>
             <stylesheets>
-                <URL value="@DarkTheme.css" />
                 <URL value="@Extensions.css" />
                 <URL value="@DarkThemeHistoryWindow.css" />
             </stylesheets>
