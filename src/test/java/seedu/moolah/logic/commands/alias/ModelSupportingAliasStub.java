@@ -1,7 +1,6 @@
 package seedu.moolah.logic.commands.alias;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -274,11 +273,6 @@ public class ModelSupportingAliasStub implements Model {
 
     @Override
     public void updateFilteredEventList(Predicate<? super Event> predicate) {
-        throw new AssertionError("Method should not be called.");
-    }
-
-    @Override
-    public void notifyAboutTranspiredEvents(List<Event> events) {
         throw new AssertionError("Method should not be called.");
     }
 

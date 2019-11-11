@@ -254,11 +254,6 @@ public class AddMenuExpenseCommandTest {
         }
 
         @Override
-        public void notifyAboutTranspiredEvents(List<Event> events) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void addExpense(Expense expense) {
             throw new AssertionError("This method should not be called.");
         }
