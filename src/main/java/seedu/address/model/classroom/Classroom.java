@@ -5,14 +5,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.UniqueAssignmentList;
-//import seedu.address.model.lesson.Lesson;
-//import seedu.address.model.lesson.UniqueLessonList;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
 
