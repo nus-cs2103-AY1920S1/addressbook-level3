@@ -14,6 +14,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.event.EventScheduleViewMode;
 
+/**
+ * Event view test. Integration testing between model manager and EventViewCommand.
+ */
 public class EventViewCommandTest {
     private static final EventScheduleViewMode VALID_EVENT_SCHEDULE_VIEW_MODE = EventScheduleViewMode.DAILY;
     private static final LocalDateTime VALID_TARGET_VIEW_DATE_TIME = LocalDateTime.parse("2019-01-01T03:00");
