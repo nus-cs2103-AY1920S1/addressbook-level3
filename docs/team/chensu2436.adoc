@@ -65,7 +65,7 @@ include::../UserGuide.adoc[tag=clash]
 include::../UserGuide.adoc[tag=find]
 
 [NOTE]
-_Due to page limit, only 1 find command example is included. Please refer to User Guide 3.4 for more examples._
+_Due to page limit, only 1 find command example is included. Refer to User Guide 3.4 for more examples._
 
 == Contributions to the Developer Guide
 
@@ -85,6 +85,6 @@ include::../DeveloperGuide.adoc[tag=clash2]
 include::../DeveloperGuide.adoc[tag=find]
 
 [NOTE]
-_Due to page limit, only Find Section in Manual Testing is shown. Please refer to Developer Guide Appendix E for the Clash section._
+_Due to page limit, only Find Section in Manual Testing is shown. Refer to Developer Guide Appendix E for the Clash section._
 
 include::../DeveloperGuide.adoc[tag=test4]
