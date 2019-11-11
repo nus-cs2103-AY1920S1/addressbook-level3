@@ -28,6 +28,7 @@ import seedu.guilttrip.ui.budget.BudgetPanel;
 import seedu.guilttrip.ui.condition.ConditionPanel;
 import seedu.guilttrip.ui.entry.EntryListPanel;
 import seedu.guilttrip.ui.expense.ExpenseListPanel;
+import seedu.guilttrip.ui.history.HistoryPanel;
 import seedu.guilttrip.ui.income.IncomeListPanel;
 import seedu.guilttrip.ui.reminder.ReminderPanel;
 import seedu.guilttrip.ui.stats.StatisticsBarChart;
@@ -68,7 +69,7 @@ public class MainWindow extends UiPart<Stage> {
     private StatisticsWindow statsListPanel;
     private StatisticsPieChartHolder statsGraphics;
     private StatisticsBarChart statsBar;
-    private BudgetPanel budgetsPanel;
+    private HistoryPanel historyPanel;
 
     private boolean isStatsWindow;
     private boolean isStatsGraphicsWindow;
@@ -583,6 +584,7 @@ public class MainWindow extends UiPart<Stage> {
                     break;
                 case "budget":
                     resetMainPanel();
+                    entryList.getChildren().removeAll(entryList.getChildren());
                     entryList.getChildren().add(this.budgetPanel.getRoot());
                     togglePlaceHolder(budgetsPlaceHolder);
                     break;
@@ -595,6 +597,11 @@ public class MainWindow extends UiPart<Stage> {
                     resetMainPanel();
                     entryList.getChildren().add(this.autoExpensesPanel.getRoot());
                     togglePlaceHolder(autoExpensesPlaceHolder);
+                    break;
+                case "history":
+                    resetMainPanel();
+                    entryList.getChildren().removeAll(entryList.getChildren());
+                    entryList.getChildren().add(this.historyPanel.getRoot());
                     break;
                 default:
                     // Do nothing.
