@@ -68,7 +68,7 @@ public class ArgumentMultimap {
 
     /**
      * Check that all prefixes are amongst the given prefixes, and throws an {@link ParseException} otherwise.
-     * The {@value messageProducer} function is given the set of unknown tags,
+     * The {@code messageProducer} function is given the set of unknown tags,
      * and should produce the message returned in the error.
      * @param messageProducer Error message producer
      * @param prefixes Allowed prefixes
