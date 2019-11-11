@@ -69,7 +69,7 @@ public class AddLoanCommandParser implements Parser<AddLoanCommand> {
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         } else {
-            description = new Description("No Description");
+            description = new Description("Borrowed");
         }
 
         Day endday;
@@ -87,9 +87,9 @@ public class AddLoanCommandParser implements Parser<AddLoanCommand> {
             startmonth = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_START_MONTH).get());
             startyear = ParserUtil.parseYear(argMultimap.getValue(PREFIX_START_YEAR).get());
         } else {
-            startday = new Day("1");
-            startmonth = new Month("1");
-            startyear = new Year("2023");
+            startday = new Day("30");
+            startmonth = new Month("12");
+            startyear = new Year("2019");
         }
 
         if (argMultimap.getValue(PREFIX_END_MONTH).isPresent()
@@ -99,9 +99,9 @@ public class AddLoanCommandParser implements Parser<AddLoanCommand> {
             endmonth = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_END_MONTH).get());
             endyear = ParserUtil.parseYear(argMultimap.getValue(PREFIX_END_YEAR).get());
         } else {
-            endday = new Day("30");
-            endmonth = new Month("12");
-            endyear = new Year("2025");
+            endday = new Day("11");
+            endmonth = new Month("11");
+            endyear = new Year("2019");
         }
 
         /*if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
