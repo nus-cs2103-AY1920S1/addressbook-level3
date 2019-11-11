@@ -13,11 +13,11 @@ import seedu.revision.logic.parser.main.ParserManager;
 
 public class HistoryCommandParserTest {
     private HistoryCommandParser parser = new HistoryCommandParser();
-    private final ParserManager Parser = new ParserManager();
+    private final ParserManager parserManager = new ParserManager();
 
     @Test
     public void parse_validArgs_returnsHistoryCommand() throws ParseException {
-        assertTrue(Parser.parseCommand(HistoryCommand.COMMAND_WORD) instanceof HistoryCommand);
+        assertTrue(parserManager.parseCommand(HistoryCommand.COMMAND_WORD) instanceof HistoryCommand);
     }
 
     @Test

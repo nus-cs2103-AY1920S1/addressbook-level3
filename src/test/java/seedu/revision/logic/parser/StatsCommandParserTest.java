@@ -13,11 +13,11 @@ import seedu.revision.logic.parser.main.StatsCommandParser;
 
 public class StatsCommandParserTest {
     private StatsCommandParser parser = new StatsCommandParser();
-    private final ParserManager Parser = new ParserManager();
+    private final ParserManager parserManager = new ParserManager();
 
     @Test
     public void parse_validArgs_returnsStatsCommand() throws ParseException {
-        assertTrue(Parser.parseCommand(StatsCommand.COMMAND_WORD) instanceof StatsCommand);
+        assertTrue(parserManager.parseCommand(StatsCommand.COMMAND_WORD) instanceof StatsCommand);
     }
 
     @Test

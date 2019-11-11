@@ -24,6 +24,7 @@ import seedu.revision.logic.commands.main.HistoryCommand;
 import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.commands.main.RestoreCommand;
 import seedu.revision.logic.commands.main.StartCommand;
+import seedu.revision.logic.commands.main.StatsCommand;
 
 /**
  * This class is a TextField which implements an "autocomplete" functionality.
@@ -96,6 +97,7 @@ public class AutoComplete extends TextField {
         entries.add(StartCommand.COMMAND_AUTOCOMPLETE_ARCADE);
         entries.add(StartCommand.COMMAND_AUTOCOMPLETE_CUSTOM);
         entries.add(HistoryCommand.COMMAND_WORD);
+        entries.add(StatsCommand.COMMAND_WORD);
     }
     /**
      * Set another entries to remove the double enter problem.
