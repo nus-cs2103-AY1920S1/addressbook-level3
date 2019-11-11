@@ -228,26 +228,24 @@ Cons: Might not be as OOP as other designs.
 === Reminders
 
 ==== Implementation
+The reminders implementation is facilitated by the reminder class, and heavily makes use of the observable pattern to keep track with property changes in the GuilTrip model to display messages in a timely fashion.
 
-The Reminder mechanism is facilitated by the Reminder class. Each Reminder object consists of a Condition class object which represents a set of conditions to be met. When all conditions are met, the reminder is activated and its message is displayed under the Reminder Pannel. The following class diagram helps to show how the classes are related.
+For instance, the class diagram above shows the relation between the classes that help to implement the reminder feature.
+There are 2 types of reminders. General and entry reminders. General reminders are not tied to any specific entry, and sent the user notifications whenever an entry matching the user specified conditions is entered in the app. These specified conditions include entry type, a lower and upper quota for the entry amount, a specified time period in which an entry takes place, or a list of tags which the entry must have.
 
-image::ReminderClassDiagram.png[]
+The sequence diagram above illustrates what happens when an entry fulfils all conditions in an entry.
+When an expense is logged in to GuiltTrip.java, in addition to being stored in the Expense List, the expense is also passed into the Condition Manager, which iterates through its list of conditions to see which conditions are met by the entry. Each condition makes use of a self-implemented ObservableSupport class that enables it to function as an Observable object, with the reminders being its listeners. When a condition is met, it notifies the reminder it belongs to. The reminders keep track of the number of conditions met, and only when all conditions are met does it make use of ObservableSupport to notify the reminderlist about a change in its status. The reminder list generates a notification corresponding to the reminder and adds it to an observable list which is displayed by the Ui. The number of conditions met is reset a the end of the process so the reminders may continue to produce notifications when subsequent entries meeting the requirements are keyed into the system.
 
-Different types of conditions are represented by subclassess which extend the Condition class.
-To create a reminder, the user calls the method createReminder(int... indexes)
-where indexes are the indexes of conditions in the condition list.
+An entry reminder targets a specific expense/ income or wish. It is set to send notifications at a specified period at specified intervals before the date of the event.  This is made possible with TimeUtil, which is a singleton class with a single instance checking the local date at periodic intervals and updating its listeners (Using the ObservableSupport) of the current date. All entry reminders are listeners of TimeUtil. Similar to General Reminder, when it is time to send a notification, it notifies the reminder list which generates a corresponding notification and sets the next date to notify the user. Once the date of the event itself has passed, the reminder is deactivated and not saved the next time GuiltTrip is closed.
 
-When an add/edit/delete command for any of the subclasses of Entry (Expense, Income, Wishes) is executed,
-the ConditionList object is updated to see if any conditions have been met.
+=== Design Considerations:
+1)	Alternative 1 (current method): Users must first select a reminder before they can edit or remove reminders.
+Pros: Easier to implement. By automatically toggling the reminder list view on when selecting a reminder, the user also will see what reminder they have selected before they proceed to make any changes. (As opposed to selecting and modifying the reminder in a single command).
+Cons: Involves one more step. Not as efficient.
 
-image::ReminderSequenceDiagram.png[]
-
-==== Design Considerations
-
-*Current method:* Instance specific reminders are made known to the instance object, and the object is made known to the reminder. (i.e Such reminders trigger conditions are entirely based on a single Entry class object)
-
-Pros: Allows fast method of keeping track of instance specific reminders when object is edited/deleted and loaded form storage.
-Cons: Might not be as OOP as other designs.
+2)	Alternative 2: Users commands require an index argument to indicate the reminder to modify.
+Pros: Faster as it involves one less step. May be more convenient for users who frequently forget to first select reminder to modify.
+Cons: Aforementioned benefits are mitigated as reminders are hidden in default GUI settings, and most users will have to open up the reminderList to know which reminder to modify anyway.
 
 === Undo/ Redo
 
