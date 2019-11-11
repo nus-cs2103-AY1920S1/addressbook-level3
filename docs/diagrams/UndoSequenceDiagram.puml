@@ -4,7 +4,7 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":Parser" as Parser LOGIC_COLOR
-participant "UndoState" as UndoState LOGIC_COLOR
+participant ":UndoState" as UndoState LOGIC_COLOR
 participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
 end box
 
@@ -50,7 +50,6 @@ activate Model
 
 Model -> HistoryManager : undo()
 activate HistoryManager
-HistoryManager -> HistoryManager :isUndoable()
 HistoryManager -> HistoryManager :resetData(ReadOnlyEngagementList)
 HistoryManager --> Model :
 deactivate HistoryManager
