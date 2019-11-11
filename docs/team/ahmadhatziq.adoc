@@ -54,10 +54,6 @@ collaboration with other components of the application was highly needed.
 ** The implementation too was challenging as it required to work with a variety of data structures, so as to maintain the efficiency and effectiveness of data processing.
 ** Given the many layers of information contained within T.A.rence, information had to carefully extracted without compromising other related systems.
 
-* Credits:
-** Code on changing a hash-map to a tree-map is obtained from here {https://www.geeksforgeeks.org/program-to-convert-hashmap-to-treemap-in-java/}
-
-
 === *Major Enhancement*: added *Undo command*
 
 * Summary of the features:
@@ -68,16 +64,12 @@ collaboration with other components of the application was highly needed.
 
 * Highlights:
 ** This enhancement is different from the one suggested in AB3.
-+ During the operation of the application, temporary state files will be stored on the hard
+During the operation of the application, temporary state files will be stored on the hard
 disk. This modification allows for multiple states to be stored, without affecting
 valuable RAM.
 
 ** Once an undo command is executed, the previous state is then loaded into the system memory
 from the saved json state file.
-
-** The implementation too was challenging as it involves proper serializing and de-serializing
-of the json file, properly ensuring that a state change is reflected correctly and loading the data
-from json and re-creating the proper specified model.
 
 === *Minor Enhancement*: added commands for "addModule" and "addTutorial".
 
@@ -88,10 +80,6 @@ from json and re-creating the proper specified model.
 ** Project management:
 *** Used Github for milestone, bug and issue tracking
 *** Assisted to review peer code before merging
-
-** Documentation:
-*** Edited User Guide: link:{prURL}/27[#27]
-*** Edited Developer Guide: link:{prURL}/27[#27], link:{prURL}/93[#93]
 
 == Contributions to the User Guide
 
@@ -109,7 +97,7 @@ include::../UserGuide.adoc[tag=FeatureAddModule]
 
 include::../UserGuide.adoc[tag=FeatureAddTutorial]
 
-
+=======
 == Contributions to the Developer Guide
 
 |===
@@ -119,9 +107,6 @@ include::../UserGuide.adoc[tag=FeatureAddTutorial]
 =======
 include::../DeveloperGuide.adoc[tag=undoredo]
 
-include::../DeveloperGuide.adoc[tag=storage]
-
-=======
 
 
 * *Code contributed*:
