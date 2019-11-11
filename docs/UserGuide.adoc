@@ -18,7 +18,6 @@ By: `CS2103T-T12-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-
 Athletick is a team management desktop application for captains and coaches of timing-based sports teams. Athletick helps you to handle your administrative tasks so that you can focus on what you love doing: leading and motivating your team.
 
 Athletick supports *storing of your team members' personal details, attendance tracking and performance recording*. If you are a fast typist, you'll love Athletick's *Command Line Interface* (CLI) which will get your team management tasks done faster than ever before!
@@ -51,6 +50,7 @@ These are the steps you should take:
 
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+
 image::Gui.png[width=450]
 
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -125,15 +125,6 @@ The added athlete will be shown at the bottom of the team list.
 
 This command deletes an athlete from the list by their index.
 
-*What you should do*
-
-Let's say you want to remove Sun Yang from Athletick as he is no longer in the team. Type the delete command,
-followed by the index of the athlete you wish to delete in the following format and press `Enter` to execute it.
-
-Format: `delete -p INDEX`
-
-Example: `delete -p 5`
-
 [NOTE]
 ====
 The index refers to the index number shown in the displayed person list.
@@ -141,16 +132,26 @@ The index refers to the index number shown in the displayed person list.
 The index must be a positive integer 1, 2, 3, …​
 ====
 
-image::deleteperson_wsyd.png[width=450]
+Let's say you want to remove Tao Li from Athletick as she is no longer in the team.
+
+*What you should do*
+
+Type in the command in the following format and press `Enter` to execute it.
+
+Format: `delete -p INDEX`
+
+Example: `delete -p 3`
+
+.As seen in the orange box, Tao Li has index 3 in the active list. Hence, 3 is used at the INDEX.
+image::deleteathlete_wysd.png[width=450]
 
 *What you should see*
 
-.Notice that Sun Yang is no longer in the athlete list on the left sidebar.
-image::deleteperson_wsys.png[width=450]
+If successfully deleted, the result box will display the details of the athlete you just deleted, as shown in
+the diagram below. The athlete should no longer be shown in the team list.
 
-If successfully removed, the details of the removed athlete will be displayed in the result box.
-
-The athlete should no longer be shown in the team list.
+.Notice that Tao Li is no longer in the athlete list on the left sidebar.
+image::deleteathlete_wyss.png[width=450]
 
 ==== Editing an athlete : `edit`
 
@@ -193,6 +194,9 @@ image::afterEdit.png[width=450]
 If successfully edited, the edited information of Roy (now Shawn) will be displayed in the result box.
 
 The team list should also reflect Roy's new details.
+
+
+// tag::entire_training[]
 
 // tag::training_intro[]
 === Training
@@ -385,13 +389,13 @@ feature box will show you your team's overall attendance.
 image::view_attendance_after.png[width=350]
 
 // end::view_attendance_command[]
+// end::entire_training[]
 
-// tag::performance[]
+// tag::performance_addevent[]
 === Performance
 To help you keep track of your team's performance,
 Athletick has a built-in performance tracker for you record and analyse your team's performance.
 
-// reference section
 First, you will have to add an event.
 After that, you can add records from timed trials under the event to start tracking their performance.
 
@@ -413,7 +417,7 @@ the same event)
 
 Example: `event freestyle 50m`
 
-image::addevent_wysd.png[width="450"]
+image::addevent_wysd.png[width=350]
 
 *What you should see*
 
@@ -423,7 +427,9 @@ of the event you just added, as shown in the red box in the diagram below.
 Additionally, the feature box (orange box) will display the list of all your events. The event you just
 added should be included in the list. In the example below, `freestyle 50m` appears at the bottom of the list.
 
-image::addevent_wyss.png[width="450"]
+image::addevent_wyss.png[width=350]
+
+// end::performance_addevent[]
 
 ==== Deleting an event : `delete -e`
 
@@ -441,7 +447,7 @@ Format : `delete -e NAME_OF_EVENT`
 
 Example: `delete -e backstroke 100m`
 
-image::deleteevent_wysd.png[width="450"]
+image::deleteevent_wysd.png[width=350]
 
 *What you should see*
 
@@ -452,7 +458,9 @@ Additionally, the feature box (orange box) will show the current list of events 
 deleted event should not appear in the list.
 
 .Notice that the backstroke 100m event is not listed.
-image::deleteevent_wyss.png[width="450"]
+image::deleteevent_wyss.png[width=350]
+
+// tag::performance_addrecord[]
 
 ==== Adding an athlete's record : `performance`
 
@@ -479,7 +487,7 @@ Format : `performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING`
 Example : `performance 3 e/freestyle 50m d/02112019 t/24.01`
 
 .As seen in the orange box, Tao Li has index 3 in the active list. Hence, 3 is used at the INDEX.
-image::addrecord_wysd.png[width=450]
+image::addrecord_wysd.png[width=350]
 
 *What you should see*
 
@@ -487,7 +495,9 @@ If successfully added, the result box will display the details of the record you
 the diagram below.
 
 .Details of Tao Li's new record - event, date and timing - are displayed in the result box.
-image::addrecord_wyss.png[width=450]
+image::addrecord_wyss.png[width=350]
+
+// end::performance_addrecord[]
 
 ==== Deleting an athlete's record : `delete -r`
 
@@ -510,7 +520,7 @@ Format : `delete -r INDEX e/EVENT_NAME d/DDMMYYYY`
 Example : `delete -r 3 e/freestyle 50m d/02112019`
 
 .As seen in the orange box, Tao Li has index 3 in the active list. Hence, 3 is used at the INDEX.
-image::deleterecord_wysd.png[width=450]
+image::deleterecord_wysd.png[width=350]
 
 *What you should see*
 
@@ -518,7 +528,7 @@ If successfully deleted, the result box will display the details of the record y
 in the diagram below.
 
 .Details of Tao Li's deleted record - event and date - are displayed in the result box.
-image::deleterecord_wyss.png[width=450]
+image::deleterecord_wyss.png[width=350]
 
 ==== Viewings events : `view performance`
 
@@ -532,7 +542,7 @@ Type in the command in the following format and press `Enter` to execute it.
 
 Format : `view performance`
 
-image::viewevents_wysd.png[width=450]
+image::viewevents_wysd.png[width=350]
 
 *What you should see*
 
@@ -541,7 +551,9 @@ in Athletick_" followed, as shown in the diagram below.
 
 Additionally, the feature box (orange box) will show the list of events you have in Athletick.
 
-image::viewevents_wyss.png[width=450]
+image::viewevents_wyss.png[width=350]
+
+// tag::performance_viewrecord[]
 
 ==== Viewing records : `view records`
 
@@ -557,7 +569,7 @@ Format : `view records EVENT_NAME`
 
 Example : `view records freestyle 50m`
 
-image::viewrecords_wysd.png[width=450]
+image::viewrecords_wysd.png[width=350]
 
 *What you should see*
 
@@ -567,9 +579,9 @@ followed by the event name you requested, as shown in the red box in the diagram
 Additionally, the feature box (orange box) will show the athletes who have records under this event,
 followed by a graph of their progress over time.
 
-image::viewrecords_wyss.png[width=450]
+image::viewrecords_wyss.png[width=350]
 
-// end::performance[]
+// end::performance_viewrecord[]
 
 === Calendar
 
@@ -1012,15 +1024,15 @@ how to add images into the folder:
 
 * Create a folder named `images` in the same directory as your executable jar file.
 
-image::creatingFile.png[width ="790"]
+image::creatingFile.png[width ="600"]
 
 * Ensure that the file name is correct.
 
-image::imageFile.png[width="790"]
+image::imageFile.png[width="600"]
 
 * Add the image files that you want to use into the folder.
 
-image::addingPhotos.png[width="790"]
+image::addingPhotos.png[width="600"]
 //end::FAQ[]
 == Command Summary
 
