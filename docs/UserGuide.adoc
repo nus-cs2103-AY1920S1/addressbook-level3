@@ -418,7 +418,7 @@ Examples:
 
 * `schedule 2 st/1000 d/2`
 
-Schedules the second activity in the activity list under day 2.
+Schedules the second activity in the activity list under day 2 at the specified starting time.
 // end::schedule[]
 
 === Unscheduling activities from a day: `unschedule activity`
@@ -441,19 +441,26 @@ You can use the list day command to find out the index of the activity you wish 
 
 // tag::autoschedule[]
 === Auto Schedule: `autoschedule`
-Generates a list of activities for the specified days based on the `highest priority` and the `least number of times it
-appears on the timetable.` +
+Generates a list of activities for the specified days based on the activity's *priority* and the *number of times it
+has been scheduled on the timetable.*. Activity with the *highest priority* and the *least number of time being scheduled on the timetable* will be chosen to be scheduled.
 
 If the end time of the activity chosen overlaps with the next activity's start time, the
-next activity with the `next highest priority` and `least number of count in the timetable` are chosen.
+next activity with the `next highest priority` and `second lowest number of count in the timetable` are chosen. This process will repeat until it finds a suitable activity to schedule.
 
+* *Timing* can be specified if there is an activity that is confirmed to do at that timing.
+
+* A specific *activity name* can be specified using `n/` instead of `t/` if there is an activity that has been confirmed to do.
+
+* *Location* for those activities can be specified, otherwise it is assumed to be any location.
+
+* The *day* to schedule for can be specified, otherwise it is assumed to be scheduled for all days.
 * Timing can be specified if there is an activity that is confirmed to do at that timing.
 * An `activity name` can be specified if there is an activity that has been confirmed to do.
 * Location for that `day` can be specified, otherwise it is assumed to be any location.
 * The `Day` to schedule for can be specified, otherwise it is assumed to be scheduled for all days.
 
 [WARNING]
-Ensure that activity with the specified name or tag is present in the activity list.
+Ensure that activity with the specified name or tag is present in the activity list first before using the autoschedule command.
 
 [TIP]
 You may use `n/` to denote a specific activity name and specify the start time if you have confirmed to do an activity at a specific time.
@@ -467,6 +474,7 @@ Examples:
 
 * `autoschedule t/Breakfast t/Sightseeing t/Dinner`
 * `autoschedule t/Breakfast t/Sightseeing t/Dinner a/Kyoto d/1`
+* `autoschedule t/Breakfast n/DisneyLand t/Dinner a/Kyoto d/1`
 * `autoschedule t/Breakfast 1000 n/DisneyLand t/Dinner a/Kyoto d/1 2 3 4`
 // end::autoschedule[]
 
@@ -517,18 +525,6 @@ Format: `redo`
 
 Examples: Undo/Redo optimise budget command
 
-=== Autocomplete
-
-While typing a command, suggestions from a dropdown menu will appear. The menu can be interacted with using the arrow keys, enter button or the mouse.
-
-* Autocomplete for commands
-
-image::CommandAutoComplete.png[]
-
-* Autocomplete for prefix
-
-image::PrefixAutoComplete.png[]
-
 * Before optimise
 
 .Day 2 has lots of overlapping activities
@@ -549,6 +545,18 @@ image::AfterUndo.png[]
 .Optimise command successfully redone, no overlaps.
 image::AfterOptimise.png[]
 // end::undoredocommand[]
+
+=== Autocomplete
+
+While typing a command, suggestions from a dropdown menu will appear. The menu can be interacted with using the arrow keys, enter button or the mouse.
+
+* Autocomplete for commands
+
+image::CommandAutoComplete.png[]
+
+* Autocomplete for prefix
+
+image::PrefixAutoComplete.png[]
 
 === Loading the data: `load`[Work in progress]
 

@@ -85,6 +85,8 @@ public class AddDayCommand extends AddCommand {
             model.addDays(toAdd);
         } else if (isUndoRedo && index != null && dayToAdd != null) {
             //Due to undo method of DeleteDayEvent
+            model.shiftDatesInItineraryByDayBetweenRange(1, Index.fromOneBased(index.getOneBased()),
+                    Index.fromOneBased(model.getNumberOfDays() + 1));
             model.addDayAtIndex(index, dayToAdd);
         } else {
             //Due to redo method AddDayEvent

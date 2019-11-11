@@ -17,7 +17,7 @@ import seedu.planner.ui.UiPart;
 
 //@@author 1nefootstep
 /**
- * An UI component that displays information of an {@code Accommodation}.
+ * An UI component that displays information of a {@code Accommodation}.
  */
 public class AccommodationCardFull extends UiPart<Region> {
 

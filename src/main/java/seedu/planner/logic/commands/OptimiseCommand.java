@@ -93,6 +93,14 @@ public class OptimiseCommand extends UndoableCommand {
         return new CommandResult(MESSAGE_SUCCESS, new UiFocus[]{UiFocus.AGENDA});
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || other instanceof OptimiseCommand
+                && dayIndex.equals(((OptimiseCommand) other).dayIndex)
+                && isUndoRedo == ((OptimiseCommand) other).isUndoRedo;
+    }
+
     /**
      * Creates an adjacency list of all the activities
      */

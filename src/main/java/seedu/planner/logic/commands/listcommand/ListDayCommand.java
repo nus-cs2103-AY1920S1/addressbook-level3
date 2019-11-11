@@ -50,7 +50,7 @@ public class ListDayCommand extends ListCommand {
         requireNonNull(model);
 
         if (dayIndex.getZeroBased() >= model.getFilteredItinerary().size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_DAY_DISPLAYED_INDEX);
         }
 
         List<ActivityWithTime> activityWithTimeList = model.getFilteredItinerary().get(dayIndex.getZeroBased())
