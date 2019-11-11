@@ -7,8 +7,6 @@ import java.util.ArrayList;
 
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
-import dream.fcard.logic.stats.TestSession;
-import dream.fcard.logic.stats.TestSessionList;
 
 /**
  * Utilities for easily manipulating and getting data from SessionList objects.
@@ -56,21 +54,27 @@ public class SessionListUtil {
         int finalScore = Integer.parseInt(score.split("/")[0]);
         int maxScore = Integer.parseInt(score.split("/")[1]);
         double scoreAsDouble = (finalScore / (double) maxScore) * 100;
-
-        DecimalFormat decimalFormat = new DecimalFormat("#.##"); // rounds to 2 d.p.
-        String percentage = decimalFormat.format(scoreAsDouble);
-        return Double.parseDouble(percentage);
+        return roundToTwoDecimalPlaces(scoreAsDouble);
     }
 
     /**
-     * Given a TestSession, return a double representing the percentage of correct answers.
-     * Assumes that the TestSession provided has a score.
-     * @param session The TestSession whose score to get.
+     * Given a Session, return a double representing the percentage of correct answers.
+     * Assumes that the Session provided has a score.
+     * @param session The Session whose score to get.
      * @return A double representing the percentage of correct answers.
      */
-    public static double getScoreAsPercentageDouble(TestSession session) {
+    public static double getScoreAsPercentageDouble(Session session) {
         String score = session.getScore();
         return SessionListUtil.getScoreAsPercentageDouble(score);
+    }
+
+    /**
+     * Rounds a given score, as a double, to 2 decimal places and returns it as a double.
+     */
+    public static double roundToTwoDecimalPlaces(double scoreAsDouble) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.##"); // rounds to 2 d.p.
+        String percentage = decimalFormat.format(scoreAsDouble);
+        return Double.parseDouble(percentage);
     }
 
     /**
@@ -93,16 +97,24 @@ public class SessionListUtil {
     }
 
     /**
+     * Converts a String representing the percentage of correct answers to a double.
+     */
+    public static double convertScoreStringToDouble(String score) {
+        String strippedScore = score.split("%")[0];
+        return Double.parseDouble(strippedScore);
+    }
+
+    /**
      * Calculates the average score of a list of test sessions.
-     * @param testSessionList The list of test sessions.
+     * @param sessionList The list of test sessions.
      * @return The average score of the list of test sessions, as a String.
      */
-    public static String getAverageScore(TestSessionList testSessionList) {
-        ArrayList<TestSession> sessionArrayList = testSessionList.getTestSessionArrayList();
+    public static String getAverageScore(SessionList sessionList) {
+        ArrayList<Session> sessionArrayList = sessionList.getSessionArrayList();
 
         double sumOfScores = 0.0;
         int numOfTestSessionsWithScore = 0;
-        for (TestSession session : sessionArrayList) {
+        for (Session session : sessionArrayList) {
             if (!session.hasScore()) {
                 continue;
             }
@@ -115,7 +127,32 @@ public class SessionListUtil {
         }
 
         double averageScoreAsDouble = sumOfScores / numOfTestSessionsWithScore;
-        String averageScoreAsString = convertScoreDoubleToString(averageScoreAsDouble);
+        double roundedAverageScore = roundToTwoDecimalPlaces(averageScoreAsDouble);
+        String averageScoreAsString = convertScoreDoubleToString(roundedAverageScore);
+        return averageScoreAsString;
+    }
+
+    /**
+     * Calculates the average score of a list of test session lists.
+     * @param sessionsList The list of test session lists.
+     * @return The average score of the list of test sessions, as a String.
+     */
+    public static String getAverageScore(ArrayList<SessionList> sessionsList) {
+        int numSessionList = 0; // number of non-empty SessionLists
+        double sumOfScores = 0.0;
+
+        for (SessionList sessionList : sessionsList) {
+            if (sessionList.isEmpty()) {
+                continue;
+            }
+            String averageScoreOfSessionList = getAverageScore(sessionList);
+            sumOfScores += convertScoreStringToDouble(averageScoreOfSessionList);
+            numSessionList++;
+        }
+
+        double averageScoreAsDouble = sumOfScores / numSessionList;
+        double roundedAverageScore = roundToTwoDecimalPlaces(averageScoreAsDouble);
+        String averageScoreAsString = convertScoreDoubleToString(roundedAverageScore);
         return averageScoreAsString;
     }
 }

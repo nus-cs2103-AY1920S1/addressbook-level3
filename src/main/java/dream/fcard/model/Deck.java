@@ -7,15 +7,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
+import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.Priority;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.DeepCopy;
 import dream.fcard.util.json.JsonInterface;
-import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
@@ -36,9 +35,6 @@ public class Deck implements JsonInterface {
     /** List of FlashCards with Low priority levels. */
     private ArrayList<FlashCard> lowPriorityList;
 
-    /** List of sessions the user has engaged in involving this Deck. */
-    private SessionList testSessionList;
-
     //@@author huiminlim
     /**
      * Constructor to create a Deck with no name and cards.
@@ -50,7 +46,6 @@ public class Deck implements JsonInterface {
         lowPriorityQueue = new ArrayList<>();
         highPriorityList = new ArrayList<>();
         lowPriorityList = new ArrayList<>();
-        testSessionList = new SessionList();
     }
 
     /**
@@ -64,7 +59,6 @@ public class Deck implements JsonInterface {
 
         highPriorityQueue = new ArrayList<>();
         lowPriorityQueue = new ArrayList<>();
-        testSessionList = new SessionList();
     }
 
     /**
@@ -80,7 +74,6 @@ public class Deck implements JsonInterface {
         lowPriorityQueue = new ArrayList<>();
 
         addCardsToQueues(initialCards);
-        testSessionList = new SessionList();
     }
 
     /**
@@ -136,20 +129,9 @@ public class Deck implements JsonInterface {
             cardJson.add(card.toJson());
         }
 
-        JsonArray sessionsJson = new JsonArray();
-        ArrayList<Session> testSessionArrayList = testSessionList.getSessionArrayList();
-        for (Session s : testSessionArrayList) {
-            try {
-                sessionsJson.add(s.toJson().getObject());
-            } catch (JsonWrongValueException e) {
-                System.out.println("SESSION JSON EXPECTED TO BE OBJECT\n" + e.getMessage());
-            }
-        }
-
         JsonObject obj = new JsonObject();
         obj.put(Schema.DECK_NAME, deckName);
         obj.put(Schema.DECK_CARDS, cardJson);
-        obj.put(Schema.DECK_SESSIONS, sessionsJson);
         return new JsonValue(obj);
     }
 
@@ -375,12 +357,7 @@ public class Deck implements JsonInterface {
     //@@author nattanyz
     /** Get the SessionList pertaining to this deck. */
     public SessionList getTestSessionList() {
-        return this.testSessionList;
-    }
-
-    /** Set the SessionList pertaining to this deck. */
-    public void setTestSessionList(SessionList testSessionList) {
-        this.testSessionList = testSessionList;
+        return StatsHolder.getDeckStats().getSessionListForDeck(getDeckName());
     }
 
     /** Get number of cards in this deck.*/
@@ -390,17 +367,21 @@ public class Deck implements JsonInterface {
 
     /** Get the number of sessions for this deck. */
     public Integer getNumberOfSessions() {
-        return this.testSessionList.getNumberOfSessions();
+        return this.getTestSessionList().getNumberOfSessions();
     }
 
-    /**
-     * Returns size of the deck.
-     *
+    /** Gets the number of cards in this deck.
      * @return Integer value of the size of deck.
      */
     public int getSize() {
         return cards.size();
     }
+
+    /** Gets the average score of the test sessions for this deck. */
+    public String getAverageScore() {
+        return this.getTestSessionList().getAverageScore();
+    }
+    //@@author
 
     /**
      * Returns a duplicate of the deck.

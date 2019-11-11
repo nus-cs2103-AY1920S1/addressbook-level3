@@ -23,6 +23,9 @@ public class Session implements JsonInterface {
     /** The end time of the session, in the user's local time zone. */
     protected LocalDateTime sessionEnd;
 
+    /** The score of the session, if applicable. */
+    protected String score = null;
+
     /** The start time of the session, as a String for rendering in the GUI. */
     private String sessionStartString;
 
@@ -34,6 +37,7 @@ public class Session implements JsonInterface {
 
     /** The duration of the session, as a String for rendering in the GUI. */
     private String durationString;
+
     /**
      * Constructs a new instance of Session and sets the session's start time to the present.
      */
@@ -42,7 +46,7 @@ public class Session implements JsonInterface {
     }
 
     /**
-     * Construct a new instance of session and sets the session's start time to argument.
+     * Constructs a new instance of session and sets the session's start time to argument.
      * @param start start time
      */
     public Session(LocalDateTime start) {
@@ -50,13 +54,25 @@ public class Session implements JsonInterface {
     }
 
     /**
-     * Construct a new instance of session and sets the session's start and end time to arguments.
+     * Constructs a new instance of session and sets the session's start and end time to arguments.
      * @param start start time
      * @param end   end time
      */
     public Session(LocalDateTime start, LocalDateTime end) {
         startSession(start);
         endSession(end);
+    }
+
+    /**
+     * Constructs a new instance of Session and sets its start, end and score to arguemnts.
+     * @param start Start time
+     * @param end End time
+     * @param score Score of the Session
+     */
+    public Session(LocalDateTime start, LocalDateTime end, String score) {
+        startSession(start);
+        endSession(end);
+        setScore(score);
     }
 
     /**
@@ -71,7 +87,6 @@ public class Session implements JsonInterface {
      * @param start start time
      */
     public void startSession(LocalDateTime start) {
-        // todo: add tests for String properties
         this.sessionStart = start;
         this.sessionStartString = DateTimeUtil.getStringFromDateTime(this.sessionStart);
     }
@@ -93,7 +108,6 @@ public class Session implements JsonInterface {
         this.sessionEndString = DateTimeUtil.getStringFromDateTime(this.sessionEnd);
         this.setDuration();
     }
-
 
     /**
      * Calculates and sets the duration of this session.
@@ -135,9 +149,22 @@ public class Session implements JsonInterface {
         return this.durationString;
     }
 
-    /** Checks if this session is an instance of TestSession. */
-    public boolean isTestSession() {
-        return this instanceof TestSession;
+    /** Returns true if this Session has a Score. */
+    public boolean hasScore() {
+        return this.score != null;
+    }
+
+    /** Gets the score of this session, as a String. */
+    public String getScore() {
+        if (!this.hasScore()) {
+            return "";
+        }
+        return this.score;
+    }
+
+    /** Sets the score of this session to the given String. Assumes that the valid format is used. */
+    public void setScore(String score) {
+        this.score = score;
     }
 
     @Override
@@ -148,7 +175,10 @@ public class Session implements JsonInterface {
                     DateTimeUtil.getJsonFromDateTime(sessionStart).getObject());
             obj.put(Schema.SESSION_END,
                     DateTimeUtil.getJsonFromDateTime(sessionEnd).getObject());
-            //obj.put(Schema.SESSION_SCORE, score);
+
+            if (this.hasScore()) {
+                obj.put(Schema.SESSION_SCORE, score);
+            }
         } catch (JsonWrongValueException e) {
             System.out.println("DATETIME JSON MUST BE AN OBJECT\n" + e.getMessage());
         }

@@ -13,6 +13,7 @@ import dream.fcard.logic.exam.Exam;
 import dream.fcard.logic.exam.ExamRunner;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Consumers;
+import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
@@ -44,7 +45,6 @@ public class DeckDisplay extends VBox {
     private Button deleteDeckButton;
     @FXML
     private Button addQuestionButton;
-
 
     private Consumer<Integer> deleteCard = this::deleteCard;
     private Consumer<Integer> editCard = this::editCard;
@@ -82,6 +82,12 @@ public class DeckDisplay extends VBox {
      * Starts a flashcard review session.
      */
     private void startTest() {
+        // inform DeckStats about the current deck
+        StatsHolder.getDeckStats().setCurrentDeck(deck.getDeckName());
+
+        // start the test session in DeckStats
+        StatsHolder.getDeckStats().startCurrentSession();
+
         //display the first card
         if (deck.getNumberOfCards() == 0) {
             EndOfTestAlert.display("Error", "You cannot start a test on an empty deck!");
@@ -92,6 +98,7 @@ public class DeckDisplay extends VBox {
             Exam exam = ExamRunner.getCurrentExam();
             TestDisplay testDisplay = new TestDisplay(exam);
             Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
+            Consumers.doTask("TOGGLE_LIST_VIEW_OFF", true);
         }
     }
 

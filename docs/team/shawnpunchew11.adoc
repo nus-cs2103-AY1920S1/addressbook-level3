@@ -61,27 +61,7 @@ Taking after reputable flashcard applications like Anki, FlashCard Pro provides 
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=help]
-
-include::../UserGuide.adoc[tag=import]
-
-include::../UserGuide.adoc[tag=export]
-
-include::../UserGuide.adoc[tag=view]
-
-include::../UserGuide.adoc[tag=create_deck]
-
-include::../UserGuide.adoc[tag=add_front_MCQ]
-
-include::../UserGuide.adoc[tag=edit]
-
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=stop]
-
-include::../UserGuide.adoc[tag=stats]
-
-include::../UserGuide.adoc[tag=FAQ]
+include::../UserGuide.adoc[tag=test]
 
 include::../UserGuide.adoc[tag=summary]
 
@@ -91,12 +71,4 @@ include::../UserGuide.adoc[tag=summary]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=cards]
-
-include::../DeveloperGuide.adoc[tag=configure_difficulty]
-
-include::../DeveloperGuide.adoc[tag=productscope]
-
-include::../DeveloperGuide.adoc[tag=user_stories]
-
-include::../DeveloperGuide.adoc[tag=use_case]
+include::../DeveloperGuide.adoc[tag=test]
