@@ -381,6 +381,42 @@ Then, the computation of the number of `HIGH_PRIORITY` and `LOW_PRIORITY` cards 
 
 // end::configure_difficulty[]
 
+// tag::statistics[]
+== Saving and viewing user statistics
+
+* The Statistics feature revolves around the storage and interpretation of the user's *sessions*, be it _login_ sessions or _test_ sessions.
+* Therefore, the `Session` class is the main building block of all Statistics-related classes. They are stored in `SessionList` objects.
+* Due to design considerations, the `UserStats` and `DeckStats` objects are intended to be singletons, created upon application startup and modified, but never duplicated or deleted.
+** Thus, they are accessible via the static methods `getUserStats()` and `getDeckStats()` accessible via the `StatsHolder` class.
+** This method of implementation is similar to what my teammates have used to store `State`.
+** Initially, the `UserStats` and `DeckStats` objects were intended to be stored within `State` as well. However, the addition of undo/redo functionality complicated matters. Thus, the statistics objects have been decoupled from `State`.
+
+The structure of Statistics-related classes is depicted in the class diagram below.
+
+image::class diagram.png
+
+The following sequence diagram depicts the starting, ending and saving of the user's `Session` when they open and close the app.
+
+=== Challenges in implementation
+* Because of the custom `StorageManager` class used to load and save JSON objects, the implementation of loading and saving statistics is somewhat tightly coupled with `StorageManager`.
+** It is insufficient to simply override the `toJson()` method to ensure that the statistics objects would be stored correctly. Instead, the underlying structure of the statistics objects must be known and exposed during the implementation of e.g. the `loadDeckStats()` and `saveDeckStats()` methods in `StorageManager`.
+** Perhaps in v2.0, refactoring of `StorageManager` could allow for a higher level of abstraction of storage-related methods and reduced coupling between `StorageManager` and the unrelated Statistics classes.
+* As our application is quite significantly different than AB3, we used an MSS-focused approach to development: i.e. we focused on making sure that the user's "happy path" could be completed via the GUI, before linking up the app's behaviour with the CLI commands. This resulted in insufficient clarity and tight coupling of the `Responses` class with other classes.
+** The logic of parsing CLI input, handling incorrect commands, determining if the application is in an appropriate `State` etc., along with the actual handling of the command, is all bundled within `Responses` at present.
+** In v2.0, we could focus on removing duplicated code between the CLI and GUI implementations.
+** In v2.0, we could also work towards abstracting out the app's desired response to a command in `Command` classes, allowing for a `Parser` to handle CLI calls and a `Dispatcher` to handle all `Command` s, whether they originate from the CLI or GUI.
+** By abstracting out the handling of each command into separate classes, each team member can check the logic of how each `Command` interacts with their component with ease and avoid duplicated code. e.g. A `startTestSessionCommand` could initialise the `ExamRunner`, update `Statistics`, and so on.
+** Because of the current less-than-ideal implementation of the app's behaviour, in order to support creating/renaming/deleting decks along with undo/redo, code pertaining to `DeckStats` needed to be inserted at many disparate places in the code, e.g. within a button action in the `EditDeckDisplay` controller and in `Responses`.
+
+=== Proposed extension: Statistics for individual cards in a deck
+
+* Statistics for specific cards in a deck could be stored within the `Session` object representing the user's test session on a deck.
+** In this way, summary statistics e.g. how many times the card was reviewed in the past week or whether the user attempted the card correctly on average, can be generated with ease.
+** There is no need to store duplicated data about when each card is accessed.
+* One challenge for the implementation of card-specific statistics is the tight coupling of `Responses` with other classes, as mentioned above.
+** Because individual cards are prone to change, e.g. when the user edits the front or back of the card, not to mention the decks themselves can also be renamed or deleted, it is important that the implementation of `DeckStats` is fully cleaned up before work on `CardStats` can begin.
+
+// end::statistics[]
 
 == Documentation
 
