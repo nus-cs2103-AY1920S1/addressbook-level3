@@ -372,7 +372,8 @@ Format: `add r/interviewee n/NAME p/PHONE f/FACULTY y/YEAR_OF_STUDY ep/PERSONAL_
 
 Example:
 
- add r/interviewee n/John Doe p/88888888 t/CAP5 t/dogLover f/School of Computing ep/JohnDoe@gmail.com ew/JohnDoe@u.nus.edu y/2018 d/Marketing s/20/09/2019 18:00-18:30
+ add r/interviewee n/John Doe p/91234567 f/School of Computing y/1 ep/john_doe@gmail.com ew/john_doe@u.nus.edu d/Marketing s/17/10/2019 13:00-14:00 t/friends
+
 
 Notes:
 
@@ -389,7 +390,7 @@ Constraints:
 * A `n/NAME` must only contain alphanumeric characters and spaces, and should not be blank.
 * A `p/PHONE` must only contain numbers, and should be at least 3 digits long.
 * A `f/FACULTY` can take any value in English, but should not be blank.
-* A `y/YEAR_OF_STUDY` must be a positive integer.
+* A `y/YEAR_OF_STUDY` must be a positive integer with the range [1,5].
 * A `ep/PERSONAL_EMAIL` or `ew/NUS_WORK_EMAIL` must be of format local-part@domain.
 ** The local-part must only contain alphanumeric characters and special characters ( !#$%&'*+/=?`{|}~^.- ), excluding the parenthesis.
 ** The domain name must at least be 2 characters long, start and end with alphanumeric characters and consist of alphanumeric characters, with a period or a hyphen for the characters in-between, if any.
@@ -489,7 +490,7 @@ Constraints:
 * A `n/NAME` must only contain alphanumeric characters and spaces, and should not be blank.
 * A `p/PHONE` must only contain numbers, and should be at least 3 digits long.
 * A `f/FACULTY` can take any value in English, but should not be blank.
-* A `y/YEAR_OF_STUDY` must be a positive integer.
+* A `y/YEAR_OF_STUDY` must be a positive integer within the range [1,5].
 * A `ep/PERSONAL_EMAIL` or `ew/NUS_WORK_EMAIL` must be of format local-part@domain.
 ** The local-part must only contain alphanumeric characters and special characters ( !#$%&'*+/=?`{|}~^.- ), excluding the parenthesis.
 ** The domain name must at least be 2 characters long, start and end with alphanumeric characters and consist of alphanumeric characters, with a period or a hyphen for the characters in-between, if any.

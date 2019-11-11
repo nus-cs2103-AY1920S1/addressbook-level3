@@ -170,7 +170,7 @@ public class ParserUtil {
         Integer value;
         try {
             value = Integer.parseUnsignedInt(trimmedYearOfStudy);
-            if (value < 0) {
+            if (value < 0 || value > 5) {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {

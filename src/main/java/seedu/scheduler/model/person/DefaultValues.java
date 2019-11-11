@@ -15,7 +15,7 @@ public class DefaultValues {
 
     // Person
     public static final Name DEFAULT_NAME = new Name("John Doe");
-    public static final Phone DEFAULT_PHONE = new Phone("88888888");
+    public static final Phone DEFAULT_PHONE = new Phone("91234567");
     public static final Set<Tag> DEFAULT_TAGS = new HashSet<>();
 
     // Interviewee
@@ -26,7 +26,7 @@ public class DefaultValues {
                 .addPersonalEmail(DEFAULT_PERSONAL_EMAIL)
                 .addNusEmail(DEFAULT_NUS_WORK_EMAIL);
     public static final Faculty DEFAULT_FACULTY = new Faculty("School of Computing");
-    public static final Integer DEFAULT_YEAR_OF_STUDY = 2019;
+    public static final Integer DEFAULT_YEAR_OF_STUDY = 1;
     public static final Slot DEFAULT_SLOT = Slot.fromString("17/10/2019 13:00-14:00");
     public static final List<Department> DEFAULT_DEPARTMENTS = new ArrayList<>();
     public static final List<Slot> DEFAULT_TIMESLOTS = new ArrayList<>();
