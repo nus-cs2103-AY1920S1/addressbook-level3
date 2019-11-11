@@ -1171,15 +1171,15 @@ _{ more test cases ... }_
 === Filtering expenses by tag
 . Filtering expenses by tag while all expenses are listed
 .. Prerequisites: List all expenses using the `list` command. Multiple expenses in the list. One or more expenses contain the tag "_holiday_". All expenses do not contain the tag "_tech_"
-.. Test case: `tag filter t/holiday`
+.. Test case: `tag filter t/holiday` +
     Expected: Expenses that contain the tag "_holiday_" are listed out. Number of expenses shown in status message.
-.. Test case: `tag filter t/tech`
+.. Test case: `tag filter t/tech` +
     Expected: No expense listed out.
 
 === Listing out all existing tags
 . Listing out all existing tags while all expenses are listed
 .. Prerequisites: List all expenses using the `list` command.
-.. Test case: `tag list`
+.. Test case: `tag list` +
     Expected: All existing tags are listed out in the status message.
 
 === Saving data
