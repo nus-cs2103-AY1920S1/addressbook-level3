@@ -317,7 +317,7 @@ Renames the tag name from _exchange_ to _sep_.
 
 ==== Viewing modules with specific tags : `viewtagged`
 Shows all modules attached to all the specified tags. +
-Format: `viewtagged TAG_NAME ...`
+Format: `viewtagged TAG_NAME \...`
 
 Examples:
 

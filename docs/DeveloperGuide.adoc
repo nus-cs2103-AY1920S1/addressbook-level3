@@ -118,7 +118,7 @@ link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.j
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="350"]
+image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -399,7 +399,7 @@ to study plan tagging, i.e. allowing study plans to have other kinds of tags.
 - `UniqueTagList#getTag(String tagName)` -- Returns the `Tag` with the given `tagName`.
 
 .Class diagram for the tag model
-image::TagClassDiagram.png[width="170"]
+image::TagClassDiagram.png[width="250"]
 
 There are many operations that can be done in relation to tagging modules. Some examples are _adding_, _deleting_,
 and _renaming_ tags. Given below is an example usage scenario of the `UniqueTagList#addTag(Tag toAdd)` operation and how the module tagging
@@ -458,12 +458,7 @@ image::TagModuleCommandSequenceDiagram1.png[]
 image::TagModuleCommandSequenceDiagram2.png[]
 
 .Activity diagram for module tagging
-image::TagModuleCommandActivityDiagram.png[width="270"]
-
-[NOTE]
-The command exceptions in the above activity diagram should actually point to a single _stop_ at the end.
-There are multiple _stops_ in the above diagram as PlantUML does not support having a single _stop_ and []
-for branch labels in one syntax.
+image::TagModuleCommandActivityDiagram.png[width="350"]
 
 [NOTE]
 The command exceptions in the above activity diagram should actually point to a single _stop_ at the end.
