@@ -414,8 +414,11 @@ Hence, this ensures the main FX application thread is always polling for user in
 
 We are using Prefix Tree which is known as a Trie for AutoComplete. This gives us a worst case time complexity of O(m), where m is length of the search string. While the space complexity is O(bm), where b is number of unique characters used, m is length of longest word stored.
 
-.AutoComplete Sequence Diagram
+.AutoComplete Sequence Diagram showing the sequence upon typing the character 'a' into an empty Command Box.
 image::AutoCompleteSequenceDiagram.png[]
+
+.AutoCompleter Class Diagram
+image::AutoCompleterClassDiagram.png[]
 
 ===== Aspect: Data structure to implement AutoComplete
 
