@@ -315,4 +315,56 @@ public class StringUtilTest {
 
     }
 
+    //--------------------Tests for isNumeric-----------------------------------------------------
+    @Test
+    public void isNumeric() {
+
+        // not a number -> false
+        assertFalse(StringUtil.isNumeric("abcde"));
+        assertFalse(StringUtil.isNumeric("      "));
+        assertFalse(StringUtil.isNumeric("    as wkdfl  "));
+        assertFalse(StringUtil.isNumeric("as12askf"));
+
+        // signed numbers -> true
+        assertTrue(StringUtil.isNumeric("+1000000"));
+        assertTrue(StringUtil.isNumeric("-1000000"));
+
+        // unsigned numbers -> true
+        assertTrue(StringUtil.isNumeric("1000000"));
+        assertTrue(StringUtil.isNumeric("1000000"));
+
+        // numbers with leading zeroes -> true
+        assertTrue(StringUtil.isNumeric("001000000"));
+
+        // only zeroes -> true
+        assertTrue(StringUtil.isNumeric("000000000"));
+
+    }
+
+    //--------------------Tests for isUnsignedNumericWithoutLeadingZeroes-------------------------------------------
+    @Test
+    public void isUnsignedNumericWithoutLeadingZeroes() {
+        // not a number -> false
+        assertFalse(StringUtil.isUnsignedNumericWithoutLeadingZeroes("abcde"));
+        assertFalse(StringUtil.isUnsignedNumericWithoutLeadingZeroes("      "));
+        assertFalse(StringUtil.isUnsignedNumericWithoutLeadingZeroes("    as wkdfl  "));
+        assertFalse(StringUtil.isUnsignedNumericWithoutLeadingZeroes("as12askf"));
+
+        // signed numbers -> false
+        assertFalse(StringUtil.isUnsignedNumericWithoutLeadingZeroes("+1000000"));
+        assertFalse(StringUtil.isUnsignedNumericWithoutLeadingZeroes("-1000000"));
+
+        // unsigned numbers -> true
+        assertTrue(StringUtil.isUnsignedNumericWithoutLeadingZeroes("1000000"));
+        assertTrue(StringUtil.isUnsignedNumericWithoutLeadingZeroes("1000000"));
+        assertTrue(StringUtil.isUnsignedNumericWithoutLeadingZeroes("99999999999999999999"));
+
+        // numbers with leading zeroes -> false
+        assertFalse(StringUtil.isUnsignedNumericWithoutLeadingZeroes("001000000"));
+        assertFalse(StringUtil.isUnsignedNumericWithoutLeadingZeroes("0100000000000000"));
+
+        // only zeroes -> false
+        assertFalse(StringUtil.isUnsignedNumericWithoutLeadingZeroes("000000000"));
+
+    }
 }

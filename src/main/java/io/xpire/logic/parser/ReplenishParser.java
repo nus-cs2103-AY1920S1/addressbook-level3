@@ -30,7 +30,7 @@ import io.xpire.logic.parser.exceptions.ParseException;
 
 //@@author febee99
 /**
- * Parses user input.
+ * Parses user input for the {@code ReplenishList}.
  */
 public class ReplenishParser implements Parser {
 

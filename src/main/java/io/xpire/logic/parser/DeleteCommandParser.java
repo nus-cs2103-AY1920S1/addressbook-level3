@@ -4,6 +4,7 @@ import java.util.Set;
 
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
+import io.xpire.commons.util.StringUtil;
 import io.xpire.logic.commands.DeleteCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.ListType;
@@ -30,14 +31,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeleteCommand parse(String args) throws ParseException {
         String[] splitArgs = args.split("\\|", 2);
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(splitArgs[0]);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
-        }
-
+        Index index = ParserUtil.parseIndex(splitArgs[0]);
         if (containsTag(splitArgs)) {
             return deleteTagsCommand(index, splitArgs[1]);
         } else if (containsQuantity(splitArgs)) {
@@ -46,7 +40,6 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                 return deleteQuantityCommand(index, splitArgs[1]);
             case REPLENISH:
                 throw new ParseException(MESSAGE_DELETE_QUANTITY_INVALID_USAGE);
-
             default:
                 throw new ParseException("Invalid list type.");
             }
@@ -63,19 +56,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     }
 
     private boolean containsQuantity(String[] args) {
-        return (args.length == 2) && isIntegerType(args[1]);
-    }
-
-    /**
-     * Returns true if given argument is of type integer.
-     */
-    private boolean isIntegerType(String arg) {
-        try {
-            Integer.parseInt(arg);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        return true;
+        return (args.length == 2) && StringUtil.isNumeric(args[1]);
     }
 
     private DeleteCommand deleteItemCommand(Index index) {

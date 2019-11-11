@@ -47,7 +47,7 @@ public class ReplenishList implements ReadOnlyListView<Item> {
         try {
             this.setItems(newData.getItemList());
         } catch (ClassCastException e) {
-            this.logger.warning("Wrong item type for Xpire");
+            this.logger.warning("Wrong item type for Replenish");
         }
     }
 

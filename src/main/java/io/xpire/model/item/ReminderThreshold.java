@@ -50,13 +50,6 @@ public class ReminderThreshold {
         return isValidReminderThreshold(test) && threshold <= remainingDays;
     }
 
-    /**
-     * Returns true if a given input string is numeric but exceeds given range.
-     */
-    public static boolean isNumericButExceedQuantity(String test) {
-        return StringUtil.isNumeric(test) && test.length() > 5;
-    }
-
     public int getValue() {
         return this.reminderThreshold;
     }

@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
+ * @@author Kalsyc
  * Stores the tags to edit the xpireItem with.
  */
 public class TagItemDescriptor {

@@ -13,6 +13,7 @@ import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagItemDescriptor;
 
 /**
+ * @@author Kalsyc
  * Parses input arguments and creates a new TagCommand object.
  */
 public class TagCommandParser implements Parser<TagCommand> {

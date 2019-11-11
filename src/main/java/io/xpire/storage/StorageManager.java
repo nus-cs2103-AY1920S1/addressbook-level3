@@ -13,7 +13,7 @@ import io.xpire.model.UserPrefs;
 import javafx.util.Pair;
 
 /**
- * Manages storage of Xpire data in local storage.
+ * Manages storage of {@code Xpire} and {@code ReplenishList} data in local storage.
  */
 public class StorageManager implements Storage {
 

@@ -10,6 +10,7 @@ import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.TypicalItems.BANANA;
 import static io.xpire.testutil.TypicalItems.DUCK;
 import static io.xpire.testutil.TypicalItems.FISH;
+import static io.xpire.testutil.TypicalItems.PAPAYA_XPIRE;
 import static io.xpire.testutil.TypicalItems.getTypicalLists;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -98,12 +99,12 @@ public class SearchCommandTest {
 
     @Test
     public void execute_allMatchingKeywords_someItemsFoundNoRecommendations() {
-        String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 2);
+        String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 3);
         ContainsKeywordsPredicate predicate = preparePredicate("Banaan|#Fridge");
         SearchCommand command = new SearchCommand(XPIRE, predicate);
         expectedModel.filterCurrentList(XPIRE, predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(DUCK, FISH), model.getCurrentList());
+        assertEquals(Arrays.asList(DUCK, FISH, PAPAYA_XPIRE), model.getCurrentList());
     }
 
     @Test
@@ -120,12 +121,12 @@ public class SearchCommandTest {
 
     @Test
     public void execute_allMatchingKeywords_multipleItemsFound() {
-        String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 4);
         ContainsKeywordsPredicate predicate = preparePredicate("Banana|#Fridge");
         SearchCommand command = new SearchCommand(XPIRE, predicate);
         expectedModel.filterCurrentList(XPIRE, predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BANANA, DUCK, FISH), model.getCurrentList());
+        assertEquals(Arrays.asList(BANANA, DUCK, FISH, PAPAYA_XPIRE), model.getCurrentList());
     }
 
     @Test

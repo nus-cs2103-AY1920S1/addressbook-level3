@@ -8,6 +8,7 @@ import io.xpire.model.state.State;
 import io.xpire.model.state.StateManager;
 
 /**
+ * @@author Kalsyc
  * Redo the previous Undo Command.
  */
 public class RedoCommand extends Command {

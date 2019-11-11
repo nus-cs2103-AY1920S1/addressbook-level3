@@ -23,7 +23,7 @@ image::kalsyc.png[width="150", align="left"]
 {empty}[https://kalsyc.github.io[homepage]] [https://github.com/kalsyc[github]] [<<kalsyc#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Testing + UI/UX Designer
+Responsibilities: Testing + Undo/Redo/Tagging System
 
 '''
 

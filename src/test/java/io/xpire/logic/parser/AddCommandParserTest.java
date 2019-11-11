@@ -1,10 +1,9 @@
 package io.xpire.logic.parser;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static io.xpire.testutil.TypicalItems.BANANA;
 import static io.xpire.testutil.TypicalItemsFields.INVALID_EXPIRY_DATE;
 import static io.xpire.testutil.TypicalItemsFields.INVALID_NAME;
-import static io.xpire.testutil.TypicalItemsFields.INVALID_QUANTITY;
+import static io.xpire.testutil.TypicalItemsFields.INVALID_QUANTITY_INTEGER;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_APPLE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_BANANA;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_APPLE;
@@ -17,16 +16,12 @@ import io.xpire.logic.commands.AddCommand;
 import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Name;
 import io.xpire.model.item.Quantity;
-import io.xpire.model.item.XpireItem;
-import io.xpire.testutil.XpireItemBuilder;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        XpireItem expectedXpireItem = new XpireItemBuilder(BANANA).build();
-
         CommandParserTestUtil.assertEqualsParseSuccess(parser, VALID_NAME_BANANA
                         + "|" + VALID_EXPIRY_DATE_BANANA + "|" + VALID_QUANTITY_BANANA,
                 new AddCommand(new Name(VALID_NAME_BANANA), new ExpiryDate(VALID_EXPIRY_DATE_BANANA),
@@ -64,10 +59,10 @@ public class AddCommandParserTest {
 
         // invalid quantity
         CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_BANANA + "|" + VALID_EXPIRY_DATE_BANANA
-                + "|" + INVALID_QUANTITY, Quantity.MESSAGE_CONSTRAINTS);
+                + "|" + INVALID_QUANTITY_INTEGER, Quantity.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        CommandParserTestUtil.assertParseFailure(parser, INVALID_NAME + "|" + VALID_EXPIRY_DATE_BANANA
-            + "|", Name.MESSAGE_CONSTRAINTS);
+        CommandParserTestUtil.assertParseFailure(parser, INVALID_NAME + "|" + INVALID_EXPIRY_DATE,
+                Name.MESSAGE_CONSTRAINTS);
     }
 }
