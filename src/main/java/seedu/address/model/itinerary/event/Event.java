@@ -19,11 +19,7 @@ import seedu.address.model.itinerary.Name;
 /**
  * Represents a Event in TravelPal.
  * Compulsory fields: name, startDate, endDate, destination.
-<<<<<<< HEAD
  * Optional fields: expenditure, booking, inventoryList.
-=======
- * Optional fields: expense, booking, inventory.
->>>>>>> af43df1e8b6160ddf82ae3e7121d8e7e74d6f158
  */
 public class Event {
     public static final String MESSAGE_INVALID_DATETIME = "Start date should be before end date";
@@ -218,7 +214,6 @@ public class Event {
                 + ", startDate: " + startDate
                 + ", endDate: " + endDate
                 + ", destination: " + destination
-                + ", inventory: " + inventory
                 + ", expense: " + expense
                 + ", booking: " + booking
                 + ", description: " + description;
