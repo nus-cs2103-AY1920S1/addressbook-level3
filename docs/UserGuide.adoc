@@ -289,6 +289,8 @@ NOTE: To avoid accidental cancellation of another patient's appointments, the us
 
 Format: `cancelappt <ENTRY_ID>`
 
+
+
 ==== Changes the appointment date: `editappt` ====
 
 Changes the timing for an existing appointment. +
@@ -322,7 +324,6 @@ Format: `settleappt <ENTRY_ID>`
 List all the available empty slots for patients to make appointments +
 
 Format: `slot -start <START_DATE>`
-
 // end::appointment[]
 // tag::shift[]
 
@@ -345,6 +346,7 @@ Otherwise, only one shift will be added. +
 
 Format: `newshift -id <STAFF_REFERENCE_ID> -start <START_TIMING> -end <END_TIMING> [-reoccur INTERVALS -num REOCCURRING_TIMES]`
 
+// end::shift[]
 ==== Cancels a duty shift for a doctor: `cancelshift` ====
 
 Cancels the specified duty shift for a doctor based on the given entry index. +
@@ -366,8 +368,6 @@ NOTE: The operation is rejected if it results in there being more appointments t
 The patient's appointment affected by the editing of the duty shift must be resolved first. +
 
 Format: `editshift -entry <ENTRY_ID> -start <START_TIMING> -end <END_TIMING>`
-
-// end::shift[]
 
 === Inventory Commands (v2.0) ===
 

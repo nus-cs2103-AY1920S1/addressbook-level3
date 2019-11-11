@@ -48,13 +48,12 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=woon&sort=groupTitle&
 *** Added UML diagrams for appointment feature into the Development Guide:(examples: https://github.com/AY1920S1-CS2103T-T09-3/main/pull/92[1])
 
 ** Database:
-*** edits pre-load database(Pull request https://github.com/AY1920S1-CS2103T-T09-3/main/pull/139[#139])
+*** Edited pre-load database(Pull request https://github.com/AY1920S1-CS2103T-T09-3/main/pull/139[#139])
 
 ** Enhancements to existing features:
 *** Wrote additional tests for existing features to increase coverage from 66.25% to 71.55% (Pull requests https://github.com/AY1920S1-CS2103T-T09-3/main/pull/112[#112])
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._

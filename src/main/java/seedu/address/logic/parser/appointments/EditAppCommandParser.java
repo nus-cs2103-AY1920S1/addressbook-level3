@@ -21,6 +21,7 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.events.Appointment;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.parameters.Status;
@@ -71,8 +72,14 @@ public class EditAppCommandParser implements Parser<ReversibleActionPairCommand>
         Event editedEvent = new Appointment(eventToEdit.getPersonId(),
                 eventToEdit.getPersonName(), timing, new Status());
 
+        if (editedEvent.equals(eventToEdit)) {
+            throw new ParseException(
+                    String.format(ModelManager.MESSAGE_NOT_OVERLAPPING_APPOINTMENT,
+                            editedEvent.getPersonName().toString(),
+                            editedEvent.getEventTiming().toString()));
+        }
+
         return new ReversibleActionPairCommand(new EditAppCommand(eventToEdit, editedEvent),
                 new EditAppCommand(editedEvent, eventToEdit));
-
     }
 }

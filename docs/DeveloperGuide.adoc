@@ -530,6 +530,7 @@ The appointment will be rejected by the system, if there are insufficient staff 
 
 Before an appointment can be scheduled, the system first checks the total number of staff doctors on duty in that timeslot. Next, the system checks the existing appointments in that timeslot. If the number of appointments in that timeslot is less than the number of doctors, the appointment will be scheduled. Otherwise, the appointment will not be scheduled.
 
+
 ==== `newappt` Command
 The `newappt` command is similar to the `new` command of patient and doctor. The command takes in the parameters required to construct `ReferenceId`, `DateTime` and `Status`. The image below shows how the `Appointment` object is constructed.
 
@@ -569,6 +570,8 @@ Given below is the sequence diagram for interactions within the `Logic` componen
 
 .Interactions Inside the Logic Component for the `cancelappt 1` Command
 image::CancelAppointmentSequenceDiagram.png[]
+
+// end::appointment[]
 
 ==== `missappt` Command
 
@@ -626,8 +629,6 @@ In future implementations, i.e. v2.0, the valid timing slot will be given based 
 1. Increases difficulty in freely accessing appointments.
 |===
 
-// end::appointment[]
-
 // tag::shift[]
 === Duty Shift Scheduling
 
@@ -680,9 +681,7 @@ image::ChangeShiftActivityDiagram.png[]
 ==== `cancelshift` Command
 
 `cancelshift` simply takes in the index of the target duty shift to cancel according to the displayed shift list.
-
 // end::shift[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

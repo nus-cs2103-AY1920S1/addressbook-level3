@@ -455,13 +455,6 @@ public class ModelManager implements Model {
     @Override
     public void setAppointment(Event target, Event editedEvent) throws InvalidEventScheduleChangeException {
         requireAllNonNull(target, editedEvent);
-
-        if (target.isSameAs(editedEvent)) {
-            throw new InvalidEventScheduleChangeException(
-                    String.format(MESSAGE_NOT_OVERLAPPING_APPOINTMENT, target.getPersonName().toString(),
-                            target.getEventTiming().toString()));
-
-        }
         if (!hasExactAppointment(target)) {
             throw new EntryNotFoundException();
         }
