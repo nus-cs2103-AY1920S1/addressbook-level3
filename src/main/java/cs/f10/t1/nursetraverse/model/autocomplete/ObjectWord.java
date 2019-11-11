@@ -12,6 +12,6 @@ public class ObjectWord extends AutoCompleteWord {
 
     @Override
     public String getConnectorChar() {
-        return "-";
+        return "";
     }
 }

@@ -9,7 +9,7 @@ import java.util.LinkedList;
 public class UserinputParserUtil {
 
     /**
-     * Parse and return user input (eg: pat-edit 1 n/jo) in a linkedlist in the following format
+     * Parse and return user input (eg: pat-edit 1 n/jolyn) in a linkedlist in the following format
      * {object word, command word, (if any) prefix/index word, (if any) prefix word, ...}
      *
      * @param currentPhraseInCommandBox string in command box text field
@@ -44,26 +44,16 @@ public class UserinputParserUtil {
     public static LinkedList<String> parseFirstSegment(String firstSegment) {
         LinkedList<String> splitWords = new LinkedList<>();
 
-        String[] parts = firstSegment.split("-");
-        if (parts.length != 0) {
-            String firstSplitWord = parts[0];
-            splitWords.add(firstSplitWord);
-
-            String secondSplitWord = null;
-            if (parts.length >= 2) {
-                secondSplitWord = parts[1];
-                try {
-                    for (int i = 2; i < parts.length; i++) {
-                        secondSplitWord += "-";
-                        secondSplitWord += parts[i];
-                    }
-                } catch (IndexOutOfBoundsException e) {
-                    throw new IndexOutOfBoundsException(e.getMessage());
-                }
-            }
-            if (secondSplitWord != null) {
-                splitWords.add(secondSplitWord);
-            }
+        if (firstSegment.contains("-")) {
+            // Find the position of '-'
+            int indexToSplit = firstSegment.indexOf('-');
+            // Find objectword and commandword
+            String objectWord = firstSegment.substring(0, indexToSplit + 1);
+            String commandWord = firstSegment.substring(indexToSplit + 1);
+            splitWords.add(objectWord);
+            splitWords.add(commandWord);
+        } else {
+            splitWords.add(firstSegment);
         }
         return splitWords;
     }

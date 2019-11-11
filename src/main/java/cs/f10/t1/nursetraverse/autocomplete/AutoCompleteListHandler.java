@@ -96,8 +96,6 @@ public class AutoCompleteListHandler {
                     updatedList.add(autoCompleteWord);
                 }
             }
-            // Add '-' to each object word displayed for user understanding
-            addDashToObjectWordList(updatedList);
             return updatedList;
         }
     }
@@ -143,20 +141,6 @@ public class AutoCompleteListHandler {
             return filteredList;
         } else {
             return listToBeSuggested;
-        }
-    }
-
-    /**
-     * Add - for each word in object list, for user understanding in the autocomplete panel ui
-     *
-     * @param objectList list for words to add dash to
-     */
-    private void addDashToObjectWordList(ObservableList<AutoCompleteWord> objectList) {
-        if (objectList.size() != 0 && objectList.get(0) instanceof ObjectWord) {
-            for (int i = 0; i < objectList.size(); i++) {
-                objectList.set(i, new ObjectWord(objectList.get(i).getSuggestedWord() + "-",
-                        objectList.get(i).getDescription()));
-            }
         }
     }
 }
