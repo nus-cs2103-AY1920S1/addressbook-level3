@@ -533,146 +533,344 @@ Deletes all meal plans within the meal plan book.
 Going for a health checkup soon? You can use the commands in this section to manage your
 health records, all within DukeCooks!
 
-==== View Health Data:  `list health`
-Views Health Records of specific type. +
-Format: `list health t/<type>`
+==== pass:[<u>Understanding the Health Records</u>]
+
+Before you get overwhelmed by what's in Health Records,
+here's everything you need to know to get you started! Keep scrolling!
+
+Refer to the following diagrams for a better understanding.
+
+.Health Records's Overview
+[caption="Figure 3.5.1: "]
+image::health_overview.jpeg[width="900"]
+
+Looking for just a specific record type? DukeCooks got you covered! Refer to diagram below!
+
+.Health Records's Details Page
+[caption="Figure 3.5.2: "]
+image::health_details.jpeg[width="900"]
+
+[NOTE]
+====
+DukeCooks will only show health records of the past 1 month in the graph illustrated above.
+====
+
+The following record types are supported by DukeCooks:
+|===
+| Record Type | Unit
+
+| Weight
+| kg
+
+| Height
+| cm
+
+| Glucose
+| mmol/L
+
+| Calories
+| kcal
+
+| Protein, Fats, Carbs
+| g
+
+|===
 
 [IMPORTANT]
 ====
-By default, DukeCooks will show health records of past 1 month if [time period] is not specified.
+Shared data across! _Weight_ and _Height_ records will be **synchronized** to profile
 ====
 
+
+==== pass:[<u>Getting to Health Records</u>]
+
+Here's a quick way to get to the Health Records!
+
+Command: `goto health`
+
+==== Adding a profile
+Want to have a personalized profile of your own? This is just the perfect command you're looking for!
+
+[NOTE]
+====
+This action only works once! DukeCooks only allows storing of one user profile.
+====
+
+Command: `add profile` +
+Format: `add profile n/_<name>_ d/_<date of birth>_ g/_<gender>_ bt/_<blood type>_ w/_<weight>_ h/_<height>_ [m/_<medical history>_]`
+
+Example usage: `add profile n/Alex Yeoh d/23/02/1995 g/female bt/a+ w/57.8 h/173.2 m/Stroke m/Diabetes`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::health_addProfile_before.jpeg[]
++
+. If the command succeeds, you will see the following message in the result display and your created profile!
++
+image::health_addProfile_after.jpeg[]
+
+[NOTE]
+====
+Say no to bad data! DukeCooks helps to sync your data inputs with your health records! _(As shown in **Step 2**)_
+====
+
+==== Editing a profile
+Need to make amendments to your profile? Simply follow the format below!
+
+[NOTE]
+====
+This action is only applicable if there is an existing profile already.
+====
+
+Command: `edit profile` +
+Format: `edit profile n/_<name>_ d/_<date of birth>_ g/_<gender>_ bt/_<blood type>_ w/_<weight>_ h/_<height>_ [m/_<medical history>_] [m-/_<medical history>_]`
+
+[NOTE]
+====
+To remove existing medical history, include this prefix to your command: `**m-/** _<existing history>_**`
+====
+
+Example usage: `edit profile g/male bt/a- w/57.5 h/173 m-/Stroke m/High Blood Pressure`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::health_editProfile_before.jpeg[]
++
+. If the command succeeds, you will see the following message in the result display and your updated profile!
++
+image::health_editProfile_after.jpeg[]
+
+[NOTE]
+====
+Say no to bad data! DukeCooks helps to sync your data inputs with your health records! _(As shown in **Step 2**)_
+====
+
+==== Deleting a profile
+Want to get rid of your profile? This command helps to remove your existing profile.
+
+[IMPORTANT]
+====
+This action is not reversible. Use only when necessary!
+====
+
+Format: `delete profile`
+
+Example usage: `delete profile`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::health_deleteProfile_before.jpeg[]
++
+. If the command succeeds, you will see the following message in the result display and your profile has been cleared!
++
+image::health_deleteProfile_after.jpeg[]
+
+[NOTE]
+====
+Keeping your records safe! This action will have no effect to your records!
+====
+
+
+==== Viewing a specific record type
+Looking for just a specific record type? This command directs you to the details page with
+beautiful visual illustrations of your records!
+
+Command: `list health` +
+Format: `list health t/_<type>_`
+
+Example usage: `list health t/weight`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::health_listRecord_before.jpeg[]
++
+. If the command succeeds, you will see the following message in the result display and you
+will be directed to the details page.
++
+image::health_listRecord_after.jpeg[]
+
 ****
-User can view health data under the following 8 types:
+Based on the record type, DukeCooks will generate the appropriate graph illustration
 
-. Weight
-. Calories
-. Glucose (i.e. blood sugar)
-. Carbs
-. Fats
-. Protein
+. Line Graph - Records are shown in a daily max manner
+. Bar Graph - Records should shown in a daily sum manner
 
 ****
 
+Unsure of what record types are available? Refer to the list below!
+|===
+| Record Type | Unit | Graph Type
+
+| Weight
+| kg
+| Line Graph
+
+| Height
+| cm
+| Line Graph
+
+| Glucose
+| mmol/L
+| Line Graph
+
+| Calories
+| kcal
+| Bar Graph
+
+| Protein, Fats, Carbs
+| g
+| Bar Graph
+
+|===
+
+==== Adding a health record
+Adding a new health record? Easy! Just follow the given format below!
+
+Command: `add health` +
+Format: `add health t/_<type>_ val/_<value>_ dt/_<date time>_ [remark/_<remark>_]`
+
+Example usage: `add health t/weight val/60 dt/10/11/2019 12:00 remark/after meal`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::health_addRecord_before.jpeg[]
++
+
+[NOTE]
+====
+Worried of mistyping? Frat not! DukeCooks ensures that your inputs are within a valid range!
+====
+
+
+. If the command succeeds, you will see the following message in the result display and your
+new record shown in the details page!
++
+image::health_addRecord_after.jpeg[]
+
+[NOTE]
+====
+Say no to bad data! DukeCooks helps to sync your data inputs with your profile! _(As shown in **Step 2**)_
+====
+
+==== Editing a existing record
+Made some mistakes and need to update your record? Simply fire away the edit command below to start editing!
+
+Command: `edit health` +
+Format: `add health _<index>_ val/_<value>_ dt/_<date time>_ [remark/_<remark>_] [remark-/_<remark>_]`
+
+[NOTE]
+====
+To remove existing remark, include this prefix to your command: `**remark-/** _<existing remark>_**`
+====
+
+Example usage: `edit health 1 val/62 dt/10/11/2019 10:30 remark-/after meal remark/before meal`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::health_editRecord_before.jpeg[]
++
+. If the command succeeds, you will see the following message in the result display and your edited record in the details page!
++
+image::health_editRecord_after.jpeg[]
+
+[NOTE]
+====
+Say no to bad data! DukeCooks will ensure your profile is in-sync to your records!
+====
+
+==== Deleting a existing record
+Deleting a duplicate health record? DukeCooks can help with that!
+
+Command: `delete health` +
+Format: `delete health _<index>_`
+
+Example usage: `delete health 1`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::health_deleteRecord_before.jpeg[]
++
+. If the command succeeds, you will see the following message in the result display and the deleted record deleted in your records!
++
+image::health_deleteRecord_after.jpeg[]
+
+[NOTE]
+====
+Say no to bad data! DukeCooks will update your profile with the most recent available record found!
+====
+
+==== Clearing all records
+Want to start afresh with your health records? DukeCooks can help you restart to a clean state!
+
+[IMPORTANT]
+====
+This action is not reversible. Use only when necessary!
+====
+
+Format: `clear health`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::health_clearRecord_before.jpeg[]
++
+. If the command succeeds, you will see the following message in the result display with all records cleared!
++
+image::health_clearRecord_after.jpeg[]
+
+[NOTE]
+====
+Keeping your profile safe! This action will have no effect to your profile!
+====
+
+==== Link Recipes: `[Coming in v2.0]`
+A feature to track user's food consumption based on existing records. +
+
+Adds relevant records based on the recipe's nutritional information +
+Format: `link recipe n/_<recipename>_ /to health dt/_<date time>_ [remarks/_<remarks>_]`
+
+* Recipe should already exist
+
+[NOTE]
+====
+Deleting recipes will not delete the linked recipes in Health Records!
+====
+
 Examples:
 
-* `list health t/weight` +
-Shows user’s weight of the past *1* month as of today.
+* `link recipe Caesar Salad /to health dt/12/10/2019 12:00 remark/ diet` +
+ Creates 4 corresponding records (namely Calories, Protein, Fats, Carbs) about “Caesar Salad”
+and adds it to health records with timestamp of "12/10/2019 12:00” and a remark of "diet" made.
 
-==== Add Health Data:  `add health`
-Adds a health record of specified type with input value. +
-Format: `add health t/<type> val/<value> dt/<dd/MM/yyyy HH:mm>`
+==== Smart Recommendations: `[Coming in v2.0]`
+Based on user's profile data and existing health records, DukeCooks will generate some recommendations.
 
-****
-User can add health data of the following 8 types:
+Example:
 
-. Weight (in KG)
-. Calories (in KCAL)
-. Glucose (in mmol/L)
-. Carbs (in g)
-. Fats (in g)
-. Protein (in g)
-****
+* If user has a medical history of "High Blood Sugar", DukeCooks will monitor the user's glucose level records (prompt alert when hit unhealthy range) and provide
+appropriate food suggestions and activities.
 
-Examples:
-
-* `add health t/weight val/60 dt/21/10/2019 12:00` +
-Adds a new blood pressure record of 120/80 mmHg as of today 9am.
-
-==== Edit Health Data:  `edit health`
-Edits an existing health record of specified record ID with input value to overwrite. +
-Format: `edit health <index> val/<value>`
-
-* You can view <index> once you have entered **list health t/[type]** command.
-
-Examples:
-
-* `edit health 1 val/220` +
-Edits the health record with index 1 to 220.
-
-==== Delete Health Data:  `delete health`
-Deletes an existing health record of specified record ID. +
-Format: `delete health <index>`
-
-* You can view <index> once you have entered **list health t/[type]** command.
-
-Examples:
-
-* `delete health 1` +
-Deletes the health record with index 1.
-
-==== View Medical Appointments:  `[coming in v2.0]`
-Shows all the medical appointment for the month. +
-Format: `view appt [time period]`
-
-Examples:
-
-* `view appt` +
-View all the medical appointments for the month.
-* `view appt 3 month` +
-View all the medical appointments of the next 3 months.
-
-=== Add Medical Appointment:  `[coming in v2.0]`
-Adds a new medical appointment where user can include an optional note. +
-Format: `add appt <date time> [note]`
-
-* DukeCooks will prompt reminder when appointment is in a week’s time.
-
-Examples:
-
-* `add appt 31/12/2019 8am` +
-Add a new medical appointment for 31st Dec 2019, 8AM.
-* `add appt 31/12/2019 8am thomson medical - blood glucose` +
-Add a new medical appointment for 31st Dec 2019, 8AM with note “thomson medical - blood glucose” .
-
-==== Edit Medical Appointment:  `[coming in v2.0]`
-Edits an existing medical appointment. +
-Format: `edit appt <Appt ID> [date time] [note]`
-
-* <Appt ID> refers to the unique identifier attributed to each medical appointment upon creation.
-* At least one of the optional fields must be provided
-* Existing value will be overwritten with the new inputs given
-
-
-Examples:
-
-* `edit appt APPT0001 CGH - blood glucose` +
-Edits the note to “CGH - blood glucose”.
-* `edit appt APPT0001 31/12/2019 12pm` +
-Change the medical appointment to be 31st Dec 2019, 12PM.
-* `edit appt APPT0001 31/12/2019 1.30pm CGH - blood glucose` +
-Change the medical appointment to be 31st Dec 2019, 1.30PM with “CGH - blood glucose” note.
-
-==== Delete Medical Appointment `[coming in v2.0]`
-Deletes an existing medical appointment. +
-Format: `delete appt <APPT ID>`
-
-* <APPT ID> refers to the unique identifier attributed to each medical appointment upon creation.
-
-Examples:
-
-* `delete appt APPT0001` +
-Deletes the medical appointment of APPT0001.
+* If Weight and Height records are found, DukeCooks will compute the user's BMI and determine if it is in the recommended range.
 
 ==== Print Health Records to PDF `[coming in v2.0]`
 Generates a PDF copy of health records. +
-Format: `print health <type> [MORE_TYPES] [time period]`
+Format: `print health t/_<type>_ [MORE_TYPES] period/_<time period>_`
 
 * If more than one type of data to print, the data will be displayed in the order of input (refer to example).
 
-[IMPORTANT]
-====
-By default, DukeCooks will generate pdf with health records for the past 1 month if [time period] is not specified.
-====
-
 Examples:
 
-* `print health glucose` +
-Generates a PDF copy of all the blood sugar records for the past month as of today
-* `print health glucose blood pressure` +
-Generates a PDF copy of all the blood sugar and blood pressure records respectively from the past month as of today. Data on blood sugar will come before blood pressure.
-* `print health glucose blood pressure 01/01/2019 - 31/08/2019` +
-Generates a PDF copy of all the blood sugar and blood pressure records respectively from 1st Jan 2019 to 31st Aug 2019.
+* `print health t/glucose period/ 01/01/2019 - 01/02/2019` +
+Generates a PDF copy of all the blood sugar records from 1st Jan 2019 to 1st Feb 2019.
+* `print health t/glucose t/weight 01/01/2019 - 31/08/2019` +
+Generates a PDF copy of all the blood sugar and weight records respectively from 1st Jan 2019 to 31st Aug 2019.
 
 === Workout Tracker
 

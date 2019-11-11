@@ -114,7 +114,12 @@ public class Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Tags: ");
+                .append(" Gender: " + getGender())
+                .append(" DOB: " + getDateOfBirth())
+                .append(" Blood Type: " + getBloodType())
+                .append(" Weight: " + getWeight())
+                .append(" Height: " + getHeight())
+                .append(" Medical Histories: ");
         getMedicalHistories().forEach(builder::append);
         return builder.toString();
     }
