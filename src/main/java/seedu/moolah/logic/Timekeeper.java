@@ -73,12 +73,20 @@ public class Timekeeper {
      */
     public List<Event> getTranspiredEvents() {
         List<Event> eventsToNotify = new ArrayList<>();
-
+        List<Event> toBeRemoved = new ArrayList<>();
         for (Event event : events) {
             Timestamp timestamp = event.getTimestamp();
-            if (hasTranspired(timestamp) && logic.hasBudgetWithName(event.getBudgetName())) {
-                eventsToNotify.add(event);
+            if (hasTranspired(timestamp)) {
+                if (logic.hasBudgetWithName(event.getBudgetName())) {
+                    eventsToNotify.add(event);
+                } else { // the budget in which the event was added before does not exist anymore, so delete the event
+                    toBeRemoved.add(event);
+                }
             }
+        }
+
+        for (Event expiredEvent : toBeRemoved) {
+            logic.deleteTranspiredEvent(expiredEvent);
         }
 
         return eventsToNotify;

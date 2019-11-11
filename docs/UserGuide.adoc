@@ -81,7 +81,8 @@ quickly.
 *Command Format*
 
 * Words in between `<` and `>` are the parameters which are to be supplied by you!
-** `add p/<PRICE>`, you will need to supply a value to be used as the `PRICE` such as `add p/2.50`.
+** `addexpense p/<PRICE> c/<CATEGORY> d/<DESCRIPTION>`, means you will need to supply a value to be used as the `PRICE`,
+ `DESCRIPTION` and `CATEGORY` such as `addexpense p/2.50 c/food d/chickenrice`.
 * You don't have to input the parameters in square brackets if you don't want to. These arguments are optional, and you
 may use them to specify more details.
 ** `addexpense d/<DESCRIPTION> p/<PRICE> c/<CATEGORY> [t/<DATE>]` means that both +
@@ -272,9 +273,6 @@ Examples:
 * `addexpense d/Buffet c/Food p/250`
 * `addexpense d/Chicken rice p/2.50 c/Food t/yesterday noon`
 
-NOTE: The highest amount for Price is `100000`. +
-The accepted <TIMESTAMP> range is `1 Jan 2000 to 31 Dec 2099`.
-
 After typing in the command and entering it...
 
 .Entering an addexpense command into the command box
@@ -404,7 +402,7 @@ Examples:
 listexpense
 delete 2
 ----
-Deletes the 2nd expense in the list of expenses, shown after `listexpenses` is executed.
+Deletes the 2nd expense in the list of expenses, shown after `listexpense` is executed.
 
 ----
 listexpense
@@ -433,7 +431,8 @@ Once an event has transpired, it is permanently deleted from MooLah and you cann
 that event was still present would not restore the event.
 [NOTE]
 MooLah updates time every 10 seconds, so you may experience a slight delay of 10 seconds maximum when it comes to
-event popups!
+event popups! +
+A popup would also not appear if the transpired event has had its corresponding budget deleted.
 
 ==== Adding an event: `addevent`
 
@@ -506,10 +505,10 @@ deleteevent <INDEX>
 Examples:
 
 ----
-listevents
+listevent
 delete 2
 ----
-Deletes the 2nd event in the list of events, shown by `listevents`.
+Deletes the 2nd event in the list of events, shown by `listevent`.
 
 // end::events[]
 
@@ -742,6 +741,7 @@ is equivalent to entering:
 addexpense c/Food d/chickenrice p/2.30
 ----
 
+// end::shortcuts[]
 
 
 ****
@@ -780,6 +780,7 @@ addalias a/hello i/helloworld
 deletealias hello
 ----
 This will delete the `hello` alias from your saved aliases.
+// tag::shortcuts1[]
 
 ==== Autocomplete and Suggestions
 
@@ -806,6 +807,7 @@ You can cycle through the choices using the `UP` and `DOWN` keys. To confirm you
 
 When you have entered a valid command, MooLah will show you a list of prefixes that are supported by this command and that
 you have not yet entered.
+// end::shortcuts1[]
 
 ****
 .suggestions for "addexpense" command
@@ -873,7 +875,6 @@ image::highlight1.png[align="center", width=400]
 When the suggestion menu is open, the `UP` and `DOWN` keys will cycle through the suggestions instead!
 
 
-// end::shortcuts[]
 
 
 // tag::statsug[]
@@ -1204,9 +1205,9 @@ e.g. `statstrend sd/11-11-2018 ed/12-12-2018 mode/category`
 
 *Everything alias:*
 
-* *Add alias* (_undoable_) : `addalias a/<ALIAS_NAME> c/<INPUT>` +
+* *Add alias* (_undoable_) : `addalias a/<ALIAS_NAME> i/<INPUT>` +
 e.g. `alias a/chicken rice c/ add d/ Chicken Rice p/2.50 c/Food`
-* *See all aliases* : `listaliases`
+* *See all aliases* : `listalias`
 * *Delete an alias* : `deletealias <DESCRIPTION>`
 
 == Menu Items List
