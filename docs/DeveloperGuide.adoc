@@ -178,7 +178,7 @@ if there are existing entries of the original `Category` to carry out modificati
 Given below is an example of an activity diagram for editing a category to illustrate the point above.
 
 .Activity Diagram for Editing Category
-image::EditingCategory.png[]
+image::EditingCategory.png[width=80%]
 // end::EditingCategories[]
 As the rest of the implementation is similar to AB3's CRUD, it won't be covered.
 
@@ -247,7 +247,7 @@ For Example, the user can find by both `Amount` and `Description`. These are the
 === Data Presentation: Statistics
 
 .Class Diagram for Statistics Component.
-image::StatisticsClassDiagram.png[width=40%]
+image::StatisticsClassDiagram.png[width=50%]
 
 The Statistics class diagram is shown above. Many of the operations are handled by StatisticsManager.
 The two main operations for calculation of Statistics are:
