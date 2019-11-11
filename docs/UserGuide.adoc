@@ -736,7 +736,7 @@ This command clears all stored reminders and spending from the application, and 
 
 *Expected Output:*
 
-All data stored in MoneyGoWhere application is cleared and monthly budge is set to $1000.
+All data stored in MoneyGoWhere is cleared and the budget is set to $1000.
 
 //end::clear[]
 
