@@ -330,18 +330,4 @@ public class Dashboard extends UiPart<Region> {
         progressDescription.setText("");
         nextTier.setText("");
     }
-
-    /**
-     * On click handler for user guide button
-     */
-    public void handleUserGuideButtonClick() {
-        userGuidePane.setVisible(true);
-    }
-
-    /**
-     * On click handler for close button on user guide popup pane
-     */
-    public void handleCloseUserGuideButtonClick() {
-        userGuidePane.setVisible(false);
-    }
 }
