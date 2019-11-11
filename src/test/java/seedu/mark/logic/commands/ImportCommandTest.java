@@ -7,6 +7,10 @@ import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mark.testutil.TypicalBookmarks.ALICE;
 import static seedu.mark.testutil.TypicalBookmarks.BENSON;
 import static seedu.mark.testutil.TypicalBookmarks.CARL;
+import static seedu.mark.testutil.TypicalBookmarks.DANIEL;
+import static seedu.mark.testutil.TypicalBookmarks.ELLE;
+import static seedu.mark.testutil.TypicalBookmarks.FIONA;
+import static seedu.mark.testutil.TypicalBookmarks.GEORGE;
 import static seedu.mark.testutil.TypicalBookmarks.getTypicalBookmarks;
 import static seedu.mark.testutil.TypicalBookmarks.getTypicalFolderStructure;
 import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
@@ -26,10 +30,11 @@ import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.ReadOnlyMark;
-import seedu.mark.model.ReadOnlyUserPrefs;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Folder;
 import seedu.mark.storage.Storage;
+import seedu.mark.storage.StorageStub;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code ImportCommand}.
@@ -58,11 +63,21 @@ public class ImportCommandTest {
     }
 
     /**
-     * Sets the {@code Folder} of all bookmarks in the given list to the root folder.
+     * Sets the {@code Folder} of all bookmarks in the given list to the import folder.
      */
     private static List<Bookmark> setFolderAsImportFolder(List<Bookmark> bookmarks) {
         return bookmarks.stream()
                 .map(ImportCommand.MarkImporter::setFolderAsImportFolder)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Sets the {@code Folder} of all bookmarks in the given list to the root folder.
+     */
+    private static List<Bookmark> setFolderAsRootFolder(List<Bookmark> bookmarks) {
+        return bookmarks.stream()
+                .map(bookmark -> new Bookmark(bookmark.getName(), bookmark.getUrl(), bookmark.getRemark(),
+                        Folder.ROOT_FOLDER, bookmark.getTags(), bookmark.getCachedCopies()))
                 .collect(Collectors.toList());
     }
 
@@ -97,6 +112,7 @@ public class ImportCommandTest {
         Model expectedModel = new ModelManager(new Mark(), new UserPrefs());
         Mark expectedMark = new Mark();
         expectedMark.setBookmarks(setFolderAsImportFolder(getTypicalBookmarks())); // strip folders
+        expectedMark.addFolder(Folder.IMPORT_FOLDER, Folder.ROOT_FOLDER);
         expectedModel.setMark(expectedMark);
         expectedModel.saveMark(expectedMessage);
 
@@ -134,7 +150,7 @@ public class ImportCommandTest {
         ImportCommand command = new ImportCommand(filePath);
 
         // initial model: 3 bookmarks in root folder
-        List<Bookmark> existingBookmarks = setFolderAsImportFolder(Arrays.asList(ALICE, BENSON, CARL));
+        List<Bookmark> existingBookmarks = setFolderAsRootFolder(Arrays.asList(ALICE, BENSON, CARL));
         Mark markWithSomeBookmarks = new Mark();
         existingBookmarks.forEach(markWithSomeBookmarks::addBookmark);
         Model initialModel = new ModelManager(markWithSomeBookmarks, new UserPrefs());
@@ -143,10 +159,13 @@ public class ImportCommandTest {
         String expectedMessage = String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS_WITH_DUPLICATES, filePath,
                 makeIndentedString(existingBookmarks));
 
-        // expected model: 7 bookmarks in root folder (4 imported)
+        // expected model: 3 bookmarks in root folder, 4 bookmarks in import folder
         Model expectedModel = new ModelManager(markWithSomeBookmarks, new UserPrefs());
         Mark expectedMark = new Mark();
-        expectedMark.setBookmarks(setFolderAsImportFolder(getTypicalBookmarks()));
+        List<Bookmark> expectedBookmarks = existingBookmarks.stream().collect(Collectors.toList());
+        expectedBookmarks.addAll(setFolderAsImportFolder(Arrays.asList(DANIEL, ELLE, FIONA, GEORGE)));
+        expectedMark.setBookmarks(expectedBookmarks);
+        expectedMark.addFolder(Folder.IMPORT_FOLDER, Folder.ROOT_FOLDER);
         expectedModel.setMark(expectedMark);
         expectedModel.saveMark(expectedMessage);
 
@@ -179,34 +198,9 @@ public class ImportCommandTest {
     }
 
     /**
-     * A Storage Stub that allows readMark to be called.
+     * A Storage Stub that allows readMark(Path) to be called.
      */
-    public static final class StorageStubAllowsRead implements Storage {
-        @Override
-        public Path getUserPrefsFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Optional<UserPrefs> readUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getMarkFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Optional<ReadOnlyMark> readMark() {
-            throw new AssertionError("This method should not be called.");
-        }
-
+    public static final class StorageStubAllowsRead extends StorageStub {
         @Override
         public Optional<ReadOnlyMark> readMark(Path filePath) throws IOException, DataConversionException {
             // note: should match test case #execute_invalidFile_exceptionThrown()
@@ -220,7 +214,7 @@ public class ImportCommandTest {
                 return Optional.of(getTypicalMark());
             } else if (filePath.equals(PATH_NO_FOLDER_FILE)) {
                 Mark mark = new Mark();
-                mark.setBookmarks(setFolderAsImportFolder(getTypicalBookmarks()));
+                mark.setBookmarks(setFolderAsRootFolder(getTypicalBookmarks()));
                 return Optional.of(mark);
             } else if (filePath.equals(PATH_NO_BOOKMARK_FILE)) {
                 Mark mark = new Mark();
@@ -229,16 +223,6 @@ public class ImportCommandTest {
             } else {
                 throw new AssertionError("This method should be called with a specific type of path.");
             }
-        }
-
-        @Override
-        public void saveMark(ReadOnlyMark mark) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void saveMark(ReadOnlyMark mark, Path filePath) {
-            throw new AssertionError("This method should not be called.");
         }
     }
 }

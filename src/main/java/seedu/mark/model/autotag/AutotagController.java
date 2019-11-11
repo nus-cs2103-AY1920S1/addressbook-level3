@@ -42,16 +42,17 @@ public class AutotagController {
     }
 
     /**
-     * Checks whether the given {@link SelectiveBookmarkTagger} exists in this
-     * {@code AutotagController}.
+     * Checks whether a {@link SelectiveBookmarkTagger} with the same name as the
+     * given {@code tagger} exists in this {@code AutotagController}.
      *
      * @param tagger SelectiveBookmarkTagger to be checked.
-     * @return true if the {@code tagger} exists, and false otherwise.
+     * @return true if a {@code tagger} with the same name exists, and false otherwise.
      */
     public boolean hasTagger(SelectiveBookmarkTagger tagger) {
         requireNonNull(tagger);
 
-        return taggers.stream().anyMatch(tagger::equals);
+        return taggers.stream().map(BookmarkTagger::getTagToApply)
+                .anyMatch(tagger.getTagToApply()::equals);
     }
 
     /**

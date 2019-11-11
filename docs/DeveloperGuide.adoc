@@ -199,8 +199,8 @@ image::AnnotationPackageClassDiagram.png[Annotation Package Class Diagram, 350]
 The above diagram shows the structure of the Annotation package, which is accessed by `ModelManager` via `OfflineDocument`.
 An `OfflineDocument` consists of zero or more `Paragraph` objects, which are each identified by a `ParagraphIdentifier`.
 A `Paragraph` can either be a `TrueParagraph`, which has a `ParagraphContent` and zero or one `Annotation`,
-or a `PhantomParagraph`, which has no `ParagraphContent` but must have an `Annotation`.
-An `Annotation` consists of a `Highlight` and an `AnnotationNote`.
+or a `PhantomParagraph`, which has no `ParagraphContent` but must have an `Annotation` with an `AnnotationNote`.
+In general, an `Annotation` consists of a `Highlight` and an `AnnotationNote`.
 
 NOTE: More details regarding the implementation of Annotations can be found in <<Annotation feature>>.
 
@@ -1476,13 +1476,50 @@ Details of the two restored `delete` actions shown in the status message.
 .. Other incorrect `redo` commands to try: `redo`, `redo x` (where x is larger than the maximum number of actions to redo)  +
    Expected: Similar to previous.
 
-==== Exporting data
+==== Exporting Mark data
 
-// TODO
+. Exporting data to a valid file
+.. Prerequisites: None. However, the expected outcome is written with the assumption that `mark.jar` is opened
+from a folder named [applicationHome] (replace this with the name of the folder that `mark.jar` is in).
+(Also, note that if a file named `myBookmarks.json` already exists in the folder `[applicationHome]/data/bookmarks/`,
+it will be overwritten.)
+.. Test case 1 (success): `export myBookmarks` +
+Expected outcome: A file named `myBookmark.json` is created in the folder `[applicationHome]/data/bookmarks/`.
+(You will have to use your File Explorer/ bash (Windows)/ Finder/ terminal (Mac) to confirm this.)
+The file is identical to the `mark.json` file in the folder `[applicationHome]/data/`. This can be checked by
+using the `diff` utility on your laptop's command line, or copying-and-pasting both files into
+https://www.diffchecker.com/ to compare them.
 
-==== Importing data
+. Other test cases you can copy-and-paste
+.. Test case 2 (error): `export myBookmarks.json` +
+Expected outcome: The application shows an error message indicating that the provided file name should not include
+the `.json` file extension.
 
-// TODO
+==== Importing bookmarks
+
+You may have to manipulate data in Mark or in the exported `.json` files to observe different results when
+importing bookmarks.
+
+. Attempting to import bookmarks from a file that does not contain new bookmarks
+.. Prerequisites: Test case 1 from the manual instructions for <<Exporting data, exporting data>> has been
+successfully completed. No changes to bookmarks have been made.
+.. Test case 1 (success): `import myBookmarks` +
+Expected outcome: The application shows a message indicating that no new bookmarks have been imported. A list of
+duplicate bookmarks is also provided.
+
+. Importing bookmarks from a file that contains some new bookmarks
+.. Prerequisites: A valid data file `myBookmarks.json` exists in the folder `[applicationHome]/data/bookmarks`.
+Some bookmarks have been deleted since `export myBookmarks` was executed (e.g. `delete 4`, `delete 5`, `delete 6`).
+.. Test case 2 (success): `import myBookmarks` +
+Expected outcome: The deleted bookmarks have been added to the bottom of the bookmark list, and they are in the
+correct folders. A folder named `ImportedBookmarks` has also been created.
+
+. Importing bookmarks into an empty Mark
+.. Prerequisites: Mark is empty. You can do this by executing the `clear` command. (Don't worry, as long as you
+do not exit the application, you will be able to recover your data later using `undo`.) Also, a valid data file named
+`myBookmarks.json` should exist in the folder `[applicationHome]/data/bookmarks`.
+.. Test case 3 (success): `import myBookmarks` +
+Expected outcome: All the bookmarks have been imported to the folder `ImportedBookmarks`.
 
 === Testing of folders
 
@@ -1627,7 +1664,77 @@ Expected: Annotation on the offline copy of the first bookmark is affected. Para
 
 === Testing of autotags
 
-// TODO
+==== Creating an autotag
+
+General prerequisites: Sample Mark data are being used. Specific requirements for each test case are
+elaborated below.
+
+. Adding autotags that do not immediately tag any bookmarks.
+.. Prerequisites: `find t/Hidden` shows 0 bookmarks. There is no autotag named `Hidden`.
+.. Test case 1 (success): `autotag Hidden f/Secret` +
+Expected outcomes: The autotag `Hidden` can be seen in the autotag panel on the **Dashboard**.
+Searching `find t/Hidden` results in 0 bookmarks being listed. Creating a folder named `Secret` (e.g. `folder Secret`)
+and adding a bookmark to the folder (e.g. `add n/Nope u/https://testingSecret.com f/Secret`) results in the new
+bookmark being tagged with `Hidden`.
+
+. Adding autotags that immediately tag bookmarks.
+.. Prerequisites: `find t/readLater` shows 0 bookmarks. There are 3 bookmarks with URLs containing
+`blog` or `medium`.
+.. Test case 2 (success): `autotag readLater u/blog u/medium nf/School` +
+Expected outcome: The autotag `readLater` is added. `find t/readLater` shows 3 bookmarks, all of which have
+been tagged `readLater`. Adding a bookmark using `add n/Added Autotag1 u/https://blogger.org` results in the new
+bookmark being tagged, but the bookmark created by inputting `add n/Added Autotag2 u/https://blogspot.com f/School`
+is not tagged.
+
+. Trying to add autotags that already exist. Error messages will be shown.
+.. Prerequisite: An autotag named `NUS` already exists.
+.. Test case 3 (error): `autotag NUS u/nus.edu.sg n/School f/School` +
+Expected outcome: The application shows an error message indicating that an autotag with the given name already exists.
+
+. Other test cases that you can copy-and-paste:
+.. Test case 4 (success): `autotag Bouncy n/Ball u/tennis nf/Dance`
+.. Test case 5 (success): `autotag Quiz f/NUS f/Module nu/github nu/stackoverflow`
+.. Test case 6 (success): `autotag LumiNUS u/luminus.nus.edu.sg nf/Miscellaneous`
+.. Test case 7 (error): `autotag asdfjkl; n/Help` +
+Expected outcome: The applications shows an error message indicating that tag names must be alphanumeric.
+.. Test case 8 (error): `autotag noConditions` +
+Expected outcome: The applications shows an error message indicating that at least one condition must be specified.
+
+==== Editing an autotag
+
+. Editing an autotag's name
+.. Prerequisite: An autotag named `Video` already exists, but no autotag named `Videos` exists. The
+autotag `Video` tags bookmarks with URLs containing `youtube.com`.
+.. Test case 1 (success): `autotag-edit Video t/Videos` +
+Expected outcome: The autotag's name has been changed from `Video` to `Videos`. Bookmarks that match the original
+autotag conditions (i.e. URLs contain `youtube.com`) have been tagged `Videos`. None of the original tags were
+removed.
+
+. Editing an autotag's conditions
+.. Prerequisite: An autotag named `NUS` already exists.
+.. Test case 2 (success): `autotag-edit NUS n/School n/Uni n/NUS` +
+Expected outcome: One autotag named `NUS` is shown on the Dashboard. The autotag conditions specify that
+bookmarks with names containing `School`, `Uni`, or `NUS` will be tagged.
+
+
+==== Deleting an autotag
+
+. Deleting an autotag that already exists
+.. Prerequisite: An autotag named `Videos` already exists. (For example, if you followed test case 1 in the
+testing instructions for `*autotag-edit*`.)
+.. Test case 1 (success): `autotag-delete Videos` +
+Expected outcome: The autotag `Videos` has been deleted and is no longer visible on the **Dashboard**. However,
+no bookmarks have been changed (you can verify this using `find t/Videos`).
+
+. Trying to delete an autotag that does not exist
+.. Prerequisite: No autotag named `KittyKat` exists.
+.. Test case 2 (error): `autotag-delete KittyKat` +
+Expected outcome: The application shows an error message indicating that no autotag with the given tag name was found.
+
+. Other test cases that you can copy-and-paste:
+.. Test case 3 (error): `autotag-delete Videos some random stuff`
+.. Test case 4 (error): `autotag-delete Videos t/HopingToRenameIt`
+
 
 === Testing of reminders
 
