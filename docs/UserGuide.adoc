@@ -97,6 +97,7 @@ Example: If the command specifies `$/AMOUNT n/ITEM`, `n/ITEM $/AMOUNT` is also a
 * Parameters that need to be concatenated together are represented as `PARAM+PARAM`. +
 Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a space, such as `t1`.
 
+[[Parameter-constraints]]
 * *Parameter Constraints* :
 +
 [width="100%",cols="30%,20%,<50%",options="header",]
@@ -294,10 +295,12 @@ If you attempt to do so, you will receive an error message: `This budget already
 Format: `set $/AMOUNT d/DATE [c/CATEGORY]...`
 
 ****
-* `AMOUNT` input accepts the new budget amount to be set. This amount must be non-negative, non-zero and
-less than 1,000,000.
+Paramters follow the same restrictions as highlighted in <<Parameter-constraints, parameter constraints>>. +
+
+* `AMOUNT` input accepts the budget amount to be set.
 * `DATE` input accepts the deadline to be set. It cannot be a date in the past.
-* `CATEGORY` accepts the CATEGORY for the budget. A budget can be created without `CATEGORY` inputs in which case, the budget will automatically be assigned `GENERAL' category.
+* `CATEGORY` accepts the CATEGORY for the budget.
+A budget can be created without `CATEGORY` inputs in which case, the budget will automatically be assigned `GENERAL' category.
 ****
 
 Let's say you want to restrict your spending for a certain category until a certain deadline.
@@ -311,7 +314,25 @@ To set a new budget: +
 4. Now you can see the newly set budget in the budget list.
 
 As you make an *OutTransaction* of a particular `CATEGORY`, your budgets with the same `CATEGORY` will be adjusted
-to display the remaining amount of budget. Other budgets in the list belonging to different `CATEGORY` will not be adjusted.
+to display the remaining amount of budget. Other budgets in the list belonging to different `CATEGORY` will not be adjusted. +
+
+For example, you went out with your friends and bought a cup of Gong Cha.
+Before you log your spending, your budget list looks like this:
+
+.Budget List before Executing OutTransaction
+image::approachingBudget.png[]
+
+You then type in the command `out $/5 c/BBT c/friends n/gong cha d/11112019`.
+
+.New OutTransaction Command
+image::newOutTransaction.png[]
+
+Your budget list now shows the updated budgets. Observe how Budget 3 is not affected because it does not belong to the relevant *category*.
+
+.Updated Budget List
+image::budgetAffected.png[]
+
+
 Budget will not take into consideration past *OutTransaction* when calculating the remaining budget. Remember, you are setting a budget
 from TODAY till the stated `DATE` (inclusive)! +
 
