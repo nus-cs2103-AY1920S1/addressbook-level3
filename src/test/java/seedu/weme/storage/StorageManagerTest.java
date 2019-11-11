@@ -2,7 +2,6 @@ package seedu.weme.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
 import java.nio.file.Path;
 
@@ -12,9 +11,7 @@ import org.junit.jupiter.api.io.TempDir;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.commons.core.GuiSettings;
-import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.UserPrefs;
-import seedu.weme.model.Weme;
 
 public class StorageManagerTest extends ApplicationTest {
 
@@ -46,19 +43,6 @@ public class StorageManagerTest extends ApplicationTest {
         storageManager.saveUserPrefs(original);
         UserPrefs retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);
-    }
-
-    @Test
-    public void wemeReadSave() throws Exception {
-        /*
-         * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonWemeStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonWemeStorageTest} class.
-         */
-        Weme original = getTypicalWeme();
-        storageManager.saveWeme(original);
-        ReadOnlyWeme retrieved = storageManager.readWeme().get();
-        assertEquals(original, new Weme(retrieved));
     }
 
     @Test
