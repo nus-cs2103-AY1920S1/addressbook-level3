@@ -312,7 +312,6 @@ Sex `/sex` +
 NRIC `/nric` +
 Date of Birth `/dob` +
 Date of Death `/dod` +
-Date of Admission `/doa` +
 Status `/status` +
 Religion `/religion` +
 Name of Next-of-Kin `/NOKname` +

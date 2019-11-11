@@ -26,7 +26,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
-import seedu.address.logic.parser.utility.UpdateFridgeDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -374,21 +373,6 @@ public class UpdateCommandTest extends GuiUnitTest {
                 IdentificationNumber.customGenerateId("B", 1), descriptor);
 
         assertEquals(body, updateCommand.getEntityFromId(model, id, descriptor));
-    }
-
-    @Test
-    public void getBodyFromId_validBodyId_failure() throws CommandException {
-        UniqueIdentificationNumberMaps.clearAllEntries();
-        Body body = new BodyBuilder().build();
-        model.addEntity(body);
-        IdentificationNumber id = IdentificationNumber.customGenerateId("B", 1);
-        UpdateFridgeDescriptor descriptor = new UpdateFridgeDescriptor();
-        UpdateCommand updateCommand = new UpdateCommand(
-                IdentificationNumber.customGenerateId("F", 1), descriptor);
-
-        UpdateFridgeDescriptor descriptorCopy = new UpdateFridgeDescriptor();
-        descriptorCopy.setNewBody(body);
-        assertEquals(descriptorCopy, updateCommand.getBodyFromId(model, id, descriptor));
     }
 
     @Test

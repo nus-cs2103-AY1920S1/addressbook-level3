@@ -23,7 +23,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.logic.parser.utility.UpdateEntityDescriptor;
-import seedu.address.logic.parser.utility.UpdateFridgeDescriptor;
 import seedu.address.logic.parser.utility.UpdateWorkerDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Entity;
@@ -419,31 +418,6 @@ public class UpdateCommand extends UndoableCommand {
             }
         }
 
-        throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID);
-    }
-
-    /**
-     * Gets a Body in Mortago according to a given Identification Number and add it to the UpdateFridgeDescriptor, if
-     * present.
-     *
-     * @param model      the current model of the program.
-     * @param id         an identification number.
-     * @param descriptor an UpdateFridgeDescriptor containing changes to a Fridge object.
-     * @return an UpdateFridgeDescriptor
-     * @throws CommandException if there is no Body object with the given identification number.
-     */
-    public UpdateFridgeDescriptor getBodyFromId(Model model, IdentificationNumber id, UpdateFridgeDescriptor descriptor)
-            throws CommandException {
-        if (id == null) {
-            return descriptor;
-        }
-        List<Body> lastShownList = model.getFilteredBodyList();
-        for (Body body : lastShownList) {
-            if (body.getIdNum().equals(id)) {
-                descriptor.setNewBody(body);
-                return descriptor;
-            }
-        }
         throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID);
     }
 
