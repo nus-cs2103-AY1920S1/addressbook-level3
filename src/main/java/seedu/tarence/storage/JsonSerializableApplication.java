@@ -19,7 +19,7 @@ import seedu.tarence.model.tutorial.Tutorial;
  * An Immutable application that is serializable to JSON format.
  */
 @JsonRootName(value = "application")
-class JsonSerializableApplication {
+public class JsonSerializableApplication {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
     public static final String MESSAGE_DUPLICATE_MODULE = "Module list contains duplicate module(s).";

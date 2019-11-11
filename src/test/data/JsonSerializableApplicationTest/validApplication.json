@@ -1,0 +1,47 @@
+{
+  "modules" : [ {
+    "moduleCode" : "CS1010S",
+    "tutorialMap" : {
+      "Tutorial-01 | MONDAY | 13:00 | [3, 5, 7, 9, 11, 13] | PT1H | Students:  | CS1010S" : {
+        "tutorialName" : "Tutorial-01",
+        "tutorialDayOfWeek" : "MONDAY",
+        "tutorialStartTime" : "13:00",
+        "tutorialWeeks" : "[3, 5, 7, 9, 11, 13]",
+        "tutorialDuration" : "PT1H",
+        "tutorialStudentList" : "[]",
+        "tutorialAttendanceList" : "{3=[], 5=[], 7=[], 9=[], 11=[], 13=[]}",
+        "tutorialModuleCode" : "CS1010S",
+        "tutorialAssignmentList" : "{}",
+        "tutorialEventList" : "{}"
+      },
+      "Tutorial-01 | MONDAY | 13:00 | [4, 6, 8, 10, 12] | PT1H | Students:  | CS1010S" : {
+        "tutorialName" : "Tutorial-01",
+        "tutorialDayOfWeek" : "MONDAY",
+        "tutorialStartTime" : "13:00",
+        "tutorialWeeks" : "[4, 6, 8, 10, 12]",
+        "tutorialDuration" : "PT1H",
+        "tutorialStudentList" : "[]",
+        "tutorialAttendanceList" : "{4=[], 6=[], 8=[], 10=[], 12=[]}",
+        "tutorialModuleCode" : "CS1010S",
+        "tutorialAssignmentList" : "{}",
+        "tutorialEventList" : "{}"
+      },
+      "Tutorial-01 | MONDAY | 13:00 | [12] | PT1H | Students:  | CS1010S" : {
+        "tutorialName" : "Tutorial-01",
+        "tutorialDayOfWeek" : "MONDAY",
+        "tutorialStartTime" : "13:00",
+        "tutorialWeeks" : "[12]",
+        "tutorialDuration" : "PT1H",
+        "tutorialStudentList" : "[]",
+        "tutorialAttendanceList" : "{12=[]}",
+        "tutorialModuleCode" : "CS1010S",
+        "tutorialAssignmentList" : "{}",
+        "tutorialEventList" : "{}"
+      }
+    },
+    "semesterStartString" : "null"
+  } ]
+}
+
+
+

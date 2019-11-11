@@ -119,7 +119,6 @@ public class LogicManager implements Logic {
                 assignmentsToDisplay = Optional.of(currCommandResult.getAssignmentsToDisplay());
             }
 
-            // TODO: Check if error thrown disables the bug
             try {
                 storage.saveApplication(model.getApplication());
             } catch (IOException ioe) {
