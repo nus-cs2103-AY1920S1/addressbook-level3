@@ -497,8 +497,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        Catalog catalog = new CatalogBuilder().withPerson(BOOK_1).withPerson(BOOK_2).build();
-        Catalog catalogCopy = new CatalogBuilder().withPerson(BOOK_1).withPerson(BOOK_2).build();
+        Catalog catalog = new CatalogBuilder().withBook(BOOK_1).withBook(BOOK_2).build();
+        Catalog catalogCopy = new CatalogBuilder().withBook(BOOK_1).withBook(BOOK_2).build();
         Catalog differentCatalog = new Catalog();
         UserPrefs userPrefs = new UserPrefs();
         UserPrefs userPrefsCopy = new UserPrefs();

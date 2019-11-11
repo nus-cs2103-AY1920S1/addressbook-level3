@@ -17,6 +17,8 @@ public class RedoCommand extends Command {
 
     private String unusedArguments = null;
 
+    public RedoCommand() {}
+
     public RedoCommand(String unusedArguments) {
         if (!unusedArguments.equals("")) {
             this.unusedArguments = unusedArguments;

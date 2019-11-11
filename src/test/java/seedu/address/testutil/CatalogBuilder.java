@@ -24,7 +24,7 @@ public class CatalogBuilder {
     /**
      * Adds a new {@code Person} to the {@code AddressBook} that we are building.
      */
-    public CatalogBuilder withPerson(Book book) {
+    public CatalogBuilder withBook(Book book) {
         catalog.addBook(book);
         return this;
     }

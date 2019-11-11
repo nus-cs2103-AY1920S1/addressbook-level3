@@ -8,7 +8,7 @@ import seedu.address.model.Catalog;
 import seedu.address.model.book.Book;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Book} objects to be used in tests.
  */
 public class TypicalBooks {
 
