@@ -699,13 +699,13 @@ Below are two sequence diagrams of how a `UndoCommand` and `RedoCommand`
 executes in the program. The sequence diagrams below show the process of undo
 and redo of a single command for simplicity and clarity.
 
-Below is a Sequence Diagram of how an `UndoCommand` to undo a single command
+Below is a sequence diagram of how an `UndoCommand` to undo a single command
 executes in the program.
 
 .Sequence Diagram for `UndoCommand` (undo a single command)
 image::UndoSequenceDiagramNew.png[]
 
-Below is a Sequence Diagram of how a `RedoCommand` to redo a single command
+Below is a sequence diagram of how a `RedoCommand` to redo a single command
 executes in the program.
 
 .Sequence Diagram for `RedoCommand` (redo a single command)
