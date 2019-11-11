@@ -331,42 +331,104 @@ image::MarkAttendanceSequenceDiagram.png[]
 Entering the input will call the execute() method in LogicManager, which identifies the command as a MarkAttendanceCommand via ApplicationParser.parse(). MarkAttendanceCommand.parse() is then called to parse the input and extract the relevant information (tutorial name, module code, student name) which is used to initialize the MarkAttendanceCommand, which finally modifies the student's attendance when executed.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The undo mechanism is facilitated by `JsonStateStorage`.
+It extends `TARence` with an undo history, stored externally as a `stateXX.json` file
+where 'XX' represents the sequential state of json files committed.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+It relies on the following operations from Storage, exposed via the `Storage` interface.
+
+* `Storage#isValidNumberOfRollbacks(Integer numberOfStatesToUndo)` -- Checks if the specified number of undo commands
+to execute is valid.
+
+* `Storage#getLatestStateIndex()` -- Obtains the largest state stored. Used to obtain the
+state number which is required.
+
+* `Storage#getSpecifiedState()` -- Obtains the required state to reset the model to.
+
+* `Storage#saveApplication()` -- Saves the application state into `application.json`. This method additionally calls
+`JsonStateStorage#saveApplication()`, which is explained below.
+
+It relies on the following operation from Model, exposed via the 'Model' interface.
+
+* `Model#setModel(`ReadOnlyApplication`)` -- Resets the model to the supplied application state.
+
+
+Additionally, it relies on the following operation from  JsonStateStorage, not exposed via the Storage interface:
+
+* `JsonStateStorage#saveApplication()` -- Saves the current application state to file if there is a change in state.
+The files are saved as `stateXX.json`, where the file name is chronologically generated.
+
+* `JsonStateStorage#stateStack` -- A private attribute, which keeps track of the current and
+previous states. Its implementation is similar to the `currentStatePointer` used in AB4.
+
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below is an example usage scenario and how the undo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `JsonStateStorage` will be initialized with the initial json file, `state1.json` and the `stateStack` will contain the value `1`.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `addModule m/CS2103` command to add the module `CS2103`
+in the application.
+
+The `addModule` command calls `Storage#saveApplication()`, which calls
+`JsonStateStorage#saveApplication()`,
+causing the modified application state, after the `addModule m/CS2103` command
+executes, to be saved externally in the `data/states` folder.
+
+The latest state number `(stateStack.peek() + 1)` is pushed onto the stack, which
+corresponds with the json state file saved.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `addTutorial tn/Tutorial 01 ...` to add a new Tutorial. The `addTutorial` command also calls `JsonStateStorage#saveApplication()`.
+
+As `JsonStateStorage#saveApplication()` detects that there has been a state change with the latest saved state (`state0.json`),
+the modified application
+state is saved externally to the `data/states` folder.
+
+The `stateStack` is correspondingly updated (The latest state number `(stateStack.peek() + 1)` is pushed onto the stack, which
+corresponds with the json state file saved.)
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `storage#saveApplication()`, so the
+application state will not be saved.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the tutorial, `Tutorial 01` was a mistake, and decides to undo that action
+by executing the `undo` command.
+
+The `undo` command will first verify that the number of commands is valid by calling
+`storage#isValidNumberOfRollbacks`.
+
+If the number of undo commands is valid, it will call `storage#getLatestStateIndex` to
+get the position of the current state pointer (which is the number on the top
+of stateStack).
+
+The `undo` command will then call `storage#getSpecifiedState()` to retrieve the desired
+state to undo from. In `storage#getSpecifiedState()`, the internal `stateStack` will
+pop the numbers until it gets to the required state number, to ensure that it
+the "pointer" is at the correct state.
+
+With the desired state retrieved, `undo` command will call `model#setModel(application)` to
+reset the application to the retrieved state.
+
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `stateStack.peek()` is at index / integer 0, pointing to the
+initial application state,
+then there are no previous application states to restore.
+The `undo` command uses `storage#isValidNumberOfRollbacks(number of states to undo)`
+to check if this is the case.
+If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -374,18 +436,13 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+Step 5. The user then decides to execute the command `listAssignments`. Commands that
+do not modify the address book, such as `listAssignments`, will not result in a saved state.
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+`JsonStateStorage#saveApplication()` is still called. However, since there is no change with
+the previous state, `JsonStateStorage#saveApplication()` will not save the current application state.
 
 image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -395,18 +452,39 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
+* **Alternative 1 (current choice):** Saves the entire application state into Hard Drive.
+** Pros: Won't result in performance issues if there are many states as it won't use up valuable RAM.
+** Cons: May have performance issues when reading the file from Hard Drive if the json file is large.
+** Cons: Suppose that "undo u/50" is executed, from state 70. State 20 will be loaded into memory.
+Subsequent states (ie state 21 onwards) will only overwrite the already present state 21 file.
+
+The redundant states are not deleted from the hard disk. Only references to those states
+,which is in the stateStack, are removed. However this is a minor problem as once the
+application is closed or started, it will automatically clear any state files.
+
+* **Alternative 2:** AB3 suggested implementation: Saves the entire application state into RAM.
+** Pros: Easy to implememnt.
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+
+* **Alternative 3:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `deleteTutorial`, just save the tutorial being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a stack to store the history of application states.
+** Pros: Eliminates redundancy as previous states not needed will be overwritten.
+** Cons: Leftover files of undone states are present in the hard drive.
+
+* **Alternative 2 (better choice):** Use a stack as in Alternative 1.
+When `undo` command is executed, in addition to popping the stack, the application will
+delete the corresponding json files. This reduces the likelihood of accidentally reading
+redundant data.
+
+* **Alternative 3 (AB3 choice):** Use a list to store the history of address book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.

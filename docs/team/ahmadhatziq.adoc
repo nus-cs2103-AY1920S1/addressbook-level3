@@ -76,7 +76,8 @@ valuable RAM.
 from the saved json state file.
 
 ** The implementation too was challenging as it involves proper serializing and de-serializing
-of the json file.
+of the json file, properly ensuring that a state change is reflected correctly and loading the data
+from json and re-creating the proper specified model.
 
 === *Minor Enhancement*: added commands for "addModule" and "addTutorial".
 
