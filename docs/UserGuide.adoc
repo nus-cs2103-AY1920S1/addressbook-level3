@@ -299,7 +299,7 @@ Notification will be prompted: +
 - After 8pm for dinner
 
 [NOTE]
-Meals that will be counted:
+Meals that will be counted: +
 - As breakfast - anytime +
 - As lunch - after 11am +
 - As dinner - after 4pm +
