@@ -3,45 +3,89 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: Budget Buddy
 
----
+This portfolio provides a detailed report of my contributions to
+*Budget Buddy*.
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Students taking part in this project were tasked to either enhance or morph a simple CLI-based address book application.
+We decided to create a finances tracker, *Budget Buddy*, for NUS Computing Students, to both address the need by students to
+manage their finances, as well as customise the application's features to suit our users as much as possible,
+leveraging on their familiarity with typing and using a CLI.
+
+Budget Buddy is a finances tracker designed around the needs and habits of NUS School of Computing students.
+Interaction is mainly through a Command Line Interface (CLI), and results are displayed via a Graphical User Interface (GUI) powered by JavaFX.
+
+Budget Buddy can keep track of transactions across separate accounts, so that users can clearly and conveniently organise their spending.
+The application can also keep track of loans that users have made, addressing the habit of our users often borrowing money
+from one another, but having trouble remembering exactly who owes money to them, and how much they owe.
+
+Going above and beyond the basic functions that many other trackers have, Budget Buddy also has the ability to run Scripts
+and Rules that users have created. These scripts and rules can then carry out custom actions as defined by the users,
+who should have some experience with writing code. By capitalising on their programming know-how to create a truly personalised experience,
+Budget Buddy distinguishes itself from other finance trackers out there.
+
+== Project Role
+
+My role was mainly to implement Transactions within Budget Buddy. Transactions formed the core of Budget Buddy's finances
+tracking, and I implemented the functionality to add, edit and delete Transactions from the finances tracker.
+
+The following sections will elaborate further on my contributions regarding this feature, as well as any other contributions
+that I have made.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+|===
+|The following section summarizes my contributions to Budget Buddy.
+|===
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+=== Major enhancement
+Added functionality to add, edit and remove transactions, as well as to list, sort and filter them.
 
-* *Other contributions*:
+* Function: Transactions provide the ability for users to record their day-to-day spending. The ability
+to delete and edit Transactions allows users to correct mistakes in finances recording, or retroactively
+update past finances.
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+* Purpose: Transactions form the core of the functionality of Budget Buddy. Users will be using it
+to record their transactions daily, as well as use the sorting and filtering functions to get a clear
+view of their spending habits and trends.
 
-_{you can add/remove categories in the list above}_
+* Challenges: Implementing Transactions on their own was a straightforward task, but the difficulties arose
+with making sure it integrated well with the rest of the functions of Budget Buddy. One example was another
+enhancement I made to the GUI for showing the active account, and implementing the corresponding logic. The full details
+are explained below, as a minor enhancement.
+
+=== Minor enhancement
+Make manipulating transactions more intuitive when integrated with accounts, by implementing logic to determine the active account.
+
+* Function: Because transactions are never manipulated in isolation in Budget Buddy, the Accounts containing them need to be
+taken care of as well. This feature provided the logic to keep track of the active account, so that transaction commands
+would not always need to have a specified account, helping Budget Buddy feel more user-friendly and intuitive.
+
+* Purpose: Transactions are the core feature of Budget Buddy, and hence they should be as user-friendly and intuitive to
+manipulate as possible.
+
+* Challenges: Implementing a responsive GUI for Transactions proved to be a challenge, as this was our first time
+working with JavaFX. It was challenging to think about how to provide a intuitive user experience as well, while maintaining
+a logical flow to manipulating transactions.
+
+=== Code contributed
+* [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=cambrian-dk[Click here for the RepoSense Report]]
+
+=== Other contributions
+
+* GUI Enhancements:
+** Implemented responsive GUI for Active account: Pull request https://github.com/AY1920S1-CS2103T-W13-4/main/pull/194[#194]
+* Bug fixes:
+** Fixed bugs reported regarding Transactions during PE Dry run: Pull request https://github.com/AY1920S1-CS2103T-W13-4/main/pull/166[#166]
+* Documentation:
+** Made contributions to the User Guide/Developer Guide as shown below
+* Community:
+** PRs reviewed with non-trivial comments:
+https://github.com/AY1920S1-CS2103T-W13-4/main/pull/34[#34]
 
 == Contributions to the User Guide
 
@@ -50,9 +94,8 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=transactions]
 
-include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +103,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=transactions]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=activeAccount]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

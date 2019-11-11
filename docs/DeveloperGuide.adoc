@@ -272,7 +272,7 @@ After each command, `AccountsManager#resetFilteredAccountList` is called to rese
 ** Cons: Hard to implement.
 // end::accounts_2[]
 
-// tag::activeAccount
+// tag::activeAccount[]
 
 === Active Account
 ==== Implementation
@@ -311,7 +311,7 @@ elements are altered.
 * **Alternative 2**: Refresh the account list by forcing removal and re-addition of each of the accounts.
 ** Pros: Easy to implement, no need to change members to adapt to the `Property` class, and easier for newer developers to read and understand.
 ** Cons: High overhead, as more and more accounts are added to the BudgetBuddy.
-// end::activeAccount
+// end::activeAccount[]
 
 // tag::transactions[]
 === Transaction Model
