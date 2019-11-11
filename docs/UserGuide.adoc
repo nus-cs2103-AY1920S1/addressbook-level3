@@ -142,19 +142,77 @@ image::ContactListExample.png[]
 
 ==== Create a contact: `create`
 
-Creates a contact.
+Creates a new contact.
 
 Format:
 
 `contact create --n NAME [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
 
-Examples:
+Example:
 
-* `contact create --n Dwayne Johnson`
-* `contact create --n Dwayne --d Friend from CS2100`
-* `contact create --n John --e johnson@gmail.com --d Friend from CS2100`
-* `contact create --n John --p 81234567 --a 21 Kent Ridge Rd`
-* `contact create --n Dwayne Johnson --p 81234567 --e d.johnson@gmail.com --d Friend from CS2100`
+* Suppose you just have a new friend - `Dwayne Johnson` - and you want to save his contact along with some
+information that you know about him. +
+You can just enter the following command:
+ `contact create --n Dwayne Johnson --p 81234567 --e johnson@gmail.com --d Friend from CS2100`.
++
+.Entering the command
+image::ug_contactcreate1.png[width="600"]
+
+* This creates a new contact with name and other attribute values that you entered. +
+The display will show the profile of the contact that you just created.
++
+.Command executed, a new contact created
+image::ug_contactcreate2.png[width="600"]
+
+NOTE: Contact id is generated randomly. As a result, you may see a different value with the example provided.
+
+==== Edit a contact: `edit`
+
+Edits an existing contact.
+
+Format:
+
+`contact edit CONTACT_ID [--n NAME] [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
+
+Example:
+
+* After creating a contact, suppose you get a new information about that person and want to edit the data. +
+You can just enter the following command:
+`contact edit 99022 --a NUS School of Computing`
++
+.Entering the command
+image::ug_contactedit1.png[width="600"]
+
+* This edits an existing contact with the id that you entered. +
+The display will show the profile of the contact that you just edited.
++
+.Command executed, the new contact data displayed
+image::ug_contactedit2.png[width="600"]
+
+NOTE: Partial edit will be supported in v2.0
+
+==== Delete a contact: `delete`
+
+Deletes a contact with the given id.
+
+Format:
+
+`contact delete CONTACT_ID`
+
+Example:
+
+* Suppose you feel that it is no longer necessary to store data for one of your contacts +
+You can just enter the following command:
+`contact delete 2`
++
+.Entering the command
+image::ug_contactdelete1.png[width="600"]
+
+* This deletes an existing contact with the contact id that you entered. +
+The display will show the refreshed contact list.
++
+.Command executed, the specified contact deleted.
+image::ug_contactdelete2.png[width="600"]
 
 ==== List all contacts: `list`
 
@@ -164,43 +222,20 @@ Format:
 
 `contact list`
 
-==== Display the profile of a person: `show`
+Example:
 
-Display the profile page of a contact which shows the contact details and notes tagged with the contact.
+* Suppose you want to know all the contacts that are stored in Tagline. +
+You can just enter the following command:
+`contact list`
++
+.Entering the command
+image::ug_contactlist1.png[width="600"]
 
-Format:
-
-`contact show CONTACT_ID`
-
-Examples:
-
-* `contact show 00343`
-
-==== Edit a person: `edit`
-
-Edits contact information.
-
-Format:
-
-`contact edit CONTACT_ID [--n NAME] [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
-
-Examples:
-
-* `contact edit 00343 --n Holland --e nightmonkey@starkindustries.com`
-
-NOTE: Partial edit will be supported in v2.0
-
-==== Delete a person: `delete`
-
-Deletes a contact with the following id.
-
-Format:
-
-`contact delete CONTACTID`
-
-Examples:
-
-* `contact delete 00343`
+* This deletes an existing contact with the contact id that you entered. +
+The display will show the refreshed contact list.
++
+.Command executed, all contacts displayed.
+image::ug_contactlist2.png[width="600"]
 
 ==== Locate persons by keyword: `find`
 
@@ -210,9 +245,60 @@ Format:
 
 `contact find KEYWORD`
 
-Examples:
+Example:
 
-* `contact find wai fong`
+* Suppose you just listed all the contacts. However, after seeing so many contacts, you are only interested in finding
+contacts with that contain `Alex` in its name.
++
+.Initial list of contacts.
+image::ug_contactfind1.png[width="600"]
+
+* This command allows you to contacts with the specified name easily. +
+You can just enter the following command:
+`contact find Alex`
++
+.Entering the command
+image::ug_contactfind2.png[width="600"]
++
+.Command executed, only contacts that contain the specified name displayed.
+image::ug_contactfind3.png[width="600"]
+
+// tag::contact-show[]
+==== Display the profile of a person: `show`
+
+Displays a contact profile that contains information and list of notes that are associated with a given contact id.
+
+Format:
+
+`contact show CONTACT_ID`
+
+Example:
+
+* Suppose you are interested to know information and notes that are associated with your contact `Alex Yeoh`
+which is stored with a contact id equals to `1` in Tagline. In addition, suppose that Tagline currently stores
+the following data:
++
+.List of all contacts that are stored by Tagline.
+image::ug_contactshow1.png[width="600"]
++
+.List of all groups that are stored by Tagline.
+image::ug_contactshow2.png[width="600"]
++
+.List of all notes that are stored by Tagline.
+image::ug_contactshow3.png[width="600"]
+
+* Instead of checking association between notes and contacts one by one, you can just enter the following command:
+`contact show 1`
++
+.Entering the command
+image::ug_contactshow4.png[width="600"]
+
+* This command allows you display a profile for a contact with id equals to `1`. The profile contains basic information
+about a contact (i.e. name, email, phone number, address, and description) and list of notes that are associated with it.
++
+.Command executed, contact profile displayed
+image::ug_contactshow5.png[width="600"]
+// end::contact-show[]
 
 ==== Pin a person: `pin` `[coming in v2.0]`
 
@@ -241,14 +327,18 @@ Examples:
 Executing this command will trigger a confirmation in the chatbot:
 +
   Please confirm some additional details for the command. Press the escape key to abort.
-
   Are you sure you want to clear your contact list? Enter 'Y' to continue.
-
 +
+
+.Confirmation for clearing notes
+image::ug_contactclear1.png[width="600"]
+
 Then, if you answer "Y", the chatbot will clear all data in your contact list.
++
+.Command executed, the contact list cleared.
+image::ug_contactclear2.png[width="600"]
+
 If you press the ESC key, the command will be aborted.
-
-
 
 // tag::group-command[]
 === Manage groups: `group`
@@ -322,7 +412,6 @@ Format:
 `group add GROUP_NAME [--i CONTACT_ID]+`
 
 Example:
-
 
 * Over time our '_ao3_' group has grown with new members joining. We need to update our
 group to record the recent addition. To add a member to our '_ao3_' group we can use the command
@@ -531,8 +620,6 @@ Format:
 
 In Tagline, there are 3 types of tags. They are hash tag, contact tag and group tag.
 
-{empty} +
-
 ===== Tag a note with a hash tag
 
 Hash tag is a tag of the form `#TOPIC` where `TOPIC` could be substituted with any string not longer than 30
@@ -541,8 +628,6 @@ characters.
 Example: `#Assignment_1`, `#Project CS2103T`, `#Meeting Notes`
 
 By tagging a note with a hash tag, user can easily find all notes related to a certain topic.
-
-{empty} +
 
 Here is an example of tagging a note with a hash tag
 
@@ -558,8 +643,54 @@ image::ug_notetag_hashtag2.png[width="600"]
 
 {empty} +
 
+// tag::contact-tag[]
+
 ===== Tag a note with a contact tag
+
+Contact tag is a tag of the form `@CONTACT_ID` where `CONTACT_ID` could be substituted with any non-negative integer with
+at most 8 digits.
+
+Example: `@12345`, `@00001`, `@2`
+
+By tagging a note with a contact tag, user can easily find all notes related to a certain contact.
+
+Here is an example of tagging a note with a contact tag
+
+. Enter the command `note tag 1 --t @2` into the command box.
++
+image::ug_notetag_contacttag1.png[width="600"]
+
+. Send the command and you will be able to see the tag in the note view.
++
+image::ug_notetag_contacttag2.png[width="600"]
+
+// end::contact-tag[]
+
+// tag::group-tag[]
 ===== Tag a note with a group tag
+
+Group tag is a tag of the form `%GROUP_NAME` where `GROUP_NAME` could be substituted with any string that does not
+contain whitespace.
+
+Example: `#cs2103t`, `#cs2100-cs2101`
+
+By tagging a note with a group tag, user can easily find all notes related to a certain group of contacts.
+
+{empty} +
+
+Here is an example of tagging a note with a group tag
+
+. Enter the command `note tag 1 --t #cs2103t` into the command box.
++
+image::ug_notetag_grouptag1.png[width="600"]
+
+. Send the command and you will be able to see the tag in the note view.
++
+image::ug_notetag_grouptag2.png[width="600"]
+
+{empty} +
+
+// end::group-tag[]
 
 
 // tag::tagging2[]
@@ -695,10 +826,16 @@ Sort notes in different orders (i.e last updated date, alphabetically).
 
 === Manage your tags: `tag`
 
+// tag::tag-list[]
 ==== List tags: `list`
 
-Lists all tags that have ever been associated with your notes. +
-A tag will appear in this list if it has been successfully used to tag a note previously. However, if you untag a note, it will still appear in this. The tag list serves as a history to remind you of tags that you can use.
+Lists all valid tags that have ever been associated with your notes.
+A tag will appear in this list if it has been successfully used to tag a note previously.
+However, if a tag is no longer valid, it will be automatically removed from the list. Here are the conditions for a tag to be marked as invalid:
+- The tag is considered as a contact tag and the referenced contact is removed from Tagline.
+- The tag is considered as a group tag and the referenced group is removed from Tagline.
+
+NOTE:: if you untag a note, it will still appear in this list. The tag list serves as a history to remind you of tags that you can use.
 
 Format:
 
@@ -706,16 +843,12 @@ Format:
 
 Example:
 
-[cols=3*,options=header]
-|===
-|Format
-|Example
-|Outcome
-
-|`tag list`
-|`tag list`
-|Lists all hashtags.
-|===
+* Suppose you want to know tags that you have used previously and still valid. +
+You can just use the following command: `tag list`.
++
+.Command executed, list of tags displayed
+image::ug_taglist1.png[width="600"]
+// end::tag-list[]
 
 == Command summary
 

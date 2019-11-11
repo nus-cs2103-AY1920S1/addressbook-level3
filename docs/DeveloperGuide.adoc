@@ -125,6 +125,7 @@ link:{repoURL}/src/main/java/tagline/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
+// tag::contact-logic[]
 ==== Contact Logic component
 .Class diagram of the Contact Logic Component
 image::ContactLogicClassDiagram.png[]
@@ -144,6 +145,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 .Interactions Inside the Logic Component for the `contact create --n Bob` Command
 image::ContactCreateSequenceDiagram.png[]
+// end::contact-logic[]
 
 [[Design-NoteLogic]]
 ==== Note Logic component
@@ -290,6 +292,21 @@ The `GroupStorage` component,
 
 * can save `Group` objects in json format and read it back.
 * can save the Group Book data in json format and read it back.
+
+// tag::tagstorage[]
+[[Design-TagStorage]]
+==== Tag Storage component
+
+.Class diagram of the Tag Storage Component
+image::TagStorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/tagline/storage/tag/TagBookStorage.java[`TagBookStorage.java`]
+
+The `TagStorage` component,
+
+* can save `Tag` objects in json format and read it back.
+* can save the Tag Book data in json format and read it back.
+// end::tagstorage[]
 
 [[Design-Commons]]
 === Common classes
@@ -680,6 +697,118 @@ If all tags exist, the tags will be passed into the `NoteContainsTagsPredicate` 
 
 image::FilterTagExample.png[width=700]
 // end::note-filter[]
+
+// tag::contact-profile[]
+=== Contact Profile feature
+==== Description
+
+The user can view all notes that are associated with a certain contact with <<UserGuide#contact-profile, contact profile>> feature.
+A note is considered to be associated with a contact X if it satisfies one of the following criteria:
+
+- The note is tagged with a contact tag that represents X.
+- The note is tagged with a group tag where the represented group has X as one of its members.
+
+This feature takes advantage of the existing `note tag` command by having these two types of tags:
+
+- Contact tag:
+  * Use `@` symbol as the tag prefix.
+  * Represents a contact using its id.
+  * Usage example: `@12345`. This represents a contact with id `12345`.
+- Group tag:
+  * Use `%` symbol as the tag prefix.
+  * Represents a group using its name.
+  * Usage example: `%cs2103t`. This represents a group with name `cs2103t`.
+
+The user can use `contact show` command to display the profile of a contact.
+A contact profile contains all the stored information (e.g. email and address) and notes that are associated with that contact.
+
+==== Implementation
+
+The tags that represent contact and group are facilitated by the
+link:{repoURL}/src/main/java/tagline/model/tag/ContactTag.java[`ContactTag`] and
+link:{repoURL}/src/main/java/tagline/model/tag/GroupTag.java[`GroupTag`] classes.
+
+Whenever a user uses `note tag` command to tag a note with any type of tag, part of the input that
+represents the value of tag (i.e. follows `--t TAG` format) will be passed into
+link:{repoURL}/src/main/java/tagline/logic/parser/tag/TagParserUtil.java[`TagParserUtil`]. The parser will
+handle the translation based on the first non-whitespace character into a
+link:{repoURL}/src/main/java/tagline/model/tag/Tag.java[`Tag`] object, which is possible to be either
+`ContactTag` or `GroupTag`.
+
+Meanwhile, the mechanism to display a contact profile is facilitated by the
+link:{repoURL}/src/main/java/tagline/logic/commands/contact/ShowContactCommand.java[`ShowContactCommand`] class.
+This command takes a contact id as parameter and stores it inside the object. Upon execution,
+the command will ask link:{repoURL}/src/main/java/tagline/model/Model.java[`Model`] for all groups that
+contain the given contact as one of their members. Afterward, it will filter notes based on contact id and
+all the group names that are converted into `Tag` objects.
+
+===== Parsing for contact and group tags
+
+Parsing for contact and group tags are handled by
+link:{repoURL}/src/main/java/tagline/logic/parser/tag/TagParserUtil.java[`TagParserUtil`] as described
+in the tagging feature section. Differences between input format with other type of tag (i.e. hash tag) is only the
+first character where contact tag uses `@` symbol and group tag uses `%` symbol.
+
+However, the main difference is in the implementation of
+link:{repoURL}/src/main/java/tagline/model/tag/Tag.java[`Tag#isValidInModel`], which is an abstract method that needs
+to be implemented by every concrete subclass of link:{repoURL}/src/main/java/tagline/model/tag/Tag.java[`Tag`].
+The following are how this method is implemented in contact and note tags:
+
+* Contact tag determines its validity in the model by calling
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#findContact`], which takes a
+link:{repoURL}/src/main/java/tagline/model/contact/ContactId.java[`ContactId`] as parameter and
+returns an optional object of link:{repoURL}/src/main/java/tagline/model/contact/Contact.java[`Contact`]
+that has the specified contact id. If such contact object exists, a contact tag is considered valid.
+
+* Group tag determines its validity in the model by calling
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#hasGroupName`], which takes a
+link:{repoURL}/src/main/java/tagline/model/group/GroupName.java[`GroupName`] as parameter and
+returns a boolean whether such group name exists in the data stored by Tagline or not.
+
+===== Creating the command
+
+Given below is an example scenario where the user enters a command to show a contact profile.
+
+**Step 1:** Similar to other contact commands, the user command is first passed to `TaglineParser` to identify its type
+until it finally arrives at `ShowContactParser` which will create the command object. The `ShowContactParser` also checks
+the input arguments to make sure it follows the basic format.
+
+.Sequence diagram of parsing user input string to obtain a `ShowContactCommand`
+image::ContactShowParserDiagram.png[width=700]
+
+===== Executing the command
+
+When executing of link:{repoURL}/src/main/java/tagline/logic/commands/contact/ShowContactCommand.java[`ShowContactCommand`],
+there will be an initial check whether the provided contact id is valid or not by calling
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#findContact`] similar with checking validity for contact tag.
+If the provided contact id is invalid (e.g. non existing contact), the execution will stop and directly return a
+link:{repoURL}/src/main/java/tagline/logic/commands/CommandResult.java[`CommandResult`] which informs about the error.
+
+Suppose now we only consider the `contact show` command that is provided with valid contact id. During execution, it will
+translate the contact id into
+link:{repoURL}/src/main/java/tagline/model/contact/ContactIdEqualsSearchIdPredicate.java[`ContactIdEqualsSearchIdPredicate`] and
+link:{repoURL}/src/main/java/tagline/model/note/NoteContainsTagsPredicate.java[`NoteContainsTagsPredicate`] objects.
+Afterwards, those predicate will be used to update the observable contact and note list, by calling
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#updateFilteredContactList`] and
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#updateFilteredNoteList`].
+
+.Sequence diagram of executing `contact show` command.
+image::ContactShowExecutionDiagram.png[width=700]
+
+During translation from contact id to multiple tags, the command objects will call
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#findGroupsWithMember`] to get all groups that contain
+the specified contact id as one of its members. Afterwards, it creates a single array of tags that represent all tags
+that are associated with the contact id.
+
+.Sequence diagram of translation from contact id into associated tags.
+image::RetrieveAssociatedTagsDiagram.png[width=700]
+
+A successful execution of link:{repoURL}/src/main/java/tagline/logic/commands/contact/ShowContactCommand.java[`ShowContactCommand`]
+will return a link:{repoURL}/src/main/java/tagline/logic/commands/CommandResult.java[`CommandResult`] that indicates
+a view change into link:{repoURL}/src/main/java/tagline/ui/contact/ContactProfileResultView.java[`ContactProfileResultView`].
+The result view for contact profile observes the changes on observable contact and note lists to update accordingly.
+
+// end::contact-profile[]
 
 === Logging
 

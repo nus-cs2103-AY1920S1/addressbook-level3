@@ -157,7 +157,7 @@ public class SampleDataUtil {
         // @formatter:off
         return new Group[]{
             new Group(new GroupName("cs2103t"), new GroupDescription(""),
-                    getMemberIdSet("90035", "90036", "90037", "90038", "90041")),
+                    getMemberIdSet("00001", "00002", "00003", "00004", "00005")),
             new Group(new GroupName("X1"), new GroupDescription(""),
                     getMemberIdSet("90031", "90032", "90033", "90034", "90035", "90036", "90037", "90038",
                     "90039", "90040", "90041")),

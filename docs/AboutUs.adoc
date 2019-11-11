@@ -53,7 +53,7 @@ Roles:
 
 === Steven Wijaya
 image::stevenwjy.png[width="150", align="left"]
-{empty}[https://github.com/stevenwjy[github]] [<<steven#, portfolio>>]
+{empty}[https://github.com/stevenwjy[github]] [<<stevenwjy#, portfolio>>]
 
 Roles:
 
