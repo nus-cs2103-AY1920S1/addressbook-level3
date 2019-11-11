@@ -269,17 +269,24 @@ image::TestClassDiagram.png[]
 
 Tests are driven by the main `ExamRunner` class which ensures that only a single `Exam` object exists at any point in time.
 
-`Exam` objects are where the bulk of the test logic resides. They each will also contain *ONE* `Results` object that keeps track of score.
+`Exam` objects are where the bulk of the test logic resides. `Exam` objects are used to control what card the user is currently attempting via the `getCurrentCard()` method, used to control the AnchorPanes that show up on the GUI and also to keep track of score through the `Result` object within.
+
+`Exam` objects have a *composition* relationship with `Result` objects, whereby a `Result` object cannot exist without an `Exam` object.
 
 The sequence diagram of the three classes is as follows:
 
 image::TestSequenceDiagram.png[]
 
+When a user first chooses to start the test, he will call on the `createExam()` within `ExamRunner`, which will create an Exam object with the duration specified by the user.
+
+Creating an `Exam` object automatically creates a `Result` object in the constructor. The `Exam` object is then able to interact with it via the `getResult()` method.
+
+Responses and Controllers will then be able to get the current instance of `Exam` via the `getCurrentExam()` method in `ExamRunner`
+
 Given below is an example usage scenario and how the timed/untimed mechanism behaves at each step. The activity diagrams for Timed and Untimed Tests are also as follows:
 
 image::UntimedTestActivityDiagram.png[]
 image::TimedTestActivityDiagram.png[]
-
 
 =====
 Step 1. User keys in the command `test deck/DECK_NAME duration/DURATION_IN_SECONDS` (Eg. test deck/german duration/0)
@@ -298,6 +305,19 @@ Step 7. Upon closing that popup, users will be able to review their mistakes and
 
 Step 8. When the user is done reviewing, he can type `exit` or click `Exit Session` to exit test mode and go back to the main Deck Display screen. Users can also use this command prematurely to exit test mode mid-test.
 =====
+
+==== Managing the CLI and GUI
+
+
+CLI is largely driven by the `Responses` class which can be found above. However, the test mechanism differs slightly as it relies on a greater amount of `States` in order to control which commands can be used at what time.
+
+For example, a `correct` command cannot be used on a MCQCard.
+
+Commands are checked if they belong to a certain `ResponseGroup` for a `State`. Only commands that are registered within that state's `ResponseGroup` will be executed.
+
+GUI is also controlled by `States` but does not go through the `ResponseGroup` class. Instead, it relies on EventHandlers triggered by button clicks. Ideally, one should make GUI go through `Responses` as well to streamline both the GUI and CLI together.
+
+This design choice is reflected on further below.
 
 
 ==== Design Considerations
@@ -331,6 +351,40 @@ Step 8. When the user is done reviewing, he can type `exit` or click `Exit Sessi
 *** Allows the project to be open for extension. Developers may potentially develop other kinds of Exam modes (eg. speed round whereby there's a limited time *per card*)
 ** Cons:
 *** Relatively redundant at the current version (`v1.4`)
+
+===== Aspect: Streamlining of GUI and CLI
+
+* **Alternative 1:** Have both GUI and CLI managed by the `Response` class
+** Pros:
+*** More streamlined
+*** Lesser chance of performance glitches since both interfaces rely on the same logic.
+** Cons:
+*** Limited customization if different behaviours want to be implemented in the GUI and CLI (though unlikely).
+
+* **Alternative 2: (Current Choice)** Individual logics for both GUI and CLI:
+** Pros:
+*** Greater customization.
+** Cons:
+*** Slightly more "spaghetti code"
+*** Limited expansion as having many different types of cards will result in many different `ResponseGroups`
+
+* While FlashCard Pro went with the "inferior" design choice for `v1.4`, there is definitely room for expansion by using an external state controller like Redux (see below).
+
+==== Future Extensions
+===== Relationship between GUI and CLI
+* Currently GUI and CLI are not implemented ideally because CLI is dependent on the `Responses` class while GUI relies on button handlers.
+
+* Ideally, GUI and CLI should both rely on the `Responses` class which will streamline the back-end logic.
+
+* However, due to time constraints and the late discovery of the bug, `v1.4` was made with the GUI and CLI not streamlined.
+
+* Future enhancements could either streamline the GUI and CLI both rely on `Responses` class or port over to an external state manager like Redux for better performance.
+
+===== Exam Interface
+* The Exam interface exists such that the project remains open for extension with various different test modes.
+
+* One example would be a speed round (whereby specific time limits are set for *each card*).
+
 // end::test[]
 
 
