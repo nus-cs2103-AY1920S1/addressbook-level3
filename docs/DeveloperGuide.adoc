@@ -500,7 +500,6 @@ Based on player input, `MovingWords` are updated using
 The component `PlayerInformation` is bound to `Player` using `javafx.beans.property` API and is also updated when
 `MovingWords#continuouslyUpdate()` is called.
 
-
 The table below summarises the various purposes of the 3 main Game Window UI components.
 
 .Game Window UI Components
