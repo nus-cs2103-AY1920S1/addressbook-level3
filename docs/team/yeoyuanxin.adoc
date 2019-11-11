@@ -3,19 +3,19 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: DukeCooks
+== PROJECT: DukeCooks image:DukeCooks_Logo.png[align="center", width="50"]
 
 == What is DukeCooks?
 
-DukeCooks is an all-in-one lifestyle desktop application designed specially for health-conscious individuals. With the hectic schedules that we have as college students, we can definitely relate to the problems that is faced daily in trying to lead a healthy lifestyle . With that in mind, We have put together this application, called DukeCooks.  We believe that DukeCooks could be a remedy to some of the problems faced by everyone and aims to bring a change to everyone’s perception to lead a healthy lifestyle.
+DukeCooks is an all-in-one lifestyle desktop application designed specially for health-conscious individuals. With the hectic schedules that we have as college students, we can definitely relate to the problems that is faced daily in trying to lead a healthy lifestyle . With that in mind, We have put together this application, called DukeCooks.  We believe that DukeCooks could be a remedy to some of the problems faced by everyone.
 
-In DukeCooks, managing your meals preparation and workouts has never been made easier! Everything that you can only imagine to be done in more than one application, can now be simply be done in DukeCooks alone! Saving you the time and effort to switch between application!
+In DukeCooks, managing your meals preparation and workouts has never been made easier! Everything that you can only imagine to be done in more than one application, can now simply be done in DukeCooks alone! DukeCooks saves you the time and effort to switch between application!
 
 Furthermore, DukeCooks runs on a command-line interface (CLI). This means that everything that DukeCooks is capable for doing, can be executed all within a single line.
 
 == Who is behind DukeCooks?
 
-DukeCooks is developed by a group of year 2 students from School of Computing, National University of Singapore
+DukeCooks is developed by a group of 5 second-year students from School of Computing, National University of Singapore
 
 == My Contributions to DukeCooks
 
@@ -25,7 +25,7 @@ The health records feature was developed with the main purpose of providing user
 
 === Building the Profile feature
 
-The profile feature was to allow user’s to personalise their profile within the application. The design and layout for how this feature should be shown were also taken account. The profile feature is adapted from the existing Address Book 3 (AB3). Commands like `edit`, `add`, `delete` are referenced and modified accordingly.
+The profile feature is designed to let users personalise their profile within the application. The profile feature is adapted from the existing Address Book 3 (AB3). Commands like `edit`, `add`, `delete` are referenced and modified accordingly.
 
 === Major Enhancements
 ==== Enhancement 1: Creating different modes of `ListHealthCommand`

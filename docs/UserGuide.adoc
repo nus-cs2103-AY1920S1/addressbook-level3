@@ -95,7 +95,7 @@ Start making a task list for the things you plan to do and never have to forget 
 * Recipe Book - Keep a record of all your homemade recipes!
 * Meal Plan - Plan what you want to eat for the week!
 * Workout Planner - Create custom workouts and track your progress!
-* Health - (Fill in a simple line for your feature?)
+* Health - Start tracking your health progress!
 * Diary - Create diary posts to share with your friends and family!
 
 == Commands
