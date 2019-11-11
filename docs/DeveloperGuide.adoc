@@ -327,8 +327,6 @@ Table below explains the components that are included in the `ReportWindow` with
 |===
 //end::report[]
 
-// tag::calendar[]
-
 === Calendar Window
 
 The `CalendarWindow` provides a visual representation of stored engagements over a monthly period.
@@ -337,7 +335,7 @@ show more detailed descriptions of the stored engagements for a particular day.
 
 ==== Implementation Structure
 .Structure of the Calendar Window
-image::CalendarWindowClassDiagram.png[align="center"]
+image::CalendarWindowClassDiagram.png[]
 {empty} +
 The `CalendarWindow` is part of the `MainWindow`. Specifically, it is one possible `Tab` which can be
 displayed. The `CalendarWindow` class and any of its associated UI components can be found under the `com.typee.ui.calendar` package.
@@ -346,7 +344,7 @@ The following sequence diagram shows the creation of a `CalendarWindow` instance
 calendar window tab.
 
 .CalendarWindow Initialization Sequence Diagram
-image::CalendarWindowSequenceDiagram.png[align="center"]
+image::CalendarWindowSequenceDiagram.png[]
 {empty} +
 
 ==== UI Design
@@ -408,25 +406,25 @@ which are used to model their workflows:
 * `CalendarOpenDisplayCommand` -- Opens the engagements list window for the specified date.
 
 .Open Display Activity Diagram
-image::CalendarOpenDisplayActivityDiagram.png[align="center"]
+image::CalendarOpenDisplayActivityDiagram.png[]
 {empty} +
 
 * `CalendarCloseDisplayCommand` -- Closes the engagements list window for the specified date.
 
 .Close Display Activity Diagram
-image::CalendarCloseDisplayActivityDiagram.png[align="center"]
+image::CalendarCloseDisplayActivityDiagram.png[]
 {empty} +
 
 * `CalendarNextMonthCommand` -- Changes the calendar window's display to the month after the currently displayed month.
 
 .Next Month Activity Diagram
-image::CalendarNextMonthActivityDiagram.png[align="center"]
+image::CalendarNextMonthActivityDiagram.png[]
 {empty} +
 
 * `CalendarOpenDisplayCommand` -- Changes the calendar window's display to the month prior to the currently displayed month.
 
 .Previous Month Activity Diagram
-image::CalendarPreviousMonthActivityDiagram.png[align="center"]
+image::CalendarPreviousMonthActivityDiagram.png[]
 {empty} +
 
 ==== Design Considerations
@@ -451,9 +449,6 @@ by opening the engagements list window for that particular date.
 ** Pros: Shows more detailed information in the calendar window.
 ** Cons: Might end up distorting the shape of the calendar window's cells since some engagements have more information than others.
 The alternative would be to add fixed constraints to the size of each cell but then information would get cut off.
-// end::calendar[]
-
-
 
 // tag::typinggame[]
 
