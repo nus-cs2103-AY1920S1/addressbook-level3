@@ -26,7 +26,7 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::ArchitectureDiagram.png[align="center" width="800"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -62,7 +62,7 @@ Each of the six components:
 For example, the `QuestionLogic` component (see the class diagram given below) defines it's API in the `QuestionLogic.java` interface and exposes its functionality using the `QuestionLogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[align="center" width="800"]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -70,7 +70,7 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `view 1` command
-image::ArchitectureSequenceDiagram.png[]
+image::ArchitectureSequenceDiagram.png[align="center" width="800"]
 
 The sections below give more details of each component.
 
@@ -78,7 +78,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassDiagram.png[align="center" width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/difficulty/ui/Ui.java[`Ui.java`]
 
@@ -104,28 +104,32 @@ They orchestrate the execution of these operations internally and expose a simpl
 The logic components are interfaces so their implementation can be changed easily.
 
 ====
+[.text-center]
+_Class diagrams for various logic classes:_
+
+image:CommandLogicClassDiagram.png[width="400"]
+image:ProgramSubmissionLogicClassDiagram.png[width="400"]
+image:NotesLogicClassDiagram.png[width="400"]
+image:QuestionsLogicClassDiagram.png[width="400"]
+====
+
+====
 *CommandLogic*:
-[[fig-CommandLogicClassDiagram]]
-.Class diagram of the CommandLogic interface
-image::CommandLogicClassDiagram.png[]
+
 
 - Only has one method  which is used by the application to execute commands.
 ====
 
 ====
 *QuestionsLogic:*
-[[fig-QuestionLogicClassDiagram]]
-.Class diagram of the QuestionLogic interface
-image::QuestionsLogicClassDiagram.png[]
+
 - Deals with all CRUD operations pertaining to the questions found in the application.
 - Keeps track a _selected question_ which represents the `Question` that is currently being viewed by the user.
 ====
 
 ====
 *ProgramSubmissionLogic:*
-[[fig-ProgramSubmissionLogicClassDiagram]]
-.Class diagram of the ProgramSubmissionLogic interface
-image::ProgramSubmissionLogicClassDiagram.png[]
+
 - Performs the evaluation of the user's program submissions.
 - Keeps track of a _currently attempting_ question which is used to test user program submissions.
 - Uses the `UserProgramChannel` interface to enable other components such as the `UI` to serve as a source for `UserProgram` without introducing them as dependencies.
@@ -133,9 +137,6 @@ image::ProgramSubmissionLogicClassDiagram.png[]
 
 ====
 *NotesLogic:*
-[[fig-NotesLogicClassDiagram]]
-.Class diagram of the NotesLogic interface
-image::NotesLogicClassDiagram.png[]
 
 - Deals with all CRUD operations pertaining to the notes found in the application.
 - Uses the `NoteSubmissionChannel` interface to enable other components such as the `UI` to serve as a source for notes without introducing them as dependencies.
@@ -143,8 +144,7 @@ image::NotesLogicClassDiagram.png[]
 *Note model:*
 [[fig-NoteClassDiagram]]
 .Class diagram of the Note class
-image::NoteClassDiagram.png[]
-
+image::NoteClassDiagram.png[align="center" width="200"]
 - The note model class represents a user's note in the application.
 - It contains a *title* which provides an easy way for the user to identify and organize his or her notes
 - It contains a *content* string to represent all the text-based notes that the user has entered.
@@ -159,7 +159,7 @@ The standard implementation of the CommandLogic is the `CommandLogicManager` cla
 
 [[fig-CommandLogicManagerAssociations]]
 .Associations of the CommandLogicManager
-image::CommandLogicManager.png[]
+image::CommandLogicManager.png[align="center" width="250"]
 
 - For commands to be parsed by `CommandLogic`,  they have to be registered with `registerCommand()`.
 - A `CommandSupplier` and a command word is required to register a `Command`
@@ -179,7 +179,7 @@ image::CommandLogicManager.png[]
 ====
 [[fig-CommandLogicSequenceDiagram]]
 .Sequence diagram for command execution
-image::CommandLogicSequence.png[]
+image::CommandLogicSequence.png[align="center" width="800"]
 
 *The basic sequence of command execution is as follows:*
 
@@ -205,7 +205,7 @@ _(View <<Design-Storage>> for more details)_.
 
 [[fig-QuestionsLogicManagerAssociations]]
 .Associations of the QuestionLogicManager
-image::QuestionsLogicManager.png[]
+image::QuestionsLogicManager.png[align="center" width="200"]
 
 - Allows other components of the application to make changes to existing questions using its inteface.
 
@@ -231,7 +231,7 @@ _(View <<Implementation-ProgramEvaluation>> for more details)_.
 
 [[fig-ProgramSubmissionLogicAssociations]]
 .Associations of the ProgramSubmissionLogicManager
-image::ProgramSubmissionLogicManager.png[]
+image::ProgramSubmissionLogicManager.png[align="center" width="800"]
 
 - Keeps track of a _currently attempting_ `Question`.
 - _Currently attempting_ `Question` can be set through `setCurrentQuestion(question)`.
@@ -248,7 +248,7 @@ image::ProgramSubmissionLogicManager.png[]
 ====
 [[fig-ProgramSubmissionSequenceDiagram]]
 .Sequence diagram of program submissions
-image::ProgramSubmissionSequence.png[]
+image::ProgramSubmissionSequence.png[align="center" width="800"]
 
 *The basic sequence of submitting a program from a `UI`  component is as follows:*
 
@@ -267,7 +267,7 @@ It also stores the notes in the application in the form of a `NoteBank`. _(View 
 
 [[fig-NotesLogicManagerAssociations]]
 .Associations of the NotesLogicManager
-image::NotesLogicManager.png[]
+image::NotesLogicManager.png[align="center" width="800"]
 - Allows other components of the application to make changes to the current state of notes using its interface.
 - Other components of the application can also observe the current state of notes by getting an `ObservableList` through `getAllNotesList()`
 
@@ -285,7 +285,7 @@ image::NotesLogicManager.png[]
 *SketchManager:*
 [[fig-SketchManagerClassDiagram]]
 .Class diagram of the SketchManager
-image::SketchManagerClassDiagram.png[]
+image::SketchManagerClassDiagram.png[align="center" width="200"]
 * Handles the saving, loading and deleting of *sketches*.
 * Deals with *sketches* in two formats, `WritableImage` class used by the JavaFX `UI` components for rendering the image, and png form in storage.
 * Converts *sketches* between the two formats upon loading/before saving.
@@ -294,7 +294,7 @@ image::SketchManagerClassDiagram.png[]
 ====
 [[fig-NoteSavingSequence]]
 .Sequence diagram of saving a note
-image::NoteSavingSequence.png[]
+image::NoteSavingSequence.png[align="center" width="800"]
 
 *The basic sequence of saving a user's note from a `UI`  component is as follows:*
 
@@ -315,7 +315,7 @@ image::NoteSavingSequence.png[]
 === Storage component
 
 .Structure of the Storage Component for Questions
-image::StorageClassDiagram.png[]
+image::StorageClassDiagram.png[align="center" width="800"]
 
 *API* :
 
@@ -368,16 +368,10 @@ a list of `TestCase`.
 ====
 *TestCase* - stores an input and an expected value.
 
-[[fig-TestCaseResultClassDiagram]]
-.Class diagram for TestCaseResult
-image::TestCaseClassDiagram.png[width=240]
-
-
 *UserProgram* - stores the name of the class which contains the _main method_ along with the source code (_note that the class name must match the source code for it to be evaluated successfully_).
 
-[[fig-UserProgramClassDiagram]]
-.Class diagram for UserProgram
-image::UserProgramClassDiagram.png[width=240]
+image:UserProgramClassDiagram.png[width=240]
+image:TestCaseClassDiagram.png[width=240]
 
 ====
 
@@ -388,7 +382,7 @@ image::UserProgramClassDiagram.png[width=240]
 
 [[fig-TestResultClassDiagram]]
 .Class diagram for TestResult
-image::TestResultDiagram.png[]
+image::TestResultDiagram.png[align="center"]
 
 ====
 
@@ -418,19 +412,19 @@ This temporary folder is deleted in `closed()`. Uses `JavaFile`.
 
 [[fig-CompilerEnvironmentAssociations]]
 .Associations of CompilerEnvironment
-image::CompilerEnvironment.png[]
+image::CompilerEnvironment.png[align="center" width="800"]
 
 *Compiler* - in charge of compiling the Java files into Class files at a given file path. Uses `ClassFile`.
 
 [[fig-CompilerAssociations]]
 .Associations of Compiler
-image::Compiler.png[]
+image::Compiler.png[align="center" width="800"]
 
 *ProgramExecutor* - in charge of executing the compiled Class files. Uses `ProgramOutput`.
 
 [[fig-ProgramExecutorAssociations]]
 .Associations of ProgramExecutor
-image::ProgramExecutor.png[]
+image::ProgramExecutor.png[align="center" width="800"]
 
 *Models classes:*
 
@@ -447,7 +441,7 @@ an `FileNotFoundException` is thrown during instantiation.
 
 [[fig-TestExecutorSequenceDiagram]]
 .Sequence diagram for the evaluation of a user's program
-image::TestExecutorSequenceDiagram.png[align:center]
+image::TestExecutorSequenceDiagram.png[align:center width="800"]
 
 . `TestExecutor` calls `clearEnvironment()` of `CompilerEnvironment` to remove any leftover files from previous program evaluations.
 

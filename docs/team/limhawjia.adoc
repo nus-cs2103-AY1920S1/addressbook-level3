@@ -14,12 +14,11 @@ This decision was made to allow new learners to also familiarize themselves with
 
 [.text-center]
 .Main GUI of Duke Academy
-image::DukeAcademyGUI.png[align="center"]
+image::DukeAcademyGUI.png[align="center" width="800"]
 
 Duke Academy is an integrated platform with a built-in text editor, an auto-grader and a note-taking feature.
-It provides all the tools needed for a good practice session so that its users will never have to tab out to another application.
 
-DukeAcademy can also be used as a teaching tool by educators as they can set their own questions to be loaded by their students using our very own simplified text file format.
+DukeAcademy can also be used as a teaching tool by educators as they can set their own questions to be loaded by their students using our simplified text format.
 
 Duke Academy is written in Java, and has about 15 kLoC.
 
@@ -28,12 +27,11 @@ Duke Academy is written in Java, and has about 15 kLoC.
 The following segment illustrates the different roles and tasks that I have performed for our team in detail.
 It also provides a bit of justification for the different choices that I have made pertaining to these roles and tasks.
 
-=== Change underlying architecture to suit our needs - [refactor]
+=== Change underlying architecture to suit our needs [refactor]
 
-|===
-|_Due to the increased complexity of our product, a large part of the existing architecture of AddressBook3 had to be changed.
+_Due to the increased complexity of our product, a large part of the existing architecture of AddressBook3 had to be changed.
 Most of the changes can be summarized into the 3 following sections :_
-|===
+
 
 ==== *Separate Logic component*
 
@@ -41,36 +39,38 @@ Most of the changes can be summarized into the 3 following sections :_
   * The new interfaces are `CommandLogic`, `QuestionsLogic`, `ProgramSubmissionLogic` and `NotesLogic`.
   * Each interface facilitates operations pertaining to a different part of our application.
 ====
-Justification : +
-As the complexity of our app increased, we realized that the functionality of the application can be split into 4 separate cohesive units. Each unit deals with a different aspect
-of our application. These aspects are _commands_, _questions_, _program evaluation_ and  _notes_ respectively.
-Instead of using a single logic class to encapsulate all of the functionality, each cohesive unit was made into its own logic class, keeping them loosely coupled.
-This helped to make the codebase more testable and maintainable.
-====
+Justification :
 
+* Functionality of our application can be split into more cohesive components
+* Reduce coupling to make the codebase more  testable and maintainable
+====
 ==== *Implemented Observer pattern* +
 
   * Created a new simple and lightweight observable class that can be customized using Java generics.
-  * Allow various different components such as the UI to observe changes to the state of the application without introducing them as unnecessary dependencies.
+
 ====
-Justification : +
-The existing AddressBook3 implementation made use of JavaFX's native ObservableList class to display the list of contacts.
-However, as we needed to observe other objects, we realized that JavaFX's native Observable class was slightly too over-engineered for our use cases.
+Justification :
+
+** Enable UI components to observe and reflect changes in the application state without introducing them as unnecessary dependencies.
+** JavaFX's native Observable class was over-engineered for our use case.
 ====
 
 ==== *Refactor Command pattern*
 
 * Change the implementation of the Command pattern to be more flexible.
-* `execute()` no longer takes in `Model` as argument. Parsing of command arguments is also handled by the `Command` itself.
-* Open-closed principle is maintained by requiring commands to be registered into the `CommandLogic` with a https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Supplier.html[`Supplier`].
-* The https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Supplier.html[`Supplier`] is in charge of injecting dependencies into the various commands.
+* `execute()` no longer depends on `Model`.
+* Parsing of command arguments is now handled by individual commands.
+* Open-closed principle is maintained by registering commands into `CommandLogic` with a `Supplier`.
+* `Supplier` is in charge of injecting dependencies into the various commands.
 
 ====
-Justification : +
-The previous implementation of the `Command` in AddressBook3 requires its execution to rely on a `Model` instance. The command arguments also had to follow a fixed format. However, as the complexity of our application grew, our commands started to vary. Most commands no longer relied on a `Model` to be executed. Commands also started to have their own unique rules for parsing arguments.
+Justification :
+
+* New commands no longer depend on `Model` and have their own dependencies.
+* New commands require their own unique argument parsing logic.
 ====
 
-=== Program evaluation feature - [feature]
+=== Program evaluation feature [feature]
 
 * *What it does* : +
   Allows users' solutions to be automatically evaluated by our application. The solution is evaluated against test cases specified in the `Question` class.
@@ -83,15 +83,12 @@ The previous implementation of the `Command` in AddressBook3 requires its execut
 ** A _Time Limit Exceeded_ error is displayed if the user's program takes too long to complete. This will enable users to know if their solutions are properly optimized.
 
 .Program evaluation example
-image::ProgramEvaluation.png[align="center" width="1000"]
+image::ProgramEvaluation.png[align="center" width="800"]
 
 .Compile error example
-image::CompileError.png[align="center" width="1000"]
+image::CompileError.png[align="center" width="800"]
 
-.Timeout error example
-image::TimeLimitExceeded.png[align="center" width="1000"]
-
-=== Note-taking feature - [feature]
+=== Note-taking feature [feature]
 * What it does : +
   Allows users to record notes in the form of text or a simple sketch.
 
@@ -102,9 +99,9 @@ image::TimeLimitExceeded.png[align="center" width="1000"]
   In addition to taking notes in the form of text, user's are also able to sketch their ideas within a a sketch pad and have them saved for future reference. This is particularly useful when dealing with data structures.
 
 .Notes page preview
-image::NotePage.png[align="center" width="1000"]
+image::NotePage.png[align="center" width="800"]
 
-=== Tabs - [feature]
+=== Tabs [feature]
 * What it does  : +
   Splits the various functions of the application, _browsing and viewing of questions_, _attempting of questions and evaluation of results_, _note-taking_, into individual tabs.
 
@@ -113,36 +110,6 @@ image::NotePage.png[align="center" width="1000"]
 
 * Highlights : +
   In line with the _Command Line_ theme, the user is able to switch tabs by typing the command _"tab"_ instead of using a mouse-click.
-
-
-=== Various commands
-
-|===
-| Apart from the exit command, the other commands are extensions of the features described above. They serve as a medium for users to be able to perform functions related to the above features through a  _Command Line_ interface.
-|===
-
-. *Tab* +
-  * What it does : changes the current tab that the application is showing
-
-. *Submit* +
-  * What it does : evaluates the user's solution against the question that he is currently attempting.
-. *New Note* +
-  * What it does : creates a new note and opens it in the application.
-. *Open Note* +
-  * What it does : loads an existing  note in the application.
-. *Delete Note* +
- * What it does : deletes an existing note
-. *Save Note* +
- * What it does : saves changes made to the currently opened note.
-. *Exit*
- * What it does : exits the application
- * Highlights : automatically saves any changes that the user has made to his solution and notes before exiting the application.
-
-== Summary of contributions
-* [Refactor] - Redesign underlying architecture
-* [Major Feature] - Evaluation of user program
-* [Major Feature] - Note-taking feature
-* [Minor Feature] - Tabs
 
 == Other Contributions
 
@@ -171,9 +138,7 @@ On RepoSense, you can select options to view my functional code and test code.
 
 == Contributions to the User Guide
 
-|===
-|_Given below are sections that I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+Given below are sections that I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
 
 include::../UserGuide.adoc[tag=overview]
 
@@ -185,9 +150,7 @@ include::../UserGuide.adoc[tag=notes]
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
 include::../DeveloperGuide.adoc[tag=logic]
 
