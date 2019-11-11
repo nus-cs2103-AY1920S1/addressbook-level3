@@ -66,6 +66,7 @@ activate "cr:CommandResult"
 deactivate "cr:CommandResult"
 "ec:EditCommand" --> ":LogicManager" : cr
 deactivate "ec:EditCommand"
+destroy "ec:EditCommand"
 
 [<-- ":LogicManager"
 @enduml
