@@ -47,7 +47,6 @@ Taking after reputable flashcard applications like Anki, FlashCard Pro provides 
 *** Wrote additional tests (Please refer to [test code] link above.)
 
 ** Documentation:
-** Documentation:
 *** Did documentation in Developer Guide. (See <<Contributions to the Developer Guide>> below)
 *** Maintained the Command List Summary (See Section 7 of <<Contributions to the User Guide>> below)
 
