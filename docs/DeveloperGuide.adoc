@@ -538,52 +538,212 @@ Hard to do when we are applying stackable search/sort commands.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-Given below is an example usage scenario and how the mechanism behaves at each step.
-
-The following sequence diagram shows how the operation works:
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-==== Design Considerations
-
-===== Aspect: How set reminder executes
-
-* **Alternative 1 (current choice):**
-** Pros:
-** Cons:
-
-* **Alternative 2:**
-** Pros:
-** Cons:
-
-===== Aspect:
-* **Alternative 1 (current choice):**
-** Pros:
-** Cons:
-
-* **Alternative 2:**
-** Pros:
-** Cons:
-// end::dataencryption[]
-
 // tag::search[]
-=== Search
+=== Search by name or tag(s)
 
-This feature allows users to filter out specific items either by name or by tag(s) through providing the relevant keyword(s). Items which contain any of the keywords will be shown on the view panel. For search by name, partial words can be matched. For search by tag, only exact words will be matched.
+This feature allows users to filter out specific items either by name or by tag(s) through providing
+the relevant keyword(s). Items which contain any of the keywords will be shown on the view panel.
+For search by name, partial words can be matched. For search by tag, only exact words will be matched.
 
 This implementation is under `Logic` and `Model` components.
 
 ==== Implementation
 
-Below is the UML sequence diagram of an example usage scenario.
+Below are the UML sequence diagrams and a step-by-step explanation of an example usage scenario.
 
-image::SearchCommandSequenceDiagram.png[]
+.Sequence diagram illustrating the search mechanism
+image::SequenceDiagramSearch.png[width="790"]
+
+[NOTE]
+Parsing of arguments is omitted from the diagram above to place greater emphasis on the filtering process.
+The diagram below further illustrates the parsing of arguments.
+
+.Sequence diagram illustrating the parsing of arguments
+image::SequenceDiagramSearchParseArgs.png[width="790"]
+
+Example usage scenario:
+
+[NOTE]
+Steps 1-3 and steps 4-5 describe what is shown in Figure 25 and Figure 24 respectively.
+
+Step 1. User enters command `search|banana`. The command is received by the `LogicManager`'s `execute` method which
+then calls the `getCurrentView` method of `Model` to determine which item list is currently being displayed, `XPIRE`
+or `REPLENISH`.
+
+Step 2. Depending on which item list is currently being displayed, either `XpireParser`'s or `ReplenishParser`'s `parse`
+method will be called to create a `SearchCommandParser` object.
+
+Step 3. The `parse` method of the `SearchCommandParser` will be called to parse the keyword, "banana" in our case,
+into a `ContainsKeywordsPredicate` object which will then be pass to the constructor of `SearchCommand`. Subsequently,
+the `SearchCommand` object will be returned to the `LogicManager`.
+
+Step 4. The `LogicManager` then calls the returned `SearchCommand` object's `execute` method which calls the
+`filterCurrentList` method of `Model` to update the current view list by invoking `FilteredList`'s `setPredicate` with
+the `ContainsKeywordsPredicate` object, stored in the `SearchCommand` object, as the parameter.
+
+Step 5. Upon successful updating of the current view list, a `CommandResult` object will be created by the `SearchCommandParser`
+to encapsulate a positive feedback message that will be shown to the user. The `CommandResult` will then be returned
+to the `LogicManager`.
+
+To further demonstrate the high-level workflow of the `search` command, the following UML activity diagram is provided:
+
+[NOTE]
+The selection of parser and the creation of `SearchCommand` object is omitted for brevity.
+
+.Activity diagram illustrating the high-level workflow of search command
+image::ActivityDiagramSearchCommand.png[width="790"]
+
+As illustrated in Figure 26, the `search` functionality also considers the case where the current view list
+is empty and there will be a feedback to the user to inform him/her that the `search` command is not executed
+successfully.
+
+==== Design Considerations
+
+Below highlights the different considerations while implementing this feature.
+
+===== Aspect: How to implement AND search
+
+* **Alternative 1 (initial choice):** Modify the input command format to include "&" as a separator. The "&" separator will be placed between 2 keywords to signify an AND condition between the them.
+** Pros:
+*** Requires only a single `search` command to do both AND and OR search.
+*** There is no need to change the original architecture for `Model`.
+** Cons:
+*** Complicates the input command format (since it has both "|" and "&" separators) and makes it not user-friendly.
+*** Could be confusing to the user when they want to a mix of AND and OR conditions in a single `search` command.
+*** Could be difficult to parse correctly since there are 2 different separators.
+*** Extra work has to be done to change the ContainsKeywordsPredicate to accept AND condition.
+* **Alternative 2 (current choice):** Make the `search` command "stackable". Every `search` command will now only
+execute on the current view list. e.g. the result of a `search` command can be further filtered with another `search` command.
+** Pros:
+*** Users can intuitively make an AND search of 2 or more keywords by first searching with 1 keyword and then
+search again with another keyword, and repeat again for more keywords.
+*** There is no change to the input command format.
+** Cons:
+*** Requires multiple `search` commands to be executed for AND search.
+*** Have to figure out how to implement "stackable" commands.
+
+===== Aspect: How to implement "stackable" commands
+
+* **Alternative 1 (current choice):** Modify the `ModelManager`.
+** Pros:
+*** Uses the separation of concerns principle. The commands do not need to know how the item list will behave when they are executed.
+They simply need to make the relevant Application Programming Interface (API) calls and the `ModelManager` will handle the behaviour
+of the list.
+*** Adheres to the open-closed principle. The commands do not need to make any changes to its architecture and other commands can
+also be made "stackable" through using the API.
+** Cons:
+*** Have to modify the `ModelManager` 's architecture to support the API that modifies the current view list.
+* **Alternative 2:** Modify the commands.
+** Pros:
+*** Do not need to modify the API.
+** Cons:
+*** Violates single responsibility principle. The commands will now handle both the execution algorithm and the behaviour of the item list.
+*** Violates open-closed principle. The `Command` 's architecture will have to be modified to be "stackable".
+
 // end::search[]
+
+// tag::export[]
+=== Export
+
+This feature allows users to export the items in the current view list to other devices through a QR code.
+Any device with a QR code reader will be able to download the list of items.
+
+This implementation is under `Logic` and `Model` components.
+
+==== Implementation
+
+Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
+
+.Sequence diagram illustrating the export mechanism
+image::SequenceDiagramExport.png[width="790"]
+
+[NOTE]
+Parsing of arguments is omitted from the diagram above to place greater emphasis on the filtering process.
+The diagram below further illustrates the parsing of arguments.
+
+.Sequence diagram illustrating the parsing of arguments
+image::SequenceDiagramSearchParseArgs.png[width="790"]
+
+Example usage scenario:
+
+[NOTE]
+Steps 1-3 and steps 4-5 describe what is shown in Figure 25 and Figure 24 respectively.
+
+Step 1. User enters command `search|banana`. The command is received by the `LogicManager`'s `execute` method which
+then calls the `getCurrentView` method of `Model` to determine which item list is currently being displayed, `XPIRE`
+or `REPLENISH`.
+
+Step 2. Depending on which item list is currently being displayed, either `XpireParser`'s or `ReplenishParser`'s `parse`
+method will be called to create a `SearchCommandParser` object.
+
+Step 3. The `parse` method of the `SearchCommandParser` will be called to parse the keyword, "banana" in our case,
+into a `ContainsKeywordsPredicate` object which will then be pass to the constructor of `SearchCommand`. Subsequently,
+the `SearchCommand` object will be returned to the `LogicManager`.
+
+Step 4. The `LogicManager` then calls the returned `SearchCommand` object's `execute` method which calls the
+`filterCurrentList` method of `Model` to update the current view list by invoking `FilteredList`'s `setPredicate` with
+the `ContainsKeywordsPredicate` object, stored in the `SearchCommand` object, as the parameter.
+
+Step 5. Upon successful updating of the current view list, a `CommandResult` object will be created by the `SearchCommandParser`
+to encapsulate a positive feedback message that will be shown to the user. The `CommandResult` will then be returned
+to the `LogicManager`.
+
+To further demonstrate the high-level workflow of the `search` command, the following UML activity diagram is provided:
+
+[NOTE]
+The selection of parser and the creation of `SearchCommand` object is omitted for brevity.
+
+.Activity diagram illustrating the high-level workflow of search command
+image::ActivityDiagramSearchCommand.png[width="790"]
+
+As illustrated in Figure 26, the `search` functionality also considers the case where the current view list
+is empty and there will be a feedback to the user to inform him/her that the `search` command is not executed
+successfully.
+
+==== Design Considerations
+
+Below highlights the different considerations while implementing this feature.
+
+===== Aspect: How to implement AND search
+
+* **Alternative 1 (initial choice):** Modify the input command format to include "&" as a separator. The "&" separator will be placed between 2 keywords to signify an AND condition between the them.
+** Pros:
+*** Requires only a single `search` command to do both AND and OR search.
+*** There is no need to change the original architecture for `Model`.
+** Cons:
+*** Complicates the input command format (since it has both "|" and "&" separators) and makes it not user-friendly.
+*** Could be confusing to the user when they want to a mix of AND and OR conditions in a single `search` command.
+*** Could be difficult to parse correctly since there are 2 different separators.
+*** Extra work has to be done to change the ContainsKeywordsPredicate to accept AND condition.
+* **Alternative 2 (current choice):** Make the `search` command "stackable". Every `search` command will now only
+execute on the current view list. e.g. the result of a `search` command can be further filtered with another `search` command.
+** Pros:
+*** Users can intuitively make an AND search of 2 or more keywords by first searching with 1 keyword and then
+search again with another keyword, and repeat again for more keywords.
+*** There is no change to the input command format.
+** Cons:
+*** Requires multiple `search` commands to be executed for AND search.
+*** Have to figure out how to implement "stackable" commands.
+
+===== Aspect: How to implement "stackable" commands
+
+* **Alternative 1 (current choice):** Modify the `ModelManager`.
+** Pros:
+*** Uses the separation of concerns principle. The commands do not need to know how the item list will behave when they are executed.
+They simply need to make the relevant Application Programming Interface (API) calls and the `ModelManager` will handle the behaviour
+of the list.
+*** Adheres to the open-closed principle. The commands do not need to make any changes to its architecture and other commands can
+also be made "stackable" through using the API.
+** Cons:
+*** Have to modify the `ModelManager` 's architecture to support the API that modifies the current view list.
+* **Alternative 2:** Modify the commands.
+** Pros:
+*** Do not need to modify the API.
+** Cons:
+*** Violates single responsibility principle. The commands will now handle both the execution algorithm and the behaviour of the item list.
+*** Violates open-closed principle. The `Command` 's architecture will have to be modified to be "stackable".
+
+// end::export[]
 
 // tag::recommendationsIntro[]
 === Spelling correction with alternative recommendations
