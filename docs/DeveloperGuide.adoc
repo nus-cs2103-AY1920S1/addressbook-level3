@@ -118,6 +118,7 @@ NOTE: The lifeline for `AddCommandParser` should end at the destroy marker (X) b
 
 // end::logic[]
 
+// tag::model[]
 [[Design-Model]]
 === Model component
 
@@ -132,11 +133,7 @@ The `Model`,
 * stores a `ActivityManager`, `AccommodationManager`, `ContactManager` and `Itinerary` that represents the managers for activity, accommodation, contact and day respectively.
 * exposes an unmodifiable `ObservableList<Activity>`, `ObservableList<Accommodation>`, `ObservableList<Contact>` and `ObservableList<Day>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-//[NOTE]
-//As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
-
-//image:BetterModelClassDiagram.png[]
+// end::model[]
 
 // tag::storageuml[]
 [[Design-Storage]]
@@ -603,6 +600,7 @@ image::AutoCompleteActivityDiagram2.png[]
 ** Cons: There might be a noticeable delay in the suggestions appearing if the specific duration is too long. More complicated to implement.
 // end::autocomplete[]
 
+// tag:::timetable[]
 === Timetable
 
 ==== Current Implementation
@@ -627,6 +625,7 @@ Internally, Timetable is a List of ActivityWithTime. This gives the Timetable fl
 ** Pros: Allows flexible start times and end times. ActivityWithTime can have the same startDateTime, thus allowing conflicting ActivityWithTime.
 
 ** Con: UI for itinerary might be difficult to implement as each the size of each block of ActivityWithTime in the UI is not the same. Slower access time if the size of the List is large.
+// end::timetable[]
 
 === Logging
 
