@@ -20,7 +20,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX = "The exercise index provided is invalid";
     public static final String MESSAGE_INVALID_WORKOUT_DISPLAYED_INDEX = "The workout index provided is invalid";
 
-    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
+    public static final String MESSAGE_EXERCISES_LISTED_OVERVIEW = "%1$d exercises listed!";
 
     public static final String MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX = "The recipe index provided is invalid";
     public static final String MESSAGE_RECIPE_LISTED_OVERVIEW = "%1$d recipes listed!";

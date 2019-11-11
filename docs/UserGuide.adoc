@@ -1,4 +1,4 @@
-= DukeCooks - User Guide
+= DukeCooks - User Guide image:DukeCooks_Logo.png[icon, 50, 50]
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T10-2/main
 
-By: `CS2103T-T10-2`      Since: `Sep 2019`      Licence: `MIT`
+By: `DukeCooks`      Since: `Sep 2019`      Licence: `MIT`
 
 == Welcome to DukeCooks
 
@@ -81,7 +81,7 @@ You may click on the following features below to find out more about the feature
 * Dashboard: +
 Start making a task list for the things you plan to do and never have to forget to do something ever again!
 * Recipe Book - (Fill in a simple line for your feature?)
-* Exercise - (Fill in a simple line for your feature?)
+* Workout Planner - Create custom workouts and track your progress!
 * Health - (Fill in a simple line for your feature?)
 * Diary - Create diary posts to share with your friends and family!
 
@@ -533,156 +533,392 @@ Deletes all meal plans within the meal plan book.
 Going for a health checkup soon? You can use the commands in this section to manage your
 health records, all within DukeCooks!
 
-==== View Health Data:  `list health`
-Views Health Records of specific type. +
-Format: `list health t/<type>`
+==== pass:[<u>Understanding the Health Records</u>]
+
+Before you get overwhelmed by what's in Health Records,
+here's everything you need to know to get you started! Keep scrolling!
+
+Refer to the following diagrams for a better understanding.
+
+.Health Records's Overview
+[caption="Figure 3.5.1: "]
+image::health_overview.png[width="900"]
+
+Looking for just a specific record type? DukeCooks got you covered! Refer to diagram below!
+
+.Health Records's Details Page
+[caption="Figure 3.5.2: "]
+image::health_details.png[width="900"]
+
+[NOTE]
+====
+DukeCooks will only show health records of the past 1 month in the graph illustrated above.
+====
+
+The following record types are supported by DukeCooks:
+|===
+| Record Type | Unit
+
+| Weight
+| kg
+
+| Height
+| cm
+
+| Glucose
+| mmol/L
+
+| Calories
+| kcal
+
+| Protein, Fats, Carbs
+| g
+
+|===
 
 [IMPORTANT]
 ====
-By default, DukeCooks will show health records of past 1 month if [time period] is not specified.
+Shared data across! _Weight_ and _Height_ records will be **synchronized** to profile
 ====
 
+
+==== pass:[<u>Getting to Health Records</u>]
+
+Here's a quick way to get to the Health Records!
+
+Command: `goto health`
+
+==== Adding a profile
+Want to have a personalized profile of your own? This is just the perfect command you're looking for!
+
+[NOTE]
+====
+This action only works once! DukeCooks only allows storing of one user profile.
+====
+
+Command: `add profile` +
+Format: `add profile n/_<name>_ d/_<date of birth>_ g/_<gender>_ bt/_<blood type>_ w/_<weight>_ h/_<height>_ [m/_<medical history>_]`
+
+Example usage: `add profile n/Alex Yeoh d/23/02/1995 g/female bt/a+ w/57.8 h/173.2 m/Stroke m/Diabetes`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::health_addProfile_before.png[]
++
+. If the command succeeds, you will see the following message in the result display and your created profile!
++
+image::health_addProfile_after.png[]
+
+[NOTE]
+====
+Say no to bad data! DukeCooks helps to sync your data inputs with your health records! _(As shown in **Step 2**)_
+====
+
+==== Editing a profile
+Need to make amendments to your profile? Simply follow the format below!
+
+[NOTE]
+====
+This action is only applicable if there is an existing profile already.
+====
+
+Command: `edit profile` +
+Format: `edit profile n/_<name>_ d/_<date of birth>_ g/_<gender>_ bt/_<blood type>_ w/_<weight>_ h/_<height>_ [m/_<medical history>_] [m-/_<medical history>_]`
+
+[NOTE]
+====
+To remove existing medical history, include this prefix to your command: `**m-/** _<existing history>_**`
+====
+
+Example usage: `edit profile g/male bt/a- w/57.5 h/173 m-/Stroke m/High Blood Pressure`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::health_editProfile_before.png[]
++
+. If the command succeeds, you will see the following message in the result display and your updated profile!
++
+image::health_editProfile_after.png[]
+
+[NOTE]
+====
+Say no to bad data! DukeCooks helps to sync your data inputs with your health records! _(As shown in **Step 2**)_
+====
+
+==== Deleting a profile
+Want to get rid of your profile? This command helps to remove your existing profile.
+
+[IMPORTANT]
+====
+This action is not reversible. Use only when necessary!
+====
+
+Format: `delete profile`
+
+Example usage: `delete profile`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::health_deleteProfile_before.png[]
++
+. If the command succeeds, you will see the following message in the result display and your profile has been cleared!
++
+image::health_deleteProfile_after.png[]
+
+[NOTE]
+====
+Keeping your records safe! This action will have no effect to your records!
+====
+
+
+==== Viewing a specific record type
+Looking for just a specific record type? This command directs you to the details page with
+beautiful visual illustrations of your records!
+
+Command: `list health` +
+Format: `list health t/_<type>_`
+
+Example usage: `list health t/weight`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::health_listRecord_before.png[]
++
+. If the command succeeds, you will see the following message in the result display and you
+will be directed to the details page.
++
+image::health_listRecord_after.png[]
+
 ****
-User can view health data under the following 8 types:
+Based on the record type, DukeCooks will generate the appropriate graph illustration
 
-. Weight
-. Calories
-. Glucose (i.e. blood sugar)
-. Carbs
-. Fats
-. Protein
+. Line Graph - Records are shown in a daily max manner
+. Bar Graph - Records should shown in a daily sum manner
 
 ****
 
+Unsure of what record types are available? Refer to the list below!
+|===
+| Record Type | Unit | Graph Type
+
+| Weight
+| kg
+| Line Graph
+
+| Height
+| cm
+| Line Graph
+
+| Glucose
+| mmol/L
+| Line Graph
+
+| Calories
+| kcal
+| Bar Graph
+
+| Protein, Fats, Carbs
+| g
+| Bar Graph
+
+|===
+
+==== Adding a health record
+Adding a new health record? Easy! Just follow the given format below!
+
+Command: `add health` +
+Format: `add health t/_<type>_ val/_<value>_ dt/_<date time>_ [remark/_<remark>_]`
+
+Example usage: `add health t/weight val/60 dt/10/11/2019 12:00 remark/after meal`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::health_addRecord_before.png[]
++
+
+[NOTE]
+====
+Worried of mistyping? Frat not! DukeCooks ensures that your inputs are within a valid range!
+====
+
+
+. If the command succeeds, you will see the following message in the result display and your
+new record shown in the details page!
++
+image::health_addRecord_after.png[]
+
+[NOTE]
+====
+Say no to bad data! DukeCooks helps to sync your data inputs with your profile! _(As shown in **Step 2**)_
+====
+
+==== Editing a existing record
+Made some mistakes and need to update your record? Simply fire away the edit command below to start editing!
+
+Command: `edit health` +
+Format: `add health _<index>_ val/_<value>_ dt/_<date time>_ [remark/_<remark>_] [remark-/_<remark>_]`
+
+[NOTE]
+====
+To remove existing remark, include this prefix to your command: `**remark-/** _<existing remark>_**`
+====
+
+Example usage: `edit health 1 val/62 dt/10/11/2019 10:30 remark-/after meal remark/before meal`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::health_editRecord_before.png[]
++
+. If the command succeeds, you will see the following message in the result display and your edited record in the details page!
++
+image::health_editRecord_after.png[]
+
+[NOTE]
+====
+Say no to bad data! DukeCooks will ensure your profile is in-sync to your records!
+====
+
+==== Deleting a existing record
+Deleting a duplicate health record? DukeCooks can help with that!
+
+Command: `delete health` +
+Format: `delete health _<index>_`
+
+Example usage: `delete health 1`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::health_deleteRecord_before.png[]
++
+. If the command succeeds, you will see the following message in the result display and the deleted record deleted in your records!
++
+image::health_deleteRecord_after.png[]
+
+[NOTE]
+====
+Say no to bad data! DukeCooks will update your profile with the most recent available record found!
+====
+
+==== Clearing all records
+Want to start afresh with your health records? DukeCooks can help you restart to a clean state!
+
+[IMPORTANT]
+====
+This action is not reversible. Use only when necessary!
+====
+
+Format: `clear health`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::health_clearRecord_before.png[]
++
+. If the command succeeds, you will see the following message in the result display with all records cleared!
++
+image::health_clearRecord_after.png[]
+
+[NOTE]
+====
+Keeping your profile safe! This action will have no effect to your profile!
+====
+
+==== Link Recipes: `[Coming in v2.0]`
+A feature to track user's food consumption based on existing records. +
+
+Adds relevant records based on the recipe's nutritional information +
+Format: `link recipe n/_<recipename>_ /to health dt/_<date time>_ [remarks/_<remarks>_]`
+
+* Recipe should already exist
+
+[NOTE]
+====
+Deleting recipes will not delete the linked recipes in Health Records!
+====
+
 Examples:
 
-* `list health t/weight` +
-Shows user’s weight of the past *1* month as of today.
+* `link recipe Caesar Salad /to health dt/12/10/2019 12:00 remark/ diet` +
+ Creates 4 corresponding records (namely Calories, Protein, Fats, Carbs) about “Caesar Salad”
+and adds it to health records with timestamp of "12/10/2019 12:00” and a remark of "diet" made.
 
-==== Add Health Data:  `add health`
-Adds a health record of specified type with input value. +
-Format: `add health t/<type> val/<value> dt/<dd/MM/yyyy HH:mm>`
+==== Smart Recommendations: `[Coming in v2.0]`
+Based on user's profile data and existing health records, DukeCooks will generate some recommendations.
 
-****
-User can add health data of the following 8 types:
+Example:
 
-. Weight (in KG)
-. Calories (in KCAL)
-. Glucose (in mmol/L)
-. Carbs (in g)
-. Fats (in g)
-. Protein (in g)
-****
+* If user has a medical history of "High Blood Sugar", DukeCooks will monitor the user's glucose level records (prompt alert when hit unhealthy range) and provide
+appropriate food suggestions and activities.
 
-Examples:
-
-* `add health t/weight val/60 dt/21/10/2019 12:00` +
-Adds a new blood pressure record of 120/80 mmHg as of today 9am.
-
-==== Edit Health Data:  `edit health`
-Edits an existing health record of specified record ID with input value to overwrite. +
-Format: `edit health <index> val/<value>`
-
-* You can view <index> once you have entered **list health t/[type]** command.
-
-Examples:
-
-* `edit health 1 val/220` +
-Edits the health record with index 1 to 220.
-
-==== Delete Health Data:  `delete health`
-Deletes an existing health record of specified record ID. +
-Format: `delete health <index>`
-
-* You can view <index> once you have entered **list health t/[type]** command.
-
-Examples:
-
-* `delete health 1` +
-Deletes the health record with index 1.
-
-==== View Medical Appointments:  `[coming in v2.0]`
-Shows all the medical appointment for the month. +
-Format: `view appt [time period]`
-
-Examples:
-
-* `view appt` +
-View all the medical appointments for the month.
-* `view appt 3 month` +
-View all the medical appointments of the next 3 months.
-
-=== Add Medical Appointment:  `[coming in v2.0]`
-Adds a new medical appointment where user can include an optional note. +
-Format: `add appt <date time> [note]`
-
-* DukeCooks will prompt reminder when appointment is in a week’s time.
-
-Examples:
-
-* `add appt 31/12/2019 8am` +
-Add a new medical appointment for 31st Dec 2019, 8AM.
-* `add appt 31/12/2019 8am thomson medical - blood glucose` +
-Add a new medical appointment for 31st Dec 2019, 8AM with note “thomson medical - blood glucose” .
-
-==== Edit Medical Appointment:  `[coming in v2.0]`
-Edits an existing medical appointment. +
-Format: `edit appt <Appt ID> [date time] [note]`
-
-* <Appt ID> refers to the unique identifier attributed to each medical appointment upon creation.
-* At least one of the optional fields must be provided
-* Existing value will be overwritten with the new inputs given
-
-
-Examples:
-
-* `edit appt APPT0001 CGH - blood glucose` +
-Edits the note to “CGH - blood glucose”.
-* `edit appt APPT0001 31/12/2019 12pm` +
-Change the medical appointment to be 31st Dec 2019, 12PM.
-* `edit appt APPT0001 31/12/2019 1.30pm CGH - blood glucose` +
-Change the medical appointment to be 31st Dec 2019, 1.30PM with “CGH - blood glucose” note.
-
-==== Delete Medical Appointment `[coming in v2.0]`
-Deletes an existing medical appointment. +
-Format: `delete appt <APPT ID>`
-
-* <APPT ID> refers to the unique identifier attributed to each medical appointment upon creation.
-
-Examples:
-
-* `delete appt APPT0001` +
-Deletes the medical appointment of APPT0001.
+* If Weight and Height records are found, DukeCooks will compute the user's BMI and determine if it is in the recommended range.
 
 ==== Print Health Records to PDF `[coming in v2.0]`
 Generates a PDF copy of health records. +
-Format: `print health <type> [MORE_TYPES] [time period]`
+Format: `print health t/_<type>_ [MORE_TYPES] period/_<time period>_`
 
 * If more than one type of data to print, the data will be displayed in the order of input (refer to example).
 
-[IMPORTANT]
-====
-By default, DukeCooks will generate pdf with health records for the past 1 month if [time period] is not specified.
-====
-
 Examples:
 
-* `print health glucose` +
-Generates a PDF copy of all the blood sugar records for the past month as of today
-* `print health glucose blood pressure` +
-Generates a PDF copy of all the blood sugar and blood pressure records respectively from the past month as of today. Data on blood sugar will come before blood pressure.
-* `print health glucose blood pressure 01/01/2019 - 31/08/2019` +
-Generates a PDF copy of all the blood sugar and blood pressure records respectively from 1st Jan 2019 to 31st Aug 2019.
+* `print health t/glucose period/ 01/01/2019 - 01/02/2019` +
+Generates a PDF copy of all the blood sugar records from 1st Jan 2019 to 1st Feb 2019.
+* `print health t/glucose t/weight 01/01/2019 - 31/08/2019` +
+Generates a PDF copy of all the blood sugar and weight records respectively from 1st Jan 2019 to 31st Aug 2019.
 
 === Workout Tracker
 
-Planning your next workout? You can refer to the commands in this section to help you get started with your
-exercise regime in DukeCooks.
+So you've decided to put your gym membership to use and want to plan your next workout regime. Head down to the
+workout planner tab to create your custom workouts and track your progress!
+
+But wait! I have no idea how to begin with this, you may be thinking. Fret not, read further to see a breakdown of the
+workout planner screen and what you can do with it!
+
+==== Workout Planner Screen
+
+Alright, I'm now at the workout screen! What's next?
+
+.Workout Screen
+image::workoutScreen1.png[]
+
+As seen in the screenshot above, the Workout Planner screen is similar to the other screens, with the main
+difference being the list of Exercise cards and Workout Cards. Not too sure about what to work on or need suggestions?
+Workout Planner begins with prebuilt Exercises and Workouts installed to get you started.
+
+Over on the left, is the list of Exercise Cards. Each card informs you of the name, primary muscle as well as the
+intensity of the exercise. To get more information of the exercise, you can use the view command which will be covered
+in section 3.7.3 of the User Guide.
+
+Similarly on the right we have the list of Workout Cards. The Workout Cards shows the Workout name, the number of
+Exercises in the workout as well as the last time the workout was ran. You can also tell the intensity of the
+workout from the image of the card.
+
+.Low Intensity Card
+image::workoutLowIntensity.png[]
+
+.Medium Intensity Card
+image::workoutMediumIntensity.png[]
+
+.High Intensity Card
+image::workoutHighIntensity.png[]
+
+Similarly, to find more information on the workout, you can use the view command which is covered in a later
+section of this User Guide.
+
 
 ==== Adding an exercise: `add exercise`
-Adds an exercise to exercise list. You will be required to specify the primary muscle of the exercise, its intensity
-as well as its name. Optional fields like secondary muscles and exercise details such as reps, sets can also be added.
-The following shows the fields and which are optional: +
+"I now know the components of the Workout Planner! So what can I do with it?"
+
+Well I'm glad you asked kind person! To start off, we have the add exercise command which creates new
+exercises for your workouts. To add an exercise, you must first specify its name, primary muscle trained as well
+as its intensity. You can also add optional fields such as secondary muscles and exercise details like sets and reps.
+The following shows all the possible fields that can be added: +
 * Name +
 * Primary Muscle +
 * Intensity +
@@ -692,63 +928,221 @@ The following shows the fields and which are optional: +
 * Timing (optional)  +
 * Distance (optional) +
 * Exercise Weight (optional) +
-The format is as follow: +
+To add the exercise, simply input the fields in the Command Box in the following format: +
 Format: `add exercise n/EXERCISE_NAME p/PRIMARY_MUSCLE sm/SECONDARY_MUSCLE i/INTENSITY
 s/SETS r/REPETITIONS d/ DISTANCE w/WEIGHT t/TIMING`
 
 Examples:
 
-* `add exercise n/Bench Press p/Chest i/medium sm/Triceps s/5 r/5 w/80 kg` +
-Output: _New Exercise added: Bench Press_
+The following images show an example of the command being inputted and its corresponding
+outputs.
 
+.Example input
+image::addExerciseInputExample.png[]
 
-==== List Exercise: `list exercise`
+.Example output
+image::addExerciseOutput.png[]
+
+==== View Exercise: `view exercise`
+
+Ok, now that you've added your exercise, you probably want to know what all of its details. Simply
+input the command `view exercise` followed by the index of the exercise you want
+to view as shown below.
+
+.Example Input
+image::viewExerciseInput.png[]
+
+The screen should now show the full details of the exercise in question. Let's get you up to
+speed with what's what.
+
+.Exercise Details Screen
+image::viewExerciseOutput.png[]
+
+1. Basic Details +
+The first segment comprises of the basic details of the exercise. This includes the Exercise
+Name, Intensity, Primary and Secondary Muscles, Number of times the exercise has been executed,
+Average Run Time of the Exercise as well as some of its details.
+
+2. Previous Attempts +
+Next up we have a history of all the previous attempts of the exercise. This includes the workout
+that the exercise is done in, the time it was done as well as the time it took. It also specifies
+the number of sets attempted and completed.
+
+The details on this page is automatically updated with each workout run. To return back to
+the exercise page, simply invoke the `goto exercise` command.
+
+More statistics as well as graph view will be implemented in version 2.0.
+
+==== Find Exercise:
+
+Now that you have a sizable amount of Exercises, you realise that you cannot easily find them
+amongst the sea of cards. To tackle this problem of seamless navigation, we implemented the
+find command.
+
+Find Exercise works in 3 ways:
+
+* By Name
+* By Muscles Trained (inclusive of both primary and secondary muscles)
+* By Intensity
+
+To use the following command, simply type `find` in the command box followed by the variant
+you wish to utilise and the predicate.
+
+* To find by name, the variant word is `exercise`
+* To find by muscles trained, the variant word is `exerciseMuscle`
+* To find by intensity, the variant word is `exerciseIntensity`
+
+.Find by Exercise Name
+image::findExercise.png[]
+
+.Find by Muscles Trained
+image::findExerciseMuscle.png[]
+
+.Find by Intensity
+image::findExerciseIntensity.png[]
+
+The filtered lists will then be shown as follows:
+
+.Find Output
+image::findExerciseOutput.png[]
+
+To show every exercise again, simply invoke the `list exercise` command.
+
+==== Add Workout: `add workout`
+
+Now that you've created all your exercise, you're ready to create a workout plan! To create
+a workout, input `add workout n/NAME` into the command box, replacing `NAME` with the name
+of your workout. This will initialise your Workout with no exercises in it.
+
+.Add Workout Input
+image::addWorkoutInput.png[]
+
+.Add Workout Output
+image::addWorkoutOutput.png[]
+
+==== Push Exercise `push exercise`
+
+Once you have initialised your workout, you are now ready to add your exercise into your
+workouts! To do so simply locate the index of the exercise you want to push and the workout
+you want to push your exercise into. Then input the command in the following format `push
+ exercise wi/WORKOUT_INDEX ei/EXERCISE_INDEX`.
+
+.Pushing Bench Press into Chest Day
+image::pushExerciseInput.png[]
+
+For example, if you want to add Bench Press exercise into Chest Day workout, type in
+`push exercise wi/4 ei/8` in the command box as seen above. You will get the following input.
+
+.Push Exercise Results
+image::pushExerciseOutput.png[]
+
+Now that you know you know how to push exercises, you can go ahead and add in all the exercises
+needed for your ULITMATE workout regime!
+
+==== View Workout: `view workout`
+You've created your workout regime, but you're unsure of the details and your progress. With
+the `view workout` feature, you can check all the details of your workout as well as its
+history!
+
+Similar to `view exercise`, type in `view workout` followed by the index of the workout you're
+interested in. So if you want to view 'Chest Day' you can follow the image below.
+
+.Viewing Chest Day Workout
+image::viewWorkoutInput.png[]
+
+The following screen will now appear. To orientate you, here are the components of the screen:
+
+. Basic Details +
+This component shows the Name, Intensity, Number of times completed, Average Run Time and
+Muscles Trained by the workout.
+
+. Exercises +
+The exercises segment show a list of all exercises contained in the workout as well as its
+exercise details
+
+. Workout History +
+The workout history compiles a list of all the times you have ran and completed this workout
+
+.Chest Day Screen
+image::viewWorkoutOutput.png[]
+
+Similarly to `view Exercise` command, this page will be automatically updated after each run
+of the workout. You can also return to the workout planner page with `goto exercise`.
+
+==== Run Workout: `run workout`
+
+You've created all your exercises and added it into your ultimate workout. Now you're ready
+to run it! To run the workout, invoke the `run workout` command with the index of your
+ultimate workout.
+
+.Run Workout Window
+image::runWorkoutWindow1.png[]
+
+The window above will pop up upon inputting the command. The window can be broken down into 5
+major segments which are :
+
+. Workout Name +
+Name of the workout you are running.
+. Progress Bar +
+Shows your workout progress/ how far you are from completing the workout.
+. Exercise Name +
+The name of the current exercise you're doing
+. Set Details +
+The details of a set of the exercise you're currently doing.
+. Command Box +
+Where you input your commands
+
+When you have completed a set, you can input `done` into the command box and it will indicate
+the set as completed as shown below.
+
+.Marking a set as Done
+image::runWorkoutWindow2.png[]
+
+After completing all the sets in all exercises, you will be brought back to the main page
+where a congratulatory message will greet you!
+
+.Congratulations!
+image::runworkoutWindow3.png[]
+
+==== Other Commands
+
+With that, you have sufficient knowledge to create and run your workout...
+if you're perfect that is. To make your life easier, we've also
+included some commands to manage your exercises and workout in case you made errors!
+
+. List Exercise: `list exercise` +
 List exercises which matches optional parameters specified eg. muscle type/intensity. +
 Format: `list exercise m/MUSCLEGROUP
 
-==== Delete exercise: `delete exercise`
+. Clear Exercise `clear exercise` +
+Removes all exercises in the list. +
+Format: 'clear exercise'
+
+. Delete exercise: `delete exercise` +
 Deletes exercise of specified index. +
 Format: `delete exercise <index>`
 
-==== View exercise: `view exercise`
-View all the details of an exercise of the specified index. +
-Format: `view exercise<index>`
+. Edit exercise: `edit exercise` +
+Edits exercise with new details +
+Format: `edit exercise n/EXERCISE_NAME p/PRIMARY_MUSCLE sm/SECONDARY_MUSCLE i/INTENSITY
+s/SETS r/REPETITIONS d/ DISTANCE w/WEIGHT t/TIMING`
 
-==== Add calorie: `[coming in v2.0]`
+. Add calorie: `[coming in v2.0] +`
 Tracks calorie burned per rep/set of the exercise in kcal. +
 Format: `calorie <index> <calories>`
 
-==== Check History: `[coming in v1.4]`
-Checks the history of all the pass workouts as well as their statistics eg. exerciseWeight used, number of times exercise is carried out, workouts that use this exercise.
-
-==== Preset Exercises:
-If the list of exercises is empty, a list of preset exercises are generated.
-
-==== Create Workout: `add workout`
-Adds a workout to workout list. The app will then prompt you to add exercises to the workout. +
-Format: `add workout n/WORKOUTNAME`
-
-==== Push Workout: `push exercise`
-Adds an exercise of the index shown, to a workout in the index shown. You can specify whether to use your own
-new set of exercise details (reps, sets etc) or use the default one already in the Exercise object. +
-Format: `push exercise wi/WORKOUT_INDEX ei/EXERCISE_INDEX s/SETS r/REPS d/DISTANCE t/TIMING w/WEIGHT`
-
-==== List Workout: `list workout` [coming in v1.4]
-List workouts which matches optional parameters specified eg. muscle type/intensity/total time. +
-Format: `list workout m/MUSCLEGROUP i/INTENSITY t/TOTALTIME`
-
-==== Delete workout: `delete workout` [coming in v1.4]
+. Delete workout: `delete workout` [coming in v1.4] +
 Deletes workout of specified index. +
 Format: `delete workout <index>`
 
-==== Run Workout: `run` [coming in v1.4]
-Runs a workout with a timer. Shows the details of the exercise: instructions, reps, sets, exerciseWeight as well images if provided. After workout, stats will be automatically be updated and weights of workout will be increased accordingly. +
-Format: `run <index>`
+. Show graph: `[coming in v2.0]`
+Creates a graph showing all your past workouts and exercises.
 
-==== Schedule Workout: `[coming in v1.4]`
+. Schedule Workout: `[coming in v2.0]`
+Create a workout to be added in to your schedule that will show up in your dashboard.
 
-==== Track Body Fitness: `[coming in v1.4]`
-
+Now you know all there is to the workout planner! What are you waiting for? Go out there and put your
+gym membership to use!
 
 === Diary
 
