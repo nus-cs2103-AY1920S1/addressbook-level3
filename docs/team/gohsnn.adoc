@@ -44,15 +44,6 @@ The following sections will illustrate these enhancements in more details as
 well as the relevant documentation in the user and developer guides in relation
 to these enhancements.
 
-=== Legend
-
-This sub-section will denote the important symbols and formatting used in this
-document.
-
-NOTE: This denotes additional information that is helpful for elaboration.
-
-`FinanceTracker` refers to the Java class named FinanceTracker.
-
 == Summary of Contributions
 
 This section shows a summary of my coding, documentation, and other helpful
@@ -88,9 +79,10 @@ expenditure once.
 
 ==== Code contributed
 
-Please click on these links to see a sample of my code for this project:
-https://drive.google.com/open?id=1IGHKCYYw612gu4e2cUfr0B2Gcmdy-3-8[functional code]
-and https://drive.google.com/open?id=1JwHdtob_-5TGDpFWXw8Fq2--81RLfbQc[test code].
+Please click to see my code contribution on
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=gohsnn&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=gohsnn&tabRepo=AY1920S1-CS2103T-T10-1%2Fmain%5Bmaster%5D[Reposense]
+as well as my
+https://github.com/AY1920S1-CS2103T-T10-1/main/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aclosed+author%3Agohsnn[pull requests on GitHub].
 
 ==== Documentation
 
@@ -98,6 +90,8 @@ All sections related to the Finance Tracker in the user guide and developer
 guide were done by me. They will be elaborated in the later sections, namely
 <<link-contributions-to-user-guide, Contributions to User Guide>> and
 <<link-contributions-to-developer-guide, Contributions to Developer Guide>>.
+
+{sp} +
 
 === Other Contributions
 
@@ -108,11 +102,10 @@ contribute to increasing the overall test coverage from 71.46% to 75.54%. This
 can be viewed from pull request
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/137[#137].
 
-In addition, I revised the overall user interface of the application to change
-the order of the feature tabs. This increased the cohesiveness of the
-application from the perspective of a student using a student life organiser,
-according to the frequency of which they would access the different features
-across the application. This can be viewed from pull request
+In addition, I revised the overall user interface to change the order of the
+tabs. This increased the cohesiveness of the application from the perspective
+of a student using Jarvis, according to the frequency that they would access
+each feature. This can be viewed from pull request
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/362[#362].
 
 ==== Community
@@ -164,9 +157,8 @@ guide, these diagrams needed to be changed as:
 2. They did not reflect the updated implementation of some features made by the
 team in the subsequent few weeks.
 
-In addition, I repackaged all diagrams into more accurate folders for
-easier perusal by my team mates for their documentation. The above-mentioned
-can be viewed from the pull requests
+In addition, I repackaged the diagrams for easier perusal by my team mates for
+their documentation. The above-mentioned can be viewed from the pull requests
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/368[#368],
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/371[#371], and
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/373[#373].

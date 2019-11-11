@@ -98,6 +98,7 @@ public class HelpDeskWindow extends UiPart<Region> {
         text2.setText("add-task\n"
                 + "delete-task\n"
                 + "done-task\n"
+                + "find-task\n"
                 + "list-task\n"
                 + "list-schedule\n"
                 + "pull-task\n");
