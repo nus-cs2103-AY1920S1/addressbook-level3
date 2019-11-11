@@ -166,7 +166,9 @@ include::../UserGuide.adoc[tag=purchasing]
 == Contributions to the Developer Guide
 
 I have made documentation contributions to the Developer Guide regarding the 2 main features I implemented, i.e. Budget-Tracking and Purchase-Tracking features. +
-This section will only show the contribution that I have made regarding the Budget-Tracking feature of the Developer Guide to adhere to the PPP word limit. +
-The documentation regarding the Purchase-Tracking feature can be found in our Developer Guide.
+This section will only show the contribution that I have made regarding the Budget-Tracking feature and a part of the the Purchase-Tracking feature of the Developer Guide to adhere to the PPP word limit. +
+The rest of the documentation regarding the Purchase-Tracking feature can be found in our Developer Guide.
 
 include::../DeveloperGuide.adoc[tag=budgeting]
+
+include::../DeveloperGuide.adoc[tag=purchasing]
