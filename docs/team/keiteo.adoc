@@ -10,25 +10,19 @@ Done as a major part of our introductory software engineering module in the Nati
 we started off by morphing an address book application into our very own product,
 a flashcard manager that is purely controlled using the Command-Line Interface (CLI). This is the key constraint of the
 project, as users can only perform tasks by typing commands on the keyboard.
-exclusively using the keyboard. In addition, this is a desktop application, to be used only on a computer.
+exclusively using the keyboard.
 
-This is a 6-week software engineering project, where we worked in a team of 5 with students from the NUS School of Computing.
+This is a 6-week software engineering project, where we worked in a team of 5 with other students from the NUS School of Computing.
 Our team consists of 3 second year students majoring in Computer Science, including myself, and 2 Computer Engineering students in their final year of study.
 
-Our finalised product, _KeyboardFlashCards_ is a educational tool that aims to make remembering things easy, while at the
+Our finalised product, KFC, is an educational tool that aims to make remembering things easy, while at the
 same time helping our users, computing students familiar with the CLI, to save time with simple and quick keyboard commands. We wanted
 to provide an efficient way to study for our peers to NUS School of Computing. Hence, we came up with an easy to use,
 flashcard manager using CLI for efficient and quick storage of important revision material to aid their study.
 
 Here is a screenshot of our project:
 
-image::annotatedUi.png[width="1200"]
-
-Please note the following symbol used in this document.
-
-[NOTE]
-This section explains certain information that require the user to take note of.
-i.e. prefixes used in our application and what it represents, certain functionality of the command
+image::annotatedUi.png[width="1000"]
 
 == Summary of contributions
 
@@ -66,7 +60,7 @@ test flashcards from the their desired categories.
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/244[#244]
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/250[#250]
 
-** Updated the application version number:
+*** Updated the application version number:
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/157[#157]
 
 ** Community
