@@ -970,8 +970,8 @@ Expected: Elisa will prompt you that the task already exist in the list and cann
    Expected: Similar to previous test case. (Since y is 1 minute from now.) +
 .. Test case: `undo` (used after one of the above has taken place)
    Expected: ELISA will reverse the addition of the reminder and no reminder will occur later on. +
-.. Test case: `undo` (used after one of the above has taken place)
-Expected: ELISA will reverse the undo of the addition of the reminder and a reminder will occur as if . +
+.. Test case: `redo` (used after a valid undo command has taken place)
+   Expected: ELISA will reverse the undo of the addition of the reminder and a reminder will occur at the appropriate time. Note that if the time for the reminder to occur has already passed, the reminder will not occur. +
 .. Test case: `reminder John's Birthday -r z` (where z is the date and time 1 minute before now in the format `dd/MM/yyyy HHmm`. E.g. `reminder John's Birthday` -r 15/11/2019 1358)
    Expected: No reminder is added. Error details shown in result display. (Since z is 1 minute before now.)
 
@@ -986,6 +986,10 @@ Expected: ELISA will reverse the undo of the addition of the reminder and a remi
    Expected: Similar to previous test case. (Since x is 1 minute from now.) +
 .. Test case: `snooze John's Birthday -s y` (where y is the date and time 1 minute later from now in the format `yyyy-MM-ddTHHmm`. E.g. `reminder John's Birthday` -s 2019-11-15T18:00)
    Expected: Similar to previous test case. (Since y is 1 minute from now.) +
+.. Test case: `undo` (used after one of the above has taken place)
+Expected: ELISA will reverse the snoozing of the reminder and reminder's occurrence date time will revert to it its state before the snooze. +
+.. Test case: `redo` (used after a valid undo command has taken place)
+Expected: ELISA will reverse the undo of the snoozing of the reminder and a reminder will occur at the appropriate time. Note that if the time for the reminder to occur has already passed, the reminder will not occur. +
 .. Test case: `snooze John's Birthday -s z` (where z is the date and time 1 minute before now in the format `dd/MM/yyyy HHmm`. E.g. `reminder John's Birthday` -s 15/11/2019 1358)
    Expected: No reminder is snoozed. Error details shown in result display. (Since z is 1 minute before now.)
 
