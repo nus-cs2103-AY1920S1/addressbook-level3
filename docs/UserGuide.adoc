@@ -208,6 +208,11 @@ Other examples:
 * `addExpense cat/Gifts n/Rubber Duck for Yee Jian amt/55 d/2019 11 09 tg/sanity check`
 * `addExpense cat/Travel n/Travel To Alaska amt/550000 d/2019 09 09`
 
+==== Listing Expenses: `list`
+Lists the expenses (as well as incomes) in the main panel.
+
+Format: `list`
+
 ==== Editing a Expense: `editExpense`
 
 Edits a current entry with the given index number. You may edit one or more fields, but the category must already exist in the list of categories, whether it is Income Category or Expense Category.
@@ -356,6 +361,12 @@ Other examples:
 * `add cat/Gifts n/Durian amt/200.00 d/2019 09 09 tg/food`
 * `add cat/Business n/business Trip To Mars amt/20000.00 d/2019 09 09`
 
+==== Listing Incomes: `list`
+
+Lists the incomes (as well as expenses) in the main panel.
+
+Format: `list`
+
 ==== Editing Income: `editIncome`
 Edits an existing Income at the given index. Some things to note:
 
@@ -449,7 +460,7 @@ Example: `deleteBudget 2`
 
 === WishList
 
-==== Add WishList : `addWishlist`
+==== Add Wish : `addWishlist`
 Adds a new item to your current wishlist
 
 Format: `addWish n/<Description> cat/<Category> amt/<Price> d/<Date>`
@@ -459,16 +470,12 @@ Examples:
 * `add typ/Wish n/deck mala cat/food amt/5.60 d/2019 10 28`
 * `add typ/Wish n/deck mala cat/food amt/5.60 d/01/01/2020`
 
-==== Delete WishList : `deleteWish`
-Deletes the item at the stated index from your current wishlist
+=== List Wish : `listWish`
+Lists all the wishes on the main panel.
 
-Format: `deleteWish <index>`
+Format: `listWish`
 
-Examples:
-
-* `deleteWishlist 3`
-
-==== Edit Wish in WishList : `editWish`
+==== Edit Wish : `editWish`
 edit the description, date, or tags of your wishes.
 
 Format: `editWishlist <index> [n/<Description>] [cat/<Category>] [amt/<Price>] [d/<Date>] [tag/<Tag>]`
@@ -477,6 +484,15 @@ Examples:
 
 * `editWishlist 1 n/1 try the chinatown ri ri hong mala!`
 * `editWishlist 1 amt/20 tag/mala tag/expensive`
+
+==== Delete Wish : `deleteWish`
+Deletes the item at the stated index from your current wishlist
+
+Format: `deleteWish <index>`
+
+Examples:
+
+* `deleteWishlist 3`
 
 ==== Purchase WishList : `purchase` [coming in v2.0]
 Purchases the item at the stated index from your current wishlist
