@@ -523,7 +523,8 @@ followed by `find d/food sd/01/01/2019 ed/01/02/2019`. (Unsure about this comman
 .Timeline of expenses grouped by tag
 image::display-timeline-example-normal.png[]
 
-You can view one or more timelines that are based on your currently displayed expenses. Upon entering the command, the statistic chart will automatically update to display a timeline configured with the options you have provided. The expenses over a specified time period are aggregated and added as data points on the timeline, allowing you to easily keep track of your relative spending. You can customize the date interval used, as well as the groupings used to split your expenses into each individual timeline. +
+You can view one or more timelines that are based on your currently displayed expenses. Upon entering the command, the statistic chart will automatically update to display a timeline configured with the options you have provided.
+The expenses over a specified time period are aggregated and added as data points on the timeline, allowing you to easily keep track of your relative spending. You can customize the date interval used, as well as the groupings used to split your expenses into each individual timeline. +
 {nbsp} +
 Usage:
 
@@ -539,44 +540,58 @@ INFO:
 
 Example: +
 `display-stats timeline interval/month groupby/tag` +
-Displays timelines based on the displayed expenses, with the total amount spent each week, starting from Monday and ending on Sunday, being totalled
-to form each data point. The expenses are also divided based on tag, forming on timeline for every tag. The chart may look something like this: +
+Displays timelines based on the displayed expenses. First, the expenses are divided based on tag, forming one timeline for every tag. Next, for each timeline, the total amount spent each week, starting from Monday and ending on Sunday, is totalled to form each data point. The chart may look something like this: +
 
+.Chart after executing the above command
 image::display-timeline-example-tag.png[]
 {nbsp} +
 
+[NOTE]
+The options for this command, and for all other `display-stats` commands, are case-sensitive, ie. "Week" is not a valid substitute for "week".
+{nbsp} +
 
 
 ==== _Display breakdown of expenses: display-stats breakdown_ +
-You can view a breakdown of expenses by tag for the currently displayed expenses. The total
-expenses per tag are totalled and displayed in a pie chart. +
+
+.Breakdown of expenses grouped by many tags.
+image::display-breakdown-example-tag.png[]
+
+
+You can break the displayed expenses down into smaller groups and view that breakdown as a pie chart, allowing you to compare your spending between groups. Upon entering the command, the statistic chart will automatically update to display a breakdown chart configured with the options you have provided. The total
+expenses per category are totalled and displayed as each slice in the pie chart. You can customize the criteria used to split the expenses into groups. +
+
+
 {nbsp} +
 Usage:
 
- display-stats breakdown
-+
+ display-stats breakdown groupby/<GROUPING = TAG>
 
 {nbsp} +
+INFO:
 
-+
+* `GROUPING`: Specifies the grouping to use to group the expenses into each separate slice in the pie chart. Supported groupings include "none", "tag", "month" and "day-of-week". Note that the default value for `GROUPING` for this command is not "none", but "tag". (The "none" option has limited use). +
+{nbsp} +
+
+
 Example: +
-`display-stats breakdown` +
-Shows a pie chart breakdown by tag of all currently displayed expenses. +
+`display-stats breakdown groupby/MONTH` +
+
+Shows a pie chart breakdown by month of all currently displayed expenses. Within each grouping, the total expenses in that grouping are summed up, and the
+total amount determines the size of its slice of the pie chart.
 {nbsp} +
 
 
-. _Display heatmap of expenses: display-stats heatmap_ +
+==== _Display heatmap of expenses: display-stats heatmap_ +
+
 You can view a heatmap of expenses per day for the currently displayed expenses, limited to the past year. The larger
 the bubble for the particular day, the higher the expense. +
 {nbsp} +
 Usage:
 
  display-stats heatmap
-+
 
 {nbsp} +
 
-+
 Example: +
 `display-stats heatmap` +
 Shows a bubble chart heatmap of all currently displayed expenses, limited to a year. +
