@@ -21,7 +21,7 @@ import javafx.scene.layout.VBox;
 /**
  * Untimed Exam mode.
  */
-public class UntimedExam implements Exam {
+public class StandardExam implements Exam {
 
     private final ArrayList<FlashCard> testDeck;
     private Result result;
@@ -29,7 +29,7 @@ public class UntimedExam implements Exam {
     private ArrayList<FlashCard> initialDeck;
     private int durationInSeconds;
 
-    public UntimedExam(ArrayList<FlashCard> deck, int durationInSeconds) {
+    public StandardExam(ArrayList<FlashCard> deck, int durationInSeconds) {
         this.initialDeck = deck;
         this.testDeck = createTestDeck();
         this.result = new Result(testDeck.size());
@@ -38,6 +38,7 @@ public class UntimedExam implements Exam {
 
     @Override
     public FlashCard getCurrentCard() {
+        assert(index >= 0);
         return testDeck.get(index);
     }
 

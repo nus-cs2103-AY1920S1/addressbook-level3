@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.displays.createandeditdeck.EditDeckDisplay;
+import dream.fcard.gui.controllers.displays.test.EndOfTestAlert;
 import dream.fcard.gui.controllers.displays.test.TestDisplay;
 import dream.fcard.gui.controllers.windows.CardEditingWindow;
 import dream.fcard.gui.controllers.windows.MainWindow;
@@ -16,6 +17,7 @@ import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
@@ -87,11 +89,16 @@ public class DeckDisplay extends VBox {
         StatsHolder.getDeckStats().startCurrentSession();
 
         //display the first card
-        ArrayList<FlashCard> testArrayListOfCards = deck.getSubsetForTest();
-        ExamRunner.createExam(testArrayListOfCards, 0);
-        Exam exam = ExamRunner.getCurrentExam();
-        TestDisplay testDisplay = new TestDisplay(exam);
-        Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
+        if (deck.getNumberOfCards() == 0) {
+            EndOfTestAlert.display("Error", "You cannot start a test on an empty deck!");
+            StateHolder.getState().setCurrState(StateEnum.DEFAULT);
+        } else {
+            ArrayList<FlashCard> testArrayListOfCards = deck.getSubsetForTest();
+            ExamRunner.createExam(testArrayListOfCards, 0);
+            Exam exam = ExamRunner.getCurrentExam();
+            TestDisplay testDisplay = new TestDisplay(exam);
+            Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
+        }
     }
 
     /**

@@ -40,6 +40,7 @@ public class Deck implements JsonInterface {
     /** List of sessions the user has engaged in involving this Deck. */
     private SessionList testSessionList;
 
+    //@@author huiminlim
     /**
      * Constructor to create a Deck with no name and cards.
      */
@@ -84,7 +85,9 @@ public class Deck implements JsonInterface {
     }
 
     /**
-     * @param list
+     * Adds cards to the priority queue.
+     *
+     * @param list ArrayList of cards to add to queue.
      */
     private void addCardsToQueues(ArrayList<FlashCard> list) {
         for (int i = 0; i < list.size(); i++) {
@@ -102,6 +105,7 @@ public class Deck implements JsonInterface {
             }
         }
     }
+    //@author
 
     /**
      * Render all the cards of the deck in a list.
@@ -139,6 +143,7 @@ public class Deck implements JsonInterface {
         return new JsonValue(obj);
     }
 
+    //@@author huiminlim
     /**
      * Adds new card to the ArrayList of card objects.
      *
@@ -197,7 +202,9 @@ public class Deck implements JsonInterface {
             }
         }
     }
+    //@author
 
+    //@@author huiminlim
     /**
      * Edit front of card.
      *
@@ -215,12 +222,14 @@ public class Deck implements JsonInterface {
         FlashCard cardToChange = cards.get(indexProvided);
         cardToChange.editFront(newFront);
     }
+    //@author
 
     @Override
     public String toString() {
         return getDeckName();
     }
 
+    //@@author
     /**
      * Edit back of card.
      *
@@ -334,6 +343,7 @@ public class Deck implements JsonInterface {
         return list.get(chosenCardIndex);
     }
 
+
     /**
      * Checks if a user provided index is valid.
      * Uses provide index that is 1-based, i.e. 1, 2, 3, etc.
@@ -346,6 +356,7 @@ public class Deck implements JsonInterface {
     private boolean isIndexProvidedByUserValid(int indexProvided) {
         return indexProvided <= cards.size() && indexProvided > 0;
     }
+    //@author
 
     public Deck duplicateMyself() {
         return new Deck(DeepCopy.duplicateCards(cards), deckName);
@@ -367,17 +378,19 @@ public class Deck implements JsonInterface {
         return this.getTestSessionList().getNumberOfSessions();
     }
 
-    /** Gets the number of cards in this deck. */
+    /** Gets the number of cards in this deck.
+     * @return Integer value of the size of deck.
+     */
     public int getSize() {
         return cards.size();
     }
+    //@@author nattanyz
 
-    /** Get the average score for the sessions has engaged in pertaining to this deck. */
-    //public Double getAverageScore() {
-    //    return this.deckStats.getAverageScore();
-    //}
-    //@@author
-
+    /**
+     * Returns a duplicate of the deck.
+     *
+     * @return Deck object of the duplicated deck.
+     */
     public Deck duplicate() {
         ArrayList<FlashCard> duplicated = new ArrayList<>();
 

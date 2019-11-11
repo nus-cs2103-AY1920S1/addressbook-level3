@@ -39,10 +39,10 @@ Responsibilities: In charge of Statistics, did first draft of application's GUI,
 
 === Abdul Haliq
 image::ahaliq.png[width="150", align="left"]
-{empty}[https://github.com/ahaliq[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/ahaliq[github]] [<<ahaliq#, portfolio>>]
 
 Role: Developer +
-Responsibilities: TBC
+Responsibilities: In charge of Storage, JSON Parsing, cli interface. Heavily contributed to high level architecture.
 
 '''
 
@@ -54,3 +54,13 @@ Role: Developer +
 Responsibilities: TBC
 
 ...
+
+=== Muhammad Taha bin Jailani
+image::phirehandy.png[width="150", align="left"]
+{empty}[https://github.com/phirehandy[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: In charge of Undo/Redo feature. Helped to populate and maintain Responses Enums and CLI parsing.
+
+...
+

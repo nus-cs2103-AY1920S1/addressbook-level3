@@ -25,12 +25,6 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
-image::ArchitectureDiagram_FlashCardPro.png[]
-
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-
-
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
@@ -45,14 +39,7 @@ The rest of the App consists of four components.
 * <<Design-Util,*`Utilities`*>>: Shared resources of the App.
 
 
-
 [discrete]
-==== How the architecture components interact with each other
-
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user <<TBC>>.
-
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram_FlashCardPro.png[]
 
 The sections below give more details of each component.
 
@@ -149,6 +136,7 @@ image::PriorityFlashCardTestSetSequenceDiagram.png[]
 // end::cards[]
 
 [[Design-Storage]]
+// tag::storage[]
 === Storage component
 
 .Structure of the Storage Component
@@ -195,6 +183,22 @@ Java code into the file
 and used to run the code in each card.
 
 To be implemented: An in-app Flashcard Pro compiler and debugger for JS and Java as a playground for the user
+
+=== Regex Component
+// tag::regexutil[]
+Having that we are using the regex approach to parsing, some common parsing and regex creation methods
+are stored in the following class:
+
+*API* : link:{repoURL}/src/main/java/dream/fcard/util/RegexUtil.java[`RegexUtil.java`]
+
+RegexUtil#commandFormatRegex` creates a regex that starts with the `command` argument and lookaheads
+for the elements of `args`. Thus a regex for the input `create front/asd back/dsa` can be created with
+`commandFormatRegex("create", new String[]{"front/", "back/"});`.
+
+`RegexUtil#parseCommandFormat` is an algorithm that parses user input and returns the resulting values
+from the input. Following the previous example, parsing the input will create an arraylist of two arraylists.
+The first arraylist contains one element `"asd"` and the second arraylist contains one element `"dsa"`;
+parallel to the arguments of the input.
 
 
 [[Design-Commons]]

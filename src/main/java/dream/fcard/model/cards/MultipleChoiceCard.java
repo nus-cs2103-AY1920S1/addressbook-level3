@@ -19,6 +19,7 @@ import dream.fcard.util.json.jsontypes.JsonValue;
  * FrontBackCard with additional data of multiple choices.
  */
 public class MultipleChoiceCard extends FrontBackCard {
+    //@author huiminlim
     private ArrayList<String> choices;
     private ArrayList<String> displayChoices;
 
@@ -28,9 +29,10 @@ public class MultipleChoiceCard extends FrontBackCard {
     // Answer index is 1-based
     private int answerIndex;
 
+    //@author
+
     // Answer index is 1-based
     private int userAttempt = -1;
-
     /**
      * Construct a multiple choice card.
      *
@@ -387,9 +389,9 @@ public class MultipleChoiceCard extends FrontBackCard {
     }
 
     /**
-     * Retrieve the user's attempt within the same test.
+     * Get the user's attempt within the same test.
      *
-     * @return
+     * @return Integer value of the attempt.
      */
     public int getUserAttempt() {
         return userAttempt;
@@ -398,12 +400,17 @@ public class MultipleChoiceCard extends FrontBackCard {
     /**
      * Set the user's attempt in the test.
      *
-     * @param userAttempt
+     * @param userAttempt Integer value of the attempt.
      */
     public void setUserAttempt(int userAttempt) {
         this.userAttempt = userAttempt;
     }
 
+    /**
+     * Returns a duplicate of the flash card.
+     *
+     * @return FlashCard object of the duplicated card.
+     */
     @Override
     public FlashCard duplicate() {
         String frontText = front;
@@ -412,6 +419,11 @@ public class MultipleChoiceCard extends FrontBackCard {
         return new MultipleChoiceCard(frontText, backText, choiceDuplicate);
     }
 
+    /**
+     * Returns the result of the card.
+     *
+     * @return Integer value of the score of the card.
+     */
     @Override
     public int getCardResult() {
         return this.cardResult;
