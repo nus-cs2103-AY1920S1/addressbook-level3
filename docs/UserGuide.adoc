@@ -90,7 +90,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [IMPORTANT]
 ====
-include::UserGuide.adoc[tag=alice-full]
+include::UserGuide.adoc[tag=user-profile-full]
 ====
 
 . Refer to <<Features>> for details of each command.
@@ -261,8 +261,7 @@ ___
 
 [IMPORTANT]
 ====
-When you first start using TimeBook, a default profile has been created for you!
-This default profile will have a default name: `User`
+include::UserGuide.adoc[tag=user-profile-brief]
 
 To personalize TimeBook and make it yours, use the `edituser` command as described below.
 ====
@@ -758,7 +757,7 @@ Format: `show g/GROUP_NAME`
 
 [IMPORTANT]
 ====
-include::UserGuide.adoc[tag=alice-full]
+include::UserGuide.adoc[tag=user-profile-full]
 ====
 
 Examples:
@@ -1080,15 +1079,16 @@ There is no need to save manually.
 == FAQ
 [qanda]
 [[alice-notice]]
-Who is Alice? / How do I store my details and schedule?::
-// tag::alice-full[]
-// tag::alice-brief[]
-When you first start using TimeBook, it will create a hidden person called `Alice` to store your details and schedule. This profile will be a member of every group you create.
-// end::alice-brief[]
+How do I store my details and schedule?::
+// tag::user-profile-full[]
+// tag::user-profile-brief[]
+When you first start using TimeBook, a default profile will be created for you!
+This default profile will have a default name: `User`
+// end::user-profile-brief[]
  +
 {nbsp} +
-To personalize TimeBook and make it yours, rename `Alice` by entering the command `edituser n/Your Name Here`. If you'd like to fill in more details, you can do so using the <<edit-user-command,`edituser` command>>.
-// end::alice-full[]
+To personalize TimeBook and make it yours, rename `User` by entering the command `edituser n/Your Name Here`. If you'd like to fill in more details, you can do so using the <<edit-user-command,`edituser` command>>.
+// end::user-profile-full[]
 +
 {nbsp} +
 How do I transfer my data to another Computer?::

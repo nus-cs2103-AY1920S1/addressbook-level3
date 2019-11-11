@@ -65,7 +65,7 @@ include::../UserGuide.adoc[tag=suggestions-autocomplete]
 '''
 
 How do I store my details and schedule?::
-include::../UserGuide.adoc[tag=alice-full]
+include::../UserGuide.adoc[tag=user-profile-full]
 
 == Developer Guide Contributions
 
