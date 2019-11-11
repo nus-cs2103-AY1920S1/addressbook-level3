@@ -171,8 +171,8 @@ and illustrate technical details.
 include::../DeveloperGuide.adoc[tag=apicomponent]
 
 |===
-|_The following are sections for features I wrote to illustrate the implementation of the Api Model classes, Image Retrieval, and generation of Recommendations._
+|_Moreover, I also contributed in the developer guide, the implementation of the Api Model classes, Image Retrieval, and generation of Recommendations. The following is only an excerpt of my design considerations. The full portion can be found https://ay1920s1-cs2103t-f13-4.github.io/main/DeveloperGuide.html#online-data[here]_
 |===
 
-include::../DeveloperGuide.adoc[tag=onlinedata]
+include::../DeveloperGuide.adoc[tag=apiimpl]
 
