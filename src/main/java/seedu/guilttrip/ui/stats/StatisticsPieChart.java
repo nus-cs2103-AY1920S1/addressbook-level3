@@ -73,7 +73,7 @@ public class StatisticsPieChart extends UiPart<Region> {
         for (int i = 0; i < statsMap.size(); i++) {
             CategoryStatistics t = statsMap.get(i);
             if (t.getAmountCalculated() != 0) {
-                double percentage = (double)Math.round(t.getAmountCalculated() / totalAmount * 100);
+                double percentage = (double) Math.round(t.getAmountCalculated() / totalAmount * 100);
                 String dataToShow = t.getCategoryName() + " (" + percentage + "%)";
                 toAdd.add(new PieChart.Data(dataToShow, t.getAmountCalculated()));
             }
