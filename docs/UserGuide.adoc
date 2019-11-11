@@ -572,6 +572,8 @@ Here are your overdue flashcards:
 
 == Notes Feature:
 
+//tag::notesAdd[]
+
 [IMPORTANT]
 ====
 All the operations in this section assume that the user is in the _notes_ mode. To be sure
@@ -658,6 +660,8 @@ NOTE: Note fragment tags can be used for filtering notes (see Section 6.6), or f
 For a clearer visualization of note fragments, compare the `view` (see Section 6.3) and `viewraw` (see Section 6.4)
 commands.
 
+//end::notesAdd[]
+
 === Deleting a note: `delete`
 
 Deletes the note of index `NOTE_INDEX`.
@@ -692,10 +696,15 @@ Deleted note:
     Tags: [about]
 ```
 
+
 [IMPORTANT]
 
 Inputting invalid commands will *NOT* offer another prompt to the user.
 For example, calling `delete 3`, then an `invalid command` and then `delete 3` again will immediately delete the 3rd item without a prompt.
+
+
+//tag::notesView[]
+
 
 === Viewing a note: `view`
 
@@ -743,6 +752,8 @@ Viewing raw note:
     Tags: [about]
 ```
 
+//end::notesView[]
+
 === Listing notes: `list`
 
 Lists all notes found in StudyBuddyPro.
@@ -773,6 +784,8 @@ Listing all notes:
 
 NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will not be listed along with the notes. To
 visualize specific note fragment tags, use the `filter` command (see Section 6.6).
+
+//tag::notesFilter[]
 
 === Filtering by tags: `filter`
 
@@ -808,6 +821,8 @@ Filter notes by tag(s) :
 
 NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will be labeled with '1-1', '1-2', '2-1' etc.
 '5-1' means 'the first note fragment tag in the fifth note'.
+
+//end::notesFilter[]
 
 === Editing a note: `edit` (Coming in v2.0)
 
