@@ -2,6 +2,10 @@
 package dream.fcard.logic.stats;
 
 import dream.fcard.logic.storage.Schema;
+import dream.fcard.model.Deck;
+import dream.fcard.model.State;
+import dream.fcard.model.StateHolder;
+import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonArray;
@@ -163,6 +167,26 @@ public class DeckStats extends Stats implements JsonInterface {
      */
     public void deleteDeck(String deckName) {
         this.deckHashMap.remove(deckName);
+    }
+
+    /** Gets the total number of decks, as an int. */
+    public int getTotalNumberOfDecks() {
+        return this.deckHashMap.size();
+    }
+
+    /** Gets the total number of cards of all decks, as an int. */
+    public int getTotalNumberOfCards() {
+        State state = StateHolder.getState();
+        int totalNumberOfCards = 0;
+        for (String deckName : this.deckHashMap.keySet()) {
+            try {
+                Deck deck = state.getDeck(deckName);
+                totalNumberOfCards += deck.getSize();
+            } catch (DeckNotFoundException e) {
+                logger.info("Deck " + deckName + " was not found!");
+            }
+        }
+        return totalNumberOfCards;
     }
 
     @Override

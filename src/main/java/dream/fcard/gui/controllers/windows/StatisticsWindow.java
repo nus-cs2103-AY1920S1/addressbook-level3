@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import dream.fcard.core.commons.core.LogsCenter;
+import dream.fcard.logic.stats.DeckStats;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.stats.UserStats;
@@ -33,6 +34,14 @@ public class StatisticsWindow extends ScrollPane {
     @FXML
     private Label sessionsThisWeekExplainer;
     @FXML
+    private Label numDecksTotal;
+    @FXML
+    private Label numDecksTotalExplainer;
+    @FXML
+    private Label numCardsTotal;
+    @FXML
+    private Label numCardsTotalExplainer;
+    @FXML
     private Label totalDuration;
     @FXML
     private Label averageDuration;
@@ -46,6 +55,7 @@ public class StatisticsWindow extends ScrollPane {
     private TableView<Deck> deckTableView;
 
     private UserStats userStats;
+    private DeckStats deckStats;
 
     private Logger logger = LogsCenter.getLogger(StatisticsWindow.class);
 
@@ -63,6 +73,7 @@ public class StatisticsWindow extends ScrollPane {
         }
 
         this.userStats = StatsHolder.getUserStats();
+        this.deckStats = StatsHolder.getDeckStats();
         displaySummaryStats();
 
         this.sessionsTableView = StatsDisplayUtil.getUserSessionsTableView();
@@ -86,6 +97,14 @@ public class StatisticsWindow extends ScrollPane {
         this.sessionsThisWeek.setText(String.valueOf(numSessionsThisWeek));
         this.sessionsThisWeekExplainer.setText("login"
             + (numSessionsThisWeek == 1 ? " session" : " sessions") + " this week");
+
+        int numDecks = deckStats.getTotalNumberOfDecks();
+        this.numDecksTotal.setText(String.valueOf(numDecks));
+        this.numDecksTotalExplainer.setText(numDecks == 1 ? " deck" : "decks");
+
+        int numCards = deckStats.getTotalNumberOfCards();
+        this.numCardsTotal.setText(String.valueOf(numCards));
+        this.numCardsTotalExplainer.setText(numCards == 1 ? " card" : " cards");
 
         String duration = userStats.getSessionList().getTotalDurationAsString();
         this.totalDuration.setText("Total login duration: " + duration);
