@@ -1,0 +1,99 @@
+= Leow Jit Yong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: AddressBook - Level 3
+
+
+== Overview
+
+The purpose of this document is to showcase my contributions to SecureIT, a group project developed by my team under the
+Software Engineering module (CS2103T) in NUS. In this module, my team and I were tasked to enhance a basic command line
+interface desktop application called _Address Book 3 (AB3)_. We have decided to morph AB3 to become our current product - SecureIT.
+
+This is a snapshot of how SecureIT looks like!
+
+.The graphical user interface for SecureIT in its Notes component.
+
+image::SecureIT.png[width="600"]
+
+== About this Project
+SecureIT is a secure information management system that enables office workers to securely manage important data such as
+passwords, notes, files and credit card information completely offline.
+Users are able to interact with SecureIT via the Command-line Interface (CLI) which requires users to issue commands
+to the application in the form of successive lines of text.
+My role in this project was to design and implement all features related to notes in SecureIT.
+
+In this document, I will be providing detailed descriptions and explanations to illustrate
+my contributions to SecureIT’s key features. I have also included the relevant documentations from the user and
+developer guide to aid in the illustration of the application’s key features.
+
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to undo/redo previous commands*
+** What it does: gives users the ability to undo and redo commands one at a time.
+Preceding undo commands can be reversed by using the redo command.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement affects existing commands and commands to be added in future.
+It required an in-depth analysis of design alternatives.
+The implementation too was challenging as it required changes to existing commands.
+
+* *Major enhancement*: Added *the ability to sort the note book*
+** What it does: gives users the ability to sort the notes in the note book using different conditions.
+Users are able to sort the note book using more than one condition at one time.
+** Justification: This features is very useful for users because users should be able to view their notes in the order
+that is most relevant to them and the app should provide a convenient way to sort them accordingly.
+notes most relevant to them are arranged at the top.
+** Highlights: This enhancement affects existing commands and commands to be added in the future.
+It requires a non trivial implementation of the Java's Comparator class to achieve multi-variable sort.
+
+* *Minor Enhancement*: Added *the ability to open note*
+** What it does: gives users the ability to open a note and edit it through the UI.
+** Justification: This feature helps make reading and editing notes in the app much easier, which is required for an enhanced
+user experience.
+** Highlights: To implement this feature, an additional UI panel was created to display the note.
+This UI panel supports editing of the note's contents directly and saving the changes back to the note.
+The implementation was challenging as it required changes to existing commands.
+
+* *Code contributed*: [https://github.com/AY1920S1-CS2103T-F11-3/main/tree/master/src/[main]] [https://github.com/AY1920S1-CS2103T-F11-3/main/tree/master/src/[test]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
+*** Contributed to the implementation of the key encryption and decryption util classes. (Pull request https://github.com/AY1920S1-CS2103T-F11-3/main/pull/36[#36])
+** Enhancements to existing features:
+*** Updated GUI with editable split planes as well as overall edits (Pull requests  https://github.com/AY1920S1-CS2103T-F11-3/main/pull/68[#68])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#xxx])
+** Documentation:
+*** Updated general UML diagrams in Developer Guide to explain the app. (Pull request https://github.com/AY1920S1-CS2103T-F11-3/main/pull/57[#57])
+** Community:
+*** PRs reviewed (with non-trivial review comments): xxx
+*** Reported bugs and suggestions for teammates (examples:  https://github.com/AY1920S1-CS2103T-F11-3/main/issues/87[#87], https://github.com/AY1920S1-CS2103T-F11-3/main/issues/184[#184])
+*** Reported bugs and suggestions for other teams (examples:  https://github.com/jityong/ped/issues/5[#5], https://github.com/jityong/ped/issues/7[#7], https://github.com/jityong/ped/issues/4[#4])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=openNote]
+
+include::../UserGuide.adoc[tag=undoRedo]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=notesFeature]
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
