@@ -794,7 +794,7 @@ _{ more test cases ... }_
 _{ more test cases ... }_
 
 // tag::reportTesting[]
-=== Generating the report
+=== Testing the generation of the report
 
 [NOTE]
 All test cases assume an empty meal log prior to the inputs. To ensure this, you can go to the directory where you installed CaloFit, click on the "data" directory, and delete the mealLog.json file before restarting the application.
