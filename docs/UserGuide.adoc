@@ -56,10 +56,6 @@ Currently, we have the `Main`, `Schedule`, `Finance` and `Statistics` Tab.
 
 . Refer to <<Features>> for details of each command.
 
-=== Understanding the GUI Components
-
-**To be filled**
-
 //tag::DeXun1[]
 === CLI Usage & Command Formatting
 

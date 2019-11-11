@@ -92,16 +92,48 @@ https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/a
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are extracted sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+My other contributions are found in Section 2.2, 3.2, 3.4.5, 3.4.6, 3.4.7._
 |===
 
-include::../UserGuide.adoc[tag=DeXun1]
-include::../UserGuide.adoc[tag=DeXun2]
+[[set_ev_dt]]
+==== Setting a Date&Time to an Event: `set_ev_dt`
+
+Sets a Date-Time Schedule Mapping for a specific Event.
+
+[NOTE]
+Even though the start date and end dates of each event is stated, the event is not assumed to be held for the entire range.
+Hence, the Date-Time setting feature enables the user to _declare and set_ the schedule of the event.
+Events are initialized without any schedule, other than their stated start and end date with a default time of __0800-1800__.
+
+Format: `set_ev_dt EVENT_INDEX [on/EVENT_DATE] [till/EVENT_DATE] time/EVENT_DAYTIME`
+
+****
+* Note the <<Constraints>> for *INDEX*, *DATE*, and *TIME PERIOD*.
+* If *both* the `on/` and `till/` prefixes are *not used*, then all dates inclusive of the start to end date of the target event will be set with the stated `EVENT_DAYTIME`.
+* If *both* the `on/` and `till/` prefixes are used, then the date range (inclusive) from the start to end date stated will be set with the stated `EVENT_DAYTIME`.
+* If *only* the `on/` prefix is used, it will just set the `EVENT_DAYTIME` for the __single__ stated `EVENT_DATE`.
+* The `till/` prefix must be used with the `on/` prefix, and not by itself.
+* All `EVENT_DATE` *must be within the range of the Target Event's Start and End Date*
+* The `EVENT_DATE` declared by the `on/` prefix cannot be after the `EVENT_DATE` declared by the `till/` prefix
+****
+
+Examples:
+
+* `set_ev_dt 2 on/02/10/2019 time/1000-2000` +
+Sets the 2nd Event from the Event List a time period of 10am-8pm on the 2nd of October 2019.
+
+* `set_ev_dt 3 time/0500-1500` +
+Sets the 3rd Event from the Event List a time period of 5am-3pm on all dates from the start to the end date (inclusive) of the Event.
+
+* `set_ev_dt 1 on/02/10/2019 till/10/10/2019 time/0500-1500` +
+Sets the 1st Event from the Event List a time period of 5am-3pm on all dates from the 2nd of October to the 10th of October (inclusive).
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+My other contributions are found in Section _
 |===
 
 include::../DeveloperGuide.adoc[tag=DeXun]
