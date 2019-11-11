@@ -587,7 +587,9 @@ If there are conflicts with the existing schedules, use the `-allow` flag to all
 Note:
 
 - You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule.
-- Venue that is too long will be truncated / not visible on the calendar schedule. Simple hover your cursor over the schedule, the full venue should appear as a temporary pop-up in a while.
+- Venue that is too long will be truncated / not visible on the calendar schedule.
+- If a schedule spans across 2 days, the order index and venue might not be visible.
+- Simple hover your cursor over the schedule (where content is truncated), the full string (order index + venue) should appear as a temporary pop-up in a while.
 ****
 [underline]#Format#: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow]` +
 
