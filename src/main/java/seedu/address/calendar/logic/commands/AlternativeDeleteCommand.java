@@ -1,5 +1,11 @@
 package seedu.address.calendar.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import seedu.address.calendar.logic.parser.Option;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.event.Commitment;
 import seedu.address.calendar.model.event.Event;
@@ -8,14 +14,8 @@ import seedu.address.calendar.model.event.EventType;
 import seedu.address.calendar.model.event.Holiday;
 import seedu.address.calendar.model.event.SchoolBreak;
 import seedu.address.calendar.model.event.Trip;
-import seedu.address.calendar.logic.parser.Option;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents an alternative delete command (used when users are given suggestions for delete).

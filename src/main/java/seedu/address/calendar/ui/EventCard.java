@@ -1,10 +1,10 @@
 package seedu.address.calendar.ui;
 
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 /**
  * Represent an event card.

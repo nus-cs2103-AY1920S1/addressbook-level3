@@ -1,12 +1,12 @@
 package seedu.address.calendar.logic.parser;
 
-import seedu.address.calendar.model.util.DateUtil;
-import seedu.address.calendar.model.date.MonthOfYear;
-import seedu.address.logic.parser.exceptions.ParseException;
-
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import seedu.address.calendar.model.date.MonthOfYear;
+import seedu.address.calendar.model.util.DateUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 class MonthParser {
     private static final String FORMAT_ERROR_MESSAGE = "Incorrect month format.";

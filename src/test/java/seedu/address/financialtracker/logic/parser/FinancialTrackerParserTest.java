@@ -1,14 +1,14 @@
 package seedu.address.financialtracker.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.financialtracker.logic.commands.AddFinCommand;
 import seedu.address.financialtracker.logic.commands.DeleteFinCommand;
-import seedu.address.financialtracker.logic.commands.EditFinCommand;
 import seedu.address.financialtracker.model.expense.Amount;
-import seedu.address.financialtracker.model.expense.Country;
 import seedu.address.financialtracker.model.expense.Date;
 import seedu.address.financialtracker.model.expense.Description;
 import seedu.address.financialtracker.model.expense.Expense;
