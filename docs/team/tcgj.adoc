@@ -110,9 +110,16 @@ that provide clarification and support in usage for the users who are using the 
 I wrote detailed sections about the usage of commands that are in the Budget Buddy application, to guide users in the format and
 specifications required for those commands. An extract from the User Guide that were written by me is shown in section 5.2 below.
 
-include::../UserGuide.adoc[tag=rules]
+include::../UserGuide.adoc[tag=ruleExtract1]
 
-include::../UserGuide.adoc[tag=ruleswap]
+include::../UserGuide.adoc[tag=ruleExtract2]
+
+include::../UserGuide.adoc[tag=ruleExtract3]
+
+The rest of the formatting guide can be found in the User Guide.
+****
+
+include::../UserGuide.adoc[tag=ruleExtract4]
 
 == Contributions to the Developer Guide
 
