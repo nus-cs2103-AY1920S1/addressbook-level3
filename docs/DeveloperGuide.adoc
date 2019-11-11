@@ -492,6 +492,8 @@ Step 2: The command then calls Model#enqueuePatient to enqueue the patient into 
 Step 3: Patient will then displayed in the queue.
 
 // end::queue[]
+
+// tag::appointment[]
 === Appointment feature
 
 The Appointment feature enables users to manage appointments for patients by providing basic Create, Read, Update, Delete (CRUD) of appointments. User is also able to find missed appointments and settle each missed appointment efficiently.
@@ -520,8 +522,9 @@ The Appointment feature contains multiple operations to indirectly manipulate th
 
 `settleappt` Command - Removes a missed appointment.
 
+The appointment class diagram below illustrates the interactions between the Appointment class and associated classes.
 
-.Appointment class diagram illustrating interactions between the Appointment class and associated classes.
+.Appointment class diagram
 image::AppointmentClassDiagram.png[]
 
 he appointment will be rejected by the system, if there are insufficient staff doctors on duty at the time of the appointment. +
@@ -602,7 +605,9 @@ In future implementations, i.e. v2.0, the valid timing slot will be given based 
 * **Alternative 2:** Keeps the onscreen clutter at a minimum and stays in line with the CLI concept.
 ** Pros: Makes it easier to implement.
 ** Cons: Increases difficulty in freely accessing appointments.
+// end::appointment[]
 
+// tag::shift[]
 === Duty Shift Scheduling
 
 The duty shift scheduling provides users the ability to schedule duty shifts for doctors. It can help doctors to check, add, edit duty shifts efficiently.
@@ -654,6 +659,8 @@ image::ChangeShiftActivityDiagram.png[]
 ==== `cancelshift` Command
 
 `cancelshift` simply takes in the index of the target duty shift to cancel according to the displayed shift list.
+
+// end::shift[]
 
 === Logging
 
