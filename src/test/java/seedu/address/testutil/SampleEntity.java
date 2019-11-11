@@ -12,6 +12,7 @@ import seedu.address.model.EventTime;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.company.Company;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
@@ -34,6 +35,7 @@ public class SampleEntity {
     public static final LocalDate VALID_DAY_AFTER_TODAY = GlobalClock.getStaticDate().plusDays(1);
 
     public static final int VALID_TASK_ID = 1;
+    public static final int VALID_RATING = 5;
     public static final Description VALID_DESCRIPTION = new Description("20 frozen boxes of Red groupers");
     public static final LocalDate VALID_LOCAL_DATE = GlobalClock.getStaticDate();
     public static final EventTime VALID_EVENT_TIME = EventTime.parse("1000 - 1230");
@@ -183,11 +185,15 @@ public class SampleEntity {
 
 
         return new CentralManager(customerManager, driverManager, taskManager, new IdManager(
-                SECOND_VALID_TASK_ID, SECOND_VALID_CUSTOMER.getId(), SECOND_VALID_DRIVER.getId()
-        ));
+                SECOND_VALID_TASK_ID, SECOND_VALID_CUSTOMER.getId(), SECOND_VALID_DRIVER.getId()),
+                new Company());
     }
 
     public static Model getSampleFreshModel() {
         return new ModelManager(SampleEntity.getSampleCentralManager(), new UserPrefs());
+    }
+
+    public static Model getSampleEmptyModel() {
+        return new ModelManager(new CentralManager(), new UserPrefs());
     }
 }

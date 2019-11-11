@@ -1,4 +1,4 @@
-package seedu.address.model.pdfmanager;
+package seedu.address.model.pdfmanager.pdftasksummary;
 
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.layout.Document;

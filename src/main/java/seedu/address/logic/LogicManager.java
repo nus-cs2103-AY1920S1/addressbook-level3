@@ -10,8 +10,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.CommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Customer;
@@ -30,25 +31,30 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final CommandHistory commandHistory;
+    private final CommandParser commandParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        commandParser = new CommandParser();
+        commandHistory = new CommandHistory();
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
+
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = commandParser.parseCommand(commandText);
         commandResult = command.execute(model);
+
+        model.addCommand(commandText);
 
         try {
             storage.saveManager(new CentralManager(model.getCustomerManager(), model.getDriverManager(),
-                    model.getTaskManager(), model.getIdManager()));
+                    model.getTaskManager(), model.getIdManager(), model.getCompany()));
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -102,6 +108,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<String> getCommandList() {
+        return model.getFilteredCommandList();
+    }
+
+
+    @Override
     public void refreshFilteredTaskList() {
         model.refreshFilteredTaskList();
     }
@@ -123,5 +135,15 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public Driver getDriver(int driverId) {
+        return model.getDriver(driverId);
+    }
+
+    @Override
+    public Customer getCustomer(int customerId) {
+        return model.getCustomer(customerId);
     }
 }

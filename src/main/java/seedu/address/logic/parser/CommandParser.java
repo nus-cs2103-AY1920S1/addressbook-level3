@@ -27,15 +27,17 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ReadIdCommand;
 import seedu.address.logic.commands.SavePdfCommand;
 import seedu.address.logic.commands.SuggestCommand;
+import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.commands.ViewCustomerTaskCommand;
+import seedu.address.logic.commands.ViewCustomerWindowCommand;
 import seedu.address.logic.commands.ViewDriverTaskCommand;
-
+import seedu.address.logic.commands.ViewDriverWindowCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class CommandParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -98,6 +100,9 @@ public class AddressBookParser {
         case SavePdfCommand.COMMAND_WORD:
             return new SavePdfCommandParser().parse(arguments);
 
+        case UpdateCommand.COMMAND_WORD:
+            return new UpdateCommandParser().parse(arguments);
+
         case FindCustomerCommand.COMMAND_WORD:
             return new FindCustomerCommandParser().parse(arguments);
 
@@ -118,6 +123,12 @@ public class AddressBookParser {
 
         case GoCommand.COMMAND_WORD:
             return new GoCommandParser().parse(arguments);
+
+        case ViewCustomerWindowCommand.COMMAND_WORD:
+            return new ViewCustomerWindowCommandParser().parse(arguments);
+
+        case ViewDriverWindowCommand.COMMAND_WORD:
+            return new ViewDriverWindowCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

@@ -86,6 +86,7 @@ public class Customer extends Person {
         customerBuilder.append(" Customer stats: \n")
                 .append(" id: ")
                 .append(getId())
+                .append(" ")
                 .append(super.toString());
         return customerBuilder.toString();
     }

@@ -11,10 +11,24 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+
+Class DriverListPanel
+Class DriverCard
+Class CustomerListPanel
+Class CustomerCard
+Class AssignedTaskListPanel
+Class AssignedTaskCard
+Class UnassignedTaskListPanel
+Class UnassignedTaskCard
+Class CompletedTaskListPanel
+Class CompletedTaskCard
+Class IncompleteTaskListPanel
+Class IncompleteTaskCard
+
+
 Class StatusBarFooter
 Class CommandBox
+
 }
 
 package Model <<Rectangle>> {
@@ -33,25 +47,54 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
+MainWindow *-down-> DriverListPanel
+MainWindow *-down-> CustomerListPanel
+MainWindow *-down-> AssignedTaskListPanel
+MainWindow *-down-> UnassignedTaskListPanel
+MainWindow *-down-> CompletedTaskListPanel
+MainWindow *-down-> IncompleteTaskListPanel
 MainWindow *-down-> StatusBarFooter
 
-PersonListPanel -down-> PersonCard
+DriverListPanel -down-> DriverCard
+CustomerListPanel -down-> CustomerCard
+AssignedTaskListPanel -down-> AssignedTaskCard
+UnassignedTaskListPanel -down-> UnassignedTaskCard
+CompletedTaskListPanel -down-> AssignedTaskCard
+IncompleteTaskListPanel -down-> UnassignedTaskCard
+
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+
+DriverListPanel --|> UiPart
+DriverCard --|> UiPart
+CustomerListPanel --|> UiPart
+CustomerCard --|> UiPart
+AssignedTaskListPanel --|> UiPart
+AssignedTaskCard --|> UiPart
+UnassignedTaskListPanel --|> UiPart
+UnassignedTaskCard --|> UiPart
+CompletedTaskListPanel --|> UiPart
+CompletedTaskCard --|> UiPart
+IncompleteTaskListPanel --|> UiPart
+IncompleteTaskCard --|> UiPart
+
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
-PersonCard ..> Model
+DriverCard ..> Model
+CustomerCard ..> Model
+AssignedTaskCard ..> Model
+UnassignedTaskCard ..> Model
+CompletedTaskCard ..> Model
+IncompleteTaskCard ..> Model
+
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+DriverListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter

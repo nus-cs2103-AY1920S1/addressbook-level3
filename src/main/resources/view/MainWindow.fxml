@@ -13,6 +13,9 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.control.ScrollPane?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="Deliveria" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -65,8 +68,14 @@
 
               <Tab text="History">
                 <SplitPane dividerPositions="0.4">
-                  <VBox>
+
+                  <VBox fx:id="commandList" styleClass="pane-with-border" minWidth="200" prefWidth="200" VBox.vgrow="ALWAYS">
+                    <padding>
+                      <Insets top="10" right="10" bottom="10" left="10" />
+                    </padding>
+                    <StackPane fx:id="commandListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                   </VBox>
+
                   <VBox fx:id="completedTaskList" styleClass="pane-with-border" minWidth="200" prefWidth="200" VBox.vgrow="ALWAYS">
                     <padding>
                       <Insets top="10" right="10" bottom="10" left="10" />
@@ -75,6 +84,12 @@
                   </VBox>
                 </SplitPane>
               </Tab>
+
+                <Tab text = "Statistic">
+                    <VBox>
+                      <StackPane fx:id="statisticPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </Tab>
 
             </tabs>
         </TabPane>

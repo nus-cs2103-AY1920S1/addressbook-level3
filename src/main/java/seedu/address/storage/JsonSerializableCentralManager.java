@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.DriverManager;
+import seedu.address.model.company.Company;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
@@ -30,7 +31,8 @@ public class JsonSerializableCentralManager {
     private final List<JsonAdaptedCustomer> customers = new ArrayList<>();
     private final List<JsonAdaptedDriver> drivers = new ArrayList<>();
     private final List<JsonAdaptedTask> tasks = new ArrayList<>();
-    private JsonAdaptedId idManager;
+    private final JsonAdaptedId idManager;
+    private final JsonAdaptedCompany company;
 
     /**
      * Constructs a {@code JsonSerializableCentralisedManager} with the given lists of entity.
@@ -42,11 +44,13 @@ public class JsonSerializableCentralManager {
     public JsonSerializableCentralManager(@JsonProperty("customers") List<JsonAdaptedCustomer> customers,
                                           @JsonProperty("drivers") List<JsonAdaptedDriver> drivers,
                                           @JsonProperty("tasks") List<JsonAdaptedTask> tasks,
-                                          @JsonProperty("idManager") JsonAdaptedId idManager) {
+                                          @JsonProperty("idManager") JsonAdaptedId idManager,
+                                          @JsonProperty("company") JsonAdaptedCompany company) {
         this.customers.addAll(customers);
         this.drivers.addAll(drivers);
         this.tasks.addAll(tasks);
         this.idManager = idManager;
+        this.company = company;
     }
 
     /**
@@ -67,8 +71,11 @@ public class JsonSerializableCentralManager {
         TaskManager taskManager = centralManager.getTaskManager();
         tasks.addAll(taskManager.getList().stream().map(JsonAdaptedTask::new).collect(Collectors.toList()));
 
-        IdManager idManager = centralManager.getIdManager();
-        this.idManager = new JsonAdaptedId(idManager);
+        IdManager currentIdManager = centralManager.getIdManager();
+        this.idManager = new JsonAdaptedId(currentIdManager);
+
+        Company currentCompany = centralManager.getCompany();
+        this.company = new JsonAdaptedCompany(currentCompany);
     }
 
     /**
@@ -86,7 +93,9 @@ public class JsonSerializableCentralManager {
 
         IdManager idManager = getPopulatedIdManager();
 
-        return new CentralManager(customerManager, driverManager, taskManager, idManager);
+        Company company = getPopulatedCompany();
+
+        return new CentralManager(customerManager, driverManager, taskManager, idManager, company);
     }
 
     private TaskManager getPopulatedTaskManager(CustomerManager customerManager,
@@ -130,5 +139,9 @@ public class JsonSerializableCentralManager {
 
     private IdManager getPopulatedIdManager() throws IllegalValueException {
         return idManager.toModelType();
+    }
+
+    private Company getPopulatedCompany() throws IllegalValueException {
+        return company.toModelType();
     }
 }

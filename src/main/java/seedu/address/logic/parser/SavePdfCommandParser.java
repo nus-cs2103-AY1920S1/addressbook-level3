@@ -1,6 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PDF;
+import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -19,17 +22,23 @@ public class SavePdfCommandParser implements Parser<SavePdfCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SavePdfCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            return new SavePdfCommand(Optional.empty());
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_PDF, PREFIX_DATETIME);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_PDF)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SavePdfCommand.MESSAGE_USAGE));
         }
 
-        try {
-            Optional<LocalDate> date = Optional.of(ParserUtil.parseDate(args));
-            return new SavePdfCommand(date);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SavePdfCommand.MESSAGE_USAGE), pe);
+        String documentType = ParserUtil.parsePdfDocumentType(argMultimap.getValue(PREFIX_PDF).get());
+
+        Optional<LocalDate> optionalLocalDate;
+        if (argMultimap.getValue(PREFIX_DATETIME).isPresent()) {
+            optionalLocalDate = Optional.of(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATETIME).get()));
+        } else {
+            optionalLocalDate = Optional.empty();
         }
+
+        return new SavePdfCommand(documentType, optionalLocalDate);
     }
 }

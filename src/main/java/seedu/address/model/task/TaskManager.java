@@ -1,5 +1,6 @@
 package seedu.address.model.task;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -64,6 +65,37 @@ public class TaskManager {
 
     public static List<Task> getFilteredList(List<Task> tasks, Predicate<Task> predicate) {
         return TaskList.getFilteredList(tasks, predicate);
+    }
+
+    public static List<Task> getAssignedTasksOnDate(List<Task> tasks, LocalDate dateOfDelivery) {
+        Predicate<Task> assignedTaskOnDatePredicate = task -> task.getDate().equals(dateOfDelivery)
+                && !task.getStatus().equals(TaskStatus.INCOMPLETE);
+        List<Task> assignedTaskOnDateList = getFilteredList(tasks, assignedTaskOnDatePredicate);
+
+        return assignedTaskOnDateList;
+    }
+
+    /**
+     * Gets assigned tasks sorted by eventTime.
+     * NOTE: need to filter tasks list so that there is only assigned tasks with EventTime.
+     */
+    public static List<Task> getTasksSortedByEventTime(List<Task> tasks) {
+        Comparator<Task> ascendingEventTimeComparator = Comparator.comparing(t -> {
+            //uses filtered assigned tasks, so eventTime must be present
+            assert t.getEventTime().isPresent();
+            return t.getEventTime().get();
+        });
+
+        List<Task> sortedList = getSortedList(tasks, ascendingEventTimeComparator);
+
+        return sortedList;
+    }
+
+    public static List<Task> getNotCompletedTasks(List<Task> tasks, LocalDate date) {
+        Predicate<Task> notCompletedTasksOnDatePredicate = task -> task.getDate().equals(date)
+                && !task.getStatus().equals(TaskStatus.COMPLETED);
+
+        return getFilteredList(tasks, notCompletedTasksOnDatePredicate);
     }
 
     public static List<Driver> getDriversFromTasks(List<Task> assignedTasks) {

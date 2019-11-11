@@ -70,6 +70,13 @@ public class DriverManager extends EntityManager<Driver> {
         return drivers;
     }
 
+    public static List<Driver> getDriversSortedByName(List<Driver> drivers) {
+        Comparator<Driver> sortByNameComparator = Comparator.comparing(driver -> driver.getName().toString());
+        List<Driver> driversSortedByName = DriverManager.getSortedDriverList(drivers, sortByNameComparator);
+
+        return driversSortedByName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

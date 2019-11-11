@@ -41,7 +41,7 @@ public class EditTaskCommand extends Command {
             + PREFIX_DATETIME + "10/12/2019\n";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_NOTHING_TO_EDIT = "At least one field need to be different to edit.";
+    public static final String MESSAGE_NOTHING_TO_EDIT = "At least one field needs to be different to edit.";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_CANNOT_BE_EDITED = "Completed Task cannot be edited.";
     public static final String MESSAGE_DATE_IS_BEFORE = "Updated date of delivery cannot be before today.";

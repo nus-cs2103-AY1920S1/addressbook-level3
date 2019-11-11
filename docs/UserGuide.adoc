@@ -67,6 +67,15 @@ For example, to edit the description of the delivery task (Task ID:3) : `editT 3
 List all available commands +
 Format: `help`
 
+==== Navigate between tabs : `go`
+
+Navigates to the specified tab Tl state. +
+Format: `go [TAB_NAME]` +
+Examples:
+
+* `go statistic`
+* `go home`
+
 ==== Lists all Task / Driver / Customer : `list`
 
 Displays all Task / Customer / Driver list in it's original state. +
@@ -202,6 +211,26 @@ Deletes task (Task ID: 1) from the task manager.
 Deletes driver (Driver ID: 2) from the driver manager.
 // end::del-command[]
 
+
+==== Views completed delivery tasks delivered to Customer `viewC`
+
+Displays a list of completed tasks delivered to the customer, located in the completed delivery list under History tab.
+
+Examples:
+
+* `viewC 1` +
+View the tasks delivered to the customer (Customer ID: 1).
+
+==== Views completed delivery tasks delivered by Driver: `viewD`
+
+Displays a list of completed tasks delivered by the driver, located in the completed delivery list under History tab.
+
+Examples:
+
+* `viewD 1` +
+View the tasks delivered by the driver (Driver ID: 1).
+
+
 // tag::savepdf-command[]
 ==== Generates Task Summary or Delivery Orders for a specific date in PDF document: `savepdf`
 Document Type: `summary` +
@@ -235,6 +264,7 @@ Saves the task summary in PDF format for 15/11/2019.
 === Customer Management Commands
 
 
+// tag::addc-command[]
 ==== Add a Customer `addC`
 
 Adds customer to the customer manager. +
@@ -247,11 +277,27 @@ Format: `addC [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAGS]`
 Examples:
 
 * `addC n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends`
+// end::addc-command[]
 
+// tag::viewcw-command[]
+==== View full Customer details `viewCW`
+Opens a separate window with all Customer details and a map showing location of Customer Address. +
+Format: `viewCW CUSTOMERID`
 
+[NOTE]
+Working internet connection and valid address is needed for map to work.
+
+****
+* All fields are compulsory.
+****
+
+Examples:
+
+* `viewCW 1`
+// end::viewcw-command[]
 === Driver Management Commands
 
-
+// tag::addd-command[]
 ==== Add a Driver `addD`
 
 Adds driver to the driver manager. +
@@ -264,6 +310,20 @@ Format: `addD [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAGS]`
 Examples:
 
 * `addD n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends`
+// end::addd-command[]
+// tag::viewdw-command[]
+==== View full Driver details `viewDW`
+Opens a separate window with all Driver details +
+Format: `viewDW DRIVERID`
+
+****
+* All fields are compulsory.
+****
+
+Examples:
+
+* `viewDW 1`
+// end::viewdw-command[]
 
 
 === Company Commands
@@ -283,7 +343,6 @@ Examples
 Updates the company's name to "Fast Supply Pte Ltd" and phone no to "67331928".
 * `update r/18387752B gst/-` +
 Updates the company's registration number to "18387752B" and remove GST registration number.
-
 
 == Saving the data
 

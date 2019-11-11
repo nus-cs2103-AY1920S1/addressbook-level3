@@ -4,11 +4,12 @@ import java.util.Objects;
 
 import seedu.address.model.CustomerManager;
 import seedu.address.model.DriverManager;
+import seedu.address.model.company.Company;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.task.TaskManager;
 
 /**
- * A wrapper manager that consists of all the managers used for saving purpose.
+ * Wraps all the data needed to be used for saving and loading.
  */
 public class CentralManager {
 
@@ -16,20 +17,23 @@ public class CentralManager {
     private DriverManager driverManager;
     private TaskManager taskManager;
     private IdManager idManager;
+    private Company company;
 
     public CentralManager() {
         this.customerManager = new CustomerManager();
         this.driverManager = new DriverManager();
         this.taskManager = new TaskManager();
         this.idManager = new IdManager();
+        this.company = new Company();
     }
 
     public CentralManager(CustomerManager customerManager, DriverManager driverManager,
-                          TaskManager taskManager, IdManager idManager) {
+                          TaskManager taskManager, IdManager idManager, Company company) {
         this.customerManager = customerManager;
         this.driverManager = driverManager;
         this.taskManager = taskManager;
         this.idManager = idManager;
+        this.company = company;
     }
 
     public CustomerManager getCustomerManager() {
@@ -48,6 +52,10 @@ public class CentralManager {
         return idManager;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -60,7 +68,8 @@ public class CentralManager {
         return getCustomerManager().equals(that.getCustomerManager())
                 && getDriverManager().equals(that.getDriverManager())
                 && getTaskManager().equals(that.getTaskManager())
-                && getIdManager().equals(that.getIdManager());
+                && getIdManager().equals(that.getIdManager())
+                && getCompany().equals(that.getCompany());
     }
 
     @Override

@@ -1,16 +1,17 @@
 package seedu.address.model.util;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import seedu.address.logic.GlobalClock;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.Description;
 import seedu.address.model.DriverManager;
 import seedu.address.model.EventTime;
+import seedu.address.model.company.Company;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
@@ -32,7 +33,7 @@ import seedu.address.storage.CentralManager;
  */
 public class SampleDataUtil {
 
-    public static final int SAMPLE_LAST_TASK_ID = 5;
+    public static final int SAMPLE_LAST_TASK_ID = 19;
     public static final int SAMPLE_LAST_CUSTOMER_ID = 6;
     public static final int SAMPLE_LAST_DRIVER_ID = 6;
 
@@ -107,43 +108,144 @@ public class SampleDataUtil {
 
     public static Task[] getSampleTask(CustomerManager customerManager, DriverManager driverManager) {
 
-        Task sampleTask1 = new Task(1, new Description("20 frozen boxes of Red groupers"),
-                Task.getDateFromString("10/10/2019"));
-        sampleTask1.setCustomer(customerManager.getCustomer(1));
-        Optional<Driver> driverOptional = Optional.of(driverManager.getDriver(1));
-        Optional<EventTime> eventTimeOptional = Optional.of(EventTime.parse("1000 - 1200"));
-        sampleTask1.setDriverAndEventTime(driverOptional, eventTimeOptional);
-        sampleTask1.setStatus(TaskStatus.COMPLETED);
+        //Event Time selections:
+        Optional<EventTime> eventTime9to10 = Optional.of(EventTime.parse("0900 - 1000"));
+        Optional<EventTime> eventTime10to12 = Optional.of(EventTime.parse("1000 - 1200"));
+        Optional<EventTime> eventTime12to14 = Optional.of(EventTime.parse("1200 - 1400"));
+        Optional<EventTime> eventTime14to16 = Optional.of(EventTime.parse("1400 - 1600"));
+        Optional<EventTime> eventTime16to18 = Optional.of(EventTime.parse("1600 - 1800"));
+        Optional<EventTime> eventTime18to20 = Optional.of(EventTime.parse("1800 - 2000"));
+        Optional<EventTime> eventTime20to21 = Optional.of(EventTime.parse("2000 - 2100"));
 
+        //Customer selections:
+        Customer customer1 = customerManager.getCustomer(1);
+        Customer customer2 = customerManager.getCustomer(2);
+        Customer customer3 = customerManager.getCustomer(3);
+        Customer customer4 = customerManager.getCustomer(4);
+        Customer customer5 = customerManager.getCustomer(5);
+        Customer customer6 = customerManager.getCustomer(6);
+
+        //Driver selections:
+        Optional<Driver> driver1 = Optional.of(driverManager.getDriver(1));
+        Optional<Driver> driver2 = Optional.of(driverManager.getDriver(2));
+        Optional<Driver> driver3 = Optional.of(driverManager.getDriver(3));
+        Optional<Driver> driver4 = Optional.of(driverManager.getDriver(4));
+        Optional<Driver> driver5 = Optional.of(driverManager.getDriver(5));
+        Optional<Driver> driver6 = Optional.of(driverManager.getDriver(6));
+
+
+        //Incomplete delivery tasks:
         Task sampleTask2 = new Task(2, new Description("25 boxes of A4 paper"),
-                Task.getParsedLocalDate(LocalDate.now()));
-        sampleTask2.setCustomer(customerManager.getCustomer(1));
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
+        sampleTask2.setCustomer(customer1);
 
+        Task sampleTask7 = new Task(7, new Description("10 boxes of Coloured paper"),
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
+        sampleTask7.setCustomer(customer1);
+
+        Task sampleTask8 = new Task(8, new Description("1 pair of running shoe"),
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
+        sampleTask8.setCustomer(customer5);
+
+        Task sampleTask14 = new Task(14, new Description("3 Boxes of fresh broccolis"),
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
+        sampleTask14.setCustomer(customer6);
+
+        Task sampleTask15 = new Task(15, new Description("1 bag of rice"),
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
+        sampleTask15.setCustomer(customer5);
+
+
+        //On-going delivery tasks:
         Task sampleTask3 = new Task(3, new Description("25 packs of frozen chicken wings"),
-                Task.getParsedLocalDate(LocalDate.now()));
-        sampleTask3.setCustomer(customerManager.getCustomer(1));
-        Optional<Driver> optionalDriver = Optional.of(driverManager.getDriver(1));
-        Optional<EventTime> optionalEventTime = Optional.of(EventTime.parse("1000 - 1200"));
-        sampleTask3.setDriverAndEventTime(optionalDriver, optionalEventTime);
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
+        sampleTask3.setCustomer(customer1);
+        sampleTask3.setDriverAndEventTime(driver1, eventTime9to10);
+        driverManager.getDriver(1).addToSchedule(EventTime.parse("0900 - 1000"));
+
+        Task sampleTask9 = new Task(9, new Description("3 dry-fit shirts"),
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
+        sampleTask9.setCustomer(customer5);
+        sampleTask9.setDriverAndEventTime(driver4, eventTime16to18);
+        driverManager.getDriver(4).addToSchedule(EventTime.parse("1600 - 1800"));
+
+        Task sampleTask10 = new Task(10, new Description("1 Basketball"),
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
+        sampleTask10.setCustomer(customer5);
+        sampleTask10.setDriverAndEventTime(driver4, eventTime18to20);
+        driverManager.getDriver(4).addToSchedule(EventTime.parse("1800 - 2000"));
+
+        Task sampleTask19 = new Task(19, new Description("4 Boxes of cutlery products"),
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
+        sampleTask19.setCustomer(customer4);
+        sampleTask19.setDriverAndEventTime(driver1, eventTime10to12);
         driverManager.getDriver(1).addToSchedule(EventTime.parse("1000 - 1200"));
 
+        //Completed delivery tasks:
+        Task sampleTask1 = new Task(1, new Description("20 frozen boxes of Red groupers"),
+                Task.getDateFromString("10/11/2019"));
+        sampleTask1.setCustomer(customer1);
+        sampleTask1.setDriverAndEventTime(driver1, eventTime9to10);
+        sampleTask1.setStatus(TaskStatus.COMPLETED);
+
         Task sampleTask4 = new Task(4, new Description("5 boxes of Chicken Nuggets"),
-                Task.getDateFromString("10/10/2019"));
-        sampleTask4.setCustomer(customerManager.getCustomer(2));
-        Optional<Driver> driverOptional2 = Optional.of(driverManager.getDriver(2));
-        Optional<EventTime> eventTimeOptional2 = Optional.of(EventTime.parse("1000 - 1200"));
-        sampleTask4.setDriverAndEventTime(driverOptional2, eventTimeOptional2);
+                Task.getDateFromString("10/11/2019"));
+        sampleTask4.setCustomer(customer2);
+        sampleTask4.setDriverAndEventTime(driver2, eventTime14to16);
         sampleTask4.setStatus(TaskStatus.COMPLETED);
 
         Task sampleTask5 = new Task(5, new Description("1 Lakewood Guitar"),
-                Task.getDateFromString("10/10/2019"));
-        sampleTask5.setCustomer(customerManager.getCustomer(3));
-        Optional<Driver> driverOptional3 = Optional.of(driverManager.getDriver(1));
-        Optional<EventTime> eventTimeOptional3 = Optional.of(EventTime.parse("1400 - 1600"));
-        sampleTask5.setDriverAndEventTime(driverOptional3, eventTimeOptional3);
+                Task.getDateFromString("8/11/2019"));
+        sampleTask5.setCustomer(customer3);
+        sampleTask5.setDriverAndEventTime(driver3, eventTime14to16);
         sampleTask5.setStatus(TaskStatus.COMPLETED);
 
-        return new Task[]{sampleTask1, sampleTask2, sampleTask3, sampleTask4, sampleTask5};
+        Task sampleTask6 = new Task(6, new Description("6 Fidget Spinners"),
+                Task.getDateFromString("8/11/2019"));
+        sampleTask6.setCustomer(customer3);
+        sampleTask6.setDriverAndEventTime(driver2, eventTime16to18);
+        sampleTask6.setStatus(TaskStatus.COMPLETED);
+
+        Task sampleTask11 = new Task(11, new Description("3 Boxes of Second-hand books"),
+                Task.getDateFromString("9/11/2019"));
+        sampleTask11.setCustomer(customer4);
+        sampleTask11.setDriverAndEventTime(driver2, eventTime10to12);
+        sampleTask11.setStatus(TaskStatus.COMPLETED);
+
+        Task sampleTask12 = new Task(12, new Description("2 Laptop cases"),
+                Task.getDateFromString("9/11/2019"));
+        sampleTask12.setCustomer(customer4);
+        sampleTask12.setDriverAndEventTime(driver4, eventTime14to16);
+        sampleTask12.setStatus(TaskStatus.COMPLETED);
+
+        Task sampleTask13 = new Task(13, new Description("5 Phone cases"),
+                Task.getDateFromString("9/11/2019"));
+        sampleTask13.setCustomer(customer4);
+        sampleTask13.setDriverAndEventTime(driver3, eventTime18to20);
+        sampleTask13.setStatus(TaskStatus.COMPLETED);
+
+        Task sampleTask16 = new Task(16, new Description("3 Lipsticks"),
+                Task.getDateFromString("9/11/2019"));
+        sampleTask16.setCustomer(customer2);
+        sampleTask16.setDriverAndEventTime(driver4, eventTime10to12);
+        sampleTask16.setStatus(TaskStatus.COMPLETED);
+
+        Task sampleTask17 = new Task(17, new Description("1 laptop charger"),
+                Task.getDateFromString("9/11/2019"));
+        sampleTask17.setCustomer(customer3);
+        sampleTask17.setDriverAndEventTime(driver4, eventTime9to10);
+        sampleTask17.setStatus(TaskStatus.COMPLETED);
+
+        Task sampleTask18 = new Task(18, new Description("7 long-sleeve cotton shirts"),
+                Task.getDateFromString("9/11/2019"));
+        sampleTask18.setCustomer(customer4);
+        sampleTask18.setDriverAndEventTime(driver4, eventTime12to14);
+        sampleTask18.setStatus(TaskStatus.COMPLETED);
+
+        return new Task[]{sampleTask1, sampleTask2, sampleTask3, sampleTask4, sampleTask5,
+            sampleTask6, sampleTask7, sampleTask8, sampleTask9, sampleTask10,
+            sampleTask11, sampleTask12, sampleTask13, sampleTask14, sampleTask15,
+            sampleTask16, sampleTask17, sampleTask18, sampleTask19};
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
@@ -161,7 +263,10 @@ public class SampleDataUtil {
 
         IdManager sampleIdManager = getSampleIdManager();
 
-        return new CentralManager(sampleCustomerManager, sampleDriverManager, sampleTaskManager, sampleIdManager);
+        Company sampleCompany = getSampleCompany();
+
+        return new CentralManager(sampleCustomerManager, sampleDriverManager, sampleTaskManager,
+                sampleIdManager, sampleCompany);
     }
 
     private static CustomerManager getSampleCustomerManager() {
@@ -191,6 +296,10 @@ public class SampleDataUtil {
 
     private static IdManager getSampleIdManager() {
         return new IdManager(SAMPLE_LAST_TASK_ID, SAMPLE_LAST_CUSTOMER_ID, SAMPLE_LAST_DRIVER_ID);
+    }
+
+    private static Company getSampleCompany() {
+        return new Company();
     }
 
     /**

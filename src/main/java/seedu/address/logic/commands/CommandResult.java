@@ -12,19 +12,26 @@ public class CommandResult {
 
     private final String feedbackToUser;
     private String tabType;
+    private int id;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
-
     /** The application should exit. */
     private final boolean exit;
+
+    /** ViewWindow should be shown to the user*/
+    private final boolean viewDriver;
+    private final boolean viewCustomer;
 
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.tabType = DEFAULT_TAB;
+        this.viewDriver = false;
+        this.viewCustomer = false;
+        this.id = 0;
     }
 
     /**
@@ -35,6 +42,22 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.tabType = tabType;
+        this.viewDriver = false;
+        this.viewCustomer = false;
+        this.id = 0;
+    }
+
+    /**
+     * Constructs a {@code CommandResult with the specified fields}
+     */
+    public CommandResult(String feedbackToUser, boolean viewDriver, boolean viewCustomer, int id) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.tabType = DEFAULT_TAB;
+        this.viewDriver = viewDriver;
+        this.viewCustomer = viewCustomer;
+        this.id = id;
     }
 
     /**
@@ -53,6 +76,10 @@ public class CommandResult {
         return tabType;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public boolean isShowHelp() {
         return showHelp;
     }
@@ -63,6 +90,14 @@ public class CommandResult {
 
     public boolean isSwitchTab() {
         return !tabType.equals(DEFAULT_TAB);
+    }
+
+    public boolean isShowCustomer() {
+        return viewCustomer;
+    }
+
+    public boolean isShowDriver() {
+        return viewDriver;
     }
 
     @Override

@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.GoCommand.HISTORY_TAB;
 import static seedu.address.logic.commands.GoCommand.HOME_TAB;
+import static seedu.address.logic.commands.GoCommand.STATISTIC_TAB;
 
 import seedu.address.logic.commands.GoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -26,6 +27,8 @@ public class GoCommandParser implements Parser<GoCommand> {
             return new GoCommand(HOME_TAB);
         } else if (tabName.equals(HISTORY_TAB)) {
             return new GoCommand(HISTORY_TAB);
+        } else if (tabName.equals(STATISTIC_TAB)) {
+            return new GoCommand(STATISTIC_TAB);
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoCommand.MESSAGE_USAGE));
         }

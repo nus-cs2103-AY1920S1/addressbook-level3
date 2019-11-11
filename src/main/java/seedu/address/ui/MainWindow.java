@@ -3,6 +3,7 @@ package seedu.address.ui;
 import static seedu.address.commons.core.Messages.MESSAGE_DATA_START_NEW;
 import static seedu.address.logic.commands.GoCommand.HISTORY_TAB;
 import static seedu.address.logic.commands.GoCommand.HOME_TAB;
+import static seedu.address.logic.commands.GoCommand.STATISTIC_TAB;
 
 import java.util.logging.Logger;
 
@@ -42,12 +43,16 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private DriverWindow driverWindow;
+    private CustomerWindow customerWindow;
     private NotificationWindow notificationWindow;
     private AssignedTaskListPanel assignedTaskListPanel;
     private UnassignedTaskListPanel unassignedTaskListPanel;
     private CustomerListPanel customerListPanel;
     private DriverListPanel driverListPanel;
     private CompletedTaskListPanel completedTaskListPanel;
+    private CommandListPanel commandListPanel;
+    private StatisticPanel statisticPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -77,6 +82,12 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane completedTaskListPanelPlaceholder;
 
     @FXML
+    private StackPane commandListPanelPlaceholder;
+
+    @FXML
+    private StackPane statisticPanelPlaceholder;
+
+    @FXML
     private TabPane tabPane;
 
     public MainWindow(Stage primaryStage, Logic logic) {
@@ -92,6 +103,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        driverWindow = new DriverWindow();
+        customerWindow = new CustomerWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -151,6 +164,12 @@ public class MainWindow extends UiPart<Stage> {
         driverListPanel = new DriverListPanel(logic.getFilteredDriverList());
         driverListPanelPlaceholder.getChildren().add(driverListPanel.getRoot());
 
+        commandListPanel = new CommandListPanel(logic.getCommandList());
+        commandListPanelPlaceholder.getChildren().add(commandListPanel.getRoot());
+
+        statisticPanel = new StatisticPanel(logic);
+        statisticPanelPlaceholder.getChildren().add(statisticPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -194,6 +213,32 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the Driver window or focuses on it if it's already opened.
+     */
+    @FXML
+    private void handleShowDriver(int driverId) {
+        driverWindow.fillFields(logic.getDriver(driverId));
+        if (!driverWindow.isShowing()) {
+            driverWindow.show();
+        } else {
+            driverWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the customer window or focuses on it if it's already opened.
+     */
+    @FXML
+    private void handleShowCustomer(int customerId) {
+        customerWindow.fillFields(logic.getCustomer(customerId));
+        if (!customerWindow.isShowing()) {
+            customerWindow.show();
+        } else {
+            customerWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -207,6 +252,8 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        driverWindow.hide();
+        customerWindow.hide();
         primaryStage.hide();
     }
 
@@ -220,6 +267,8 @@ public class MainWindow extends UiPart<Stage> {
             selectionModel.select(0);
         } else if (param.equalsIgnoreCase(HISTORY_TAB)) {
             selectionModel.select(1);
+        } else if (param.equalsIgnoreCase(STATISTIC_TAB)) {
+            selectionModel.select(2);
         }
     }
 
@@ -236,6 +285,14 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isShowCustomer()) {
+                handleShowCustomer(commandResult.getId());
+            }
+
+            if (commandResult.isShowDriver()) {
+                handleShowDriver(commandResult.getId());
             }
 
             if (commandResult.isExit()) {

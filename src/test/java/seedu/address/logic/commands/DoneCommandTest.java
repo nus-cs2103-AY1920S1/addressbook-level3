@@ -10,6 +10,7 @@ import static seedu.address.testutil.SampleEntity.FOURTH_VALID_CUSTOMER;
 import static seedu.address.testutil.SampleEntity.FOURTH_VALID_DESCRIPTION;
 import static seedu.address.testutil.SampleEntity.FOURTH_VALID_EVENT_TIME;
 import static seedu.address.testutil.SampleEntity.FOURTH_VALID_TASK_ID;
+import static seedu.address.testutil.SampleEntity.VALID_RATING;
 import static seedu.address.testutil.SampleEntity.VALID_TASK_ID;
 import static seedu.address.testutil.SampleEntity.getFourthSampleCompletedTask;
 import static seedu.address.testutil.SampleEntity.getFourthSampleDriver;
@@ -40,7 +41,7 @@ class DoneCommandTest {
 
     @Test
     void execute_markIncompleteTaskAsDone_cannotMarkNotOnGoingTask() {
-        DoneCommand doneCommand = new DoneCommand(VALID_TASK_ID);
+        DoneCommand doneCommand = new DoneCommand(VALID_TASK_ID, VALID_RATING);
         Task incompleteTask = model.getTask(VALID_TASK_ID);
         String expectedMessage = String.format(MESSAGE_TASK_NOT_ONGOING, incompleteTask.getStatus());
         assertCommandFailure(doneCommand, model, expectedMessage);
@@ -52,7 +53,7 @@ class DoneCommandTest {
         Task completedTask = getFourthSampleCompletedTask();
         model.addTask(completedTask);
 
-        DoneCommand doneCommand = new DoneCommand(FOURTH_VALID_TASK_ID);
+        DoneCommand doneCommand = new DoneCommand(FOURTH_VALID_TASK_ID, VALID_RATING);
         String expectedMessage = String.format(Task.MESSAGE_TASK_IS_ALREADY_COMPLETED, completedTask.getStatus());
         assertCommandFailure(doneCommand, model, expectedMessage);
     }
@@ -68,7 +69,7 @@ class DoneCommandTest {
         Schedule driverSchedule = onGoingTaskDriver.getSchedule();
         assertFalse(driverSchedule.isAvailable(FOURTH_VALID_EVENT_TIME));
 
-        DoneCommand doneCommand = new DoneCommand(FOURTH_VALID_TASK_ID);
+        DoneCommand doneCommand = new DoneCommand(FOURTH_VALID_TASK_ID, VALID_RATING);
         String expectedMessage = String.format(MESSAGE_MARK_TASK_COMPLETED, onGoingTask.getId());
 
         Task expectedTask = SampleEntity.getCompleteTask(FOURTH_VALID_TASK_ID, FOURTH_VALID_DESCRIPTION,

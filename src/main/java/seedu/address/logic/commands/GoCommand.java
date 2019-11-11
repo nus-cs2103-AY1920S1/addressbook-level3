@@ -11,13 +11,14 @@ public class GoCommand extends Command {
     public static final String DEFAULT_TAB = "default";
     public static final String HOME_TAB = "home";
     public static final String HISTORY_TAB = "history";
+    public static final String STATISTIC_TAB = "statistic";
 
     public static final String COMMAND_WORD = "go";
 
     public static final String MESSAGE_GO_SUCCESS = "Navigated to %s tab!";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Navigates to the specified tab bar "
-            + "the specified keywords (case-sensitive) "
+            + "the specified keywords (case-insensitive) "
             + "\n"
             + "Parameters: TAB_NAME"
             + "\n"

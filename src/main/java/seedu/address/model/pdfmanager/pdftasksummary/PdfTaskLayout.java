@@ -1,4 +1,4 @@
-package seedu.address.model.pdfmanager;
+package seedu.address.model.pdfmanager.pdftasksummary;
 
 import java.util.Optional;
 

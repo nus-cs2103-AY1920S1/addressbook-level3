@@ -1,0 +1,86 @@
+@startuml
+!include style.puml
+
+box Ui UI_COLOR_T1
+participant ":CustomerWindow" as CustomerWindow UI_COLOR
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CommandParser" as CommandParser LOGIC_COLOR
+participant ":ViewCustomerWindowCommandParser" as ViewCustomerWindowCommandParser LOGIC_COLOR
+participant "v:ViewCustomerWindowCommand" as ViewCustomerWindowCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+activate MainWindow
+MainWindow -> LogicManager : execute("viewDW 1")
+activate LogicManager
+
+LogicManager -> CommandParser : parseCommand("del t/1")
+activate CommandParser
+
+create ViewCustomerWindowCommandParser
+CommandParser -> ViewCustomerWindowCommandParser
+activate ViewCustomerWindowCommandParser
+
+ViewCustomerWindowCommandParser --> CommandParser
+deactivate ViewCustomerWindowCommandParser
+
+CommandParser -> ViewCustomerWindowCommandParser : parse("1")
+activate ViewCustomerWindowCommandParser
+
+create ViewCustomerWindowCommand
+ViewCustomerWindowCommandParser -> ViewCustomerWindowCommand : ViewCustomerWindowCommand("1")
+activate ViewCustomerWindowCommand
+
+ViewCustomerWindowCommand --> ViewCustomerWindowCommandParser: v
+deactivate ViewCustomerWindowCommand
+
+ViewCustomerWindowCommandParser --> CommandParser : v
+destroy ViewCustomerWindowCommandParser
+
+CommandParser --> LogicManager : v
+deactivate CommandParser
+
+LogicManager -> ViewCustomerWindowCommand : execute()
+activate ViewCustomerWindowCommand
+
+ViewCustomerWindowCommand -> CommandResult : CommandResult(SHOWING_VIEW_WINDOW, true, false, 1)
+activate CommandResult
+
+CommandResult -> ViewCustomerWindowCommand
+deactivate CommandResult
+
+ViewCustomerWindowCommand --> LogicManager
+destroy ViewCustomerWindowCommand
+
+LogicManager --> MainWindow
+deactivate LogicManager
+
+MainWindow -> LogicManager
+activate LogicManager
+
+
+LogicManager -> Model : getCustomer(1)
+activate Model
+
+Model --> LogicManager
+deactivate Model
+
+LogicManager --> MainWindow
+deactivate LogicManager
+
+MainWindow -> CustomerWindow : show()
+activate CustomerWindow
+
+CustomerWindow --> MainWindow
+deactivate CustomerWindow
+deactivate MainWindow
+
+@enduml

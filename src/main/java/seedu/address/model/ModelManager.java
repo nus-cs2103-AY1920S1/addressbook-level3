@@ -1,26 +1,24 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_ASSIGNED_TASK_FOR_THE_DATE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.company.Company;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
-import seedu.address.model.pdfmanager.PdfCreator;
+import seedu.address.model.pdfmanager.PdfManager;
 import seedu.address.model.pdfmanager.exceptions.PdfNoTaskToDisplayException;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
@@ -42,16 +40,22 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
+
+    private final FilteredList<Task> assignedTasks;
     private final FilteredList<Task> unassignedTasks;
     private final FilteredList<Task> completedTasks;
 
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Driver> filteredDrivers;
 
+    private final FilteredList<String> commandList;
+
     private final TaskManager taskManager;
     private final CustomerManager customerManager;
     private final DriverManager driverManager;
     private final IdManager idManager;
+    private final Company company;
+    private final CommandHistory commandHistory;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -68,13 +72,17 @@ public class ModelManager implements Model {
         this.customerManager = new CustomerManager();
         this.driverManager = new DriverManager();
         this.idManager = new IdManager();
+        this.company = new Company();
+        this.commandHistory = new CommandHistory();
 
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTasks = new FilteredList<>(this.taskManager.getList());
+        assignedTasks = new FilteredList<>(this.taskManager.getList());
         unassignedTasks = new FilteredList<>(this.taskManager.getList());
         completedTasks = new FilteredList<>(this.taskManager.getList());
         filteredCustomers = new FilteredList<>(this.customerManager.getCustomerList());
         filteredDrivers = new FilteredList<>(this.driverManager.getDriverList());
+        commandList = new FilteredList<>(this.commandHistory.getCommandList());
     }
 
     public ModelManager(CentralManager centralManager, ReadOnlyUserPrefs userPrefs) {
@@ -93,12 +101,18 @@ public class ModelManager implements Model {
         this.driverManager = centralManager.getDriverManager();
         this.taskManager = centralManager.getTaskManager();
         this.idManager = centralManager.getIdManager();
+        this.company = centralManager.getCompany();
+        this.commandHistory = new CommandHistory();
+
 
         filteredCustomers = new FilteredList<>(customerManager.getCustomerList());
         filteredDrivers = new FilteredList<>(driverManager.getDriverList());
         filteredTasks = new FilteredList<>(taskManager.getList());
+        assignedTasks = new FilteredList<>(taskManager.getList());
         unassignedTasks = new FilteredList<>(taskManager.getList());
         completedTasks = new FilteredList<>(taskManager.getList());
+        commandList = new FilteredList<>(commandHistory.getCommandList());
+
     }
 
     public ModelManager() {
@@ -335,63 +349,55 @@ public class ModelManager implements Model {
         return idManager.isStartAfresh();
     }
 
-    // ========= PdfCreator =========================================================================
+    // ========= PdfManager =========================================================================
 
     /**
-     * Saves drivers' tasks for a specified date in PDF format.
+     * Generates drivers' tasks for a specified date in PDF format.
      *
      * @param filePath directory to save the PDF file.
      * @param dateOfDelivery date of delivery.
      * @throws IOException if directory is not found.
      * @throws PdfNoTaskToDisplayException if there is no assigned task on the day.
      */
-    public void saveDriverTaskPdf(String filePath, LocalDate dateOfDelivery)
+    public void generateTaskSummaryPdf(String filePath, LocalDate dateOfDelivery)
             throws IOException, PdfNoTaskToDisplayException {
         requireAllNonNull(filePath, dateOfDelivery);
 
-        List<Task> assignedTaskOnDateList = getOnlyAssignedTaskOnDate(taskManager.getList(), dateOfDelivery);
-        List<Task> sortedByEventTimeTasks = getSortedByEventTimeTasks(assignedTaskOnDateList);
+        //sort tasks
+        List<Task> assignedTaskOnDateList = TaskManager.getAssignedTasksOnDate(taskManager.getList(), dateOfDelivery);
+        List<Task> tasksSortedByEventTime = TaskManager.getTasksSortedByEventTime(assignedTaskOnDateList);
+        //sort drivers
+        List<Driver> drivers = TaskManager.getDriversFromTasks(assignedTaskOnDateList);
+        List<Driver> driversSortedByName = DriverManager.getDriversSortedByName(drivers);
 
-        if (assignedTaskOnDateList.size() == 0) {
-            throw new PdfNoTaskToDisplayException(String.format(MESSAGE_NO_ASSIGNED_TASK_FOR_THE_DATE, dateOfDelivery));
-        }
-
-        List<Driver> drivers = getDriversFromTasks(assignedTaskOnDateList);
-        List<Driver> sortedByNameDrivers = getSortedByNameDrivers(drivers);
-
-        PdfCreator pdfCreator = new PdfCreator(filePath);
-        pdfCreator.saveDriverTaskPdf(sortedByEventTimeTasks, sortedByNameDrivers, dateOfDelivery);
+        PdfManager.generateTaskSummary(filePath, tasksSortedByEventTime, driversSortedByName, dateOfDelivery);
     }
 
-    public List<Task> getOnlyAssignedTaskOnDate(List<Task> tasks, LocalDate dateOfDelivery) {
-        Predicate<Task> assignedTaskOnDatePredicate = task -> task.getDate().equals(dateOfDelivery)
-                && !task.getStatus().equals(TaskStatus.INCOMPLETE);
-        List<Task> assignedTaskOnDateList = TaskManager.getFilteredList(tasks, assignedTaskOnDatePredicate);
+    /**
+     * Generates delivery orders for each assigned and incomplete tasks for a specified date in PDF format.
+     *
+     * @param filePath directory to save the PDF file.
+     * @param dateOfDelivery date of delivery
+     * @throws IOException if directory is not found.
+     * @throws PdfNoTaskToDisplayException if there is no assigned task on the day.
+     */
+    public void generateDeliveryOrderPdf(String filePath, LocalDate dateOfDelivery) throws IOException,
+            PdfNoTaskToDisplayException {
+        requireAllNonNull(filePath, dateOfDelivery);
 
-        return assignedTaskOnDateList;
+        List<Task> incompleteAndAssignedTasks = TaskManager.getNotCompletedTasks(taskManager.getList(), dateOfDelivery);
+
+        PdfManager.generateDeliveryOrder(filePath, incompleteAndAssignedTasks, dateOfDelivery, getCompany());
     }
 
-    public List<Task> getSortedByEventTimeTasks(List<Task> tasks) {
-        Comparator<Task> ascendingEventTimeComparator = Comparator.comparing(t -> {
-            //uses filtered assigned tasks, so eventTime must be present
-            assert t.getEventTime().isPresent();
-            return t.getEventTime().get();
-        });
+    // =========== Company ===================================================================================
 
-        List<Task> sortedList = TaskManager.getSortedList(tasks, ascendingEventTimeComparator);
-
-        return sortedList;
+    public Company getCompany() {
+        return company;
     }
 
-    public List<Driver> getDriversFromTasks(List<Task> tasks) {
-        return TaskManager.getDriversFromTasks(tasks);
-    }
-
-    public List<Driver> getSortedByNameDrivers(List<Driver> drivers) {
-        Comparator<Driver> sortByNameComparator = Comparator.comparing(driver -> driver.getName().toString());
-        List<Driver> sortedByNameDrivers = DriverManager.getSortedDriverList(drivers, sortByNameComparator);
-
-        return sortedByNameDrivers;
+    public void setCompany(Company updatedCompany) {
+        company.setCompany(updatedCompany);
     }
 
     // =========== Filtered Person List Accessors =============================================================
@@ -467,8 +473,8 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Task> getAssignedTaskList() {
-        updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED, filteredTasks);
-        return filteredTasks;
+        updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED, assignedTasks);
+        return assignedTasks;
     }
 
     /**
@@ -533,13 +539,14 @@ public class ModelManager implements Model {
     @Override
     public void refreshFilteredTaskList() {
         //refresh assigned task list
-        updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, filteredTasks);
+        updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, assignedTasks);
         getAssignedTaskList();
 
         //refresh unassigned task list
         updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, unassignedTasks);
         getUnassignedTaskList();
 
+        //refresh completed task list
         updateCompletedTaskList(PREDICATE_SHOW_EMPTY_TASKS);
         getCompletedTaskList();
     }
@@ -570,7 +577,6 @@ public class ModelManager implements Model {
         filteredCustomers.setPredicate(predicate);
     }
 
-    // =========== Filtered Driver List Accessors =============================================================
     /**
      * Refreshes the display of customer list.
      */
@@ -599,4 +605,23 @@ public class ModelManager implements Model {
         updateFilteredDriverList(PREDICATE_SHOW_EMPTY_DRIVERS);
         updateFilteredDriverList(PREDICATE_SHOW_ALL_DRIVERS);
     }
+
+    // =========== Command List Accessors =====================================================================
+
+
+    /**
+     * Adds command to the command list
+     */
+    public void addCommand(String command) {
+        this.commandHistory.addCommand(command);
+    }
+
+    /**
+     * Returns an unmodifiable view of the filtered command list.
+     */
+    @Override
+    public ObservableList<String> getFilteredCommandList() {
+        return commandList;
+    }
+
 }

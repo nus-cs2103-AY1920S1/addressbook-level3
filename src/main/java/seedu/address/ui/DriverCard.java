@@ -22,8 +22,6 @@ public class DriverCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
     private Label driverId;
     @FXML
     private Label availability;
@@ -33,7 +31,6 @@ public class DriverCard extends UiPart<Region> {
         this.driver = driver;
         id.setText(displayedIndex + ". ");
         name.setText(driver.getName().fullName);
-        phone.setText("Phone: " + driver.getPhone().value);
         driverId.setText("Driver ID: #" + driver.getId());
         availability.setText("Unavailable Time: " + driver.getSchedule());
     }

@@ -28,6 +28,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("tt/");
+    public static final Prefix PREFIX_RATING = new Prefix("r/");
 
     /**
      * For Tasks
@@ -35,6 +36,18 @@ public class CliSyntax {
     public static final Prefix PREFIX_DATETIME = new Prefix("dt/");
     public static final Prefix PREFIX_EVENT_TIME = new Prefix("at/");
     public static final Prefix PREFIX_GOODS = new Prefix("g/");
+
+    /**
+     * For Company Information
+     */
+    public static final Prefix PREFIX_FAX = new Prefix("f/");
+    public static final Prefix PREFIX_REGISTRATION_NUMBER = new Prefix("r/");
+    public static final Prefix PREFIX_GST_REGISTRATION_NUMBER = new Prefix("gst/");
+
+    /**
+     * For Pdf document
+     */
+    public static final Prefix PREFIX_PDF = new Prefix("pdf/");
 
     //Link Syntax to their respective classes
     public static final HashMap<String, String> PREFIX_CLASS_MAP = createPrefixClassMap();

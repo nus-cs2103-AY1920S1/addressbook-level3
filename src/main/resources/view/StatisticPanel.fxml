@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ScrollPane?>
+<StackPane prefHeight="318.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <ScrollPane>
+        <VBox>
+            <children>
+              <BarChart fx:id="customerChart" title="Customer Orders">
+                <xAxis>
+                  <CategoryAxis fx:id="customerAxis" label="Customer ID" side="BOTTOM" />
+                </xAxis>
+                <yAxis>
+                  <NumberAxis fx:id="orderAxis" label="Orders" side="LEFT" />
+                </yAxis>
+              </BarChart>
+
+              <BarChart fx:id="driverChart" title="Driver Delivered Tasks">
+                 <xAxis>
+                    <CategoryAxis fx:id="driverAxis" label="Driver ID" side="BOTTOM" />
+                 </xAxis>
+                 <yAxis>
+                    <NumberAxis fx:id="taskAxis" label="Tasks" side="LEFT" />
+                 </yAxis>
+              </BarChart>
+            </children>
+        </VBox>
+    </ScrollPane>
+</StackPane>
+
+
