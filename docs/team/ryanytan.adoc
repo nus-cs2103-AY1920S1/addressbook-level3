@@ -19,6 +19,9 @@
 :pr_dg2_159: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/159
 :pr_dg3_169: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/169
 :pr_dg4_177: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/177
+:pr_dg5_178: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/178
+:pr_dg6_349: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/349
+:pr_dg7_365: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/365
 :pr_ug1_207: https://github.com/ay1920s1-cs2103t-t10-1/main/pull/207
 :pr_ui_330: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/330
 :misc_codecontributed: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=ryanytan&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true
@@ -51,6 +54,8 @@ document illustrate the methods I've used to integrate this feature into
 Jarvis, along with the challenges I have faced and how I have overcome them,
 plus any other contributions I had in the entire project.
 
+The link to the repository can be found {gh_team}[here].
+
 === Summary of Contributions
 
 This section shows a summary of coding, documentation, and other helpful
@@ -67,7 +72,6 @@ one of the big features (out of 4) of Jarvis.
 Since Jarvis is an integrated system with the focus of a Student Lifestyle
 tool targeted towards University students, streamlining course planning
 was determined to be a natural feature that this application should provide.
-
 The Course Planner allows an NUS student to keep track of their courses that
 they have taken and the courses they are taking, so that they can make
 more informed choices on the courses they wish to taken.
@@ -107,7 +111,7 @@ This sums up my contributes to the project that were not directly related to
 my main feature - Course Planner.
 
 * *Developer Guide* {pr_dg1_156}[#156] {pr_dg2_159}[#159] {pr_dg3_169}[#169]
-{pr_dg4_177}[#177]
+{pr_dg4_177}[#177] {pr_dg5_178}[#178] {pr_dg6_349}[#349] {pr_dg7_365}[#365]
 +
 I was in charge of the Developer Guide, and hence did most of the formatting,
 editing and management of the document.
