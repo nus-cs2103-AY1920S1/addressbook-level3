@@ -704,7 +704,7 @@ This section's table explains the design considerations for some implementations
 |Alternative 2 is chosen.
 `transactionLogic` follows Façade pattern to prevent exposing the internal details of the transaction tab.
 So, instead of directly manipulating model and storage of transactions from `reimbursementLogic`,
-the operations are done through `transactionLogic` as shown in the <<facade, code snippet>> below the table.
+the operations are done through `transactionLogic` as shown in the <<facadeRe, code snippet>> below the table.
 
 |How reimbursement records are saved and read from `.txt` files
 |The reimbursement tab saves all the information of transactions that make up a reimbursement into `reimbursementInformation.txt`.
@@ -715,7 +715,7 @@ Alternative 2 does not save duplicate information that has already been saved in
 So, alternative 2 is more efficient.
 |===
 
-[[facade]]
+[[facadeRe]]
 .Code snippet of `transactionLogic` facade class in `MainWindow`
 image::Reimbursement/codeSnippetTransactionLogic.png[width="600"]
 
