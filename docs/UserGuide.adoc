@@ -1046,6 +1046,9 @@ The following describes how the various statistics are calculated:
 * Sales Summary: Total sales represents the sum of all positive transactions (cash inflow) from the Sales category.
 * Budget Overview: Amount remaining represents the budget goal + total sales - expenses.
 
+[NOTE]
+It is possible for your remaining budget to exceed your budget goal if your sales revenue is larger than your expenses.
+
 ==== Set a Financial Goal
 This command enables you to set a financial goal.
 
