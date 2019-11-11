@@ -66,14 +66,43 @@ The full list of PRs by me (which includes all the PRs for https://github.com/AY
 == Contributions to the User Guide
 
 |===
-|_Below are sections I contributed to the User Guide (non-exhaustive to keep within the page limit). They showcase my ability to write documentation targeting end-users. For more examples you can refer to the Visit portion of the UG._
+|_Below are excerpts from sections I contributed to the User Guide (non-exhaustive to keep within the page limit). They showcase my ability to write documentation targeting end-users. For more examples you can refer to the Visit portion of the User Guide._
 |===
 
-//include::../userguide/Visit.adoc[]
+== Visit Management
+====
+*Visit Management*
+
+As a community nurse, you will often make home visits to your patients. When you are visiting a patient, there is often a todo list that you will have to do as well as information that you will have to record. This can now be done using the app. This section describes the features that will allow you to start a visit, keep track of your tasks during a visit, finish a visit and view information recorded during previous visits.
+
+====
+
+=== Starting a Visit `visit-start`
+
+You can begin a visit by using `visit-start`. When you visit a patient and you want to record in the application that you are visiting said patient, you can use this feature to begin the visit for that patient (which will unlock the `visit-now-update` and `visit-now-finish` commands that will be applied to that visit). You can only have one ongoing visit at any point in time. This ongoing visit can be viewed in the "Current Visit" tab.
+
+`visit-start` uses the patient's Visit Todos to populate a checklist of Visit Tasks for you to use (these Visit Tasks are simply referred to as "tasks"). Visit Todos are described in further detail under <<VisitHowTo>>.
+
+Format: `visit-start PATIENT_INDEX`
+
+****
+* Begins a visit for the patient specified at `PATIENT_INDEX`.
+* The index refers to the index number shown in the list of patients displayed by `pat-list` or `pat-find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* There can only be one ongoing visit at any point in time; if there is already an ongoing visit this command does nothing.
+* This command does not bring up the "Current Visit" tab. You will have to manually click the tab.
+* You cannot delete the patient who you are currently visiting.
+* You can update the details of the patient you are currently visiting, but changes to his/her Visit Todos will not affect the ongoing visit's Visit Tasks.
+****
+
+Examples:
+
+* `visit-start 1` +
+Starts a visit for the 1st patient in the patient list.
+
+...
 
 include::../userguide/VisitHowTo.adoc[]
-
-//include::../userguide/Security.adoc[]
 
 == Contributions to the Developer Guide
 
