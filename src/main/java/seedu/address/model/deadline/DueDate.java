@@ -70,7 +70,7 @@ public class DueDate {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate testDate = LocalDate.parse(test, formatter);
         Period difference = Period.between(testDate, today);
-        if (difference.getDays() > 1) {
+        if (difference.getDays() <= 1) {
             return false;
         }
         return true;

@@ -227,56 +227,136 @@ NOTE: **Alternative 1** was preferred as we have constraints using command line 
 In addition, there was limited time.
 // end::addflashcard[]
 
-
+//@@author dalsontws
 
 
 //@@author: dalsontws
 // tag::deadline[]
-=== Deadline feature
+
+=== Add and Remove Deadline feature
 ==== Implementation
 
 The deadline feature allows the user to add tasks with specific due dates, with a compulsory field
 of `TASK` and `DUE DATE`.
 
-[NOTE]
-Following are the prefixes for each field: +
+The following are new classes used to integrate the Deadline feature.
+
+* `Deadline` -- Object class, containing important information such as the `Task` and `DueDate`.
+* `UniqueDeadlineList` -- Contains a `ObservableList` of `Deadline` objects. The list will be initialised from the storage
+at start up of application. A `Comparator` class was added to arrange the list according to ascending `DueDate`.
+* `DeadlineCommand` --  Embodies the `Deadline` command by the user. It will hold all the information about
+the `Deadline` that will be added.
+* `DeadlineCommandParser` -- Parses user input and uses it to construct a `DeadlineCommand` instance.
+* `RemoveCommand` --  Holds information on which `Deadline` to be removed. Contains an `Index` object.
+* `RemoveCommandParser` -- Parses user input and uses it to construct a `RemoveCommand` instance.
+
+In addition, various Exception classes are added to handle possible runtime errors while adding or removing `Deadline`.
+This is done to ensure that the user specified `Deadline` is valid for storage and processing.
+
+* `DuplicateDeadlineException` -- This exception is thrown when the user attempts to add an identical `Deadline` object
+is added into the existing `UniqueDeadlineList`.
+* `DeadlineNotFoundException` -- This exception is thrown when the user attempts to remove a `Deadline` object that does
+not exist in the `UniqueDeadlineList`.
+
+For the add `Deadline` feature - `deadline`, the following are the prefixes for each field +
 - t> : `TASK` +
 - d> : `DUE DATE`
 - For `DUE DATE` : Date format must be in dd/MM/yyyy
-i.e. 01/01/2019
+i.e. 01/01/2020
 
-Given below is an example usage scenario of `deadline` :
+NOTE: The upper cased `Deadline` represents the object class that contains `Task` and `DueDate`, while the lower-cased
+`deadline` represents the command used to add `Deadline` objects into our storage.
 
-The user executes `deadline t>Complete Homework d>04/10/2019` to add new deadline to the task
-of completing homework by the 4th October 2019.
+Given below is an example usage scenario of `deadline` command:
+
+The user executes `deadline t>Complete Homework d>04/10/2020` to add new deadline to the task
+of completing homework by the 4th October 2020.
+
+NOTE: The deadline feature does not allow adding of duplicate/identical deadlines. Also, new deadlines must
+be later than the current date.
 
 The following sequence diagram shows how the deadline operation works:
 
-image::DeadlineSequenceDiagram.png[height="300"]
-
-
-The deadline feature does not allow adding of duplicate/identical deadlines.
-i.e. A duplicated/identical deadline is one that has identical fields for both the task and the due date.
-If the duplicated/identical deadline exists in the storage, an error will be shown.
+image::DeadlineSequenceDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes a deadline command:
 
 image::DeadlineActivityDiagram.png[width=320,height=480]
 
+The Remove Deadline command `remove` works in a similar way, and hence the Sequence and Activity diagrams
+will be omitted for redundancy.
 
 ==== Design considerations
 ===== Aspect: How to implement Deadline
 
 * **Alternative 1(current choice):** Use command `deadline` together with
 prefixes like `t>` and `d>`
-** Pros: Easier to implement.
+** Pros: Easier to implement
 ** Cons: User might miss the prefixes hence adding wrong deadlines
 * **Alternative 2:** Make use of the GUI. after user execute `deadline` command,
- an **add deadline window** would pop up with a section for individual fields.
-** Pros: More user friendly.
-** Cons: Difficult to implement.
+ an **add deadline window** would pop up with a section for individual fields
+** Pros: More user friendly
+** Cons: Difficult to implement. Might be slower for the user to key in deadlines as compared to using a one liner with prefixes
+
 // end::deadline[]
 
+//@@author dalsontws
+// tag::badflashcard[]
+
+=== Bad `FlashCard` feature
+==== Implementation
+
+The `bad` feature allows the user to rate specific `FlashCards` as 'bad' if they did not perform well on them.
+These rated FlashCards will then we stored as a `Deadline` dated 3 days later, where the user will then be reminded to
+re-test them.
+
+This is a simple implementation of a type of https://en.wikipedia.org/wiki/Evidence-based_education[evidence-based]
+learning technique known as https://en.wikipedia.org/wiki/Spaced_repetition[Spaced Repetition]. This is used as a form of
+active recall technique which is said to overcome forgetting, theorised by Hermann Ebbinghaus, and his theory of
+https://en.wikipedia.org/wiki/Forgetting_curve[Forgetting Curve].
+
+The following are new classes used to integrate the Bad `FlashCard` feature.
+
+* `BadQuestions` -- Main object class for the feature. Makes use of a `HashMap` of key-value pairing of a Date `String`
+that is converted to a `LocalDate` class as the key, and the value is a `ArrayList` of `FlashCards`. This allows ease of
+search for "Bad" rated `FlashCards` based on the date stored.
+* `BadCommand` -- Contains a `ObservableList` of `Deadline` objects. The list will be initialised from the storage
+at start up of application. A `Comparator` class was added to arrange the list according to ascending `DueDate`.
+* `ListBadCommand` --  Embodies the `Deadline` command by the user. It will hold all the information about
+the `Deadline` that will be added.
+* `RemoveBadCommand` -- Parses user input and uses it to construct a `DeadlineCommand` instance.
+
+In addition, two Exception classes are added to handle possible runtime errors while adding new Deadlines.
+This is done to ensure that the user specified Deadline is valid for storage and processing.
+
+* `NoBadFlashCardException` -- This exception is thrown when the user attempts to add an identical `Deadline` object
+is added into the existing `UniqueDeadlineList`.
+* `DuplicateFlashCardAndDeadlineException` -- This exception is thrown when the user attempts to add an identical `Deadline` object
+is added into the existing `UniqueDeadlineList`.
+
+[NOTE]
+Following are the prefixes for each field: +
+- `bad INDEX` +
+i.e. bad 2
+
+Given below is an example usage scenario of `bad INDEX` :
+
+The user executes `bad 2` to rate the second `FlashCard` as a "Bad".
+
+==== Design Considerations
+===== Aspect: How to store "Bad" FlashCard in storage
+
+* **Alternative 1(current choice):** Use a `HashMap` with the specified date as the key. Store `FlashCard` as an
+`ArrayList`. Use of the Google Gson library to save and fetch `HashMap` from and to Json format.
+** Pros: Easier for searching and sorting purposes, as entire `FlashCard` object is stored and easily
+referred using the date as key. Can fetch more than just the answer of the `FlashCard`
+** Cons: Separated from the `FlashCard` `UniqueFlashCardList`, which might confuse the user
+* **Alternative 2:** Use similar implementation as how `FlashCard` and `Deadline` objects are stored in storage;
+use a `ObservableList` that can be displayed in GUI.
+** Pros: Easier to implement, clearer for user to see
+** Cons: Difficult to manipulate in the future, especially when we want to implement
+
+// end::badflashcard[]
 
 //@@author LeowWB
 
@@ -319,7 +399,6 @@ Because `ExportPath` follows the factory pattern, any class that deals with `Exp
 dealing with exactly. Each `ExportPath` subclass will implement its own `export` and `import` methods, which, when called, will perform the required operations
 without any further hassle. Of course, due to the Separation of Concerns principle, the `ExportPath` subclasses will not handle these directly.
 Instead, they will delegate the work to other utility classes, which, in turn, interface with the external libraries necessary to complete the task.
-
 TIP: The exporting/importing functionality is extremely easy to extend - you can add support for a new format simply through the creation of new subclasses of `ExportPath`.
 
 NOTE: You can find all relevant classes in the `seedu.address.model.export` package. The only exceptions are `ExportCommand`, `ImportCommand`, `ExportCommandParser`, and `ImportCommandParser`, which can be found in the `seedu.address.logic` package.

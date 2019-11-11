@@ -5,54 +5,85 @@
 
 == PROJECT: KeyboardFlashCards
 
----
-
 == Introduction
 
-This project portfolio...
+This project portfolio highlights the contributions I have made in for my project, _KeyboardFlashCards_, also know as KFC.
+A key part of our software engineering module in the National University of Singapore, we started of by morphing an addressbook
+application into our very own product, a Flashcard manager using purely the Command-Line Interface (CLI).
+This was a key requirement of the project, as we had to ensure users are to only utilise the application by keying in commands
+exclusively using the keyboard. In addition, this is a desktop application, used only on the computer.
+
+This is a 6 week software engineering project, where we worked in a team of 5 students from the NUS School of Computing.
+Our team consists of 3 Computer Science Second Year students and 2 Computer Engineering Final Year students (myself included).
+
+Our finalised product, _KeyboardFlashCards_ is a educational tool that aims to make remembering things easy. We wanted
+to provide an efficient way to study to our peers to NUS School of Computing. As such, we came up with an easy to use,
+FlashCard manager using CLI for efficient and quick storage of important questions to aid revision.
+
+Note the following symbols and formatting used in this document.
+
+[NOTE]
+This section explains the i.e. prefixes used in our application and what it represents,
+
+[CAUTION]
+This section is used clarify certain possible assumptions the user/developer might have
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+This section shows a summary of the personal contributions I had on our project. Contributions included enhancements to
+the application with new major and minor features, project management implementations and additions to the documentation
+in the User Guide and Developer Guide.
+
+* *Major enhancement #1*: added *the ability to store deadlines in a schedule*
+** What it does: This feature allows the user to store specific tasks as deadlines that will be reminded to the user.
+The user can now add specific dates that are important to their study and revision i.e. Exam dates, revision dates.
+In addition, the user can have an overview of all upcoming deadlines by looking at the pop-up calendar.
+** Justification: This feature improves the product significantly as the user can now ensure they would not miss
+important dates and can now allocate their study and revision schedule according to these dates.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** Credits: Credit goes to https://github.com/SirGoose3432/javafx-calendar[SirGoose3232] for the JavaFX Calendar GUI which was adapted before adding deadlines.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement #2*: added *the ability to perform spaced repetition of FlashCards*
+** What it does: This feature allows the user to store specific tasks as deadlines that will be reminded to the user.
+The user can now add specific dates that are important to their study and revision i.e. Exam dates, revision dates.
+In addition, the user can have an overview of all upcoming deadlines by looking at the pop-up calendar.
+** Justification: This feature improves the product significantly as the user keep track of FlashCard questions that they
+are weak at and be reminded to do these questions again.
+important dates and can now allocate their study and revision schedule according to these dates.
+** Highlights: This feature is not included by chance. I wanted to incorporate an effective way to revise that is proven
+by research. I decided to implement spaced repetition as it was an https://en.wikipedia.org/wiki/Evidence-based_education[evidence-based]
+learning technique
+** Credits: Credit goes to the theory of https://en.wikipedia.org/wiki/Forgetting_curve[Forgetting curve] by
+Hermann Ebbinghaus, who theorised that training in mnemonic techniques can help overcome speed of forgetting.
+One effective way is the use of active recall, especially using https://en.wikipedia.org/wiki/Spaced_repetition[Spaced Repetition]
+I implemented a simple version of spaced repetition through rating of "Bad" FlashCards.
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=dalsontws&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=dalsontws&tabRepo=AY1920S1-CS2103T-T12-4%2Fmain%5Bmaster%5D/[Contributed code]]
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Other contributions*
 
-* *Other contributions*:
-
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Project management
+*** Allocated various tasks and issues to the team (https://github.com/AY1920S1-CS2103T-T12-4/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Adalsontws/[Issues])
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Added new panel with Deadlines the GUI color scheme (Pull requests https://github.com/AY1920S1-CS2103T-T12-4/main/pull/105/[#105], https://github.com[#34])
+** Documentation
+*** Did cosmetic tweaks to existing contents of the User Guide: (Pull requests https://github.com/AY1920S1-CS2103T-T12-4/main/pull/147/[#147])
+*** Added the value proposition of our product, our target user profiles and user stories: (Pull requests https://github.com/AY1920S1-CS2103T-T12-4/main/pull/31[#31])
+** Community
+*** PRs reviewed (with non-trivial review comments): (Pull requests https://github.com/AY1920S1-CS2103T-T12-4/main/pull/151/[#151])
+*** Reported bugs and suggestions for other teams in the class (Pull requests https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/23/[23]
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/53/[53], https://github.com/nus-cs2103-AY1920S1/duke/pull/177/[177], https://github.com/nus-cs2103-AY1920S1/duke[246])
+** Tools
+*** Integrated a third party library (Gson) to the project (https://github.com/AY1920S1-CS2103T-T12-4/main/pull/150/[#150])
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=deadline]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=badflashcard]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +91,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=deadline]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=badflashcard]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
