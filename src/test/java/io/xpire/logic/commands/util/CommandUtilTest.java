@@ -1,25 +1,18 @@
 package io.xpire.logic.commands.util;
 
 import static io.xpire.logic.commands.CommandTestUtil.showXpireItemAtIndex;
-import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
-import static io.xpire.testutil.TypicalIndexes.INDEX_TENTH_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalLists;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_APPLE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_BANANA;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_CORIANDER;
-import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_DUCK;
-import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_JELLY;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_APPLE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BANANA;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_CORIANDER;
-import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_DUCK;
-import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_JELLY;
 import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_APPLE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_BANANA;
 import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_CORIANDER;
-import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_DUCK;
 import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_JELLY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -52,35 +45,6 @@ public class CommandUtilTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalLists(), new UserPrefs());
-    }
-
-    @Test
-    public void reduceItemQuantity_success() throws Exception {
-        // input quantity less than item quantity
-        XpireItem itemToReduce = new XpireItemBuilder().withName(VALID_NAME_JELLY)
-                .withExpiryDate(VALID_EXPIRY_DATE_JELLY)
-                .withQuantity(VALID_QUANTITY_JELLY).build();
-        XpireItem expectedItem = new XpireItemBuilder().withName(VALID_NAME_JELLY)
-                .withExpiryDate(VALID_EXPIRY_DATE_JELLY)
-                .withQuantity("3").build();
-        assertEquals(expectedItem, CommandUtil.reduceItemQuantity(itemToReduce, new Quantity("1")));
-
-        // input quantity equals to item quantity
-        itemToReduce = new XpireItemBuilder().withName(VALID_NAME_DUCK)
-                .withExpiryDate(VALID_EXPIRY_DATE_DUCK)
-                .withQuantity(VALID_QUANTITY_DUCK).build();
-        expectedItem = new XpireItemBuilder().withName(VALID_NAME_DUCK)
-                .withExpiryDate(VALID_EXPIRY_DATE_DUCK).build();
-        expectedItem.setQuantity(QUANTITY_ZERO_STUB);
-        assertEquals(expectedItem, CommandUtil.reduceItemQuantity(itemToReduce, new Quantity("1")));
-    }
-
-    @Test
-    public void reduceItemQuantity_throwsCommandException() {
-        XpireItem itemToReduce = new XpireItemBuilder().withName(VALID_NAME_JELLY)
-                .withExpiryDate(VALID_EXPIRY_DATE_JELLY)
-                .withQuantity(VALID_QUANTITY_JELLY).build();
-        assertThrows(CommandException.class, () -> CommandUtil.reduceItemQuantity(itemToReduce, new Quantity("5")));
     }
 
     @Test
@@ -168,44 +132,6 @@ public class CommandUtilTest {
         assertTrue(model.hasItem(XPIRE, itemNotInFilteredList));
         assertThrows(ItemNotFoundException.class, () ->
                 CommandUtil.retrieveXpireItemFromList(itemNotInFilteredList, model.getCurrentList()));
-    }
-
-    @Test
-    public void shiftItemToReplenishList_unfilteredList_success() throws CommandException {
-        XpireItem xpireItemToShift = (XpireItem) model.getCurrentList().get(INDEX_FIRST_ITEM.getZeroBased());
-        ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
-        expectedModel.addItem(REPLENISH, xpireItemToShift.remodel());
-        expectedModel.deleteItem(XPIRE, xpireItemToShift);
-        CommandUtil.shiftItemToReplenishList(stateManager, model, xpireItemToShift);
-        assertEquals(expectedModel, model);
-    }
-
-    @Test
-    public void shiftItemToReplenishList_unfilteredList_throwsCommandException() {
-        XpireItem xpireItemToShift = (XpireItem) model.getCurrentList().get(INDEX_TENTH_ITEM.getZeroBased());
-        assertTrue(model.hasItem(REPLENISH, xpireItemToShift.remodel()));
-        assertThrows(CommandException.class, () -> CommandUtil.shiftItemToReplenishList(stateManager, model,
-                xpireItemToShift));
-    }
-
-    @Test
-    public void shiftItemToReplenishList_filteredList_success() throws CommandException {
-        showXpireItemAtIndex(model, INDEX_FIRST_ITEM);
-        XpireItem xpireItemToShift = (XpireItem) model.getCurrentList().get(INDEX_FIRST_ITEM.getZeroBased());
-        ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
-        expectedModel.addItem(REPLENISH, xpireItemToShift.remodel());
-        expectedModel.deleteItem(XPIRE, xpireItemToShift);
-        CommandUtil.shiftItemToReplenishList(stateManager, model, xpireItemToShift);
-        assertEquals(expectedModel, model);
-    }
-
-    @Test
-    public void shiftItemToReplenishList_filteredList_throwsCommandException() {
-        showXpireItemAtIndex(model, INDEX_TENTH_ITEM);
-        XpireItem xpireItemToShift = (XpireItem) model.getCurrentList().get(INDEX_FIRST_ITEM.getZeroBased());
-        assertTrue(model.hasItem(REPLENISH, xpireItemToShift.remodel()));
-        assertThrows(CommandException.class, () -> CommandUtil.shiftItemToReplenishList(stateManager, model,
-                xpireItemToShift));
     }
 
     @Test
