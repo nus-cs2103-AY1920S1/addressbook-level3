@@ -809,13 +809,13 @@ Lacking any of this will cause its non-inclusion into the statistics calculation
 The value calculated is the sum over the total time period within a month, meaning that it will take the date period,
 calculate the statistics for orders within that time period, split it by month and display it.
 
-e.g `revenue` between 2019.11.12 and 2019.11.29 will calculate the order between this 2 dates, sum up the revenue
+e.g Total `revenue` between 2019.11.12 and 2019.11.29 will calculate the order between this 2 dates, sum up the revenue
 (as it falls within a single month) and
 display this value.
 
 * Accepts two types of input:
 ** Without date input - display total value for that particular statistics
-** with date input - displays chart and total value for that particular statistics  +
+** with date input - displays chart (Monthly value) and total value for that particular statistics  +
 
 Generates the statistics with no date input. +
 
