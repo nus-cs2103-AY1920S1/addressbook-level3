@@ -1,6 +1,5 @@
 package io.xpire.logic.commands.util;
 
-import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
 import static java.util.Objects.requireNonNull;
 
@@ -49,27 +48,6 @@ public class CommandUtil {
         return itemWithUpdatedQuantity;
     }
 
-
-    /**
-     * Reduces xpireItem's quantity by amount specified.
-     *
-     * @param targetXpireItem XpireItem whose amount will be reduced.
-     * @param reduceByQuantity Quantity to be reduced.
-     * @return The new XpireItem with its quantity reduced.
-     * @throws CommandException if new item quantity is invalid.
-     */
-    public static XpireItem reduceItemQuantity(XpireItem targetXpireItem, Quantity reduceByQuantity)
-            throws CommandException {
-        XpireItem targetItemCopy = new XpireItem(targetXpireItem);
-        Quantity originalQuantity = targetItemCopy.getQuantity();
-        if (originalQuantity.isLessThan(reduceByQuantity)) {
-            throw new CommandException(MESSAGE_INVALID_REDUCE_QUANTITY);
-        }
-        Quantity updatedQuantity = originalQuantity.deductQuantity(reduceByQuantity);
-        targetItemCopy.setQuantity(updatedQuantity);
-        return targetItemCopy;
-    }
-
     /**
      * Increases the item quantity for any duplicate items.
      *
@@ -111,21 +89,4 @@ public class CommandUtil {
         return (XpireItem) list.get(index);
     }
 
-    /**
-     * Shifts an {@code XpireItem} to the Replenish List.
-     *
-     * @param model {@code Model} which the command should operate on.
-     * @param itemToShift to be shifted to the{@code ReplenishList}.
-     * @throws CommandException when a similar item already exists on the Replenish List.
-     */
-    public static void shiftItemToReplenishList(StateManager stateManager, Model model, XpireItem itemToShift)
-            throws CommandException {
-        Item remodelledItem = itemToShift.remodel();
-        if (model.hasItem(REPLENISH, remodelledItem)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ITEM_REPLENISH);
-        }
-        stateManager.saveState(new ModifiedState(model));
-        model.addItem(REPLENISH, remodelledItem);
-        model.deleteItem(XPIRE, itemToShift);
-    }
 }

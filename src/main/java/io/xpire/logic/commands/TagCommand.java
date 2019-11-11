@@ -56,7 +56,6 @@ public class TagCommand extends Command {
     private final Index index;
     private final TagItemDescriptor tagItemDescriptor;
     private final TagMode mode;
-    private boolean containsLongTags = false;
     private Item item = null;
     private String result = "";
 
@@ -152,17 +151,25 @@ public class TagCommand extends Command {
         stateManager.saveState(new ModifiedState(model));
         model.setItem(this.listType, itemToTag, taggedItem);
 
+        return getTagCommandResult(taggedItem);
+    }
+
+    /**
+     * Gets the appropriate CommandResult based on whether any tags in the item have been truncated.
+     *
+     * @param taggedItem Item that has been tagged.
+     * @return CommandResult
+     */
+    private CommandResult getTagCommandResult(Item taggedItem) {
         if (this.tagItemDescriptor.getTags().stream().anyMatch(Tag::isTruncated)) {
-            this.containsLongTags = true;
-        }
-        if (containsLongTags) {
             this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING, taggedItem);
             setShowInHistory(true);
             return new CommandResult(this.result);
+        } else {
+            this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedItem);
+            setShowInHistory(true);
+            return new CommandResult(this.result);
         }
-        this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedItem);
-        setShowInHistory(true);
-        return new CommandResult(this.result);
     }
 
     /**
