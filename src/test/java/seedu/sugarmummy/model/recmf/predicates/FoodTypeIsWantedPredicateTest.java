@@ -2,7 +2,7 @@ package seedu.sugarmummy.model.recmf.predicates;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.sugarmummy.testutil.foodrecommendations.TypicalFoods.FOODS;
+import static seedu.sugarmummy.testutil.recmf.TypicalFoods.FOODS;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.sugarmummy.model.recmf.Food;
 import seedu.sugarmummy.model.recmf.FoodType;
-import seedu.sugarmummy.testutil.foodrecommendations.FoodBuilder;
+import seedu.sugarmummy.testutil.recmf.FoodBuilder;
 
 class FoodTypeIsWantedPredicateTest {
 

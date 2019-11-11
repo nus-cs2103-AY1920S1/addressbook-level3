@@ -18,6 +18,8 @@ import seedu.sugarmummy.model.records.RecordType;
 import seedu.sugarmummy.model.statistics.AverageType;
 import seedu.sugarmummy.model.statistics.predicates.RecordContainsRecordTypePredicate;
 
+//@@author chen-xi-cx
+
 public class AverageCommandParserTest {
     private final RecordContainsRecordTypePredicate bloodSugarPredicate =
             new RecordContainsRecordTypePredicate(RecordType.BLOODSUGAR);
@@ -70,7 +72,7 @@ public class AverageCommandParserTest {
         // invalid record type
         assertParseFailure(parser, " a/WEEKLY rt/ANYHOW",
                 String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_INVALID_RECORD_TYPE,
-                        MESSAGE_POSSIBLE_RECORD_TYPE));
+                MESSAGE_POSSIBLE_RECORD_TYPE));
 
         // invalid count type
         assertParseFailure(parser, " a/WEEKLY rt/BLOODSUGAR n/five",
