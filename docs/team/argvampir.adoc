@@ -1,4 +1,4 @@
-= Kris Kunthamas - Project Portfolio
+= Rushagrid Kunthamas - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -13,48 +13,89 @@ Deliveria is a *desktop application* that allows a *delivery manager* to *manage
 While it consists of a _Graphical User Interface_ (GUI) that is user-friendly,
 Deliveria is *optimized for those who prefer* to work with a _Command Line Interface_ (CLI) which allows fast management of the delivery tasks in an organisation.
 
+== About the project
+
+My team of 5 software engineering students including myself were tasked to improve the existing command line
+interface software, Addressbook application, as our Software Engineering team project. We were tasked to either
+optimize the address book for a more specific target user group or morph it into a different product. Our team chose
+to morph the product into a delivery task management system called Deliveria. The software allows inventory manager of
+a delivery company to track the delivery tasks; manage the driver delivery work schedule; and able to generate a report
+summary of the day without any access of internet.
+
+This is what our project looks like:
+
+image::sampleDisplay.png[Ui]
+[caption="Figure 1: ",link="sampleDisplay.png"]
+
+My role specifically was to make all user interfaces of the program such as the layout, displaying list view, resizing
+features, adding and navigating between tabs. Furthermore, I was in charge of the history and statistic component of the
+software. The following sections illustrates the enhancement in a more detail manner, as well as the relevant
+documentation I have added into the user and developer guide.
+
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+=== Enhancement added:
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+==== Statistic component:
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** What it does: Displays to main bar charts of the customer and driver trends. The bar chart also automatically updates
+depending on what the user inputted.
+** Justification: This feature improves the product significantly because it is solely a display that is not in a list
+view type. The user can easily visualised the trend of the sales and comparing the orders between customers. Furthermore,
+the graph for drivers allow the user to learn about the driver which may contribute to the driver rating system feature.
+** Highlights: This part is rather challenging as I have never come across processing real-time data before. The feature
+requires individual research upon bar charts and how to automatically update the bar charts in a real-time manner.
 
+==== Completed Delivery List component:
+
+** What it does: The `viewC` command allows the user to view completed tasks delivered to the specified customer ID.
+The `viewD` command allows the user to view the completed tasks delivered by the specified driver ID. When typing `list`
+it will refresh the completed list back to normal.
+** Justification: The feature is significant to the product. The feature allows the user to keep track of the details
+of what is delivered to the customer. From here, the user can learn about the customer loyalty and the customer taste or
+simply how frequent he/she asked for deliveries.
+
+==== History Command component:
+
+** What it does: Automatically displays a list of all commands the user successfully entered.
+** Justification: The feature offers the user to trace back what they have successfully inputted. For instance, he made
+a variety of changes regarding the program today, he can trace back what he has done for the day and look into if he
+had made any mistakes with the input.
+
+==== UI component:
+The UI component is basically the whole visualization of the program we had at the end. The layout, the window size,
+the lists, the colour, the tabs, the send command box, was what I contributed and enhanced. The UI component also come
+with the ability to drag between panes to allow greater display for a larger text. As well as shrinking the list to provide
+space for a more important component. Furthermore, the component also has a `go` command feature allowing the fast typing
+users to navigate between tabs without having to use their mouse to click.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=argvampir&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=tysng&tabRepo=AY1920S1-CS2103T-F14-4%2Fmain%5Bmaster%5D%5BRepoSense%5D[Functional code]]
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.2` - `v1.4` releases on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Coded Goods and description component (Pull requests https://github.com/AY1920S1-CS2103T-F14-4/main/pull/78[#78])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-F14-4/main/pull/246[#246]
+** Testing:
+*** Added tests cases inside the add command tests.
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F14-4/main/pull/86[86], https://github.com/AY1920S1-CS2103T-F14-4/main/pull/234[#234], https://github.com/AY1920S1-CS2103T-F14-4/main/pull/84[#84]
+*** Fix the reported bugs from team mates (Examples: issues https://github.com/AY1920S1-CS2103T-F14-4/main/issues/240[#240], https://github.com/AY1920S1-CS2103T-F14-4/main/issues/238[#238])
+*** Reported bugs and suggestions for other teams in the class
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=go-command]
 
-include::../UserGuide.adoc[tag=dataencryption]
+//include::../UserGuide.adoc[end::go-command]
+
+include::../UserGuide.adoc[tag=viewC-command]
 
 == Contributions to the Developer Guide
 
@@ -62,9 +103,9 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=UIcomponent]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=viewCompleted]
 
 
 == PROJECT: PowerPointLabs

@@ -10,7 +10,11 @@ Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
 Class HelpWindow
+Class DriverWindow
+Class CustomerWindow
+Class NotificationWindow
 Class ResultDisplay
+Class Map
 
 Class DriverListPanel
 Class DriverCard
@@ -24,7 +28,10 @@ Class CompletedTaskListPanel
 Class CompletedTaskCard
 Class IncompleteTaskListPanel
 Class IncompleteTaskCard
+Class CommandListPanel
+Class CommandCard
 
+Class StatisticPanel
 
 Class StatusBarFooter
 Class CommandBox
@@ -44,6 +51,8 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
+UiManager -down-> NotificationWindow
+
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
@@ -52,15 +61,21 @@ MainWindow *-down-> CustomerListPanel
 MainWindow *-down-> AssignedTaskListPanel
 MainWindow *-down-> UnassignedTaskListPanel
 MainWindow *-down-> CompletedTaskListPanel
-MainWindow *-down-> IncompleteTaskListPanel
 MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> StatisticPanel
+MainWindow *-down-> CustomerWindow
+MainWindow *-down-> CommandListPanel
+MainWindow *-down-> DriverWindow
+NotificationWindow *-down-> IncompleteTaskListPanel
 
+CustomerWindow --down-> Map
 DriverListPanel -down-> DriverCard
 CustomerListPanel -down-> CustomerCard
 AssignedTaskListPanel -down-> AssignedTaskCard
 UnassignedTaskListPanel -down-> UnassignedTaskCard
 CompletedTaskListPanel -down-> AssignedTaskCard
 IncompleteTaskListPanel -down-> UnassignedTaskCard
+CommandListPanel -down-> CommandCard
 
 
 MainWindow -left-|> UiPart
@@ -80,9 +95,15 @@ CompletedTaskListPanel --|> UiPart
 CompletedTaskCard --|> UiPart
 IncompleteTaskListPanel --|> UiPart
 IncompleteTaskCard --|> UiPart
+CommandListPanel --|> UiPart
+CommandCard --|> UiPart
+StatisticPanel --|> UiPart
+
 
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
+DriverWindow -down-|> UiPart
+CustomerWindow -down-|> UiPart
 
 DriverCard ..> Model
 CustomerCard ..> Model
@@ -90,12 +111,22 @@ AssignedTaskCard ..> Model
 UnassignedTaskCard ..> Model
 CompletedTaskCard ..> Model
 IncompleteTaskCard ..> Model
+CommandCard ..> Model
 
 UiManager -right-> Logic
 MainWindow -left-> Logic
+NotificationWindow -left-> Logic
 
 DriverListPanel -[hidden]left- HelpWindow
+CustomerListPanel -[hidden]left- HelpWindow
+UnassignedTaskListPanel -[hidden]left- HelpWindow
+AssignedTaskListPanel -[hidden]left- HelpWindow
+CommandListPanel -[hidden]left- HelpWindow
+CompletedTaskListPanel -[hidden]left- HelpWindow
+
 HelpWindow -[hidden]left- CommandBox
+DriverWindow -[hidden]left- CommandBox
+CustomerWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
 

@@ -1,0 +1,20 @@
+@startuml
+start
+:User executes `viewC 10` command;
+
+:Checks if there is Customer ID 10
+in the Customer list;
+
+if () then ([has customer ID in the list])
+    :Filters the completed to tasks
+      delivered to the customer;
+    stop
+
+else ([else])
+    :Notify user that
+        the taskID
+         is invalid;
+    stop
+
+@enduml
+
