@@ -56,6 +56,7 @@ public class MassApprove extends Approve {
                 if (appealId.equalsIgnoreCase(appeal.getAppealId())) {
                     Appeal approvedAppeal;
                     Appeal appealToApprove = appeal;
+                    foundId = true;
                     if (appealToApprove.isResolved() == false) {
 
                         Student studentToEdit;
@@ -277,7 +278,6 @@ public class MassApprove extends Approve {
                             && appealToApprove.getResult().equalsIgnoreCase("REJECTED")) {
                         alreadyRejected.add(appeal.getAppealId());
                     }
-                    foundId = true;
                     break;
                 }
             }

@@ -17,7 +17,7 @@ import mams.logic.parser.exceptions.ParseException;
  */
 public class ListCommandParser implements Parser<ListCommand> {
 
-    public static final String MESSAGE_OPTIONS_NOT_RECOGNIZED = "Invalid parameters: %1$s";
+    public static final String MESSAGE_OPTIONS_NOT_RECOGNIZED = "Invalid parameter(s): %1$s";
 
     /**
      * Parses the given {@code String} of arguments in the context of the ListCommand

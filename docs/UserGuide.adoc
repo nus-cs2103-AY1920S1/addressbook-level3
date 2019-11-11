@@ -259,7 +259,7 @@ image::HistoryWindowUpArrowDemo.png[width="790", align="center"]
 Now, after pressing kbd:[q], the command text of the selected cell will be copied,
 
 
-image:HistoryWindowCopyDemo.png[width="789", align="center"]
+image::HistoryWindowCopyDemo.png[width="789", align="center"]
 
 ==== Sync Command History to disk
 
