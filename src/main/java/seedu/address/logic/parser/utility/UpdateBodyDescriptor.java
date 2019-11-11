@@ -1,11 +1,16 @@
 package seedu.address.logic.parser.utility;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DOA_BEFORE_DOB;
+import static seedu.address.commons.core.Messages.MESSAGE_DOA_BEFORE_DOD;
+import static seedu.address.commons.core.Messages.MESSAGE_DOD_BEFORE_DOB;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
@@ -16,6 +21,7 @@ import seedu.address.model.entity.body.Nric;
 import seedu.address.model.person.Name;
 
 //@@author ambervoong
+
 /**
  * Stores the details to update the body with. Each non-empty field value will replace the
  * corresponding field value of the body when applied.
@@ -65,6 +71,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
 
     /**
      * Makes a copy of a Body's current fields.
+     *
      * @param body the body to be copied.
      * @returns UpdateBodyDescriptor that contains the body's current fields.
      */
@@ -86,6 +93,29 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
     }
 
     /**
+     * Checks whether two Dates logically make sense with each other, in the context of UpdateBodyDescriptor.
+     * For instance, the dateOfBirth of a Body should not be after the dateOfAdmission.
+     *
+     * @param dateOfAdmission the body's date of admission
+     * @param dateOfDeath     the body's date of death
+     * @param dateOfBirth     the body's date of birth
+     * @return true if the 3 dates make sense in the context of a body.
+     * @throws CommandException if any one of the 3 dates do not make sense.
+     */
+    public static boolean checkDateSensibility(Date dateOfAdmission, Date dateOfDeath, Date dateOfBirth)
+            throws CommandException {
+        assert dateOfAdmission != null;
+        if (dateOfDeath != null && dateOfAdmission.before(dateOfDeath)) {
+            throw new CommandException(MESSAGE_DOA_BEFORE_DOD);
+        } else if (dateOfBirth != null && dateOfAdmission.before(dateOfBirth)) {
+            throw new CommandException(MESSAGE_DOA_BEFORE_DOB);
+        } else if (dateOfDeath != null && dateOfBirth != null && dateOfDeath.before(dateOfBirth)) {
+            throw new CommandException(MESSAGE_DOD_BEFORE_DOB);
+        }
+        return true;
+    }
+
+    /**
      * Returns true if at least one field is edited.
      */
     @Override
@@ -100,9 +130,14 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
      * Guarantees: the given entity exists.
      */
     @Override
-    public Entity apply(Entity entity) {
+    public Entity apply(Entity entity) throws CommandException {
         assert entity != null;
         Body body = (Body) entity;
+
+        Date dateOfBirth = this.getDateOfBirth().orElse(body.getDateOfBirth().orElse(null));
+        Date dateOfDeath = this.getDateOfDeath().orElse(body.getDateOfDeath().orElse(null));
+        checkDateSensibility(body.getDateOfAdmission(), dateOfDeath, dateOfBirth);
+
         body.setName(this.getName().orElse(body.getName()));
         body.setSex(this.getSex().orElse(body.getSex()));
         body.setNric(this.getNric().orElse(body.getNric().orElse(null)));
@@ -111,8 +146,8 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         body.setOrgansForDonation(this.getOrgansForDonation().orElse(body.getOrgansForDonation()));
         body.setBodyStatus(this.getBodyStatus().orElse(body.getBodyStatus().orElse(null)));
         body.setFridgeId(this.getFridgeId().orElse(body.getFridgeId().orElse(null)));
-        body.setDateOfBirth(this.getDateOfBirth().orElse(body.getDateOfBirth().orElse(null)));
-        body.setDateOfDeath(this.getDateOfDeath().orElse(body.getDateOfDeath().orElse(null)));
+        body.setDateOfBirth(dateOfBirth);
+        body.setDateOfDeath(dateOfDeath);
         body.setNextOfKin(this.getNextOfKin().orElse(body.getNextOfKin().orElse(null)));
         body.setRelationship(this.getRelationship().orElse(body.getRelationship().orElse(null)));
         body.setKinPhoneNumber(this.getKinPhoneNumber().orElse(body.getKinPhoneNumber().orElse(null)));

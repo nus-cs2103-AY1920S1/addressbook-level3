@@ -72,7 +72,7 @@ The following sections document other contributions made towards the project.
 *** Contributed to forum discussions in the following issues: https://github.com/nus-cs2103-AY1920S1/forum/issues/111[#111], https://github.com/nus-cs2103-AY1920S1/forum/issues/133[#133], https://github.com/nus-cs2103-AY1920S1/forum/issues/150[#150]
 *** Reported bugs and offered suggestions for other teams (view at https://github.com/shaoyi1997/ped/issues[this repo])
 ** Tools:
-*** Integrated a third party library (ControlsFX) to the project in PR https://github.com/AY1920S1-CS2103T-T13-2/main/pull/79[#79]
+*** Integrated a third party library (ControlsFX) to the project in PR https://github.com/AYu1920S1-CS2103T-T13-2/main/pull/79[#79]
 *** Integrated TestFx and adapted Graphical User Interface tests from AB4 in https://github.com/AY1920S1-CS2103T-T13-2/main/commit/34dec528d451b84dea466daeacb24d82dd643258#diff-7319d9e22324ed2aaaac3f06ade9f486[this commit]
 *** Integrated a Continuous Integration platform for Github (AppVeyor) to the team repo
 

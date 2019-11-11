@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_DATE;
 import static seedu.address.testutil.BodyBuilder.DEFAULT_NAME;
 import static seedu.address.testutil.TypicalBodies.ALICE;
 
@@ -60,7 +61,7 @@ public class UpdateCommandParserTest {
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, "1 i/ string", expectedError);
 
-        // invalid characters
+        // invalid characters. Unicode is not allowed.
         assertParseFailure(parser, "@#!$!@#$raf3,1947889''", expectedError);
         assertParseFailure(parser, " شتا تاتا تاتا [كاملة", expectedError);
         assertParseFailure(parser, "汉字汉字汉字", expectedError);
@@ -171,13 +172,13 @@ public class UpdateCommandParserTest {
         // Invalid date
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
                         + PREFIX_DATE_OF_BIRTH + "ءىءءءى!@!$#%ىىىىىىىىى",
-                "Wrong date format");
+                MESSAGE_INVALID_DATE);
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
                         + PREFIX_DATE_OF_BIRTH + "1aaa1212",
-                "Wrong date format");
+                MESSAGE_INVALID_DATE);
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
                         + PREFIX_DATE_OF_BIRTH + "00/00/a000",
-                "Wrong date format");
+                MESSAGE_INVALID_DATE);
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
                         + PREFIX_DATE_OF_BIRTH + "",
                 UpdateCommand.MESSAGE_NOT_EDITED);
@@ -189,7 +190,7 @@ public class UpdateCommandParserTest {
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
                         + PREFIX_SEX + " male "
                         + PREFIX_DATE_OF_BIRTH + " aaa",
-                "Wrong date format");
+                MESSAGE_INVALID_DATE);
 
         // Multiple invalid fields. Error output is for the first invalid field.
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "

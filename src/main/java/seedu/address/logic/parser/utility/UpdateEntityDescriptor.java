@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.utility;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.entity.Entity;
 
 //@@author ambervoong
@@ -19,7 +20,7 @@ public interface UpdateEntityDescriptor {
      * object if they are present. Uses the existing values in the entity otherwise.
      * Guarantees: the given entity exists.
      */
-    Entity apply(Entity entity);
+    Entity apply(Entity entity) throws CommandException;
 
     /**
      * Changes all of the entity's fields according to the descriptor, even for null fields.

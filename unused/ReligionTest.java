@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-//@@author ambervoong
+//@@author ambervoong-unused
 class ReligionTest {
 
     @Test
@@ -28,3 +28,4 @@ class ReligionTest {
 
 
 }
+//@@author

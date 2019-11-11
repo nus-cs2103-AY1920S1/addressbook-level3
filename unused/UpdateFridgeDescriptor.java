@@ -10,7 +10,7 @@ import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.fridge.FridgeStatus;
 
-//@@author ambervoong
+//@@author ambervoong-unused
 /**
  * Stores the details to update the {@code Fridge} with. Each non-empty field value will replace the
  * corresponding field value of the fridge.
@@ -111,3 +111,4 @@ public class UpdateFridgeDescriptor implements UpdateEntityDescriptor {
         return Objects.hash(getBodyId(), getFridgeStatus());
     }
 }
+//@@author
