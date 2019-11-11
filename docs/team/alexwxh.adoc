@@ -19,9 +19,7 @@ image::UiLabelledA.png[]
 Note the use of the following symbols and formatting in this document:
 
 ====
-* A `grey highlight` indicates that this is a command that can be inputted into the command line and executed by the application.
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add MODULE_CODE`, `MODULE_CODE` is a parameter which can be used as `add CS1101S`.
-* Items in square brackets are optional e.g `MODULE_CODE [MODULE_TITLE]` can be used as `CS1231 discrete structures`.
+`Words` - phrases in this format indicates that this is a command that can be inputted into the command line and executed by the application, or they are referring to components, classes or objects in the architecture of the application.
 ====
 
 NOTE: This symbol indicates important information
@@ -56,7 +54,7 @@ This section gives a summary of my contribution to the team project in terms of 
 
 
 |===
-|_We had to update the original addressbook user guide to match our morphed application, ModuleBook. The following section are sections from my contribution to this task. They showcase my ability to write documentation targeting end-users._
+|_We had to update the original addressbook user guide to match our morphed application, ModuleBook. The following section are excerpts from my contribution to this task. They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=link]

@@ -298,31 +298,31 @@ TIP: If you happen to forget any of the url paired with the names you have enter
 
 You can use this command to add a link with the given name to a selected TrackedModule. This is useful if you manage to come across an important website related to a certain module you are currently taking and wish to note it down. A button will be created in ModuleBook with name you specified.
 
-Suppose you are taking CS2103T, and you will frequently visit the course website to check for new updates or tasks to complete by the next milestone. You wish to put the link somewhere so you can access it easily and also manage them effectively.
+Suppose you are taking CS2103, and you will frequently visit the course website to check for new updates or tasks to complete by the next milestone. You wish to put the link somewhere so you can access it easily and also manage them effectively. You can do so using the following steps:
 
-. Enter the command
+. Enter the command. Make sure you are viewing the CS2103 module.
 
-image::userguide/AddLinkStep1.png[]
+image::userguide/AddLinkStep1.png[][pdfwidth="50%",width="50%"]
 
 [start=2]
 . Press Enter. You should see a new button created in the Links section and a success message.
 
-image::userguide/AddLinkStep2.png[]
+image::userguide/AddLinkStep2.png[][pdfwidth="50%",width="50%"]
 
 ==== Editing existing link: `link edit n/LINK_NAME [nn/NEW_NAME nl/NEW_URL]`
 
 You can use this command to edit the name and/or url of an existing link.
 
-Suppose the name "Nusmods Timetable" is too long and you want to change it to just "Nusmods".
+Suppose the name "Nusmods Timetable" is too long and you want to change it to just "Nusmods". It is very simple to achieve:
 
 . Enter the corresponding command
 
-image::userguide/EditLinkStep1.png[]
+image::userguide/EditLinkStep1.png[][pdfwidth="50%",width="50%"]
 
 [start=2]
 . Press Enter. The link should be updated with the new name and a success message should appear.
 
-image::userguide/EditLinkStep2.png[]
+image::userguide/EditLinkStep2.png[][pdfwidth="50%",width="50%"]
 
 ==== Launching the link: `link go n/LINK_NAME`
 
@@ -337,35 +337,37 @@ Now suppose you wish to access a link you provided previously (from the `add` co
 . The website should open in the default browser of your system and a success message should display.
 
 TIP: Alternatively, you can access the link by clicking on it through the GUI as well.
+// end::link[]
 
 ==== Deleting a link: `link delete n/LINK_NAME`
 
 You can use this command to delete a link with a matching name in the given module.
 
-Suppose you have no use for a link to Nusmods in the module and you want to remove it to de-clutter.
+Suppose you have no use for a link to Nusmods in the module and you want to remove it to de-clutter. You can remove it by:
 
 . Enter the delete command
 
-image::userguide/DeleteLinkStep1.png[]
+image::userguide/DeleteLinkStep1.png[][pdfwidth="50%",width="50%"]
 
 [start=2]
 . Press Enter. You should see a success message and the link should be gone.
 
-image::userguide/DeleteLinkStep2.png[]
+image::userguide/DeleteLinkStep2.png[][pdfwidth="50%",width="50%"]
+// tag::link[]
 
 ==== Marking/unmarking a link: `link mark/unmark n/LINK_NAME`
 
 Some links may be more important than others, and you may access them more frequently. To keep track of that, you can mark them using the `mark` feature.
 
-Suppose you go to the course website of CS2103 very often and want to make sure you can identify the link immediately, mark it so it stays at the front all available links.
+Suppose you go to the course website of CS2103 very often and want to make sure you can identify the link immediately, mark it so it stays at the front all available links:
 
 . Enter the command `link mark n/Course Website`
 
-image::userguide/MarkLinkStep1.png[]
+image::userguide/MarkLinkStep1.png[][pdfwidth="50%",width="50%"]
 [start=2]
 . Press Enter. The specified link will now be marked with a symbol and brought to the front of the list.
 
-image::userguide/MarkLinkStep2.png[]
+image::userguide/MarkLinkStep2.png[][pdfwidth="50%",width="50%"]
 
 // end::link[]
 

@@ -465,7 +465,7 @@ Each `link` object is stored in an `ArrayList<Link>`, which in turn is stored in
 In summary, the class diagram of how `Link` is implemented is shown as:
 
 .Class diagram for Link objects
-image::LinkClassDiagram.png[]
+image::LinkClassDiagram.png[][pdfwidth="30%",width="30%"]
 
 The link feature currently recognizes and supports add, delete, edit and launch commands.
 
@@ -475,7 +475,7 @@ The `XYZLinkCommandParser` class parses and returns a corresponding `XYZLinkComm
 The following activity diagram summarizes what happens when the link command is entered and executed:
 
 .Activity diagram for a LinkCommand execution
-image::LinkCommandActivityDiagram.png[]
+image::LinkCommandActivityDiagram.png[][pdfwidth="40%",width="40%"]
 
 An example usage scenario of an *add link* operation is given below and the behavior of the link management feature is shown.
 
@@ -498,7 +498,7 @@ An example usage scenario of an *add link* operation is given below and the beha
 .Sequence diagram for add link operation
 image::AddLinkCommandSequenceDiagram.png[]
 .Reference of add link to module function from sequence diagram shown above
-image::AddLinkCommandSequenceDiagramExtension.png[]
+image::AddLinkCommandSequenceDiagramExtension.png[][pdfwidth="50%",width="50%"]
 
 ==== Design Considerations
 
