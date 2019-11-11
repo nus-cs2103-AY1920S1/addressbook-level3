@@ -204,6 +204,7 @@ public class MainWindow extends UiPart<Stage> {
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox.linkResultsDisplay(resultDisplay);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 

@@ -29,6 +29,8 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private History history = new History();
+    private ResultDisplay resultDisplay;
+    private boolean isAutoCompleteOn = true;
 
     @FXML
     private AutoCompleteTextField commandTextField;
@@ -42,6 +44,11 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
 
+    public void linkResultsDisplay(ResultDisplay resultDisplay) {
+        assert resultDisplay != null: "Result Display cannot be null!";
+        this.resultDisplay = resultDisplay;
+    }
+
     /**
      * Handles the Enter button pressed event.
      */
@@ -50,7 +57,7 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
         try {
             String command = commandTextField.getText();
             if (command.equals("exit")) {
-                commandTextField.shutdown();
+                commandTextField.shutDownListener();
             }
             history.sendToHistory(command);
             commandExecutor.execute(command);
@@ -94,14 +101,26 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
             }
         }
         if (keyCode == KeyCode.CONTROL) {
-            try {
-                commandTextField.setAutoCompleteResult();
-            } catch (Exception e) {
-                logger.info("Exception thrown from autocomplete.");
+            if (isAutoCompleteOn) {
+                try {
+                    commandTextField.setAutoCompleteResult();
+                } catch (Exception e) {
+                    logger.info("Exception thrown from autocomplete.");
+                }
+            }
+            else {
+                commandTextField.initListener();
+                isAutoCompleteOn = true;
+                resultDisplay.setFeedbackToUser("AutoComplete feature turned on.");
             }
         }
         if (keyCode == KeyCode.ESCAPE) {
-            commandTextField.hidePopUp();
+            if (isAutoCompleteOn) {
+                commandTextField.hidePopUp();
+                commandTextField.shutDownListener();
+                isAutoCompleteOn = false;
+                resultDisplay.setFeedbackToUser("AutoComplete feature turned off.");
+            }
         }
     }
 
