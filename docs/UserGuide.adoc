@@ -111,7 +111,7 @@ You can enter the following additional information for each exercise:
 * Muscle group(s) that are being worked out
 * <<customproperty, Custom properties>> that have been added
 
-Format: `add t/exercise n/EXERCISE_NAME d/DATE c/CALORIES q/QUANTITY u/UNITS [m/MUSCLE]...[CUSTOM_PROPERTY_PREFIX/VALUE]...`
+Format: `add t/exercise n/EXERCISE_NAME d/DATE c/CALORIES q/QUANTITY u/UNITS [m/MUSCLE]...[CUSTOM_PROPERTY_PREFIX_NAME/VALUE]...`
 
 ****
 * Calories entered have to be less than or equal to 50000.
@@ -227,7 +227,7 @@ The index *must be a positive integer:* 1, 2, 3, ...
 * Existing values will be updated to the input values.
 ****
 
-Format: `edit i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...[CUSTOM_PROPERTY_PREFIX/VALUE]...`
+Format: `edit i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...[CUSTOM_PROPERTY_PREFIX_NAME/VALUE]...`
 
 Example:
 
@@ -729,7 +729,7 @@ Format: `suggest s/basic`
 Suggests exercises matching specified tags.
 
 ===== Based on matching muscle tags
-Format: `suggest s/possible o/OPERATION_TYPE [m/MUSCLE CUSTOM_PROPERTY_PREFIX_NAME/VALUE]`
+Format: `suggest s/possible o/OPERATION_TYPE [m/MUSCLE]... CUSTOM_PROPERTY_PREFIX_NAME/VALUE]...`
 
 ****
 * You must choose one of the following operation types: `and` / `or` i.e. commands such as `suggest s/possible m/Chest m/Legs` will fail whereas `suggest s/possible o/or m/Chest m/Legs` will succeed.
@@ -992,7 +992,7 @@ image::LongNamesTooltip.png[align="center", width="400"]
 
 == Command Summary
 
-* *Add exercises* : `add t/exercise n/EXERCISE_NAME d/DATE c/CALORIES q/QUANTITY u/UNITS [m/MUSCLE]...[CUSTOM_PROPERTY_PREFIX/VALUE]...` +
+* *Add exercises* : `add t/exercise n/EXERCISE_NAME d/DATE c/CALORIES q/QUANTITY u/UNITS [m/MUSCLE]... [CUSTOM_PROPERTY_PREFIX_NAME/VALUE]...` +
 e.g. `add t/exercise n/Bench press d/19/09/2019 c/500 q/50 u/reps m/Chest`
 * *Add regimes* : `add t/regime n/REGIME_NAME [i/INDEX_OF_EXERCISE]...`
 e.g. `add t/regime n/Cardio i/1 i/2 i/3`
@@ -1000,7 +1000,7 @@ e.g. `add t/regime n/Cardio i/1 i/2 i/3`
 e.g. `list t/exercise`
 * *Select* : `select t/LIST_TYPE i/INDEX`
 e.g. `select t/exercise i/1`
-* *Edit exercise* : `edit i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...[CUSTOM_PROPERTY_PREFIX/VALUE]...`
+* *Edit exercise* : `edit i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]... [CUSTOM_PROPERTY_PREFIX_NAME/VALUE]...`
 e.g. `edit i/3 n/Bench press d/22/09/2019 c/240 q/10 u/sets m/Chest`
 * *Delete exercise* : `delete t/exercise i/INDEX`
 e.g. `delete t/exercise i/2`
@@ -1023,7 +1023,7 @@ e.g. `resolve n/scheduled`, `resolve n/conflicting`
 * *Resolve(Take some exercise from both regime)* : `resolve n/NEW_REGIME_NAME [i/INDEX_OF_SCHEDULED_EXERCISE] [r/INDEX_OF_CONFLICTING_EXERCISE]`
 e.g. `resolve n/new cardio i/1 i/3 r/2`
 * *Suggest basic* : `suggest s/basic`
-* *Suggest possible* : `suggest s/possible [o/OPERATION_TYPE] [m/MUSCLE]... [CUSTOM_PROPERTY_PREFIX/VALUE]...`
+* *Suggest possible* : `suggest s/possible [o/OPERATION_TYPE] [m/MUSCLE]... [CUSTOM_PROPERTY_PREFIX_NAME/VALUE]...`
 e.g. `suggest s/possible m/Legs`, `suggest s/possible o/and m/Chest m/Leg`
 * *Add custom property* : `custom s/PREFIX_NAME f/FULL_NAME p/PARAMETER_TYPE`
 e.g. `custom s/ed f/End Date p/Date`
