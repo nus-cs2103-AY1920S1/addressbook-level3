@@ -129,7 +129,7 @@ include::../UserGuide.adoc[tag=commandFormat]
 .Delete Event Command
 image::DeleteEventCommandScreenShot.png[DeleteEventCommandScreenShot, 550]
 
-You may use the `delete_event` command to delete one or more events from the calendar. +
+You may use the `delete_event` command to delete one or more events from the calendar.
 
 Command Format:
 ****
@@ -138,15 +138,15 @@ Command Format:
 
 Command Parameters:
 
-- `*--tag* TAG...` +
+- `*--tag* TAG...`
 
 Examples:
 
-- `*delete_event* 1` +
-- `*delete_event* 1 2 3` : Deletes events 1, 2 and 3. +
-- `*delete_event* *--tag* Birthday` : Deletes events tagged as `Birthday`. +
-- `*delete_event* *--tag* Birthday Rori` : Deletes events tagged as `Birthday` and `Rori`. +
-- `*delete_event* 1 2 3 *--tag* Birthday Rori` : Deletes events 1, 2 and 3 only if they have been tagged as `Birthday` and `Rori`.
+- `*delete_event* 0`
+- `*delete_event* 0 1 2` : Deletes events 0, 1 and 2.
+- `*delete_event* *--tag* Birthday` : Deletes events tagged as `Birthday`.
+- `*delete_event* *--tag* Birthday Rori` : Deletes events tagged as `Birthday` and `Rori`.
+- `*delete_event* 0 1 2 *--tag* Birthday Rori` : Deletes events 0, 1 and 2 only if they have been tagged as `Birthday` and `Rori`.
 
 [NOTE]
 ====
