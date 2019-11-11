@@ -92,6 +92,7 @@ Format: `set [n/NAME] [sd/START_DATE]`
 * The start date provided needs to be in dd-mm-yyyy format.
 
 // tag::addaccommodation[]
+
 === Adding an accommodation: `add accommodation`
 
 Creates an accommodation to the accommodation list +
@@ -110,9 +111,11 @@ Adds "Hotel 81" with an address, "Orchard", and phone number, "67555312", into t
 * `add accommodation n/Mandarin Oriental a/Ang Mo Kio`
 
 Adds "Mandarin Oriental" with an address, "Ang Mo Kio" into the accommodation list.
+
 // end::addaccommodation[]
 
 // tag::editaccommodation[]
+
 === Editing an accommodation: `edit accommodation`
 
 Edits an accommodation +
@@ -130,9 +133,11 @@ Examples:
 * `edit accommodation 1 n/MBS a/Marina Bay t/Atas`
 
 Edits the 1st accommodation in the accommodation list to have a name, "MBS", address, "Marina Bay", and tag, "Atas".
+
 // end::editaccommodation[]
 
 // tag::deleteaccommodation[]
+
 === Deleting an accommodation: `delete accommodation`
 
 Delete one or more accommodation from the accommodation list +
@@ -148,6 +153,7 @@ Examples:
 * `delete accommodation 2`
 
 Deletes the 2nd accommodation in the accommodation list.
+
 // end::deleteaccommodation[]
 
 === Listing all accommodation: `list accommodation`
@@ -162,6 +168,7 @@ Example:
 The tab of the activity list would drop down to show the list.
 
 // tag::viewaccommodation[]
+
 === Viewing a specific accommodation: `view accommodation`
 
 Allow user to view a specific accommodation in the list based on the index shown +
@@ -177,9 +184,11 @@ Examples :
 * `view accommodation 3`
 
 Shows a detailed view of the 3rd accommodation in the accommodation list.
+
 //end::viewaccommodation[]
 
 // tag::addactivity[]
+
 === Adding an activity: `add activity`
 
 Creates an activity to the activity list +
@@ -202,9 +211,11 @@ Adds "Visit Gundam Museum" with an address, "Tokyo", duration, 90 minutes, and p
 * `add activity n/Ski a/Mount Sinai du/120`
 
 Adds "Ski" with an address, "Mount Sinai", and duration, 120 minutes, to the activity list.
+
 // end::addactivity[]
 
 // tag::editactivity[]
+
 === Editing an activity: `edit activity`
 
 Edits an activity +
@@ -222,9 +233,11 @@ Examples:
 * `edit activity 1 n/Dinner a/Hotel t/Western`
 
 Edits the 1st activity in the activity list to have a name, "Dinner", address, "Hotel", and tag, "Western".
+
 // end::editactivity[]
 
 // tag::deleteactivity[]
+
 === Deleting an activity: `delete activity`
 
 Delete one or more activities from the activity list +
@@ -240,6 +253,7 @@ Examples:
 * `delete activity 2`
 
 Deletes the 2nd activity in the activity list.
+
 // end::deleteactivity[]
 
 === Listing all activities: `list activity`
@@ -254,6 +268,7 @@ Example:
 The tab of the activity list would drop down to show the list.
 
 // tag::viewactivity[]
+
 === Viewing a specific activity: `view activity`
 
 Allow user to view a specific activity in the list based on the index shown +
@@ -269,9 +284,11 @@ Examples :
 * `view activity 3`
 
 Shows a detailed view of the 3rd activity in the activity list.
+
 // end::viewactivity[]
 
 // tag::addcontact[]
+
 === Adding a contact: `add contact`
 
 Creates a contact to the contact list +
@@ -292,9 +309,11 @@ A contact with name, "Bob" and phone number, "83746658", is added to the contact
 * `add contact n/Sheryl p/96667710 a/Buangkok`
 
 A contact with name, "Sheryl", phone number, "96667710", and address, "Buangkok", is added to the contact list.
+
 // end::addcontact[]
 
 // tag::editcontact[]
+
 === Editing a contact: `edit contact`
 
 Edits an existing contact in the contact list +
@@ -317,6 +336,7 @@ Examples:
 * `edit contact 1 p/93746658`
 
 Edits the phone number of the 1st contact to be ,"93746658".
+
 // end::editcontact[]
 
 === Deleting a contact: `delete contact`
@@ -334,6 +354,7 @@ Examples:
 * `delete contact 3`
 
 Deletes the 3rd contact in the contact list.
+
 // end::contact[]
 
 === List the contacts in the planner: `list contact`
@@ -342,6 +363,7 @@ List the contacts in the planner +
 Format: `list contact`
 
 // tag::viewcontact[]
+
 === Viewing a specific contact: `view contact`
 
 Allow user to view a specific contact in the list based on the index shown +
@@ -357,9 +379,11 @@ Examples :
 * `view contact 3`
 
 Views the 3rd contact in the contact list.
+
 // end::viewcontact[]
 
 // tag::adddays[]
+
 === Adds days to the schedule: `add days`
 
 Adds DAY_NUMBER amount of days to the itinerary +
@@ -373,9 +397,11 @@ Examples:
 * `add days 7`
 
 Extends the itinerary by 7 days.
+
 // end::adddays[]
 
 // tag::deleteday[]
+
 === Deleting a day: `delete day`
 
 Deletes day DAY_INDEX of the itinerary. +
@@ -390,6 +416,7 @@ Examples:
 * `delete day 2`
 
 Deletes day 2 from the itinerary.
+
 // end::deleteday[]
 
 === List activities in a day: `list day`
@@ -404,6 +431,7 @@ Examples:
 Lists activities within day 3 of the itinerary.
 
 // tag::schedule[]
+
 === Scheduling an activity to a day: `schedule`
 
 Schedules an activity to a day +
@@ -419,6 +447,7 @@ Examples:
 * `schedule 2 st/1000 d/2`
 
 Schedules the second activity in the activity list under day 2 at the specified starting time.
+
 // end::schedule[]
 
 === Unscheduling activities from a day: `unschedule activity`
@@ -440,6 +469,7 @@ This remove the 5th activity from day 2.
 You can use the list day command to find out the index of the activity you wish to unschedule.
 
 // tag::autoschedule[]
+
 === Auto Schedule: `autoschedule`
 Generates a list of activities for the specified days based on the activity's *priority* and the *number of times it
 has been scheduled on the timetable.*. Activity with the *highest priority* and the *least number of time being scheduled on the timetable* will be chosen to be scheduled.
@@ -476,9 +506,11 @@ Examples:
 * `autoschedule t/Breakfast t/Sightseeing t/Dinner a/Kyoto d/1`
 * `autoschedule t/Breakfast n/DisneyLand t/Dinner a/Kyoto d/1`
 * `autoschedule t/Breakfast 1000 n/DisneyLand t/Dinner a/Kyoto d/1 2 3 4`
+
 // end::autoschedule[]
 
 // tag::optimise[]
+
 === Optimising by budget: `optimise`
 
 Optimises a day's schedule by finding all possible combinations of activities. The resulting combination would have the lowest total cost. If there are multiple combinations with the same cost,
@@ -492,19 +524,28 @@ Format: `optimise DAY_INDEX`
 
 Examples:
 
-* `optimise 3`
+.Day 2 has Overlapping Activities
+image::BeforeOptimise.png[]
+
+* `optimise 2`
+
+.Day 2 has been optimised.
+image::AfterOptimise.png[]
 
 [WARNING]
 This command would not work if there are no activities scheduled in the day.
+
 // end::optimise[]
 
 // tag::undoredocommand[]
+
 === Undo: `undo`
 
 Undo by one action +
 Format: `undo` +
 
 // tag::undoredolist[]
+
 *List of UndoableCommand:*
 |===
 | add activity/ accommodation/ contact/ days
@@ -516,6 +557,7 @@ Format: `undo` +
 | optimise
 | clear
 |===
+
 // end::undoredolist[]
 
 === Redo: `redo`
@@ -544,6 +586,7 @@ image::AfterUndo.png[]
 
 .Optimise command successfully redone, no overlaps.
 image::AfterOptimise.png[]
+
 // end::undoredocommand[]
 
 === Autocomplete
@@ -598,6 +641,7 @@ Format: `exit`
 *A*: Install the app in the other computer and overwrite the empty data file it adds with the file that contains the data of your previous Plan^2^Travel folder.
 
 // tag::commandsummary[]
+
 == Command Summary
 
 === Add Commands
@@ -665,4 +709,5 @@ Format: `exit`
 | help
 | exit
 |===
+
 // end::commandsummary[]
