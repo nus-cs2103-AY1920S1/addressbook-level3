@@ -523,10 +523,13 @@ image::UndoRedo/ActivityDiagramUndoRedoCommand.png[width="790"]
 
 The following class diagram shows the entirety of the undo/redo mechanism and its associations.
 
+.Class Diagram for Undo/Redo mechanism (Note that only classes that are in the feature are included)
 image::UndoRedo/UndoRedoSystemClassDiagram.png[width="790"]
 
-There are two classes that inherit from the abstract class `State` which are `FilteredState` and `ModifiedState`. +
-The states that are stored at each valid and undoable command depends on the type of command itself as `FilteredState` only copies over the predicate and method of sorting but not the backend `Xpire` or `ReplenishList` data. Thus, commands that do not alter items such as `SortCommand` and `CheckCommand` commands instantiate a `FilteredState`. +
+There are two classes that inherit from the abstract class `State` which are `FilteredState` and `ModifiedState`.
+
+The states that are stored at each valid and undoable command depends on the type of command itself as `FilteredState` only copies over the predicate and method of sorting but not the backend `Xpire` or `ReplenishList` data. Thus, commands that do not alter items such as `SortCommand` and `CheckCommand` commands instantiate a `FilteredState`.
+
 On the other hand, `ModifiedState` is created with commands that alters the item of the data, thus new `Xpire` and `ReplenishList` objects will be stored within the state. Commands that instantiate a `ModifiedState` include `AddCommand`, `TagCommand` and `DeleteCommand`.
 
 ===== Aspect: How undo & redo executes
