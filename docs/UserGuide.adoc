@@ -174,7 +174,7 @@ Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 ==== Important Details:
 
 * Note that `out` transactions differ from `in` transactions in the display amount. The `in` transactions are characterized by the *positive* value within their display box whilst the `out` transactions are characterized by the *negative* values in their display box. The difference can be observed in the example usage below.
-* `out` Transaction will affect the remaining amount of `Budget` entries with similar categories within the same time period (Refer to example 3).
+* `out` Transaction will affect the remaining amount of `Budget` entries with similar categories within the same time period (Refer to <<UG_OUT_EXAMPLE3>>).
 
 ==== Example Usage
 
@@ -220,6 +220,7 @@ image::out_ug_3.png[]
 .Sample Expenditure 2 Added
 image::out_ug_4.png[]
 
+[[UG_OUT_EXAMPLE3]]
 ===== Example 3
 
  out $/100 n/pants d/02012020 c/clothes
@@ -555,7 +556,7 @@ Format (Projections): Cannot be updated
 * `CATEGORY` accepts the CATEGORY for the entry.
 * At least one `AMOUNT`, `DATE`, `ITEM` or `CATEGORY` fields must be entered. You can input more than 1 of the mentioned fields (e.g. `update t1 $/100 n/milk`).
 * `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added).
-* `TYPE` accepts either `t` (Transaction) or `b` (Budget). (e.g. `update t1 ..` refers to updating a *Transaction* of index 1).
+* `TYPE` only accepts either `t` (Transaction) or `b` (Budget). (e.g. `update t1 ..` refers to updating a *Transaction* of index 1).
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update b 1 ..` or `update 1 ..` or `update 1b ..` will not work).
 * You can only update an existing transaction, budget or projection. Nothing will be updated if the entry of index `INDEX` does not exists.
 * Example: `update t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
@@ -565,8 +566,10 @@ Format (Projections): Cannot be updated
 
 * `update` requires at least one field to be updated. (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted).
 * `Ledger` and `Projection` do not have an update function. If you need to change specific fields within a ledger or projection entry, you should delete the target entry and recreate a new entry with your desired fields.
-* You can not change an `in` Transaction to an `out` Transaction.
-* Changing an expenditure (`out` Transaction) with the same category fields as a `Budget` entry will reflect changes on that particular `Budget` entry as well.
+* You cannot change an `in` Transaction to an `out` Transaction or vice versa.
+* Changing an expenditure's (`out` Transaction) category field to that of a Budget's entry will reflect changes on that particular Budget entry as well. (Further explained in <<UG_UPDATE_EXAMPLE_3>>)
+[NOTE]
+Changing the categories of an `out` Transaction entry with similar categories to that of a `Budget` entry to reflect changes on the budget's remaining amount will be incoming in version 2.0.
 
 ==== Example Usage
 
@@ -602,6 +605,7 @@ image::update_ug_5.png[]
 +
 image::update_ug_6.png[]
 
+[[UG_UPDATE_EXAMPLE_3]]
 ===== Example 3:
 
 Updating a *Transaction* entry which has the same category field as a *Budget* entry.
