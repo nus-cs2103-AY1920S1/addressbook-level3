@@ -334,6 +334,9 @@ public class MainWindow extends UiPart<Stage> {
         if (historyButton.isArmed()) {
             historyButton.disarm();
         }
+        if (leaderboardButton.isArmed()) {
+            leaderboardButton.disarm();
+        }
 
     }
 

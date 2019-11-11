@@ -709,6 +709,17 @@ Additionally, pressing ```enter``` will filter out different https://docs.oracle
 
 //tag::assign-remove[]
 === `assign` / `remove` feature
+
+The Class Diagram below showing the high level representation of the Object Oriented solution devised to implement the `assign` feature.
+
+.Assign Class Diagram
+image::AssignClassDiagram.png[width="600"]
+
+The Class Diagram below showing the high level representation of the Object Oriented solution devised to implement the `remove` feature.
+
+.Remove Class Diagram
+image::RemoveClassDiagram.png[width="600"]
+
 Upon successful assignation, the new participant or mentor will be stored internally in the list of participant or optional mentor field in the Team object. Upon successful removal of Participant or Team, the specified participant or mentor will be removed from the Team object. Additionally, it calls the following operations:
 
 *	link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager#addMentorToTeam`] – adds mentor to a specified team
@@ -716,6 +727,7 @@ Upon successful assignation, the new participant or mentor will be stored intern
 *	link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager#removeParticipantFromTeam`] – removes participant from team
 * link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager#removeMentorFromTeam`] – removes mentor from team
 
+==== `assign` feature
 1. The `assign participant` command will add the new participant under the list of participant in the specified link:{repoURL}/src/main/java/seedu/address/model/entity/Team.java[`Team`] object. This is provided that the number of members in the link:{repoURL}/src/main/java/seedu/address/model/entity/Team.java[`Team`] object(size of list of participants) is less than 5.
 
 The following sequence diagram shows how the `assign participant` operation works:
@@ -725,7 +737,8 @@ image::AssignParticipantCommandSequenceDiagram.png[][width=790,height=480]
 
 2. The `assign mentor` command will add the new mentor under the link:{repoURL}/src/main/java/seedu/address/model/entity/Team.java[`Optional<Mentor>`] field in the specified link:{repoURL}/src/main/java/seedu/address/model/entity/Team.java[`Team`] object. This is provided that there is no existing mentor in the team. The sequence diagram of `assign mentor` is similar to that of `assign participant`.
 
-3. The remove participant will first search through the list of participant under the specified link:{repoURL}/src/main/java/seedu/address/model/entity/Team.java[`Team`] object. This checks whether the specified participant is a member of the team in the first place. If it is not a member, an error will be thrown. Whereas if it is a member, the specified participant will be removed from the list of participant.
+==== `remove` feature
+1. The remove participant will first search through the list of participant under the specified link:{repoURL}/src/main/java/seedu/address/model/entity/Team.java[`Team`] object. This checks whether the specified participant is a member of the team in the first place. If it is not a member, an error will be thrown. Whereas if it is a member, the specified participant will be removed from the list of participant.
 
 The following sequence diagram shows how the `remove participant` operation works:
 
@@ -734,7 +747,7 @@ image::RemoveParticipantCommandSequenceDiagram.png[][width=790,height=480]
 
 
 
-4. The `remove mentor` command  will first check whether the link:{repoURL}/src/main/java/seedu/address/model/entity/Team.java[`Optional<Mentor>`] field under the specified link:{repoURL}/src/main/java/seedu/address/model/entity/Team.java[`Team`] object is not empty and corresponds to the specified mentor. This checks whether the team have not been assigned a mentor, or they have been assigned to a different mentor. Under any of these cases, and error will be thrown. Whereas if the team is assigned the specific mentor, the specified mentor will be removed from the link:{repoURL}/src/main/java/seedu/address/model/entity/Team.java[`Optional<Mentor>`] field.The sequence diagram of `remove mentor` is similar to that of `remove participant`.
+2. The `remove mentor` command  will first check whether the link:{repoURL}/src/main/java/seedu/address/model/entity/Team.java[`Optional<Mentor>`] field under the specified link:{repoURL}/src/main/java/seedu/address/model/entity/Team.java[`Team`] object is not empty and corresponds to the specified mentor. This checks whether the team have not been assigned a mentor, or they have been assigned to a different mentor. Under any of these cases, and error will be thrown. Whereas if the team is assigned the specific mentor, the specified mentor will be removed from the link:{repoURL}/src/main/java/seedu/address/model/entity/Team.java[`Optional<Mentor>`] field.The sequence diagram of `remove mentor` is similar to that of `remove participant`.
 //end::assign-remove[]
 
 

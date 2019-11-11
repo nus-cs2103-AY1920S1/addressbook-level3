@@ -384,11 +384,11 @@ Examples:
 
 * `assign mentor M-18 T-2` will assign Mentor with ID M-18 to Team with ID T-2. Running the command will show you the following output in the 'Team' section of the GUI:
 
-image::AssignCommandExample1.png[height="200", width="600"]
+image::AssignCommandExample1.png[height="200", width="550"]
 
 * `assign participant P-100 T-2` will assign Participant with ID P-100 to Team with ID T-2. Running the command will show you the following output in the 'Team' section of the GUI:
 
-image::AssignCommandExample2.png[height="200", width="600"]
+image::AssignCommandExample2.png[height="200", width="550"]
 //end::assign[]
 
 //tag::remove[]
@@ -406,11 +406,11 @@ Examples:
 
 * `remove mentor M-18 T-8` will remove Mentor with ID M-18 to Team with ID T-8. Running the command will show you the text 'Mentor not assigned' in the respective team. The following will be shown in the 'Team' section of the GUI:
 
-image::RemoveCommandExample1.png[height="200", width="600"]
+image::RemoveCommandExample1.png[height="200", width="550"]
 
 * `remove participant P-100 T-2` will remove Participant with ID P-100 from Team with ID T-2.Running the command will show you the following output in the 'Team' section of the GUI
 
-image::RemoveCommandExample2.png[height="200", width="600"]
+image::RemoveCommandExample2.png[height="200", width="550"]
 //end::remove[]
 
 // tag::history[]
