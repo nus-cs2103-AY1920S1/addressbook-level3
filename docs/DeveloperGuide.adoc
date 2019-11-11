@@ -640,22 +640,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |Administrator |view the schedule of deliverymen |see how many times deliverymen have delivered and reward them for their hard work
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `DeliveryMANS` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete customer
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list customers
+2.  DeliveryMANS shows a list of customers
+3.  User requests to delete a specific customer in the list
+4.  DeliveryMANS deletes the customer
 +
 Use case ends.
 
@@ -669,11 +668,9 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. DeliveryMANS shows an error message.
 +
 Use case resumes at step 2.
-
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
@@ -692,23 +689,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -732,26 +712,45 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a restaurant
 
-=== Deleting a person
+. Deleting a restaurant
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: Currently in restaurant context. Multiple restaurants in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First restaurant is deleted from the list. Details of the deleted restaurant are shown in the status message.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No restaurant is deleted. Error details shown in the status message.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: There are .json files in the data/ folder currently
 
-_{ more test cases ... }_
+.. Test case: Deleting `customerdatabase.json` in data/ +
+    Expected: Customer database in application will revert to default Sample Util data.
+
+.. Test case: Adding "a" to the top of the `deliverymendatabase.json` +
+    Expected: Deliverymen database will be wiped and start as an empty database.
+
+=== Tagging Customers
+
+. Adding orders to tag the customers automatically
+
+.. Prerequisites: The customers in the database are default from the Sample Util data.
+
+.. Test case: `-add_order c/PrettyCharlotte r/Prata House f/Cheese Prata q/1` +
+    Expected: `Indian` tag will be added to PrettyCharlotte's `CustomerCard`.
+
+.. Test case: `-add_order c/David r/Burger Palace f/Chicken Cheese Burger q/1`, `-add_order c/David r/Prata House f/Cheese Prata q/1` and `-add_order c/David r/Prata House f/Curry Fountain q/1` in this order +
+    Expected: `Burgers` tag will appear first and after adding the next 2 orders, `Indian` tag will replace `Japanese` tag because there are more `Indian` tags in David's order history.
+
+. Deleting orders to remove customer's tags automatically
+
+.. Prerequisites: The customers in the database are default from the Sample Util data.
+
+.. Test case: `-delete_order n/Order 1` +
+    Expected: AlexYeoh99 will have no more tags on his `CustomerCard`.
