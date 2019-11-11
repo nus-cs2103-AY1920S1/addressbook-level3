@@ -80,4 +80,9 @@ deactivate FindCommand
 
 [<--LogicManager
 deactivate LogicManager
+
+destroy FindCommand
+destroy ModuleContainsKeywordsPredicate
+
 @enduml
+

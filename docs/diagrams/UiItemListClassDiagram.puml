@@ -1,0 +1,61 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI <<Rectangle>>{
+Class MainWindow
+
+package Appeal {
+Class AppealListPanel
+Class AppealCard
+Class ExpandedAppealCard
+}
+
+package Module {
+Class ModuleListPanel
+Class ModuleCard
+Class ExpandedModuleCard
+}
+
+package Student {
+Class StudentListPanel
+Class StudentCard
+Class ExpandedStudentCard
+}
+
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+
+
+MainWindow *-down-> AppealListPanel
+MainWindow *-down-> ModuleListPanel
+MainWindow *-down-> StudentListPanel
+
+AppealListPanel -down-> AppealCard
+AppealListPanel -down-> ExpandedAppealCard
+
+ModuleListPanel -down-> ModuleCard
+ModuleListPanel -down-> ExpandedModuleCard
+
+StudentListPanel -down-> StudentCard
+StudentListPanel -down-> ExpandedStudentCard
+
+AppealCard .down.> HiddenModel
+ExpandedAppealCard .down.> HiddenModel
+ModuleCard .down.> HiddenModel
+ExpandedModuleCard .down.> HiddenModel
+StudentCard .down.> HiddenModel
+ExpandedStudentCard .down.> HiddenModel
+
+note "All classes shown here in the UI\npackage implicitly inherit from the \nabstract class UiPart shown in the \nprevious diagram." as N1
+N1 -down[hidden]-> UI
+
+
+@enduml

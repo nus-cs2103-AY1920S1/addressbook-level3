@@ -27,8 +27,8 @@ import mams.model.tag.Tag;
 public class ClashCommand extends Command {
 
     public static final String COMMAND_WORD = "clash";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Checks timetable clashes "
-            + "by index or two module codes."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": checks timetable clashes "
+            + "by entering index or two module codes. (Index must be a positive integer)"
             + "\nExample: " + COMMAND_WORD + " "
             + PREFIX_MODULE + "CS1010 " + PREFIX_MODULE + "CS2030 "
             + " OR " + COMMAND_WORD + " "
@@ -188,12 +188,7 @@ public class ClashCommand extends Command {
     private String getClashDetails() {
         StringBuilder s = new StringBuilder();
         for (ClashCase c : clashCases) {
-            s.append(c.getModuleCodeA());
-            s.append("  ");
-            s.append(c.getModuleCodeB());
-            s.append("\n");
-            s.append(c.getClashingSlots());
-            s.append("\n");
+            s.append(c.toString());
         }
         return s.toString();
     }
@@ -391,10 +386,6 @@ public class ClashCommand extends Command {
             return moduleCodes.get(1);
         }
 
-        /*public boolean isPresent() {
-            return CollectionUtil.isAnyNonNull(appealIndex, moduleIndices, studentIndex, moduleCodes);
-        }*/
-
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -461,6 +452,16 @@ public class ClashCommand extends Command {
             }
             return new Module("", "", "", "", sb.toString(),
                     "", new HashSet<>());
+        }
+
+        @Override
+        public String toString() {
+            return moduleA.getModuleCode()
+                    + "  "
+                    + moduleB.getModuleCode()
+                    + "\n"
+                    + getClashingSlots()
+                    + "\n";
         }
 
         @Override
