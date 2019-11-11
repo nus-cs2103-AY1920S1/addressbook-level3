@@ -14,7 +14,6 @@ import static seedu.billboard.testutil.TypicalRecurrences.RECUR_TAXES;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.tag.Tag;
 import seedu.billboard.testutil.RecurrenceBuilder;
 

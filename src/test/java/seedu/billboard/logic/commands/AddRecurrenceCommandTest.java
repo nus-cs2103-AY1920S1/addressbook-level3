@@ -2,16 +2,10 @@ package seedu.billboard.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 import static seedu.billboard.testutil.Assert.assertThrows;
-import static seedu.billboard.testutil.TypicalRecurrences.getTypicalBillboardWithRecurrenceExpenses;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.billboard.model.Model;
-import seedu.billboard.model.ModelManager;
-import seedu.billboard.model.UserPrefs;
 import seedu.billboard.model.recurrence.Recurrence;
 import seedu.billboard.testutil.RecurrenceBuilder;
 
