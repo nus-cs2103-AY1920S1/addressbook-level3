@@ -863,7 +863,7 @@ before `delete -p 3` command was executed.
 image::initialStack.png[width=350]
 
 Step 4. After retrieving the `[green]#Athletick#` state before `delete -p 3` command
-was executed, we then resets the `[green]#Athletick#` state to this retrieved
+was executed, we then reset the `[green]#Athletick#` state to this retrieved
 `[green]#Athletick#` state. As such, the previous command will then be undone.
 
 The following sequence diagram shows how the undo operation works:

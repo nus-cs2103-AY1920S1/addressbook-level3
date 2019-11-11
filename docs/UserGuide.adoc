@@ -983,7 +983,7 @@ image::Redo0.png[width="400"]
 *What you should see*
 
 The result box will display a success message.
-Furthermore, the list now only has 7 people and Mohamad Ali is once again gone from the list!
+Furthermore, the list now only has 7 people and Mohamad Ali is once deleted from the list!
 
 image::AfterRedo0.png[width="400"]
 

@@ -13,8 +13,8 @@ The purpose of this portfolio showcases my contribution to the Athletick project
 
 === About the team
 
-Our team comprises of five year 2 computing undergraduates from
-the National University of Singapore.
+Our team comprises of five second-year computer science undergraduates from
+the National University of Singapore (NUS).
 
 === About the project
 
@@ -65,9 +65,8 @@ alternatives was necessary to weigh the different alternatives and decide on the
 
 ** The implementation was challenging as it required a full understanding of
 the major components of the application and the existing features implementations.
-Also, as the enhancement is able to work with future commands, the implementation of
-this enhancement has to be considerable of the future features implementations so as to
-allow the future enhancement for such features to be easily integrated into the current implementation.
+Also, the enhancement had to be implemented in a way that the future enhancements for any future
+features are able to be easily integrated into the current implementation.
 
 *Code contributed*: The links provided show my code contribution for the project.
 (https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=junhup&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByAuthors&breakdown=false[Reposense], https://github.com/junhuplim/main[Github Repository])
