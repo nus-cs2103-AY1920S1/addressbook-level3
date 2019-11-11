@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1002",
+    "courseCredit": "4",
+    "description": "This module aims to introduce students to the subject of Japanese studies from a multi-disciplinary approach. It has three main components. The first component is humanities, covering art, philosophy, history and literature. The second component is social sciences, which includes sociology,anthropology, politics and economics. The third component is linguistics and language development. Students will learn about the methods and theories the various disciplines contribute to the study of Japan. Audio-visual materials, fieldwork, guest lectures, study tours, projects and debates will supplement lecture and tutorials.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "JS1101E. Students majoring in JS are precluded from taking\nthis module.",
+    "title": "Introduction to Japan"
+}

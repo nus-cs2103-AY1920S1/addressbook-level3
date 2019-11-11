@@ -1,0 +1,42 @@
+@startuml
+autoactivate on
+!include ../style2.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":JarvisParser" as JarvisParser LOGIC_COLOR
+participant ":CheckCommandParser" as CheckCommandParser LOGIC_COLOR
+participant "c:CheckCommand" as CheckCommand LOGIC_COLOR
+participant "t:AndOrTree" as AndOrTree LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR_T1
+end box
+
+[-> LogicManager : execute("check c/CS2102")
+    LogicManager -> JarvisParser : parseCommand("check c/CS2102")
+        create CheckCommandParser
+        JarvisParser -> CheckCommandParser
+            return
+        JarvisParser -> CheckCommandParser : parse("c/CS2102")
+            create CheckCommand
+            CheckCommandParser -> CheckCommand
+                return c
+            return c
+        return c
+        destroy CheckCommandParser
+    LogicManager -> CheckCommand : execute()
+        CheckCommand -> AndOrTree : buildTree()
+            return t
+        CheckCommand -> AndOrTree : t.fulfills()
+            return hasFulfilled
+        CheckCommand -> Model : checkCourse()
+            return
+        create CommandResult
+        CheckCommand -> CommandResult
+            return
+        return result
+    [<-- LogicManager
+@enduml

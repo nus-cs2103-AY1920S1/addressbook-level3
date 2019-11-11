@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK2505",
+    "courseCredit": "2",
+    "description": "This module is designed to provide students with background and general knowledge in bioengineering to stir up their interests in this multidisciplinary field. This module will aim at providing the background and basic knowledge in bioengineering to the students. At the end of this module, the students will: (1) have great appreciation for the breadth of studies in bioengineering; (2) demonstrate a basic understanding of the fundamental aspects of bioengineering; (3) have a focus on the area of their interests as they define their educational goals.Major topics to be covered: tissue engineering, biomaterials, biomechanics, bioinstrumentation and medical imaging",
+    "faculty": "Engineering",
+    "preclusion": "For students from other departments except Division of Bioengineering and students doing Minor in Bioengineering",
+    "title": "Introductory Biomedical Engineering"
+}

@@ -1,0 +1,12 @@
+{
+    "courseCode": "YHU2291",
+    "courseCredit": "5",
+    "description": "This module is intended as an introduction to various forms and modes of artistic practice, history, and theory. Each iteration will focus on a different theme that will inform the various lectures, seminars, studio exercises, and assignments over the semester. The module allows students to experience the practices and traditions of the arts covered by the three tracks of the major. Students will learn how to apply this knowledge to forms of their choosing in a final portfolio that demonstrates their capabilities in at least one theoretical mode and two practical modes, and will include reflection/self-assessment of their processes.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YHU4221",
+        "YHU4230"
+    ],
+    "preclusion": "YHU1209 (previous module code)",
+    "title": "Introduction to Arts"
+}

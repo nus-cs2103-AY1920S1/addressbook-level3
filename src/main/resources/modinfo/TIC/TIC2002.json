@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TIC2002",
+    "courseCredit": "4",
+    "description": "This module introduces the necessary conceptual and analytical tools for systematic and rigorous development of software systems. It covers four main areas of software development, namely object-oriented system analysis, object-oriented system modelling and design, implementation, and testing, with emphasis on system modelling and design and implementation of software modules that work cooperatively to fulfil the requirements of the system. Tools and techniques for software development, such as Universal Modelling Language (UML), programme specification, and testing methods, will be taught. Major software engineering issues such as modularisation criteria, programme correctness, and software quality will also be covered.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TIC3002",
+        "TIC3001",
+        "TIC4303"
+    ],
+    "prereqTree": "TIC2001",
+    "title": "Introduction to Software Engineering"
+}

@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6130",
+    "courseCredit": "4",
+    "description": "This is a module for those majoring in communications, particularly digital communications. The first aim is to provide a rigorous treatment of classical channel coding as well as finite fields, as many codes in this category are algebraically constructed and decoded. The second aim is to provide a detailed treatment of modern codes such as Turbo codes, low density parity check codes, polar codes and iterative decoding. This module will bring the student to the cutting edge of current research in coding theory and techniques.",
+    "faculty": "Engineering",
+    "preclusion": "EE5307",
+    "prereqTree": {
+        "or": [
+            "EE5139",
+            "EE5139R"
+        ]
+    },
+    "title": "Classical & Modern Channel Coding"
+}

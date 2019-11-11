@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "SW5107",
+    "courseCredit": "4",
+    "description": "This module deals with the overall process of social service program planning and evaluation. Its emphasis is not only on the conceptual understanding of research methodological issues underlying different program evaluation designs, but also on the application of various data collection methods and data analysis skills required for program evaluation. Seeking to promote both evidence\u2010based practice and practice\u2010based research in the field, this module also examines how social workers can utilize and incorporate research methods and skills into their helping process to generate practice\u2010informed data for the stage of program evaluation.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "SW5112"
+    ],
+    "title": "Program Development and Evaluation"
+}

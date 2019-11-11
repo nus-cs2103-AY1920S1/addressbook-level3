@@ -1,0 +1,28 @@
+{
+    "courseCode": "EN3267",
+    "courseCredit": "4",
+    "description": "This module, intended for advanced undergraduate students, is meant to provide a survey introduction to Modern European drama from the late 19th C. to the present. The plays chosen reflect dramaturgical and theatrical reflections on the modern, on class and gender relations (and breakdowns) and form part of a tradition of innovation in which later drama is formed, partially at least, in response to earlier.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "TS3241",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "Modern Drama"
+}

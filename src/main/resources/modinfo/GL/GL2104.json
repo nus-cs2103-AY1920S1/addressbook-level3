@@ -1,0 +1,19 @@
+{
+    "courseCode": "GL2104",
+    "courseCredit": "4",
+    "description": "This module examines the theories of knowledge and methods of inquiry that are used across disciplines to study globalisation and its effects. It introduces students to the means, materials, techniques, and ethical issues entailed by different methods of inquiry. Four themes recur throughout the module: how questions are formulated and investigations conducted; how language influences inquiry; how context influences inquiry; and how different means, materials, and methods of inquiry can (or cannot) be brought together to provide a more holistic analysis.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "SC3209"
+    ],
+    "preclusion": "GL3101",
+    "prereqTree": {
+        "and": [
+            "GL1101E",
+            "GL2101",
+            "GL2102",
+            "GL2103"
+        ]
+    },
+    "title": "Inquiry and Method"
+}

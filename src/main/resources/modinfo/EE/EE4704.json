@@ -1,0 +1,14 @@
+{
+    "courseCode": "EE4704",
+    "courseCredit": "4",
+    "description": "The goal of this module is to introduce students to the fundamental concepts underlying digital image processing and techniques for manipulating and analysing image data. This course will provide students with a good foundation in computer vision and image processing, which is important for those intending to proceed to biomedical engineering, intelligent systems and multimedia signal processing. The following topics are taught: elements of a vision system, image acquisition, 2-D discrete Fourier transform, image enhancement techniques, theoretical basis and techniques for image compression, segmentation methods including edge detection, feature extraction including texture measurement, and object recognition.",
+    "faculty": "Engineering",
+    "preclusion": "CS4243, EE3206, EE3206E, TEE3206, TEE4704.",
+    "prereqTree": {
+        "or": [
+            "CG2023",
+            "EE2023"
+        ]
+    },
+    "title": "Introduction to Computer Vision and Image Processing"
+}

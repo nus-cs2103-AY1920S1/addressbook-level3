@@ -1,0 +1,9 @@
+{
+    "courseCode": "ACC4761G",
+    "courseCredit": "4",
+    "description": "The module seeks to extend students' understanding of risk management derived from ACC3706 by in-depth discussion of selected topics that reflect the instructors' interests and expertise.",
+    "faculty": "NUS Business School",
+    "preclusion": "ACC4612H",
+    "prereqTree": "ACC3706",
+    "title": "Seminars in Accounting: Advanced Risk Management"
+}

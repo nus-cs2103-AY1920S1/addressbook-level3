@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSS4220",
+    "courseCredit": "5",
+    "description": "Housing is an essential necessity for living. The housing unit is concurrently a consumption good and an investment good. As a commodity, the quality and quantity of housing distribution and consumption are unequal, reflecting intrinsic social and economic inequalities in the society. As the logic and practice of the housing market unavoidably fail in providing adequate housing for all, the state is left with the responsibility of providing for those that the market has marginalized. This module will examine the role of the market and the state in engendering and perpetuating social and economic inequalities through the housing provision.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YSS2220",
+            "YCC2121"
+        ]
+    },
+    "title": "Housing and Social Inequality"
+}

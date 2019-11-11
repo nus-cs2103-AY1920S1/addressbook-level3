@@ -1,0 +1,8 @@
+{
+    "courseCode": "SPH6002",
+    "courseCredit": "4",
+    "description": "In this module, the principles of advanced statistical modelling will be introduced, and statistical models such as multiple linear regression, logistic regression and Cox proportional hazards model will be applied to a variety of practical medical or public health problems. For time-to-event data analysis involving the Cox proportional hazards model, the proportional hazards assumption will be discussed, and strategies for handling non-proportional hazards, such as via stratification or modelling using time-dependent covariates will be introduced. We also consider the situation where several competing event types define the event of interest in a time-to-event study. Methods for analysing repeated measures data, assessment of model fit, statistical handling of confounding and statistical evaluation of effect modification will also be discussed. The statistical models introduced will be applied to real life clinical or public health data.",
+    "faculty": "SSH School of Public Health",
+    "preclusion": "SPH5101 Advanced Quantitative Methods I",
+    "title": "Advanced Quantitative Methods II"
+}

@@ -1,0 +1,10 @@
+{
+    "courseCode": "ISY5001",
+    "courseCredit": "11",
+    "description": "This module teaches how to build Intelligent Systems that solve problems by reasoning using captured knowledge and data. Example applications include, question answering systems such as IBM Watson, personal assistants such as Amazon\u2019s Alexa and Game-playing systems such as AlphaGo Zero.",
+    "faculty": "Institute of Systems Science",
+    "fulfillRequirements": [
+        "ISY5007"
+    ],
+    "title": "Intelligent Reasoning Systems"
+}

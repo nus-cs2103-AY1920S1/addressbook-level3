@@ -1,0 +1,16 @@
+{
+    "courseCode": "FIN3114",
+    "courseCredit": "4",
+    "description": "Accounting is often said to be the language of business. However, there are differences in the way accounting is applied depending on where you are in the world. This course provides students with an in-depth understanding of the complexities of accounting in an international context. Topics to be covered include the global business environment which necessitates a common business language, the diverse accounting regimes and the underlying themes, efforts at coping with and resolving international accounting differences, key financial reporting issues relating to segment reporting, international financial ratio analysis, business combinations, intangible assets, and foreign currency translation, key managerial accounting issues relating to the challenges of measuring performance of foreign operations whose structures differ from those of a simple corporation and other accounting issues relating to international taxation and auditing.",
+    "faculty": "NUS Business School",
+    "preclusion": "Students who have passed FNA3114 are not allowed to take FIN3114.",
+    "prereqTree": {
+        "or": [
+            "FNA1002",
+            "FNA1002X",
+            "ACC1002",
+            "ACC1002X"
+        ]
+    },
+    "title": "Global Financial and Accounting Issues"
+}

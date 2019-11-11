@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "TE2101",
+    "courseCredit": "4",
+    "description": "This module aims to introduce students to the discipline of computing and the problem solving process. It stresses on good programme design and programming styles, and structured programme development using a higher-level programming language. The topics covered in this module are: Algorithm design process, Programme development/coding/debugging. Programming concepts in a high-level language including programme structure, simple data types and structured types and various control structures (sequencing, loops, conditionals, etc.). Linear data structures such as arrays and linked-lists. The utility of recursion using a variety of sorting algorithms.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "EE4214E",
+        "TE3201"
+    ],
+    "preclusion": "TE1122, TEE2101, TIC1001",
+    "title": "Programming Methodology"
+}

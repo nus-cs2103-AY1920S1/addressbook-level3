@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAF4203",
+    "courseCredit": "5",
+    "description": "Building upon the foundation of the French 6 module, this module focuses on the development of students' ability to communicate on fairly complex topics of general interests. It will continue to adopt an integrated approach and cultivate students' proficiency in all areas of language learning, including their learning competence. Strategies to be developed focus on writing and speaking. This module will introduce students to various themes and topics in French culture and society. The texts for this module will be drawn from the press, and visual and computer media. The module will be conducted in French.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAF4204"
+    ],
+    "prereqTree": "LAF4202",
+    "title": "French Studies 1"
+}

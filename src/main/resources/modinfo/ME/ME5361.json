@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "ME5361",
+    "courseCredit": "4",
+    "description": "This is an advanced module on computational fluid dynamics (CFD) at the graduate level. The module introduces some newly-developed numerical techniques for simulation of fluid flows as well as convective heat transfer problems. Major topics covered in this module include: high-order numerical approaches for solving boundary-layer and Navier-Stokes equations; boundary integral method for linear systems; upwind and Godunov-type schemes for compressible flow simulation; lattice Boltzmann method for incompressible flow simulation. There is a compulsory Term Paper project for this module. The module is recommended for research students and engineers who intend to do research project in the CFD area.",
+    "faculty": "Engineering",
+    "title": "Advanced Computational Fluid Dynamics"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU2271",
+    "courseCredit": "5",
+    "description": "This 2000 level course introduces the students to the history of the ancient and medieval Mediterranean and, by extension, to the economic, social and cultural foundations of all European civilizations. The class takes a decidely longue dur\u00e9e approach to Mediterranean history, which explains the evolution of economic and political structures vis-\u00e0-vis the ecology and social and cultural geography of the region.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1113"
+        ]
+    },
+    "title": "The Mediterranean World"
+}

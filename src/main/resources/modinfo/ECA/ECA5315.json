@@ -1,0 +1,15 @@
+{
+    "courseCode": "ECA5315",
+    "courseCredit": "4",
+    "description": "This module is designed to provide students with vigorous training in applied financial econometrics. It covers topics on characteristics of macroeconomic and financial data; basic concepts of linear and non-linear time series models: stationary time series models, ARMA models; stochastic volatility models; GARCH models and diagnostic tests; value at risk analysis; and multivariate conditional time-varying models. Students are expected to do several computer based projects.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EC5261, EC5315",
+    "prereqTree": {
+        "or": [
+            "EC5274",
+            "EC5333",
+            "ECA5333"
+        ]
+    },
+    "title": "Financial Econometrics"
+}

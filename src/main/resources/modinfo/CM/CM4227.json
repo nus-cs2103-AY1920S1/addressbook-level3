@@ -1,0 +1,24 @@
+{
+    "courseCode": "CM4227",
+    "courseCredit": "4",
+    "description": "This module provides an overall view on an emerging new discipline that blends chemistry with many fields of biology to unravel the complexities of life at the interface of chemistry and biology. This course illustrates how biological processes are explained in chemical terms. The key objective is to highlight the basic principles of chemical biology to show its important linkages to life sciences.",
+    "faculty": "Science",
+    "preclusion": "LSM4233",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CM1121",
+                    "CM1401"
+                ]
+            },
+            {
+                "or": [
+                    "LSM1101",
+                    "LSM1401"
+                ]
+            }
+        ]
+    },
+    "title": "Chemical Biology"
+}

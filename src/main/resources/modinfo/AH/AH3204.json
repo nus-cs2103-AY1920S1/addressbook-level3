@@ -1,0 +1,11 @@
+{
+    "courseCode": "AH3204",
+    "courseCredit": "4",
+    "description": "This module examines the history of art history as a discipline looking at its origins, evolution and shifts across time. It seeks to understand how genres in art history are sequenced, compared and analysed in the European tradition. The module also examines how art history evolves differently in Asian texts and Asian contemporary writing. These differences in the methods and approaches to art history provide diverse frameworks to appreciate art-production and consumption globally.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "YHU4207"
+    ],
+    "prereqTree": "AH2101",
+    "title": "Methods and Approaches to Art History"
+}

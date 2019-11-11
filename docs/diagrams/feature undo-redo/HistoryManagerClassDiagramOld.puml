@@ -1,0 +1,16 @@
+@startuml
+!include ../style2.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package HistoryManager <<Rectangle>> {
+    Class HistoryManager
+    Class CommandDeque
+    abstract Class Command
+}
+
+HistoryManager *--> "2" CommandDeque
+CommandDeque *--> "*" Command
+
+@enduml

@@ -1,0 +1,9 @@
+{
+    "courseCode": "KE5109",
+    "courseCredit": "12",
+    "description": "The Knowledge Engineering Overseas Practicum is designed to allow students to experience entrepreneurial enterprises, such as high technology start-up companies, in rapidly developing economies, such as Israel and China, and contribute to those companies by playing a significant role in the development advanced software products or in solving complex business problems. The practicum allows students to apply their knowledge in a real world context, demonstrating their mastery of a range of Knowledge Engineering skills, such as problem formulation, problem modeling, knowledge discovery, solution design and construction, verification and validation. This module is conducted in collaboration with the NUS Overseas Colleges (NOC).",
+    "faculty": "Institute of Systems Science",
+    "preclusion": "Students that select KE5105 Knowledge Engineering Project cannot also select the Knowledge Engineering Overseas Practicum and vice versa.",
+    "prereqTree": "KE4102",
+    "title": "Knowledge Engineering Overseas Practicum"
+}

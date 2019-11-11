@@ -1,0 +1,9 @@
+{
+    "courseCode": "PR3202",
+    "courseCredit": "4",
+    "description": "This elective module aims to equip students with knowledge, skills and attitudes to support contemporary development and delivery of community health services, meeting the evolving needs of the Singapore population. Students will learn to build on their prior knowledge on non-prescription medications and non-pharmacological measures, so that they can counsel and guide patients on the appropriate options for self-care management and preventive care.",
+    "faculty": "Science",
+    "preclusion": "PR3122",
+    "prereqTree": "PR2134",
+    "title": "Community Health & Preventative Care"
+}

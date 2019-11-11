@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MT5013",
+    "courseCredit": "4",
+    "description": "The aim of this course is to help students to analyze issues concerning global innovation management of multinational firms and to learn how to apply what they learn to real cases in high technology industries. After introducing key concepts and frameworks in the fields regarding global innovation management (such as international management, national innovation systems, international product development), the professor will use these to explain the management of multinational firms, which straddle multiple countries and regions and arbitrage different national and regional environments for innovation in order to compete internationally. Students, both individually and in teams, will use this information to choose and analyze specific firms and countries (regions) to understand better the issues related to the subjects taught in this course, concerning issues.",
+    "faculty": "Engineering",
+    "prereqTree": "MT5007",
+    "title": "Global Innovation Management"
+}

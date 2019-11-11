@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAM3201",
+    "courseCredit": "4",
+    "description": "This module is a progression from Malay 2 and it aims to help students become more competent in the Malay language so that they will be confident and capable of effective communication with speakers of the target language and at the same time be aware of the sociolinguistic dimension of the target culture. Malay 3 will focus on the continuous mastery and development of language skills that will help students converse accurately and more fluently. This module is also aimed at enhancing students' communicative and social competence for effective communication in the Malay language.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAM3202"
+    ],
+    "prereqTree": "LAM2201",
+    "title": "Malay 3"
+}

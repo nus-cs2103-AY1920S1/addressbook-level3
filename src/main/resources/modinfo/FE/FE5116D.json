@@ -1,0 +1,15 @@
+{
+    "courseCode": "FE5116D",
+    "courseCredit": "4",
+    "description": "This module will cover both computer programming and numerical methods. On the programming side, this module will cover Excel based VBA and R language. The emphasis will be given to programming to solve financial engineering problems. On the numerical methods side, this module will cover finite difference, discretization and Monte Carlo simulation methods.",
+    "faculty": "Risk Management Institute",
+    "prereqTree": {
+        "and": [
+            "FE5101",
+            "FE5101D",
+            "FE5112",
+            "FE5112D"
+        ]
+    },
+    "title": "Programming and Advanced Numerical Methods"
+}

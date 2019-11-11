@@ -1,0 +1,14 @@
+{
+    "courseCode": "YSS4231",
+    "courseCredit": "5",
+    "description": "This course examines the various aspects of parental influence on children\u2019s development, with a focus on cultural differences in parenting styles and practices. Topics to be covered include a critical evaluation of the conceptual and functional differences of parenting practices across cultures, and how these may influence children\u2019s development in diverse contexts. The notion of 'good enough parenting' and parenting as a bidirectional process will be analysed. The course concludes with a discussion of whether parents are the most important source of influence, considering the many other domains of influence in children\u2019s lives, such as peers.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "PL4880K: Parenting and Child Development\n(Module offered in NUS by Dr. Cheung Hoi Shan in Semester 1,\nAY2015/2016)",
+    "prereqTree": {
+        "and": [
+            "YSS2201",
+            "YSS2216"
+        ]
+    },
+    "title": "Parenting and Child Development"
+}

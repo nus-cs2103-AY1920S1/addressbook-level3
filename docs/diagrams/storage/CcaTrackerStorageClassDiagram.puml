@@ -1,0 +1,16 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Class JsonSerializableCcaTracker
+Class JsonAdaptedCca
+Class JsonAdaptedEquipment
+Class JsonAdaptedCcaProgress
+
+JsonSerializableCcaTracker o-down-> "*" JsonAdaptedCca
+JsonAdaptedCca o-down-> "*" JsonAdaptedEquipment
+JsonAdaptedCca -down-> "1" JsonAdaptedCcaProgress
+
+@enduml

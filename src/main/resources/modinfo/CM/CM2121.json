@@ -1,0 +1,21 @@
+{
+    "courseCode": "CM2121",
+    "courseCredit": "4",
+    "description": "Functional group transformation; disconnection approach to synthesis; synthesis of polyfunctional organic molecules, stereochemistry and reaction mechanisms.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FST5204",
+        "FST5301",
+        "CM3221",
+        "CM3222",
+        "CM3225",
+        "CM3291",
+        "CM4271",
+        "CM4269",
+        "CM3252",
+        "CM4228",
+        "CM4225"
+    ],
+    "prereqTree": "CM1121",
+    "title": "Organic Chemistry 2"
+}

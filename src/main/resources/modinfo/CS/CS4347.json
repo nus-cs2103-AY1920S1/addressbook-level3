@@ -1,0 +1,33 @@
+{
+    "courseCode": "CS4347",
+    "courseCredit": "4",
+    "description": "This module introduces the fundamental technologies employed in sound and music computing which are grouped into three major areas: Sound, Music, and Interaction. It begins with an introduction to sound production, propagation and perception, followed by digital sound recording, editing, post-processing and compression. Its core components consists of the analytic and synthetic approaches of sound and music. The analytic approach pertains to analysis and understanding, whereas the synthetic approach pertains to generation and processing. Interaction aspects include multimodal mobile music interface and sound interaction design. Finally, music information retrieval will be introduced as an application of analytic techniques.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1102R",
+                    "MA1505",
+                    {
+                        "and": [
+                            "MA1511",
+                            "MA1512"
+                        ]
+                    },
+                    "MA1521"
+                ]
+            },
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1311",
+                    "MA1506",
+                    "MA1508E"
+                ]
+            },
+            "CS2108"
+        ]
+    },
+    "title": "Sound and Music Computing"
+}

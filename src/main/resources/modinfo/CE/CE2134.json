@@ -1,0 +1,23 @@
+{
+    "courseCode": "CE2134",
+    "courseCredit": "4",
+    "description": "This course introduces the student to basic concepts of fluid mechanics and hydraulics. Starting with fluid properties and fluid statics, the student would understand how these concepts are used for the calculation of hydrostatic forces and the stability of floating bodies. The student is introduced to the concepts of fluid flow, ideal and real fluids and their limitations, laminar and turbulent flows, the concept of the boundary layer and flow resistance, the concept of flow separation and the wake, frictional and form drag and lift on immersed bodies. Dimensional analysis and the concept of similitude will help reinforce the fundamental considerations essential for experiments with fluid phenomena. By the end of the course, the student should understand the concepts of conservation of mass, momentum and energy and how these can be applied to flow measuring devices, to the estimation of frictional losses for flows in pipelines, to pumping systems and other engineering applications.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CE5307",
+        "ESE5203",
+        "CE5311",
+        "CE5377",
+        "CE6077",
+        "CE3132"
+    ],
+    "preclusion": "ME2134 Fluid Mechanics I\nTCE2134",
+    "prereqTree": {
+        "or": [
+            "EG1109FC",
+            "EG1109",
+            "CE1109X"
+        ]
+    },
+    "title": "Hydraulics"
+}

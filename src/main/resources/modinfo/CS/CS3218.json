@@ -1,0 +1,43 @@
+{
+    "courseCode": "CS3218",
+    "courseCredit": "4",
+    "description": "Modern mobile platforms such as smart phones and tablets are equipped with an increasing number of sensing modalities. In addition to traditional components such as keyboards and touch screens, they are also equipped with cameras, microphones, inertial sensor, and GPS receivers. With these modalities all packed into a single platform, it is important to empower application developers with basic knowledge and practical skills in dealing with these modalities. This module introduces the students to basic theories, concept and practical skills needed in input, processing and output of multimodal data on mobile platforms.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS3283"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1102R",
+                    "MA1505",
+                    "MA1521",
+                    {
+                        "and": [
+                            "MA1511",
+                            "MA1512"
+                        ]
+                    }
+                ]
+            },
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1506",
+                    "MA1508E"
+                ]
+            },
+            {
+                "or": [
+                    "CS1020",
+                    "CS1020E",
+                    "CS2030",
+                    "CS2040",
+                    "CS2040C"
+                ]
+            }
+        ]
+    },
+    "title": "Multimodal Processing in Mobile Platforms"
+}

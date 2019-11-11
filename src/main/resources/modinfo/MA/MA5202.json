@@ -1,0 +1,13 @@
+{
+    "courseCode": "MA5202",
+    "courseCredit": "4",
+    "description": "This module is an introduction to classical algebraic number theory. It covers topics chosen from: algebraic integers, unique factorization of ideals, class group, unit theorem, ramification, decomposition and inertia groups, geometry of numbers, zeta functions and L-functions. If time permits, further topics which may be covered include: p-adic numbers, adeles and ideles, prime number theorem and modular forms.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "MA4203",
+            "MA5203"
+        ]
+    },
+    "title": "Number Theory"
+}

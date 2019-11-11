@@ -1,0 +1,13 @@
+{
+    "courseCode": "LSM4263",
+    "courseCredit": "4",
+    "description": "LSM4263 will introduce students to field biology, the basic techniques involved, sampling design and basic data gathering and data management. From field practicals, students will experience and encounter tropical environs and habitats, namely coastal, mangrove, primary and secondary forest. A 6 day field course is incorporated and will be conducted in Pulau Tioman, Malaysia. There students, who will be divided into small groups, will conduct 4 mini-projects in 4 separate habitats, under the supervision of experienced field-orientated teaching assistants. This module will involve overseas university students as well as NUS Life Sciences students.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "LSM2251",
+            "LSM2252"
+        ]
+    },
+    "title": "Field Studies in Biodiversity"
+}

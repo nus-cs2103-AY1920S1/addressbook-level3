@@ -1,0 +1,13 @@
+{
+    "courseCode": "PC3294",
+    "courseCredit": "4",
+    "description": "The module provides hands-on experience with modern detectors, electronics, data acquisition systems, radiation sources and other nuclear physics equipment that forms the basis for the applications of nuclear physics to medical physics, radiation protection and other fields. The module will be restricted to the students in the Medical Physics minor.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "PC3232",
+            "PC3232B"
+        ]
+    },
+    "title": "Radiation Laboratory"
+}

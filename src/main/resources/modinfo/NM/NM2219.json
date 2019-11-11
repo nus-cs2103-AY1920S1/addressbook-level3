@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "NM2219",
+    "courseCredit": "4",
+    "description": "This module is designed to introduce students to the field of communication management and to the organizational, societal and legal contexts in which the profession takes place. Emphasis is placed on ethics, social responsibility, the role of mass communication in the formation of public opinion, the role of organizational communication in democracy, the global practices of communication management and major influences that affect organizational behaviour. This is the foundation module for students pursuing careers in communication management.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "NM3219"
+    ],
+    "preclusion": "NM2219Y",
+    "title": "Principles of Communication Management"
+}

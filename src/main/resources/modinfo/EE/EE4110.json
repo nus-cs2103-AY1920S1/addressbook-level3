@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4110",
+    "courseCredit": "4",
+    "description": "Solid-state microwave circuits are usually realised using planar technologies, which integrate some or all components on a substrate. Moreover, monolithic microwave integrated circuits (MMICs) enable commercial application of microwave technology. This module therefore teaches design methods for microwave integrated circuits. Topics covered: review of design concepts. MIC Design: fabrication techniques, modeling of active and passive networks, microstrip and coplanar lines. MMIC Design: lump element design, foundry rules, modeling of active and passive networks, design techniques - Layout and DRC Checks. Selected Hands-on design work on (a) Passive Network - MIC filter and coupler, and (b) Active Network - MMIC oscillator and mixer.",
+    "faculty": "Engineering",
+    "prereqTree": "EE3104C",
+    "title": "RFIC and MMIC Design"
+}

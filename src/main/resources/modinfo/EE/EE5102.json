@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5102",
+    "courseCredit": "4",
+    "description": "This module covers both classical topics and current techniques in multivariable control system design. It gives students a good understanding of the differences between single loop and multi-loop systems, in terms of both analysis and synthesis. The topics covered include: Principles of single- and multi-loop feedback designs; poles, zeros and stability of multivariable feedback systems; performance and robustness of multivariable feedback systems; control system design using LQR technique, LQG/LTR method, H2 and H-infinity control, and computer aided design software.",
+    "faculty": "Engineering",
+    "preclusion": "EE6102 Multivariable Control Systems (Advanced)",
+    "prereqTree": {
+        "or": [
+            "EE5101",
+            "EE5101R",
+            "ME5401"
+        ]
+    },
+    "title": "Multivariable Control Systems"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSS4202",
+    "courseCredit": "5",
+    "description": "This seminar will examine recent and influential work in personality and social psychology on motivational and self\u2010regulatory processes contributing to the pursuit of goals. On successful completion of the course a student should be able to: Convey a deep understanding of motivational processes involved in the pursuit of goals. Also to conduct an effective literature review, construct novel and important hypotheses, competently critique the extant literature, design experiments, and write an effective research proposal.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YSS2201",
+            "YSS2216"
+        ]
+    },
+    "title": "Goals and Motivation"
+}

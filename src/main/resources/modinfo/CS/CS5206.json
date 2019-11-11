@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS5206",
+    "courseCredit": "4",
+    "description": "This module is a foundation module for graduate students in all areas of CS that aims to provide all graduate students in computer science with the necessary skills for algorithmic problem solving in all areas of computer science. The module presents intermediate level material on design and analysis of algorithms, with emphasis on efficient algorithms and data structures. It includes the implementation and use of advanced data structures and algorithms in advanced software development. The topics covered include asymptotics for analysis of algorithms, the major algorithm design paradigms, amortized complexity analysis, problem complexity and NP-completeness, approximation algorithms.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "CS2010",
+            "CS3230"
+        ]
+    },
+    "title": "Foundation in Algorithms"
+}

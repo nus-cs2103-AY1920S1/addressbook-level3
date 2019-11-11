@@ -1,0 +1,7 @@
+{
+    "courseCode": "SG3003",
+    "courseCredit": "4",
+    "description": "This course is intended to give students a basic course in the Java Programming Language. It explains Reuse and Modularity and other Java mechanisms. Also it introduces Exception Handling, Java Class Libraries, Input/Output, Multithreading and Java Graphical User Interfaces. It will also prepare students for the Sun Java Programmer Certification Exams. This course is appropriate for all software developers without previous knowledge or experience in Java.",
+    "faculty": "Institute of Systems Science",
+    "title": "Basic Java Programming"
+}

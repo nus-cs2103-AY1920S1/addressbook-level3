@@ -1,0 +1,14 @@
+{
+    "courseCode": "PL3236",
+    "courseCredit": "4",
+    "description": "This core module covers most of the common mental health problems identified for children and adults, e.g. eating disorders, behavioural problems, attention deficits, learning disabilities, schizophrenia, anxiety, stress, depression, personality disorders, sexual adjustment, substance abuse, suicide, and dementia. The lectures and discussion groups provide an introduction to clinical intervention, but emphasis is placed on the theoretical formulation of problems. Whenever possible, films and case studies are used to supplement the textbook and readings, and a visit to the local Institute of Mental Health will usually be arranged.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PL3254",
+        "PL3287",
+        "PL3257"
+    ],
+    "preclusion": "SW3217",
+    "prereqTree": "PL1101E",
+    "title": "Abnormal Psychology"
+}

@@ -1,0 +1,19 @@
+{
+    "courseCode": "CS5233",
+    "courseCredit": "4",
+    "description": "This module aims to provide students with a working knowledge of applying simulation techniques to model, simulate and study complex systems. It covers techniques in simulation model design, model execution, and model analysis. Students will have hands-on experience using a simulation package. The module will also introduce concepts of parallel and distributed simulation, and high level architecture.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "ST1232",
+                    "ST2131",
+                    "ST2334"
+                ]
+            },
+            "CS4231"
+        ]
+    },
+    "title": "Simulation and Modelling Techniques"
+}

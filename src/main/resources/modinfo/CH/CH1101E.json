@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CH1101E",
+    "courseCredit": "4",
+    "description": "This is a bilingual introductory course on some of the most interesting topics in Chinese history, literature, and culture. We will be studying these topics through the changes and continuities in the famous stories retold over time. The stories include those of the revengeful, the assassins, the queers, the cross dresser, and the ghost lovers. What you really need is a curious mind and an ability to comprehend basic spoken Mandarin. All assigned readings and presentation slides will be in English. Classes will be bilingual, and you can choose to do the term essay in either language.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "CH2161",
+        "CH2162"
+    ],
+    "title": "Retelling Chinese Stories: Change and Continuity"
+}

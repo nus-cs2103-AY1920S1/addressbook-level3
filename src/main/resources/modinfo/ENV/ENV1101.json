@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ENV1101",
+    "courseCredit": "4",
+    "description": "Using a multi-disciplinary and inter-disciplinary perspective, this module provides a historical and epistemological overview of environmental studies. Environmental studies underscore the long tradition in both eastern and western thought and philosophies of human-nature relationships. This module highlights the importance of demography, society, culture, and religion as important variables in understanding the complex equations of environmental processes, changes, adaptations and impacts. The module hopes to bring together current environmental and climate change issues as well as challenges; interrogate the options available in various ways: nature conservation, technological fixes, shifting consumption patterns, alternative energies, environmental education, changing public civic behavior, economic management policies and legal enforcements.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ENV2101"
+    ],
+    "preclusion": "GEM1903",
+    "title": "Environmental Studies: An Interdisciplinary Overview"
+}

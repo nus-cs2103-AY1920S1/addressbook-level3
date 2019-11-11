@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5510",
+    "courseCredit": "4",
+    "description": "This module provides students with an advanced knowledge on the design methodology for structural concrete. It also provides a learning experience on the key concepts and engineering concerns of concrete structures. The topics include advanced design philosophies and methods such as collapse load methods, limit design method and strut-and-tie method, design of openings in flexural members, seismic design, and design of various structural systems. The students are expected to demonstrate their proficiency in structural concrete design through term paper projects. The target students include both undergraduate and graduate students who are involved in research or engineering practice related to structural concrete.",
+    "faculty": "Engineering",
+    "preclusion": "TCE5510",
+    "prereqTree": "CE3165",
+    "title": "Advanced Structural Concrete Design"
+}

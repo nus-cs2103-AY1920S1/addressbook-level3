@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "ECA5337",
+    "courseCredit": "4",
+    "description": "The module studies how trading takes place in financial markets. We cover theoretical models and the associated empirical analysis employing game theory and econometric theory. We first analyse the movement of security prices by time series models. Second, we investigate various trading strategies adopted by market participants. To understand increasingly popular computerized trading, we cover programming and econometric software such as Excel VBA and R. Then, we examine three main types of theoretical models of trading: inventory models, sequential trading models, and strategic trading models. Finally, we study how trading rules and institutional details may lead to different trading processes.",
+    "faculty": "Arts and Social Science",
+    "title": "Applied Financial Economics"
+}

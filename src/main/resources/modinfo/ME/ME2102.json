@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ME2102",
+    "courseCredit": "4",
+    "description": "This module introduces the students to the various standards and techniques of sketching, prepare engineering drawings and specifications, and interpreting drawings. Students also get to use advanced commercial CAD software to do 3D solid modeling. Above all, this module expands the students\u2019 creative talent and enhances their ability to communicate their ideas in a meaningful manner. Major topics include: Principles of projections; Isometric; Orthographic and Isometric sketching; 3D solid modeling; Sectioning and Dimensioning; Drawing standards; Limits, Fits and Geometrical Tolerances. This module also provides the student with the fundamental knowledge to do calculations on design components like bolts, screws, fasteners, weld joints, springs, gears, material selection, fatigue, bearings and shafts. This is a 100% CA core module for all Mechanical Engineering students. This module is also open to cross-faculty students.",
+    "faculty": "Engineering",
+    "title": "Engineering Innovation and Modelling"
+}

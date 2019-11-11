@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YLS1202",
+    "courseCredit": "5",
+    "description": "This module is a continuation of Beginning Spanish 1. Beginning Spanish 2 pays close attention to aural/oral practice while strengthening basic grammar skills, writing, and reading comprehension. The module covers the second half of the eBook used in Beginning Spanish 1 and prepares students for Study Abroad opportunities via CIPE in their second summer at Yale-NUS or beyond.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "LAS3201",
+        "YLS2201"
+    ],
+    "prereqTree": "YLS1201",
+    "title": "Beginning Spanish 2"
+}

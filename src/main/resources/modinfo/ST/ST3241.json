@@ -1,0 +1,8 @@
+{
+    "courseCode": "ST3241",
+    "courseCredit": "4",
+    "description": "This module introduces methods for analysing response data that are categorical, rather than continuous. Topics include: categorical response data and contingency tables, loglinear and logit models, Poisson regression, framework of generalised linear models, model diagnostics, ordinal data. This module is targeted at students who are interested in Statistics and are able to meet the prerequisite.",
+    "faculty": "Science",
+    "prereqTree": "ST3131",
+    "title": "Categorical Data Analysis I"
+}

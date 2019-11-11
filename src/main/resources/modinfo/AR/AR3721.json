@@ -1,0 +1,15 @@
+{
+    "courseCode": "AR3721",
+    "courseCredit": "4",
+    "description": "This course introduces fundamental building physics (thermal, lighting, acoustics), building materials, and systems to achieve environmental performance-targets and sustainability. Technology integration is emphasized via understanding how materials and systems are related, detailed, and assembled. Students will learn quantitative means to evaluate environmental requirements, and develop familiarity with system strategies and construction details to integrate the various building systems (such as structure, mechanical and electric services, architecture exteriors and interiors). Additionally, codes of practice (such as fire safety) and considerations on sustainable environment will be addressed. The goal is to integrate those technologies in a symbiotic manner to achieve human well-being.",
+    "faculty": "Design and Environment",
+    "prereqTree": {
+        "or": [
+            "AR1326",
+            "AR1731",
+            "AR2326",
+            "AR2723"
+        ]
+    },
+    "title": "Building Environmental System Modelling"
+}

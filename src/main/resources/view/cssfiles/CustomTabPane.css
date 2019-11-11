@@ -1,0 +1,48 @@
+.tab-pane {
+    -fx-padding: 10 10 10 10;
+    -fx-background-color: derive(#f7eceb, 20%);
+    -fx-alignment: center;
+}
+
+.tab-pane:top *.tab-header-area {
+    -fx-padding: 0 0 0 0;
+    -fx-background-color: #ebd0ce;
+    -fx-progress-color: #ebd0ce;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+}
+
+.tab {
+    -fx-background-color: #ebd0ce;
+    -fx-padding: 10 0 15 0;
+
+    -fx-border-width: 0 0 4 0;
+    -fx-border-color: transparent transparent transparent transparent;
+
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.tab:selected {
+    -fx-border-width: 0 0 4 0;
+    -fx-border-color: transparent transparent #ed254e transparent;
+}
+
+.tab:selected .tab-label {
+    -fx-font-weight: bolder;
+}
+
+.tab-label {
+    -fx-text-fill: #878787;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 20;
+    -fx-alignment: center;
+}
+
+/* remove dropdown bottom */
+.tab-down-button {
+    -fx-padding: 0;
+}
+.tab-down-button .arrow {
+    -fx-padding: 0;
+}

@@ -1,0 +1,11 @@
+{
+    "courseCode": "YSC2210",
+    "courseCredit": "5",
+    "description": "This course teaches how to use the programming language R for analyzing and presenting statistical data. Starting from the fundamentals of R (data types, flow control), students learn how to write their own R scripts and functions. They learn how to extract data from web sites and bring the input into a shape (e.g. using regular expressions) that is suitable for further analysis. Much of the course will focus on R\u2019s graphics features, including network representations and geographic maps. The objective is to present data in ways that are informative, elegant and fun (e.g. as short animated video clips).",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC4212"
+    ],
+    "prereqTree": "YCC1122",
+    "title": "Data Analysis and Visualization (DAVis) with R"
+}

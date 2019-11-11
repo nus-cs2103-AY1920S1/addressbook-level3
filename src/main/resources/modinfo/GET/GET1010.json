@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GET1010",
+    "courseCredit": "4",
+    "description": "The aim of this module is to enhance thinking and communication skills of students through case studies and experiments in the history of scientific invention and discovery. It does this primarily by using an experimental and historical case study approach. There will be approximately 8 weeks of lectures that will involve the student in recreating the circumstances surrounding many inventions and discoveries in the history of electricity and magnetism. Students will go on to carry out a home experiment of his or her choice in electricity and magnetism. Students will also carry out a case study on an invention/inventor of his or her choice and present it in the form of a poster paper. The thinking skills of students will be enhanced by experiencing the many different ways that engineering devices and discoveries in physics can be made, which often involves controversy. They will become familiar with opposing approaches both through different experimental methods and through seeking to understand how specific inventions came about. Students will improve their communication skills and expression by giving a lecture on their selected case study to the class, which will be debated ,analyzed and interpreted, and they will also prepare a poster paper on their home experiment/case study which will be presented at an open forum.",
+    "faculty": "Engineering",
+    "preclusion": "GEM2502",
+    "title": "Modes Of Invention"
+}

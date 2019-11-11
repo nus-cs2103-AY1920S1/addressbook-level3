@@ -1,0 +1,13 @@
+{
+    "courseCode": "DSA3101",
+    "courseCredit": "4",
+    "description": "This module is designed to be a continuation of DSA1101 Introduction to Data Science. It focuses on data science methodology and the ability to apply such methodology to practical applications. Real-world problems will be provided by both industrial and academic partners in domains such as transportation, consulting, finance, pharmaceutics, life sciences and physics.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "DSA2101",
+            "ST2132"
+        ]
+    },
+    "title": "Data Science in Practice"
+}

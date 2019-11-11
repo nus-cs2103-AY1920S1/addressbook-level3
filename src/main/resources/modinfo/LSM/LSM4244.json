@@ -1,0 +1,8 @@
+{
+    "courseCode": "LSM4244",
+    "courseCredit": "4",
+    "description": "Oncogenes are key drivers of cancer development. They do so by deregulating signalling cascades that control biochemical events such as transcription, protein turnover, metabolism, and cellular activities such as cell cycle, cell adhesion, movement and invasion through extracellular matrix. The module will primarily focus on basic concepts and central dogmas associated with each major signalling pathway. Many oncogenes have been discovered in the past few decades and new ones continue to be unearthed. In addition to well-established oncogenes, the module will cover scientific knowledge on newer oncogenes and associated signalling pathways.",
+    "faculty": "Science",
+    "prereqTree": "LSM2233",
+    "title": "Oncogenes and Signal Transduction"
+}

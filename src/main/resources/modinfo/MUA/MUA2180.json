@@ -1,0 +1,10 @@
+{
+    "courseCode": "MUA2180",
+    "courseCredit": "2",
+    "description": "Orchestral Repertoire for Brass is an orchestral repertory class designed to give orchestral brass playing experience to the brass majors of YSTCM. This class is required for all MUS2 brass majors but is also open to all brass-playing students at the conservatory committed to intensive study of orchestral brass playing techniques and repertoire. In 10 sessions throughout the semester, the class will read and rehearse significant orchestral repertoire for brass. Brass students are expected to demonstrate aptitude in large ensemble playing including: orchestral concepts in sound, intonation, and blend, as well as a professional attitude in working with conductors and colleagues.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA2181"
+    ],
+    "title": "Orchestral Repertoire for Brass 2A"
+}

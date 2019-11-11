@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS2242",
+    "courseCredit": "4",
+    "description": "Students from NUS and Universitas Gadjah Mada (UGM) will work together on a collaborative intercultural theatre project and use this experience to think through the implications of devising intercultural performances in Southeast Asia. In this special term module, all students will spend 2.5 weeks in Indonesia and 2.5 weeks in Singapore. The sessions will combine theory seminars, practical workshops and rehearsals.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Intercultural Performance Practice"
+}

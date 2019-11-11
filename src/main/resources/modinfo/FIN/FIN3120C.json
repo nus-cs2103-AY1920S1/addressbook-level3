@@ -1,0 +1,13 @@
+{
+    "courseCode": "FIN3120C",
+    "courseCredit": "4",
+    "description": "This is an introductory course on China\u2019s Capital Markets that will examine China\u2019s listed equity, private equity, bond and derivative markets from a development perspective and its convergence towards international standards. The course will use a combination of cases, professional and academic articles to provide an understanding of the concepts, issues and investors involved in China\u2019s capital markets. An underlying theme of this course is how China\u2019s capital markets have developed and improved, despite the grievances and misgivings widely espoused by the investment community.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "and": [
+            "FIN2004",
+            "FIN3103"
+        ]
+    },
+    "title": "TIF: China's Capital Markets"
+}

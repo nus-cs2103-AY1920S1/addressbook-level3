@@ -1,0 +1,32 @@
+@startuml
+!include ../style2.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package CcaTracker {
+    Class CcaTracker
+    Class CcaList
+    Class Cca
+    Class CcaName
+    Class CcaType
+    Class EquipmentList
+    Class Equipment
+    Class CcaProgress
+    Class CcaCurrentProgress
+    Class CcaMilestoneList
+    Class CcaMilestone
+}
+
+CcaTracker *-down-> "1" CcaList
+CcaList o-down-> "*" Cca
+Cca *-down-> "1" CcaName
+Cca *-down-> "1" CcaType
+Cca *-left-> "1" EquipmentList
+EquipmentList o-down-> "*" Equipment
+Cca *-right-> "1" CcaProgress
+CcaProgress *-down-> "1" CcaCurrentProgress
+CcaProgress *-down-> "1" CcaMilestoneList
+CcaMilestoneList *-down-> "*" CcaMilestone
+
+@enduml

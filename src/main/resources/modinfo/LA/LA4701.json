@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "fyp": true
+    },
+    "courseCode": "LA4701",
+    "courseCredit": "8",
+    "description": "This studio-based module develops higher level skills in landscape design and marks the first of four subsequent master-level core studios in landscape design. Projects of city quarter scale are undertaken to explore issues of context, programme and socio-economic considerations. Projects will cover sites with different functions, e.g. residential, commercial, industrial, educational, health and recreation. Civic spaces like roadsides, highways, plazas, parks and city squares will also be tackled. There is an emphasis on sustainability and tropical design.",
+    "faculty": "Design and Environment",
+    "prereqTree": {
+        "and": [
+            "AR3101",
+            "AR3102"
+        ]
+    },
+    "title": "MLA Studio: Quarter"
+}

@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "LSM4242",
+    "courseCredit": "4",
+    "description": "This module will familiarize students with the technologies that can be used to produce and engineer various proteins for basic biological research and biotechnology applications. The fundamental principles for manipulating protein production as desired and the common expression systems will be presented. The emphasis will be on the experimental strategies and approaches to improve protein properties and to create novel enzymatic activities. The topics include gene expression and protein production systems, uses of gene fusions for protein production and purification, directed molecular evolution and DNA shuffling, and engineering of proteins and enzymes for improved or novel properties. Some specific examples in protein engineering will be highlighted.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM2232",
+            "LSM3231"
+        ]
+    },
+    "title": "Protein Engineering"
+}

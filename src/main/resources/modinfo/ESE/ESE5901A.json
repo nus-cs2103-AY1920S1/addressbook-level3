@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "ESE5901A",
+    "courseCredit": "2",
+    "description": "This course introduces fundamentals of environmental engineering including physical, chemical, biological and ecological principles, which provides a bridge for students to move from science to environmental engineering applications in air, water and soil systems.",
+    "faculty": "Engineering",
+    "title": "Introduction to Environmental Engineering"
+}

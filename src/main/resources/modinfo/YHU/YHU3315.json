@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3315",
+    "courseCredit": "5",
+    "description": "The Gospels have shaped not only Christianity and Western culture but also world history itself. This is not a course on apologetics, we will rather apply the tools of literary criticism to the stories about the life, death, and resurrection of a man named Jesus who became Christ. We will examine the formation of the New Testament as canon, its relationship to the Hebrew bible, Canaanite literature, Hellenistic and Roman writing, the genres of the parable, aphorisms, and sermons. We will also read texts that were deemed heretical, such as the Gospels of Thomas, Truth, Mary and Judas.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Gospels as Literature"
+}

@@ -1,0 +1,35 @@
+{
+    "courseCode": "CS3241",
+    "courseCredit": "4",
+    "description": "This module teaches some graphics hardware devices, reviews the mathematics related to the understanding, and discusses the fundamental areas of computer graphics. After completing the course, students are expected to understand the basic computer graphics terminology and concepts, and to be able to design and implement simple 2D and 3D interactive computer graphics related programs. As an enrichment part of the course, students are introduced the state-of-the-art development in computer graphics by viewing interesting video clips and experimenting with demo program made available in the course web.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5343",
+        "CS3247",
+        "CS4247",
+        "CS3242",
+        "CS4345",
+        "CS3283",
+        "CS4351"
+    ],
+    "preclusion": "EEE and CPE students can only take this module as a technical elective to satisfy the program requirements or UEM but not CFM/ULR-Breadth.",
+    "prereqTree": {
+        "or": [
+            "CS2010",
+            "CS2020",
+            {
+                "and": [
+                    {
+                        "or": [
+                            "CS2030",
+                            "CS2113",
+                            "CS2113T"
+                        ]
+                    },
+                    "CS2040"
+                ]
+            }
+        ]
+    },
+    "title": "Computer Graphics"
+}

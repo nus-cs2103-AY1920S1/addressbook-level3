@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3281A",
+    "courseCredit": "4",
+    "description": "The focus of this lab will be perception and attention. Students will be introduced to the different methodologies used in cognitive research such as classical psychophysics, signal detection theory, and reaction time paradigms. Selected topics on perception and attention will be used to illustrate these methods.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132",
+            "PL3233"
+        ]
+    },
+    "title": "Lab in Perception and Attention"
+}

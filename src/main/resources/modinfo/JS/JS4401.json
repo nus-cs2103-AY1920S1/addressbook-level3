@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "fyp": true
+    },
+    "courseCode": "JS4401",
+    "courseCredit": "15",
+    "description": "Students are required to write an academic thesis on an approved topic under the guidance of a supervisor. The HT will be equivalent to two modules of study.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "JS4660",
+    "title": "Honours Thesis"
+}

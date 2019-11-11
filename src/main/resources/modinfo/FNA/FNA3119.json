@@ -1,0 +1,16 @@
+{
+    "courseCode": "FNA3119",
+    "courseCredit": "4",
+    "description": "Business entities and individuals are exposed to substantial risk associated with losses to property, income, and wealth because of damage to assets, legal liability, disability, retirement, and death. Costs associated with legal liability and employee benefit programmes, particularly Central Provident Fund (CPF) and health care, have become matters of deep concern to company management. Individuals seeking coverage of their professional and personal risks have similar concerns. This course analyses the nature and impact of these risks and discusses appropriate risk management techniques. The emphasis is on the analysis and management of these problems for business entities, but these are substantial implications for the problems faced by individual and society. Topics to be covered include risk identification and measurement; risk control and transfer; risk financing with commercial insurance; self-insurance; captive insurance programmes; insurance markets and regulation; employee benefits and CPF; life and health insurance; personal financial planning; international risk management and insurance for multi-national corporations.",
+    "faculty": "NUS Business School",
+    "preclusion": "BH3119 or BZ3311",
+    "prereqTree": {
+        "or": [
+            "FNA2004",
+            "BH2004",
+            "BZ2004",
+            "BK2004"
+        ]
+    },
+    "title": "Risk And Insurance"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS4238",
+    "courseCredit": "4",
+    "description": "This is a practice security module with emphasis on hands-on experiences of computer security. The objective of this module is to connect computer security knowledge to practical skills, including common attacks and protection mechanisms, system administration, and development of secured software. Topics covered include network security, operating system security, and application security, such as DNS attacks, memory-error exploits, and web application attacks. Students will learn through lab-based exercises and assignments.",
+    "faculty": "Computing",
+    "prereqTree": "CS3235",
+    "title": "Computer Security Practice"
+}

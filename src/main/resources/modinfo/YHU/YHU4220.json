@@ -1,0 +1,14 @@
+{
+    "courseCode": "YHU4220",
+    "courseCredit": "5",
+    "description": "There has been a recent surge of interest in the political philosophy of Benedict de Spinoza. He has been hailed variously as the originator of an enlightenment more radical than that of the philosophes or as a conservative thinker; as an early champion of liberalism, or as a proto-Marxist materialist; as an atheist hostile to religion or as a defender of religious forms; as an arch-rationalist, or a champion of the imagination. Our task will be to read the original texts on their own terms and navigate the contemporary debates over those texts' significance. Satisfies Philosophy major: Skills, Textual Analysis; Historical, Old; Traditions, Western.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "Precludes previous module code of YHU3233",
+    "prereqTree": {
+        "and": [
+            "YCC1114",
+            "YCC2121"
+        ]
+    },
+    "title": "The Political Philosophy of Spinoza"
+}

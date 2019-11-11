@@ -1,0 +1,8 @@
+{
+    "courseCode": "ST5213",
+    "courseCredit": "4",
+    "description": "Categorical response data and contingency tables, loglinear models, building and applying loglinear models, loglinear and logit models for ordinal variables, multinomial response models. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "prereqTree": "ST3131",
+    "title": "Categorical Data Analysis Ii"
+}

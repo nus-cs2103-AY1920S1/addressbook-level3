@@ -1,0 +1,7 @@
+{
+    "courseCode": "FE5226",
+    "courseCredit": "4",
+    "description": "This is a fast-paced introductory course to the C++ programming language. It is intended for those with little programming background, though prior programming experience will make it easier. The course covers C++ basic constructs (loops, variables, operators, and functions), built-in libraries, data structures, templates and object oriented programming techniques. It develops logical thinking aimed at designing algorithms to solve specific problems. Concepts are illustrated by examples drawn from the financial engineering domain. The course will ultimately provide with an overview of the components of a modern risk management system.",
+    "faculty": "Risk Management Institute",
+    "title": "C++ in Financial Engineering"
+}

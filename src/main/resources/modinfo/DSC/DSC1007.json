@@ -1,0 +1,22 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "DSC1007",
+    "courseCredit": "4",
+    "description": "Globalization is forcing firms to make smarter and timelier decisions to stay competitive. Increased accountability also requires Managers to rely less on their intuition and more on 'System 2 thinking' i.e. facts and scientifically-tested methods to gain insights in complex business problems and thereby substantiate the decision-making process. Many managerial decisions, regardless of the functional orientation, are increasingly being based on analysis using quantitative models and tools such as Decision Analysis, Simulation Modelling and Mathematical Optimization. The use of these business analytics for modelling and decisions represents the future of best practices for tomorrow\u2019s success companies.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "EC3303",
+        "DSC3223",
+        "DSC3224",
+        "DSC4213",
+        "DSC4212",
+        "DSC3214",
+        "DSC3215",
+        "DSC4217",
+        "DBA3702"
+    ],
+    "preclusion": "DSC1007X",
+    "title": "Business Analytics - Models & Decisions"
+}

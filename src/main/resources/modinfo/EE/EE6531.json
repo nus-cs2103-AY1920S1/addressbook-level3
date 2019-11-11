@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6531",
+    "courseCredit": "4",
+    "description": "Basic concepts and structures of micro-grid, smart grid, and vehicular technologies will be taught in this module. Advanced power electronics systems and their control for these emerging technologies will be explored. Major topics to be covered are: power converters for smart grid, electric and fuel cell vehicles, battery management system, Intelligent multi-agent control and cyber security of smart grid, system level issues, and recent development in such emerging technologies.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "EE5711",
+            "EE5711R",
+            "EE5702",
+            "EE5702R"
+        ]
+    },
+    "title": "Selected Topics in Smart Grid Technologies"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "CE3132",
+    "courseCredit": "4",
+    "description": "This course introduces the basic principles of hydrology and water resources, including flow through pressurised pipe systems and free surface flow. In particular the course covers fundamental concepts of hydrological cycle, such as: response of catchment system, river network and reservoir to rainfall; frequency analysis of rainfall or flood, design of ponds, reservoirs, river flow and catchment management, are covered as well. Other topics include flow routing such as kinematic wave, diffusive wave and dynamic wave. Water Resources portion of the module covers pressurised pipe flow calculation principles, hydraulic design of pipelines, use of pumps and turbines, urban hydraulics and water distribution systems. In addition to this, free surface open channel flows are covered. In particular topics of uniform flow, critical depth, gradually varied flow, calculation of surface profiles",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CE5312",
+        "ESE5701"
+    ],
+    "preclusion": "TCE3132",
+    "prereqTree": "CE2134",
+    "title": "Water Resources Engineering"
+}

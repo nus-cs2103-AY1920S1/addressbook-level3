@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "IE5211",
+    "courseCredit": "4",
+    "description": "This module introduces students to new, emerging concepts in the management of new product development. The entire new product development process, from the initial idea generation and screening phase to the final commercialization and monitoring phase, is examined. Project selection models, project organization, interdepartmental interface, technical and marketing issues are included in the topics discussed. Materials will be drawn from real-life industrial practices and state-of-the-art research findings. Lectures, case study readings and discussions will be used.",
+    "faculty": "Engineering",
+    "preclusion": "MT5006 Strategic and New Product Management",
+    "title": "New Product Management"
+}

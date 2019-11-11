@@ -1,0 +1,14 @@
+{
+    "courseCode": "MKT3716",
+    "courseCredit": "4",
+    "description": "Customer Asset Management focuses on acquiring, retaining, and winning back customers. It highlights the need to move from merely satisfying customers to building strong bonds with them. Apart from the theoretical perspectives, this course also utilises software to analyse customer purchase data so as to differentiate customers and develop different relationship strategies for different customer groups.",
+    "faculty": "NUS Business School",
+    "preclusion": "MKT3417",
+    "prereqTree": {
+        "or": [
+            "MKT1705",
+            "MKT1705X"
+        ]
+    },
+    "title": "Customer Relationship Management"
+}

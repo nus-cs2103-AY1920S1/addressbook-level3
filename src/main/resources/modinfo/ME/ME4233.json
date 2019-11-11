@@ -1,0 +1,11 @@
+{
+    "courseCode": "ME4233",
+    "courseCredit": "4",
+    "description": "This module introduces students to the application of numerical methods for solving incompressible viscous fluid flow and convective heat transfer problems. Students will acquire an understanding of the basic principles of fluid flow simulation, a basic working knowledge of numerical implementation and an appreciation of the power of computational methods in solving complex problems. Major topics covered are: \u2022 Basic theory of numerical discretization; \u2022 Finite difference discretization; \u2022 Stability and accuracy analysis; \u2022 Solution methods for Poisson and elliptic type equations arising from incompressible flows. \u2022 Conservation laws and finite volume discretization. \u2022 Formulation and solution methods for viscous incompressible fluid flows by (1) Stream function-Vorticity method for 2D flows, (2) Projection method for Navier-Stokes equations, (3) Finite-volume discretization and SIMPLE/R-based procedures and (4) Others methods as time allows. Assignments on (1) an elliptic equation problem and (2) a 2D fluid flow problem (by a method of their choice) allow students to acquire generic skills and experience in implementing their own codes.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ME6302A"
+    ],
+    "prereqTree": "ME2134",
+    "title": "Computational Methods In Fluid Mechanics"
+}

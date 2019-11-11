@@ -1,0 +1,14 @@
+{
+    "courseCode": "MNO4713",
+    "courseCredit": "4",
+    "description": "Globalization and changes in work patterns have created opportunities for people to work beyond borders as team members or leaders. Facing rising global challenges with people from different culture backgrounds - managers, leaders or people at work could opt to be (i) who they are, expecting others to adapt to them, or (ii) they can proactively work to develop greater multicultural competencies and lead. Competent leaders view leading across borders as a development process, requiring intelligences and competences to succeed. This module focuses on these intelligences and competences by enhancing students\u2019 knowledge and skills in the area. The module is divided into three parts, starting with an understanding of new global realities and their impact on business, management and people. The module continues with an examination of roles and competencies necessary to lead across borders, for example, communicating across cultures, motivating and inspiring people across cultures, building teams and trust, etc. Finally, the discussion on global management challenges aims to encourage students to critically think about what lies ahead when leading across borders. This will prepare students well to lead more successfully across borders.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "MNO1706",
+            "MNO1706X",
+            "PL3239"
+        ]
+    },
+    "title": "Leading Across Borders"
+}

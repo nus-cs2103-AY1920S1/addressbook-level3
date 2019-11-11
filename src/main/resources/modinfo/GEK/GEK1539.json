@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1539",
+    "courseCredit": "4",
+    "description": "Nowadays it is all too easy to take basic science laws and theories, such as Newtons law of gravitational attraction or evolution for granted. The impact of research breakthroughs on society at the time of their development is being forgotten, as they come to be taken for granted. Even Science students tend to be unaware of how modern concepts have arisen, what their impact was at the time and how they changed the world. This course is intended to explain the history and significance of scientific developments on societies and how perceptions of the world have changed as a result.",
+    "faculty": "Science",
+    "preclusion": "GEH1018",
+    "title": "A Brief History of Science"
+}

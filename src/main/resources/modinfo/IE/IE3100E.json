@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "IE3100E",
+    "courseCredit": "8",
+    "description": "The objective of the module is to give students the opportunity to apply concepts learnt to solving real world problems. In this module, each student is assigned to work on a company-sponsored problem that requires application of industrial and systems engineering concepts. The module provides the opportunity for students to identify key problems and craft an objective, scope and deliverable for a piece of work, collect and analyze the relevant data, and apply the appropriate tool to solve the problem. It also enables students to improve their communication skills through report writing and presentation to the various stakeholders.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TIE3100",
+    "title": "Systems Design Project"
+}

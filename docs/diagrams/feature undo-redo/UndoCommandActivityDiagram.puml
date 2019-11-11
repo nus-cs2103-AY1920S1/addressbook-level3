@@ -1,0 +1,37 @@
+@startuml
+
+start
+:User enters a undo command;
+if () then (undo is possible)
+    if () then (else)
+        :Undo the specified
+        number of commands
+        one by one;
+        if () then (all undo operations successful)
+            :User receives message that
+            indicates successful
+            undo command;
+        else (error occurs at any undo operation)
+            :Redo any successful undo
+            operation prior to undo
+            operation, preventing any
+            changes made by undo
+            operation;
+            :User receives error
+            message that there was
+            an error in the undo process;
+        endif
+    else (user tries to undo too many commands)
+        :User receives error
+        message that there are
+        not enough commands
+        available to be undone;
+    endif
+else (no commands to be undone)
+    :User receives message
+    that nothing can be
+    undone;
+endif
+stop
+
+@enduml

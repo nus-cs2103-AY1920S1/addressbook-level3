@@ -1,0 +1,16 @@
+{
+    "courseCode": "CS3203",
+    "courseCredit": "8",
+    "description": "This module provides students with hands-on experience in working in project groups through a complete SDLC to develop a well-designed, well-tested, large-scaled software system. The students will apply the current best software engineering practices on the analysis, design, implementation, and testing of software system. Through the project, students will practise analysis of user\u2019s needs, formulation of computing requirements to meet the user\u2019s needs, modelling and design of the computer systems according to the requirements, evaluation of the design, efficient implementation of software components, system integration, software version control, and rigorous testing.",
+    "faculty": "Computing",
+    "preclusion": "CS3201, CS3202",
+    "prereqTree": {
+        "or": [
+            "CS2103",
+            "CS2103T",
+            "CS2113",
+            "CS2113T"
+        ]
+    },
+    "title": "Software Engineering Project"
+}

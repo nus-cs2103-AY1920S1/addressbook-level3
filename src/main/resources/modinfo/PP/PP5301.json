@@ -1,0 +1,10 @@
+{
+    "courseCode": "PP5301",
+    "courseCredit": "2",
+    "description": "",
+    "faculty": "LKY School of Public Policy",
+    "fulfillRequirements": [
+        "PP5203"
+    ],
+    "title": "Economic Reasoning and Policy"
+}

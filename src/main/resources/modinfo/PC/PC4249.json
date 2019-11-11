@@ -1,0 +1,8 @@
+{
+    "courseCode": "PC4249",
+    "courseCredit": "4",
+    "description": "Starting with an introduction to the nuclear physics of stars and the processes of nucleosynthesis, following a brief introduction to nuclear physics. nucleosynthesis via quiescent burning, and the processes that lead to the production of heavy (A>60) elements are covered. The endstages (brown dwarfs, white dwarfs, neutron stars and black holes) are discussed in detail. In the second part of the module, large structures in the universe, are discussed, including star clusters, galaxy structure, and galaxy clustering. The module ends with a discussion of the cosmological scale structure of the universe. This module is a continuation of PC3246 Astrophysics I.",
+    "faculty": "Science",
+    "prereqTree": "PC3246",
+    "title": "Astrophysics II"
+}

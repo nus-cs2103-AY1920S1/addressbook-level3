@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6435",
+    "courseCredit": "4",
+    "description": "This module focuses on advanced solid-state physics and quantum transport in nano-scale devices. This module is designed for students to learn the latest developments in nanoelectronics and devices. Major topics include the advanced theory of electronic structures of novel materials, quantum transport theory, and their applications to novel nanoelectronic devices.",
+    "faculty": "Engineering",
+    "preclusion": "EE5209 and EE5521",
+    "prereqTree": {
+        "or": [
+            "EE5431",
+            "EE5431R"
+        ]
+    },
+    "title": "Advanced Concepts in Nanoelectronics"
+}

@@ -1,0 +1,7 @@
+{
+    "courseCode": "SG5232",
+    "courseCredit": "3",
+    "description": "This course aims to provide an in-depth understanding of software estimation concepts. The estimation topics introduced in the MTech SE core curriculum are related to only one scientific method (Function Point Counting). This elective helps the students to advance their knowledge by providing an in-depth coverage of multiple scientific and heuristic estimation models. The course covers in detail several estimation concepts and techniques suitable for a wide variety of projects. It addresses not only the estimation techniques but also the management aspects that are important for estimators and managers such as cost estimation, budget management, and the psychology of estimation.",
+    "faculty": "Institute of Systems Science",
+    "title": "Advanced Software Estimation"
+}

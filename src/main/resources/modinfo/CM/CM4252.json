@@ -1,0 +1,9 @@
+{
+    "courseCode": "CM4252",
+    "courseCredit": "4",
+    "description": "This module prepares the students for the polymer related industry. It covers the chemistry of polymer degradation under the influence of heat, oxygen and UV light and ways of retardation. The science and technology of elastomers or rubber like polymeric materials will be discussed and compared to solid plastics. The synthesis, properties and applications of contemporary engineering and specialty polymers and the role of additives in plastics will also be discussed.",
+    "faculty": "Science",
+    "preclusion": "CM4264, CM4265, CM4266, CM4268",
+    "prereqTree": "CM3252",
+    "title": "Polymer Chemistry 2"
+}

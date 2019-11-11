@@ -1,0 +1,14 @@
+{
+    "courseCode": "YSC4216",
+    "courseCredit": "5",
+    "description": "Machine learning is a collection of techniques where computers can learn from data without being explicitly programmed. For instance, when we train a program using human-face image data, it should be able to locate faces in an image; yet, if we train the same program using flower data, it should be able to locate flowers in an image, without explicitly changing the program itself. This module particularly will focus on statistical machine learning, which relies heavily on probabilistic and statistical analysis. Programming skill in python is compulsory.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "YSC3227 (previous module code)",
+    "prereqTree": {
+        "and": [
+            "YSC2221",
+            "YSC2232"
+        ]
+    },
+    "title": "Machine Learning"
+}

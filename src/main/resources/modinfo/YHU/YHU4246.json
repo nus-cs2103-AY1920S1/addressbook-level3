@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU4246",
+    "courseCredit": "5",
+    "description": "The individual and the social body are intimately connected through the faculty of reproduction. Sexual matters are therefore inevitably and intensely political. The growing administration \u2013 or biopolitics \u2013 of the gendered body, of the family as the primary unit of reproduction, and of entire populations and \u2018races\u2019 has been designated a defining threshold of \u2018modernity\u2019. This course will first trace the history of biopolitics and then explore how biopolitics and geopolitics have become steadily more entangled in the 20th and 21st centuries through issues as wide-ranging as ecology, sustainability, development, migration, post-colonialism, religion, governmentality and human rights.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "YHU3318 The History of Sexuality in Modern Europe",
+    "prereqTree": {
+        "and": [
+            "YHU3318"
+        ]
+    },
+    "title": "Human Lives: From Biopolitics to Geopolitics"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "CL3283",
+    "courseCredit": "4",
+    "description": "This module allows students to learn the rules of Chinese and English subtitling and the way to operate subtitling software like Aegisub and VisualSubSync. Audiovisual materials like documentaries, TV programs and movies, will be translated with or without scripts. Through practices, students are expected to familiarise themselves with subtitling and the above\u2010mentioned software. Students will be exposed to different genres of film and television programmes, as well as the varieties of English and Chinese used in the field.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "CL2280",
+            "CL2281"
+        ]
+    },
+    "title": "Film and Television Subtitling Translation"
+}

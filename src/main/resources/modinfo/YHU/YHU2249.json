@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU2249",
+    "courseCredit": "5",
+    "description": "This course approaches the relation between the visual and the verbal arts as a set of creative interactions which involve the use of different media for the purposes of representation and self-expression. Within this general perspective the course provides an opportunity to study how poetry reacts to the visual arts, specifically painting and photography, and how the visual arts react to poetry. This course can fulfil the Theory and Cultural Criticism requirement from the Literature Major, and the Visual Arts/Art History pathway from the Arts and Humanities Major. ------------------------ The topics covered within the course will be detailed in the syllabus given to a student in advance of the course. That will be supplemented by a course pack comprising image files, poetic texts and secondary reading material in PDF format.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Poetry, Painting and Photography"
+}

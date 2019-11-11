@@ -1,0 +1,22 @@
+{
+    "courseCode": "BSP2001",
+    "courseCredit": "4",
+    "description": "The aim of this course is to introduce business students to the basic principles of macro-economics and international economics. In contrast to micro-economics, macro-economics looks at the behaviour of the economy as a whole; in particular the behavior of aggregate measures such as output, unemployment, inflation, economic growth, and the balance of trade. It also deals with the determination of exchange rates, the operation of monetary and fiscal policy under different exchange rate regimes, and, more broadly, international trends that may influence the overall direction of the world in the next few years.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "EC3374",
+        "BSP2005",
+        "BSP4512",
+        "BSP3516"
+    ],
+    "preclusion": "(BH2001 or BZ2001 or EC1101 or EC1101E or EC1310 or EC1301 or EC3341 or EC4102 or All Econs major students) and All BBA(Acc) students. EC2102.",
+    "prereqTree": {
+        "or": [
+            "BSP1005",
+            "BH1005",
+            "BZ1006",
+            "BK1008"
+        ]
+    },
+    "title": "Macro And International Economics"
+}

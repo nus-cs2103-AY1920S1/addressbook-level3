@@ -1,0 +1,11 @@
+{
+    "courseCode": "LI5101",
+    "courseCredit": "4",
+    "description": "A good supply chain involves an integrated end-to-end management of material flows from sources of supply through plants to customers, as well as an efficient information system of monitoring the flows and improving operational efficiency. Given the global context in which supply chains are to be managed, there is also a need to appreciate the financial management and operations. The objective of the module is to lead students into developing correct perspectives and thinking skills needed to manage a supply chain. The topics to be covered include evolution of supply chain thinking, components of a supply chain, principles and value of good SCM, SCM operation and coordination, different practices of SCM, technology in SCM.",
+    "faculty": "Logistics Inst-Asia Pac",
+    "fulfillRequirements": [
+        "LI5204",
+        "LI5203"
+    ],
+    "title": "Supply Chain Mgt Thinking & Practice"
+}

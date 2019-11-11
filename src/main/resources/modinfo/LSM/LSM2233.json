@@ -1,0 +1,30 @@
+{
+    "courseCode": "LSM2233",
+    "courseCredit": "4",
+    "description": "This module provides a comprehensive understanding of sub-cellular structures, functions and interactions in unicellular and multi-cellular systems. Emphasis is on cellular functions. Topics include structures and functions of organelles, organelle biogenesis (including organelle inheritance and import of proteins into organelles), intracellular protein trafficking, the cytoskeleton, and cell movements. In addition, students will be introduced to the current concepts of intercellular and intracellular signalling, molecular basis of cell proliferation and apoptosis.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM3226",
+        "LSM3246",
+        "LSM4244",
+        "LSM3224",
+        "LSM3232",
+        "LSM3225",
+        "LSM3223",
+        "LSM3211",
+        "LSM4232",
+        "LSM4243",
+        "LSM3216",
+        "LSM3217",
+        "LSM3233",
+        "LSM3244",
+        "LSM4234",
+        "LSM4227",
+        "LSM4210",
+        "LSM4228",
+        "LSM3234"
+    ],
+    "preclusion": "LSM2103",
+    "prereqTree": "LSM1106",
+    "title": "Cell Biology"
+}

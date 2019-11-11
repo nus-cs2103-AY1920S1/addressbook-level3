@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3286",
+    "courseCredit": "4",
+    "description": "This module is designed to provide psychology majors with hands-on experience using research designs and methods commonly used in health psychology, including both questionnaire and experimental methods. Students will work in teams to carry out research exercises on specific topics in health psychology. Topics to be covered may include health attitudes, health behaviours, and psychophysiological responses to stress among others. The focus will be an understanding the rationale, design, and interpretation of empirical research in the specific application within health psychology. This module is particularly relevant for psychology majors interested in a career in psychology or who wish to pursue a postgraduate degree.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132",
+            "PL3242"
+        ]
+    },
+    "title": "Lab in Health Psychology"
+}

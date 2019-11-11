@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS6880",
+    "courseCredit": "4",
+    "description": "This module discusses contemporary concepts in software engineering, ranging from domain analysis, requirement analysis and software architectures; formal methods, analysis, design and implementation. It aims to provide students with advanced technical and managerial knowledge in evaluating, designing, and implementing big-scale software. These include: Specialized methods for specific application domains (such as embedded systems or Web systems), in-depth study of software engineering sub-disciplines (such as testing or maintenance), as well as the issues of programming language support for software engineering. The module also provides students the opportunity to understand the methodology involved in software-engineering research.",
+    "faculty": "Computing",
+    "prereqTree": "CS2103",
+    "title": "Advanced Topics in Software Engineering"
+}

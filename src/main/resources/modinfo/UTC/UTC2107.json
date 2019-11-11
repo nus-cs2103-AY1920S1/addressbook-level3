@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2107",
+    "courseCredit": "4",
+    "description": "We live in a world where complex negotiations take place daily. Navigating these complex negotiations requires one to be conscious of the psychological, historical, sociological, economical, and other contextual factors that shape each unique encounter. The rapid advancement in science and technology adds to the challenge of interpreting highly technical, domain\u2010specific information, which is critical in rationalizing decisions and persuading counterparts. In this module, we adopt a case study approach to dissecting complex negotiations. Students will learn to adopt both a macro and micro perspective in analysing such negotiations.",
+    "faculty": "Residential College",
+    "preclusion": "GEM2902% or GEM2905% or GEM2907% or GEM2908% or GEM2909% or GEM2910% or UTC21%",
+    "prereqTree": {
+        "or": [
+            "GEM1902",
+            "GEM1912"
+        ]
+    },
+    "title": "Senior Seminar: Negotiating in a Complex World"
+}

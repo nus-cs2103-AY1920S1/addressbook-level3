@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5702",
+    "courseCredit": "4",
+    "description": "This module forms one of the three core modules for the students specializing in Power and Energy area. It provides the necessary fundamentals in power systems analysis. Current advancement in power systems is also discussed through case studies in a seminar style. Various topics to be covered are: Advanced power flow analysis; Power flow equation and solution techniques; Optimal power flow; Economic dispatch; Introduction to power system state estimation; Least square state estimation and Introduction to power system controls and stability analysis. This module acts as a pre-requisite for graduate students to pursue other advanced level courses in Power Systems.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE6531",
+        "EE6532"
+    ],
+    "preclusion": "EE5702R",
+    "prereqTree": "EE4501",
+    "title": "Advanced Power System Analysis"
+}

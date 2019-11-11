@@ -1,0 +1,19 @@
+{
+    "courseCode": "CM3252",
+    "courseCredit": "4",
+    "description": "Polymer science is the study of plastic materials of everyday life and the development of new materials that meet technological needs. This module covers classification and synthesis of polymers by different polymerization techniques; copolymerization reactions and industrial polymers. Physical properties of polymers both in the solid state and in solution will also be discussed. Knowledge in laboratory techniques in polymerization, determination of molecular weight and stability and spectroscopic studies will be introduced.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CM4251",
+        "CM4252",
+        "CM4258"
+    ],
+    "preclusion": "CM2264, CM3262, CM3265, CM3266",
+    "prereqTree": {
+        "and": [
+            "CM1131",
+            "CM2121"
+        ]
+    },
+    "title": "Polymer Chemistry 1"
+}

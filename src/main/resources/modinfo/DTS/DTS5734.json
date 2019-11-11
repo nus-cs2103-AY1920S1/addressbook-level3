@@ -1,0 +1,13 @@
+{
+    "courseCode": "DTS5734",
+    "courseCredit": "4",
+    "description": "The module covers the principles, technologies and operational aspects of smart weapon systems e.g. guided weapons, precision munitions and unmanned vehicles (UxVs). The interplay of various sub-systems for target identification & tracking, guidance/navigation, command and control and their impact on mission effectiveness will be examined with consideration of counter-measures and counter-counter-measures. Additional topics include advanced concepts for autonomy, interoperability and teaming and cooperation. The course will include case studies of these weapon systems in actual combat.",
+    "faculty": "Temasek Defence Sys. Institute",
+    "prereqTree": {
+        "or": [
+            "DTS2701",
+            "DTS2703"
+        ]
+    },
+    "title": "Guided Systems"
+}

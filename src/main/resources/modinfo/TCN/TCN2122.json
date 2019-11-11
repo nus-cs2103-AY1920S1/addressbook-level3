@@ -1,0 +1,17 @@
+{
+    "courseCode": "TCN2122",
+    "courseCredit": "4",
+    "description": "This course introduces to students the classification of fluids and their properties, followed by the analysis of static fluid. The integral and differential forms of the fundamental equations \u2013 Continuity, Momentum and Energy equations are then studied. The concept of momentum transfer by the shear stress is introduced in this course. Dimensional analysis and model theory are studied. The concept about boundary layer theory, flow with pressure gradient, viscous flow and turbulence are also described. Practical aspect involves the consideration of flows in closed conduits. At the end of the course, basic concepts regarding fluid machinery is also covered.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TCN4233",
+        "TCN2125",
+        "TCN3124",
+        "TCN3135",
+        "TCN4208",
+        "TCN4215"
+    ],
+    "preclusion": "TC2112, CN2122E",
+    "prereqTree": "TCN2411",
+    "title": "Fluid Mechanics"
+}

@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1508",
+    "courseCredit": "4",
+    "description": "Einstein's Ideas of our Universe and his Quantum contributions has greatly impacted the human societies. Students will also be enthused with the historical and philosophical development of Relativity and Quantum Theories. Einstein's relativistic thinking eventually leads to the creation of navigational systems that are used in transportation and communication, both by the military as well as hand phone consumers. The construction of nuclear plants is made possible by the relativistic results of mass and energy conversion. Einstein's Photoelectric discoveries also pave the way for modern cameras in the ubiquitous mobile devices. The quest for new quantum particles at the colliders by huge collaborations among many countries gave birth to the World Wide Web and the internet Culture.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "GEK2508"
+    ],
+    "preclusion": "PC1325, GEH1027",
+    "title": "Einstein's Universe & Quantum Weirdness"
+}

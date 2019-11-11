@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3207",
+    "courseCredit": "4",
+    "description": "This module introduces students to the fascinating research on language in the brain, which has typically been examined via neuroimaging techniques and studies on brain\u2010damaged individuals. In this module, students will discover what these methods have revealed about how the representation of language in the brain changes as it develops, ages, learns more than one language or becomes damaged. This module takes into account no previous knowledge of Neurolinguistics, and will rely on a combination of mini lectures, student\u2010led discussions and seminar presentations to help students navigate through the maze of new terms, methods and analyses they will encounter.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Introduction to the Neurocognition of Language"
+}

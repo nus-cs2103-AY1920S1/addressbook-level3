@@ -1,0 +1,8 @@
+{
+    "courseCode": "CM5101",
+    "courseCredit": "4",
+    "description": "This is an integral module providing comprehensive theory and practical training on various techniques needed in advanced chemical analysis and characterization. At the outset, students are required to select at least 4 specialized topics to focus on, from: (i) NMR spectroscopy, (ii) Mass spectrometry, (iii) Elemental and thermal analysis, (iv) Chromatography and hyphenated techniques, (v) Single crystal and powder X-ray crystallography, (vi) Scanning probe and microscopic techniques. Besides learning the scientific fundamentals through recorded lectures/seminars and online assessments, students work directly with instrumental experts in the various laboratories to gain hands-on knowledge and practical aspects of each of these techniques.",
+    "faculty": "Science",
+    "preclusion": "CM5201 \u2013 Practical Synthetic and Analytical Chemistry\n(this module has some analytical component similar to\nthe proposed module)",
+    "title": "Advanced Analysis and Characterization Techniques"
+}

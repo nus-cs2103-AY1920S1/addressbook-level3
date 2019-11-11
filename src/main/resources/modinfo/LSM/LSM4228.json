@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "LSM4228",
+    "courseCredit": "4",
+    "description": "Experimental models including animal and cellular models are pivotal for the study of human diseases and development of therapeutics. They help to characterize disease pathophysiology, evaluate the mechanism of action of existing drugs, discover and validate new drug targets and candidates, establish pharmacodynamic/pharmacokinetic (PK/PD) relationships, estimate clinical dosing regimens and determine safety margins and toxicity. Recent advancement of genomic and gene editing technology facilited the establishment of more disease models that can closely mimic human diseases, including diseases that involve environmental factors. In this module, we will discuss the technology, application as well as limitations of the current experimental models.",
+    "faculty": "Science",
+    "prereqTree": "LSM2233",
+    "title": "Experimental Models for Human Disease and Therapy"
+}

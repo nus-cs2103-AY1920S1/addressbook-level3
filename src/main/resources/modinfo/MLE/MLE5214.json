@@ -1,0 +1,8 @@
+{
+    "courseCode": "MLE5214",
+    "courseCredit": "4",
+    "description": "This module provides a foundation for students interested in doing research into polymeric materials. It starts with the thermoplastics, elastomers and thermosets. Application of polymers as membranes will be presented, particularly their application for water purification and gas separation. Photoresists that are essential materials in electronic industry will be included. Two display technologies, liquid crystal displays and organic lightemitting diodes will be introduced. Advanced polymers, including liquid crystalline polymers, semiconductive polymers and conductive polymers, will be discussed. The module will finish with aspects of current research on polymeric materials.",
+    "faculty": "Engineering",
+    "preclusion": "MLE4202 Selected advanced Topics on Polymers",
+    "title": "Advances in Polymeric Materials"
+}

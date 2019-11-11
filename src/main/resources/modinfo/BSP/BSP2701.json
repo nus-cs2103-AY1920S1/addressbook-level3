@@ -1,0 +1,23 @@
+{
+    "courseCode": "BSP2701",
+    "courseCredit": "2",
+    "description": "This module aims to equip students with basic macroeconomic literacy. It provides essential concepts and tools to appreciate, analyse and evaluate economic growth, inflation, government monetary and fiscal intervention, trade liberalization, international flow of capital, immigration and globalization. The module applies these concepts and tools to topical issues of real-world importance to managers and policy-makers.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BSE3701",
+        "BSP2011",
+        "BSP3012",
+        "BSP4011",
+        "BSN3714",
+        "BSN3715"
+    ],
+    "prereqTree": {
+        "or": [
+            "BSP1703",
+            "BSP1707",
+            "EC1101E",
+            "EC1301"
+        ]
+    },
+    "title": "Global Economy"
+}

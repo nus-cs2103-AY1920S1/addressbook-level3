@@ -1,0 +1,14 @@
+{
+    "courseCode": "RE4702",
+    "courseCredit": "4",
+    "description": "This module discusses the professional practice in the real estate field covering among others, valuation, property and facility management, marketing and property consultancy. It aims to provide students with an appreciation of the challenges and practical issues involved in professional practice. It highlights the ethical issues in professional practice, and deals with professional communication and interactions with clients and other professionals. Career planning and management including interview skills and business etiquette will be introduced.",
+    "faculty": "Design and Environment",
+    "preclusion": "RE3107 Real Estate Practice and Ethics",
+    "prereqTree": {
+        "or": [
+            "RE1703",
+            "RE3707"
+        ]
+    },
+    "title": "Professional Practice and Ethics"
+}

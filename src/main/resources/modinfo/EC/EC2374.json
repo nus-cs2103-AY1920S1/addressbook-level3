@@ -1,0 +1,18 @@
+{
+    "courseCode": "EC2374",
+    "courseCredit": "4",
+    "description": "The rise of the Chinese economy has profound impact on the world and our region. In this module, students will learn to appreciate the basic structure of China's economy by exploring its historical origins, cultural backgrounds, geographical features, and institutional evolutions. The module aims to help students develop capability of comprehending changes of economic and business environment in China and their likely implications on Southeast Asian economies.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EC3374"
+    ],
+    "prereqTree": {
+        "or": [
+            "EC1101E",
+            "EC1301",
+            "BSP1005",
+            "USE2301"
+        ]
+    },
+    "title": "Economy of Modern China I"
+}

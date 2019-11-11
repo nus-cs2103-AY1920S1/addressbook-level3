@@ -1,0 +1,12 @@
+{
+    "courseCode": "BAA6001",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BAA6002",
+        "BAA6003A",
+        "BAA6003C"
+    ],
+    "title": "Accounting Research Seminars I"
+}

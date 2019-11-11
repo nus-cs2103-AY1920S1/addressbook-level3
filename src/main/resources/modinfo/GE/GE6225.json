@@ -1,0 +1,15 @@
+{
+    "courseCode": "GE6225",
+    "courseCredit": "12",
+    "description": "Following on from GE5225 Thesis Planning and Preparation, GE6225 provides students with an opportunity to conduct an in-depth research project as part of the MSc (Applied GIS). Students are required to apply relevant research approaches and techniques under the guidance of an advisor to a live problem in the field, as outlined in their original proposal, and to write the research analyses in the form of a thesis (10,000 words maximum). The research underpinning the thesis will also be presented in a seminar.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "GE5223",
+            "GE5219",
+            "GE6211",
+            "GE5225"
+        ]
+    },
+    "title": "GIS Research Thesis"
+}

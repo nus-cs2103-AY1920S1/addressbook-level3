@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "BN5208",
+    "courseCredit": "4",
+    "description": "This module imparts the essentials of medical device quality systems and device regulation. The module will cover the essentials of QMS at the various stages of the medical product life cycle, such as product's quality assurance, risk control, sterility, and biological safety. The role of engineering professionalism, ethics and social responsibility will also be covered. The student will be provided with an overview of the local and international regulations concerning good manufacturing, good laboratory and good clinical practice as related to the development of medical devices, along with detailed coverage of medical device classification systems.",
+    "faculty": "Engineering",
+    "prereqTree": "BN5401",
+    "title": "Biomedical Quality and Regulatory Systems"
+}

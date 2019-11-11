@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "fyp": true
+    },
+    "courseCode": "LA4702",
+    "courseCredit": "8",
+    "description": "This studio-based module develops an appreciation for design skills in tropical landscape design as applied on a large city scale and marks the second of four subsequent master-level core studios in landscape design. Interdisciplinary requirements from planning guidelines, architecture design, engineering limitations; as well as understanding existing natural land and urban systems will be introduced into the design process. Project sites will be larger in scale with more complex urban design issues, with projects ranging from peripheral nature conservation sites to mix-use urban centres. There will be an emphasis on deriving innovative design solutions using ecological and sustainability principles.",
+    "faculty": "Design and Environment",
+    "prereqTree": {
+        "and": [
+            "AR3101",
+            "AR3102"
+        ]
+    },
+    "title": "MLA Studio: City"
+}

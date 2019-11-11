@@ -1,0 +1,13 @@
+{
+    "courseCode": "EE4411",
+    "courseCredit": "4",
+    "description": "This module focuses on the major process technologies used in the fabrication of integrated circuits and other microelectronic devices. Each lecture topic covers important scientific aspects of silicon wafer processing steps. Simulations and laboratory experiments provide hands-on experience on basic operation and fabrication of MOS devices. Topics include: crystal growth and wafer preparation, epitaxy, oxidation, diffusion, ion implantation, lithography, plasma technology, etching, deposition, and metallization.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE6439",
+        "EE5439"
+    ],
+    "preclusion": "PC3242",
+    "prereqTree": "EE2021",
+    "title": "Silicon Processing Technology"
+}

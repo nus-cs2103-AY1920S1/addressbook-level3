@@ -1,0 +1,8 @@
+{
+    "courseCode": "IFS4103",
+    "courseCredit": "4",
+    "description": "This is a practice-oriented and project-based module that provides a hands-on experience of performing penetration testing on a collaborating organisation\u2019s system. It aims to provide students with a realistic platform for applying offensive-based vulnerability assessment and analysis techniques on designated target systems. Students will be part of a penetration testing team, and be guided to apply the methodology, techniques, and tools of assessing the security of the target systems. This module contains a mix of technical-review seminars, testing-scoping meetings, and penetration testing exercises, analysis, as well as reporting.",
+    "faculty": "Computing",
+    "prereqTree": "CS3235",
+    "title": "Penetration Testing Practice"
+}

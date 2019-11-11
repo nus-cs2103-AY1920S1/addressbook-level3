@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2704",
+    "courseCredit": "4",
+    "description": "This module will foster deeper anchoring in Residential College 4\u2019s (RC4s\u2019) theme 'Systems Thinking and System Dynamics' through diverse projects related to systems such as energy, environment, health, society, and business. It builds upon the skill sets that RC4 students acquired in junior seminar and senior seminar 1. Students will do individual projects supervised by RC4 fellows; some of them may involve external collaborations, and field work. Intellectual exchanges between supervisors, collaborators, practitioners on the field, and peers will provide a unique experience to students.",
+    "faculty": "Residential College",
+    "preclusion": "UTC27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Projects in Systems Thinking and System Dynamics"
+}

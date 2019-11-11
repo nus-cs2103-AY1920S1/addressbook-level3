@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3320",
+    "courseCredit": "5",
+    "description": "A sustained examination of a pivotal figure in the development of Indian Buddhist thought. Vasubandhu offers our best consolidation of classic Abhidharma minimalist metaphysics and epistemology, developed over the previous millennium of Buddhist thought. He offers on top of that trenchant critique and refinement of views on space, time, agency, cause, reality, knowledge, and the person, articulating the best Buddhist minimalist position possible. But this position, too, is critiqued and refined by Vasubandhu himself into the distinctive Buddhist idealist position known as Yog\u0101c\u0101ra.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1113",
+            "YCC1114"
+        ]
+    },
+    "title": "Vasubandhu"
+}

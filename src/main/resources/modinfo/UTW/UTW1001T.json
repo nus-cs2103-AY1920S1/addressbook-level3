@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTW1001T",
+    "courseCredit": "4",
+    "description": "This module interprets Singaporean popular culture in terms of ideology, meaning the assumptions and cognitive habits that frame one\u2019s understanding of the world and justify a certain set of social relations. Students will be introduced to influential theories of ideology, such as Althusserian interpellation and Gramscian hegemony, and more recent cognitivist approaches. We will engage with analyses of Singapore by political theorists, historians, and sociologists. The suitability of various theories of ideology to Singapore will be evaluated as we practice ideological critique on Singaporean popular cultural texts chosen by the students, to develop critical thinking and writing skills.",
+    "faculty": "NUS",
+    "preclusion": "IEM1201%,\nUTW1001%,\nES1501%",
+    "title": "Ideology and Popular Culture in Singapore"
+}

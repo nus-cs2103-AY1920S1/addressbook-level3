@@ -1,0 +1,11 @@
+{
+    "courseCode": "AUD5220",
+    "courseCredit": "8",
+    "description": "This module is designed to prepare student for the applied research project that must be submitted in Semester 4. This module builds on the knowledge obtained in AUD5115 Experimental Design and Statistics. Students will be asked to identify a client a research topic, and two supervisors, develop a research design and appropriate testing tools, make a class presentation to teaching staff and students and then submit a written proposal (max 5000 words) before obtaining ethics clearance and conducting a pilot study.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "AUD5224"
+    ],
+    "prereqTree": "AUD5115",
+    "title": "Independent Studies in Audiology (Research project - part 1)"
+}

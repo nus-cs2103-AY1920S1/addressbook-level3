@@ -1,0 +1,21 @@
+{
+    "courseCode": "BSP4011",
+    "courseCredit": "4",
+    "description": "The course aims to provide participants with the basic theoretical knowledge, skills, and sensitivities that will help them deal effectively with key management issues and challenges in today's global business environment. We intend to explore the major issues and challenges facing companies with worldwide operations as seen by the managers themselves. The topics addressed include the following: challenges of operating in a global environment, formulation of global strategies and organisational policies (implementation) to achieve the goals set out under the formulation process. Case studies, group projects and presentations will be extensively used to illustrate the concepts.",
+    "faculty": "NUS Business School",
+    "preclusion": "BSP4512",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "BSP1703",
+                    "BSP1707",
+                    "EC1101E",
+                    "EC1301"
+                ]
+            },
+            "BSP2701"
+        ]
+    },
+    "title": "Global Strategic Management"
+}

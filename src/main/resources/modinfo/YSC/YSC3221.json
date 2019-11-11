@@ -1,0 +1,8 @@
+{
+    "courseCode": "YSC3221",
+    "courseCredit": "5",
+    "description": "Computer vision is Artificial Intelligence (AI) that focuses on images and video as the input. The goal of computer vision is to extract information from images and video., It isattempts to make computers work like human's eyes:, namely, to understand and recognize the world through visual data. Compared to other types of data, extracting information from images and video is more complex. However, it has been shown that DEEP LEARNING is effective in addressing this problem. Thus, in this course, we also learn deep learning, particularly in the context of solving computer vision problems.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": "YSC3205",
+    "title": "Computer Vision and Deep Learning"
+}

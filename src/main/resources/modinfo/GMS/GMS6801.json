@@ -1,0 +1,10 @@
+{
+    "courseCode": "GMS6801",
+    "courseCredit": "4",
+    "description": "Medical and health research is a multi-step and multi-faceted process. Early phase experiments assess safety, tolerability, dose-response and other parameters of candidate interventions to make Go/No-Go decisions for further research. Later phase clinical trials seek to verify and augment the earlier findings. Observational studies investigate medicine and health in the population and identify avenues for improvement. This 4-credit module covers the key concepts in the research process and the major study designs involved. This module provides a general background in quantitative studies of medicine and health. This is tailored for students interested in biostatistics, clinical trials, epidemiology, and related fields. The focus will be on concepts, study designs, and research practice; statistical techniques will be elementary-to-intermediate.",
+    "faculty": "Duke-NUS Medical School",
+    "fulfillRequirements": [
+        "GMS6892"
+    ],
+    "title": "Study Designs in Clinical and Population Health Research"
+}

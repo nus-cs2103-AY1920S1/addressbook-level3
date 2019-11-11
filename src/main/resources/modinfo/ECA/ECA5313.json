@@ -1,0 +1,8 @@
+{
+    "courseCode": "ECA5313",
+    "courseCredit": "4",
+    "description": "This module is designed to cover topics that are not covered under ECA5103 Quantitative and Computing Methods. Topics such as Bayesian econometrics, microeconometrics, panel regressions, limited dependent variable models, simultaneous equations models and marcoeconometric modelling for forecasting and policy analyese are likely to be covered under this module.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "ECA5253/ECA5304/ECA5103",
+    "title": "Topics in Econometrics"
+}

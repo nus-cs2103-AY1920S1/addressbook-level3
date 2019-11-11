@@ -1,0 +1,13 @@
+{
+    "courseCode": "LSM4256",
+    "courseCredit": "4",
+    "description": "The objective of this course is to integrate two disciplines, Evolutionary Biology and Developmental Biology into a common framework. The module explores the evolution of animal bodies, e.g. legs, segments, eyes, wings, etc., by focusing on changes at the molecular and developmental levels. This course will introduce important concepts such as hox genes, selector genes, homology, serial homology, modularity, gene regulatory networks, genetic architecture, developmental basis of sexual dimorphism, and phenotypic plasticity, and give a broad organismic-centred perspective on the evolution of novel traits.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM3233",
+            "LSM3252"
+        ]
+    },
+    "title": "Evolution of Development"
+}

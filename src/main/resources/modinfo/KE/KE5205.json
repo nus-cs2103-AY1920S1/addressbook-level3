@@ -1,0 +1,10 @@
+{
+    "courseCode": "KE5205",
+    "courseCredit": "3",
+    "description": "The course aims to equip students with knowledge and skills to effectively mine large amounts of unstructured textual data to discover themes, patterns, and trends for business intelligence, research, or investigation. The students will be introduced to the concepts, techniques, and methods for common text mining tasks, such as data pre-processing and preparation, linguistic/knowledge resources management, concept extraction, text categorization, clustering, association analysis, and trend detection. The scenario-based case studies will enable the students to understand the application of text mining in business and research context, whereas hands-on workshops will allow them to practice performing the above mining tasks following a text mining process.",
+    "faculty": "Institute of Systems Science",
+    "fulfillRequirements": [
+        "EB5002"
+    ],
+    "title": "Text Mining"
+}

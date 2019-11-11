@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "fyp": true
+    },
+    "courseCode": "DEP5101A",
+    "courseCredit": "4",
+    "description": "Planners deal with a myriad of issues and have to work with various planning processes to deal with them. From an expert driven blueprint to the bottom-up public engagement, there is a constant flow of data that directly and indirectly aid them in their work. This module aims to furnish students with the appropriate tools to use when dealing with qualitative data. Some of them include field study, survey and interview, questionnaire design and site inspections, which will be applicable to urban planning analyses. Students will appreciate the discourse on quantitative versus qualitative data and the central ideas in qualitative research - appropriateness of methods and theories; perspectives of the participants and their diversity; reflexivity of the researcher and the research; variety of approaches; and methods in qualitative research. The course emphasizes on 'hands on' with actual field work forming the bulk of the learning process and provides the opportunity for students to learn to collect, analyze and present qualitative data relating to planning and urban issues. This would encourage a better appreciation of the social issues in the urban context.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "DEP5109"
+    ],
+    "title": "Qualitative Methods for Urban Planning"
+}

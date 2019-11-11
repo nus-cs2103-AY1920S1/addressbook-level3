@@ -1,0 +1,23 @@
+{
+    "courseCode": "BT4212",
+    "courseCredit": "4",
+    "description": "This course teaches the concepts, techniques and methods to analyse and improve the visibility of a website or a web page in search engines via the 'natural' or un-paid ('organic' or 'algorithmic') search results. Students will be taught concepts and knowledge in terms of how search engines work, what people search for, what are the actual search terms or keywords typed into search engines, which search engines are preferred by their targeted audience, and how to optimize a website in terms of editing its content, structure and links, and associated coding to both increase its relevance to specific keywords and to remove barriers to the indexing activities of search engines. Importantly, the module will emphasize the relationship of search engine optimization to digital marketing in terms of building high quality web pages to engage and persuade, setting up analytics programs to enable sites to measure results, and improving a site's conversion rate.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            {
+                "and": [
+                    "CS1010",
+                    "BT2101"
+                ]
+            },
+            {
+                "and": [
+                    "DAO2702",
+                    "DBA3803"
+                ]
+            }
+        ]
+    },
+    "title": "Search Engine Optimization and Analytics"
+}

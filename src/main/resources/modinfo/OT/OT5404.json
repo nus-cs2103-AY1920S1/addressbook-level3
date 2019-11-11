@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "OT5404",
+    "courseCredit": "4",
+    "description": "This module introduces the methodology commonly use in the characterization of the physical properties of petroleum reservoirs. Topics covered include downhole measurements, rock physics modelling, fluid substitution, seismic well tie, AVO (amplitude versus offset) analysis, and pre-stack inversion for reservoir properties.",
+    "faculty": "Engineering",
+    "title": "Reservoir Characterization and Rock Physics"
+}

@@ -1,0 +1,56 @@
+@startuml
+!include ../style2.puml
+autoactivate on
+
+box TreeBuilder LOGIC_COLOR_T1
+participant ":AndOrTree" as AndOrTree LOGIC_COLOR
+participant ":AndOrNode" as AndOrNode LOGIC_COLOR
+participant ":AndNode" as AndNode LOGIC_COLOR
+participant ":OrNode" as OrNode LOGIC_COLOR
+participant ":DataNode" as DataNode LOGIC_COLOR
+end box
+
+[-> AndOrTree : buildTree(rootData, jsonString, function)
+    AndOrTree -> AndOrTree : buildTreeHelper(jsonNode, currNode, function)
+        alt isObject
+            AndOrTree -> AndOrNode : createNode(null, type)
+                alt isAndNode
+                    create AndNode
+                    AndOrNode -> AndNode
+                        return newNode
+                else else
+                    create OrNode
+                    AndOrNode -> OrNode
+                        return newNode
+                end
+                return newNode
+
+
+            loop child in jsonNode
+                AndOrTree -> AndOrTree : buildTreeHelper(child, newNode)
+                return
+                |||
+            end
+
+        else isArray
+
+            loop child in array
+                AndOrTree -> AndOrTree : buildTreeHelper(child, currNode)
+                    return
+                |||
+            end
+
+        else else
+
+            AndOrTree -> AndOrNode : createNode(data)
+                create DataNode
+                AndOrNode -> DataNode : DataNode(data)
+                    return newNode
+                return newNode
+                |||
+
+        end
+        return
+[<--AndOrTree : tree
+
+@enduml

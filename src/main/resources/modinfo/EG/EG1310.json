@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "EG1310",
+    "courseCredit": "4",
+    "description": "This design module introduces students to the complexities involved in engineering a system with flight control, power management, signal processing and communications capabilities. It gives students the first exposure on the issues that are typically faced by engineers when they design and build a system which can be deployed into space. Issues such as flight dynamics, environmental disturbances, command and control will be explored.",
+    "faculty": "Engineering",
+    "title": "Exploratory Satellite Design"
+}

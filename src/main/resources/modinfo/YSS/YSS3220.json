@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSS3220",
+    "courseCredit": "5",
+    "description": "This course focuses on understanding how interactions between political actors influence decisions and outcomes.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSS2203",
+            "YSS2211"
+        ]
+    },
+    "title": "Political Economy"
+}

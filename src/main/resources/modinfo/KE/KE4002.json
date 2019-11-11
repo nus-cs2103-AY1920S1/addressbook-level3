@@ -1,0 +1,7 @@
+{
+    "courseCode": "KE4002",
+    "courseCredit": "4",
+    "description": "The objective of this module is to teach the fundamentals of CBR and how to apply CBR to solve real world problems. Topics covered in this module include CBR concepts; CBR applications survey; CBR techniques: case representation, case indexing, case storage and retrieval; Case adaptation; Learning and generalization; Identifying applications; CBR Tools survey; and Hybrid systems. There is an assignment in which students will design and possibly implement a CBR system in their workplace. This course is appropriate for knowledge engineers who wish to apply CBR techniques for knowledge management.",
+    "faculty": "Institute of Systems Science",
+    "title": "Case Based Reasoning"
+}

@@ -1,0 +1,37 @@
+{
+    "courseCode": "PC2132",
+    "courseCredit": "4",
+    "description": "This module aims to consider the principles of mechanics in a rigorous mathematical framework, and to establish a bridge to the principles of modern physics. The topics to be covered include: kinematics; damped and driven oscillators; energy and angular momentum, conservative forces; twobody and many-body problems, centre-of-mass; central-force motion, inverse square law, orbits, scattering; action principle; Lagrangian mechanics; Hamiltonian mechanics; small-amplitude oscillations, normal modes; rotating rigid bodies; rotating reference frames, centrifugal and Coriolis forces, Foucault's pendulum. A good command of calculus and some basic knowledge of linear algebra are required.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC3246"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "PC1141",
+                    "PC1431",
+                    "PC1431X",
+                    "PC1433"
+                ]
+            },
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1513",
+                    "MA1508E"
+                ]
+            },
+            {
+                "or": [
+                    "MA1102R",
+                    "MA1505",
+                    "MA1511",
+                    "MA1512"
+                ]
+            }
+        ]
+    },
+    "title": "Classical Mechanics"
+}

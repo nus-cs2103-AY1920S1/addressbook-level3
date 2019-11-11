@@ -1,0 +1,7 @@
+{
+    "courseCode": "CS3233",
+    "courseCredit": "4",
+    "description": "This module aims to prepare students in competitive problem solving. It covers techniques for attacking and solving challenging computational problems. Fundamental algorithmic solving techniques covered include divide and conquer, greedy, dynamic programming, backtracking and branch and bound. Domain specific techniques like number theory, computational geometry, string processing and graph theoretic will also be covered. Advanced AI search techniques like iterative deepening, A* and heuristic search will be included. The module also covers algorithmic and programming language toolkits used in problem solving supported by the solution of representative or well-known problems in the various algorithmic paradigms.",
+    "faculty": "Computing",
+    "title": "Competitive Programming"
+}

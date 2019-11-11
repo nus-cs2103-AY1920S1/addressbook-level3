@@ -1,0 +1,27 @@
+{
+    "courseCode": "LL5050",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Law",
+    "fulfillRequirements": [
+        "LL5291",
+        "LL6291",
+        "LL5291V",
+        "LL6291V",
+        "LL5340",
+        "LL6340",
+        "LL5340V",
+        "LL6340V",
+        "LL5341",
+        "LL6341",
+        "LL5341V",
+        "LL6341V",
+        "LL4291",
+        "LL4291V",
+        "LL4340",
+        "LL4340V",
+        "LL4341",
+        "LL4341V"
+    ],
+    "title": "Public International Law"
+}

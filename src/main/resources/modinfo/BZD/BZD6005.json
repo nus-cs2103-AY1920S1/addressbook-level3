@@ -1,0 +1,8 @@
+{
+    "courseCode": "BZD6005",
+    "courseCredit": "4",
+    "description": "This course applies advance econometric theory to empirical research methods in business. This advanced course begins with non-linear least squares, quasi-maximum likelihood, and generalized method of movements. Strongly rooted in the application, this course also covers asymptotic theory, Bayesian econometrics, unit-root time series, and stochastic processess.",
+    "faculty": "NUS Business School",
+    "prereqTree": "BZD6004",
+    "title": "Applied Econometrics III"
+}

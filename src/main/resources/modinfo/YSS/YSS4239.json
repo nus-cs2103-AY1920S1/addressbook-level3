@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSS4239",
+    "courseCredit": "5",
+    "description": "This course examines the multiple ways in which cities are built by processes that cross national boundaries. From the earliest times of transnational mobility, processes of urbanization have been shaped by these movements and the flows of capital, people, and knowledge they give rise to. These transnational currents raise important questions for how we understand urban development. From the effects of colonial expansion on cities, through to the contemporary trend of itinerant urban expertise, the course will offer varied perspectives on the phenomenon of transnational urbanism. The seminar will draw on a range of theoretical approaches and range across political, economic, social and culture formations.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YSS2220",
+            "YSS3222"
+        ]
+    },
+    "title": "Adv Seminar in Urban Studies: Transnational Urbanism"
+}

@@ -1,0 +1,33 @@
+@startuml
+
+start
+:User adds a cca;
+if () then (cca does not exist)
+    :Cca is added to CcaTracker;
+    :User receives message\nthat cca is added;
+    :User adds a progress;
+    if () then (Progress exists)
+        :Progress is added;
+        :User receives message\nthat progress is added;
+        :User increments progress;
+        if () then (Progress not set)
+            :User receives message\nthat progress is not set;
+        else (Progress already set)
+            if () then (Progress at max)
+                :User receives message\nthat progress is at max;
+
+            else (Progress can be incremented)
+                :Progress is incremented;
+                :User receives message\n that progress is incremented;
+            endif
+        endif
+    else (Progress does not exist)
+        :User receives message\nthat progress already exists;
+
+    endif
+else (cca exists)
+    :User receives message\nthat cca is duplicate;
+endif
+stop
+
+@enduml

@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUA1166",
+    "courseCredit": "2",
+    "description": "The module offers an introduction to programming of music and image within Max, a popular graphical programming environment for sound, music, and visual computing. Aside from general familiarity with the Max workflow, students learn computing basics such as iteration, list processing, working with data structures, data collection, and probability, and how these are applied to drawing, image manipulation, and sound playback.",
+    "faculty": "YST Conservatory of Music",
+    "title": "Introduction to Computing Media in Max"
+}

@@ -1,0 +1,17 @@
+{
+    "courseCode": "AUD5219",
+    "courseCredit": "3",
+    "description": "This module builds on the basic paediatric assessment skills gained in Paediatric Audiology A. Students will have the opportunity to learn the principles and practice of audiological assessment of children of all ages. In particular, they will refine and expand their understanding of advanced paediatric testing techniques; educational and communication issues for hearing impaired children; assessment and management of children with special needs; assessment and management of hearing impaired neonates & infants.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "prereqTree": {
+        "and": [
+            "AUD5105",
+            "AUD5111",
+            "AUD5107",
+            "AUD5113",
+            "AUD5108",
+            "AUD5114"
+        ]
+    },
+    "title": "Paediatric Audiology B - Part 1"
+}

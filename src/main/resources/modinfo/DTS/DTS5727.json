@@ -1,0 +1,7 @@
+{
+    "courseCode": "DTS5727",
+    "courseCredit": "4",
+    "description": "Operational Test and Evaluation (OT&E) enables validation of the as-designed, built, and verified system\u2019s satisfaction of the users\u2019 operational needs. This module answers these questions: What is OT&E? Why is OT&E needed? What is its objective? When is OT&E performed during the system development phase? How is OT&E carried out? Who is responsible for performing OT&E? What is the system developer\u2019s role in OT&E? Where is OT&E carried out? What are OT&E best practices? The module illuminates the OT&E fundamentals and methods with examples and case studies. Topics include: - Role Test & Evaluation (T&E) in System Acquisitionand Development - Interrelationships & Integration of Developmental T&E (DT&E) and OT&E - System Operational Effectiveness and Suitability - Fundamentals of OT&E - Life Fire Test and Evaluation - OT&E Methods and Tools - OT&E Examples - OT&E Best Practices - OT&E Case Studies",
+    "faculty": "Temasek Defence Sys. Institute",
+    "title": "Operational Test and Evaluation"
+}

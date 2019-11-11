@@ -1,0 +1,23 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6903",
+    "courseCredit": "4",
+    "description": "Computational models of biological perception are used increasingly in multimedia, computer vision, robotics, computer-human interaction, and biological signal processing. Understanding the biological and psychophysical processes governing perception is the key to building well-founded models. In this module, we will discuss selected papers on current research in this area, with topics covering neuronal and psychophysical models of perception, the use of psychophysics to guide the solution of computer vision problems, and perceptually driven applications in digital media. 100% CA. Maximum class size 20.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            "EE4604",
+            {
+                "or": [
+                    "EE5907",
+                    "EE5907R",
+                    "EE5731",
+                    "EE5731R"
+                ]
+            }
+        ]
+    },
+    "title": "Advanced Models of Biological Perception"
+}

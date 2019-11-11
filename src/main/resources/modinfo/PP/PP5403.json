@@ -1,0 +1,10 @@
+{
+    "courseCode": "PP5403",
+    "courseCredit": "4",
+    "description": "The main objective of this module is to understand foundational economics concepts and principles and their application to public policy. The module is organized in six parts: Part 1 The basic demand and supply framework of microeconomic analyses; Part 2, market demand to gain insights into decisions made by consumers; Part 3, how market inefficiencies can arise, the special characteristics of public goods, and the incidental benefits and costs of an economic activity; Parts 4 and 5 focus on firm behaviour and market structures; and Part 6, basic macroeconomic concepts and goals. Throughout the course, the focus of study will be on the policy interventions that would lead to more efficient resource allocation outcomes and improved welfare of society.",
+    "faculty": "LKY School of Public Policy",
+    "fulfillRequirements": [
+        "PP5170"
+    ],
+    "title": "Economic Foundations for Public Policy"
+}

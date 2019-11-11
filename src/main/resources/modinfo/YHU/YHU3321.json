@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3321",
+    "courseCredit": "5",
+    "description": "This course focuses on the tradition of comic fiction in Britain during the twentieth century. In terms of the study of literary technique, it provides opportunity for analyzing the modes of irony, satire, parody and their interactions with dialogue-writing, narrative plotting and the fictional representation of consciousness and character. Since comedy is closely related to social contexts, from the point of cultural history, the course focuses on the central role played by comic fiction in the representation and critique of cultural identities in Britain during the last century, through its dual role as an agent of conservation and subversion.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "British Comic Fiction: The 20th Century"
+}

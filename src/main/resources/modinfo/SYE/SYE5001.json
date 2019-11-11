@@ -1,0 +1,8 @@
+{
+    "courseCode": "SYE5001",
+    "courseCredit": "4",
+    "description": "Systems have many interacting components \u2013 hardware, software and people with complex and often conflicting requirements to be met. Systems engineering combines technical, interpersonal and managerial knowledge and skills to build systems. This module provides students with the language, knowledge, and concepts of systems and systems engineering and an introduction to various types of architecture to manage complex systems. Students will explore the processes of design, development, implementation and management of multi-functional team-based projects. It will also provide the student with the ability to carry out and manage a system engineering project. Case studies will provide the students with a practical context.",
+    "faculty": "Engineering",
+    "preclusion": "IE5402 Introduction to Systems Engineering and\nArchitecture",
+    "title": "Systems Engineering and Architecture"
+}

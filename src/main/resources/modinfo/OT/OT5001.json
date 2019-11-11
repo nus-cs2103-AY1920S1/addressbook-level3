@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true,
+        "year": true
+    },
+    "courseCode": "OT5001",
+    "courseCredit": "8",
+    "description": "This module involves independent study over two semesters, on a topic in Offshore Technology approved by the Programme Management Committee. The work may relate to a comprehensive literature survey, and critical evaluation and analysis, design feasibility study, case study, minor research project or a combination.",
+    "faculty": "Engineering",
+    "preclusion": "OT5001A & OT5001B",
+    "title": "Independent Study Module"
+}

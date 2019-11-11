@@ -1,0 +1,32 @@
+{
+    "courseCode": "EC3303",
+    "courseCredit": "4",
+    "description": "This is a basic econometrics module that requires a background in statistical analysis similar to EC2303 Foundations for Econometrics. This module is aimed at providing a user-friendly introduction to basic econometric techniques and commercial software packages such as Eviews and Excel to carry out simple regression analyses. The major topics covered include a review of probability distributions and statistical inference, rudiments of matrix algebra, classical linear regression model with two or more variables, estimation and hypothesis testing, and violation of classical assumptions and some remedial measures.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EC3394",
+        "BSN4811A",
+        "BSS4003B"
+    ],
+    "preclusion": "ST3131",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EC1101E",
+                    "EC1301",
+                    "BSP1005"
+                ]
+            },
+            {
+                "or": [
+                    "EC2303",
+                    "DSC1007",
+                    "DSC1007X",
+                    "MA2216"
+                ]
+            }
+        ]
+    },
+    "title": "Econometrics I"
+}

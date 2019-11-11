@@ -1,0 +1,8 @@
+{
+    "courseCode": "TSC3224",
+    "courseCredit": "4",
+    "description": "This course introduces the concepts of distribution and warehousing. Distribution and warehouse management are important components of logistics and supply chain management systems. The topics cover include network distribution design, network location and warehousing systems such as material handling systems, storage systems and order picking systems. Case discussions will be an integral part of the lecture.",
+    "faculty": "Cont and Lifelong Education",
+    "prereqTree": "TIE2110",
+    "title": "Distribution & Warehousing"
+}

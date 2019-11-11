@@ -1,0 +1,27 @@
+{
+    "courseCode": "MA2108S",
+    "courseCredit": "5",
+    "description": "The objective of this module is to develop the learning capabilities and hone the problem solving skills of talented students at a mathematically deeper and more rigorous level. In addition to the classes of the regular module, one extra special hour each week will be devoted to solving challenging problems and studying some additional topics and those topics briefly mentioned in the regular module. The contents of this module will consist of those in the regular module (MA2108) and the following additional topics: conditions equivalent to the completeness axiom, rearrangement of series, trigonometric series.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA3291",
+        "MA4248",
+        "MA3265",
+        "MA3264",
+        "MA3220",
+        "MA3110S",
+        "MA3110"
+    ],
+    "preclusion": "MA2108, MA2206, MA2208, MA2221, MA2311, MQ2202, MQ2102, MQ2203, CN2401, EE2401, ME2492",
+    "prereqTree": {
+        "or": [
+            "MA1102R",
+            "MA1505",
+            "MA1511",
+            "MA1505C",
+            "MA1507",
+            "MA1521"
+        ]
+    },
+    "title": "Mathematical Analysis I (S)"
+}

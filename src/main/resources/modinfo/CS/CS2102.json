@@ -1,0 +1,36 @@
+{
+    "courseCode": "CS2102",
+    "courseCredit": "4",
+    "description": "The aim of this module is to introduce the fundamental concepts and techniques necessary for the understanding and practice of design and implementation of database applications and of the management of data with relational database management systems. The module covers practical and theoretical aspects of design with entity-relationship model, theory of functional dependencies and normalisation by decomposition in second, third and Boyce-Codd normal forms. The module covers practical and theoretical aspects of programming with SQL data definition and manipulation sublanguages, relational tuple calculus, relational domain calculus and relational algebra.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CP3106",
+        "CS5228",
+        "CS6284",
+        "CS5346",
+        "CS5425",
+        "CS3223",
+        "CS4225",
+        "IS4302"
+    ],
+    "preclusion": "CS2102S, IT2002",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS1020",
+                    "CS2020",
+                    "CS2030",
+                    "CS2040"
+                ]
+            },
+            {
+                "or": [
+                    "MA1100",
+                    "CS1231"
+                ]
+            }
+        ]
+    },
+    "title": "Database Systems"
+}

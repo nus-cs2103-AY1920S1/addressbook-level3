@@ -1,0 +1,10 @@
+{
+    "courseCode": "EG1611",
+    "courseCredit": "4",
+    "description": "This module is for students admitted into the Co-operative(Co-Op) education programme requiring a compulsory 10- week industry immersion during their first year of study. The module enables Co-Op students to learn about the latest developments in the industry of their Co-Op companies and be exposed to the organization\u2019s network with practicing engineers.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EG2620"
+    ],
+    "title": "Engineering Co-Op Immersion Programme I"
+}

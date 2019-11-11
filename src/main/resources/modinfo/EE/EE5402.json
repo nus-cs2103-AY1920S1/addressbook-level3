@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5402",
+    "courseCredit": "4",
+    "description": "This module covers the fundamental topics required for the design and analysis of the RF stages in modern wireless systems, including receiver design and modulation methods. The design of key wireless system components, such as filters, amplifiers, mixers and oscillators, is also included. The module enables students to gain a deep understanding of fundamental concepts as well as practical techniques in designing, fabricating and testing of RF circuits and systems. Students will also learn, through hands-on practice, to use various test and measurement instruments, including a vector network analyser and a powerful circuit design software (HP Advanced Design System).",
+    "faculty": "Engineering",
+    "preclusion": "TD5115",
+    "title": "Rf Circuit Design I"
+}

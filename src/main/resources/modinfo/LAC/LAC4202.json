@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAC4202",
+    "courseCredit": "5",
+    "description": "This module is a continuation of Chinese 5. It will emphasize the communicative function and the training of the four language skills (speaking, listening, reading & writing). A systematic way of introducing drills and exercises will allow students to master the necessary grammatical knowledge and rules for word and sentence formation. The students will also be involved in doing projects related to Chinese culture and history. Essay writing skills will be strengthened in this module.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": "LAC4201",
+    "title": "Chinese 6"
+}

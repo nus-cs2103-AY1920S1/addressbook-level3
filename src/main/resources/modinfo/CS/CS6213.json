@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS6213",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CS3211",
+            "CS4231"
+        ]
+    },
+    "title": "Special Topics in Distributed Computing"
+}

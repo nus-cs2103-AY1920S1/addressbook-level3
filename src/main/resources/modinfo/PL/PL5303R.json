@@ -1,0 +1,9 @@
+{
+    "courseCode": "PL5303R",
+    "courseCredit": "5",
+    "description": "This module surveys recent advances in cognitive psychology and is targeted at graduate students and advanced undergraduates who have an interest in cognitive science. Students will be introduced to the foundations and basic philosophy behind contemporary approaches to cognition such as the symbolic, connectionist, ecological, dynamic, and embodied movements. We will examine the applications of these approaches to recent research in selected topics from the areas of perception, memory, language, creativity, consciousness, and intelligent behaviour. Prior exposure to cognitive psychology at the undergraduate level is required.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PL6222",
+    "prereqTree": "PL3233",
+    "title": "Advanced Cognitive Psychology"
+}

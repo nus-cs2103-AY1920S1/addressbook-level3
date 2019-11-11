@@ -1,0 +1,14 @@
+{
+    "courseCode": "CN4240R",
+    "courseCredit": "4",
+    "description": "This module provides students with a working knowledge of unit operations and processes for the control of industrial effluent from the chemical process industries. The module begins with an overview of the characteristics of effluent from the chemical plant operations, and its impact on the environment. Concepts on environmental sustainability and green processing particularly pertinent to the chemical industry will be covered, including techniques for waste minimisation and pollution prevention. Finally, applications of processes (physical, chemical and biological) for the treatment of effluent from plant facilities will be presented. Case studies from various industries will also be presented. This module is targeted at level 4 chemical engineering students.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "LSM1401",
+            "CN2116",
+            "CN3124"
+        ]
+    },
+    "title": "Unit Operations and Processes for Effluent Treatment"
+}

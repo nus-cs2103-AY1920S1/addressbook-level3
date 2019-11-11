@@ -1,0 +1,15 @@
+{
+    "courseCode": "PR4196",
+    "courseCredit": "16",
+    "description": "This module aims to nurture the passion of final year Pharmacy students for inquiry and knowledge creation through fostering their intellectual rigor in tackling research questions related to pharmacy and pharmaceutical sciences, and developing their academic communication skills. It also aims to not only provide hands-on research experience gained through project work, but also to develop students\u2019 higher order thinking skills, such as the critical evaluation of information, as well as hone students\u2019 written and oral academic communication skills in the context of pharmaceutical sciences and practice. Students will carry out their projects under the supervision of Pharmacy academic staff, and will attend seminars/ tutorials offered by the Centre for English Language Communication (CELC) that aim to equip them with knowledge and skills for successful research communication.",
+    "faculty": "Science",
+    "preclusion": "Students from non-Pharmacy majors, PR4199",
+    "prereqTree": {
+        "or": [
+            "ES1000",
+            "ES1102",
+            "ES1103"
+        ]
+    },
+    "title": "Pharmacy Research Project and Scientific Communication"
+}

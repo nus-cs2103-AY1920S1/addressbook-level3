@@ -1,0 +1,14 @@
+{
+    "courseCode": "BN4501",
+    "courseCredit": "4",
+    "description": "This module introduces engineering students to Engineering Biology, which involves genetic modification of biological systems using engineering approach. These engineered biological systems have wide biomedical and industrial applications. This module covers key engineering concepts and methodologies to the design of engineered genetic systems. The topics covered include foundational techniques in Engineering Biology, abstraction and composition of functional genetic devices and systems, use of computational modelling for genetic device and system design, combinatorial logic gene circuit design, use of control theory in dynamic device and systems design, and applications of engineered systems and societal impact.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "MA1505",
+            "MA1506",
+            "LSM1401"
+        ]
+    },
+    "title": "Engineering Biology"
+}

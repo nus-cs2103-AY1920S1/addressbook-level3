@@ -1,0 +1,19 @@
+{
+    "courseCode": "FIN3761D",
+    "courseCredit": "4",
+    "description": "This module aims to do the following: - To provide students with an overview of the commodity markets as an asset class - To introduce key concepts for commodity trading and investing businesses - To provide a framework for assessing risks and opportunities for investors in physical commodity assets.",
+    "faculty": "NUS Business School",
+    "preclusion": "FIN3120E",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "FIN2704",
+                    "FIN2704X"
+                ]
+            },
+            "FIN3703"
+        ]
+    },
+    "title": "TIF: Physical Commodity Markets and Assets"
+}

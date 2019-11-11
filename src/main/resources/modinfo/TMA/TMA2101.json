@@ -1,0 +1,11 @@
+{
+    "courseCode": "TMA2101",
+    "courseCredit": "4",
+    "description": "This module provides a basic foundation for calculus and its related subjects required by computing students. The objective is to train the students to be able to handle calculus techniques arising in their courses of specialisation. In addition to the standard calculus material, the course also covers simple mathematical modelling techniques and numerical methods in connection with ordinary differential equations. Major topics: Preliminaries on sets and number systems. Calculus of functions of one variable and applications. Sequences, series and power series. Functions of several variables. Extrema. First and second order differential equations. Basic numerical methods.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TMA2103"
+    ],
+    "prereqTree": "TMA1001",
+    "title": "Calculus for Computing"
+}

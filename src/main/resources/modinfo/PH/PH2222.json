@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PH2222",
+    "courseCredit": "4",
+    "description": "Socrates and Plato stand at the source of the Western Philosophical tradition. Alfred Whitehead said that 'the safest general characterization of the European philosophical tradition is that it consists of a series of footnotes to Plato.' Through a close reading and analysis of several representative Platonic dialogues, this module introduces the student to the philosophy of Plato and Socrates (Plato\u2019s teacher and main interlocutor in his dialogues), and prepares him/her for PH 3222 on Aristotle\u2019s philosophy and the Honours seminar on Greek Thinkers. The module may include material on earlier Philosophy forming the background to Socrates and Plato.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PH3222"
+    ],
+    "preclusion": "PH3209, GEK2036",
+    "title": "Greek Philosophy (Socrates and Plato)"
+}

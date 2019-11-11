@@ -1,0 +1,15 @@
+{
+    "courseCode": "MUT3215",
+    "courseCredit": "4",
+    "description": "This module looks at recent approaches to form, melody, harmony, rhythm, and texture. It is appropriate for students who are interested in exploring music composition in more depth but are not majoring in music composition. It encourages individual creative writing while exploring contemporary techniques of music from 1920 to present. Class meetings will include a combination of lectures, private composition lessons and group tutorials. The first half of the semester focuses on solo writing while the second half focuses on chamber writing. Students will look into some models for composition in preparation for their two projects.",
+    "faculty": "YST Conservatory of Music",
+    "prereqTree": {
+        "and": [
+            "MUT1121",
+            "MUT1122",
+            "MUT2117",
+            "MUT2118"
+        ]
+    },
+    "title": "Fundamentals of Composition"
+}

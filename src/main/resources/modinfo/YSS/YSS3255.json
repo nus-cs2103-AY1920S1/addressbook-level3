@@ -1,0 +1,17 @@
+{
+    "courseCode": "YSS3255",
+    "courseCredit": "5",
+    "description": "This course examines the determinants and mechanisms through which poor countries develop. While this course focuses primarily on the development of political structures that enhance human development, it also gives significant attention to social and economic change associated with modernization. This course is essentially an exploration of the political economy of development in the developing world. Among others, the questions we explore in this class include: Why are some countries poor, repressive, and violent? Why have some developed economically, achieved stability, and protected human rights, while others stagnate and/or decline? What determines state capacity, good governance, and development?",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS4238"
+    ],
+    "prereqTree": {
+        "and": [
+            "YCC1121",
+            "YCC2121",
+            "YSS2218"
+        ]
+    },
+    "title": "International Development"
+}

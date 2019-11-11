@@ -1,0 +1,24 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MLE1001",
+    "courseCredit": "6",
+    "description": "Written & oral communication skills. Basics of computer tools used by materials engineers. Notations for points, directions and planes. Basic crystal structures of metals. (BCC, FCC, and HCP), Basic crystal structures of ceramics and semiconductors. Imperfections in Solids covering point defects, line defects, surface defects and grain boundaries, Noncrystalline and semicrystalline materials Mechanical Properties. XRD and impact testing. Tension test and work hardening. Basic phase diagrams.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "MLE3203",
+        "MLE3202",
+        "MLE3111",
+        "MLE3104",
+        "MLE3103",
+        "MLE3102",
+        "MLE3101",
+        "MLE2107",
+        "MLE2106",
+        "MLE2105",
+        "MLE2104",
+        "MLE2103"
+    ],
+    "title": "Materials Science & Engrg Principles & Practice I"
+}

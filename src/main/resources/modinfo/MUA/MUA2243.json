@@ -1,0 +1,14 @@
+{
+    "courseCode": "MUA2243",
+    "courseCredit": "4",
+    "description": "Piano students will collaborate with students from other departments, forming undirected groups consisting of three or more players, to study and perform selected works of chamber music. Coaching sessions provide in-depth insight into the specific piece(s) chosen for study; whilst active participation is expected in the studio class, which provides an overview of the most significant works relevant to the genre. Students should participate in at least one public performance as well as in a final examination of the prepared work(s); and to reflect upon their learning process in the context of this module by updating their e-portfolios.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3241",
+        "MUA3242",
+        "MUA3243"
+    ],
+    "preclusion": "MUA2155; or\n[MUA2241 and MUA2242]",
+    "prereqTree": "MUA1116",
+    "title": "Collaborative Piano - Chamber Music"
+}

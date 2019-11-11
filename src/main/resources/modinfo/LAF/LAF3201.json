@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAF3201",
+    "courseCredit": "4",
+    "description": "Building upon the foundation of the French 2 module, this module focuses on the development of students' ability to communicate on fairly complex topics of general interests. It will continue to adopt an integrated approach to language learning and cultivate students' proficiency in all areas of language learning, including their learning competence. Strategies to be developed include writing and speaking strategies such as brainstorming, arranging ideas and collecting linguistic expressions prior to the writing or speaking tasks. The assessment for this module is 100% Continuous Assessment.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAF3202",
+        "LAF3203"
+    ],
+    "prereqTree": "LAF2201",
+    "title": "French 3"
+}

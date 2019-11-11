@@ -1,0 +1,18 @@
+{
+    "courseCode": "ST3235",
+    "courseCredit": "4",
+    "description": "This module focuses on the use of modern statistical methods for quality control and improvement. The objective is to give students a sound understanding of the principles and the basis for applying them in a variety of situations. Topics include: properties, designs and application of control charts, Shewhart charts, straight moving average chart, cumulative sum chart, exponentially weighted moving average chart, basic concepts of acceptance sampling, single, multiple and sequential sampling by attributes, variable sampling. This module is targeted at students who are interested in Statistics and are able to meet the prerequisite.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ST5208"
+    ],
+    "preclusion": "All ISE students.",
+    "prereqTree": {
+        "or": [
+            "ST2131",
+            "MA2216",
+            "ST2334"
+        ]
+    },
+    "title": "Statistical Quality Control"
+}

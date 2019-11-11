@@ -1,0 +1,19 @@
+{
+    "courseCode": "CS6285",
+    "courseCredit": "4",
+    "description": "Randomized algorithms are designed under the assumption that the computer has access to perfectly random and independent bits. In practice this sequence is generated from some physical source of randomness, but a sample from such sources does not contain independent random bits. This motivates the study of pseudorandomness, the theory of efficiently generating objects that 'look random' despite being constructed using little or no randomness. This module will study the intimate connections between a variety of fundamental 'pseudorandom objects' that at first seem very different in nature: expander graphs, randomness extractors, list-decodable error-correcting codes, samplers, and pseudorandom generators.",
+    "faculty": "Computing",
+    "preclusion": "Variable, depend on the choice of topics or departmental approval.",
+    "prereqTree": {
+        "and": [
+            "CS3230",
+            {
+                "or": [
+                    "ST2334",
+                    "ST2131"
+                ]
+            }
+        ]
+    },
+    "title": "Topics in Computer Science VI: Pseudorandomness"
+}

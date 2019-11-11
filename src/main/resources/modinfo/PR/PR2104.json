@@ -1,0 +1,12 @@
+{
+    "courseCode": "PR2104",
+    "courseCredit": "4",
+    "description": "Learning objectives: This course aims to train students in the principles of and practical capability in limit tests, pharmacopoeial assays and various analytical instruments for pharmaceutical analysis. Introduction to pharmacopoeias, monographs, good laboratory practice, validation of analytical procedures. Pharmacopoeial tests and assays. Analysis of drugs via functional groups (alcohols, phenols, acids and derivatives, bases etc). Basic principles of ultraviolet (UV) spectroscopy, infrared (IR) spectroscopy, atomic absorption spectroscopy (AAS) and flame photometry (FP), and mass spectrometry (MS). Pharmaceutical applicatiaons of UV, IR, AAS and FP. Target students: Pharmacy Year Two",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR3103",
+        "PR4103"
+    ],
+    "prereqTree": "PR1101",
+    "title": "Pharmaceutical Analysis I"
+}

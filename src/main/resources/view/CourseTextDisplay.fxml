@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ScrollPane?>
+
+<StackPane fx:id="courseTextPlaceHolder"
+           styleClass="pane-with-border"
+           xmlns="http://javafx.com/javafx/8"
+           xmlns:fx="http://javafx.com/fxml/1">
+
+   <ScrollPane fitToWidth="true" fitToHeight="true">
+      <TextArea fx:id="courseTextDisplay"
+                editable="false"
+                wrapText="true"
+                scrollTop="Infinity"/>
+
+   </ScrollPane>
+
+</StackPane>

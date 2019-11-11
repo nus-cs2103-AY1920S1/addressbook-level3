@@ -1,0 +1,16 @@
+{
+    "courseCode": "YSC3216",
+    "courseCredit": "5",
+    "description": "What do (1) stock markets, (2) the weather, (3) genetic mutations and (4) the movements of a drunkard have in common? All four phenomena are subject to a certain degree of randomness. Such \"stochastic processes\" are a vibrant area of interdisciplinary research, ranging from mathematical finance over biology to predicting waiting times in supermarket queues. In this course, you will learn the mathematics behind the most common models of stochastic processes: Markov chains, Poisson and renewal processes, and queuing theory. We will prove the most important mathematical results and apply them to realistic problems.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC4208"
+    ],
+    "prereqTree": {
+        "and": [
+            "YCC1122",
+            "YSC1206"
+        ]
+    },
+    "title": "Stochastic Processes and Models (SPaM)"
+}

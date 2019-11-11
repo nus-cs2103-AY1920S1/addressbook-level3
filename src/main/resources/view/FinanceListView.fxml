@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+
+<SplitPane dividerPositions="0.5" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@cssfiles/FinanceTheme.css" />
+    </stylesheets>
+   <items>
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+        <items>
+            <Label fx:id="purchaseListHeader" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" styleClass="financeHeader_big_label" text="Label" textAlignment="CENTER">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <ListView fx:id="purchaseListView" />
+        </items>
+      </SplitPane>
+      <SplitPane dividerPositions="0.86" orientation="VERTICAL">
+        <items>
+            <SplitPane dividerPositions="0.5, 0.5" orientation="VERTICAL" prefWidth="248.0" >
+              <items>
+                  <Label fx:id="installmentListHeader" alignment="CENTER" prefHeight="50.0" styleClass="financeHeader_big_label" text="Label" textAlignment="CENTER">
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <ListView fx:id="installmentListView" depthTest="ENABLE" editable="true" pickOnBounds="false" />
+                  <Label fx:id="statisticHeader" alignment="CENTER" contentDisplay="CENTER" styleClass="financeHeader_big_label" text="Label" textAlignment="CENTER">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Label>
+              </items>
+            </SplitPane>
+            <SplitPane dividerPositions="0.5">
+              <items>
+                  <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+                    <items>
+                        <Label fx:id="spentAmountHeader" alignment="CENTER" styleClass="financeHeader_small_label" text="spent" textAlignment="CENTER" wrapText="true" />
+                        <Label fx:id="spentAmount" alignment="CENTER" styleClass="financeHeader_small_label" text="spentlabel" textAlignment="CENTER" wrapText="true" />
+                    </items>
+                  </SplitPane>
+                  <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+                    <items>
+                        <Label fx:id="remainingAmountHeader" alignment="CENTER" contentDisplay="CENTER" styleClass="financeHeader_small_label" text="remain" textAlignment="CENTER" wrapText="true" />
+                        <Label fx:id="remainingAmount" alignment="CENTER" styleClass="financeHeader_small_label" text="remainlabel" textAlignment="CENTER" wrapText="true" />
+                    </items>
+                  </SplitPane>
+              </items>
+            </SplitPane>
+        </items>
+      </SplitPane>
+   </items>
+</SplitPane>

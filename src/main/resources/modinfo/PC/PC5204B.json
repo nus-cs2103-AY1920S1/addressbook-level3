@@ -1,0 +1,13 @@
+{
+    "courseCode": "PC5204B",
+    "courseCredit": "4",
+    "description": "This module covers advanced mathematical methods for obtaining approximate analytical solutions to physical problems. It is designed to help graduate students build the skills necessary to analyse equations, integrals, and series that they encounter in their research. Topics include local analysis of differential equations, asymptotic expansion of integrals, and summation of series.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "PC3274",
+            "PC4274"
+        ]
+    },
+    "title": "Selected Topics in Physics: Analytic Approximations"
+}

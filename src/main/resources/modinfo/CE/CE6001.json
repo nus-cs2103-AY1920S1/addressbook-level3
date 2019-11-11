@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE6001",
+    "courseCredit": "4",
+    "description": "The effective operations and management of infrastructure systems involve the understanding of their constraints, and the allocation of scarce resources. These systems can be mathematically modeled so that the best operations and management strategies can be determined. Initially continuous type resources will be modeled and this is extended to deal with discrete type resources. Non-linear constraints and objectives, and dynamic vibrations in the systems will also be considered. The systems covered will include water resource type of problems, transportation networks, and structural systems, among others. Specific topics comprise: characteristics of civil engineering systems, resource allocation in infrastructure systems, transportation network models, dealing with non-linear system behaviour and decision making under uncertainty.",
+    "faculty": "Engineering",
+    "title": "Operations & Management of Infrastructure Systems"
+}

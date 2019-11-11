@@ -1,0 +1,18 @@
+{
+    "courseCode": "LSM3225",
+    "courseCredit": "4",
+    "description": "With the application of advanced technologies in molecular biology to the study of microorganisms, there are many implications on how we can identify and detect microbes, as well as treat and prevent diseases caused by both existing and newly emerged pathogens. In this course, the students will be taught the molecular principles of the physiological processes involved in the life cycle of different types of microbes and how these affect human health and disease.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM4226",
+        "LSM4223"
+    ],
+    "prereqTree": {
+        "or": [
+            "LSM2211",
+            "LSM2232",
+            "LSM2233"
+        ]
+    },
+    "title": "Molecular Microbiology in Human Diseases"
+}

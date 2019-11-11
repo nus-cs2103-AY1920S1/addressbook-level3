@@ -1,0 +1,19 @@
+{
+    "courseCode": "CS5340",
+    "courseCredit": "4",
+    "description": "The module covers modelling methods that are suitable for reasoning with uncertainty. The main focus will be on probabilistic models including Bayesian networks and Markov networks. Topics include representing conditional independence, building graphical models, inference using graphical models and learning from data. Selected applications in various domains such as speech, vision, natural language processing, medical informatics, bioinformatics, data mining and others will be discussed.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "ST1232",
+                    "ST2131",
+                    "ST2334"
+                ]
+            },
+            "CS3243"
+        ]
+    },
+    "title": "Uncertainty Modelling in AI"
+}

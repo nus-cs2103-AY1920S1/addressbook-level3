@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3216",
+    "courseCredit": "4",
+    "description": "The vast worldwide computer network collectively known as the Internet (and its graphical interface, the World Wide Web) provides a new environment and technologies of communication (e.g. Internet Relay Chat, bulletin board systems etc) that challenge current assumptions regarding the nature of speech, writing, community and society. Since English is the principal language of the Internet, this module aims to examine the ways in which the language is being (re)formulated on the Web, especially in multilingual settings. The module focuses on the study and management of electronic language evidence on the Web.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Language and the Internet"
+}

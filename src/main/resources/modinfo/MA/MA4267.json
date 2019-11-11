@@ -1,0 +1,8 @@
+{
+    "courseCode": "MA4267",
+    "courseCredit": "4",
+    "description": "Major topics: (I) Single-Period Financial Markets [1] Modeling and Pricing: The single-period market model, Absence of arbitrage, Risk-neutral probability measures, Pricing contingent claims, Complete and incomplete markets, Risk and return. [2] Portfolio Optimization: Optimal portfolios, The risk-neutral computational approach, Mean-variance analysis, Optimal portfolios in incomplete markets. (II) Multi-Period Financial Markets [1] Modeling: The multi-period market model, Filtration, Conditional expectation and martingales, Trading strategies, Absence of arbitrage, Martingale measures, The binomial or Cox-Ross-Rubinstein model. [2] Pricing Contingent Claims: Contingent claims, Complete and incomplete markets, European options, American options, Snell envelopes, Futures.3. Portfolio Optimization:Dynamic programming approach, The risk-neutral computational approach, Optimal portfolios in incomplete markets",
+    "faculty": "Science",
+    "prereqTree": "MA3245",
+    "title": "Discrete Time Finance"
+}

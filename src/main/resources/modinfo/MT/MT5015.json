@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MT5015",
+    "courseCredit": "4",
+    "description": "The objective of this subject is to train professionals for the technology sector who may be involved in technology and intellectual property management areas (R&D project management, licensing management, etc) to understand the business and financial considerations that go into IP deals and IP strategies, to articulate these at higher management or Board-levels, and to apply their knowledge in development of long-term strategies for the management of IP portfolios.",
+    "faculty": "Engineering",
+    "prereqTree": "MT5001",
+    "title": "The Financial and Business Aspects of Intellectual Property (IP)"
+}

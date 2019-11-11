@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAJ2201",
+    "courseCredit": "4",
+    "description": "This module builds upon the basis of Japanese 1 and aims to develop basic linguistic and socio-cultural skills to expand the repertoire of the daily topics and situations with simple structures. Approximately 110 kanji and 180 kanji-words will be introduced. While more emphasis is placed on the development of oral communication skills, students will also learn how to read and write simple and short compositions.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "JS2203",
+        "LAJ2202"
+    ],
+    "prereqTree": "LAJ1201",
+    "title": "Japanese 2"
+}

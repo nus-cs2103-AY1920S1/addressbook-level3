@@ -1,0 +1,21 @@
+{
+    "attributes": {
+        "fyp": true
+    },
+    "courseCode": "ID4106",
+    "courseCredit": "12",
+    "description": "The objective of this module is to provide students with the opportunity to demonstrate their design ability by the execution of a Major Design Project. Research and investigation on project development will be used to support the design. The major topic is a comprehensive design project that is supported by research. Documentation of research findings will form part of the project submission. Students will be required to demonstrate innovation and competency in industrial design.",
+    "faculty": "Design and Environment",
+    "prereqTree": {
+        "and": [
+            "ID3103",
+            {
+                "or": [
+                    "ID3104",
+                    "ID3105"
+                ]
+            }
+        ]
+    },
+    "title": "Design Thesis Project"
+}

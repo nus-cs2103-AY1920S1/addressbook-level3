@@ -1,0 +1,11 @@
+{
+    "courseCode": "FDP2011",
+    "courseCredit": "8",
+    "description": "This module taught in French is specially designed for FDDP students so as to prepare them to attain a basic knowledge on vocabularies of Set Theory, Algebraic Structures, Finite Groups, Polynomials, Vectors spaces, Linear Transformations, Matrices, Inner product spaces, Canonical forms and basic mathematical analysis.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FDP2012"
+    ],
+    "preclusion": "FDP2001 Special Mathematics Class 1, 2 & 3",
+    "title": "Special Mathematics Class 1, 2"
+}

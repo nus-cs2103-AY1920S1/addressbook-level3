@@ -1,0 +1,8 @@
+{
+    "courseCode": "LI5204",
+    "courseCredit": "4",
+    "description": "This course aims to provide a hands-on learning opportunity through the use of an easy-to-understand tool, such as AnyLogistix, for students to address a wide range of supply chain management (SCM) problems. It allows students to focus on management decision analysis and use KPIs for operational, customer and financial performance measurement and decisionmaking. The course covers supply chain simulation and optimization examples via developing and building models and evaluating KPIs, and discusses how to use these models and their simulation and optimization results to improve management decision-making.",
+    "faculty": "Logistics Inst-Asia Pac",
+    "prereqTree": "LI5101",
+    "title": "Supply Chain Simulation and Optimization"
+}

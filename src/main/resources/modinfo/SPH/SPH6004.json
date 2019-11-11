@@ -1,0 +1,7 @@
+{
+    "courseCode": "SPH6004",
+    "courseCredit": "4",
+    "description": "This module will introduce advanced topics for analyzing large or complex datasets, with a particular emphasis on various biomedical data. We will cover fundamental techniques in machine learning with emphasis on both computing and data analysis. The topics will include regression and classification, resampling-based techniques to evaluate performance, variable selection, tree-based methods for regression and classification, support vector machines, unsupervised data clustering methods and factor analysis, neural networks, neural network-based deep learnings, etc.",
+    "faculty": "SSH School of Public Health",
+    "title": "Advanced Statistical Learning"
+}

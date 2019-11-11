@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "ism": true,
+        "su": true
+    },
+    "courseCode": "EE1001",
+    "courseCredit": "4",
+    "description": "This module introduces students to contemporary issues, emerging technologies and new frontiers in electrical engineering. It serves to demonstrate to students how the EE curriculum is designed to address these aspects via a top-down approach. The module consists of 5 distinct parts of approximately 6 hour lectures and integrated with some self-learning activities. Each part focuses on each of the following areas / topics: \u2022 Communications and Networking \u2022 Control and Energy Systems \u2022 Micro / nanoelectronics \u2022 Multimedia Signal Processing \u2022 Grand challenges for engineering \u2013 the role of EE The lectures will be conducted by a group of faculty members who are experts in the respective areas. Although the lectures are meant to focus on contemporary issues and emerging technologies, an appropriate level of historical perspective will be used to demonstrate how each subfield has evolved from the traditional areas of EE so that students can see both the connections between different areas and the driving force behind the rapid development and expansion of EE in the last few decades. Prior to this series of lectures focusing on specific areas, a detailed introduction of the EE curriculum will also be given in the first lecture. The philosophy underpinning the curriculum and its strength and constraints will be highlighted. The module will conclude with student presentations on a topic in an area of their interest. Students are assessed through assignments, reports and presentations.",
+    "faculty": "Engineering",
+    "preclusion": "EE1001FC/EE1001X",
+    "title": "Emerging Technologies in Electrical Engineering"
+}

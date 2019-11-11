@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PC1142",
+    "courseCredit": "4",
+    "description": "This module covers the fundamentals of two branches of physics: thermodynamics and optics. Its aim is to prepare students for a host of more advanced modules in these and related areas. Topics included in the part on thermodynamics are thermal processes and effects, the first and second laws, kinetic theory of gases, heat engines and entropy. The part on optics encompasses topics such as geometric optics, systems of lenses, optical instruments, interference, diffraction, grating and polarization. The module also has a practical component consisting of five experiments designed to enhance students' understanding of some of the concepts discussed in lectures. This module is targeted at science students who wish to acquire a working knowledge of thermodynamics and optics, and is an essential for physics majors.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC2289",
+        "PC2288",
+        "PC2230",
+        "PC2193"
+    ],
+    "preclusion": "STUDENTS WHO HAVE PASSED PC1431 OR PC1431FC or PC1431X ARE NOT ALLOWED TO TAKE THIS MODULE.",
+    "title": "Introduction to Thermodynamics and Optics"
+}

@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "ME5608A",
+    "courseCredit": "2",
+    "description": "This introductory module emphasizes additive manufacturing processes. Topics include 3D printing processes/materials, metal printing, etc. Students are expected to carry out an independent study by project or term paper on the related topics. A structured programme of lectures, term papers, and a final examination are included in this module.",
+    "faculty": "Engineering",
+    "preclusion": "ME5608: Additive and non-conventional manufacturing processes",
+    "title": "Principles and Processes of Additive Manufacturing"
+}

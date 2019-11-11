@@ -1,0 +1,22 @@
+{
+    "courseCode": "AUD5106",
+    "courseCredit": "3",
+    "description": "This module introduces students to various methods of diagnostic audiological assessment (objective and subjective tests) and management of adult patients. This module involves lecture and clinical practicum, whereby students will have guided and structured observation of experienced Audiologists assessing hearing impaired patients in the clinic (NUH) and they will get an opportunity to practice on each other in a real clinical environment.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "AUD5113",
+        "AUD5114",
+        "AUD5217",
+        "AUD5218",
+        "AUD5221"
+    ],
+    "prereqTree": {
+        "or": [
+            "AUD5101",
+            "AUD5102",
+            "AUD5103",
+            "AUD5104"
+        ]
+    },
+    "title": "Clinical Audiology A - Part 1"
+}

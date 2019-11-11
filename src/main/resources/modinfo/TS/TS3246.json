@@ -1,0 +1,15 @@
+{
+    "courseCode": "TS3246",
+    "courseCredit": "4",
+    "description": "Shakespeare\u2019s plays have been known in many parts of Asia for about 100 years, and contemporary Asian theatre practice shows at once a great diversity of approaches to them, and patterns of common interest in production and reception. This module takes recent productions from different theatre cultures to compare how Shakespeare\u2019s texts are engaged through non\u2010realist aesthetic principles, and how self-reflexive treatments of naturalism, as well as new scripts based on his plays, interact with the cultural values represented by Shakespeare in the East and Southeast Asian region. Assessment includes the option of a creative project.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003",
+            "EN1101E",
+            "GEK1000"
+        ]
+    },
+    "title": "Shakespeare and Asian Performances"
+}

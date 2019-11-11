@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YSC2215",
+    "courseCredit": "2",
+    "description": "One striking way the computer has changed our understanding of the world is the (accidental) discovery that minute changes in initial conditions can lead to dramatic, qualitatively different changes to the outcome of a (non-linear) process \u2013 the so-called butterfly effect. This raises important issues such as qualitative versus quantitative, accuracy versus precision, determinism versus predictability, and reductionism versus emergence. Topics may include: strange attractors; power laws that govern the size and frequency of earthquakes, extinction of species and stock market crashes; the spottiness of leopards; origins of life on Earth \u2013 and elsewhere?",
+    "faculty": "Yale-NUS College",
+    "title": "Non-linearity"
+}

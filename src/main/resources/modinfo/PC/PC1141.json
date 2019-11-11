@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PC1141",
+    "courseCredit": "4",
+    "description": "This module presents the fundamental principles of classical mechanics. It covers such topics as kinematics, Galilean transformation, Newton's laws of motion, dynamics of a particle with generalization to many particle systems, conservation laws, collisions, angular momentum and torque, motion of a rigid body, gravitation and planetary motion, static equilibrium, oscillatory motion and vibrational modes, waves, Doppler's effect and fluid mechanics. The module also has a practical component consisting of five experiments designed to enhance students' understanding of some of the concepts discussed in lectures. This module is targeted at science students who wish to acquire a working knowledge of mechanics, and is an essential for physics majors.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC2289",
+        "PC2288",
+        "PC2193",
+        "PC2132"
+    ],
+    "preclusion": "STUDENTS WHO HAVE PASSED PC1431 OR PC1431FC or PC1431X OR PC1433 ARE NOT ALLOWED TO TAKE THIS MODULE.",
+    "title": "Introduction to Classical Mechanics"
+}

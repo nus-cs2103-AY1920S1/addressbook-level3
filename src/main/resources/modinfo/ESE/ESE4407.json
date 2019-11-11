@@ -1,0 +1,14 @@
+{
+    "courseCode": "ESE4407",
+    "courseCredit": "4",
+    "description": "This module examines the theory and practical application of environmental chemistry and biology for the purpose of identifying contamination sources and forecasting environmental fate and exposure in organisms. The module provides an overview of the emerging field of environmental forensics, which is gaining prominence within government agencies, industry and environmental consulting firms. An interdisciplinary approach is used, introducing the students to fundamental concepts and methodologies from a variety of scientific sub-disciplines including analytical chemistry, molecular biology, ecology, simulation modelling and ecological risk assessment, as well as an awareness of legal and regulatory frameworks related to environmental protection and toxic substance management. The students will learn essential skills to understand technical and legal aspects of complex environmental contamination problems.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            "ESE3101",
+            "ESE3201",
+            "ESE3401"
+        ]
+    },
+    "title": "Environmental Forensics"
+}

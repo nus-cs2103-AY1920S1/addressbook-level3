@@ -1,0 +1,23 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TME2121",
+    "courseCredit": "4",
+    "description": "This course develops a good understanding of the basic concepts and application of thermodynamics required for the analysis, modeling and design of thermal-fluid systems in engineering practice. Major topics include: Review of First and Second Laws of Thermodynamics and their applications; Reversible and Irreversible processes; Entropy; Non-flow and flow processes; Cycles involving entropy changes; Power/refrigeration and air cycles; Ideal gas mixtures; Psychrometry and applications; Fuels; Combustion and First Law applied to combustion.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TME4223"
+    ],
+    "preclusion": "TM1121, ME2121E",
+    "prereqTree": {
+        "or": [
+            "PC1431",
+            "PC1431FC",
+            "PC1431X"
+        ]
+    },
+    "title": "Engineering Thermodynamics"
+}

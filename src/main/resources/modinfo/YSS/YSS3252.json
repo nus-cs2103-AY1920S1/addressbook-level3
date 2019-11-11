@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSS3252",
+    "courseCredit": "5",
+    "description": "In this course, students will explore how psychology can be applied to public policy. As a lab module, students will conduct their own randomised controlled trials requiring them to examine whether psychological concepts (particularly those from decision science and social psychology) can optimise the outcomes of 'real-life' projects within the community. Projects will be conducted with government, not-for-profit, and town council agencies within Singapore.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YSS2201",
+            "YSS2216"
+        ]
+    },
+    "title": "Lab in Applying Psychology to Public Policy"
+}

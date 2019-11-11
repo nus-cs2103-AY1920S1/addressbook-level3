@@ -1,0 +1,27 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MA1513",
+    "courseCredit": "2",
+    "description": "This is a six-week module specially designed for students majoring in Engineering. It introduces the basic concepts in linear algebra with applications in engineering. Major topics: Matrix algebra, linear system of equations, vector spaces, linear independence, basis, orthogonality, rank, linear transformations, eigenvalues and eigenvectors, diagonalization, linear systems of differential equations, linearization of nonlinear systems.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ME3291",
+        "MA3266",
+        "MA3252",
+        "MA3229",
+        "MA3220",
+        "MA2219",
+        "MA2214",
+        "MA2213",
+        "MA2101S",
+        "MA2101",
+        "PC2132",
+        "PC2131",
+        "PC2130",
+        "EE2211"
+    ],
+    "preclusion": "MA1101R, MA1311, MA1506, MA1508, MA1508E (2 way preclusion)",
+    "title": "Linear Algebra with Differential Equations"
+}

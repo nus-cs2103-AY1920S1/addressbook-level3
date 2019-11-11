@@ -1,0 +1,11 @@
+{
+    "courseCode": "CH3293",
+    "courseCredit": "4",
+    "description": "The module consists of readings and research on selected topics in Chinese art and focuses on one to two particular art forms in Chinese history, for example, Chinese calligraphy, Chinese ceramics, wood-block prints and Chinese painting. Historical development, changing forms and techniques, and the relation between the art form and society will be discussed. The course is designed for students across the University with an interest in Chinese art.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "YHU4207"
+    ],
+    "preclusion": "CH3272",
+    "title": "Selected Topics in Chinese Art (taught in English)"
+}

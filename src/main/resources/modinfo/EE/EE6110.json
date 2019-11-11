@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6110",
+    "courseCredit": "4",
+    "description": "The module offers students timely and updated coverage of a wide range of topics relevant to automation and control engineering tapping on the latest and diverse range of developments in the repertoire of the control group. It is only open to research students. The topics covered will be formulated to contain unsolved problems and issues. These will be of a sufficient size and nature to induce excitement in independent projects for students to explore. Students can choose the problems that are aligned with their thesis topics to complement their research.",
+    "faculty": "Engineering",
+    "preclusion": "EE5110 Special Topics in Automation and Control",
+    "title": "Special Topics in Automation and Control (Advanced)"
+}

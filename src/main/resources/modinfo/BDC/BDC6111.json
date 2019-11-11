@@ -1,0 +1,12 @@
+{
+    "courseCode": "BDC6111",
+    "courseCredit": "4",
+    "description": "This course will cover important topics in optimization theory including linear, network, discrete, convex, conic, stochastic and robust. It will focus on methodology, modeling techniques and mathematical insights. This is a core module for PhD students in the Decision Science department.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BDC6302",
+        "MA5268"
+    ],
+    "preclusion": "IE6001",
+    "title": "Foundations of Optimization"
+}

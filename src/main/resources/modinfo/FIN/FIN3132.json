@@ -1,0 +1,13 @@
+{
+    "courseCode": "FIN3132",
+    "courseCredit": "4",
+    "description": "This course seeks to highlight the skills necessary from a theoretical and practical standpoint necessary for investing using a 'value' and 'fundamental' approach. The course aims to apply traditional value investment theory with the practical challenges of investing in Asian equity markets.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "ACC1002",
+            "FIN3101"
+        ]
+    },
+    "title": "Value Investing In Asia"
+}

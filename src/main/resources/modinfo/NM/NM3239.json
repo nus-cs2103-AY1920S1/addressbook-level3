@@ -1,0 +1,7 @@
+{
+    "courseCode": "NM3239",
+    "courseCredit": "4",
+    "description": "Data analysis is crucial to evaluating and designing solutions and applications, and to understanding users' information needs and uses. Often this data is distributed online among many web pages, stored in databases or available in large text files, and may be too large to obtain or process manually. Instead, we need an automated way to gather, parse and summarize the data before we can do more advanced analysis. This module explores ways to accomplish these tasks in quick and easy yet useful and repeatable ways. The ultimate goal is to glean insights from the data through analysis and basic visualizations.",
+    "faculty": "Arts and Social Science",
+    "title": "Retrieving, Exploring and Analysing Data"
+}

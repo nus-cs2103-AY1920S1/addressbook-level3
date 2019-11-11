@@ -1,0 +1,11 @@
+{
+    "courseCode": "CN4111E",
+    "courseCredit": "5",
+    "description": "Scope of the petrochemical industries is reviewed, followed by (i) upstream processing technology dealing with feed stocks, cracker furnaces, materials balances, utility system, instrumentation and plant optimisation, safety and environmental aspects and (ii) downstream processing technology dealing with typical petrochemicals such as acetylene production and acetylene chemicals; derivatives of olefins; butadiene-toluene-xylene (BTX) and derivatives, synthesis gas production and applications. The module is targeted at final-year part-time chemical engineering students with some experience in the industry.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "CN4118E"
+    ],
+    "preclusion": "TC4211",
+    "title": "Process Design & Safety"
+}

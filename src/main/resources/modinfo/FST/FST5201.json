@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "FST5201",
+    "courseCredit": "4",
+    "description": "Upon successful completion of the module, the student shall be able to: 1) understand and describe the major principles and types of rheology; and 2) how these can be applied to give the required structure, texture and viscosity in a processed biomaterials. Major topics covered include viscosity of Newtonian and non-Newtonian fluids, viscoelastic properties of weak and strong gels, transient responses of a wide range of food and pharmaceutical products, and theoretical/empirical modelling of mechanical properties.",
+    "faculty": "Science",
+    "preclusion": "FST4204",
+    "title": "Rheology and Textural Properties of Biomaterials"
+}

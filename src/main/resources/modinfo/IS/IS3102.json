@@ -1,0 +1,12 @@
+{
+    "courseCode": "IS3102",
+    "courseCredit": "8",
+    "description": "Students are required to work (in groups) through a complete Systems Development Life Cycle to develop a business information system based on techniques and tools taught in CS2103 or IS2103. IS3102 can be viewed as a large-scale practical module of CS2103 or IS2103. They will also sharpen communication skills through close team interactions, consultations, and formal presentations. Emphasis will be placed on requirement analysis, system design, user interface design, database design and implementation efficiency. Students will be assessed based on their understanding and ability to apply software engineering knowledge on a real-life application system.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CP3106",
+        "UIS3953R"
+    ],
+    "preclusion": "CS3214",
+    "title": "Enterprise Systems Development Project"
+}

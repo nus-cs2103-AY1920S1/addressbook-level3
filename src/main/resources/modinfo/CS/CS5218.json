@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS5218",
+    "courseCredit": "4",
+    "description": "Program analysis denotes automated processes for predicting, estimating or proving properties of program behavior, whether functional or non-functional. Example uses are compiler optimization, bug detection, performance evaluation, detection of security vulnerabilities, amongst many others. This module first provides the rigorous mathematical foundations. This step is necessary in order to understand the common elements within the broad area of software analysis. Secondly, through the use of a state-of-the-art program analysis system, this module provides hands-on instruction on programming real-life analyses. In the end, the graduating student will be able to address a broad spectrum of program analysis in a practical way.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CS4212",
+            "CS4215"
+        ]
+    },
+    "title": "Principles and Practice of Program Analysis"
+}

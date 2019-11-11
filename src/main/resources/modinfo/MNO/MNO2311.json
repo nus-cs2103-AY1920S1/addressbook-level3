@@ -1,0 +1,20 @@
+{
+    "courseCode": "MNO2311",
+    "courseCredit": "4",
+    "description": "Leadership is a multi-faceted phenomenon. This course will look at leadership from the perspective of the leader, the situation, and the followers to derive a more complete understanding of what leadership is all about. The final objective is to help students to be more effective leaders taking all the relevant contextual factors into consideration.",
+    "faculty": "NUS Business School",
+    "preclusion": "BH2311 or BZ2002",
+    "prereqTree": {
+        "or": [
+            "MNO1001",
+            "BH1001",
+            "BZ1001",
+            "BK2002",
+            "HR2001",
+            "HR2101",
+            "HR3111",
+            "HR3308"
+        ]
+    },
+    "title": "Leadership In Organisations"
+}

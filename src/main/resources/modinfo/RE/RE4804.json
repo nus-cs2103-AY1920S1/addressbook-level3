@@ -1,0 +1,9 @@
+{
+    "courseCode": "RE4804",
+    "courseCredit": "4",
+    "description": "This module represents the second part of the analysis of real estate capital markets. It covers the real estate debt capital markets. Topics include the economics of mortgage securitisation; the various mortgage-backed securitisation instruments, models and structures; the concepts of pooling and tranching; secondary mortgage institutions and the US experience in real estate debt securitisation; commercial and residential mortgage-backed securities; embedded pre-payment and default options; rating agencies and risk analyses; as well as the policy implications and relevant lessons for markets from the 2007-2009 Financial Crisis.",
+    "faculty": "Design and Environment",
+    "preclusion": "RE4212 Real Estate Securitisation",
+    "prereqTree": "RE3701",
+    "title": "Real Estate Securitisation"
+}

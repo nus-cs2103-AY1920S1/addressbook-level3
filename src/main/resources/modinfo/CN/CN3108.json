@@ -1,0 +1,18 @@
+{
+    "courseCode": "CN3108",
+    "courseCredit": "4",
+    "description": "This module provides the second laboratory experience to students, in chemical engineering processes and biologics manufacturing. Teamwork, technical communication skills, oral presentation and problem solving skills are further emphasised. The experiments covered are related to chemical kinetics and reactors, heat and mass transfer, particle technology, and biologics manufacturing. The importance of safety continues to be emphasised through rigorous implementation of proper operational and waste disposal procedures. The practical experience in fault diagnosis, instrumental analysis, data logging and processing, error analysis and data validation, and operation of process units gained in CN2108 are reinforced and extended further.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CN4249"
+    ],
+    "prereqTree": {
+        "or": [
+            "CN2108",
+            "CN2116",
+            "CN2125",
+            "CN3124"
+        ]
+    },
+    "title": "Chemical Engineering Process Laboratory II"
+}

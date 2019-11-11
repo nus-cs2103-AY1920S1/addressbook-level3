@@ -1,0 +1,8 @@
+{
+    "courseCode": "MUA3275",
+    "courseCredit": "4",
+    "description": "This module is a hands-on project-based introduction to electronic audio circuits for artistic purposes. Through hardware hacking, circuit bending, and circuit building, students will gain an understanding of basic electronics theory as well as develop valuable hands-on experience with battery-powered sound-making and sound-processing projects. From repurposing games, toys, and radios to building oscillators, filters, mixers, and amplifiers, and finally interfacing between the physical world and computers via microcontrollers, students will explore the artistic potential of electronic circuits. An introduction to the history and current practice of electronic sound art will be integral to the module. The module will culminate in a group installation/performance. No prior experience in electronics or music is assumed, though either would be helpful.",
+    "faculty": "YST Conservatory of Music",
+    "preclusion": "All ECE students",
+    "title": "Sonic Circuits"
+}

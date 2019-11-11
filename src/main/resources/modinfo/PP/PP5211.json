@@ -1,0 +1,13 @@
+{
+    "courseCode": "PP5211",
+    "courseCredit": "4",
+    "description": "This course links the fields of macroeconomic and financial policies. It provides coverage of economic principles that underlie the operation of banks and other financial institutions. The role of money in the economy and the impact of the central bank and monetary policy on the macroeconomy are emphasized, as is understanding the foreign exchange market and some basics of monetary theory and international finance. The focus of this course is on analytics.",
+    "faculty": "LKY School of Public Policy",
+    "prereqTree": {
+        "and": [
+            "PP5101",
+            "PP5102"
+        ]
+    },
+    "title": "Analytical Issues in Money & Banking"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "SYE5203",
+    "courseCredit": "4",
+    "description": "This module teaches the necessary practical skills and analytical knowledge for complex decision making and risk management in engineering and business environments. This is achieved by providing a paradigm based on normative decision theory and a set of prescriptive tools and computational techniques using state-of-the art software with which a stake holder can systematically analyze a complex and uncertain decision situation leading to clarity of action. Students will be better positioned to carry out and communicate decision and risk analyses on their own as well as evaluate work undertaken by specialists, analysts and consultants. Case studies and real-life examples will be used to illustrate the various techniques.",
+    "faculty": "Engineering",
+    "preclusion": "IE5203 Decision Analysis",
+    "title": "Decision Analysis & Risk Management"
+}

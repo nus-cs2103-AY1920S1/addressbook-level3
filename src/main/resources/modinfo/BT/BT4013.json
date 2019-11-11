@@ -1,0 +1,8 @@
+{
+    "courseCode": "BT4013",
+    "courseCredit": "4",
+    "description": "This module offers a broad coverage of quantitative trading and financial portfolio optimization, which consists of trading strategies based on quantitative analysis. It will also aim to identify trading opportunities, practices, optimal execution and placements of trading on current technological platforms. Regulations and risk management of quantitative trading will also be emphasized.",
+    "faculty": "Computing",
+    "prereqTree": "BT3102",
+    "title": "Analytics for Capital Market Trading and Investment"
+}

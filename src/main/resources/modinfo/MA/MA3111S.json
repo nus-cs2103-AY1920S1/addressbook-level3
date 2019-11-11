@@ -1,0 +1,29 @@
+{
+    "courseCode": "MA3111S",
+    "courseCredit": "5",
+    "description": "The objective of this module is to develop the learning capabilities and hone the problem solving skills of talented students at a mathematically deeper and more rigorous level. The contents of this module will consist of those in the regular module (MA3111 Complex Analysis I) and the following additional topics: Casorati-Weierstrass Theorem, infinite products of analytic functions, normal families of analytic functions.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA4263",
+        "MA4247"
+    ],
+    "preclusion": "MA3111, EE3002, MPE students",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1104",
+                    "MA2104",
+                    "MA1507"
+                ]
+            },
+            {
+                "or": [
+                    "MA3110",
+                    "MA3110S"
+                ]
+            }
+        ]
+    },
+    "title": "Complex Analysis I (S)"
+}

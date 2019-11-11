@@ -1,0 +1,23 @@
+{
+    "courseCode": "BN3402",
+    "courseCredit": "4",
+    "description": "The aim of the course is to give a theoretical and practical introduction into selected analytical methods for the characterization of biomaterials, tissues, biomolecules and immobilized biological molecules. The methods are focused to obtain: structural, topological (e.g. atomic force microscopy), chemical (e.g. spectrometry) and functional (e.g. surface palsmon resonance and bioassays) information for the characterization of biomolecules, biomaterials, tissues and biomodified materials.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CM1121",
+                    "CM1501"
+                ]
+            },
+            {
+                "or": [
+                    "LSM1101",
+                    "LSM1401"
+                ]
+            }
+        ]
+    },
+    "title": "Bio-Analytical Methods In Bioengineering"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "CN4247R",
+    "courseCredit": "4",
+    "description": "This module will start with general introduction about enzyme, enzymatic transformation, and enzymatic process. It will be followed by various components in the development of an enzymatic process: enzyme classes and enzymatic reactions; enzyme discovery and high-throughput screening and detection methods; enzyme purification, characterisation, structure, function, and selectivity; protein engineering; cell engineering; biotransformation with isolated enzymes and microbial cells; reaction engineering; enzyme in organic solvent, two-liquid phase system, and enzyme stabilisation; cofactor regeneration; and product recovery. Finally, the students will learn process economics and industrial examples on the enzymatic production of fine chemicals.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "CN2116",
+            "LSM1401"
+        ]
+    },
+    "title": "Enzyme Technology"
+}

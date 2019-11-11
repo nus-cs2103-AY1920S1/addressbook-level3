@@ -1,0 +1,11 @@
+{
+    "courseCode": "IE1111R",
+    "courseCredit": "4",
+    "description": "This module introduces first year industrial and systems engineering students to various problems in this field and how they can be analysed and tackled through mathematical modelling, data analytics, simulation and quantitative decision making. By working on a series of carefully curated problems, students gain an appreciation for the challenges faced when tackling large complex problems under uncertainty.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "IE2111"
+    ],
+    "preclusion": "IE1111",
+    "title": "Industrial & Systems Engrg Principles & Practice I"
+}

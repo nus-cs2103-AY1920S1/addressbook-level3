@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CM1417X",
+    "courseCredit": "4",
+    "description": "The objective of this module is to provide an introduction to the fundamental topics and concepts in chemistry. This includes topics such as structure of matter, periodic table and periodicity, chemical bonding, states of matter, stoichiometry, reaction types, kinetics, equilibrium and introduction to organic chemistry.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR2105"
+    ],
+    "preclusion": "Students with \u2018A\u2019 level or H2 Chemistry or equivalent.\nor CM1417",
+    "title": "Fundamentals of Chemistry"
+}

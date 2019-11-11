@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GET1027",
+    "courseCredit": "4",
+    "description": "For the first six weeks, students read three dialogues by the ancient Greek philosopher, Plato: Euthyphro, Meno, and Republic, Book I. These readings touch on a wide range of topics: mind and morals; politics and psychology; metaphysics and science. For the second six weeks, students will meet with the same problems, ideas and arguments, but as they manifest in the writings of various contemporary figures \u2013 philosophers and non-philosophers: psychologists, political scientists, public policy experts. \u2018Reason and Persuasion\u2019 is a generic title. But it indicates a specific concern. Reason without persuasion is useless; persuasion without reason is dangerous. Plato worried about this; so will we.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "GEM1004",
+    "title": "Reason and Persuasion"
+}

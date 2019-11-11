@@ -1,0 +1,8 @@
+{
+    "courseCode": "BST3002B",
+    "courseCredit": "2",
+    "description": "This business consulting practicum involves a team-based study to determine the appropriate hurdle rate (or required rate of return) for a set of investment portfolios consisting of derivatives and their respective underlyers. The objective is to appropriately measure various derivative portfolios\u2019 return and risk profile, and subsequently determine the appropriate risk-adjusted required return. Traditional asset pricing models, such as CAPM and Mean-Variance analysis, do not adequately capture the risks and required rates of return of non-linear securities such as derivatives. As a consequence, new performance measurement methodologies have to be developed. This includes specifying and estimating a structural model for the returns-generating process that explicitly accounts for any asymmetry in return characteristics. The students in this practicum are expected to utilize various state-of-the-art research tools, methodologies, data, and analytics as part of their study, and in developing the final report and recommendations.",
+    "faculty": "NUS Business School",
+    "prereqTree": "FIN3102",
+    "title": "Business Consulting Practicum"
+}

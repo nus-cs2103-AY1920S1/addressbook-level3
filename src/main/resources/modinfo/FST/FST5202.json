@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "FST5202",
+    "courseCredit": "4",
+    "description": "This module provides in-depth coverage of food fermentation. Particular emphasis is given to the microbiology and chemistry of fermentation, physiology and metabolism of lactic acid bacteria, yeasts and moulds, using selected food fermentations as examples. Major topics include microbiology and starter cultures of selected fermented foods, chemistry and flavour of selected fermented foods, alcoholic and non-alcoholic fermentations by yeasts, lactic acid bacterial fermentations and fungal fermentations, health implications of selected fermented foods.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "FST3101",
+            "LSM3232"
+        ]
+    },
+    "title": "Advanced Food Fermentation"
+}

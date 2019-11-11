@@ -1,0 +1,9 @@
+{
+    "courseCode": "LSM3218",
+    "courseCredit": "4",
+    "description": "This module focuses on drugs used to treat cardiovascular and pulmonary diseases. It provides an understanding of the pharmacological basis of cardiovascular therapeutics, and addresses the pharmacological properties of clinically useful drugs for cardiovascular and pulmonary systems. This module demonstrates the scientific basis of the therapeutic applications of these drugs, and these foundation principles will enhance understanding of safe and rational use of drugs in cardiovascular and pulmonary diseases.",
+    "faculty": "Science",
+    "preclusion": "LSM3221",
+    "prereqTree": "LSM3211",
+    "title": "Cardiopulmonary Pharmacology"
+}

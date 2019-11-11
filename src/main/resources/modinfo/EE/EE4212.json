@@ -1,0 +1,11 @@
+{
+    "courseCode": "EE4212",
+    "courseCredit": "4",
+    "description": "The goal of this module is to introduce the students to the problems and solutions of modern computer vision, with the main emphasis on recovering properties of the 3D world from image and video sequence. After this module, students are expected to be able to understand and compute the basic geometric and photometric properties of the 3D world (such as point depth and surface orientation), and to apply various methods for video manipulation such as segmentation, matting, and composition. Main topics covered include: Singular value decomposition, projective geometry, Marr's paradigm, calibration problems, correspondence and flow, epipolar geometry, motion estimation, reflectance models, shape from shading, photometric stereo, color processing, texture analysis and synthesis, advanced segmentation, matting and composition techniques.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE6901"
+    ],
+    "preclusion": "CS4243",
+    "title": "Computer Vision"
+}

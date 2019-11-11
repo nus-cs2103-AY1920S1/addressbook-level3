@@ -1,0 +1,12 @@
+{
+    "courseCode": "PR2122",
+    "courseCredit": "4",
+    "description": "Students will gain knowledge of the various techniques in biotechnology and their applications in the manufacturing of biopharmaceuticals and biomedical research, the physicochemical properties, pharmacology and the formulation of commonly used biopharmaceuticals, as well as the principles of the mechanism of some biotechnologically derived diagnostic aids/tests. Major topics to be covered include biotechnologically derived therapeutics such as insulin, growth hormones, cytokines, enzymes, monoclonal antibodies, vaccines, blood products, diagnostic aids/tests for urine analysis, plasma glucose, plasma lipids, HIV and pregnancy, gene therapy, transgenic technology and RNA interference technology.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM3224",
+        "LSM3223"
+    ],
+    "prereqTree": "PR1111",
+    "title": "Biotechnology for Pharmacy"
+}

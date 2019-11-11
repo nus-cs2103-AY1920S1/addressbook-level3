@@ -1,0 +1,9 @@
+{
+    "courseCode": "TME3233",
+    "courseCredit": "4",
+    "description": "systems typically encountered in Mechanical Engineering applications. Unsteady flow fluid theories, real-life unsteady flow problems and practical design solutions will be described, explained and analysed in this course. These include Analysis and Designs of Water pumping stations and their distribution systems, petroleum products (i.e. crude oil and natural gas) transportation pipelines systems, Oil and Gas flow systems, Thermal Power Stations flow systems etc",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "ME3233, ME3233E",
+    "prereqTree": "TME2135",
+    "title": "Unsteady Flow in Fluid Systems"
+}

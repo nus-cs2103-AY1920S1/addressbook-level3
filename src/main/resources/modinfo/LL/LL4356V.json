@@ -1,0 +1,26 @@
+{
+    "courseCode": "LL4356V",
+    "courseCredit": "5",
+    "description": "This clinic offers an opportunity for students to apply theory to practice in the field of international investment law. Students will work in small groups ('Project Teams') under the supervision of Professor(s) and invited experts ('Expert Mentors') on specific, real-world legal questions of international investment law coming from 'real clients' ('Beneficiaries'), such as governments, international organizations, or NGOs. The Project Teams will submit written legal memos and present their projects in the presence of the Beneficiary and other invited guests. The clinic is part of 'TradeLab,' a global network of international economic law clinics at leading universities around the world.",
+    "faculty": "Law",
+    "preclusion": "LL4356 / LL5356 / LL6356 International Investment Law Clinic",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "LL4032V",
+                    "LL5032V",
+                    "LL6032V"
+                ]
+            },
+            {
+                "or": [
+                    "LL4032",
+                    "LL5032",
+                    "LL6032"
+                ]
+            }
+        ]
+    },
+    "title": "International Investment Law Clinic"
+}

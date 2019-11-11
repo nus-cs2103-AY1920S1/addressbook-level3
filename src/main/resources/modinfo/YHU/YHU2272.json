@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU2272",
+    "courseCredit": "5",
+    "description": "This module covers the theory and practice of romantic correspondence through a study of patterns of expressing and enframing desire in the love letter form within literary works. It surveys novels, short stories, and a selection of essays from the 1800 to the present, marking the shifts in epistolary formulas and communicative means in an exploration of the role of socio-cultural grammar and narrative conventions in shaping the discourse of love. This module combines critical reading and creative writing, giving students the opportunity to practise techniques of romance writing and receive constructive feedback for their work.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Writing Love: The Love Letter in Literature"
+}

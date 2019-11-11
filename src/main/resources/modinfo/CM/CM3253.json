@@ -1,0 +1,19 @@
+{
+    "courseCode": "CM3253",
+    "courseCredit": "4",
+    "description": "Fundamentals of solid state chemistry will first cover the primary and secondary types of bonding in solids followed by lattice energy in ionic solids. Crystalline solids and their crystal structure will be studied. Metals, insulators and semiconductors will be distinguished using the band theory of solids. Defects occur in crystals \u2013 point, line and surface \u2013 and their effects on properties of solid materials will be explained. Factors affecting crystallization and glass formation, and different components of glasses and their uses will be discussed. Formation of different types of glasses and their applications will be highlighted.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CM4251",
+        "CM4253",
+        "CM4254"
+    ],
+    "preclusion": "CM2263 and CM3262",
+    "prereqTree": {
+        "and": [
+            "CM1131",
+            "CM2111"
+        ]
+    },
+    "title": "Materials Chemistry 1"
+}

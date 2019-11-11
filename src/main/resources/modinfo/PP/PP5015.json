@@ -1,0 +1,13 @@
+{
+    "courseCode": "PP5015",
+    "courseCredit": "1",
+    "description": "Understanding risk is the first step in developing action plans to build greater resilience. The degree of uncertainty assigns probabilities to types of risks ranging from climate change to pandemics. The intensity of impact also varies across risk categories. The product of the probability and impact is a first approximation of the seriousness of the risk. The nature of interaction among government, business and households contributes to the effectiveness of solutions. The responses are also synergetic across sectors like energy and education. Case studies bring out the degree of effectiveness of risk mitigation and suggest the dos and the don\u2019ts.",
+    "faculty": "LKY School of Public Policy",
+    "fulfillRequirements": [
+        "PP5018",
+        "PP5017",
+        "PP5016"
+    ],
+    "preclusion": "PP5194 Natural Disasters, Environment and Climate Change",
+    "title": "Principles and Applications of Risk Management"
+}

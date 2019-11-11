@@ -1,0 +1,8 @@
+{
+    "courseCode": "ESE5701",
+    "courseCredit": "4",
+    "description": "Students will be introduced to real-world environmental ecosystems, biogeochemical cycle, pathways and interactions between them. The complications that arise in understanding due to the interactions within the ecosystems and the biogeochemical cycle will be examined. Students will be introduced to methods and tools to handle and analyze data sets that would arise from such problems. At the end students should be able to analyse and quantify or qualify the complicated relationships that can arise from understanding large scale environmental ecosystems or more restricted ecosystems such as buildings and their biomes. Students will be expected to have basic statistical background.",
+    "faculty": "Engineering",
+    "prereqTree": "CE3132",
+    "title": "Meta-data for environmental ecosystems"
+}

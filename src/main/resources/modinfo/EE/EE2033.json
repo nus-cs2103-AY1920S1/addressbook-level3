@@ -1,0 +1,14 @@
+{
+    "courseCode": "EE2033",
+    "courseCredit": "4",
+    "description": "This module serves as the hands-on counterpart for EE2027 and EE2023. Students will practice and strengthen the knowledge learnt in electromagnetics, devices and circuits, and signals and systems through a series of experiments with the aim of integrating these knowledge to build an integrated digital communication system. The experiment will touch on important concepts, such as opamp characterization, circuit design specifications and component choice, frequency domain signal analysis, OOK modulation, frequency spectrum, and wireless communication system. Towards the end, the students will form an integrated view on these topics through a mini-project that encompass all these fields.",
+    "faculty": "Engineering",
+    "preclusion": "EE2031, EE2032",
+    "prereqTree": {
+        "or": [
+            "EE2023",
+            "EE2027"
+        ]
+    },
+    "title": "Integrated System Lab"
+}

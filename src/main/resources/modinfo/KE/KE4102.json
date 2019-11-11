@@ -1,0 +1,11 @@
+{
+    "courseCode": "KE4102",
+    "courseCredit": "8",
+    "description": "The aim of this first core course - unit 1 of the Master of Technology (MTech) in Knowledge Engineering (KE) - is to provide a foundation for the KE degree. The focus of the degree is on educating the developers of intelligent systems to be used for Business Analytics. So the objectives of this foundation course are to: (1) Introduce the basic concepts and major techniques of Business Analytics. (2) Provide an overview of knowledge-based systems and an introduction to statistical and machine learning, with Business Analytics as the target application area.",
+    "faculty": "Institute of Systems Science",
+    "fulfillRequirements": [
+        "KE5108",
+        "KE5109"
+    ],
+    "title": "Intelligent Systems and Techniques for Business Analytics"
+}

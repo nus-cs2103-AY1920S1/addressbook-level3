@@ -1,0 +1,10 @@
+{
+    "courseCode": "EG2201B",
+    "courseCredit": "4",
+    "description": "This module will allow students to practice Design Thinking to create innovative solutions to real-life problems and to apply skills in data collection, creative problem solving, and presentation to clients/users. Students will work with clients/users in teams and be immersed in real-life situations to gain understanding of the problems. Students will then be guided using Design Thinking methodology to identify opportunities, to create solutions, and to present their innovative ideas to clients/users.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EG2202"
+    ],
+    "title": "Practising Design Thinking"
+}

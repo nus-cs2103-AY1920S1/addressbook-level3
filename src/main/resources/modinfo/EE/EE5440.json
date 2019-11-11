@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5440",
+    "courseCredit": "4",
+    "description": "This module focuses on physics, materials and device aspects of magnetic data storage, including both hard disk drives and magnetic random access memory. The module is designed to equip students with the basic knowledge of magnetism and magnetic materials required for understanding magnetic data storage devices and systems. Topics to be covered include fundamentals of magnetism and magnetic materials, magnetostatics, magnetization dynamics, spintronics, magnetic random access memory, magnetic write and read head, and read/write principles in both solid-state and disk based storage.",
+    "faculty": "Engineering",
+    "preclusion": "EE4433 Nanometer Scale Information Storage",
+    "title": "Magnetic Data Storage for Big Data"
+}

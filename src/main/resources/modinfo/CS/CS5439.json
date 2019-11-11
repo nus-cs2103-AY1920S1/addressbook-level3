@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "CS5439",
+    "courseCredit": "4",
+    "description": "Software engineering processes need to include security considerations in the modern world. This module familiarizes students to security issues in different stages of the software life-cycle. At the end of the module, the students are expected to understand secure programming practices, be able to analyse and check for impact of malicious inputs in programs, and employ specific testing techniques which can help detect software vulnerabilities.",
+    "faculty": "Computing",
+    "preclusion": "CS4239",
+    "prereqTree": {
+        "and": [
+            "CS3235",
+            "CS2103"
+        ]
+    },
+    "title": "Software Security"
+}

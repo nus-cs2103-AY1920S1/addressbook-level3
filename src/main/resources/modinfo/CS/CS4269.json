@@ -1,0 +1,27 @@
+{
+    "courseCode": "CS4269",
+    "courseCredit": "4",
+    "description": "Logic is often called the \"calculus of computer science\" due to the central role played by logic in computer science akin to the role played by calculus in physics and engineering. This module will formally introduce and prove some of the fundamental results in logic to provide students with a rigorous introduction of syntax, semantics, decision procedures, and complexity of propositional and first-order logic. The course will be taught from a computer science perspective with particular emphasis on algorithmic and computational complexity components.",
+    "faculty": "Computing",
+    "preclusion": "CS5469",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS2010",
+                    "CS2020",
+                    "CS2040",
+                    "CS2040S"
+                ]
+            },
+            {
+                "or": [
+                    "CS1231",
+                    "CS1231S",
+                    "MA1100"
+                ]
+            }
+        ]
+    },
+    "title": "Fundamentals of Logic in Computer Science"
+}

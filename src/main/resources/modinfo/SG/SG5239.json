@@ -1,0 +1,8 @@
+{
+    "courseCode": "SG5239",
+    "courseCredit": "3",
+    "description": "Cloud computing is a model for enabling ubiquitous, ondemand shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort. 'Cloud Native Solution Design' course will help the decision makers cut through all the haze and architect the cloud service effectively. The course concentrates on teaching the participants how to design cloud native solution. The course will equip the participants with useful pointers to note while designing cloud native solutions. The course also discusses microservices suitability aspects, native design aspects, application migration from traditional hosting, engineering evaluation, service cataloguing, pricing strategy, service level agreements, security, privacy, storage, governance, outage management and service delivery mechanism.",
+    "faculty": "Institute of Systems Science",
+    "preclusion": "SG4211: Cloud Computing",
+    "title": "Cloud Native Solution Design"
+}

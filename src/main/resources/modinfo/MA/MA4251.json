@@ -1,0 +1,14 @@
+{
+    "courseCode": "MA4251",
+    "courseCredit": "4",
+    "description": "This module builds on ST3236 and introduces an array of stochastic models with biomedical and other real world applications. Topics include Poisson process, compound Poisson process, marked Poisson process, point process, epidemic models, continuous time Markov chain, birth and death processes, martingale. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "preclusion": "MA3237, MA3239, GM3310, ST4238, ISE students.",
+    "prereqTree": {
+        "or": [
+            "MA3238",
+            "ST3236"
+        ]
+    },
+    "title": "Stochastic Processes II"
+}

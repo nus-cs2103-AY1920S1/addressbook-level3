@@ -1,0 +1,20 @@
+{
+    "courseCode": "CS5338",
+    "courseCredit": "4",
+    "description": "This module introduces graduate students to the principles and techniques commonly used to tackle AI planning and decision making problems. It examines how to pose and solve decision making and planning problems in deterministic, probabilistic, and adversarial environments for both single and multiagent problems. Topics include deterministic planning, decision theory, decision networks, Markov decision processes, game theory, multi-agent planning, and reinforcement learning.",
+    "faculty": "Computing",
+    "preclusion": "CS4246",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA2216",
+                    "ST2131",
+                    "ST2334"
+                ]
+            },
+            "CS3243"
+        ]
+    },
+    "title": "Principles of Planning and Decision Making"
+}

@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "TCN2121",
+    "courseCredit": "4",
+    "description": "The objective of this module is to provide students with the rudimentary understanding of the basic laws and other concepts of thermodynamics and apply them to analyses chemical engineering problems. The module starts with basic definition, applications and limitations of chemical engineering thermodynamics, followed by a review of basic laws, properties and concepts of thermodynamics. The development and discussion of thermodynamic property relations for systems of constant and variable compositions are covered in detail. The developed property relationships together with the basic laws are then applied to the analysis of the various equilibrium problems in chemical engineering such as vapour -liquid, vapour-liquid-liquid, liquidliquid, solid-liquid and chemical reaction equilibria.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TCN3132",
+        "TCN3135",
+        "TCN3421",
+        "TCN4122"
+    ],
+    "preclusion": "TC2111, CN2121E",
+    "prereqTree": "TCN1111",
+    "title": "Chemical Engineering Thermodynamics"
+}

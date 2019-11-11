@@ -1,0 +1,17 @@
+{
+    "courseCode": "YSS3222",
+    "courseCredit": "5",
+    "description": "This course introduces students to key theoretical approaches in urban studies. Throughout the semester, we will read selections from essential texts in the field, examining both their methodological techniques and theoretical contributions to understanding cities and urbanization. The course takes an interdisciplinary approach and is divided into three or four thematic units, which in previous iterations have covered topics such as modernity, justice, economy, spatiality, and infrastructure.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS4213",
+        "YSS4239"
+    ],
+    "prereqTree": {
+        "and": [
+            "YCC2121",
+            "YSS2220"
+        ]
+    },
+    "title": "Urban Theory"
+}

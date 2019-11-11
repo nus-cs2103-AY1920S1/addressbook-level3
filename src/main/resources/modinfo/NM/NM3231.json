@@ -1,0 +1,10 @@
+{
+    "courseCode": "NM3231",
+    "courseCredit": "4",
+    "description": "This module explores issues that arise in the design of media that involve physical interaction. Such media respond to tactile interaction and are physically embodied in such things as electronic toys, robotic pets, tangible interfaces, and digital textiles. Students will learn explore the factors that distinguish such media, how to critically evaluate them, and how to situate them within a larger theoretical and historical context.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "CS3283"
+    ],
+    "title": "Physical Interaction Design"
+}

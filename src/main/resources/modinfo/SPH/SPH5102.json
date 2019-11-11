@@ -1,0 +1,19 @@
+{
+    "courseCode": "SPH5102",
+    "courseCredit": "4",
+    "description": "In this module, issues in clinical trials, including blinding randomisation, sample size, power, ethical, regulatory, and quality-of-life issues will be addressed. Interim and sequential analyses, analysis of multiple treatments and endpoints, stratification and subgroup analyses, as well as meta-analysis of randomised controlled trials will also be discussed. Although particular emphasis is given to the evaluation of treatment in Phase III clinical trials, early phase trials studies will also be covered.",
+    "faculty": "SSH School of Public Health",
+    "preclusion": "CO5220 Design, Conduct and Analysis of Clinical Trials",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "SPH5002",
+                    "CO5102"
+                ]
+            },
+            "CO5103"
+        ]
+    },
+    "title": "Design, Conduct and Analysis of Clinical Trials"
+}

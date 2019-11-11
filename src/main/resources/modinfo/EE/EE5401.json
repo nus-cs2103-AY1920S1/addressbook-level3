@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5401",
+    "courseCredit": "4",
+    "description": "This course covers the techniques required for cellular mobile communication system design and performance analysis. It provides students with an understanding of the fundamental principles and concepts encountered in cellular mobile communications. In particular, students will learn about mobile radio channel modelling, modulation techniques, cellular system concepts, equalisation, diversity and channel coding, speech coding, and multiple access techniques. Practical standards such as GSM, IS-95 and IMT2000 will be used as illustration examples. On completion of the module, students should be able to describe and analyse narrowband and wideband mobile radio propagation channels, understand the requirements and operation of mobile radio systems, and appreciate the design issues of TDMA and CDMA cellular systems.",
+    "faculty": "Engineering",
+    "preclusion": "TD5113A",
+    "prereqTree": "EE4102",
+    "title": "Cellular Mobile Communications"
+}

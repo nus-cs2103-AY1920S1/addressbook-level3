@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "ESE5202B",
+    "courseCredit": "2",
+    "description": "In pursuit of the broad goal of avoiding the adverse effects of air pollution in a cost-effective manner, air quality engineers are involved in a wide range of activities, including (1) creating technical knowledge, (2) designing and applying air pollution control technologies, and (3) developing air pollution control strategies. The course will equip students with practical knowledge on the design and applications of air pollution control systems to reduce emissions of particulate matter, volatile organic compounds, oxides of nitrogen, and sulfur dioxide from static mobile sources. In addition, students will gain exposure to air pollution models.",
+    "faculty": "Engineering",
+    "title": "Air Quality Engineering"
+}

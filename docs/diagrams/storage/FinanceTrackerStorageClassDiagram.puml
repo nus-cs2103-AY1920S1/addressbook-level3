@@ -1,0 +1,14 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Class JsonSerializableFinanceTracker
+Class JsonAdaptedInstallment
+Class JsonAdaptedPurchase
+
+JsonSerializableFinanceTracker o-down-> "*" JsonAdaptedInstallment
+JsonSerializableFinanceTracker o-down-> "*" JsonAdaptedPurchase
+
+@enduml

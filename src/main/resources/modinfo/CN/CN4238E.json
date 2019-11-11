@@ -1,0 +1,14 @@
+{
+    "courseCode": "CN4238E",
+    "courseCredit": "4",
+    "description": "In this module, the students will consolidate their accumulated knowledge of fundamental modeling principles and analytical/numerical solution techniques by applying them to a wide variety of large-scale, steady as well as dynamic, chemical, physicochemical, and biochemical systems of industrial importance. The module will emphasize the full range of modeling and simulation techniques including first-principle model development, model analysis and validation, and model prediction and applications. The students will demonstrate their acquired skills by solving one or more sufficiently complex problems of their own choice in a term project to gain hands-on experience",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TCN4238",
+    "prereqTree": {
+        "and": [
+            "CN1111E",
+            "CN3421E"
+        ]
+    },
+    "title": "Chemical & Biochemical Process Modeling"
+}

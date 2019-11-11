@@ -1,0 +1,14 @@
+{
+    "courseCode": "IE3110R",
+    "courseCredit": "4",
+    "description": "This course introduces students to the basic concepts of discrete-event simulation systems and application to problems that have no closed-form solutions. The course will cover modeling techniques, random number generators, discrete-event simulation approaches, simulated data analysis, simulation variance reduction techniques and state-of-the-art simulation software. At the end of this course, students will be able to analyze and develop simulation models of given problems.",
+    "faculty": "Engineering",
+    "preclusion": "DSC3221",
+    "prereqTree": {
+        "or": [
+            "IE2100",
+            "DSC3215"
+        ]
+    },
+    "title": "Simulation"
+}

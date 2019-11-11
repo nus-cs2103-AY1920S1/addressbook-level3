@@ -1,0 +1,18 @@
+{
+    "courseCode": "PC2267",
+    "courseCredit": "4",
+    "description": "This module introduces the underlying principles and mechanisms of physics behind life sciences. It incorporates introductory concepts of physics into the phenomena associated with biological functions. The topics to be covered include: biological structures and the relation to biophysics; principles and methods of physics applied to biology; physical aspects of structure and functionalities of biomolecules, physical principles of bioenergy conversion and membrane-bound energy transduction; physical processes of bio-transport, nerves and bioelectricity. The module includes some basic biophysics experiments. It is targeted at both physics and non-physics students who already have basic knowledge in physics.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC3267"
+    ],
+    "prereqTree": {
+        "or": [
+            "PC1143",
+            "PC1432",
+            "PC1432X",
+            "PC1421"
+        ]
+    },
+    "title": "Biophysics I"
+}

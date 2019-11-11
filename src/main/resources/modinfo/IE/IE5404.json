@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "IE5404",
+    "courseCredit": "4",
+    "description": "The module deals mainly with the complex decision-making process in the planning, design, operation and maintenance of large scale systems. Case studies of systems that have been implemented in Singapore or being planned are used to illustrate the practical aspects of systems engineering methodologies.",
+    "faculty": "Engineering",
+    "title": "Large Scale Systems Engineering"
+}

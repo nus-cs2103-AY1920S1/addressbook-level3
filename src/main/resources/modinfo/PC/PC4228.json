@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "PC4228",
+    "courseCredit": "4",
+    "description": "Quantum technology is a field of physics and engineering which exploits quantum phenomena, such as entanglement, superposition and tunneling, for advanced applications, including quantum computing, quantum key distribution, quantum metrology, and information processing. This is a fast emerging field with strong industry potential. In this course, students will be equipped with essential knowledge in the physics and technology of a wide range of quantum devices, including quantum detectors, quantum light sources, quantum number generators, quantum sensors, and quantum computers. Students will also learn skills in the characterization of these devices, including data analysis and interpretation of quantum behavior.",
+    "faculty": "Science",
+    "prereqTree": "PC3130",
+    "title": "Device Physics for Quantum Technology"
+}

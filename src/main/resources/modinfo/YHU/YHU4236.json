@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU4236",
+    "courseCredit": "5",
+    "description": "No more adding of 'new media', media scholars have cried out over the recent years, to existing things when what we call 'old media' was to quip a seminal phrasing, always already new. The same can be said for the communities and publics that media helped form. As \u2018new media\u2019 becomes increasingly ubiquitous in popular and scholarly discourse, we have lost sight of the term\u2019s older origin as the mediation between cultures, politics, identities, and ideologies. Through media theory, literary narratives, films, and artworks, students will learn the post-hermeneutic turn in the humanities, where the idea of 'text' is simply one of the dynamic effects of mediality.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "\u201cNew\u201d Media: Inquiries into Literature & Technology"
+}

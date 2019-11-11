@@ -1,0 +1,12 @@
+{
+    "courseCode": "ME3122",
+    "courseCredit": "4",
+    "description": "This course covers the key concepts related to the different modes of heat transfer (conduction, convection and radiation) and principles of heat exchangers. It develops the students\u2019 proficiency in applying these heat transfer concepts and principles, to analyse and solve practical engineering problems involving heat transfer processes. Topics include introduction to heat transfer; steady state heat conduction; transient heat conduction; lumped capacitance; introduction to convective heat transfer; external forced convection; internal forced convection; natural/free convection; blackbody radiation and radiative properties; radiative exchange between surfaces; introduction to heat exchangers and basic calculation of overall heat transfer coefficient.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ESP4401",
+        "ME4225",
+        "ME4226"
+    ],
+    "title": "Heat Transfer"
+}

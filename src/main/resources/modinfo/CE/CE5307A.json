@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "CE5307A",
+    "courseCredit": "2",
+    "description": "Knowledge of wave mechanics and the prediction of hydrodynamic loads are essential for the design of all types of offshore structures. This module covers the theory of regular and random waves, including potential flow, wave kinematics, boundary conditions, dispersion relation, phase/group velocity, wave pressure and energy, principle of superposition, wave spectrum, and wave statistics.",
+    "faculty": "Engineering",
+    "preclusion": "CE5307, OT5201",
+    "title": "Ocean Waves"
+}

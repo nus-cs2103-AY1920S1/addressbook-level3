@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MT5007",
+    "courseCredit": "4",
+    "description": "The aim of this course is to help students develop a strong conceptual foundation for managing technological innovation. It introduces concepts and frameworks for how firms can create, commercialize and capture value from technology-based products and services. The course is designed for business managers and engineers who are involved in the research and development, marketing, acquisitions, and strategic assessments of new technologies. Topics covered include (i) the evolution of industries; (ii) technological discontinuities and vertical disintegration; (iii) network effects and standards; (iv) profiting from innovation and intellectual property (IP); (v) R&D management; and (vi) managing knowledge and learning.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "MT5013"
+    ],
+    "preclusion": "MT5007A Types and Patterns of Technological Innovation & MT5007B Technological Innovation Strategies",
+    "title": "Management of Technological Innovation"
+}

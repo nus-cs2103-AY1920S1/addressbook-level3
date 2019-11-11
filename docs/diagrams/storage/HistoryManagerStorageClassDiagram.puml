@@ -1,0 +1,12 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Class JsonSerializableHistoryManager
+Class "{abstract}\nJsonAdaptedCommand"
+
+JsonSerializableHistoryManager o-down-> "*" "{abstract}\nJsonAdaptedCommand"
+
+@enduml

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5113",
+    "courseCredit": "4",
+    "description": "This module teaches students the essential concepts and methodology for the planning, design and implementation of site investigation and ground instrumentation programmes. The module will be broadly divided into two parts. The first part covers various aspects of site investigation such as the planning, design, density of bore holes, sampling technology and disturbance, in-situ and laboratory testing and geophysical methods. The second part covers various aspects of ground instrumentation such as monitoring of ground movement, drawdown, excess pore pressures, strut forces, wall deflection and observational methods. This module enables students to acquire the knowledge and practical skills through the lectures, case studies and projects.",
+    "faculty": "Engineering",
+    "preclusion": "TCE5113",
+    "title": "Geotechnical Investigation & Monitoring"
+}

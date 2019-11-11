@@ -1,0 +1,16 @@
+{
+    "courseCode": "YHU3307",
+    "courseCredit": "5",
+    "description": "In this course students will examine the performer\u2019s physical and mental presence in a variety of organised performance situations across selected Asian traditions, including Japanese Noh, Chinese Jinju and Kunju, Indonesian court and folk dances. Students will identify and analyse recurring principles in the performers\u2019 application of physiological factors such as balance, body centre and weight placement. They will spend time watching and analysing applications of these principles in traditional, modern and intercultural contexts, and will also have opportunities to engage with some of these performance elements and techniques to create short performances. This module fulfills the Art Practice track of the Arts & Humanities major.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "YHU2258",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1113",
+            "YCC1121",
+            "YCC1131"
+        ]
+    },
+    "title": "Asian Traditional Theatre In and Out of Context"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS2233",
+    "courseCredit": "4",
+    "description": "This module focuses on key figures and aspects of contemporary performance as a means of learning about innovative approaches to theatre practice. Taking the works of a significant dramatist, director, theorist or theatre/performance genre as their starting point, students will investigate the resulting aesthetic and conceptual innovations, and explore their implications for current approaches to performance making more generally. As such, the module combines creative and critical practice, and features a variety of reflective, analytical and practical assessment tasks, including a group performance project.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Making Contemporary Performance"
+}

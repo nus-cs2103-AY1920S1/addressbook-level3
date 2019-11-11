@@ -1,0 +1,18 @@
+{
+    "courseCode": "PC3246",
+    "courseCredit": "4",
+    "description": "This module introduces the application of physics to astronomy. The students will be introduced to some astronomical phenomena, and they will learn to understand these fascinating phenomena by using basic physics. The module allows the physics students to review, and to extend their knowledge. The module cover two basic classes of celestial objects: the stars and planets. The topics include Kepler\u2019s laws, telescopes, binary stars, stellar spectra, stellar interiors, stellar formation and evolution, solar magnetic field, planetary tidal forces, planetary atmospheres, and Newtonian cosmology.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC4249",
+        "PC4232"
+    ],
+    "preclusion": "N.A",
+    "prereqTree": {
+        "or": [
+            "PC2130",
+            "PC2132"
+        ]
+    },
+    "title": "Astrophysics I"
+}

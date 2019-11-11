@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "IT5001",
+    "courseCredit": "4",
+    "description": "This module aims to introduce non-computing students to the principles and concepts of software development at an accelerated pace. Students will be introduced to the basics of programming (control flow, code and data abstraction, recursion, types, OO), development methodology (ensuring correctness, testing, debugging), simple data structures and algorithms (lists, maps, sorting), and software engineering principles. Through hands on assignments and projects, students will learn good software development practices (documentation, style) and experience a typical software engineering cycle.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "IT5005",
+        "IT5006"
+    ],
+    "title": "Software Development Fundamentals"
+}

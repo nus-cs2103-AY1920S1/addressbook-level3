@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CE1109X",
+    "courseCredit": "4",
+    "description": "This module introduces students to the fundamental concepts of statics and mechanics of materials and their applications to engineering problems. At the end of this course, students are expected to be able to draw a free body diagram and identify the unknown reaction forces/moments; solve statically determinate problems involving rigid bodies, pin-jointed frames and cables; solve statically indeterminate axial force member problems using stress-strain law and compatibility equations; determine the shear stress and angle of twist of torsional members; draw the bending moment and shear force diagrams for a loaded beam; and determine the stresses and deflections in beams.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "BN3201",
+        "ME2113",
+        "CE2134",
+        "CE3155",
+        "TCE2134"
+    ],
+    "preclusion": "EG1109, EG1109FC, EG1109M, CE1109, CE1109FC",
+    "title": "Statics and Mechanics of Materials"
+}

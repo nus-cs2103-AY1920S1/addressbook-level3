@@ -1,0 +1,9 @@
+{
+    "courseCode": "TEE3104",
+    "courseCredit": "4",
+    "description": "Wireless communication and sensing systems play an ever increasing role in society. This module introduces the RF and microwave hardware systems and circuits. The applications include: GSM/CDMA, RFID, UWB, WLAN, Bluetooth, Zigbee, Radar and remote sensing",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "EE3104E",
+    "prereqTree": "TEE2011",
+    "title": "Intro to RF and Microwave Sys & Circuits"
+}

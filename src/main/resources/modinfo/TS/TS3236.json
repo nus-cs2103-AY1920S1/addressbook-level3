@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS3236",
+    "courseCredit": "4",
+    "description": "What are the key factors that influence the production and reception of theatrical performance, and how can we best incorporate them into performance analysis? In an age of globalization, often defined as the increasing inter-connectedness of social, cultural, economic, political and environmental processes, it is important that we understand the dynamics of theatre-making and - watching as comprehensively as possible. Treating this network of interdependent influences as an `ecology', this module considers the significance of numerous factors - from the environment to technology to censorship regulations - for understanding the theatrical event, and will include both Singaporean and international examples.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Ecologies of Performance"
+}

@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5731",
+    "courseCredit": "4",
+    "description": "Computer vision involves complex information processing tasks, making sense of visual signals and retrieving information from them. The aim of this module is to provide a comprehensive introduction of various advanced topics in computer vision. This course covers: radiometry, texture, feature matching, segmentation, and image/video editing. It will focus on both the principles of these vision problems and their associated mathematical and computational tools. By the end of this module, students are expected to be able to identify important and current vision problems, read and understand research papers in the area, and lead discussions on related topics.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE6901",
+        "EE6903",
+        "EE6733"
+    ],
+    "preclusion": "EE6904, EE5731R",
+    "title": "Visual Computing"
+}

@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2702",
+    "courseCredit": "4",
+    "description": "This course provides an opportunity to learn about system dynamics, consisting of systems thinking, modelling, and analysis. Since its inception in the 1960s, system dynamics has been used to analyse and solve problems in development (economic, political, social, sustainable, and urban), management (business, environmental, health care, and project), and public policy. The role of systems thinking and system dynamics modelling in shaping issues of sustainable development, local, national and global, has been transformative.",
+    "faculty": "Residential College",
+    "preclusion": "UTC27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Foundations in System Dynamics Thinking and Modelling"
+}

@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUA1102",
+    "courseCredit": "6",
+    "description": "The module offers instruction in music composition for students enrolled in the BMUS program in music composition or appropriate related majors. Its main component is a weekly one-hour consultation with a major study teacher. Students attend weekly composition seminars and other events related to contemporary music study, and receive training in tonal aural skills. Students are required to compose a minimum of 10 minutes of music and submit a portfolio of works at the end of the semester for juried evaluation. In consultation with their instructor, students define their composition projects in terms of form and instrumentation.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA2101"
+    ],
+    "prereqTree": "MUA1101",
+    "title": "Composition Major Study 1B"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4512",
+    "courseCredit": "4",
+    "description": "With growing importance of renewable energy systems there is a need for future engineers who can conceptualize and design such system. This module will use project based learning methods to help future power engineers to conceptualize and design renewable energy system consisting of sources such as Solar, Wind, Fuel cells etc. Along with design practices for distribution networks and power converters, it will introduce them to standards in practice of electrical connection. Each student will go through a process of design, simulate and test their designs.",
+    "faculty": "Engineering",
+    "prereqTree": "EE2025",
+    "title": "Renewable Energy Systems Capstone Design"
+}

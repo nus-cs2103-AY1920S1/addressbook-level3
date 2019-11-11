@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTW2001M",
+    "courseCredit": "4",
+    "description": "Involvement in professional and amateur sports through competition, ludic activity or spectatorship is a social experience and thus connected to larger social and cultural formations. Students will engage with sociological research and develop their own critical positions grounded within functionalist, interactionist or critical theory frameworks in one of three areas: (1) Socialization into sport; what factors may influence initiation and continuation? (2) Socialization out of sport; in particular what are the causes and effects of burnout or retirement in competitive sport? (3) Socialization through sport; how are dimensions of identity (embodiment, gender, race, social class) developed?",
+    "faculty": "NUS",
+    "preclusion": "IEM2201%,\nUTW2001%",
+    "prereqTree": {
+        "or": [
+            "IEM1201",
+            "UTW1001"
+        ]
+    },
+    "title": "Sport and Socialization"
+}

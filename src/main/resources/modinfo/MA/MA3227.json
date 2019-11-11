@@ -1,0 +1,37 @@
+{
+    "courseCode": "MA3227",
+    "courseCredit": "4",
+    "description": "This module is a continuation of MA2213 Numerical Analysis I. It introduces and analyzes important numerical methods for solving linear and nonlinear systems, two-point boundary value problems, as well as Monte Carlo methods and their applications in such fields as quantitative finance and physics. The module aims at developing students\u2019 problem-solving skills in emerging applications of modern scientific computing, and is intended for mathematics and quantitative finance majors and students from engineering, computer science and physical sciences. Major topics: Iterative methods for systems of linear equations and their convergence analysis, numerical solutions of systems of nonlinear equations, methods for solving two-point boundary value problems, Monte Carlo methods and their applications.",
+    "faculty": "Science",
+    "preclusion": "ME3291",
+    "prereqTree": {
+        "and": [
+            "MA2213",
+            {
+                "or": [
+                    "MA1104",
+                    "MA2104",
+                    "MA1506",
+                    "MA1507",
+                    "MA1505",
+                    "MA1511",
+                    "MA2311"
+                ]
+            },
+            {
+                "or": [
+                    "MA2101",
+                    "MA2101S"
+                ]
+            },
+            {
+                "or": [
+                    "MA2216",
+                    "ST2131",
+                    "ST2334"
+                ]
+            }
+        ]
+    },
+    "title": "Numerical Analysis II"
+}

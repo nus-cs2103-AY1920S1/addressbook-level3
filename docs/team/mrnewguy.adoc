@@ -1,0 +1,333 @@
+= About Us - Tan Ye Kai
+:site-section: AboutUs
+:relfileprefix: team/mrnewguy
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+// links
+:gh_team: https://ay1920s1-cs2103t-t10-1.github.io/main/AboutUs.html
+:nus_comp: http://www.comp.nus.edu.sg
+:nus_ab3: https://se-education.org/addressbook-level3/
+:reposense: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#sort=groupTitle&groupSelect=groupByAuthors&search=mrnewguy&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Davidcwh&tabRepo=Davidcwh%2Fduke%5Bmaster%5D
+
+== Project Portfolio for Tan Ye Kai
+
+=== About the Project
+
+Jarvis was developed by {gh_team}[AY1920-CS2103T-T10-1]. We are a team
+based in the {nus_comp}[School of Computing, National University of Singapore].
+
+My team of 4 software engineering students and I were tasked with enhancing a basic command line interface desktop
+addressbook application for our Software Engineering project. We chose to morph into student-life planner application
+called JARVIS. This enhanced application enables students to track their daily tasks, find module information, track
+their finances and monitor their Ccas.
+
+We chose to enhance AddressBook into a Student Lifestyle application named
+**Jarvis**. Jarvis is meant to be able to manage many aspects of a regular
+university student's life - anywhere from finances to university course
+planning.
+
+My role was to implement the Cca tracker feature. The following sections illustrate these enhancements in more
+detail, as well as the relevant documentation I have added to the user and developer guides in relation to these
+enhancements.
+
+Shown below is the UI of Jarvis, showing my feature:
+
+.User Interface of Jarvis
+image::ccatracker/mrnewguy-JarvisUi.png[]
+
+The link to the repository can be found {gh_team}[here].
+
+=== Summary of Contributions
+
+This section shows a summary of coding, documentation, and other helpful
+contributions to this team project. The link to the code I have contributed
+can be found at https://github.com/AY1920S1-CS2103T-T10-1/main/commits?author=mrnewguy[this link].
+
+==== Cca Tracker
+
+The feature I have provided within Jarvis is a **Cca Tracker** - using this
+feature you are able to add and track any Cca. This is
+one of the big features (out of 4) of Jarvis.
+
+===== Justification
+
+60% of NUS students have at least 1 non-academic commitment while 30% have more than 1 non-academic commitment.
+Very frequently, students staying in Halls/Residential colleges can have upwards of 5 non-academic commitments.
+Consequently, it can be overwhelming to keep track of the details of each Cca. This feature provides a simple and
+intuitive tool to help users keep track of their commitments and their progress in the Cca.
+
+==== Code contributed
+
+Please click to see my code contribution on {reposense}[reposense].
+as well as my
+https://github.com/AY1920S1-CS2103T-T10-1/main/commits?author=mrnewguy[pull requests on GitHub].
+
+
+==== Other Contributions
+
+This sums up my contributions to the project that were not directly related to
+my main feature - Cca Tracker.
+
+* *User Interface*
+
+** Overhaul of UI backend
++
+I oversaw the adapting of the graphical user interface. Most importantly, I made a number of non-trivial additions to
+the model, logic and ui components so that developers of the project could switch between tabs in the application.
+https://github.com/AY1920S1-CS2103T-T10-1/main/pull/189[#189]
+
+** Implemented a new graphical user interface layout
++
+I also oversaw the changing of the graphical user interface layout from the original AB3 layout to our new layout. This
+new layout was chosen because we believed that the command box would be better suited to be placed at the bottom of
+the tabs rather than on top of it, as it allowed for the user to better visualise the changes to the UI as new commands
+are entered.
+https://github.com/AY1920S1-CS2103T-T10-1/main/pull/323[#323]
+
+** Added the helpdesk box
++
+In an attempt to streamline the user experience even further, I implemented
+the Helpdesk box. This serves as a mini 'user guide' to the user so that they will know all the commands that can be
+used for each feature.
+https://github.com/AY1920S1-CS2103T-T10-1/main/pull/343[#343]
++
+.showing the helpdesk that I implemented
+image::ccatracker/mrnewgy-helpdesk.png[]
+
+
+* *Community*
+** I have also reviewed several pull requests from my team mates (with non-trivial
+review comments), as can be seen from pull requests
+https://github.com/AY1920S1-CS2103T-T10-1/main/pull/104[#104]
+https://github.com/AY1920S1-CS2103T-T10-1/main/pull/136[#136]
+
+** Lastly, I reported bugs and offered helpful suggestions for  another
+application created by my fellow cohort mates. This can be seen from the
+following examples in this https://github.com/mrnewguy/ped/issues[link].
+
+
+==== Contributions to User Guide
+
+We were put in charge of our own sections of the User Guide content while
+another member had styled and verified the cohesiveness of the User Guide as a
+whole. The following is a small excerpt of my section in the User Guide. It shows the entire process of incrementing
+ a Cca's progress for a Cca. This process consists of both the `add-progress` and `increase-progress` command in the
+ `CcaTracker` feature.
+
+'''
+
+==== Add progress levels for a CCA: `add-progress`
+Often, we strive to reach certain milestones in our CCAs. For example, in learning the swimming, you might be aiming to
+progress through the various grade levels available. With `add-progress`,
+`Jarvis` can help you set and keep track of your progress towards each milestone in swimming.
+
+Format: `add-progress INDEX p/MILESTONE...`
+
+==== Step 1
+Select a Cca which currently does not have a progress yet.
+
+.showing a `Cca` without a progress.
+image::ccatracker/mrnewgy-progressNotSet.png[]
+
+[NOTE]
+This step assumes that you have already added a swimming `Cca` to the `CcaTracker`.
+
+
+==== Step 2
+Add a progress to the selected `Cca` using the `add-progress` command.
+
+.showing a `Cca` with an added progress.
+image::ccatracker/mrnewgy-progressAdded.png[]
+
+==== Step 3
+Increment the progress on the selected `Cca` using the `increment-progress` command.
+
+.showing a `Cca` with the progress incremented.
+image::ccatracker/mrnewgy-progresIncremented.png[]
+
+Here is a more detailed explanation of each component in the `Progress Tracker` segment of each `Cca`.
+
+.detailed explanation of the Progress Tracker.
+image::ccatracker/mrnewgy-detailedProgressDescription.png[]
+
+
+[NOTE]
+Note that progress can only be incremented if `add-progress` has previously been executed on that particular Cca
+(see steps 1 and 2!)
+
+'''
+
+==== Contributions to Developer Guide
+Similar to the user guide, my team also decided that each member should be responsible to write their own documentation
+in the developer guide for their individual feature.
+
+===== Course Planner Section
+
+The following is an excerpt for my own section of the Developer Guide. Some
+of the sections have been stripped down to accommodate the page limit.
+
+'''
+
+==== The CcaTracker Model
+
+The `CcaTracker` class within the model provides an interface between the
+components of the feature and the updating of the overall model. Like other
+features, `Model` is associated with the cca tracker feature by
+implementing `CcaTrackerModel`, from which `Model` implements.
+
+Some of the more significant methods within the `CcaTracker` are shown
+below:
+
+* `Model#updateFilteredCcaList(Predicate<Cca> predicate)` -- Updates the
+  `FilteredCcaList` by passing it a predicate.
+
+* `Model#getFilteredCcaList()` -- Returns an instance of the `FilteredCcaList`
+
+* `Model#addProgress(Cca targetCca, CcaProgressList toAddCcaProgressList)` -
+Adds `CcaProgressList` to the target `Cca`.
+
+* `Model#increaseProgress(Index index)` -- Increases the progress of the `Cca`
+
+
+==== Cca Tracker components
+The class diagram for CcaTrackerModel is shown below:
+
+.CcaTracker Class Diagram
+image::ModelCcaTrackerClassDiagram.png[]
+
+As seen in the diagram above, The `CcaTracker` consists primarily of a single `CcaList` object. This `CcaList` object is
+essentially a wrapper around an `ObservableList` of `Cca` objects. Do note that the `CcaList` object can contain any
+number of `Cca` objects (including none).
+
+More interestingly, each `Cca` is made up of the following components, all of which are **non-nullable** attributes:
+
+** CcaName
+** CcaType
+** EquipmentList
+** CcaProgress
+
+Now that we have an understanding of the underlying implementation of `CcaTracker`, lets take a closer look at the
+feature details.
+
+==== Feature details
+
+CcaTracker has 7 specific commands that support the given operations to mutate
+the state of the `Model`. Each command is represented as seperate class. They include the following classes:
+`AddCcaCommand`, `DeleteCcaCommand`, `EditCcaCommand`, `FindCcaCommand`, `ListCcaCommand`, `AddProgressCommand` and
+`IncreaseProgressCommand`.
+
+For brevity's sake, we will illustrate only 1 specific command and its
+execution on model.
+
+The following activity diagram illustrates how a `Cca` 's
+progress is incremented when a user types in an `increase-progress` command:
+
+===== Increasing a cca's progress
+
+.Activity Diagram for increase-progress command
+image::ccatracker/IncreaseCcaProgressActivityDiagram.png[]
+
+Firstly , before any increasing of progress can take place, the user has to add a `Cca` to the `CcaTracker` through the
+`add-cca` command. The user then has to add a `CcaMilestoneList` to the `CcaTracker` through the `add-progress` command.
+
+[NOTE]
+Note that the execution of each command as stated above branches off into different scenarios, all of which present
+themselves to the user in form of prompts in the user interface.
+
+==== Command Execution
+The diagram below shows the sequence diagram of the increase-progress mechanism.
+
+.Sequence diagram for increase-progress command
+image::ccatracker/IncreaseProgressSequenceDiagram.png[]
+
+
+Given below is an example usage scenario of how the increase-progress mechanism
+behaves.
+
+Step 1. The user launches the application for the first time. The `CcaTracker`
+is initialized. Assume that a `Cca` has already been added to the Cca and that
+a progress tracker has already been set for that `Cca`.
+
+Step 2. The user executes `increase-progress 1` command to increment the
+progress of the 1st `Cca` in the CcaTracker. A `IncreaseProgressCommandParser`
+object is created and its `#parse` method is called. The parse method returns
+a new `IncreaseProgressCommand` object.
+
+Step 3. The `IncreaseProgressCommand` object is then executed on model. The
+`IncreaseProgressCommand#execute` method is called and in this method, the
+`Model#increaseProgress` method is called.
+
+[NOTE]
+The `IncreaseProgressCommand#execute` method first checks for whether the
+index is within the size of CcaList.
+
+Step 4. As mentioned in section 2, the methods in `Model` merely mirrors the
+methods in the `CcaTracker` class. As such, the `CcaTracker#increaseProgress`
+method is called. This in turn calls the `CcaList#increaseProgress` method.
+This method first finds the `Cca` based on its corresponding index. Then, it
+calls the `Cca#increaseProgress` method.
+
+Step 5. This in turn calls the `CcaProgress#increaseProgress` method that
+calls `CcaCurrentProgress#increaseProgress` method. At long last, the final
+`#increaseProgress` method in the `CcaCurrentProgress` instance is called and
+the `currentProgress` counter is incremented by 1.
+
+[NOTE]
+In short, the calling of the `#increaseProgress` method at the `CcaTracker` level
+triggers a cascading series of `#increaseProgress` methods which culminates in
+the `currentProgress` variable being incremented by 1.
+
+==== Design Considerations
+
+===== Aspect: Whether to have subclasses for each type of cca.
+
+* *Option 1: Instantiate a `CcaProgress` object for
+each `Cca`*
+This entails implementing `CcaProgess` class as consisting of a `CcaMilestoneList` and a `CcaCurrentProgess`. The
+
+** Pros: Less code needed.
+** Cons: Less extensible as CcaProgress is now limited to what is essentially a list of strings.
+
+* *Option 2: Implement `CcaProgress` as a parent class.*
+This entails creating classes such as SportProgress/PerformingArtsProgress that extend from CcaProgress for each type
+of `Cca`. Such an implementation can be represented using the class diagram below:
+
+.Class diagram showing the alternative implementation of CcaProgress.
+image::ccatracker/AlternativeCcaProgressClassDiagram.png[]
+
+** Pros: Easier to extend functionality for each type of cca.
+** Cons: Does not significantly extend functionality for this version of
+Jarvis.
+
+===== Our Thoughts
+After much consideration, we have decided to implement `CcaProgress` as per option 1. This is because we wish to afford
+the user the flexibility to set whichever milestones they wish to in their Cca.
+
+Option 2 would entail hardcoding a certain type of `CcaMilestone` for each type of `CcaProgress`. For example,
+each `UniformedGroupProgress` might have included a series of `CcaMilestoneRanks`, where the user can set each
+CcaMilestoneRanks to be ranks such as Private, Lance Corporal, Corporal, Sergeant etc. Then, the
+`UniformedGroupProgress` could have individualised attributes such as types of awards etc.
+
+However, in light of the fact that Jarvis is a CLI application, it would have been extremely cumbersome for the user to
+type the myriad number of options.
+
+===== Aspect: Whether to use observable list for `CcaProgressList`
+
+* *Option 1 : Implement CcaProgressList as an
+  `ObservableList`*
+** Pros: Easier to manipulate for JavaFx.
+** Cons: Potentially complicated nesting when passing arguments to it as
+CcaProgressList is nested several classes within `Cca`.
+
+* *Option 2: Implement CcaProgressList as a normal `List` e.g.
+  `ArrayList`.*
+** Pros: Does not require predicates to be passed in.
+** Cons: Might be more complicated when rendering in Javafx.
+
+===== Our Thoughts
+Implementing the `CcaProgressList` as an `ArrayList` would have been an easier option. However, the implementation of
+the `CcaProgressList` as an `ObservableList` proved to be a wiser choice as `Javafx` fully supports the manipulation and
+rendering of an `ObservableList`. Using an `ArrayList`  would have made the building of the ui thoroughly cumbersome.
+
+

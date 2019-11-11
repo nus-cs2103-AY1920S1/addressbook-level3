@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEM2502",
+    "courseCredit": "4",
+    "description": "The aim of this module is to provide the student with a better understanding of scientific invention and discovery. It does this primarily by using an experimental and historical approach. There will be approximately eight weeks of lectures that will involve the student in recreating the circumstances surrounding many inventions and discoveries in the history of electricity and magnetism. The student will carry out a home experiment of his or her choice in electricity and magnetism. The student will also carry out a case study on an invention/inventor of his or her choice and present it in the form of a poster paper. In this course, students are encouraged to think through the act of invention and discovery for themselves, and gain their own experience.",
+    "faculty": "Engineering",
+    "preclusion": "GET1010",
+    "title": "Modes Of Invention"
+}

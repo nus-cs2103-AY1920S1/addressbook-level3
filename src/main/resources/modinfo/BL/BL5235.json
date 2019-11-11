@@ -1,0 +1,8 @@
+{
+    "courseCode": "BL5235",
+    "courseCredit": "2",
+    "description": "The aim of the course is to describe the physical principles at stake in a microscope. The principles of light emission, the notion of coherence, of diffraction, of adsorption, of interferences and of spatial filtering will be presented in the context of imaging of biological samples. The course aims at providing a deeper understanding and physical grounds to the various practical approaches implemented in a microscope. The idea is to follow the imaging path of a light microscope and to introduce physical principles and mathematical simplest formalism to understand the underlying mechanism in the acquisition of biological relevant images.",
+    "faculty": "Science",
+    "prereqTree": "BL5232",
+    "title": "Advanced Optics for Microscopy"
+}

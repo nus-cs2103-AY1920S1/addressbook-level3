@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE3431E",
+    "courseCredit": "4",
+    "description": "Electronic devices are the basic building blocks of all electronic gadgets used in our daily life. A solid understanding of the fundamental device concepts is essential for the electrical engineer to keep up with the fast evolution of new device technology. This module emphasizes on the properties of electronic materials and the operation principles of key electronic devices including p-n diode, bipolar junction transistor (BJT), MOS capacitor and (MOSCAP). Additional issues related to dielectric materials and non- semiconductor materials will be introduced. Contacts between metal and semiconductor will also be covered.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "EE3406E, EE2004E, TEE3431",
+    "title": "Microelectronics Materials and Devices"
+}

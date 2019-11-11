@@ -1,0 +1,7 @@
+{
+    "courseCode": "SG5017",
+    "courseCredit": "4",
+    "description": "This course teaches participants to transform the processes, methods and techniques employed by their software development organization so that they can move from developing customer-oriented systems to market driven products. The key motivation is to provide the means to significantly improve the productivity and product quality. This is achieved through software reuse at a large scale, beyond the levels achievable using the traditional reuse strategies based on object-oriented mechanisms, design patterns and frameworks. The course covers the processes, methods and techniques required to instrument and harvest from reuse. It also highlights the necessary transformations required in the management of the organization.",
+    "faculty": "Institute of Systems Science",
+    "title": "Software Product Line Engineering"
+}

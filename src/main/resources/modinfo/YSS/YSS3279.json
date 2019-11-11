@@ -1,0 +1,14 @@
+{
+    "courseCode": "YSS3279",
+    "courseCredit": "5",
+    "description": "This is a skills-based module concerned with research methods in social psychology, a core area of psychology that investigates situational forces affecting human thoughts, feelings, and actions. As such, we will be discussing different types of research done in social psychology and students will be doing projects using those methods. The module will culminate in students doing research projects and writing up these projects as if for publication. The first portion of the module will be concerned with methods and study proposals, whereas the second portion will be devoted to data collection, analysis, and writing up results.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "YSS4201 Social Psychology Lab\n(Previous module code)",
+    "prereqTree": {
+        "and": [
+            "YSS2201",
+            "YSS2216"
+        ]
+    },
+    "title": "Social Psychology Lab"
+}

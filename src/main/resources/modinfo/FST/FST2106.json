@@ -1,0 +1,21 @@
+{
+    "courseCode": "FST2106",
+    "courseCredit": "4",
+    "description": "This module introduces students to factors that result in the loss of quality characteristics of plant and animal produce, and discusses how such losses can be minimized by proper and effective handling of the fresh produce, from farm to market. This module also covers the various aspects of post-harvest processes and the products derived from fresh produce. The roles of irradiation and packaging in extending the shelf-life of animal and plant produce are also discussed.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FST3104"
+    ],
+    "prereqTree": {
+        "and": [
+            "FST1101",
+            {
+                "or": [
+                    "LSM1101",
+                    "LSM1106"
+                ]
+            }
+        ]
+    },
+    "title": "Post Harvest Food Processing"
+}

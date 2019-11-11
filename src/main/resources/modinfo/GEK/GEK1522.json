@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1522",
+    "courseCredit": "4",
+    "description": "GEK1522 is an interdisciplinary module that brings together perspectives from different disciplines to provide deep insights into known and emerging global environmental issues and to develop polcies for achieving environmental, economic and social sustainability in a holistic manner. Given the scope of the module and its educational outcomes, the module draws students from diverse disciplines within NUS including \"Law\", \"Business\" and \"Computing\", etc. The key strength of the module is its diversity in terms of disciplinary composition. To take advantage of this diversity, the module promotes \"collaborative learning\" through peer teaching & learning by dividing the large class (120 to 130 students) into multi-disciplinary teams of 5 students. The instructor assigns reading materials to individual teams on broad topics that cut across human society and culture.",
+    "faculty": "Engineering",
+    "preclusion": "GEH1025",
+    "title": "Global Environmental Issues"
+}

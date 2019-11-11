@@ -1,0 +1,11 @@
+{
+    "courseCode": "YID2201",
+    "courseCredit": "5",
+    "description": "An introduction to the tools, methods, and theory of effective environmental policymaking at the local, national, regional, and global level, with primary focus on governmental policies. Students will explore the interplay of politics and policy to develop an understanding of the drivers of successful environmental policymaking from a comparative perspective. This course is a prerequisite for subsequent environmental-studies policy and policymaking courses.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YID4201"
+    ],
+    "prereqTree": "YID1201",
+    "title": "Theory and Practice of Environmental Policymaking"
+}

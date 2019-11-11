@@ -1,0 +1,7 @@
+{
+    "courseCode": "MA5251",
+    "courseCredit": "4",
+    "description": "This module is designed for graduate students in mathematics. It focuses on some basic theoretical results on spectral approximations as well as practical algorithms for implementing spectral methods. It will specially emphasize on how to design efficient and accurate spectral algorithms for solving PDEs of current interest. Major topics covered include: Fourier-spectral methods, basic results for polynomial approximations, Galerkin and collocation methods using Legendre and Chebyshev polynomials, fast elliptic solvers using the spectral method and applications to various PDEs of current interest.",
+    "faculty": "Science",
+    "title": "Spectral Methods and Applications"
+}

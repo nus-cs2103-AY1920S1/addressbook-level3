@@ -1,0 +1,7 @@
+{
+    "courseCode": "ECA5305",
+    "courseCredit": "4",
+    "description": "The module will introduce students to practical approaches to handling data using R. Students will be introduced to R programming, and learn to load data (from small datasets to relational\u2010database datasets), to clean and to transform the data for analysis. Next, students will learn to examine the data, which consists of summarizing the data, visualizing the data, and addressing data quality problems. After that, we will discuss different models to analyze the data. Among them are ordinary least square regression, time series, single\u2010variable models, decision trees, nearest neighbor, naive Bayes models, linear and logistic regression models and clustering.",
+    "faculty": "Arts and Social Science",
+    "title": "Programming for Economists"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "PR4103",
+    "courseCredit": "4",
+    "description": "Learning objectives: To provide an overview of the principles of research. To introduce the study designs used in pharmacy practice and clinical research. To equip with the statistical ability to critically evaluate clinical literature. Major topics: Principles of research methods, selection and formulation of research hypothesis, research strategies, research approaches, research techniques with emphasis on their application in pharmacy practice and clinical research. Introduction of drug information, clinical study design, hierarchy of evidence, potential bias associated with various design, approach in cricitically evaluating clinical literature. Factorial designs. Experimental design in clinical trials. Target students: Pharmacy Final Year",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "PR2103",
+            "PR2104",
+            "PR3105"
+        ]
+    },
+    "title": "Research Methodology"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "NUR2204C",
+    "courseCredit": "4",
+    "description": "This module introduces students to women and children health within the context of family-centred care. It allows students to acquire knowledge and skills on the care of infants, children, adolescents and women including pathophysiology, principles of health assessment, diagnostic investigations and management of common problems and conditions",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "preclusion": "NUR2121",
+    "title": "Women and Children Health"
+}

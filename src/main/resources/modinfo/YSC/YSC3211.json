@@ -1,0 +1,16 @@
+{
+    "courseCode": "YSC3211",
+    "courseCredit": "5",
+    "description": "This course introduces the basic concepts of electrodynamics, taught with the full mathematical and physical rigor necessary for subsequent courses on the subject. Topics typically include electrostatics and magnetostatics, both in free space and in media, dynamics as described by Maxwell\u2019s equations, electromagnetic waves, optics, and simple relativistic phenomena. Introduction to electrodynamics is a core course for the Physics pathway within the Physical Science major.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC4223"
+    ],
+    "prereqTree": {
+        "or": [
+            "YSC2205",
+            "YSC3240"
+        ]
+    },
+    "title": "Introduction to Electrodynamics"
+}

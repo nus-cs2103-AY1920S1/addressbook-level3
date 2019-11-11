@@ -1,0 +1,10 @@
+{
+    "courseCode": "CE3202",
+    "courseCredit": "2",
+    "description": "This course aims to introduce CEE students to the basic concepts, approaches and implementation issues associated with data acquisition for infrastructure systems. Common types of data that are collected during the monitoring of infrastructure systems, including excitation mechanisms, sensing technologies, data acquisition using sensors, signal pre-processing and post-processing techniques, and use of sensing in a variety of applications in urban infrastructure will be covered. Students will also gain experience with data acquisition hardware and software.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CE5515"
+    ],
+    "title": "Data Acquisition for Civil Engineering Applications"
+}

@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "OT5203",
+    "courseCredit": "4",
+    "description": "This module is concerned with the design of floating offshore structures and elements. Floating structures dealt with in this module include semi-submersibles, FPSOs, spar platforms, floating jack-up structures and elements such as reinforced (hull) plating and mooring turntables. The important design parameters for floating structures will be highlighted. Also covered are the methods of analysis and criteria in design such as wave loading and motion in waves, floating stability, (dynamic) positioning, structural strength and fatigue. Safety assessment and codes in relation to design will also be treated.",
+    "faculty": "Engineering",
+    "title": "Analysis & Design of Floating Offshore Structures"
+}

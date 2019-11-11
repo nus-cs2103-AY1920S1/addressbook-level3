@@ -1,0 +1,13 @@
+{
+    "courseCode": "FST4203",
+    "courseCredit": "4",
+    "description": "To provide a mainly student-centred learning module including a degree of practical laboratory work that gives students the opportunity to authenticate, compare and contrast similar food products from a technical (chemical and microbiological aspects) and legal point of view. Products from different countries will be compared and contrasted as regards their composition and organoleptic qualities. The syllabus will be concerned with the detailed analysis of food as regards its chemical composition, microbiological loading and its organoleptic qualities. These will be considered in the light of any appropriate legislative requirements.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "FST3101",
+            "FST3102"
+        ]
+    },
+    "title": "Food Forensics"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "ENV2101",
+    "courseCredit": "4",
+    "description": "As a continuation of ENV1101, this module examines the role of human activities such as technological changes, increasing urbanization, market forces and economics, as well as ongoing geopolitical forces in environmental and climate change. Using current global environmental and climate change challenges, this module discusses various ways communities and societies have utilized indigenous knowledge (folk science), scientific evaluations, technological innovations, societal regulations and laws, environmental monitoring (benchmarking, quality controls), and policy prescriptions (based on scientific and societal evaluations) in environmental management at various scales. The module hopes to engage students in thinking about adaptive and mitigation options, both locally and globally in relation to reduced environmental sustainability.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ENV3101",
+        "LSM4262"
+    ],
+    "preclusion": "LSM3272",
+    "prereqTree": "ENV1101",
+    "title": "Global Environmental Change"
+}

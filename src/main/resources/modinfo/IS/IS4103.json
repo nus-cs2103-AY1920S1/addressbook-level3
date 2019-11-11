@@ -1,0 +1,16 @@
+{
+    "courseCode": "IS4103",
+    "courseCredit": "8",
+    "description": "Students are required to work (in groups) through a complete Systems Development Life Cycle to develop a business information system based on techniques and tools taught in IS2102, IS2103 and IS3106. They will also sharpen their communication skills through closer team interactions, consultations, and formal presentations. Emphasis will be placed on architecture design and implementation, requirement analysis, system design, user interface design, database design and implementation efficiency. Students will be assessed based on their understanding and ability to apply software engineering knowledge on a real-life application system, as well as their communication skill.",
+    "faculty": "Computing",
+    "preclusion": "IS3102",
+    "prereqTree": {
+        "and": [
+            "IS2101",
+            "IS2102",
+            "IS2103",
+            "IS3106"
+        ]
+    },
+    "title": "Information Systems Capstone Project"
+}

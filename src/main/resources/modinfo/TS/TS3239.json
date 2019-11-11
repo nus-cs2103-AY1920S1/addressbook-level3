@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS3239",
+    "courseCredit": "4",
+    "description": "This module investigates a wide range of classical Asian dramatic texts, including masterpieces from Indian Sanskrit theatre, Chinese opera, and Japanese Noh and Kabuki. The social milieus in which the drama evolved are examined, and the illusionary world which ancient theatergoers imagined are reconstructed. The module treats dramatic literature as a vital component of living theatre, not as reading material, and thus complements TS3237, which teaches the staging practices of Asian theatre. Towards the end of the semester, Western canonical dramaturgy serves as a comparative reference to Asian materials, which enhances intercultural study or practice in other modules.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Reading Asian Drama"
+}

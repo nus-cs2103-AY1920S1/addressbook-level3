@@ -1,0 +1,13 @@
+{
+    "courseCode": "FST4201",
+    "courseCredit": "4",
+    "description": "This module will vary from year to year but will be an in-depth study of a selected FST topic. It is hoped that a visiting professor will be available each year to offer this module in his/her specialist area.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "FST3102",
+            "FST3104"
+        ]
+    },
+    "title": "Current Topics ( Food Science & Tech )"
+}

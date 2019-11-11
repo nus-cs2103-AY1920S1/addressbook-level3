@@ -1,0 +1,9 @@
+{
+    "courseCode": "IS4231",
+    "courseCredit": "4",
+    "description": "The main focus of this module is on the managerial aspects of information security. This module prepares the students for their future roles as IS managers or IS security professionals. Through this module, students will appreciate the challenges of managing information security in the modern business organization. Topics include risk management, security policies and programmes, managing the security function, and planning for continuity.",
+    "faculty": "Computing",
+    "preclusion": "CS3254",
+    "prereqTree": "CS2107",
+    "title": "Information Security Management"
+}

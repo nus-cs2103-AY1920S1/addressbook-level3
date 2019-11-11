@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ES2331",
+    "courseCredit": "4",
+    "description": "This course aims to help students communicate competently and ethically in various communication situations. This will be done through rigorous and critical analyses of communicative texts and events, as well as applications of the principles of effective communication. In the process, the course also helps develop students\u2019 understanding of how their identities and values are shaped in (and are shaping) engineering practice.",
+    "faculty": "NUS",
+    "preclusion": "ES1501%, ES1601, UTown students from cohort AY2014/15 and before should not be allowed to bid for the module.",
+    "prereqTree": {
+        "or": [
+            "ES1000",
+            "ES1103"
+        ]
+    },
+    "title": "Communicating Engineering"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSC4212",
+    "courseCredit": "5",
+    "description": "This module involves statistical and computational analyses of a variety of problems using real data. It emphasizes methods of choosing and acquiring data, assessing data quality, and considers statistical and computational issues posed by extremely large data sets (Big Data). The course requires initiative and independent work both individually and in small groups, and includes extensive computations using R. Pre-requisite: YSC2230 (Probability and Statistics) OR YSC2210 Data Analysis and Visualization (DAVis) with R, or their equivalents. This module will count as an advanced module for the MCS major.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSC2230",
+            "YSC2210"
+        ]
+    },
+    "title": "Statistical Case Studies (with R)"
+}

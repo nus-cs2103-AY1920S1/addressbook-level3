@@ -1,0 +1,11 @@
+{
+    "courseCode": "EC5104",
+    "courseCredit": "4",
+    "description": "The main purpose of this module is to provide students with a systematic exposition of certain advanced mathematical techniques and to relate them to the various types of economic theories and analyses in such a way that the mutual relevance of the two disciplines is clearly brought out. Basically, the module is divided into 5 major parts: (a) static analysis, (b) comparative static analysis, (c) dynamic analysis, (d) optimization problems and mathematical programming, and (e) welfare economics. The mathematical tools appropriate for each are then introduced in due order within the economic framework of each topic. The module is expected to provide students with a clear understanding of the numerous existing economic models, including models of the market, of the firm, and of the consumer, national income models, input-output models, and models of economic growth.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EC6316"
+    ],
+    "preclusion": "EC5210 and EC5311",
+    "title": "Mathematical Economics"
+}

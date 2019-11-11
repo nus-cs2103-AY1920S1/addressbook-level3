@@ -1,0 +1,19 @@
+{
+    "courseCode": "CS2040C",
+    "courseCredit": "4",
+    "description": "This module introduces students to the design and implementation of fundamental data structures and algorithms. The module covers basic data structures (linked lists, stacks, queues, hash tables, binary heaps, trees, and graphs), searching and sorting algorithms, basic analysis of algorithms, and basic object-oriented programming concepts.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5343",
+        "CS5461",
+        "CS3225",
+        "CS3218",
+        "CS2113",
+        "CS2113T",
+        "CP3107",
+        "IS3261"
+    ],
+    "preclusion": "CS1020, CS1020E, CS2020, CS2010, CS2040, CS2040S",
+    "prereqTree": "CS1010",
+    "title": "Data Structures and Algorithms"
+}

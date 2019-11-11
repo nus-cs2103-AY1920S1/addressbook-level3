@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "RE2706",
+    "courseCredit": "4",
+    "description": "This module examines real estate and infrastructure finance institutions and instruments that focus on debt. It equips students with the essential skills to analyse and evaluate real estate and infrastructure financing decisions. The topics include: institutional landscape of real estate and infrastructure financing; mortgage mechanics; different mortgage instruments; residential financing analysis and borrower choices; residential underwriting and lending policies; development, project and infrastructure financing; and housing financing innovations.",
+    "faculty": "Design and Environment",
+    "preclusion": "RE2104 Real Estate Finance",
+    "title": "Real Estate and Infrastructure Finance"
+}

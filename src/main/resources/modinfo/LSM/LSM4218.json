@@ -1,0 +1,8 @@
+{
+    "courseCode": "LSM4218",
+    "courseCredit": "4",
+    "description": "The revolutionary advances of modern biotechnology and biomedical science have had significant impacts on how a drug is discovered and developed. This module focuses on the contributions of biotechnology to the advancement in drug discovery and development by exploring how genes, proteins and cells are transformed into biotherapeutic drugs. Topics covered include: recombinant protein and peptide drugs, antibody and nanobody therapeutics, DNA and siRNA drugs, cell therapeutics, new technology in vaccine generation and cancer vaccines, diagnostics-based targeted therapeutics (theranostics), as well as how the omics technology (genomics, proteomics and metabolomics) changes drug discovery.",
+    "faculty": "Science",
+    "prereqTree": "LSM1106",
+    "title": "Biotechnology and Biotherapeutics"
+}

@@ -1,0 +1,10 @@
+{
+    "courseCode": "EB5101",
+    "courseCredit": "8",
+    "description": "The focus of this course is to introduce the student to different Statistical Analysis and Business Analytic techniques. Students will learn basic descriptive statistics and modelling techniques. Further, they will learn when to use each and how to interpret the results. Students will also learn how to predict future business trends using simple statistical methods like moving averages, exponential smoothing and linear regression. Some key statistical analyses include hypothesis testing, correlation analysis, control groups versus test groups. Students will appreciate the value of Business Analytics through being introduced to segmentation analytics, decision trees, logistic regression and neural networks.",
+    "faculty": "Institute of Systems Science",
+    "fulfillRequirements": [
+        "EB5106"
+    ],
+    "title": "Foundations of Business Analytics"
+}

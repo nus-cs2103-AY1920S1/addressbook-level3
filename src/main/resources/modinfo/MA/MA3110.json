@@ -1,0 +1,21 @@
+{
+    "courseCode": "MA3110",
+    "courseCredit": "4",
+    "description": "This is a continuation of MA2108 Mathematical Analysis I. The objective of this module is to introduce the student to the contents and methods of elementary mathematical analysis. The course develops rigorously the following concepts arising from calculus: the derivative, the Riemann integral, sequences and series of functions. The emphasis is on logical rigour. The student will be exposed to and be expected to acquire the skills to read and write mathematical proofs. Major topics: Differentiation: the derivative, Mean Value Theorem and applications, L'Hospital rules, Taylor's Theorem. The Riemann integral: Riemann integrable functions, the Fundamental Theorem of Calculus, change of variable, integration by parts. Sequences of functions: Pointwise and uniform convergence, interchange of limits and continuity, derivative and integral, the exponential and logarithmic functions, the trigonometric functions. Series of functions: Cauchy criterion, Weierstrass M-test, power series, radius of convergence, term-by-term differentiation.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA4229",
+        "MA4207",
+        "MA3209",
+        "MA3111S",
+        "MA3111"
+    ],
+    "preclusion": "MA2118, MA2118H, MA2205, MQ3202, MA3110S, ST2236.",
+    "prereqTree": {
+        "or": [
+            "MA2108",
+            "MA2108S"
+        ]
+    },
+    "title": "Mathematical Analysis II"
+}

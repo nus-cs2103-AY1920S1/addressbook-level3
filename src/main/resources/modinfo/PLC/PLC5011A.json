@@ -1,0 +1,13 @@
+{
+    "courseCode": "PLC5011A",
+    "courseCredit": "6",
+    "description": "",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PLC5004",
+            "PLC5001"
+        ]
+    },
+    "title": "Clinical Placement 1"
+}

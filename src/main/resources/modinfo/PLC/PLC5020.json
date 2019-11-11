@@ -1,0 +1,13 @@
+{
+    "courseCode": "PLC5020",
+    "courseCredit": "12",
+    "description": "A research thesis which can be an extension of the thesis submitted in year 2 of the Masters programme or can be a completely new thesis.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "PLC5009",
+            "PLC5010"
+        ]
+    },
+    "title": "Research\u00a0Project\u00a02"
+}

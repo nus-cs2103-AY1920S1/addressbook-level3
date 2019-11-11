@@ -1,0 +1,18 @@
+{
+    "courseCode": "ACC3606",
+    "courseCredit": "4",
+    "description": "This course explores in greater depth complex financial reporting topics introduced in ACC1002 Financial Accounting and ACC3601 Corporate Accounting and Reporting, and it also examines issues relating to fair value accounting. The viewpoint is that of the preparer of financial statements. The discussion centres on the financial reporting issues affecting a firm's profitability and risk. This course is for students who expect to become CPAs.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC3615",
+        "ACC4616"
+    ],
+    "preclusion": "Students who have passed FNA3123 are not allowed to take ACC3606.",
+    "prereqTree": {
+        "or": [
+            "FNA3111",
+            "ACC3601"
+        ]
+    },
+    "title": "Advanced Corporate Accounting and Reporting"
+}

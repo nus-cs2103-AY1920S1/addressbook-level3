@@ -1,0 +1,9 @@
+{
+    "courseCode": "DSC5222B",
+    "courseCredit": "2",
+    "description": "In DSC5222A Analytics for Consulting \u2013 Part 1, an analytics foundation was laid for the analytics-inclined would-be consultant who aims to champion decisionmaking using the data dimension within clients\u2019 organization. This module continues building quantitative know-hows for the sought-after pilots on the data super highway.",
+    "faculty": "NUS Business School",
+    "preclusion": "DSC5211B Analytical Tools for Consulting",
+    "prereqTree": "DSC5211B",
+    "title": "Analytics for Consulting - Part 2"
+}

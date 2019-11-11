@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "CS5425",
+    "courseCredit": "4",
+    "description": "Data science incorporates varying elements and builds on techniques and theories from many fields, including statistics, data engineering, data mining, visualization, data warehousing, and high-performance computing systems with the goal of extracting meaning from big data and creating data products. Data science needs advanced computing systems such as Apache Hadoop and Spark to address big data challenges. In this module, students will learn various computing systems and optimization techniques that are used in data science with emphasis on the system building and algorithmic optimizations of these techniques.",
+    "faculty": "Computing",
+    "preclusion": "CS4225",
+    "prereqTree": "CS2102",
+    "title": "Big Data Systems for Data Science"
+}

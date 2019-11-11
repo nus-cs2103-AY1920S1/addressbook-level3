@@ -1,0 +1,27 @@
+{
+    "courseCode": "EN3244",
+    "courseCredit": "4",
+    "description": "Much of the most memorable literature is concerned with gender-related issues, including religion and gender, social perceptions of gender, the definition and construction of gender roles and, crucially, gender and the formation, nature and expression of identity. This module explores some of the different ways in which literature written by both men and women writers not only explores the dilemmas that come with relationship, but also problematizes notions of gender. It focuses on the variety of ways in which gender-related issues determine not only the motivation and course of personal interaction, but also narrative structure and concern.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "Gender and Literature"
+}

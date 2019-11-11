@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "TCE1109",
+    "courseCredit": "4",
+    "description": "This module introduces students to the fundamental concepts of statics and mechanics of materials and their applications to engineering problems. The topics introduce the fundamentals of structural mechanics, material behaviour and failure models to appreciate the use of materials. Both Mechanics of rigid body and deformable body are covered.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "CE1109",
+    "title": "Statics And Mechanics of Materials"
+}

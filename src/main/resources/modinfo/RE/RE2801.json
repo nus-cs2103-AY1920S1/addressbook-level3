@@ -1,0 +1,9 @@
+{
+    "courseCode": "RE2801",
+    "courseCredit": "4",
+    "description": "This module teaches the skills needed for scientific research in real estate and urban studies. It focuses on the applied econometrics. Major topics includes multiple regressions, simultaneous equation models, discrete choice models, time series analysis, differences-in-differences, fixed verse random effects and panel data analysis. The issues of model selections, multicollinearity, heteroscedasticity, autocorrelation, instrumental variables and identification are introduced. It also addresses the whole research process including identifying research problem; defining research questions, objectives and significance; conducting literature review; developing research framework and research design; collecting data and performing survey; conducting qualitative or quantitative analyses; reasoning research results and writing up.",
+    "faculty": "Design and Environment",
+    "preclusion": "RE3201 Research Methodology",
+    "prereqTree": "RE1702",
+    "title": "Research Methodology in Real Estate"
+}

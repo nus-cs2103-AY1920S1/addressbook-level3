@@ -1,0 +1,12 @@
+{
+    "courseCode": "BAA6002",
+    "courseCredit": "4",
+    "description": "The primary objective of the course is to introduce Ph.D. students to advanced research topics in accounting. The course will focus on selected areas of research in accounting, including but not limited to the following: 1. Information in Accounting Numbers 2. Earnings Response Coefficient (ERC) 3. The Post-Earnings-Announcement Drift 4. Cost of Equity Capital 5. Trading Volume, Non-Directional 6. Trading Volume, Directional 7. Insider Trading 8. Taxation and the Capital Market, Payout Policy 9. Taxation and the Capital Market, Capital Structure 10. Corporate Social Responsibilities Disclosure 11. Accounting Standards and Reporting Quality 12. China Related Topics",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BAA6003A",
+        "BAA6003C"
+    ],
+    "prereqTree": "BAA6001",
+    "title": "Accounting Research Seminars II"
+}

@@ -1,0 +1,38 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "QF3101",
+    "courseCredit": "4",
+    "description": "The module aims to present the student with the basic paradigms of modern financial investment theory, to provide a foundation for analysing risks in financial markets and to study the pricing of financial securities. Topics will include the pricing of forward and futures contracts, swaps, interest rate and currency derivatives, hedging of risk exposures using these instruments, option trading strategies and value-at-risk computation for core financial instruments. A programming project will provide students with hands-on experience with real market instruments and data. This module targets all students who have an interest in quantitative finance.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FIN4124",
+        "FIN4719",
+        "QF5210A",
+        "QF5210",
+        "QF4102A",
+        "QF4102"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1104",
+                    "MA1505",
+                    "MA1507",
+                    "MA2104"
+                ]
+            },
+            {
+                "or": [
+                    "MA2222",
+                    "QF2101",
+                    "MA3269"
+                ]
+            }
+        ]
+    },
+    "title": "Investment Instruments: Theory and Computation"
+}

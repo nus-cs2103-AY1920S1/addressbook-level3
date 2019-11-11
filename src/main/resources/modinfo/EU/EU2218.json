@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "EU2218",
+    "courseCredit": "4",
+    "description": "This module introduces students to the major works of Machiavelli, Hobbes, Locke, Adam Smith, Rousseau, and Nietzsche. These thinkers help us to understand the sources of current and competing beliefs about social and political life. So, while we seem to cherish ideas such as freedom, progress, and creativity, we are also troubled by the impact of these ideas on our beliefs in the importance of culture, tradition, and community. This module would be helpful to students interested in the political implications of globalization and the new economy.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PS2231, PS2201B, PS2218",
+    "title": "Western Political Thought"
+}

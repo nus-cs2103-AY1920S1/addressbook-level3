@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUA3170",
+    "courseCredit": "4",
+    "description": "This module will cover the concepts, techniques, and aesthetics of mixing sound for stereo and multi-channel formats. Topics of the module will include signal processing in time, dynamic and frequency domain; creating stereo image. Students will be requested to finish at least 5 mixing projects for different types of music from pop, jazz to rock and rap.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3172"
+    ],
+    "prereqTree": "MUA2171",
+    "title": "Audio Postproduction I"
+}

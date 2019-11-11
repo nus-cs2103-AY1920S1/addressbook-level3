@@ -1,0 +1,8 @@
+{
+    "courseCode": "ST3246",
+    "courseCredit": "4",
+    "description": "The module aims to introduce students how statistical methods are used to construct actuarial loss models in order to manage the financial risks in this uncertain world. Major topics includes a model-based approach to Actuarial Science, loss distributions, frequency distributions, aggregate loss models, parametric models, effects of policy modifications, statistical inference for loss models, credibility theory.",
+    "faculty": "Science",
+    "prereqTree": "ST2132",
+    "title": "Statistical Models for Actuarial Science"
+}

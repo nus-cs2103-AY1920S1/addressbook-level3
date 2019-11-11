@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TBA2105",
+    "courseCredit": "4",
+    "description": "Web mining aims to find useful information from the web about the market trends and competitor movements. This module covers the fundamental concepts of web mining and web search techniques and equip with skills and capacity to analyse, design and develop web search and web mining applications.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TBA3102"
+    ],
+    "prereqTree": "TIC2601",
+    "title": "Web Mining"
+}

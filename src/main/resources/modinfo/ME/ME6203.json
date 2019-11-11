@@ -1,0 +1,7 @@
+{
+    "courseCode": "ME6203",
+    "courseCredit": "4",
+    "description": "The objective of the module is to introduce the principles of diffusive and convective mass transfer. Students will acquire the ability to critically assess technical literature, develop physical models for engineering systems and obtain numerical solutions. The course outline is: principles of transport phenomena; differential formulations of conservation equations of mass, momentum and energy; scale analysis; diffusion in gases, liquids and solids; estimation methods for diffusivities; free and forced and forced convection mass transfer; inter-phase mass transfer overall mass transfer coefficients; simultaneous heat and mass transfer; engineering applications involving absorption, drying etc.",
+    "faculty": "Engineering",
+    "title": "Mass Transport"
+}

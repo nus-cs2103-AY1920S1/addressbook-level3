@@ -1,0 +1,36 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "CS5332",
+    "courseCredit": "4",
+    "description": "Biometrics (such as fingerprint, iris images) are commonly used for authentication. This module covers authentication methods, different types of biometrics, pattern recognition, performance measurement, spoofing attacks, as well as issues such as privacy, user acceptance, and standards compliance. Students will gain a solid understanding of the fundamentals of the technology underlying biometric authentication, and the key issues to be addressed for successful deployment. Both the theoretical and practical aspects of biometrics authentication will be discussed.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "CS2040",
+            {
+                "or": [
+                    "MA1102R",
+                    "MA1505",
+                    "MA1505C",
+                    "MA1521"
+                ]
+            },
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1506"
+                ]
+            },
+            {
+                "or": [
+                    "ST1232",
+                    "ST2131",
+                    "ST2334"
+                ]
+            }
+        ]
+    },
+    "title": "Biometric Authentication"
+}

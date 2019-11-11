@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "DSA5102",
+    "courseCredit": "4",
+    "description": "The module introduces the theory and methods of machine learning, including the description of modern algorithms, their theoretical basis, and the illustration of their applications to real-world problems. Major topics include: PAC learning, VC dimension, support vector machines, kernel methods, boosting, convex optimization, stochastic gradient descent, regression, clustering, generative models, decision trees, neural network, on-line learning, reinforcement learning.",
+    "faculty": "Science",
+    "preclusion": "CS5339",
+    "title": "Foundations of Machine Learning"
+}

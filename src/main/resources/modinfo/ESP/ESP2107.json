@@ -1,0 +1,25 @@
+{
+    "courseCode": "ESP2107",
+    "courseCredit": "4",
+    "description": "This module introduces numerical methods and statistics. Students will learn the fundamentals of numerical methods and statistics and how to apply these to solve a range of engineering and science problems. They will mainly write and debug their own codes in MATLAB\u00ae and are exposed to complex engineering problems and solving through COMSOL\u00ae Multiphysics \u2013 a finite-element-based simulation environment. The numerical methods include, e.g., solving for roots of equations, integrating numerically and finding solutions to ordinary and partial differential equations. The statistical methods include basic concepts of probability and statistics and how they are used in the acquisition and processing of data.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CS5461",
+        "CS3244",
+        "CS4261",
+        "CS4268",
+        "IT3011"
+    ],
+    "prereqTree": {
+        "and": [
+            "MA1507",
+            {
+                "or": [
+                    "MA1508",
+                    "MA1508E"
+                ]
+            }
+        ]
+    },
+    "title": "Numerical Methods and Statistics"
+}

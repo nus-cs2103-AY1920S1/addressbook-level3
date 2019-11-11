@@ -1,0 +1,9 @@
+{
+    "courseCode": "EE4204E",
+    "courseCredit": "4",
+    "description": "This module provides an in-depth treatment of fundamental topics of network design based on the Internet protocol stack model. It is aimed at making students understand how networks work through understanding of the underlying principles of sound network design. This course covers topics including network requirements, architecture, protocol stack models, Ethernet Token Ring, Wireless, and FDDI networks, bridges, switching and routing in IP and ATM networks, and internetworking. Apart from learning the concepts in networks, the students will gain expertise in analyzing and designing networking protocols through mini-projects.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "CS2105 and CS3103 and TEE3204, EE3204E, TEE4204",
+    "prereqTree": "TE2003",
+    "title": "Computer Networks"
+}

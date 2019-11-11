@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5134",
+    "courseCredit": "4",
+    "description": "This module aims to provide a comprehensive treatment of topics on optical communications and optical networking. The first part covers the topics on the physical layer of optical communications. It covers the basic constituents of optical communication systems including optical fibers, optical transmitters/receivers, wavelength multiplexers/demultiplexers, optical switches, optical amplifiers, and wavelength converters; and transmission system engineering such as dispersion management and Q-factor analysis. The second part covers the topics on optical networking. It discusses network switch architectures, design, algorithms, and protocols related to wavelength division multiplexing (WDM) circuit switching, optical burst switching, optical packet switching, and optical access networks.",
+    "faculty": "Engineering",
+    "preclusion": "EE5912 and EE6134",
+    "title": "Optical Communications and Networks"
+}

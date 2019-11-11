@@ -1,0 +1,11 @@
+{
+    "courseCode": "ENV3102",
+    "courseCredit": "4",
+    "description": "This module is directly connected to ENV3101, which serves as a prerequisite. The scope, scale and learning mission of the proposed module are complex and challenging, due to the field work needed and the necessary preparation required. Based on concepts and theoretical issues as well as specific environmental knowledge, this module will be focused on the actual field work on site which will last between 3-4 weeks in one of the countries within the Asian region. This field studies part of ENV3101 will be formally set in the special semester (summer) of the academic year.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ENV4101"
+    ],
+    "prereqTree": "ENV3101",
+    "title": "Environmental Challenges: Asian Case Studies II"
+}

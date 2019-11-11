@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2101",
+    "courseCredit": "4",
+    "description": "There are few things that impact our lives as much as our sense of time. Singapore is a \u2018fast-paced\u2019 city where deadlines, time-saving apps and fertility clocks shape people\u2019s actions and experiences, and where many feel \u2018time poor\u2019, even if they are cash rich. In this module, we examine the ways in which we take time for granted through analysing the ways in which our lives are temporally grounded. We do so particularly through tracing connections between individual experience, social life and technologies such as clocks and watches, electric lighting and the internet. Is time-stress inevitable in this day and age? What does it mean to use one\u2019s time well?",
+    "faculty": "Residential College",
+    "preclusion": "GEM2902% or GEM2905% or GEM2907% or GEM2908% or GEM2909% or GEM2910% or UTC21%",
+    "prereqTree": {
+        "or": [
+            "GEM1902",
+            "GEM1912"
+        ]
+    },
+    "title": "Time and Life"
+}

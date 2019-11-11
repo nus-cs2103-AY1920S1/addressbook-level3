@@ -1,0 +1,11 @@
+{
+    "courseCode": "PC4243",
+    "courseCredit": "4",
+    "description": "The objective of this module is to provide students with a background to the important developments in atomic physics over the last 30 years that have now become standard techniques utilized in many laboratories around the world. The lectures provide a detailed description of the interaction of atoms with electromagnetic fields and applies this analysis to a number of applications such as laser spectroscopy, laser cooling, and magnetic and optical trapping. The course will provide students with a comprehensive background to the tools of modern atomic physics",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "QT5201F"
+    ],
+    "prereqTree": "PC3233",
+    "title": "Atomic & Molecular Physics II"
+}

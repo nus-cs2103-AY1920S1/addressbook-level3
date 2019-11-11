@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "CE4257A",
+    "courseCredit": "2",
+    "description": "This module equips participants with the fundamentals of finite element principles to enable them to understand the behavior of various finite elements and to be able to select appropriate elements to solve physical and engineering problems with emphasis on structural and geotechnical engineering applications. The module is targeted at practicing engineers involved in application of the finite element method in civil engineering problems.",
+    "faculty": "Engineering",
+    "title": "Finite Element Concepts & Applications"
+}

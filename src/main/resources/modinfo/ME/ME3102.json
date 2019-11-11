@@ -1,0 +1,8 @@
+{
+    "courseCode": "ME3102",
+    "courseCredit": "4",
+    "description": "This is a follow-up module from ME3101 in which students fabricate and commission the prototype design worked on in Semester 5. Emphasis is placed on the integration of the components of the complete system and the optimization of the final design. Effective group dynamics and the experience of the process and problems involved in translating paper design to prototype are key objectives of this module. This is a core module.",
+    "faculty": "Engineering",
+    "prereqTree": "ME3101",
+    "title": "Mechanical Systems Design II"
+}

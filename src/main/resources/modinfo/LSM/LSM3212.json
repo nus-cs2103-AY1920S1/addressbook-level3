@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "LSM3212",
+    "courseCredit": "4",
+    "description": "The heart and lungs are central to the maintenance of homeostasis in the human body by bringing essential materials to and removing wastes from the body?s cells. This module covers the basic physiology of the cardiovascular and pulmonary systems using exercise to illustrate the onset of homeostatic imbalances and the body's responses to restore homeostasis. Students will be able to identify the benefits that exercise imparts to cardiorespiratory fitness and overall health.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM3214",
+        "LSM4215"
+    ],
+    "prereqTree": "LSM2211",
+    "title": "Human Physiology: Cardiopulmonary System"
+}

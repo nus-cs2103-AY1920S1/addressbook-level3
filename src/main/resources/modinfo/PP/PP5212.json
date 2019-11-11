@@ -1,0 +1,13 @@
+{
+    "courseCode": "PP5212",
+    "courseCredit": "4",
+    "description": "This course is an introduction to selected aspects of Asian economic development and the region's interactions with the rest of the world. It will focus on developing simple analytical tools to understand key trends and macroeconomic, financial and trade policy issues that confront Asia in the world economy. Topics covered include sources of growth in the Newly Industrializing Economies (NIEs) in East Asia, the rise of China and India and their impact on the global trading system, foreign direct investment to Asia, currency crisis in Asia, Asia in the global financial system, and issues relating to Asian economic regionalism.",
+    "faculty": "LKY School of Public Policy",
+    "prereqTree": {
+        "and": [
+            "PP5101",
+            "PP5102"
+        ]
+    },
+    "title": "Financial Issues, Trade and Investment in Asia"
+}

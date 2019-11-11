@@ -1,0 +1,12 @@
+{
+    "courseCode": "LSM3267",
+    "courseCredit": "4",
+    "description": "This module provides an in-depth coverage of the relationships that organisms have with each other and with the environment. Key concepts in organismal interactions, illustrated with examples from general diverse animals and ecological systems, to ultimate and proximate explanations of animal interactions and other life history characteristics, will be covered. Students will be given the opportunity to assimilate and critically evaluate contemporary literature on relevant current issues. Experimental studies will be designed, proposed and carried out by students to improve the understanding of animal behaviour and to appreciate the significance of behaviour in ecology as well as other related disciplines.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM4267",
+        "LSM4268"
+    ],
+    "prereqTree": "LSM2251",
+    "title": "Behavioural Biology"
+}

@@ -1,0 +1,10 @@
+{
+    "courseCode": "DEP5102",
+    "courseCredit": "4",
+    "description": "This module provides students with a thorough understanding of the urban planning modes and their historical and socioeconomical contexts. It covers zoning, planning modules and plan-making processes. Zoning as the most fundamental tool managing city development and urban life will be elaborated. Topics of the nature and characteristics of urban planning models such as the Utopian City, the Garden City, the City Beautiful, Neighbourhood Unit, and New Town movement, will be covered. The processes of plan-making will be discussed in the context of Singapore and other Asian countries.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "DEP5109"
+    ],
+    "title": "Urban Planning History & Theory"
+}

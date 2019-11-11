@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3281B",
+    "courseCredit": "4",
+    "description": "Students will be introduced to the different methodologies for assessing memory performance such as simple and complex memory spans, direct and indirect tests of memory. Selected techniques in manipulating encoding and studying retrieval in short-term memory, working memory, and long-term memory will be covered. Students will work in small groups to design and conduct an experiment using these methodologies and submit individual research reports. Prior background and interest in cognitive psychology will be very helpful.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132",
+            "PL3233"
+        ]
+    },
+    "title": "Lab in Memory and Cognition"
+}

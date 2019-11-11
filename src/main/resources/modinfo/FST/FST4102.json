@@ -1,0 +1,8 @@
+{
+    "courseCode": "FST4102",
+    "courseCredit": "4",
+    "description": "This module provides an in-depth study of the modern food processing methods, newly developed food packaging systems, and the advanced control of food processes. Topics include high pressure processing, pulsed electric fields processing, irradiation, active packaging technologies, instrumentation technology, and process control techniques.",
+    "faculty": "Science",
+    "prereqTree": "FST3103",
+    "title": "Advanced Food Processing Technology"
+}

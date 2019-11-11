@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAJ3202",
+    "courseCredit": "4",
+    "description": "This module further enhances skills and strategies to discuss complex topics such as social, cultural, and historical issues based on authentic materials. Students will also learn how to summarize long and difficult texts, how to structure essays and skills to read newspapers. By the end of this module, students will attain good all-round proficiency in the four skills (listening, speaking, reading and writing) and will be able to handle more elaborate situations in communicating with native speakers.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "JS4229",
+        "LAJ4205"
+    ],
+    "prereqTree": {
+        "or": [
+            "LAJ3201",
+            "LAJ3203"
+        ]
+    },
+    "title": "Japanese 6"
+}

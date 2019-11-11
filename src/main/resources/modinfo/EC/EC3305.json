@@ -1,0 +1,8 @@
+{
+    "courseCode": "EC3305",
+    "courseCredit": "4",
+    "description": "This module focuses on teaching programming tools and econometric software for economics. The aim is for students to master basic programming skills and to know how to use broadly used econometrics software. It will be a \"hands-on\" module during which students will learn to explore, modify, manage, and analyze data. They will also learn how to learn by themselves skills that will not be covered in class. At the end of the course, students will be able to produce a given analysis starting from any type of raw data. Applications will cover several fields of applied economics.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": "EC2303",
+    "title": "Programming Tools for Economics"
+}

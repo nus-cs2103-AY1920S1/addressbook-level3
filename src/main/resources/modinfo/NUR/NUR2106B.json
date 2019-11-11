@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "NUR2106B",
+    "courseCredit": "3",
+    "description": "The module enables students to integrate nursing theory and clinical knowledge through experience in clinical placement attachments in medical, surgical and/or community care settings. Students will focus on planning, implementing and evaluating nursing care for allocated client. Students will apply knowledge from nursing and clinical sciences in the clinical management of clients. Attendance for the scheduled clinical practicum is mandatory.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "preclusion": "NUR2106A Nursing Practice Experience 2.1",
+    "title": "Clinical Practice: Medical/Surgical II"
+}

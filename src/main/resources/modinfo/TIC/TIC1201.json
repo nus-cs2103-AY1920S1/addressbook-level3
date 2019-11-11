@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "TIC1201",
+    "courseCredit": "4",
+    "description": "This module introduces mathematical tools required in the study of computer science. Topics include: (i) Logic and proof techniques; (ii) Relations and functions; (iii) Mathematical formulation of data models (linear model, trees and graphs), and (iv) Counting and combinatorics.",
+    "faculty": "Cont and Lifelong Education",
+    "prereqTree": "TMA1001",
+    "title": "Discrete Structures"
+}

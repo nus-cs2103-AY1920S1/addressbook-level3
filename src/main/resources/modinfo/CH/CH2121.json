@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CH2121",
+    "courseCredit": "4",
+    "description": "An essential module for students majoring in Chinese Studies/Chinese Language, this course is a general survey of the development of Chinese literature from ancient times to the Qing Dynasty. It is designed to introduce students to the main features of various literary trends, genres and styles, as well as to major writers of various periods and their representative works. The course also caters to students across the University with an interest in classical Chinese literature.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "CH2161",
+        "CH2162"
+    ],
+    "preclusion": "CL2121",
+    "title": "History of Chinese Literature"
+}

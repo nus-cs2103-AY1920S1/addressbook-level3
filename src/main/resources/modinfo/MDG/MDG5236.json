@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MDG5236",
+    "courseCredit": "2",
+    "description": "This course covers the various pathways from fundamental to applied research in the biomedical field. Using major diseases as a backdrop, dynamic researchers with established track records in interdisciplinary and translational research will teach on various topics, with the objective of illustrating the evolution of projects from bench to bedside/ industry.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "MDG5237",
+        "MDG5240"
+    ],
+    "title": "Pathways to Biomedical Innovation and Enterprise"
+}

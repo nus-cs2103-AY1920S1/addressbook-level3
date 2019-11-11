@@ -1,0 +1,8 @@
+{
+    "courseCode": "IS3223",
+    "courseCredit": "4",
+    "description": "This course focuses on the understanding of the role of IT in enabling effective supply chain strategies in the global economy. Particularly, it focuses on the how to plan the integration of supply chain components into a coordinated system using IT. Besides the basic concepts, students will be exposed to the role of IT in risk pooling and inventory placement, integrated planning and collaboration, and information sharing in supply chain management.",
+    "faculty": "Computing",
+    "preclusion": "CS4267",
+    "title": "IT and Supply Chain Management"
+}

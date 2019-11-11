@@ -1,0 +1,20 @@
+{
+    "courseCode": "PC2133",
+    "courseCredit": "4",
+    "description": "Structure of solids, practical determination of structure, elasticity, phonons and latticevibration; thermal propertire of insulators, free electron gas; semiconductor crystals. Transport properties.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ESP3102",
+        "PC3243",
+        "PC3242",
+        "PC3241"
+    ],
+    "preclusion": "Students who have passed PC3235 are not allowed to take PC2133",
+    "prereqTree": {
+        "or": [
+            "PC1144",
+            "PC1433"
+        ]
+    },
+    "title": "Applied Solid State Physics"
+}

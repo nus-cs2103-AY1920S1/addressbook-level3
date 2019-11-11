@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "MLE5301",
+    "courseCredit": "2",
+    "description": "The objective is to expose students to different metallic and ceramic materials used in additive manufacturing (AM) and their applications. Major topics include: a brief overview of metallic materials, their applications & market and conventional fabrication techniques; AM techniques suitable for metals and technical challenges; Metals used in additive manufacturing including steels, aluminium alloys, titanium alloys and superalloys; current status of additive manufacturing of ceramic materials.",
+    "faculty": "Engineering",
+    "title": "Metallic & Ceramic Materials in Additive Manufacturing"
+}

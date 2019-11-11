@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "BN2204",
+    "courseCredit": "4",
+    "description": "The module aims to introduce students to the applications of engineering statics and dynamics to perform simple force analysis of the musculoskeletal system; give an appreciation of kinematics and kinetics of human motions; apply the fundamentals of mechanics, i.e. stress and strain in biological systems, shear force, bending moment and torsion.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "BN4201",
+        "BN3202"
+    ],
+    "preclusion": "EG1109/EG1109M Statics and Mechanics of Materials",
+    "title": "Fundamentals of Biomechanics"
+}

@@ -1,0 +1,19 @@
+{
+    "courseCode": "EE2020",
+    "courseCredit": "5",
+    "description": "This is a first course that introduces fundamental digital logic, digital circuits, and programmable devices. The course also provides an overview of computer systems. This course provides students with an understanding of the building blocks of modern digital systems and methods of designing, simulating and realizing such systems. The emphasis of this module is on understanding the fundamentals of digital design across different levels of abstraction using hardware description languages.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE5518",
+        "EE2024",
+        "CG2028"
+    ],
+    "prereqTree": {
+        "or": [
+            "EE1002",
+            "CG1108",
+            "EG1108"
+        ]
+    },
+    "title": "Digital Fundamentals"
+}

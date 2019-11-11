@@ -1,0 +1,8 @@
+{
+    "courseCode": "MA6219",
+    "courseCredit": "4",
+    "description": "This module is designed for graduate students in mathematics who are interested in mathematical logic. It consists of the following parts: (a) background knowledge in recursion theory; (b) basic techniques in degree theory, such as forcing and priority methods; (c) some generalizations and applications of recursion theory.",
+    "faculty": "Science",
+    "prereqTree": "MA5219",
+    "title": "Recursion Theory"
+}

@@ -1,0 +1,18 @@
+{
+    "courseCode": "LSM4226",
+    "courseCredit": "4",
+    "description": "This module aims at providing an in-depth knowledge in the field of host-pathogen interactions, i.e how the immune system deals with pathogens, and how the pathogens deal with the host\u2019s immune system. An introductory lecture series covers the basics in microbiology (bacteriology, virology, parasitology), immunology, vaccinology, and general principles of host-pathogen interactions. Selected diseases illustrate host-pathogens interactions along with the consequences for vaccine and drug design. The following set of lectures covered by clinicians and professionals focus on patient management, field study, as well as safety aspects when working with pathogens in a research lab. Tutorials are broken into 'journal club', 'article write-up exercise' and 'problem-based study' and are directly related to the topics developed during the lectures.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "LSM3223",
+            {
+                "or": [
+                    "LSM3225",
+                    "LSM3232"
+                ]
+            }
+        ]
+    },
+    "title": "Infection and Immunity"
+}

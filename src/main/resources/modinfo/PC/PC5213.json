@@ -1,0 +1,13 @@
+{
+    "courseCode": "PC5213",
+    "courseCredit": "4",
+    "description": "This module focuses on theories and techniques used in some important areas of biophysics and life sciences. The topics covered are: quantum mechanical approach of light and transition; absorption spectroscopy; linear and circular dichroism of biological molecules; emission spectroscopy, fluorescence spectroscopy and applications to biomacromolecules; NMR; equilibria of macromolecular solutions; biomembrane structure and transport of macromolecules and transport across biomembranes; kinetics and techniques of protein crystallization; biomineralization/demineralization in human body. This module also includes a lab component. This module is targeted at both physics and non-physics students who already have a basic knowledge in physics, thermodynamics and molecular biology.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "PC4267",
+            "PC4268"
+        ]
+    },
+    "title": "Advanced Biophysics"
+}

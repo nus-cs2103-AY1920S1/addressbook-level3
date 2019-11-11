@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "BL5233",
+    "courseCredit": "4",
+    "description": "Analysis and modeling of environmental biology data are essential skills in environmental biology in general and ecological research in particular. The range of statistical and modeling techniques necessary to analyze real data and the complexities inherent to natural systems will be covered. The module will provide graduate students with the expertise to perform modeling and statistical inference on environmental biology datasets at a publishable standard. Topics covered include: generalized linear models, generalized additive models, generalized linear mixed-effects models, analysis of communities structure, time series and spatial statistics.",
+    "faculty": "Science",
+    "title": "Biological data analysis with R"
+}

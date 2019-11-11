@@ -1,0 +1,40 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MA1521",
+    "courseCredit": "4",
+    "description": "This module provides a basic foundation for calculus and its related subjects required by computing students. The objective is to train the students to be able to handle calculus techniques arising in their courses of specialization. In addition to the standard calculus material, the course also covers simple mathematical modeling techniques and numerical methods in connection with ordinary differential equations. Major topics: Preliminaries on sets and number systems. Calculus of functions of one variable and applications. Sequences, series and power series. Functions of several variables. Extrema. First and second order differential equations. Basic numerical methods for ordinary differential equations.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "DSC3214",
+        "CS5240",
+        "CS5241",
+        "CS5249",
+        "CS5343",
+        "CS5332",
+        "CS3244",
+        "CS4243",
+        "CS3242",
+        "CS4347",
+        "CS3218",
+        "IS4242",
+        "BT4240",
+        "BT2101",
+        "MA2104",
+        "MA2216",
+        "MA3220",
+        "MA2312",
+        "MA2311",
+        "MA2213",
+        "MA2108S",
+        "MA2108",
+        "MA1506",
+        "MA1104",
+        "ST2334",
+        "ST2131",
+        "IT3011"
+    ],
+    "preclusion": "Students reading a primary major in Mathematics/Applied Mathematics/Quantitative Finance/Data Science and Analytics, MA1102R, MA1312, MA1505, MA1507, MA2501, FoE students",
+    "title": "Calculus for Computing"
+}

@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "IE5203",
+    "courseCredit": "4",
+    "description": "This module teaches the necessary analytical knowledge and practical skills for improving decision-making processes in engineering and business environments. This is achieved by providing a paradigm based on normative decision theory and a set of prescriptive tools and computational techniques using state-of-the art software with which a stake holder can systematically analyze a complex and uncertain decision situation leading to clarity of action. Topics from utility theory and influence diagrams modeling to multi-attribute utility theory and analytic hierarchy process are covered.",
+    "faculty": "Engineering",
+    "title": "Decision Analysis"
+}

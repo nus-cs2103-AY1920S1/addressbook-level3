@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5111",
+    "courseCredit": "4",
+    "description": "The module offers students timely and updated coverage of a wide range of topics relevant to common industrial practice and control, smart sensor and instrumentation tapping on the latest and diverse range of developments in the repertoire of the control group and collaborating companies and institution, such as the delivery of a measured collation of case studies of industrial control and smart sensor and instrumentation applied to real problems of a diverse nature and which are not easily and directly available from standard literature. The nature of the module allows the flexibility for recent topics, problems and solutions to be shared with the students.",
+    "faculty": "Engineering",
+    "preclusion": "EE5060 Smart Sensor and Instrumentation for Automation \nEE5061 Industrial Control and IEC Programming",
+    "title": "Selected Topics in Industrial Control & Instrumentation"
+}

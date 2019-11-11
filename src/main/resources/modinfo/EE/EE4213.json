@@ -1,0 +1,9 @@
+{
+    "courseCode": "EE4213",
+    "courseCredit": "4",
+    "description": "Image perception such as color, etc will be covered in EE4212, and hence this topic is deleted. Coverage of some enhancement topics is deleted, as these are covered in EE3206, restoration is streamlined. About four hours would be saved through this which will be utilized towards topics in video processing such as representation, block based motion estimation, motion compensated filtering and coding.",
+    "faculty": "Engineering",
+    "preclusion": "CS4243",
+    "prereqTree": "EE3206",
+    "title": "Image and Video Processing"
+}

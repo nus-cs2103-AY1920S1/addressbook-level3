@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "CM4242",
+    "courseCredit": "4",
+    "description": "Advanced mass spectrometric methods, and scanning probe microscopies form an important group of advanced analytical techniques widely used for research & development, and also for process/product control in advanced manufacturing industries. Microfluidics & labchip techniques, in particular, are increasingly used for biochemical assays in biomedical devices. Students will learn the principles, instrumentation and applications of these techniques, and receive in-depth training in selected advanced analytical techniques, including advanced mass spectrometry (ICP-MS).",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CM5241"
+    ],
+    "prereqTree": "CM3242",
+    "title": "Advanced Analytical Techniques"
+}

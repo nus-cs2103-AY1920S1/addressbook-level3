@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "IE5105",
+    "courseCredit": "4",
+    "description": "This module introduces the fundamentals of Supply Chain Systems. It covers topics related to the Modelling of Supply Chain Systems so as to provide the best flow of products through the Supply Chain Systems.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "IE5880"
+    ],
+    "preclusion": "IE5401 Industrial Logistics\nIE5405 Inventory Systems",
+    "title": "Modelling for Supply Chain Systems"
+}

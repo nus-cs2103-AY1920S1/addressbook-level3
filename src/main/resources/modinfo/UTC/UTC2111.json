@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2111",
+    "courseCredit": "4",
+    "description": "This module considers how development is pictured and visualised and, to a lesser extent, textualised through a focus on industries such as finance, information technology, tourism and the creative industries. This visual view on development allows students to develop a critical, conceptual perspective on how development is imagined, performed and carried out in these industries. Through a visual engagement with field sites, the module explores the intersection and interplay between organisations and bureaucracies on one hand and broader societies and collectives on the other. Development is 'seen' through the perspectives of performance, experience, concepts and practice.",
+    "faculty": "Residential College",
+    "preclusion": "GEM2902% or GEM2905% or GEM2907% or GEM2908% or GEM2909% or GEM2910% or UTC21%",
+    "prereqTree": {
+        "or": [
+            "GEM1902",
+            "GEM1912"
+        ]
+    },
+    "title": "Picturing and Seeing Development"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3202",
+    "courseCredit": "4",
+    "description": "In this module, we study the sound pattern of English, with an eye on developing a deeper understanding of the phonological phenomena in English in relation to crosslinguistic patterns. We investigate the segmental properties - phonemes and their distribution and alternation; as well as suprasegmental properties - how segments are organized into syllables, syllables into feet, and feet into words. As part of the phonetic bases for phonological patterns, we study the speech organs, the description and classification of speech sounds, and other aspects of articulatory phonetics relevant for phonological patterns.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL2102",
+            "EL2202"
+        ]
+    },
+    "title": "Phonetics and Phonology"
+}

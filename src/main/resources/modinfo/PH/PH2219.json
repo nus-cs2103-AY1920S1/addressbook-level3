@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PH2219",
+    "courseCredit": "4",
+    "description": "This module will trace an intellectual dialogue between two central traditions in 20th Century European philosophy: the Frankfurt School of Critical Theory and post-Heideggerian Hermeneutics. The module will provide an introduction to the main thinkers of both traditions: Theodor Adorno, Max Horkheimer, Herbert Marcuse for the Frankfurt School and Martin Heidegger, Hans Georg Gadamer and Paul Riceour for the Hermeneuticists. We will also examine different conceptualisations of reason and how both schools were shaped by their attempts to grapple with, and respond to, the implications of understanding reason as a practice conditioned by particular histories and forms of life.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EU2222",
+    "title": "Critical Theory and Hermeneutics"
+}

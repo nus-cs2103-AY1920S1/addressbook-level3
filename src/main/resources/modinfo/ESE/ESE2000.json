@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ESE2000",
+    "courseCredit": "4",
+    "description": "This module aims to familiarize students with basic principles in environmental chemistry and to provide a foundation for chemical concepts required in later years for Environmental Engineering. Topics covered include Thermodynamics and reaction kinetics, Equilibrium relations; Chemistry of Solutions; Acids and bases; Solution Chemistry; Organic Chemistry; Electrochemistry and redox reactions; Basic Biochemistry; Nuclear reactions. Concepts will be emphasized with respect to environmental sustainability, drawing on applications and examples in environmental engineering (e.g. water reclamation, waste to energy, waste to resources, etc)",
+    "faculty": "Engineering",
+    "preclusion": "ESE1001, ESE1001FC, ESE1001X",
+    "title": "Environmental Engineering Fundamentals"
+}

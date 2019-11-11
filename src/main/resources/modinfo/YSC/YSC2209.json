@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YSC2209",
+    "courseCredit": "5",
+    "description": "Mathematicians and computer scientists write proofs: convincing arguments, combining clear and concise language, computations and symbolic manipulation, illustrations and tables. By reading, writing, and revising proofs, students will be prepared for modern topics in analysis, algebra, geometry, and theoretical computer science. Students will write proofs that utilize direct deduction and proof by contradiction, complicated logical structures with cases, and mathematical induction. Students will acquire a thorough knowledge of na\u00efve set theory, including sets and functions, equivalence relations and classes, cardinal and ordinal arithmetic. Topics in discrete mathematics will include the combinatorics of finite structures such as graphs and trees.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC3206",
+        "YSC3218",
+        "YSC4206",
+        "YSC3225",
+        "YSC3237"
+    ],
+    "preclusion": "YSC1203 (previous module code for Proof)",
+    "title": "Proof"
+}

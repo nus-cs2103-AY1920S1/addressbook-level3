@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS2240",
+    "courseCredit": "4",
+    "description": "This module looks at how one's voice is made and how one can modulate it. Students will get an understanding of the physiological processes that produce voice and the relationship between mind and body in vocal communication. Hence this is also a very practical workshop using techniques developed by actors and singers that will improve the resonance and musicality of the speaking voice and also vocal strength and endurance. Using verse, prose and dramatic text, students will work on vocal characteristics - pitch, intonation patterns, pace and pausing, placement - and so improve their oral delivery.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Voice Studies and Production"
+}

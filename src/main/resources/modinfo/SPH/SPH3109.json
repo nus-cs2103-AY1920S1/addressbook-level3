@@ -1,0 +1,13 @@
+{
+    "courseCode": "SPH3109",
+    "courseCredit": "4",
+    "description": "This skill-based module introduces students to the planning and designing of health interventions and public health programmes. It provides the theoretical constructs that underpin the development of public health programmes, as well as provides students the opportunity to design a real programme for a specific identified health issue for implementation by a local organisation. The theoretical knowledge and practical skills developed in this module include being able to analyse any given health situation or problem, perform a baseline (via real field exercise), identify and prioritise possible interventions, and develop plans for implementation.",
+    "faculty": "SSH School of Public Health",
+    "prereqTree": {
+        "and": [
+            "GEK1900",
+            "SPH2101"
+        ]
+    },
+    "title": "Designing Public Health Programmes"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "TME4254",
+    "courseCredit": "4",
+    "description": "This module highlights various engineering properties of the materials that are of paramount importance to a design engineer along with various design philosophies that are commonly practised. It develops the analytical ability of students in choosing the most appropriate material from a design engineer\u2019s perspective. The topics are covered: Introduction of eng-ineering materials; Materials selection for weight-critical applications; Materials for stiffness based designs; Materials for strength-based designs; Materials for damage tolerant designs; Materials and fatigue-based designs; Materials and design against corrosion; Materials for wear critical applications; Materials for biomedical applications; and Materials Selection for special applications.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TM4254, ME4254E",
+    "prereqTree": {
+        "or": [
+            "TME2151",
+            "ME2151E"
+        ]
+    },
+    "title": "Materials in Engineering Design"
+}

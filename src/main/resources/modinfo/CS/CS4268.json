@@ -1,0 +1,30 @@
+{
+    "courseCode": "CS4268",
+    "courseCredit": "4",
+    "description": "This module will introduce basics of quantum computing and cover various well known algorithms e.g. Deutsch-Jozsa algorithm, Simon\u2019s algorithms, quantum Fourier transform, phase estimation, order finding, Shor\u2019s algorithm and Grover\u2019s algorithm. The module will also cover some basics in quantum information theory, cryptography and error correction.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "CS3230",
+            {
+                "or": [
+                    "ESP1107",
+                    "ESP2107",
+                    "ST1232",
+                    "ST2131",
+                    "ST2132",
+                    "ST2334"
+                ]
+            },
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1311",
+                    "MA1506",
+                    "MA1508E"
+                ]
+            }
+        ]
+    },
+    "title": "Quantum Computing"
+}

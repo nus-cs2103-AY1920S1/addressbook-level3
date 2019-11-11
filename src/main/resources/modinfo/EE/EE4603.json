@@ -1,0 +1,13 @@
+{
+    "courseCode": "EE4603",
+    "courseCredit": "4",
+    "description": "The purpose of this course is to present an overview of biomedical imaging systems. The course will examine various imaging modalities including X-ray, ultrasound, nuclear, and MRI. How these images are formed and what types of information they provide will be presented. Image analysis techniques will also be discussed. Specific analysis techniques will include the analysis of cardiac ultrasound, mammography, and MRI functional imagery.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "EE2023",
+            "BN2401"
+        ]
+    },
+    "title": "Biomedical Imaging Systems"
+}

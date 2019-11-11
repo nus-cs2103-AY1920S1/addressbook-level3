@@ -1,0 +1,16 @@
+{
+    "courseCode": "DSC3218",
+    "courseCredit": "4",
+    "description": "This course helps students to learn about the strategic importance of good distribution planning and operations. A strategic framework of physical distribution design is presented to help build critical managerial skills for decision making in the management of physical distribution and transportation of goods and services. The course emphasizes the application of quantitative and analytical techniques to physical distribution system design (facility location, vehicle routing and fleet planning) and transportation management in Asia. Some programming knowledge of Visual Basic is assumed. Where available, Asian cases will used to highlight and educate the reader on unique business operations in this region.",
+    "faculty": "NUS Business School",
+    "preclusion": "BH3218 or BZ3401 or BK3504",
+    "prereqTree": {
+        "or": [
+            "DSC2006",
+            "BH2006",
+            "BZ2003",
+            "BK2006"
+        ]
+    },
+    "title": "Physical Distribution Management"
+}

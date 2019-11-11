@@ -1,0 +1,7 @@
+{
+    "courseCode": "CS6209",
+    "courseCredit": "4",
+    "description": "The objective of this module is to provide a systematic treatment to cryptography techniques. Topics covered include: mathematical foundations; information theory; classical cryptographic systems: substitution cipher, shift cipher, affine cipher, hill ciphers, permutation cipher, etc.; design and analysis of block ciphers; pseudorandom numbers and sequences; design and analysis of stream cipher cryptosystems; identification and entity authentication; key management techniques; Rabin public-key encryption; McEliece public-key encryption; signature schemes: RSA, EIGamal, and digital signature standard; design and analysis of hash functions; cryptographic protocols; and efficient implementations.",
+    "faculty": "Computing",
+    "title": "Topics in Cryptography"
+}

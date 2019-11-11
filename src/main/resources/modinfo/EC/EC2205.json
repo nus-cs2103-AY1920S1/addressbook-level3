@@ -1,0 +1,14 @@
+{
+    "courseCode": "EC2205",
+    "courseCredit": "4",
+    "description": "This course introduces students to managerial economics including the organizational aspects of business. Managerial economics extracts from microeconomic theory those concepts and techniques that enable managers to select strategic direction, to allocate efficiently the resources available to the organization, and to respond effectively to tactical issues. Students will analyse how the economist is able to provide valuable insights to managers on topics such as costs, prices, markets, mergers, divestitures, globalization, and personnel policies. The important role of the entrepreneur in the economy will be examined and students will also gain an insight into the real world- functioning of business management.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "All BBA, BAC, BBA (Hons) and BAC(Hons) students are not allowed to take EC2205",
+    "prereqTree": {
+        "or": [
+            "EC1101E",
+            "EC1301"
+        ]
+    },
+    "title": "Economic Analysis of Business"
+}

@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "CN5161",
+    "courseCredit": "4",
+    "description": "Polymer Production, polymerization kinetics, methods of bulk, solution, dispersion, suspension and emulsion polymerization; design of polymerization reactors; analysis of polymer processing operations, extrusion, film blowing, wire-coating, injection molding, blow moulding, thermoforming, calendering and mixing; polymer rheology, the kinematics of deformation and flow, viscometry and rheometry, constitutive equations based on continuum/rational mechanics and on molecular theory.",
+    "faculty": "Engineering",
+    "preclusion": "CN4203",
+    "title": "Polymer Processing Engineering"
+}

@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "BH1002",
+    "courseCredit": "4",
+    "description": "The course provides an introduction to financial accounting. It examines accounting from an external user's perspective: an external user being an investor or a creditor. Such users would need to understand financial accounting in order to make investing or lending decisions. However, to attain a good understanding, it is also necessary to be familiar with how the information are derived. Therefore, students would learn how to prepare the reports or statements resulting from financial accounting and how to use them for decision-making.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC2002",
+        "FNA2002",
+        "FIN2004",
+        "FIN3113",
+        "FNA2004",
+        "FNA3113",
+        "FIN2004X"
+    ],
+    "title": "Financial Accounting"
+}

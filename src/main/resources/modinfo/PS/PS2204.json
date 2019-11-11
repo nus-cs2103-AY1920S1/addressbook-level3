@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PS2204",
+    "courseCredit": "4",
+    "description": "This module explores major political ideas and concepts from the modern Western tradition. Key political constructs such as power, authority, justice, liberty and democracy are examined in intellectual and historical context. Reading Thomas Hobbes\u2019s Leviathan and John Locke\u2019s Second Treatise on Government, among other influential writings, students will be exposed to the broader themes and ideas that have shaped political life in the West since 1600.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PS3269"
+    ],
+    "preclusion": "EU2204",
+    "title": "Modern Western Political Thought"
+}

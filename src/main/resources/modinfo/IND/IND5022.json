@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "IND5022",
+    "courseCredit": "4",
+    "description": "The big data evolution provides an opportunity for managing significantly larger amounts of information and acting on it with analytics for improved diagnostics and prognostics. Understanding data science and data analytics is allowing managers to remain competitive and relevant in the rapidly changing landscape. Through industry case studies, this module will introduce the analytics approaches that can help participants understand and approach to real world issues, from processing and exploring data to provide insights, developing a data product, and communicating a data story in a capstone project. Participants will also learn essential knowledge and skills for managing successful data analytics projects. It dives into analytical tools, scoping data analytics problems and best practices in the setup of a data analytics project. The course will provide extensive hands-on exercises on solving business problems using supervised and unsupervised learning.",
+    "faculty": "Cont and Lifelong Education",
+    "title": "Data Analytics and Smart Manufacturing"
+}

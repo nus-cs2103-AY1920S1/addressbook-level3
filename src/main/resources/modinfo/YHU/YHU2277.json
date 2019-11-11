@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU2277",
+    "courseCredit": "5",
+    "description": "This module provides an introduction, at 2000 level, to the basic contexts, methods, and preoccupations of postcolonial literatures (in English and in translations into English). Its aim is (a) to provide a foundation of ideas, concepts, and reading methods which can provide the basis for wider reading in postcolonial cultures, and (b) to study authors and texts drawn from a wide range of colonial and postcolonial societies.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Postcolonial Literatures: An Introduction"
+}

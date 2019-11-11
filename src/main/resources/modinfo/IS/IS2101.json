@@ -1,0 +1,29 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "IS2101",
+    "courseCredit": "4",
+    "description": "Business and Technical Communication a customized core module for the School of Computing, aims to give its students a professional edge in the competitive and interconnected job market by preparing and enhancing their professional communication skills in IT related work settings. By the end of the module, students will have an array of communicative skills. Students will be able to: - write effective and persuasive business letters/ email messages and proposals - speak and deliver confidently with and without multimodal aids both in prepared and impromptu speech situations such as meetings, job interviews, oral presentations and proposal presentations - have an enhanced awareness of intercultural and interpersonal concepts and skills - critically analyze communication contexts and use these skills in written and spoken assignments This is a 48-hour module taught over 12 weeks with a three-hour tutorials and a one-hour online lecture + related per week.",
+    "faculty": "NUS",
+    "fulfillRequirements": [
+        "CP3880",
+        "CS3201",
+        "BT4103",
+        "IS4103",
+        "IS3103",
+        "IS4010",
+        "BT3101",
+        "UIS3954R",
+        "IS3150"
+    ],
+    "preclusion": "ES2002, ES2007D, CS2101, CS2103T and ES1601.",
+    "prereqTree": {
+        "or": [
+            "ES1000",
+            "ES1102",
+            "ES1103"
+        ]
+    },
+    "title": "Business and Technical Communication"
+}

@@ -1,0 +1,7 @@
+{
+    "courseCode": "SG3202",
+    "courseCredit": "4",
+    "description": "The objectives of this course are to show how WinForms can be used in the .NET architecture, and how GUI applications can be developed using WinForms and C#. The course begins by giving an overview of .NET technology Microsoft Visual NET Overview and C# Overview. It then focuses on aspects of windows programming, including WinForms Basics, Event Handling; creating menus and dialog Boxes. Other features, such as ADO.NET, MIDI, and GDI+ are also covered. There will be a .NET implementation assignment. This course will be targeted on developers and software engineers who have to implement sophisticated GUIs or .NET systems.",
+    "faculty": "Institute of Systems Science",
+    "title": "Windows Programming"
+}

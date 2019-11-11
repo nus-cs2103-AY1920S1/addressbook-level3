@@ -1,0 +1,13 @@
+{
+    "courseCode": "MLE4208",
+    "courseCredit": "4",
+    "description": "This module teaches materials aspects for a wide variety of photovoltaic devices covering conventional p-n junction cells based on Si wafers, amorphous or nanocrystalline Si, bulk heterojunction solar cells, nanostructured solar cells including dye-sensitised solar cells, organic solar cells and quantum structured solar cells, etc. emphasising the materials science and engineering aspects of advanced photovoltaic devices. Therefore students will gain an understanding of the role of materials development and characterisation for current and emerging photovoltaic technologies. Specific objectives include understanding of the physics of photovoltaics, general working principles of individual photovoltaic devices, the roles of photovoltaic materials and how they are incorporated in various photovoltaic devices; attain an informed view on the current aspects of photovoltaic technologies and photovoltaic materials, ability to select materials for device application based on their optical, electrical properties.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "MLE2105",
+            "EE3406"
+        ]
+    },
+    "title": "Photovoltaics Materials"
+}

@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "PR3146",
+    "courseCredit": "4",
+    "description": "The Pharmacy Law in Singapore module teaches pharmacy undergraduates about the legal and ethical aspects affecting the practice of pharmacy. It covers two areas in particular \u2013 firstly, the regulation of pharmacists and the pharmacy profession according to the Pharmacists Registration Act and the Pharmacists\u2019 Code of Ethics, and secondly, the regulation of medical and health-related products commonly handled by pharmacists.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR4197",
+        "PR4198",
+        "PR3137",
+        "PR4138"
+    ],
+    "prereqTree": "PR1140",
+    "title": "Pharmacy Law in Singapore"
+}

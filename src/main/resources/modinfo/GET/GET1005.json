@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GET1005",
+    "courseCredit": "4",
+    "description": "This module introduces students to some basic concepts in informal logic to help them apply these arguments in academic writing so that they will be better able to evaluate as well as write critical and logical responses to materials read in various disciplines ranging from the social sciences to engineering and the sciences.",
+    "faculty": "NUS",
+    "preclusion": "GEM1008",
+    "title": "Evaluating Academic Arguments"
+}

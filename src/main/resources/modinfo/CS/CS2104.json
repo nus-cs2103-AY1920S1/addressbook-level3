@@ -1,0 +1,24 @@
+{
+    "courseCode": "CS2104",
+    "courseCredit": "4",
+    "description": "This module introduces the concepts that serve as a basis for hundreds of programming languages. It aims to provide the students with a basic understanding and appreciation of the various essential programming-languages constructs, programming paradigms, evaluation criteria and language implementation issues. The module covers concepts from imperative, object-oriented, functional, logic, constraints, and concurrent programming. These concepts are illustrated by examples from varieties of languages such as Pascal, C, Java, Smalltalk, Scheme, Haskell, Prolog. The module also introduces various implementation issues, such as pseudo-code interpretation, static and dynamic semantics, abstract machine, type inferencing, etc.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5215",
+        "CS5219",
+        "CS4212",
+        "CS4214",
+        "CS4216"
+    ],
+    "prereqTree": {
+        "or": [
+            "CS1020",
+            "CS1020E",
+            "CS2020",
+            "CS2030",
+            "CS2113",
+            "CS2113T"
+        ]
+    },
+    "title": "Programming Language Concepts"
+}

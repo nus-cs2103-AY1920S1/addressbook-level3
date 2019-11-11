@@ -1,0 +1,21 @@
+{
+    "courseCode": "CN2125E",
+    "courseCredit": "4",
+    "description": "Students will learn the fundamental principles of heat and mass transfer relevant to the chemical engineering discipline. This course considers three modes of heat transfer, namely, conduction, convection, and radiation. For heat conduction, both steady and unsteady states are examined. These are followed by an analysis for convective heat transfer and heat transfer with phase change and subsequently radiation heat transfer. Steady and unsteadystate molecular diffusion is studied, while convective mass transfer is analyzed using exact and approximate integral analysis. Finally, analogies between mass, heat and momentum transfer is discussed to integrate the concept of transport phenomena.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "CN3421E",
+        "CN3132E",
+        "CN4118E",
+        "CN4205E",
+        "CN4233E"
+    ],
+    "preclusion": "TC2115, TCN2125",
+    "prereqTree": {
+        "or": [
+            "TC2112",
+            "CN2122E"
+        ]
+    },
+    "title": "Heat And Mass Transfer"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "BAA6003C",
+    "courseCredit": "2",
+    "description": "This module is designed to prepare doctoral students with the necessary knowledge and skills to complete their dissertations. Methodological and econometric issues surrounding topics such as financial analysts and stock market anomalies would be covered.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "and": [
+            "BAA6001",
+            "BAA6002"
+        ]
+    },
+    "title": "Seminar on Financial Analyst Research"
+}

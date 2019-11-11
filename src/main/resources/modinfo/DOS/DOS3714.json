@@ -1,0 +1,9 @@
+{
+    "courseCode": "DOS3714",
+    "courseCredit": "4",
+    "description": "The objective of this course is to study how a company can use its operations to improve environmental performance and contribute to business success at the same time.",
+    "faculty": "NUS Business School",
+    "preclusion": "DSC3226",
+    "prereqTree": "DAO2703",
+    "title": "Sustainable Operations Management"
+}

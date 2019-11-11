@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "FNA1002E",
+    "courseCredit": "4",
+    "description": "This course is a first course in Financial Accounting. It is not the purpose of this course to train students to be accountants. A knowledge and appreciation of accounting is however useful in understanding the reports contained in the financial press and journals; and in future investing activities when assessing business' financial position and performance. The subject aims to facilitate your understanding of accounting in general, the objectives of external published reports, and the concepts/assumptions and processes which underlie the preparation of accounting reports. Basic concepts and principles will be taught without being excessively technical. You will also be taught how to read and do simple analysis of financial statements.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC2002",
+        "FNA2002",
+        "FIN2004",
+        "FIN3113",
+        "FNA2004",
+        "FNA3113",
+        "FIN2004X"
+    ],
+    "title": "Financial Accounting"
+}

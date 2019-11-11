@@ -1,0 +1,15 @@
+{
+    "courseCode": "YHU2304",
+    "courseCredit": "5",
+    "description": "It has been estimated that 12 million African slaves were shipped to the Americas between 16th and the 19th centuries. Few people are aware, however, that half a million African slaves were also transported to various locations in the Indian Ocean and South China Sea during the same period. This course explores the trafficking in and employment of slaves in a comparative and global context from ancient Rome until today. We will examine the role slavery (in its various forms) has played in the development of empires spanning the Atlantic and Indian Oceans over many centuries.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1113",
+            "YCC1122",
+            "YCC1121"
+        ]
+    },
+    "title": "Global Histories of Slavery"
+}

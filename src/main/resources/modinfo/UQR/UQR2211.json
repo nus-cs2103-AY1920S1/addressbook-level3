@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UQR2211",
+    "courseCredit": "4",
+    "description": "This module discusses on the implications of 'time' for quantitative analyses. What is 'time'? How is it important for understanding certain phenomena? How might its passage, in and of itself, be of interest? What econometric models are appropriate for quantitatively testing timerelated hypotheses? Students will explore these questions using political science as a thematic topic. They will first read substantive material, regarding the importance of time for understanding the processes that produce politics-related phenomena. Students will then learn more advanced quantitative modelling strategies that can accommodate the implications of 'time,' allowing students to correctly test time-related hypotheses (e.g., survival analysis).",
+    "faculty": "University Scholars Programme",
+    "preclusion": "Not applicable to USP modules.",
+    "prereqTree": "UQF2101",
+    "title": "Passing Time: Processes, Temporality, and  Econometrics"
+}

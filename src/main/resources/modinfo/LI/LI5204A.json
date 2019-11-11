@@ -1,0 +1,8 @@
+{
+    "courseCode": "LI5204A",
+    "courseCredit": "2",
+    "description": "This module explores the application of technology in logistics and supply chains for optimization, simulation and modelling to improve operational efficiency. Simulation modelling enables logisticians and supply chain planners and managers to manage complexity, increase profitability and improve customer service to enhance competitiveness of the business. Topics covered include analytics and simulation-based decision support systems for logistics planning and supply chain management, strategic supply chain network design, simulation and optimisation models for managing complexity, improving efficiency and increasing agility of the supply chain.",
+    "faculty": "Engineering",
+    "preclusion": "LI5204 Supply Chain Simulation and Optimization",
+    "title": "Decision Support for Supply Chain"
+}

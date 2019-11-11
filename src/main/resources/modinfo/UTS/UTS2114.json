@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTS2114",
+    "courseCredit": "4",
+    "description": "With a rapid growth in ageing population, technological advancements offer opportunities to impact the lives of the elderly in Singapore. There is an increasing need to improve the health and social needs of the ageing population. In what ways can we do to help the elderly achieve a sense of worth, confidence and productivity? How do technologies empower and disempower the elderly to have a stronger connection to their community and improved social life? What kind of technologies are required to address the needs of the growing ageing population in the future and how can Singapore develop them?",
+    "faculty": "Residential College",
+    "preclusion": "SSU2000% or SSU2004% or SSU2006% or UTS21%",
+    "prereqTree": {
+        "or": [
+            "GEM1902",
+            "GEM1912"
+        ]
+    },
+    "title": "Technologies and Ageing in Singapore"
+}

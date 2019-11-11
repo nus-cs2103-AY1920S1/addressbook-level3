@@ -1,0 +1,16 @@
+{
+    "courseCode": "MKT3402C",
+    "courseCredit": "4",
+    "description": "This module provides an overview of consumer behaviour theories, research, and applications. It is designed to develop knowledge and skills that will facilitate an understanding of buyer behaviour which can be integrated into the formulation of marketing strategies. This will be accomplished by surveying the social science underpinnings of consumer behaviour as well as various types of consumer research which may be valuable for specific marketing decisions. The module thus emphasises the content and logical application of theories and research in analysing consumer behaviour for solving marketing management problems.",
+    "faculty": "NUS Business School",
+    "preclusion": "BH3420 or BZ3605 or BK3203 or MKT3402A or MKT3402B",
+    "prereqTree": {
+        "or": [
+            "MKT1003",
+            "BH1003",
+            "BZ1003",
+            "BK2003"
+        ]
+    },
+    "title": "Consumer Behaviour"
+}

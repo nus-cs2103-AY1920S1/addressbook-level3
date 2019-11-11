@@ -1,0 +1,14 @@
+{
+    "courseCode": "YSC2228",
+    "courseCredit": "5",
+    "description": "This is a first course in equilibrium statistical thermodynamics. It begins with examining the concepts of probability, microstates and macrostates in understanding thermal phenomena, linking these to entropy, the Boltzmann factor, ensembles, and the partition function. We apply these concepts to elementary physical and chemical models such as classical and quantum gases, solids, phase transitions, chemical reactions, solute-solvent interactions, polymer structure. Within the Physical Sciences major, it will count toward pathways in biophysics, chemistry, chemical physics, materials science, nanoscience, physics, or related fields.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "YSC3224 Statistical Thermodynamics (previous code)",
+    "prereqTree": {
+        "or": [
+            "YSC1207",
+            "YSC1213"
+        ]
+    },
+    "title": "Statistical Thermodynamics"
+}

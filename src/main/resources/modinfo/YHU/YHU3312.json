@@ -1,0 +1,20 @@
+{
+    "courseCode": "YHU3312",
+    "courseCredit": "5",
+    "description": "In the early 1930s, Hollywood films were still struggling to use sound. By 1939, movie studios were churning out masterpieces like Gone with the Wind and The Wizard of Oz. The intervening decade was perhaps the most transformative in the history of the cinematic medium. We will study the major events that form the backdrop for groundbreaking innovations in American filmmaking, including the Dust Bowl, the Great Depression, Prohibition, and the rise of Fascism and Nazism in the lead-up to World War II, as well as watching movies from the era and doing original archival research.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YCC1111",
+            "YCC1113",
+            "YCC1122",
+            "YCC1121",
+            "YCC1112",
+            "YCC1114",
+            "YCC1131",
+            "YCC2121",
+            "YCC2137"
+        ]
+    },
+    "title": "Hollywood in the 1930s"
+}

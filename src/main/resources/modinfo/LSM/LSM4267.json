@@ -1,0 +1,8 @@
+{
+    "courseCode": "LSM4267",
+    "courseCredit": "4",
+    "description": "Animals rely on various sensory systems to detect environmental information; a common mode involves light detection. Many rely on visual stimuli for numerous behavioural activities; humans often fail to understand these light signals. This module will introduce: (i) the fundamentals of light detection, (ii) the instrumentation and software involved in accurate detection, quantification/characterisation of animal/plant light signals, (iii) the formulation of hypotheses in animal-animal and animal-plant visual communication from interdisciplinary sciences (e.g. behaviour, conservation, optics), and (iv) relevant industrial applications. This module will also visit some other systems beyond the visible light spectrum, for example: infrared reception and thermoreception.",
+    "faculty": "Science",
+    "prereqTree": "LSM3267",
+    "title": "Light & Vision in Animal Communication"
+}

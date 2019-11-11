@@ -1,0 +1,17 @@
+{
+    "courseCode": "AUD5221",
+    "courseCredit": "4",
+    "description": "This module builds on the foundation knowledge acquired in Hearing Devices and Rehabilitation A. In particular, this subject will cover: - advanced issues in the selection of hearing aid features; - advanced verification techniques; - issues in the use of prescriptive and non-prescriptive setting of amplification of hearing aids; - paediatric hearing aid fitting considerations and issues; - use of vibrotactile devices; - use of devices within tinnitus management program; advanced outcome assessment",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "prereqTree": {
+        "and": [
+            "AUD5101",
+            "AUD5104",
+            "AUD5105",
+            "AUD5111",
+            "AUD5106",
+            "AUD5112"
+        ]
+    },
+    "title": "Hearing Devices and Rehabilitation B (Part 2)"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "YSC2212",
+    "courseCredit": "5",
+    "description": "This course is an introduction to the laboratory techniques in analytical and organic chemistry with an emphasis on the fundamental principles and utilisation of state\u2010of\u2010the\u2010art instruments.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "YSC2207 Techniques in Analytical Chemistry and YSC2208 Techniques in Organic Chemistry (previous module codes)",
+    "prereqTree": {
+        "or": [
+            "YSC1207",
+            "YSC1213"
+        ]
+    },
+    "title": "Instrumental Analysis with Laboratory"
+}

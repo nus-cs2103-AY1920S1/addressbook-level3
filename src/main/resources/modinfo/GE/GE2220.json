@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GE2220",
+    "courseCredit": "4",
+    "description": "This module provides an assessment of the main contemporary terrestrial and coastal processes that combine to influence the development of landscapes. Included is a detailed discussion of weathering, hillslope processes and fluvial landforms and processes, particularly in humid tropics. Examples of human-induced modification of terrestrial and coastal environments are given. Students will obtain a sound understanding of basic geomorphic principles, which can be applied in the context of broader environmental management issues in both urban and rural areas. The module does not require an extensive science or mathematics background and is suitable as a basic course for FASS as well as science and engineering students.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "GE3223"
+    ],
+    "title": "Terrestrial and Coastal Environments"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "ESE3201",
+    "courseCredit": "4",
+    "description": "This module equips students with fundamental knowledge in atmospheric air quality, covering regional and global issues. It provides basic knowledge and training in formulating and evaluating air pollution problems, predicting the effects of airborne pollutants, and offers engineering solutions. The topics covered include effects of emission sources and pollutants, importance and application of air pollution models, as well as air pollution control strategies and devices. The composition and impact of atmospheric system, chemical reactions of stratospheric ozone, and global climate forcing are also included.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ESE4406",
+        "ESE4407",
+        "ESE4408",
+        "ESE4409"
+    ],
+    "title": "Air Quality Management"
+}

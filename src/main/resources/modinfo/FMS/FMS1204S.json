@@ -1,0 +1,8 @@
+{
+    "courseCode": "FMS1204S",
+    "courseCredit": "4",
+    "description": "The purpose of this seminar is to explore the relationship between fraud and deception and statistics. Very often misleading claims in science and in society more generally can arise from an ignorance of basic statistical ideas, but statistical methods can also be abused knowingly in fraudulent behaviour. On the other hand, statistical methods are also commonly used to detect and uncover fraud and dishonesty. After first looking at different kinds of deception involving data and the motivations for it this seminar will discuss the role of statistics in uncovering deception in areas such as: 1. Misleading claims in health; 2. Misleading surveys and opinion polls; 3. Claims and counterclaims in environmental science; 4. Fraud detection in the financial world; 5. Authorship disputes and detecting plagiarism It is intended that students gain an appreciation for basic statistical ideas for handling uncertainty as a key part of good scientific practice and decision making in society broadly.",
+    "faculty": "Science",
+    "preclusion": "Students who have read a Freshman Seminar before will be precluded from reading a second Freshman Seminar.\n\nStudents staying in Residential Colleges in UTown who will be reading or have read the Junior Seminars will be precluded from reading Freshman Seminar in the Faculty.",
+    "title": "FS: Fraud, Deception and Data"
+}

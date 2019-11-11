@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "BPS5223",
+    "courseCredit": "4",
+    "description": "This module deals with Energy Efficient (EE) Technologies, i.e. passive systems for Green Buildings. The focus is on building facade optimization and the EE domain includes thermal, daylight, ventilation performance and the choice of suitable materials as well as the interrelation of these with architectural design (e.g. form, shape, orientation, massing). Analysis and optimization capability teaching is established on a basic understanding of heat transfer mechanisms in buildings. It also deals with the introduction of prevailing analysis, evaluation and optimization methodologies.",
+    "faculty": "Design and Environment",
+    "preclusion": "Students who have taken BPS5204 not able to take  BPS5223",
+    "title": "Building Energy Performance - Passive Systems"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "SPH5101",
+    "courseCredit": "4",
+    "description": "In this module, the principles of statistical modelling will be introduced, and statistical models such as multiple linear regression, logistic regression and Cox proportional hazards model will be applied to a variety of practical medical problems. Methods for analysing repeated measures data, assessment of model fit, statistical handling of confounding and statistical evaluation of effect modification will also be discussed.",
+    "faculty": "SSH School of Public Health",
+    "preclusion": "CO5218 Advanced Quantitative Methods I,\nSPH6002 Advanced Quantitative Methods II",
+    "title": "Advanced Quantitative Methods I"
+}

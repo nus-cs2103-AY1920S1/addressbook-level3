@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5107",
+    "courseCredit": "4",
+    "description": ".The course introduces students to the advanced principles and concepts on the analysis and design of pile foundations in accordance with Eurocode 7 requirements and guidelines. Students will learn how to use insitu field tests results to obtain appropriate pile design parameters. They will also learn how to appreciate and appraise complex pile foundation problems under various loading and boundary conditions, using both conventional theoretical, semi-empirical as well as advanced numerical modeling techniques (such as UniPile and Plaxis). The course enables students to acquire the knowledge and practical skills through the course project assignments and case studies in the practice of advanced pile design.",
+    "faculty": "Engineering",
+    "preclusion": "TCE5107",
+    "prereqTree": {
+        "and": [
+            "CE2112",
+            "CE3116"
+        ]
+    },
+    "title": "Pile Foundations"
+}

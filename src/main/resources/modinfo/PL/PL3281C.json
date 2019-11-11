@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3281C",
+    "courseCredit": "4",
+    "description": "This module extends students' experience of laboratory work to the fields of cognitive psychology and psycholinguistics. On a general level, students will learn about the principles of experimental design, ethics appraisal, data collection, and statistical analysis. More specifically, students will identify a research question, conduct their own experiment, and write up a laboratory report on topics relevant to models of word recognition and reading.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132",
+            "PL3233"
+        ]
+    },
+    "title": "Lab in Reading Processes"
+}

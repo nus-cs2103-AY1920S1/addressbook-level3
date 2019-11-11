@@ -1,0 +1,20 @@
+{
+  "_comment" : "FinanceTracker save file which contains the same Installments and Purchases values as in TypicalFinances#getTypicalFinanceTracker()",
+  "monthlyLimit" : null,
+  "installments" : [ {
+    "description" : "Phone bill",
+    "amount" : "40.0"
+  }, {
+    "description" : "Transport concession",
+    "amount" : "25.0"
+  } ],
+  "purchases" : [ {
+    "description" : "Lunch at Deck Japanese stall",
+    "amount" : "4.5",
+    "date" : "29/11/2019"
+  }, {
+    "description" : "Dinner at Reedz Cafe",
+    "amount" : "5.9",
+    "date" : "29/11/2019"
+  } ]
+}

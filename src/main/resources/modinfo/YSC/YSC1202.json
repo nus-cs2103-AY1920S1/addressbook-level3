@@ -1,0 +1,11 @@
+{
+    "courseCode": "YSC1202",
+    "courseCredit": "5",
+    "description": "This course introduces students with little or no programming experience to computational thinking and programming. Students will learn some basic concepts and techniques from computer science and programming and apply them to problems from different scientific domains, which might include epidemics, optimal routes in networks, data mining, and winning simple games.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC3219",
+        "YSC3225"
+    ],
+    "title": "Introduction to Computation and Programming for All"
+}

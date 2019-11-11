@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3296",
+    "courseCredit": "5",
+    "description": "This course investigates the relationship between literature (but especially fiction from the late 1700s onward) and various ideas of the supernatural or unreal. Readings explore foundational theories of the supernatural in fiction, revealing how literature uses the supernatural in a variety of ways: for the readerly pleasures of terror and suspense; as allegories of personal or political or social trauma; as problematic symbols of feared otherness (calculated in terms of ethnicity, gender, sexuality, etc); and as a site in which othered or oppressed peoples can respond and resist.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Fiction and the Supernatural"
+}

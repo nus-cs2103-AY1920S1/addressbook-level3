@@ -1,0 +1,16 @@
+{
+    "courseCode": "CN4251",
+    "courseCredit": "4",
+    "description": "This module aims to produce chemical engineers who can contribute and increase the effectiveness of problem solving in the Chemical Process Industries. It introduces robust heuristics and a systematic approach to problem solving, which combines critical and creative thinking with technical knowledge. The skill development is delivered through the presentation of various problem-solving strategies and techniques, and by applying them to real case studies from a few diverse process industries.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "CN2116",
+            "CN2121",
+            "CN2125",
+            "CN3124",
+            "CN3132"
+        ]
+    },
+    "title": "Troubleshooting with Case Studies for Process Engineers"
+}

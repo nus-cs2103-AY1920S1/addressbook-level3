@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GE2227",
+    "courseCredit": "4",
+    "description": "This module aims to introduce students to the basic concepts and techniques for the manipulation, analysis, and the graphic representation of geographic information. Topics covered include the history of mapping, projection, data handling and display, map design, colour and pattern, and computer mapping. Students will learn to produce high quality cartographic displays. The module prepares students for further course work in Geographic Information System (GIS). Additionally, cartographic skills are useful to students preparing for degrees in natural, physical, social and behavioural sciences.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "GE3550A"
+    ],
+    "title": "Cartography and Visualisation"
+}

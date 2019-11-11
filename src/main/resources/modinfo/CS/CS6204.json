@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS6204",
+    "courseCredit": "4",
+    "description": "This graduate level course covers a broad range of the latest developments in computer networking and telecommunications in terms of new techniques and technologies, trends, open research issues and some related new principles and approaches in networking. Selected topics covered via class lectures and assigned readings include developments in the past three years. Upon completion of this course, the student will be able to understand the latest issues and proposed solutions in networking, and acquire the skills and methodology for identifying research problems. This course will help prepare students towards a research career in networking.",
+    "faculty": "Computing",
+    "prereqTree": "CS5229",
+    "title": "Advanced Topics in Networking"
+}

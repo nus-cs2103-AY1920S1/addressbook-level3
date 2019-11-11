@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "IE5213",
+    "courseCredit": "4",
+    "description": "This module introduces service management, with a focus on innovation, to students with an engineering/technology background. The topics covered include the concept of service, value creation and alignment, new service design, service blueprinting, the role of technology such as AI and social media, the physical service environment, balancing demand and supply, and service quality. Upon completing the module, students are expected to be able to analyze service-related problems and propose practical solutions.",
+    "faculty": "Engineering",
+    "title": "Service Innovation and Management"
+}

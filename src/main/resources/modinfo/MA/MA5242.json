@@ -1,0 +1,8 @@
+{
+    "courseCode": "MA5242",
+    "courseCredit": "4",
+    "description": "This module is a course focusing on the theory of wavelets and frames. It covers the following topics: Gabor transform and continuous wavelet transform, Gabor frame and wavelet frame, multi-resolution analysis, tight wavelet frame and orthonormal wavelet basis, applications of wavelet and frame in signal/image processing. The course is for graduate students who are interested in the theory or applications of wavelets and frames.",
+    "faculty": "Science",
+    "prereqTree": "MA4229",
+    "title": "Wavelets"
+}

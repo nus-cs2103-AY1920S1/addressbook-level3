@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "QF4102",
+    "courseCredit": "4",
+    "description": "This module aims to present students with the knowledge of modelling financial process for the purpose of pricing financial derivatives, hedging derivatives, and managing financial risks. The emphasis of this module will be on numerical methods and implementation of models. The course will have two basic elements. First, course work with topics includes: implied trinomial trees, finite difference lattices, Monte Carlo methods, model risk, discrete implementations of short rate models, credit risk and value-at-risk. The second element of the course will be a group project to develop a financial modelling tool. Project topics will be extensions of models contained in the course work. Projects will involve financial modelling as well as writing and presenting a project report. This module targets students in the Quantitative Finance programme.",
+    "faculty": "Science",
+    "prereqTree": "QF3101",
+    "title": "Financial Modelling and Computation"
+}

@@ -1,0 +1,45 @@
+{
+    "courseCode": "CS5240",
+    "courseCredit": "4",
+    "description": "The module lays the theoretical foundation for graduate students to do research in multimedia: images, videos, audio, speech, graphics and text documents. The module covers the main theoretical issues common to various multimedia research. These issues provide a general framework within which specific techniques in particular research areas can be understood. Topics include: vector and signal representations of multimedia, spatial and frequency analyses, models and parameter estimation methods. Examples will be drawn from different types of media. Upon completion, students will be well-grounded to pursue further research in computer vision, graphics, natural language processing, audio analysis and multimedia applications.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS6240"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS1020",
+                    "CS2020",
+                    "CS2040"
+                ]
+            },
+            {
+                "or": [
+                    "MA1102R",
+                    "MA1505",
+                    {
+                        "and": [
+                            "MA1511",
+                            "MA1512"
+                        ]
+                    },
+                    "MA1521"
+                ]
+            },
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1311",
+                    "MA1506",
+                    "MA1508E",
+                    "ST1232",
+                    "ST2131",
+                    "ST2334"
+                ]
+            }
+        ]
+    },
+    "title": "Theoretical Foundations in MultiMedia"
+}

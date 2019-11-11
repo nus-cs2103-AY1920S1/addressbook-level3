@@ -1,0 +1,11 @@
+{
+    "courseCode": "YLC3203",
+    "courseCredit": "5",
+    "description": "This course, together with Advanced Chinese 2, bridges the gap between our current offerings of intermediate and advanced-level Chinese, serving students who have completed YLC 2202 Intermediate Chinese 2 or equivalent. It continues to develop students\u2019 abilities in speaking, orally comprehending, reading, and writing modern Mandarin Chinese and, concomitantly, also serves to deepen students\u2019 understanding of the social and cultural issues facing China today. Students will be routinely drilled in reading and writing throughout the semester. Systematic discussion, debate, and presentation provide students with ample opportunities to practice and enhance their newly acquired linguistic skills and oral fluency.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YLC3204"
+    ],
+    "prereqTree": "YLC2202",
+    "title": "Advanced Chinese 1"
+}

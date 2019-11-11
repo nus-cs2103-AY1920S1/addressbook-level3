@@ -1,0 +1,8 @@
+{
+    "courseCode": "LSM4214",
+    "courseCredit": "4",
+    "description": "This module will introduce students to the general principles of drug actions that underpin their therapeutic applications against cancers, from conventional (non-specific) chemotherapy to target-specific drugs. It will provide details of drugs used in specific cancer types, ranging from those with proven efficacy in clinics (e.g. Gleevec) to experimental agents in trials. Conceptual and theoretical targets (e.g. RNAi and gene therapies) will also be introduced.",
+    "faculty": "Science",
+    "prereqTree": "LSM3211",
+    "title": "Cancer Pharmacology"
+}

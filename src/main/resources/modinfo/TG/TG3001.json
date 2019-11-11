@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "TG3001",
+    "courseCredit": "12",
+    "description": "This module is designed for BTech Engineering students. It leverages on the student\u2019s work experience and focuses the student\u2019s mind on exploring and reflecting on how the concepts and theories gained in the classroom can be translated into industrial practice to enhance his/her work performance. The student is required to complete 3 written reports, 2 oral presentations, and 6 Skills courses. This module is normally taken over two consecutive regular semesters, and is an Unrestricted Elective Module.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TG3002, TTG3002, TTG3001, TIC3901",
+    "title": "Industrial Practice"
+}

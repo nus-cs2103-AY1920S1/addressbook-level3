@@ -1,0 +1,10 @@
+{
+    "courseCode": "FE5209D",
+    "courseCredit": "4",
+    "description": "This module is an elective module for students of MSc in Financial Engineering. The topics include: The statistical modelling and forecasting of financial time series, with application to share prices, exchange rates and interest rates. Market microstructure. Specification, estimation and testing of asset pricing models including the capital asset pricing model and extensions. Modelling of volatility. Practical application of volatility forecasting. Estimating continuous time models.",
+    "faculty": "Risk Management Institute",
+    "fulfillRequirements": [
+        "FE5219"
+    ],
+    "title": "Financial Econometrics"
+}

@@ -1,0 +1,25 @@
+{
+    "courseCode": "YSS2203",
+    "courseCredit": "5",
+    "description": "Microeconomics analyses individual decision making and its implications for economic outcomes. Here the term 'individual' is used broadly to include individuals, households and firms. We deconstruct the demand-supply model by analyzing consumers' choices as outcomes of rational preference maximization and producers' decisions as results of profit maximization in various market structures. We study how equilibrium of demand and supply in competitive markets generates efficient outcomes. We then analyze a variety of instances when markets fail to be efficient. This course will place special emphasis upon mathematical foundations of theoretical models. In particular, we will study and apply techniques in multivariate calculus, and unconstrained and constrained optimization.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS2212",
+        "YSS3203",
+        "YSS3204",
+        "YSS3205",
+        "YSS3206",
+        "YSS3208",
+        "YSS3220",
+        "YSS3224",
+        "YSS3243",
+        "YSS3257",
+        "YSS3258",
+        "YSS3265",
+        "YSS3264",
+        "YSS4227",
+        "YSS4249",
+        "YSS3291"
+    ],
+    "title": "Intermediate Microeconomics"
+}

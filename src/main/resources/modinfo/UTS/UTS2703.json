@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTS2703",
+    "courseCredit": "4",
+    "description": "Energy, environment, sustainability and climate change are multi-disciplinary and inter-related elements.With the increase in green consciousness and possible media hype, the quest for single-point, easy, solutions arise. This module takes a systems-thinking perspective to discover the complex technological interactions behind the political/socio-economic policies in energy/environment in Singapore and the ASEAN region. Explosive economic development regionally, where investment in infrastructure provides rapid 'Returns on Investment\u2019, means that there is greater competition for patient or impact capital for longerterm sustainable projects. Hence, this module shows that while technology is a necessary condition for economic development, it remains an insufficient condition.",
+    "faculty": "Residential College",
+    "preclusion": "UTC2710 or UTS27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Energy and Environment: Singapore and ASEAN Perspectives"
+}

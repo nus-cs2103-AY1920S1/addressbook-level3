@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2713",
+    "courseCredit": "4",
+    "description": "Singapore has a shrinking and ageing citizen population, owing to its declining fertility rates and longer lifespans, rising singlehood and divorce rates, delay in marriages and family formation. Policies designed to lift its fertility rates have had little success. This module will use system dynamics modelling to gain insights into the dynamics and outcomes of population transitions in Singapore and countries facing similar or contrasting demographic challenges. It will also explore changing attitudes and expectations associated with singlehood, marriage and childbearing in Singapore and the region, and seek to understand the interplay of factors creating policy resistance in the city-state.",
+    "faculty": "Residential College",
+    "preclusion": "UTS2705 or UTC27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Modelling Singlehood, Marriage & Fertility in Singapore"
+}

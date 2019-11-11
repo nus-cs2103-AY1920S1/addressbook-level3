@@ -1,0 +1,38 @@
+{
+    "courseCode": "CS3235",
+    "courseCredit": "4",
+    "description": "The objective of this module is to provide a broad understanding of computer security with some indepth discussions on selected topics in system and network security. This module covers the following topics: intrusion detection, DNS security, electronic mail security, authentication, access control, buffer overflow, memory and stack protection, selected topics in application security, for instance, web security, and well-known attacks.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5231",
+        "CS5321",
+        "CS6282",
+        "CS5331",
+        "CS6231",
+        "CS5439",
+        "CS4238",
+        "CS4239",
+        "IFS4102",
+        "IFS4205",
+        "IFS4103"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS2105",
+                    "EE3204",
+                    "EE4204"
+                ]
+            },
+            {
+                "or": [
+                    "CS2106",
+                    "CG2271"
+                ]
+            },
+            "CS2107"
+        ]
+    },
+    "title": "Computer Security"
+}

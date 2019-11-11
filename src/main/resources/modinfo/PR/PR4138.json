@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "PR4138",
+    "courseCredit": "2",
+    "description": "This module will cover contemporary drug information skill and medication therapy management, with focus on geriatric medicine, hormones and contraception, travel medicines, weight managements, complementary medicines/herbal products, and the regulation of pharmaceutical products in Singapore.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "PR3137",
+            "PR3136",
+            "PR3146",
+            "PR2134"
+        ]
+    },
+    "title": "Pharmacy Professional Skills Development IV"
+}

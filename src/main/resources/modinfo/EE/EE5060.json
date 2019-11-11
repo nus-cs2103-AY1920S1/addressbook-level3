@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "EE5060",
+    "courseCredit": "2",
+    "description": "The module offers students timely and updated coverage of a wide range of topics relevant to common industrial practice and motion control, smart sensor and instrumentation tapping on the latest and diverse range of developments in the repertoire of the control group and collaborating companies and institution, such as the delivery of a measured collation of case studies of industrial motion control and smart sensor and instrumentation applied to real problems of a diverse nature and which are not easily and directly available from standard literature. The nature of the module allows the flexibility for recent topics, problems and solutions to be shared with the students.",
+    "faculty": "Engineering",
+    "title": "Sensors and Instrumentation for Automation"
+}

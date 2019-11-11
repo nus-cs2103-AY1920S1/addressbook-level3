@@ -1,0 +1,31 @@
+{
+  "_comment" : "CoursePlanner save file which contains the same Course values as in TypicalCourses#getTypicalCoursePlanner()",
+  "courses" : [ {
+    "title" : "MA1521",
+    "faculty" : "Mathematics",
+    "description" : "This is MA1521",
+    "courseCode" : "MA1521",
+    "courseCredit" : "4",
+    "prereqTree" : null,
+    "preclusion" : "MA1505 precludes",
+    "fulfillRequirements" : null
+  }, {
+    "title" : "1010",
+    "faculty" : "Computing",
+    "description" : "This is CS1010",
+    "courseCode" : "CS1010",
+    "courseCredit" : "4",
+    "prereqTree" : null,
+    "preclusion" : null,
+    "fulfillRequirements" : null
+  }, {
+    "title" : "3230",
+    "faculty" : "Computing",
+    "description" : "This is CS3230",
+    "courseCode" : "CS3230",
+    "courseCredit" : "4",
+    "prereqTree" : "{\"and\": [{\"or\": [\"CS2010\",\"CS2020\",\"CS2040\"]},{\"or\": [\"MA1100\",\"CS1231\"]}]}",
+    "preclusion" : "Some preclusions",
+    "fulfillRequirements" : "[\"CS5000\"]"
+  } ]
+}

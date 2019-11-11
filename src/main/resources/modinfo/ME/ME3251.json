@@ -1,0 +1,8 @@
+{
+    "courseCode": "ME3251",
+    "courseCredit": "4",
+    "description": "This module equips students with basic knowledge in materials selection for mechanical design. The major topics are: Classification of engineering materials; Materials properties in design using case studies; Ferrous alloys (carbon and low-alloy steels, tool steels, stainless steels, cast irons); Non-ferrous alloys (Cu-, Al-, Mg-, Ti-, Zn-, Ni-alloys, etc.); Engineering plastics and composites; Engineering ceramics; Surface engineering and coating techniques; Joining processes; Material selection in design; Product costing and case studies. The module is aimed at students who want to specialise in mechanical product design.",
+    "faculty": "Engineering",
+    "prereqTree": "ME2151",
+    "title": "Materials For Engineers"
+}

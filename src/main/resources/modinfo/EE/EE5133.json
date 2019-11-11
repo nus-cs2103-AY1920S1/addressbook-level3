@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5133",
+    "courseCredit": "4",
+    "description": "This module aims to give a balanced treatment on the use of statistical signal processing and estimation theory techniques for engineering applications in communications, filtering and array processing. While having theoretical rigor, the module will also emphasize the realizability and implementation of algorithms based on prediction, estimation, spectral analysis and optimum processing on existing digital processing systems. The module will include hands-on design sessions where some processing algorithms will be designed, implemented and evaluated.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "EE4131",
+            "EE5306",
+            "EE5137R"
+        ]
+    },
+    "title": "Statistical Signal Processing Techniques"
+}

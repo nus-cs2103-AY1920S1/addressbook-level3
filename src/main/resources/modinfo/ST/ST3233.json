@@ -1,0 +1,16 @@
+{
+    "courseCode": "ST3233",
+    "courseCredit": "4",
+    "description": "This module introduces the modelling and analysis of time series data. A computer package will be used to analyse real data sets. Topics include stationary time series, ARIMA models, estimation and forecasting with ARIMA models This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ST5209"
+    ],
+    "prereqTree": {
+        "or": [
+            "ST2132",
+            "ST2334"
+        ]
+    },
+    "title": "Applied Time Series Analysis"
+}

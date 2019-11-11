@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "ESE5901B",
+    "courseCredit": "2",
+    "description": "This course introduces transport and transformation models for contaminant and environmental technologies including physical, chemical, and biological processes. It elucidates classic and emerging environmental technologies in the planning, design and operation activities for water, wastewater and soil treatment processes applied to local and global environmental problems.",
+    "faculty": "Engineering",
+    "title": "Technologies in Environmental Engineering"
+}

@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUA2271",
+    "courseCredit": "4",
+    "description": "An introduction to instrument sound design using different forms of synthesis and signal processing with computers. Students develop skills in creating sounds they imagine. The module offers aural training in identifying synthesis types, filtering, and other common techniques used in instrument design as well as support in practical implementation of these techniques in software. Projects will include designing a sample-based instrument and developing a sound library with different forms of synthesis. The module uses entry-level graphical synthesis environments. No experience with coding is required.",
+    "faculty": "YST Conservatory of Music",
+    "title": "Virtual Instrument Sound Design"
+}

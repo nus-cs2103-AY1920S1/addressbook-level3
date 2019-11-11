@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "BN2102",
+    "courseCredit": "4",
+    "description": "This course will introduce concepts relevant to the interpretation and statistical analysis of experimental results in the bioengineering field. Theoretical explanations will be followed by hands-on tutorials with relevant computational software. Students will learn how to perform some of the most commonly used statistical analysis of experiments (e.g., z and t tests, ANOVA analysis) as well as to interpret the results of typical bioengineering experiments by building a suitably fitted mathematical model.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "IE2100",
+        "IE2130",
+        "IE3101",
+        "IE4211",
+        "SPH3101"
+    ],
+    "title": "Bioengineering Data Analysis"
+}

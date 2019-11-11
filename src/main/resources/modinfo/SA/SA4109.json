@@ -1,0 +1,13 @@
+{
+    "courseCode": "SA4109",
+    "courseCredit": "8",
+    "description": "The aim of this elective course is to allow students of the Graduate Diploma in Systems Analysis (GDipSA) to specialise in advanced web application design and development. Students will acquire the Web-related skillsets required by majority of local employers who need developers for their Web-related projects. Students will gain a robust foundation in web development techniques, focusing on .NET and Java development skills, and will learn how to design, construct and test web applications on both platforms. The course includes classroom teaching, lab exercises and hands-on design and development projects using both platforms.",
+    "faculty": "Institute of Systems Science",
+    "prereqTree": {
+        "or": [
+            "SA4102",
+            "SA4105"
+        ]
+    },
+    "title": "Advanced Web Development"
+}

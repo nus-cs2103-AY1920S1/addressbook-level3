@@ -1,0 +1,27 @@
+{
+    "courseCode": "MA2311",
+    "courseCredit": "4",
+    "description": "This module applies advanced calculus to practical, computational and mathematical problems. It covers the approximation of a general function by polynomials, the defining equations of lines and planes, the method to find maximum or minimum of a function, as well as the calculation of area, volume, surface area, mass, centre of gravity. The course is for students with advanced calculus background and with interest in the applications of calculus. Major topics: Sequences. Monotone convergence theorem. Series. Absolute and conditional convergence. Tests of convergence. Power series and interval of convergence. Taylor's series. Differentiation and integration of power series. Vector algebra in R2 and R3. Dot product and cross product. Functions of several variables. Limits and continuity. Partial derivatives. Total differentials. Directional derivatives. Gradients of functions. Mean value theorem. Taylor's formula. Maximum and minimum. Second derivative test. Vector valued functions of several variables. Jacobians. Chain rule. Tangent planes and normal lines to surfaces in R3. Lagrange's multiplier method. Multiple integrals. Iterated integrals. Change of order of integration. Change of variable formula for multiple integrals.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA4269A",
+        "DSA3102",
+        "MA4271",
+        "MA4269",
+        "MA3264",
+        "MA3236",
+        "MA3229",
+        "MA3227",
+        "DSA4212"
+    ],
+    "preclusion": "MA1104, MA2104, MA1505, MA1507, MA1511, MA2108, MA2108S, MPE students, Mathematics majors, Applied Mathematics majors, Quantitative Finance majors, second major in Mathematics, second major in Financial Mathematics",
+    "prereqTree": {
+        "or": [
+            "MA1102R",
+            "MA1312",
+            "MA1421",
+            "MA1521"
+        ]
+    },
+    "title": "Techniques in Advanced Calculus"
+}

@@ -1,0 +1,23 @@
+{
+    "courseCode": "MNO2302",
+    "courseCredit": "4",
+    "description": "This module introduces students to the fundamentals of human resource management (HRM), and it provides a foundation for more advanced modules that focus on specific aspects of HRM. It aims to provide students with general understanding of the core areas of HRM, including HR planning, job analysis, recruitment and selection, performance management, training and development, compensation, employee relations, and HRM in an international context. These issues will all be addressed from the perspective of general managers, HRM specialists, and individual employees. Students will be challenged to consider the implications of integrated HR systems, as well as specific HRM policies and implementation procedures, for individual and organisational performance. They will also consider the practical implications of the changing nature of work and the employment relationship.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "MNO3316"
+    ],
+    "preclusion": "BH2302 or BZ3504 or BK3300 or MNO2302A/B or PL3239 or PS3245",
+    "prereqTree": {
+        "or": [
+            "MNO1001",
+            "BH1001",
+            "BZ1001",
+            "BK2002",
+            "HR2001",
+            "HR2101",
+            "HR3111",
+            "HR3308"
+        ]
+    },
+    "title": "Human Resource Management"
+}

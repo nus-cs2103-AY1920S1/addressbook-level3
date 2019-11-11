@@ -1,0 +1,8 @@
+{
+    "courseCode": "MLE4201",
+    "courseCredit": "4",
+    "description": "Surface analyses: X-ray photoelectron spectroscopy; secondary ion mass spectroscopy; Auger electron spectroscopy. Low energy electron diffraction; Energy dispersive X-ray analysis and Rutherford back-scattering; Vibrational spectroscopies: infrared spectroscopy and Raman spectroscopy; Electronic spectroscopy: absorption and fluorescence; Magnetic and magneto-optical characterization: vibrating sample magnetometry, magneto-electronic measurement, magneto-optical Kerr-effect.",
+    "faculty": "Engineering",
+    "prereqTree": "MLE3101",
+    "title": "Advanced Materials Characterisation"
+}

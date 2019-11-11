@@ -1,0 +1,16 @@
+{
+    "courseCode": "YSC2216",
+    "courseCredit": "5",
+    "description": "This course aims to explore the study of biological evolution from a scientific standpoint. It covers topics such as population genetics, quantitative genetics and genomics, analysis of adaptation within and among species, phylogenetic analysis, and macroevolutionary patterns. Some major questions we will address include: Have organisms evolved for 'the good of the species'? Why do some animals cooperate, and why do we see some patterns in the behaviours of the sexes? We\u2019ll examine these topics in lecture, readings of both primary and review literature, discussion, and laboratory exercises which focus on the basics of analytical techniques used in evolutionary studies.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC2240"
+    ],
+    "prereqTree": {
+        "and": [
+            "YC1122",
+            "YC1131"
+        ]
+    },
+    "title": "Evolutionary Biology"
+}

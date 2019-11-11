@@ -1,0 +1,13 @@
+{
+    "courseCode": "LSM3233",
+    "courseCredit": "4",
+    "description": "This course will showcase and examine embryogenesis, starting from fertilisation to birth in the case of animal development; and to germination, growth and differentiation in plants. Students will be exposed to concepts, principles and mechanisms that underlie development in plants and animals. Different organism models will be studied to demonstrate the rapid advances in this field of life sciences.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM4251",
+        "LSM4252",
+        "LSM4256"
+    ],
+    "prereqTree": "LSM2233",
+    "title": "Developmental Biology"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "CS5322",
+    "courseCredit": "4",
+    "description": "Database security has a great impact on the design of today's information systems. This course will provide an overview of database security concepts and techniques and discuss new directions of database security in the context of Internet information management. Topics covered include: Access control models for DBMSs, Inference controls, XML database security, Encrypted databases, Digital credentials and PKIs, Trust in open systems, and Peer-to-peer system security.",
+    "faculty": "Computing",
+    "prereqTree": "CS3223",
+    "title": "Database Security"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ism": true
+    },
+    "courseCode": "MS4660",
+    "courseCredit": "5",
+    "description": "This module allows for student to define a topic and a list of readings under the guidance of an academic staff of the Department leading to a project work. Students are required to write a paper of 5,000 to 6,000 words. The Independent Study is equivalent to one module.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "MS4401",
+    "title": "Independent Study Module"
+}

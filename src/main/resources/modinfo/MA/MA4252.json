@@ -1,0 +1,11 @@
+{
+    "courseCode": "MA4252",
+    "courseCredit": "4",
+    "description": "The field of ordinary differential equations (ODEs) is a fundamental area in mathematics. There is a great range of real-world phenomena to which the theory and methods of ODEs can be applied. The central aim of this course is to study the qualitative aspects of ODEs. Major topics: Review of firstorder non-linear equations (including continuous dependence on initial conditions). Linear systems, periodic systems, asymptotic behaviour. Stability theory, stable, unstable and asymptotically stable solutions. Lyapunov\u2019s direct method. Two dimensional autonomous systems, critical points, phase portrait, limit cycles and periodic solutions, Poincare-Bendixson Theorem.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5252"
+    ],
+    "prereqTree": "MA3220",
+    "title": "Advanced Ordinary Differential Equations"
+}

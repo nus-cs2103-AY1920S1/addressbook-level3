@@ -1,0 +1,14 @@
+{
+    "courseCode": "YLL2201",
+    "courseCredit": "5",
+    "description": "This intensive course offers four days a week of language instruction and follows on from Beginning Latin. Students will continue developing linguistic and cultural knowledge in ancient Mediterranean antiquity, and achieve a relatively strong reading level by the end of the semester.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YHU3326",
+        "YHU3324",
+        "YHU3325"
+    ],
+    "preclusion": "Students who have successfully completed YLL1202 Introduction to Latin 2 or YLL2202 Intermediate Latin are not eligible for this course as  YLL1202 and YLL2202 are previous module codes for this same course.",
+    "prereqTree": "YLL1201",
+    "title": "Intermediate Latin"
+}

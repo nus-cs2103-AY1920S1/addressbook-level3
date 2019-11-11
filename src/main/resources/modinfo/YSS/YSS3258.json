@@ -1,0 +1,14 @@
+{
+    "courseCode": "YSS3258",
+    "courseCredit": "5",
+    "description": "This module will cover how returns from private equity investment are achieved through operational improvements and financial restructuring of growth and new venture companies. This is an introduction to the evaluation, structuring, stewardship, and realization of early stage private equity investments. We study cases of increasingly complex topics concerning cash flow, investment assessment, value assessment and creation, legal constraints, leadership, business development and economics and, ultimately, returns on investment.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "YSS3257 Seminar on Corporate Finance",
+    "prereqTree": {
+        "and": [
+            "YSS2211",
+            "YSS2203"
+        ]
+    },
+    "title": "Early Stage Private Equity Investing"
+}

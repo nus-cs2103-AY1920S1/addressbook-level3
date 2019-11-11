@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "CE5107A",
+    "courseCredit": "2",
+    "description": "This is an advanced module in deep foundation engineering. Topics covered include site investigation for deep foundation, general bearing capacity theorem, overview of pile installation methods, axial pile capacity and deflection, pile load transfer mechanism, and laterally loaded piles as well as group pile issues. Participants will learn how to deal with design and construction issues pertaining to deep foundations under more general and realistic practical situations. Specific learning objectives include performing design calculations for piles and pile groups.",
+    "faculty": "Engineering",
+    "title": "Principles of Pile Foundation Design"
+}

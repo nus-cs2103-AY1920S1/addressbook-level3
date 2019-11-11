@@ -1,0 +1,20 @@
+@startuml
+
+start
+:User adds an installment;
+if () then (installment does not exist)
+    :Installment is added to FinanceTracker;
+    :User receives message that installment is added;
+    :User edits an installment;
+    if () then (installment exists)
+        :Installment is edited accordingly;
+        :User receives message that installment has been edited;
+    else (installment does not exist)
+        :User receives message that installment does not exist;
+    endif
+else (installment exists)
+    :User receives message that installment is a duplicate;
+endif
+stop
+
+@enduml

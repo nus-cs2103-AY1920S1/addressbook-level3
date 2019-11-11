@@ -1,0 +1,8 @@
+{
+    "courseCode": "IS5114",
+    "courseCredit": "4",
+    "description": "This module examines the high level CEO/CIO perspectives of global IT project and vendor management. It covers concepts, framework, and approaches to global project management. Global project management is used broadly to cover activities related to global product development, global project launch, global sourcing and outsourcing vendor management. Topics on global project organisation structure and governance, contract management, service level agreements, transition and transformation management, relationship management, dispute resolution, performance monitoring, risk management, and human resource implications will be covered.",
+    "faculty": "Computing",
+    "prereqTree": "IS3103",
+    "title": "Global IT Project and Vendor Management"
+}

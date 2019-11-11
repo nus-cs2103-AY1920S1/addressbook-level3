@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "MLE4102A",
+    "courseCredit": "8",
+    "description": "In this module, which extends over two semesters, the students are divided into small groups and asked to work on a complex engineering problem that involves designing a product within the constraints posed by economic, environmental, social and safety consideration. The importance of teamwork in a multicultural group is also emphasized.",
+    "faculty": "Engineering",
+    "preclusion": "MLE4102",
+    "prereqTree": {
+        "and": [
+            "MLE1002",
+            "MLE2104",
+            "MLE3111"
+        ]
+    },
+    "title": "Design Project"
+}

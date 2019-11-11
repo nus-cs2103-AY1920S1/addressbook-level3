@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2718",
+    "courseCredit": "4",
+    "description": "Energy in Singapore depends mainly on imported fossil fuels/petroleum/natural gas. Obviously, in the quest for alternatives, future energy demand and mix, some challenges/dilemmas arise naturally in Singapore context: would nuclear energy deployment be feasible? Is wind energy a viable option? would a complete switch to solar, biofuels, and waste-to-energy technologies be possible? This module offers a systems and system dynamics approach to deal with such issues and the corresponding dynamics, dilemmas and decisions that arise while addressing them. Students gain insights into the political, socio-economic and environmental aspects of these challenges through relevant case studies/models.",
+    "faculty": "Residential College",
+    "preclusion": "UTS2709 or UTC27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Energy and Singapore: Dynamics, Dilemmas and Decisions"
+}

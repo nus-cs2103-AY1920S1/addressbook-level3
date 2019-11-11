@@ -1,0 +1,27 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MA1508",
+    "courseCredit": "4",
+    "description": "The objective of this module is to inculcate a facility in both linear algebra and its numerical methods. The module is targeted at students in the Engineering Science Programme. Topics: systems of linear equations, matrices, determinants, numerical solutions of systems of linear equations, vector spaces, subspaces, linear independence, basis and dimension, rank of a matrix, orthogonality and orthonormal bases, linear transformations, eigenvalues and eigenvectors, diagonalization, numerical methods in approximating eigenvalues.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "EC3314",
+        "ESP2107",
+        "MA3266",
+        "MA3238",
+        "MA3252",
+        "MA3229",
+        "MA3220",
+        "MA2501",
+        "MA2219",
+        "MA2214",
+        "MA2213",
+        "MA2101S",
+        "MA2101",
+        "ST3236"
+    ],
+    "preclusion": "MA1101R, MA1311, MA1506, MA1508E, MA1513",
+    "title": "Linear Algebra with Applications"
+}

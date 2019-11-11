@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3251",
+    "courseCredit": "4",
+    "description": "This module explores the relationship between language and identity, focusing on how linguistic difference is not a reflection of one\u2019s inner essence but a means of constructing who we are in social context. Based on current research in sociolinguistics, it will discuss why ideological and discursive processes of identity construction are central to our social life. It will also introduce conceptual tools for analysing identity work in everyday discourse, using them to explore several theoretical and real-world issues in which the question of identity figures prominently.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL2151",
+            "EL2251"
+        ]
+    },
+    "title": "Language, Society and Identity"
+}

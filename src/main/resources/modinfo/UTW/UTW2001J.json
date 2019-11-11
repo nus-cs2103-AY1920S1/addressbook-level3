@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTW2001J",
+    "courseCredit": "4",
+    "description": "Vampire literature has undergone a twenty-first Century resuscitation, evident in novels such as Twilight and television series including The Vampire Diaries and True Blood. But how similar are these vampires to the traditional vampire in Western and other cultures? In this module you will explore different explanations for the role/function of the Vampire and have the opportunity to research manifestations of the Vampire across cultures, genres and historical periods. You will review different research methodologies, and compile a list of terms and ideas that enable you to participate in the conversation to understand the ongoing fascination with the Vampire.",
+    "faculty": "NUS",
+    "preclusion": "IEM2201%,\nUTW2001%",
+    "prereqTree": {
+        "or": [
+            "IEM1201",
+            "UTW1001"
+        ]
+    },
+    "title": "Blood, Death and Desire, Interpreting the Vampire"
+}

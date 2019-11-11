@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "EE5110",
+    "courseCredit": "4",
+    "description": "The module offers students timely and updated coverage of a wide range of topics relevant to automation and control engineering tapping on the latest and diverse range of developments in the repertoire of the control group, such as the delivery of a measured collation of automation and control system designs applied to real problems of a diverse nature and which are not easily and directly available from standard literature.The nature of the module allows the flexibility for recent topics, problems and solutions to be shared with the students.",
+    "faculty": "Engineering",
+    "preclusion": "EE6110 Special Topics in Automation and Control (Advanced)",
+    "title": "Special Topics in Automation and Control"
+}

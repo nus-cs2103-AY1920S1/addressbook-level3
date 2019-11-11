@@ -1,0 +1,29 @@
+{
+    "courseCode": "CS4236",
+    "courseCredit": "4",
+    "description": "This module aims to introduce the foundation, principles and concepts behind cryptology and the design of secure communication systems. The emphasis is on the formulation and techniques of various cryptographic primitives, and on the secure usage of such primitives to achieve the goals of confidentially, integrity, and authenticity in both theoretical settings and practical scenarios. Basic topics include pseudorandom functions, symmetric key encryption, public key encryption, message authentication codes, hash functions, digital signatures, key exchange and PKI. Selected topics may include: secret sharing, TCP/IP security, Kerberos, SSL, trusted computing, side-channel attacks.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS6230",
+        "CS6231"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS2010",
+                    "CS2020",
+                    "CS2040"
+                ]
+            },
+            {
+                "or": [
+                    "MA1100",
+                    "CS1231"
+                ]
+            },
+            "CS2107"
+        ]
+    },
+    "title": "Cryptography Theory and Practice"
+}

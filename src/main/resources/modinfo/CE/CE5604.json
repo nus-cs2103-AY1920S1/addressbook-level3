@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5604",
+    "courseCredit": "4",
+    "description": "This module provides students with in-depth knowledge on the role of constituent materials of concrete such as cements, mineral admixtures, and chemical admixtures and their interactions that affect properties of fresh and hardened concrete. It also provides students with in-depth knowledge on concrete response to stresses, time-dependent deformations, and durability of concrete exposed to severe environments. The module discusses the basic considerations and design philosophy for performance-based design of concrete mixtures and production of concrete. It also discusses the progress in concrete technology and the latest development on high-strength, high-performance, lightweight, and self compacting concrete. Sustainable development in construction industry and use of recycled aggregates and other recycled materials will be discussed as well. The module is targeted at post-graduate and final year undergraduate students who will gain knowledge from the module to complement their skill in structural design and to prepare them for their career as professional engineers.",
+    "faculty": "Engineering",
+    "preclusion": "TCE5604",
+    "prereqTree": "CE2155",
+    "title": "Advanced Concrete Technology"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "IE4220",
+    "courseCredit": "4",
+    "description": "This course introduces the fundamentals of supply chain concepts. It covers issues and basic techniques of distribution strategies, transportation logistics, and supply chain network optimization models. Students are equipped with fundamental concepts and quantitative tools that are essential to solving logistic and supply chain problems.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "IE2100",
+            "IE2110"
+        ]
+    },
+    "title": "Supply Chain Modelling"
+}

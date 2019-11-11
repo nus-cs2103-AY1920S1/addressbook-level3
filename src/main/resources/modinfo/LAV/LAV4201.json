@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAV4201",
+    "courseCredit": "5",
+    "description": "This module will build on the skills developed in Vietnamese 4. Students will progress from reading selections from passages to a more sustained and systematic encounter with the nature of the language used in novels, newspapers, Internet and other forms of popular publications, official public discourse, academic writings and business Vietnamese. Students will progressively comprehend texts, not only from background and subject matter knowledge, but also from increasing control of language. They will also learn to handle conversation involving complication, in the form of connected discourse, and to make choices of diction, as well as manipulate grammatical features reflecting formal and informal registers.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAV4202"
+    ],
+    "prereqTree": "LAV3202",
+    "title": "Vietnamese 5"
+}

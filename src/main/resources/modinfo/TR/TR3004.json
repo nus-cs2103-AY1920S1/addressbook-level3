@@ -1,0 +1,12 @@
+{
+    "courseCode": "TR3004",
+    "courseCredit": "4",
+    "description": "Designed specifically for engineers and scientists having a passion for technological innovation, this popular course focuses on the roles of inventors and founders in successful high-tech ventures. This course describes the entrepreneurial process for taking a technology concept from the idea stage to the market. It will provide an understanding of the sequential stages of the entrepreneurial startup, the post-startup issues of growth in the emerging stage of a technology venture, and the eventual decision to harvest personal financial reward.",
+    "faculty": "NUS",
+    "fulfillRequirements": [
+        "TR3006",
+        "TR3005"
+    ],
+    "preclusion": "TR3002",
+    "title": "Engineering Entrepreneurship I (C)"
+}

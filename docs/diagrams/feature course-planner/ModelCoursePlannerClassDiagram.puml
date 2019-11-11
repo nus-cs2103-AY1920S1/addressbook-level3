@@ -1,0 +1,34 @@
+@startuml
+!include ../style2.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package CoursePlanner <<Rectangle>> {
+    Class CoursePlanner
+    Class UniqueCourseList
+    Class Course
+    Class CourseTextDisplay
+
+    Class Title
+    Class CourseCode
+    Class CourseCredit
+    Class Faculty
+    Class Description
+    Class PrereqTree
+    Class Preclusion
+    Class FulfillRequirements
+}
+
+Course *-down-> "1" Title
+Course *-down-> "1" CourseCode
+Course *-down-> "1" CourseCredit
+Course *-down-> "1" Faculty
+Course *-down-> "1" Description
+Course *-down-> "0..1" PrereqTree
+Course *-down-> "0..1" Preclusion
+Course *-down-> "0..1" FulfillRequirements
+UniqueCourseList o-down-> "*" Course
+CoursePlanner *-down-> "1" UniqueCourseList
+CoursePlanner *-down-> "1" CourseTextDisplay
+@enduml

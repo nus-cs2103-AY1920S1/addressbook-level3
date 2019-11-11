@@ -1,0 +1,18 @@
+{
+    "courseCode": "FST3101",
+    "courseCredit": "4",
+    "description": "This module covers the nature and activities of microorganisms found in foods and how they are affected by various food processing and preservation methods, the role of various microorganisms in relation to their significance in the products; i.e., indicator organisms, pathogens, spoilage organisms, and beneficial organisms. Study of starter cultures, their physiology and genetics in the preparation and application to different food products and ingredients, study of chemical, biochemical and microbial bio-transformations in selected indigenous foods and food ingredients.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FST5202",
+        "FST5203",
+        "FST4203"
+    ],
+    "prereqTree": {
+        "or": [
+            "FST1101",
+            "FST2102B"
+        ]
+    },
+    "title": "Food Microbiology & Fermentation"
+}

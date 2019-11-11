@@ -1,0 +1,27 @@
+@startuml
+!include ../style2.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>> {
+    Interface Model <<Interface>>
+
+    Class ModelManager
+    Class UserPrefs
+    Class HistoryManager
+    Class CcaTracker
+    Class CoursePlanner
+    Class FinanceTracker
+    Class Planner
+}
+
+ModelManager .up.|> Model
+ModelManager o-left-> UserPrefs
+ModelManager o-down-> HistoryManager
+ModelManager o-down-> CcaTracker
+ModelManager o-down-> CoursePlanner
+ModelManager o-down-> FinanceTracker
+ModelManager o-right-> Planner
+
+@enduml

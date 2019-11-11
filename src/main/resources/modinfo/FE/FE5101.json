@@ -1,0 +1,14 @@
+{
+    "courseCode": "FE5101",
+    "courseCredit": "4",
+    "description": "This module is a core module for students of MSc in Financial Engineering. The topics include: Basic theories of futures, options, and swaps pricing. Fundamental concepts of no arbitrage equilibrium and also risk premia. Hedging techniques and the Greeks. Fixed Income securities analytics. Yield curve analyses. Extensions to asset-backed securities and asset securitization issues. Structured notes and embedded options. Corporate debts and convertibles.",
+    "faculty": "Risk Management Institute",
+    "fulfillRequirements": [
+        "FE5219",
+        "FE5208",
+        "FE5116D",
+        "FE5116",
+        "FE5218"
+    ],
+    "title": "Derivatives And Fixed Income"
+}

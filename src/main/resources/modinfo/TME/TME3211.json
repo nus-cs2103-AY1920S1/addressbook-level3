@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TME3211",
+    "courseCredit": "4",
+    "description": "The module covers topics on: Linear elasticity in which the general equations of equilibrium and compatibility are derived and its applications are illustrated for complex problems; Unsymmetrical bending of beams; Stresses in pressurized thick-walled cylinders in elastic and elasto-plastic regions; Stresses in rotating members; Introduction to mechanics of composite materials; and Experimental stress analysis with particular emphasis on optical methods. This is an elective module and is intended for students in Stage 3 and 4 who have an interest in the stress analysis of isotropic and composite materials. The materials in this module are applicable to chemical, civil, mechanical and aeronautical engineering.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TM3211, ME3211E",
+    "prereqTree": {
+        "or": [
+            "TME2114",
+            "ME2114E"
+        ]
+    },
+    "title": "Mechanics of Solids"
+}

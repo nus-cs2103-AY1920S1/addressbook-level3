@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3214",
+    "courseCredit": "4",
+    "description": "Language documentation is a rapidly growing subfield in linguistics. It is concerned with the creation of language records that can be used for multiple purposes, the preservation of such records, and the products that can be built from these records, such as dictionaries, corpora and grammars. This module is an introduction to the subfield. It explores the need for language documentation as a reaction to language endangerment, and presents the history, theory and methods of modern day language documentation.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Language Documentation"
+}

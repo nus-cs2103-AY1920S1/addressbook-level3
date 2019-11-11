@@ -1,0 +1,11 @@
+{
+    "courseCode": "ME3221",
+    "courseCredit": "4",
+    "description": "This elective module provides an introduction to advanced topics in engineering thermodynamics and their applications to engineering thermal processes. The following topics are covered: Efficiency improvement of steam power cycles through the use of regeneration and binary fluids processes; Real gases: equation of state, enthalpy and entropy; Available energy and available energy changes in thermal processes, Second Law efficiency; Combustion processes; Analysis of energy and work interactions of basic mechanical engineering thermal processes such those of reciprocating and centrifugal compressors and axial flow turbines. This module is for students who wish to extend their understanding of engineering thermodynamics beyond the first course, and understanding and appreciation of the operation, efficiency and energy conversion of mechanical engineering thermal processes.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ESP4401"
+    ],
+    "prereqTree": "ME2121",
+    "title": "Sustainable EnergyConversion"
+}

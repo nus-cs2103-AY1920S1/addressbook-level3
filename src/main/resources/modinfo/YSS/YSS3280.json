@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSS3280",
+    "courseCredit": "5",
+    "description": "This course considers important debates in political theory today, focusing on ideas about justice. These include justice as fair distribution, cultural pluralism, democratic participation, justifiable coercion, and personal and communal independence. Topics discussed include the relationship between truth and opinion in political argument; political realism as a corrective to abstract theorizing; the republican tradition and the idea of freedom non-domination; and the emerging focus on global justice.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Contemporary Political Theory"
+}

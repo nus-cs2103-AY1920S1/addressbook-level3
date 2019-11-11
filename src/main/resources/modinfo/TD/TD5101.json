@@ -1,0 +1,7 @@
+{
+    "courseCode": "TD5101",
+    "courseCredit": "4",
+    "description": "The aim of this course is to provide skills for system level design of complex hardware/software systems. The trend that products and systems become communicating systems, with many parallel activities on multiple embedded processors, and with complex multimedia interfaces makes their design unmanageable with the current hardware/software co-design practice. This workshop presents a system level design approach that yields executable system level models based on object-oriented analysis and specification. A design process starts with a multidisciplinary discussion enabled by formal models that visualize collaborating processes of a system and its environment. These models show functional real-time behaviour as well as system architecture. Subsequently, a model is extended with the properties of candidate implementation technologies. This enables verification and validation of required system properties. Dedicated models can be used for architecture studies on performance, channel bandwidths and real-time properties.",
+    "faculty": "Engineering",
+    "title": "Specification of Complex Hardware/Software System"
+}

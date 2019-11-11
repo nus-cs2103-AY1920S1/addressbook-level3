@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "ME5608",
+    "courseCredit": "4",
+    "description": "This module focuses on principles, techniques and applications of abrasive and non conventional maching process and latest techniques on material additive in addition to material removal. Topics include grinding, ultrasonic maching, electrical discharge maching, laser beam maching, layered manufacturing, et cetera. Students are expected to carry out an independent study by project or term paper on the related topics.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ME5600A"
+    ],
+    "preclusion": "ME6605\nME5608A \nME5608B",
+    "title": "Additive and Non-Conventional Manufacturing Processes"
+}

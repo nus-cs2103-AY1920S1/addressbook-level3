@@ -1,0 +1,23 @@
+{
+    "courseCode": "ACC2707",
+    "courseCredit": "4",
+    "description": "The module covers financial accounting at an intermediate level, with special reference to accounting for property, plant & equipment, investment properties, assets held for sale, intangible assets, asset impairment, changes in accounting policies and estimates, post-balance-sheet events, revenue accounting, segment reporting and interim reporting.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC2708",
+        "ACC3704",
+        "ACC3713",
+        "ACC3701"
+    ],
+    "preclusion": "ACC3601",
+    "prereqTree": {
+        "or": [
+            "ACC1701",
+            "ACC1701X",
+            "EC2204",
+            "AC1002",
+            "ACC1002X"
+        ]
+    },
+    "title": "Corporate Accounting & Reporting I"
+}

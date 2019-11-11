@@ -1,0 +1,14 @@
+{
+    "courseCode": "CS3271",
+    "courseCredit": "4",
+    "description": "Reactive systems are real-time systems that continuously interact with the environment. This module introduces students to the software engineering principles for designing systems such as controllers and signal processors that are used in a wide variety of settings, including industrial plants, chemical reactors, flight and automotive controllers and robots. Topics to be covered will include fundamentals of control software, programming languages for real-time controllers, and verification and optimisation of software for digital control systems. Apart from a variety of programming assignments, this course will also introduce students to some relevant research topics in this area.",
+    "faculty": "Computing",
+    "preclusion": "EE3304, EE/CPE students",
+    "prereqTree": {
+        "or": [
+            "CG2271",
+            "CS2271"
+        ]
+    },
+    "title": "Software Engineering for Reactive Systems"
+}

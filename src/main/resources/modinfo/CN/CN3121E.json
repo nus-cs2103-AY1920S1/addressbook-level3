@@ -1,0 +1,13 @@
+{
+    "courseCode": "CN3121E",
+    "courseCredit": "4",
+    "description": "This module incorporates introductory concepts, dynamic modeling, transfer function modules, system identification, control hardware, feedback control and module-based design methods. SIMULINK will be introduced and used to stimulate and examine the effectiveness of various control strategies. This module also incorporates a detailed case study that prepares the students to design control systems for a realistic sized plant. This module is targeted at chemical engineering students who already have a basic knowledge of chemical engineering processes.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "CN4118E",
+        "CN4227E"
+    ],
+    "preclusion": "TC3111, TCN3121",
+    "prereqTree": "TC2411",
+    "title": "Process Dynamics & Control"
+}

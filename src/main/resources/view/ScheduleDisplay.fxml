@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="headerDay" text="\$first" styleClass="cell_big_label " prefHeight="70.0"/>
+    <ListView fx:id="day" VBox.vgrow="ALWAYS" />
+    <Label fx:id="headerWeek" text="\$first" styleClass="cell_big_label " prefHeight="70.0"/>
+    <ListView fx:id="week" VBox.vgrow="ALWAYS" />
+</VBox>

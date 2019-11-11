@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "IT5004",
+    "courseCredit": "4",
+    "description": "This module aims to equip non-computing students with fundamental knowledge in architecting and designing modern Enterprise Systems in organisations that can be reasonably complex, scalable, distributed, component-based and missioncritical. Students will develop an understanding of high-level concepts such as enterprise architecture and software architecture. They will them move on to acquire fundamental systems analysis and design techniques such as object-oriented requirements analysis and design using the Unified Modelling Language.",
+    "faculty": "Computing",
+    "preclusion": "IS2102",
+    "title": "Enterprise Systems Architecture Fundamentals"
+}

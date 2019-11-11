@@ -1,0 +1,10 @@
+{
+    "courseCode": "DEP5104",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "DEP5109"
+    ],
+    "title": "Urban and Regional Economics"
+}

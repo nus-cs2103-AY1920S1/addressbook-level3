@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "SH5205",
+    "courseCredit": "4",
+    "description": "This module provides the fundamentals of incident management, essential for effective industrial incident management covering: Incident Command System; Emergency Leadership, Emergency Risk Management; Mutual Aid & Joint Operations; Crisis Organization & Management; Response Functions & Priorities; Media Management; Scene Safety & Security; Damage Assessment; Salvage & Repair; Business Continuity; Employee Assistance; Incident Investigation; Cleanup & Restoration; and Incident Termination.",
+    "faculty": "Engineering",
+    "prereqTree": "SH5203",
+    "title": "Incident Management"
+}

@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTW2001K",
+    "courseCredit": "4",
+    "description": "This research-based writing module examines the intersections of public memory, identity, and rhetoric in contemporary Singapore. In the module, students will consider theories and methodologies drawn from the interdisciplinary field of memory studies and pratice applying them in a variety of Singaporean contexts\u2014considering, for example, the Singapore Memory Project, local museums, plays, political speeches, the preservation and transformation of memorial spaces or historical sites such as Bukit Brown cemetery, and more. Students will use their new knowledge of the rhetorical power of memory to embark on their own research project examining course themes.",
+    "faculty": "NUS",
+    "preclusion": "IEM2201%,\nUTW2001%",
+    "prereqTree": {
+        "or": [
+            "IEM1201",
+            "UTW1001"
+        ]
+    },
+    "title": "Public Memory, Identity and Rhetoric"
+}

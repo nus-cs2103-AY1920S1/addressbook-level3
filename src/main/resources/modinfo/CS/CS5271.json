@@ -1,0 +1,20 @@
+{
+    "courseCode": "CS5271",
+    "courseCredit": "4",
+    "description": "Modern embedded systems are heterogeneous collections of multiple hardware and software components, which might be designed by different vendors and have different interfaces. This heterogeneity, coupled with the complexity of embedded software and the complex features of modern processors make performance analysis of such systems a difficult problem. In recent years, there has been a lot of work in this area, especially because of its practical importance. In this course, we will discuss some of this work with the aim of getting a broad overview of this area. These will include formal models, algorithms, various simulation techniques, tools and case studies in the specific context of embedded systems, which significantly differ from techniques used for the performance analysis of general computer systems. Our focus will be on system-level design techniques, with the aim of critically accessing known models and methods in terms of their generality and ability at different stages of an embedded system design process. This course will be suitable for both graduate students and honors-year undergraduate students, who are interested in the general area of Computer Engineering. The projects/assignments will consist of a mix of theory and implementation and there will be enough flexibility to incline more towards one or the other direction.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS2271",
+                    "CG2271",
+                    "CS3220",
+                    "CS4223"
+                ]
+            },
+            "CS4212"
+        ]
+    },
+    "title": "Performance Analysis of Embedded Systems"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "MNO4314B",
+    "courseCredit": "4",
+    "description": "This class aims to generate interest and develop skills of participants to 'consult' to management and assist clients to take important managerial decisions in organisations. The class is targeted at participants with preliminary knowledge (about Consulting) and strong aspirations to become consultants. The module covers a broad range of topics from 'types of consulting' to 'how consulting firms make money' and includes a 2-day workshop helping participants develop their skills to consult. Strong analytical and reasoning skills form the prerequisite for the course.",
+    "faculty": "NUS Business School",
+    "preclusion": "MNO4313F, MNO4314, MNO4314A",
+    "prereqTree": {
+        "or": [
+            "MNO1001",
+            "MNO2007"
+        ]
+    },
+    "title": "Seminar in M&O: Consulting to Management"
+}

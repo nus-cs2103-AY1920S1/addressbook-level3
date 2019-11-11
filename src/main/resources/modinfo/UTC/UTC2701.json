@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2701",
+    "courseCredit": "4",
+    "description": "Many of us recognize that the world we live in is growing in dynamic complexity. Accelerating economic, technological, social, and environmental change requires managers and policy makers to: (i) expand the boundaries of their mental models, and (ii) develop and work with tools to understand how the structure of complex systems influences their behaviour. This module intends to equip students with the ability to model a wide range of business systems, understand the structure-behaviour links and use such understanding to analyse policy and strategy. System Dynamics modelling will be employed as the vehicle to build these desired skills and abilities.",
+    "faculty": "Residential College",
+    "preclusion": "UTC27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Business Systems: Dynamics and Policy Making"
+}

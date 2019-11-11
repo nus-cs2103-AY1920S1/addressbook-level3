@@ -1,0 +1,14 @@
+{
+    "courseCode": "EC3394",
+    "courseCredit": "4",
+    "description": "This module discusses how findings and insights from psychology can be incorporated formally and rigorously into economics to improve its descriptive and predictive powers. It will also discuss the implications for policymakers. The module does not require any background in psychology but it does assume that the students have had rigorous training in microeconomics, macroeconomics, and econometrics.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "EC2101",
+            "EC2102",
+            "EC3303"
+        ]
+    },
+    "title": "Economics and Psychology"
+}

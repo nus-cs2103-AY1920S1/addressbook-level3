@@ -1,0 +1,18 @@
+{
+    "courseCode": "IS4240",
+    "courseCredit": "4",
+    "description": "Business Intelligence (BI) is the application of data base and machine learning technologies in business. It enables organisations to improve decision making, enhance strategic position, and maintain competitive advantage. This module will introduce students to the essentials of BI, placing emphasis on database and machine learning technologies for building effective BI Systems. Students will learn about data warehousing and data visualisation, as well as the various tools that can be employed for intelligent business decision making. BI cases will be used to highlight the issues and problems encountered by organisations as they developed and implemented BI systems.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "IS1103",
+            {
+                "or": [
+                    "ST2131",
+                    "ST2334"
+                ]
+            }
+        ]
+    },
+    "title": "Business Intelligence Systems"
+}

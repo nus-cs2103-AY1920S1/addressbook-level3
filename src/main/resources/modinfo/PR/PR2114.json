@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "PR2114",
+    "courseCredit": "4",
+    "description": "This module studies the fundamental physical chemical principles which are important to the design and development of pharmaceutical formulations. The major topics to be covered include: phase diagrams; solutions; buffers & isotonicity; partition, diffusion & mass transfer; solubility & dissolution; reaction kinetics & drug product stability; physical properties of solids (crystallinity, polymorphism); interfacial phenomenon; colloidal systems.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR3123",
+        "PR3117"
+    ],
+    "title": "Formulation & Technology I"
+}

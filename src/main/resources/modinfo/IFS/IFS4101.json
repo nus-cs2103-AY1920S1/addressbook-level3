@@ -1,0 +1,8 @@
+{
+    "courseCode": "IFS4101",
+    "courseCredit": "4",
+    "description": "This module examines the laws relating to information security. The issues and considerations concerning information security have greatly shaped many laws, in particular, the laws relating to cybercrimes, electronic commerce, electronic evidence, document discovery, information management and data protection. These areas of the law have in turn altered the development and practice of information security in the industry. The objective of this module is to provide information security professionals with a working knowledge of these legal issues in information security, so that they are better placed to represent and protect the legal interests of their employers and their institutions.",
+    "faculty": "Computing",
+    "prereqTree": "CS2107",
+    "title": "Legal Aspects of Information Security"
+}

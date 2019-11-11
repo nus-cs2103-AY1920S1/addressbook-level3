@@ -1,0 +1,12 @@
+{
+    "courseCode": "MA3233",
+    "courseCredit": "4",
+    "description": "This is a continuation of MA2214 Combinatorics and Graphs I. The objective is to introduce to students fundamental principles and techniques in Graph Theory. Major topics: Connectivity, Eulerian Multigraphs and Hamiltonian Graphs, Matching, Covering and Independence, Vertex Coloring (including basics of Planar Graphs), Digraphs, Basic Spectral Graph Theory (including Eigenvalues of Graphs and Graph Laplacians).",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA4235",
+        "MA3259"
+    ],
+    "prereqTree": "MA2214",
+    "title": "Combinatorics and Graphs II"
+}

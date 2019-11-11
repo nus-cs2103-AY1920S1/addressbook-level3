@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "NUR1123",
+    "courseCredit": "4",
+    "description": "This module will develop knowledge and understanding of the normal structure and function of the human body. Following an introduction to the basic principles of anatomy and physiology, learning will take from \u2018cell to organ-systems\u2019 approach to guide student learning. Body systems covered will include cardiovascular, blood, respiratory, endocrine and integumentary system. Deviations from normal will be considered to situate the student\u2019s understanding of health problems and to foster an appreciation for the complexity of the human organism. Correlated physical assessment parameters and related procedural skills will be integrated into each of the topics.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "preclusion": "NUR1117 Anatomy and Physiology I\nNUR1120 Comprehensive Health Assessment",
+    "title": "Anatomy, Physiology and Physical Assessment I"
+}

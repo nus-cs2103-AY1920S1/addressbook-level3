@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS2217",
+    "courseCredit": "4",
+    "description": "From religious rituals to personal identity, propaganda to public protests, media spectacles to interactive artworks, performance is a prevalent feature of contemporary societies. Performance Studies draws on anthropology, cultural studies and art theory to explore how these and related phenomena work, what effects they have, and how they relate to each other. This introductory module provides an overview of the key concepts behind a fast\u2010developing discipline, and uses them to interpret a range of social practices and performance events that can be found in Singapore and other highly globalized societies. The module combines fieldwork, critical thinking, and performance analysis.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Introduction to Performance Studies"
+}

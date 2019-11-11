@@ -1,0 +1,11 @@
+{
+    "courseCode": "PR3136",
+    "courseCredit": "4",
+    "description": "This is a team-taught module that aims to prepare pharmacy students in the management of noncommunicable diseases through the integration of pharmacology and pharmacotherapeutics. Major topics include psychiatry, neurology and oncology.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR4138"
+    ],
+    "prereqTree": "PR2135",
+    "title": "Pharmacotherapeutics IV"
+}

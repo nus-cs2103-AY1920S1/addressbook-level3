@@ -1,0 +1,17 @@
+{
+    "courseCode": "ST3248",
+    "courseCredit": "4",
+    "description": "Statistical learning is a large collection of computer-based modelling and prediction tools with applications in diverse fields including business, medicine, astrophysics, and public policy. This series of two modules covers many of the popular approaches for a variety of statistical problems. There is heavy emphasis on the implementation of these methods on real-world data sets in the popular statistical software package R. Part I gives a broad overview of the common problems as well as their most popular approaches. Topics include linear regression model and its extensions, classification methods, resampling methods, regularisation and model selection, principal components and clustering methods.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ST4248"
+    ],
+    "preclusion": "ST4240",
+    "prereqTree": {
+        "or": [
+            "ST2132",
+            "ST2334"
+        ]
+    },
+    "title": "Statistical Learning I"
+}

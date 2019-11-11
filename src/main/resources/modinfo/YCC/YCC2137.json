@@ -1,0 +1,17 @@
+{
+    "courseCode": "YCC2137",
+    "courseCredit": "5",
+    "description": "Building upon SI1 and QR, SI2 develops deeper understanding and application of scientific modes of inquiry by tackling a topical question in science, e.g. climate change, origins of our universe, artificial intelligence, etc. The semester focuses on a single central question. Students explore related issues in breadth and depth: Breadth from a general introduction to the central question; depth from six weeks on one aspect of their choice. The course ends with a synthesis segment, where students work in teams to put together various elements learned, much as scientific teams today assimilate multi-faceted evidence and solutions to address current problems.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YID3201",
+        "YHU3312"
+    ],
+    "prereqTree": {
+        "and": [
+            "YCC1131",
+            "YCC1122"
+        ]
+    },
+    "title": "Scientific Inquiry 2"
+}

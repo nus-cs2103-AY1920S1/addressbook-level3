@@ -1,0 +1,10 @@
+{
+    "courseCode": "KE5107",
+    "courseCredit": "8",
+    "description": "The aim of this third core course - unit 5 of the Master of Technology (MTech) in Knowledge Engineering (KE) - is to present Data Mining as an important knowledge discovery process in the development of intelligent systems for Business Analytics. The objectives of the course are to: (1) Provide in-depth coverage the methodology and methods of Data Mining. (2) Present Data Mining as the fundamental technique for Knowledge Discovery through the discussion of representative machine learning schemes and algorithms, typical tasks in mining relationships, classification and clustering.",
+    "faculty": "Institute of Systems Science",
+    "fulfillRequirements": [
+        "KE5108"
+    ],
+    "title": "Data Mining Methodology and Methods"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "YSS3257",
+    "courseCredit": "5",
+    "description": "This seminar will cover the principles by which firms are run to maintain their financial wellbeing. Depending on the nature of the investment opportunity (risk, maturity and expected return), the firm will consider different avenues of raising capital. The course will cover the economics of lending, swaps and derivatives, recapitalizations, equity securities, initial public offerings and early stage investing, principles of valuations, investment analysis, basic accounting and financial modelling. Case studies will be used to investigate the agency problem within the firm, between managers, shareholders and other stakeholders in shaping the capital structure and investment decisions.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "YSS3258 Early Stage Private Equity Investing",
+    "prereqTree": {
+        "and": [
+            "YSS2211",
+            "YSS2203"
+        ]
+    },
+    "title": "Seminar on Corporate Finance"
+}

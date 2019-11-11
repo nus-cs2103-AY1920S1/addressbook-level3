@@ -1,0 +1,18 @@
+{
+    "courseCode": "MLE4203",
+    "courseCredit": "4",
+    "description": "Properties and processing of polymeric biomaterials; Biological responses to biomaterials and their evaluation. Biocompatibility issues; Biodegradable polymeric materials; Application of polymeric biomaterials in medicine will be discussed with emphasis on drug delivery systems and tissue engineering application.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            "MLE3104",
+            {
+                "or": [
+                    "BN3301",
+                    "MLE3202"
+                ]
+            }
+        ]
+    },
+    "title": "Polymeric Biomedical Materials"
+}

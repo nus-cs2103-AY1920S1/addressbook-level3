@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "OT5883C",
+    "courseCredit": "4",
+    "description": "This module covers the theory and applications for inverse problems in geophysical imaging, with a strong emphasis on the practical aspects and hands-on experiments. Topics include linear and nonlinear inversion, constrained and unconstrained inversion, convex and nonconvex inversion, deterministic and stochastic inversion techniques. It is intended for students to gain knowledge and use of inversion techniques for applications in geophysical imaging and general engineering context.",
+    "faculty": "Engineering",
+    "title": "Topics in Petroleum Engineering: Geophysical Inverse methods"
+}

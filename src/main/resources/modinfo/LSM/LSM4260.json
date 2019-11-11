@@ -1,0 +1,13 @@
+{
+    "courseCode": "LSM4260",
+    "courseCredit": "4",
+    "description": "Phytoplankton and zooplankton are a vital part of aquatic ecosystems and form the basis of aquatic food webs. Understanding the role of plankton in aquatic ecosystems will help in advancing the solutions to problems facing today\u2019s water resources (harmful algal blooms, eutrophication and pollution). This module focuses on the biodiversity and ecology of phytoplankton and zooplankton, the roles they play in marine and freshwater ecosystems, their potential uses as biofuel and in aquaculture. The module will consist of lectures, practicals and a hands-on application of modelling on phytoplankton datasets.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM2253",
+            "LSM3254"
+        ]
+    },
+    "title": "Plankton Ecology"
+}

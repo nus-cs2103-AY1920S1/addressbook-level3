@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PC1144",
+    "courseCredit": "4",
+    "description": "This module introduces the ideas of modern physics to students, with an emphasis on conceptual understanding. Topics covered are a) Einstein's theory of special relativity, including time dilation, length contraction, and his famous equation E=mc2, b) Quantum physics, where the observed phenomena of black body radiation, the photoelectric effect and Compton scattering, leading to the quantization of angular momentum and energy, atomic transitions and atomic spectra, c) Introduction to quantum mechanics, introducing the Heisenberg uncertainty principle, wave-mechanics and wave particle duality, and the use of wavefunctions in predicting the behaviour of particles trapped in potential wells, d) Nuclear physics, introducing radioactivity and decay processes, nuclear interaction and binding energy, fission and fusion, and e) Sub-atomic elementary particles and their classification. The module is targeted at science students who are interested in learning about the more recent developments in physics, and is an essential for physics majors.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "SP2251",
+        "PC3232B",
+        "PC2230",
+        "PC2193",
+        "PC2133",
+        "PC2130B",
+        "PC2130"
+    ],
+    "preclusion": "Students who have passed PC1432/PC1432X are not allowed to take this module.",
+    "title": "Introduction to Modern Physics"
+}

@@ -1,0 +1,27 @@
+{
+    "courseCode": "EN3268",
+    "courseCredit": "4",
+    "description": "Tragedy is one of the oldest and most powerful forms of writing in the Western cultural tradition. This module will offer students the opportunity for a historical, analytic and comparative perspective on tragedy as a literary genre through a chronological approach to key texts from the Classical through the Renaissance and Neo-classical periods to the twentieth century.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "Tragedy"
+}

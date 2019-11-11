@@ -1,0 +1,12 @@
+{
+    "courseCode": "CM3232",
+    "courseCredit": "4",
+    "description": "Solid state chemistry-crystal structures, defects. Elements of interface chemistry;interfaces of liquid-gas, liquid-liquid, solid-gas, and solid-liquid.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CM4237",
+        "CM4254"
+    ],
+    "prereqTree": "CM2101",
+    "title": "Phy Chem of the Solid State & Interfaces"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PLB1201",
+    "courseCredit": "4",
+    "description": "The module is designed to equip students who are not planning to major in psychology with basic literacy in the discipline. Students will acquire basic understanding of common human experiences, such as sleep, dreams, learning, and memory from a psychological perspective; and apply psychological knowledge to understand some of the common problematic behaviours we encounter, such as forgetfulness, sleep problems, addiction, eating disorders, depression, and mental retardation. Students will also learn about some of the practical issues, such as whether it is beneficial to boost one\u2019s self\u2010esteem, whether subliminal persuasion works, and how we could find happiness.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "GEK1064 and PL1101E. Students who take PLB1201 and subsequently go on to major in Psychology will not be able to count PLB1201 towards their graduation requirements.",
+    "title": "Psychology in Everyday Life"
+}

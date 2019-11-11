@@ -1,0 +1,13 @@
+{
+    "courseCode": "AUD5107",
+    "courseCredit": "3",
+    "description": "This module provides an introduction to the normal auditory, speech and language, social and physical development of infants and young children. This module also describes the risk factors for hearing loss in children including neonatology, genetics and illnesses, as well as methods of assessing young children\u2019s hearing. This module is delivered through lecture and clinical observation in a real clinical environment (NUH). Students will have guided and structured observation of experienced Audiologists conducting behavioural hearing assessment in young children.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "AUD5113",
+        "AUD5114",
+        "AUD5218",
+        "AUD5219"
+    ],
+    "title": "Paediatric Audiology A - Part 1"
+}

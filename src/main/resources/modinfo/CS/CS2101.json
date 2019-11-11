@@ -1,0 +1,23 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CS2101",
+    "courseCredit": "4",
+    "description": "This module aims to equip students with the skills needed to communicate technical information to technical and nontechnical audiences, and to create comprehensible software documentation. A student-centric approach will be adopted to encourage independent and collaborative learning while engaging students in team-based projects. Students will learn interpersonal and intercultural communication skills as well as hone their oral and written communication skills. Assessment modes include a variety of oral and written communication tasks such as reports, software guides, oral presentations, software demonstrations and project blogs.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CP3880",
+        "CS3201",
+        "IS3103",
+        "IS4010"
+    ],
+    "preclusion": "CS2103 Software Engineering, IS2101 Business Technical Communication or its equivalent, ES2002, ES2007D, and ES1601.",
+    "prereqTree": {
+        "or": [
+            "ES1000",
+            "ES1103"
+        ]
+    },
+    "title": "Effective Communication for Computing Professionals"
+}

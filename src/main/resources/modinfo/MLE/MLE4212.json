@@ -1,0 +1,14 @@
+{
+    "courseCode": "MLE4212",
+    "courseCredit": "4",
+    "description": "The course will illustrate the critical role that advanced structural metallic materials play in aerospace, biomedical, automotive, sporting goods, energy generation, as well as other industries in the twenty-first century.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "MLE3102",
+            "MLE3203",
+            "MLE2106"
+        ]
+    },
+    "title": "Advanced Structural Materials"
+}

@@ -1,0 +1,20 @@
+{
+    "courseCode": "CG2028",
+    "courseCredit": "2",
+    "description": "This module teaches students computer organization concepts and how to write efficient microprocessor programs using assembly language. The course covers computer microarchitecture and memory system fundamentals, and the ARM microprocessor instruction set. The course culminates in an assignment in which students design and implement an efficient assembly language solution to an engineering problem.",
+    "faculty": "Multi Disciplinary Programme",
+    "fulfillRequirements": [
+        "CS3210",
+        "CS3237",
+        "CG4002"
+    ],
+    "preclusion": "EE2024 Programming for Computer Interfaces",
+    "prereqTree": {
+        "or": [
+            "CS1010",
+            "EE2026",
+            "EE2020"
+        ]
+    },
+    "title": "Computer Organization"
+}

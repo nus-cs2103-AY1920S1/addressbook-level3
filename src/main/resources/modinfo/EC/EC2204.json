@@ -1,0 +1,27 @@
+{
+    "courseCode": "EC2204",
+    "courseCredit": "4",
+    "description": "This course helps to let students appreciate the use of accounting in measuring the efficiency and performance of firms, and its relevance in the study of Economics. Students would be able to critically evaluate financial statements and interpret key financial ratios in the study of firms. Consequently, students would be equipped with the necessary tools to analyze and project the performance of firms in economic models.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "ACC2707",
+        "ACC2709",
+        "ACC2706",
+        "ACC3703",
+        "ACC3706",
+        "FIN2704",
+        "FIN3716",
+        "FIN3718",
+        "FIN4713",
+        "FIN2704X"
+    ],
+    "preclusion": "ACC1002, ACC1002X, ACC1701, ACC1701X",
+    "prereqTree": {
+        "or": [
+            "EC1101E",
+            "EC1301",
+            "GET1023"
+        ]
+    },
+    "title": "Financial Accounting for Economists"
+}

@@ -1,0 +1,15 @@
+{
+    "courseCode": "BSN3714",
+    "courseCredit": "4",
+    "description": "This interdisciplinary course covers ideas on how value is created \u2014 by working collaboratively to capitalise on 21st century trends through disruptive and non-disruptive innovation. In addition to a substantive coverage of innovation frameworks and strategic planning tools, this module explores insights from organisational psychology and neuroscience that are useful for teams to improve cognitive diversity & creativity. Case examples include inspiring innovators & creative teams and industries such as technology, finance, entertainment and service sectors. This course is versatile enough for students who intend to contribute in start-up teams, established organisations, R&D, social enter-prises or community-based initiatives.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "BSP1703",
+            "BSP1707",
+            "BSP2701",
+            "MNO1706"
+        ]
+    },
+    "title": "Co-Creating Value (Tools for Collaborative Innovation)"
+}

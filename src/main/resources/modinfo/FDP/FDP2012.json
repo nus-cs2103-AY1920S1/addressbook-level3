@@ -1,0 +1,9 @@
+{
+    "courseCode": "FDP2012",
+    "courseCredit": "4",
+    "description": "This module taught in French is specially designed for FDDP students so as to prepare them to attain a basic knowledge on abstract mathematical analysis and algebra, as well as a maturity in the basic skill of abstract mathematical reasoning. Topics covered direct products, direct sums, quotients, finite groups, topology, compactness, connectivity, completion, norm linear spaces.",
+    "faculty": "Science",
+    "preclusion": "FDP2001 Special Class in Mathematics 1,2 &3",
+    "prereqTree": "FDP2011",
+    "title": "Special Mathematics Class 3"
+}

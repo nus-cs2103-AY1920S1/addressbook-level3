@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3261",
+    "courseCredit": "5",
+    "description": "Einstein imagines a beam of light as a train which he rides. Mengzi thinks of human virtues as growing sprouts. Why is this kind of reasoning so pervasive, and what does it mean to think with metaphor and analogy? Three philosophical traditions will inform our exploration of these questions: Indian philosophy, Chinese philosophy, and contemporary Anglophone analytic philosophy. We will consider what metaphor and analogy are, the implications for understanding their role in our thought, their relationship to culture and language and their importance in philosophical topics such as ethics.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1113",
+            "YCC1114"
+        ]
+    },
+    "title": "Analogical Reasoning and Metaphor"
+}

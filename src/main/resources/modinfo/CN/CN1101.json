@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CN1101",
+    "courseCredit": "6",
+    "description": "This module provides an experiential exposure to chemical engineering concepts through a series of hands-on experimental laboratories. Simple yet visually engaging demonstrations will bring these concepts to life, and act as a preview and bridge to the core modules in the undergraduate curriculum, while highlighting their practical relevance. The students will prepare for each session by compulsory pre-laboratory readings on theoretical background and laboratory procedures. In the laboratory, they will learn to carry out measurement, data collection, analysis, modelling, interpretation and presentation. The laboratory sessions will be blended with real engineering applications of industrial and societal relevance to Singapore.",
+    "faculty": "Engineering",
+    "title": "Chemical Engineering Principles and Practice I"
+}

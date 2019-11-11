@@ -1,0 +1,9 @@
+{
+    "courseCode": "EE4410A",
+    "courseCredit": "4",
+    "description": "This module is offered to electrical engineering students who have strong interests in integrated circuit (IC) design. It teaches students analog and mixed-signal IC design through an integrated circuit chip design project using commercial design flows. Intensive lectures pertaining to the project will be delivered in the first week. The lectures cover topics in noise analysis and reduction layout design, electrostatic discharge (ESD), latch up and testability. Students will then proceed with the design according to the given specifications for their projects. The design is carried out in a team of usually 3 students.",
+    "faculty": "Engineering",
+    "preclusion": "EE4410",
+    "prereqTree": "EE3408C",
+    "title": "Integrated Circuit Design"
+}

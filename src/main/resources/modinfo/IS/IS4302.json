@@ -1,0 +1,27 @@
+{
+    "courseCode": "IS4302",
+    "courseCredit": "4",
+    "description": "Digital currencies like Bitcoins have created a different, faster and potentially cheaper way of monetary transfers. The technology behind Bitcoins, namely Blockchain or more broadly the distributed ledger system, has brought big impact on financial services. A blockchain is a distributed database of ownership records (public ledger) of all transactions. A blockchain is irrevocable once it is committed into the system. Through this module, students will learn about blockchain and distributed ledger technologies among others.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS2102",
+                    "BT2102"
+                ]
+            },
+            {
+                "or": [
+                    "CS1020",
+                    "CS2030",
+                    "CS2103",
+                    "CS2103T",
+                    "CS2113",
+                    "CS2113T"
+                ]
+            }
+        ]
+    },
+    "title": "Blockchain and Distributed Ledger Technologies"
+}

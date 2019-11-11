@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS3282",
+    "courseCredit": "4",
+    "description": "This module is the second part of a two-part series on the development of large-scaled computer systems to solve real-world problems under specific themes such as healthcare, security and surveillance, tourism, etc. Students with complementary technical expertise will form project teams to work on real-world projects under the supervision of CS professors and industrial partners. This second part focuses on the development of algorithms required for the systems, implementation and testing of the algorithms and the systems, and evaluation of the systems according to the users\u2019 requirements.",
+    "faculty": "Computing",
+    "prereqTree": "CS3281",
+    "title": "Thematic Systems Project II"
+}

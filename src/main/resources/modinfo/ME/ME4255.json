@@ -1,0 +1,8 @@
+{
+    "courseCode": "ME4255",
+    "courseCredit": "4",
+    "description": "This module addresses the failure of engineering systems governed by the end service conditions. Commonly encountered service conditions are introduced in this module, including their impact on the service life of the individual components as well as the assembly of components. This module enables students to understand the deterioration of materials due to service conditions and how to minimize them. The topics are covered: Introduction to failure of materials; Service failure analysis practice; Failure due to overloading; Failure due to cyclic loading; Failure due to corrosion; Failure due to friction and wear; Failure at elevated temperatures, Failure of weld joints; Inspection and remaining life prediction techniques; and case studies.",
+    "faculty": "Engineering",
+    "prereqTree": "ME2151",
+    "title": "Materials Failure"
+}

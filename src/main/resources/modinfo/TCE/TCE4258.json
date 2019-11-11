@@ -1,0 +1,9 @@
+{
+    "courseCode": "TCE4258",
+    "courseCredit": "4",
+    "description": "The course introduces the basic principles and concepts of structural stability and dynamics. Students will learn to understand the stability and dynamic characteristics of structures and how they respond to quasi-static and time varying loads. They will learn to apply the concept to civil engineering structures through projects. The course covers the behaviour of structures such as frames, beams and trusses modelled as discrete and continuous system subjected to quasi-static and dynamic loads. The course is targeted to 4th year undergraduate students.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "CE4258",
+    "prereqTree": "TCE3115",
+    "title": "Structural Stability & Dynamics"
+}

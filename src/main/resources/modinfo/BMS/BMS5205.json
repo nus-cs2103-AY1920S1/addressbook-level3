@@ -1,0 +1,8 @@
+{
+    "courseCode": "BMS5205",
+    "courseCredit": "4",
+    "description": "This module uses the 'Models, Data, Decisions' framework to develop an analytical mindset and prepare participants to tackle business problems in a data-rich era. Focus is on sound model development and practical problem solving rather than software technicalities.",
+    "faculty": "NUS Business School",
+    "preclusion": "BMA5002 Analytics for Managers",
+    "title": "Business Analytics"
+}

@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUA1150",
+    "courseCredit": "2",
+    "description": "This class is a continuation of MUA1149 Practical Skills for the Versatile Percussionist A. Practical methods are introduced and developed such as head-clearing and tuning, mallet-making, efficient construction of multiple percussion setups, and general instrument maintenance. Classes are a mix of theoretical and hands-on instruction.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA2182"
+    ],
+    "prereqTree": "MUA1180",
+    "title": "Practical Skills for the Versatile Percussionist B"
+}

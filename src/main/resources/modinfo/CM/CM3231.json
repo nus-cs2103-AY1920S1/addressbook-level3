@@ -1,0 +1,8 @@
+{
+    "courseCode": "CM3231",
+    "courseCredit": "4",
+    "description": "Duality of matter and the Heisenberg principle; Schrodinger equation of simple systems; postulates of quantum mechanics; symmetry elements and operators; probability; order and disorder; statistical interpretation of entropy and the Boltzmann equation; Boltzmann distribution and the partition function for an ideal gas; thermodynamic functions for ideal gases.",
+    "faculty": "Science",
+    "prereqTree": "CM2101",
+    "title": "Quantum Chem & Molecular Thermodynamics"
+}

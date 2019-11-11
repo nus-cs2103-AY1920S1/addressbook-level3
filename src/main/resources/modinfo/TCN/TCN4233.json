@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TCN4233",
+    "courseCredit": "4",
+    "description": "The module covers topics pertaining to regulatory and quality issues associated with pharmaceutical production. The two main components of the module are: regulatory aspects of pharmaceutical manufacture and analytical techniques for quality control. The concept of GMP and its components including standard operating procedures, documentation, validation, organization and personnel, premises, equipment, production and quality control are covered in the first half of the module. The second part of the module introduces the students to the various analytical techniques employed in pharmaceutical industry to assess the quality of protein-based biologics.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "CN4233R, PR2143, PR3145, PR4206, CN4233E",
+    "prereqTree": {
+        "or": [
+            "TCN2122",
+            "TCN2125"
+        ]
+    },
+    "title": "Good Manufacturing Practices in Pharmaceutical Industry"
+}

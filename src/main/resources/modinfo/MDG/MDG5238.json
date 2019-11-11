@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MDG5238",
+    "courseCredit": "4",
+    "description": "This module aims to prepare master of nursing students with the general principles and concepts of pharmacokinetics (body\u2019s handling of drug) and harmacodynamics (principles/mechanism of drug action) in humans. A sound understanding of these foundation principles, which constitute the scientific basis of therapeutics, will promote the safe and rational use of drugs in disease conditions. The module will then progress to the study of the pharmacological properties of various classes of clinically useful drugs, starting with autonomic nervous systems, and followed by gastrointestinal, respiratory and cardiovascular systems. These topics will be covered by faculties in Department of Pharmacology. In addition, it will cover legal and ethical principles underpinning the advanced practice nurse\u2019s role in administration of drugs and will be covered by ALCNS faculty.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "MDG5239"
+    ],
+    "title": "Clinical Pharmacology and Pharmacotherapeutics I"
+}

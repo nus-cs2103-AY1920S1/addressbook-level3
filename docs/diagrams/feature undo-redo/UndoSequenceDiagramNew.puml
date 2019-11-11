@@ -1,0 +1,56 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":JarvisParser" as JarvisParser LOGIC_COLOR
+participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":HistoryManager" as HistoryManager MODEL_COLOR
+participant ":CommandDeque" as CommandDeque MODEL_COLOR
+participant ":Command" as Command MODEL_COLOR
+end box
+
+[-> LogicManager : execute(undo)
+activate LogicManager
+LogicManager -> JarvisParser : parseCommand(undo)
+    activate JarvisParser
+    create UndoCommand
+    JarvisParser -> UndoCommand
+        activate UndoCommand
+        return
+    return u
+
+LogicManager -> UndoCommand : execute(model)
+    activate UndoCommand
+    UndoCommand -> Model : rollBack()
+        activate Model
+        Model -> HistoryManager : rollBack(this)
+            activate HistoryManager
+            HistoryManager -> CommandDeque : getLatestCommand()
+                activate CommandDeque
+                return c
+            HistoryManager -> Command : executeInverse(model)
+                activate Command
+                return
+            HistoryManager -> CommandDeque : deleteLatestCommand()
+                activate CommandDeque
+                return c
+            HistoryManager -> CommandDeque : addLatestCommand()
+                activate CommandDeque
+                return
+            return
+        return
+    return result
+
+deactivate UndoCommand
+UndoCommand -[hidden]-> LogicManager : hiddenText
+destroy UndoCommand
+
+[<--LogicManager : result
+deactivate LogicManager
+
+@enduml

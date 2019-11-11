@@ -1,0 +1,14 @@
+{
+    "courseCode": "ME2135",
+    "courseCredit": "4",
+    "description": "This module aims to introduce fundamentals of fluid dynamics covering notions of the continuum hypothesis, flow kinematics, mathematical tools for flow visualization, material derivative, fluid acceleration, conservation laws, Euler and Navier-Stokes Equations, inviscid flows, potential flows, viscous flows, creeping flows and boundary layer flows. Review of relevant mathematical tools to support the theory will accompany the topics when and where it is required.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ME5301",
+        "ME5302",
+        "ME5304",
+        "ME3233E"
+    ],
+    "prereqTree": "ME2134",
+    "title": "Intermediate Fluid Mechanics"
+}

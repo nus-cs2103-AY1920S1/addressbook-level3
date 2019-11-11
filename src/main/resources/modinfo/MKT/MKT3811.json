@@ -1,0 +1,14 @@
+{
+    "courseCode": "MKT3811",
+    "courseCredit": "4",
+    "description": "The objective of this course is to show you the benefits of using a systematic and analytical approach to marketing decision-making, and to build your skills and confidence in undertaking such analyses and decision making. An analytical approach will enable you to: (1) identify alternative marketing options and actions, (2) calibrate the opportunity costs associated with each option, and (3) choose one or more options that have the highest likelihood of helping you achieve your business goals. By completing this course, you will be well on your way to making the ROI case for marketing expenditures that companies are increasingly asking of their executives. This course follows up on the marketing core course by operationalizing several marketing concepts such as segmentation, targeting, positioning, and marketing resource allocation. By the end of this course, you will learn how to segment customers, recognize different ways to segment markets, understand the data required for segmentation, identify attractive customers to target, determine the best positioning of your brand in customers? minds, and develop new products that add value to consumers and firms. The course is designed for students who have extensive background in or understanding marketing research and marketing principles, and who know or are prepared to learn to build ?smart? spreadsheets in EXCEL. Using market simulations and related exercises tied to PC-based computer software, students will develop marketing plans in varying decision contexts.",
+    "faculty": "NUS Business School",
+    "preclusion": "MKT3421",
+    "prereqTree": {
+        "or": [
+            "MKT1705",
+            "MKT1705X"
+        ]
+    },
+    "title": "Marketing Analysis & Decision Making"
+}

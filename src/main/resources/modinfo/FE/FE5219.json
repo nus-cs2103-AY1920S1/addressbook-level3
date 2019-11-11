@@ -1,0 +1,16 @@
+{
+    "courseCode": "FE5219",
+    "courseCredit": "6",
+    "description": "This module will provide students with the opportunity to work on real-world problems in quantitative credit analysis. The module will be project based within either a research or industry environment. Students will gain a detailed knowledge of the project subject matter, along with an overall understanding of quantitative credit analysis. The projects will be group-based with up to three students in a group. Most of the groups will be based in RMI\u2019s Credit Research Initiative, and students can also source for an external company to host their projects.",
+    "faculty": "Risk Management Institute",
+    "prereqTree": {
+        "and": [
+            "FE5101",
+            "FE5112",
+            "FE5112D",
+            "FE5209",
+            "FE5209D"
+        ]
+    },
+    "title": "Credit Analytics Practicum"
+}

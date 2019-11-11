@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "BPS5224",
+    "courseCredit": "4",
+    "description": "This course deals with active design of building systems for good IEQ and energy performance. It includes the conventional heating, ventilating and air-conditioning (HVAC) systems typical of most existing buildings as well as emerging technologies such as district cooling/heating systems, cogeneration/tri-generation systems and energyefficient air-conditioning and air distribution systems. The Renewable Energy domain includes photo-voltaics, solarthermal, geothermal, wind and fuel cells.",
+    "faculty": "Design and Environment",
+    "preclusion": "Students who have taken BPS5204 not able to take  BPS5224",
+    "title": "Building Energy Performance - Active Systems"
+}

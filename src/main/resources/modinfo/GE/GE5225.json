@@ -1,0 +1,10 @@
+{
+    "courseCode": "GE5225",
+    "courseCredit": "4",
+    "description": "This module aims to guide students in the selection and development of an appropriate MSc thesis topic. The importance of a thorough evaluation of relevant literature to the process of identifying live research problems and of effective project management will be stressed. Students will obtain the necessary training to plan and implement a research thesis and evaluate the various available research approaches. The primary output of this module will be a detailed research proposal, presented in written and oral forms as a prelude to GE6225 Research Thesis.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "GE6225"
+    ],
+    "title": "Thesis Planning and Implementation"
+}

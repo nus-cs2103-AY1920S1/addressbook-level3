@@ -1,0 +1,23 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TME2143",
+    "courseCredit": "4",
+    "description": "Primarily a core subject for mechanical engineering students, this course introduces the basic principles and characteristics of various sensors for the measurement of mechanical quantities such as position, velocity, acceleration, force, and temperature. Topics that are also introduced are actuators for achieving motion, primarily various types of electric motors. This course also covers the generalised measurement and instrumentation system, the associated electronics, drivers and power supplies for the processing of the signals from the sensors and transducers and for driving the various actuators. Emphasis is placed on the knowledge required for the application of these sensors and actuators rather than on their design.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TME4256"
+    ],
+    "preclusion": "TM2141, ME2143E, ME2143",
+    "prereqTree": {
+        "or": [
+            "PC1431",
+            "PC1431FC",
+            "PC1431X"
+        ]
+    },
+    "title": "Sensors and Actuators"
+}

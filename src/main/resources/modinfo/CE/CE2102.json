@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CE2102",
+    "courseCredit": "4",
+    "description": "The impact of civil infrastructures on the environment is considerable and engineers have a significant role to play in developing technical solutions which must be cost-effective, economically feasible and environmentally sustainable. Sustainable development must consider all the repercussions from infrastructure development in a systematic and holistic way, including assessment of the resulting pollution problems through environmental monitoring and its necessary companion: safety control and management.",
+    "faculty": "Engineering",
+    "preclusion": "CE1102",
+    "title": "Principles & Practice in Infrastructure and Environment"
+}

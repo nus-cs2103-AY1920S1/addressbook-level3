@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAC1201",
+    "courseCredit": "4",
+    "description": "This is a beginners' module consisting three main components: conversation, grammar and Chinese characters learning. Vocabulary items, sentence patterns and short texts will be taught. Students will acquire basic communicative skills to deal with simple daily situations after reading this module. Approximately 180 Chinese characters and 150 phrases will be introduced.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAC2201"
+    ],
+    "title": "Chinese 1"
+}

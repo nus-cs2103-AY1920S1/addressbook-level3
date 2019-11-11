@@ -1,0 +1,64 @@
+.cca_cell_big_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 25px;
+    -fx-text-fill: #707070;
+}
+
+.cca_type_label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 15px;
+    -fx-text-fill: #707070;
+}
+
+.cell_equipment_label {
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13px;
+    -fx-text-fill: #707070;
+    -fx-border-width: 20;
+}
+
+.cell_milestone_label {
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 20px;
+    -fx-text-fill: #707070;
+    -fx-border-width: 20;
+}
+
+#rightVbox {
+    -fx-border-color: #707070;
+    -fx-border-width: 3;
+    -fx-background-radius: 18 18 18 18;
+    -fx-border-radius: 18 18 18 18;
+}
+
+#centerVbox {
+    -fx-border-color: #707070;
+    -fx-border-width: 3;
+    -fx-background-radius: 18 18 18 18;
+    -fx-border-radius: 18 18 18 18;
+}
+
+#borderPaneTop {
+    -fx-background-color: derive(#f7eceb, 10%);
+    -fx-border-color: #707070;
+    -fx-border-width: 3;
+    -fx-background-radius: 18 18 18 18;
+    -fx-border-radius: 18 18 18 18;
+}
+
+#progressListView {
+    -fx-background-radius: 18 18 18 18;
+    -fx-border-radius: 18 18 18 18;
+}
+
+#progressTitle {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 15px;
+    -fx-text-fill: black;
+}
+
+#equipmentTitle {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 15px;
+    -fx-text-fill: black;
+}

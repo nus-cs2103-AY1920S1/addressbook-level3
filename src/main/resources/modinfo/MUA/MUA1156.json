@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUA1156",
+    "courseCredit": "2",
+    "description": "A continuation of MUA1180 First Year Woodwinds Class A, First Year Woodwinds Class B is a class designed to further introduce and familiarize the student with the skills and knowledge necessary for professional-level woodwinds playing. The course will consist of two primary components divided over 10 sessions throughout the semester. One: 'Learning through Listening,' will be classroom based and will introduce the history and literature of orchestral woodwinds playing. Two: 'Applied Woodwinds Techniques,' will be playing based and will utilize in-class 'woodwinds lab' activities to apply basic woodwinds playing and woodwinds ensemble techniques in a group setting.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA2185"
+    ],
+    "prereqTree": "MUA1180",
+    "title": "First Year Woodwinds Class B"
+}

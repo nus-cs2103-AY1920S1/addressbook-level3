@@ -1,0 +1,18 @@
+{
+    "courseCode": "PR3137",
+    "courseCredit": "4",
+    "description": "This is a practical-based module that builds on the knowledge gained from other clinical and practice modules to enable students to integrate and apply what they have learnt in the pharmacy practice laboratory sessions. This module is focused on the provision of pharmaceutical care and involves a partnership between the patient, pharmacist and other healthcare providers to promote safe and efficacious use of medications to achieve desired patient outcomes. Students will undergo simulated practice-based training, and work individually and collaboratively to hone their knowledge and skills in dispensing, patient counselling, medication therapy management, and handling drug information requests, in preparation for pre-registration training.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR4138"
+    ],
+    "prereqTree": {
+        "or": [
+            "PR2131",
+            "PR2134",
+            "PR3124",
+            "PR3146"
+        ]
+    },
+    "title": "Pharmacy Professional Skills Development III"
+}

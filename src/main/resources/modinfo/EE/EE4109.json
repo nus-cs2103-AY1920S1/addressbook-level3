@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4109",
+    "courseCredit": "4",
+    "description": "Spread spectrum modulation is the enabling technology for many current mobile wireless communication systems and is a leading candidate for next generation communication systems. This module introduces students to spread spectrum communications, including modulation (direct-sequence and frequency hopping) and detection (single and multiuser). The topics covered also include wireless fading channels, sequence design (binary shift register sequences), sequence acquisition/tracking, cellular communications and the application of spread spectrum to Code Division Multiple Access (CDMA) systems.",
+    "faculty": "Engineering",
+    "prereqTree": "EE4102",
+    "title": "Spread Spectrum Communications"
+}

@@ -1,0 +1,7 @@
+{
+    "courseCode": "MUA3277",
+    "courseCredit": "4",
+    "description": "The module aims to offer an introduction to concepts and techniques of algorithmic music composition. The following tools and concepts for generating structure of musical parameters will be covered: list processing, random number generators, Markov chains, distribution functions, interpolation, perturbation, sets, series, and sieves. The course will use IRCAM's OpenMusic, a software environment for algorithmic and computerassisted composition. Assessment will be based on composition projects realized during the semester. The module will mostly address algorithmic composition of acoustic music, but composition of electronic music will also be possible, if the student wishes to pursue that in a project.",
+    "faculty": "YST Conservatory of Music",
+    "title": "Computer-Aided Composition"
+}

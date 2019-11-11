@@ -1,0 +1,11 @@
+{
+    "courseCode": "AH3201",
+    "courseCredit": "4",
+    "description": "This module provides an introduction to key movements and tendencies in late modern and contemporary art, primarily in Europe and North America, but also extending to related developments around the world. Through a close analysis of significant artists, exhibitions and texts, the course will encourage a historical understanding of the emergence of Western contemporary art and its role within the globalised art world of today. The influences of social, political and cultural forces will also be discussed, providing a wider framework for students to interpret artworks and to examine their context and reception.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "YHU4207"
+    ],
+    "prereqTree": "AH2101",
+    "title": "A History of Contemporary Art"
+}

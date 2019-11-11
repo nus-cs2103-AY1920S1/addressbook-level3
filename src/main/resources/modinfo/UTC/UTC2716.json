@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2716",
+    "courseCredit": "4",
+    "description": "Networks are powerful representations of real-world systems due to their ability to encapsulate micro-relationships, yet eliciting powerful insights when observed at the macro-level. These capabilities allow network analysis and modelling to be employed at the best technology companies like Google and Facebook. This course is a gentle introduction to network concepts, how it is changing the way we look at the world, and how it can be leveraged to make decisions.",
+    "faculty": "Residential College",
+    "preclusion": "UTC27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Mapping Hidden Connections with Network Science"
+}

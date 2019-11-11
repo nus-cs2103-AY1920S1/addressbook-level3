@@ -1,0 +1,15 @@
+{
+    "courseCode": "LL6029AV",
+    "courseCredit": "5",
+    "description": "",
+    "faculty": "Law",
+    "fulfillRequirements": [
+        "LL5379",
+        "LL6379",
+        "LL5379V",
+        "LL6379V",
+        "LL4379",
+        "LL4379V"
+    ],
+    "title": "International Commercial Arbitration"
+}

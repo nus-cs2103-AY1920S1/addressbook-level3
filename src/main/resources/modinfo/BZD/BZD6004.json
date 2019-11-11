@@ -1,0 +1,11 @@
+{
+    "courseCode": "BZD6004",
+    "courseCredit": "4",
+    "description": "This course applies econometric theory to connect statistics to business research. The emphasis venters on implementing existing econometric techniques and the ability to understand new empirical procedures. This intermediate course centers on identifying the ideal test procedure for the question of interest including experiments, observational data and simulations.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BZD6005"
+    ],
+    "prereqTree": "BZD6003",
+    "title": "Applied Econometrics II"
+}

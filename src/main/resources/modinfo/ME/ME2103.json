@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ME2103",
+    "courseCredit": "3",
+    "description": "The module enables students to learn the various standards and techniques of geometrical sketching, prepare engineering drawings and specifications, and interpreting drawings. Students also get to use advanced commercial CAD software to do 3D solid modeling. Above all, this module expands the students' creative talent and enhances their ability to communicate their ideas in a meaningful manner. Major topics include: Principles of projections; Isometric and Auxiliary views; Interpenetration of solids and Development of surfaces; 3D solid modeling; Sectioning and Dimensioning; Machine and Assembly drawings; Drawing standards and Limits and Tolerances. This is a core module for all Mechanical Engineering students and is also open to all cross-faculty students.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ME3103"
+    ],
+    "title": "Engineering Visualization & Modeling"
+}

@@ -1,0 +1,27 @@
+{
+    "courseCode": "MA4229",
+    "courseCredit": "4",
+    "description": "The central theme of this course is the problem of interpolating data by smooth and simple functions. To achieve this goal, we need to study interesting families of functions. The basic material covered deals with approximation in normed linear spaces, in particular, in Hilbert spaces. These include Weierstrass approximation theorem via Bernstein polynomials, best uniform polynomial approximation, interpolation, orthogonal polynomials and least squares problems, splines and wavelets. Major topics: Basics in approximation theory. Weierstrass approximation theorem via Bernstein polynomials. Best uniform polynomial approximation and Haar condition. Polynomial interpolation. Orthogonal polynomials and least squares problems. Splines. Wavelets.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5242",
+        "MA5241"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA2101",
+                    "MA2101S"
+                ]
+            },
+            {
+                "or": [
+                    "MA3110",
+                    "MA3110S"
+                ]
+            }
+        ]
+    },
+    "title": "Approximation Theory"
+}

@@ -1,0 +1,23 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "DSA2102",
+    "courseCredit": "4",
+    "description": "This module aims at introducing basic concepts and wellestablished numerical methods that are very related to the computing foundation of data science and analytics. The emphasis is on the tight integration of numerical algorithms, implementation in industrial programming language, and examination on practical examples drawn from various disciplines related to data science. Major topics include: computer arithmetic, matrix multiplication, numerical methods for solving linear systems, least squares method, interpolation, concrete implementations in industrial program language, and sample applications related to data science.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA4270",
+        "MA4255",
+        "MA4230"
+    ],
+    "preclusion": "MA2213",
+    "prereqTree": {
+        "and": [
+            "MA1101R",
+            "MA1102R"
+        ]
+    },
+    "title": "Essential Data Analytics Tools: Numerical Computation"
+}

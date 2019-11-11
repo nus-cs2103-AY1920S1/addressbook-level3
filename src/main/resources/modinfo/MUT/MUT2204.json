@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUT2204",
+    "courseCredit": "4",
+    "description": "This module provides an overview of various formal procedures in music of different eras and genres. It examines how techniques of repetition, contrast, return, development and variation create form. Main topics examined include dance forms, sonata forms, variation forms, contemporary as well as common formal techniques. The module aims to bridge compositional thinking with performance and interpretative analysis. Because of this, analysis, composition, and performance are equally represented as modes of learning. Major assessment is in the form of analytical work and music compositions that are performed in class and/or public concerts.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUT3202"
+    ],
+    "prereqTree": "MUT1101",
+    "title": "Formal Practices"
+}

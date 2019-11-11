@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GES1001T",
+    "courseCredit": "4",
+    "description": "This course aims to provide insights into the different approaches in employee management adopted by organizations in Singapore. The relationship between organization structures, cultures and human resource practices will be explored. Some contemporary issues and challenges, such as the changing demographic and its implications for the workplace will also be examined. Students reading this course will be able to gain insights into the intricacies of employee management in Singapore, and hence be able to understand the implications for and impact of such practices on their roles in the workplace. This course is offered to BTech students only.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "MNO2302,SSB2216, SSB2216T, GES1001",
+    "title": "Employee Management In Singapore"
+}

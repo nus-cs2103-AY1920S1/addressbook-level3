@@ -1,0 +1,8 @@
+{
+    "courseCode": "MA5217",
+    "courseCredit": "4",
+    "description": "This module is intended to be a rigorous introduction to the study of functions of one complex variable, aimed at the first year graduate level. Major topics: Holomorphic functions, Cauchy\u2019s integral formula and applications, residue and poles, Argument Principle, Maximal Modulus Principle and the Schwarz Lemma, conformal mappings, harmonic functions and analytic continuation.",
+    "faculty": "Science",
+    "preclusion": "MA4247 Complex Analysis II",
+    "title": "Graduate Complex Analysis"
+}

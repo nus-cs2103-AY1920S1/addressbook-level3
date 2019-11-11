@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS3233",
+    "courseCredit": "4",
+    "description": "This module explores the rich spectrum of performance practices in Southeast Asia, such as ritual theatre, dance drama, storytelling, and puppetry. The performative heritage of performance traditions and religious theatres in the region will be examined and compared with contemporary iterations. Through key theoretical approaches, students will learn to understand each practice in its changing socio-cultural contexts, and its aesthetics. They will trace the genealogy of Southeast Asian performance practices in relation to their historical entanglements with Asian traditions and Western forms. Students interested in theatre, religious studies, sociology and history may find this module useful.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Southeast Asian Performance"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "PC2232",
+    "courseCredit": "4",
+    "description": "This 2000 level module is designed to give students an indepth grounding in fundamental aspects of modern physics. The module concentrates on modern optics and quantum mechanics (QM), with a focus on the applications of these two topics in electrical engineering.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "EE5431",
+        "EE4433",
+        "PC3232B"
+    ],
+    "preclusion": "N.A.",
+    "prereqTree": "EE2011",
+    "title": "Physics for Electrical Engineers"
+}

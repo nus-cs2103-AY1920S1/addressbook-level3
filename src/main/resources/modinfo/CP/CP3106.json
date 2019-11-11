@@ -1,0 +1,37 @@
+{
+    "attributes": {
+        "ism": true
+    },
+    "courseCode": "CP3106",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            {
+                "and": [
+                    {
+                        "or": [
+                            "CS2102",
+                            "CS2102S"
+                        ]
+                    },
+                    "CS2105",
+                    {
+                        "or": [
+                            "CS3214",
+                            "CS3215"
+                        ]
+                    }
+                ]
+            },
+            "IS3102",
+            "IS4102",
+            "CS3201",
+            "CS3281",
+            "CS4201",
+            "CS4203"
+        ]
+    },
+    "title": "Independent Project"
+}

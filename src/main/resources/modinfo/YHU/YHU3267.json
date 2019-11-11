@@ -1,0 +1,14 @@
+{
+    "courseCode": "YHU3267",
+    "courseCredit": "5",
+    "description": "Classical Indian Philosophy introduces students to major topics in linguistic analysis within the traditions of India. This course focuses on two questions: What is linguistic meaning? How do we understand what is meant? As the former question is embedded within the latter for Indian thinkers, the first third of the course will be spent on epistemology of testimony in Ny\u0101ya and M\u012bm\u0101\u1e43s\u0101. The middle third of the course takes up the question of what meaning(s) are primary, both in terms of words and sentences. In the final third, we address meanings beyond primary: metaphor, bitextuality (punning), and suggested meaning.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "Precludes previous module code of YHU2251",
+    "prereqTree": {
+        "and": [
+            "YCC1113",
+            "YCC1114"
+        ]
+    },
+    "title": "Classical Indian Philosophy of Language"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS3247",
+    "courseCredit": "4",
+    "description": "The informal archiving of events through recording technology and social media is now an everyday activity, such that the event and its record are increasingly intertwined. This module provides a hands\u2010on introduction to the considerations and processes in the digital archiving of theatre performances. Issues in the selection of materials, their ownership and presentation will be explored through the interests of different parties: the archivists, the institution housing the archive, the copyright holders and the archive\u2019s users. Students will be guided in group projects to archive a set of performance materials for different kinds of archives in the digital humanities.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Digital Archiving and Performance"
+}

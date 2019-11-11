@@ -1,0 +1,16 @@
+{
+    "courseCode": "YHU4232",
+    "courseCredit": "5",
+    "description": "This course provides students a guided experience in the development of performance practice including the selection and sequencing of dramatic conventions to generate meaning. Students will revisit, re-examine and apply the knowledge and skills they acquired, including acting, writing, dramaturgy and collaboration and apply these in the creation of individual as well as group devised creative product. Students will immerse in performance development process to produce an original devised performance. Through the process, they will develop knowledge of the languages and grammar of performance making as well as creative and critical thinking to design and lead extended performance making process.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1113",
+            "YCC1121",
+            "YCC1131",
+            "YHU2275"
+        ]
+    },
+    "title": "Making Performance, Generating Meaning"
+}

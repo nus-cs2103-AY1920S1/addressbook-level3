@@ -1,0 +1,20 @@
+{
+    "courseCode": "EE4702",
+    "courseCredit": "8",
+    "description": "This project module gives students hands-on insights into mechanics/simulation components of a game engine. The primary focus is the underlying game logic, like game physics, artificial intelligence and world simulation (and not presentation components like graphics or sound). Brief overview and introduction lectures will be followed by small group projects. Each student will participate in three different projects of four weeks. Students will need to come up with ideas and designs of interesting subsystems, reason about the integration into a game, and implement a prototype. Example projects are explosion physics, herd animal behaviour, and thunderstorm simulation.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS1010FC",
+                    "CS1101C",
+                    "CS1010E",
+                    "CG1101"
+                ]
+            },
+            "EE3702"
+        ]
+    },
+    "title": "Game World Mechanics"
+}

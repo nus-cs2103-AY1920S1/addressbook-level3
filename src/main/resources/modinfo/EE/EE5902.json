@@ -1,0 +1,28 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5902",
+    "courseCredit": "4",
+    "description": "This course deals with the design and analysis of high performance computer architectures with respect to several aspects of the multiple computer systems. Issues such as scalability, architectural issues, parallelism, performance metrics, and programming, are considered. The main intent of this course is to stay tuned with the current technology trend and to meet the requirements of the modern computer industry. The syllabus has the following four distinct major topics - Theory of Parallelism, Hardware Technology Overview, Scalable Architectures for High Performance Systems, Parallel Programming Concepts. This course serves as a strong foundation to those who wish to set their career (research and/or employment) in the domain of computer architectures, parallel and distributed processing, and software engineering.",
+    "faculty": "Engineering",
+    "preclusion": "EE5902R, TD5180A, CS5222 Advanced Computer Archtecture; CS5223 Distributed Systems; CS4223 Multi-core Architectures.",
+    "prereqTree": {
+        "and": [
+            "CS2100",
+            {
+                "or": [
+                    "CG3207",
+                    "EE4218"
+                ]
+            },
+            {
+                "or": [
+                    "CS5272",
+                    "CG3207"
+                ]
+            }
+        ]
+    },
+    "title": "Multiprocessor Systems"
+}

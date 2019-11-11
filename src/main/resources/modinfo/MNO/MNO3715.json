@@ -1,0 +1,15 @@
+{
+    "courseCode": "MNO3715",
+    "courseCredit": "4",
+    "description": "Groups and Teams are among the most important work formats in our modern organization. This module?s objective is to focus on evidence-based management to try and understand what drives the behaviour of groups and their members. Our job is to try and understand when, if, and how phenomena change as we place people in situations where they need to rely on others to get the job done. The module will loosely follow Tuckman?s (1965) forming, storming, norming, and performing model of group development. However, much of our attention will be focused on the forming stage, as everything that follows depends on successfully building the team.",
+    "faculty": "NUS Business School",
+    "preclusion": "MNO3332",
+    "prereqTree": {
+        "or": [
+            "MNO1706",
+            "MNO1706X",
+            "PL3239"
+        ]
+    },
+    "title": "Leading Groups and Teams"
+}

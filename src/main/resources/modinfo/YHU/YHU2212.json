@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU2212",
+    "courseCredit": "5",
+    "description": "This course will introduce students to the basic particles and grammatical structure of the classical Chinese language (a.k.a. literary Chinese). Through the close reading of texts from the pre- and early-imperial periods, students will also learn such skills as recognizing syntactic parallelism, the art of reading in context, and understanding rhetorical structures.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YHU3211",
+        "YHU4218",
+        "YHU4237"
+    ],
+    "prereqTree": "YLC2202",
+    "title": "Classical Chinese"
+}

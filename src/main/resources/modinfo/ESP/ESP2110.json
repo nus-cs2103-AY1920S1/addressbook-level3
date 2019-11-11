@@ -1,0 +1,13 @@
+{
+    "courseCode": "ESP2110",
+    "courseCredit": "4",
+    "description": "Through an antenna project in the first part of the module, students will learn the fundamentals of electromagnetic energy propagation, antenna and transmission line theory, as well as microwave engineering techniques. Specifically, the students will have to design an external WiFi antenna to dramatically extend the communication range between their laptop computer and a remotely located hub station. In the second part of the module, the students have to design a working electroplating set-up (high efficiency, uniform temperature stability and optimum pH bath solution) and study several parameters that influence the quality of the plated film quality. They will look into the morphology, structural characteristics using optical microscopy and XRD analysis. The electrical characteristics will be evaluated through I-V characterization of the Ni plated films.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            "ESP1104",
+            "ESP1107"
+        ]
+    },
+    "title": "Design Project 2"
+}

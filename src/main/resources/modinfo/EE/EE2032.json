@@ -1,0 +1,13 @@
+{
+    "courseCode": "EE2032",
+    "courseCredit": "3",
+    "description": "This lab module introduces students to the practical aspects of designing a communication system. This module builds on the concepts learnt in EE2011 Engineering Electromagnetism and EE2023 Signals and Systems. Students will start the experiments with the Frequency Modulation (FM) technique in conjunction with a voltage controlled oscillator (VCO). This is followed by experiments with FM demodulation techniques, simplex communication and duplex communication. Then students will learn about the reflection coefficient and plot it in the Smith Chart. Subsequently an antenna is designed and the building blocks of the communication system are characterized. Finally the complete communication system is assembled and measured.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            "EE2011",
+            "EE2023"
+        ]
+    },
+    "title": "Signals & Communications Design Lab"
+}

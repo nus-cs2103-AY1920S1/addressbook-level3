@@ -1,0 +1,21 @@
+{
+    "courseCode": "MLE2103",
+    "courseCredit": "3",
+    "description": "Diffusion in solid-state: Ficks first and second laws of diffusion, diffusion mechanisms; Diffusional & diffusionless transformations: solidification, phase transformation in solid, nucleation and growth, solidification of alloys and eutectics, TTT diagram, equilibrium and non-equilibrium states, spinodal transformation, martensitic phase transformation; Applications of phase transformations: precipitation, grain growth, devitrification, development of microstructures and nanostructures.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "MLE4101A",
+        "MLE4101R",
+        "MLE4102",
+        "MLE4101"
+    ],
+    "prereqTree": {
+        "or": [
+            "MLE2102",
+            "MLE1111",
+            "MLE1001",
+            "MLE1002"
+        ]
+    },
+    "title": "Phase Transformation and Kinetics"
+}

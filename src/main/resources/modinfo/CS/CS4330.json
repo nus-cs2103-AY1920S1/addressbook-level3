@@ -1,0 +1,19 @@
+{
+    "courseCode": "CS4330",
+    "courseCredit": "4",
+    "description": "After the complete sequencing of a number of genomes, we are in the stage to understand the mystery of our body, that is, we need to understand the information encoded in the genome and its relationship with RNA and protein. This aim of this module is to cover algorithms related to this stage. In the module, we will cover the algorithms related to genome annotation, motif identification, proteomics, population genetics, microarray, etc.",
+    "faculty": "Computing",
+    "preclusion": "CS3225 Combinatorial Methods in Bioinformatics",
+    "prereqTree": {
+        "and": [
+            "CS2010",
+            {
+                "or": [
+                    "CS2220",
+                    "LSM2104"
+                ]
+            }
+        ]
+    },
+    "title": "Combinatorial Methods in Bioinformatics"
+}

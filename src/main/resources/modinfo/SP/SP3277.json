@@ -1,0 +1,18 @@
+{
+    "courseCode": "SP3277",
+    "courseCredit": "4",
+    "description": "This module exposes senior students to nanoscience research and nanotechnology-based industry. This is done through a series of weekly seminars by principal investigators and industrial experts in the field, laboratory and industrial visits, and by completion of nanosynthesis/nanocharacterization-related mini projects. The course culminates in an intensive one-week study tour to Japan, organised in collaboration with La Trobe University and Tokyo University",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "SP2171",
+            {
+                "or": [
+                    "SP2173",
+                    "SP2251"
+                ]
+            }
+        ]
+    },
+    "title": "Nano: from Research Bench to Industrial Applications"
+}

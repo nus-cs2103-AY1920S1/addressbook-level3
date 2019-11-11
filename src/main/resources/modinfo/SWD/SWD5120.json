@@ -1,0 +1,9 @@
+{
+    "courseCode": "SWD5120",
+    "courseCredit": "4",
+    "description": "Candidates are required to fulfil practicum requirements of 400 fieldwork hours under an approved supervisor and it is equivalent to one module. The candidate is only allowed to take the Social Work Practicum if he/she had already taken or is concurrently taking one of the essential modules specified by the Department of Social Work and Psychology.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "SW5120",
+    "prereqTree": "SWD5103",
+    "title": "Social Work Practicum"
+}

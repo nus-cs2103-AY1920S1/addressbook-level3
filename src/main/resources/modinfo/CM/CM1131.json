@@ -1,0 +1,22 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CM1131",
+    "courseCredit": "4",
+    "description": "Equations of state of ideal and real gases, intermolecular forces; kinetic theory of gases; first law of thermodynamics; enthalpy; thermochemistry; the second law; entropy; Helmholtz and Gibbs functions; the third law; rates of chemical reactions; accounting for the rate laws - reaction mechanisms; effect of temperature on reaction rate; theories of reaction rates.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CM2101",
+        "CM2142",
+        "CM2288",
+        "CM2289",
+        "SP2251",
+        "CM4269",
+        "CM3252",
+        "CM3253",
+        "CM4282",
+        "CM3201"
+    ],
+    "title": "Physical Chemistry 1"
+}

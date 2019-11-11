@@ -1,0 +1,23 @@
+{
+    "courseCode": "PC3235",
+    "courseCredit": "4",
+    "description": "This is a first course in solid state physics. It aims to lay the foundations for students seeking to major in physics as well as students studying in materials science and engineering. The lectures emphasize on the fundamental concepts of condensed matter, covering crystal structure and reciprocal lattice, crystal binding and elastic constants, crystal vibrations and thermal properties, free electron theory and physical properties of metals, electron in periodic potentials, and basic semiconductors. Simple model prediction data and the experimental data from real systems would be compared and discussed to help students develop an intuitive understanding of the subject.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC5204",
+        "PC4236",
+        "PC4253",
+        "PC4240",
+        "PC3243",
+        "PC3242",
+        "PC3241"
+    ],
+    "preclusion": "EE3406 or PC2133",
+    "prereqTree": {
+        "or": [
+            "PC2130",
+            "PC2130B"
+        ]
+    },
+    "title": "Solid State Physics I"
+}

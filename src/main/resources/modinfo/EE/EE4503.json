@@ -1,0 +1,14 @@
+{
+    "courseCode": "EE4503",
+    "courseCredit": "4",
+    "description": "Power electronics is an enabling technology used widely in electric power processing unit. It is an integral part of all electronic equipment from household appliances through information technology to transportation systems. This module provides working principles and design for power electronic converter circuits. After going through this module, students should be able to analyze, evaluate and carry out design of power electronic circuits for a large variety of applications. The topics covered are: Power semiconductor devices and terminal characteristics. Switching circuits design and protection circuits. AC-DC converters, DC-DC converters and DC-AC converters: analysis and performance evaluation.",
+    "faculty": "Engineering",
+    "preclusion": "EE2025/EE3501E/TEE3501 Power Electronics",
+    "prereqTree": {
+        "or": [
+            "EE3505C",
+            "EE3506C"
+        ]
+    },
+    "title": "Advanced Power Electronics"
+}

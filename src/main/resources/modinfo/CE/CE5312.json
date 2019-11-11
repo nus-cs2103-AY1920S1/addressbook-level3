@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5312",
+    "courseCredit": "4",
+    "description": "The student will be introduced to open channel flows covering the conservation of mass, the momentum and energy equations. This is followed with the formulations for steady gradually varied flows with/without lateral inflows/outflows. The student is further introduced to the design of channels for steady gradually varied flows with lateral inflows (side spillways) and lateral outflows (side weirs). The concept of flow controls is also covered. The development of the continuity and momentum equations for unsteady flows is introduced. Flood routing is also covered along with the concepts of the kinematic wave, the diffusive wave and the dynamic wave are covered. The concept of the characteristics and its application to the solution of the simple wave problems associated with sluice gate operations and dam break is also introduced. Sediment transport concepts and the resistance to flow due to bedforms in alluvial channels are also covered with the view of estimating the total sediment transport capacity and the friction factor for composite roughnesses. Design concepts for a stable channel is also introduced.",
+    "faculty": "Engineering",
+    "prereqTree": "CE3132",
+    "title": "River Mechanics"
+}

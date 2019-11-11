@@ -1,0 +1,9 @@
+{
+    "courseCode": "TEE4303",
+    "courseCredit": "4",
+    "description": "This module will cover sensors, instrumentation and control systems commonly used in the industry. The sensor and instrumentation part includes topics such as signal processing and conversion, transducers and actuators, instrumentation amplifiers, non-linear amplifiers, issues pertaining to grounds, shields and power supplies. The control portion covers the evolution and types of control systems, centralized control, direct digital control (DDC), distributed control systems (DCS), fieldbuses, PID control: tuning methods and refinements, auto-tuning principles and implementation, available industrial PID controllers and their operation. It will include other common control systems such as feed-forward, cascade, ratio, selective, split range, time-delay compensation, sequence control and PLC.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "EE3302E, TEE3302, EE4303E",
+    "prereqTree": "TEE3331",
+    "title": "Industrial Control Systems"
+}

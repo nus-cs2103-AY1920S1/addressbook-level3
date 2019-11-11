@@ -1,0 +1,9 @@
+{
+    "courseCode": "TR3005",
+    "courseCredit": "4",
+    "description": "This course will describe the process and skills involved in the development of a comprehensive business plan for a startup technology venture. Whereas the prerequisite course, TR3004, introduced the sequential stages of engineering entrepreneurship from the initial idea through venture startup, its emerging stage and ultimately \"harvesting,\" this course provides a much more detailed treatment of the business startup phase for those students who wish to pursue the topic further. Student teams will each prepare an in-depth business plan for a technology venture opportunity. At the end of the term, the plans are presented to a distinguished panel of investors, entrepreneurs and advisers.",
+    "faculty": "NUS",
+    "preclusion": "TR3002",
+    "prereqTree": "TR3004",
+    "title": "Engineering Entrepreneurship II"
+}

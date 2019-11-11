@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS5223",
+    "courseCredit": "4",
+    "description": "The topic of Distributed Systems is now garnering increasing importance, especially with the advancement in technology of the Internet and WWW. The aim of this module is to provide students with basic concepts and principles of distributed operating systems, interprocess communications, distributed file systems, shared data, and the middleware approach. The module is taught in seminar style, and several case studies are included, e.g. CORBA. Topics: Introduction - Characteristics of Distributed Systems; Process Management Communication in Distributed Systems; Distributed Synchronisation; Distributed Real-time Systems; File Systems; Naming Security; Fault Tolerant Distributed Systems; Distributed Simulation; WWW as an application of Distributed System.",
+    "faculty": "Computing",
+    "prereqTree": "CS3211",
+    "title": "Distributed Systems"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1062",
+    "courseCredit": "4",
+    "description": "This module offers NUS students an opportunity to explore different aspects and contexts of Chinese communication. The target audience is English speaking undergraduates with minimal Chinese language proficiency. The various contexts of Chinese communication include advertising, business, the press, social communication, regional usages, pop culture, translations, meaning of Chinese names, codeswitching and the use of Chinese dialects. It is intended to serve as a primer for students interested in these areas of study. A minimum Chinese language proficiency of CLB is required.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "GET1002",
+    "title": "Bridging East and West: Exploring Chinese Communication"
+}

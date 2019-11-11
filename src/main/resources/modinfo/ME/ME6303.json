@@ -1,0 +1,7 @@
+{
+    "courseCode": "ME6303",
+    "courseCredit": "4",
+    "description": "This module introduces graduate students to the fundamental theory underlying the motion of both inviscid and viscous fluids. The general differential equations of motion, i.e. Navier-Stokes equations, are derived and exact solutions presented in simple geometries, with the appropriate boundary conditions. Major topics in Potential Theory include using the velocity potential and stream-function, Kelvin\u2019s circulation theorem are introduced. The basics of Stokes or creeping flows are also discussed along with some simple exact solutions. Students are introduced to the origin of incompressible turbulent flows and its physical and experimental characteristics. The mean or Reynolds equation of turbulent flows will be derived and problem of closure discussed. The two important classes of turbulent flows, namely wall-bounded flows and free shear flows, will be studied. Similarity and Kolmogorov\u2019s theory on scales of turbulence will be discussed. The last section will introduce students to turbulence simulation and",
+    "faculty": "Engineering",
+    "title": "Advanced Fluid Dynamics"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "IS4243",
+    "courseCredit": "4",
+    "description": "The aims and objectives are: (1) to provide an overview of Information Systems (IS) consulting and to develop a more specific understanding of the practice; (2) to provide students with the knowledge of management and IS consulting practices; and (3) to give students the opportunity to be involved in a field consulting project.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "IS3101",
+            "IS3103"
+        ]
+    },
+    "title": "Information Systems Consulting"
+}

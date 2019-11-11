@@ -1,0 +1,16 @@
+{
+    "courseCode": "AUD5101",
+    "courseCredit": "2",
+    "description": "This module provides an introduction to the physics of the generation, propagation and measurement of sound.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "AUD5105",
+        "AUD5106",
+        "AUD5111",
+        "AUD5112",
+        "AUD5113",
+        "AUD5217",
+        "AUD5221"
+    ],
+    "title": "Acoustics"
+}

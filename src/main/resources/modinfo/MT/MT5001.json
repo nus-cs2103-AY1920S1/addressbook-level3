@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MT5001",
+    "courseCredit": "4",
+    "description": "This module focuses on the management of IP assets which have become more valuable than conventional physical assets in a knowledge economy. It will present the different needs and strategies of IP owners and those who own the complementary assets such as manufacturing, marketing and distribution. Both the commercialization strategies for maximization of IP values and the feedback to management to improve decision making at the R&D and corporate strategy levels will be addressed.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "MT5015"
+    ],
+    "title": "IP Management"
+}

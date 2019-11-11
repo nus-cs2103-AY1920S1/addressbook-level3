@@ -1,0 +1,10 @@
+{
+    "courseCode": "BMA5801",
+    "courseCredit": "4",
+    "description": "The module will launch the students transformation as they embark on their MBA journey. Students will discover and become self-aware of their communicative style, learn effective communication by stretching themselves outside their comfort zone and against the backdrop of high-stress situations and cultural diversity, and eventually becoming better at decision-making, negotiation and influencing others.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BMA5802"
+    ],
+    "title": "Launch Your Transformation"
+}

@@ -1,0 +1,26 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YID1201",
+    "courseCredit": "5",
+    "description": "This module introduces students to the field of environmental studies. We explore the core concerns of the field, its history, its primary methods of analysis, and a number of pressing environmental challenges to human well-being. We also examine how insights from the humanities, the social sciences, and the natural sciences can be integrated to analyze environmental problems and generate responses to them.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YID2201",
+        "YID2205",
+        "YID3205",
+        "YID3213",
+        "YID2209",
+        "YID3210",
+        "YID3211",
+        "YID3212",
+        "YID2207",
+        "YID3215",
+        "YSS3284",
+        "YID3216",
+        "YID2210",
+        "YID3202F"
+    ],
+    "title": "Introduction to Environmental Studies"
+}

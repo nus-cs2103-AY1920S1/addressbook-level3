@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "CM4254",
+    "courseCredit": "4",
+    "description": "Semiconductor devices and their circuits underpin all of advanced electronics. These are manufactured in large wafer fabs through advanced chemistry processing. Students will learn the chemistry principles of semiconductor device manufacturing. These principles are also relevant to the other advanced materials industries. Students will also learn the properties of the four major types of semiconductor devices: pn-diodes, light-emitting diodes, solar cells, and field-effect transistors, and receive practical training in a research-grade clean-room. This course is intended for chemists who wish to quickly gain key knowledge and skills in semiconductor devices and their processing.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "CM3232",
+            "CM3253"
+        ]
+    },
+    "title": "Chemistry of Semiconductors"
+}

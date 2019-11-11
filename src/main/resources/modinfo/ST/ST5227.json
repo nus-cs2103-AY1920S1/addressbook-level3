@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "ST5227",
+    "courseCredit": "4",
+    "description": "Data mining is an interdisciplinary science to discover useful structure, to extract information from large data sets, and to make predictions. This module will focus on the most recent but well accepted methods, especially those in investigating big and complicated data, including Lasso regression, nonparametric smoothing, Neural Networks and machine learning. This module is targeted at students who are interested in handling large and complicated data sets and are able to meet the prerequisites.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "ST5201",
+            "ST5202"
+        ]
+    },
+    "title": "Applied Data Mining"
+}

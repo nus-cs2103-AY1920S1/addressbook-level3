@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS2235",
+    "courseCredit": "4",
+    "description": "This practical introduction to the comprehensive range of concepts, principles and practices in marketing focuses on arts and culture-related products, services and industries. Besides drawing attention to vital distinctions in the marketing of for-profit versus not-for-profit organisations, the latter of which characterizes the majority of arts agencies in Singapore, the political, sociological and economic factors which influence those working in the arts will also be examined. This module is targeted at students interested in arts administration or Theatre students wishing to hone their skills in the managerial aspects of the arts.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Marketing the Arts and Leisure Services"
+}

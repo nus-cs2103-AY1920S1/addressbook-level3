@@ -1,0 +1,13 @@
+{
+    "courseCode": "ACC4612H",
+    "courseCredit": "4",
+    "description": "The module seeks to extend students\u2019 understanding of risk management derived from ACC3612 or ACC3616 by in-depth discussion of selected topics that reflect the instructors\u2019 interests and expertise.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "ACC3616",
+            "ACC3612"
+        ]
+    },
+    "title": "Seminars in Accounting: Advanced Risk Management"
+}

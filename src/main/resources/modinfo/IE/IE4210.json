@@ -1,0 +1,8 @@
+{
+    "courseCode": "IE4210",
+    "courseCredit": "4",
+    "description": "This module builds upon IE2110 to introduce students to more basic concepts of operations research. Topics include integer programming, mixed integer programming, dynamic programming, and heuristic methods. Besides the basic concepts, students will also learn how to use commercial software such as CPLEX to solve large-scale integer and mixed integer programmes encountered in complex real-world problems.",
+    "faculty": "Engineering",
+    "prereqTree": "IE2110",
+    "title": "Operations Research II"
+}

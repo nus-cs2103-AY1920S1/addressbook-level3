@@ -1,0 +1,20 @@
+{
+    "courseCode": "CS4257",
+    "courseCredit": "4",
+    "description": "This module covers algorithmic foundations of computation and communication privacy. It provides a thorough methodology for analysis of privacy against inference attacks using techniques from statistics, probability theory, and machine learning. Students will learn how to reason quantitatively about privacy, and evaluate it using the appropriate metrics. The module will help students to design privacy-preserving mechanisms for a range of systems from anonymous communication to data analytics. After this module, students should be able to identify privacy vulnerabilities in a system, design inference attacks, and propose effective countermeasures in a systematic manner.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "ST1232",
+                    "ST2131",
+                    "ST2334"
+                ]
+            },
+            "CS3230",
+            "CS2107"
+        ]
+    },
+    "title": "Algorithmic Foundations of Privacy"
+}

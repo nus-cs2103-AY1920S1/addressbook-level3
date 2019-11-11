@@ -1,0 +1,28 @@
+{
+    "courseCode": "BT4211",
+    "courseCredit": "4",
+    "description": "In today\u2019s environment, marketing or business analysts require tools and techniques to both quantify the strategic value of marketing initiatives, and to maximize marketing campaign performance. This module aims to teach students concepts, methods and tools to demonstrate the return on investment (ROI) of marketing activities and to leverage on data and marketing analytics to make better and more informed marketing decisions. The course topics covered include marketing performance management, marketing metrics, data management, market response and diffusion models, market and customer segmentation models, analytic marketing and value driven segmentation, digital media marketing analytics, etc. Students will have access to real marketing and customer data sources, and will conduct hands-on marketing analysis using data mining and statistical analysis tools.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "MKT1705X",
+            {
+                "or": [
+                    {
+                        "and": [
+                            "BT2101",
+                            "BT2102"
+                        ]
+                    },
+                    {
+                        "and": [
+                            "DBA3803",
+                            "IT3010"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "title": "Data-Driven Marketing"
+}

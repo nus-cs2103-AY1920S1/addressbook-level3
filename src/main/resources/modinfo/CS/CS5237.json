@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS5237",
+    "courseCredit": "4",
+    "description": "The course aims to provide students with a geometric viewpoint in problem solving. It lays a foundation for solving problems with computational geometric methods, and bridges the gap between theoretical computer science and the real applications by introducing application areas, such as bio-geometric modelling, computer graphics and mesh generation, as well as other engineering problems such as reverse engineering. Topics include: convex-hull algorithms, simplicial complexes, union of balls, Voronoi diagram, Delaunay triangulation, lifting and projecting, alpha shape, surface reconstruction, sphere algebra, orthogonality and complementarity, molecular skin surfaces, curvatures and surface meshing, deformation and morphing, etc.",
+    "faculty": "Computing",
+    "prereqTree": "CS3230",
+    "title": "Computational Geometry and Applications"
+}

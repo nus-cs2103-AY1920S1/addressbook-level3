@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "AR2523",
+    "courseCredit": "2",
+    "description": "In architectural practice, computation has grown in importance and is fundamentally changing the nature of the design process itself. Building Information Modelling is a computational design approach in which 2D drawings and other types of analyses can be automatically generated from information models. This module will introduce the overall design approach and will teach both theoretical and practical aspects of creating and using Building Information Models.",
+    "faculty": "Design and Environment",
+    "title": "Computational Thinking: Building Information Modelling"
+}

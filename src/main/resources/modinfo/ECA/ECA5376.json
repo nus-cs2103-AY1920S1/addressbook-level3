@@ -1,0 +1,8 @@
+{
+    "courseCode": "ECA5376",
+    "courseCredit": "4",
+    "description": "Modern market design principles are creatively and increasingly improving a range of economic and other systems. This module will cover the principles behind the design of markets and how they are actually applied. The first part introduces the theory of auctions and discusses how auctions for radio spectrum licenses, internet key search words and advertisements, and eBay work. The second part covers other types of systems which include applications that are as diverse as allocation of environmental permits, systems for matching medical interns to hospitals, partner matching (e.g., marriage), and facilitating kidney exchange.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": "ECA5101",
+    "title": "Auctions and Market Design"
+}

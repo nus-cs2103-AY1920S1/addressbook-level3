@@ -1,0 +1,25 @@
+{
+    "courseCode": "MA3236",
+    "courseCredit": "4",
+    "description": "Optimization principles are of undisputed importance in modern design and system operation. The objective of this course is to present these principles and illustrate how algorithms can be designed from the mathematical theories for solving optimization problems. Major topics: Fundamentals, unconstrained optimization: one-dimensional search, Newton-Raphson method, gradient method, constrained optimization: Lagrangian multipliers method, Karush-Kuhn-Tucker optimality conditions, Lagrangian duality and saddle point optimality conditions, convex programming: Frank-Wolfe method.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5243",
+        "MA4272",
+        "MA4264",
+        "MA4260"
+    ],
+    "preclusion": "DSC3214 or DSN3701",
+    "prereqTree": {
+        "or": [
+            "MA1104",
+            "MA2104",
+            "MA1506",
+            "MA1507",
+            "MA1505",
+            "MA1511",
+            "MA2311"
+        ]
+    },
+    "title": "Non-Linear Programming"
+}

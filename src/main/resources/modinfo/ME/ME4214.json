@@ -1,0 +1,8 @@
+{
+    "courseCode": "ME4214",
+    "courseCredit": "4",
+    "description": "This module covers the topics for analysis of vehicle dynamics. These include forces acting on a vehicle and the resulting dynamics and motions. Forces from tires, brakes, steering and power train will be discussed. Students will learn how to analyze the longitudinal and turning motions as well as the vibration of a vehicle.",
+    "faculty": "Engineering",
+    "prereqTree": "ME3112",
+    "title": "Vehicle Dynamics"
+}

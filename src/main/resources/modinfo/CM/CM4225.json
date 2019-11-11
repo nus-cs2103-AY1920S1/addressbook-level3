@@ -1,0 +1,8 @@
+{
+    "courseCode": "CM4225",
+    "courseCredit": "4",
+    "description": "This module covers modern methods used in structure determination of organic compounds. Topics include mass spectroscopy, infrared spectroscopy, and nuclear magnetic resonance (NMR) spectroscopy. The main focuses of this module are two-dimensional NMR techniques and their applications in the determination of stereochemistry.",
+    "faculty": "Science",
+    "prereqTree": "CM2121",
+    "title": "Organic Spectroscopy"
+}

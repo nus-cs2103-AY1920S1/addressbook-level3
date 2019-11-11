@@ -1,0 +1,18 @@
+{
+    "courseCode": "ST3243",
+    "courseCredit": "4",
+    "description": "This course will provide an introduction to the key concepts and principles of epidemiology. It emphasizes a quantitative approach to clinical and public health problems through the statistical analysis of epidemiologic data. The students will be equipped with the skills needed to understand critically the epidemiologic literature. Principles and methods are illustrated with examples. Topics include incidence prevalence and risk, mortality and morbidity rates, types of study designs: prospective, retrospective and cross-sectional study, association and causation, confounding and standardization, precision and validity of epidemiologic studies, matching, screening, contingency tables, stratified analysis, logistic regression. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "ST2132",
+            {
+                "or": [
+                    "ST2131",
+                    "MA2216"
+                ]
+            }
+        ]
+    },
+    "title": "Statistical Methods in Epidemiology"
+}

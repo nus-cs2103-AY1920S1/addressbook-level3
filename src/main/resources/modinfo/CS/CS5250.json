@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS5250",
+    "courseCredit": "4",
+    "description": "The module covers a broad range of issues in the design and implementation of modern advanced operating systems. The topics covered in this module includes OS design strategies (including microkernels, mobile, embedded and real-time operating systems and the component\u2019s interfaces), priority and resource allocation strategies; scheduling algorithms (including for multi-core, multi-processors); naming, protection and security; UI and windowing systems; file system implementations (including network and distributed file systems); failure and recovery; and virtualization and the Internet-ready OS. They extend and provide in-depth coverage of material in earlier prerequisite OS modules.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CS2106",
+            "CG2271"
+        ]
+    },
+    "title": "Advanced Operating Systems"
+}

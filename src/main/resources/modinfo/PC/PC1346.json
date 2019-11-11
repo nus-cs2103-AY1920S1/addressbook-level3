@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PC1346",
+    "courseCredit": "4",
+    "description": "This module provides an insight into the scientific principles and the use of new and powerful technologies that are the basis for many high-tech diagnostic and therapeutic systems, including Proton Beam Therapy, Medical Imaging (MRI/CT/PET) and other advanced Medical Technology. In lab sessions, the students will gain hands-on experience with such systems, among them MRI and CT imaging and other medical physics devices. Elements of basics of radiation physics, radiation detection and radiation protection will also be covered both via lectures and experiments.",
+    "faculty": "Science",
+    "preclusion": "GEH1032/GEK1540",
+    "title": "A Basic Introduction to Medical Physics"
+}

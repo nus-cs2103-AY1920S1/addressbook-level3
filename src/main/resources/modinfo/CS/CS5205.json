@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS5205",
+    "courseCredit": "4",
+    "description": "This course is concerned with the practical foundations for the design, implementation and application of programming languages. The course will cover important language concepts that facilitate abstraction, reuse and reasoning in the software construction process. A good understanding of language foundation will help with the design of many little languages for domain-specific applications. The course will show how to translate programs to kernel form as an instance of language compilation, and shall look at the role that type system play towards eliminating some program errors. Formal reasoning of program code can also be applied through logical formulae that can describe the intended behaviour of programs. Both Hoare and separation logic are introduced to allow formal reasoning and capture of important program properties.",
+    "faculty": "Computing",
+    "prereqTree": "CS3212",
+    "title": "Foundation in Programming Languages"
+}

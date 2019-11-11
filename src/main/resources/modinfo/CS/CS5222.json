@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS5222",
+    "courseCredit": "4",
+    "description": "The aim of this module is to introduce the state-of-the-art architectural advances underlying the current generation of computing systems. A review of pipelined processor design and hierarchical memory design is followed by advanced topics including exploitation of instruction-level parallelism through dynamic instruction scheduling and speculation, exploiting thread-level parallelism through multiprocessors, and optimizations for memory and storage subsystems. Throughout the module, particular emphasis will be placed on cost-performance-power-reliability trade-offs in designing the different architectural components.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CS3220",
+            "CS4223"
+        ]
+    },
+    "title": "Advanced Computer Architecture"
+}

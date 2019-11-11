@@ -1,0 +1,13 @@
+{
+    "courseCode": "CN4241R",
+    "courseCredit": "4",
+    "description": "This module teaches students how to apply engineering principles to solve problems in drug delivery and applying them to the design of advanced drug delivery devices. Students are taught the application of engineering principles in the design of drug delivery devices for human health care. Basic concepts and principles in system physiology, pharmacokinetics and pharmacodynamics are introduced. Mechanisms and mathematical models of drug absorption, distribution, metabolism, and excretion are discussed. Various drug delivery devices are analysed. Lipid based and polymer based drug delivery systems are used for a sample case study.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "MA1505",
+            "LSM1401"
+        ]
+    },
+    "title": "Engineering Principles for Drug Delivery"
+}

@@ -1,0 +1,16 @@
+{
+    "courseCode": "BSN4811A",
+    "courseCredit": "5",
+    "description": "This module introduces recent research in the microeconomics of innovation and productivity, focusing on implications for management and economic policy. The module runs as an interactive seminar, and aims to critically appreciate current research. The instructor and students will present and discuss recently published and ongoing empirical studies, with particular emphasis on causal inference. Students will be required to carry out econometric estimation of innovation and productivity using recently curated datasets.",
+    "faculty": "NUS Business School",
+    "preclusion": "BSN4811 Innovation and Productivity\n(BSS4003A Innovation and Productivity \u2013 for student\nintake cohorts in AY2016/17 or earlier)",
+    "prereqTree": {
+        "or": [
+            "EC3303",
+            "BSE3703",
+            "BSP4513",
+            "ST3131"
+        ]
+    },
+    "title": "Innovation and Productivity (with Econometrics)"
+}

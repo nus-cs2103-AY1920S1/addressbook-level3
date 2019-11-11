@@ -1,0 +1,13 @@
+{
+    "courseCode": "LSM3272",
+    "courseCredit": "4",
+    "description": "The objective of this module is to promote an understanding of Global Change Biology from a multidisciplinary approach. Students will discuss and explore selected themes of prevailing environmental, biological, socio-economical and technological issues and solutions through lectures based on literature reviews and documentaries of relevant themes, field trips and group projects.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM4262",
+        "LSM4268"
+    ],
+    "preclusion": "ENV2101 Global Environmental Change",
+    "prereqTree": "LSM2252",
+    "title": "Global Change Biology"
+}

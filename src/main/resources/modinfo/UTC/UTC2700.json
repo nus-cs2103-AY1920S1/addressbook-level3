@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2700",
+    "courseCredit": "4",
+    "description": "This module adopts an experiential learning approach to shape students\u2019 psychological well-being and mental resilience through mind-body practices. Students will cultivate four skills/capacities for well-being namely: Faculty of Attention, Art of Listening, Emotional Balance and Self-Awareness. Students will translate their practices and personal experiences into reflective texts as well as system diagrams. They will then engage in fieldwork at elderly care organizations in Singapore where they will dialogue with caregivers to understand their emotions and experiences. This will provide them an opportunity to personally experience and share the benefits of awareness of their mental processes while engaging in delicate conversations.",
+    "faculty": "Residential College",
+    "preclusion": "UTC27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "An Undefeated Mind: An Experiential Inner Reengineering Approach"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "FIN3720",
+    "courseCredit": "4",
+    "description": "This course aims to equip the participants with the skills to analyse and forecast company and business performance based on financial statements. The analytical and review framework will cover both quantitative methods and ratios as well as qualitative analysis of the other information included in the financial statements. The participants will also learn the different business models that apply to the various industries and how such models can affect the performance of companies and businesses within a dynamic and competitive business environment.",
+    "faculty": "NUS Business School",
+    "preclusion": "FIN3113 Financial Statement Analysis",
+    "prereqTree": {
+        "or": [
+            "ACC1701",
+            "FIN2704"
+        ]
+    },
+    "title": "Financial Statement Analysis"
+}

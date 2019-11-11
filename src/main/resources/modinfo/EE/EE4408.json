@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4408",
+    "courseCredit": "4",
+    "description": "This module provides an overview of the general failure mechanisms in integrated circuits and three MOS technology specific reliability mechanisms (i.e., CMOS latchup, gate oxide reliability and hot carrier reliability). A brief introduction on the failure analysis methodology will also be covered. At the end of this module, students will gain a basic understanding of the various failure/reliability issues in silicon devices. Topics covered: Introduction to IC Failure Analysis. General failure mechanisms in integrated circuits: Bonding, packaging and metallization failures. Electrical stress failures: electromigration and ESD/EOS. Technology specific reliability mechanisms: CMOS latchup, gate oxide reliability and hot-carrier reliability.",
+    "faculty": "Engineering",
+    "prereqTree": "EE2021",
+    "title": "Silicon Device Reliability"
+}

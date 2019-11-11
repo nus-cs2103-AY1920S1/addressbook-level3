@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GES1000T",
+    "courseCredit": "4",
+    "description": "The course introduces students to the development of industrial relations and labour laws in Singapore. Students can thus understand why labour relations are the way they are in Singapore. In addition, the course is not purely historical. A substantial part of the course is also aimed at looking at the current legal problems faced by the employees end employers in Singapore. This course will be of general relevance to all as students in all likelihood going to be employees or employers some day. This course is offered to BTech students only.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "SSB1204, SSB1204T, GES1000",
+    "title": "Singapore Employment Law"
+}

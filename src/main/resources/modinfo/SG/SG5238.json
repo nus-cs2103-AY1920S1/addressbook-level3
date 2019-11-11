@@ -1,0 +1,7 @@
+{
+    "courseCode": "SG5238",
+    "courseCredit": "3",
+    "description": "This module forms one of the component certificates in the Master of Technology in Software Engineering (MTech(SE)). The goal of MTech(SE) is to provide the Singapore workforce with the practical skills in architecting smart IOT systems. The objectives of this course is to learn how to Architect smart, scalable, end-to-end platforms for IoT, transducers, and other devices. Topics include: \uf0b7 IoT lifecycle: Sense, Ingest, Process, Respond and Analyse \uf0b7 End-to-end IoT architecture \uf0b7 Fog architecture, layered model, design patterns, cloud services, device integration, communication standards, DevOps \uf0b7 Workflow orchestration with device, fog, and platform layers \uf0b7 RTOS and real-world design constraints \uf0b7 Real-time scheduling, synchronisation and communication, multithreaded design, fault-tolerant design \uf0b7 IoT hardware and software technologies \uf0b7 Sensors, processors, pipelines, boards, real-time operating systems, gateways, deployment",
+    "faculty": "Institute of Systems Science",
+    "title": "Architecting IOT Solutions"
+}

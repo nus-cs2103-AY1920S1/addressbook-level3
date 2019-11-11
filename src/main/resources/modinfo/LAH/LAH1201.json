@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAH1201",
+    "courseCredit": "4",
+    "description": "Hindi 1 is a beginners' module. This is an integrated course which will help students gain basic proficiency in the four skills (listening, speaking, reading, and writing), grammar, vocabulary (including Devanagari, the Hindi alphabet), for personal interaction and communication in authentic situations.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAH2201"
+    ],
+    "preclusion": "Hindi 1 is intended for students who are complete beginners. It is not suitable for students who are:\u00a0\u00a0\n- native speakers of Hindi or Urdu\u00a0\u00a0\n- students who have studied Hindi, Urdu, Gujarati, Marathi or Punjabi at 'O' or 'A' levels (or equivalents) or have previously undertaken any formal study of Hindi, Urdu, Gujarati or Punjabi for any duration of time\u00a0\u00a0\n- Students who are from India have to provide a complete transcript of subjects studied to prove that they have not taken Hindi at any level.",
+    "title": "Hindi 1"
+}

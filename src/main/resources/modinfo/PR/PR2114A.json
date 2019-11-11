@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PR2114A",
+    "courseCredit": "4",
+    "description": "This module gives an insight into various dosage forms, with greater emphasis on liquids and semi-solids. The fundamental knowledge of the properties, formulation, manufacture, quality control and applications of these dosage forms will be discussed. The rheological properties of liquids and the unit operations employed in the manufacture of these dosage forms will also be included.",
+    "faculty": "Science",
+    "preclusion": "PR2114",
+    "title": "Formulation & Technology I"
+}

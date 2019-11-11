@@ -1,0 +1,14 @@
+{
+    "courseCode": "PH3248",
+    "courseCredit": "4",
+    "description": "Traditional epistemology has focused on the individual knower and tends to deploy conceptual analysis as the main tool for investigating the concept of knowledge. This module surveys recent challenges to this model of analyzing knowledge, which arise from two new types of epistemology: social and formal epistemology. Social epistemology places special emphasis on the uniquely social dimensions of knowledge, such as the communication of knowledge through the testimony of others. Formal epistemology complements this approach by bringing formal (e.g., probabilistic) methods to bear on such topics as corroborating and conflicting eyewitness testimony, belief polarization, and pluralistic ignorance.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "PH2111",
+            "GEK2048",
+            "PH2243"
+        ]
+    },
+    "title": "Social and Formal Epistemology"
+}

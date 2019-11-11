@@ -1,0 +1,11 @@
+{
+    "courseCode": "YHU3276",
+    "courseCredit": "5",
+    "description": "This is a hands-on course in which students will be introduced to the practices involved in historical research, writing, and presentation. Students will be exposed to a variety of models created by professional historians and evaluate the strengths and weaknesses of each. Direct engagement with primary sources will be a principal area of focus in this course.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS4234"
+    ],
+    "preclusion": "Precludes previous module code of YHU2217",
+    "title": "The Historian\u2019s Craft"
+}

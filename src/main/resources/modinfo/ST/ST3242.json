@@ -1,0 +1,11 @@
+{
+    "courseCode": "ST3242",
+    "courseCredit": "4",
+    "description": "This module focuses on the analysis of survival data or 'failure times', which measure the length of time until the occurrence of an event, with the objective of modelling the underlying distribution of the failure time variable and to assess the dependence of the failure time variable on the independent variables. Topics include: examples of survival data, concepts and techniques used in the analysis of time to event data, including censoring, hazard rates, estimation of survival curves, parametric and nonparametric models, regression techniques, regression diagnostics. This module is targeted at students who are interested in Statistics and are able to meet the prerequisite.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ST4241"
+    ],
+    "prereqTree": "ST2132",
+    "title": "Introduction to Survival Analysis"
+}

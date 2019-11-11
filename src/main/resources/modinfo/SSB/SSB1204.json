@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "SSB1204",
+    "courseCredit": "4",
+    "description": "The course introduces students to the development of industrial relations and labour laws in Singapore. Students can thus understand why labour relations are the way they are in Singapore. In addition, the course is not purely historical. A substantial part of the course is also aimed at looking at the current legal problems faced by employees and employers in Singapore. This course will be of general relevance to all as students are in all likelihood going to be employees or employers some day.",
+    "faculty": "NUS Business School",
+    "preclusion": "GES1000, SSB1204T, GES1000T",
+    "title": "Singapore Employment Law"
+}

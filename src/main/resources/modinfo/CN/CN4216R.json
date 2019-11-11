@@ -1,0 +1,8 @@
+{
+    "courseCode": "CN4216R",
+    "courseCredit": "4",
+    "description": "This module provides students with a fundamental knowledge of electronic materials produced or processed in various industries. It imparts a basic understanding in electrical, optical, and magnetic properties of electronic materials in relation to their importance in the optoelectronic/semiconductor industry and their technological applications such as wafer devices, solid-state fuel cells, lithium secondary batteries, light-emitting diodes and solid-state lasers. In particular, semi-conductors, electronic ceramics, conducting polymers and optical and magnetic materials will be introduced. This module is targeted at level 4 engineering students.",
+    "faculty": "Engineering",
+    "prereqTree": "MLE1101",
+    "title": "Electronic Materials Science"
+}

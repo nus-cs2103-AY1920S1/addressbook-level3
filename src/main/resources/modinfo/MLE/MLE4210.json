@@ -1,0 +1,13 @@
+{
+    "courseCode": "MLE4210",
+    "courseCredit": "4",
+    "description": "Starting from a summary of solid state defect chemistry, electrochemistry and nanotechnology the module will introduce the basics of designing and processing materials for energy storage and conversion, their integration into batteries, supercapacitors, and fuel cells as well as methods for the performance characterisation and optimisation of these devices.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            "MLE2107",
+            "MLE2105"
+        ]
+    },
+    "title": "Materials for energy storage and conversion"
+}

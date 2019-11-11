@@ -1,0 +1,19 @@
+{
+    "courseCode": "YSC3206",
+    "courseCredit": "5",
+    "description": "This course embarks on a deep study of the real numbers and functions of a single real variable. Fundamental properties of real numbers \u2013 arithmetic, distance, limit, convergence, order \u2013 are developed from scratch. From there, the course delves into the inner workings of calculus, the general notions of continuity, differentiability, measure, and integration, for functions of one real variable.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC4201A",
+        "YSC4203",
+        "YSC4206",
+        "YSC4210"
+    ],
+    "prereqTree": {
+        "or": [
+            "YSC2209",
+            "YSC2232"
+        ]
+    },
+    "title": "Introduction to Real Analysis"
+}

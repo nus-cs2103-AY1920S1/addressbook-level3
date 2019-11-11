@@ -1,0 +1,19 @@
+{
+    "courseCode": "MA2501",
+    "courseCredit": "4",
+    "description": "This module has subjects in differential equations and how they can be applied in variety of different systems. The topics covered include: first-order differential equations, separation of variables, linearity and nonlinearity, growth and decay phenomena, second-order differential equations, real and complex characteristic roots, forced oscillations, conservative and non-conservative systems, linear systems with real and complex eigenvalues, decoupling linear systems, stability and linear classifications, forced equations and systems, Fourier transforms and applications, nonhomogenous equations, Laplace transforms, stability, feedback and control. Topics Covered First-order differential equations: dynamical system models, solutions and directional fields, separation of variables, solving first-order DE. Linearity and nonlinearity: growth and decay phenomena, linear models: examples, non-linear models: examples. Second-order differential equations: real and complex characteristic roots, forced oscillations, conservative and non-conservative systems. Linear system of differential equations: linear systems with real and complex eigenvalues, decoupling linear systems, stability and linear classifications. Forced equations and systems: Fourier transforms and applications, linear nonhomogenous equations, Laplace transforms, stability, feedback and control.",
+    "faculty": "Science",
+    "preclusion": "MA1505, MA1505C, MA1506, MA1512, MA1521, MA2210, MA2312, MA1511",
+    "prereqTree": {
+        "and": [
+            "MA1507",
+            {
+                "or": [
+                    "MA1508",
+                    "MA1508E"
+                ]
+            }
+        ]
+    },
+    "title": "Differential Equations and Systems"
+}

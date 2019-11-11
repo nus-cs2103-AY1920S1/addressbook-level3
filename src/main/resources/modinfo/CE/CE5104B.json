@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "CE5104B",
+    "courseCredit": "2",
+    "description": "This is an advanced module on analysis and design of tunnels in rocks. The topics covered include tunnelling methods in rocks, construction of caverns, New Austrian Tunnelling Method and stability of underground openings in rocks. The creation of underground structures to form subways, underpasses, metro stations and other uses in greater depths would likely encounter excavation in rocks. Students are taught the various methods of construction for creating underground space.",
+    "faculty": "Engineering",
+    "title": "Tunnelling in Rocks"
+}

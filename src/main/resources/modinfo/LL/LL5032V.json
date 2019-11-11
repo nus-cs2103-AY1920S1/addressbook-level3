@@ -1,0 +1,16 @@
+{
+    "courseCode": "LL5032V",
+    "courseCredit": "5",
+    "description": "This course focuses on the nature of risks to foreign investment and the elimination of those risks through legal means. As a prelude, it discusses the different economic theories on foreign investment, the formation of foreign investment contracts and the methods of eliminating potential risks through contractual provisions. It then examines the different types of interferences with foreign investment and looks at the nature of the treaty protection available against such interference. It concludes by examining the different methods of dispute settlement available in the area. The techniques of arbitration of investment disputes available are fully explored.",
+    "faculty": "Law",
+    "fulfillRequirements": [
+        "LL5356",
+        "LL6356",
+        "LL5356V",
+        "LL6356V",
+        "LL4356",
+        "LL4356V"
+    ],
+    "preclusion": "Students who are taking or have taken LL5032",
+    "title": "International Investment Law"
+}

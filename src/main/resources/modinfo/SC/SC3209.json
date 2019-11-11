@@ -1,0 +1,16 @@
+{
+    "courseCode": "SC3209",
+    "courseCredit": "4",
+    "description": "This module aims to equip students with the basic tools for doing social research and data analysis. The module is divided in two parts. The first part focuses on data analysis, and introduces students to statistics which are best suited for different types and levels of data. During lab sessions, students will use SPSS to analyze both small and large data sets. The second part of the module focuses on methodology, and recaps the guiding principles of conducting and managing a large-scale survey. The module is mounted for NUS students with a keen interest in doing social research.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "SPH3101"
+    ],
+    "prereqTree": {
+        "or": [
+            "SC2101",
+            "GL2104"
+        ]
+    },
+    "title": "Data Analysis in Social Research"
+}

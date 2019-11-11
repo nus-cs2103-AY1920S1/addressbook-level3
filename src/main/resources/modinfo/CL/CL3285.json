@@ -1,0 +1,13 @@
+{
+    "courseCode": "CL3285",
+    "courseCredit": "4",
+    "description": "This module aims to introduce knowledge in the relationship between technology and the translation industry. Within the curriculum, students will learn a variety of computer\u2010assisted translation tools and software that is useful for translation, including SDL Trados, SDL Multiterm, memoQ, Wordfast, D\u00e9j\u00e0 Vu, Adobe Fireworks (only for functions that are applicable to translation practice) and Aegisub.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "CL2280",
+            "CL2281"
+        ]
+    },
+    "title": "Computer-Assisted Translation Tools"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MKT1003A",
+    "courseCredit": "4",
+    "description": "This module is designed to provide knowledge, techniques and understanding of marketing principles. It provides students with a conceptual framework to analyse and interpret marketing phenomena and to suggest courses of action in response to marketing problems. It covers topics such as the marketing concept, the marketing environment and the marketing mix which includes product, pricing, distribution and promotion. Other related topics include consumer behaviour, market segmentation and targeting, marketing research and information system, marketing planning, implementation and control, and public issues in marketing. This is a foundation module for business students and provides the basis for later concentration in the marketing area.",
+    "faculty": "NUS Business School",
+    "preclusion": "Students who have taken EC3230/(EC2210) or CS3261/(IC3243) or PR4201 or BK2003 or BZ1003 or BH1003 are not allowed to take MKT1003.\n \nAll BSc(Real Estate) students are not allowed to take MKT1003.",
+    "title": "Principles of Marketing"
+}

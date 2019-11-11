@@ -1,0 +1,8 @@
+{
+    "courseCode": "LSM4221",
+    "courseCredit": "4",
+    "description": "This module will cover the stages that a drug that is developed for clinical use goes through before it is marketed: discovery/synthesis, preclinical studies, clinical drug trials, registration and post-market surveillance. The different phases of clinical drug trials and the guidelines for ethics and good clinical practice will be discussed. Students are also divided into groups to design clinical trials. At the end of the course the students will have an overview of the processes involved in bringing a drug from the laboratory to the market.",
+    "faculty": "Science",
+    "prereqTree": "LSM3211",
+    "title": "Drug Discovery and Clinical Trials"
+}

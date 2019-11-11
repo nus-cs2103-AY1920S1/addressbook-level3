@@ -1,0 +1,13 @@
+{
+    "courseCode": "EE3131C",
+    "courseCredit": "4",
+    "description": "Introductory overview of analog and digital communications. Advantages of digital over analog communications in the presence of noise. Analog and digital modulation techniques. Source coding and waveform quantization techniques. Channel noise and channel coding for error protection. Multiplexing and multiple access. Basics of wireless communications. Applications of wireless systems. Radio wave propagation and multipath fading. Transmitter and receiver antennas. Free-space and fiber optical communication systems. Optical transmitters, optical receivers, and optical channels. Introduction to data communications. Packet switching, line coding, framing, and error detection.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE4113",
+        "EE4114"
+    ],
+    "preclusion": "EE3103 Communications",
+    "prereqTree": "EE2023",
+    "title": "Communication Systems"
+}

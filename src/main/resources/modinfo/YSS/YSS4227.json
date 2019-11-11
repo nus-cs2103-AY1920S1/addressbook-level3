@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSS4227",
+    "courseCredit": "5",
+    "description": "This course covers econometric techniques as applied in empirical work in economics, at a level that is accessible to advance undergraduates. The topics are divided into two categories: Market Valuations and Non-Market Valuations. We begin with demand and supply estimation and the computation of consumer and producer surpluses. We investigate the use of surplus measurements to evaluate the impact of policies and the introduction of new good. We then move towards estimating the \u2018demand side\u2019 of environmental economics. The focus will be on stated and revealed preferences techniques for estimating the non-market values associated with environmental and other public goods.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YSS2203",
+            "YSS2211"
+        ]
+    },
+    "title": "Topics in Applied Econometrics"
+}

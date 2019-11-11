@@ -1,0 +1,14 @@
+{
+    "courseCode": "LSM3226",
+    "courseCredit": "4",
+    "description": "With the growing aging population and number of immunocompromised patients, fungal infections are increasingly becoming relevant. This module will re-examine Koch\u2019s postulates in relation to the roles opportunistic and primary fungal pathogens play in mycoses. Issues surrounding the molecular, physiological and biochemical aspects of fungal cells that make them successful microbial pathogens will be discussed. Key mechanisms of anti-fungal resistance in relation to challenges facing the discovery of new therapeutics will be examined. Students will have the opportunity to design and conduct a typical drugsusceptibility screen and drug discovery process.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM2233",
+            "LSM2252",
+            "LSM2291"
+        ]
+    },
+    "title": "Medical Mycology and Drug Discovery"
+}

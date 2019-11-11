@@ -1,0 +1,14 @@
+{
+    "courseCode": "ST4248",
+    "courseCredit": "4",
+    "description": "Statistical Learning is a large collection of computer-based modelling and prediction tools with applications in diverse fields including business, medicine, astrophysics, and public policy. This series of two modules covers many of the popular approaches for a variety of statistical problems. There is heavy emphasis on the implementation of these methods on real-world data sets in the popular statistical software package R. Part II builds on the knowledge in Part I, introducing more tools as well as generalising and extending some of the tools covered in Part I using entirely different approaches. Topics include non-parametric smoothing methods, tree-based methods, support vector machines, neural networks and ensemble learning.",
+    "faculty": "Science",
+    "preclusion": "ST4240",
+    "prereqTree": {
+        "and": [
+            "ST3131",
+            "ST3248"
+        ]
+    },
+    "title": "Statistical Learning II"
+}

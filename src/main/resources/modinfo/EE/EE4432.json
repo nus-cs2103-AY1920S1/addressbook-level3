@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4432",
+    "courseCredit": "4",
+    "description": "This module covers the theory, operating principles, and basic function of (i) photovoltaic, thermoelectric, and fuel cell-based electric energy generation devices and (ii) electric energy storage systems. Major topics covered are the photovoltaic (PV) effect, solar cells (silicon wafer cells, thin-film cells, organic cells), PV modules, the thermoelectric effect, thermoelectric devices, fuel cells (proton exchange membrane cells, high-temperature cells), pumped hydroelectric energy, compressed air energy, flywheels, rechargeable batteries (lead-acid, lithium ion, etc), electrolytic hydrogen, and supercapacitors.",
+    "faculty": "Engineering",
+    "prereqTree": "EE2021",
+    "title": "Devices for Electric Energy Generation"
+}

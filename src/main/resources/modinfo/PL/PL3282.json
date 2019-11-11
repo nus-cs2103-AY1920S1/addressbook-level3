@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3282",
+    "courseCredit": "4",
+    "description": "This laboratory is intended to expose students majoring in psychology with both correlational and experimental approaches to research on how people feel, think, and act in relation to others. Studies will include topics such as attitudes and social cognition (e.g., beliefs, attitudes and values, social influence, attribution and impression formation) and interpersonal and group relations (e.g. aggression, altruism, attraction, prejudice and discrimination, followers and leaders). Both laboratory and field methods of testing hypotheses will be covered. Importance of using personality and culture of people as moderators of their social behaviors will be emphasized.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132",
+            "PL3235"
+        ]
+    },
+    "title": "Lab in Social Psychology"
+}

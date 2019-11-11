@@ -1,0 +1,17 @@
+{
+    "courseCode": "YSS3231",
+    "courseCredit": "5",
+    "description": "An introduction to various research methods in the social sciences, including survey methodology, quantitative data analysis, participant observation, and in\u2010depth interviewing. This course can count as a course in the major for students in Urban Studies, Global Affairs, PPE, and Anthropology. It may fulfil the course requirements for students in Environmental Studies as well on a case\u2010by\u2010case basis after consultation with the Head of Studies of that major. The course also fulfils the methods requirement in Urban Studies and Global Affairs. Students in all of these majors should ideally take this course before they commence their capstone project.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS4223"
+    ],
+    "prereqTree": {
+        "and": [
+            "YCC1121",
+            "YCC1122",
+            "YCC2121"
+        ]
+    },
+    "title": "Methods in the Social Sciences"
+}

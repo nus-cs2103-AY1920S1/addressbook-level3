@@ -1,0 +1,12 @@
+{
+    "courseCode": "YSC2222",
+    "courseCredit": "5",
+    "description": "The structure, properties, and reactivity of carbon-based molecules will be directly observed and inferred in this laboratory-based course, which supplements YSC2224 Accelerated Organic Chemistry. Students will put their newly acquired theoretical knowledge in practice and thus gain a much deeper understanding of the material. Topics include reaction set-up and purification, IR, NMR, GC-MS and LC-MS analysis, as well as an advanced synthesis project.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSC2224"
+        ]
+    },
+    "title": "Organic Chemistry Laboratory"
+}

@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YLS2202",
+    "courseCredit": "5",
+    "description": "This module is a continuation of Intermediate Spanish 1. Students taking this module will build upon what was covered in the first half and continue to expand their command of written and spoken Spanish. Intermediate Spanish 2 pays close attention to aural/oral practice while strengthening more complex grammar skills (e.g., the subjunctive, passive voice), writing, and reading comprehension. The module covers the second half of the eBook used in Intermediate Spanish 1 (Mas) and prepares students for Study Abroad opportunities via CIPE at Yale-NUS and NUS.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "LAS4201",
+        "YLS3201",
+        "YLS3202"
+    ],
+    "prereqTree": "YLS2201",
+    "title": "Intermediate Spanish 2"
+}

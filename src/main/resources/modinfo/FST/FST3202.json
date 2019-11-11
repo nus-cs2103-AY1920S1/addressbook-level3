@@ -1,0 +1,11 @@
+{
+    "courseCode": "FST3202",
+    "courseCredit": "4",
+    "description": "This module examines the role of nutrition, application of dietary therapy and functional food in the prevention of chronic disease. Basic concepts on how our genes and genome interact with our diet in health and diseases will be introduced. The format consists of a series of lectures, assigned readings and case studies involving aspects of problem based learning which relates the impact of food components to disease prevention. The specific focus of this course relates food components such as dietary fibre, pre-biotics, pro-biotics, low glycemic and low fat foods to prevent or slow the progression of chronic disease such as colon cancer, heart disease, hypertension, diabetes, obesity and the metabolic syndrome.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FST4202"
+    ],
+    "prereqTree": "FST2201",
+    "title": "Nutrition and Disease Prevention"
+}

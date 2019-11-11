@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS5214",
+    "courseCredit": "4",
+    "description": "The performance gap between optimised and unoptimised code continues to widen as modern processors evolve. Notably, the emerging explicitly parallel instruction computing (EPIC) processors are significantly dependent on a range of aggressive program optimisations to yield performance. This module provides an in-depth study of code optimisation techniques used in compilers for state-of-the-art processors. Topics covered include structure of an optimising compiler, the program dependence graph, front end optimisations, instruction scheduling, register allocation, compiling for EPIC processors including predicated execution and software pipelining with hardware support, loop optimisations, dataflow analysis and optimisation, optimisations for the memory hierarchy, and automatic parallelisation.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CS3212",
+            "CS4212"
+        ]
+    },
+    "title": "Design of Optimising Compilers"
+}

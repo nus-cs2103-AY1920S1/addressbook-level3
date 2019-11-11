@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS4350",
+    "courseCredit": "4",
+    "description": "The objective of this project-based module is to provide an opportunity for the students to work in a group to design and develop a game following the main stages of game development process. The module will focus on the design of core dynamic, game mechanics, strategy, progression, balancing, game levels, interface and technical features including 3D graphics, animation, AI, physics, and networking. In addition, software engineering principles will be practised in developing the game software.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CS3247",
+            "NM3216"
+        ]
+    },
+    "title": "Game Development Project"
+}

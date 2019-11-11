@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "RE1703",
+    "courseCredit": "4",
+    "description": "This module provides an understanding of fundamental principles relating to legal systems, contract and tort in Singapore. It also exposes students to legal reasoning and argumentation and provides a sound basis for students to progress in later years to Modules with law content.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "RE2702",
+        "RE3802",
+        "RE4702"
+    ],
+    "preclusion": "BSP1702 Legal Environment of Business, BSP1702X",
+    "title": "Principles of Law for Real Estate"
+}

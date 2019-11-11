@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CE1101",
+    "courseCredit": "6",
+    "description": "From impressive tall buildings, to spectacular long suspension bridges, to very large floating structures, these structures must withstand both the forces of nature and the forces that mankind has intended for them. The analytical tools that engineers use to create these structures are deceivingly simple, and it is the intent of this module to explain things in a clear, straightforward manner. Students will learn how to estimate the loads acting on structures and the basic principles governing how structures stay in equilibrium. They will also be exposed to the basic concepts of fluid mechanics and hydraulics.",
+    "faculty": "Engineering",
+    "title": "Civil Engineering Principles and Practice"
+}

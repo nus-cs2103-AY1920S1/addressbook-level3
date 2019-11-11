@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "RE1705",
+    "courseCredit": "4",
+    "description": "This module equips students with the basic financial skills and knowledge necessary for further studies in real estate finance and investment track. The topics include an introduction to financial markets and financial institutions; understanding various interest rates; risks and returns; capital budgeting; accounting and financial statement analyses; financial securities; and shareholder and capital structures. Students will also have spreadsheet laboratory sessions to develop quantitative data processing skills.",
+    "faculty": "Design and Environment",
+    "preclusion": "RE1101 Fundamentals of RE Finance\nStudents from Business School and those doing a Business Minor",
+    "title": "Real Estate Finance and Accounting"
+}

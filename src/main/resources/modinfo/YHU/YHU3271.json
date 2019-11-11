@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3271",
+    "courseCredit": "5",
+    "description": "This course examines how Roman poets adapted and developed Greek erotic poetry. How did love elegy become the dominant new genre in the Roman literary scene of the first century BCE? How did Roman poets transform Greek models such as Sappho? What does love elegy tell us about sexual identities in Rome? Students will read Greek and Roman love elegy in translation with scholarship to understand the generic conventions and innovations of the Roman elegists. Students will also work with the texts in Latin, and examine the translation tradition in English and theoretical discourses surrounding translation. 2MC language supplement available.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Love in Antiquity: Eros in Translation"
+}

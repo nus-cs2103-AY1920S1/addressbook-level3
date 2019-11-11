@@ -1,0 +1,23 @@
+{
+    "courseCode": "PR5303",
+    "courseCredit": "4",
+    "description": "This module will provide an overview of the FDA and ICH regulations on good manufacturing, good laboratory and good clinical practices. The meaning of these regulations, the globalisation of the practices and the roles and responsibilities of the various professionals implementing these regulations are addressed. Target students: Enrolment in M.Sc. (Pharmaceutical Sciences & Technology) programme.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            {
+                "and": [
+                    {
+                        "or": [
+                            "PR2101",
+                            "PR3102"
+                        ]
+                    },
+                    "PR4106"
+                ]
+            },
+            "PR3301"
+        ]
+    },
+    "title": "Good Regulatory Practices"
+}

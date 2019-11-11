@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTW1001Q",
+    "courseCredit": "4",
+    "description": "Students will explore how a language is shaped by the culture in which it is used and how it in turn shapes its users\u2019 views of other cultures. They will investigate the culture-specific aspects of language, how they colour speakers\u2019 worldviews, and how differences in worldviews may lead to intercultural misunderstanding. Students will develop reasoned positions on particular issues in intercultural communication and formulate arguments to defend their points of view. The focus will be on English and Singlish but other varieties of English and other languages will be used for comparison.",
+    "faculty": "NUS",
+    "preclusion": "IEM1201%,\nUTW1001%,\nES1501%",
+    "title": "English, Singlish and intercultural communication"
+}

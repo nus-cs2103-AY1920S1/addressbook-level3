@@ -1,0 +1,12 @@
+{
+    "courseCode": "CE4257",
+    "courseCredit": "4",
+    "description": "This module equips students with the fundamentals of finite element principles to enable them to understand the behaviour of various finite elements and to be able to select appropriate elements to solve physical and engineering problems with emphasis on structural and geotechnical engineering applications. It covers weak formulation, element shape function, isoparametric concepts, 1-D, 2-D, 3-D and axisymmetric elements, field problems, modelling and practical considerations, and special topics. The module is targeted at undergraduate and graduate students involved in research or application of the finite element method in civil engineering problems.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "OT5208"
+    ],
+    "preclusion": "TCE4257",
+    "prereqTree": "CE3155",
+    "title": "Linear Finite Element Analysis"
+}

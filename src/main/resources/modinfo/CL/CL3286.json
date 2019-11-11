@@ -1,0 +1,13 @@
+{
+    "courseCode": "CL3286",
+    "courseCredit": "4",
+    "description": "This module aims to introduce students to translation theories and enable them to understand the theoretical side of translation. The content will cover the concept of equivalence, translation strategies, corpus\u2010based translation studies and audiovisual translation theories.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "CL2280",
+            "CL2281"
+        ]
+    },
+    "title": "Translation Theories"
+}

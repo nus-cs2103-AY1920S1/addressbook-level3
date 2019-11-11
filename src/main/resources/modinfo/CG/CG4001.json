@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "fyp": true,
+        "year": true
+    },
+    "courseCode": "CG4001",
+    "courseCredit": "12",
+    "description": "In this module, students will embark on a project that involves a mix of research, design and development components on a topic of current interest in Computer Engineering. Students learn how to apply knowledge and skills acquired in the classroom to develop innovative ways of solving problems. In the process, students acquire skills for independent and lifelong learning. The module is normally carried out over two semesters, but may also be structured as a further 6-month extension of an existing 6-month industrial attachment, where the student works on real life projects jointly supervised by NUS faculties and industry experts.",
+    "faculty": "Multi Disciplinary Programme",
+    "preclusion": "EE4001 B.Eng. Dissertation\nCP4101 B.Comp. Dissertation",
+    "title": "B. Eng. Dissertation"
+}

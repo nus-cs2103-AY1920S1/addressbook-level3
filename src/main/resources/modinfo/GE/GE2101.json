@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GE2101",
+    "courseCredit": "4",
+    "description": "This module aims to introduce undergraduate students to various methods and practices widely used in geographical research. It covers such topics as designing research questions, writing proposals, collecting and analyzing data, and presenting research results. Students will be exposed to a range of research practices in the discipline such as fieldwork and in-depth case studies.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "GE2225",
+    "title": "Methods and Practices in Geography"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "BZD6001",
+    "courseCredit": "4",
+    "description": "This course covers the development and use of models to study interactive decision-making by individuals and firms. The basic building blocks of model building, including backward induction, mixed and dominant strategies, and strategic equilibria are developed. The roles of asymmetric information, moral hazard, mechanism design, signaling and incentives are also introduced.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "ECA5001",
+            "BMA5001",
+            "EC6101"
+        ]
+    },
+    "title": "Model Building Workshop I: Static Models"
+}

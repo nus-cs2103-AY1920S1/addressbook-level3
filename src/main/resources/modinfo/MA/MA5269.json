@@ -1,0 +1,7 @@
+{
+    "courseCode": "MA5269",
+    "courseCredit": "4",
+    "description": "This module covers the fundamental theory of optimal stopping and stochastic control. Two typical examples arising from finance will be elaborated: American option pricing and portfolio selection. Major topics include optimal stopping problems, stochastic control problems, HJB equations, viscosity solution, variational inequality equations, etc.",
+    "faculty": "Science",
+    "title": "Optimal Stopping and Stochastic Control in Finance"
+}

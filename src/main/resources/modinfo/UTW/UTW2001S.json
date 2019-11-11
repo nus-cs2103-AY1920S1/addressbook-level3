@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTW2001S",
+    "courseCredit": "4",
+    "description": "The traditional notion of masculinity as homogenous has given way in recent decades to a proliferation of multiple masculinities that questions the relationship between gender and power. This socio-cultural phenomenon is manifested on film. Masculinity can be seen as a contested space where different masculinities fight for dominance, and older forms of masculinity are displaced by new ones.This module invites you to consider social, cultural and historical influences on constructions of masculinity on film, as well as textual contexts such as genre, as you critically reflect on the diversity of masculinities that are represented.",
+    "faculty": "NUS",
+    "preclusion": "IEM2201%,\nUTW2001%",
+    "prereqTree": {
+        "or": [
+            "IEM1201",
+            "UTW1001"
+        ]
+    },
+    "title": "Masculinities on Film"
+}

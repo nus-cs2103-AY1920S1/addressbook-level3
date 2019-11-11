@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSC3203",
+    "courseCredit": "5",
+    "description": "We study the design and rigorous analysis of algorithms and data structures. Topics may include dynamic programming, Fibonacci heaps, graph algorithms, string algorithms, parallel algorithms, and concurrent data structures.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YSC2229",
+            "YSC2204"
+        ]
+    },
+    "title": "Advanced Algorithms and Data Structures"
+}

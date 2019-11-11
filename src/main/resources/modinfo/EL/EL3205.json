@@ -1,0 +1,29 @@
+{
+    "courseCode": "EL3205",
+    "courseCredit": "4",
+    "description": "This module provides an introduction to the study of word structure. It presents an overview of the major theoretical debates in this field and compares the main approaches to morphological analysis. Starting with the core areas of inflection and derivation, we examine the distinction between words and phrases, as well as the interactions between morphology and syntax on the one hand, and phonology on the other. The synchronic study of word structure is covered, as are the phenomena of diachronic change, such as analogy and grammaticalisation. Students will be exposed to a broad range of morphological phenomena from different languages.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EL1101E",
+                    "GEK1011"
+                ]
+            },
+            {
+                "or": [
+                    "EL2101",
+                    "EL2201"
+                ]
+            },
+            {
+                "or": [
+                    "EL2102",
+                    "EL2202"
+                ]
+            }
+        ]
+    },
+    "title": "Morphology"
+}

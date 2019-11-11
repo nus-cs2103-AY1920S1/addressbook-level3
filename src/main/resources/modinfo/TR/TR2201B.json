@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "TR2201B",
+    "courseCredit": "4",
+    "description": "This course is designed to introduce students to the core concepts of marketing, with a special emphasis on the marketing of new, innovative products and services where no market previously existed or where the underlying product concepts may be unfamiliar to existing customers. The pedagogical approach emphasises those market research methods, marketing strategies, pricing analysis and promotional techniques that are particularly useful for entrepreneurial settings. Particular attention is paid to the innovative use of internet as well as non-conventional techniques such as &quot;guerilla&quot; marketing. The usefulness of these analytical tools is illustrated through concrete case studies of successful entrepreneurial marketing.",
+    "faculty": "NUS",
+    "preclusion": "TR3003",
+    "title": "Entrepreneurial Marketing"
+}

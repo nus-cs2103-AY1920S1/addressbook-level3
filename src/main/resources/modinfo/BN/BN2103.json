@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "BN2103",
+    "courseCredit": "2",
+    "description": "This course is a practical introduction to workshop practice and prototype creation in bioengineering design. Students will be introduced to workshop safety, risk assessment and standard operating procedures. They will get hands on experience with rapid prototyping equipment and techniques, and will learn how to use 3D CAD modeling to convert their design ideas into a realizable form.",
+    "faculty": "Engineering",
+    "title": "Bioengineering Design Workshop"
+}

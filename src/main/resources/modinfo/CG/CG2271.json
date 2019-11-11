@@ -1,0 +1,28 @@
+{
+    "courseCode": "CG2271",
+    "courseCredit": "4",
+    "description": "Real-time systems must respond quickly to inputs from the environment in order to work effectively and safely, and realtime operating systems (RTOS) are a critical part of such systems. In this course the student is exposed to basic RTOS concepts like tasks, scheduling algorithms, RTOS customisation and concurrent real-time programming. By the end of this course a student will not only understand how an RTOS is built, but will also gain practical hands-on experience in customising RTOSs and in writing real-time programs.",
+    "faculty": "Multi Disciplinary Programme",
+    "fulfillRequirements": [
+        "CS5271",
+        "CS5272",
+        "CS6280",
+        "CS5250",
+        "CS3211",
+        "CS3235",
+        "CS3271",
+        "CS4344",
+        "CS4223",
+        "EE5903",
+        "CG3002",
+        "CG4002"
+    ],
+    "preclusion": "CS2106 Introduction to Operating Systems",
+    "prereqTree": {
+        "or": [
+            "CS1020",
+            "CS2040"
+        ]
+    },
+    "title": "Real-Time Operating Systems"
+}

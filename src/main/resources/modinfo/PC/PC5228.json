@@ -1,0 +1,8 @@
+{
+    "courseCode": "PC5228",
+    "courseCredit": "4",
+    "description": "The module will provide an introduction to the physics and mathematics of quantum information in general and quantum computation in particular. In addition to physics majors, the course addresses students with a good background in discrete mathematics or computer science.The following topics will be covered: (1) Introduction: a brief review of basic notions of information science (Shannon entropy, channel capacity) and of basic quantum kinematics with emphasis on the description of multi-qubit systems and their discrete dynamics. (2) Quantum information: Entanglement and its numerical measures, separability of multi-partite states, quantum channels, standard protocols for quantum cryptography and entanglement purification, physical implementations. And (3) Quantum computation: single-qubit gates, two-qubit gates and their physical realization in optical networks, ion traps, quantum dots, Universality theorem, quantum networks and their design, simple quantum algorithms (Jozsa-Deutsch decision algorithm, Grover search algorithm, Shor factorization algorithm).",
+    "faculty": "Science",
+    "prereqTree": "PC3130",
+    "title": "Quantum Information and Computation"
+}

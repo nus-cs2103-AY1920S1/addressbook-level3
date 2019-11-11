@@ -1,0 +1,7 @@
+{
+    "courseCode": "EE4505",
+    "courseCredit": "4",
+    "description": "The module provides a state-of-the-art overview of devices, development and basic understanding of the physics of power semiconductors. The module covers: Carrier physics in power devices: mobility, resistivity, life-time, high-level injection; Breakdown voltage and junction termination: avalanche breakdown, punch-through breakdown; Power devices: power MOSFET for synchronous rectifiers, power diode and recovery phenomena, power transistor and quasi-saturation effects, gate turn-off thyristor, MOS-controlled bipolar device; Smart power ICs: evolution, high-voltage power MOSFETs in integrated circuits, technological limitations in power ICs, protection techniques in power ICs.",
+    "faculty": "Engineering",
+    "title": "Power Semiconductor Devices & ICs"
+}

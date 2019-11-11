@@ -1,0 +1,15 @@
+{
+    "courseCode": "LC3001A",
+    "courseCredit": "8",
+    "description": "",
+    "faculty": "Law",
+    "fulfillRequirements": [
+        "LL5353",
+        "LL6353",
+        "LL5353V",
+        "LL6353V",
+        "LL4353",
+        "LL4353V"
+    ],
+    "title": "Evidence (A)"
+}

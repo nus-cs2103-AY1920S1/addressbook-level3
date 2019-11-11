@@ -1,0 +1,16 @@
+{
+    "courseCode": "PC3238",
+    "courseCredit": "4",
+    "description": "This module introduces physics students to the fundamental aspects of fluid dynamics. The Navier-Stokes equations are derived from first principles. After a discussion of the various versions of Bernoulli's equation and the concept of vorticity, the study of fluid flows starts with the potential flows, with an application to the theory of airfoils. The theory of irrotational water waves is then presented to illustrate dispersive wave propagation and the hyperbolic tendency to form shocks. The balance of these two tendencies produces soliton solutions. The concept of flow similarity is applied to the study of boundary layer. The phenomenon of boundary layer separation is discussed. The concept of hydrodynamic instability is illustrated with the Rayleigh-Benard convection problem. The chaotic dynamics of the related Lorenz equation is then presented. A brief introduction to turbulence closes the module.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC3240"
+    ],
+    "prereqTree": {
+        "or": [
+            "PC2134",
+            "PC3236"
+        ]
+    },
+    "title": "Fluid Dynamics"
+}

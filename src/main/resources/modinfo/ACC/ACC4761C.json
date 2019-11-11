@@ -1,0 +1,9 @@
+{
+    "courseCode": "ACC4761C",
+    "courseCredit": "4",
+    "description": "This module is designed to prepare accounting honours students with the necessary knowledge and skills to complete their honour theses. It is also suitable for students with an interest in gaining an understanding of important accounting issues such as earnings management, analyst and management earnings forecasts, voluntary disclosure, and accounting-based valuation.",
+    "faculty": "NUS Business School",
+    "preclusion": "ACC4612D",
+    "prereqTree": "ACC4715",
+    "title": "Seminars in Accounting: Advanced Accounting Theory"
+}

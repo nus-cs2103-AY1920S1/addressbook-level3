@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TIC2701",
+    "courseCredit": "4",
+    "description": "This module introduces the concepts that serve as a basis for hundreds of programming languages. It aims to provide the students with a basic understanding and appreciation of the various essential programming-languages constructs, programming paradigms, evaluation criteria and language implementation issues. The module covers concepts from imperative, object-oriented, functional, logic, constraints, and concurrent programming. These concepts are illustrated by examples from varieties of modern object-oriented, functional, and logic programming languages. The module also introduces various implementation issues, such as pseudo-code interpretation, static and dynamic semantics, abstract machine, type inferencing, etc.",
+    "faculty": "Cont and Lifelong Education",
+    "prereqTree": "TIC2001",
+    "title": "Principles of Programming Languages"
+}

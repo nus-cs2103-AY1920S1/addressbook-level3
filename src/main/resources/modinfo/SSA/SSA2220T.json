@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "SSA2220T",
+    "courseCredit": "4",
+    "description": "This course will introduce students to the dynamics of the world economy and the impact on Singapore in the last two centuries. It will demonstrate how Singapore grew through continual dependence on the rest of the world in different ways by focusing on major labour, capital and technological factors, in which threats are also seen as opportunities. This course is offered to BTech students only.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "EC2202, EC2373, GES1002T, SSA2220, GES1002",
+    "title": "Global Economic Dimensions Of Singapore"
+}

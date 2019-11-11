@@ -1,0 +1,19 @@
+{
+    "courseCode": "PL5221R",
+    "courseCredit": "5",
+    "description": "",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PL5102/PL6102",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "PL2101Y",
+                    "PL2131"
+                ]
+            },
+            "PL2132"
+        ]
+    },
+    "title": "Analysis of Psychological Data using GLM"
+}

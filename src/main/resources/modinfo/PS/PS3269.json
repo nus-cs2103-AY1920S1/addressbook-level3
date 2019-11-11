@@ -1,0 +1,13 @@
+{
+    "courseCode": "PS3269",
+    "courseCredit": "4",
+    "description": "This module interrogates major concepts and institutions of Latin Christendom in the 12th\u201015th centuries. The module begins by examining the Greek, Roman, and Biblical foundations of medieval thought, followed by a series of conceptual issues. Topics include the nature of temporal and spiritual power, and the relation between them; different kinds of law\u2014divine, natural, and human\u2014and their bearing on human relations; theories of medieval government; notions of community and representation, and the relation of state and individual. The module will conclude by reflecting on what the modern world has inherited from the Christian Middle Ages.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "PS2204",
+            "EU2204"
+        ]
+    },
+    "title": "Medieval Western Political Thought"
+}

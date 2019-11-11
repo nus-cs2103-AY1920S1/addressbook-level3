@@ -1,0 +1,13 @@
+{
+    "courseCode": "PR4204",
+    "courseCredit": "4",
+    "description": "Learning objectives- To understand the science and technology of rate-controlled administration of therapeutic agents with comprehensive coverage of the basic concepts, fundamental principles, biomedical rationales and potential applications. Major topics: Fundamentals of rate-controlled drug delivery. The following delivery systems will be discussed: parenteral, oral and aerosols. Target students: Pharmacy Final Year",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "PR3117",
+            "PR3301"
+        ]
+    },
+    "title": "Special Drug Delivery"
+}

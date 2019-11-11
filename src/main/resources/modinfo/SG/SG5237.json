@@ -1,0 +1,7 @@
+{
+    "courseCode": "SG5237",
+    "courseCredit": "3",
+    "description": "In light of heightened information security concerns, organisations are looking at security as part of software development and lifecycle. Without Security involvement, applications can be developed that create major security exposures. Such security flaws, if discovered late, can result in applications having to be redeveloped, or can force reliance on expensive, inflexible security solutions to be added. Security education provides application developers knowledge and awareness to avoid developing insecure applications. This course details security measures that must be put in different phases of software lifecycle, from requirements, design to acceptance phases as well as deployment maintenance and ultimately disposal.",
+    "faculty": "Institute of Systems Science",
+    "title": "Secure Software Life Cycle"
+}

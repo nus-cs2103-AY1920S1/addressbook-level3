@@ -1,0 +1,8 @@
+{
+    "courseCode": "MA5216",
+    "courseCredit": "4",
+    "description": "The module is a course on differential geometry aimed at students who have had some exposure to differentiable manifolds. Major topics include: Riemannian metrics, connections, curvatures, warped products, Hyperbolic spaces, metrics on Lie Groups, Riemannian submersions, geodesic and distance, sectional curvature comparison, Killing fields, Hodge Theory, harmonic forms, curvature tensors, curvature operators.",
+    "faculty": "Science",
+    "prereqTree": "MA5210",
+    "title": "Differential Geometry"
+}

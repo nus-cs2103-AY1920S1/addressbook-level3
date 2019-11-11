@@ -1,0 +1,12 @@
+{
+    "courseCode": "ESE3101",
+    "courseCredit": "4",
+    "description": "This course provides students with a working knowledge of solid and hazardous waste management and cleanup processes used around the world. The topics covered include a historical perspective; regulations pertaining to solid and hazardous wastes; waste characterization and risk assessment; waste handling, collection and transport; waste treatment and disposal methods, including biological and chemical treatment, incineration, pyrolysis, landfill, and site remediation. Waste minimization and cost analysis are also discussed. The course is targeted at level 3 environmental engineering students.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ESE4406",
+        "ESE4407",
+        "ESE4408"
+    ],
+    "title": "Solid And Hazardous Waste Management"
+}

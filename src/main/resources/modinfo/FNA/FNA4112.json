@@ -1,0 +1,13 @@
+{
+    "courseCode": "FNA4112",
+    "courseCredit": "4",
+    "description": "This module provides student with an opportunity for advanced study in an area of finance. The topics covered will vary from semester to semester. Possible topics include finance theory and empirical research in finance.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "and": [
+            "FNA3101",
+            "FNA3102"
+        ]
+    },
+    "title": "Seminars In Finance"
+}

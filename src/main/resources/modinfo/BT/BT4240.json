@@ -1,0 +1,25 @@
+{
+    "courseCode": "BT4240",
+    "courseCredit": "4",
+    "description": "This module provides a comprehensive coverage of methods and tools for predictive data analytics. Various techniques from data mining, statistics and artificial intelligence will be discussed. The emphasis will be on more recent developments in machine learning methods such as neural networks and support vector machines that have been shown to be very effective in discovering reliable patterns from past data and making accurate predictions of future outcomes. Applications of predictive analytics in business will also be discussed.",
+    "faculty": "Computing",
+    "preclusion": "IS4240 Business Intelligence Systems",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1311",
+                    "MA1101R"
+                ]
+            },
+            {
+                "or": [
+                    "MA1521",
+                    "MA1102R"
+                ]
+            },
+            "BT2101"
+        ]
+    },
+    "title": "Machine Learning for Predictive Data Analytics"
+}

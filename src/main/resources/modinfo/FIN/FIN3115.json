@@ -1,0 +1,17 @@
+{
+    "courseCode": "FIN3115",
+    "courseCredit": "4",
+    "description": "This course is concerned with how financial managers function in an international environment. This requires that we understand: (1) the institutional arrangements of different international financial markets, (2) the accompanying financial instruments and innovations, and (3) the salient factors affecting the financial operations of multinationals.Topics to be covered include the foreign exchange market, Eurobond/Eurocurrency markets, as well as the Asian bond markets, the effects of exchange rate movements on both domestic and international operations and methods of hedging these exposures, operational (trade financing techniques) and strategic (foreign direct investment decisions and political risk management) financial management issues, and the latest financial innovations in the international financial market.",
+    "faculty": "NUS Business School",
+    "preclusion": "BH3115 or BZ3304 or BK3108 or FNA3115",
+    "prereqTree": {
+        "or": [
+            "FNA3102",
+            "FIN3102",
+            "FIN3102A",
+            "FIN3102B",
+            "FIN3102C"
+        ]
+    },
+    "title": "International Financial Management"
+}

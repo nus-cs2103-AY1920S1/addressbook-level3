@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2705",
+    "courseCredit": "4",
+    "description": "Singapore, in the last 50 years, has evolved from a colonial port to a global city-state. Overcoming unanticipated, unprecedented, multifaceted challenges and severe resource constraints, it has emerged as a successful model-city through flexible and pragmatic policies arguably guided by systems thinking or the 'whole-of-nation' approach. This module will use numbers and simple systems models to understand the dynamics of Singapore with special attention on the evolving demographics, housing, healthcare and social harmony aspects. Students will also examine the impact of policy changes, generate scenarios and use them to make policy recommendations and projections for the near future. Students will employ qualitative and quantitative modelling tools learnt from a RC4 JS in this module.",
+    "faculty": "Residential College",
+    "preclusion": "UTS2700 or UTC27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Housing, Healthcare and Harmony in Singapore: A Critical Perspective"
+}

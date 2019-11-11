@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTS2706",
+    "courseCredit": "4",
+    "description": "This module is a social critique of markets and market behaviour in Singapore. Markets are often explained with methodological individualism as opposed to broader social systems that underscore behavioural and motivational determinants. This module presents an inter-disciplinary reading of selected economic concepts and critiques them from a social and holistic angle. It is principally a sociohistorical reading of how markets perform. In its application side, the module will reinterpret the success of Singapore using conceptual tools such as objective value theory, social productivity, the leisure class, and the historically determined social wage.",
+    "faculty": "Residential College",
+    "preclusion": "UTC2714 or UTS27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "A social critique of markets in Singapore"
+}

@@ -1,0 +1,7 @@
+{
+    "courseCode": "GSN6506",
+    "courseCredit": "4",
+    "description": "This series of 4 capsule modules will cover: 1) quantitative methods to study information encoding and decoding in the responses of single neurons and of populations of neurons 2) neural network models of learning, including back-propagation, radial basis functions, Hebbian plasticity, spike-time-dependent plasticity, and liquid state machines 3) non-invasive recording methods in humans for brain-computer interfaces, including EEG and fMRI; and 4) signal processing methods for brain-computer interfaces used in neural prostheses for paraplegics and to rehabilitate stroke patients.",
+    "faculty": "NUS Graduate Sch for Int Science and Engineering",
+    "title": "Computational Neuroscience & Neuroengineering"
+}

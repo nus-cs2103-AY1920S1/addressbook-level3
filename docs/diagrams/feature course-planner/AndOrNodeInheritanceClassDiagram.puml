@@ -1,0 +1,54 @@
+@startuml
+!include ../style2.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam classAttributeIconSize 0
+skinparam classAttributeFontColor #FFFFFFF
+skinparam genericDisplay old
+show members
+
+
+Package AndOrNode <<Rectangle>> {
+    Class "{abstract}\nAndOrNode<T>" as AndOrNode<T>
+    Class DataNode<T>
+    Class NoDataNode
+    Class AndNode
+    Class OrNode
+}
+
+
+abstract class AndOrNode<T> {
+    #children : List<AndOrNode>
+    #insert(T) : void
+    #getData() : Optional<T> {abstract}
+    +createNode(T, String) : AndOrNode {abstract}
+    #fulfills(Collection<T>) : boolean {abstract}
+    +toString() : String {abstract}
+}
+
+class DataNode<T> {
+    #fulfills(Collection<T>) : boolean
+    #getData() : Optional<T>
+    +toString() : String
+}
+
+abstract class NoDataNode<T> {
+    #getData() : Optional<T>
+}
+
+class AndNode<T> {
+    #fulfills(Collection<T>) : boolean
+    +toString() : String
+}
+
+class OrNode<T> {
+    #fulfills(Collection<T>) : boolean
+    +toString() : String
+}
+
+AndOrNode <|-- DataNode
+AndOrNode <|-- NoDataNode
+NoDataNode <|-- AndNode
+NoDataNode <|-- OrNode
+@enduml

@@ -1,0 +1,47 @@
+{
+    "courseCode": "YHU4207",
+    "courseCredit": "5",
+    "description": "This course is designed as an introduction to the analysis of art as a historical and critical discipline. It is at once historiographical, methodological and theoretical and examines the different approaches that scholars and critics have adopted over the centuries to understand and interpret various artworks. Through a wide range of both classical and current texts, students will acquire the fundamental tools with which to approach the visual arts. The course is specifically aimed at students, who are planning to pursue an art historical topic as part of their senior capstone project in the Arts and Humanities Major.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YHU4221"
+    ],
+    "prereqTree": {
+        "or": [
+            "YHU2300",
+            "YHU2203",
+            "YHU2250",
+            "YHU4208",
+            "YHU4210",
+            "YHU2255",
+            "YHU3239",
+            "YHU3242",
+            "YHU2267",
+            "YHU3274",
+            "YHU4221",
+            "YHU3293",
+            "YHU4230",
+            "YHU4238",
+            "YHU2227",
+            "YHU3235",
+            "YHU3236",
+            "YHU2262",
+            "YHU3251",
+            "YHU3254",
+            "YHU3218",
+            "YHU1201",
+            "YSH2448",
+            "AH2101",
+            "AH2201",
+            "AH2202",
+            "AH3204",
+            "AH2203",
+            "AH3201",
+            "CH2293",
+            "CH3293",
+            "EN3249",
+            "SE3210"
+        ]
+    },
+    "title": "Critical Approaches to Art History"
+}

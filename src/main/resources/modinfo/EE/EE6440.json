@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6440",
+    "courseCredit": "4",
+    "description": "This module covers advanced photonics concepts for applications in nanotechnology and optical imaging. The syllabus covers broadly the topics of photonic devices, plasmonics, metamaterials, metasurfaces, Fourier optics, statistical optics, image processing, and superresolution.",
+    "faculty": "Engineering",
+    "preclusion": "EE5519",
+    "title": "Advanced Topics in Photonics"
+}

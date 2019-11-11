@@ -1,0 +1,15 @@
+{
+    "courseCode": "EE3208E",
+    "courseCredit": "4",
+    "description": "This course introduces students to the design of embedded systems covering four key areas, namely, specifications and requirement determination, architectural design, software development and hardware development. The unified system design approach emphasizes hardware software co-design in the final synthesis of the application. Students will be brought through a design cycle in a realistic project. Topics covered include: System specification and requirement analysis; Object relationship and system structure; Quantifying behaviour; Targeting architecture: hardware/software partitioning; Resource estimation; Programmable platforms; Developing application software and targeting RTOS; Hardware design and implementation; System integration and debugging techniques; Design to meet regulatory standards.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TE3202 and TEE3208",
+    "prereqTree": {
+        "or": [
+            "EE2007E",
+            "EE2024E",
+            "TEE2028"
+        ]
+    },
+    "title": "Embedded Computer Systems Design"
+}

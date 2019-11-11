@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUA1171",
+    "courseCredit": "4",
+    "description": "Continuing from Basic Recording 1 this course will introduce students to the basics of loudspeaker design and the principles and operation of outboard signal processing equipment. The development of surround sound recording and reproduction technology and related microphone techniques will be also be introduced. Students will participate in recording all YSTCM events and finish at least 5 studio recording sessions.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA4176"
+    ],
+    "prereqTree": "MUA1170",
+    "title": "Fundamentals of Music Production and Recording 2"
+}

@@ -1,0 +1,11 @@
+{
+    "courseCode": "EE4302",
+    "courseCredit": "4",
+    "description": "This module provides the foundation for a more advanced level control systems course. Topics include system description, controllability, observability, selection of pole locations for good design, observer design, full-order and reduced-order observers, combined control law and observer. It is also a first course in nonlinear systems and control. Topics include non-linearities in control systems, use of root-locus in analysis of non-linear systems, describing function and its use in analysis and design of control systems, non-linear ordinary differential equations, singular points, and phase-plane analysis.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ME5401"
+    ],
+    "prereqTree": "EE3331C",
+    "title": "Advanced Control Systems"
+}

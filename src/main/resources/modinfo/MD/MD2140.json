@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "MD2140",
+    "courseCredit": "1.4",
+    "description": "",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "prereqTree": "MD1140",
+    "title": "Abnormal Structure and Function"
+}

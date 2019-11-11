@@ -1,0 +1,13 @@
+{
+    "courseCode": "MKT3420",
+    "courseCredit": "4",
+    "description": "This module focuses on the use of communication to influence consumer decision making. The module will address the principles and practice of advertising, sales promotion, personal selling and public relations. Possible materials to be covered include setting promotional objectives; copy development and execution; media decisions; consumer and trade promotion; and sales force management. In addition to lectures, students will also be exposed to published research in promotion. Case studies as well as group projects involving the development and execution of a promotional campaign may also be used to allow students apply their knowledge and skill.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "MKT1003",
+            "MKT1003X"
+        ]
+    },
+    "title": "Advertising & Promotion Management"
+}

@@ -1,0 +1,20 @@
+{
+    "courseCode": "EE4210",
+    "courseCredit": "4",
+    "description": "This advanced networking module aims to equip students with the basics and theories of Internet-related technologies, which are necessary for computer/network engineers. The topics that will be covered include Internet architecture, Internet applications and their protocols (HTTP, FTP, DNS, Email, P2P, BitTorrent, etc.), wireless and mobile networks, mobility management, multimedia networking, and network security.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CS5229",
+        "EE5132",
+        "EE5310",
+        "EE6310"
+    ],
+    "preclusion": "EE4210E, TEE4210",
+    "prereqTree": {
+        "or": [
+            "EE2012",
+            "ST2334"
+        ]
+    },
+    "title": "Network Protocols and Applications"
+}

@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ST2339",
+    "courseCredit": "4",
+    "description": "Business decisions are often made under uncertainty. In the modern business environment, technological advances facilitate the collection of huge amounts of data which can potentially improve the decision making process. Successful businesses make use of Business Analytics and Business Intelligence, which are fundamentally based on quantitative statistical methods, to identify patterns and trends in their data which eventually lead to insightful projections and realistic predictions. This module introduces students to the fundamental concepts of statistical inference such as confidence intervals and hypothesis testing, as well as to statistical tools useful in business analysis, such as regression analysis and time series analysis.",
+    "faculty": "Science",
+    "title": "Business Analytics - Data & Decisions"
+}

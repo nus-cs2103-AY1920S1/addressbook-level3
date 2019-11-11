@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1505",
+    "courseCredit": "4",
+    "description": "The objective of this course is to exhibit some simple mathematical ideas that permeate a modern society and to show how a reasonably numerate person can use these ideas in everyday life and, in the process, gain an appreciation of the beauty and power of mathematical ideas. For example, we will learn some counting methods that can be applied to the enumeration of bus routes in a model of a grid system of roads in a city. We will also investigate some basic properties of graphs, which are mathematical structures used to model relationships between people in social networks, groups, organizations, computers, URLs etc. Transmission of digital information and signals is now an integral part of modern society. We will look at questions like: How do we encode information so that certain errors in transmission can be detected, or even corrected? How do we check that a given sequence of numbers is a proper International Standard Book Number (ISBN)? How do we encrypt sensitive information like credit card numbers using properties of prime numbers? Finally, we will examine some basic ideas in probability which are often at the basis for making decisions and judgement in the real world with random outcomes and measurements.",
+    "faculty": "Science",
+    "preclusion": "GEH1036.",
+    "title": "Living with Mathematics"
+}

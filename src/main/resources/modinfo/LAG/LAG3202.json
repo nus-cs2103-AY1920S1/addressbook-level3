@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAG3202",
+    "courseCredit": "4",
+    "description": "Students will be taught to comprehend longer listening and reading texts on more complex topics of general interest as well as on aspects of German culture, society and life. They will also acquire the ability to express their views and communicate meaningfully on the same topics at greater length. In the area of grammar and vocabulary, the focus will shift more towards textlinguistic and pragmatic features. Language learning skills and strategies will include recognising and applying common sociolinguistic norms in the use of the language.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAG4201"
+    ],
+    "preclusion": "LAG3203 German for Academic Purposes",
+    "prereqTree": "LAG3201",
+    "title": "German 4"
+}

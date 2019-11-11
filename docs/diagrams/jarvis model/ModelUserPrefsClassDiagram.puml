@@ -1,0 +1,14 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package UserPrefs <<Rectangle>> {
+    Class UserPrefs
+    Interface ReadOnlyUserPrefs <<interface>>
+}
+
+UserPrefs .up.|> ReadOnlyUserPrefs
+
+@enduml

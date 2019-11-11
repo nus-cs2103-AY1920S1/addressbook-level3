@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTS2708",
+    "courseCredit": "4",
+    "description": "Asia, with its populous river basins, poses a global challenge for water resource management. Currently, many of these basins suffer from water scarcity, flood and resource conflicts. In this aspect, Singapore\u2019s impressive progress can offer lessons for water governance. This module will employ a systems perspective to analyse the dynamic linkages between the city-state\u2019s water resource management, its transformation from a third world to a first world country and future risks for sustaining its development. The module will explore pathways for resilience in Singapore\u2019s water sector, draw lessons for Asia and deepen students\u2019 understanding of water governance.",
+    "faculty": "Residential College",
+    "preclusion": "UTC2717 or UTS27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Navigation in Singapore Waters-Bridges and Barriers"
+}

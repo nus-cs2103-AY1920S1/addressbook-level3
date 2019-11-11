@@ -1,0 +1,8 @@
+{
+    "courseCode": "BN4201",
+    "courseCredit": "4",
+    "description": "The module aims to provide an understanding of the relationship between structure and function in tissue biomechanics; introduce quantitative and qualitative assessment of hard and soft tissues in normal and pathological states; inculcate critical and constructive thinking regarding the recent research literature on tissue biomechanics and explore the potential clinical applications. The major topics include mechanical properties of bones, muscles, cartilage, ligaments/tendons, ocular tissues and cardiovascular tissues. Some examples of clinical applications include but are not limited to: tissue growth & remodelling, tendinitis, osteoporosis, osteoarthritis, atherosclerosis, aneurysms, glaucoma, myopia, corneal disorders.",
+    "faculty": "Engineering",
+    "prereqTree": "BN2204",
+    "title": "Tissue Biomechanics"
+}

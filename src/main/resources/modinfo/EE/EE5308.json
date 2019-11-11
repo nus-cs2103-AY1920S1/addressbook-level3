@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5308",
+    "courseCredit": "4",
+    "description": "This course provides students with fundamental concepts, principles and theory for the analysis, design and measurement of antennas such as wire, aperture and microstrip and slot antennas. Students will learn fundamental concepts behind antenna theory and design, the latest methodologies employed for antenna analysis and measurement, and most importantly, how a desired antenna system can be efficiently designed from initial specifications by means of simple practical engineering procedures and CAD tools. This specialised module is recommended for graduate students specialising in microwave/RF theory and techniques. This module is supplementary for the general area of communication systems.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE6004",
+        "EE6832",
+        "EE6833"
+    ],
+    "preclusion": "EE5308R",
+    "title": "Antenna Engineering"
+}

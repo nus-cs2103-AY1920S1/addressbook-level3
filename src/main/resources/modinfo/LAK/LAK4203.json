@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAK4203",
+    "courseCredit": "5",
+    "description": "Korean 7 is a continuation of Korean 6. It is an integrated module which will help students gain advance proficiency in the four skills (listening, speaking, reading, and writing), grammar, and vocabulary, for a better understanding of Korean social issues and more formal setting situation.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": "LAK4202",
+    "title": "Korean 7"
+}

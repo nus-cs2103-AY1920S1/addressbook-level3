@@ -1,0 +1,33 @@
+{
+    "courseCode": "IS3103",
+    "courseCredit": "4",
+    "description": "Today\u2019s technology leaders need to have a deep understanding of business fundamentals, recognize the key drivers of innovation, and develop effective leadership to align and integrate novel technologies and business processes for successful products and services. The course will not only cover major topics relating strategic, tactical and operational facets of thought leadership in propelling IT implementations, adoptions and changes in organization but also equip students with industry-relevant communication skillsets. The strategic facet will explore the various contexts, complex issues and dynamic paths that evoke leadership in information systems, including technology championship, disruptive technology, and IT ecosystem. The tactical facet will strategize a culture to co-create value and nurture technological innovations. Students will be taught effective communication skills for influential communication, change management communication and directional communication. These skillsets will enable them to foster partnership between technology and business stakeholders such as vendors, IT professionals and functional users. The operational facet will include leadership areas in IT portfolio management, change management, and IT applications. Through a synthesis of critical knowledge areas required of technology leaders, students will examine the intersection of technology and business to drive IT-enabled changes in an organization. The course will prepare students for senior technology positions, and develop core communication skills that leaders need to be equipped with to be successful in leading technological transformations.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "IS5128",
+        "IS5117",
+        "IS5116",
+        "IS5114",
+        "IS5111",
+        "IS5110",
+        "IS4261",
+        "IS4204",
+        "IS4010",
+        "IS4228",
+        "IS4233",
+        "IS4243"
+    ],
+    "preclusion": "IS3101",
+    "prereqTree": {
+        "and": [
+            "IS1103",
+            {
+                "or": [
+                    "CS2101",
+                    "IS2101"
+                ]
+            }
+        ]
+    },
+    "title": "Information Systems Leadership and Communication"
+}

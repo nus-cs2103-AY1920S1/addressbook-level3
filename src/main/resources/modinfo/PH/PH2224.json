@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PH2224",
+    "courseCredit": "4",
+    "description": "&quot;Philosophy and Film&quot; means, in part, philosophy of film, in part, philosophy in film. Philosophy of film is a sub-branch of aesthetics; many questions and puzzles about the nature and value of art have filmic analogues. (Plato's parable of the cave is, in effect, the world's first philosophy of film.) Philosophy in film concerns films that may be said to express abstract ideas, even arguments. (Certain films may even be thought-experiments, in effect.) Questions: are philosophical films good films? Are they good philosophy? The module is intended for majors but - film being a popular medium - will predictably appeal to non-majors as well. (This module is offered as special topics only)",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PH2880A, GEK2040",
+    "title": "Philosophy and Film"
+}

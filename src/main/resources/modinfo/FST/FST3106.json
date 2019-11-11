@@ -1,0 +1,12 @@
+{
+    "courseCode": "FST3106",
+    "courseCredit": "4",
+    "description": "This module covers sensory science of food perception and preference, discrimination testing and sensory thresholds, basis of psycophysics in sensory evaluation, measurement of preference and liking, basis of training a sensory panel, sensory evaluation techniques used in quality control, experimental design and statistical analysis of sensory data; this module also covers the chemical basis of food flavour perception, study of biosynthetic pathways of selected flavour compounds, aroma characteristics and flavour quality of different food products important in the region, changes in flavour composition of foods/beverages in relation to processing.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FST4103"
+    ],
+    "preclusion": "FST3104, FST4101",
+    "prereqTree": "FST2102B",
+    "title": "Sensory and Flavour Science"
+}

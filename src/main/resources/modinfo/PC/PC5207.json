@@ -1,0 +1,8 @@
+{
+    "courseCode": "PC5207",
+    "courseCredit": "4",
+    "description": "The module aims to provide a comprehensive understanding on the principles of nonlinear optics. The module is targeted at postgraduate students who have acquired a background in optics, and who are involved in optics-related studies and research. The module presents the principles of nonlinear optics and photonics devices, which includes: nonlinear optical susceptibility, wave propagation in nonlinear media; sum and difference frequency generation, parametric amplification and oscillation, photonic crystals; phase conjugation, optical-induced birefringence, self-focusing, nonlinear optical absorption, photonic devices; ultrafast laser.",
+    "faculty": "Science",
+    "prereqTree": "PC4258",
+    "title": "Topics in Optical Physics"
+}

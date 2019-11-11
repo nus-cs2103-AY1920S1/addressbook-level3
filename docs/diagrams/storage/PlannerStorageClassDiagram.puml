@@ -1,0 +1,21 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Class JsonSerializablePlanner
+Class "{abstract}\nJsonAdaptedTask"
+Class JsonAdaptedTag
+Class JsonAdaptedTodo
+Class JsonAdaptedDeadline
+Class JsonAdaptedEvent
+
+JsonSerializablePlanner o-down-> "*" "{abstract}\nJsonAdaptedTask"
+"{abstract}\nJsonAdaptedTask" o-right-> "*" JsonAdaptedTag
+
+JsonAdaptedTodo -up-|> "{abstract}\nJsonAdaptedTask"
+JsonAdaptedDeadline -up-|> "{abstract}\nJsonAdaptedTask"
+JsonAdaptedEvent -up-|> "{abstract}\nJsonAdaptedTask"
+
+@enduml

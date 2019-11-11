@@ -1,0 +1,9 @@
+{
+    "courseCode": "IS5003",
+    "courseCredit": "4",
+    "description": "Digital platforms have disruptively transformed the way we live, operate, and interact. Commercially, digital platform companies have gained legendary success with their new business models in various industries. The module consists of four broad aspects, namely, (a) the foundational theories in platform economics, (b) how to strategize for and measure successful digital platform venture, (c) industry-level platforms and how businesses can develop complementary technologies within a platform ecosystem, and (d) API management.",
+    "faculty": "Computing",
+    "preclusion": "IS3240",
+    "prereqTree": "IS2102",
+    "title": "Platform Design and Economy"
+}

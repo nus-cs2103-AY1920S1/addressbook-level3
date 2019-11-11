@@ -1,0 +1,15 @@
+{
+    "courseCode": "GE3550A",
+    "courseCredit": "4",
+    "description": "This module presents Geography majors who are taking/ intend to declare GIS minor a unique opportunity to gain practical experience in using GIS. It allows the students to apply their geospatial technology skills, such as spatial database management, data visualization, and data analysis, in a real working environment. Through mentoring from internship managers of employing companies/public sectors and NUS advisors, students are trained to apply theoretical aspects of GIS for solving real-world problems. They will also be able to collaborate with colleagues from the employing company or agency, and develop research questions involving the use of GIS in environmental issues.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "GE3550B and any other XX3550 module",
+    "prereqTree": {
+        "or": [
+            "GE2215",
+            "GE2227",
+            "GE3238"
+        ]
+    },
+    "title": "GIS Internship Module"
+}

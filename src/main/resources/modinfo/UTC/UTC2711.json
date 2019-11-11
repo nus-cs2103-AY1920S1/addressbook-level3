@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2711",
+    "courseCredit": "4",
+    "description": "Students will study astronomy in a cultural context and look at questions like: How is the date of Chinese New Year determined? Why do the Muslim and Chinese months start on different days? Why was the date of Deepavali moved some years ago? Will the Moon ever look like it does on the Singapore flag? This module will help students appreciate mankind\u2019s effort to understand the mathematics of heavens and how the sky modulates culture.",
+    "faculty": "Residential College",
+    "preclusion": "UTC27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Heavenly Mathematics and Cultural Astronomy"
+}

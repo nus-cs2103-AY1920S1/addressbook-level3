@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6901",
+    "courseCredit": "4",
+    "description": "The objective of this course is to understand three-dimensional shape/space processing in human or machines. The course will examine 3D vision from various perspectives, including its computational, perceptual, and physiological aspects. It will cover both theoretical analysis as well as practical implementation of solutions to problems encountered in shape recovery and navigation. Emphasis will be placed on fundamental mathematical issues in 3D vision, with the aim of training postgraduate research students for indepth vision research. Students should take up this module only if the course helps them in their R&D efforts.",
+    "faculty": "Engineering",
+    "preclusion": "EE5908, TD5130",
+    "prereqTree": {
+        "or": [
+            "EE4212",
+            "EE5731",
+            "EE5731R"
+        ]
+    },
+    "title": "3d Vision"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GER1000B",
+    "courseCredit": "4",
+    "description": "This module aims to equip undergraduates with basic reasoning skills on using data to address real world issues. What are some potential complications to keep in mind as we plan what data to collect and how to use them to address our particular issue? When two things are related (e.g. smoking and cancer), how can we tell whether the relationship is causal (e.g. smoking causes cancer)? How can quantitative reasoning help us deal with uncertainty or elucidate complex relationships? These and other questions will be discussed using real world examples.",
+    "faculty": "NUS",
+    "preclusion": "GER1000, GER1000E, GER1000K, GER1000W, GER1000R, GER1000S, GER1000T, GER1000P",
+    "title": "Quantitative Reasoning"
+}

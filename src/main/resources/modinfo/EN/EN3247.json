@@ -1,0 +1,27 @@
+{
+    "courseCode": "EN3247",
+    "courseCredit": "4",
+    "description": "This module considers the theoretical postulates underwriting such different &quot;movements&quot; as modernism, structuralism, post-structuralism, reader-response criticism, feminism, psychoanalytic criticism, Marxism, and new historicism. Focusing on position papers representing some of the defining features of these various critical currents, discussion centers on three primary items: author, text, and reader. Key topics: How are texts read? What is the nature of authorial authority? How are meanings constructed and created? What is the role of the reader in the reading process? Students will read elusive but influential literary and social theorists such as Derrida, Lacan, Foucault, and others. Target students: English Literature majors.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "Introduction to Critical Theory"
+}

@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CS1101S",
+    "courseCredit": "4",
+    "description": "This module introduces the concepts of programming and computational problem solving, and is the first and foremost introductory module to computing. Starting from a small core of fundamental abstractions, the module introduces programming as a method for communicating computational processes. The module begins with purely functional programming based on a simple substitution-based execution model, and ends with a powerful modern imperative language based on a realistic environment-based execution model. Topics covered include: functional abstraction, recursion, higher-order functions, data abstraction, algorithmic strategies, state mutation, loops and arrays, evaluation strategies, sorting and searching, debugging and testing.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "FIN4124",
+        "FIN4719",
+        "EE5907",
+        "MA3269"
+    ],
+    "preclusion": "CS1010 or its equivalents",
+    "title": "Programming Methodology"
+}

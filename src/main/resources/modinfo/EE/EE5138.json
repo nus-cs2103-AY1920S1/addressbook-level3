@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5138",
+    "courseCredit": "4",
+    "description": "The module exposes students to a variety of modelling and techniques involving optimization problem formulations in communications signal processing and networks. The topics include linear and nonlinear programming formulations, constrained and unconstrained optimization techniques, network flow models and algorithms, and convex optimization techniques. The module also helps in the understanding of the problem formulation approaches for a wide variety of applications using the methods and techniques taught in the earlier part of the course. It is intended for students to gain knowledge and use of optimization techniques pertaining to the applications in communications & signal processing and networks (wired and wireless) domains.",
+    "faculty": "Engineering",
+    "preclusion": "EE5138R",
+    "title": "Optimization for Communication Systems"
+}

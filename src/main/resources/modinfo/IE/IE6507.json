@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "IE6507",
+    "courseCredit": "4",
+    "description": "This module introduces the theoretic foundations, models, and analytical techniques of queueing theory. Topics include continuous-time Markov chains, Little\u2019s law and PASTA property, Markovian queues and Jackson networks, fluid models, heavy-traffic analysis, and diffusion approximations.",
+    "faculty": "Engineering",
+    "preclusion": "BDC6303 Queues and Stochastic Networks",
+    "prereqTree": {
+        "or": [
+            "IE6505",
+            "BDC6306"
+        ]
+    },
+    "title": "Queues and Stochastic Networks"
+}

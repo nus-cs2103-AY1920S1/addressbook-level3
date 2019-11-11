@@ -1,0 +1,11 @@
+{
+    "courseCode": "PLC5002",
+    "courseCredit": "4",
+    "description": "This module offers an advanced critical understanding of various theories of aetiology and maintenance of adult psychological problems. Students will also acquire an understanding in the appropriate use of diagnostic classification systems and critical appraisal of such systems. The module has a strong emphasis on linking theory to applied clinical practice.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PLC5005",
+        "PLC5012"
+    ],
+    "title": "Adult Psychopathology"
+}

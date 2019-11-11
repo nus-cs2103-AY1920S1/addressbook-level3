@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE2031",
+    "courseCredit": "3",
+    "description": "This module emphasizes on the practical aspects related to modules EE2021 Device and Circuits and EE2022 Electrical Energy Systems. It also provides students with an integrated perspective about the two modules. Students will first learn about the device characterizations, such as diode, LED, solar cell, transistor, operational amplifiers, etc. They will then proceed to build interesting circuits blocks involving the devices learnt earlier. With these accumulated knowledge on device and circuit blocks, students will move on to system projects that require the integration of knowledge across different fields, such as devices, circuits and portable electrical energy systems.",
+    "faculty": "Engineering",
+    "prereqTree": "EE2021",
+    "title": "Circuit and Systems Design Lab"
+}

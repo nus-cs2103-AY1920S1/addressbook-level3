@@ -1,0 +1,22 @@
+{
+    "courseCode": "YSS2216",
+    "courseCredit": "5",
+    "description": "This course is concerned with research methods and the use of statistics in psychology. As such this is a skills oriented course aimed at preparing students for taking the required laboratory course in psychology as well as doing their senior capstone project. We will be covering research methods and statistics simultaneously since they are closely intertwined.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS4202",
+        "YSS4212",
+        "YSS3252",
+        "YSS3260",
+        "YSS3266",
+        "YSS4231",
+        "YSS3279"
+    ],
+    "prereqTree": {
+        "and": [
+            "YCC1122",
+            "YSS2201"
+        ]
+    },
+    "title": "Statistics and Research Methods for Psychology"
+}

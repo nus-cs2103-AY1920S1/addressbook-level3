@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "BH1002E",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC2002",
+        "FNA2002",
+        "FIN2004",
+        "FIN3113",
+        "FNA2004",
+        "FNA3113",
+        "FIN2004X"
+    ],
+    "title": "Financial Accounting"
+}

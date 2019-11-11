@@ -1,0 +1,8 @@
+{
+    "courseCode": "BT5153",
+    "courseCredit": "4",
+    "description": "This module aims to prepare graduate students pursuing a master degree in business analytics for specific topics in business analytics which is of sufficient interest in the current context. The module will investigate the integration of business know-how and advanced analytics technologies, such as machine learning and AI. Students are advised to look into content detail for specific offering during the year.",
+    "faculty": "Computing",
+    "preclusion": "BT4222, CS5246",
+    "title": "Topics in Business Analytics"
+}

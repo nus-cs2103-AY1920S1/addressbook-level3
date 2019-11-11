@@ -1,0 +1,21 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5303",
+    "courseCredit": "4",
+    "description": "With emphasis on fundamentals, this module develops analysis methods that are used to understand the operation and design of solid-state microwave electronic circuits commonly used in microwave systems. Methods for simulating nonlinear microwave circuits and processing of circuit parameters will be discussed. Major topics include: Linear circuit parameter conversion. Analysis of nonlinear microwave circuits. Lossy match, lossy feedback, distributed and power amplifiers. Oscillator theory; diode and transistor oscillators. Frequency multiplication, division and synthesis. Microwave frequency conversion, mixer analysis, single-ended and balanced mixers, diode and transistor mixers, image rejection, mixer noise.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE6833"
+    ],
+    "preclusion": "EE5303R",
+    "prereqTree": {
+        "or": [
+            "EE4101",
+            "EE4104",
+            "EE4112"
+        ]
+    },
+    "title": "Microwave Electronics"
+}

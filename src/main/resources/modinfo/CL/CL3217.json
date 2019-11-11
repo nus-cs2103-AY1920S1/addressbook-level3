@@ -1,0 +1,9 @@
+{
+    "courseCode": "CL3217",
+    "courseCredit": "4",
+    "description": "The module is designed to acquaint students with aspects of Chinese grammar, with the focus on parts of speech, morphology, and sentence structure.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "CL2210",
+    "prereqTree": "CL2103",
+    "title": "The Analysis of Chinese Morphosyntax"
+}

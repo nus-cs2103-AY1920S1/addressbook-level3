@@ -1,0 +1,10 @@
+{
+    "courseCode": "GMS6820",
+    "courseCredit": "4",
+    "description": "This one-semester module covers core concepts in statistics with an emphasis on working with biomedical data. Covered topics: - Concepts in probability - Theory of point estimation and hypothesis testing. - Large sample theory and maximum likelihood estimation. - Linear models and linear algebra. - Sampling techniques and resampling methods. - Classification and discrimination techniques.",
+    "faculty": "Duke-NUS Medical School",
+    "fulfillRequirements": [
+        "GMS6892"
+    ],
+    "title": "Core Concepts in Biostatistics"
+}

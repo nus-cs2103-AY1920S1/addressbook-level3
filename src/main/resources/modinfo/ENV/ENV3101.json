@@ -1,0 +1,12 @@
+{
+    "courseCode": "ENV3101",
+    "courseCredit": "4",
+    "description": "Using selective Asian case studies through on-site field studies exposure, experimentation and documentation, this module addresses several key themes: a) understanding the nature of environmental problems (both physical and human induced environmental changes) in specific locations, sites and ecosystems; ii) the human impacts leading to specific environmental problems (pollution, water scarcity, deforestation, dwindling biodiversity); and iii) understanding indigenous adaptive mechanisms and other mitigation options in ensuring environmental sustainability. Students will participate in field studies of key sites, ecosystems and places where such challenges have taken place within the Asian region.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ENV3102",
+        "ENV4101"
+    ],
+    "prereqTree": "ENV2101",
+    "title": "Environmental Challenges: Asian Case Studies I"
+}

@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PH2242",
+    "courseCredit": "4",
+    "description": "Topics in the philosophy of language, especially concerning truth, meaning and reference. In particular, we will consider questions such as but not limited to whether language is mediated by convention or intention, whether understanding a language is tacitly knowing a theory of that language, whether the meaning of a name is simply its referent, whether mathematical and moral statements are true in virtue of meaning and whether sentences such as \u2018breaking promises is wrong\u2019 are statements of moral fact or simply expressions of emotion.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PH3241",
+        "PH3244",
+        "PH3245"
+    ],
+    "preclusion": "PH3210",
+    "title": "Philosophy of Language"
+}

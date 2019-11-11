@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PF2109",
+    "courseCredit": "4",
+    "description": "This module covers the pre-development stage of a project. Major topics include the real estate development cycle; market study and site selection; site control; due diligence; sketch of scheme; preliminary cost estimate; financial analysis; financial close; site acquisition; development of Project Brief; project programming; and design development. A basic understanding of cost-benefit analysis is required for public infrastructure projects.",
+    "faculty": "Design and Environment",
+    "preclusion": "PF2201",
+    "title": "Project Feasibility"
+}

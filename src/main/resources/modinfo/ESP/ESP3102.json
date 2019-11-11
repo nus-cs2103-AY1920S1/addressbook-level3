@@ -1,0 +1,13 @@
+{
+    "courseCode": "ESP3102",
+    "courseCredit": "4",
+    "description": "The aims of this module are to provide a comprehensive coverage of a range of nanofabrication and characterization techniques. The fabrication part will facus on top-down techniques which will complement the bottom-up techniques covered by CM3251 Nanochemistry. Topics to be covered include: Nanofabrication: thin flim deposition, etching, photolithography, EUV, electron beam, x-ray and ion beam lithography, focused ion beam and direct laser writing, scanning probe based techniques, fabrication and alignment of nanostructures, manufacturing of nanodevices and nanosystems. Nanocharacterization: basic principle of imaging, wave diffraction, interaction of energy beams with materials, optical and electron microscopy, scanning probe microscopy, x-ray microanalysis, electron transport measurement, magnetic measurement and optical spectroscopy.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "PC2130B",
+            "PC2133"
+        ]
+    },
+    "title": "From Making Nano to Probing Nano"
+}

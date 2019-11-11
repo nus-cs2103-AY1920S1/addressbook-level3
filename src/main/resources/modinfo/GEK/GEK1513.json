@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1513",
+    "courseCredit": "4",
+    "description": "Telephones, fax machines, computers, and other communications devices-connected by wires to power sources and telecommunications networks are almost ubiquitous in many industrialized countries. Anytime, anywhere, mobile multimedia communications is close to becoming reality. This course examines how this all came about, how it works and what the future of wireless communications holds. In this course, students will learn things like: &quot;Who were the pioneers of wireless communications?&quot;; &quot;What were the first steps to wireless communications and what can be regarded as the major milestones?&quot;; &quot;What is the mysterious spectrum?&quot;; &quot;What do GSM, CDMA and other acronyms stand for and what do they really mean?&quot;; &quot;How does my handphone work?&quot;; etc. This module is suited for all non-engineering students as well as first year engineering students.",
+    "faculty": "Engineering",
+    "preclusion": "To preclude Electrical Engineering, Computer Engineering  and School of Computing students (except EE1, CPE1, CEG1, CEC1, COM1) and students who have read IT2001.",
+    "title": "Wireless Communications - Past, Present And Future"
+}
