@@ -2,9 +2,6 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-:experimental:
-
-:repoURL: https://github.com/AY1920S1-CS2103T-T10-4/main
 
 === About the project
 

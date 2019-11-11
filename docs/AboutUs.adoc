@@ -29,7 +29,7 @@ Responsibilities: Command Suggestions
 
 === Alvin Ng
 image::alvinnyk.png[width="150", align="left"]
-{empty}[https://github.com/Alvinnyk[github]] [<<alvinnyk#, portfolio>>]
+{empty}[https://github.com/Alvinnyk[github]] [<<Alvinnyk#, portfolio>>]
 
 Role: Documentation, In charge of `Model` +
 Responsibilities: Free time identification, NUSMods API usage
@@ -58,7 +58,7 @@ Responsibilities: Free location suggestion, Google Maps API usage
 image::yijiee.png[width="150", align="left"]
 {empty}[https://github.com/YiJiee[github]] [<<yijiee#, portfolio>>]
 
-Role: Code Quality +
+Role: Code Quality, In charge of `Ui` +
 Responsibilities: Schedule display
 
 '''
