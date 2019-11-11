@@ -32,6 +32,7 @@ import seedu.guilttrip.ui.autoexpense.AutoExpensesPanel;
 import seedu.guilttrip.ui.budget.BudgetPanel;
 import seedu.guilttrip.ui.condition.ConditionPanel;
 import seedu.guilttrip.ui.expense.ExpenseListPanel;
+import seedu.guilttrip.ui.history.HistoryPanel;
 import seedu.guilttrip.ui.income.IncomeListPanel;
 import seedu.guilttrip.ui.reminder.NotificationPanel;
 import seedu.guilttrip.ui.reminder.ReminderPanel;
@@ -70,7 +71,7 @@ public class MainWindow extends UiPart<Stage> {
     private StatisticsWindow statsListPanel;
     private StatisticsPieChartPanel statsGraphics;
     private StatisticsBarChart statsBar;
-    private BudgetPanel budgetsPanel;
+    private HistoryPanel historyPanel;
 
     // Customisable GUI elements
     private FontName font;
@@ -205,6 +206,8 @@ public class MainWindow extends UiPart<Stage> {
 
         this.autoExpensesPanel = new AutoExpensesPanel(logic.getFilteredAutoExpenseList());
         autoExpensesPlaceHolder.getChildren().add(this.autoExpensesPanel.getRoot());
+
+        this.historyPanel = new HistoryPanel(logic.getHistory());
     }
 
     /**
@@ -571,6 +574,11 @@ public class MainWindow extends UiPart<Stage> {
                     }
                     mainPanel.getChildren().clear();
                     mainPanel.getChildren().add(this.reminderPanel.getRoot());
+                    break;
+                case "history":
+                    resetMainPanel();
+                    mainPanel.getChildren().removeAll(mainPanel.getChildren());
+                    mainPanel.getChildren().add(this.historyPanel.getRoot());
                     break;
                 default:
                     // Do nothing.
