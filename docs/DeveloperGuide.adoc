@@ -495,13 +495,9 @@ The annotation feature builds upon the structure of an offline document used to 
 Such an offline document is represented by `OfflineDocument`, which contains at least one `Paragraph`. Each annotation is attached to an entire `Paragraph`. The annotation will be internally stored as an instance of `Annotation`.
 You can view the class structure of the annotation feature in the <<annotation-cd>>.
 
-The annotation feature encompasses this functionality:
-
- * Add an annotation (triggered by `annotate` command and executed by `AddAnnotationCommand#execute()`).
- * Delete an annotation (triggered by `annotate-delete` command and executed by `DeleteAnnotationCommand#execute()`).
- * Edit an annotation (triggered by `annotate-edit` command and executed by `EditAnnotationCommand#execute()`).
-
-Command  words `annotate`, `annotate-delete` and `annotate-edit` make up the _family of annotation commands_.
+The annotation feature supports adding, deleting and editing annotations. Command words
+`annotate`, `annotate-delete` and `annotate-edit` activate the respective functionality.
+These command words make up the _family of annotation commands_.
 When activated, each calls the respective command parser to create the corresponding `AnnotationCommand`.
 Subsequently, when necessary the appropriate `Paragraph` is retrieved, and the annotation is handled according to the command.
 You can study the hierarchy of the _family of annotation commands_ here:
