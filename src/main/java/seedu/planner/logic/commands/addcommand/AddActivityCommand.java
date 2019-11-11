@@ -41,6 +41,7 @@ public class AddActivityCommand extends AddCommand {
                     + PREFIX_NAME + "NAME "
                     + PREFIX_ADDRESS + "ADDRESS "
                     + PREFIX_DURATION + "DURATION "
+                    + "[" + PREFIX_PHONE + "PHONE] "
                     + "[" + PREFIX_COST + "COST] "
                     + "[" + PREFIX_PRIORITY + "PRIORITY] "
                     + "[" + PREFIX_TAG + "TAG]...",
