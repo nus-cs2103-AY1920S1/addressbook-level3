@@ -610,7 +610,7 @@ image::SequenceDiagramSearchParseArgs.png[width="790"]
 Example usage scenario:
 
 [NOTE]
-Steps 1-3 and steps 4-5 describe what is shown in Figure 25 and Figure 24 respectively.
+Steps 1-3 and steps 4-5 describe what is shown in Figure 34 and Figure 33 respectively.
 
 Step 1. User enters command `search|banana`. The command is received by the `LogicManager` 's `execute` method which
 then calls the `getCurrentView` method of `Model` to determine which item list is currently being displayed, `XPIRE`
@@ -638,7 +638,7 @@ The selection of parser and the creation of `SearchCommand` object is omitted fo
 .Activity diagram illustrating the high-level workflow of search command
 image::ActivityDiagramSearchCommand.png[width="790"]
 
-As illustrated in Figure 26, the `search` functionality also considers the case where the current view list
+As illustrated in Figure 35, the `search` functionality also considers the case where the current view list
 is empty and there will be a feedback to the user to inform him/her that the `search` command is not executed
 successfully.
 
@@ -752,7 +752,7 @@ The selection of parser and the creation of `ExportCommand` object is omitted fo
 .Activity diagram illustrating the high-level workflow of search command
 image::ActivityDiagramExportCommand.png[width="790"]
 
-As illustrated in Figure 28, the `export` functionality also considers the case where the current view list
+As illustrated in Figure 39, the `export` functionality also considers the case where the current view list
 is empty and there will be a feedback to the user to inform him/her that the `export` command is not executed
 successfully.
 
@@ -1131,6 +1131,11 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
+.Use case diagram for Xpire
+image::UseCaseDiagram.png[width="790"]
+
+The above use case diagram helps to summarise the use cases for Xpire.
+
 (For all use cases below, the *System* is `Xpire` and the *Actor* is the `user`, unless specified otherwise. Additionally, any references made to the `list` refers to the tracking list, unless specific otherwise.)
 
 [discrete]
@@ -1288,7 +1293,15 @@ Precondition: Display board is showing a list of items.
 +
 Use case ends.
 
-_{More to be added}_
+[discrete]
+=== Use case: UC11 - Export
+
+*MSS*
+
+1.  User requests to export current list.
+2.  Xpire shows the QR code.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
@@ -1747,6 +1760,18 @@ set for them previously.
    Expected: No change in the order of items. Error details shown in the status message.
 .. Other incorrect sort commands to try: `sort|`, `sort|xyz` (where xyz is any garbage input) +
    Expected: Similar to previous.
+
+=== Export data
+
+. Non empty current list
+
+.. Test case: `export` +
+   Expected: QR code containing item data.
+
+. Empty current list
+
+.. Test case: `export` +
+   Expected: Error message indicating that current list is empty.
 
 === Saving data
 
