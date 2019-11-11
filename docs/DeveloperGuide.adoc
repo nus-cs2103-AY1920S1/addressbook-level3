@@ -764,7 +764,9 @@ Finally, the last functionality to rebuilt is the resizability of the Window. Th
 
 // end::ui[]
 // tag::statistics[]
+
 === Statistics feature
+
 ==== Current Implementation
 
 The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days (default view) and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched. Users can switch the view to a specified week, month, or view.
@@ -1229,7 +1231,7 @@ _
 .. Other incorrect generate report commands to try: `genReport`, `genReport x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-// tag:statsManualTesting[]
+// tag::statsManualTesting[]
 === Using the Line Chart and Stats Command
 
 . Changing the time frame of the line's chart horizontal axis
@@ -1259,7 +1261,7 @@ _
    Expected: The y-value for the date 14/11/2019 automatically decreases by 1.
 // end::statsManualTesting[]
 
-// tag:filterManualTesting[]
+// tag::filterManualTesting[]
 === Filter entries by attributes
 
 . Filter bodies by a combination of at least on attribute.
