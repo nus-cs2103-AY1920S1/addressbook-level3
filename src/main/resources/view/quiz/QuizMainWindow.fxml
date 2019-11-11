@@ -27,11 +27,9 @@
 
       <VBox>
         <MenuBar fx:id="menuBar" style="-fx-background-color: #01A453;" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Quiz">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
         </MenuBar>
 

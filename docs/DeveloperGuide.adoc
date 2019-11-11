@@ -244,7 +244,8 @@ comparator implemented in a method that would return a sorted `FilteredList<Task
 ===== Implementation
 
 To use this feature, the user will need to switch to the quiz mode and add the question they want with
-several requirements on the syntax stated in the UserGuide.
+several requirements on the syntax stated in the UserGuide. Modulo quiz uses dark theme
+because we don’t want users to strain their eyes from staring at their computer window too long.
 
 Below are the quiz model class diagram:
 
