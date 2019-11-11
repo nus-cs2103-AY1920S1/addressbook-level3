@@ -7,7 +7,12 @@
 
 == Overview
 
-This is a project for a Software Engineering module, CS2103T in National University of Singapore. I am in a team of 4 Computer Science students and we were given the task of enhancing the existing Command Line Interface application that the module provided us with. We decided to morph the application into a Financial Tracker for Finance Secretaries in organisations. The name of the application is FinSec.
+image::lawncegoh.png[width="100", align="left"]
+{empty}[https://github.com/lawncegoh[github]]
+
+Hi! My name is Lawnce. I am a second year student in School of Computing. This page aims to document the contributions I have made in a project that my team and I completed for the module CS2103T.
+
+I am in a team of 4 Computer Science students and we were tasked to enhance the existing Command Line Interface application the module provided us with. We decided to morph the application into a Financial Tracker for Finance Secretaries in organisations. The name of the application is FinSec.
 
 This new application, allows for these Finance Secretaries to easily store their claims requests, income inflows and keep track of budget accurately. On top of these, the secretary can store the contacts of all the people who have made transactions with him so that it ensures easier tracking in the future.
 
@@ -35,7 +40,7 @@ ensure that this list is able to update to another list when the correct command
 Also, after implementing the changing of lists, I had to also implement a state in each of these lists to make sure that the state
 changes when a certain view is input as parameter into this `goto` feature.
 
-* *Major enhancement 2*: I added *ability to `sort` and `reverse` the 3 various lists.
+* *Major enhancement 2*: I added *ability to `sort` and `reverse` the 3 various lists*
 
 ** *What it does*:The user is able to sort the lists according to name, date and status.
 `reverse` on the other hand sorts the lists in the reverse order. This is where the states of the various lists will allow this sort feature to work
@@ -67,8 +72,7 @@ the ability to pop up the claims that are of a certain date or status. If the so
 * *Minor enhancement 1*: I tweaked the `clear` feature in the existing AB3 to ensure that before the user is able to clear the list, the application prompts the
 user one more time to ensure that the command was not by accident.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=lawncegoh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lawncegoh&tabRepo=AY1920S1-CS2103T-W12-1%2Fmain%5Bmaster%5D
-[Code]]_{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=lawncegoh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lawncegoh&tabRepo=AY1920S1-CS2103T-W12-1%2Fmain%5Bmaster%5D[Code]]
 
 * *Other contributions*:
 
