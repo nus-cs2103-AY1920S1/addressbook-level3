@@ -576,6 +576,8 @@ image::find-meeting-time-timings.PNG[]
 
 [NOTE]
 If there are no suitable timings, +Work will notify you as well
+[IMPORTANT]
+Because showing *ALL* possible meeting timings may not be appropriate, +Work helps by restricting the meeting timings to be between 8 a.m and 10 p.m
 
 ==== Schedule a team meeting: `add-meeting`
 After using the command `find-meeting-time`, you can schedule a meeting from the list of possible timings by referring to the `INDEX` of the meeting in the list.
@@ -941,8 +943,8 @@ _{explain how the user can enable/disable data encryption}_
 *Q*: Can I export the claims report as a word document? +
 *A*: No, the application only supports exporting of files in PDF format.
 
-*Q*: What if the calendar cannot find a timing where everyone is free? +
-*A*: There will be a grid showing the number of available members by time, so it will be easier for the user to choose the best possible time for the meeting.
+*Q*: What if +Work cannot find a timing where everyone is free? +
+*A*: +Work cannot guarantee to find a meeting time that can suit every team member, but it will provide a list of the best possible timings when the *most* number of members are available.
 
 *Q*: My project has a budget, does the application help me keep track of the projects financial status? +
 *A*: Using /inventory the application can keep track of current expenses for each task and the member who purchased it, however, there are currently no accounting services available.
