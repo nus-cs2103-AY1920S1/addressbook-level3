@@ -1,0 +1,28 @@
+@startuml
+(*) -down-> "Command is parsed and executed"
+if "" then
+    -left-> [DisplayStatsCommand is executed] "Observables of StatisticsFormat and\n StatisticsFormatOptions updated"
+    --> [Notify listeners] "On update of listeners in ChartBox"
+    --> ===B1===
+    if "" then
+        --> [StatisticsFormat changed] "ChartBox creates desired concrete\n Chart and renders it"
+        --> ===B2===
+    else
+        --> [else] ===B2===
+    endif
+    ===B1=== --> if "" then
+        --> [StatisticsFormatOptions changed] "ChartBox demultiplexes relevant\n updated options to update current Chart"
+        --> [Notify listeners] "Chart generates statistics based on new data"
+        --> ===B2===
+        else
+        --> [else] ===B2===
+        endif
+else
+    --> [else] if "" then
+        -left-> [Displayed chart is updated] "ObservableList of Expenses\n updated"
+        --> [Notify listeners] "Chart generates statistics based on new data"
+    else
+        -left-> [else] ===B2===
+    ===B2=== --> "End command"
+    --> (*)
+@enduml
