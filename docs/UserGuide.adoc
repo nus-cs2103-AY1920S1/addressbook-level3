@@ -239,7 +239,7 @@ Commands below are come other example commands:
 
 ==== Deleting previous meal entry : `delete`
 
-Deletes a meal that the user previously ate today. +
+Deletes a meal that the user previously consumed today. +
 The meal will be removed from the consumed meal section +
 and the calorie tracking bar.
 
