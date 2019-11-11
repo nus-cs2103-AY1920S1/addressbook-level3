@@ -62,7 +62,7 @@ Even if users do not close the notification, the notification will disappear aft
 gives me the idea of how to implement a reminder notification.
 
 * *Code contributed*: +
-Please click these links to see a sample of my code.[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=tsai-hsiao-han&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Here]]
+Please click this link to see a sample of my code. [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=tsai-hsiao-han&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Here]]
 * *Minor enhancement*: +
 Improved current `edit` command so that when bookmarks changes the reminder will also change it's url.
 +
@@ -92,19 +92,19 @@ _------------- This is the start of extraction -------------_
 include::../UserGuide.adoc[tag=ReminderCommand]
 include::../UserGuide.adoc[tag=sort]
 
-_------------- This is the end of extraction -------------_
+_------------- This is the end of the excerpt -------------_
 
 == Contributions to the Developer Guide
 This part is about the sections I contributed to the Developer Guide.
 The section extracted from the Developer Guide below showcase my ability to write a technical documentation to a developer and show technique depth of my contribution.
 
-_------------- This is the start of extraction -------------_
+_------------- This is the start of the excerpt -------------_
 include::../DeveloperGuide.adoc[tag=reminder]
 
 //include::../DeveloperGuide.adoc[tag=use-case-reminder]
 //include::../DeveloperGuide.adoc[tag=test-reminder]
 
-_------------- This is the end of extraction -------------_
+_------------- This is the end of the excerpt -------------_
 
 ---
 
