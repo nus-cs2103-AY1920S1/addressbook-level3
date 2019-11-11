@@ -21,8 +21,9 @@ By: `DukeCooks`      Since: `Sep 2019`      Licence: `MIT`
 
 === Who are we?
 
-DukeCooks is a revolutionary lifestyle application, specially designed for health-conscious individuals. DukeCooks
-runs on the Command-Line Interface (CLI), allowing you to execute different commands, all within a single line.
+DukeCooks is a revolutionary lifestyle application, specially designed for health-conscious individuals.Targeting busy
+students that are long-time users of the Command-Line Interface (CLI), DukeCooks offers such users a CLI healthy
+lifestyle application. This means, expert-CLI student users will be able to execute different commands, all within a single line.
 You will be able to manage various aspects of your lifestyle, from your diet, to exercises and health records.
 
 You can use DukeCooks to manage all your lifestyle needs, all within one single app.
@@ -127,7 +128,8 @@ Delete commands will be used to delete a specific entry within DukeCooks.
 Clear commands will be used to clear all saved data.
 
 === Breaking down the Dashboard
-For first time users of the CLI, working with it can be a daunting task. So, let's first start off by understanding what makes up the Dashboard!
+Although DukeCooks is developed for expert CLI users, beginners fret not as DukeCooks' interface is very easy to pick up.
+For first time users of the CLI, we acknowledge that working with it can be a daunting task. So, let's first start off by understanding what makes up the Dashboard!
 
 In the image below (Figure 1), accompanied with text on the right, provides a brief explanation of the key components found in the Dashboard.
 

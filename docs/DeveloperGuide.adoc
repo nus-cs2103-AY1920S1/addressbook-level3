@@ -19,8 +19,9 @@ By: `Team DukeCooks`      Since: `Oct 2019`      Licence: `MIT`
 
 == Introduction
 
-DukeCooks is a revolutionary lifestyle application, specially designed for health-conscious individuals. DukeCooks
-runs on the Command-Line Interface (CLI), allowing users to execute different commands, all within a single line.
+DukeCooks is a revolutionary lifestyle application, specially designed for health-conscious individuals. Targeting busy
+students that are long-time users of the Command-Line Interface (CLI), DukeCooks offers such users a CLI healthy
+lifestyle application. This means, expert-CLI student users will be able to execute different commands, all within a single line.
 They will be able to manage various aspects of their lifestyle, from their diet, to exercises and health records.
 
 They can use DukeCooks to manage all their lifestyle needs, all within one single app.

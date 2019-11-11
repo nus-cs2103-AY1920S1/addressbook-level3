@@ -90,7 +90,8 @@ https://github.com/hua-lun/ped/issues/12[12],)
 |===
 
 === Breaking down the Dashboard
-For first time users of the CLI, wokring with it can be a daunting task. So, let's first start off by understanding what makes up the Dashboard!
+Although DukeCooks is developed for expert CLI users, beginners fret not as DukeCooks' interface is very easy to pick up.
+For first time users of the CLI, we acknowledge that working with it can be a daunting task. So, let's first start off by understanding what makes up the Dashboard!
 
 In the image below (Figure 1), accompanied with text on the right, provides a brief explanation of the key components found in the Dashboard.
 
