@@ -935,14 +935,14 @@ press Enter to execute it.
 
 Format : `undo`
 
-image::Undo0.png[width="450"]
+image::Undo0.png[width="400"]
 
 *What you should see*
 
 The result box will display a success message and you can check that
 Mohamad Ali’s contact information is visible in the list again!
 
-image::AfterUndo0.png[width="450"]
+image::AfterUndo0.png[width="400"]
 
 ==== Redoing an `undo` command : `redo`
 
@@ -979,13 +979,13 @@ Enter to execute it.
 
 Format : `redo`
 
-image::Redo0.png[width="450"]
+image::Redo0.png[width="400"]
 *What you should see*
 
 The result box will display a success message.
 Furthermore, the list now only has 7 people and Mohamad Ali is once again gone from the list!
 
-image::AfterRedo0.png[width="450"]
+image::AfterRedo0.png[width="400"]
 
 //end::undoredo[]
 
