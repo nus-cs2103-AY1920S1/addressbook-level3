@@ -261,6 +261,50 @@ Examples:
 `delete 2` +
 Deletes the 2nd reminder in the shown reminder list.
 
+==== Completing a task: `done`
+
+Mark a task at the specific index as done.
+
+Format: `done INDEX`
+
+Examples:
+
+* `done 1` - Marks the task at index 1 as done.
+
+****
+* This command can only be used in the task list panel.
+
+* The index refers to the index number shown in the list.
+
+* The index *must be a positive integer* (1, 2, 3 ...)
+
+* No flags should be given with this command.
+
+****
+
+==== Continuing with a task: `continue`
+
+Mark a task at the specific index as undone.
+
+Format: `continue INDEX`
+
+Examples:
+
+* `continue 1` - Marks the task at index 1 as undone.
+
+* `cont 1` - Short version of the above command
+
+****
+* This command can only be used in the task list panel.
+
+* The index refers to the index number shown in the list.
+
+* The index *must be a positive integer* (1, 2, 3 ...)
+
+* No flags should be given with this command.
+
+****
+
 //tag::autoreschedule[]
 === AutoReschedule Feature
 

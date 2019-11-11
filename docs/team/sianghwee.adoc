@@ -8,15 +8,15 @@
 == Overview
 My team, comprising of 5 software engineering students, was tasked with enhancing a basic command line interface (CLI) desktop address book application for our Software Engineering project.
 
-With modern life comes a fast-paced, hectic lifestyle. It is increasingly easy to be overwhelmed by the insurmountable number of responsibilities and tasks we have to fulfill. Most task-manager applications involve countless clicking and navigation, which defeats their purpose. To rectify this, my team decided to design a simple, no frills CLI student assistant catering to students who prefer CLI.
+With modern life comes a fast-paced, hectic lifestyle. It is increasingly easy to be overwhelmed by the insurmountable number of responsibilities and tasks we have to fulfill. Most task-manager applications involve countless clicking and navigation, which defeats their purpose. To rectify this, my team decided to design a simple, no frills CLI student assistant from the address book to cater to students who prefer CLI.
 
-We call our application ELISA, an Exceptionally Loud and Intelligent Student Assistant. ELISA enables users to add and track their tasks and events while receiving reminders for them. With a sassy and humorous personality and her user-interface interaction (in the form of a chat bot), she is simpler, yet more engaging to use than other regular task managers. There are also other features to aid the productivity of students and to spice up their life.
+We named our application ELISA, an Exceptionally Loud and Intelligent Student Assistant. ELISA enables users to add and track their tasks and events while receiving reminders for them. With a sassy and humorous personality and her user-interface interaction (in the form of a chat bot), she is simpler, yet more engaging to use than other regular task managers. There are also other features to aid the productivity of students and to spice up their life.
 
 == Application introduction
 This is how our application looks like:
 
 .User interface annotated
-image::sianghwee/taskpanel-annotated.PNG[]
+image::sianghwee/task-panel.jpg[]
 ELISA's various components serve the following functions:
 
 [cols="2, 10"]
