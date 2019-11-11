@@ -1387,8 +1387,8 @@ set for them previously.
 
 .. Prerequisites: Current view is the main list. The list contains at least one expired item or item with active reminder.
 .. Test case `check` +
-   Expected: Expired items and items with active reminder in the `View` (items in red or yellow).
-Feedback shows listing of expired items and items whose reminder has been activated.
+   Expected: Expired items and items with active reminder in the `View` (items in red or yellow). +
+   Feedback shows listing of expired items and items whose reminder has been activated.
 
 === Sorting items
 
