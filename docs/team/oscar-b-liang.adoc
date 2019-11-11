@@ -62,7 +62,7 @@ include::../UserGuide.adoc[tag=basic3]
 |===
 |_Given below are sections I contributed to the README. They showcase my ability to write documentation advertising the project._
 |===
-*I clearly clarify here that both Quiz and Flip features are implemented by
+*I clearly clarify here that Quiz, Flip and Stats feature are all NOT implemented by
 me, they are implemented by my teammates. I simply drew the sequence diagrams of these features.*
 
 include::../DeveloperGuide.adoc[tag=quizdiagram]
