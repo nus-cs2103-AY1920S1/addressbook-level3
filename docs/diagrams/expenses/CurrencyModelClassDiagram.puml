@@ -1,0 +1,20 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class CurrencyList
+class Name
+class Symbol
+class Rate
+class CustomisedCurrency
+
+Trip *-down-> "1"CurrencyList
+CurrencyList *-down-> "1..*" CustomisedCurrency
+
+CustomisedCurrency *--> "1" Name
+CustomisedCurrency *--> "1" Symbol
+CustomisedCurrency *--> "1" Rate
+
+@enduml

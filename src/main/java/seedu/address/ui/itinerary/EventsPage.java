@@ -35,6 +35,8 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
 
     private static final String FXML = "itinerary/events/EventsPage.fxml";
 
+    private static final String INVENTORY_LIST_VIEW_STYLESHEET = "/view/inventory/InventoryListViewTheme.css";
+
     @FXML
     private ListView<Event> eventListView;
 
@@ -91,8 +93,10 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
 
                 if (empty || item == null || item.getName() == null) {
                     setText(null);
+                    getStylesheets().add(INVENTORY_LIST_VIEW_STYLESHEET);
                 } else {
                     setText(item.getName().fullName);
+                    getStylesheets().add(INVENTORY_LIST_VIEW_STYLESHEET);
                 }
             }
         });
