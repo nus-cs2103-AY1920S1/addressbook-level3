@@ -51,4 +51,15 @@ public class FoodComparatorTest {
         assertNotEquals(comparator, new Object());
         assertEquals(comparator, comparator);
     }
+
+    @Test
+    public void equal_strings() {
+        fields.add(FIELD_NAME_NAME);
+        fields.add(ASCENDING_DIRECTION);
+        FoodComparator test = new FoodComparator(fields);
+
+        String representation = "NAME ASC ";
+
+        assertEquals(test.toString(), representation);
+    }
 }
