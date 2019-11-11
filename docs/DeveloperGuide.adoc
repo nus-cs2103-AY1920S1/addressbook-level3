@@ -904,10 +904,10 @@ Since the sequence for `CalendarViewCommand` is roughly similar to `ListViewComm
 
 The design considerations are more towards how the appearance of the UI, as well as how the architecture of the code would have changed depending on such appearance.
 
-.Old design of the UI
-image::OldUI.png[]
+.Old design of the UI for Horo
+image::oldUI.png[]
 
-.Current design of the UI
+.Current design of the UI for Horo
 image::Ui.png[]
 
 ===== Aspect: Design of the `CalendarPanel`
