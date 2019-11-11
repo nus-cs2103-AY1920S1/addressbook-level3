@@ -1315,3 +1315,44 @@ redo
 ```
 Expected: The recovered engagement should disappear in the list.
 //end::yuchen-test[]
+
+=== Calendar commands
+
+All listed commands assume that the application is in the calendar tab.
+
+(i) Test case: +
+The sequence of commands is as follows:
+```
+calendar c/opendisplay d/11/11/2019
+```
+Expected: The engagements display window for 11/11/2019 opens up.
+
+(ii) Test case: +
+The sequence of commands is as follows:
+```
+calendar c/closedisplay d/11/11/2019
+```
+Expected: When executed immediately after executing the command in (i), the engagements display window for 11/11/2019 closes.
+
+(iii) Test case: +
+The sequence of commands is as follows:
+```
+calendar c/opendisplay d/10/10/2019
+```
+Expected: The calendar window switches from the currently displayed month (assuming that it is not displaying October 2019) to October 2019.
+The engagements display window for 10/10/2019 opens up.
+
+(iii) Test case: +
+The sequence of commands is as follows:
+```
+calendar c/nextmonth
+```
+Expected: All open engagements list windows are closed and the calendar displays the month after the currently displayed month.
+
+(iv) Test case: +
+The sequence of commands is as follows:
+```
+calendar c/previousmonth
+```
+Expected: All open engagements list windows are closed and the calendar displays the month prior to the currently displayed month.
+
