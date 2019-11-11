@@ -23,7 +23,7 @@ image::../images/Ui.png[width="400"]
 
 == Role
 
-My main role was to prototype and develop the learning of wrong commands into custom commands feature and the Student Profile feature.
+My main role was to prototype and develop the "learning of wrong commands into custom commands" feature and the Student Profile feature.
 The custom commands feature required handling command words that are not recognized by TutorAid carefully instead of just throwing an exception for unknown invalid commands. I created the base classes to facilitate this whole event flow, then linked it to the Model and Storage components since the custom commands have to be saved for future use. I also wrote rigorous tests for quality assurance of our product and to ensure that any possible bugs are kept to a minimal.
 
 == Summary of contributions
