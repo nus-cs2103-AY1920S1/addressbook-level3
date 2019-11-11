@@ -871,6 +871,26 @@ Like most of the expense commands, statistics of your expenses can be generated 
 to the primary budget you're residing on. Read further for the rest of the commands covered
 under the Statistics section.
 
+****
+*Notes that apply to all statistics features*
+
+- For any input that consists of date and time, only the date information will be considered.
+
+- Expenses to be included in the statistics generated include those on the start dates and end dates itself.
+
+- The period of the budget plays a significant role in determining the output of the statistics
+features especially those that allow optional parameters. Hence, it may be helpful to be familiar
+with editing the period of a budget.
+
+- Even though the `Default Budget` can contain expenses and has a valid budget period, it is not
+recommended to type this command when in that budget. It is after all a placeholder budget that
+is meant to hold expenses not associated to any budgets when starting out, which also implies it
+doesn't support editing any of its attributes, especially period. Also, the budget period is set to
+a large interval by design, so the output might not make sense.
+
+- For commands that use `sd/` `ed/` prefixes, `START_DATE` will be checked to be earlier than `END_DATE`
+****
+
 ==== Summary Statistics: `statsbasic`
 This command allows you to have a basic summary of the money spent from their
 categorical expenses in a given period of their current budget.
@@ -885,26 +905,15 @@ Format: `statsbasic [sd/<START_DATE>] [ed/<END_DATE>]`
 ****
 *Note*
 
-- For any input that consists of date and time, only, only the date information will be considered.
 
-- Expenses to be included in the statistics generated include those on the start dates and end dates itself.
-
-- `START_DATE` will be checked to be earlier than `END_DATE`
 
 - The success message for this command is "Pie Chart calculated!"
-
-- Categories where no tracked expenses fall under will not be reflected in the Statistics Panel.
-
-- Even though the `Default Budget` can contain expenses and has a valid budget period, it is not
-recommended to type this command when in that budget. It is after all a placeholder budget that
-is meant to hold expenses not associated to any budgets when starting out, which also implies it
-doesn't support editing any of its attributes, especially period. Also, the budget period is set to
-a large interval by design, so the output might not make sense.
 
 - When there are no expenses in the current window of the current budget, a successful `statsbasic`
 can stil be called. However, the same success message "Pie Chart calculated!" is still seen on the result display,
 but now with a blank screen in the StatsPanel.
 
+- Categories where no tracked expenses fall under will not be reflected in the Statistics Panel.
 
 ****
 
@@ -922,8 +931,6 @@ the unit of time and statistics is calculated starting from one unit of time bef
 - If both `START_DATE` and `END_DATE` are empty, statistics will be calculated using the start date and end date
 of the current window of the budget, seen on the top right of the budget progress bar.
 
-- As the 3 alternative configurations involve the knowledge of the budget's period, be familiar with the
-procedure of editing a budget's period.
 
 Example of configurations:
 ----
@@ -937,7 +944,7 @@ For example, MooLah is currently at the "Outside School" budget, and shown below
 the current window of the Budget from start of 18 Oct to the end of 24 Oct. There are exactly
 4 expenses as shown in the example.
 
-image::OutsideSchoolWindow.png[align=center,width="790"]
+image::OutsideSchoolWindow.png[align=center,width="600"]
 
 To generate the pie chart for the expenses for this window.
 
@@ -947,13 +954,7 @@ To generate the pie chart for the expenses for this window.
 . The screen will be switched into the Statistics Panel where the Pie Chart will be generated
 as shown below.
 
-image::PieChart.png[align=center,width="790"]
-
-
-+
-
-
-
+image::PieChart.png[align=center,width="600"]
 
 
 
@@ -982,73 +983,34 @@ Format: `statscompare sd1/<START_DATE_1> sd2/<START_DATE_2>`
 ****
 *Note*
 
-- Date formats accepted are handled by Natty Date Parser library which supports human jargons.
-Please refer to the above documentation for more information.
-
-- For any input that consists of date and time, only, only the date information will be considered.
-
-- Expenses to be included in the statistics generated include those on the start dates and end dates itself.
-
-- The end dates for both start dates specified by the user are constructed using the period
-that the current budget is using. To switch the period of analysis, consider editing the duration of the budget.
+- The success message for this command is "Statistics Comparison Calculated!"
 
 - The cells in the "similarity columns" denote only non-negative values. This is because it
 shows the frequency and total expenditure common to both periods.
 
 - The cells in the "difference columns" may contain negative values. This is because
 the values for differences in frequency and differences in total expenditure for each category
-is calculated using the formula `second period – first period`.
+is calculated using the formula `second period` - `first period`.
 
-- The success message for this command is "Statistics Comparison Calculated!"
+- The end dates for both start dates specified by the user are constructed using the period
+that the current budget is using.
 
-- The default size of the application window accounts just sufficiently for a nicely fitted view of the
-table columns. Adjustments to the program window should not be made, otherwise some columns may be covered
-or excess space will be revealed. Currently the default startup dimension is Height = 800 and Width = 1254.
-
-- Even though the `Default Budget` can contain expenses and has a valid budget period, it is not
-recommended to type this command when in that budget. It is after all a placeholder budget that
-is meant to hold expenses not associated to any budgets when starting out, which also implies it
-doesn't support editing any of its attributes, especially period. Also, the budget period is set to
-a large interval by design, so the output might not make sense.
 
 ****
-
-
-
-
-Tips:
-
-- If zeroes are observed in the similarity columns, it may be possible that there is no
-overlap between the 2 periods or there are no expenses recorded in the common period.
-
-- It is possible to reorder the columns generated after the Table is being generated for better
-comparison.
-
-- As the 2 intervals to be compared are constructed with the budget's period, be familiar with the
-procedure of editing a budget's period.
-
 
 
 Example of configurations:
 ----
 statscompare sd1/12-12 sd2/ 1 month ago
-stats sd2/ today sd1/ytd
-stats sd2/ 23-09-2019 sd1/1 year ago
+statscompare sd2/ today sd1/ytd
+statscompare sd2/ 23-09-2019 sd1/1 year ago
 ----
-
-Step-by-step guide:
-
-To generate the table view:
-
-. Type `statscompare sd1/27-10 sd2/ 28-10' into the command box and press `Enter` to execute it.
-. The result display will display the message "Statistics Comparison Calculated!".
-. The screen will be switched into the Statistics Panel where the Table View will be generated.
 
 ==== Growth Statistics : `statstrend`
 
 This command allows you to see the growth
-of the money spent from their categorical expenses in specified
-units of time between the period specified in the current budget.
+of the money spent from your categorical expenses in fixed
+units of time between the interval that you're interested in finding out
 
 The visual output of the statistics shown is in the form of plotted
 trend lines.
@@ -1074,39 +1036,18 @@ Format: `statstrend [sd/<START_DATE>] [ed/<END_DATE>] mode/MODE`
 ****
 *Note*
 
-- Date formats accepted are handled by our Natural Language Parser library which supports human jargons.
-Please refer to the above documentation for more information.
+- The success message for this command is "Statistics Trend Calculated!"
 
-- For any input that consists of date and time, only, only the date information will be considered.
 
-- Expenses to be included in the statistics generated include those on the start dates and end dates itself.
+- The categories that do not have any expenses in any of the time intervals will not be reflected
+as trend lines in the Statistics Panel.
 
-- `START_DATE` will be checked to be earlier than `END_DATE`
-
-- We only allow a maximum of 33 plotted points to be displayed, which means that in any specified
-time interval bounded by the start date and end date, we will produce at most 33 time intervals of
-the specified unit of time starting from the start date. This is also a design consideration to coordinate
-with the size of the application window.
 
 - The first plotted point that would be observed should be the start date of the window of the current budget
 closest to the start date of analysis. If the two happen to be the same, the start date of the window of the budget
 should be included as a point in the trend line
 
-- Even though the current application doesn't allow for expenses to be added into dates ahead of the current date,
-the budget windows after the most recent possible window, relative to the current date, will still be shown for ths command.
-This also applies to budget windows which have intervals that are future to the current time. For example, a window spanning
-from 18 Oct to 24 Oct for a weekly budget is a legal point even when it is currently 19 Oct.
 
-- The success message for this command is "Statistics Trend Calculated!"
-
-- The categories that do not have any expenses in any of the time intervals will not be reflected
-as trend lines in the Statistics Panel.
-
-- Even though the `Default Budget` can contain expenses and has a valid budget period, it is not
-recommended to type this command when in that budget. It is after all a placeholder budget that
-is meant to hold expenses not associated to any budgets when starting out, which also implies it
-doesn't support editing any of its attributes, especially period. Also, the budget period is set to
-a large interval by design, so the output might not make sense.
 
 ****
 
@@ -1125,11 +1066,7 @@ before the consideration of the earliest available window of the current budget.
 of the current window of the current budget and the end date of analysis is constructed from 17 units after the
 start date of the current window of the current budget.
 
-- The unit interval of time is set to always be the period of the current budget,
-hence to access other time modes of this command, please edit the budget's period.
 
-- As the 3 alternative configurations involve the knowledge of the budget's period, be familiar with the
-procedure of editing a budget's period.
 
 Example of configurations:
 ----
@@ -1139,13 +1076,6 @@ statstrend sd/11-11-2018 ed/12-12-2018 mode/category
 ----
 
 
-Step-by-step guide:
-
-To generate the trend lines:
-
-. Type `statstrend mode/category` into the command box and press `Enter` to execute it.
-. The result box will display the message "Statistics Trend Calculated!".
-. The screen will be switched into the Statistics Panel where the trend lines will be generated.
 // end::statsug[]
 
 

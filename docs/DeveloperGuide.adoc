@@ -648,6 +648,7 @@ the user's decision) that can then be added as expenses when their due dates are
 // tag::statsdg[]
 === Statistics Feature
 
+==== Implementation
 The statistics feature allows users to have an alternative view for the entries in `MooLah`.
 It is facilitated by the `Statistics` interface, which is part of the `model` package, and is implemented by 3 classes
 `PieChartStatistics`, `TabularStatistics` and `TrendStatistics`. Each of the implementing classes will be invoked when
@@ -677,7 +678,7 @@ as well as its design considerations.
 
 ==== `statsbasic`
 
-===== Implementation
+
 
 The purpose of the `statsbasic` command word is to request `MooLah` to visualise the total expenditure across
 expenses of different categories as a percentage of the total expenditure of all expenses tracked under the budget
@@ -705,44 +706,49 @@ If the end date happens to be before the start date, a `ParseException` will be 
 
 Step 4. The filled `desc` will be returned to the `LogicManager` where a new `StatsCommand` command, `statsCommand` will be created with `desc`
 
-Figure 1. below illustrates the details from Steps 2 to 4.
-
-image::BasicStatisticsParserToCommand.png[]
-
-Figure 1. Reference Diagram for creating a `StatsCommand`
 
 
-Step 4. The `LogicManager` calls `StatsCommand#run()`, where the `StatsCommand` will be validated before getting executed.
+Step 5. The `LogicManager` calls `StatsCommand#run()`, where the `StatsCommand` will be validated before getting executed.
 
-Step 5. During execution, `StatsCommand` calls `ModelManager#getPrimaryBudget()` to retrieve the primary budget to calculate statistics from.
-After which, `StatsCommand` will call `createPieChartStatistics', which takes in `desc` and the primary budget.
+Step 6. During execution, `StatsCommand` calls `ModelManager#getPrimaryBudget()` to retrieve the primary budget to calculate statistics from.
+After which, `StatsCommand` will call `createPieChartStatistics`, which takes in `desc` and the primary budget.
 
-Step 6. To construct the time interval required for statistics, information from `desc` is being processed.
+Step 7. To construct the time interval required for statistics, information from `desc` is being processed.
 If there are unspecified inputs inside `desc`, the time interval will be constructed with some information from the primary budget.
 
-Step 7. The `PieChartStatistics` object will be created with the constructed interval as well as the expenses the primary budget tracks.
+Step 8. The `PieChartStatistics` object will be created with the constructed interval as well as the expenses the primary budget tracks.
 After which, `StatsCommand` will call `PieChartStatistics` implementation of `populateData()` to fill up its other fields
 
-Step 8. `StatsCommand` calls `ModelManager#setStatistics(statistics)` which updates the `Statistics` attribute in `ModelManager`.
+Step 9. `StatsCommand` calls `ModelManager#setStatistics(statistics)` which updates the `Statistics` attribute in `ModelManager`.
 
-Step 9. A `CommandResult` is then created and returned to `LogicManager`, which will then force a switch
+Step 10. A `CommandResult` is then created and returned to `LogicManager`, which will then force a switch
 to the `Statistics Panel` where a Pie Chart will be generated.
 
+The following sequence diagram shows how the `statsbasic` operation works:
 
-Figure 2. below illustrates the details from Steps 6 to 9.
+image::BasicStatisticsCommandSequenceDiagram.png[]
 
-image::CreatePieChartReference.png[]
+Figure 1. Sequence Diagram for executing a `StatsCommand`
+
+// end::statsdg[]
+
+Figure 2. below illustrates the details from Steps 2 to 4.
+
+image::BasicStatisticsParserToCommand.png[]
 
 Figure 2. Reference Diagram for creating a `StatsCommand`
 
 
-The following sequence diagram shows how the `statsbasic` operation works as a big picture:
+Figure 3. below illustrates the details from Steps 6 to 9.
 
-image::BasicStatisticsCommandSequenceDiagram.png[]
+image::CreatePieChartReference.png[]
 
-Figure 3. Sequence Diagram for executing a `StatsCommand`
+Figure 3. Reference Diagram for creating a `StatsCommand`
 
 
+
+
+// tag::statsdesign[]
 
 ==== Design Considerations
 
@@ -751,7 +757,7 @@ suitable visual representation for `statsbasic` particular use case.
 
 * ** Alternative 1:** Table view
 ** Pros: Sequential view, can capture number of entries
-** Cons: May be a duplicate of the `ListExpense` command, just sorted via categories
+** Cons: May be a duplicate of the `ListExpense` command, just grouping expenses via categories
 
 * ** Alternative 2:** Pie chart
 ** Pros: Offers a visual view of size to represent the expenditure under each category
@@ -763,8 +769,7 @@ inclusion of `Statistics` is the appreciation of percentage expenditure in each 
 observed in its chronological order using `ListExpense` while individual view of expenses under a category can be accessed
 using `FindExpense`. Offering a visual view on expenditure under each category complements with the existing implementation
 of sequential view in the primary budget.
-
-NOTE: Once again, this question will be better addressed holistically once all 3 features has been rolled out.
+// end::statsdesign[]
 
 ===== Future Implementation (Coming in v2.0)
 
@@ -780,7 +785,7 @@ other than being restricted within the same budget
 
 
 
-// end::statsdg[]
+
 
 
 // category::Alias[]
