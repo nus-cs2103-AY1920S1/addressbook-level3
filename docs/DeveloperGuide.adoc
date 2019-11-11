@@ -927,7 +927,7 @@ Available `Flags` depend on available `FoodTypes`, as they will be eventually tr
 [NOTE]
 If no flag is specified, `RecmFoodCommandParser#getWantedFoodTypes(flagsStr)` just returns an empty `HashSet`.
 
-*API:* link:{repoURL}{generalPath}/model/recmf/Flag.java[Flag.java]; {repoURL}{generalPath}/model/recmf/FoodType.java[FoodType.java]
+*API:* link:{repoURL}{generalPath}/model/recmf/Flag.java[Flag.java]; link:{repoURL}{generalPath}/model/recmf/FoodType.java[FoodType.java]
 
 .*2. Filtering food names* +
 It is similar to but simpler than the implementation of specifying flags. A `List` of food name strings will be supplied to <<recmf_predicates, FoodNameContainsKeywordsPredicate>>.
@@ -937,17 +937,17 @@ The following sequence diagram shows the how `recmf` command with flag and food 
 image::RecmFoodSequenceDiagram.png[]
 
 [NOTE]
-The sorting related (refer to the following section) parts, such `FoodComparator`, are omitted in this diagram.
+The sorting related (refer to the following section) parts, such as `FoodComparator`, are omitted in this diagram.
 
 .*3. Sorting* +
 It is implemented via supplying a `FoodComparator` to `model#sortFoodList()` method. +
-`FoodComparator` wraps A `Comparator` to handle the main logic, such as reversing the `FoodComparator` via `Comparator#reversed()`.
+`FoodComparator` wraps A `Comparator` to handle the main logic, such as reversing the sorting order via `Comparator#reversed()`.
 An inner enum class `SortOrderType` holds all the comparable <<recmf_food_model, food fields>> for sorting.
 
 [NOTE]
 The private `FoodComparator` constructor that directly takes in `Comparator` is for internal usage of getting reversed `FoodComparator`. Outside instantiation is done by supplying `SortOrderType` strings.
 
-*API:* link:{repoURL}{generalPath}/model/recmf/FoodComparator.java[`FoodComparator.java`]
+*API:* link:{repoURL}{generalPath}/model/recmf/FoodComparator.java[FoodComparator.java]
 
 ===== `recmfmix` command
 `UniqueFoodList#getMixedFoodList()` generates a temporary `ObservableList` from the existing food data. This list will eventually be supplied to `FoodFlowPane` via `Model` and then `Logic`.
@@ -959,7 +959,7 @@ The total / average nutrition values are calculated by `FoodCalculator`.
 This command has to override the `Command#isToCreateNewPane()` and return `true`,
 since it must refresh the display pane each time by randomly getting new foods, rather than getting the existing display pane from `typeToPaneMap` (refer to link:{repoURL}{generalPath}/ui/MainDisplayPane.java[`MainDisplayPane.java`]).
 
-*API:* link:{repoURL}{generalPath}/model/recmf/FoodCalculator.java[`FoodCalculator.java`]
+*API:* link:{repoURL}{generalPath}/model/recmf/FoodCalculator.java[FoodCalculator.java]
 
 ==== Implementation of other supplementary commands
 
@@ -969,12 +969,12 @@ The following three commands can be used modify the food database.
 `AddFoodCommandParser` and `DeleteFoodCommandParser` are used for parsing these two commands respectively.
 Parameter validation is done by `RecmFoodParserUtil`.
 
-*API:* link:{repoURL}{generalPath}/parser/RecmFoodParserUtil.java[`RecmFoodParserUtil.java`]
+*API:* link:{repoURL}{generalPath}/parser/RecmFoodParserUtil.java[RecmFoodParserUtil.java]
 
 ===== `resetf` command
 It is implemented by setting the internal list of `UniqueFoodList` to be the sample food data in `SampleFoodDataUtil`.
 
-*API:* link:{repoURL}{generalPath}/model/util/SampleFoodDataUtil.java[`SampleFoodDataUtil.java`]
+*API:* link:{repoURL}{generalPath}/model/util/SampleFoodDataUtil.java[SampleFoodDataUtil.java]
 
 ==== Example Usage Scenario and Summary
 
@@ -990,7 +990,7 @@ Given below is an example usage scenario and how the food recommendation mechani
 .. `FoodFlowPane` notices the such updates from `Listener` and refreshes the GUI.
 
 . The user executes `recmfmix` command.
-.. `Logic` gets a list of foods from UniqueFoodList#getMixedFoodList()`, which contains a _Summary_ food calculated by `FoodCalculator`.
+.. `Logic` gets a list of foods from `UniqueFoodList#getMixedFoodList()`, which contains a _Summary_ food calculated by `FoodCalculator`.
 .. `FoodFlowPane` updates its content with this new list.
 
 . The user executes `addfood fn/Cucumber ft/nsv ca/15 gi/15 su/1.7 fa/0`.
