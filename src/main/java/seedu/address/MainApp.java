@@ -37,7 +37,6 @@ import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.transaction.model.AddTransactionOnlyModel;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.storage.exception.FileReadException;
-import seedu.address.ui.Inventory;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
