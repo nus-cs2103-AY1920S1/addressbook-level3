@@ -26,6 +26,7 @@ public class AddReminderCommand extends Command {
             + PREFIX_REMINDER_TIME + "13/10/2019 13:00, 13/10/2019 15:00 ";
 
     public static final String MESSAGE_SUCCESS = "New reminder added: %1$s";
+    public static final String MESSAGE_DUPLICATE_REMINDER = "This reminder already exists";
 
     private final Reminder toAdd;
 
