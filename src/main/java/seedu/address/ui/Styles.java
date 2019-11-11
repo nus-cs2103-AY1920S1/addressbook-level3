@@ -8,12 +8,12 @@ import javafx.scene.text.TextFlow;
 
 //@@author SebastianLie
 /**
- * helps to highlight user input in the suggestions offered by autocomplete
+ * Helps to highlight user input in the suggestions offered by autocomplete
  */
 public class Styles {
 
     /**
-     * highlights a certain portion of text
+     * Highlights a certain portion of text.
      * @param text - string with text
      * @param textToHighlight - string to select in text
      * @return - TextFlow

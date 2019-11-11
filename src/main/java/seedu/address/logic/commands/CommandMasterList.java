@@ -3,12 +3,9 @@ package seedu.address.logic.commands;
 import java.util.HashSet;
 
 /**
- * helper class
+ * Helper class
  * aggregates all command words
  * and example usages of commands
- *
- * TO ANYONE MAKING NEW COMMANDS/UPDATING CURRENT ONES
- * PLEASE UPDATE THIS AS WELL
  */
 public class CommandMasterList {
 

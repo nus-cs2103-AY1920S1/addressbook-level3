@@ -108,6 +108,7 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
+    @Override
     public boolean isDisplayStudents() {
         return model.isDisplayStudents();
     }

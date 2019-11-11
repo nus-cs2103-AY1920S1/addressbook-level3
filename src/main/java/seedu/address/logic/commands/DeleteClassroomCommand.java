@@ -13,7 +13,7 @@ import seedu.address.model.classroom.Classroom;
  */
 public class DeleteClassroomCommand extends Command {
 
-    public static final String COMMAND_WORD = "deleteclassroom";
+    public static final String COMMAND_WORD = "deleteclass";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the classroom identified by the user.\n"

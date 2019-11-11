@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
 
 /**
- * Gets all the unsubmitted assignments.
+ * Gets all the unsubmitted assignments in the classroom.
  */
 public class GetUnsubmittedAssignmentsCommand extends Command {
 

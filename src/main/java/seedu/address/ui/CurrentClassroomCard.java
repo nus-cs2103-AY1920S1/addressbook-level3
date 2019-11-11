@@ -7,7 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.classroom.Classroom;
 
 /**
- * An UI component that displays information of a {@code Assignment}.
+ * An UI component that displays information of a {@code Classroom}, which is the current classroom.
  */
 public class CurrentClassroomCard extends UiPart<Region> {
 

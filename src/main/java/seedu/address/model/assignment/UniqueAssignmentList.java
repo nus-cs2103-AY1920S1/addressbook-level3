@@ -51,9 +51,9 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
     }
 
     /**
-     * Replaces the assignment {@code target} in the list with {@code editedassignment}.
+     * Replaces the assignment {@code target} in the list with {@code editedAssignment}.
      * {@code target} must exist in the list.
-     * The assignment identity of {@code editedassignment} must not be the same as another existing assignment in the
+     * The assignment identity of {@code editedAssignment} must not be the same as another existing assignment in the
      * list.
      */
     public void setAssignment(Assignment target, Assignment editedAssignment) {

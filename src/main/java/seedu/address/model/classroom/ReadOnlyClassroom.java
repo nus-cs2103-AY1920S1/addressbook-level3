@@ -6,12 +6,12 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.student.Student;
 
 /**
- * Unmodifiable view of an classroom.
+ * Unmodifiable view of a classroom.
  */
 public interface ReadOnlyClassroom {
 
     /**
-     * Returns the name of the classroom
+     * Gets the name of the classroom
      */
     String getClassroomName();
 

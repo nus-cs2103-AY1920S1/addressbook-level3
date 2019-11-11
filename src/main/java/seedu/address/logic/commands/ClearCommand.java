@@ -6,7 +6,7 @@ import seedu.address.model.Model;
 import seedu.address.model.Notebook;
 
 /**
- * Clears the classroom.
+ * Clears the notebook.
  */
 public class ClearCommand extends Command {
 
