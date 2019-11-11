@@ -360,7 +360,7 @@ Command: `add recipe` +
 Format: `add recipe n/<name> i/<ingredients>... cal/<calories> carb/<carbs> fats/<fats> prot/<protein>`
 [NOTE]
 ====
-All recipe and ingredient names must be alphanumeric, up to 40 characters
+All recipe and ingredient names must be alphanumeric, up to 40 characters for recipe names, 20 characters for ingredient names.
 
 All nutritional value information should be entered according to their amount in grams.
 ====
