@@ -23,6 +23,7 @@ Responsibilities: Scheduling and tracking, Deliverables and deadlines, *Model Co
 === Erwin Chan
 image::changuo79.png[width="150", align="left"]
 {empty}[https://github.com/ChangUo79[github]]
+{empty} [https://ay1920s1-cs2103t-t12-3.github.io/main/team/ChangUo79.html[portfolio]
 
 Role: Test Engineer +
 Responsibilities: *Commons Component*
