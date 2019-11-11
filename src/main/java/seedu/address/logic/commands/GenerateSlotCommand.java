@@ -14,6 +14,7 @@ import seedu.address.model.timetable.Timetable;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_CHECKED_OUT;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
 
@@ -29,7 +30,6 @@ public class GenerateSlotCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DURATION + "2 "
             + PREFIX_TIMERANGE + "MONDAY 0800 MONDAY 1700";
-    public static final String MESSAGE_NOT_CHECKED_OUT = "A project must be checked out first before running this command";
     public static final String MESSAGE_UNKNOWN_ERROR = "Unknown error occured in generation algorithm. Please contact the dev team to report on this bug";
     public static final String MESSAGE_SUCCESS = "Generation success! Possible timeslots are shown below.\n%s";
     public static final String MESSAGE_SUCCESS_WITH_MEMBERS_UNAVAILABLE = "Unable to find timeslot with all members available. However, we managed to find timeslots with most members available!\n"
@@ -83,7 +83,8 @@ public class GenerateSlotCommand extends Command {
             if (allMembersAvailable) {
                 return new CommandResult(String.format(MESSAGE_SUCCESS, formattedResult), COMMAND_WORD);
             } else {
-                return new CommandResult(String.format(MESSAGE_SUCCESS_WITH_MEMBERS_UNAVAILABLE, members.stream().map(x -> x.getName().toString()).collect(Collectors.joining(" ")), formattedResult), COMMAND_WORD);
+                String membersAvailable = members.stream().map(x -> x.getName().toString()).collect(Collectors.joining(" "));
+                return new CommandResult(String.format(MESSAGE_SUCCESS_WITH_MEMBERS_UNAVAILABLE, membersAvailable, formattedResult), COMMAND_WORD);
             }
         } catch (IllegalValueException e) {
             throw new CommandException(MESSAGE_UNKNOWN_ERROR);

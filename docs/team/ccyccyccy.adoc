@@ -55,6 +55,7 @@ This document serves to record down my contributions to the project in detail.
 ** Handled Travis integration on Github
 * Community:
 ** Fix bugs introduced by other group members https://github.com/AY1920S1-CS2103T-T17-1/main/pull/17[#17]
+** Reviewed PR made by teammates https://github.com/AY1920S1-CS2103T-T17-1/main/pull/13[#13]
 * Tools:
 ** Integrated Coveralls to the project to keep track of code coverage
 

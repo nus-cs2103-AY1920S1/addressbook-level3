@@ -29,7 +29,6 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -236,7 +235,7 @@ public class ParserUtil {
             LocalTime endTime = LocalTime.parse(split[3].trim(), DateTimeFormatter.ofPattern("HHmm"));
             return new TimeRange(dayStart, startTime, dayEnd, endTime);
         } catch (IllegalValueException | ArrayIndexOutOfBoundsException | java.lang.IllegalArgumentException | DateTimeParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TimeRange.MESSAGE_CONSTRAINTS));
+            throw new ParseException(TimeRange.MESSAGE_CONSTRAINTS);
         }
     }
 
@@ -269,7 +268,7 @@ public class ParserUtil {
             try {
                 timeRanges.add(parseTimeRange(s));
             } catch (ParseException e) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TimeRange.MESSAGE_CONSTRAINTS));
+                throw new ParseException(TimeRange.MESSAGE_CONSTRAINTS);
             }
         }
         return new Timetable(timeRanges);
