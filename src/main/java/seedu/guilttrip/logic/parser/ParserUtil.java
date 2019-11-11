@@ -56,6 +56,7 @@ import seedu.guilttrip.logic.commands.remindercommands.AddGeneralReminderCommand
 import seedu.guilttrip.logic.commands.remindercommands.DeleteReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.ListRemindersCommand;
+import seedu.guilttrip.logic.commands.remindercommands.RemoveConditionFromReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.SelectReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.SetReminderCommand;
 import seedu.guilttrip.logic.commands.sortcommands.SortAutoExpenseCommand;
@@ -433,6 +434,7 @@ public class ParserUtil {
                 SelectReminderCommand.COMMAND_WORD,
                 DeleteReminderCommand.COMMAND_WORD,
                 ListRemindersCommand.COMMAND_WORD,
+                RemoveConditionFromReminderCommand.COMMAND_WORD,
                 AddAutoExpenseCommand.COMMAND_WORD,
                 EditAutoExpenseCommand.COMMAND_WORD,
                 DeleteAutoExpenseCommand.COMMAND_WORD,
@@ -493,6 +495,8 @@ public class ParserUtil {
         toReturn.put(DeleteReminderCommand.COMMAND_WORD, DeleteReminderCommand.ONE_LINER_DESC);
         toReturn.put(SelectReminderCommand.COMMAND_WORD, SelectReminderCommand.ONE_LINER_DESC);
         toReturn.put(ListRemindersCommand.COMMAND_WORD, ListRemindersCommand.ONE_LINER_DESC);
+        toReturn.put(RemoveConditionFromReminderCommand.COMMAND_WORD,
+                RemoveConditionFromReminderCommand.ONE_LINER_DESC);
         toReturn.put(AddAutoExpenseCommand.COMMAND_WORD, AddAutoExpenseCommand.ONE_LINER_DESC);
         toReturn.put(EditAutoExpenseCommand.COMMAND_WORD, EditAutoExpenseCommand.ONE_LINER_DESC);
         toReturn.put(DeleteAutoExpenseCommand.COMMAND_WORD, DeleteAutoExpenseCommand.ONE_LINER_DESC);
@@ -554,6 +558,7 @@ public class ParserUtil {
         toReturn.put(DeleteReminderCommand.COMMAND_WORD, DeleteReminderCommand.MESSAGE_USAGE);
         toReturn.put(ListRemindersCommand.COMMAND_WORD, ListRemindersCommand.MESSAGE_USAGE);
         toReturn.put(SelectReminderCommand.COMMAND_WORD, SelectReminderCommand.MESSAGE_USAGE);
+        toReturn.put(RemoveConditionFromReminderCommand.COMMAND_WORD, RemoveConditionFromReminderCommand.MESSAGE_USAGE);
         toReturn.put(AddAutoExpenseCommand.COMMAND_WORD, AddAutoExpenseCommand.MESSAGE_USAGE);
         toReturn.put(EditAutoExpenseCommand.COMMAND_WORD, EditAutoExpenseCommand.MESSAGE_USAGE);
         toReturn.put(DeleteAutoExpenseCommand.COMMAND_WORD, DeleteAutoExpenseCommand.MESSAGE_USAGE);

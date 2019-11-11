@@ -2,15 +2,18 @@ package seedu.guilttrip.logic.commands.remindercommands;
 
 import java.util.List;
 
+import seedu.guilttrip.commons.core.Messages;
 import seedu.guilttrip.commons.core.index.Index;
 import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.logic.commands.Command;
 import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
+import seedu.guilttrip.model.reminders.EntryReminder;
 import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
+import seedu.guilttrip.model.reminders.conditions.TypeCondition;
 
 /**
  * Removes condition from generalReminder.
@@ -26,35 +29,45 @@ public class RemoveConditionFromReminderCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Condition Removed: %1$s";
     public static final String REMINDER_UNMODIFIABLE_MESSAGE =
             "Conditions cannot be removed from this generalReminder \n";
-    public static final String CONDITION_ABSENT_MESSAGE = "GeneralReminder does not have that condition \n";
+    public static final String CANNOT_REMOVE_TYPE_CONDITION = "Cannot remove Entry Type Condition \n";
     public static final String CONDITION_NOT_REMOVABLE = "GeneralReminder must have at least one condition \n";
+    public static final String INCORRECT_TYPE = "Cannot remove conditions from Entry Reminder.\n";
+    public static final String REMINDER_NOT_SELECTED = "Please select a reminder to edit";
 
-    private Index reminderIndex;
     private Index conditionIndex;
 
-    public RemoveConditionFromReminderCommand(Index reminderIndex, Index conditionIndex) {
-        this.reminderIndex = reminderIndex;
+    public RemoveConditionFromReminderCommand(Index conditionIndex) {
         this.conditionIndex = conditionIndex;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-
-        List<Reminder> reminders = model.getFilteredReminders();
-        List<Condition> conditions = model.getFilteredConditions();
-        GeneralReminder generalReminder = (GeneralReminder) reminders.get(reminderIndex.getZeroBased());
-        if (!(generalReminder instanceof GeneralReminder) || generalReminder.getConditions().size() == 1) {
-            throw new CommandException(REMINDER_UNMODIFIABLE_MESSAGE);
+        Reminder reminder = model.getReminderSelected();
+        if (reminder == null) {
+            throw new CommandException(REMINDER_NOT_SELECTED);
         }
-        Condition condition = conditions.get(conditionIndex.getZeroBased());
-        if (generalReminder.getConditions().size() == 1) {
+        if (reminder instanceof EntryReminder) {
+            throw new CommandException(INCORRECT_TYPE);
+        }
+        GeneralReminder generalReminder = (GeneralReminder) reminder;
+        List<Condition> conditions = generalReminder.getConditions();
+        if (conditionIndex.getZeroBased() >= conditions.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
+        }
+        if (conditions.size() <= 1) {
             throw new CommandException(CONDITION_NOT_REMOVABLE);
         }
-        if (!generalReminder.removeCondition(condition)) {
-            throw new CommandException(CONDITION_ABSENT_MESSAGE);
+        Condition toRemove = conditions.get(conditionIndex.getZeroBased());
+        if (toRemove instanceof TypeCondition) {
+            throw new CommandException(CANNOT_REMOVE_TYPE_CONDITION);
         }
+        conditions.remove(toRemove);
+        GeneralReminder newReminder = new GeneralReminder(reminder.getHeader(), conditions);
+        model.setReminder(reminder, newReminder);
+        model.selectReminder(newReminder);
+        model.updateFilteredReminders(model.PREDICATE_SHOW_ALL_REMINDERS);
         model.commitGuiltTrip();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, generalReminder));
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override
@@ -65,8 +78,7 @@ public class RemoveConditionFromReminderCommand extends Command {
             return false;
         } else {
             RemoveConditionFromReminderCommand otherCommand = (RemoveConditionFromReminderCommand) other;
-            return this.conditionIndex.equals(otherCommand.conditionIndex)
-                    && this.reminderIndex.equals(otherCommand.reminderIndex);
+            return this.conditionIndex.equals(otherCommand.conditionIndex);
         }
     }
 }

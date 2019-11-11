@@ -50,6 +50,7 @@ import seedu.guilttrip.logic.commands.remindercommands.AddGeneralReminderCommand
 import seedu.guilttrip.logic.commands.remindercommands.DeleteReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.ListRemindersCommand;
+import seedu.guilttrip.logic.commands.remindercommands.RemoveConditionFromReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.SelectReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.SetReminderCommand;
 import seedu.guilttrip.logic.commands.sortcommands.SortAutoExpenseCommand;
@@ -91,6 +92,7 @@ import seedu.guilttrip.logic.parser.findcommandparsers.FindIncomeCommandParser;
 import seedu.guilttrip.logic.parser.findcommandparsers.FindWishCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.AddGeneralReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.EditReminderCommandParser;
+import seedu.guilttrip.logic.parser.remindercommandparsers.RemoveConditionFromReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.SelectReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.SetReminderCommandParser;
 import seedu.guilttrip.logic.parser.sortcommandparsers.SortAutoExpenseCommandParser;
@@ -254,6 +256,9 @@ public class GuiltTripParser {
 
         case ListRemindersCommand.COMMAND_WORD:
             return new ListRemindersCommand();
+
+        case RemoveConditionFromReminderCommand.COMMAND_WORD:
+            return new RemoveConditionFromReminderCommandParser().parse(arguments);
 
         case AddAutoExpenseCommand.COMMAND_WORD:
             return new AddAutoExpenseCommandParser().parse(arguments);
