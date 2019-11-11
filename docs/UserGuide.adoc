@@ -332,7 +332,6 @@ List all the "Bad" rated FlashCards from a specific date. The FlashCard Question
 `listbad d>12/11/2019`
 
 
-
 image::listbad.png[width="600"]
 
 NOTE: The automated test mode for the "Bad" FlashCards is not functional at this point and will be implemented in KFC v2.0.
@@ -360,6 +359,9 @@ image::removebadsuccess.png[width="550"]
 CAUTION: Using the `remove` command to remove a "ToDo: Bad Questions" Deadline does not remove all the "Bad" `FlashCard` stored for that date.
 
 //end::badflashcard[]
+//@@author keiteo
+=== Test mode: `start`
+
 
 ==== Start command: `start [category]`
 This command starts the flashcard test mode. If no parameter is supplied, the application will test all
