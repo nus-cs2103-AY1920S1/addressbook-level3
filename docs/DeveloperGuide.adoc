@@ -41,7 +41,7 @@ image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
-#Main# has two classes called link:{repoURL}/src/main/java/calofit/Main.java[*_Main_*] and link:{repoURL}/src/main/java/calofit/MainApp.java[*_MainApp_*]. It is responsible for,
+*_Main_* has two classes called link:{repoURL}/src/main/java/calofit/Main.java[*_Main_*] and link:{repoURL}/src/main/java/calofit/MainApp.java[*_MainApp_*]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -90,7 +90,7 @@ image::UiClassDiagram.png[]
 
 The *_UI_* consists of a *_MainWindow_* that is made up of parts e.g.*_CommandBox_*, *_ResultDisplay_*, *_DishListPanel_*, *_StatusBarFooter_* etc. All these parts, including the *_MainWindow_*, inherit from the abstract *_UiPart_* class. +
 
-The *_UI_* component uses JavaFx UI framework. The layout of these UI parts are defined in matching *.fxml* files that are in the *src/main/resources/view* folder. For example, the layout of the link:{repoURL}/src/main/java/calofit/ui/MainWindow.java[*_MainWindow_*] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[*MainWindow.fxml*]
+The *_UI_* component uses JavaFx UI framework. The layout of these UI parts are defined in matching *.fxml* files that are in the *src/main/resources/view* folder. For example, the layout of the link:{repoURL}/src/main/java/calofit/ui/MainWindow.java[*_MainWindow_*] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[*MainWindow.fxml*].
 
 The *_UI_* component,
 
@@ -536,7 +536,7 @@ The Report feature is implemented through a *_ReportCommand_* that extends from 
 It returns a *_CommandResult_* object that has the boolean "isReport" set to True when _ReportCommand#execute(Model)_ is called. +
 The *_MainWindow_* Ui component will check the *_CommandResult_* for the "isReport" boolean and create a new *_ReportWindow_* through the _MainWindow#handleReport()_ method. +
 The *_ReportWindow_* object takes in a *_Statistics_* object that is created by calling _Logic#getStatistics()_ which subsequently calls _Model#getStatistics()_. The *_Model_* then returns the *_Statistics_* object that is created based on the *_CalorieBudget_* and *_MealLog_* in the *_Model_*. +
-Additionally, the following operations are implemented in #Statistics#:
+Additionally, the following operations are implemented in *_Statistics_*:
 
 * _Statistics#generateStatistics(ObservableList<Meal>, CalorieBudget)_ -- gets the statistics of the current object. Maximum, Minimum and Average calorie intake per day of the current month are calculated internally in this method.
 
@@ -589,11 +589,11 @@ boolean showReport: indicates if the *_ReportWindow_* should be generated. +
 boolean isExit: indicates if the application should exit along with any other windows that are being shown. +
 Hence, only showReport is set to true to indicate that a *_ReportWindow_* should be created, while the rest of the booleans are set to false.
 
-The following sequence diagram in Figure 3.5.1.4 shows how the #ReportWindow# is generated.
+The following sequence diagram in Figure 3.5.1.4 shows how the *_ReportWindow_* is generated.
 
 image::ReportWindow.png[]
 
-.Figure 3.5.1.4: Sequence Diagram showing the generation of the #ReportWindow#.
+.Figure 3.5.1.4: Sequence Diagram showing the generation of the *_ReportWindow_*.
 {empty} +
 
 ==== Design Considerations
