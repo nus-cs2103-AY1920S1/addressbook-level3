@@ -252,9 +252,9 @@ The undo/redo feature allows you to undo a command that you have made or redo a 
 
 ==== Implementation
 
-You can find the core of undo/redo in the undo/redo history of [purple]`ModelManager`.
-The history stores [purple]`UndoableCommands`, and an [purple]`UndoCommand` or [purple]`RedoCommand` will [purple]`undo()` or [purple]`redo()` commands in the history.
-The design of [purple]`UndoableCommand` uses the Command pattern, a common design pattern often used in software engineering.
+You can find the core of undo/redo in the undo/redo history of `ModelManager`.
+The history stores `UndoableCommands`, and an `UndoCommand` or `RedoCommand` will `undo()` or `redo()` commands in the history.
+The design of `UndoableCommand` uses the Command pattern, a common design pattern often used in software engineering.
 It allows each individual command to be undone/redone at a high-level without needing the specific command type to be known.
 Classes related to undo/redo and their relationships are shown in Figure 11.
 
@@ -263,43 +263,43 @@ image::UndoClassDiagram.png[]
 
 ===== Architecture
 
-To start off, you will find two instances of [purple]`CommandHistory` in [purple]`ModelManager`. They are  stored internally as [purple]`commandHistory` and [purple]`undoHistory`.
-[purple]`commandHistory` stores previously executed commands while [purple]`undoHistory` stores previously undone commands.
-[purple]`CommandHistory` wraps a [purple]`Deque<UndoableCommand>`. Its methods imposes a [purple]`MAX_SIZE` which determines how many commands can be stored in the command history.
+To start off, you will find two instances of `CommandHistory` in `ModelManager`. They are  stored internally as `commandHistory` and `undoHistory`.
+`commandHistory` stores previously executed commands while `undoHistory` stores previously undone commands.
+`CommandHistory` wraps a `Deque<UndoableCommand>`. Its methods imposes a `MAX_SIZE` which determines how many commands can be stored in the command history.
 
-In [purple]`ModelManager`, four key operations to access and modify [purple]`CommandHistory` are implemented:
+In `ModelManager`, four key operations to access and modify `CommandHistory` are implemented:
 
-* [purple]`ModelManager#addExecutedCommand(UndoableCommand command)` -- Adds a command that was executed to the start of [purple]`commandHistory`.
-* [purple]`ModelManager#getExecutedCommand()` -- Removes the last command that was executed and added to [purple]`commandHistory` and returns it.
-* [purple]`ModelManager#addUndoneCommand(UndoableCommand command)` -- Adds a command that was undone to the start of [purple]`undoHistory`.
-* [purple]`ModelManager#getUndoneCommand()` -- Removes the last command that was undone and added to [purple]`undoHistory` and returns it.
+* `ModelManager#addExecutedCommand(UndoableCommand command)` -- Adds a command that was executed to the start of `commandHistory`.
+* `ModelManager#getExecutedCommand()` -- Removes the last command that was executed and added to `commandHistory` and returns it.
+* `ModelManager#addUndoneCommand(UndoableCommand command)` -- Adds a command that was undone to the start of `undoHistory`.
+* `ModelManager#getUndoneCommand()` -- Removes the last command that was undone and added to `undoHistory` and returns it.
 
-In the [purple]`Model` interface implemented by [purple]`ModelManager`, these four operations are respectively exposed as
-[purple]`Model#addExecutedCommand(UndoableCommand command)`, [purple]`Model#getExecutedCommand()`, [purple]`Model#addUndoneCommand(UndoableCommand command)`, and [purple]`Model#getUndoneCommand()`.
+In the `Model` interface implemented by `ModelManager`, these four operations are respectively exposed as
+`Model#addExecutedCommand(UndoableCommand command)`, `Model#getExecutedCommand()`, `Model#addUndoneCommand(UndoableCommand command)`, and `Model#getUndoneCommand()`.
 
-Next, the [purple]`UndoableCommand` stored in the [purple]`Model` is actually a normal [purple]`Command` that changes program state.
-The [purple]`UndoableCommand` class is an abstract class that extends the abstract [purple]`Command` class, as shown in Figure 11. Commands like [purple]`AddCommand` or [purple]`UpdateCommand` extends [purple]`UndoableCommand` instead of [purple]`Command`.
-Commands that don't change the user-visible program state, like [purple]`FindCommand`, can still inherit directly from [purple]`Command`.
+Next, the `UndoableCommand` stored in the `Model` is actually a normal `Command` that changes program state.
+The `UndoableCommand` class is an abstract class that extends the abstract `Command` class, as shown in Figure 11. Commands like `AddCommand` or `UpdateCommand` extends `UndoableCommand` instead of `Command`.
+Commands that don't change the user-visible program state, like `FindCommand`, can still inherit directly from `Command`.
 
-Here is where the Command pattern comes in. A class extending [purple]`UndoableCommand` must implement an additional method, [purple]`UndoableCommand#undo(Model model)`. This means that every child class of [purple]`UndoableCommand` has a custom `undo` implementation.
+Here is where the Command pattern comes in. A class extending `UndoableCommand` must implement an additional method, `UndoableCommand#undo(Model model)`. This means that every child class of `UndoableCommand` has a custom `undo` implementation.
 
-[purple]`UndoableCommand#redo(Model model)` is a concrete implementation of the `redo` mechanism and is inherited by all child classes.
+`UndoableCommand#redo(Model model)` is a concrete implementation of the `redo` mechanism and is inherited by all child classes.
 
-Lastly, undo/redo is initiated when user input creates an [purple]`UndoCommand` or [purple]`RedoCommand`. When either of them are executed, they respectively get the last
-executed or undone command from the [purple]`CommandHistory` in [purple]`ModelManager`. As the retrieved command is an instance of [purple]`UndoableCommand`, an attempt will be made to execute [purple]`UndoableCommand#undo(Model model)` or [purple]`UndoableCommand#redo(Model model)`.
+Lastly, undo/redo is initiated when user input creates an `UndoCommand` or `RedoCommand`. When either of them are executed, they respectively get the last
+executed or undone command from the `CommandHistory` in `ModelManager`. As the retrieved command is an instance of `UndoableCommand`, an attempt will be made to execute `UndoableCommand#undo(Model model)` or `UndoableCommand#redo(Model model)`.
 If it is successful, undo/redo is succesful. Otherwise, an error message is shown.
 
 This is the mechanism of undo/redo, from start to end.
 Below is an example of a usage scenario to help you visualise how undo/redo works.
 
-The sequence diagram below shows how an undo command works to undo a [purple]`ClearCommand`:
+The sequence diagram below shows how an undo command works to undo a `ClearCommand`:
 
 .Sequence Diagram Showing a ClearCommand Being Undone
 image::UndoClearSequenceDiagram.png[]
 
 ===== Defensive programming
-To defend against improper undoing or redoing, an [purple]`UndoableCommand` can only be added to the [purple]`commandHistory` or [purple]`undoHistory` of [purple]`ModelManager` through its [purple]`execute()` or [purple]`undo()` method.
-Additionally, [purple]`UndoableCommand` contains a small inner class, the enumeration [purple]`UndoableCommandState` which allows an [purple]`UndoableCommand` to have its state set to any value in the enumeration.
+To defend against improper undoing or redoing, an `UndoableCommand` can only be added to the `commandHistory` or `undoHistory` of `ModelManager` through its `execute()` or `undo()` method.
+Additionally, `UndoableCommand` contains a small inner class, the enumeration `UndoableCommandState` which allows an `UndoableCommand` to have its state set to any value in the enumeration.
 The values are as shown below.
 ----
     /**
@@ -310,7 +310,7 @@ The values are as shown below.
     }
 ----
 
-Before a command is undone or redone, the command's state is checked for validity. An example is shown below in the [purple]`redo()` method.
+Before a command is undone or redone, the command's state is checked for validity. An example is shown below in the `redo()` method.
 ----
     /**
      * Re-executes an UndoableCommand if it had been previously undone.
@@ -322,13 +322,13 @@ Before a command is undone or redone, the command's state is checked for validit
         return execute(model);
     }
 ----
-As shown in the code snippet, when an [purple]`UndoableCommand` is redone, the method first checks that its state was set to [purple]`UNDOABLE`.
-These states are only changed when a [purple]`Command#execute(Model model)` or [purple]`UndoableCommand#undo(Model model)` has successfully executed.
-Therefore, it is unlikely that an [purple]`UndoableCommand` will be unwittingly undone or redone in error.
+As shown in the code snippet, when an `UndoableCommand` is redone, the method first checks that its state was set to `UNDOABLE`.
+These states are only changed when a `Command#execute(Model model)` or `UndoableCommand#undo(Model model)` has successfully executed.
+Therefore, it is unlikely that an `UndoableCommand` will be unwittingly undone or redone in error.
 
-If a `redo` command was executed afterwards, the [purple]`ClearCommand` would simply be executed again.
+If a `redo` command was executed afterwards, the `ClearCommand` would simply be executed again.
 
-The following activity diagram shows what happens when a user executes a new [purple]`UndoableCommand`. In this case, it is the [purple]`ClearCommand` being undone. The control flow is similar for other [purple]`UndoableCommands`; they only differ in the execution of [purple]`undo()`.
+The following activity diagram shows what happens when a user executes a new `UndoableCommand`. In this case, it is the `ClearCommand` being undone. The control flow is similar for other `UndoableCommands`; they only differ in the execution of `undo()`.
 
 .Activity Diagram Showing the Execution Control Flow of a Command
 image::CommandProcessActivityDiagram.png[]
@@ -384,19 +384,19 @@ Alternative 1 was chosen as it causes almost no overhead, guarantees data integr
 
 ===== Aspect: Storing executed/undone commands
 
-* **Alternative 1 (current choice):** Store [purple]`UndoableCommand`(s) only.
+* **Alternative 1 (current choice):** Store `UndoableCommand`(s) only.
 ** Pros:
     *** Logic can be reused for both executed and undone commands.
     *** Easy to implement.
     *** Uses less space.
 ** Cons:
-    *** Loses some information about [purple]`Commands` that were previously executed.
-* **Alternative 2:** Store all [purple]`Commands`.
+    *** Loses some information about `Commands` that were previously executed.
+* **Alternative 2:** Store all `Commands`.
 ** Pros:
     *** No loss of information.
 ** Cons:
     *** Harder to implement. Requires differentiating between commands that have been undone and executed commands.
-    *** Needs extra space to store non-[purple]`UndoableCommand`(s) even though they are useless for undo/redo.
+    *** Needs extra space to store non-`UndoableCommand`(s) even though they are useless for undo/redo.
 
 // end::undoredo[]
 

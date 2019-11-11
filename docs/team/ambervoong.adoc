@@ -39,8 +39,7 @@ The sections below detail my contributions as well as the documentation I wrote 
 You will encounter the following symbols and formatting in this document:
 
 ====
-* `undo`:  Dark red text with monospace font indicates that this text is a command or part of a command that can be entered into the CLI.
-* `[purple]#GenReportCommand.java#`: Purple text in monospace font indicates a component, class, function or object in the application's architecture.
+* `undo`:  Dark red text with monospace font indicates that this text is a command that can be entered into the CLI or a code component.
 ====
 
 == 2. Summary of Contributions
