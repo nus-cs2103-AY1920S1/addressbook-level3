@@ -61,9 +61,9 @@ public class SetClassroomCommandTest {
     @Test
     public void execute_setValidClassName_success() {
         Classroom classToSet = CLASSROOM_ONE;
-        String expectedMessage = String.format(MESSAGE_SUCCESS,classToSet);
+        String expectedMessage = String.format(MESSAGE_SUCCESS, classToSet);
         SetClassroomCommand command = new SetClassroomCommand(CLASSROOM_ONE.getClassroomName());
-        assertCommandSuccess(command, model, expectedMessage,expectedModel);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
 }

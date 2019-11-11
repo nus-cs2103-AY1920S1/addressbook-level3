@@ -49,7 +49,6 @@ public class DeleteStudentCommandTest {
             editedAssignment.deleteOneStudentGrade(studentToDelete.getName().fullName);
             expectedModel.setAssignment(assignment, editedAssignment);
         }
-
         assertCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
     }
 
