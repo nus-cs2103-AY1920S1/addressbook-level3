@@ -13,7 +13,7 @@ import seedu.ifridge.model.Model;
 import seedu.ifridge.model.food.UniqueTemplateItems;
 
 /**
- * Lists all template items in the template list to the user.
+ * Lists all template items in the template identified by its index in the template list to the user.
  */
 public class ListTemplateItemCommand extends Command {
 
@@ -52,5 +52,11 @@ public class ListTemplateItemCommand extends Command {
         commandResult.setTemplateListItemCommand();
 
         return commandResult;
+    }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListTemplateItemCommand // instanceof handles nulls
+                && targetTemplateIndex.equals(((ListTemplateItemCommand) other).targetTemplateIndex));
     }
 }

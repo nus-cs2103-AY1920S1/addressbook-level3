@@ -25,7 +25,7 @@ import seedu.ifridge.model.food.UniqueTemplateItems;
 import seedu.ifridge.model.food.exceptions.InvalidUnitException;
 
 /**
- * Edits the details of an existing template item in the template list.
+ * Edits the details of an existing template item in the specified template in the template list.
  */
 public class EditTemplateItemCommand extends Command {
 
@@ -39,7 +39,8 @@ public class EditTemplateItemCommand extends Command {
             + PREFIX_ITEM_INDEX + "ITEMINDEX "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_AMOUNT + "AMOUNT]\n"
-            + "Example: tlist template" + COMMAND_WORD + " 1 " + PREFIX_ITEM_INDEX + " 1 " + PREFIX_NAME + "Whole Milk";
+            + "Example: tlist template " + COMMAND_WORD + " 1 "
+            + PREFIX_ITEM_INDEX + " 1 " + PREFIX_NAME + "Whole Milk";
 
     public static final String MESSAGE_SUCCESS = "Food item %1$s edited.";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -55,7 +56,7 @@ public class EditTemplateItemCommand extends Command {
     /**
      * @param targetTemplate of the template in the filtered template list to edit
      * @param targetItem of the template item in the template to edit
-     * @param editTemplateItemDescriptor details to edit the person with
+     * @param editTemplateItemDescriptor details to edit the template with
      */
     public EditTemplateItemCommand(Index targetTemplate, Index targetItem,
                                    EditTemplateItemDescriptor editTemplateItemDescriptor) {
@@ -191,20 +192,30 @@ public class EditTemplateItemCommand extends Command {
          * Checks if the object is identical
          */
         public boolean equals(EditTemplateItemDescriptor other) {
-            return other == this
-                    || (other instanceof EditTemplateItemDescriptor
-                    && this.name.equals(other.name) && this.amount.equals(other.amount));
+            if (other == this) {
+                return true;
+            }
+
+            if (other instanceof EditTemplateItemDescriptor) {
+                if (this.name == null) {
+                    return this.amount.equals(other.amount);
+                } else if (this.amount == null) {
+                    return this.name.equals(other.name);
+                } else {
+                    return this.name.equals(other.name) && this.amount.equals(other.amount);
+                }
+            }
+            return false;
         }
     }
 
-    /**
-     * Checks if the EditTemplateItemCommand is identical
-     */
-    public boolean equals(EditTemplateItemCommand other) {
+    @Override
+    public boolean equals(Object other) {
         return other == this
                 || (other instanceof EditTemplateItemCommand
-                && other.targetTemplateIndex.equals(this.targetTemplateIndex)
-                && other.targetItemIndex.equals(this.targetItemIndex)
-                && other.editTemplateItemDescriptor.equals(this.editTemplateItemDescriptor));
+                && this.targetTemplateIndex.equals(((EditTemplateItemCommand) other).targetTemplateIndex)
+                && this.targetItemIndex.equals(((EditTemplateItemCommand) other).targetItemIndex)
+                && this.editTemplateItemDescriptor
+                    .equals(((EditTemplateItemCommand) other).editTemplateItemDescriptor));
     }
 }

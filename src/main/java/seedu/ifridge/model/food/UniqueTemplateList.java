@@ -142,10 +142,6 @@ public class UniqueTemplateList implements Iterable<UniqueTemplateItems> {
         }
 
         return false;
-
-        /**return other == this // short circuit if same object
-                || (other instanceof UniqueTemplateList // instanceof handles nulls
-                        && internalList.equals(((UniqueTemplateList) other).internalList));**/
     }
 
     @Override

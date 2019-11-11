@@ -145,11 +145,6 @@ public class UniqueTemplateItems implements Iterable<TemplateItem>, Comparable<U
         }
 
         return false;
-
-        /**return other == this // short circuit if same object
-        || (other instanceof UniqueTemplateItems // instanceof handles nulls
-        && internalList.equals(((UniqueTemplateItems) other).internalList)
-        && name.toString().equals(((UniqueTemplateItems) other).getName().toString()));**/
     }
 
     /**
@@ -162,8 +157,10 @@ public class UniqueTemplateItems implements Iterable<TemplateItem>, Comparable<U
             return true;
         }
 
-        return otherTemplate != null
-                && otherTemplate.getName().equals(getName());
+        String thisTemplateInLower = this.getName().toString().toLowerCase();
+        String otherTemplateInLower = otherTemplate.getName().toString().toLowerCase();
+
+        return otherTemplate != null && this.getName().equals(otherTemplate.getName());
     }
 
     public Name getName() {
@@ -207,7 +204,7 @@ public class UniqueTemplateItems implements Iterable<TemplateItem>, Comparable<U
         builder.append(getName());
         builder.append(" with ");
         builder.append(getSize());
-        builder.append(" items.");
+        builder.append(" items");
         return builder.toString();
     }
 

@@ -15,7 +15,7 @@ import seedu.ifridge.commons.util.JsonUtil;
 import seedu.ifridge.model.ReadOnlyTemplateList;
 
 /**
- * A class to access GroceryList data stored as a json file on the hard disk.
+ * A class to access TemplateList data stored as a json file on the hard disk.
  */
 public class JsonTemplateListStorage implements TemplateListStorage {
 

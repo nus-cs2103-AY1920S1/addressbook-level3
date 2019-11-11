@@ -1,6 +1,5 @@
 package seedu.ifridge.testutil;
 
-import seedu.ifridge.logic.commands.templatelist.template.EditTemplateItemCommand;
 import seedu.ifridge.logic.commands.templatelist.template.EditTemplateItemCommand.EditTemplateItemDescriptor;
 import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.Name;
@@ -11,10 +10,10 @@ import seedu.ifridge.model.food.TemplateItem;
  */
 public class EditTemplateItemDescriptorBuilder {
 
-    private EditTemplateItemCommand.EditTemplateItemDescriptor descriptor;
+    private EditTemplateItemDescriptor descriptor;
 
     public EditTemplateItemDescriptorBuilder() {
-        descriptor = new EditTemplateItemCommand.EditTemplateItemDescriptor();
+        descriptor = new EditTemplateItemDescriptor();
     }
 
     public EditTemplateItemDescriptorBuilder(EditTemplateItemDescriptor descriptor) {
