@@ -63,6 +63,8 @@ Great care had to be taken to correctly implement each of the many steps in the 
 ** Documentation:
 *** Updated the User Guide, About Us, Contact and Readme pages to reflect our team taking over the original AddressBook:
 https://github.com/AY1920S1-CS2103T-W13-4/main/pull/3[#3]
+*** Combed the User Guide for errors before the final submission:
+https://github.com/AY1920S1-CS2103T-W13-4/main/pull/223[#223]
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
 https://github.com/AY1920S1-CS2103T-W13-4/main/pull/56[#56],
@@ -71,6 +73,8 @@ https://github.com/AY1920S1-CS2103T-W13-4/main/pull/80[#80],
 https://github.com/AY1920S1-CS2103T-W13-4/main/pull/157[#157],
 https://github.com/AY1920S1-CS2103T-W13-4/main/pull/178[#178],
 https://github.com/AY1920S1-CS2103T-W13-4/main/pull/183[#183]
+*** Reported bugs and suggestions for other teams in the class:
+https://github.com/kenneth-fung/ped/issues[PED Issues]
 
 <<<
 
