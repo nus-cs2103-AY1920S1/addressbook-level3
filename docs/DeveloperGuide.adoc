@@ -173,7 +173,7 @@ NOTE: The lifeline for `EditProblemUiActionParser` should end at the destroy mar
 === Model component
 
 .Structure of the Model Component
-image::design/model/ModelClassDiagram.png[width="65%"]
+image::design/model/ModelClassDiagram.png[width="65%", scaledwidth=18cm]
 
 *API* : link:{repoURL}/src/main/java/seedu/algobase/model/Model.java[`Model.java`]
 
@@ -187,31 +187,31 @@ The `Model`,
 We organize different data classes into packages (e.g. `Problem`), inside which we provide a collection class of that data object (e.g. `UniqueProblemList`) so that `AlgoBase` can manage these data objects without knowing the details of each data class.
 
 .Structure of the Problem Package
-image::design/model/ProblemPackageDiagram.png[width="75%"]
+image::design/model/ProblemPackageDiagram.png[width="75%", scaledwidth=18cm]
 
 Note that we don't require plans to be unique, thus unlike problems' collection class is named `UniqueProblemList`, plan's collection is simply named `PlanList`.
 
 .Structure of the Plan Package
-image::design/model/PlanPackageDiagram.png[width="50%"]
+image::design/model/PlanPackageDiagram.png[width="50%", scaledwidth=12cm]
 
 .Structure of the Tag Package
-image::design/model/TagPackageDiagram.png[width="30%"]
+image::design/model/TagPackageDiagram.png[width="30%", scaledwidth=7cm]
 
 .Structure of the Task Package
-image::design/model/TaskPackageDiagram.png[width="30%"]
+image::design/model/TaskPackageDiagram.png[width="30%", scaledwidth=7cm]
 
 Both `problemsearchrule` and `plansearchrule` are packaged under `searchrule` and they share similar internal structure - note that saving find rule feature only supports saving **problem** search rule, thus there's no subclass for `FindPlanDescriptor`.
 
 .Structure of the ProblemSearchRule Package
-image::design/model/ProblemSearchRulePackageDiagram.png[width="60%"]
+image::design/model/ProblemSearchRulePackageDiagram.png[width="60%", scaledwidth=12cm]
 
 .Structure of the PlanSearchRule Package
-image::design/model/PlanSearchRulePackageDiagram.png[width='90%']
+image::design/model/PlanSearchRulePackageDiagram.png[width="90%", scaledwidth=18cm]
 
 As we support preserving the GUI state, we included `GuiState` as a part of **AlgoBase**'s model.
 
 .Structure of the GUI Package
-image::design/model/GuiPackageDiagram.png[width='60%']
+image::design/model/GuiPackageDiagram.png[width="60%", scaledwidth=10cm]
 // end::model[]
 //@@author
 
@@ -355,7 +355,7 @@ The tag mechanism is facilitated by UniqueTagList. It creates a list of Tag, sto
 * `ListTag` - shows the tags in the uniqueTagList in the algobase GUI for users.
 
 .Class Diagram for Tag
-image::tag/TagClassDiagram.png[]
+image::tag/TagClassDiagram.png[width="60%", scaledwidth=6cm]
 
 These operations are exposed in the Model interface as `Model#addTag()`, `Model#deleteTag()`, `Model#listTag()` and `Model#editTag()` respectively.
 
@@ -368,7 +368,7 @@ Step 2. The user executes `addtag t/easy` to add a tag named [easy] with default
 The following sequence diagram shows how the `addtag` operation works:
 
 .Sequence Diagram for `AddTagCommand`
-image::tag/AddTagSequenceDiagram.png[]
+image::tag/AddTagSequenceDiagram.png[width="80%", scaledwidth=12cm]
 
 Step 3. The user decides to execute the command `listtag` to show a tag list in the GUI of algobase. The `listtag` command calls `Model#listtag()`, causing the taglist shows the current components of uniqueTagList. Commands that do not modify the data, such as `listtag`, will not call `Model#addTag()`, `Model#deleteTag()` or `Model#editTag()`. Thus the `uniqueTagList` remains unchanged.
 
@@ -381,7 +381,7 @@ Step 5. The user executes `deletetag t/hard` to delete the current tag [easy] in
 The following activity diagram summarizes what happens when a user executes a new tag modifying command
 
 .Activity Diagram for tag commands
-image::tag/TagCommandActivityDiagram.png[]
+image::tag/TagCommandActivityDiagram.png[width="80%", scaledwidth=12cm]
 
 ==== Design considerations
 
@@ -407,7 +407,7 @@ This section will describe in detail the current implementation and design consi
 The following activity diagram summarizes what happens when a user executes the `findprob` command:
 
 .Activity Diagram for the Execution of `findprob` Command
-image::find/FindCommandActivityDiagram.png[]
+image::find/FindCommandActivityDiagram.png[width="80%", scaledwidth=12cm]
 
 ==== Current Implementation
 
@@ -445,7 +445,7 @@ Additionally, it implements the following operation(s):
 ** `FindCommand#equals(...)` - Two instances of `FindCommand` are equal if and only if their `predicate` are equal.
 
 .Class Diagram of the Find Feature
-image::find/FindCommandClassDiagram.png[width="75%"]
+image::find/FindCommandClassDiagram.png[width="75%", scaledwidth=12cm]
 
 * Predicates that implements interface `Predicate<Problem>`
 +
@@ -468,7 +468,7 @@ These are classes that describes whether an instance of `Problem` is considered 
 *** It returns true when the provided tags are a subset of the tags of the provided problem.
 
 .Class Diagram for Predicates in the Find Feature
-image::find/PredicateClassDiagram.png[width="40%"]
+image::find/PredicateClassDiagram.png[width="40%", scaledwidth=10cm]
 
 Given below is an example usage scenario and how the find problem mechanism behaves at each step.
 
@@ -482,7 +482,7 @@ If no valid search restriction is provided by the user, `FindCommandParser` will
 Step 3. `LogicManager` invokes `execute()` method of the returned `FindCommand`. `FindCommand` updates the problem list with user’s search constraints.
 
 .Sequence Diagram for the Execution of `findprob` Command
-image::find/FindCommandSequenceDiagram.png[width="70%"]
+image::find/FindCommandSequenceDiagram.png[width="70%", scaledwidth=18cm]
 
 ==== Design Considerations
 
@@ -565,7 +565,7 @@ image::savefindrule/HighLevelAddFindRuleSequenceDiagram.png[width="70%", scaledw
 The sequence diagram below illustrates the interaction between the `Logic` and `Model` component when executing `AddFindRuleCommand`. Notice that the constructor for `ProblemSearchRule` requires `Name` to be non-null and accepts null values for other predicates. Thus if the predicate is not present in the arguments, `AddFindRuleCommandParser` will pass null to the constructor of `ProblemSearchRule`.
 
 .Sequence Diagram for the Execution of `addfindrule` Command
-image::savefindrule/AddFindRuleSequenceDiagram.png[width="70%", scaledwidth=12cm]
+image::savefindrule/AddFindRuleSequenceDiagram.png[width="70%", scaledwidth=18cm]
 
 ==== Design Considerations
 
@@ -655,14 +655,14 @@ image::design/model/GuiPackageDiagram.png[width=60%, scaledwidth=10cm]
 The following Activity diagram illustrates the series of actions that occur when the user opens a new tab:
 
 .Activity Diagram for Opening a new Tab from the GUI
-image::gui/OpenTabUiActionActivityDiagram.png[]
+image::gui/OpenTabUiActionActivityDiagram.png[scaledwidth=18cm]
 
 In AlgoBase, the state of the GUI is also saved to Storage after every action. This is so that when the user closes the application and opens it again later, the state is stored.
 The Sequence diagram below also shows how the GuiState is saved to Storage:
 
 [.text-center]
 .Sequence Diagram for storing new GUI state
-image::gui/SwitchTabsSequenceDiagram3.png[width=100%, scaledwidth=12cm]
+image::gui/SwitchTabsSequenceDiagram3.png[width=100%, scaledwidth=18cm]
 
 The `StorageManager` saves the modified `GuiState` as a new `JSON` file.
 This is done with the help of the `JsonSerializableGui`, `JsonSerializableTabManager` and `JsonSerializableTab` classes that are wrappers for the `GuiState`, `TabManager` and `TabData` classes.
@@ -724,15 +724,15 @@ These operations are exposed in the `TabManager` class respectively as:
 The following Activity Diagrams illustrate what happens when the user executes a `SwitchTabCommand` or `OpenTabCommand`
 
 .Activity Diagram for the Execution of `switchtab` Command
-image::gui/SwitchTabCommandActivityDiagram.png[width="50%"]
+image::gui/SwitchTabCommandActivityDiagram.png[width="50%", scaledwidth=12cm]
 
 .Activity Diagram for the Execution of `opentab` Command
-image::gui/OpenTabCommandActivityDiagram.png[width="50%"]
+image::gui/OpenTabCommandActivityDiagram.png[width="50%", scaledwidth=12cm]
 
 Given below is an example usage scenario and how the tag mechanism behaves at each step.
 
 .Sequence Diagram for instantiating a `SwitchCommand` object
-image::gui/SwitchTabsSequenceDiagram0.png[]
+image::gui/SwitchTabsSequenceDiagram0.png[scaledwidth=12cm]
 
 Step 1: The user executes `switchtab tt/display i/1` to switch to the first tab in the `display` tabpane.
 
@@ -741,19 +741,19 @@ Step 2: `SwitchTabCommandParser` processes the user input, retrieving the tab ty
 Step 3: These two attributes are passed into the constructor of a `SwitchTabCommand` and a corresponding `SwitchTabCommand` object is returned to the LogicManager
 
 .Sequence Diagram for updating the tab index in the TabManager
-image::gui/SwitchTabsSequenceDiagram1.png[]
+image::gui/SwitchTabsSequenceDiagram1.png[scaledwidth=12cm]
 
 Step 4: `LogicManager` invokes `execute()` method of the returned `SwitchTabCommand`, which retrieves the TabManager from the `Model` object. The `setDisplayTabPaneIndex(1)` method is invoked with the index 1 that the `SwitchTabCommand` was instantiated with.
 
 Step 5: Invoking this method updates the integer value in the `displayTabIndex` field (type `ObservableIntegerValue`) of the `TabManager`.
 
 .Sequence Diagram for reflecting the tab changes
-image::gui/SwitchTabsSequenceDiagram2.png[]
+image::gui/SwitchTabsSequenceDiagram2.png[scaledwidth=12cm]
 
 Step 6: A listener was added to the `displayTabIndex` field when the application was initialized. When a change in the value is detected, it triggers the `selectTab(1)` method with the value of the new index passed as an argument. This updates the selected tab in the UI.
 
 .Sequence Diagram for storing new GUI state
-image::gui/SwitchTabsSequenceDiagram3.png[]
+image::gui/SwitchTabsSequenceDiagram3.png[scaledwidth=12cm]
 
 Step 7: After the command is executed, the state of the GUI changes. This causes the `StorageManager` to save the modified GUI state as a new `JSON` file.
 This is done with the help of the `JsonSerializableGui`, `JsonSerializableTabManager` and `JsonSerializableTab` classes that are wrappers for the `GuiState`, `TabManager` and `TabData` classes.
@@ -811,7 +811,7 @@ The training plan mechanism is faciliated by `AlgoBase`, which keeps a list of t
 * `AlgoBase#getPlanList()` -- Returns a list of training plans.
 
 .Class Diagram of `Plan`
-image::plan/PlanClassDiagram.png[width="70%"]
+image::plan/PlanClassDiagram.png[width="70%", scaledwidth=12cm]
 
 Given below is an example usage scenario and how the AlgoBase behaves at each step.
 
@@ -820,14 +820,14 @@ Step 1. The user launches the application for the first time. The `AlgoBase` wil
 Step 2. The user switches to the plan tab and executes `addplan n/CS2040 d/past year questions start/2019-01-01 end/2019-05-04` command to add a new plan to AlgoBase. The `addplan` command checks if `Model#hasPlan()` and calls `Model#addPlan()`, causing the modified state of plans after the `addplan` command executes to be saved in the `PlanList`.
 
 .Sequence Diagram for the execution of `AddPlanCommand`
-image::plan/AddPlanSequenceDiagram.png[width="70%"]
+image::plan/AddPlanSequenceDiagram.png[width="70%", scaledwidth=12cm]
 
 Step 3. The user executes `listplan` to list all plans. The `listplan` command calls `Model#updateFilteredPlanList()`. The plan `CS2040` is numbered `1` in the displayed list.
 
 Step 4. The user finds out that the exam date of CS2040 has changed, and decides to change the end date of the training plan by executing the `editplan 1 end/2019-05-05` command. The `editplan` command will check if `Model#hasPlan()`, and then call `Model#setPlan()` and `Model#updateFilteredPlanList()`, which will replace the original plan with the modified plan in the `PlanList`.
 
 .Activity Diagram for the Execution of `EditPlanCommand`
-image::plan/EditPlanCommandActivityDiagram.png[width="70%"]
+image::plan/EditPlanCommandActivityDiagram.png[width="70%", scaledwidth=12cm]
 
 [NOTE]
 The user can also add value for an empty field by executing `editplan` command if the field has not been specified when adding the plan.
@@ -835,7 +835,7 @@ The user can also add value for an empty field by executing `editplan` command i
 Step 5. The user then decides to execute the command `findplan start/2019-03-01 end/2019-03-31` to find out what plans he has in March. The `findplan` command constructs a `FindPlanDescriptor`, and then executes `Model#getFilteredPlanList()` and `Model#updateFilteredPlanList(FindPlanDescriptor)`. A list of plans in AlgoBase that has overlapping time range with the specified starting date and end date will be displayed on the plan list panel.
 
 .Class Diagram for `FindPlanDescriptor`
-image::plan/FindPlanDescriptorClassDiagram.png[width="70%"]
+image::plan/FindPlanDescriptorClassDiagram.png[width="70%", scaledwidth=12cm]
 
 [NOTE]
 If the user wants to find plans with overlapping time range, both the starting date and the end date should be specified, and the starting date should be before or at least equal to the end date, or an error message will be displayed to inform the user the correct form of input.
