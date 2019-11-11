@@ -121,6 +121,9 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
+==== Add a profile picture
+Unlike other commands, we have implemented this feature to be one of the easies to use. Simply drag a picture over to the panel which the person is at, and the picture will shown as the person's profile picture in your contacts!
+
 // tag::addMember[]
 ==== Add a new member: `addMember` [Checkout]
 
@@ -166,6 +169,7 @@ the guide.
 // end::addMember[]
 
 // tag::addFromContacts[]
+
 
 ==== Add from your contacts: `addFromContacts` [Checkout]
 
