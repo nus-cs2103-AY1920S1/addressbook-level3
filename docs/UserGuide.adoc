@@ -502,6 +502,9 @@ of 09/02/2019, the earnings will not be added.
 Adds Note to the list of notes. +
 Format: `addnote c/MODULE_CODE type/CLASS_TYPE note/NOTE_CONTENT`
 
+.Add Note Example
+image::notes/addnote.png[width="350", align="left"]
+
 Examples:
 
 * `addnote c/CS2103T type/lab note/Check for project submission date`
@@ -510,8 +513,7 @@ Examples:
 Only `tutorials`/ `tut` / `lab` / `consultations` / `c` / `sectionals` / `s`
 arguments are allowed for `TYPE`.
 
-.Add Note Example
-image::notes/addnote.png[width="350", align="left"]
+
 
 
 ==== Edit Note: `editnote`
@@ -520,15 +522,15 @@ To provide a great flexibility, editing of the notes is allowed.
 Update any Note in the list of notes. +
 Format: `editnote INDEX c/MODULE_CODE type/CLASS_TYPE note/NOTE_CONTENT`
 
+.Edit Note Example
+image::notes/editnote.png[width="350", align="left"]
+
 Examples:
 
 * `editnote 1 c/CS2103T`
 * `editnote 2 type/lab`
 * `editnote 3 note/check for meeting time`
 * `editnote 1 c/CS2103 type/tut note/update project content`
-
-.Edit Note Example
-image::notes/editnote.png[width="350", align="left"]
 
 ==== Delete Note: `deletenote` / `deletebutton`
 Let's say that if you would like to delete the note from the list there are two option available.
@@ -538,8 +540,10 @@ Delete Note in the list of notes. +
 Format: `deletenote INDEX`
 
 Option 2:
-Delete Note with DeleteButton. +
-image:notes/deletebutton.png[width="350"]
+Delete Note with DeleteButton.
+
+.Delete Button Example
+image::notes/deletebutton.png[width="350", align="left"]
 
 Examples:
 
@@ -553,12 +557,13 @@ In order to find the desire note, finding with keyword such as the module_code, 
 Delete Note in the list of notes. +
 Format: `findnote KEYWORD`
 
+.Find Note Example
+image::notes/findnote.png[width="350", align="left"]]
+
 Examples:
 
 * `findnote CS2103T`
 
-.Find Note Example
-image::notes/findnote.png[width="350", align="left"]]
 
 ==== Listing all note : `listnote`
 To view the list of note. Type `listnote` to view the full list of note.
