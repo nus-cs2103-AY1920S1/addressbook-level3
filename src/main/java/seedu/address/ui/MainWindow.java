@@ -197,7 +197,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleBack() throws CommandException, IllegalValueException {
         State temp = currentState;
-        logger.severe("current state: " + temp);
         if (currentState == State.PROJECT_LIST) {
             throw new CommandException("Oops can't go back any further!");
         }
@@ -296,7 +295,6 @@ public class MainWindow extends UiPart<Stage> {
         case PROJECT_OVERVIEW:
             projectOverview = new ProjectOverview(logic.getFilteredProjectList(), logic.getWorkingProject().get());
             projectListPanelPlaceholder.getChildren().setAll(projectOverview.getRoot());
-            logger.severe("???");
             currentState = nextState;
             break;
 
@@ -353,8 +351,6 @@ public class MainWindow extends UiPart<Stage> {
 
         case SortMeetingCommand.COMMAND_WORD:
 
-        case SortSpendingCommand.COMMAND_WORD:
-
         case SortTaskCommand.COMMAND_WORD:
 
         case UnassignTaskCommand.COMMAND_WORD:
@@ -364,6 +360,8 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case AddSpendingCommand.COMMAND_WORD:
+
+        case SortSpendingCommand.COMMAND_WORD:
 
         case ListBudgetCommand.COMMAND_WORD:
             state = State.PROJECT_FINANCE;

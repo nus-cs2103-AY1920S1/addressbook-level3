@@ -42,8 +42,9 @@ public class BudgetPieChart extends UiPart<Region> {
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList();
         Double remaining = budget.getRemainingMoney().getAmount().doubleValue();
-        if (remaining < 0) {
-            pieChartData.add(new PieChart.Data("Overshot by: $" + Math.abs(remaining), Math.abs(remaining)));
+        Double overshot = budget.getOvershotMoney().getAmount().doubleValue();
+        if (overshot > 0) {
+            pieChartData.add(new PieChart.Data("Overshot by: $" + overshot, overshot));
         } else {
             pieChartData.add(new PieChart.Data("Remaining: $" + remaining, remaining));
         }

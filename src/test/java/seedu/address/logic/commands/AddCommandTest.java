@@ -19,6 +19,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.*;
+import seedu.address.model.finance.Budget;
 import seedu.address.model.performanceoverview.PerformanceOverview;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Meeting;
@@ -83,6 +84,11 @@ public class AddCommandTest {
     private class ModelStub implements Model {
         @Override
         public void setWorkingProject(Project project) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasBudget(Budget budget) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.finance.Budget;
 import seedu.address.model.performanceoverview.PerformanceOverview;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Meeting;
@@ -87,8 +88,20 @@ public class ModelManager implements Model {
     /**
      * @return If the user checkout to a project.
      */
+    @Override
     public boolean isCheckedOut() {
         return workingProject.isPresent();
+    }
+
+    @Override
+    public boolean hasBudget(Budget budget) {
+        Project project = getWorkingProject().get();
+        for (Budget b : project.getFinance().getBudgets()) {
+            if (budget.isSameBudget(b)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

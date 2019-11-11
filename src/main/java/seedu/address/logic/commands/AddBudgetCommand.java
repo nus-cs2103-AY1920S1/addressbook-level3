@@ -22,16 +22,18 @@ public class AddBudgetCommand extends Command {
     private final Budget budget;
     public static final String COMMAND_WORD = "addBudget";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add a budget type to the project"
-            + "[" + PREFIX_BUDGET + "BUDGET]...\n"
-            + "[" + PREFIX_EXPENSE + "EXPENSE]...\n"
+            + PREFIX_BUDGET + "BUDGET\n"
+            + PREFIX_EXPENSE + "EXPENSE\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_BUDGET + "equipment "
             + PREFIX_EXPENSE + "3000.00";
 
     public static final String MESSAGE_SUCCESS = "New budgets added";
+    public static final String MESSAGE_DUPLICATE_BUDGET = "This budget already exists in the project";
 
-    public AddBudgetCommand(Budget buget) {
-        this.budget = buget;
+    public AddBudgetCommand(Budget budget) {
+        requireNonNull(budget);
+        this.budget = budget;
     }
 
     @Override
@@ -40,6 +42,10 @@ public class AddBudgetCommand extends Command {
 
         if (!model.isCheckedOut()) {
             throw new CommandException(MESSAGE_NOT_CHECKED_OUT);
+        }
+
+        if (model.hasBudget(budget)) {
+            throw new CommandException(MESSAGE_DUPLICATE_BUDGET);
         }
 
         Project currWorkingProject = model.getWorkingProject().get();
@@ -56,6 +62,13 @@ public class AddBudgetCommand extends Command {
         model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS), COMMAND_WORD);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddBudgetCommand // instanceof handles nulls
+                && budget.equals(((AddBudgetCommand) other).budget));
     }
 
 }

@@ -683,18 +683,18 @@ the crucial information the user wants to see.
 `Spending` class and the `Budget` class and they all require to
 check the validity of a given string to convert it to `BigDecimal`.
 
-
 [[Implementation-Checkout]]
 === Checkout
 This allows user to checkout to a project from a list of project to work on it.
 Almost every command regarding the project require the user to checkout first.
 
-How it works is the ModelManager class is holding an additional `Optional<Project>` 
+For it to work, the ModelManager class is holding an additional `Optional<Project>`
 attribute and the model supports three new methods:
 
 * `setWorkingProject()` -- Sets the attribute to the argument of the method.
 * `getWorkingProject()` -- Returns the current project.
 * `isCheckedOut()` -- Checks whether the current working project is empty.
+* `removeWorkingProject` -- Sets the attribute to `Optional.empty()`.
 
 A typical use of the command can be seen in the sequence diagram below.
 
@@ -708,34 +708,38 @@ This is done in the CommandResult class constructor. If a command
 word matches actions that is email related or help or exit,
 the flag will indicate that a change in UI is not needed.
 
-Next, a class to represent a state of UI is needed to remember
+Next, a class to represent the state of UI is needed to remember
 a history which is the `UiEvent` class.UiEvent is a class that represent
 a type of UiDisplay as an event. It stores the current state of the
-application's UI and the current working project if it exists.
-Whenever a command is executed, only if this command lead to a state
-that is different from the current one a new UiEvent will be generated and stored in history.
+application's UI and the current working project index if it exists.
+Whenever a command is executed, a new UiEvent will be generated and stored in history
+if this command lead to a state
+that is different from the current one.
 The `viewHistory` is stored in the `MainWindow` class as a stack of UiEvents
-and it also maintains a currentStatePointer. When a `back` command
+and the class also maintains a currentStatePointer. When a `back` command
 is executed, it can check back on what is the previous state.
 
 * `MainWindow#changeUiDisplay` -- Change the Ui and change the current state.
 * `MainWindow#getPreviousState` -- Pops the stack and peek to look for the previous state.
 * `MainWindow#handleBack` -- Change the Ui display to the previous state.
+* `MainWindow#getState` -- Get the state given a command word.
 
 Given below is an example of how the UI behave at each step.
 
-Step 1. The user launches the application for the first time.
-The `viewHistory` will be initialized with the initial
-`PROJECT_LIST` state, and the `currentStatePointer` pointing to
+Step 1. The user launches the application and the `viewHistory` will be initialized with the
+`PROJECT_LIST` state. The `currentStatePointer` is currently pointing to
 that single address book state.
 
 image::ChangeUiDisplayState0.png[]
 
-Step 2. The user executes `checkout 1` command to checkout to preoject 1 to work on.
-During the execution of the `checkout` command, at the commandresult generation step,
+Step 2. The user executes `checkout 1` command to checkout to project 1 to work on.
+During the execution of the `checkout` command, when commandresult is created,
 it detects that there is a need to change the Ui and the flag is made to true.
 In the `MainWindow`, since a change is needed, `MainWindow#changeUiDisplay` is called
-to change the display and set the `currentState` to be `PROJECT_OVERVIEW`.
+to change the display to `PROJECT_OVERVIEW` which is found out using
+the `MainWindow#getState` method. It also set the `currentState` to be `PROJECT_OVERVIEW`.
+The UiEvent with the state of `PROJECT_LIST` and an empty index will be stored
+in the `viewHistory` stack.
 
 image::ChangeUiDisplayState1.png[]
 
@@ -773,6 +777,7 @@ image::ChangeUiDisplayActivityDiagram.png[]
 [NOTE]
 If the `currentStatePointer` is at `PROJECT_LIST`, then there are
 no previous UI states to go back. Under such situation, an error will be returned.
+
 
 // tag::performanceTracking[]
 === Performance Tracking

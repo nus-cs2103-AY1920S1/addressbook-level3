@@ -99,7 +99,7 @@ public class ProjectOverview extends UiPart<Region> {
         CategoryAxis xAxis = new CategoryAxis();
 
         xAxis.setCategories(FXCollections.observableArrayList(project.getFinance().getBudgetObservableList().stream()
-                .map(x -> x.getName()).collect(Collectors.toList())));
+                .map(x -> truncate(x.getName())).collect(Collectors.toList())));
         xAxis.setLabel("Budgets");
 
         //Defining the y axis
@@ -117,13 +117,9 @@ public class ProjectOverview extends UiPart<Region> {
         XYChart.Series<String, Number> remainingAmount = new XYChart.Series<>();
         remainingAmount.setName("Amount remaining");
         for (Budget budget : project.getFinance().getBudgetObservableList()) {
-            amountSpent.getData().add(new XYChart.Data<>(budget.getName(), budget.getMoney().getAmount().subtract(budget.getRemainingMoney().getAmount()).doubleValue()));
+            amountSpent.getData().add(new XYChart.Data<>(truncate(budget.getName()), budget.getTotalMoneySpent().getAmount().doubleValue()));
             Double remaining = budget.getRemainingMoney().getAmount().doubleValue();
-            if (remaining < 0) {
-                remainingAmount.getData().add(new XYChart.Data<>(budget.getName(), 0));
-            } else {
-                remainingAmount.getData().add(new XYChart.Data<>(budget.getName(), remaining));
-            }
+            remainingAmount.getData().add(new XYChart.Data<>(truncate(budget.getName()), remaining));
         }
 
         //Setting the data to bar chart
@@ -159,5 +155,13 @@ public class ProjectOverview extends UiPart<Region> {
         // state check
         ProjectOverview card = (ProjectOverview) other;
         return project.equals(card.project);
+    }
+
+    private String truncate(String s) {
+        if (s.length() > 20) {
+            return s.substring(0, 20) + "...";
+        } else {
+            return s;
+        }
     }
 }

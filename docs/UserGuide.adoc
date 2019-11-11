@@ -301,14 +301,6 @@ image:addProjectMeeting2.png[]
 
 // end::addProjectMeeting[]
 
-==== Add a budget [Checkout]
-Add multiple budgets available to the current project. +
-Format: `addBudget [b/NAME_OF_BUDGET AMOUNT NAME_OF_BUDGET AMOUNT...]`
-
-==== Add an expense [Checkout]
-Whenever an expenditure is made under a budget, add it to record. +
-Format: `addExpense [INDEX_OF_BUDGET] [s/DESCRIPTION] [ex/AMOUNT SPEND] [c/dd/MM/yyyy HHmm]`
-
 === Editing
 
 This section deals with editing information shown on the application.
@@ -728,16 +720,20 @@ that you can record this information in MyProject!
 Let's say the organization gave you budgets on equipment and
 manpower, let's first add these budgets to the project.
 
+Format: `addBudget [b/NAME_OF_BUDGET ex/AMOUNT_OF_BUDGET]`
+
 image::addBudget.png[]
 
 After adding the budgets, we will be able to see a summary of
 them at project overview. Currently it only shows the amount
-remaining which is the same as the amount you input just now
+remaining which is the same as the amount you typed just now
 because you haven't spent anything yet.
 
 image::projectOverview.png[]
 
 ==== Add expense: `addExpense` [Checkout]
+
+Format: `addExpense [INDEX_OF_BUDGET] [s/DESCRIPTION] [ex/AMOUNT SPEND] [c/dd/MM/yyyy HHmm]`
 
 One month later...
 
@@ -748,18 +744,23 @@ addExpense to add it under the budget. In order to do that, you
 need the index of the budgets which you may already forgot, but
 you may simply type listBudgets to view them again.
 
+<<<<<<< HEAD
 image::addExpense.png[]
 
 ==== List budgets: `listBudget` [Checkout]
 
-Now, you are seeing the pie chart representation of the budgets.
-If you have already overshot the budget, the pie chart will show
+List information about the budgets. +
+Format: `listBudget`
+
+In the diagram below, you are seeing the pie chart representation of the budgets.
+It will usually show all the expenses made and the amount remaining for this budget.
+However, if you have already overshot the budget, the pie chart will show
 overshot instead of remaining to remind you!
 
 image::listBudget.png[]
 
 After all that have been done, a breakdown of the budget situation
-will be available at the project overview with stacked bar graph
+will be available at the project overview with a stacked bar graph
 indicating the amount remaining and the amount spent.
 
 image::projectOverviewFinal.png[]
@@ -767,8 +768,7 @@ image::projectOverviewFinal.png[]
 ==== Excel sheet storage
 
 Keeping the planning committee updated regarding budget is always
-a challenge isn't it? Only the treasurer knows the stuff
-inside out? Fret not, MyProject is here to help! Every update on
+a challenge isn't it? Fret not, MyProject is here to help! Every update on
 the budget information will be recorded in an excel sheet located
 in the budgets folder. It creates a sheet per project and display
 the budgets and expenses under the budget in a table form. You

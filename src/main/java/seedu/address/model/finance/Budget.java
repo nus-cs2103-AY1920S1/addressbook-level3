@@ -15,6 +15,7 @@ public class Budget {
     private final Money amount;
     private final List<Spending> spendings = new ArrayList<>();
     private Money remainingAmount;
+    private Money overshotAmount;
     public static final String MESSAGE_CONSTRAINTS = "Budget should have a name followed by an amount in the form 99.99";
 
     public Budget(String name, Money amount, List<Spending> spendings) {
@@ -23,7 +24,7 @@ public class Budget {
         this.amount = amount;
         this.spendings.addAll(spendings);
         Collections.sort(spendings, SortingOrder.getCurrentSortingOrderForSpending());
-        this.remainingAmount = calculateRemaining(amount, spendings);
+        calculateRemaining(amount, spendings);
     }
 
     /**
@@ -34,15 +35,27 @@ public class Budget {
     public void addSpending(Spending spending) {
         spendings.add(spending);
         Collections.sort(spendings, SortingOrder.getCurrentSortingOrderForSpending());
-        remainingAmount = new Money(remainingAmount.getAmount().subtract(spending.getMoney().getAmount()));
+        calculateRemaining(amount, spendings);
     }
 
     public Money getMoney() {
         return amount;
     }
 
+    public Money getTotalMoneySpent() {
+        double result = 0;
+        for (Spending spending : spendings) {
+            result += spending.getMoney().getAmount().doubleValue();
+        }
+        return new Money(new BigDecimal(result));
+    }
+
     public Money getRemainingMoney() {
         return remainingAmount;
+    }
+
+    public Money getOvershotMoney() {
+        return overshotAmount;
     }
 
     public String getName() {
@@ -53,12 +66,18 @@ public class Budget {
         return spendings;
     }
 
-    public Money calculateRemaining(Money amount, List<Spending> spendings) {
+    public void calculateRemaining(Money amount, List<Spending> spendings) {
         BigDecimal result = amount.getAmount();
         for (Spending spending : spendings) {
             result = result.subtract(spending.getMoney().getAmount());
         }
-        return new Money(result);
+        if (result.doubleValue() < 0.0) {
+            this.overshotAmount = new Money(new BigDecimal(Math.abs(result.doubleValue())));
+            this.remainingAmount = new Money(new BigDecimal(0.0));
+        } else {
+            this.overshotAmount = new Money(new BigDecimal(0.0));
+            this.remainingAmount = new Money(result);
+        }
     }
 
     @Override
@@ -70,6 +89,18 @@ public class Budget {
             sb.append("\n " + spending.toString());
         }
         return sb.toString();
+    }
+
+    /**
+     * Returns true if both budgets of the same name.
+     */
+    public boolean isSameBudget(Budget otherBudget) {
+        if (otherBudget == this) {
+            return true;
+        }
+
+        return otherBudget != null
+                && otherBudget.getName().equals(getName());
     }
 
     @Override

@@ -21,18 +21,19 @@ public class MoneyTest {
 
     @Test
     public void isValidAmount() {
-        // null phone number
+        // null
         assertThrows(NullPointerException.class, () -> Money.isValidAmount(null));
 
-        // invalid Amount numbers
+        // invalid Amount
         assertFalse(Money.isValidAmount("")); // empty string
         assertFalse(Money.isValidAmount(" ")); // spaces only
         assertFalse(Money.isValidAmount("Amount")); // non-numeric
         assertFalse(Money.isValidAmount("9011p041")); // alphabets within digits
         assertFalse(Money.isValidAmount("9312 1534")); // spaces within digits
+        assertFalse(Money.isValidAmount("-100")); //negative amount
 
-        // valid Amount numbers
-        assertTrue(Money.isValidAmount("911")); // exactly 3 numbers
+        // valid Amount
+        assertTrue(Money.isValidAmount("911"));
         assertTrue(Money.isValidAmount("93121534.98"));
         assertTrue(Money.isValidAmount("124293842033123")); // long Amount numbers
     }
