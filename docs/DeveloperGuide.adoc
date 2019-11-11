@@ -461,7 +461,12 @@ The alternative would be to add fixed constraints to the size of each cell but t
 ==== Implementation
 The game feature is implemented using the singleton pattern using the singleton class `GameWindow` which is created
 by button-click in `StartWindow`. This means that there can only be one `gameInstance` at any given time with the exception
-of the game being over. `GameWindow` has three main components `PlayerInformation`, `GameBody` and `Player`.
+of the game being over.
+
+//image::GameActivityDiagram.png[float="left"]
+image::GameActivityDiagram.png[]
+
+`GameWindow` has three main components `PlayerInformation`, `GameBody` and `Player`.
 
 .Structure of the Game Window
 image::GameWindowClassDiagram.png[]

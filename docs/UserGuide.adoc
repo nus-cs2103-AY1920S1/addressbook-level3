@@ -558,10 +558,10 @@ There are moving words that you can type in order to score points. Once you corr
 the word disappears and the increase in points is reflected in the player information panel in the game window.
 
 .Sample game play
-image::GameWindow.png[width="400" float="left"]
+image::GameWindow.png[width="200" float="left"]
 
 .Sample game play when game is over
-image::GameOver.png[width="400" float="left]
+image::GameOver.png[width="200" float="left]
 
 [TIP]
 Press kbd:[SPACEBAR] or kbd:[Enter] to clear the text area which is located at the bottom of the screen.

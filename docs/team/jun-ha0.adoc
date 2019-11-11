@@ -68,7 +68,7 @@ to understand more about *_Typee_* and its list of features in order to have a b
 ** [red]#*_What it does:_* -# The game feature is a simple typing game where users score points whenever a word, such as
  `grass`, is correctly typed.
 
-** [red]#*_Justification:_* -# The game feature is a utility feature that allows the user to practice and exercise their typing skill,
+** [red]#*_Justification:_* -# The game feature is a utility feature that allows the user to improve their typing skill,
 which is an essential skill for secretaries and receptionists. The game-like environment uses a points system and has the
 advantage of keeping users incentivized and motivated to improve their skills.
 
