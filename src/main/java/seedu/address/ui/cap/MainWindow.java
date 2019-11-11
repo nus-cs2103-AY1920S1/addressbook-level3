@@ -38,7 +38,6 @@ public class MainWindow extends UiPart<Stage> {
     private ModuleListPanel moduleListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private SemesterListPanel semesterListPanel;
     private InformationPanel informationPanel;
     private CapPieChart pieChartDisplay;
     private AchievementBadge achievementBadge;

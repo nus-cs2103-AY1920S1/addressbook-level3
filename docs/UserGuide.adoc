@@ -21,13 +21,15 @@ By: `Team T16-2`      Since: `September 2019`      Licence: `MIT`
 
 Welcome to the User Guide for Modulo!
 
-Modulo is an all-in-one, lifestyle, desktop application to  help National University of Singapore (NUS) students to audit their academics, track their finances, track their grades and schedule their time as they try their best to survive yet another semester of college. Those who prefer to work with a Command Line Interface (CLI) might find using Modulo to be more straightforward than the usual Graphical User Interface (GUI) applications. The application has the visual benefits of a GUI but stands strongly rooted in command line usage. Modulo does not require an internet connection to run so there’s no worry when the school wifi goes MIA yet again. The only time you need to be connected is at the start, when downloading the application. Look to <<Quick Start>> to find out how to get started on Modulo!
+Modulo is an all-in-one student life application which is mainly targeted to NUS students. The app features four different functions which consists of weekly organizer, financial record system, quiz revision, and grades tracker.
+
+Those who prefer to work with a Command Line Interface (CLI) might find using Modulo to be more straightforward than the usual Graphical User Interface (GUI) applications. The application has the visual benefits of a GUI but stands strongly rooted in command line usage. Modulo does not require an internet connection to run so there’s no worry when the school wifi goes MIA yet again. The only time you need to be connected is at the start, when downloading the application. Look to <<Quick Start>> to find out how to get started on Modulo!
 // end::intro[]
 
 == Quick Start
 
 .  Make sure that `Java 11` or above is installed in your computer. Otherwise, you can download Java 11 https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html[here].
-* Enter the follow command in Command Prompt for Windows or Terminal on Mac to check your current version of Java: `java --version`
+*  Enter the follow command in Command Prompt for Windows or Terminal on Mac to check your current version of Java: `java --version`
 .  Download the latest `modulo.jar` here.
 .  Copy the `.jar` file to a folder you wish to set as your working directory for the application.
 .  Double-click the file to start Modulo. If the GUI does not appear in a few seconds, please try running `java -jar modulo.jar` in your command prompt or terminal.
@@ -178,13 +180,14 @@ Format: `clear`
 
 //end::calendar[]
 
-//tag::Grades Tracker[]
+tag::GradesTracker[]
+
 === Grades Tracker
 
 To enter the Module section please enter the command: `switch cap`
 
 .Quick Reference sheet
-[width="80%" cols="^3,^2, 10" options="header"]
+[width="90%" cols="^3,^8, 10" options="header"]
 |=======
 |Available Commands | Prefixes / Input  required | Use
 | add | <m> MODULE_CODE, <t>TITLE, <s> SEMESTER, <c> CREDIT <g> GRADE | Adds a new module.
@@ -277,7 +280,8 @@ e.g. `clear`
 
 ==== Categorisation [Coming in V2.0]
 Categorisation of the modules in their respective semesters and predictive text.
-//end::Grades Tracker[]
+
+end::GradesTracker[]
 
 // tag::quizsection1[]
 === Quiz
