@@ -5,8 +5,9 @@
 
 == 1. Introduction
 
-The purpose of the portfolio is to document my roles and contributions to the project in terms of code, the user and
-developer guides.
+The purpose of the portfolio is to document my roles and contributions to the project,
+link:https://ay1920s1-cs2103t-f13-4.github.io/main/index.html[EzWatchlist] in terms of the code, the User Guide and
+the Developer Guide.
 
 === 1.1 Overview
 
