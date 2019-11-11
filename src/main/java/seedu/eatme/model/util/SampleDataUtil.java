@@ -65,7 +65,6 @@ public class SampleDataUtil {
     public static ReadOnlyFeedList getSampleFeedList() {
         FeedList sampleFl = new FeedList();
         sampleFl.addFeed(new Feed("Seth Lui", "https://sethlui.com/feed"));
-        sampleFl.addFeed(new Feed("Eatbook", "https://eatbook.sg/feed"));
         return sampleFl;
     }
 
