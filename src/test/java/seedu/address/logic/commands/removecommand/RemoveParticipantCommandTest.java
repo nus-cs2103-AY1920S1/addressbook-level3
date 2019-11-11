@@ -5,12 +5,21 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIds.ID_FIRST_PARTICIPANT;
 import static seedu.address.testutil.TypicalIds.ID_FIRST_TEAM;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.assigncommand.AssignParticipantCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.entity.Id;
+import seedu.address.model.entity.Location;
+import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Participant;
+import seedu.address.model.entity.PrefixType;
+import seedu.address.model.entity.Score;
+import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
 import seedu.address.stub.ModelManagerStub;
 import seedu.address.testutil.ParticipantBuilder;
@@ -89,6 +98,32 @@ public class RemoveParticipantCommandTest {
                         validParticipant.getName(), validParticipant.getId(), validTeam.getName(), validTeam.getId()
                 ),
                 commandResult.getFeedbackToUser());
+
+    }
+
+    @Test
+    public void execute_participantNotInTeam_throwsCommandException() throws AlfredException {
+        ModelManagerStub modelStub = new ModelManagerStub();
+        Participant validParticipant = new ParticipantBuilder().build();
+        Team validTeam = new Team(new Id(PrefixType.T, 10),
+                new Name("team"),
+                new ArrayList<>(),
+                null,
+             SubjectName.ENVIRONMENTAL,
+              new Score(0),
+               new Name("project"),
+                new Location(15));
+
+        modelStub.addTeam(validTeam);
+        modelStub.addParticipant(validParticipant);
+
+
+        RemoveParticipantCommand command = new RemoveParticipantCommand(validParticipant.getId(), validTeam.getId());
+
+
+        assertThrows(
+                CommandException.class,
+                RemoveParticipantCommand.MESSAGE_TEAM_DOES_NOT_HAVE_PARTICIPANT, () -> command.execute(modelStub));
 
     }
 
