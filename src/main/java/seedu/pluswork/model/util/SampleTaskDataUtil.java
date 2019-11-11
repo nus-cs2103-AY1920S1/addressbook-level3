@@ -60,7 +60,10 @@ public class SampleTaskDataUtil {
             new Member(new MemberName("Arun"), new MemberId("AR"), getTagSet("Programmer")),
             new Member(new MemberName("Seah Lynn"), new MemberId("SL"), getTagSet("Pitcher")),
             new Member(new MemberName("Elsa Koh"), new MemberId("EK"), getTagSet("Pitcher")),
-            new Member(new MemberName("John Doe"), new MemberId("JD"), getTagSet("Helper"))
+            new Member(new MemberName("John Doe"), new MemberId("JD"), getTagSet("Helper")),
+            new Member(new MemberName("Leow Wen Bin"), new MemberId("WB"), getTagSet("Marketing")),
+            new Member(new MemberName("Keith Teo"), new MemberId("KT"), getTagSet("Temporary")),
+            new Member(new MemberName("Erwin"), new MemberId("EE"), getTagSet("Engineering")),
         };
     }
 
@@ -102,11 +105,21 @@ public class SampleTaskDataUtil {
     public static TasMemMapping[] getSampleTasMemMapping() {
         return new TasMemMapping[]{
             new TasMemMapping(1, 1),
+            new TasMemMapping(8, 0),
+            new TasMemMapping(9, 0),
+            new TasMemMapping(7, 0),
             new TasMemMapping(1, 2),
             new TasMemMapping(2, 1),
             new TasMemMapping(3, 4),
             new TasMemMapping(4, 3),
             new TasMemMapping(5, 5),
+            new TasMemMapping(2, 3),
+            new TasMemMapping(5, 3),
+            new TasMemMapping(4, 2),
+            new TasMemMapping(3, 5),
+            new TasMemMapping(2, 6),
+            new TasMemMapping(9, 8),
+            new TasMemMapping(8, 6),
         };
     }
 
