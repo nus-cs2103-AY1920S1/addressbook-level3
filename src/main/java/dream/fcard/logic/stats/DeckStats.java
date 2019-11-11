@@ -17,15 +17,12 @@ import dream.fcard.util.json.jsontypes.JsonValue;
 import dream.fcard.util.stats.SessionListUtil;
 
 /**
- * Contains statistics pertaining to the user's deck test sessions.
+ * Stores and handles the user's test sessions involving any deck.
  */
 public class DeckStats extends Stats implements JsonInterface {
 
     /** Data structure mapping decks to their corresponding SessionLists. */
     private HashMap<String, SessionList> deckHashMap;
-
-    /** The current Session the user is engaging in. */
-    private Session currentSession;
 
     /** The name of the current Deck the user is testing themselves on, if any. */
     private String currentDeck;
@@ -78,16 +75,6 @@ public class DeckStats extends Stats implements JsonInterface {
         this.currentSession = new Session();
     }
 
-    /** Ends the current session, and sets its score. */
-    public void endCurrentSession(String score) {
-        if (this.currentSession == null) {
-            logger.info("Current test session not found!");
-            return;
-        }
-        this.currentSession.setScore(score);
-        endCurrentSession();
-    }
-
     @Override
     public void endCurrentSession() {
         // assert that currentDeck is not null?
@@ -109,16 +96,24 @@ public class DeckStats extends Stats implements JsonInterface {
             this.addSessionToDeckSessionList(this.currentSession, currentDeck);
 
             // reset currentSession to null since this is terminated
-            this.currentSession = null;
+            resetCurrentSession();
+
+            // reset currentDeck to null since this is terminated
+            resetCurrentDeck();
         } catch (Exception e) {
             e.printStackTrace();
             logger.info("Current test session not found?");
         }
     }
 
-    @Override
-    public Session getCurrentSession() {
-        return this.currentSession;
+    /** Ends the current session, and sets its score. */
+    public void endCurrentSession(String score) {
+        if (this.currentSession == null) {
+            logger.info("Current test session not found!");
+            return;
+        }
+        this.currentSession.setScore(score);
+        endCurrentSession();
     }
 
     // methods relating to changes to decks
@@ -145,7 +140,8 @@ public class DeckStats extends Stats implements JsonInterface {
     }
 
     /**
-     * Creates a new SessionList corresponding to a new deck with the specified name.
+     * Creates a new SessionList corresponding to a new deck with the specified name,
+     * and adds it to the deckHashMap with the supplied deckName as its key.
      * Assumes that no issues with the creating operation exist, i.e. have already been dealt with.
      * @param deckName The name of the deck to be added.
      */
@@ -154,7 +150,8 @@ public class DeckStats extends Stats implements JsonInterface {
     }
 
     /**
-     * Renames a deck.
+     * Renames a deck, i.e. removes the SessionList corresponding to the deck and re-adds it to the
+     * deckHashMap with the newDeckName as its key.
      * Assumes that no issues with the renaming operation exist, i.e. have already been dealt with.
      * @param oldDeckName The original name of the deck.
      * @param newDeckName The new name of the deck.
@@ -165,7 +162,8 @@ public class DeckStats extends Stats implements JsonInterface {
     }
 
     /**
-     * Deletes a deck.
+     * When a deck is deleted, deletes the SessionList corresponding to the deck with the
+     * supplied deckName.
      * @param deckName The name of the deck to be deleted.
      */
     public void deleteDeck(String deckName) {
@@ -184,7 +182,7 @@ public class DeckStats extends Stats implements JsonInterface {
         for (String deckName : this.deckHashMap.keySet()) {
             try {
                 Deck deck = state.getDeck(deckName);
-                totalNumberOfCards += deck.getSize();
+                totalNumberOfCards += deck.getNumberOfCards();
             } catch (DeckNotFoundException e) {
                 logger.info("Deck " + deckName + " was not found!");
             }
@@ -192,7 +190,7 @@ public class DeckStats extends Stats implements JsonInterface {
         return totalNumberOfCards;
     }
 
-    /** Gets the total session list for test sessions involving all decks. */
+    /** Gets a session list containing test sessions involving all decks. */
     public SessionList getTotalSessionList() {
         SessionList totalSessionList = new SessionList();
         for (SessionList sessionList : this.deckHashMap.values()) {

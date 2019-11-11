@@ -2,15 +2,12 @@
 package dream.fcard.logic.stats;
 
 /**
- * Contains statistics pertaining to the user's login sessions.
+ * Stores and handles the user's login sessions.
  */
 public class UserStats extends Stats {
 
     /** List of Sessions the user has engaged in. */
     private SessionList sessionList;
-
-    /** The current Session the user is engaging in. */
-    private Session currentSession;
 
     /** Constructs a new instance of UserStats with no stored data. */
     public UserStats() {
@@ -56,7 +53,7 @@ public class UserStats extends Stats {
             this.sessionList.addSession(currentSession);
 
             // reset currentSession to null since this is terminated
-            this.currentSession = null;
+            resetCurrentSession();
 
             logger.info("Ending the current login session...");
         } catch (Exception e) {

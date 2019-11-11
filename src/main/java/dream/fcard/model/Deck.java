@@ -370,13 +370,6 @@ public class Deck implements JsonInterface {
         return this.getTestSessionList().getNumberOfSessions();
     }
 
-    /** Gets the number of cards in this deck.
-     * @return Integer value of the size of deck.
-     */
-    public int getSize() {
-        return cards.size();
-    }
-
     /** Gets the average score of the test sessions for this deck. */
     public String getAverageScore() {
         return this.getTestSessionList().getAverageScore();
