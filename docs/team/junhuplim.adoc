@@ -98,11 +98,14 @@ production release on GitHub.
 ** Implemented Training and Attendance classes (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/63[#63])
 ** Added the Gender attribute (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/130[#130])
 * Documentation
-** Added documentation for `undo` and `redo` for both User Guide and Developer Guide:
+** Added documentation for `undo` and `redo` for both User Guide and Developer Guide
 (Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/188[#188],
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/219[#219])
-** Standardised product screenshots for `clear` and `help` in User Guide to make it more reader-friendly.
-(Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/223[#223])
+** Standardised product screenshots for `clear` and `help` in User Guide to make it more reader-friendly
+(Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/223[#223])
+** Fixed icons bugs and improved on alignment in User Guide and Developer Guide
+(Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/242[#242],
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/243[#243])
 * Community
 ** Reviewed PRs with non-trivial review comments (Pull requests
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/210[#210],
