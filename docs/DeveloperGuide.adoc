@@ -397,7 +397,7 @@ Every `[green]#Event#` in Athletick is stored in this `[green]#UniqueEventList#`
 The class diagram below shows how the different components mentioned interact with one another.
 
 .Class diagram for showing how Performance is implemented with Model and Logic.
-image::performance_classdiagram.png[width=500]
+image::performance_classdiagram.png[width=400]
 
 As the name suggests, all `[green]#Event#` names are unique in `[green]#UniqueEventList#`.
 This is ensured by `[green]#UniqueEventList#contains()#` that checks whether there is an `[green]#Event#`
@@ -426,6 +426,7 @@ and is updated accordingly when data in `[green]#Performance#` changes.
 
 ===== Function 1: Adding and Deleting of Event
 
+// tag::performance_event[]
 The following sequence diagram illustrates what happens in `[green]#Logic#` and `[green]#Model#` when in an
 example scenario when `event freestyle 50m` is given as a user input (ie. when the user adds the `freestyle
 50m` event).
@@ -436,28 +437,35 @@ image::addevent_sequencediagram.png[width="700"]
 Deleting an event (with `[green]#DeleteEventCommand#`) does the opposite. The input `delete -e freestyle
 50m` will call `[green]#Model#deleteEvent()#`, after making sure the event exists in Athletick by getting a
 boolean from `[green]#Model#hasEvent()#`.
+// end::performance_event[]
 
 ===== Function 2: Adding and Deleting of Record
 
+// tag::performance_record[]
 Operations for `[green]#Record#` - adding and deleting - work similarly to that of `[green]#Event#` as well,
 except there are more methods involved as there is a greater degree of nesting.
 
 The workflow for adding a record can be illustrated by the Activity Diagram below.
 
 .Activity diagram showing how a Record is added to an Event.
-image::addrecord_activitydiagram.png[width="500"]
+image::addrecord_activitydiagram.png[width="700"]
+// end::performance_record[]
 
 ===== Function 3: Viewing of Event and Record
+
+// tag::performance_view[]
 
 Users can also view all `[green]#Record#` s under an `[green]#Event#` using `view records e/EVENT_NAME`.
 The following sequence diagrams illustrate how the `[green]#Logic#`, `[green]#Ui#` and
 `[green]#Model#` work together when `[green]#Record#` viewing is executed.
 
 .Sequence diagram showing how Records are viewed. Interactions in the RecordsPanel are omitted and shown in a separate sequence diagram below.
-image::viewrecords_sequencediagram.png[width="700"]
+image::viewrecords_sequencediagram.png[width="600"]
 
 .Reference frame for interactions in the RecordsPanel in the previous sequence diagram.
-image::recordspanel_sequencediagram.png[width="700"]
+image::recordspanel_sequencediagram.png[width="400"]
+
+// end::performance_view[]
 
 // tag::performance_designconsiderations[]
 

@@ -16,7 +16,7 @@ endif::[]
 
 == Introduction
 
-This project portfolio details my key contributions to the team software engineering project, Athletick.
+This project portfolio details my key contributions to the team software engineering project, *Athletick*.
 
 The team consists of five Year 2 Computer Science undergraduates in the National University of Singapore
 (NUS), including myself.
@@ -29,7 +29,7 @@ We chose to morph the project into *Athletick*, a tool for coaches and captains 
 team's attendance and performance. *Athletick* also features a calendar for coaches and captains to plan
 ahead, and supports the sorting, filtering, and finding of athletes in their database.
 
-Like Address Book, Athletick uses the command-line as its main method of input and a JavaFX Graphical User
+Like Address Book, *Athletick* uses the command-line as its main method of input and a JavaFX Graphical User
 Interface for display. Some constraints of the project were that it should have a command-line input, and
 it should be used by a single user only. The full list of constraints can be found
 https://nus-cs2103-ay1920s1.github.io/website/admin/project-constraints.html[here].
@@ -46,7 +46,7 @@ This section shows a summary of my coding, documentation, and other helpful cont
 *Enhancement addded (major):*  I added the ability to _add_, _delete_, and _view_ events and records.
 
 * What it does: It allows coaches and captains to log records that an athlete completed for a certain
-event, on a certain day, into Athletick. An event can store multiple records over time for the same athlete in
+event, on a certain day, into *Athletick*. An event can store multiple records over time for the same athlete in
 order to track their progress, which can be visualised with a line chart provided.
 
 * Justification: It is crucial for coaches and captains to track the progress of their team over time,
@@ -79,12 +79,9 @@ certain tags to be filtered out of the general athlete list.
 * Highlights: This enhancement provides the necessary framework for further types of filtering, such as by
 gender or location.
 
-*Code contributed:* Please click these links to see a sample of my code:
-https://github.com/AY1920S1-CS2103T-T12-3/main/blob/master/src/main/java/seedu/address/model/performance/Event.java[[Functional code]]
-https://github.com/AY1920S1-CS2103T-T12-3/main/blob/master/src/test/java/seedu/address/logic/commands/EventCommandTest.java[[Test Code]]
-
-A compilation of all the code I contributed can be found
-https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=hellodommy&tabRepo=AY1920S1-CS2103T-T12-3%2Fmain%5Bmaster%5D[here].
+*Code contributed:* The links provided are a compilation of my code contributed to the project:
+https://github.com/AY1920S1-CS2103T-T12-3/main/commits?author=hellodommy[[GitHub repository]]
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=hellodommy&tabRepo=AY1920S1-CS2103T-T12-3%2Fmain%5Bmaster%5D[[RepoSense]]
 
 *Other contributions*
 
@@ -102,8 +99,8 @@ of the product, prior to the final v1.4 release
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/64[#64],
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/84[#84])
 * Documentation
-** Modified the colour scheme of the documentation for consistency with *Athletick*'s dark blue (Pull
-request
+** Modified the colour scheme of the documentation for consistency with *Athletick*'s signature dark blue
+(Pull request
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/79/files[#79])
 ** Added Developer Guide documentation for `filter`, `[green]#Performance#` and `[green]#Storage#` (Pull requests
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/83[#83],
@@ -137,8 +134,9 @@ https://github.com/AY1920S1-CS2103T-F11-4/main/issues/131[#131])
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide.
-They showcase my ability to write documentation targeting end-users._
+|_Given below are extracts of sections I contributed to in the User Guide.
+They showcase my ability to write documentation targeting end-users.
+_
 |===
 
 _[Start of extract from User Guide]_
@@ -151,7 +149,7 @@ _[End of extract from User Guide]_
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide.
+|_Given below are extracts of sections I contributed to in the Developer Guide.
 They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
@@ -160,6 +158,12 @@ _[Start of extract from Developer Guide]_
 include::../DeveloperGuide.adoc[tag=performance_intro]
 
 include::../DeveloperGuide.adoc[tag=performance_overview]
+
+include::../DeveloperGuide.adoc[tag=performance_event]
+
+include::../DeveloperGuide.adoc[tag=performance_record]
+
+include::../DeveloperGuide.adoc[tag=performance_view]
 
 include::../DeveloperGuide.adoc[tag=performance_designconsiderations]
 
