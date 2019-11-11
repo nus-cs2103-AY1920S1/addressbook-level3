@@ -51,6 +51,11 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         Optional<String> isWatchedOptional = argMultimap.getValue(PREFIX_IS_WATCHED);
         Optional<String> fromOnlineOptional = argMultimap.getValue(PREFIX_FROM_ONLINE);
 
+        if (emptyCompulsoryKeyword(nameList, actorList, genreList)) {
+            throw new ParseException("Make sure keyword(s) for n/, a/ or g/ is not empty.\n"
+                    + SearchMessages.MESSAGE_USAGE);
+        }
+
         parseNameToBeSearched(nameList);
         parseTypeToBeSearched(typeOptional);
         parseActorToBeSearched(actorList);
@@ -72,6 +77,33 @@ public class SearchCommandParser implements Parser<SearchCommand> {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     SearchMessages.MESSAGE_USAGE));
         }
+    }
+
+    /**
+     * Returns whether there is any compulsory keyword present.
+     * One of the following keyword needs to be present: show name, actor or genre.
+     * @return True if all compulsory keyword is empty.
+     */
+    private boolean emptyCompulsoryKeyword(List<String> nameList, List<String> actorList, List<String> genreList) {
+        if (nameList.isEmpty() && actorList.isEmpty() && genreList.isEmpty()) {
+            return true;
+        }
+        for (String name : nameList) {
+            if (name.isBlank()) {
+                return true;
+            }
+        }
+        for (String actor : actorList) {
+            if (actor.isBlank()) {
+                return true;
+            }
+        }
+        for (String genre : genreList) {
+            if (genre.isBlank()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -117,11 +149,16 @@ public class SearchCommandParser implements Parser<SearchCommand> {
     private void parseTypeToBeSearched(Optional<String> typeOptional) throws ParseException {
         ArrayList<String> listOfType = new ArrayList<String>();
         if (typeOptional.isPresent()) {
-            String type = typeOptional.get().trim().toLowerCase();
-            if (!(type.equals(Type.MOVIE.getType()) || type.equals(Type.TV_SHOW.getType()))) {
+            String type = typeOptional.get().toLowerCase();
+            if (type.isBlank()) {
+                throw new ParseException("Make sure keyword for t/ is not empty." +
+                        SearchMessages.MESSAGE_INVALID_TYPE_COMMAND);
+            }
+            String typeTrimmed = type.trim();
+            if (!(typeTrimmed.equals(Type.MOVIE.getType()) || typeTrimmed.equals(Type.TV_SHOW.getType()))) {
                 throw new ParseException(SearchMessages.MESSAGE_INVALID_TYPE_COMMAND);
             }
-            listOfType.add(type);
+            listOfType.add(typeTrimmed);
         }
         searchShowsHashMap.put(SearchKey.KEY_TYPE, listOfType);
     }
@@ -149,12 +186,17 @@ public class SearchCommandParser implements Parser<SearchCommand> {
     private void parseIsWatchedToBeSearched(Optional<String> isWatchedOptional) throws ParseException {
         ArrayList<String> listOfIsWatched = new ArrayList<String>();
         if (isWatchedOptional.isPresent()) {
-            String isWatched = isWatchedOptional.get().trim();
-            if (!(isWatched.equals(INPUT_FALSE) || isWatched.equals(INPUT_NO) || isWatched.equals(INPUT_TRUE)
-                    || isWatched.equals(INPUT_YES))) {
-                throw new ParseException(SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
+            String isWatched = isWatchedOptional.get().toLowerCase();
+            if (isWatched.isBlank()) {
+                throw new ParseException("Make sure keyword for w/ is not empty." +
+                        SearchMessages.MESSAGE_INVALID_IS_WATCHED_COMMAND);
             }
-            listOfIsWatched.add(isWatched);
+            String isWatchedTrimmed = isWatched.trim();
+            if (!(isWatchedTrimmed.equals(INPUT_FALSE) || isWatchedTrimmed.equals(INPUT_NO)
+                    || isWatchedTrimmed.equals(INPUT_TRUE) || isWatchedTrimmed.equals(INPUT_YES))) {
+                throw new ParseException(SearchMessages.MESSAGE_INVALID_IS_WATCHED_COMMAND);
+            }
+            listOfIsWatched.add(isWatchedTrimmed);
         }
         searchShowsHashMap.put(SearchKey.KEY_IS_WATCHED, listOfIsWatched);
     }
@@ -166,12 +208,17 @@ public class SearchCommandParser implements Parser<SearchCommand> {
     private void parseFromOnlineToBeSearched(Optional<String> fromOnlineOptional) throws ParseException {
         ArrayList<String> listOfFromOnline = new ArrayList<String>();
         if (fromOnlineOptional.isPresent()) {
-            String fromOnline = fromOnlineOptional.get().trim();
-            if (!(fromOnline.equals(INPUT_FALSE) || fromOnline.equals(INPUT_NO) || fromOnline.equals(INPUT_TRUE)
-                    || fromOnline.equals(INPUT_YES))) {
+            String fromOnline = fromOnlineOptional.get().toLowerCase();
+            if (fromOnline.isBlank()) {
+                throw new ParseException("Make sure keyword for o/ is not empty." +
+                        SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
+            }
+            String fromOnlineTrimmed = fromOnline.trim();
+            if (!(fromOnlineTrimmed.equals(INPUT_FALSE) || fromOnlineTrimmed.equals(INPUT_NO)
+                    || fromOnlineTrimmed.equals(INPUT_TRUE) || fromOnlineTrimmed.equals(INPUT_YES))) {
                 throw new ParseException(SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
             }
-            listOfFromOnline.add(fromOnline);
+            listOfFromOnline.add(fromOnlineTrimmed);
         }
         searchShowsHashMap.put(SearchKey.KEY_FROM_ONLINE, listOfFromOnline);
     }
