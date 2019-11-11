@@ -298,7 +298,8 @@ A new deadline will now be shown at the right side-bar, 3 days later from the da
 
 image::BadFlashcardAdded.png[width="600"]
 
-NOTE: Bad Questions will be added to a deadline which is due 3 days later. This is an approximated value that based on the theory of Spaced Repitition, referring to Ebbinghaus Forgetting Curve by Hermann Ebbinghaus who hypothesised this theory in 1985.
+NOTE: Bad Questions will be added to a deadline which is due 3 days later. This is an approximated value that based on
+the theory of https://en.wikipedia.org/wiki/Spaced_repetition[Spaced Repetition], referring to Ebbinghaus Forgetting Curve by Hermann Ebbinghaus who hypothesised this theory in 1985.
 
 === List all "Bad" FlashCards for a specific date `bad d>DATE`
 
