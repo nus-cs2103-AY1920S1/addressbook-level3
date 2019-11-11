@@ -115,7 +115,7 @@ Project management:
 
 *** I am the Project lead, thus my job consisted of making sure the team coordinated, the overall vision of the application was reached, and handling all the issues that arose in the development.
 
-*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (3 releases) on GitHub
 
 *** Managed and assigned the issues, milestones and project board on Github.
 

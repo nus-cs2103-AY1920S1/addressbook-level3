@@ -343,7 +343,7 @@ image::moviecard.png[width=900]
 At any point the application might fail due to the application not being connected to the internet. If that occurs a
 `OnlineConnectionException` is thrown for the application to handle.
 
-The relationship between all the classes are shown in the following class diagram:
+The relationship between all the classes, and their methods are shown in the following class diagram in Figure 13:
 
 .Detailed Api Class Diagram
 image::ApiClassDiagram.png[width=600]
