@@ -1,0 +1,84 @@
+= Bryan Lim Yan Jie - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ELISA
+
+== Overview
+
+My team of 5 were tasked with morphing or enhancing a basic command line interace (CLI) desktop address book application for our Software Engineering Project.
+
+We were all computing students who were experiencing high amounts of stress from juggling the never-ending list of responsibilities we had.
+We then realised that this was not a problem that was unique to ourselves, thus we resolved to develop an application to help reduce the stress of individuals like us.
+We decided to morph the project into a student assistant we called ELISA. Our Extremely Intelligent n' Loud Student Assistant.
+We decided that ELISA could help us through 5 ways.
+
+1. She could help keep track of our tasks & events
+2. She could help us focus on one task at a time when we feel overwhelmed.
+3. She could remind us so that we don't have to constantly scan through the lists to ensure that we remember everything we need to.
+4. She could entertain us.
+
+This is how our user interface looks like:
+
+image::blimyjUI.png[]
+
+My role was to implement the reminder and snooze functionality as well as to design the underlying commons classes used by my teammates.
+
+== Summary of contributions
+
+In this section, I will be briefly going through my contributions to this team project. For the full extent of my contributions to the project, please visit https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=blimyj[here].
+
+* *Major enhancement*: added *the ability to* set and snooze reminders
+** What it does: allows the user to remind himself of details of tasks or events when needed.
+** Justification: This feature improves the product significantly because the user now no longer needs to constantly scan through lists in order to remember information at the right time. Instead ELISA will now remind him when it's time.
+** Highlights: This enhancement had to deal with multiple threads and had to handle the occurrence of reminders correctly. Due to the undo / redo feature, it required an in-depth analysis of thread-safety and time-sensitive behaviour analysis. The implementation was challenging as it required modifications to other components such as the ItemModelManager in order to ensure the correct handling of reminders when edited, undone or redone.
+
+* *Minor enhancement*: add *commons classes*
+** What it does: Contains the details required for tasks, events & reminders.
+** Justification: It allowed for cross-reference of information between the lists so that details of the  tasks, events & reminders could be accessed regardless of the type of list being viewed without cyclic dependencies.
+** Highlights: This enhancement had to support immutability in order ensure thread-safety as well as to make the code easier to maintain.
+** Credits:
+*** Ideas for considering builder pattern [https://stackoverflow.com/questions/29881135/difference-between-builder-pattern-and-constructor[StackOverflow]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.3.5` (5 releases, excluding `v1.3.4`) on GitHub
+*** Managed team meetings & agendas. (Week 4-10)
+*** Managed bug allocation for PE.
+*** Managed Github team repo. (Setting up of branch protection & tools mentioned below)
+** Documentation:
+*** Updated the developer guide by giving the implementation of the undo function as well as filling in use cases and user stories
+** Reviewed the following pull requests:
+*** https://github.com/AY1920S1-CS2103T-T10-3/main/pull/82[PR #82]:
+**** Suggested abstraction of arePrefixesPresent method to adhere to DRY principle.
+**** Suggested usage of Optional to prevent potential error.
+*** https://github.com/AY1920S1-CS2103T-T10-3/main/pull/116[PR #116]: Suggested changes in function naming in order to maintain code consistency which were eventually implemented.
+*** https://github.com/AY1920S1-CS2103T-T10-3/main/pull/266[PR #266]: Spotted potential conflict with reminder due to repeated addition from autoReschedule event.
+
+** Tools:
+*** Integrated AppVeyor & Coveralls to the team repo [https://github.com/AY1920S1-CS2103T-T10-3/main/pull/281[#281]]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=reminder]
+
+include::../UserGuide.adoc[tag=snooze]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=commons]
+
+include::../DeveloperGuide.adoc[tag=addreminder]
+
+include::../DeveloperGuide.adoc[tag=snoozereminder]
+

@@ -16,7 +16,7 @@ image::blimyj.png[width="150", align="left"]
 {empty}[http://github.com/blimyj[github]] [<<blimyj#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Commons
+Responsibilities: Commons. Management of issue tracker, team repo and team.
 
 '''
 

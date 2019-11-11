@@ -10,6 +10,7 @@ if () then ([command commits AddressBook])
     :Save AddressBook to
     addressBookStateList;
 else ([else])
+    :wqeqw;
 endif
 stop
 @enduml
