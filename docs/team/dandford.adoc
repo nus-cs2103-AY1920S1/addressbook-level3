@@ -2,8 +2,10 @@
 :site-section: AboutUs
 :imagesDir:  ../images
 :stylesDir: ../stylesheets
+<<<<<<< HEAD
 
 == PROJECT: guiltTrip()
+
 ---
 ==== Overview
 
@@ -11,6 +13,7 @@ Craving for a nice bowl of Mala but can’t seem to save up enough for it? guilt
 *aspiring to be able to afford their Mala*, finally!
 
 ==== Summary of contributions
+Data Presentation:
 
 * *Major enhancement*: added *Statistics Breakdown along with Categories*
 ** What it does: allows the user to view the statistics of his spending, whether it be by daily through a bar chart or by category
@@ -25,6 +28,7 @@ to include allowing it to find for all fields of the entry.
 ** Justification: This feature improves the product as there is more Data Organization and the user can choose what data to see through find.
 ** Highlights: This feature involves sorting the exiting list of entries and filtering them, and hence requires an understanding of how the entries are saved to carry out calculation operations on them.
 
+<<<<<<< HEAD
 * *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=dandford&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]
 
 * *Other contributions*:

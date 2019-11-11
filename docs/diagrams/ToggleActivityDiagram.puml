@@ -1,16 +1,15 @@
 @startuml
-(*)  --> "User executes command"
-if "toggle panel" then
---> [Yes] "Handle toggle panel"
---> "Toggle specific panel"
-    if "no panel is visible or managed" then
-        --> [Yes] "Toggle entire side panel"
-        --> (*)
-        else
-        --> [No] (*)
-     endif
-else
---> [No] (*)
-endif
+start
+:User executes toggle panel command;
+:Toggle specific panel;
+if () then ([panel to toggle already shown in main panel])
+        :Throw new CommandException;
+    else ([else])
+        if () then ([all panels are toggled off])
+            :Toggle entire side panel off;
+        else ([else])
+        endif
+    endif
+stop
 
 @enduml

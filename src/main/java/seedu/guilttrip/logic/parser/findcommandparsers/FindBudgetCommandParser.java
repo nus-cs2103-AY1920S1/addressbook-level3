@@ -67,6 +67,11 @@ public class FindBudgetCommandParser implements Parser<FindBudgetCommand> {
             predicateList.add(new EntryContainsAmountPredicate(trimmedDouble));
         }
 
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            String name = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
+            predicateList.add(new EntryContainsCategoryPredicate(new Category(name, CategoryType.EXPENSE)));
+        }
+
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             LocalDate dateToCompare = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get().trim()).getDate();
             predicateList.add(new EntryContainsDatePredicate(dateToCompare));

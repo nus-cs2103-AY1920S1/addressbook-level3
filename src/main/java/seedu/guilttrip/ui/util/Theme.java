@@ -7,7 +7,7 @@ public enum Theme {
 
     LIGHT, DARK;
 
-    public String getThemeAsString(Theme theme) {
+    public static String getThemeAsString(Theme theme) {
         String output = "";
         if (theme == LIGHT) {
             output = "light";
