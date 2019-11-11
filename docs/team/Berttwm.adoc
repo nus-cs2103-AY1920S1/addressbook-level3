@@ -100,9 +100,14 @@ https://github.com/AY1920S1-CS2103T-T13-1/main/issues/216[T13-1 #216])
 |_Given below are snippets of sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=out]
+include::../UserGuide.adoc[tag=out1]
 
-include::../UserGuide.adoc[tag=update]
+include::../UserGuide.adoc[tag=out2]
+
+include::../UserGuide.adoc[tag=update1]
+
+include::../UserGuide.adoc[tag=update2]
+
 
 == Contributions to the Developer Guide
 

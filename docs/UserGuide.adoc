@@ -206,6 +206,7 @@ image::in_ug_4.png[]
 //end::in[]
 
 //tag::out[]
+//tag::out1[]
 [[Out]]
 === Logging Expense : `out`
 
@@ -228,7 +229,10 @@ Format: `out $/AMOUNT n/DESCRIPTION d/DATE [c/CATEGORY]...`
 
 ==== Example Usages
 
+//end::out1[]
+
 ===== Example 1
+
 
  out $/5 d/01012020 n/burger
 
@@ -269,6 +273,7 @@ image::out_ug_3.png[]
 .Sample Expenditure 2 Added
 image::out_ug_4.png[]
 
+//tag::out2[]
 [[UG_OUT_EXAMPLE3]]
 ===== Example 3
 
@@ -308,6 +313,8 @@ image::out_ug_8.png[]
 * `out $/100 d/01012019 n/milk c/food c/drinks`
 * `out $/29 d/29022020 n/taxi c/transport`
 * `out $/12 d/31122019 n/burger`
+
+//end::out2[]
 
 //end::out[]
 
@@ -746,6 +753,7 @@ image::delete_ug_3.png[]
 [[Update]]
 
 //tag::update[]
+//tag::update1[]
 
 === Updating Finance : `update`
 
@@ -781,6 +789,7 @@ Format (Projections): Cannot be updated
 Changing the categories of an `out` _Transaction_ entry with similar categories to that of a _Budget_ entry to reflect changes on the budget's remaining amount will be incoming in version 2.0.
 
 ==== Example Usage
+//end::update1[]
 
 ===== Example 1:
 
@@ -821,6 +830,8 @@ image::update_ug_5.png[]
 .Success Message for the Update Example 2
 image::update_ug_6.png[]
 
+//tag::update2[]
+
 [[UG_UPDATE_EXAMPLE_3]]
 ===== Example 3:
 
@@ -857,6 +868,7 @@ image::update_ug_11.png[]
 * `update b2 $/300`
 * `update t4 $/30 d/12102019`
 
+//end::update2[]
 //end::update[]
 
 [[Sort]]
