@@ -762,7 +762,7 @@ The following are the correct formats for typing in stats commands, with example
 * To display the last 10 days: `stats` +
 The line chart displays statistics over the last 10 days. The line chart appears as below:
 
-.Line chart displaying the last 10 days
+.Line chart displaying the last 10 days from the current date
 image::statsTenDays.png[width="790"]
 
 * To display a specific week: `stats /week 25/10/2019` +
