@@ -62,3 +62,6 @@ include::../DeveloperGuide.adoc[tag=expense]
 
 ---
 include::../DeveloperGuide.adoc[tag=createexpense]
+
+---
+include::../DeveloperGuide.adoc[tag=numericalerror]

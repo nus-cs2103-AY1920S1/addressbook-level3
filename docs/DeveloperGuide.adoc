@@ -278,7 +278,7 @@ Each expense also involves some people who will be taken to owe money to the pay
 
 * Amount
 
-The amount of money spent. The value of an `Amount` is stored as a `double`, and must be non-negative.
+The amount of money spent. The value of an `Amount` is stored as a `double`, and must be non-negative. Refer to <<Limitations of `double`>> for a more in depth analysis the numerical errors that may arise due to the limitations of this representation.
 
 * Description
 
@@ -908,23 +908,21 @@ Use case resumes at step 2.
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, *nix, OS-X
 
+//tag::numericalerror[]
 [appendix]
-== Product Survey
+== Limitations of `double`
 
-*Product Name*
+It is important to note that SplitWiser in its current iteration uses `double` to represent expense amounts and debt values. While we maintain that this choice is sufficient for the intended uses of SplitWiser (i.e. to simplify debt calculations among friends), it is nonetheless essential as the developer to be aware of the issues that can arise with using such a representation.
 
-Author: ...
+Java uses the double precision 64-bit IEEE 754 floating point format to represent doubles, which internally comprises 1 sign bit, 11 exponent bits and 52 mantissa bits. The finite digit nature of the mantissa consequently results in potential loss of precision when attempting to add or subtract numbers which have a wide range in magnitude. One example is as follows:
 
-Pros:
+.Example activity
+image::NumericalError.png[]
 
-* ...
-* ...
+Here, if Alex attempts to settle the debt with David using `settle p/alex p/david`, the debt re-calculations will result the debt still being non-zero. In fact, if the user attempts executes another `settle p/alex p/david`, the debt still remains!
 
-Cons:
 
-* ...
-* ...
-
+//end::numericalerror[]
 [appendix]
 == Instructions for Manual Testing
 
