@@ -17,8 +17,6 @@ endif::[]
 
 By: `CS2103T-T12-4`      Since: `Aug 2019`      Licence: `-`
 
-<<<
-
 == Introduction
 
 KeyboardFlashCards (KFC) is for those who prefer to use a desktop app to study using flashcards.
