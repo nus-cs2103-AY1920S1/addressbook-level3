@@ -1,5 +1,8 @@
 package seedu.revision.ui;
 
+import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.revision.ui.bar.Timer.TIMER_UP_SKIP_QUESTION;
+
 import java.util.Iterator;
 import java.util.Optional;
 
@@ -14,6 +17,9 @@ import seedu.revision.logic.Logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.main.CommandResultBuilder;
+import seedu.revision.logic.commands.quiz.McqInputCommand;
+import seedu.revision.logic.commands.quiz.SaqInputCommand;
+import seedu.revision.logic.commands.quiz.TfInputCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
@@ -147,6 +153,64 @@ public class StartQuizWindow extends ParentWindow {
     }
 
     /**
+     * Executes the command and returns the result.
+     *
+     * @see Logic#execute(String, Answerable)
+     */
+    @Override
+    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        try {
+
+            if (commandText.equals(TIMER_UP_SKIP_QUESTION) && !timer.isTimeUp()) {
+                throwParseExceptionWhenUserSkipsQuestion();
+            }
+
+            CommandResult commandResult = logic.execute(commandText, currentAnswerable);
+            if (commandResult.isCorrect()) {
+                totalScore++;
+                score++;
+            }
+
+            timer.resetTimer();
+
+            if (commandResult.isExit()) {
+                handleExit();
+                return new CommandResultBuilder().build();
+            }
+
+            if (!commandResult.isCorrect() && mode.value.equals(Modes.ARCADE.toString())) {
+                handleEnd(currentAnswerable);
+                return new CommandResultBuilder().build();
+            }
+
+            if (!answerableIterator.hasNext()) {
+                handleEnd(currentAnswerable);
+                return new CommandResultBuilder().build();
+            }
+
+            currentProgressIndex.set(getCurrentProgressIndex() + 1);
+
+            previousAnswerable = currentAnswerable;
+            currentAnswerable = answerableIterator.next();
+
+            if (previousAnswerable.getDifficulty().compareTo(currentAnswerable.getDifficulty()) < 0) {
+                handleNextLevel(previousAnswerable, currentAnswerable);
+            }
+
+            answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
+            setAnswerGridPaneByType(currentAnswerable);
+            answersGridPane.updateAnswers(currentAnswerable);
+
+            questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
+
+            return commandResult;
+        } catch (CommandException | ParseException e) {
+            questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString() + "\n\n" + e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
      * Handles progression to the next level and receives response from the user.
      * @param nextAnswerable next answerable that will be displayed.
      */
@@ -273,52 +337,12 @@ public class StartQuizWindow extends ParentWindow {
                 + "(normal / arcade / custom) to try another quiz!");
     }
 
-    /**
-     * Executes the command and returns the result.
-     *
-     * @see Logic#execute(String, Answerable)
-     */
-    @Override
-    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
-        try {
-            CommandResult commandResult = logic.execute(commandText, currentAnswerable);
-            if (commandResult.getIsCorrect()) {
-                totalScore++;
-                score++;
-            }
+    public StackPane getLevelPlaceholder() {
+        return levelPlaceholder;
+    }
 
-            timer.resetTimer();
-
-            if (commandResult.isExit()) {
-                handleExit();
-                return new CommandResultBuilder().build();
-            }
-            if (!commandResult.getIsCorrect() && mode.value.equals(Modes.ARCADE.toString())) {
-                handleEnd(currentAnswerable);
-                return new CommandResultBuilder().build();
-            }
-            if (!answerableIterator.hasNext()) {
-                handleEnd(currentAnswerable);
-                return new CommandResultBuilder().build();
-            }
-
-            currentProgressIndex.set(getCurrentProgressIndex() + 1);
-            previousAnswerable = currentAnswerable;
-            currentAnswerable = answerableIterator.next();
-
-            if (previousAnswerable.getDifficulty().compareTo(currentAnswerable.getDifficulty()) < 0) {
-                handleNextLevel(previousAnswerable, currentAnswerable);
-            }
-
-            answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
-            setAnswerGridPaneByType(currentAnswerable);
-            answersGridPane.updateAnswers(currentAnswerable);
-            questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
-            return commandResult;
-        } catch (CommandException | ParseException e) {
-            questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString() + "\n\n" + e.getMessage());
-            throw e;
-        }
+    public CommandBox getCommandBox() {
+        return commandBox;
     }
 
     public LevelLabel getLevelLabel() {
@@ -328,5 +352,24 @@ public class StartQuizWindow extends ParentWindow {
     public ProgressIndicatorBar getProgressIndicatorBar() {
         return progressIndicatorBar;
     }
+    public Timer getTimer() {
+        return timer;
+    }
 
+
+    /**
+     *
+     * @throws ParseException when uses attempts to skip question using internal command.
+     */
+    private void throwParseExceptionWhenUserSkipsQuestion() throws ParseException {
+        if (currentAnswerable instanceof Mcq) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, McqInputCommand.MESSAGE_USAGE));
+        } else if (currentAnswerable instanceof TrueFalse) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TfInputCommand.MESSAGE_USAGE));
+        } else {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaqInputCommand.MESSAGE_INVALID_INPUT_TIMER_UP));
+        }
+    }
 }

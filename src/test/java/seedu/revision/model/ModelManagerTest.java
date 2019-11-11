@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalMcqs.B_ANSWERABLE;
-import static seedu.revision.testutil.TypicalMcqs.MCQ_STUB;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_C;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_D;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
-import seedu.revision.testutil.RevisionToolBuilder;
+import seedu.revision.testutil.builder.RevisionToolBuilder;
 
 public class ModelManagerTest {
 
@@ -79,13 +79,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasAnswerable_answerableNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasAnswerable(MCQ_STUB));
+        assertFalse(modelManager.hasAnswerable(MCQ_C));
     }
 
     @Test
     public void hasAnswerable_answerableInAddressBook_returnsTrue() {
-        modelManager.addAnswerable(MCQ_STUB);
-        assertTrue(modelManager.hasAnswerable(MCQ_STUB));
+        modelManager.addAnswerable(MCQ_C);
+        assertTrue(modelManager.hasAnswerable(MCQ_C));
     }
 
     @Test
@@ -95,8 +95,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        RevisionTool revisionTool = new RevisionToolBuilder().withAnswerable(MCQ_STUB)
-                .withAnswerable(B_ANSWERABLE).build();
+        RevisionTool revisionTool = new RevisionToolBuilder().withAnswerable(MCQ_C)
+                .withAnswerable(MCQ_D).build();
         RevisionTool differentRevisionTool = new RevisionTool();
         UserPrefs userPrefs = new UserPrefs();
         History history = new History();
@@ -119,7 +119,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentRevisionTool, userPrefs, history)));
 
         // different filteredList -> returns false
-        String[] keywords = MCQ_STUB.getQuestion().question.split("\\s+");
+        String[] keywords = MCQ_C.getQuestion().question.split("\\s+");
         modelManager.updateFilteredAnswerableList(new QuestionContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(revisionTool, userPrefs, history)));
 
