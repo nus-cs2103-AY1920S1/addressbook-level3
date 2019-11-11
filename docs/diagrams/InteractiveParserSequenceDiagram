@@ -1,0 +1,89 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":Parser" as Parser LOGIC_COLOR
+participant "t:TypeState" as TypeState LOGIC_COLOR
+participant "startState:StartDateState" as StartDateState LOGIC_COLOR
+participant "endState:EndDateState" as EndDateState LOGIC_COLOR
+participant "locationState:LocationState" as LocationState LOGIC_COLOR
+participant "commandResult:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("add t/meeting s/15/11/2019/1500 e/15/11/2019/1600")
+activate LogicManager
+
+LogicManager -> Parser : parseInput("add t/meeting s/15/11/2019/1500 e/15/11/2019/1600")
+activate Parser
+
+create TypeState
+Parser -> TypeState : instantiateStateMachine()
+activate TypeState
+TypeState --> Parser
+deactivate TypeState
+
+Parser -> TypeState : transition()
+activate TypeState
+
+create StartDateState
+TypeState -> StartDateState
+activate StartDateState
+
+StartDateState --> TypeState
+deactivate StartDateState
+
+TypeState --> Parser : startState
+deactivate TypeState
+destroy TypeState
+
+Parser -> StartDateState : transition()
+activate StartDateState
+
+create EndDateState
+StartDateState -> EndDateState
+activate EndDateState
+EndDateState --> StartDateState
+deactivate EndDateState
+
+StartDateState --> Parser : endState
+destroy StartDateState
+
+Parser --> EndDateState : transition()
+activate EndDateState
+
+create LocationState
+EndDateState -> LocationState
+activate LocationState
+LocationState --> EndDateState
+deactivate LocationState
+
+EndDateState --> Parser : locationState
+destroy EndDateState
+
+Parser --> LogicManager
+deactivate Parser
+
+LogicManager -> Parser : fetchResult()
+activate Parser
+
+Parser -> LocationState : getStateConstraints()
+activate LocationState
+
+LocationState --> Parser
+deactivate LocationState
+
+create CommandResult
+Parser -> CommandResult
+activate CommandResult
+
+CommandResult --> Parser
+deactivate CommandResult
+
+Parser --> LogicManager : commandResult
+deactivate Parser
+
+LogicManager -->[ : commandResult
+deactivate LogicManager
+
+@enduml

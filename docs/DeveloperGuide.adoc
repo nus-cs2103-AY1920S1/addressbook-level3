@@ -96,6 +96,13 @@ The `UI` component,
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
+{empty} +
+
+[NOTE]
+The package state contains additional packages that represent state machines for each `Command`. These packages have been
+omitted for brevity. +
+XYZ refers to any arbitrary command. For example: +
+`XYZEndState` can be `AddEndState` and `XYZCommand` can be `AddCommand`.
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -689,6 +696,14 @@ which is executed by the `LogicManager`.
 
 The structure of the interactive parser is detailed in the UML diagram below.
 
+.Class diagram of the interactive parser. This figures shows an example of a state machine inside the package `State`.
+image::InteractiveParserDiagram.png[]
+{empty} +
+
+[NOTE]
+The above diagram only shows the component of the package `State` that handles the `PdfCommand`. The other packages have been
+omitted for brevity.
+
 Parsing of user entered inputs can be viewed as parsing a small, finite context-free language. The command built by a sequence of inputs
 is uniquely determined by the sequence of inputs entered by the user and happens to be deterministic. +
 
@@ -708,7 +723,14 @@ processed by the `InputProcessor` class and forwarded to the current `State`. If
 method of the current `State` to proceed to the next `State`. This process is repeated until an `EndState` is reached. Throughout this process, the
 user receives feedback from the `Parser` in the form of an encapsulated `CommandResult` object.
 
-Below is a sequence diagram illustrating the processes that occur when the user enters `t/meeting s/15/11/2019/1500` following `add`.
+Below is a sequence diagram illustrating the processes that occur when the user enters `add t/meeting s/15/11/2019/1500 e/15/11/2019/1600`.
+
+.Sequence diagram illustrating how the `Parser` parses the entered input and returns the result to the GUI in the form of a `CommandResult` object.
+image::InteractiveParserSequenceDiagram.png[]
+{empty} +
+
+[NOTE]
+The sequence diagram incorrectly extends the life-line of the three destroyed `State` classes. This is due to a limitation of PlantUML.
 
 The high-level working of the `Parser` can be summarized by the activity diagram shown below.
 
