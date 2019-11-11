@@ -973,7 +973,7 @@ Expected: Quantity of carbonara consumed will be 1. Quantity of beef stew consum
 .. Test Case: `add n/carbonara c/689`, followed by `report`. +
 Expected: Maximum will be 689, Minimum will be 0, and Average will be 22.
 .. Test case: `add n/carbonara c/689`, `add n/beef stew c/200`, followed by `report`. +
-Expected: Maximum will be 889, Minimum will be 0, and Average will be 29(for 30 day months) or 28(for 31 day months).
+Expected: Maximum will be 889, Minimum will be 0, and Average will be 30(for 30 day months) or 29(for 31 day months).
 .. Test case: same as previous, with additional `add n/beef stew c/200` before `report` on a different day in the same month. +
 Expected: Maximum will be 889, Minimum will be 0, and Average will be 36(for 30 day months) or 35(for 31 day months).
 [NOTE]
