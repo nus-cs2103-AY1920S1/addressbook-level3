@@ -20,7 +20,7 @@ import seedu.address.model.tag.Tag;
 public class Policy implements Binnable {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "This policy is not available.";
+        "This policy is not available.";
 
     public static final String DATA_TYPE = "POLICY";
 
@@ -100,7 +100,7 @@ public class Policy implements Binnable {
         }
 
         return otherPolicy != null
-                && otherPolicy.getName().equals(getName());
+            && otherPolicy.getName().equals(getName());
     }
 
     /**
@@ -113,12 +113,12 @@ public class Policy implements Binnable {
         }
 
         return otherPolicy != null
-                && otherPolicy.getName().equals(getName())
-                && otherPolicy.getDescription().equals(getDescription())
-                && otherPolicy.getCoverage().equals(getCoverage())
-                && otherPolicy.getPrice().equals(getPrice())
-                && otherPolicy.getStartAge().equals(getStartAge())
-                && otherPolicy.getEndAge().equals(getEndAge());
+            && otherPolicy.getName().equals(getName())
+            && otherPolicy.getDescription().equals(getDescription())
+            && otherPolicy.getCoverage().equals(getCoverage())
+            && otherPolicy.getPrice().equals(getPrice())
+            && otherPolicy.getStartAge().equals(getStartAge())
+            && otherPolicy.getEndAge().equals(getEndAge());
     }
 
 
@@ -138,19 +138,33 @@ public class Policy implements Binnable {
 
         Policy otherPolicy = (Policy) other;
         return otherPolicy.getName().equals(getName())
-                && otherPolicy.getDescription().equals(getDescription())
-                && otherPolicy.getCoverage().equals(getCoverage())
-                && otherPolicy.getPrice().equals(getPrice())
-                && otherPolicy.getStartAge().equals(getStartAge())
-                && otherPolicy.getEndAge().equals(getEndAge())
-                && otherPolicy.getCriteria().equals(getCriteria())
-                && otherPolicy.getTags().equals(getTags());
+            && otherPolicy.getDescription().equals(getDescription())
+            && otherPolicy.getCoverage().equals(getCoverage())
+            && otherPolicy.getPrice().equals(getPrice())
+            && otherPolicy.getStartAge().equals(getStartAge())
+            && otherPolicy.getEndAge().equals(getEndAge())
+            && otherPolicy.getCriteria().equals(getCriteria())
+            && otherPolicy.getTags().equals(getTags());
     }
 
     /**
      * Returns true if the specified {@code Person} is eligible for the policy.
      */
     public boolean isEligible(Person person) {
+        return isEligibleAge(person) && isEligibleCriteria(person);
+    }
+
+    /**
+     * Returns true if the specified {@code Person} is fulfills the policy criteria.
+     */
+    public boolean isEligibleCriteria(Person person) {
+        return person.getTags().containsAll(criteria);
+    }
+
+    /**
+     * Returns true if the specified {@code Person} is within the age range of the policy.
+     */
+    public boolean isEligibleAge(Person person) {
         LocalDate localDateOfBirth = person.getDateOfBirth().toLocalDate();
         int birthYear = localDateOfBirth.getYear();
         int birthDayOfYear = localDateOfBirth.getDayOfYear();
@@ -164,14 +178,6 @@ public class Policy implements Binnable {
             age -= 1;
         }
 
-        return person.getTags().containsAll(criteria)
-                && isEligibleAge(age);
-    }
-
-    /**
-     * Returns true if the specified {@code int} is within the age range of the policy.
-     */
-    public boolean isEligibleAge(int age) {
         return age > Integer.parseInt(this.startAge.age) && age < Integer.parseInt(this.endAge.age);
     }
 
@@ -185,19 +191,19 @@ public class Policy implements Binnable {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append("\nDescription: ")
-                .append(getDescription())
-                .append("; Coverage: ")
-                .append(getCoverage().toReadableString())
-                .append("; Price: ")
-                .append(getPrice());
+            .append("\nDescription: ")
+            .append(getDescription())
+            .append("; Coverage: ")
+            .append(getCoverage().toReadableString())
+            .append("; Price: ")
+            .append(getPrice());
         if (!startAge.age.equals(StartAge.AGE_ZERO)) {
             builder.append("; Start Age: ")
-                    .append(getStartAge());
+                .append(getStartAge());
         }
         if (!endAge.age.equals(EndAge.AGE_INFINITY)) {
             builder.append("; End Age: ")
-                    .append(getEndAge());
+                .append(getEndAge());
         }
         if (getCriteria().size() != 0) {
             builder.append("\nCriteria: ");
