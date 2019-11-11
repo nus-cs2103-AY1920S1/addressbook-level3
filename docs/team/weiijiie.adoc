@@ -105,7 +105,7 @@ include::../UserGuide.adoc[tag=statistics]
 
 |===
 |_Displayed below are the sections I contributed for the developer guide. They highlight the work done into building a clean extensible architecture for statistics display,
-and my technical writing capabilities in conveying fairly technically heavy concepts in relatively simple prose. _
+and my technical writing capabilities in conveying fairly technically heavy concepts in relatively simple prose._
 |===
 
 include::../DeveloperGuide.adoc[tag=statistics]

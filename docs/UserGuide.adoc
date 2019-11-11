@@ -592,7 +592,7 @@ followed by `find d/food sd/01/01/2019 ed/01/02/2019`. (Unsure about this comman
 
 ==== _Display timeline overview of expenses: display-stats timeline_ +
 
-.Timeline of expenses grouped by tag
+.Timeline of all expenses
 image::display-timeline-example-normal.png[]
 {nbsp} +
 
@@ -659,7 +659,7 @@ total amount determines the size of its slice of the pie chart.
 ==== _Display heatmap of expenses: display-stats heatmap_ +
 
 .Heatmap of all expenses grouped by tags.
-image::display-heatmap-example-normal.png[]
+image::display-heatmap-example-tag.png[]
 {nbsp} +
 
 You can view a heatmap of total expenses per day for the currently displayed expenses, limited to the past year. The y-axis represents the day of the week the expense was made, while
