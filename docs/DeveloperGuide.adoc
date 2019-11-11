@@ -1118,24 +1118,6 @@ The person that the secretary is assigned to work for.
 An arrangement, meeting or interview managed and maintained by a secretary, for the manager to meet someone at a particular time and place.
 //end::glossary[]
 
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
 [appendix]
 == Instructions for Manual Testing
 
