@@ -632,6 +632,7 @@ The `add` command is facilitated by the Logic and Model components of the applic
 *Step 6*: `LogicManager` calls `AddRepeaterCommand#execute()`.
 
 *Step 7*: `AddRepeaterCommand` checks for the following constraints:
+
 - The `Repeater` to be added does not already exist in the `Model`.
 - The end date of the `Repeater` to be added is no earlier than its start date.
 - The start date and and end date of the `Repeater` to be added span no more than 60 months.
@@ -673,6 +674,7 @@ The `edit` command is facilitated by the Logic and Model components of the appli
 *Step 7*: `LogicManager` executes `EditRepeaterCommand#execute()`.
 
 *Step 8*: `EditRepeaterCommand` checks for the following constraints:
+
 - The updated `Repeater` does not already exist in the `Model`.
 - The end date of the updated `Repeater` is no earlier than its start date.
 - The start date and and end date of the updated `Repeater` span no more than 60 months.
