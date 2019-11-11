@@ -82,7 +82,7 @@ public class EditNoteCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_NOTE);
         }
 
-        model.commitNote(command);
+        model.commitNoteBook(command);
         model.setNote(noteToEdit, editedNote);
         model.sortNoteBook();
         return CommandResult.builder(String.format(MESSAGE_EDIT_NOTE_SUCCESS, editedNote))

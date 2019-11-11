@@ -144,184 +144,638 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== Analyse Password
-The following class diagram is the current structure of the `Analyser` component, using `DictionaryAnalyser` as an example:
+=== Password Management
+==== Model
+The `Password` model is created to support the password management feature of our application.
+It stores the information of all the passwords created by the user. The class diagram of the `Password` model is as follows:
 
+image::PasswordClassDiagram.png[]
+
+The `Password` model consists of a `Password` class which has its attributes implemented as
+separate classes to follow *Single Responsibility Principle*. The attributes are as follows:
+
+`Username`: The username of the password model
+
+`PasswordValue`: The actual password value of the password model
+
+`PasswordDescription`: The description of the password model.
+
+`Website`: The website where the password is being used for.
+
+`PasswordModifiedAt`: The local date when the password is last modified.
+
+`PasswordExpiredAt`: The local date 1 year after the password is last modified.
+
+`ExpiryMode`: It has 3 modes: `HEALTHY`, `EXPIRING`, `EXPIRED`, depending on how close local time is when compared to the expiry date of the password.
+
+The `Password` are stored in a `UniquePasswordList` in the `PasswordBook` and the existing model manager is extended to
+add the functionality managing passwords into the application. Minimal functionality are added to adhere to the *YAGNI* principle.
+
+==== Design Considerations:
+===== Aspect: Model Manager for Password.
+This would be similar for all other models including `File` model, `Card` model, `Note` model and `Password` model.
+
+* **Alternative 1 (current choice):** The current model manager is extended to handle the filtered lists of all the models.
+** Pros: Adheres to *DRY* design principle as it extends the functionality of the model manager without repeating.
+** Cons: It might increase coupling in the model manager.
+
+* **Alternative 2:** Create another `Model` interface and another `Model Manager` class.
+** Pros: Easy to implement.
+** Cons: Does not adhere to *DRY* design principle, where additional `Model Manager` class are created.
+
+==== Logic
+In this feature, you are able to `add`, `read`, `edit`, `find`, `list`, `delete` and `copy`. Additional `Parser` and `Command`
+classes are included to enhance the functionality. The class diagram for all `Command` classes available for `Password` model is as follows:
+
+image::CopyCommand.png[]
+
+
+===== Aspect: Logic Manager for Password model.
+This would be similar for all other models such as the `File` model, `Card` model, `Note` model and `Password` model.
+
+* **Alternative 1 (current choice):** The current logic manager is extended to handle the model parsers. The logic manager
+checks for the current mode of the system and decides which model parser class to use.
+** Pros: This adheres to the Open-closed principle in SOLID. Same command words can be used in different modes and it does not increase coupling in the application.
+** Cons: Hard to implement. Requires another command to switch modes. Similar command classes will need to be implemented in different model such as `AddPasswordCommand`, `AddNoteCommand`, `AddCardCommand`.
+However, all the fields in the command classes are different and separating them into different classes reduces coupling.
+* **Alternative 2:** Extending one parser class to handle all the different commands. Different command will have different `add` command words.
+
+** Pros: Easy to implement.
+** Cons: User will have to remember different command words for the same `add` command for different modes. This will decrease the usability of the application.
+
+==== Copy Command:
+===== Current Implementation:
+`CopyPasswordValueCommand` class, `CopyWebsiteCommand` class and `CopyUsernameCommand` class extends `CopyPasswordCommand` class.
+
+These three classes are implemented together with `CopyCommandParser` class to create the functionality of copying the required details onto clipboard using CLI.
+Since this is a command that would be used frequently, command alias are added to increase the efficiency for the user.
+The activity diagram below describes the flow of the `CopyPasswordCommand`:
+
+image::CopyPasswordSequenceDiagram.png[]
+
+The following sequence diagram describes the detailed interactions between any `CopyPasswordCommand` and the architecture:
+
+==== Design Considerations:
+===== Aspect: Implementation of `CopyPasswordCommand`
+* **Alternative 1 (current choice):** The `CopyPasswordCommand` class extends `Command` class. `CopyPasswordValueCommand` class, `CopyWebsiteCommand` class and `CopyUsernameCommand` class extend `CopyPasswordCommand`.
+** Pros: This follows closely to *Polymorphism* and *Inheritance* concepts as all three commands share the similar functionality.
+The common functionality is abstracted out and placed inside the `CopyPasswordCommand`.
+** Cons: Any further enhancement of the child commands will have to follow `Liskov Substitution Principle` and it needs to be more restrictive than the parent command.
+
+* **Alternative 2:** `CopyPasswordValueCommand`, `CopyWebsiteCommand` , `CopyUsernameCommand` will extend `Command` class.
+** Pros: Easy to implement. `PasswordBookParser` can directly check for the command word instead of splitting into 2 command words.
+** Cons: Violates *DRY* design principle.
+
+// tag::generate[]
+
+=== Generate Password
+
+This section provides implementation details on the password generation feature.
+
+==== Overview
+The purpose of password generation is to provide users with a hassle-free way to generate random, secure passwords.
+
+By default, the password generation feature will generate a random password that:
+
+* is 10 letters long
+
+* includes lower case alphabets
+
+* includes upper case alphabets
+
+* includes numerals
+
+* includes Special characters
+
+However, users can alternatively choose to customise any of the aforementioned fields as per their needs through their input.
+
+The generation of truly random passwords is made possible through the use of the `java.security.SecureRandom` API.
+It provides a cryptographically strong random number generator (RNG) that will be used in the password generation.
+
+The intricacies will be further reviewed in the **Implementation** section below.
+
+==== Implementation
+
+The following activity diagram summarises the general steps taken during password generation:
+
+
+.Summary flow of actions during password generation.
+image::GeneratePasswordActivityDiagram.png[width="400"]
+
+The steps below outline explicity the generation of passwords :
+
+*  The user input is `#parse()` by the `GeneratePasswordCommandParser`.
+
+* Based on the user input, a `GeneratePasswordDescriptor` is instantiated.
+** If the user input includes optional prefixes to customise configuration, we modify the attributes of the `GeneratePasswordDescriptor` through various setter methods.
+
+** Else, the default `GeneratePasswordDescriptor` instantiated through the static method `GeneratePasswordDescriptor#getDefaultConfiguration()`.
+
+
+[NOTE]
+The `GeneratePasswordDescriptor` is an object that encapsulates the settings of the **configuration** used for password generation.
+
+* Upon `GeneratePasswordCommand` is instantiated with the given configuration.
+
+* Upon `#execute()`, the static method `GeneratorUtil#generateRandomPassword()` is invoked:
+
+** Based on the configuration, the relevant character sets (lower-case alphabets, upper case alphabets, numerals, special characters) are added into a list.
+
+** The `GeneratorUtil` class uses the method `java.security.SecureRandom.nextInt()` to choose a random characters set, followed by a random character within the set to be used in the new password.
+
+** This process of choosing a character to include in the password is repeated for the length of the password.
+
+* The generated password is then checked to see if it includes all the user requirements (ie. whether it includes all the character sets specified by the user.)
+
+* This process of generating a password is repeated until the user requirements are met.
+
+The activity diagram below depicts the way in which a password is generated by the method `GeneratorUtil#generateRandomPassword()`:
+
+.Summary flow of actions during the invokation of #generateRandomassword().
+image::GenerateMethodActivityDiagram.png[width="500"]
+
+==== Design considerations
+
+These are the considerations we came across when implementing the generate feature:
+
+===== Aspect: How to generate a random password
+|===
+|**Alternative 1 (Current choice)**|**Alternative 2**
+How to generate a truly random password
+| **Randomly choose a character set, followed by a character within the set to include in password**: +
+ +
+[underline]_Pros:_ +
+Randomness is achieved because there is no predictability in the way a character set, or character is chosen.
+
+
+[underline]_Cons:_ +
+Efficiency is compromised. Generating a password this way may produce a password that does not meet user configuration
+(e.g. random password does not include special characters, although it was supposed to).
+As such, program needs to keep producing new random password until all the user configuration are met.
+|**Ensuring all user configurations are met by hard coding a pattern in the way character sets are included** +
+ +
+[underline]_Pros:_ +
+Efficiency is achieved. We are guaranteed to generate a password that matches users' configuration everytime (e.g. lower case -> upper case -> numeral -> special case patter) +
+
+[underline]_Cons:_ +
+Randomness is compromised. Generating passwords in such a pattern makes the password style very predictable, hence compromising randomness and security.
+
+2+|**Why did we choose Alternative 1:** +
+Although less time efficient, the password generated is more random, and thus more secure. Generating a secure password is inline with our use case, and so is a more important factor.
+
+|===
+
+// end::generate[]
+
+// tag::analyse[]
+
+=== Analyse Password
+
+This section provides implementation details on the analyse password feature.
+
+==== Overview
+
+The purpose of analysing passwords is to provide users with information on the level of security of their passwords.
+
+The user can either :
+
+1. View a summary table of results of all password by inputting `"analyse"` OR
+
+2. View a detailed review of a specific password by inputting `"analyse strong/INDEX"`
+
+SecureIT analyses 6 core components of every `Password`, using various `Analysers`. The following table summarises the functionality of each `Analyser`:
+
+|===
+||**Purpose / Checks for**
+|**UniqueAnalyser **: +
+| Checks that every password is unique.
+|**StrengthAnalyser **: +
+| Checks the complexity of every password.
+|**SimilarityAnalyser **: +
+| Checks that no two accounts share a password that is at least 70% similar.
+
+|**DictionaryAnalyser **: +
+| Checks that password does not contain any commonly-used passwords. (e.g. "password")
+
+|**SequenceAnalyser **: +
+| Checks that password does not contain any commonly-used sequences. (e.g. "ABC")
+|**KeyboardAnalyser **: +
+| Checks that password does not contain any commonly-used keyboard patterns. (e.g. "qwerty")
+
+|===
+
+The following class diagram is the current structure of the `Analyser` component.
+
+.Class diagram depicting the structure of the Analyser component.
 image::AnalyserClassDiagram.png[]
 
-The `Analyser` component,
+In summary,
 
-* can analyse the current list of `Password` object to produce a list of analysis `Results`.
+1. The analysis of passwords is initiated upon `#execute()` of the `AnalysePasswordCommand`.
 
-==== Proposed Implementation
-The analyse password makes use of various analysers.
-Each type of analyser implements it's own implementation of `#analyse()` , and inspects the following aspects of the password:
+2. Each `Analyser` analyses every password in the password book.
 
-* Complexity (Strength)
-* Uniqueness
-* Similarity
-* Commonly-used passwords
-* Commonly-used sequences
+3. The analysis of each password produces the respective `Result` for that password.
 
-Given below is the example usage of how the analysis for commonly-used passwords is implemented, using the `DictionaryAnalyser`.
+4. These `Results` are compiled and written into a `AnalysisReport`, which is then shown to the user in the form of a summary table.
 
-Step 1. The user inputs `analyse` into the command line. An `AnalysePasswordCommand` is generated and executed by `Logic`.
+5. Users can opt to view a detailed report for a specific password to get more information on the respective `Result`.
 
-Step 2. On `#execute`, AnalysePasswordCommand retrieves the current list of passwords via `Model#getFilteredPasswordList()`.
-It also retrieves the required analysers via `#getRequiredAnalysers()`. Each analyser will then `#analyse` the list of passwords.
 
-Step 3. In the case of `DictionaryAnalyser`, each subsequence of the particular password is checked against a common-password dictionary
-Every match found is appended to the list of `Match` objects. The following sequence diagram explains how this is done:
+==== Implementation
 
-image::GetAllMatchesSequence.png[]
+On `#execute()`, AnalysePasswordCommand retrieves the current list of passwords via `Model#getFilteredPasswordList()`.
+It also retrieves the required analysers via `#getRequiredAnalysers()`.
 
-Step 4. An `AnalysisReport` compiles all the `Results` of each analyser into a string-formatted report for the user.
+Each `Analyser` has it's own implementation of `#analyse()`, which will subsequently be invoked by the `AnalysePasswordCommand` given the current list of passwords.
 
-Step 5. Should the user wish to view a more detailed report for a specific password, user may input `analyse strong/<index>`.
+The following sequence diagram breaks down the general flows of events stated above, and in the context of a `DictionaryAnalyser`:
 
-The following sequence diagram shows how the overall analyse functionality works:
+[NOTE]
+The other `Analysers` are instantiated in a similar fashion in `#getRequiredAnalsyers()` and hence omitted to the make the diagram less congested.
 
+.Sequence diagram depicting the flow of analysing the list of passwords, in the context of DictionaryAnalyser.
 image::AnalysePasswordSequenceDiagram.png[]
+
+In the following discussion, we will be reviewing how `Results` are produced for each password, in the context of the `DictionaryAnalyser`.
+
+In the case of the `DictionaryAnalyser#analyse()`, every password is checked to see if it contains any subsequence that is listed as a commonly used password in the instantiated `Dictionary`. This is done in the internal method `#getAllMatches(password)` within `#analyse()`.
+
+[NOTE]
+The `Dictionary` is an object that maps commonly used passwords to their ranking in terms of how commonly used they are. (e.g. "123456" is mapped to rank 1 in the Dictionary because it is  the most commonly used password)
+
+If there exists a subsequence that tests positive when looked up against the `Dictionary` , a `DictionaryMatch` is created to note down the details of the subsequence.
+
+[NOTE]
+A `Match` is an object that is created to encapsulate the details of any matches found when analysing a given password. Each `Analyser` will create it's respective `Match` when needed.
+
+Thus, we see that the method `#getAllMatches(password)` will return a list of all `DictionaryMatch` found for a given password.
+
+As long as a `DictionaryMatch` is found, then the password has failed the analysis. A `DictionaryResult` with the attribute `ResultOutcome.FAIL` will be created for that password. This process is repeated for every password. Following, the list of `DictionaryResult` are returned to be compiled and written by the `AnalysisReport`.
+
+The following sequence diagram depicts the flow of events mentioned above:
+
+.Sequence diagram depicting the flow of getting all Match objects for a given password.
+image::GetAllMatchesSequence.png[width="500"]
+
+It is also worth mentioning that `DictionaryAnalyser` is capable of identifying commonly used passwords even in leet-ed variations (e.g. p@5sw0rd).
+
+This is made possible because of the method `#LeetUtil.translateLeet()`, which is a recursive algorithm designed to return all possible un-leet variations, given a leet-ed password. The details of the algorithm can be found here:
 
 ==== Design Considerations
 ===== Aspect: How analyse/analyse strong executes
+|===
+|**Alternative 1 (Current choice)**|**Alternative 2**
 
-* **Alternative 1 (current choice):** Always analyse the entire list of Password objects for every "analyse" command,
-even if the list of Passwords was unchanged.
+| **Always analyse the entire list of Password objects for every "analyse" command,
+even if the list of Passwords was unchanged.** +
+ +
+[underline]_Pros:_ +
+Easy to implement, not required to check state if the current list of Passwords has been modified.
+ +
 
-** Pros: Easy to implement, not required to check state if the current list of Passwords has been modified.
+[underline]_Cons:_ +
+May have performance issues in terms of speed of the programme.
+|**Save in memory the result produced by the Analyser objects, and update result upon modification of
+list of Passwords (e.g. new passwords added/ passwords deleted.)** +
+ +
+[underline]_Pros:_ +
+Performance of programme will be a lot faster and efficient. +
 
-** Cons: May have performance issues in terms of speed of the programme.
-
-* **Alternative 2:** Save in memory the result produced by the Analyser objects, and update result upon modification of
-list of Passwords (e.g. new passwords added/ passwords deleted.)
-
-** Pros: Performance of programme will be a lot faster.
-
-** Cons: Hard to implement. Have to keep track of state of the list of Password objects and check if the list has been modified
+[underline]_Cons:_ +
+Hard to implement. Have to keep track of state of the list of Password objects and check if the list has been modified
 from the last time they were analysed.
 
-// end::undoredo[]
+2+|**Why did we choose Alternative 1:** +
+From a more practical point of view, users are not expected to constantly want to keep analysing their passwords, so it may be a waste of memory to constantly save the results, as per Alternative 2.
+
+Also, considering the fact that each password is capped at a length of 25, time performance will not be affected significantly when analysing each password.
+
+
+|===
+
+// end::analyse[]
 
 // tag::dataencryption[]
-=== Data Encryption
+=== General Data Encryption
 
 ==== Initialization and Validation
 
-All data files of SecureIT are encrypted with a master password set by the user. The initialization and validation of the master password is handled by `TestStorage`.
+We encrypt all the data files of SecureIT with a master password set by the user. The initialization and validation of the master password are handled by `*TestStorage*`.
 
-The following sequence diagram shows how the master password is initialized when the user uses the app for the first time, and validated for subsequent uses of the app.
+The following diagram shows how the master password is initialized when the user uses the app for the first time and validated for subsequent uses of the app.
 
-image::InitPasswordSequenceDiagram.png[]
+image::InitPasswordActivityDiagram.png[]
 
-Note that the main components of the app (`Storage`, `Ui`, `Logic`, `Model`) can only be initialised with a correct master password.
+Note that to protect users' data, the main components of the app (`*Storage*`, `*Ui*`, `*Logic*`, `*Model*`) can only be initialised with a correct master password.
 
-The app does not store the master password itself. Instead, during initialization, the app encrypts a magic word using the password and stores it in the storage. For validation, the app tries to decrypt the stored magic word using the password given and compares if the original word is obtained. If the password given is correct, the decrypted magic word should be the same as the original one.
+Also, the app does not store the master password itself. Instead, during initialization, the app encrypts a magic word using the password and stores it in the file system. For validation, the app tries to decrypt the stored magic word using the password given and checks if the original word is obtained. If the password given is correct, the original magic word should be obtained.
 
 ==== Encryption Method
 
-The following sequence diagram explains how the `EncryptionUtil` class encrypts an input byte array (`byte[] input`) using using a password (`String pwd`).
+The following sequence diagram explains how the `*EncryptionUtil*` class encrypts an input byte array using a password.
 
 image::EncryptionUtilSequenceDiagram.png[]
 
-Before the encryption, both a key (`SecretKey key`) and a set of parameter specification (`PBEParameterSpec paramSpec`) are required. The key is generated from the password string and a specified encryption method (`PBEWithMD5AndTripleDES`) via a utility class (`SecretKeyFactory`). On the other hand, the parameter specification is generated with hardcoded parameters (`SALT`, `ITERATION`). Hardcoded parameters ensure that the same password can always be correctly validated at different times.
+The process of encrypting a byte array is outlined as follows:
 
-Finally, a `Cipher` class is constructed with the same encryption method specified above (`PBEWithMD5AndTripleDES`) and initialised with the key and the set of parameter specifications. The `doFinal` method conducts the actual encryption on the input array and returns the encrypted byte array.
+Step 1. A key (`*SecretKey key*`) is generated from the password string (`*pwd*`) and a specified encryption method (`*PBEWithMD5AndTripleDES*`) via a utility class (`*SecretKeyFactory*`).
 
-The decryption process is similar to the encryption process, except that the `ENCRYPT_MODE` is changed to `DECRYPT_MODE`. The same password is necessary to decrypt an encrypted byte array to its original content.
+Step 2. A set of parameter specification (`*PBEParameterSpec paramSpec*`) is generated with hardcoded parameters (`*SALT*`, `*ITERATION*`). Hardcoded parameters ensure that the same password can always be correctly validated at different times.
+
+Step 3. A `*Cipher*` class is constructed with the same encryption method specified above (`*PBEWithMD5AndTripleDES*`) and initialised with the key and the set of parameter specifications.
+
+Step 4. The `*doFinal*` method conducts the actual encryption on the input array and returns the encrypted byte array.
+
+The decryption process is similar to the encryption process, except that the `*ENCRYPT_MODE*` is changed to `*DECRYPT_MODE*`. The same password is necessary to decrypt an encrypted byte array to its original content.
 
 // end::dataencryption[]
+// tag::carddg[]
+=== Cards Feature
+==== Expiry Validations
+When a user tries to add a card, there are various checks to ensure that the expiry entered is valid.  As the name suggests, expiry validations are implemented within `Expiry`. Additionally, it implements the following operations:
 
+
+* `ExpiryDate#isValidDate(String test)` -- Checks the string against the provided regex to make sure it is a match.
+* `ExpiryDate#isValidExpiryDate(String test)` -- Checks to ensure that it has not past the given expiry date.
+* `ExpiryUtil#getMonthToExp(String expiry)` -- Returns the number of months left until the given expiry.
+
+`ExpiryDate#isValidExpiryDate(String test)` is implemented using `ExpiryUtil#getMonthToExp(String expiry)` to ensure that the number of months left is positive.
+
+The other operations are used in `ParserUtil#parseExpiryDate(String expiryDate)` to ensure that user input passes these validations, before allowing the card to be added to the list. Upon startup of the app, the repopulation of data also checks against these validations to ensure that there are no illegal values stored in the list.
+
+Given below is an example usage scenario and how the validations behave at each step.
+
+Step 1. The user executes `add d/VisaPOSB v/4291728395018293 c/256 e/12/15` command to add a new card named 'VisaPOSB' in the card book. The `CardBookParser#parseCommand(String userInput)` calls `AddCardCommandParser#parse(String args)` and the command parser tries to breakdown the string in to various parameters.
+
+Step 2. The `AddCardCommandParser` calls `ParserUtil#parseExpiryDate(String expiryDate)`, which first calls `ExpiryDate#isValidDate(String test)` to check its validity, which returns true.
+
+Step 3. The `ParserUtil#parseExpiryDate(String expiry)` then calls `ExpiryDate#isValidExpiryDate(String test)`, which calls `ExpiryUtil#getMonthToExp(String expiry)`. However, `-47` is returned and the condition in `ExpiryDate#isValidExpiryDate` returns `false`.
+
+Step 4. A `ParseException` is thrown from `ParserUtil#parseExpiryDate(String expiryDate)` and the error message is shown on the command box.
+
+The following sequence diagram shows how the expiry validations work:
+
+==== Expiry Notification
+The expiry notification is facilitated by `ExpiryDisplay`. It exists as an attribute within `MainWindow` and obtains the required expiring cards list from `LogicManager`. This is internally stored as `expiringCards`. Additionally, it implements the following operations:
+
+* `LogicManager#getExpiringCardList()` -- Returns the list of expiring cards.
+* `ExpiringCard#of(Card card)` -- Creates an ExpiringCard given card details.
+* `ExpiryDisplay#hasCards()` -- Returns true if there are expiring cards.
+* `MainWindow#handleExpiry()` -- Pops up a notification if there are expiring cards upon startup of the app.
+
+// end::carddg[]
+// tag::fileencryption[]
+=== File Management
+SecureIT does not store users' encrypted files directly. Instead, it reads the files' data, carries out the encryption, and replaces the original files with encrypted ones in users' file system. Meanwhile, it also maintains records of files that it encrypts, represented by `*EncryptedFile*` class, in an internal data structure, `*FileBook*`.
+
+The following diagram illustrates how the record of an encrypted file is represented internally.
+
+image::FileModelClassDiagram.png[Diagram, 700]
+
+The `*FileBook*`, managed by the app's `*ModelManager*`, keeps a `*UniqueFileList*`. The list encapsulates an internal mechanism to prevent file duplication. Each entry in the list represents a record of an encrypted file.
+
+An `*EncryptedFile*` must have the following attributes:  a `*FileName*`, a `*FilePath*`, and a `*FileStatus*`. While the first two attributes allow the app to locate the file, the file status provides users with an indication of the current state of the file. It defaults to `*ACTIVE*` for newly encrypted/added files.
+
+Two timestamps, `*EncryptedAt*` and `*ModifiedAt*`, provide users with more details about the file. These two attributes may not always be available. For example, encrypted files added with `add` command do not contain this information.
+
+Lastly, while a `*ViewableFile*` contains the file's content for preview. It is a generic class which is extendable to accommodate even more file types in future. The `*FilePreviewPanel*`, which is a `*UI*` component, depends on `*ViewableFile*` to render the preview.
+
+==== Logic
+
+The user can perform the following operations: `encrypt`, `decrypt`, `add`, `remove`, `move`, `rename`, and `preview`. There are two differences between the commands of the file manager and those of the address book. First, some file commands require a password for execution. Second, most file commands involve interaction with the external file system.
+
+The solution to the first difference is a `*FileCommandParser*` class which is similar to the `*Parser*` class, but it packages the password within the commands during parsing. It is illustrated in the class diagram below:
+
+image::FileCommandParserClassDiagram.png[]
+
+To address the second difference, we separate the access to the file system from the parser. For example, during encryption, at the parsing stage, an `*EncryptedFile toAdd*` is created without the knowledge of the actual file. Both the validation and encryption are carried out only at the execution stage. This is illustrated in the following sequence diagram:
+
+image::EncryptSequenceDiagram.png[]
+
+==== Design Considerations
+
+Below is a summary of my considerations and analysis while developing the file manager:
+
+. When to do file validation with the file system
++
+*Alternative 1*: When a command is parsed +
+*Pros*: There is no need to construct `*EncryptedFile*` objects for invalid files. +
+*Cons*: Both the command parsing and execution require interaction with the file system. `*Parser*` violates the single responsibility principle.
++
+*Alternative 2*: When a command is executed +
+*Pros*: Interaction with the file system only occurs during execution. Easier to debug. +
+*Cons*: Need to construct `*EncryptedFile*` when file information is not yet available. Cannot initialise `*ModifiedAt*` in the constructor.
++
+We choose alternative 2 because according to single responsibility principle, `*Parser*` should only convert user input to correct command format, without the knowledge of files.
+
+. How to implement the file preview feature
++
+*Alternative 1*: UI components read file content +
+*Pros*: There is no need to create extra classes in `*Model*`, such as `*ViewableFile*`. +
+*Cons*: UI components have to interact directly with the file system.
++
+*Alternative 2*: Read file content during command execution +
+*Pros*: File system access is limited to command execution time only. +
+*Cons*: Need to pass the file content to the UI components via `*CommandResult*`.
++
+We choose alternative 2 because it is better to keep all access to file system in one place.
+
+// end::fileencryption[]
+
+// tag::notesFeature[]
 === Notes Feature
-==== Key basic features
+==== Open Note
 
-Within the notes feature, the user will be able to perform operations to `add`, `open`, `delete` and `edit` a note.
+The user is able to open a note in a separate panel to easily read and edit its contents.
 
-The `open` command allows users to open the note in a separate panel to edit and save through the UI of the app.
-The following sequence diagram illustrates how the note is retrieved and editable via the `open` command.
+The following sequence diagram illustrates how the note is retrieved and edited through the UI via the `open` command.
 
-image::OpenNoteSequenceDiagram.png[]
+.Diagram illustrates how note is retrievable and editable through the UI.
+image::OpenNoteSequenceDiagram.png[width="300"]
 
 Below is the sub-diagram for retrieving the note through the `open` command.
-****
-* Note that the sequence diagram for `add`, `delete` and `edit` commands are similar to the one below, hence are omitted.
-****
 
-image::OpenNoteSequenceDiagramRef.png[]
+.Sub-diagram to illustrate how a note is retrieved through the `open` command.
+image::OpenNoteSequenceDiagramRef.png[width="400"]
+
+Given below is an example usage of scenario of the `open` command in notes, where a user intends to open a note to read
+or edit its contents.
+
+. Through the `goto note` command, the user arrives at the notes component of the app. The user then executes the command
+`open 1`.
+
+. The app recognises that it is an `open` command and proceeds to check if the index `1` given is a valid index using
+the `ParserUtil#parseIndex()` method.
+
+. If the index given by the user is valid, the corresponding note will be retrieved. This note is shown to the user in a panel on the right
+within the app.
+
+. The user proceeds to edit the Title, Description and Content field of the note through this panel and saves his
+edits using the save button. This executes the `Logic#EditNoteCommand()` which edits the note in the note book.
+
+. The note book is now updated with the note edited by the user.
+
 
 ==== Undo/Redo
 ===== Implementation
-The undo/redo mechanism is facilitated by the VersionedNoteBook, which extends NoteBook with a undo/redo history.
-This history is stored in two stacks - the undo stack which store the history of NoteBooks before the current state and
-the redo stack which stores the history of NoteBooks after the current state. The key operations that support this mechanisms are:
+The undo/redo mechanism is facilitated by the `*VersionedNoteBook*`, which extends `*NoteBook*` with a undo/redo history.
+This history is stored in two stacks - the `*UndoStack*` and the `*RedoStack*`. The `*UndoStack*` stores the states of note books
+before the current state while the `*RedoStack*` stores the states of note books after the current state.
+The key operations that support these mechanisms are:
 
-`VersionedNoteBook#commit()` — Saves the current NoteBook state and its corresponding command in its history.
+`VersionedNoteBook#commit()` — Saves the current note book state and its corresponding command in the `*UndoStack*`.
 
-`VersionedNoteBook#undo()` — Restores the previous note book state from its history and returns its corresponding command
-to inform the user what command is undone.
+`VersionedNoteBook#undo()` — Restores the previous note book state from the `*UndoStack*` and returns its corresponding command
+to inform the user what command is undone. It also stores the current state of the note book into the `*RedoStack*`.
 
-`VersionedNoteBook#redo()` — Restores a previously undone note book state from its history and returns its corresponding
-command to inform the user what command is redone.
+`VersionedNoteBook#redo()` — Restores a previously undone note book state from the `*RedoStack*` and returns its corresponding
+command to inform the user what command is redone. It also stores the current state of the note book into the `*UndoStack*`.
 
-Below is a comprehensive activity diagram to illustrate how the undo/redo mechanism works.
+Below is a class diagram to illustrate how the classes mentioned above interact with one another.
 
+.Class diagram of `*VersionedNoteBook*`, `*NoteBook*` and `*NoteBookWithCommand*`.
+image::VersionedNoteBookClassDiagram.png[width="350"]
+
+Below is a comprehensive activity diagram to illustrate how the undo & redo mechanism works.
+
+.Activity diagram to illustrate how undo & redo executes.
 image::UndoRedoActivityDiagram.png[]
 
-Undo-able and redo-able commands are commands that modify the modifies the note book. They include: `add`, `delete`,
-`clear`, `edit` and `open`. `open` command is considered undo-able and redo-able because it updates the number of access
-to the note opened.
+====
+--
+image::warning.png[width = "20",float = "left"]
+--
+*Warning*
 
-On an undo command, the current state of the note book is first stored in the history (NoteBook's redo stack) before being
-reverted to the previous notebook state. The previous notebook state is then removed from its history (NoteBook's undo stack).
+Not all commands are undoable. Undo-able commands are commands that modifies the note book. They include: `add`, `delete`,
+`clear`, `edit` and `open`.
+====
 
-Similarly, on a redo command, the current state of the note book is first stored in the history (NoteBook's undo stack) before being
-restored to the next notebook state. The next notebook state is then removed from its history (NoteBook's redo stack).
+Below is an example run through to illustrate how the undo command is executed:
+
+. The user launches the application for the first time. The `*VersionedNoteBook*` will be initialized with the initial
+note book state, with empty `*UndoStack*` and `*RedoStack*`.
+. The user executes `delete 5` command to delete the 5th note in the note book. The delete command calls Model#commitNoteBook(),
+causing the state of the note book before the `delete 5` command executes to be saved in the `*UndoStack*`. The current state
+of the note book becomes the state of the note book after `delete 5` command executes.
+. The user now decides that deleting the note was a mistake, and decides to undo that action by executing the `undo` command.
+. This will call the `Model#undo()`, which will first check if the `*UndoStack*` is empty.
+====
+Note:
+
+. The `*UndoStack*` will be empty if no undoable command were called prior
+to calling the `undo` command.
+. The undo mechanism will proceed only if the `*UndoStack*` is not empty,
+else an error will be returned to the user rather than attempting to perform the undo.
+====
+. The current state of the note book is then checked against the previous state of the note book.
+.. In the event that they are the same, the
+previous note book state is popped from the `*UndoStack*` and the `undo` command is called recursively (starting from step 2).
+This recursive call is performed until either the current and previous note book state are different or until the `*UndoStack*` is empty.
+.. In the event that they are different, proceed on to step 4.
+
+. The current state of the note book is first stored in the `*RedoStack*`.
+. The note book is then reverted to the previous note book state. This same previous note book state is removed from
+the `*UndoStack*`.
+. Undo command is complete.
+
+====
+Note:
+
+* Step 3 is to prevent users from being able to perform `undo` actions when there is no change to be undone.
+====
+
+For the redo command, a key point to note is that it is not logical to redo a command from the `*RedoStack*` when an undoable
+command is executed. Therefore, anytime an undoable command is executed, the `*RedoStack*` is purged. This behavior is follows
+that of most modern desktop applications as well.
+
+As the rest of the mechanisms of the `redo` command is similar to that of the `undo` command but opposite,
+its details are omitted.
 
 
-When an undoable command is executed, the current state of the `NoteBook` is checked against its previous NoteBook state in
-its history within the commit command. The current state of the `NoteBook` is only saved to its history if it is not equals to
-the previous one. Similarly, the same check is done on `VersionedNoteBook#undo()` command, and only if the current state is not
-equal to the previous one, will the current state be set to the state of its previous `NoteBook`. This is to prevent users from being
-able to perform undo and redo actions when there is no change to be undone or redone.
 
 ===== Design Considerations
 
-====== Aspect: How undo & redo executes
+===== Aspect: How undo & redo executes
 * Alternative 1 (current choice): Saves the entire note book.
-** Pros: Easy to implement and can check if current state of note book is equals to previous state of note book easily.
+** Pros: Less complex and easier to implement.
 ** Cons: May have performance issues in terms of memory usage.
 
 * Alternative 2: Individual command knows how to undo/redo by itself.
 ** Pros: Makes use of lesser memory.
-** Cons: More complex to implement and more prone to bugs because each individual command must be correct to work correctly.
+** Cons: More complex to implement and more prone to bugs as each individual command must be correct to work correctly.
 
-The reason why we chose alternative 1 is to introduce less bugs by adopting a less complex implementation which works
-well with our undo & redo mechanism.
+*The reason why we chose alternative 1:*
+By adopting a simpler implementation, we are able to introduce less bugs into system. Furthermore, this implementation better
+supports future extensions as undoable commands can be added much easier.
 
 ===== Aspect: Data structure to support the undo/redo commands
-* Alternative 1 (current choice): Use two stacks to store the history of note book states - one for undo, one for redo.
+* Alternative 1 (current choice): Use two stacks to store the history of note book states - one for undo, and the other for redo.
 ** Pros: Very easy to implement.
 ** Cons: Using two data structures may incur additional overhead in terms of memory.
 
-* Alternative 2: Use a single linked list to store the history of note book states that supports both undo and redo.
+* Alternative 2: Use a single linked list to store the history of note book states which supports both undo and redo.
 ** Pros: May incur less overhead in terms of memory usage as only one data structure is used.
 ** Cons: More complex to implement.
 
-The reason why we chose alternative 1 is because it is less complex to implement and the code is much cleaner for better
-readability which helps in future extensions.
+*The reason why we chose alternative 1:*
+It is less complex to implement and the code is much cleaner for better readability which also helps in future extensions.
+//end::notesFeature[]
 
+// tag::carddesign[]
+
+[width="80%",cols="3,10,10",options="header"]
+|=========================================================
+|Aspect |Alternative 1 |Alternative 2
+
+|Implementation of expiry tagging system
+a|The system saves a copy of the entire address book whenever the commands are executed.
+
+* Pros:
+* Cons:
+
+I decided to proceed with this option because
+
+a|List 2.
+
+* Pros:
+* Cons:
+
+|Implementation of expiry tagging system
+a|The system saves a copy of the entire address book whenever the commands are executed.
+
+* Pros:
+* Cons:
+
+I decided to proceed with this option because
+
+a|List 2.
+
+* Pros:
+* Cons:
+
+|=========================================================
+
+// end::carddesign[]
 ==== Sort Note feature
 
 Sorting of notes is handled by the MultipleSortByCond class, which allows the notes in the NoteBook to be sorted in
-three different ways - by date modified, date added or number of access. Below is a
-class diagram to illustrate how the NoteBook class and MultipleSortByCond class interact with one another.
+three different ways - by date modified, date added or number of of times the note is accessed.
 
+Below is a class diagram to illustrate how the `*NoteBook*` class and `MultipleSortByCond` class interact with one another.
+
+.Class diagram to illustrate how the `MultipleSortByCond` class interacts the other classes.
 image::SortNoteClassDiagram.png[]
 
-More than one of the conditions can be used to sort the notes in the note book at one time, with the leftmost condition
-having the greatest precedence. This is handled by the `MultipleSortByCond#buildComparator()`, which takes in the string
-of conditions specified by the user and returns a `MultipleCondNoteComparator` object that is used to sort the list of notes
+link:UserGuide.adoc[]
+
+Sorting the note book rearranges the notes according to the sort conditions provided.
+
+More than one of the conditions can be used to sort the notes in the note book at one time, with the first condition
+having the greatest precedence.
+
+This is handled by the `MultipleSortByCond#buildComparator()`, which takes in the sort conditions specified by the user and returns a `MultipleCondNoteComparator` object that is used to sort the list of notes
 in NoteBook.
 
 
@@ -400,9 +854,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |employee with multiple passwords |update my passwords | I can have the most updated list of passwords
 
-|`* *` |employee with multiple passwords |generate strong passwords | I can create new passwords will not be cracked easily
+|`* *` |employee who constantly creates new accounts |generate strong passwords | my new accounts will not be cracked easily
 
-|`* *` |employee with multiple passwords |analyse my passwords |I know which passwords are vulnerable and I should change them
+|`* *` |employee with multiple passwords |analyse my passwords |I know which passwords are vulnerable and that I should change them
 
 |`* *` |employee handling confidential files |receive confirmation of which files have been encrypted |I can be sure that I have encrypted the correct files
 
@@ -560,7 +1014,6 @@ Use case end.
 *MSS*
 
 1. User chooses to generate a password
-2. User enters description of password
 3. PasswordSys generates a password
 Use case ends
 
@@ -569,19 +1022,26 @@ Use case ends
 
 *Extensions*
 [none]
-* 2a. No description entered
+* 1a. Unidentified prefix entered
 +
 
 +
 [none]
-** 2a1. PasswordSys shows an error message
+** 1a1. PasswordSys shows an error message
 +
 Use case end.
 --
 [none]
-* 2b. Description entered already exists
+* 1b. Invalid length prefix entered
 [none]
-** 2b1. PasswordSys shows an error message
+** 1b1. PasswordSys shows an error message
++
+Use case end.
+
+[none]
+* 1c. All prefix are set to false
+[none]
+** 1c1. PasswordSys shows an error message
 +
 Use case end.
 
@@ -595,16 +1055,28 @@ Use case end.
 +
 Use case ends
 
+[discrete]
+=== UC16 - Analyse a password
+
+*MSS*
+
+1. User chooses to analyse a password
+2. PasswordSys shows detailed report of analysis
++
+Use case ends
+
 *Extensions*
 [none]
-* 2a. No passwords available
+* 1a. Index entered is invalid
 +
 
 +
 [none]
-** 2a1. PasswordSys shows an error message
+** 1a1. PasswordSys shows an error message
 +
 Use case end.
+--
+
 
 ---
 

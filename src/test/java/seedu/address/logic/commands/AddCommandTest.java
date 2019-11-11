@@ -325,7 +325,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitNote(String command) {
+        public void commitNoteBook(String command) {
 
         }
 

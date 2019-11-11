@@ -1,5 +1,6 @@
 @startuml
 !include style.puml
+mainframe sd Open Note
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager  " as LogicManager LOGIC_COLOR
 participant ":NoteBookParser  " as NoteBookParser LOGIC_COLOR
@@ -53,10 +54,6 @@ deactivate NoteBookParser
 
 LogicManager -> OpenNoteCommand : execute()
 activate OpenNoteCommand
-
-ref over OpenNoteCommand
-Gets noteToOpen and creates updatedNote
-end ref
 
 OpenNoteCommand -> Model : setNote(noteToOpen, updatedNote)
 activate Model

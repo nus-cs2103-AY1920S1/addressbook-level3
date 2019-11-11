@@ -51,7 +51,7 @@ public class OpenNoteCommand extends Command {
         Note noteToRead = lastShownList.get(targetIndex.getZeroBased());
         Note updatedNote = createEditedNote(noteToRead);
         //TODO: assert here to ensure updated note is different from any other note in the list
-        model.commitNote(command);
+        model.commitNoteBook(command);
         model.setNote(noteToRead, updatedNote);
         model.sortNoteBook();
         Index updatedIndex = model.getNoteIndex(updatedNote);

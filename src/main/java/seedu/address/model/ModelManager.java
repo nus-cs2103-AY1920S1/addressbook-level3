@@ -451,7 +451,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void commitNote(String command) {
+    public void commitNoteBook(String command) {
         noteBook.commit(command);
     }
 
