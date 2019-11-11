@@ -5,13 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.LinkedList;
 
-import cs.f10.t1.nursetraverse.model.autocomplete.IndexWord;
-import cs.f10.t1.nursetraverse.model.autocomplete.PrefixWord;
 import org.junit.jupiter.api.Test;
 
 import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
 import cs.f10.t1.nursetraverse.model.autocomplete.CommandWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.IndexWord;
 import cs.f10.t1.nursetraverse.model.autocomplete.ObjectWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.PrefixWord;
 import javafx.collections.ObservableList;
 
 class AutoCompleteListHandlerTest {
@@ -19,7 +19,7 @@ class AutoCompleteListHandlerTest {
     private AutoCompleteListHandler autoCompleteListHandler = new AutoCompleteListHandler(typicalAutoCompleteStorage);
 
     @Test
-    public void generateList_emptyString_ObjectListGenerated() {
+    public void generateList_emptyString_objectListGenerated() {
         LinkedList<String> testParsedUserinputList = new LinkedList<>();
         testParsedUserinputList.add("");
         ObservableList<AutoCompleteWord> generatedList =

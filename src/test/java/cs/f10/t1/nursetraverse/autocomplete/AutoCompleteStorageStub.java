@@ -1,19 +1,5 @@
 package cs.f10.t1.nursetraverse.autocomplete;
 
-import cs.f10.t1.nursetraverse.logic.commands.AddCommand;
-import cs.f10.t1.nursetraverse.logic.commands.ClearCommand;
-import cs.f10.t1.nursetraverse.logic.commands.DeleteCommand;
-import cs.f10.t1.nursetraverse.logic.commands.EditCommand;
-import cs.f10.t1.nursetraverse.logic.commands.FindCommand;
-import cs.f10.t1.nursetraverse.logic.commands.ListCommand;
-import cs.f10.t1.nursetraverse.logic.parser.CliSyntax;
-import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
-import cs.f10.t1.nursetraverse.model.autocomplete.CommandWord;
-import cs.f10.t1.nursetraverse.model.autocomplete.ObjectWord;
-import cs.f10.t1.nursetraverse.model.autocomplete.PrefixWord;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import static cs.f10.t1.nursetraverse.autocomplete.UserinputParserUtil.parseFirstSegment;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.ADD_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.CLEAR_DESCRIPTION;
@@ -29,7 +15,24 @@ import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.PREFIX_
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.PREFIX_PHONE_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.PREFIX_TAG_DESCRIPTION;
 
-public class AutoCompleteStorageStub extends AutoCompleteWordStorage{
+import cs.f10.t1.nursetraverse.logic.commands.AddCommand;
+import cs.f10.t1.nursetraverse.logic.commands.ClearCommand;
+import cs.f10.t1.nursetraverse.logic.commands.DeleteCommand;
+import cs.f10.t1.nursetraverse.logic.commands.EditCommand;
+import cs.f10.t1.nursetraverse.logic.commands.FindCommand;
+import cs.f10.t1.nursetraverse.logic.commands.ListCommand;
+import cs.f10.t1.nursetraverse.logic.parser.CliSyntax;
+import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.CommandWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.ObjectWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.PrefixWord;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+/**
+ * Stub class for AutoCompleteWordStorage
+ */
+public class AutoCompleteStorageStub extends AutoCompleteWordStorage {
     public static final String PAT_OBJECT_WORD = parseFirstSegment(AddCommand.COMMAND_WORD).get(0);
 
     private ObservableList<AutoCompleteWord> oListAllObjectWord;

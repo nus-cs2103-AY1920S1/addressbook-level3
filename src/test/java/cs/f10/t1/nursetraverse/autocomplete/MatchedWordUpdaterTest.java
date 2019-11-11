@@ -2,10 +2,11 @@ package cs.f10.t1.nursetraverse.autocomplete;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
+import java.util.LinkedList;
+
 import org.junit.jupiter.api.Test;
 
-import java.util.LinkedList;
+import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
 
 class MatchedWordUpdaterTest {
     private AutoCompleteWordStorage typicalAutoCompleteStorage = new AutoCompleteStorageStub();
