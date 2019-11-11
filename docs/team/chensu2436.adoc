@@ -19,16 +19,23 @@ a suite of commands for resolving appeals, overriding MC limits, and leaving spe
 The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoC.
 
 [NOTE]
-This portfolio was adapted from the AddressBook project. All information written herein (28th Septemeber 2019) is not yet revised for the new application.
+This portfolio was adapted from the AddressBook - Level 3 project.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to check clashes for various cases*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+* *Major enhancement 1*: added *the ability to check clashes for various cases*
+** What it does: allows the admin to check timetable clash between 2 modules or in a student's current timetable;
+Provides a shortcut for the admin to retrieve information on timetable clash in appeals requesting to add or drop modules.
+** Justification: Checking timetable clash is one of the most important checks that an admin needs to perform before he/she decides to approve or reject an appeal.
+This feature improves the user experience significantly because it provides a convenient way for the admin who needs to perform such checks constantly.
+** Highlights: There are a few types of checks can be performed. Therefore, the user inputs for this command can take various forms and are highly flexible.
+An in-depth analysis of design alternatives is required to deal with these variations.
 
-* *Minor enhancement*: modified the find command that allows the user to ...
+* *Major enhancement 2*: enhanced the find command that allows the user to ...
+** What it does:
+** Justification:
+** Highlights: This enhancement affects existing commands and commands to be added in future.
+provide shorcuts...
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -36,10 +43,11 @@ This portfolio was adapted from the AddressBook project. All information written
 
 ** Project management:
 *** Helped to manage releases `v1.3` on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** issue trackers
+** Enhancements to existing `find` features:
+*** Wrote tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
+*** First draft of User Guide to aodc
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
