@@ -21,6 +21,7 @@ import seedu.elisa.model.exceptions.IllegalListException;
 import seedu.elisa.model.item.EventList;
 import seedu.elisa.model.item.ReminderList;
 import seedu.elisa.model.item.TaskList;
+import seedu.elisa.model.item.VisualizeList;
 import seedu.elisa.testutil.TypicalItems;
 
 public class ItemModelManagerTest {
@@ -31,6 +32,22 @@ public class ItemModelManagerTest {
     private Item reminder = TypicalItems.ITEM_WITH_REMINDER;
     private Item.ItemBuilder template = new Item.ItemBuilder().setItemDescription(new ItemDescription("test"));
     private Item validItem = TypicalItems.ITEM_WITH_ALL;
+
+    private void checkAllList(int size) {
+        try {
+            testModel.setVisualList("T");
+            assertEquals(size, testModel.getVisualList().size());
+            testModel.setVisualList("E");
+            assertEquals(size, testModel.getVisualList().size());
+            testModel.setVisualList("R");
+            assertEquals(size, testModel.getVisualList().size());
+            testModel.setVisualList("C");
+            assertEquals(size, testModel.getVisualList().size());
+        } catch (IllegalValueException e) {
+            // should not reach this loop as it is already tested above
+            fail(e);
+        }
+    }
 
     @Test
     public void testConstructor() {
@@ -147,20 +164,7 @@ public class ItemModelManagerTest {
     @Test
     public void addToSeparateList_validItem_addedToAllList() {
         testModel.addToSeparateList(validItem);
-        try {
-            assertEquals(1, testModel.getVisualList().size());
-            testModel.setVisualList("T");
-            assertEquals(1, testModel.getVisualList().size());
-            testModel.setVisualList("E");
-            assertEquals(1, testModel.getVisualList().size());
-            testModel.setVisualList("R");
-            assertEquals(1, testModel.getVisualList().size());
-            testModel.setVisualList("C");
-            assertEquals(1, testModel.getVisualList().size());
-        } catch (IllegalValueException e) {
-            // should not reach this loop as it is already tested above
-            fail(e);
-        }
+        checkAllList(1);
     }
 
     @Test
@@ -168,19 +172,7 @@ public class ItemModelManagerTest {
         testModel.addItem(validItem);
         assertEquals(validItem, testModel.deleteItem(0));
         assertEquals(0, testModel.getVisualList().size());
-        try {
-            testModel.setVisualList("T");
-            assertEquals(0, testModel.getVisualList().size());
-            testModel.setVisualList("E");
-            assertEquals(0, testModel.getVisualList().size());
-            testModel.setVisualList("R");
-            assertEquals(0, testModel.getVisualList().size());
-            testModel.setVisualList("C");
-            assertEquals(0, testModel.getVisualList().size());
-        } catch (IllegalValueException e) {
-            // should not reach this loop as it is already tested above
-            fail(e);
-        }
+        checkAllList(0);
     }
 
     @Test
@@ -255,6 +247,30 @@ public class ItemModelManagerTest {
     }
 
     @Test
+    public void markIncomplete_completeTask_markTaskAsIncomplete() {
+        testModel.addItem(template.setTask(new Task(true)).build());
+        try {
+            testModel.markComplete(0, false);
+            assertFalse(testModel.getItem(0).getTask().get().isComplete());
+        } catch (IllegalListException e) {
+            fail(e);
+        }
+    }
+
+    @Test
+    public void markComplete_invalidList_throwsInvalidListException() {
+        testModel.addItem(task);
+        try {
+            testModel.setVisualList("E");
+        } catch (IllegalValueException e) {
+            // should not reach this loop as it is already tested above
+            fail(e);
+        }
+        assertThrows(IllegalListException.class, () -> testModel.markComplete(0, true));
+    }
+
+
+    @Test
     public void done_inPriorityMode_finishAllTask() {
         testModel.addItem(task);
         try {
@@ -312,5 +328,29 @@ public class ItemModelManagerTest {
         } catch (IllegalListException e) {
             fail(e);
         }
+    }
+
+    @Test
+    public void emptyList_AllListsEmpty() {
+        testModel.addItem(validItem);
+        testModel.emptyLists();
+        checkAllList(0);
+    }
+
+    @Test
+    public void clear_newItemStorageAndAllListsEmpty() {
+        testModel.addItem(validItem);
+        testModel.clear();
+        assertEquals(testModel.getItemStorage(), new ItemStorage());
+        checkAllList(0);
+    }
+
+    @Test
+    public void sort_ensureListsAreDifferent() {
+        testModel.addItem(validItem);
+        VisualizeList original = testModel.getVisualList();
+        testModel.sort();
+        VisualizeList newList = testModel.getVisualList();
+        assertFalse(original == newList);
     }
 }
