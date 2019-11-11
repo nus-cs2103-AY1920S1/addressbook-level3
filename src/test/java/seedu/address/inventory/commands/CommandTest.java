@@ -141,7 +141,7 @@ public class CommandTest {
 
         try {
             commandResult = deleteCommand.execute(inventoryModel);
-            commandResult2 = deleteCommand.execute(inventoryModel);
+            commandResult2 = deleteCommand2.execute(inventoryModel);
         } catch (Exception e) {
             fail();
         }
