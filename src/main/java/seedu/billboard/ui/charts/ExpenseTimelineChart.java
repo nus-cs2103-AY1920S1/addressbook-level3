@@ -4,10 +4,13 @@ import static java.util.stream.Collectors.summarizingLong;
 import static java.util.stream.Collectors.toList;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.LongSummaryStatistics;
 import java.util.Map;
+import java.util.function.BinaryOperator;
+import java.util.function.LongUnaryOperator;
 
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -75,6 +78,7 @@ public class ExpenseTimelineChart extends ExpenseChart {
 
         formattedDateConverter = new FormattedDateConverter(getDateIntervalFormats(dateInterval.getValue()));
         xAxis.setTickLabelFormatter(formattedDateConverter);
+        xAxis.setTickLabelRotation(90);
 
         updateTimeline(expenses, expenseGrouping.getValue(), dateInterval.getValue());
         setupListeners();
@@ -103,8 +107,8 @@ public class ExpenseTimelineChart extends ExpenseChart {
         LongSummaryStatistics statistics = expenses.stream()
                 .collect(summarizingLong(expense -> expense.getCreated().dateTime.toLocalDate().toEpochDay()));
 
-        int tickUnit = getDateIntervalTickUnit(interval);
-        updateXAxisRange(statistics.getMin(), statistics.getMax(), tickUnit);
+        double tickUnit = getDateIntervalTickUnit(interval, statistics.getMax() - statistics.getMin());
+        updateXAxisRange(statistics.getMin(), statistics.getMax(), tickUnit, interval);
 
         Map<String, ? extends List<? extends Expense>> expenseListMap = grouping.getGroupingFunction().group(expenses);
         seriesManager.updateSeriesSet(expenseListMap.keySet());
@@ -127,12 +131,13 @@ public class ExpenseTimelineChart extends ExpenseChart {
      * Updates the xAxis' range with the given values, where min and max should be the min and max of the current range
      * shown on the xAxis, and tick unit is dependent on the selected interval.
      */
-    private void updateXAxisRange(long min, long max, double tickUnit) {
-        double maxTicks = 20.0;
-        long range = max - min;
-        double adjustedTickUnit = range / tickUnit > maxTicks ? range / maxTicks : tickUnit;
-        xAxis.setLowerBound(min - adjustedTickUnit);
-        xAxis.setUpperBound(max + adjustedTickUnit);
+    private void updateXAxisRange(long min, long max, double adjustedTickUnit, DateInterval interval) {
+        LongUnaryOperator adjuster = x -> LocalDate.ofEpochDay(x)
+                .with(interval.getAdjuster())
+                .plusDays(interval == DateInterval.DAY ? 0 : 1)
+                .toEpochDay();
+        xAxis.setLowerBound(adjuster.applyAsLong(min) - adjustedTickUnit);
+        xAxis.setUpperBound(adjuster.applyAsLong(max) + adjustedTickUnit);
         xAxis.setTickUnit(adjustedTickUnit);
     }
 
@@ -178,16 +183,19 @@ public class ExpenseTimelineChart extends ExpenseChart {
      * Helper method to get the appropriate tick unit to format xAxis of the chart. The units do not have to be exact,
      * and thus are just an approximation.
      */
-    private int getDateIntervalTickUnit(DateInterval interval) {
+    private double getDateIntervalTickUnit(DateInterval interval, long range) {
+        BinaryOperator<Double> adjustment = (tickUnit, maxTicks) ->
+                range / tickUnit > maxTicks ? range / maxTicks : tickUnit;
+
         switch (interval) {
         case DAY:
-            return 1;
+            return adjustment.apply(1.0, 25.0);
         case WEEK:
-            return 7;
+            return adjustment.apply(7.0, 21.0);
         case MONTH:
-            return 30;
+            return adjustment.apply(30.5, 20.0);
         case YEAR:
-            return 365;
+            return adjustment.apply(365.0, 15.0);
         default:
             throw new UnsupportedOperationException("Tick unit not defined for given date interval.");
         }
