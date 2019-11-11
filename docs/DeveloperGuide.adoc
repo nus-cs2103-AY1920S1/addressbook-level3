@@ -778,11 +778,11 @@ The following changes have been made to the layout of the item card for a better
 . Move the position of the reminder and quantity to the left so that the right is not crowede.
 . Dynamically Change the colour of the card depending on the status of the item. Red for expired, yellow for alerting, green for healthy.
 . Expand the card on clicking and collapse it when not in focus to save space for more items to be displayed.
+// end::userinterface[]
 
 Here is the redesigned `ItemCard`:
 
 image::ExpandCard.png[300]
-// end::userinterface[]
 
 === Logging
 
