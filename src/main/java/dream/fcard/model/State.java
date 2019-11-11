@@ -329,7 +329,7 @@ public class State {
         int i = 0;
         for (i = 0; i < decks.size(); i++) {
             String currentName = decks.get(i).getDeckName();
-            if (currentName.equals(deckName)){
+            if (currentName.equals(deckName)) {
                 break;
             }
         }

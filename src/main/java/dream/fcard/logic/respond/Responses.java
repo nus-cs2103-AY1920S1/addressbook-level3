@@ -510,8 +510,7 @@ public enum Responses {
                 }
     ),
     SEE_SPECIFIC_DECK(
-            RegexUtil.commandFormatRegex("view", new String[]{
-                    "deck/"}),
+            RegexUtil.commandFormatRegex("view", new String[]{"deck/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     //int num = Integer.parseInt(i.split("^(?i)view\\s+")[1]);
