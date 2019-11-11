@@ -10,9 +10,9 @@ Done as a major part of our introductory software engineering module in the Nati
 we started off by morphing an address book application into our very own product,
 a flashcard manager that is purely controlled using the Command-Line Interface (CLI). This is the key constraint of the
 project, as users can only perform tasks by typing commands on the keyboard.
-exclusively using the keyboard. In addition, this is a desktop application, used only on a computer.
+exclusively using the keyboard. In addition, this is a desktop application, to be used only on a computer.
 
-This is a 6 week software engineering project, where we worked in a team of 5 who are students from the NUS School of Computing.
+This is a 6-week software engineering project, where we worked in a team of 5 with students from the NUS School of Computing.
 Our team consists of 3 second year students majoring in Computer Science, including myself, and 2 Computer Engineering students in their final year of study.
 
 Our finalised product, _KeyboardFlashCards_ is a educational tool that aims to make remembering things easy, while at the
