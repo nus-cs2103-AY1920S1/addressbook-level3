@@ -347,6 +347,7 @@ Example:
 
 // end::redo[]
 
+// tag::test[]
 === Start test with flashcards : `test`
 
 ****
@@ -416,6 +417,7 @@ Do note that premature ending of a test will still count towards your Statistics
 
 * Upon running their programs, if they pass all test cases, their results will automatically be counted.
 ====
+//end::test[]
 
 // tag::stats[]
 === Viewing user statistics : `stats`
@@ -474,6 +476,10 @@ Example:
 
 *Q*: If I use Undo and make changes to an old version of a deck, will redo recover my original deck before the Undo command? +
 *A*: Unfortunately, the original deck before the Undo is unrecoverable. As such, please be mindful of making any changes to a recovered deck as this will erase any version of decks before the Undo!
+
+*Q*: Will I be able to review my mistakes after a test? +
+*A*: Yes! Test mode allows you to review all the questions in the test and even re-attempt them without changing your initial test score.
+
 
 // end::FAQ[]
 

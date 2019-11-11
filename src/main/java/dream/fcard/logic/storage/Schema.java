@@ -7,7 +7,6 @@ public class Schema {
 
     public static final String DECK_NAME = "name";
     public static final String DECK_CARDS = "cards";
-    public static final String DECK_SESSIONS = "deck-sessions";
 
     public static final String TYPE_FIELD = "type";
     public static final String FRONT_FIELD = "front";
@@ -33,5 +32,8 @@ public class Schema {
 
     public static final String SESSION_START = "start";
     public static final String SESSION_END = "end";
-    public static final String SESSION_RESULT = "result";
+    public static final String SESSION_SCORE = "score";
+
+    public static final String STATS_DECK_STRINGS = "strings";
+    public static final String STATS_DECK_SESSIONS = "sessions";
 }

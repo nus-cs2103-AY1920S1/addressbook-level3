@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 import dream.fcard.core.Main;
 import dream.fcard.core.commons.core.LogsCenter;
-import dream.fcard.logic.stats.UserStatsHolder;
+import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.StateHolder;
 
@@ -42,16 +42,23 @@ public class MainApp extends Application {
             stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/images/icon_black_resized.png")));
             stage.show();
 
+            // load code font
+            Font.loadFont(MainApp.class.getResourceAsStream("/fonts/Inconsolata.otf"), 12);
+
+            // load user stats and deck stats
             StorageManager.loadUserStats();
-            // start a session. if UserStats has not been retrieved, it will do so at this point.
-            UserStatsHolder.getUserStats().startCurrentSession();
+            StorageManager.loadDeckStats();
+
+            // start a login session
+            StatsHolder.getUserStats().startCurrentSession();
 
             // when the 'X' button is clicked.
             stage.setOnCloseRequest(e -> {
                 logger.info("============================ [ Stopping FlashCard Pro ] =============================");
-                UserStatsHolder.getUserStats().endCurrentSession();
+                StatsHolder.getUserStats().endCurrentSession();
                 StorageManager.saveAll(StateHolder.getState().getDecks());
-                StorageManager.saveStats(UserStatsHolder.getUserStats());
+                StorageManager.saveUserStats();
+                StorageManager.saveDeckStats();
             });
         } catch (IOException e) {
             logger.severe("Failed to load app");

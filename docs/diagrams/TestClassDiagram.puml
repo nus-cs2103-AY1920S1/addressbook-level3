@@ -1,0 +1,48 @@
+@startuml
+
+interface Exam
+Exam <|-- StandardExam
+StandardExam *-- "1" Result : calculates
+ExamRunner --> "0..1" StandardExam
+
+class StandardExam {
+    -initialDeck : ArrayList<FlashCard>
+    -testDeck : ArrayList<FlashCard>
+    -durationInSeconds : int
+    -result:Result
+    +getCurrentCard() : FlashCard
+    +upIndex() : void
+    +downIndex() : void
+    +voidQuestion(isCorrect:boolean) : void
+}
+
+
+
+class Result {
+    -maxScore : int
+    -totalScore : int
+    +getScore() : String
+    +mark(isCorrect:boolean) : void
+}
+
+class ExamRunner {
+    -exam:Exam
+    -examOngoing:boolean
+    +getCurrentExam():exam
+    +createExam():void
+    +terminateExam():void
+    +clearExam():void
+}
+
+together {
+    class ExamRunner
+    class StandardExam
+    class Result
+}
+
+skinparam class {
+	BackgroundColor Grey
+	ArrowColor Black
+	BorderColor White
+}
+@enduml

@@ -228,5 +228,6 @@ public class TestDisplay extends VBox {
         }
         Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
         Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
+        Consumers.doTask("TOGGLE_LIST_VIEW_ON", true);
     }
 }
