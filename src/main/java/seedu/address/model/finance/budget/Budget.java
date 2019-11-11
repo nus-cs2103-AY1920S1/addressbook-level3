@@ -20,7 +20,7 @@ public class Budget {
     protected final Amount amount;
     protected final Date startDate;
     protected final Date endDate;
-    protected final String budgetType; // eiher met, cat or place
+    protected final String budgetType; // either met, cat or place
     protected final String budgetTypeValue;
 
     public Budget(Amount amount, Date startDate, Date endDate,
