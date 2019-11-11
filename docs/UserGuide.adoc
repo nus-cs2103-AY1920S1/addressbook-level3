@@ -1690,11 +1690,11 @@ Command: `link`
 *Dashboard*
 
 * *Going to the Dashboard:* `goto dashboard`
-* *Adding a task:* `add task`
-* *Editing a task* : `edit task`
-* *Removing a task* : `delete task`
-* *Marking a task as complete* : `done task`
-* *Finding a task* : `find task`
+* *Adding a task:* `add task tn/<taskname> td/<taskdate>`
+* *Editing a task* : `edit task <index> tn/<taskname> td/<taskdate>`
+* *Removing a task* : `delete task <index>`
+* *Marking a task as complete* : `done task <index>`
+* *Finding a task* : `find task <keyword>`
 * *Viewing completed tasks* : `list taskcomplete`
 * *Viewing incomplete tasks* : `list taskcomplete`
 
