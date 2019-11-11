@@ -27,8 +27,8 @@ import mams.model.tag.Tag;
 public class ClashCommand extends Command {
 
     public static final String COMMAND_WORD = "clash";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Checks timetable clashes "
-            + "by index or two module codes. (Index must be a positive integer)"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": checks timetable clashes "
+            + "by entering index or two module codes. (Index must be a positive integer)"
             + "\nExample: " + COMMAND_WORD + " "
             + PREFIX_MODULE + "CS1010 " + PREFIX_MODULE + "CS2030 "
             + " OR " + COMMAND_WORD + " "
