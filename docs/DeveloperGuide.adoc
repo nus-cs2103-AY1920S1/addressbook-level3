@@ -91,9 +91,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *_Sequence Diagram_* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete t1` command
+.Component Interactions for `delete t1` Command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -775,7 +775,7 @@ More often than not, users do not need to change an entire Transaction or Budget
 * **Alternative 1 (current choice):** Update Command does not work with `Ledger` operations.
 ** Pros: Intuitive implementation and execution for the user.
 ** Cons: Requires excessive user operations.
-*** The user has to first delete the `Ledger` operation that he/she wishes to change, followed by inputting the `Ledger` operation with the amended fields back into PalPay.
+*** The user has to first delete the `Ledger` operation that he/she wishes to change, followed by inputting the `Ledger` operation with the amended fields back into _PalPay_.
 * **Alternative 2:** Update Command to also work with `Ledger` operations.
 ** Pros: Requires only one user command to append or change `Ledger` entries.
 ** Cons: Results in convoluted implementation and user experience. This will also hinder future permeability of the `Split` feature.
