@@ -21,7 +21,6 @@ import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
 import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
-import seedu.guilttrip.model.entry.BudgetAmount;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.predicates.EntryContainsAmountPredicate;

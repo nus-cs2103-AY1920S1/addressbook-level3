@@ -973,7 +973,7 @@ Use case resumes from step 2.
 . Test Case: viewBar p/2019-09
 .. Expected: The Bar Chart showing expense and income details of September 2019 is shown.
 
-=== Sorting Expense/Income/Wish/Budget
+=== Sorting Expense/Income/Wish/Budget/AutoExp
 
 . Test Case: sortExpense typ/Amount s/ascending
 .. Expected: The Expense list should be sorted by amount in ascending order.
@@ -984,8 +984,13 @@ Use case resumes from step 2.
 . Test Case: sortBudget typ/Time s/asdasdsada
 .. Expected: An Exception should be thrown, with GulitTrip displaying in the CommandResult that sequence can only be ascending or descending.
 
+. Test Case: sortWish typ/Time s/ascending
+.. Expected: The Wish list should be sorted by time in ascending order.
 
-=== Finding Expense/Income/Wish/Budget
+. Test Case: sortAutoExp typ/Time s/ascending
+.. Expected: The AutoExpense list should be sorted by time in ascending order.
+
+=== Finding Expense/Income/Wish/Budget/AutoExp
 
 . Test Case: findExpense n/mala
 .. Expected: All Expenses with name mala in their description should be filtered to show in the Expense List.
@@ -994,4 +999,10 @@ Use case resumes from step 2.
 .. Expected: All Income with name mala in their description and with amount larger than 1900 should show in the Income List.
 
 . Test Case: findBudget cat/Food
-.. Expected: All Budget with category Foo should show in the BudgetList
+.. Expected: All Budget with category Food should show in the BudgetList
+
+. Test Case: findWish cat/Food
+.. Expected: All Wishes with category Food should show in the WishList
+
+. Test Case: findAutoExp cat/Food
+.. Expected: All AutoExpense with category Food should show in the AutoExpenseList
