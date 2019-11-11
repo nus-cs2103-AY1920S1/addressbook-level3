@@ -1,4 +1,4 @@
-= MyProject
+= MyProject V1.4 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,11 +12,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://ay1920s1-cs2103t-t17-1.github.io/main/
+:repoURL: https://github.com/AY1920S1-CS2103T-T17-1/main/tree/master
 
-By: `Team SE-EDU`      Since: `Aug 2019`      Licence: `MIT`
-
-Team: *T17-1*
+By: `T17-1`      Since: `Oct 2019`      Licence: `MIT`
 
 *Content*
 
@@ -37,7 +35,7 @@ Interested? Jump to the Section 2, “QuickStart” to get started. Enjoy!
 == Quick Start:
 
 . Ensure you have Java 11 or above installed in your Computer.
-. Download the latest myproject.jar https://github.com/AY1920S1-CS2103T-T17-1/main/releases[here].
+. Download the latest release https://github.com/AY1920S1-CS2103T-T17-1/main/releases[here].
 . Copy the file to the folder you want to use as the home folder for MyProject.
 . Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
 . Some example commands you can try:
