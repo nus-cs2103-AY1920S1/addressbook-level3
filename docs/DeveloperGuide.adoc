@@ -1266,6 +1266,19 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Adding an Entity
+* Adding a new Body
+.. Test case: `add -b /name John Doe /sex male /dod 11/11/2019 /doa 11/11/2019` +
+   Expected: The body is added and displayed on the dashboard.
+
+* Adding a new Fridge
+.. Test case: `add -f` +
+   Expected: The fridge is added and displayed on the dashboard.
+
+* Adding a new Worker
+.. Test case: `add -w /name Jahn Daah /sex male /dateJoined 11/11/2019` +
+   Expected: The worker is added and displayed on the dashboard.
+
 === Updating a Body
 * Updating a body while all bodies are listed
 .. Prerequisites: List all bodies using the `list -b` command. There is at least one body in the list.
@@ -1278,11 +1291,20 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Prerequisites: List all bodies using the `list -b` command. Multiple bodies in the list.
 .. Test case: `delete -b 1` +
-   Expected: Body with body ID number 1 is deleted from the list. Details of the deleted body shown in the status message. Timestamp in the status bar is updated.
+   Expected: Body with body ID number 1 is deleted from the list. Details of the deleted body shown in the command
+result.
 .. Test case: `delete -b 0` +
-   Expected: No body is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No body is deleted. Error details shown in the command result.
 .. Other incorrect delete commands to try: `delete -b`, `delete -b x` (where x is larger than the list size) +
    Expected: Similar to previous.
+
+=== Getting notification for a Body
+
+* Getting a notification when a body is added
+.. Test case: `add -b /name Jane Low /sex female /dod 11/11/2019 /doa 11/11/2019` and wait for 10 seconds +
+   Expected: A pop-up notification is displayed. The number against the notification bell increments by 1. On
+clicking the bell or typing `showNotifs` command, the pop-over lists the id of Jane Low.
+
 
 === Generating a Report
 
@@ -1303,7 +1325,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Using the Line Chart and Stats Command
 
-. Changing the time frame of the line's chart horizontal axis
+* Changing the time frame of the line's chart horizontal axis
 
 .. Prerequisites: None. The line chart is automatically displayed, with the last ten days as the default time frame.
 .. Test case 1: `stats /week 25/10/2019` +
@@ -1321,7 +1343,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Incorrect stats commands to try: `stats 9/2019`, `stats 2019`, `stats /week 40/23/2019`, `stats /month 40/2009`
    Expected: An error message will appear informing you that the command format is invalid or the date entered is invalid.
 
-. Testing the dynamism of the line chart by adding and deleting bodies
+* Testing the dynamism of the line chart by adding and deleting bodies
 
 .. Prerequisites: The time frame of the line chart should be changed to include the date of admission of the body that is going to be added.
 .. Test case 1: `add -b /name Jonathan Bergeson /sex male /dod 14/11/2019 /doa 14/11/2019` +
@@ -1334,7 +1356,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Filter entries by attributes
 
-. Filter bodies by a combination of at least on attribute.
+* Filter bodies by a combination of at least on attribute.
 
 .. Prerequisites: List all bodies for better viewing of the entries.
 .. Test case 1: `filter -b /sex female` +
@@ -1350,7 +1372,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Incorrect filter commands to try: `filter`, `filter -b`, `filter -a`
    Expected: An error message will appear informing you that the command format is invalid.
 
-. Filter workers by a combination of at least on attribute.
+* Filter workers by a combination of at least on attribute.
 
 .. Prerequisites: List all workers for better viewing of the entries.
 .. Test case 1: `filter -b /sex female` +
