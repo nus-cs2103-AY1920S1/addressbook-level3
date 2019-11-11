@@ -585,6 +585,91 @@ image::SortUpdateActivityDiagram.png[width="190", align="center"]
 ** Cons: Features like `find` command may lose functionality and needs extra modification.
 //end::sort[]
 
+
+//tag::interactive-parsing[]
+=== Interactive Parsing
+
+==== Overview
+
+Interactive parsing allows users to build a command sequentially, as opposed to doing it entirely in one shot. A user that wishes to
+add an interview can simply type `add t/interview` to receive prompts on what to enter next.
+
+This feature was conceived to make the application easy to use for amateur users.
+
+==== Design & Implementation
+
+Important Classes:
+
+* `InteractiveParser` - The interface exposed to `LogicManager`. The parser implements this interface.
+* `Parser` - A concrete implementation of `InteractiveParser` that enables interactive parsing.
+* `State` - An abstract class that represents the individual states the application can be in while parsing and building a `Command`.
+* `EndState` - An abstract class that extends from `State`. Represents the final `State` of a parsed command, from which a `Command` object can be built.
+
+The interface `InteractiveParser` is the connecting interface between the `LogicManager` and the main `Parser`. This interface is
+designed by contract (DbC - proposed by Bertrand Meyer). The interface exposes four methods to the `LogicManager`, namely:
+
+* `parseInput()` - Parses the entered input.
+* `fetchResult()` - Returns the response to be showed to the user in a `CommandResult` object.
+* `hasParsedCommand()` - Returns true if the `Parser` has finished parsing a `Command` fully.
+* `makeCommand()` - Makes and returns the `Command` the user intends to execute.
+
+To achieve interaction, the `Parser` keeps track of the `State` of the current `Command` being built. `State` is an abstract class that represents
+the individual states the application can be at in the midst of building a `Command`. `EndState` is an abstract class that extends from `State`,
+from which `Command` objects can be built. As and when valid inputs are entered, the `Parser` updates
+the current `State` to the subsequent `States` of the corresponding `Command`.
+
+The `Parser` starts at an idle, inactive `State` Upon entering `add t/meeting`, the `State` being tracked is changed twice - first
+to the `State` corresponding to the type of the `Engagement` and then to the `State` responsible for the start date-time.
+
+Such `State` changes happen sequentially until all the arguments necessary for the `Command` have been supplied. When all necessary arguments are present,
+the `State` being tracked transitions into an `EndState`. Once the tracked `State` transitions into an `EndState`, the `Parser` builds the `Command`
+which is executed by the `LogicManager`.
+
+The structure of the interactive parser is detailed in the UML diagram below.
+
+Parsing of user entered inputs can be viewed as parsing a small, finite context-free language. The command built by a sequence of inputs
+is uniquely determined by the sequence of inputs entered by the user and happens to be deterministic. +
+
+This observation allows the `Parser` to be modeled by a *finite state machine*. A finite state machine is an
+abstract computational model which consists of a machine comprising several states. At a particular point in time, only one state
+of the state machine is active. The machine transitions from one state to another state if certain conditions are met.
+
+In the context of Typee's `Parser`, the parser of each individual `Command` is a distinct finite state machine. The condition to be
+satisfied to transition to another state is the validation of user-entered inputs.
+
+The incorporation of state machines into the `Parser` is done by implementing a slightly modified version of the *state pattern*
+documented by the *Gang of Four* (GoF).
+
+Upon initiating the parsing (building) of a `Command`, the state machine that corresponds to the required `Command` is instantiated and set
+to its initial state. This state becomes the `State` tracked by the `Parser` Subsequent inputs are tokenized by the `ArgumentTokenizer` class,
+processed by the `InputProcessor` class and forwarded to the current `State`. If the input is deemed valid, the `Parser` invokes the `transition()`
+method of the current `State` to proceed to the next `State`. This process is repeated until an `EndState` is reached. Throughout this process, the
+user receives feedback from the `Parser` in the form of an encapsulated `CommandResult` object.
+
+Below is a sequence diagram illustrating the processes that occur when the user enters `t/meeting s/15/11/2019/1500` following `add`.
+
+The high-level working of the `Parser` can be summarized by the activity diagram shown below.
+
+==== Design Considerations
+
+===== Aspect : Abstract model
+* **Alternative 1 (current design)** : Finite state machine
+** Pros:
+*** Highly flexible - Entire command, one argument at a time and multiple arguments at a time - all are supported.
+*** Easily extensible - Adding a new command will require almost no changes in any of the existing classes.
+*** Supports optional arguments with the help of the `OptionalState` interface.
+** Cons:
+*** Tedious to implement a state machine for each individual command.
+
+* **Alternative 2** : Use a list based implementation to keep track of arguments entered.
+** Pros:
+*** Easy to implement and keep track of arguments
+** Cons:
+*** Very hard to implement optional states.
+*** Cannot execute commands like `Help` at any point in time without hard-coding it in the `Parser`.
+
+//end::interactive-parsing[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
