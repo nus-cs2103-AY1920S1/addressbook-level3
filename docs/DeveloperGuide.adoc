@@ -702,10 +702,10 @@ image::Tag/SequenceDiagramTagCommand.png[height="790"]
 
 // end::tag[]
 
-
 // tag::search[]
 === Search
 
+>>>>>>> 114fdebffc25d81ba3d9ab78491fdd472b66cc04
 // tag::export[]
 === Export
 

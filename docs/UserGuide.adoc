@@ -546,7 +546,7 @@ Format: `export`
 image::export.png[width="790"]
 
 .List of items received when scanning the QR code through a mobile phone
-image::export-phone.png[width="250"]
+image::export-phone.PNG[width="250"]
 
 [NOTE]
 ====
@@ -561,13 +561,13 @@ page after scanning the QR code. Follow the steps below to rectify this issue if
 received on the web (see Figure 14).
 
 .Pop-up prompt to suggest to search the content on the web
-image::export-prompt.png[width="250"]
+image::export-prompt.PNG[width="250"]
 
 * Instead of immediately accepting the suggestion, press and hold on the prompt to reveal the other
 options available (see Figure 15). Choose "Copy" or any other similar options.
 
 .Additional options to handle the content
-image::export-other-options.png[width="250"]
+image::export-other-options.PNG[width="250"]
 
 * Once the content has been copied, you can simply paste and save the content on Notes or any other
 notepad application on your mobile phone (see Figure 16).
@@ -758,11 +758,51 @@ Items with the same name will be sorted by their expiry dates.
 ****
 // end::sort[]
 
+<<<<<<< HEAD
+// tag::undoredo[]
+==== Undo previous command : `undo`
+Undo the previous command that you have entered in. +
+Format: `undo`
+
+[TIP]
+`undo` only works on commands that alter your items or the current view! +
+Thus, commands such as `help` and `export` are not undoable as they do not alter items or the current view. +
+Also, `undo` only works for the last 10 commands. Therefore, make sure you are certain before you type in a command!
+
+The `undo` command also tells you the exact user input you have keyed in as well as what command was entered so that you know what you have undone.
+
+==== Redo an earlier command : `redo`
+Redo an earlier command that you have entered in. +
+Format: `redo`
+
+This command works in the opposite way as `undo`, it will redo any command that you have undone in the past. +
+
+[NOTE]
+Keying in a new command other than `redo` will erase the earlier command that you have undid. Thus, doing so will not allow you to redo that command again.
+
+// end::undoredo[]
+
+=== Upcoming features (coming in v2.0)
+
+==== User authentication
+
+Want to have your own personal password-protected account? Look forward to our user authentication functionality
+where you can create an account and keep your items' data safe and secure!
+
+Here're some sneak peeks of the upcoming feature!
+
+.Login page
+image::user-login.png[width="790"]
+
+.Sign-up page
+image::user-register.png[width="790"]
+=======
 // tag::dataencryption[]
 //=== Encrypting data files `[coming in v2.0]`
 
 //_{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
+>>>>>>> 114fdebffc25d81ba3d9ab78491fdd472b66cc04
 
 == FAQ
 
