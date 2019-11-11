@@ -199,7 +199,7 @@ image::WatchSequenceDiagram.png[]
 // end::markaswatched[]
 
 // tag::statistics[]
-=== [Proposed] Statistics feature
+=== Statistics feature
 ==== Proposed Implementation
 
 The statistics feature is facilitated by `Statistics` object. It extends `Ezwatchlist` with a summary of the users' personal

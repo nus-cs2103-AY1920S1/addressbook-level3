@@ -111,15 +111,31 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 // end:: intro[]
 == Features
-
+// tag::UI[]
 === User-Interface
+
+The UI consists of three parts: sidebar, command bar and various pages that could appear in the main panel.
+The following sections introduce these UI parts in details.
+
+==== Sidebar
+
+EzWatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the side bar at the left of the main page of the graphical user interface. Moreover, keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] bring you to each page respectively.
+====
+Note: If user has selected the command box, type kbd:[1], kbd:[2], kbd:[3], kbd:[4] and enter to bring you to each page respectively.
+====
+
+==== Command bar
+
+Users input commands in the command bar and any feedback will be displayed below the text area of command bar.
 
 ==== Watchlist Page
 
-The watchlist is the default page that is opened upon start-up of `EzWatchlist`.
+The watchlist page is the default page that is opened upon start-up of `EzWatchlist`.
 It shows the user’s unwatched movies and television series.
-The watchlist page also contains a command bar to allow the user to input commands.
-The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `1`.
+The user can navigate to this list by clicking the “Watchlist” tab on the side bar or by using the keyboard short-cut `1`.
+
+.Main page of the UI: watchlist page
+image::Ui.png[width="790"]
 
 **Characteristics of the watchlist page:**
 
@@ -132,20 +148,17 @@ The user can navigate to this list by clicking the “Watched” tab on the side
 * Last watched episode (For TV series that have been updated using the `watch` command)
 * Checkbox to indicate if the show has been watched
 
-.Main page of the UI: watchlist page
-image::Ui.png[width="790"]
-
-
 ==== Watched List
 
 The user has the option to view the list of shows that have been marked as watched in the watched list. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `2`.
 
 ==== Search Page
 
-The user can navigate to the search page to find a specific movie or television by searching for its name. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `3`.
+The user can navigate to the search page to find a specific movie or television by searching for its name. The user can navigate to this list by clicking the “Search” tab on the side bar or by using the keyboard short-cut `3`.
 [NOTE]
 The search function may require some time to load the data from the API.
 
+.Main page of the UI: search page
 image::search_page.png[width="790"]
 
 
@@ -153,26 +166,28 @@ image::search_page.png[width="790"]
 
 The user can navigate to the statistics page to find a summary of his watching habits,
 preferences and history according to what is present in his lists.
-Examples include: movies he added but might have forgotten to watch,
-up to 3 most favourite genres of the user and recommendations etc.
+Examples include:
 
+* Movies added but might have forgotten to watch
+* Up to 3 most favourite genres
+* Recommendations
+
+The user can navigate to this list by clicking the “Statistics” tab on the side bar or by using the keyboard short-cut `4`.
 [NOTE]
-The statistics function may require some time to load the data from the API.
+The statistics function may require some time to load the data from the API the first time you start the application,
+or after you have made changes to your watchlist.
 
-The user can navigate to the statistics page to find a summary of his watching habits, preferences and history according to what is present in his lists. Examples include: Ten most recent movies he watched, ten favourite movies of the user etc. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `4`.
 
+
+.Main page of the UI: statistics page
 image::statistics_page.png[width="790"]
 
-==== Sidebar
-
-EzWatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the graphical user interface at the left of the main page. Moreover, keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] bring you to each page respectively.
-====
-Note: If user has selected the command box, type kbd:[1], kbd:[2], kbd:[3], kbd:[4] and enter to bring you to each page respectively.
-====
 
 ==== Details Page (Coming in v2.0)
 
 Upon clicking a movie or tv show title, a pop-up window will emerge, with a detailed view of the movie or tv show. This page provides the user with more information about the show, like the year, cast and ratings. The user also has the ability to edit the details here.
+
+// end::UI[]
 
 // tag::advancedfeatures[]
 === Advanced Features
