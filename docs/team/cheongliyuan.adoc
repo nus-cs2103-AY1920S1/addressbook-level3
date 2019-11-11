@@ -54,7 +54,4 @@ Sections under addmod and removemod
 
 include::../DeveloperGuide.adoc[tag=addremovemod]
 
-
-== PROJECT: PowerPointLabs
-
 ---
