@@ -264,11 +264,11 @@ public class SampleDataUtil {
 
     public static ShoppingItem[] getSampleShoppingItems() {
         return new ShoppingItem[] {
-            new ShoppingItem(new Name("Minced Beef"), new Amount("400g")),
+            new ShoppingItem(new Name("Minced Beef"), new Amount("400g"), true, false),
             new ShoppingItem(new Name("FullFat Milk"), new Amount("3L")),
             new ShoppingItem(new Name("White Wine"), new Amount("0.5L")),
             new ShoppingItem(new Name("Minced Chicken"), new Amount("1000g")),
-            new ShoppingItem(new Name("Apples"), new Amount("2units"))
+            new ShoppingItem(new Name("Apples"), new Amount("2units"), true, false)
         };
     }
 
