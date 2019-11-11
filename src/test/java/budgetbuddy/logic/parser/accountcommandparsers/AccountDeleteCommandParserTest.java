@@ -1,4 +1,4 @@
-package budgetbuddy.logic.parser.accountCommandParsers;
+package budgetbuddy.logic.parser.accountcommandparsers;
 
 import static budgetbuddy.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static budgetbuddy.logic.parser.CommandParserTestUtil.assertParseSuccess;
