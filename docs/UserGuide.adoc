@@ -914,6 +914,9 @@ similarity to the entered text.
 [TIP]
 The system may lag and not work occasionally if you are typing too fast.
 
+[TIP]
+The system is case-sensitive.
+
 ==== Example: `add`
 
 *** When you enter `add-c` followed by a space, the system will suggest
