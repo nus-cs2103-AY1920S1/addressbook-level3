@@ -930,7 +930,23 @@ policy is referenced by any person, the reference will be removed as well.
 size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Assigning a policy
+
+. Assigning a policy when all persons are listed
+
+.. Prerequisites:
+... Add a policy using the command: `addpolicy n/Test Policy d/Test Policy c/months/10 days/23 pr/$400`.
+... List all persons using the `listpeople` command. Multiple people in the list.
+
+.. Test case: `assignpolicy 1 pol/Test Policy` +
+   Expected: The policy `Test Policy` is assigned to the first person in the list, and the policies for the person
+             updated to show the assigned policy.
+
+.. Test case: `assignpolicy 0 pol/Test Policy` +
+   Expected: No person is deleted. Error details shown in the status message.
+
+.. Other incorrect `assignpolicy` commands to try: `assignpolicy`, `assignpolicy 1`, `assignpolicy pol/Test Policy`. Also
+entering a policy already assigned/not present in the list of policies will raise an error.
 
 === Saving data
 
@@ -985,3 +1001,56 @@ items in the bin currently, their expiry dates will be 10 days after their delet
 .. Other incorrect `binitemexpiry` commands to try: `binitemexpiry`, `binitemexpiry days/x` (where x is a non
 positive integer), `binitemexpiry day/30`, `binitemexpiry yrs/30` +
    Expected: Similar to previous.
+
+=== Undo/Redo Feature
+
+. Undoing/redoing a change made to the address book
+
+.. Prerequisites:
+... List all policies using the `listpolicy` command. Multiple policies in the list.
+
+.. Test case: +
+   `addpolicy n/Test Policy d/Test Policy c/months/10 days/23 pr/$400` +
+   `undo` +
+   Expected: The policy `Test Policy` is removed from the policy list.
+
+.. Test case: +
+   `addpolicy n/Test Policy d/Test Policy c/months/10 days/23 pr/$400` +
+   `undo` +
+   `redo` +
+   Expected: The policy `Test Policy` is first removed then added back to the policy list.
+
+.. Test case: +
+   `addpolicy n/Test Policy d/Test Policy c/months/10 days/23 pr/$400` +
+   `undo` +
+   `undo` +
+   Expected: No change in address book performed. App shows an error message in the status.
+
+.. Incorrect `undo` commands to try: `undo 10`, `undo Test`.
+   Expected: No change in address book performed. App shows an error message in the status.
+
+=== History Feature
+
+. Viewing the history of previously entered commands.
+
+.. Prerequisites:
+... List all policies using the `listpolicy` command. Multiple policies in the list.
+
+.. Test case: +
+   `addpolicy n/Test Policy d/Test Policy c/months/10 days/23 pr/$400` +
+   `history` +
+   Expected: Show a history of the three commands entered till this point.
+
+.. Test case: +
+   `history` +
+   `listpeople` +
+   `undo` +
+   Expected: List of entered commands dynamically updated on right panel. `undo` command not added as it was not
+             executed because of no data change.
+
+.. Incorrect ways to use `history`: `history 10`, `history Test`
+   Expected: No change in address book performed. App shows an error message in the status.
+
+[NOTE]
+While entering commands, you can also navigate to previous commands using the up/down keyboard keys.
+
