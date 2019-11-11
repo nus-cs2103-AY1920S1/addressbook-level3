@@ -214,8 +214,70 @@ can fully believe in and dedicate effort.
 I will prioritise sections that contains diagrams to showcase my ability to engage the user._
 |===
 
-include::../UserGuide.adoc[tag=chenhui-userDragAndDrop]
-include::../UserGuide.adoc[tag=chenhui-userRevisionBank]
+//include::../UserGuide.adoc[tag=chenhui-userDragAndDrop]
+
+== _WordBank_ management
+
+=== Drag and drop
+
+Streamlines the process of sharing of _WordBanks_ with friends.
+
+//.Word bank file
+//image:DragAndDrop1.png[130, 130, align="left"]
+
+//image:chrischenhui.png[width="90", align="left"]
+//image:kohyida1997.png[width="90", align="left"]
+//image:sreesubbash.png[width="90", align="left"]
+
+image:DragAndDrop1.png[width=121, align="left"]
+{nbsp} {nbsp} -> {nbsp} {nbsp}
+image:DragAndDrop2.png[width="130", align="left"]
+{nbsp} {nbsp} -> {nbsp} {nbsp}
+image:DragAndDrop3.png[width="130", align="left"]
+
+//.Dragging into Dukemon
+//image:DragAndDrop2.png[130, 130, align="left"]
+
+//.Dukemon registers the bank
+//image:DragAndDrop3.png[130, 130]
+
+From `HOME` mode, you can view your _WordBanks_. +
+Simply drag and drop a _WordBank_ json file from your computer into the _Dukemon_ GUI. +
+
+image:DragAndDropOut1.png[width="130", align="left"]
+{nbsp} {nbsp} -> {nbsp} {nbsp}
+image:DragAndDropOut2.png[width="124", align="left"]
+{nbsp} {nbsp} -> {nbsp} {nbsp}
+image:DragAndDropOut3.png[width="119", align="left"]
+
+Likewise, drag and drop a _WordBank_ out of the application, into say,
+your desktop, or chat applications. +
+
+Try it!
+
+NOTE: _Dukemon_ only accepts json files when importing _WordBanks_. Attempting to
+import or export other types files will not be successful.
+
+
+//include::../UserGuide.adoc[tag=chenhui-userRevisionBank]
+
+=== Revision _WordBank_
+
+A revision bank is automatically updated for you, every time a game session ends. +
+It collates all your wrong _cards_, whichever _WordBank_ it may have came from. +
+It is also smart enough to remove the _cards_ if you have cleared it afterwards.
+
+//.Revision bank alongside with other word banks.
+//image:revisionbank.png[130, 130]
+//{nbsp} {nbsp} select revision -> {nbsp} {nbsp}
+.Quick look at revision bank's page.
+image:revisionpage.png[450, 450]
+
+The revision bank is best appreciated when you actually play around with some _WordBanks_, and then visit the revision bank
+to revise wrong _cards_. Give it a try!
+// end::chenhui-userRevisionBank[]
+
+// tag::chenhui-commandsummary[]
 
 ****
 * Due to page limit constraints, I am unable to fully cover the breadth and depth of my User Guide's documentation. +
@@ -245,7 +307,18 @@ Do visit them for a better understanding of the breadth and depth of my effort a
 
 === _WordBank_'s data structure and its storage
 
-include::../DeveloperGuide.adoc[tag=chenhui-wblStorageModel]
+//include::../DeveloperGuide.adoc[tag=chenhui-wblStorageModel]
+
+===== _WordBank_'s storage system integration.
+
+.Integration of `WordBankList` within `Storage` and `Model`.
+image::WBStorage.png[]
+
+`WordBankListStorage` consists of robust methods in which developers can use and extend upon easily. +
+Alongside with _WordBank_'s data structure, they lay the foundation for the other complementary sections of _WordBank_ Management.
+
+On top of that, they serve as a essential foundation for Dukemon. As such, these data structures and methods were required
+by the team, to build individual features. (_Statistics_, _Game_, _Settings_)
 
 * {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#em-wordbank-em-s-data-structure-and-its-storage-system[Full documentation of _WordBank_'s data structure and its storage system]]
 
@@ -253,7 +326,29 @@ include::../DeveloperGuide.adoc[tag=chenhui-wblStorageModel]
 
 === User commands
 
-include::../DeveloperGuide.adoc[tag=chenhui-wblLogicStorageModel]
+//include::../DeveloperGuide.adoc[tag=chenhui-wblLogicStorageModel]
+
+Allows user to customise _Cards_ and group them according to topics (_WordBanks_). +
+User commands edits and manipulates _Cards_ and _WordBanks_ heavily.
+
+NOTE: As mentioned previously, user commands will extend and utilise _WordBank_'s data structure and storage heavily. +
+You can refer to it to enhance your understanding of this implementation.
+
+//A `WordBankList` contains multiple `WordBanks`.
+
+//Each time a `CardCommand` or `WordBankCommand` is executed, `Storage` data is synchronised and
+//`Model` gets updated automatically for `UI` to retrieve updated information for user viewing.
+
+//A card command edits the cards within a particular word bank. Therefore it needs to make function calls through the
+//WordBank data structure. +
+//A word bank command edits the word bank within that particular word bank list. Therefore it needs to make function calls through
+//the WordBankList data structure.
+
+Let us first introduce you how these commands are implemented and structured in `Logic`. +
+
+.Overview class diagram of `Logic` with emphasis on `CardCommands` and `WordBankCommands`.
+image::WBLogicStorageModel.png[]
+
 * {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#user-commands[Full documentation of User Commands]]
 
 ---
@@ -263,28 +358,56 @@ include::../DeveloperGuide.adoc[tag=chenhui-wblLogicStorageModel]
 === Drag and drop
 
 //include::../DeveloperGuide.adoc[tag=chenhui-dragAndDropSequenceDiagram]
-include::../DeveloperGuide.adoc[tag=chenhui-dragInWalkThrough]
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#drag-and-drop[Full documentation of Drag and drop]]
+//include::../DeveloperGuide.adoc[tag=chenhui-dragInWalkThrough]
+
+===== Walkthrough - Drag in.
+// tag::chenhui-dragAndDropSequenceDiagram[]
+.Sequence diagram showing how drag and drop utilises the `ImportCommand` and thus the _WordBank_'s storage.
+image::DragAndDropSequenceDiagram.png[]
+// end::chenhui-dragAndDropSequenceDiagram[]
+
+
+`LoadBankPanel` is the corresponding class and the FXML file that displays the _WordBanks_ for the user. +
+It is deeply nested within `UI` and only has access to an `ObservableList<WordBank>`. +
+This means it has no way to perform `commands`, update `model` or update `storage`.
+
+1. To work around this, a functional callback is registered within `LoadBankPanel`.
+2. `LoadBankPanel` registers JavaFX's UI drag detection and drag dropped methods, with the _callback_. +
+3. After which, the _callback_ essentially performs an `ImportCommand`, to load the _WordBank_.
+
+It is also noteworthy to mention that, dragging into Dukemon functionality is well guarded against: +
+
+* Not json file format.
+* Json file but data in wrong format.
+* Json file with correct format but contains duplicate _cards_ within.
+
+User receives apt feedback through the command box for different cases.
+This is possible with careful exceptions handling within the `ImportCommand` itself.
+
+* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#drag-and-drop[Full documentation of Drag and drop]]
 
 ---
 
 === Revision _WordBank_
 
-include::../DeveloperGuide.adoc[tag=chenhui-revisionBankActivityDiagram]
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#revision-em-wordbank-em[Full documentation of Revision _WordBank_]] +
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#span-class-underline-em-wordbank-em-management-feature-span[Full documentation of entire _WordBank_ Management Feature]]
+//include::../DeveloperGuide.adoc[tag=chenhui-revisionBankActivityDiagram]
+
+.Activity diagram showing different scenarios possible while trying to update revision bank.
+image::RevisionBankActivityDiagram.png[]
+
+* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#revision-em-wordbank-em[Full documentation of Revision _WordBank_]]
+* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#span-class-underline-em-wordbank-em-management-feature-span[Full documentation of entire _WordBank_ Management Feature]]
 
 ****
 * Below are the links to my other contributions in Developer Guide. Do visit them for a better understanding of the breadth and depth of my effort and contribution.
 ****
 
 //include::../DeveloperGuide.adoc[tag=chenhui-model]
-* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#Design-Model[Model]] [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#Design-Storage[Storage]]
+* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#Design-Model[Model]] [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#Design-Storage[Storage]] [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#design-considerations-4[Design considerations]]
+
 //include::../DeveloperGuide.adoc[tag=chenhui-storage]
 //* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#Design-Storage[Storage]]
 //* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#user-commands[Detailed implementation for User Commands]]
-* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#design-considerations-4[Design considerations]]
-
 == image:bag-icon.png[width=35] More about me
 
 ** [https://github.com/chrischenhui//[GitHub]] [https://www.linkedin.com/in/chen-hui-chris//[LinkedIn]]
