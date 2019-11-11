@@ -863,7 +863,7 @@ Status bar remains the same.
 
 . Generating Schedule of all the events according to the current event list.
 
-.. Prerequisites: Multiple events in the event list.
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
 .. Test case: `generate_schedule` +
    Expected: Result box displays - "Schedule Generated".
 AddMin+ will jump to the Schedule Tab.
@@ -875,13 +875,13 @@ If an event does not have any set date, time mappings then it will only be displ
 
 . Displaying all the events whose start, end date spans across a specified date.
 
-.. Prerequisites: Multiple events in the event list.
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
 .. Test case: `display_schedule_date on/10/12/2019` +
    Expected: Result box displays the number of events listed in the Event List in the Schedule Tab.
 AddMin+ will jump to the Schedule Tab.
 The event list will display all events whose start, end date spans across 10/12/2019.
 
-.. Prerequisites: Multiple events in the event list.
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
 .. Test case: `display_schedule_date on/31/11/2019` +
    Expected: Result box prompt a user input error and displays the following message "Invalid date: 31/11/2019
 Date should be in the following format dd/MM/yyyy, be a valid Calendar Date, and be in the last 10 years." .
@@ -891,13 +891,13 @@ The event list will not be updated.
 
 . Displaying all the events whose start, end date spans across a specified Month and Year.
 
-.. Prerequisites: Multiple events in the event list.
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
 .. Test case: `display_schedule_month on/12/2019` +
    Expected: Result box displays the number of events listed in the Event List in the Schedule Tab.
 AddMin+ will jump to the Schedule Tab.
 The event list will display all events whose start, end date spans across 12/2019.
 
-.. Prerequisites: Multiple events in the event list.
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
 .. Test case: `display_schedule_date on/13/2019` +
    Expected: Result box prompt a user input error and displays the following message "Input Year Month should be MM/yyyy" .
 The event list will not be updated.
@@ -907,19 +907,19 @@ The event list will not be updated.
 . Displays all events which meets the following requirements, according if user's specified start and end date range includes a single date that the event's start and end date spans across ,
 the event will be displayed.
 
-.. Prerequisites: Multiple events in the event list.
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
 .. Test case: `display_schedule_between start/10/12/2019 end/12/12/2019` +
    Expected: Result box displays the number of events listed in the Event List in the Schedule Tab.
 AddMin+ will jump to the Schedule Tab.
 The event list will display all events which spans across at least a single date between 10/12/2019 and 12/12/2019.
 
 
-.. Prerequisites: Multiple events in the event list.
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
 .. Test case: `display_schedule_between start/30/12/2019 end/12/12/2019` +
    Expected: Result box prompt a user input error and displays the following message "Your stated Start Date [30/12/2019] is after your End Date [12/12/2019]!" .
 The event list will not be updated.
 
-.. Prerequisites: Multiple events in the event list.
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
 .. Test case: `display_schedule_between start/33/12/2019 end/12/12/2019` +
    Expected: Result box prompt a user input error and displays the following message "Invalid date: 33/12/2019
 Date should be in the following format dd/MM/yyyy, be a valid Calendar Date, and be in the last 10 years." .
