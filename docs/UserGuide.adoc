@@ -999,11 +999,6 @@ The expired reminder will be auto delete after one hour.
 
 Format: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
 
-****
-* `INDEX` is the index of the bookmark that you want to add with a reminder.
- * `TIME_DATE` follows `_dd/MM/uuuu HHmm_` format.
-* `NOTE` is the description of the reminder, the default value is Open.
-****
 For example:
 
 You are using Mark, and you want to remind yourself to do the quiz on Luminus bookmark tomorrow night,
@@ -1031,6 +1026,13 @@ image::AddReminderUi3.png[]
 image:: AddReminderUi4.png[]
 //The notification
 
+There are some parameter constraints:
+****
+* `INDEX` is the index of the bookmark that you want to add with a reminder.
+* `TIME_DATE` follows `_dd/MM/uuuu HHmm_` format. It should be a valid time.
+* `NOTE` is the description of the reminder, the default value is Open.
+****
+
 Other examples:
 
 * `*reminder* 1 t/02/07/2019 2359` +
@@ -1049,11 +1051,7 @@ You can edit either the time or the note of the reminder.
 
 Format: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
 
-****
-* `INDEX` is the index of the reminder you want to edit on the dashboard.
-* `TIME_DATE` is the time you want to edit. The time follows `_dd/MM/uuuu HHmm_` format.
-* `NOTE` is the description of the reminder that you want to edit.
-****
+
 For example:
 
 You have another assignment on Luminus that need to be done tomorrow morning,
@@ -1081,6 +1079,12 @@ image::EditReminderUi3.png[]
 image:: AddReminderUi4.png[]
 //The notification
 
+There are some parameter constraints:
+****
+* `INDEX` is the index of the reminder you want to edit on the dashboard.
+* `TIME_DATE` is the time you want to edit. The time follows `_dd/MM/uuuu HHmm_` format. It should be a valid time.
+* `NOTE` is the description of the reminder that you want to edit.
+****
 
 Other examples:
 
@@ -1114,12 +1118,12 @@ image::DeleteReminderUi1.png[]
 //The image of dashboard that shows the reminder for Luminus.
 
 . The result box will show the message: +
-"Edited Reminder: Do the quiz and the assignment Time: 10/11/2019 0700 URL:https://luminus.nus.edu.sg/"
-image::EditReminderUi2.png[]
+"Deleted Reminder: Do the quiz and the assignment Time: 10/11/2019 0700 URL:https://luminus.nus.edu.sg/"
+image::DeleteReminderUi2.png[]
 //The image of the result box
 
-. The reminder is edited in the reminder list.
-image::EditReminderUi3.png[]
+. The reminder is deleted in the reminder list.
+image::DeleteReminderUi3.png[]
 //The image of the reminder list
 
 
@@ -1145,7 +1149,7 @@ Now you can use the `reminder-goto` command to open the website.
 
 To open the bookmark of a reminder:
 
-. The index of the reminder in the reminder list is 3.
+. The index of the reminder in the reminder list is 2.
 You type the command `*reminder-goto* 2` into the command box and press _Enter_ to execute it.
 
 image::GotoReminderUi1.png[]
