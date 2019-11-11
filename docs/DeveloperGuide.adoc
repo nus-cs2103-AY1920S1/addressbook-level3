@@ -616,10 +616,8 @@ Refer to the guide <<DevOps#, here>>.
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
-_{More to be added}_
 
 *Value proposition*: Our application allows better management of all fronts for delivery-service-command-centre administrators, and allows for more efficiency and control in handling of daily tasks.
-_{More to be added}_
 
 [appendix]
 == User Stories
@@ -687,8 +685,6 @@ Use case resumes at step 2.
 .  Should be able to hold up to 1000 customers / restaurants / deliverymen without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
@@ -738,4 +734,45 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Similar to previous.
 
 
+=== Deleting a restaurant
 
+. Deleting a restaurant
+
+.. Prerequisites: Currently in restaurant context. Multiple restaurants in the list.
+.. Test case: `delete 1` +
+   Expected: First restaurant is deleted from the list. Details of the deleted restaurant are shown in the status message.
+.. Test case: `delete 0` +
+   Expected: No restaurant is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+
+=== Saving data
+
+. Dealing with missing/corrupted data files
+
+.. Prerequisites: There are .json files in the data/ folder currently
+
+.. Test case: Deleting `customerdatabase.json` in data/ +
+    Expected: Customer database in application will revert to default Sample Util data.
+
+.. Test case: Adding "a" to the top of the `deliverymendatabase.json` +
+    Expected: Deliverymen database will be wiped and start as an empty database.
+
+=== Tagging Customers
+
+. Adding orders to tag the customers automatically
+
+.. Prerequisites: The customers in the database are default from the Sample Util data.
+
+.. Test case: `-add_order c/PrettyCharlotte r/Prata House f/Cheese Prata q/1` +
+    Expected: `Indian` tag will be added to PrettyCharlotte's `CustomerCard`.
+
+.. Test case: `-add_order c/David r/Burger Palace f/Chicken Cheese Burger q/1`, `-add_order c/David r/Prata House f/Cheese Prata q/1` and `-add_order c/David r/Prata House f/Curry Fountain q/1` in this order +
+    Expected: `Burgers` tag will appear first and after adding the next 2 orders, `Indian` tag will replace `Japanese` tag because there are more `Indian` tags in David's order history.
+
+. Deleting orders to remove customer's tags automatically
+
+.. Prerequisites: The customers in the database are default from the Sample Util data.
+
+.. Test case: `-delete_order n/Order 1` +
+    Expected: AlexYeoh99 will have no more tags on his `CustomerCard`.
