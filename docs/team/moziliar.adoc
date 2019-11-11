@@ -22,7 +22,10 @@ the statistics data is stored in a similar fashion as the memes. As such, an und
 and JavaFX is required.
 ** Credits: AddressBook 3 implementation gave rise to the infrastructure of the statistics feature.
 
-* *Minor enhancement*: created wrapper class ImagePath during morphing stage for internal use. https://github.com/AY1920S1-CS2103-T16-3/main/pull/38[#38]
+* *Minor enhancement*:
+** created wrapper class ImagePath during morphing stage for internal use.
+** Restyle view panel for better UX as user can view long memes.
+** Improve UI logic to allow display of multiple tags without content overflow.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=moziliar&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense code]]
 
@@ -57,3 +60,4 @@ include::../DeveloperGuide.adoc[tag=stats]
 
 include::../DeveloperGuide.adoc[tag=stats2]
 
+include::../DeveloperGuide.adoc[tag=screentime]
