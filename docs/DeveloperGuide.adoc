@@ -441,7 +441,7 @@ image::ScheduleCommandExecution.png[]
 
 // end::scheduleactivity[]
 
-// tag:::autoschedule[]
+// tag::autoschedule[]
 === Auto Schedule feature
 ==== Rationale
 There are times when users are planning for an overseas trip, there are so many activities in their activity list that they want to do but the problems faced are that they are unable to finish all the activities in the list or they are unable to find an optimal schedule plan.
@@ -516,7 +516,7 @@ If there other days to schedule, the steps taken will also be the same as Step 4
 ** Cons: Certain activity may require more travelling time. If we fix a longer travelling time, it might not be optimising the schedule plan as certain activity might have shorter travelling time.
 // end::autoschedule[]
 
-// tag:::autocomplete[]
+// tag::autocomplete[]
 === Auto Complete feature
 ==== Rationale
 There are many commands to learn in our program and some of the commands can be wordy. In order to ease the learning curve and to help the user be productive as quickly as possible, autocomplete was implemented.
@@ -600,7 +600,7 @@ image::AutoCompleteActivityDiagram2.png[]
 ** Cons: There might be a noticeable delay in the suggestions appearing if the specific duration is too long. More complicated to implement.
 // end::autocomplete[]
 
-// tag:::timetable[]
+// tag::timetable[]
 === Timetable
 
 ==== Current Implementation

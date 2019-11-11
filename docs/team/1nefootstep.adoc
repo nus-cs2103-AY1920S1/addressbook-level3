@@ -48,8 +48,10 @@ image::../images/plan2travelSample.png[]
 * *Other contributions*: Coded the redesign from AddressBook to plan2travel. Also, added functionality to allow information about activity, accommodation, contact and day to be displayed in the info tab via `list activity/accommodation/contact/day` or through `view activity/accommodation/contact`.
 
 ** Community:
+*** Over 40 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Aoscarsu97[Pull Requests] on Github
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T09-1/main/pull/72[#72], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/74[#74], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/82[#82], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/87[#87], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/94[#94], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/99[#99], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/100[#100], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/106[#106], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/117[#117], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/122[#122], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/134[#134], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/193[#193], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/216[#216], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/241[#241]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S1-CS2103T-T11-2/main/issues/163[1], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/164[2], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/165[3], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/166[4], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/167[5], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/168[6], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/169[7])
+*** Overview of Code Contribution https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=1nefoostep[here]
 ** Documentation:
 *** Contributed to the Developer Guide for this project. See below for more details.
 
@@ -58,6 +60,7 @@ image::../images/plan2travelSample.png[]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+[[Design-Model]]
 include::../DeveloperGuide.adoc[tag=autocomplete]
 include::../DeveloperGuide.adoc[tag=timetable]
 include::../DeveloperGuide.adoc[tag=uicomponent]
