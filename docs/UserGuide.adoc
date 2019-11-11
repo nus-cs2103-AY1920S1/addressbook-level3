@@ -108,12 +108,12 @@ image::questionindex.png[width="1000"]
 The application is divided into 5 separate tabs, each one of them serving a specific purpose. You can toggle between the
 different tabs by entering `tab` into the *CommandBox*.
 
-=== Dashboard
-The *Dashboard* tab contains an introduction of the application, and more importantly, a *Personal Dashboard* for you to keep track of your progress made in Duke Academy.
+=== Dashboard Tab
+The *Dashboard* allows you to keep track of your learning journey and progress made in Duke Academy.
 
 image::dashboard.png[width="1000"]
 
-On the *Personal Dashboard* you can:
+On the *Dashboard* you can:
 
 . See the percentage of questions you completed and your current skill tier.
 +
@@ -126,7 +126,7 @@ Duke 90 - 100 %
 . Keep track of the questions that you are currently attempting.
 . Keep track of the questions that you bookmarked.
 
-=== Questions
+=== Questions Tab
 The *Questions* tab contains a list of all the available questions and also a window to view your problem statements.
 
 You can use commands such as `browse` and `find` to filter through the list of questions in order to find what you
@@ -141,7 +141,7 @@ image::questionspage.png[width="1000"]
 +
 
 
-=== Workspace
+=== Workspace Tab
 The workspace is where you will work on the various questions.
 
 image::workspace.png[width="1000"]
@@ -163,7 +163,7 @@ To begin your attempt on a question, enter `attempt <Qn Index>` into the *Comman
 
 To submit your attempt, enter `submit` into the *Command Box*.
 
-=== Notes
+=== Notes Tab
 The notes page is where you can record notes or even sketch out some of your ideas to aid your learning process.
 
 image::notespage.png[width="1000"]
@@ -197,8 +197,8 @@ The id of the note is the number that appears next to the title in the *NotesLis
 
 To save any changes to your notes, enter `savenote` into the *CommandBox*.
 
-=== Help
-The help page is where you can get a quick summary of all of the features and commands in the application.
+=== Help Tab
+The help tab is where you can get a quick overview of commands used in Duke Academy, and the URL to the official User Guide.
 
 [[BeforeStart]]
 == Before you start
@@ -250,7 +250,7 @@ The Dashboard allows the user to keep track of his learning journey and progress
 
 *Format:* `dashboard`
 
-image::home.png[width="1000"]
+image::dashboard.png[width="1000"]
 //end::dashboard[]
 
 //tag::showall[]

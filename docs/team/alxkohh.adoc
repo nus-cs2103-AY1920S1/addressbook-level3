@@ -1,6 +1,6 @@
 = Alex Koh - Project Portfolio
 :site-section: AboutUs
-:imagesDir: ../images
+:imagesDir: ../images/ak_ppp
 :stylesDir: ../stylesheets
 
 == PROJECT: Duke Academy
