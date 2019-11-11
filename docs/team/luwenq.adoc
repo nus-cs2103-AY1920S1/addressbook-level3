@@ -8,9 +8,13 @@
 ---
 
 == Overview
+AlgoBase is a desktop algorithmic problem manager.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 20 kLoC.
 
-AlgoBase is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+.Layout of AlgoBase
 
+image::gui/AlgoBaseLayout.png[]
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to tag problems*
@@ -31,7 +35,7 @@ https://github.com/AY1920S1-CS2103T-W11-1/main/pull/241[#241]
 * *Minor enhancement*: added a tag feature called tag color that allows the user to change the tag color displayed in UI.
 
 * *Code contributed*:
-https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=LuWenQ&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[code contributed]
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=luwenq[code contributed]
 
 * *Other contributions*:
 ** Refactors the AddressBook project:
@@ -51,6 +55,7 @@ https://github.com/AY1920S1-CS2103T-W11-1/main/pull/214[#214])
 **** https://github.com/luwenq/ped[Reported 11 bugs in PED]
 **** Reported bugs and suggestions for other teams in the class (examples
 https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/43[#43])
+
 == Contributions to the User Guide
 
 
@@ -61,13 +66,13 @@ https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/43[#43])
 include::../UserGuide.adoc[tag=tag]
 
 * Tags
-** *New Tag* : `addtag t/NAME` +
-e.g. `addtag t/sssp`
+** *New Tag* : `addtag t/NAME [c/COLOR]` +
+e.g. `addtag t/sssp c/BLUE`
 ** *List Tags* : `listtag`
 ** *Delete Tag* : `deletetag INDEX` +
 e.g. `deletetag 3`
-** *Edit tag* : `edittag INDEX t/TAGNAME` +
-e.g. `edittag 1 t/sort`
+** *Edit tag* : `edittag INDEX [t/TAGNAME] [c/COLOR]` +
+e.g. `edittag 1 t/sort c/BLUE`
 
 == Contributions to the Developer Guide
 
@@ -76,40 +81,5 @@ e.g. `edittag 1 t/sort`
 |===
 
 include::../DeveloperGuide.adoc[tag=tag]
-=== Adding a tag
 
-. Adding a tag to the existing AlgoBase
-
-.. Test case: `addtag t/test c/BLUE` +
-   Expected: New Tag [test] added to AlgoBase.
-.. Test case: type in `addtag t/test c/BLUE` for twice +
-   Expected: Tag [test] already exists in AlgoBase.
-
-=== Deleting a tag
-
-. Deleting a tag in the existing AlgoBase
-
-.. Test case: `deletetag 1` +
-   Expected: Tag [test] deleted.
-.. Test case: `deletetag 9999` +
-   Expected: The Tag index provided is invalid
-
-
-=== Editing a tag
-
-. Editing a tag in the existing AlgoBase
-.. Test case: `edittag 1 t/edited c/RED` +
-   Expected: Tag [edited] edited.
-.. Test case: `edittag t/edited c/RED` +
-   Expected: Invalid command format!
-edittag: Edits the details of the Tag identified by the index number used in the displayed Tag list. Existing values will be overwritten by the input values.
-Parameters: INDEX (must be a positive integer) [t/TAG] [c/COLOR]
-Example: edittag 1 t/Easy c/BLUE
-
-
-=== Listing tags
-
-. Listing all tags in the existing AlgoBase
-.. Test case: `listtag` +
-   Expected: All tags listed.
-
+include::../DeveloperGuide.adoc[tag=tag_test]

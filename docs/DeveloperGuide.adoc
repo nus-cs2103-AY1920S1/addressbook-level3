@@ -1536,6 +1536,7 @@ Expected: All problems in AlgoBase are listed in the problem panel.
 .. Test case: `sortprob m/name m/diff` +
    Expected: The current problem list remains unchanged and an error is thrown to inform the user that the method name is incorrect.
 
+// tag::tag_test[]
 === Adding tags
 
 . Adding a tag to the existing AlgoBase
@@ -1567,6 +1568,8 @@ Expected: All problems in AlgoBase are listed in the problem panel.
 . Listing all tags in the existing AlgoBase
 .. Test case: `listtag` +
    Expected: All tags listed.
+
+// end::tag_test[]
 
 === Finding problems
 
