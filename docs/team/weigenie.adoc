@@ -33,9 +33,9 @@ image::../images/Ui.png[width="602"]
 
 == Role
 
-My main role was to act as the Team Lead for the project, completing team tasks for the project and managing tasks
+My main role was to act as the Team Lead for the project, completing team tasks for the project and managing
 general tasks for the team members. As I was the only one who has been in the position of our target audience, I
-understand their user requirements the best, so I was also the one to set the directions of the project.
+can best understand their user requirements, so I was also the one to set the directions of the project.
 
 Development-wise, I also developed the Claims feature _(including logic, storage and model)_, as well as adding the
 association between Claims and Contacts. I also created the documentation and tests that came along with the features.
@@ -51,7 +51,8 @@ organisation and to keep track of its financial status.
 ** *Implementation*: The Person class in Address Book 3 (AB3) is remodelled to resemble a claim entry _(with additional
 attributes of ID, Description, Amount, Date and Status)_.
 ** *Highlights*: The implementation of this feature is fairly manageable since that it is an adaptation of the Person
-class. However, there is much more coupling compared to the Person class, thus it is more complex.
+class. However, there is much more coupling compared to the Person class, thus it is more complex. There are also more
+stringent testing required, such as `Date` parsing.
 
 * *Minor enhancement*: added the *Approve and Reject Claim features*
 ** *What it does*: This feature allows users to approve or reject pending claims.
@@ -62,11 +63,11 @@ and only if it is can its status be approved or rejected respectively.
 
 * *Minor enhancement*: added the *association between Claims and Contacts*
 ** *What it does*: Adding a claim into the app's list of claims will add the claim into the associated contact's list
-of claim as well.
+of claims as well.
 ** *Justification*: Each claim added is associated to a contact. The user will be able to view all the claims associated
 to a contact when viewing them using the CheckCommand.
 ** *Implementation*: During the execution of the AddClaimCommand, it checks the FinSec if there is a contact with the
-entered name. Only if there is an existing contact for the claim will it will the command be executed. It also adds
+entered name. Only if there is an existing contact for the claim will the command be executed. It also adds
 the Claim ID to the contact's list of claims to keep track of each contact's claim.
 ** *Highlights*: I have also added a table to the IndividualContactWindow for the user to view the details of every
 claim of each contact easily.
@@ -120,6 +121,4 @@ include::../UserGuide.adoc[tag=claimfeature]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=addClaim_feature]

@@ -90,7 +90,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `FinSecParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -114,7 +114,7 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the FinSec data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -134,12 +134,12 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the FinSec data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
@@ -221,12 +221,14 @@ The format for the `add_claim` command is as follows:
 
  add_claim d/<DESCRIPTION> c/<CASH AMOUNT> date/<DATE> n/<NAME> p/<PHONE NUMBER>
 
+
+// tag::addClaim_feature[]
 ==== Adding a Claim
 
 *Overview*
 
 The add claim `add_claim` mechanism is facilitated by `AddClaimCommand` and `AddClaimCommandParser`, taking in the
-following input from the user: `Description`, `Amount`, `Date`, `Name` and `Phone`, which will construct `Claim` objects.
+following input from the user: `Description`, `Amount`, `Date` and `Name`, which will construct `Claim` objects.
 
 .Add Claim Command Sequence Diagram
 image::AddClaimSequenceDiagram.png[]
@@ -236,29 +238,32 @@ image::AddClaimSequenceDiagram_Model.png[]
 
 The `AddClaimCommandParser` implements `Parser` with the following operation:
 
-* `AddClaimCommandParser#parse()` - This operation will take in a String input from the user that will create `Claim`
-objects based on the prefixes 'd/', 'c/', 'date/', 'n/' and 'p/'. The String value after the individual prefixes will
-create the respective object: d/`description`, c/`amount`, date/`date`,  n/`name` and p/`phone`. A regex validation
+* `AddClaimCommandParser#parse()` - This operation takes in a String input from the user that will create `Claim`
+objects based on the prefixes 'd/', 'c/', 'date/', 'n/' and 't/'. The String value after the individual prefixes will
+create the respective object: d/`description`, c/`amount`, date/`date`,  n/`name` and t/`tags`. A regex validation
 check will be imposed upon the creation of each argument. Any checks that fails the validation would prompt the user on
 the failed component.
 
 For example:
 
-** `date` would use `ParseUtil#parseDate()` to ensure that the date entered is in the correct format of DD-MM-YYYY.
+** `date` uses `ParseUtil#parseDate()` to ensure that the date entered is in the correct format of DD-MM-YYYY. The
+date also has to be a valid date _(29-02-2019 is invalid but 29-09-2016 is valid)_.
 
-** `amount` would use `ParserUtil#parseAmount()` to ensure that cash amount would only contain numbers and a maximum of
+** `amount` uses `ParserUtil#parseAmount()` to ensure that cash amount would only contain numbers and a maximum of
 2 decimal places.
 
-** `phone` would use `ParserUtil#parsePhone()` to ensure that the phone number entered would only contain numbers that
-are at least 3 numbers long.
+** After validation checks are completed with no errors, a `Claim` object will be constructed with `Id`, `Description`,
+`Amount`, `Date`, `Name` and `Tags` as the parameters.
 
-* After validation checks are completed with no errors, a `Claim` object will be constructed with `Id`, `Description`,
-`Amount`, `Date`, `Name` and `Phone` as the parameters.
+** `AddClaimCommandParser` will then return an `AddClaimCommand` object with `Claim` as its attribute.
 
-* `AddClaimCommandParser` would then return an `AddClaimCommand` object with `Claim` as its attribute.
-
-* `AddClaimCommand#execute` checks against all existing contacts against the inputs `name` and `phone` to make sure
+** `AddClaimCommand#execute` will check against all existing contacts against the input `name` to make sure
 the contact exists.
+
+.Add Claim Command Activity Diagram
+image::AddClaimActivityDiagram.png[]
+
+The above activity diagram models the workflow of the addition of a claim.
 
 *Example*
 
@@ -266,25 +271,54 @@ Given below is an example usage scenario of how `add_claim` mechanism behaves at
 
 *Step 1:* The user executes:
 ....
-add_claim d/Logistics for Sports Day c/150.60 date/21-12-2019 n/Melissa p/99875432`
+add_claim n/Melissa d/Logistics for Sports Day c/150.60 date/21-12-2019
 ....
-This adds a `Claim` of $150.60 for Logistics for Sports Day by Melissa, with a phone identity of 99875432.
+This is intended to add a `Claim` of $150.60 for Logistics for Sports Day by Melissa.
 
-*Step 2:* `LogicManager` would use `FinSecParser#parse()` to parse input from the user.
+*Step 2:* `LogicManager` uses `FinSecParser#parse()` to parse input from the user.
 
-*Step 3:* `FinSecParser` would determine which command is being used and creates the respective parser. In this case,
-`AddClaimCommandParser` is being created and the user's input would be passed in as a parameter.
+*Step 3:* `FinSecParser` determines which command is being used and creates the respective parser. In this case,
+`AddClaimCommandParser` is being created and the user's input will be passed in as a parameter.
 
-*Step 4:* `AddClaimCommandParser` would do a validation check on the user's input before creating and returning a
+*Step 4:* `AddClaimCommandParser` will do a validation check on the user's input before creating and returning a
 `AddClaimCommand` object with `Claim` as its attribute.
 
-*Step 5:* `LogicManager` would execute `AddClaimCommand#execute()`, checking whether there is an existing Claim and also
+*Step 5:* `LogicManager` will execute `AddClaimCommand#execute()`, checking whether there is an existing Claim and also
 whether there is an existing contact for the claim, then adding the `PendingClaim` into the `Model` which is handled by the
 `ModelManager`.
 
-*Step 6:* `AddClaimCommand` would return a `CommandResult` to the `LogicManager` which would then be returned back to
+*Step 6:* During the addition of claim into the `UniqueClaimsList` in `FinSec`, `FinSec#addClaimIntoContact` will also
+be called, adding the `Id` of the claim to the associated contact's `claims`.
+
+*Step 7:* `AddClaimCommand` will return a `CommandResult` to the `LogicManager` which will then be returned back to
 the user.
 
+During the design of our `add_claim` function, specifically its association with `Contacts`, we considered other
+alternatives as well.
+
+.add_claim alternatives
+[options="header,footer"]
+|=======================
+| Design Consideration | Pros and Cons
+| Adding the claim into contact by its Id |
+*Pros* : Since each claim has an unique Id, it can easily be retrieved from `UniqueClaimsList` _(returned from
+`FinSec#getClaimList()`)_. This reduces coupling when the claim is to be changed _(eg. gets approved)_.
+
+*Cons* : Every time we retrieve a claim using its `Id`, we have to search through the whole `UniqueClaimsList` to find
+the associated claim. As the list gets bigger and the more claims we have to search for an individual contact, this
+may take more time.
+
+| Adding the claim into contact by its object |
+*Pros* : This allows the claim to be stored inside the contact itself, thus is easily accessible.
+
+*Cons* : It is more difficult ensuring that both the same claim in the contact and in the `UniqueClaimsList` remains
+exactly the same to each other when one of them is changed.
+
+|=======================
+
+We have decided to opt for the first option primarily because it reduces the number of potential bugs and the
+complexities involved. Moreover, as we are trying to push a Minimum Viable Product, the implementation is still fast
+enough for small-scale organisations to pick up our app and use it, minimising the cons.
 
 ==== Approving a Claim
 
@@ -305,6 +339,7 @@ The `RejectClaimCommand` is part of the logic component of our application. It i
 components of our application.
 
 
+// end::addClaim_feature[]
 === Income feature
 
 The `add_income` command allows for users to register new `Income` objects into FinSec.
