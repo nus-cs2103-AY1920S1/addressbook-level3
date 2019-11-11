@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
+import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.util.InventoryList;
 
 /**
@@ -19,6 +20,11 @@ public class InventoryModelStub implements Model {
 
     @Override
     public Item findItemByIndex(int index) throws NoSuchIndexException {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public int findIndexByDescription(String description) throws NoSuchItemException, NoSuchIndexException {
         throw new AssertionError("This method should not be called.");
     }
 

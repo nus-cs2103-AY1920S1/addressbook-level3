@@ -68,6 +68,12 @@ public class ModelManager implements Model, ReadInUpdatedListOnlyModel {
     }
 
     @Override
+    public int findIndexByDescription(String description) throws NoSuchItemException, NoSuchIndexException {
+        int index = inventoryList.getIndex(description) + 1;
+        return index;
+    }
+
+    @Override
     public void deleteItem(int index) {
         inventoryList.delete(index - 1);
     }

@@ -44,7 +44,7 @@ public class AddCommandParser implements CommandParserWithPersonModel {
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
-     * @throws NoSuchPersonException if user inputs a transaction done by someone not in date base
+     * @throws NoSuchPersonException if user inputs a transaction done by someone not in database
      */
     public AddCommand parse(String args, CheckAndGetPersonByNameModel personModel)
             throws ParseException, NoSuchPersonException {

@@ -33,7 +33,7 @@ public class InventoryMessages {
             + "edit: Edits an item in the table."
             + "Parameters:\nID\n[d/DESCRIPTION]\n[c/CATEGORY]\n[q/QUANTITY]\n[co/COST]\n[p/PRICE]";
 
-    public static final String MESSAGE_NOT_EDITED = "Sorry! Did not manage to edit item. Please follow the correct"
+    public static final String MESSAGE_NOT_EDITED = "The item was not edited. Please follow the correct"
             + " format and ensure that the values correspond to the input type (E.g. quantity must be a number)."
             + "\nThe format is:\nedit ID [d/DESCRIPTION] [c/CATEGORY] [q/QUANTITY] [co/COST] [p/PRICE].";
 
@@ -52,7 +52,7 @@ public class InventoryMessages {
             + "add, delete, edit, sort, go and exit.";
 
     public static final String MESSAGE_ADDED_DUPLICATE_ITEM = "The given description is the same as that"
-            + " of an existing item. We have added the quantity to the existing item.";
+            + " of an existing item. All numeric fields of the existing item have been updated.";
 
     public static final String MESSAGE_NEGATIVE_NUMBER = "The given input cannot be negative.";
 

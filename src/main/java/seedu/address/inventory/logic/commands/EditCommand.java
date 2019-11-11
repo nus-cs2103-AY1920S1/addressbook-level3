@@ -6,8 +6,10 @@ import static seedu.address.inventory.ui.InventoryMessages.MESSAGE_EDITED_ITEM;
 import java.util.Optional;
 
 import seedu.address.inventory.logic.commands.exception.CommandException;
+import seedu.address.inventory.logic.parser.exception.InvalidNumberException;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
+import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.person.commons.util.CollectionUtil;
 
 /**
@@ -42,6 +44,11 @@ public class EditCommand extends Command {
         if (itemToEdit.equals(editedItem) && model.hasItemInInventory(editedItem)) {
             throw new CommandException(MESSAGE_DUPLICATE);
         }
+
+        if (editedItem.getTotalCost() >= 10000 || editedItem.getSubtotal() >= 10000) {
+            throw new InvalidNumberException(InventoryMessages.MESSAGE_TOTAL_TOO_LARGE);
+        }
+
         model.setItem(Integer.parseInt(itemToEdit.getId()), editedItem);
         return new CommandResult(String.format(MESSAGE_EDITED_ITEM, itemToEdit, editedItem));
     }
