@@ -282,7 +282,7 @@ Your report will display the following statistical data for you to monitor your 
 
 1. Your Maximum, Minimum and Average calorie intake per day of the current month.
 [NOTE]
-Average value is rounded down. +
+Average value is rounded. +
 Average value is calculated by totalling your calorie intake in that month so far and dividing it by the total number of days in that month, *NOT* the number of days that have passed in that month so far.
 2. The number of days where calorie intake exceeded calorie budget of the month.
 3. Your list of most consumed dishes of the month.
