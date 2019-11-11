@@ -20,7 +20,7 @@ import seedu.flashcard.logic.parser.exceptions.ParseException;
 public class TimerDisplay extends UiPart<Region> {
 
     private static final String FXML = "TimerDisplay.fxml";
-    private static final Integer DEFAULT_TIME = 15;
+    private static Integer defaultTime = 15;
     private static Integer startTime = 0;
 
     private static IntegerProperty userPrefTime;
@@ -61,7 +61,7 @@ public class TimerDisplay extends UiPart<Region> {
     void initializeTimer () {
         timeline.stop();
         if (userPrefTime.getValue() == 0) {
-            startTime = DEFAULT_TIME;
+            startTime = defaultTime;
         } else {
             startTime = userPrefTime.getValue();
         }

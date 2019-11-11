@@ -26,7 +26,7 @@ public class FlashcardContainsKeywordPredicateTest {
             new FlashcardContainsKeywordsPredicate(firstPredicateKeyWordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
         assertFalse(firstPredicate.equals(1));
-        assertFalse(firstPredicate.equals(null));
+        assertFalse(firstPredicate == null);
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 

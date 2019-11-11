@@ -120,4 +120,5 @@ public class FlashcardBuilder {
     public McqFlashcard buildMcqFlashcard() {
         return new McqFlashcard(question, choices, definition, tags, answer, score);
     }
+
 }
