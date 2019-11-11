@@ -24,8 +24,6 @@ public class StatsDisplay extends UiPart<Region> {
 
     public StatsDisplay() {
         super(FXML);
-        piechart.setPrefWidth(500);
-        piechart.setPrefHeight(500);
     }
 
     public void setDisplayDataExpenses(ObservableList<Expense> displayData) {
@@ -43,12 +41,7 @@ public class StatsDisplay extends UiPart<Region> {
     }
 
     public void setDisplayDataBudgetWithExpenses(ObservableList<Expense> displayData, Budget budget) {
-        ObservableList<PieChart.Data> pieChartData = getPieChartDataFromExpenses(displayData);
-
-        if (budget.isBudgetPositive()) {
-            PieChart.Data data1 = new PieChart.Data("Amount Left", budget.getAmountLeft().getValue());
-            pieChartData.add(data1);
-        }
+        ObservableList<PieChart.Data> pieChartData = getPieChartDataFromExpensesInBudget(displayData, budget);
 
         piechart.setData(pieChartData);
         piechart.setLabelLineLength(15.00);
@@ -80,6 +73,52 @@ public class StatsDisplay extends UiPart<Region> {
                 totalAmount / getOverallAmountFromExpenses(displayData) * 100) + "%";
             PieChart.Data data = new PieChart.Data(name, totalAmount);
             pieChartData.add(data);
+        }
+
+        return pieChartData;
+    }
+
+    public ObservableList<PieChart.Data> getPieChartDataFromExpensesInBudget(ObservableList<Expense> displayData,
+                                                                             Budget budget) {
+        ObservableList<PieChart.Data> pieChartData =
+            FXCollections.observableArrayList();
+
+        HashMap<Tag, Double> taggedExpenses = new HashMap<>();
+
+        for (Expense expense : displayData) {
+            Tag expenseTag = expense.getTag();
+            if (taggedExpenses.containsKey(expenseTag)) {
+                Double currentTotalAmount = taggedExpenses.get(expenseTag);
+                Double newTotalAmount = currentTotalAmount + expense.getAmount().getValue();
+                taggedExpenses.put(expenseTag, newTotalAmount);
+            } else {
+                taggedExpenses.put(expenseTag, expense.getAmount().getValue());
+            }
+        }
+
+        if (budget.isBudgetPositive()) {
+            Double amountLeft = budget.getAmountLeft().getValue();
+            for (Map.Entry<Tag, Double> entry : taggedExpenses.entrySet()) {
+                String tagName = entry.getKey().tagName.equals("") ? "Untagged" : entry.getKey().tagName;
+                Double totalAmount = entry.getValue();
+                String name = tagName + "-" + String.format("%.1f", (
+                    totalAmount / (getOverallAmountFromExpenses(displayData) + amountLeft)) * 100) + "%";
+                PieChart.Data data = new PieChart.Data(name, totalAmount);
+                pieChartData.add(data);
+            }
+            String nameLeft = "Amount Left" + "-" + String.format("%.1f", (
+                amountLeft / (getOverallAmountFromExpenses(displayData) + amountLeft)) * 100) + "%";
+            PieChart.Data dataLeft = new PieChart.Data(nameLeft, amountLeft);
+            pieChartData.add(dataLeft);
+        } else {
+            for (Map.Entry<Tag, Double> entry : taggedExpenses.entrySet()) {
+                String tagName = entry.getKey().tagName.equals("") ? "Untagged" : entry.getKey().tagName;
+                Double totalAmount = entry.getValue();
+                String name = tagName + "-" + String.format("%.1f", (
+                    totalAmount / getOverallAmountFromExpenses(displayData)) * 100) + "%";
+                PieChart.Data data = new PieChart.Data(name, totalAmount);
+                pieChartData.add(data);
+            }
         }
 
         return pieChartData;

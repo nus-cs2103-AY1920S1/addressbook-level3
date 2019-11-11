@@ -38,7 +38,7 @@ public class SampleDataUtil {
                 new Currency("SGD", getRate("SGD")),
                 new Date("15/12/2019 2100"), new Tag("")),
             new Expense(new Name("Travel to Paris"), new Amount("50000"),
-                new Currency("KRW", getRate("EUR")),
+                new Currency("KRW", getRate("KRW")),
                 new Date("25/12/2019 800"), new Tag("travel")),
             new Expense(new Name("Gift for duke"), new Amount("30"),
                 new Currency("SGD", getRate("SGD")),
