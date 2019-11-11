@@ -6,7 +6,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
-import com.typee.logic.interactive.parser.InteractiveParserUtil;
+import com.typee.logic.interactive.parser.state.StateUtil;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
@@ -52,7 +52,7 @@ public class StartDateState extends State {
     }
 
     private boolean isValid(String startTime) {
-        return InteractiveParserUtil.isValidDateTime(startTime);
+        return StateUtil.isValidDateTime(startTime);
     }
 
     @Override

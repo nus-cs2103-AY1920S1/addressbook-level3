@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
-import com.typee.logic.interactive.parser.InteractiveParserUtil;
+import com.typee.logic.interactive.parser.state.StateUtil;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.PenultimateState;
 import com.typee.logic.interactive.parser.state.State;
@@ -71,7 +71,7 @@ public class CloseDisplayState extends PenultimateState {
      */
     private boolean isValid(String date) {
         try {
-            LocalDate localDate = InteractiveParserUtil.parseLocalDate(date, DATE_PATTERN);
+            LocalDate localDate = StateUtil.parseLocalDate(date, DATE_PATTERN);
             return true;
         } catch (DateTimeException e) {
             return false;

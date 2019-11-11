@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import com.typee.commons.core.index.Index;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
-import com.typee.logic.interactive.parser.InteractiveParserUtil;
+import com.typee.logic.interactive.parser.state.StateUtil;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.logic.interactive.parser.state.State;
@@ -52,7 +52,7 @@ public class PdfIndexState extends State {
      */
     private void enforceValidity(Optional<String> index) throws StateTransitionException {
         try {
-            Index listIndex = InteractiveParserUtil.parseIndex(index.get());
+            Index listIndex = StateUtil.parseIndex(index.get());
         } catch (ParseException e) {
             throw new StateTransitionException(MESSAGE_INVALID_INPUT);
         }

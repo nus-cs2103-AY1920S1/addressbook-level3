@@ -10,7 +10,7 @@ import com.typee.logic.commands.Command;
 import com.typee.logic.commands.FindCommand;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
-import com.typee.logic.interactive.parser.InteractiveParserUtil;
+import com.typee.logic.interactive.parser.state.StateUtil;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
@@ -80,13 +80,13 @@ public class FindEndState extends EndState {
     private void setPredicateDescription(EngagementPredicate engagementPredicate) {
         if (soFar.getValue(PREFIX_DESCRIPTION).isPresent()) {
             engagementPredicate.setDescription(
-                    InteractiveParserUtil.parseDescription(soFar.getValue(PREFIX_DESCRIPTION).get()));
+                    StateUtil.parseDescription(soFar.getValue(PREFIX_DESCRIPTION).get()));
         }
     }
 
     private void setPredicateAttendees(EngagementPredicate engagementPredicate) {
         if (soFar.getValue(PREFIX_ATTENDEES).isPresent()) {
-            AttendeeList attendeeList = InteractiveParserUtil.parseAttendees(soFar.getValue(PREFIX_ATTENDEES).get());
+            AttendeeList attendeeList = StateUtil.parseAttendees(soFar.getValue(PREFIX_ATTENDEES).get());
             String attendeeName = attendeeList.getAttendees().get(0).getName().toString();
             engagementPredicate.setAttendees(attendeeName);
         }
@@ -95,14 +95,14 @@ public class FindEndState extends EndState {
     private void setPredicatePriority(EngagementPredicate engagementPredicate) {
         if (soFar.getValue(PREFIX_PRIORITY).isPresent()) {
             engagementPredicate.setPriority(
-                    InteractiveParserUtil.parsePriority(soFar.getValue(PREFIX_PRIORITY).get()).toString());
+                    StateUtil.parsePriority(soFar.getValue(PREFIX_PRIORITY).get()).toString());
         }
     }
 
     private void setPredicateLocation(EngagementPredicate engagementPredicate) {
         if (soFar.getValue(PREFIX_LOCATION).isPresent()) {
             engagementPredicate.setLocation(
-                    InteractiveParserUtil.parseLocation(soFar.getValue(PREFIX_LOCATION).get()).toString());
+                    StateUtil.parseLocation(soFar.getValue(PREFIX_LOCATION).get()).toString());
         }
     }
 
