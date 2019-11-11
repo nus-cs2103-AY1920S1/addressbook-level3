@@ -6,7 +6,7 @@
 
 == Overview
 
-$aveNUS is a command line interface (CLI) financial planning application that my team and I designed for
+$aveNUS is a Command Line Interface (CLI) financial planning application that my team and I designed for
 CS2103T (Software Engineering) module in School of Computing, National University of Singapore (NUS).
 
 In this project, we morphed the sample address book application into $aveNUS, an application that allows NUS students
@@ -28,11 +28,11 @@ a| icon:exclamation-circle[role="icon-important", size="2x"] | A red exclamation
 == Summary of contributions
 
 In this section, I will provide a summary of the contributions I have made to the team project.
-THese include features which I have implemented as well as other project-related contributions.
+These include features which I have implemented as well as other project-related contributions.
 
 === Major enhancement: Savings Feature
 
-I have added the Savings feature and all of its related commands.
+I conceptualised and added the Savings feature and all of its related commands.
 
 ==== What it does
 
@@ -41,33 +41,33 @@ using the `save` command. In addition, users can transfer money from their savin
 using the `withdraw` command.
 
 Users can then track their savings and withdrawals made from the Savings History Panel of the application's GUI. The savings of a user
-is displayed in Green, while the withdrawals are displayed as a negative sum of money, and in red.
+is displayed with a green tag, while the withdrawals are displayed as a negative sum of money, and in a red tag.
 
 ==== Justification
 
-In university, students are keen to plan for their lives after they graduate. Students would like to graduate with at least
-a certain amount of money in their banks so that they can either pay for their student loans, or return the amount they borrowed
-from their parents for paying off their school fees. To do this, they have to start saving from the time they stepped into university.
+In university, students are keen to have savings in their lives even after they graduate. They would like to graduate with at least
+a certain amount of money in their savings so that they can either pay for their student loans, or return the amount they borrowed
+from their parents to pay off their tuition fees. To do this, they have to start saving from the time they step into university.
 
 With the savings feature encompassed into the expenditure tracking application of $aveNUS, the application
-serves as a one-stop application for them to efficiently plan their finances when they are in school. The Green display
-for the savings added provides a friendlier display to encourage users to save more. The Red display for the withdrawals
-made by the user is intentionally harsh, to serve as a warning to the users when they make a withdrawal.
+serves as a one-stop application for them to efficiently plan their finances when they are in school. The green tags
+for savings added, provides a more encouraging display to motivate users to save more. The red tags for the withdrawals
+made by the user is intentionally harsher, to serve as a warning to the users when they make a withdrawal.
 
 ==== Highlights
 
-I had to implement new classes such as `ReadOnlySavingsHistory`, `SavingsHistory`, `ReadOnlySavingsAccount`, `SavingsAccount`
+I had to implement new classes such as `ReadOnlySavingsHistory`, `SavingsHistory`, `ReadOnlySavingsAccount`, `SavingsAccount`,
 `Savings`, `CurrentSavings` and `SavingsHistoryList`. These classes had to be
 implemented across the multiple components within the application architecture to support the Savings
 feature, allowing me to better understand the project's architecture.
 
-Storage functionality to keep track of the user's savings and withdrawals, was also implemented in this savings feature,
-which allowed me to understanding how data can be saved persistently in a Jackson file.
+A persistent storage functionality to keep track of the user's savings and withdrawals, was also implemented in this savings feature.
+This allowed me to understand how data can be saved from a user's input into a Jackson file.
 
 I also learnt to write unit and integration tests for automated testing within the Savings feature.
 
-It also gave me the opportunity to interact more in depth with the application's GUI, so
-as to effectively present the savings history to the user.
+Finally, working on the feature gave me the opportunity to interact more in depth with the application's GUI, so
+as to effectively present the savings history data to the user.
 
 === Other enhancements added: History Retrieval and Restricted Display in Savings History
 
@@ -80,25 +80,25 @@ In addition, I conceptualised the restricted viewing of Savings History and adde
 
 Users can retrieve the 10 most recently typed commands by using the `history` command.
 
-Users can also view only their savings/withdrawals in the Savings History panel, by using the `show` command that I
+Users can also request to view only their savings/withdrawals in the Savings History Panel. This is done using the `show` command that I
 have implemented.
 
 ==== Justification
 
 The history feature allows the user to conveniently refer to the list of commands he/she typed previously without the hassle of scrolling through his past commands
-one by one using the "UP" or "DOWN" arrow. This speeds up input as well, since users can simply copy and paste a command that was typed much earlier.
+one-by-one using the "UP" or "DOWN" keys. This speeds up input as well, since users can simply copy and paste a command that was typed much earlier.
 This is especially useful since this application is a Command-Line application.
 
-On the other hand, the show feature allows the users to view only their savings/withdrawals, thus allowing them to
-track for themselves the savings/withdrawals they have made so far and decide if they have been withdrawing too much.
+On the other hand, the restricted view feature allows users to view only their savings/withdrawals. Thus, this allows them to
+track the savings/withdrawals they have made so far and decide if they have been withdrawing too much or saving too little.
 
 ==== Highlights
 
 I had to work closely with my other team members to implement the history feature as we worked on implementing different parts
 of it.
 
-The restricted view of the user's savings history also involves the change of certain commands that affects other
-commands in the GUI such as the `CommandResult` class, which is used by multiple components within the application.
+The restriction of the user's savings history panel display, also involved the change of certain commands that affected other
+commands in the application. An example would be `CommandResult` class, which is used by multiple components within the application.
 
 === Code contributions
 
@@ -109,7 +109,7 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=fatclarence&sort=grou
 
 * Project Management:
 
-** Adding users stories to share the goals of our application for the users
+** Adding users stories to share the problems we aim to solve
 
 ** Idealised and conceptualised the addition of the Savings feature
 
@@ -151,7 +151,7 @@ https://github.com/AY1920S1-CS2103T-F13-2/main/pull/67[#67]]
 
 ** Community:
 
-*** PRs review (with non-trival review comments) [PR
+*** PRs reviewed (with non-trival review comments) [PR
 https://github.com/AY1920S1-CS2103T-F13-2/main/pull/323[#323],
 https://github.com/AY1920S1-CS2103T-F13-2/main/pull/305[#305],
 https://github.com/AY1920S1-CS2103T-F13-2/main/pull/238[#238],

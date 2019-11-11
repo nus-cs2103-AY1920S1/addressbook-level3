@@ -173,7 +173,7 @@ ifdef::env-github[| :white_check_mark: a| You will see a list of commands that y
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a list of commands that you have previously typed in the Results Display.]
 
 .Example of view of $aveNUS after user inputs `history`. History of previously typed command appears in the Results Display as shown.
-image::HistoryCommandUI.png[]
+image::HistoryUI.png[width=450]
 
 {empty}
 |===
@@ -208,7 +208,9 @@ ifdef::env-github[| :white_check_mark: a| You will see a window pop-up specifyin
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a window pop-up specifying the details of the command you wanted more information about.]
 
 .Example of view of information window after user inputs `info edit`.
-image::InfoEditUI.png[]
+image::InfoEditUI.png[width=250]
+
+{empty}
 |===
 
 ==== Changing the application's theme: `theme`
