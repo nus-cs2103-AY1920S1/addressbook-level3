@@ -21,8 +21,8 @@ user.*
 . Attain different levels of achievements upon meeting predefined requirements.
 . Customise font and background to _any_ hexadecimal-value colour (or image for background).
 ** Justification: These features improve the product significantly because a user would want to add a user  profile with useful information especially in times of emergency, acquire a sense of achievement at different milestones, and enjoy a substantial degree of flexibility in aesthetic customisation, representing his / her preferences, that enhances his / her overall quality of comfort in using the app.
-** Highlights: These enhancements benefit commands to be added in future since new fields in a user's biography, achievements and aesthetic preferences could be easily defined in further developments via inheritance and polymorphism. Implementation of the `Achievements` sub-feature was particularly challenging as it required careful interaction with other features such as the `average` feature and
-`record` instances, and maintaining balance between abstraction and minimising coupling.
+** Highlights: These enhancements benefit commands to be added in future since new fields in a user's biography, achievements and aesthetic preferences could be easily defined in further developments via inheritance and polymorphism. Implementation of the `Achievements` sub-feature was particularly challenging as it required careful interaction with other features such as the `Average` feature and
+`Record` instances, in addition to maintaining balance between abstraction and minimising coupling.
 
 * *Minor enhancements*:
 ** Added over 600+ motivational quotes from various sources to be selected at random and shown to the user for each session of the main application's execution.
