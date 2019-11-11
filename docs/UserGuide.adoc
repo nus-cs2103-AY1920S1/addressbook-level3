@@ -586,7 +586,7 @@ This command does not work if the application is in another tab or the specified
 .Calendar view for November 2019
 image::calendar-view-modified.png[width="450", float="left"]
 [.left]
-.Engagement list circled date
+.Engagements list for circled date
 image::calendar-open-display.png[width="450"]
 {empty} +
 
@@ -612,7 +612,7 @@ Format: `calendar c/nextmonth`
 .Calendar view for November 2019
 image::calendar-view.png[width="450", float="left"]
 [.left]
-.Calendar view after `nextmonth` command
+.After `nextmonth` command
 image::calendar-next-month.png[width="450"]
 {empty} +
 
@@ -630,7 +630,7 @@ Format: `calendar c/previousmonth`
 .Calendar view for November 2019
 image::calendar-view.png[width="450", float="left"]
 [.left]
-.Calendar view after `previousmonth` command
+.After `previousmonth` command
 image::calendar-previous-month.png[width="450"]
 {empty} +
 
