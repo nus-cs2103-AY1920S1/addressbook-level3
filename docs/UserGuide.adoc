@@ -90,20 +90,20 @@ Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a sp
 
 *Parameter Restrictions* :
 
-[width="100%",cols="30%,<70%",options="header",]
+[width="100%",cols="30%,20%,<50%",options="header",]
 |=======================================================================
-| Parameter | Restriction
-| AMOUNT | - a valid amount between 0 and 1000000 dollars exclusive +
+| Parameter | Prefix | Restriction
+| AMOUNT | $/ | - a valid amount between 0 and 1000000 dollars exclusive +
 - a valid amount up to 2 decimal places
-| DATE | - a valid date with the format DDMMYY in the Gregorian calendar
-| DESCRIPTION | - a valid description with alphanumeric chacracters
-| CATEGORY | - a valid category with alphanumeric characters without space
-| TYPE | - a valid type containing one character +
+| DATE | d/ |- a valid date with the format DDMMYY in the Gregorian calendar
+| DESCRIPTION | n/ | - a valid description with alphanumeric chacracters
+| CATEGORY | c/ | - a valid category with alphanumeric characters without space
+| TYPE | | - a valid type containing one character +
 `t` : Transaction +
 `b` : Budget +
 `l` : Ledger +
 `p` : Projection
-| INDEX | - a valid entry number in the list
+| INDEX | | - a valid entry number in the list
 |=======================================================================
 
 ====
