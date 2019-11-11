@@ -31,6 +31,7 @@ public class GetStudentGradesCommand extends Command {
     private final Index index;
 
     public GetStudentGradesCommand(Index index) {
+        requireNonNull(index);
         this.index = index;
     }
 

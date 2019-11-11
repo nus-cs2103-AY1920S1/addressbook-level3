@@ -11,6 +11,10 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.FindStudentCommand;
 import seedu.address.model.student.NameContainsKeywordsPredicate;
 
+/**
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ *  {@code FindStudentCommandParser}.
+ */
 public class FindStudentCommandParserTest {
 
     private FindStudentCommandParser parser = new FindStudentCommandParser();

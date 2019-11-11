@@ -11,6 +11,8 @@ import seedu.address.model.classroom.Classroom;
  */
 public class TypicalClassrooms {
 
+    public static final String CLASSROOM_ONE_NAME = "Classroom One";
+    public static final String CLASSROOM_TWO_NAME = "Classroom Two";
     public static final Classroom CLASSROOM_ONE = new ClassroomBuilder()
             .withClassroomName("Classroom One")
             .withStudents(TypicalStudents.getTypicalStudents())

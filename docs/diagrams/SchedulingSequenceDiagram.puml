@@ -1,0 +1,14 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":MainWindow" as MainWindow LOGIC_COLOR
+end box
+
+[-> MainWindow : new MainWindow(primaryStage, logic)
+activate MainWindow
+
+MainWindow -> MainWindow : listenToLesson()
+
+MainWindow -> MainWindow : countDownAlert("reminder", Lesson.toString())
+@enduml
