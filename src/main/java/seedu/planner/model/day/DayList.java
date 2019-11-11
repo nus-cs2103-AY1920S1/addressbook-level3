@@ -46,11 +46,11 @@ public class DayList implements Iterable<Day> {
 
         internalList.add(index.getZeroBased(), d);
 
-        shiftDatesInItinerary(
-                1,
-                Index.fromZeroBased(index.getZeroBased() + 1),
-                Index.fromOneBased(internalList.size())
-        );
+//        shiftDatesInItinerary(
+//                1,
+//                Index.fromZeroBased(index.getZeroBased() + 1),
+//                Index.fromOneBased(internalList.size())
+//        );
     }
 
     /**
@@ -113,11 +113,11 @@ public class DayList implements Iterable<Day> {
         if (indexOfToRemove == -1) {
             throw new DayNotFoundException();
         }
-        shiftDatesInItinerary(
-                -1,
-                Index.fromZeroBased(indexOfToRemove + 1),
-                Index.fromOneBased(internalList.size())
-        );
+//        shiftDatesInItinerary(
+//                -1,
+//                Index.fromZeroBased(indexOfToRemove + 1),
+//                Index.fromOneBased(internalList.size())
+//        );
         internalList.remove(toRemove);
     }
 
