@@ -327,23 +327,23 @@ Given below is an example scenario where the user command has missing compulsory
 
 Step 1: The `Ui` passes the user's command to `Logic`, which finds one or more missing compulsory fields. For each missing field, it creates a new `Prompt` object with a question. Then it throws a `ParseException` containing the list of `Prompt` objects.
 
-image::UserPromptSequenceDiagramStep1.png[]
+image::UserPromptSequenceDiagramStep1.png[width=600]
 
 Step 2: The `Ui` receives the list of `Prompt` objects. For each `Prompt`, it retrieves the question and obtains the corresponding user feedback using the mechanism <<Getting responses from the user, here>>.
 
-image::UserPromptSequenceDiagramStep2.png[]
+image::UserPromptSequenceDiagramStep2.png[width=600]
 
 Step 3: The `Ui` passes the original command, together with the processed `Prompt` objects, back to `Logic`. `Logic` then executes the corrected command.
 
-image::UserPromptSequenceDiagramStep3.png[]
+image::UserPromptSequenceDiagramStep3.png[width=600]
 
 The full sequence diagram is shown below:
 
-image::UserPromptSequenceDiagramFull.png[]
+image::UserPromptSequenceDiagramFull.png[width=600]
 
 The user can also abort the command by pressing the Escape button. In this case, the `Ui` will discard the original command and continue to receive further user commands.
 
-===== Getting prompts from the user
+===== Getting responses from the user
 
 To obtain responses to a list of prompts, the UI uses a `PromptHandler` to indicate the incomplete command that it is currently working on. `PromptHandler` uses the Iterator design pattern to fill a list of prompts. It implements the following operations:
 
