@@ -195,6 +195,9 @@ If successfully edited, the edited information of Roy (now Shawn) will be displa
 
 The team list should also reflect Roy's new details.
 
+
+// tag::entire_training[]
+
 // tag::training_intro[]
 === Training
 *Athletick* allows you to record your team's training sessions, so that you can store important information like
@@ -386,6 +389,7 @@ feature box will show you your team's overall attendance.
 image::view_attendance_after.png[width=350]
 
 // end::view_attendance_command[]
+// end::entire_training[]
 
 // tag::performance_addevent[]
 === Performance
