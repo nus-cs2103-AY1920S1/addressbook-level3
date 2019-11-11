@@ -1134,7 +1134,7 @@ When the user opens the app, their `GlobalStatistics` and `WordBankStatisticsLis
 `MainApp`.
 
 .Sequence diagram for loading statistics
-image::LoadStatisticsSequenceDiagram.png[]
+image::LoadStatisticsSequenceDiagram.png[width=460]
 
 ===== 2. [underline]#User selects a word bank# +
 When the user selects a word bank, the selected `WordBankStatistics` from the `WordBankStatisticsList` is loaded

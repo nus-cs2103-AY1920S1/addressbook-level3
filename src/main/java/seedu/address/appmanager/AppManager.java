@@ -147,7 +147,7 @@ public class AppManager {
     private void updateGameStatisticsBuilder(CommandResult commandResult) throws CommandException {
         if (commandResult.isStartCommandResult()) {
             StartCommandResult startCommandResult = (StartCommandResult) commandResult;
-            initGameStatistics(startCommandResult.getTitle()); // initialize game statistics building
+            initGameStatistics(getActiveWordBank().getName()); // initialize game statistics building
         } else if (commandResult.isGameCommandResult()) {
             // handles game related actions
             GameCommandResult gameCommandResult = (GameCommandResult) commandResult;
