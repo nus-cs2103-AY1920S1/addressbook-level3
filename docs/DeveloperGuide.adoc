@@ -305,11 +305,11 @@ prefixes like `t>` and `d>`
 //@@author dalsontws
 // tag::badflashcard[]
 
-=== Bad FlashCard feature
+=== Bad rating feature
 ==== Implementation
 
 The `bad` feature allows the user to rate specific `FlashCards` as "Bad" if they did not perform well on them.
-These rated FlashCards will then we stored as a `Deadline` dated 3 days later, where the user will then be reminded to
+These rated `FlashCard`(s) will then we stored as a `Deadline` dated 3 days later, where the user will then be reminded to
 re-test them.
 
 This is a simple implementation of a type of https://en.wikipedia.org/wiki/Evidence-based_education[evidence-based]
@@ -317,7 +317,7 @@ learning technique known as https://en.wikipedia.org/wiki/Spaced_repetition[Spac
 active recall technique which is said to overcome forgetting, theorised by Hermann Ebbinghaus, and his theory of
 https://en.wikipedia.org/wiki/Forgetting_curve[Forgetting Curve].
 
-The following are new classes used to integrate the "Bad" `FlashCard` feature.
+The following are new classes used to integrate the "Bad" `FlashCard` rating feature.
 
 * `BadQuestions` -- Main object class for the feature. Makes use of a `HashMap` of key-value pairing of a Date `String`
 that is converted to a `LocalDate` class as the key, and the value is a `ArrayList` of `FlashCards`. This allows ease of
@@ -349,12 +349,12 @@ i.e. bad 2
 ** Pros: Easier for searching and sorting purposes, as entire `FlashCard` object is stored and easily
 referred using the date as key. Can fetch more than just the answer of the `FlashCard`
 ** Cons: Separated from the `FlashCard` `UniqueFlashCardList`, which might confuse the user as there will be two
-different lists of `FlashCard`.
+different lists of `FlashCard`
 * **Alternative 2:** Use similar implementation as how `FlashCard` and `Deadline` objects are stored in storage;
-use a `ObservableList` that can be displayed in GUI.
+use an `ObservableList` that can be displayed in GUI.
 ** Pros: Easier to implement, clearer for user to see and fetch these "Bad" rated `FlashCard`(s)
 ** Cons: Difficult to manipulate in the future, especially when we want to implement automated test reminders for these
-"Bad" rated `FlashCard`(s). A `HashMap` will allow easy fetching using the specified date as key.
+"Bad" rated `FlashCard`(s). A `HashMap` will allow easy fetching using the specified date as key
 
 // end::badflashcard[]
 
