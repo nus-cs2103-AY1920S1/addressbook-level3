@@ -3,6 +3,7 @@ package seedu.jarvis.model.finance.installment;
 import static java.util.Objects.requireNonNull;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  * Installment object stores a single recurring payment with its details such as description and the amount spent.
@@ -10,6 +11,7 @@ import java.text.DecimalFormat;
 public class Installment {
 
     private static DecimalFormat df2 = new DecimalFormat("#.00");
+    private static NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
 
     private InstallmentDescription description;
     private InstallmentMoneyPaid moneySpentOnInstallment;
@@ -57,7 +59,7 @@ public class Installment {
     @Override
     public String toString() {
         return "Description: " + description.getInstallmentDescription() + "\n"
-                + "Monthly payment: $" + df2.format(moneySpentOnInstallment.getInstallmentMoneyPaid());
+                + "Monthly payment: " + currencyFormatter.format(moneySpentOnInstallment.getInstallmentMoneyPaid());
     }
 
     @Override

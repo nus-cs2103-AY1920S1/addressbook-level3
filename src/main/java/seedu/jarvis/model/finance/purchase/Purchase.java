@@ -3,6 +3,7 @@ package seedu.jarvis.model.finance.purchase;
 import static java.util.Objects.requireNonNull;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -14,6 +15,7 @@ public class Purchase {
     protected static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private static DecimalFormat df2 = new DecimalFormat("#.00");
+    private static NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
 
     private PurchaseDescription description;
     private PurchaseMoneySpent moneySpent;
@@ -77,7 +79,7 @@ public class Purchase {
     @Override
     public String toString() {
         return "Description: " + description.getPurchaseDescription() + "\n"
-                + "Price: $" + df2.format(moneySpent.getPurchaseAmount()) + "\n"
+                + "Price: $" + currencyFormatter.format(moneySpent.getPurchaseAmount()) + "\n"
                 + "Date of Purchase: " + dateOfPurchase;
     }
 
