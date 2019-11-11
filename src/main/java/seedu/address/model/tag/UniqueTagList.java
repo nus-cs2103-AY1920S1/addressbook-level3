@@ -94,10 +94,6 @@ public class UniqueTagList implements Iterable<Tag> {
         internalList.setAll(tags);
     }
 
-    /**
-     * Adds all tags.
-     * @param tags list of tags
-     */
     public void addAllTags(List<Tag> tags) {
         for (Tag t : tags) {
             this.add(t);
