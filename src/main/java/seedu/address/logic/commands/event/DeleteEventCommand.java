@@ -37,7 +37,7 @@ public class DeleteEventCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (MainWindow.isFinanceTab()) {
+        if (MainWindow.isFinanceTab() || MainWindow.isStatsTab()) {
             throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EVENT_LIST);
         }
 
