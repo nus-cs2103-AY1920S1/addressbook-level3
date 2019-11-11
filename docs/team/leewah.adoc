@@ -148,7 +148,7 @@ Using Meal Plans, you will be able to take all the recipes you have in DukeCooks
 Look at the diagram for a better understanding of how Meal Plans are laid out!
 
 .Overview of the Meal Plans
-image::ug_mealplan.png[]
+image::ug_mealplan.png[720]
 
 ==== Getting to your Meal Plans
 Here's a quick way to check out your meal plans!
@@ -183,13 +183,13 @@ Creates a meal plan with the name "Keto" and the listed meals under each indicat
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
 .Adding a meal plan
-image::ug_mealplan_addMealPlan1.png[]
+image::ug_mealplan_addMealPlan1.png[720]
 +
 . If the command succeeds, you should see the following message in the result display
 and a new meal plan named "One Recipe" will be added.
 +
 .Successfully added meal plan
-image::ug_mealplan_addMealPlan2.png[]
+image::ug_mealplan_addMealPlan2.png[720]
 
 ==== Editing a meal plan
 Edit a meal plan according to a specified index. +
@@ -223,12 +223,12 @@ Updates the first listed meal plan to remove the recipe "Salad" from Day 1 and a
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
 .Editing a meal plan
-image::ug_mealplan_editMealPlan1.png[]
+image::ug_mealplan_editMealPlan1.png[720]
 +
 . If the command succeeds, the following result will be displayed and the meal plan will be edited as shown below.
 +
 .Successfully edited a meal plan
-image::ug_mealplan_editMealPlan2.png[]
+image::ug_mealplan_editMealPlan2.png[720]
 
 //END OF USER GUIDE
 
@@ -254,7 +254,7 @@ The current implementation of Recipe Book consists of the following:
 The class diagram below gives an overview of the `Recipe` class.
 
 .Recipe Class Diagram
-image::RecipeClassDiagram.png[]
+image::RecipeClassDiagram.png[720]
 
 ==== Implementation of recipe book commands
 
@@ -274,7 +274,7 @@ The figure below describes the execution of an `DeleteRecipeCommand`.
 The input provided is `delete recipe 1`.
 
 .DeleteRecipeCommand Sequence Diagram
-image::DeleteRecipeSequenceDiagram.png[]
+image::DeleteRecipeSequenceDiagram.png[720]
 
 After a successful execution, the recipe with the specified index will be deleted from the recipe book.
 
