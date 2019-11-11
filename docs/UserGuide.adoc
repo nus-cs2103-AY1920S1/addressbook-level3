@@ -947,9 +947,17 @@ image::HomeCommandExample.png[height="200", width="600"]
 === Command Suggestion Prompt
 As you type, there will be a popup box predicting the type of commands you are going to type. You can navigate through these suggestions and choose the template that suits you.
 
+****
+* Take note that the command suggestion for a command will not show if the command is fully entered by the user, excluding parameters.
+****
+
+
+
 Example:
 
 Let us suppose that you want to type the command `add mentor` and you forgot the fields that are required in the command.
+
+
 
 Instead of going through the user guide to look for the command, a popup box will appear as you type. The content in this box will change as you type, such that the commands suggested will start with the words or letters that you have already entered.
 

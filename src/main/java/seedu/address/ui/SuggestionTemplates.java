@@ -56,6 +56,8 @@ import static seedu.address.ui.SuggestionLabels.REMOVE_PARTICIPANT;
 import static seedu.address.ui.SuggestionLabels.REMOVE_PARTICIPANT_INSTRUCTION;
 import static seedu.address.ui.SuggestionLabels.SCORE_ADD;
 import static seedu.address.ui.SuggestionLabels.SCORE_ADD_INSTRUCTION;
+import static seedu.address.ui.SuggestionLabels.SCORE_RESET;
+import static seedu.address.ui.SuggestionLabels.SCORE_RESET_INSTRUCTION;
 import static seedu.address.ui.SuggestionLabels.SCORE_SET;
 import static seedu.address.ui.SuggestionLabels.SCORE_SET_INSTRUCTION;
 import static seedu.address.ui.SuggestionLabels.SCORE_SUB;
@@ -121,6 +123,7 @@ public class SuggestionTemplates {
     public static final TextFlow SCORE_ADD_TEMPLATE;
     public static final TextFlow SCORE_SUB_TEMPLATE;
     public static final TextFlow SCORE_SET_TEMPLATE;
+    public static final TextFlow SCORE_RESET_TEMPLATE;
     public static final TextFlow LEADERBOARD_TEMPLATE;
     public static final TextFlow GET_TOP_TEMPLATE;
 
@@ -415,22 +418,30 @@ public class SuggestionTemplates {
 
         //UNDO/REDO Method
         Text numbers17 = new Text("[NUMBER] ");
+        numbers17.setFill(Color.GREY);
         UNDO_TEMPLATE = new TextFlow(
                 UNDO.getText(), numbers17, UNDO_INSTRUCTION.getText()
         );
 
         Text numbers18 = new Text("[NUMBER] ");
+        numbers18.setFill(Color.GREY);
         REDO_TEMPLATE = new TextFlow(
                 REDO.getText(), numbers18, REDO_INSTRUCTION.getText()
         );
 
         //VIEW Method
-        Text id19 = new Text("{mentor/participant/team} ID ");
+        Text id19 = new Text("MENTOR_ID | PARTICIPANT_ID | MENTOR_ID");
         id19.setFill(Color.GREY);
         VIEW_TEMPLATE = new TextFlow(
                 VIEW.getText(), id19, VIEW_INSTRUCTION.getText()
         );
 
+        //SCORE RESET Method
+        Text teamId20 = new Text("TEAM_ID ");
+        teamId20.setFill(Color.GREY);
+         SCORE_RESET_TEMPLATE = new TextFlow(
+                 SCORE_RESET.getText(), teamId20, SCORE_RESET_INSTRUCTION.getText()
+         );
     }
 
 
@@ -444,7 +455,7 @@ public class SuggestionTemplates {
                 .stream()
                 .map(textElement -> (Text) textElement)
                 .map(t -> t.getText())
-                .filter(s -> !s.matches("\\[[A-Za-z{}_ ]+\\] |[A-Z_{} ]+|\\([A-Za-z_. ]+\\)"))
+                .filter(s -> !s.matches("\\[[A-Za-z{}_ ]+\\] |[A-Z_{}| ]+|\\([A-Za-z_. ]+\\)"))
                 .collect(Collectors.joining(" "));
         return result;
 
