@@ -1116,7 +1116,7 @@ Parameters:
 
 * `deleteAccount(nameOrIndex)`
 +
-Edits the specified account, changing the specified properties, and returns the edited account.
+Deletes the specified account.
 +
 Parameters:
 +
