@@ -88,7 +88,7 @@ public class InventoryTabParserTest {
     }
 
     @Test
-    public void parser_editCommand_unsuccessful() {
+    public void parser_editCommand_quality_unsuccessful() {
         try {
             parser.parseCommand("edit number d/new c/test q/6 co/9 p/8", new InventoryList());
         } catch (Exception e) {
@@ -96,7 +96,7 @@ public class InventoryTabParserTest {
         }
 
         try {
-            parser.parseCommand("edit 1 d/new c/test q/number co/number p/number", new InventoryList());
+            parser.parseCommand("edit 1 d/new c/test q/number co/2 p/2", new InventoryList());
         } catch (Exception e) {
             assertEquals(InventoryMessages.MESSAGE_NOT_A_NUMBER, e.getMessage());
         }
@@ -112,15 +112,12 @@ public class InventoryTabParserTest {
         } catch (Exception e) {
             assertEquals(InventoryMessages.MESSAGE_NUMBER_TOO_LARGE, e.getMessage());
         }
+    }
 
+    @Test
+    public void parser_editCommand_cost_unsuccessful() {
         try {
             parser.parseCommand("edit 1 d/new c/test q/6 co/-1 p/6", new InventoryList());
-        } catch (Exception e) {
-            assertEquals(InventoryMessages.MESSAGE_NEGATIVE_NUMBER, e.getMessage());
-        }
-
-        try {
-            parser.parseCommand("edit 1 d/new c/test q/5 co/9 p/-3", new InventoryList());
         } catch (Exception e) {
             assertEquals(InventoryMessages.MESSAGE_NEGATIVE_NUMBER, e.getMessage());
         }
@@ -132,7 +129,16 @@ public class InventoryTabParserTest {
         }
 
         try {
-            parser.parseCommand("edit 1 d/new c/test q/-1 co/9 p/6", new InventoryList());
+            parser.parseCommand("edit 1 d/new c/test q/4 co/number p/6", new InventoryList());
+        } catch (Exception e) {
+            assertEquals(InventoryMessages.MESSAGE_NOT_A_NUMBER, e.getMessage());
+        }
+    }
+
+    @Test
+    public void parser_editCommand_price_unsuccessful() {
+        try {
+            parser.parseCommand("edit 1 d/new c/test q/5 co/9 p/-3", new InventoryList());
         } catch (Exception e) {
             assertEquals(InventoryMessages.MESSAGE_NEGATIVE_NUMBER, e.getMessage());
         }
@@ -141,12 +147,6 @@ public class InventoryTabParserTest {
             parser.parseCommand("edit 1 d/new c/test q/4 co/9 p/9999996", new InventoryList());
         } catch (Exception e) {
             assertEquals(InventoryMessages.MESSAGE_NUMBER_TOO_LARGE, e.getMessage());
-        }
-
-        try {
-            parser.parseCommand("edit 1 d/new c/test q/4 co/number p/6", new InventoryList());
-        } catch (Exception e) {
-            assertEquals(InventoryMessages.MESSAGE_NOT_A_NUMBER, e.getMessage());
         }
 
         try {
