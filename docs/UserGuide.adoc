@@ -59,6 +59,29 @@ a parameter which can be used as `n/mala at deck`.
 , guiltTrip will only accept llama meat as the description.
 ====
 
+=== AutoSuggestion
+
+The first thing you will notice once you start typing in the command box, is AutoSuggest.
+This is an intelligent bot that helps you navigate through your finance journey with GuiltTrip()!
+
+Simply key in anything you like to start!!
+
+image::autosuggest_startup.png[]
+
+For example, you are new and would like to get some help! But your __shaky__ hands made you
+type `hlp` instead! Don't worry, we have a Edit-Distance-based algorithm that can predict your
+command. Isn't that cool?
+
+image::autosuggest_hlp.png[]
+
+Ahh okay! Seems that we can just kick start right away! How about recording that mala we ate The Deck
+this afternoon!
+
+image::autosuggest_addExpense.png[]
+
+Now since `addExpense` is a valid command, your friendly AutoSuggester is showing you how to use this command!
+Isn't this COOL?
+
 === Categories
 Ever feel like your list of expenses are extremely messy? This is where categories come in handy! Every entry belongs to one category, which makes it easier for you to organize your data! Categories can be either grouped under Expense or Income.
 GuiltTrip comes with a default set of Categories as listed below. All entries must have a category.
