@@ -9,9 +9,9 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Ni Tian Zhen
+=== Ni Tianzhen
 image::niqiukun.png[width="150", align="left"]
-{empty}[http://github.com/niqiukun[github]]
+{empty}[http://github.com/niqiukun[github]][https://ay1920s1-cs2103t-f11-3.github.io/main/team/niqiukun.html[project portfolio]]
 
 Role: Developer / Code Quality +
 Responsibilities: File encryption
@@ -20,7 +20,7 @@ Responsibilities: File encryption
 
 === Hoon Chee Ping
 image::hooncp.png[width="150", align="left"]
-{empty}[http://github.com/hooncp[github]]
+{empty}[http://github.com/hooncp[github]][https://ay1920s1-cs2103t-f11-3.github.io/main/team/hooncp.html[project portfolio]]
 
 Role: Developer / Testing +
 Responsibilities: Password encryption
@@ -29,7 +29,7 @@ Responsibilities: Password encryption
 
 === Lee Ee Jian
 image::eejian97.png[width="150", align="left"]
-{empty}[http://github.com/eejian97[github]]
+{empty}[http://github.com/eejian97[github]][https://ay1920s1-cs2103t-f11-3.github.io/main/team/eejian97.html[project portfolio]]
 
 Role: Developer / UI +
 Responsibilities: Password generation and Analysis
@@ -38,7 +38,7 @@ Responsibilities: Password generation and Analysis
 
 === Yang Hui Ting
 image::yhtingg.png[width="150", align="left"]
-{empty}[http://github.com/yhtingg[github]]
+{empty}[http://github.com/yhtingg[github]][https://ay1920s1-cs2103t-f11-3.github.io/main/team/yhtingg.html[project portfolio]]
 
 Role: Developer / Analysis  +
 Responsibilities: Credit card details encryption
@@ -47,7 +47,7 @@ Responsibilities: Credit card details encryption
 
 === Leow Jit Yong
 image::jityong.png[width="150", align="left"]
-{empty}[http://github.com/jityong[github]]
+{empty}[http://github.com/jityong[github]][https://ay1920s1-cs2103t-f11-3.github.io/main/team/jityong.html[project portfolio]]
 
 Role: Developer / Design +
 Responsibilities: Notes encryption

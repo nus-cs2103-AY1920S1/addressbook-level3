@@ -55,10 +55,6 @@ deactivate NoteBookParser
 LogicManager -> OpenNoteCommand : execute()
 activate OpenNoteCommand
 
-ref over OpenNoteCommand
-Gets noteToOpen and creates updatedNote
-end ref
-
 OpenNoteCommand -> Model : setNote(noteToOpen, updatedNote)
 activate Model
 deactivate Model

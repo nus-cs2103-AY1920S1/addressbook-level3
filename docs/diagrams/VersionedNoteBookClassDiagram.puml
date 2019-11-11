@@ -1,0 +1,35 @@
+@startuml
+
+' hide the spot
+hide circle
+
+class NoteBook {
+-notes : UniqueNoteList
+-multipleSortByCond: MultipleSortByCond
+--
++getSortByConds() : MultipleSortByCond
++setNote(target: Note, editedNote: Note): void
++getNotes(): UniqueNoteList
+}
+
+class VersionedNoteBook {
+-undoStack: Stack<NoteBookWithCommand>
+-redoStack: Stack<NoteBookWithCommand>
+--
++commit(command: String): void
++undo(): void
++redo(): void
+}
+
+class NoteBookWithCommand {
+-notebook: ReadOnlyNoteBook
+-command: String
+--
++getNoteBook(): ReadOnlyNoteBook
++getCommand(): String
+}
+
+VersionedNoteBook -|> NoteBook
+VersionedNoteBook "1" *-- NoteBookWithCommand
+
+@enduml

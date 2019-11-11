@@ -49,7 +49,7 @@ public class AddNotesCommand extends Command {
         if (model.hasNote(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_NOTE);
         }
-        model.commitNote(command);
+        model.commitNoteBook(command);
         model.addNote(toAdd);
         model.sortNoteBook();
         model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);

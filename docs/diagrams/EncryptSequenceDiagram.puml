@@ -1,0 +1,79 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":FileBookParser" as FileBookParser LOGIC_COLOR
+participant ":EncryptFileCommandParser" as EncryptFileCommandParser LOGIC_COLOR
+participant "c:EncryptFileCommand" as EncryptFileCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+participant "<<class>>\nEncryptionUtil" as EncryptionUtil LOGIC_COLOR
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[->  FileBookParser : parseCommand("encrypt File.txt")
+activate FileBookParser
+
+create EncryptFileCommandParser
+FileBookParser -> EncryptFileCommandParser
+activate EncryptFileCommandParser
+
+EncryptFileCommandParser --> FileBookParser
+deactivate EncryptFileCommandParser
+
+FileBookParser -> EncryptFileCommandParser : parse("File.txt", password)
+activate EncryptFileCommandParser
+
+ref over EncryptFileCommandParser
+Construct toAdd from "File.txt"
+end ref
+
+create EncryptFileCommand
+EncryptFileCommandParser -> EncryptFileCommand : EncryptFileCommand(toAdd, password)
+activate EncryptFileCommand
+
+EncryptFileCommand --> EncryptFileCommandParser : c
+deactivate EncryptFileCommand
+
+EncryptFileCommandParser --> FileBookParser : c
+deactivate EncryptFileCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EncryptFileCommandParser -[hidden]-> FileBookParser
+destroy EncryptFileCommandParser
+
+[<-- FileBookParser : c
+deactivate FileBookParser
+
+[-> EncryptFileCommand : execute()
+activate EncryptFileCommand
+
+ref over EncryptFileCommand
+Do validation with file system (existence, encryption status, etc)
+end ref
+
+EncryptFileCommand -> EncryptionUtil : encryptFile("File.txt", "[LOCKED] File.txt", password)
+activate EncryptionUtil
+
+EncryptionUtil --> EncryptFileCommand
+deactivate EncryptionUtil
+
+EncryptFileCommand -> Model : addFile(toAdd)
+activate Model
+
+Model --> EncryptFileCommand
+deactivate Model
+
+create CommandResult
+EncryptFileCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EncryptFileCommand
+deactivate CommandResult
+
+[<-- EncryptFileCommand : r
+deactivate EncryptFileCommand
+
+@enduml

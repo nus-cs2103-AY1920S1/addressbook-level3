@@ -3,58 +3,75 @@
 
 Class AnalysePasswordCommand LOGIC_COLOR_T1{
 --
-+execute() : CommandResult
++execute(Model model) : CommandResult
+ ~ getRequiredAnalysers() : List<Analyser> analysers
 }
 
-Class Password LOGIC_COLOR_T1
-    Interface Analyser LOGIC_COLOR_T1 {
+Class Password MODEL_COLOR_T1
+    Interface Analyser MODEL_COLOR {
     ----
     + analyse(List<Password> p) : List<Result> r
     }
 together {
-    Class DictionaryAnalyser LOGIC_COLOR_T1
+    Class DictionaryAnalyser MODEL_COLOR_T1
 
-    Class SimilarityAnalyser LOGIC_COLOR_T1
+    Class SimilarityAnalyser MODEL_COLOR_T1
 
-    Class SequenceAnalyser  LOGIC_COLOR_T1
+    Class SequenceAnalyser  MODEL_COLOR_T1
 
-    Class StrengthAnalyser  LOGIC_COLOR_T1
+    Class StrengthAnalyser  MODEL_COLOR_T1
 
-    Class UniqueAnalyser  LOGIC_COLOR_T1
+    Class UniqueAnalyser  MODEL_COLOR_T1
+
+    Class KeyboardAnalyser  MODEL_COLOR_T1
 }
 
-Class "{abstract}\nResult" as Result LOGIC_COLOR_T1{
+Class "{abstract}\nResult" as Result MODEL_COLOR {
 # password : Password
-# description : String
+# description : ResultOutcome
 ---
 + {abstract} getGreaterDetail : String
 + toString() : String
 }
 
+Class "<<enumeration>>\nResultOutcome" MODEL_COLOR {
+      PASS
+      FAIL
+      WEAK
+      MODERATE
+      STRONG
+    }
+
 together {
-    Class DictionaryResult LOGIC_COLOR_T1{
+
+    Class DictionaryResult MODEL_COLOR_T1 {
     - matches : List<DictionaryMatch>
     }
 
-    Class SimilarityResult LOGIC_COLOR_T1{
+    Class SimilarityResult MODEL_COLOR_T1{
     - matches : List<SimilarityMatch>
     }
 
-    Class SequenceResult LOGIC_COLOR_T1 {
+    Class SequenceResult MODEL_COLOR_T1 {
     - matches : List<SequenceMatch>
     }
-    Class StrengthResult LOGIC_COLOR_T1
+    Class StrengthResult MODEL_COLOR_T1
 
-    Class UniqueResult LOGIC_COLOR_T1 {
+    Class UniqueResult MODEL_COLOR_T1 {
     - matches : List<UniqueMatch>
+    }
+
+    Class KeyboardResult MODEL_COLOR_T1 {
+    - matches : List<KeyboardMatch>
     }
 }
 
 
-Class AnalysisReport LOGIC_COLOR_T1{
+Class AnalysisReport MODEL_COLOR_T1 {
 -reportBuilder : StringBuilder
+- reports: Hashmap<Analyser, List<Result>>
 ----
-- write(Result r): void
+- write(Analyser a,Result r): void
 }
 
 AnalysePasswordCommand .> Password : retrieves
@@ -63,6 +80,7 @@ AnalysePasswordCommand .down.> Analyser : retrieves
 Analyser "*" .right.> "*" Password : analyses
 (Analyser, Password) .. Result
 
+KeyboardAnalyser .up.|> Analyser
 DictionaryAnalyser .up.|> Analyser
 SimilarityAnalyser .up.|> Analyser
 UniqueAnalyser .up.|> Analyser
@@ -73,8 +91,12 @@ SequenceAnalyser -[hidden]up UniqueAnalyser
 StrengthAnalyser -[hidden]up SequenceAnalyser
 SimilarityAnalyser -[hidden]up DictionaryAnalyser
 
-AnalysisReport "1".down.>"*" Result : writes
+Password -[hidden]down-> AnalysisReport : writes
+AnalysisReport "1"-left->"*" Result : writes
+AnalysisReport "1"-left->"6" Analyser
 
+Result -[hidden]left-> "<<enumeration>>\nResultOutcome"
+KeyboardResult  -up-|> Result
 DictionaryResult  -up-|> Result
 SimilarityResult -up-|> Result
 SequenceResult  -up-|> Result
@@ -83,6 +105,7 @@ StrengthResult  -up-|> Result
 SimilarityResult -[hidden]up- SequenceResult
 UniqueResult -[hidden]up- DictionaryResult
 StrengthResult -[hidden]up- DictionaryResult
+
 
 show members
 

@@ -10,5 +10,5 @@
     <Label fx:id="filenameLabel" prefHeight="18" style="-fx-text-fill: #FFFFFF;"/>
     <Label fx:id="metadataLabel" prefHeight="18" style="-fx-text-fill: #FFFFFF;"/>
     <ImageView fx:id="previewImage" fitWidth="400" fitHeight="407"/>
-    <TextArea fx:id="previewTextArea" prefHeight="407" editable="false" wrapText="true"/>
+    <TextArea fx:id="previewTextArea" prefHeight="407" editable="false" wrapText="true" VBox.vgrow="ALWAYS"/>
 </VBox>

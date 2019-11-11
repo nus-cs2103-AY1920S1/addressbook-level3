@@ -16,21 +16,27 @@ endif::[]
 
 By: `SecureIT`      Since: `August 2019`      Licence: `MIT`
 
+// tag::intro[]
+
 == Introduction
 
 Welcome to SecureIT!
 
-Tired of having to keep track of all your confidential information?
-Look no further!
-SecureIT is specifically designed to help manage your confidential information all in one application.
-More importantly, it *stores your information locally,* and does not use any form of online storage!
+image::SecureITLogo.png[]
+
+Skeptical about apps that store your confidential information online? But tired of having to keep track of all of them manually? Well look no further! Now you can enjoy the best of both worlds.
+
+SecureIT is specifically designed to help manage your confidential information all in one application. More importantly,
+it *stores your information locally,*  and does not use any form of online storage!
 
 SecureIT is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
-For those of you who are type fast, SecureIT can get can manage your confidential information faster than traditional GUI apps.
+For those of you who are type fast, SecureIT can manage your confidential information faster than traditional GUI apps.
 
 Interested?
 Jump to the <<Quick Start>> to get started.
 Enjoy!
+
+// end::intro[]
 
 == Basic Information
 
@@ -129,11 +135,11 @@ image::tip.png[width = "20",float = "left"]
 Be wary of surveillance by secret agents or people standing behind you
 ====
 
-This reminder will be shown 30 days before your password expires.
+You will see this reminder 30 days before your password expires.
 
 image::PasswordExpiring.png[width="300"]
 
-This reminder will be shown if you have *not* changed your password for over a year.
+You will see this reminder if you have *not* changed your password for over a year.
 
 image::PasswordExpired.png[width="300"]
 
@@ -235,11 +241,13 @@ image::tip.png[width = "20",float = "left"]
 
 Example: `find Gmail`
 
+// tag::generate[]
+
 ==== Generating a new password: `generate`
 
 Lazy to think of a strong password?
-Simply enter `generate` into the command box to get one.
 
+Simply enter `generate` into the command box to get one. It's random, secure and totally hassle-free!
 ====
 --
 image::tip.png[width = "20",float = "left"]
@@ -247,34 +255,46 @@ image::tip.png[width = "20",float = "left"]
 
 *Try it out!*
 
-* You can add custom preferences and configure the following:
-** Length of password
+* Want to customise your password? Don't worry, we've got that covered too. You can customise the following fields during generation:
+** Length of password (Between 4 and 25)
 
-** Inclusion of upper / lower alphabets
+** Exclusion of lower alphabets
 
-** Inclusion of numbers
+** Exclusion of upper alphabets
 
-** Inclusion of special characters
+** Exclusion of numbers
 
-* All passwords are automatically copied onto your clipboard.
+** Exclusion of special characters
+
+* Refer to usage format below for more details.
+
+[NOTE]
+You are only required to indicate for fields you wish to **exclude**!
+[NOTE]
+Please ensure **at least one character set  is included**.
 ====
 
-Format: `generate [length/LENGTH] [lower/TRUE] [upper/TRUE] [num/TRUE] [special/TRUE]`
-
-* The various fields are set to TRUE by default.
-
-* To disable these fields, set to FALSE.
+Format: `generate [length/LENGTH] [lower/FALSE] [upper/FALSE] [num/FALSE] [special/FALSE]`
 
 Example: `generate`
 
-Example `generate length/10`
+Example: `generate length/10`
 
-Example: `generate lower/true upper/true num/true special/false`
+Example: `generate lower/false special/false`
+
+.Example user input for generate password
+image::GeneratePasswordScreenShot0.png[width="500"]
+
+.Example outcome for generate password
+image::GeneratePasswordScreenShot1.png[width="500"]
+// end::generate[]
+
+// tag::analyse[]
 
 ==== Analysing passwords : `analyse`
 
-Curious how secure your passwords really are?
-Type `analyse` into the command box to find out.
+Curious to know how secure your passwords really are? Type `analyse` into the command box to find out. You might be surprised...
+>>>>>>> 57900bceda68ce2fd8fcf27979b3172ea508be0e
 
 ====
 --
@@ -285,11 +305,17 @@ image::tip.png[width = "20",float = "left"]
 
 * You can opt to view:
 
-** A general, summary security report for all passwords, or
+** A general, summary security report for **all** passwords, or
 
-** A detailed security report for a specific password.
+** A detailed security report for a **specific** password.
 
-* To view the detailed analysis of a particular password, simply add in the `strong` prefix.
+* To view the detailed analysis of a particular password, simply add in the `strong` prefix with the `INDEX`
+
+[NOTE]
+`INDEX` used should be that of an existing password.
+
+* Refer to usage format below for more details.
+
 ====
 
 Format: `analyse [strong/INDEX]`
@@ -297,6 +323,20 @@ Format: `analyse [strong/INDEX]`
 Example: `analyse`
 
 Example: `analyse strong/8`
+
+.Example user input for analyse
+image::AnalysePasswordScreenShot0.png[width="500"]
+
+.Example outcome for analyse
+image::AnalysePasswordScreenShot1.png[width="500"]
+
+.Example user input for analyse strong
+image::AnalyseStrongPasswordScreenShot0.png[width="500"]
+
+.Example outcome for analyse strong
+image::AnalyseStrongPasswordScreenShot1.png[width="500"]
+
+// end::analyse[]
 
 === Card
 
@@ -421,18 +461,15 @@ Example: `delete 1`
 
 === File
 
-SecureIT has a file manager which helps you keep secret files that you do not wish others to see.
-Using your master password, SecureIT convert your files into encrypted code which other apps cannot understand.
+SecureIT has a file manager which helps you keep confidential files that you do not wish others to see. Using your master password, SecureIT converts your files into an encrypted format which cannot be read by other applications.
 
 To access the file manager, simply enter `goto file` in the command box.
 
 ==== Encrypting a file : `encrypt`
 
-Encrypts a local file as specified by its file path.
-The file's content is converted into encrypted code which other apps cannot understand.
-Encrypted files have the prefix `[LOCKED]` in their file names.
+You can encrypt a local file using its file path. You may also tag the file at the same time for easy reference later on.
 
-As you encrypt the file, you may tag the file at the same time for easy reference later on.
+Encrypted files have the prefix `[LOCKED]` in their file names.
 
 Format: `encrypt FILEPATH [t/TAG]...`
 
@@ -471,7 +508,7 @@ SecureIT is not responsible for any data loss resulting from lack of access righ
 
 ==== Decrypting a file : `decrypt`
 
-Decrypts a local file as specified by the displayed index number.
+You can decrypt a local file using its displayed index number.
 
 Format: `decrypt INDEX`
 
@@ -491,10 +528,7 @@ Please refer to the `remove` and `add` command sections for detailed instruction
 
 ==== Adding an encrypted file : `add`
 
-Adds an encrypted file as specified by its file path.
-The file must be encrypted by SecureIT previously.
-
-As you add the file, you may tag the file at the same time for easy reference later on.
+You can add an encrypted file using its file path. You may tag the file at the same time for easy reference later on. The file must be encrypted by SecureIT previously.
 
 Format: `add FILENAME [t/TAG]...`
 
@@ -516,7 +550,7 @@ SecureIT can recognise the file and automatically prepend the prefix.
 
 ==== Removing a file : `remove`
 
-Removes an encrypted file record as specified by the displayed index number.
+You can remove an encrypted file record using its displayed index number.
 
 Please note that only the file record within SecureIT is removed.
 The actual file is not deleted from the file system.
@@ -537,8 +571,7 @@ image::warning.png[width = "20",float = "left"]
 
 ==== Renaming an encrypted file : `rename`
 
-Renames an encrypted file as specified by its index number.
-The prefix `[LOCKED]` is retained.
+You can rename an encrypted file using its index number. The prefix `[LOCKED]` is retained.
 
 Format: `rename INDEX TARGET_FILENAME`
 
@@ -557,8 +590,7 @@ If you give a file extension in the target file name, it will be ignored.
 
 ==== Moving an encrypted file : `move`
 
-Moves an encrypted file as specified by its index number.
-The target directory must be a real directory (not a shortcut, alias, symbolic link, etc.)
+You can move an encrypted file using its index number. The target directory must be a real directory (not a shortcut, alias, symbolic link, etc.)
 
 Format: `move INDEX TARGET_DIRECTORY`
 
@@ -580,7 +612,7 @@ image::tip.png[width = "20",float = "left"]
 
 ==== Finding encrypted files : `find`
 
-Finds matching encrypted files as specified by the search keywords.
+You can find matching encrypted files using the search keywords.
 
 To return from search results, use `list` command.
 
@@ -602,18 +634,27 @@ Hence, you can look for files with certain types (e.g. `find .png .jpg`) or file
 
 ==== Listing all files : `list`
 
-Lists all encrypted files managed by SecureIT.
+You can list all encrypted files managed by SecureIT.
 
 Format: `list`
 
-==== Viewing an encrypted file : `preview` [coming soon]
+==== Viewing an encrypted file : `preview`
 
-Previews an encrypted file as specified by its index number.
-You can only preview `.txt`, `.jpg` and `.png` files.
+You can preview an encrypted file using its index number. You can only preview `.txt`, `.jpg`, `.png`, `.pdf`, and `.docx` files.
 
 Format: `preview INDEX`
 
 Example: `preview 1`
+
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* The app may freeze for some time if the file to be previewed is large. Please do not force exit the app.
+* The file preview is for your reference only. Due to various standards on file formats, the preview can be different from the actual file. For example, your annotations on PDF files may not be correctly displayed, and the text format of Word files may not be retained in the preview.
+====
 
 ===  Note
 
@@ -669,34 +710,38 @@ image::warning.png[width = "20",float = "left"]
 
 Too much hassle to type out everything in the `edit` command to make a small change to your note?
 Want to read your note and edit your note easily?
-The `open` command is designed for you!
+The `open` command is designed for this!
+
+The `open` command opens your note in a panel on the right for you to read and edit its contents easily.
 
 Format: `open INDEX`
+====
+--
+image::tip.png[width = "20",float = "left"]
+--
+
+* Opening a note updates the number of times the notes is accessed.
+* `open` command is undoable.
+====
 
 Example: `open 1`
 
 Your note at index 1 will be opened, allowing you to read and edit it easily.
 
 .Note at index 1 opened on the right panel.
-image::OpenNote2.png[width="600"]
+image::OpenNote2.png[width="500"]
 
+You can click on the Save Note button after editing to save your changes made to the note.
 
+.Edits can be made to text and the Save Note button can be clicked.
+image::OpenNote3.png[width="500"]
 
+After clicking on the Save Note button, your edits made to the opened note will be saved!
 
-You can click on the Save button after editing to save your changes made to the note.
-
-.Edits can be made to text and the Save button can be clicked.
-image::OpenNote3.png[width="600"]
-
-
-
-Your edits made to the opened note is saved!
-
-.Note at index 1 is updated via the corresponding `Edit` command after clicking on the Save button.
-image::OpenNote4.png[width="600"]
+.Note at index 1 is updated via the corresponding `Edit` command after clicking on the Save Note button.
+image::OpenNote4.png[width="500"]
 
 // end::openNote[]
-
 
 ==== Deleting a note: `delete`
 
@@ -741,9 +786,9 @@ You can `sort` them up using three different conditions to arrange notes most re
 
 Available sorting conditions include:
 
-. NumOfAccess
-. DateAdded
-. DateModified
+. DateAdded: Date which the note is added.
+. DateModified: Date which the note is last modified.
+. NumOfAccess: Number of times the note has been accessed through the `open` command.
 
 Format: `sort by/SORTBYCONDITION1 SORTBYCONDITION2`
 
@@ -795,9 +840,9 @@ image::Clear1.png[width="600"]
 ==== Undo notes action: `undo`
 
 Made a mistake in the notes feature?
-Worry not for you can `undo` your mistake!
+Worry not because you can `undo` your mistake!
 
-Using our `undo` feature will also inform you of exactly what action is being undone!
+Using our `undo` command will not only undo your last undoable command, it will also inform you of exactly what action is being undone.
 
 Format: `undo`
 
@@ -805,27 +850,26 @@ Example: `undo`
 
 Here is what it would look like to `undo` a `clear` command:
 
-.All deleted notes from previous `clear` command is added back into the note book.
-image::Undo2.png[width="600"]
+.All deleted notes from the previous `clear` command is added back into the note book.
+image::Undo2.png[width="500"]
 
 =====
 --
 image::tip.png[width = "20",float = "left"]
 --
 
-*Tip*
-
-* You can only perform undo on undo-able commands.
-Undoable commands are: `add`, `edit`, `delete`, `clear` and `sort`
+* You can only perform undo on undoable commands.
+Undoable commands are: `add`, `edit`, `delete`, `clear` and `open`.
 * You can undo as many commands as you wish until there are no more commands that can be undone.
+* `open` command is undoable because it changes the number of times the notes is accessed.
 =====
 
 ==== Redo notes action: `redo`
 
 Regret making that undo action?
-Once again, worry not for you can `redo` your action!
+Once again, worry not because you can `redo` your action!
 
-Using our `redo` feature will also inform you of exactly what action is being redone!
+Using our `redo` feature will not only redo your command, it will also inform you of exactly what action is being redone.
 
 Format: `redo`
 
@@ -833,18 +877,21 @@ Example: `redo`
 
 Here is what it would look like to `redo` a `clear` command:
 
-.All notes are deleted from the note book from redoing the `clear` command.
-image::Redo1.png[width="600"]
+.All notes are cleared from the note book from redoing the `clear` command.
+image::Redo1.png[width="500"]
+
 
 ====
---
-image::tip.png[width = "20",float = "left"]
---
+image::tip.png[width = "20", float="left"]
 
-*Tip*
-
+* You can only redo an undone command.
 * You can redo as many commands as you wish until there are no more commands that can be redone.
-* If you perform a new undo-able command, all existing redo-able commands will be cleared.
+====
+====
+--
+image::warning.png[width = "20", float="left"]
+--
+* If you perform a new undoable command, all existing redoable commands will be cleared.
 ====
 
 //end::undoRedo[]
