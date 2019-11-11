@@ -43,6 +43,15 @@ public class DayParser {
 
         int dayOfMonth = parseDayOfMonth(dayOfMonthStr);
 
+        return Optional.of(parse(dayOfMonth, month, year));
+    }
+
+    Day parse(Day startDateDay, Optional<MonthOfYear> month, Optional<Year> year) throws ParseException {
+        int dayOfMonth = startDateDay.getDayOfMonth();
+        return parse(dayOfMonth, month, year);
+    }
+
+    Day parse(int dayOfMonth, Optional<MonthOfYear> month, Optional<Year> year) throws ParseException {
         MonthOfYear monthOfYear = month.orElseGet(() -> {
             java.util.Calendar currentDate = java.util.Calendar.getInstance();
             int currentMonth = currentDate.get(java.util.Calendar.MONTH);
@@ -55,7 +64,6 @@ public class DayParser {
             return new Year(currentYear);
         });
 
-        return Optional.of(parse(dayOfMonth, monthOfYear, yearValue));
+        return parse(dayOfMonth, monthOfYear, yearValue);
     }
-
 }
