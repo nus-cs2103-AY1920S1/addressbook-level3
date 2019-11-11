@@ -40,6 +40,8 @@ public class RejectCommandParser implements Parser<Reject> {
                     RejectCommand.MESSAGE_USAGE_REJECT));
         }
 
+        verifyNumberOfParameters(argMultimap);
+
         if (argMultimap.getValue(PREFIX_APPEAL).isPresent() && argMultimap.getValueSize(PREFIX_APPEAL) == 1) {
             String remark = "";
             try {
@@ -72,6 +74,24 @@ public class RejectCommandParser implements Parser<Reject> {
             return new MassReject(validIds, invalidIds);
         } else {
             throw new ParseException(Reject.MESSAGE_USAGE_REJECT);
+        }
+    }
+    /**
+     * Checks the number of parameters given by user inputs.
+     * @param argMultimap an ArgumentMultimap object stores value of each prefix.
+     * @throws ParseException when the number of parameters is not correct.
+     */
+    //@@author chensu2436
+    private void verifyNumberOfParameters(ArgumentMultimap argMultimap) throws ParseException {
+
+        if ((argMultimap.getValue(PREFIX_APPEAL).isPresent()
+                && argMultimap.getValueSize(PREFIX_APPEAL) != 1)) {
+            throw new ParseException(Reject.MESSAGE_ONLY_ONE_ITEM_ALLOWED);
+        }
+
+        if ((argMultimap.getValue(PREFIX_MASS_RESOLVE).isPresent()
+                && argMultimap.getValueSize(PREFIX_MASS_RESOLVE) != 1)) {
+            throw new ParseException(Reject.MESSAGE_ONLY_ARGUMENT_ALLOWED);
         }
     }
 }

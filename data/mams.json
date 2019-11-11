@@ -400,8 +400,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
+    "resolved" : false,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000001",

@@ -78,30 +78,14 @@ else !moduleUsingIndex
 
 end
 
-AddModCommand -> AddModCommand: returnModuleIfExist(moduleList);
-activate AddModCommand
-deactivate AddModCommand
-AddModCommand -> AddModCommand: returnStudentIfExist(studentList);
-activate AddModCommand
-deactivate AddModCommand
-AddModCommand -> AddModCommand: checkIfStudentHasModule(moduleList);
-activate AddModCommand
-deactivate AddModCommand
-AddModCommand -> AddModCommand: checkIfStudentHasCompletedModule(moduleList);
-activate AddModCommand
-deactivate AddModCommand
+
 AddModCommand -> AddModCommand: checkQuotaLimit(moduleList);
 activate AddModCommand
 deactivate AddModCommand
 AddModCommand -> AddModCommand: checkStudentWorkloadLimit(moduleList);
 activate AddModCommand
 deactivate AddModCommand
-AddModCommand -> AddModCommand: checkIfModuleClash(moduleList);
-activate AddModCommand
-AddModCommand -> AddModCommand: getClashCase;
-activate AddModCommand
-deactivate AddModCommand
-deactivate AddModCommand
+
 
 break exception
    AddModCommand -> AddModCommandParser

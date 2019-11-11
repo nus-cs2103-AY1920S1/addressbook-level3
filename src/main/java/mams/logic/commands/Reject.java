@@ -12,11 +12,12 @@ public abstract class Reject extends ResolveCommand {
     public static final String MESSAGE_USAGE_REJECT = COMMAND_WORD_REJECT_APPEAL
             + ": rejects individual or multiple appeals\n"
             + "To reject individually:\n"
-            + "Parameters: KEYWORD [" + PREFIX_APPEAL + "INDEX] ["
+            + "Parameters: KEYWORD " + PREFIX_APPEAL + "INDEX ["
             + PREFIX_REASON + "REASON]\n"
             + "Example: " + COMMAND_WORD_REJECT_APPEAL + " " + PREFIX_APPEAL + "1 "
             + PREFIX_REASON + "module quota exceeded.\n"
             + "To reject multiple:\n"
-            + "Parameters: KEYWORDS [" + PREFIX_MASS_RESOLVE + "] [APPEALID] [APPEALID] ...\n"
+            + "Parameters: KEYWORDS " + PREFIX_MASS_RESOLVE + "[APPEALID] [APPEALID] ...\n"
             + "Example: " + COMMAND_WORD_REJECT_APPEAL + " " + PREFIX_MASS_RESOLVE + "C000001 C000012 C000007 C000020";
+    public static final String MESSAGE_NO_APPEALS_REJECTED = "No appeals were rejected";
 }

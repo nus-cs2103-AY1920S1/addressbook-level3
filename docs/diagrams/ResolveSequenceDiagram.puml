@@ -67,6 +67,30 @@ activate Model
 Model --> ApproveCommand
 deactivate Model
 
+ApproveCommand -> Model : setStudent()
+activate Model
+
+Model --> ApproveCommand
+deactivate Model
+
+ApproveCommand -> Model : setModule()
+activate Model
+
+Model --> ApproveCommand
+deactivate Model
+
+ApproveCommand -> Model : updateFilteredStudentList()
+activate Model
+
+Model --> ApproveCommand
+deactivate Model
+
+ApproveCommand -> Model : updateFilteredModuleList()
+activate Model
+
+Model --> ApproveCommand
+deactivate Model
+
 create CommandResult
 ApproveCommand -> CommandResult
 activate CommandResult

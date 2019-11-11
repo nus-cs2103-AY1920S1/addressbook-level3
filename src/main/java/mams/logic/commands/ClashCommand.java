@@ -44,10 +44,13 @@ public class ClashCommand extends Command {
     public static final String MESSAGE_CLASH_NOT_DETECTED = "There is no timetable clash.";
     public static final String MESSAGE_NEED_TWO_MODULES = "Please enter two modules to check clashes.";
     public static final String MESSAGE_ONLY_ONE_ITEM_ALLOWED = "Please check only one item at a time.";
+    public static final String MESSAGE_DUPLICATE_MODULE_PARAMS =
+            "The two modules you are checking are the same module. "
+                    + "Please enter two different indices or module codes.";
     public static final String MESSAGE_INVALID_MODULE = "Module not found. ";
     public static final String MESSAGE_INVALID_STUDENT = "Student not found. ";
     public static final String MESSAGE_INVALID_INDEX = "Please enter a valid index. ";
-    public static final String MESSAGE_INVALID_APPEAL_TYPE = "This is not a add/drop module appeal. "
+    public static final String MESSAGE_NO_NEED_TO_CHECK_CLASH = "This is not a add/drop module appeal. "
             + "No need to check clashes.";
 
     private ArrayList<ClashCase> clashCases;
@@ -73,7 +76,7 @@ public class ClashCommand extends Command {
             Appeal appeal = lastShownAppealList.get(params.getAppealIndex().get().getZeroBased());
 
             if (!isAddModAppeal(appeal) && !isDropModAppeal(appeal)) {
-                throw new CommandException(MESSAGE_INVALID_APPEAL_TYPE);
+                return new CommandResult(MESSAGE_NO_NEED_TO_CHECK_CLASH);
             }
 
             Student studentToCheck = getStudent(appeal.getStudentId(), model.getFullStudentList());
@@ -95,6 +98,7 @@ public class ClashCommand extends Command {
 
             Module firstModule = lastShownModuleList.get(params.getFirstModuleIndex().getZeroBased());
             Module secondModule = lastShownModuleList.get(params.getSecondModuleIndex().getZeroBased());
+            verifyNonDuplicateModuleParams(firstModule, secondModule);
 
             if (getClashCase(firstModule, secondModule).isPresent()) {
                 clashCases.add(getClashCase(firstModule, secondModule).get());
@@ -105,6 +109,7 @@ public class ClashCommand extends Command {
 
             Module firstModule = getModule(params.getFirstModuleCode(), model.getFilteredModuleList());
             Module secondModule = getModule(params.getSecondModuleCode(), model.getFilteredModuleList());
+            verifyNonDuplicateModuleParams(firstModule, secondModule);
 
             if (getClashCase(firstModule, secondModule).isPresent()) {
                 clashCases.add(getClashCase(firstModule, secondModule).get());
@@ -125,7 +130,6 @@ public class ClashCommand extends Command {
         } else {
             return new CommandResult(MESSAGE_CLASH_NOT_DETECTED);
         }
-
     }
 
     /**
@@ -195,7 +199,7 @@ public class ClashCommand extends Command {
     }
 
     /**
-     * Check whether {@code Index} is within the size of the list.
+     * Checks whether {@code Index} is within the size of the list.
      * @param index index input
      * @param size size of the list
      * @throws CommandException when index is larger than the size of the list
@@ -203,6 +207,18 @@ public class ClashCommand extends Command {
     private void verifyIndex(int index, int size) throws CommandException {
         if (index >= size) {
             throw new CommandException(MESSAGE_INVALID_INDEX);
+        }
+    }
+
+    /**
+     * Checks whether two {@code Module} objects are the same module. Throws {@code CommandException} if they are.
+     * @param firstModule a {@code Module} object
+     * @param secondModule another {@code Module} object
+     * @throws CommandException when two modules are the same module
+     */
+    private void verifyNonDuplicateModuleParams(Module firstModule, Module secondModule) throws CommandException {
+        if (firstModule.getModuleCode().equalsIgnoreCase(secondModule.getModuleCode())) {
+            throw new CommandException(ClashCommand.MESSAGE_DUPLICATE_MODULE_PARAMS);
         }
     }
 

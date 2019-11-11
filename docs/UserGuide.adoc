@@ -18,7 +18,12 @@ By: `ay1920s1-cs2103-t11-2`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-The Module Appeal Management System (MAMS) is a desktop app that aims to combine Command Line Interface (CLI) style commands with a dual-pane GUI for easy navigation of module appeals, module information, and student particulars. This app is particularly aimed towards *module appeal administrators who prefer to work through their heavy backload of module appeals without ever having to leave the comfort of the keyboard for their mouse*. The MAMS system can quickly bring up entire lists of students, appeals, and modules for side-by-side comparison, with specific display commands to view the expanded details of any particular object in question. Once reviewing of the information is complete, the MAMS system also provides a suite of commands for resolving appeals, overriding MC limits, and leaving special notes on students.
+The Module Appeal Management System (MAMS) is a desktop app that aims to combine Command Line Interface (CLI) style commands
+with a triple-pane GUI for easy navigation of appeals, module information, and student particulars. This app is particularly
+aimed towards *module appeal administrators who prefer to work through their heavy backload of module appeals without ever having to
+leave the comfort of the keyboard for their mouse*. The MAMS system can quickly bring up entire lists of students, appeals, and modules for
+side-by-side comparison, with specific display commands to view the expanded details of any particular object in question. The MAMS system also provides
+a suite of commands for resolving appeals, overriding MC limits, and leaving special notes on students.
 
 == Quick Start
 
@@ -27,7 +32,16 @@ The Module Appeal Management System (MAMS) is a desktop app that aims to combine
 .  Copy the file to the folder you want to use as the home folder for The Module Appeal Management System (MAMS).
 . **Important**: Unzip `data.zip`. Inside, there should be a folder containing `mams.json`, ie. `data/mams.json`.
 Copy the `data` folder containing `mams.json` to the same directory as `mams.jar`. Due to the special nature of
-app, users are specifically restricted from deleting/adding data entries.
+app, users are specifically restricted from deleting/adding data entries. Note that certain un-archiver tools
+may automatically create a new parent `data/` folder around the zipped `data/` folder. Should that happen, please only
+move the inner `data/` folder containing `mams.json` to the target directory. In any case, the resulting
+folder structure should look a little like the below:
+
+  .
+  ├── mams.jar
+  └── data/
+      └── mams.json
+
 .  Double-click the file to start the app. The GUI should appear in a few seconds..
 +
 image::Ui.png[width="790"]
@@ -56,7 +70,6 @@ A module is uniquely identified by a COURSE_PREFIX (eg. `CS` for Computer Scienc
 * Items enclosed by square brackets are optional, eg. `list [-a] [-m] [-s]` can be used as `list` or `list -s`.
 * Any item that is followed by an ellipsis (`...`) can be used multiple times including zero eg. `[m/PARAMETER]...` can be supplied as `m/PARAMETER` or `m/PARAMETER1 m/PARAMETER2`
 * Arguments within square brackets can be supplied in any order.
-* There
 * Tags will often be used in the command to specify the targeted list for the command. Certain commands allow operations on multiple lists.
 ** `a/` : prefix for the `Appeal List`
 ** `m/` : prefix for the `Module List`
@@ -191,6 +204,7 @@ image:HistoryWindowCopyDemo.png[width="790"]
 Command history is automatically saved to disk whenever it is updated with new inputs.
 Upon the next MAMS startup, previous command history will be loaded from disk as well.
 
+//tag::find[]
 === Find keywords: `find`
 
 Displays item(s) that contain(s) any of the keyword(s) in the specified list(s).
@@ -206,8 +220,8 @@ Tags can be in any sequence. User may enter multiple keywords after a tag.
 * `find` supports searching in multiple lists for multiple keywords. All items contains the keyword as a word or a part of word (See examples for more details).
 * Searching is case-insensitive.
 * In Appeal list, items that contains any of the keywords in Appeal Type, Appeal ID, Status(resolved/unresolved),
-Module Requested or Module to Drop will be displayed.
-* In Module list, items that contains any of the keywords in Module Code, Module Name, or Module Description wil be displayed.
+ Requested Module or Module to Drop will be displayed.
+* In Module list, items that contains any of the keywords in Module Code, Module Name, or Module Description (is be shown in expanded view) wil be displayed.
 * In Student list, items that contains any of the keywords in Student Name or Matric ID will be displayed.
 ====
 
@@ -243,6 +257,9 @@ All items containing "cs10" in Module list are displayed. (i.e. CS1010, CS1020, 
 CS2030 is also displayed since it contains "cs10" in its module description.
 
 image::FindDemoModuleSearch.png[width="790"]
+// end::find[]
+
+//tag::clash[]
 
 === Show clashes: `clash`
 
@@ -256,7 +273,7 @@ Checks if there is clash between the module which a student is requesting to add
 Only appeals requesting to add or drop module will need for clash checks. If the target appeal is not of any of the two
 types, a reminder message will be shown.
 
-Format: `clash [a/INDEX]`
+Format: `clash a/INDEX`
 
 Examples:
 
@@ -278,11 +295,11 @@ Checks if there are clashes in a student’s (pre-allocated) timetable. This com
 there is really a timetable clash in the student's pre-allocated timetable if the student submits an appeal to drop a
 pre-allocated module due to timetable clash.
 
-Format: `clash [s/INDEX]`
+Format: `clash s/INDEX`
 
 Examples:
 
-* `clash s/1`
+* `clash s/2`
 
 Sample output:
 
@@ -291,7 +308,7 @@ image::StudentClashDetected.png[width="790"]
 ==== Show clashes between 2 modules
 This command checks to see if the lecture slots of 2 modules clashes, and displays the result to the user.
 
-Format: `clash [m/MODULE_CODE] [m/MODULE_CODE]` or `clash [m/INDEX] [m/INDEX]`
+Format: `clash m/MODULE_CODE m/MODULE_CODE` or `clash m/INDEX m/INDEX`
 
 Examples:
 
@@ -301,27 +318,30 @@ Sample output:
 
 image::NoClashDetectedResponse.png[width="790"]
 
-* `clash m/1 m/2`
+* `clash m/1 m/3`
 
 Sample output:
 
 image::ModuleClashDetected.png[width="790"]
 
+// end::clash[]
 
 === Add or remove modules `addmod` & `removemod`
 
 ==== Add a module to a student
-This command adds a module to specific student. Either Index or matric id
-can be used. If both are given, index takes priority.
+This command adds a module to specific student.
+For student identifier, it can either be the matric id or index in the student list.
+For module identifier, it can either be the module code or index in the module list.
 
 Format: `addmod s/STUDENT_ID m/MODULE_CODE` or
-`addmod i/INDEX m/MODULE_CODE`
+
+`addmod s/STUDENT_INDEX m/MODULE_INDEX`
 
 Examples:
 
 Sample input 1:
 
-* `addmod s/A0180000 m/CS1010`
+* `addmod s/1 m/7`
 
 image::AddModCommandDemoBefore1.png[width="790"]
 
@@ -333,28 +353,31 @@ image::AddModCommandDemoAfter1.png[width="790"]
 
 Sample input 2:
 
-* `addmod i/1 m/CS1010`
+* `addmod s/1 m/1`
 
 image::AddModCommandDemoBefore2.png[width="790"]
 
 Sample output:
 
-* `Student is already registered for this module.`
+* `Unable to add module to student as the student already has already completed the module `
 
 image::AddModCommandDemoAfter2.png[width="790"]
 
 ==== Removing a module from student's timetable
-This command removes a existing module from a student. Either Index or matric id
-can be used. If both are given, index takes priority.
+This command removes a existing module from a student.
+For student identifier, it can either be the matric id or index in the student list.
+For module identifier, it can either be the module code or index in the module list.
 
-Format: `removemod s/STUDENT_ID m/MODULE_CODE` or
-`removemod i/INDEX m/MODULE_CODE`
+
+Format: `removemod s/STUDENT_ID m/MODULE_CODE`
+
+`removemod s/STUDENT_INDEX m/MODULE_INDEX`
 
 Examples:
 
 Sample input 1:
 
-* `removemod s/A0180000 m/CS1010`
+* `removemod s/1 m/CS2101`
 
 image::RemoveModCommandDemoBefore1.png[width="790"]
 
@@ -366,7 +389,7 @@ image::RemoveModCommandDemoAfter1.png[width="790"]
 
 Sample input 2:
 
-* `removemod i/1 m/CS1010`
+* `removemod s/A0180001 m/CS2105`
 
 image::RemoveModCommandDemoBefore2.png[width="790"]
 
@@ -409,7 +432,7 @@ Marks an existing appeal as approved, with an optional message that can be suppl
 
 
 ==== Approve appeals individually
-Format: `approve [a/INDEX] [APPEAL_REMARK]`
+Format: `approve a/INDEX [r/APPEAL_REMARK]`
 
 Examples:
 
@@ -442,7 +465,7 @@ image::aftermassapprove.png[width="790"]
 Marks an existing appeal as rejected. with an optional message that can be supplied in the remarks section of the appeal results.
 
 ==== Reject appeals individually
-Format: `reject [a/INDEX] [APPEAL_REMARK]`
+Format: `reject a/INDEX [r/APPEAL_REMARK]`
 
 Examples:
 
@@ -456,7 +479,7 @@ Sample Output:
 
 image::afterReject.png[width="790"]
 
-==== Reject appreals in bulk
+==== Reject appeals in bulk
 Format: `reject mass/ [APPEAL_ID]...`
 
 Examples:
@@ -509,23 +532,23 @@ Sample Output: `Backup "data/mamshistory_Backup_1" restored!`
 - e.g. `find a/cs1010 m/data algorithm`
 
 * **clash**:
-** `clash [m/MODULE_CODE] [m/MODULE_CODE]` or `clash [m/INDEX] [M/INDEX]`
+** `clash m/MODULE_CODE m/MODULE_CODE` or `clash m/INDEX m/INDEX`
 - e.g. `clash m/cs1010 m/cs1020` shows clash details between CS1010 and CS1020;
 Or `clash m/2 m/4` to shows clash details between the modules at indices 2 and 4 respectively.
 
-** `clash [s/INDEX]`
+** `clash s/INDEX`
 - e.g. `clash s/2` to shows clash details in a student’s (prea-llocated) timetable.
 
-** `clash [a/INDEX]`
+** `clash a/INDEX`
 - e.g. `clash a/INDEX` to show if the module a student is requesting for clashes with his/her current existing modules.
 
-* **addmod**: `addmod s/STUDENT_ID m/MODULE_CODE` or `addmod i/INDEX m/MODULE_CODE`
-- e.g `addmod s/A0180000 m/CS2103` `addmod i/10 m/CS2103`
-To add module CS2103 to student A0180000
+* **addmod**: `addmod s/STUDENT_ID m/MODULE_CODE` or `addmod s/STUDENT_INDEX m/MODULE_INDEX`
+- e.g `addmod s/A0180009 m/CS1020`
+To add module CS1020 to student A0180009
 
-* **removemod**: `removemod s/STUDENT_ID m/MODULE_CODE` or `removemod i/INDEX m/MODULE_CODE`
-- e.g `removemod s/A0180000 m/CS1020` `removemod i/4 m/CS1020`
-To remove module CS2103 from student A0180000
+* **removemod**:`removemod s/STUDENT_ID m/MODULE_CODE` or `removemod s/STUDENT_INDEX m/MODULE_INDEX`
+- e.g `removemod s/A0180000 m/CS1020`
+To remove module CS1020 from student A0180000
 
 * **setcredits**: `setcredits INDEX NEW_MC`
 - e.g. `setcredits 2 c/28`
@@ -548,7 +571,7 @@ Undo last undoable action.
 Redo do last Undo if availiable.
 
 * **approve**:
-** `approve [a/INDEX] [r/REMARK]`
+** `approve a/INDEX [r/REMARK]`
 - e.g `approve a/2 r/meets requisites` Marks the 2nd appeal in the appeal list as approved.
 
 ** `approve mass/ [APPEAL_ID]...`
@@ -556,7 +579,7 @@ Redo do last Undo if availiable.
 
 * **reject**:
 -
-** `reject [a/INDEX] [r/REMARK]`
+** `reject a/INDEX [r/REMARK]`
 - e.g `reject a/2 r/meets requisites` Marks the 2nd appeal in the appeal list as rejected.
 
 ** `reject mass/ [APPEAL_ID]...`

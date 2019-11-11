@@ -29,6 +29,11 @@ public class ClashCommandParser implements Parser<ClashCommand> {
                     ClashCommand.MESSAGE_USAGE));
         }
 
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
+        }
+
         verifyNumberOfParameters(argMultimap);
 
         try {
@@ -54,8 +59,8 @@ public class ClashCommandParser implements Parser<ClashCommand> {
             return new ClashCommand(parameters);
 
         } catch (ParseException e) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    ClashCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                   String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
         }
 
     }
@@ -66,7 +71,7 @@ public class ClashCommandParser implements Parser<ClashCommand> {
      * @return true if PREFIX_MODULE comes with module codes, not indices
      */
     private boolean isModuleCode(List<String> modules) {
-        return modules.get(0).toLowerCase().contains("cs");
+        return modules.get(0).toLowerCase().contains("cs") && modules.get(1).toLowerCase().contains("cs");
     }
 
     /**
