@@ -24,6 +24,7 @@ import seedu.address.model.entity.Team;
 import seedu.address.stub.ModelManagerStub;
 import seedu.address.testutil.ParticipantBuilder;
 import seedu.address.testutil.TeamBuilder;
+import seedu.address.testutil.TypicalTeams;
 
 
 public class RemoveParticipantCommandTest {
@@ -105,20 +106,14 @@ public class RemoveParticipantCommandTest {
     public void execute_participantNotInTeam_throwsCommandException() throws AlfredException {
         ModelManagerStub modelStub = new ModelManagerStub();
         Participant validParticipant = new ParticipantBuilder().build();
-        Team validTeam = new Team(new Id(PrefixType.T, 10),
-                new Name("team"),
-                new ArrayList<>(),
-                null,
-             SubjectName.ENVIRONMENTAL,
-              new Score(0),
-               new Name("project"),
-                new Location(15));
 
-        modelStub.addTeam(validTeam);
+        TypicalTeams.clearTeamA();
+
+        modelStub.addTeam(TypicalTeams.A);
         modelStub.addParticipant(validParticipant);
 
 
-        RemoveParticipantCommand command = new RemoveParticipantCommand(validParticipant.getId(), validTeam.getId());
+        RemoveParticipantCommand command = new RemoveParticipantCommand(validParticipant.getId(), TypicalTeams.A.getId());
 
 
         assertThrows(
