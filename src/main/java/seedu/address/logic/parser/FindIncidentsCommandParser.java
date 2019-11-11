@@ -47,19 +47,29 @@ public class FindIncidentsCommandParser implements Parser<FindIncidentsCommand> 
         }
 
         if (arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION)) {
-            Description descriptionKeywords = ParserUtil.parseDescription(argMultimap
-                    .getValue(PREFIX_DESCRIPTION).get());
-            String[] descKeywordsArr = descriptionKeywords.toString().split("\\s+");
-            predicateArr.add(new DescriptionKeywordsPredicate(Arrays.asList(descKeywordsArr)));
+            try {
+                Description descriptionKeywords = ParserUtil.parseDescription(argMultimap
+                        .getValue(PREFIX_DESCRIPTION).get());
+                String[] descKeywordsArr = descriptionKeywords.toString().split("\\s+");
+                predicateArr.add(new DescriptionKeywordsPredicate(Arrays.asList(descKeywordsArr)));
+            } catch (IllegalArgumentException e) {
+                throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+            }
         }
 
         if (arePrefixesPresent(argMultimap, SEARCH_PREFIX_ID)) {
             IncidentId idKeywords = ParserUtil.parseId(argMultimap.getValue(SEARCH_PREFIX_ID).get());
+            if (!IncidentId.isValidIncidentId(idKeywords.getId())) {
+                throw new ParseException(IncidentId.MESSAGE_CONSTRAINTS);
+            }
             predicateArr.add(new IdKeywordsPredicate(idKeywords.getId()));
         }
 
         if (arePrefixesPresent(argMultimap, SEARCH_PREFIX_OPERATOR)) {
             Name nameKeywords = ParserUtil.parseName(argMultimap.getValue(SEARCH_PREFIX_OPERATOR).get());
+            if (!Name.isValidName(nameKeywords.fullName)) {
+                throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            }
             String[] nameKeywordsArr = nameKeywords.fullName.split("\\s+");
             predicateArr.add(new NameKeywordsPredicate(Arrays.asList(nameKeywordsArr), false));
         }

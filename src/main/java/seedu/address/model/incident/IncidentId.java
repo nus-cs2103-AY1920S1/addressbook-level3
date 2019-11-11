@@ -1,10 +1,16 @@
 package seedu.address.model.incident;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 /**
  * Generates Incident ID for the incident in this format: MMYYYYXXXX
  * Where MM = Month of incident, YYYY = Year of incident, and XXXX = incident number of the month
  */
 public class IncidentId {
+    public static final String MESSAGE_CONSTRAINTS =
+            "Incident ID should only contain numerical digits and should not be blank";
+
     private static int previousMonth = 1;
     private static int monthId = 1;
     private String id;
@@ -23,11 +29,29 @@ public class IncidentId {
         } else {
             monthId++;
         }
+        requireNonNull(getId());
+        checkArgument(isValidIncidentId(getId()), MESSAGE_CONSTRAINTS);
     }
-
 
     public IncidentId(String id) {
         this.id = id;
+    }
+
+    /**
+     * Checks if {@code caller} is a valid {@code CallerNumber}.
+     */
+    public static boolean isValidIncidentId(String incidentId) {
+        if (incidentId.equals("")) {
+            return false;
+        }
+        boolean isNumber;
+        try {
+            Integer.parseInt(incidentId);
+            isNumber = true;
+        } catch (NumberFormatException e) {
+            isNumber = false;
+        }
+        return isNumber;
     }
 
     public String getId() {
