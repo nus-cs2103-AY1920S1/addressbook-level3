@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-T11-3/main
 
-By: `Team CS2103-T11`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103-T11`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -205,6 +205,8 @@ Format: `listPerson`
 
 Example: `listPerson`
 
+// tag::participation[]
+
 === Commands related to participation (linking persons and competitions together)
 Commands related to managing persons participating in competitions will be introduced now.
 
@@ -248,6 +250,8 @@ Examples:
 
 * `deleteParticipation 2`
 
+// end::participation[]
+
 //tag::findParticipation[]
 
 ==== Finding participations in a competition: `findParticipation`
@@ -280,7 +284,8 @@ Format: `help`
 
 //tag::OverallRank[]
 ==== Showing overall ranking: `overallRank`
-Sorts and displays ranking of athletes according to the amount of times they are the overall champions for any competition.
+Sorts and displays ranking of athletes according to the amount of times they are the overall champions for any
+competition.
 
 Format: `overallRank`
 
@@ -299,6 +304,8 @@ Example:
 
 == Context: During Competition (In-session)
 
+// tag::sessions[]
+
 === Handling Competition During a Competition event
 This feature handles the entire flow of each session during Meet Day. It allows event
 organisers to submit a person(athlete)’s Squat, Bench, Deadlift attempts, as well as the
@@ -306,11 +313,14 @@ success of their lifts. It will show the relevant information to prepare for the
 athletes lift (displaying name, weight, etc). The flow of events, and the commands to
 facilitate the competition session will be presented in order below:
 
-This feature handles the entire flow of each session during Meet Day. It allows event organisers to submit a person’s Squat, Bench, Deadlift attempts, as well as the success of their lifts. It will show the relevant information to prepare for the athletes lift (displaying name, weight, etc).
+This feature handles the entire flow of each session during Meet Day. It allows event organisers to submit a person’s
+Squat, Bench, Deadlift attempts, as well as the success of their lifts. It will show the relevant information to prepare
+for the athletes lift (displaying name, weight, etc).
 The flow of events, and the commands to facilitate the competition session will be presented in order below:
 
 ==== Get the next lifter in line: `next`
-Retrieves the next lifter according to weight lifted for that attempt, the weights he/she is going for that particular lift and attempt.
+Retrieves the next lifter according to weight lifted for that attempt, the weights he/she is going for that particular
+lift and attempt.
 If there are no more attempts to be made by any lifter, this command will trigger the end of the competition.
 
 Format/Example: `next`
@@ -326,6 +336,8 @@ Examples:
 * `lift N`
 
 * `lift Y`
+
+// end::sessions[]
 
 //tag::Rank[]
 

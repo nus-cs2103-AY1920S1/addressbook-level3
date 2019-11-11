@@ -276,9 +276,9 @@ The `Storage` component,
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Context-Switching feature between sessions
+// tag::insession[]
 
-==== Overview
+=== Context-Switching feature between sessions
 
 Our features are mainly split into 2 contexts. An in-competition, and an out-of-competition session mode.
 A session is started when the user wants to start an existing competition to call lifters to perform their attempt,
@@ -292,12 +292,11 @@ in-session mode and vice versa.
 .Activity Diagram for average user flow from out to in-session.
 image::ActivityDiagram.png[]
 
-Figure 9 shows the average user flow of how the user can go in-session,
+The activity diagram above shows the average user flow of how the user can go in-session,
 and also distinctly shows the commands that can be done in each state.
 However, the end of every competition session does not signify the end of a user's activity.
 The user can still go in and out of the competition session (start and end), to perform the different commands
 from the different states.
-
 
 ==== How it is being implemented
 
@@ -306,6 +305,7 @@ The session has a competition field to indicate the current competition that is 
 If there is no competition set in the session, then there is no ongoing session. Using this simple
 but highly effective method, we are able to use very simple logic to achieve the necessary context-switching behaviour
 described in the above diagram.
+
 
 === In-Session
 In-Session is the state where the user enters competition mode, where users can command the app to generate
@@ -356,6 +356,7 @@ included and displayed in the Dialogue Box to the user.
 .Sequence Diagram for the NextLifterCommand
 image::NextSequenceDiagram.png[]
 
+// end::insession[]
 
 ==== Lift feature
 This command allows the user to update and record the result of the attempt that was just made.
@@ -460,6 +461,8 @@ a Command Design Pattern by requiring different types of command classes to exte
 Due to time constraint and to achieve consistency with the Command Design Pattern of the original Code Base,
 we decide to apply the Command Design Pattern for the Ranklist command too.
 
+
+// tag::outSession[]
 
 ==== End session feature
 This feature ends the session, and shifts the user back to the out-session state.
@@ -714,6 +717,8 @@ Pros:
 Cons:
 
 * User will have to scroll through the participation list on the app to type in the index.
+
+// end::outSession[]
 
 //tag::overallRank[]
 

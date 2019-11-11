@@ -1,0 +1,103 @@
+= Christabel Teo - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+'''
+
+== PROJECT: Powerlifting Competition Coordinator
+
+== Overview
+
+Powerlifting Competition Coordinator (PCC) is a desktop application for powerlifting event organizers. It maintains
+Athletes, Competitions, and Participations, as well as a live competition session handling for the main event.
+
+== Summary of contributions
+
+* *Major enhancement 1*: Added ability to handle competition sessions
+
+** *What it does*: Allows the user to start or resume a competition session, generate the next and following
+lifters/attempts in a pre-determined order, and update the success of the attempt accordingly.
+
+** *Justification*: This is one of the main features of PCC, to allow event organisers have a smooth flow of their
+competition event, and perform minimal functionality (under what it does) during the event.
+
+** *Highlights*:
+*** This enhancement comes in many small parts: designing the `Session` component as a singleton class;
+creating appropriate dependencies to reduce coupling to main components such as `Partipation` or `Attempt`;
+adding the relevant commands for this session handling to work on the user-end.
+*** It was challenging to implement as there are many different types of scenarios that can happen during a session,
+and i needed to handle it well with proper exception handling to ensure a smooth flow of the competition event.
+A deep understanding of the general flow of powerlifting competitions is necessary.
+Furthermore, since the main components need to be updated along with the session,
+it required an in-depth analysis of how the logic works with the model components.
+*** Some concepts that i have learnt from CS2103 and have applied in this enhancement are:
+Single Responsibility Principle and Singleton Class.
+
+
+* *Major enhancement 2*: Added ability to CRUD Participation, the association class between Person and Competition.
+
+** *What it does*: Allows the user to create, read, update, and delete Participation-related information and objects.
+It includes some user-end commands such as creation of participations with a list of 9 attempts,
+list participation according to an existing competition, as well as deletion. Some other functions of this enhancement
+include the adding and updating of attempts, and also the tabulation of scores which is used in other contexts.
+
+** *Justification*: These commands allow the user to CRUD the association between a Person and Competition into a
+Participation. This is also an important feature so that the Participation can be properly prepared and updated before,
+during and after a competition session.
+
+** *Highlights*: For these features and commands on the user-end to work, the Participation association class and
+its dependencies need to be well set up, such that there is not too much coupling in the model.
+
+* *Minor enhancement*:
+** Added Participation List and Participation Cards to the GUI.
+
+* *Code contributed*:
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=T11-3&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&until=2019-11-10&tabOpen=true&tabType=authorship&tabAuthor=belbel98&tabRepo=AY1920S1-CS2103-T11-3%2Fmain%5Bmaster%5D[All code contributed]
+
+* *Other contributions*:
+
+** Project/Team management:
+*** Managed project milestones https://github.com/AY1920S1-CS2103-T11-3/main/milestone/1[v1.2],
+https://github.com/AY1920S1-CS2103-T11-3/main/milestone/2[v1.3],
+https://github.com/AY1920S1-CS2103-T11-3/main/milestone/5[mid-v1.4],
+https://github.com/AY1920S1-CS2103-T11-3/main/milestone/3[v1.4] on github
+*** Keeping the team on task for the weekly milestones' deliverable
+*** PR reviews on project repo using branching workflow:
+(https://github.com/AY1920S1-CS2103-T11-3/main/pull/3[#3],
+https://github.com/AY1920S1-CS2103-T11-3/main/pull/4[#4],
+https://github.com/AY1920S1-CS2103-T11-3/main/pull/34[#34],
+https://github.com/AY1920S1-CS2103-T11-3/main/pull/35[#35])
+
+** Documentation:
+*** Done up <<about-us,About Us Page>>
+*** <<user-guide, Contributions to the User Guide>>
+*** <<developer-guide, Contributions to the Developer Guide>>
+
+** Community:
+*** PRs reviewed: (https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/124[#124])
+*** Reported bugs and suggestions for other teams in the class (example: https://github.com/belbel98/ped/issues[1])
+
+[#user-guide]
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=participation]
+
+include::../UserGuide.adoc[tag=sessions]
+
+
+[#developer-guide]
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections (some but not all) I contributed to the Developer Guide.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=insession]
+
+include::../DeveloperGuide.adoc[tag=outSession]

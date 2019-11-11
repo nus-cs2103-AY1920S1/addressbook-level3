@@ -1,3 +1,4 @@
+[#about-us]
 = About Us
 :site-section: AboutUs
 :relfileprefix: team/
@@ -50,7 +51,7 @@ Component IC: Leaderboard
 
 === Christabel Teo
 image::belbel98.png[width="180", align="left"]
-{empty}[https://github.com/belbel98[github]] [<<christabelteo#, portfolio>>]
+{empty}[https://github.com/belbel98[github]] [<<belbel98#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Documentation, Deliverable, Deadlines +
