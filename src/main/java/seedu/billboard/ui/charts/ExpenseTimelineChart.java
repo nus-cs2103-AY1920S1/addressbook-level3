@@ -149,7 +149,6 @@ public class ExpenseTimelineChart extends ExpenseChart {
     private List<XYChart.Data<Long, BigDecimal>> transformToData(ExpenseTimeline timeline) {
         return timeline.getTimelineValues()
                 .stream()
-                .peek(pair -> System.out.println(pair.getValue().amount))
                 .map(this::dataFromPair)
                 .collect(toList());
     }
