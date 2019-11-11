@@ -461,7 +461,7 @@ The find mechanism is facilitated by the combination of three classes `MainWindo
 
 During execution, the Find command checks the current `Context` from `Model`. If the current context is `LIST_ACTIVITY`, the command will search for `Activity` using the supplied search terms. If the current context is `LIST_CONTACT`, the command will search for `Contacts` using the supplied search terms. Otherwise, the command is used on invalid context and will throw an error. If the command is executed in a valid context, it will update the `FilteredList` to contain only the matching results. As `MainWindow` tracks both `FilteredList`, JavaFX will automatically re-render the contained card entries when the respective list undergoes structural changes.
 
-The Find command uses keyword-based matching to search for the correct results. If any of the keywords in the search term matches the title/name of the activity/contact, it will be included in the search results. 
+The Find command uses keyword-based matching to search for the correct results. If any of the keywords in the search term matches the title/name of the activity/contact, it will be included in the search results.
 
 Given below is an example usage scenario of a user intending to find a specific activity.
 
