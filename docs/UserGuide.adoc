@@ -320,6 +320,8 @@ image::AnalyseStrongPasswordScreenShot1.png[width="500"]
 
 // end::analyse[]
 
+// tag::card[]
+
 === Card
 
 Too many credit cards to carry around? With SecureIT, you can easily manage your card information.
@@ -428,6 +430,8 @@ Or by its index:
 Format: `delete INDEX`
 
 Example: `delete 1`
+
+// end::card[]
 
 === File
 
@@ -830,8 +834,13 @@ Accessing Password directory: `goto password`
 
 Accessing Card directory: `goto card`
 
-- `add d/DESCRIPTION c/CARDNUMBER e/EXPIRY v/CVC`: Adds a credit/debit card to the app.
-- `delete DESCRIPTION`: Deletes a card as specified by the user.
+- `add d/DESCRIPTION c/CARDNUMBER e/EXPIRY v/CVC [t/TAG]...`: Adds a credit/debit card to the app.
+- `read d/DESCRIPTION v/CVC`: Shows the card number, CVC and expiry date as specified by a card's description.
+- `read INDEX v/CVC`: Shows the card number, CVC and expiry date as specified by a card's index number.
+- `copy d/DESCRIPTION v/CVC`: Copies the card number as specified by a card's description.
+- `copy INDEX v/CVC`: Copies the card number as specified by a card's index number.
+- `delete DESCRIPTION`: Deletes a card as specified by a card's description.
+- `delete INDEX`: Deletes a card as specified by a card's index number.
 
 *File*
 

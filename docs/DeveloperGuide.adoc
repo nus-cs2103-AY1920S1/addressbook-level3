@@ -491,7 +491,41 @@ Step 4. The `*doFinal*` method conducts the actual encryption on the input array
 The decryption process is similar to the encryption process, except that the `*ENCRYPT_MODE*` is changed to `*DECRYPT_MODE*`. The same password is necessary to decrypt an encrypted byte array to its original content.
 
 // end::dataencryption[]
+// tag::carddg[]
+=== Cards Feature
+==== Expiry Validations
+When a user tries to add a card, there are various checks to ensure that the expiry entered is valid.  As the name suggests, expiry validations are implemented within `Expiry`. Additionally, it implements the following operations:
 
+
+* `ExpiryDate#isValidDate(String test)` -- Checks the string against the provided regex to make sure it is a match.
+* `ExpiryDate#isValidExpiryDate(String test)` -- Checks to ensure that it has not past the given expiry date.
+* `ExpiryUtil#getMonthToExp(String expiry)` -- Returns the number of months left until the given expiry.
+
+`ExpiryDate#isValidExpiryDate(String test)` is implemented using `ExpiryUtil#getMonthToExp(String expiry)` to ensure that the number of months left is positive.
+
+The other operations are used in `ParserUtil#parseExpiryDate(String expiryDate)` to ensure that user input passes these validations, before allowing the card to be added to the list. Upon startup of the app, the repopulation of data also checks against these validations to ensure that there are no illegal values stored in the list.
+
+Given below is an example usage scenario and how the validations behave at each step.
+
+Step 1. The user executes `add d/VisaPOSB v/4291728395018293 c/256 e/12/15` command to add a new card named 'VisaPOSB' in the card book. The `CardBookParser#parseCommand(String userInput)` calls `AddCardCommandParser#parse(String args)` and the command parser tries to breakdown the string in to various parameters.
+
+Step 2. The `AddCardCommandParser` calls `ParserUtil#parseExpiryDate(String expiryDate)`, which first calls `ExpiryDate#isValidDate(String test)` to check its validity, which returns true.
+
+Step 3. The `ParserUtil#parseExpiryDate(String expiry)` then calls `ExpiryDate#isValidExpiryDate(String test)`, which calls `ExpiryUtil#getMonthToExp(String expiry)`. However, `-47` is returned and the condition in `ExpiryDate#isValidExpiryDate` returns `false`.
+
+Step 4. A `ParseException` is thrown from `ParserUtil#parseExpiryDate(String expiryDate)` and the error message is shown on the command box.
+
+The following sequence diagram shows how the expiry validations work:
+
+==== Expiry Notification
+The expiry notification is facilitated by `ExpiryDisplay`. It exists as an attribute within `MainWindow` and obtains the required expiring cards list from `LogicManager`. This is internally stored as `expiringCards`. Additionally, it implements the following operations:
+
+* `LogicManager#getExpiringCardList()` -- Returns the list of expiring cards.
+* `ExpiringCard#of(Card card)` -- Creates an ExpiringCard given card details.
+* `ExpiryDisplay#hasCards()` -- Returns true if there are expiring cards.
+* `MainWindow#handleExpiry()` -- Pops up a notification if there are expiring cards upon startup of the app.
+
+// end::carddg[]
 // tag::fileencryption[]
 === File Management
 SecureIT does not store users' encrypted files directly. Instead, it reads the files' data, carries out the encryption, and replaces the original files with encrypted ones in users' file system. Meanwhile, it also maintains records of files that it encrypts, represented by `*EncryptedFile*` class, in an internal data structure, `*FileBook*`.
@@ -663,6 +697,41 @@ supports future extensions as undoable commands can be added much easier.
 *The reason why we chose alternative 1:*
 It is less complex to implement and the code is much cleaner for better readability which also helps in future extensions.
 
+// tag::carddesign[]
+
+[width="80%",cols="3,10,10",options="header"]
+|=========================================================
+|Aspect |Alternative 1 |Alternative 2
+
+|Implementation of expiry tagging system
+a|The system saves a copy of the entire address book whenever the commands are executed.
+
+* Pros:
+* Cons:
+
+I decided to proceed with this option because
+
+a|List 2.
+
+* Pros:
+* Cons:
+
+|Implementation of expiry tagging system
+a|The system saves a copy of the entire address book whenever the commands are executed.
+
+* Pros:
+* Cons:
+
+I decided to proceed with this option because
+
+a|List 2.
+
+* Pros:
+* Cons:
+
+|=========================================================
+
+// end::carddesign[]
 ==== Sort Note feature
 
 Sorting of notes is handled by the MultipleSortByCond class, which allows the notes in the NoteBook to be sorted in
