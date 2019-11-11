@@ -177,28 +177,28 @@ image::warning.png[width = "20", float = "left"]
 
 === Adding a claim : `add_claim`
 
-Adds a claim to the claims list. +
+To add a claim to the claim list. +
 
 Keyword: `add_claim`
 
 Format: `add_claim n/NAME d/DESCRIPTION_OF_CLAIM c/AMOUNT date/DATE [t/TAG]`
 
-Examples:
+Example:
 
 ....
 add_claim n/Lee Wei Gen d/Sports Equipment c/115.2 date/29-12-2019 t/Sports t/Equipment
 ....
 
-<<UG-AddClaimExample>> and <<UG-AddClaimResult>> shows what you can expect to see after entering a valid AddClaimCommand.
+<<UG-AddClaimExample>> and <<UG-AddClaimResult>> shows what you can expect to see after adding a claim.
 [[UG-AddClaimExample]]
 [reftext="Figure 3.4.1"]
 [caption="Figure 3.4.1: "]
-.Type in the add_claim command.
+.Type in the command to add claim.
 image::UG-beforeAddClaim.png[width="800"]
 [[UG-AddClaimResult]]
 [reftext="Figure 3.4.2"]
 [caption="Figure 3.4.2: "]
-.Result after adding the claim.
+.Result after addition of claim.
 image::UG-afterAddClaim.png[width="800"]
 
 ====
@@ -209,19 +209,19 @@ image::warning.png[width = "20", float = "left"]
 
 * `AMOUNT` should be up to 2 decimal places only. +
 * `DATE` should be a valid date in the form of "dd-MM-yyyy"_(eg. 29-02-2019 not valid)_. +
-* A contact must already exist with the inputted `NAME`.
+* A contact must already exist with the inputted `NAME` _(if not who is claiming it?)_
 
 ====
 
 === Approving a claim : `approve`
 
-Approves an existing pending claim at the specified `INDEX`. +
+To approve a claim at the specified `INDEX`. +
 
 Keyword: `approve`
 
 Format: `approve INDEX`
 
-Examples:
+Example:
 
 ....
 approve 1
@@ -229,11 +229,11 @@ approve 1
 
 The above example approves the first claim in the claim list.
 
-<<UG-ApproveExample>> and <<UG-ApproveResult>> shows what you can expect to see after entering a valid AddClaimCommand.
+<<UG-ApproveExample>> and <<UG-ApproveResult>> shows what you can expect to see after approving a claim.
 [[UG-ApproveExample]]
 [reftext="Figure 3.5.1"]
 [caption="Figure 3.5.1: "]
-.Type in the approve claim command.
+.Type in the command to approve claim.
 image::UG-beforeApprove.png[width="800"]
 [[UG-ApproveResult]]
 [reftext="Figure 3.5.2"]
@@ -248,7 +248,7 @@ image::warning.png[width = "20", float = "left"]
 *Warning*
 
 * The claim list must be currently displayed.
-* Claim at the specified `INDEX` must be a pending claim.
+* Claim at the specified `INDEX` must be a [.underline]#pending# claim.
 * `INDEX` refers to the index number shown in the displayed claim list.
 * `INDEX` *must be a positive integer* 1, 2, 3, ..., and cannot be larger than the maximum index of the displayed
 claim list.
@@ -257,13 +257,13 @@ claim list.
 
 === Rejecting a claim : `reject`
 
-Rejects an existing pending claim at the specified `INDEX`. +
+To reject a claim at the specified `INDEX`. +
 
 Keyword: `reject`
 
 Format: `reject INDEX`
 
-Examples:
+Example:
 
 ....
 reject 1
@@ -271,11 +271,11 @@ reject 1
 
 The above example rejects the first claim in the claim list.
 
-<<UG-RejectExample>> and <<UG-RejectResult>> shows what you can expect to see after entering a valid AddClaimCommand.
+<<UG-RejectExample>> and <<UG-RejectResult>> shows what you can expect to see after rejecting a claim.
 [[UG-RejectExample]]
 [reftext="Figure 3.6.1"]
 [caption="Figure 3.6.1: "]
-.Type in the reject claim command.
+.Type in the command to reject claim.
 image::UG-beforeReject.png[width="800"]
 [[UG-RejectResult]]
 [reftext="Figure 3.6.2"]
@@ -290,11 +290,7 @@ image::warning.png[width = "20", float = "left"]
 --
 *Warning*
 
-* The displayed list must be the claim list.
-* Claim at the specified `INDEX` must be a pending claim.
-* `INDEX` refers to the index number shown in the displayed claim list.
-* `INDEX` *must be a positive integer* 1, 2, 3, ..., and cannot be larger than the maximum index of the displayed
-claim list.
+* Warning as per *Approve* command!
 ====
 
 

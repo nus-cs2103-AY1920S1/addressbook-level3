@@ -12,7 +12,7 @@ Hi! My name is Wei Gen.
 
 I am currently a second year student in NUS School of Computing, pursuing a Bachelor of Computing (Honours).
 
-This portfolio page aims to document the contributions I have made in the development of FinSec, which is a project
+This project portfolio page aims to document the contributions I have made in the development of FinSec, a project
 that my team and I completed for the module CS2103T. This project has definitely been greatly beneficial to my own
 learning and self-development in becoming a more competent software engineer.
 
@@ -20,17 +20,18 @@ learning and self-development in becoming a more competent software engineer.
 
 == Overview
 
-FinSec is a useful application that was created with the end goal of aiding Financial Secretaries of any organisation.
-It is a Command Line Interface (CLI) based tool to cater to computing professionals who are highly adept at typing but
-also provides a Graphical User Interface (GUI) interface for users to easily view interact with FinSec.
+FinSec is an application that was created with the end goal of aiding Financial Secretaries of any organisation in
+managing their financial data, mainly their contacts, claims, incomes and budget. It is a Command Line Interface (CLI)
+based tool to cater to computing professionals who are highly adept at typing but also provides a Graphical User
+Interface (GUI) interface for any users _(like you!)_ to easily view interact with FinSec.
 
 == Role
 
 My main role was to act as the Team Lead for the project, completing team tasks for the project and managing
-general tasks for the team members. As I was the only one who has been in the position of our target audience, I
-can best understand their user requirements, so I was also the one to set the directions of the project.
+general tasks for the team members. As I was the only one who has been in the position of our target audience and
+could best understand their user requirements, so I was also the one to set the directions of the project.
 
-Development-wise, I also developed the Claims feature _(including logic, storage and model)_, as well as adding the
+I also developed the Claims feature _(including logic, storage and model)_, as well as adding the
 association between Claims and Contacts. I also created the documentation and tests that came along with the features.
 
 == Summary of contributions
