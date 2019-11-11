@@ -69,9 +69,11 @@ section.
 .  Copy the file to the folder you want to use as the home folder for DukeCooks.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+
+.Start-up screen for DukeCooks
 image::Ui.png[width="790"]
 
-.  Refer to <<Commands>> for details of each command.
+.  Refer to <<Commands, Commands>> for details of each command.
 
 === Quick Look at DukeCooks
 
