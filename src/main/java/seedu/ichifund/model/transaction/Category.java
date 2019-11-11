@@ -65,7 +65,7 @@ public class Category implements Comparable<Category> {
 
     @Override
     public int compareTo(Category other) {
-        return toString().compareTo(other.toString());
+        return toString().toLowerCase().compareTo(other.toString().toLowerCase());
     }
 }
 
