@@ -2,35 +2,32 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:toc:
+:toclevels: 2
 
 == PROJECT: Mark
 :sectnums:
 
 == Overview
 
-This project portfolio showcases my contributions to my team's group Software Engineering project, Mark. My team consisting 5 Year 2 Computer Science students were tasked
+This project portfolio showcases my contributions to my team's group Software Engineering project, Mark. My team consisting 5 NUS Year 2 Computer Science students were tasked
 with enhancing a basic desktop application, https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AB-3], to solve a problem for a specific target group.
-AB-3 uses a Command Line Interface (CLI) where users type their commands to navigate and use the application.
 
 Given 8 weeks to conceptualise and implement the project in Java, we chose to morph AB-3 into a bookmark manager application we call *Mark*.
-Mark aims to improve computing students' productivity by helping them organise their web browsing and note-taking activities. With Mark, computing students can greatly reduce the number of
-tabs left open due to various reasons in their web browsers and provides a one-stop platform to allow them to easily pick up their revision through easy navigation and in-built web page
-annotation when rushing for time.
+Mark aims to improve computing students' productivity by helping them organise their web browsing and note-taking activities.
 
 Mark has a visually appealing graphical user interface (GUI) to visually guide the users around the application. This is what Mark looks like when you open the application:
 //TODO: replace gui pic with well populated data
 
 .Dashboard tab view of Mark.
-image::dashboardMark.png[500,500]
+image::dashboardMark.png[450,450]
 
 
 My role was to design and implement the _annotation_ feature so users can conveniently make notes on
 important web pages instantly while reading them. This feature uses commands that begin with `annotate` and works on the offline version
 of the web pages converted by Mark.
 
-The following sections illustrate my contributions in more detail. The relevant documentation I have added to the User and Developer Guides in relation to this enhancement is also included in this portfolio.
-
-//note to special symbols?
+The following sections illustrate my contributions in more detail.
 
 == Summary of contributions
 This section gives a summary of the features I implemented, documentation I did and other parts I contributed to my team project.
@@ -72,19 +69,16 @@ https://github.com/kxyoke/main/tree/master/src/main/java/seedu/mark[Functional c
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kxyoke&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=kxyoke&tabRepo=AY1920S1-CS2103T-T13-4%2Fmain%5Bmaster%5D[Reposense]
 
 
-=== *Other contributions*:
+=== Other contributions
 
-** Project management:
-*** Managed release `v1.2` on GitHub
-** Enhancements to existing features:
-*** Created layout of the GUI (Pull requests https://github.com/AY1920S1-CS2103T-T13-4/main/pull/63[#63], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/74[#74])
-*** Designed the GUI color scheme to make it more attractive (Pull request https://github.com/AY1920S1-CS2103T-T13-4/main/pull/246[#246])
+** Project management: managed release `v1.2` on GitHub
+** Enhancements to existing features: created layout of the GUI (Pull requests https://github.com/AY1920S1-CS2103T-T13-4/main/pull/63[#63], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/74[#74])
+and designed the GUI color scheme to make it more attractive (Pull request https://github.com/AY1920S1-CS2103T-T13-4/main/pull/246[#246])
 //** Documentation:
 //*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** Reviewed Pull Requests (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T13-4/main/pull/64[#64], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/96[#96], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/128[#128], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/[#129]
+** Community: reviewed Pull Requests (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T13-4/main/pull/64[#64], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/96[#96], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/128[#128], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/[#129]
 //*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (example:  https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/47[1])
+and provided suggestions for https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/47[another team].
 //, https://github.com[2], https://github.com[3])
 //*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 //** Tools:
