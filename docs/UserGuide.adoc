@@ -37,12 +37,12 @@ GUI apps!
 ====
 *Command Format*
 
-* Words in `[SQUARE BRACKETS]` are the mandatory parameters to be supplied by the user e.g. in `add [n/NAME] [d/DESCRIPTION] [a/AMOUNT]`, `NAME` `DESCRIPTION` and `AMOUNT` are parameters which can be used as `expense add n/buy a book d/math book a/10`.
+* Words in `[SQUARE BRACKETS]` are mandatory parameters to be supplied by the user e.g. in `add [n/NAME] [d/DESCRIPTION] [a/AMOUNT]`, `NAME` `DESCRIPTION` and `AMOUNT` are parameters which can be used as `expense add n/buy a book d/math book a/10`.
 * The mandatory parameters must be supplied in the order specified.
 * Default values can be specified in the square brackets, e.g `[NUM_ENTRIES, DEFAULT = 10]`. If the user does not provide a value for that parameter, it will default to the default value stated.
-* Some commands may have optional parameters denoted under options. These can be included by specifying in `<ANGULAR BRACKETS>` format, e.g `<a/AMOUNT>` can be used as `expense edit 2 a/10`.
+* Some commands may have optional parameters. These are denoted by using `<ANGULAR BRACKETS>`, e.g When you see `<a/AMOUNT>`, the command can be either `expense edit 2 n/lunch a/10` or `expense edit 2 n/lunch`.
 * Flags can be in any order.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `<t/TAG>...` can be used as `{nbsp}` (i.e. 0 times), `bills`, `bills fees` etc.
+* Items with `…`​ after them can be used zero or more times e.g. `<t/TAG>...` can be used as `{nbsp}` (i.e. 0 times), `t/bills` or even `t/bills t/fees` etc.
 
 ====
 
@@ -457,6 +457,14 @@ image::archiveRevertNonEmptyArchive.png[]
 // end::archive[]
 
 === Displaying of statistics: `display-stats`
+
+image::statisticsIntro.png[]
+
+Billboard has a powerful statistics display system! While trying out other features, you may have realized that the highlighted chart changes from time to time.
+That's right, Billboard has a fully responsive statistics display with charts that dynamically update themselves. You can simply enter any command that changes the displayed
+list of expenses, such as `add n/automatic stats displays are cool a/50.00`, and watch as the chart updates automatically.
+
+image::live-statistics-demo.gif[]
 
 . _Display timeline overview of expenses: display-stats timeline_ +
 You can view a timeline overview of your currently displayed expenses. The expenses over a
