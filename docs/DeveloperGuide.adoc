@@ -883,7 +883,7 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage calendar and track earnings faster than a typical mouse/GUI driven app
+*Value proposition*: manage students, tasks, notes, earnings and reminders faster than a typical mouse/GUI driven app. Helps to improve workflow by organizing all teaching-related information in one common place and hence saves time.
 
 // tag::userStoriesAndCase[]
 [appendix]
@@ -896,6 +896,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
+|`* * *` |tutor |track all the information about my students | remember key info about them easily when I need it
+
 |`* * *` |tutor |add a new class | check the details of the task when I want
 
 |`* * *` |tutor |edit an existing task |update task information when I need
@@ -905,6 +907,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |tutor | check my existing classes| attend the classes in time
 
 |`* * *` | tutor| check the information of my classes| know more about my students' situation
+
+|`* *` | tutor | see who's not coming for class | check up on them
 
 |`* *` | user | know what's the command format | key in the correct command
 
@@ -950,8 +954,6 @@ Use case ends.
 Use case resumes at step 2. +
 
 
-
-
 [discrete]
 === Use case: Delete Reminder
 
@@ -990,8 +992,6 @@ _{More to be added}_
 .  Should be able to hold up to 1000 tasks without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
@@ -1002,23 +1002,6 @@ Windows, Linux, Unix, OS-X
 A contact detail that is not meant to be shared with others
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1026,7 +1009,7 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Launch
 
 . Initial launch
 
@@ -1034,35 +1017,18 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
 === Deleting a person
 
 . Deleting a person while all persons are listed
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First person is deleted from the list. Details of the deleted person shown in the status message.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No person is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete Tom` +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
 
 // tag::ManualTestTask[]
 === Adding a task
@@ -1130,3 +1096,90 @@ _{ more test cases ... }_
    Expected: The previously deleted task reappeared in the list.
 .. Test case: `delete_task 1` + `undo` + `redo` +
    Expected: The recovered task was deleted again from the list.
+
+=== Listing by class
+
+. List out all students in the class.
+
+.. Test case: `list_class CS2030` +
+   Expected: All students in class CS2030 are shown.
+.. Test case: `list_class CS2030 CS2040` +
+   Expected: All students in class CS2030 and CS2040 are shown.
+.. Test case: `list_class RANDOM STRING` +
+   Expected: No students are shown.
+
+=== Mass Assigning Class
+
+. Assigns the class to all students indicated.
+
+.. Test case: `assign_class 1,2,3 c/CS2030` +
+   Expected: Students at index 1,2 and 3 are assigned to class CS2030. (assuming the list size is at least 3)
+.. Test case: `assign_class 1,2,3 c/CS2030` +
+   Expected: Nobody is assigned to class CS2030. (assuming the list size is less than 3)
+.. Test case: `assign_class 1,2,100 c/CS2030` +
+   Expected: Nobody is assigned to class CS2030. (assuming the list size is 5)
+
+=== Mass Marking Attendance
+
+. Increases the attendance of indicated students by one.
+
+.. Test case: `mark_attendance 1,2,3` +
+   Expected: Students at index 1,2 and 3 have their attendance increased (assuming the list size is at least 3)
+.. Test case: `mark_attendance 1,2,3` +
+   Expected: Nobody has their attendance increased (assuming the list size is less than 3)
+.. Test case: `mark_attendance 1,2,100` +
+   Expected: Nobody has their attendance increased  (assuming the list size is 5)
+
+=== Mass Marking Participation
+
+. Increases the participation of indicated students by one.
+
+.. Test case: `mark_participation 1,2,3` +
+   Expected: Students at index 1,2 and 3 have their participation increased (assuming the list size is at least 3)
+.. Test case: `mark_participation 1,2,3` +
+   Expected: Nobody has their participation increased (assuming the list size is less than 3)
+.. Test case: `mark_participation 1,2,100` +
+   Expected: Nobody has their participation increased  (assuming the list size is 5)
+
+=== Setting picture
+
+. Sets the profile picture of the indicated student
+
+.. Test case: `set_pic 1 pic/test.jpg` +
+   Expected: Student at index 1 is given test.jpg as his profile picture. (assuming test.jpg is in the same directory as TutorAid)
+.. Test case: `set_pic 1 pic/test.docx` +
+   Expected: Error occurs. Only .jpg/.png/.gif/.bmp is supported.
+.. Test case: `set_pic 1 pic/test.jpg` +
+   Expected: Error occurs. TutorAid can't find the picture. (assuming test.jpg is not in the same directory as TutorAid)
+.. Test case: `set_pic 100 pic/test.jpg` +
+   Expected: Error occurs. Index is invalid. (assuming a list size of 10 and test.jpg is in the same directory as TutorAid)
+
+
+=== Unknown wrong command
+
+. Learns a wrong command the user typed in as a basic command.
+
+.. Test case: `gibberish` +
+   Expected: TutorAid prompts the user for the command word they intended to execute. (assuming gibberish is not yet learned)
+.. Test case: `ad n/Caesar c/CS1000` +
+   Expected:  TutorAid prompts the user for the command word they intended to execute. (assuming ad is not yet learned)
+... Test case: `cancel` +
+   Expected: The unknown command is discarded and normal operations can resume.
+... Test case: `gibberish` +
+   Expected: TutorAid prompts the user for the command word they intended to execute. (assuming gibberish is not yet learned)
+... Test case: `add n/Caesar c/CS2100` +
+   Expected: TutorAid can't learn full commands. Prompts the user which command word they want to map the last unknown command to again.
+... Test case: `add` +
+   Expected: TutorAid learns the last unknown command as `add`
+
+
+=== Delete Custom Command
+
+. Deletes a wrong custom command previously learnt.
+
+.. Test case: `deleteCustomCommand VALIDCUSTOMCOMMAND` +
+   Expected: The custom command is deleted.
+.. Test case: `deleteCustomCommand INVALIDCUSTOMCOMMAND` +
+   Expected: Error. Invalid command, TutorAid can't find such a command to delete.
+.. Test case: `deleteCustomCommand BASICCOMMAND` +
+   Expected: Error. You can't delete a basic built-in command.
