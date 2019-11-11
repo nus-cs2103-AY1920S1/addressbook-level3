@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.jarvis.logic.parser.CliSyntax.CourseSyntax.PREFIX_COURSE;
+import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_DESCRIPTION;
+import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_MONEY;
 import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TASK_DES;
 import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TASK_TYPE;
 import static seedu.jarvis.testutil.Assert.assertThrows;
@@ -20,6 +22,14 @@ import seedu.jarvis.logic.commands.course.DeleteCourseCommand;
 import seedu.jarvis.logic.commands.course.ListCourseCommand;
 import seedu.jarvis.logic.commands.course.LookUpCommand;
 import seedu.jarvis.logic.commands.course.ShowCourseHelpCommand;
+import seedu.jarvis.logic.commands.finance.EditInstallmentCommand;
+import seedu.jarvis.logic.commands.finance.FindPurchaseCommand;
+import seedu.jarvis.logic.commands.finance.ListFinancesCommand;
+import seedu.jarvis.logic.commands.finance.RemoveInstallmentCommand;
+import seedu.jarvis.logic.commands.finance.RemovePaidCommand;
+import seedu.jarvis.logic.commands.finance.SetInstallmentCommand;
+import seedu.jarvis.logic.commands.finance.SetMonthlyLimitCommand;
+import seedu.jarvis.logic.commands.finance.SetPaidCommand;
 import seedu.jarvis.logic.commands.history.ListHistoryCommand;
 import seedu.jarvis.logic.commands.history.RedoCommand;
 import seedu.jarvis.logic.commands.history.UndoCommand;
@@ -58,7 +68,6 @@ public class JarvisParserTest {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                                                 HelpCommand.MESSAGE_USAGE), () -> parser.parseCommand(""));
     }
-
 
     //======================= history manager ==========================================================
 
@@ -187,5 +196,66 @@ public class JarvisParserTest {
         assertThrows(ParseException.class, () -> parser.parseCommand(PullTaskCommand.COMMAND_WORD));
         assertTrue(parser.parseCommand(PullTaskCommand.COMMAND_WORD + " " + PREFIX_TASK_TYPE + "todo")
                     instanceof PullTaskCommand);
+    }
+
+    //============================= task planner ==============================================
+
+    @Test
+    public void parseCommand_addPaid() throws Exception {
+        assertThrows(ParseException.class, () -> parser.parseCommand(SetPaidCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(SetPaidCommand.COMMAND_WORD + " " + PREFIX_DESCRIPTION + "Makisan "
+                + PREFIX_MONEY + "5.8") instanceof SetPaidCommand);
+    }
+
+    @Test
+    public void parseCommand_deletePaid() throws Exception {
+        assertThrows(ParseException.class, () -> parser.parseCommand(RemovePaidCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(RemovePaidCommand.COMMAND_WORD + " 2") instanceof RemovePaidCommand);
+    }
+
+    @Test
+    public void parseCommand_findPaid() throws Exception {
+        assertThrows(ParseException.class, () -> parser.parseCommand(FindPurchaseCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(FindPurchaseCommand.COMMAND_WORD + " lunch")
+                instanceof FindPurchaseCommand);
+    }
+
+    @Test
+    public void parseCommand_addInstall() throws Exception {
+        assertThrows(ParseException.class, () -> parser.parseCommand(SetInstallmentCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(SetInstallmentCommand.COMMAND_WORD + " "
+                + PREFIX_DESCRIPTION + "Netflix "
+                + PREFIX_MONEY + "13") instanceof SetInstallmentCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteInstall() throws Exception {
+        assertThrows(ParseException.class, () -> parser.parseCommand(RemoveInstallmentCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(RemoveInstallmentCommand.COMMAND_WORD + " 2")
+                instanceof RemoveInstallmentCommand);
+    }
+
+    @Test
+    public void parseCommand_editInstall() throws Exception {
+        assertThrows(ParseException.class, () -> parser.parseCommand(EditInstallmentCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(EditInstallmentCommand.COMMAND_WORD + " 1 "
+                + PREFIX_DESCRIPTION + "Spotify student "
+                + PREFIX_MONEY + "7.5") instanceof EditInstallmentCommand);
+        assertTrue(parser.parseCommand(EditInstallmentCommand.COMMAND_WORD + " 1 "
+                + PREFIX_DESCRIPTION + "Spotify student ") instanceof EditInstallmentCommand);
+        assertTrue(parser.parseCommand(EditInstallmentCommand.COMMAND_WORD + " 1 "
+                + PREFIX_MONEY + "7.5") instanceof EditInstallmentCommand);
+    }
+
+    @Test
+    public void parseCommand_setLimit() throws Exception {
+        assertThrows(ParseException.class, () -> parser.parseCommand(SetMonthlyLimitCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(SetMonthlyLimitCommand.COMMAND_WORD + " "
+                + PREFIX_MONEY + "500") instanceof SetMonthlyLimitCommand);
+    }
+
+    @Test
+    public void parseCommand_listFinances() throws Exception {
+        assertTrue(parser.parseCommand(ListFinancesCommand.COMMAND_WORD) instanceof ListFinancesCommand);
     }
 }
