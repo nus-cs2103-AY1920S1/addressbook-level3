@@ -18,14 +18,14 @@ By: `AY1920S1-Team W13-1`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-ModuleBook is a standalone application that tracks and manages modules from National University of Singapore (NUS). The application contains many features useful for module management, such as deadline tracking, lesson scheduling and grade calculator.
+ModuleBook is a standalone application that tracks and manages modules from National University of Singapore (NUS). The application contains many features useful for module management, such as deadline tracking and hyperlink storage.
 
-ModuleBook is for NUS students who *want a desktop app for managing modules*. More importantly, ModuleBook is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ModuleBook can manage your tasks more efficiently than traditional GUI apps. Jump to the <<Quick Start>> to get started. Enjoy!
+ModuleBook is for NUS students who want a desktop app for managing modules. More importantly, ModuleBook is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ModuleBook can manage your tasks more efficiently than traditional GUI apps. Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-//.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `modulebook.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -359,7 +359,6 @@ e.g. `delete cs2101`
 == Glossary
 
 === Common Application terms
-
 **Home view** - The state of the application that displays the home page in the main panel.
 
 image::userguide/Glossary_HomeView.png[]

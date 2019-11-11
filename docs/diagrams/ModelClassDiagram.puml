@@ -23,6 +23,7 @@ Class ArchivedModuleList
 Class TrackedModule
 Class TrackedModuleList
 Interface Module <<Interface>>
+Interface Trackable <<Interface>>
 }
 
 HiddenOutside ..> Model
@@ -40,6 +41,7 @@ ModuleBook *-down-> "1" ArchivedModuleList
 TrackedModuleList o-down-> "*" TrackedModule
 ArchivedModuleList o-down-> "*" ArchivedModule
 TrackedModule *-right-> "1" ArchivedModule : references >
+TrackedModule .down-|> Trackable
 TrackedModule .down.|> Module
 ArchivedModule .down.|> Module
 
