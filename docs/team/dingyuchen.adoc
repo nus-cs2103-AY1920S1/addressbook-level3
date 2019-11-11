@@ -32,11 +32,8 @@ Our application aims to solve this pain point by providing a simple way to keep 
 
 ** Highlights: The `Ledger` tab has a split screen user interface, for the user to keep track
 of unpaid dollars and each transaction recorded between friends.
-The `Ledger` will only display people with outstanding balances on the left side of the screen, while
-transactions are listed on the right.
-
-.The Ledger Interface
-image::LedgerUI.png[]
+The `Ledger` will only display people with outstanding balances on the *left* side of the screen, while
+transactions are listed on the *right*. (See below)
 
 * *Minor enhancement*: added checks and improved error messages for handling `Amount`.
 

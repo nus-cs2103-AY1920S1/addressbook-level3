@@ -1,17 +1,21 @@
 @startuml
-(*)  --> "check input"
-If "shares.length  == name.length?" then
---> [Yes] "set user's share to 0"
---> "create split"
---> (*)
-else
-    if "share size is 1 more than name?"
-    --> [yes] "user's share is the first"
-    --> "create split"
-    else
-    --> "throw error"
-    endif
-Endif
--->(*)
+start
+:User executes Split command;
+:SplitCommandParser parses and validates user input;
+
+if() then ([Valid input])
+
+:Creates SplitCommand containing List of shares and people;
+:Calculates Amount for each Person;
+:Update balance for each Person;
+:Update balance for Ledger;
+:Commit UserState;
+
+else([else])
+:Throw ParseException;
+endif
+
+stop
+
 @enduml
 

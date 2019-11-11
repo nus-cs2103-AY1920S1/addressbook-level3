@@ -364,24 +364,50 @@ This feature allows the user to pay for a certain item or make a transaction on 
 Refer to the <<UserGuide#Features, UserGuide>> for usage details.
 
 ==== Current Implementation
-
 The `split` command is an abstraction of `LendMoney` class. +
 Given a list of *shares* and *people*, each person is assigned an *amount* based on the corresponding positional share and the total amount given to `split` command. +
 A `LendMoney` instance is created for each person and executed.
 
-.Class diagram for operations that deal with Ledger
-image::LedgerOperationDiagram.png[]
+
+Below shows how a typical command from the user is executed by the program.
+
+.Sequence diagram for executing a `SplitCommand`
+image::Split.png[]
+
+**Step 1**: User enters `split $/200 n/a n/b n/c a/desc` into the command line to split *$200* among *a*, *b* and *c*.
+
+**Step 2**: Upon executing the command, `LogicManager` uses `MainParser#parse()` to parse the input from the user.
+
+**Step 3**: `MainParser` determines that user input is an instance of a `SplitCommand` and creates a `SplitCommandParser`
+to further parse the input.
+
+**Step 4**: `SplitCommandParser` parses the command and checks if fields like amount and names are valid.
+If all fields are valid, it returns a `SplitCommand`. Else, an error is thrown to the result box and the execution
+terminates.
+
+**Step 5**: `LogicManager` uses `SplitCommand#execute()` to update the balances of `Ledger` and people involved in the
+transaction.
+
+**Step 6**: `SplitCommand#execute()` calls `Model#add()` to add the user input into the user history.
+Within the function call, the actual update of balances is handled in `Ledger#handleOperation()`.
+
+**Step 7**: `SplitCommand` calls `Model#commitUserState()` after executing to save the latest state of the application.
+
+**Step 8**: A `CommandResult` is then returned to the `LogicManager` which is then displayed to the user.
+
 
 .Activity diagram for creating a `Split` object
 image::SplitBehaviour.png[]
 
 ==== Design Considerations
 
+Below shows how the classes involved with `Ledger` interact with each other.
+
+.Class diagram for operations that deal with Ledger
+image::LedgerOperationDiagram.png[]
+
 Current implementation of `Split` class encourages code reuse by abstracting the delegating the task of rebalancing to another class. +
 However, this introduces coupling as the behavior of `Split` is now inexplicably tied to `LendMoney`.
-
-.Sequence diagram for executing a `SplitCommand`
-image::Split.png[]
 
 // end::split[]
 
@@ -395,9 +421,36 @@ The balance in the `Ledger` and the balance of the sender is updated accordingly
 
 The `receive` command creates `ReceiveMoney` class that handles the transfer of fund from another person to the user.
 
+How `receive` relates to the rest of the `Ledger` classes can be inferred from the
+class diagram above.
+
 In the `handleBalance` method of `ReceiveMoney`, it will find the correct person in the `Ledger` by name,
 or create a new `Person` with given *name* if it is not already in the `Ledger`. +
 Balance of the user and the sender is then updated accordingly.
+
+Below is an example usage scenario for how `receive` would behave.
+
+**Step 1**: User enters `receive $/200 n/a` into the command line to settle up *$200* from *a*.
+
+**Step 2**: Upon executing the command, `LogicManager` uses `MainParser#parse()` to parse the input from the user.
+
+**Step 3**: `MainParser` determines that user input is an instance of a `ReceiveCommand` and creates a `ReceiveCommandParser`
+to further parse the input.
+
+**Step 4**: `ReceiveCommandParser` parses the command and checks if fields like amount and names are valid.
+If all fields are valid, it returns a `ReceiveCommand`. Else, an error is thrown to the result box and the execution
+terminates.
+
+**Step 5**: `LogicManager` uses `ReceiveCommand#execute()` to update the balances of `Ledger` and the person in the
+transaction.
+
+**Step 6**: `ReceiveCommand#execute()` calls `Model#add()` to add the user input into the user history.
+Within the function call, the person in `Ledger` is found and his/her outstanding balance is updated in `Ledger#handleOperation()`. +
+If he is not already inside the `Ledger`, a new `Person` is created with the same name.
+
+**Step 7**: `SplitCommand` calls `Model#commitUserState()` after executing to save the latest state of the application.
+
+**Step 8**: A `CommandResult` is then returned to the `LogicManager` which is then displayed to the user.
 
 .Code snippet of `handleBalance` in ReceiveMoney
 ```
@@ -687,7 +740,7 @@ invalid, `SortCommandParser` throws an exception and terminates. Else, it return
 
 **Step 8**. `SortCommand` uses `SortCommand#sortTransactionHistory()` to sort the transactions.
 
-**Step 9**. `SortCommand` uses `Model#setTransactions()` to store the sorted transactions and `Model#commitUserState()` to
+**Step 9**. `SortCommand` uses `Model#set()` to store the sorted transactions and `Model#commitUserState()` to
 save the latest state of the application.
 
 **Step 10**. `SortCommand` returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user

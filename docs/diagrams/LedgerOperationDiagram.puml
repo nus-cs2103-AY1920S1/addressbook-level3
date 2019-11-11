@@ -6,9 +6,9 @@ skinparam classBackgroundColor MODEL_COLOR
 
 Package Ledger <<Rectangle>>{
 
+Class Ledger
 Package Transaction {
 Interface LedgerOperation <<Interface>>
-Class Ledger
 
 Class Transaction <<abstract>>
 
@@ -32,8 +32,8 @@ Class HiddenOutside #FFFFFF
 'UniquePersonList
 UniquePersonList ---"*" Person
 
-Transaction --- Amount
-Transaction --- Date
+Transaction ---"1" Amount
+Transaction ---"1" Date
 
 'ledger operation
 Ledger o--> LedgerOperation

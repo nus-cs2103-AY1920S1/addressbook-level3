@@ -19,7 +19,7 @@ participant ":LendMoney" as LendMoney MODEL_COLOR
 
 end box
 
-[-> LogicManager : execute("split $/200 n/Amy n/Bob n/Cameron")
+[-> LogicManager : execute("split $/200 n/a n/b n/c a/desc")
 activate LogicManager
 
 LogicManager -> MainParser: parseCommand("split $/200 n/Amy n/Bob n/Cameron")
