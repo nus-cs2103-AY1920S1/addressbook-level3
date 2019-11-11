@@ -3,13 +3,13 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-This document serves to show the various contributions that I have made in the development of https://ay1920s1-cs2103t-f13-4.github.io/main/index.html[EzWatchlist]
+This document serves to show the various contributions that I have made in the development of link:https://ay1920s1-cs2103t-f13-4.github.io/main/index.html[EzWatchlist]
 in a concise and understandable manner.
 
 == More About The Project
 EzWatchlist is a desktop application that allows forgetful users to keep track of movies and tv series that they want to watch or have watched.
 It was developed by a group of 5 students from the National University of Singapore taking the Software Engineering module including
-myself under the premise that we had to either optimize or morph an existing https://nus-cs2103-ay1920s1.github.io/addressbook-level3/index.html[AddressBook] application. We chose the latter. Another
+myself under the premise that we had to either optimize or morph an existing link:https://nus-cs2103-ay1920s1.github.io/addressbook-level3/index.html[AddressBook] application. We chose the latter. Another
 constraint was ensuring that the application has a command-line interface, which means that all commands should be executable through typing.
 The picture below shows the various components of EzWatchlist.
 
@@ -63,7 +63,7 @@ The addition of the clickable checkbox to mark or unmark shows also increased th
 implemented with the intention of possibly retrieving season and episode details future versions.
 
 === Code Contributions
-View my code contributions https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jcjjjared&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[here].
+View my code contributions link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jcjjjared&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[here].
 
 === Other Contributions
 
@@ -74,23 +74,23 @@ These links show the code that has been contributed to the team project
 *Project Management*
 
 * Provided the team with information about the tasks that need to be completed
-* Assigned tasks https://github.com/AY1920S1-CS2103T-F13-4/main/issues/25[1], https://github.com/AY1920S1-CS2103T-F13-4/main/issues/42[2]
+* Assigned tasks link:https://github.com/AY1920S1-CS2103T-F13-4/main/issues/25[1], link:https://github.com/AY1920S1-CS2103T-F13-4/main/issues/42[2]
 
 *Enhancements to Features:*
 
-* Improved `add` command by reducing amount of information needed to be entered https://github.com/AY1920S1-CS2103T-F13-4/main/pull/138[#138]
-* Changed storage structure to save shows as movies or tv shows https://github.com/AY1920S1-CS2103T-F13-4/main/pull/117[#117]
-* Writing of various tests for EzWatchlist to reduce the possibility of bugs when using EzWatchlist https://github.com/AY1920S1-CS2103T-F13-4/main/pull/132[#231], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/237[#237]
+* Improved `add` command by reducing amount of information needed to be entered link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/138[#138]
+* Changed storage structure to save shows as movies or tv shows link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/117[#117]
+* Writing of various tests for EzWatchlist to reduce the possibility of bugs when using EzWatchlist link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/132[#231], link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/237[#237]
 
 *Documentation:*
 
-* Improved the structure of the user guide https://github.com/AY1920S1-CS2103T-F13-4/main/pull/15[#15], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/214[#214]
-* Updated the developer guide https://github.com/AY1920S1-CS2103T-F13-4/main/pull/241[#241]
+* Improved the structure of the user guide link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/15[#15], link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/214[#214]
+* Updated the developer guide link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/241[#241]
 
 *Community:*
 
-* Reviewed team pull requests https://github.com/AY1920S1-CS2103T-F13-4/main/pull/77[#74], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/84[#84]
-* Reported bugs and suggestions for other teams in the class (examples: https://github.com/jcjjjared/ped/issues/1[1], https://github.com/jcjjjared/ped/issues/2[2], https://github.com/jcjjjared/ped/issues/4[3])
+* Reviewed team pull requests link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/77[#74], link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/84[#84]
+* Reported bugs and suggestions for other teams in the class (examples: link:https://github.com/jcjjjared/ped/issues/1[1], link:https://github.com/jcjjjared/ped/issues/2[2], link:https://github.com/jcjjjared/ped/issues/4[3])
 
 *Tools:*
 
