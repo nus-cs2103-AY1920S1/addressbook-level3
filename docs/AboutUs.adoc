@@ -24,7 +24,7 @@ image::https://comp.nus.edu.sg/~lowet/n20191002.jpg[width="150", align="left"]
 image:etlow.png[]
 {empty}[https://github.com/etlow[github]]
 
-Role: Team Lead +
+Role: Developer +
 Responsibilities: Code Quality, Documentation, Integration, Testing
 
 '''

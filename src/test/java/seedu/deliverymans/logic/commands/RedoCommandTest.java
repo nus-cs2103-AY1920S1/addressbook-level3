@@ -1,36 +1,41 @@
 package seedu.deliverymans.logic.commands;
-/*
+
 import static seedu.deliverymans.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.deliverymans.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.deliverymans.model.util.SampleDataUtil.getSampleCustomerDatabase;
+import static seedu.deliverymans.model.util.SampleDataUtil.getSampleDeliverymenDatabase;
+import static seedu.deliverymans.model.util.SampleDataUtil.getSampleOrderDatabase;
+import static seedu.deliverymans.model.util.SampleDataUtil.getSampleRestaurantDatabase;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.deliverymans.logic.commands.universal.RedoCommand;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.ModelManager;
+import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.UserPrefs;
-import seedu.deliverymans.model.addressbook.person.Person;
-import seedu.deliverymans.model.database.CustomerDatabase;
-import seedu.deliverymans.model.database.DeliverymenDatabase;
-import seedu.deliverymans.model.database.OrderDatabase;
-import seedu.deliverymans.model.database.RestaurantDatabase;
+import seedu.deliverymans.model.customer.Address;
+import seedu.deliverymans.model.customer.Customer;
 
 
 class RedoCommandTest {
     private static final String REDONE_COMMAND_TEXT = "add someone";
 
-    private Model model = new ModelManager(new CustomerDatabase(),
-            new DeliverymenDatabase(), new RestaurantDatabase(), new OrderDatabase(), new UserPrefs());
-    private Person validPerson = new PersonBuilder().build();
+    private Model model = new ModelManager(getSampleCustomerDatabase(), getSampleDeliverymenDatabase(),
+            getSampleRestaurantDatabase(), getSampleOrderDatabase(), new UserPrefs());
+    private Customer validCustomer = new Customer(new Name("user"), new Name("name"), new Phone("91234555"),
+            new Address("address"));
 
     @Test
     void execute_hasUndo_success() {
-        model.addPerson(validPerson);
+        model.addCustomer(validCustomer);
 
         String expectedMessage = String.format(RedoCommand.MESSAGE_SUCCESS, REDONE_COMMAND_TEXT);
 
-        Model updatedModel = new ModelManager(new CustomerDatabase(),
-                new DeliverymenDatabase(), new RestaurantDatabase(), new OrderDatabase(), new UserPrefs());
-        updatedModel.addPerson(validPerson);
+        Model updatedModel = new ModelManager(getSampleCustomerDatabase(), getSampleDeliverymenDatabase(),
+                getSampleRestaurantDatabase(), getSampleOrderDatabase(), new UserPrefs());
+        updatedModel.addCustomer(validCustomer);
         updatedModel.notifyChange(REDONE_COMMAND_TEXT);
         updatedModel.undo();
 
@@ -39,10 +44,8 @@ class RedoCommandTest {
 
     @Test
     void execute_noUndo_throwsCommandException() {
-        model.addPerson(validPerson);
+        model.addCustomer(validCustomer);
         model.notifyChange(REDONE_COMMAND_TEXT);
         assertCommandFailure(new RedoCommand(), model, RedoCommand.MESSAGE_NOTHING_TO_REDO);
     }
 }
-
-*/
