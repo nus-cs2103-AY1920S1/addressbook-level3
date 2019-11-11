@@ -26,7 +26,7 @@ public class UniqueNotesList implements Iterable<Notes> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent notes as the given argument.
      */
     public boolean contains(Notes toCheck) {
         requireNonNull(toCheck);
@@ -34,8 +34,8 @@ public class UniqueNotesList implements Iterable<Notes> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a notes to the list.
+     * The notes must not already exist in the list.
      */
     public void add(Notes toAdd) {
         requireNonNull(toAdd);
@@ -46,8 +46,8 @@ public class UniqueNotesList implements Iterable<Notes> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent notes from the list.
+     * The notes must exist in the list.
      */
     public void remove(Notes toRemove) {
         requireNonNull(toRemove);
@@ -57,9 +57,9 @@ public class UniqueNotesList implements Iterable<Notes> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the notes {@code target} in the list with {@code editedNote}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The note identity of {@code editedNote} must not be the same as another existing note in the list.
      */
     public void setNotes(Notes target, Notes editedNote) {
         requireAllNonNull(target, editedNote);
@@ -81,8 +81,8 @@ public class UniqueNotesList implements Iterable<Notes> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code notes}.
+     * {@code notes} must not contain duplicate notes.
      */
     public void setNotes(List<Notes> notes) {
         requireAllNonNull(notes);
@@ -118,7 +118,7 @@ public class UniqueNotesList implements Iterable<Notes> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code notes} contains only unique notes.
      */
     private boolean notesAreUnique(List<Notes> notes) {
         for (int i = 0; i < notes.size() - 1; i++) {
