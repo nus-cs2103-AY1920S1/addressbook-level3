@@ -43,6 +43,21 @@ This section is used clarify certain possible assumptions the user/developer mig
 
 == Summary of contributions
 
+|===
+|_This section is a summary of the contributions I have made to the team project. It includes code, documentation, and other types of helpful contributions._
+|===
+
+* *Major enhancement*: I designed and implemented *test mode*.
+** What it does: Test mode allows users to test themselves using their flashcards. Individual flashcards will be shown in a series defined by the user;
+the flashcard question will be displayed followed by its answer. This feature is a collection of
+test commands to start test, display answer, rate flashcard, skip questions and finally end the test anytime.
+** Justification: This feature is an integral part of the application as it allows users to test themselves by going through
+the flashcards one by one. This way it helps users to better study the contents of the flashcards.
+** Highlights: I implemented neat mini-feature that has a hidden flag to check whether the application is in test mode. This way, regular
+commands such as `listall` and `add` commands will be blocked during test mode, and users are only allowed to input test commands.
+In addition, I implemented an optional category field for the command to start test for users to selectively
+test flashcards from the their desired categories.
+
 == Contributions to the User Guide
 
 |===
