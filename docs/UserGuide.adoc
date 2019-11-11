@@ -542,13 +542,13 @@ Refer to the following diagrams for a better understanding.
 
 .Health Records's Overview
 [caption="Figure 3.5.1: "]
-image::health_overview.jpeg[width="900"]
+image::health_overview.png[width="900"]
 
 Looking for just a specific record type? DukeCooks got you covered! Refer to diagram below!
 
 .Health Records's Details Page
 [caption="Figure 3.5.2: "]
-image::health_details.jpeg[width="900"]
+image::health_details.png[width="900"]
 
 [NOTE]
 ====
@@ -604,11 +604,11 @@ Example usage: `add profile n/Alex Yeoh d/23/02/1995 g/female bt/a+ w/57.8 h/173
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-image::health_addProfile_before.jpeg[]
+image::health_addProfile_before.png[]
 +
 . If the command succeeds, you will see the following message in the result display and your created profile!
 +
-image::health_addProfile_after.jpeg[]
+image::health_addProfile_after.png[]
 
 [NOTE]
 ====
@@ -636,11 +636,11 @@ Example usage: `edit profile g/male bt/a- w/57.5 h/173 m-/Stroke m/High Blood Pr
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-image::health_editProfile_before.jpeg[]
+image::health_editProfile_before.png[]
 +
 . If the command succeeds, you will see the following message in the result display and your updated profile!
 +
-image::health_editProfile_after.jpeg[]
+image::health_editProfile_after.png[]
 
 [NOTE]
 ====
@@ -662,11 +662,11 @@ Example usage: `delete profile`
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-image::health_deleteProfile_before.jpeg[]
+image::health_deleteProfile_before.png[]
 +
 . If the command succeeds, you will see the following message in the result display and your profile has been cleared!
 +
-image::health_deleteProfile_after.jpeg[]
+image::health_deleteProfile_after.png[]
 
 [NOTE]
 ====
@@ -686,12 +686,12 @@ Example usage: `list health t/weight`
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-image::health_listRecord_before.jpeg[]
+image::health_listRecord_before.png[]
 +
 . If the command succeeds, you will see the following message in the result display and you
 will be directed to the details page.
 +
-image::health_listRecord_after.jpeg[]
+image::health_listRecord_after.png[]
 
 ****
 Based on the record type, DukeCooks will generate the appropriate graph illustration
@@ -738,7 +738,7 @@ Example usage: `add health t/weight val/60 dt/10/11/2019 12:00 remark/after meal
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-image::health_addRecord_before.jpeg[]
+image::health_addRecord_before.png[]
 +
 
 [NOTE]
@@ -750,7 +750,7 @@ Worried of mistyping? Frat not! DukeCooks ensures that your inputs are within a 
 . If the command succeeds, you will see the following message in the result display and your
 new record shown in the details page!
 +
-image::health_addRecord_after.jpeg[]
+image::health_addRecord_after.png[]
 
 [NOTE]
 ====
@@ -773,11 +773,11 @@ Example usage: `edit health 1 val/62 dt/10/11/2019 10:30 remark-/after meal rema
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-image::health_editRecord_before.jpeg[]
+image::health_editRecord_before.png[]
 +
 . If the command succeeds, you will see the following message in the result display and your edited record in the details page!
 +
-image::health_editRecord_after.jpeg[]
+image::health_editRecord_after.png[]
 
 [NOTE]
 ====
@@ -795,11 +795,11 @@ Example usage: `delete health 1`
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-image::health_deleteRecord_before.jpeg[]
+image::health_deleteRecord_before.png[]
 +
 . If the command succeeds, you will see the following message in the result display and the deleted record deleted in your records!
 +
-image::health_deleteRecord_after.jpeg[]
+image::health_deleteRecord_after.png[]
 
 [NOTE]
 ====
@@ -819,11 +819,11 @@ Format: `clear health`
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-image::health_clearRecord_before.jpeg[]
+image::health_clearRecord_before.png[]
 +
 . If the command succeeds, you will see the following message in the result display with all records cleared!
 +
-image::health_clearRecord_after.jpeg[]
+image::health_clearRecord_after.png[]
 
 [NOTE]
 ====
