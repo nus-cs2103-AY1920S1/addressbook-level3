@@ -12,7 +12,6 @@ import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH_START_OFFSET;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_START_MONTH;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_START_YEAR;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
-import static seedu.ichifund.model.Model.PREDICATE_SHOW_ALL_REPEATERS;
 
 import java.util.List;
 import java.util.Optional;
@@ -140,8 +139,6 @@ public class EditRepeaterCommand extends Command {
         }
 
         model.setRepeater(repeaterToEdit, editedRepeater);
-        model.updateFilteredRepeaterList(PREDICATE_SHOW_ALL_REPEATERS);
-
         model.deleteRepeaterTransactions(editedRepeater.getUniqueId());
         model.createRepeaterTransactions(editedRepeater);
 
