@@ -267,7 +267,7 @@ image::deadline-entered.png[width="600"]
 
 NOTE: Note that `Deadline`(s) entered will be sorted in ascending order i.e. earliest `Deadline` on index 1
 
-CAUTION: `Deadline`(s) can only be after the current date. Leap year dates are also taken into account.
+CAUTION: `Deadline`(s) can only be after/on the current date. Leap year dates are also taken into account.
 
 === Remove Deadline from list: `remove index`
 
@@ -300,7 +300,7 @@ NOTE: The calendar window does not show the specific `Deadline`, but an overview
 
 === Rate Flashcard as "Bad", with Deadline to re-test: `bad index`
 
-Rates a specific 'FlashCard' as "Bad". It will then be stored as a `Deadline` in the list on the right-side pane.
+Rates a specific `FlashCard` as "Bad". It will then be stored as a `Deadline` in the list on the right-side pane.
 
 `bad 2`
 
