@@ -50,8 +50,7 @@ of Alfred. Subsequent sections will provide a lot more information on the inner 
 and how different components interact with each other for Alfred's various features.
 
 
-[NOTE]
-Image here to the updated in the later milestones.
+image::Ui.png[]
 
 [[Design-Architecture]]
 === Architecture
@@ -1040,6 +1039,8 @@ While traditionally a subtract command would be implemented using an add command
 Upon close inspection it was observed that the removal of duplicate code would far outweigh the convenience and orderliness of having a separate class for the command, especially considering that a `ResetScoreCommand` would have far more duplicate code than unique code as compared to the `SetScoreCommand`. Bearing this in mind, we ultimately decided to choose "Alternative 2" as it would allow for better reuse of existing code and follow better software engineering practices.
 
 
+// tag::leaderboardCommand[]
+
 === Leaderboard and Get Top Teams
 
 The `leaderboard` and `getTop K` commands are two very important features of Alfred as they allow the user to automatically sort the teams by their scores, fetch any number of top teams in the competition and identify and break ties between teams conveniently. The execution of either of these commands displays the resultant teams on the UI in their correct sorted order. The following subsections explore the implementation of each of these commands and provide an insight into the design consideration made when developing them.
@@ -1050,8 +1051,9 @@ The implementation of these two commands is very similar in nature. They both:
 
 * rely on updating a `SortedList` of teams present within the `ModelManager` class, which will be referred to as `sortedTeamList` in subsequent sections. This list is used to display the command's results on the UI.
 * use an ArrayList of `Comparator<Team>` objects to contain additional comparators. These are used to break ties between teams on a basis other than score.
+* use a `SubjectName` object to filter the leaderboard or top teams by a certain category, if specified by the user.
 
-The class diagram below provides a high level representation of the Object-Oriented solution devised to implement the aforementioned features.
+The class diagram below provides a high level representation of the Object-Oriented solution devised to implement the `leaderboard` and `getTop K` commands.
 
 .Leaderboard and Get Top Teams Implementation Overview
 image::LeaderBoardClassDiagram.png[]
@@ -1062,44 +1064,56 @@ From the above class diagram, there are two important matters to note regarding 
 * 1. The `LeaderboardCommand` and `GetTopTeamsCommand` are implemented as abstract classes which extend the `Command` abstract class. Any command to do with leaderboards or getting the top teams extends either one of these abstract classes depending on which command it is.
 * 2. The `ModelManager` class uses another class `LeaderboardUtil` which provides utility methods for the Leaderboard and Get Top Teams commands, such as fetching an appropriate number of teams for the `getTop K` command and breaking ties between teams for both commands.
 
-With the class structure covered, the following sub-sections seek to explain how the different classes in Alfred interact to produce a result for the user, and finally the design considerations that were made for each command.
+With the class structure covered, the following sub-sections explain how the different classes in Alfred interact to produce a result for the user, and finally the design considerations that were made for each command.
 
 ==== Leaderboard Command Implementation
 
-The `leaderboard` command fetches a leaderboard consisting of all the teams registered for the hackathon, in descending order of their score. Additionally, if tiebreak methods are specified, ties between the teams are typically broken in one of two ways:
+The `leaderboard` command fetches a leaderboard consisting of all the teams registered for the hackathon, in descending order of their score. Moreover, if the user specifies a `SubjectName` then the leaderboard will only consist of teams with that particular subject.
+
+Additionally, if tiebreak methods are specified, ties between the teams will be broken in one of two ways (or a combination of both):
 
 * *Comparison-based tiebreakers:* wherein the user picks certain tiebreak methods which rely on comparing certain properties of teams, such as the number of participants they have.
 * *Non-Comparison-based tiebreakers:* wherein the user breaks ties on non-comparison based methods (currently only the "random" method) in addition to any Comparison-based tiebreakers.
 
 [[SimpleLeaderboard-Explanation]]
 
-Given below is the sequence diagram illustrating the flow of events which generates a result for the user when he types the command `leaderboard tb/moreParticipants`. For your reference, here the prefix "tb/" is used to precede a tie-break method and "moreParticipants" is a tie-break method which gives a higher position to teams with more participants. Essentially this demonstrates the flow for a "Comparison-based tiebreak".
+Given below is the sequence diagram illustrating the flow of events which generates a result for the user when he types the command `leaderboard tb/moreParticipants s/Social`. For your reference, here the prefix "tb/" is used to precede a tie-break method, "moreParticipants" is a tie-break method which gives a higher position to teams with more participants, and "Social" is a `SubjectName` within Alfred. Essentially this demonstrates the flow for a "Comparison-based tiebreak".
 
 .Interactions within Logic Component for SimpleLeaderboardCommand
 image::SimpleLeaderboardSequenceDiagram.png[]
 
-In the above, the `LeaderboardCommandParser` class parses the tie-break part of the command, particularly "tb/moreParticipants". Based on this input, it creates a new `ArrayList<Comparator<Team>>` object and appends the appropriate comparators to it based on the specified tiebreak methods. A new `SimpleLeaderboardCommand` object is then created with this array list as its parameter and returned.
+The observations of the above diagram can be put into the following steps:
 
-When the `SimpleLeaderboardCommand` is then executed, it calls `Model` 's `setSimpleLeaderboard(comparators)` method with the input parameter being the `ArrayList<Comparator<Team>>` passed as parameter for the former's creation.
+* Step 1: `LogicManager` starts executing the user's command and calls the `AlfredParser` to parse it.
+* Step 2: `AlfredParser` find the appropriate `Parser` to parse the command and creates a new `LeaderboardCommandParser` to parse the arguments of the leaderboard command, essentially "tb/moreParticipants s/Social".
+* Step 3: The `LeaderboardCommandParser` then parses the arguments and is responsible for:
 
-`Model` 's `setSimpleLeaderboard(comparators)` method updates the `SortedList` of teams within `Model` itself, which is then displayed on the UI when the new `CommandResult` object is created and returned.
+** Checking whether the user has specified a subject. If so it sets the value of a local variable "subjectName" of type "SubjectName" to the appropriate subject, otherwise it stays as null.
+** Checking whether any tiebreak methods are present.
+** Parsing the tie-break part of the command, particularly "tb/moreParticipants". Based on this input, it creates a new `ArrayList<Comparator<Team>>` object and appends the appropriate comparators to it based on the specified tiebreak methods.
+
+* Step 4: `LeaderboardCommandParser` then creates a new `SimpleLeaderboardCommand` object with the above list of comparators and subject as input parameters. This is then returned all the way to `LogicManager`
+
+* Step 5: `LogicManager` then executes the `SimpleLeaderboardCommand` object upon which the `SimpleLeaderboardCommand` object calls `Model` 's `setSimpleLeaderboard(comparators, subjectName)` where comparators is the ArrayList of comparators and subjectName is the `SubjectName` used to create the `SimpleLeaderboardCommand`.
+
+* Step 6: `Model` 's `setSimpleLeaderboard(comparators, subjectName)` method updates the `sortedTeamList` within `Model` itself, by applying the comparators to it and filtering the list by the subjectName specfied.
+
+* Step 7: Upon doing so, the `SimpleLeaderboardCommand` object creates a new `CommandResult` object which is returned to the UI component (not shown in the diagram) to display a feedback message to the user and signals the UI to display the teams from the `sortedTeamList`.
 
 This flow of events, albeit a few differences, is the same for every variation of the `leaderboard` and `getTop K` commands explored subsequently.
 
-Do note that if the user's input did not specify any tie-break methods, hence just being `leaderboard` then the `SimpleLeaderboardCommand` object would be created with an empty ArrayList of comparators. The flow of events for this particular scenario would be unchanged from the above illustration.
+Do note that if the user's input did not specify any tie-break methods, hence just being `leaderboard s/Social` then the `SimpleLeaderboardCommand` object would be created with an empty ArrayList of comparators. If the user's input did not specify any subject, hence just being `leaderboard`, then the `SimpleLeaderboardCommand` object would be created with the `SubjectName` variable "subjectName" being null, in which case no filtering of `sortedTeamList` takes place. The flow of events for this particular scenario would be unchanged from the above illustration.
 
-However, it often occurs that even tiebreak methods cannot separate two teams in a hackathon, for which organizers randomly select a winner from the tied teams, basing it purely on fair luck. The `leaderboard` command with the tiebreak method `random` is used to provide this functionality.
-
-Given below is the sequence diagram illustrating the flow of events which generates a result for the user when he types the command "leaderboard tb/moreParticipants random". For your reference, here the prefix "tb/" is used to denote a tie-break method and "moreParticipants" is a tie-break method which gives a higher position to teams with more participants, and "random" is another non-comparison based tie-break method.
+The `leaderboard` command with the tiebreak method `random` follows a slightly different sequence. Given below is the sequence diagram illustrating the flow of events when the user types the command "leaderboard tb/moreParticipants random". For your reference, here the prefix "tb/" is used to denote a tie-break method and "moreParticipants" is a tie-break method which gives a higher position to teams with more participants, and "random" is another non-comparison based tie-break method.
 
 .Interactions within Logic Component for LeaderboardCommand with Random Winners
 image::RandomLeaderboardSequenceDiagram.png[]
 
-The above sequence follows the exact same logic as that for the Simple Leaderboard as explained above (See <<SimpleLeaderboard-Explanation>>).
+The above sequence follows the exact same logic as that for the Simple Leaderboard as explained above.
 
-However, in this case the `LeaderWithRandomClass` calls the `setTopK(teamListSize, comparators)` method of `Model` which essentially breaks any remaining ties after applying the tie-break methods between teams on a random basis, and fetches a number of teams equal to `teamListSize` which is the size of the `sortedTeamList` reflecting the total number of teams in the hackathon.
+However, in this case the `LeaderboardWithRandomCommand` class calls the `setTopK(teamListSize, comparators, subjectName)` method of `Model` which essentially filters out the teams with subject "subjectName", breaks any remaining ties after applying the tie-break methods between teams on a random basis, and fetches a number of teams equal to `teamListSize` which is the size of the `sortedTeamList`, thereby reflecting the total number of teams in the hackathon.
 
-Secondly, `Model` calls its own method `setSimpleLeaderboard(comparators)`, which essentially resets the `sortedTeamList` of teams clearing it of any sorting, and then applies the new comparators to it, before the algorithm for random winners can be applied to the `sortedTeamList`.
+Secondly, `Model` calls its own method `setSimpleLeaderboard(comparators, subjectName)` which was used for the `leaderboard` command without random tiebreak. This method abstracts the process of clearing `sortedTeamList` of any sorting, filters it by `SubjectName` if required, and then applies the new comparators to it. It is used to fetch and appropriately sort the appropriate teams in `sortedTeamList` before the algorithm for random winners can be applied to the `sortedTeamList`.
 
 
 [[Leaderboard-DesignConsideration]]
@@ -1121,7 +1135,7 @@ There were several questions we asked ourselves over the course of developing th
 ** Pros: A new list means the sorting will not interfere with any other feature's operations, such as the `list` command which uses the existing `filteredTeamList` holding all the teams.
 ** Cons: Another List to handle in `ModelManager` which increases the amount of code.
 
-Due to the overwhelming benefits and conveniences that a new `SortedList` of teams would bring in the development of Alfred's `leaderboard` and `getTop K` commands, we decided to rely on "Alternative 2" with regards to this dilemma.
+Due to the overwhelming benefits and conveniences that a new `SortedList` of teams would bring in the development of Alfred's `leaderboard` and `getTop K` commands, particularly with the convenience of sorting it allows through its API, we decided to rely on "Alternative 2" with regards to this dilemma.
 
 *Aspect:* Designing Leaderboard's Command Classes
 
@@ -1137,7 +1151,9 @@ Due to the overwhelming benefits and conveniences that a new `SortedList` of tea
 
 We decided to follow "Alternative 2". Firstly, if a single class were being used, it would be difficult to distinguish which type of `leaderboard` command should be called - whether a leaderboard with or without "random" as tiebreak should be used. This would require the `LeaderboardCommandParser` to pass a flag signalling whether the "random" version should be called or not, which introduces control coupling. Although with a single distinct method (ie "random") this seems manageable, as the scale of Alfred increases with more non-comparison based methods such as "random" being introduced, passing a flag from `LeaderboardCommandParser` to the `Leaderboard` command class would become less and less manageable. Secondly, we wanted to avoid coupling the `Parser` and `Command` classes in a way which `Parser` influences the behaviour of the `Command` as it introduces leeway for errors.
 
-*Aspect:* Where to Write Algorithms used by `leaderboard` (and `getTop NUMBER`) Command
+// end::leaderboardCommand[]
+
+*Aspect:* Where to Write Algorithms used by `leaderboard` (and `getTop K`) Command
 
 * *Alternative 1:* Write the methods as private within `ModelManager` itself
 ** Pros: Relevant code is in close proximity to where it is being called allowing for easy reference of what is being done and quick rectification if needed.
@@ -1151,36 +1167,51 @@ We decided to follow "Alternative 2". Firstly, if a single class were being used
 
 ==== Get Top Teams Implementation
 
-The `getTop K` command fetches the top "K" number teams sorted in descending order of their points, where K is a positive integer inputted by the user. The `getTop K` command follows a similar pattern as the `leaderboard` command in the sense that ties between teams are broken in one of two ways:
+The `getTop K` command fetches the top "K" number teams sorted in descending order of their points, where K is a positive integer inputted by the user. The `getTop K` command follows a similar pattern as the `leaderboard` command in the sense that ties between teams are broken in one of two ways (or a combination of both):
 
 * *Comparison-based tiebreakers:* wherein the user picks certain tiebreak methods which rely on comparing certain properties of teams, such as the number of participants they have.
 * *Non-Comparison-based tiebreakers:* wherein the user breaks ties on non-comparison based methods (currently only the "random" method) in addition to any Comparison-based tiebreakers.
 
 Given below is the sequence diagram illustrating the flow of events which generates a result for the user when he types the command "getTop 3 tb/moreParticipants". For your reference, here the prefix "tb/" is used to denote a tie-break method and "moreParticipants" is a tie-break method which gives a higher position to teams with more participants. This essentially reflects a tie being broken by comparison-based tiebreakers.
 
-.Interactions within Logic Component for getTop NUMBER Command
+.Interactions within Logic Component for getTop K Command
 image::SimpleTopKSequenceDiagram.png[]
 
-The above diagram follows a logic very similar to the `leaderboard` command's logic. However, in this case a `TopTeamsCommandParser` object is created to parse the arguments "3 tb/moreParticipants" which returns a `SimpleTopKCommand` object.
+The above diagram follows a logic very similar to the `leaderboard` command's logic, and can be broken down into the following steps
 
-Moreover, the `SimpleTopCommand` object calls `Model` 's `setTopK(3, comparators)` method which essentially modifies the `sortedTeamList` within `Model` to only show the top three teams as per their scores and the relevant tiebreakers as per the list of comparators `comparators`.
+* Step 1: `LogicManager` starts executing the user's command and calls the `AlfredParser` to parse it.
+* Step 2: `AlfredParser` find the appropriate `Parser` to parse the command and creates a new `TopTeamCommandParser` to parse the arguments of the leaderboard command, essentially "tb/moreParticipants".
+* Step 3: The `LeaderboardCommandParser` then parses the arguments and is responsible for:
 
-It is also noteworthy that `Model` calls its own method `setSimpleLeaderboard(comparators)` which was associated with the `leaderboard` command. This is however a simple reuse of code to set the reset `Model` 's `sortedTeamList` and apply the relevant comparators to it, before the algorithm for fetching the top three (or any number) teams can be applied.
+** Checking whether the value of "K" (3 in this case) the user inputted is valid.
+** Checking whether the user has specified a subject. If so it sets the value of a local variable "subjectName" of type "SubjectName" to the appropriate subject, otherwise it stays as null.
+** Checking whether any tiebreak methods are present.
+** Parsing the tie-break part of the command, particularly "tb/moreParticipants". Based on this input, it creates a new `ArrayList<Comparator<Team>>` object and appends the appropriate comparators to it based on the specified tiebreak methods.
+
+* Step 4: `TopTeamCommandParser` then creates a new `SimpleTopTeamsCommand` object with the above value of "K", list of comparators and subject as input parameters. This is then returned all the way to `LogicManager`
+
+* Step 5: `LogicManager` then executes the `SimpleTopTeamsCommand` object upon which the `SimpleTopTeamsCommand` object calls `Model` 's `setTopK(3, comparators, subjectName)` where comparators is the ArrayList of comparators and subjectName is the `SubjectName` used to create the `SimpleLeaderboardCommand` and 3 is the value of "K" the user supplied.
+
+* Step 6: `Model` 's `setSimpleLeaderboard(comparators, subjectName)` method updates the `sortedTeamList` within `Model` itself, by applying the comparators to it and filtering the list by the subjectName specfied. Once this is done, the algorithm to get the top teams is applied the `sortedTeamList` contains the final list of teams.
+
+* Step 7: Upon doing so, the `SimpleLeaderboardCommand` object creates a new `CommandResult` object which is returned to the UI component (not shown in the diagram) to display a feedback message to the user and signals the UI to display the teams from the `sortedTeamList`.
+
+It is noteworthy that `Model` calls its own method `setSimpleLeaderboard(comparators)` which was associated with the `leaderboard` command. This is however a simple reuse of code to set the reset `Model` 's `sortedTeamList`, filter it by the subject if needed and apply the relevant comparators to it, before the algorithm for fetching the top three (or any number) teams can be applied.
 
 When it comes to the `getTop K` command being used with the "random" method of tiebreak, the flow of events is resembles the above very closely. Given below is the sequence diagram illustrating the flow of events which generates a result for the user when he types the command "getTop 3 tb/moreParticipants random". For your reference, here the prefix "tb/" is used to denote a tie-break method and "moreParticipants" is a tie-break method which gives a higher position to teams with more participants whereas "random" represents the "random" method of tiebreak.
 
-.Interactions within Logic Component for getTop NUMBER with Random Winners
+.Interactions within Logic Component for getTop K with Random Winners
 image::TopKRandomCommand.png[]
 
 From the above diagram it can be inferred that the implementation of random winners does not deviate far from the implementation without random winners.
 
-The first difference is that the `TopTeamsCommandParser` object now returns a `topKRandomCommand` object. Secondly, the `topKRandomCommand` object calls the `setTopKRandom(3, comparators)` method of `Mode`, which essentially modifies the `sortedTeamList` within `Model` to only show the top three teams as per their scores and the relevant tiebreakers as per the list of comparators `comparators`, and breaks any remaining ties based on the random method.
+The first difference is that the `TopTeamsCommandParser` object now returns a `topKRandomCommand` object. Secondly, the `topKRandomCommand` object calls the `setTopKRandom(3, comparators, subjectName)` method of `Model`. It essentially modifies the `sortedTeamList` within `Model` to only show the top three teams (within a certain subject category if specified) as per their scores and the relevant tiebreakers as per the list of comparators `comparators`, and breaks any remaining ties based on the random method.
 
 ==== Design Consideration for Get Top Teams
 
 Since the implementation of the `getTop K` command is almost identical to that of the `leaderboard` command, the design considerations made for the `leaderboard` command apply to the implementation of this feature as well (See <<Leaderboard-DesignConsideration>>). However, there were some unique aspects we had to consider with regards to the `getTop K` command, all of which is detailed below.
 
-*Aspect:* Where to Store the Top NUMBER Teams
+*Aspect:* Where to Store the Top K Teams
 
 * *Alternative 1 (Current Choice):* Use the `SortedList` in `ModelManager` used for  the `leaderboard` command.
 
@@ -1224,9 +1255,13 @@ The reason "Alternative 2" was selected was because `ModelManager` 's `setSimple
 
 ==== Tiebreaking and Filtering by Subject
 
-In the above sections, the UML diagrams gloss over how tiebreaking and filtering by subjects is parsed and understood by Alfred. The basic of tie-breaking revolves around using `Comparator` s to sort the teams in a particular order. Each tiebreak method available in Alfred has a `Comparator` associated to it and all these can be found in the `Comparators` class.
+In the above sections, the UML diagrams gloss over how tiebreaking and filtering by subjects is parsed and understood by Alfred. This process is better explored in this section as per the explanations below.
 
-The activity diagram below illustrates the internal workings within the `LeaderboardCommandParser` and `TopTeamsCommandParser` when parsing tiebreak methods. Do note that in the below diagram the term `Parser` encapsulates both of these `Parser` s as they operate in almost identical ways.
+The basic of tie-breaking revolves around using `Comparator` s to sort the teams in a particular order. Each tiebreak method available in Alfred has a `Comparator` associated to it and all these can be found in the `Comparators` class.
+
+The basic of filtering by subject revolves around the `SubjectName` input parameter to the `LeaderboardCommand` and `GetTopTeamsCommand` classes. The user's specified subject is parsed and used as an input parameter in the aforementioned classes' constructors, which they then use for filtering the `sortedTeamList` in `Model`.
+
+The activity diagram below illustrates the internal workings within the `LeaderboardCommandParser` and `TopTeamsCommandParser` when parsing tiebreak methods and the subject. Do note that in the below diagram the term `Parser` encapsulates both of these `Parser` s as they operate in almost identical ways.
 
 .Handling of Tiebreak Methods
 image::TieBreakActivityDiagram.png[]
@@ -1235,11 +1270,40 @@ From the above there is one important aspect to note: the `ArrayList` of `Compar
 
 Additionally, before `comparators` can be passed as an argument to the commands, it is reversed. This is done intentionally so the comparators related to each tiebreak method are applied in an order such that they preserve the oder the user wants the tiebreak methods to be applied.
 
-Secondly, do note that the diagram above assumes there are no syntax errors made by the user when typing out the command. In case of any errors in the command, a `ParseException` would be thrown warning the user of such a situation. These have been excluded from the above diagram to prevent overcrowding and a deviation from the basic logic.
+Secondly, if no subject is specified by the user, then the default value of the `subjectName` variable (of type `SubjectName`) is null. This signals to methods in `Model` (when the command is executed thereby calling `Model` 's methods) that no filtering of the `sortedTeamList` is required.
+
+Note that the diagram above assumes there are no syntax errors made by the user when typing out the command. In case of any errors in the command, a `ParseException` would be thrown warning the user of such a situation. These have been excluded from the above diagram to prevent overcrowding and a deviation from the basic logic.
 
 ==== Design Considerations for Tiebreaking
 
 Though this was a relatively straightforward subset of our `leaderboard` and `getTop K` command, there were still a few, small design considerations made.
+
+*Aspect:* Signaling No Subject Filtering
+
+* *Alternative 1:* Use Java's Optional class with the optional variable being empty.
+** Pros: Less prone to misuse which can cause exceptions.
+** Cons: Leads to unnecessary wrapping and unwrapping of the variable simply to check whether a value is present.
+
+* *Alternative 2:* Use a variable of type `SubjectName` set to null.
+** Pros: Easier to implement. No boxing and unboxing required.
+** Cons: Can lead to unexpected exceptions if not handled carefully.
+
+* *Alternative 3:* Use overloaded constructors for `LeaderboardCommand` and `GetTopTeamsCommand`.
+** Pros: Reduces the potential of mishandling null values which can lead to unwanted exceptions arising in the code.
+** Cons: Introduces extra logic in form of "if-else" statements to determine which constructors must be called. This would make the code slightly less readable and more complicated.
+
+In the end "Alternative 2" was favoured over the other two alternatives. Although the misuse of null can lead to unwanted exceptions, it has been carefully used to ensure that at no point is null value used other than to check once whether the variable's value is null or not. This careful implementation ensures that the variable is used selectively at only once place thereby making sure that no possibility `NullPointerException" occurs at any other part of the code. Although "Alternative 3" is a standard solution to null input parameters, in this case it would not serve its purpose too well as calling the overloaded constructor would require additional logic to check whether or not the subject is mentioned and then depending on this result which command needs to be created and returned. Java's Optional class provides a good alternative, however it was not selected as it leads to needless wrapping and unwrapping of the variable.
+
+*Aspect:* Where to create comparators
+
+* *Alternative 1:* Create comparators when parsing each tiebreak method
+** Pros: Easier to implement as it does not require additional classes.
+** Cons: Can overcrowd a single method or class especially as more comparison methods are added. This is also a poor use of abstraction and would not respect Single Responsibility Principle.
+
+* *Alternative 2 (Current Choice):* Create a separate `Comparators` class where relevant comparators are created beforehand and can be invoke using static methods.
+** Pros: Better use of abstraction and maintains Single Responsibility Principle as the parser class can focus on solely parsing the user commands.
+
+In the end, "Alternative 2" was selected as it follows better software engineering practices by making better use of abstraction. Despite requiring slightly more code and classes, it would still be better than "Alternative 1" which breaks the Single Responsibility Principle as the parser class would have to be changed for changes in tiebreak methods in addition to changes in methods of parsing.
 
 *Aspect:* How to separate tiebreak methods
 
@@ -1254,17 +1318,6 @@ Though this was a relatively straightforward subset of our `leaderboard` and `ge
 ** Cons: Introduces a slight variation as other commands don't use whitespaces as separation methods which might confuse the user.
 
 To better consider the user's needs and convenience, "Alternative 2" was selected. So as to not confuse users, this implementation has been made abundantly clear in the User Guide as well. From a developer's perspective, this implementation is also more customizable to better respond to changes in user's preferences as the separation character can easily be changes.
-
-*Aspect:* Where to create comparators
-
-* *Alternative 1:* Create comparators when parsing each tiebreak method
-** Pros: Easier to implement as it does not require additional classes.
-** Cons: Can overcrowd a single method or class especially as more comparison methods are added. This is also a poor use of abstraction and would not respect Single Responsibility Principle.
-
-* *Alternative 2 (Current Choice):* Create a separate `Comparators` class where relevant comparators are created beforehand and can be invoke using static methods.
-** Pros: Better use of abstraction and maintains Single Responsibility Principle as the parser class can focus on solely parsing the user commands.
-
-In the end, "Alternative 2" was selected as it follows better software engineering practices by making better use of abstraction. Despite requiring slightly more code and classes, it would still be better than "Alternative 1" which breaks the Single Responsibility Principle as the parser class would have to be changed for changes in tiebreak methods in addition to changes in methods of parsing.
 
 === Find Command
 Currently, Alfred allows users to view specific entities by their `ID` using the `view ENTITY ID`.

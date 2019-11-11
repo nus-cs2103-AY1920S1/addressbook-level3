@@ -563,6 +563,7 @@ This is because the `import` command will do its best to import as many Entities
 
 // end::commandhistorynavigation[]
 
+// tag::score[]
 
 === Scoring: `score`
 
@@ -585,6 +586,8 @@ Adds the value of POINTS to the current score of the team with ID TEAM_ID.
 * If the addition of points makes the team's total exceed the maximum, the score will simply be set to the maximum score.
 ****
 
+Format: `score add TEAM_ID POINTS`
+
 Example:
 
 * `score add T-1 20` will add 20 points to the score of the team with ID T-1.
@@ -599,6 +602,8 @@ Deducts the value of POINTS from the current score of the team with ID TEAM_ID.
 * Use this command when you want to take away a certain amount of points from a particular team.
 * If you try to subtract more than the maximum amount of points (which is set to 100 as default), Alfred will not allow it and will display an error message. If the subtraction of points makes the team's total go below the minimum (which is set to 0 points), the score will simply be set to 0.
 ****
+
+Format: `score sub TEAM_ID POINTS`
 
 Example:
 
@@ -615,11 +620,15 @@ Sets the score of the team with ID TEAM_ID to a new score NEW_POINTS, regardless
 * If you try to set less than the minimum amount of points (which is set to 0 as default), Alfred will not allow it and will display an error message.
 ****
 
+Format: `score set TEAM_ID POINTS`
+
 Example:
 
 * `score set T-1 15` will set the score of the team with ID T-1 as 15.
 
 * `score set T-5 10` will set the score of the team with ID T-5 as 10.
+
+// end::score[]
 
 ==== Reset points: `score reset TEAM_ID`
 Resets the score of the team with ID TEAM_ID to the minimum amount of points allowed, which is set to 0 as default.
@@ -628,18 +637,22 @@ Resets the score of the team with ID TEAM_ID to the minimum amount of points all
 * Use this command when you want to set a team's score to directly to the minimum, rather than subtracting points from their current score until you get the desired result.
 ****
 
+Format: `score reset TEAM_ID`
+
 Example:
 
 * `score reset T-1` will reset the score of the team with ID T-1.
 
 * `score reset T-5 10` will reset the score of the team with ID T-5.
 
+// tag::rankings[]
+
 === Team Rankings: `leaderboard` and `getTop k`
 
-In addition to assigning scores to teams, Alfred also facilitates viewing the leaderboard and fetching the top teams in the hackathon with ease as well. The following subsections explain how to use these commands within Alfred.
+In addition to assigning scores to teams, Alfred also facilitates viewing the leaderboard and fetching the top teams in the hackathon with ease. The following subsections explain how to do so within Alfred.
 
 ==== View Leaderboard: `leaderboard`
-Use this command to display the ranking of all the teams in the hackathon in descending order of their points.
+Displays the ranking of all the teams in the hackathon in descending order of their points.
 
 ****
 * Once you run this command, Alfred's UI will display a list of all the teams stored within Alfred sorted in descending order of their points.
@@ -648,8 +661,13 @@ Use this command to display the ranking of all the teams in the hackathon in des
 
 Format: `leaderboard`
 
+Running `leaderboard` will show the following on the GUI:
+
+.GUI Display for Command "leaderboard"
+image::LeaderboardExample.png[width=600,height=420]
+
 ==== Get the top k teams: `getTop K`
-Use this command to list the top k teams in the leaderboard, where k is a valid positive integer which you specify.
+Lists the top k teams in the leaderboard, where k is a valid positive integer which you specify.
 
 ****
 * This command will show you a cropped version of the leaderboard.
@@ -660,23 +678,31 @@ same high score.
 * If you input `K` as a number more than the number of teams in the hackathon, Alfred will simply display all the teams in the Hackathon, in descending order of their points.
 ****
 
-Format: `getTop NUMBER`
+Format: `getTop K`
 
 Example:
 
-* `getTop 5` will display the top 5 teams with the highest points in the hackathon.
+* `getTop 2` will display the top 2 teams with the highest points in the hackathon as shown below:
 
-* `getTop 20` will display the top 20 teams with the highest points in the hackathon.
+.GUI Display for Command "getTop 2"
+image::TopTeamExample.png[width=600,height=420]
+
+* `getTop 4` will display the top 4 teams with the highest points in the hackathon as shown below:
+
+.GUI Display for Command "getTop 4"
+image::GetTop4.png[width=600,height=420]
+
+Note that due to the tie between the fourth and fifth teams, more than 4 teams are shown.
 
 ==== Extensions to `leaderboard` and `getTop K` Command
 
-To provide additional functionalities to the `leaderboard` and `getTop k` commands within Alfred, there are few extensions that can be added to these two commands to allow you to see a representation of the leaderboard or top teams more accustomed to your needs. These extensions and how to use them within Alfred are listed below.
+To provide additional functionalities to the `leaderboard` and `getTop k` commands, there are few extensions that can be added to these two commands to allow you to customize them to your needs. These extensions are explored below.
 
 ===== Tie-Break
 
 By default Alfred `leaderboard` and `getTop k` commands fetch and display teams in descending order of their score, and by the order they were added into Alfred in case of tied scores.
 
-Alfred's tiebreak feature provides an extension to the `leaderboard` and `getTop k` commands. It provides greater flexibility in choosing how you want to break the tie between the teams when calling the `leaderboard` or `getTop K` commands. To break a tie, follow the following format:
+Alfred's tiebreak feature provides an extension to the `leaderboard` and `getTop k` commands allowing you to choose how you want to break the tie between the teams when calling these commands. To break a tie, follow the following format:
 
 * `leaderboard tb/METHOD_1 METHOD_2 METHOD_3` in the case of a `leaderboard` command
 * `getTop NUMBER tb/METHOD_1 METHOD_2 METHOD_3` in the case of a `getTop NUMBER` command
@@ -700,11 +726,24 @@ where `METHOD_N` is one of the following currently available tie-break methods:
 Example:
 
 * `leaderboard tb/moreParticipants lowerId` will display the leaderboard on the UI with Alfred breaking the tie between teams with equals scores based on which team has more participants, and if the number of participants is equal then by which team has the lower ID.
+
+.GUI Display for Command "leaderboard tb/moreParticipants lowerId"
+image::LeaderboardSimple.png[width=600,height=420]
+
+Note that in the above team "BroBro" comes above team "Bro" despite having the same number of points as "BroBro" has more participants. Secondly, "Amazon Warriors" comes first before "Teen Titans" despite having the same score and number of participants, since "Amazon Warriors" has a lower ID.
+
 * `getTop 3 tb/lessParticipants random` will display the top 3 teams on the UI with Alfred breaking the tie between teams with equals scores based on which team has fewer participants, and if the number of participants is equal then Alfred will randomly pick the winners for the tie.
+
+.GUI Display for Command "getTop 3 tb/lessParticipants random"
+image::RandomGetTop.png[width=600,height=420]
+
+Note that in the above "Amazon Warriors" comes first before "Teen Titans" despite having the same score and number of participants, due to the random tiebreak. Repeating the above command would change the outcome due to the random nature of the tiebreak.
+
+// end::rankings[]
 
 ===== Filter by Subject
 
-By default, when running either the `leaderboard` or `getTop k` command, Alfred will show all the appropriate teams irrespective of their subject. However, in the situation that you need to select winners from a certain subject category, Alfred's filter by subject feature provides you the capability to achieve this. To view the leaderboard or top teams for a specific subject, follow the following format:
+By default, when running either the `leaderboard` or `getTop k` command, Alfred will show all the appropriate teams irrespective of their subject. However, Alfred's filter by subject feature provides the ability to view the leaderboard or top teams for a specific subject, by following the below format:
 
 * `leaderboard s/SUBJECT_NAME` in the case of a `leaderboard` command
 * `getTop k s/SUBJECT_NAME` in the case of a `getTop k` command
@@ -716,8 +755,19 @@ By default, when running either the `leaderboard` or `getTop k` command, Alfred 
 
 Example:
 
-* `leaderboard s/Social` will display the leaderboard consisting only of teams with the subject "Social"
-* `getTop 3 tb/lessParticipants s/Health` will display the top 3 teams within the hackathon, all of which will consist of only of those with subject "Health". Additionally, any ties between these teams will be broken using the tiebreak method "lessParticipants" - the team with fewer participants wins the tie.
+* `leaderboard s/Health` will display the leaderboard consisting only of teams with the subject "Health" as shown below:
+
+.GUI Display for Command "leaderboard s/Health"
+image::HealthLeaderboard.png[width=600,height=420]
+
+Note that the above leaderboard only shows team with the subject "Health".
+
+* `getTop 3 tb/moreParticipants s/Health` will display the top 3 teams within the hackathon, all of which will consist of only of those with subject "Health". Additionally, any ties between these teams will be broken using the tiebreak method "moreParticipants" - the team with more participants wins the tie.
+
+.GUI Display for Command "getTop 3 tb/moreParticipants s/Health"
+image::HealthMoreP.png[width=600,height=420]
+
+Note that in the above team "BroBro" goes above team "Bro" as it has more participants, despite both teams having equal scores.
 
 === Bulk Registration: `import fp/PATH_TO_CSV_FILE [fp/PATH_TO_ERROR_FILE]`
 
@@ -1055,4 +1105,5 @@ Go through the waitlist and list the participants in the waitlist in ascending o
 |Remove a User from WaitList (Coming in v2.0)|Removes a prospective Participant by USER_ID from Waitlist | `removeFromWaitList USER_ID` | `removeFromWaitList U-1`
 
 |List all User in WaitList (Coming in v2.0)|Lists all prospective Participant in Waitlist | `listWaitList` | `listWaitList`
-|=======================================================================
+
+

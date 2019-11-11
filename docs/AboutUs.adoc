@@ -15,10 +15,10 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Abhiman Yadav
 image::abhiman2211.png[width="150", align="left"]
-{empty}[http://github.com/Abhiman2211[github]] [<<abhimanyadav#, portfolio>>]
+{empty}[http://github.com/Abhiman2211[github]] [https://github.com/AY1920S1-CS2103T-F11-1/main/blob/master/docs/team/abhimanyadav.adoc[portfolio]]
 
 Role: Product Design +
-Responsibilities: Parser
+Responsibilities: Parser, Scoring Feature, Team Ranking Feature
 
 '''
 

@@ -13,11 +13,11 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("leaderboard tb/moreParticipants")
+[-> LogicManager : execute("leaderboard tb/moreParticipants s/Social")
 activate LogicManager
 
 
-LogicManager -> AlfredParser : parseCommand("leaderboard tb/moreParticipants")
+LogicManager -> AlfredParser : parseCommand("leaderboard tb/moreParticipants s/Social")
 activate AlfredParser
 
 create LeaderboardCommandParser
@@ -27,7 +27,7 @@ activate LeaderboardCommandParser
 LeaderboardCommandParser --> AlfredParser
 deactivate LeaderboardCommandParser
 
-AlfredParser -> LeaderboardCommandParser : parse(" tb/moreParticipants")
+AlfredParser -> LeaderboardCommandParser : parse(" tb/moreParticipants s/Social")
 activate LeaderboardCommandParser
 
 create SimpleLeaderboardCommand
@@ -50,7 +50,7 @@ deactivate AlfredParser
 LogicManager -> SimpleLeaderboardCommand : execute()
 activate SimpleLeaderboardCommand
 
-SimpleLeaderboardCommand -> Model : setSimpleLeaderboard(comparators)
+SimpleLeaderboardCommand -> Model : setSimpleLeaderboard(comparators, subjectName)
 activate Model
 
 Model --> SimpleLeaderboardCommand
