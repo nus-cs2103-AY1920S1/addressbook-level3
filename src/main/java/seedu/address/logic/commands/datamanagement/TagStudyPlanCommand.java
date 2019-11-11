@@ -41,6 +41,8 @@ public class TagStudyPlanCommand extends Command {
      */
     public TagStudyPlanCommand(String priorityLevel, int index) {
         requireAllNonNull(priorityLevel, index);
+        assert PriorityTag.isValidTagName(priorityLevel);
+        assert index > 0;
         this.priorityLevel = priorityLevel;
         this.index = index;
     }

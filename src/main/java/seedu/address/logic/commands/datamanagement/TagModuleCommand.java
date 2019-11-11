@@ -3,6 +3,9 @@ package seedu.address.logic.commands.datamanagement;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -30,6 +33,8 @@ public class TagModuleCommand extends Command {
     public static final String MESSAGE_EXISTING_TAG = "Tag %1$s is already attached to %2$s";
     public static final String MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION = "Default tags cannot be added";
 
+    private static final Logger logger = LogsCenter.getLogger(TagModuleCommand.class);
+
     private final String tagName;
     private final String moduleCode;
     private boolean newTagCreated = false;
@@ -56,11 +61,13 @@ public class TagModuleCommand extends Command {
         Tag toAdd;
         if (!model.activeSpContainsModuleTag(tagName)) {
             toAdd = createNewTag(tagName);
+            logger.info(toAdd + " not found in active study plan. New tag created.");
         } else {
             toAdd = model.getModuleTagFromActiveSp(tagName);
             if (toAdd.isDefault()) {
                 throw new CommandException(MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION);
             }
+            logger.info("Found " + toAdd + " in active study plan");
         }
 
         boolean added = model.addModuleTagToActiveSp((UserTag) toAdd, moduleCode);

@@ -23,7 +23,8 @@ public class SortStudyPlansByPriorityTagCommand extends Command {
             + "Example: "
             + "listbypriority";
 
-    public static final String MESSAGE_SUCCESS = "Here is a list of all the study plans you've created:\n";
+    public static final String MESSAGE_SUCCESS = "Here is a list of all the study plans you've created according "
+            + "to their priorities (optional):\n";
     public static final String MESSAGE_NO_STUDYPLAN = "You don't have any study plan yet! Go create one now!";
 
     @Override

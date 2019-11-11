@@ -35,6 +35,7 @@ public class RemoveTagFromStudyPlanCommand extends Command {
      */
     public RemoveTagFromStudyPlanCommand(int index) {
         requireNonNull(index);
+        assert index > 0;
         this.index = index;
     }
 

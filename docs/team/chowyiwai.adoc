@@ -40,7 +40,7 @@ and priority tags)
 * *Minor enhancement*: Added a command that allows users to find the semester in which a module is current located
 within the active study plan.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chow%20yi%20wai&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chowyiwai&tabRepo=AY1920S1-CS2103-F09-3%2Fmain%5Bmaster%5D[Functional code]][https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chow%20yi%20wai&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chowyiwai&tabRepo=AY1920S1-CS2103-F09-3%2Fmain%5Bmaster%5D[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chow%20yi%20wai&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chowyiwai&tabRepo=AY1920S1-CS2103-F09-3%2Fmain%5Bmaster%5D[Functional and Test code]]
 
 * *Other contributions*:
 
@@ -52,10 +52,10 @@ within the active study plan.
 *** Added result view panel in GUI to show different result types (e.g. tag cards, module cards) depending on executed command (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/184[#184])
 *** Modified Tag class to an interface that supports different types of tags and changed existing tests (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/104[#104], https://github.com/AY1920S1-CS2103-F09-3/main/pull/221[#221], https://github.com/AY1920S1-CS2103-F09-3/main/pull/145[#145])
 *** Wrote tests for tagging related commands and Tag classes, with 100% and 95% of lines covered respectively.
+
 ** Documentation:
-
 *** Contributed to documentation of Model Component in Developer's Guide (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/327[#327])
-
+*** Updated About Us page for the team (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/47[#47])
 
 ** Community:
 *** Helped to fix minor bugs in teammates’ codes
@@ -79,6 +79,8 @@ include::../UserGuide.adoc[tag=datafour]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+Contributed https://ay1920s1-cs2103-f09-3.github.io/main/DeveloperGuide.html#Design-Model[Model] (omitted).
 
 include::../DeveloperGuide.adoc[tag=tagging]
 

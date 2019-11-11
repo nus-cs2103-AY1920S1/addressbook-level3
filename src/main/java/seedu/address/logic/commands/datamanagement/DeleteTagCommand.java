@@ -2,6 +2,9 @@ package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -25,6 +28,8 @@ public class DeleteTagCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Tag %1$s has been deleted";
     public static final String MESSAGE_TAG_NOT_FOUND = "There is no [%1$s] tag in this study plan";
     public static final String MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION = "Default tags cannot be deleted";
+
+    private static final Logger logger = LogsCenter.getLogger(DeleteTagCommand.class);
 
     private final String tagName;
 
@@ -53,6 +58,8 @@ public class DeleteTagCommand extends Command {
         }
 
         UserTag toDelete = (UserTag) model.getModuleTagFromActiveSp(tagName);
+
+        logger.info("Found " + toDelete + " in active study plan");
 
         int originalSize = model.getModuleTagsFromActiveSp().asUnmodifiableObservableList().size();
         model.deleteModuleTagFromActiveSp(toDelete);

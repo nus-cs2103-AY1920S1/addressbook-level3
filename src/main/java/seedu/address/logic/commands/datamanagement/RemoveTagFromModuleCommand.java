@@ -3,6 +3,9 @@ package seedu.address.logic.commands.datamanagement;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -29,6 +32,8 @@ public class RemoveTagFromModuleCommand extends Command {
     public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";
     public static final String MESSAGE_TAG_NOT_FOUND = "The module %1$s does not have the tag [%2$s]";
     public static final String MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION = "Default tags cannot be removed";
+
+    private static final Logger logger = LogsCenter.getLogger(RemoveTagFromModuleCommand.class);
 
     private final String tagName;
     private final String moduleCode;
@@ -64,6 +69,8 @@ public class RemoveTagFromModuleCommand extends Command {
         if (toRemove.isDefault()) {
             throw new CommandException(MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION);
         }
+
+        logger.info("Found " + toRemove + " in " + moduleCode);
 
         boolean removed = model.removeTagFromModuleInActiveSp((UserTag) toRemove, moduleCode);
 

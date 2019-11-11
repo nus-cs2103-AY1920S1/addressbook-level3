@@ -1156,48 +1156,116 @@ A student's year refers to whether the student is in their first (Y1), second (Y
 year of undergraduate studies in NUS.
 // end::glossary[]
 
-// [appendix]
-// == Instructions for Manual Testing
+[appendix]
+== Instructions for Manual Testing
 
-// Given below are instructions to test the app manually.
+Given below are instructions to test the app manually.
 
-// [NOTE]
-// These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-// === Launch and Shutdown
+=== Launch and Shutdown
 
-// . Initial launch
+. Initial launch
 
-// .. Download the jar file and copy into an empty folder
-// .. Double-click the jar file +
-//    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file or run `java -jar csmodbuddy.jar` in command prompt (Windows) or terminal (Mac) +
+    Expected: Shows the GUI with a default study plan. The window size may not be optimum.
 
-// . Saving window preferences
+. Saving window preferences
 
-// .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-// .. Re-launch the app by double-clicking the jar file. +
-//    Expected: The most recent window size and location is retained.
+.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Re-launch the app by double-clicking the jar file or running `java -jar csmodbuddy.jar` in command prompt/terminal. +
+    Expected: The most recent window size and location is retained.
 
-// _{ more test cases ... }_
+=== Executing tagging-related commands
 
-// === Deleting a person
+. Tagging a module
+.. Prerequisites
+... A tag name has to be a single word, less than 25 characters long and not be a default tag name.
+... The target module must exist.
+.. Test case: `addtag cs1101s exchange` +
+Expected:
+If CS1101S is currently in the study plan, a new tag with the name "exchange" can be seen below the module CS1101S. If CS1101S is not in the
+study plan, add it to the study plan and the tag can be seen attached to it. The tag will also be in the list when `viewalltags` is called.
+.. Test case (after (b)): `addtag cs1101s EXCHANGE` +
+Expected:
+No new tag is added since CS1101S already has the tag "exchange".
 
-// . Deleting a person while all persons are listed
+. Renaming a module tag
+.. Prerequisites
+... The new tag name has to be a single word, less than 25 characters long and not be a default tag name.
+... The target tag (e.g. "exchange") must exist in the study plan.
+.. Test case: `renametag exchange sep` +
+Expected:
+All the tags named "exchange" will be renamed to "sep".
 
-// .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-// .. Test case: `delete 1` +
-//    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-// .. Test case: `delete 0` +
-//    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-// .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-//    Expected: Similar to previous.
+. Removing a tag from a module
+.. Prerequisites
+... The target tag (e.g. "exchange") must exist in the target module.
+.. Test case: `removetag cs1101s exchange` +
+Expected:
+The tag will be removed from CS1101S only.
 
-// _{ more test cases ... }_
+. Deleting a module tag
+.. Prerequisites
+... The target tag (e.g. "exchange") must exist in the study plan.
+.. Test case: `deletetag exchange` +
+Expected:
+The tags named "exchange" will be removed from all the modules they are attached to. The tag will not be in the list when `viewalltags` is called.
 
-// === Saving data
+. Viewing a module's tags
+.. Test case: `viewtags CS1101S` +
+Expected:
+A left panel with a list of tags will appear. The tags that are in the list should include the default tags `Core` and `S/U-able`,
+as well as any other user-created tags that have been added.
 
-// . Dealing with missing/corrupted data files
+. Removing all tags
+.. Test case: `removealltags` +
+Expected:
+All user-created tags will be removed from all modules.
 
-// .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Viewing all modules tagged with a given tag
+.. Prerequisites
+... The tags entered should exist in the study plan.
+.. Test case: `viewtagged core s/u-able` +
+Expected:
+A left panel with a list of all modules attached with both tags will appear.
 
-// _{ more test cases ... }_
+. Viewing all tags
+.. Test case: `viewalltags` +
+Expected:
+All tags, default and user-created, will appear in the left panel. Default tags have short descriptions attached.
+
+. Viewing all default tags
+.. Test case: `viewdefaulttags` +
+Expected:
+All default tags will appear in the left panel.
+
+. Finding a module
+.. Prerequisite
+... The module must exist in the study plan.
+.. Test case: `findmod CS1101S` +
+Expected:
+The semester in which CS1101S is located will appear in the left panel.
+
+. Setting the priority of a study plan
+.. Prerequisite
+... There must be at least one study plan in the module planner.
+.. Test case: `setpriority high 1` +
+Expected: If there is a study plan with index 1, a red priority tag named "PRIORITY.HIGH" will appear next to the study plan title.
+If the index is invalid, an error message will be shown.
+
+. Removing the priority of a study plan
+.. Prerequisite
+... The target study plan must have a priority tag
+.. Test case: `removepriority 1` +
+Expected: If the study plan has a priority tag, it will be removed. If the index is invalid or the study plan does not have a
+priority tag, an error message will be shown.
+
+. Listing study plans according to their priorities
+.. Prerequisite
+... There are three study plans in the module planner, two set with priorities `low`, `high` and one with no priority.
+.. Test case: `listbypriority` +
+Expected:
+A left panel with a list of study plans sorted in the order such that their priorities are `high`, `low` and no priority.
