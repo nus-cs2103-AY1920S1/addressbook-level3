@@ -8,8 +8,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.stage.Stage?>
 
-<!-- TODO: set a more appropriate initial size -->
-
 <fx:root maximized="true" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml">
     <icons>

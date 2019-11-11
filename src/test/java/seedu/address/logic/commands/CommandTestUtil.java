@@ -56,19 +56,7 @@ public class CommandTestUtil {
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_NAME + "Milk@";
     public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "Work*";
 
-    // TODO: FIX
-    //
-    //     public static final UpdateCommand.UpdateTransactionDescriptor DESC_AMY;
-    //     public static final UpdateCommand.UpdateTransactionDescriptor DESC_BOB;
-    //
-    //     static {
-    //         DESC_AMY = new UpdateTransactionDescriptorBuilder().withName(VALID_NAME_AMY)
-    //             .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-    //             .withCategories(VALID_TAG_FRIEND).build();
-    //         DESC_BOB = new UpdateTransactionDescriptorBuilder().withName(VALID_NAME_BOB)
-    //             .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-    //             .withCategories(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-    //     }
+
 
     /**
      * Executes the given {@code command}, confirms that <br>
