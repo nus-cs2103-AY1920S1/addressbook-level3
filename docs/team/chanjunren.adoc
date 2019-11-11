@@ -2,6 +2,15 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+:source-highlighter: rouge
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:warning-caption: :warning:
+endif::[]
 
 == About The Project
 
@@ -54,7 +63,7 @@ alternatives was necessary to implement the feature in a way that doesn’t disr
 
 * *Minor enhancement*: Designed the overall GUI of the StudyBuddyPro application.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=chanjunren[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=chanjunren[Functional code]]
 
 * *Other contributions*:
 
@@ -94,6 +103,8 @@ Starts a time trial for flashcards with specified tags <TAG>.
     Example usage: timetrial cs2103tuml hard
 
     Expected output: Time trial started
+
+All of the flashcards containing the specified tags will be then displayed sequentially in the activity below.
 
 * At least one tag must be specified.
 * If more than one tag is specified, selects all flashcards that contains all of the specified tags.

@@ -8,6 +8,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
@@ -38,7 +41,9 @@ public class AddFlashcardCommand extends Command {
     public static final String MESSAGE_DUPLICATE_FLASHCARD = "A flashcard with the same title or question already "
             + "exists in Flashcards.";
 
+    private static final Logger logger = LogsCenter.getLogger(AddFlashcardCommand.class);
     private final Flashcard toAdd;
+
 
     /**
      * Creates an AddFlashcardCommand to add the specified {@code Flashcard}
@@ -56,6 +61,8 @@ public class AddFlashcardCommand extends Command {
         if (model.hasFlashcard(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_FLASHCARD);
         }
+
+        logger.info("Executing AddFlashcardCommand for the flashcard: " + toAdd);
 
         model.addFlashcard(toAdd);
         return new FlashcardCommandResult(String.format(MESSAGE_SUCCESS, toAdd));

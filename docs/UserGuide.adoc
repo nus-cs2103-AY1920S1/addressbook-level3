@@ -173,7 +173,7 @@ A pop-up dialog box will display a URL link to a help document.
 
 === Listing all current Tags in StudyBuddyPro : `taglist`
 
-Displays a full list of all tags currently in StudyBuddyPro.
+Displays to you a full list of all tags you have currently in StudyBuddyPro.
 
 ```
 Format: taglist
@@ -268,6 +268,7 @@ Example usage:
 Expected output:
 
     Cleared all flashcards/notes/cheatsheets!
+
 
 === Clearing entire application's data: `clear all`
 
@@ -536,6 +537,8 @@ Expected output:
 Time trial started
 ```
 
+All of the flashcards containing the specified tags will be then displayed sequentially in the activity below.
+
 * At least one tag must be specified.
 * If more than one tag is specified, selects all flashcards that contains all of the specified tags.
 * Default <TIME> will be 5 seconds.
@@ -635,12 +638,12 @@ you are _notes_ mode, please ensure you used the `switch notes` command before t
 screen should now look like the one found in the screenshot below.
 ====
 
-image::NotesSuccess.PNG[width="700"]
+image::NotesSuccess.png[width="700"]
 
 
-=== Creating a note: `add`
+=== To create a note: `add`
 
-Adds a note from user input with title `TITLE` and content `CONTENT`. The title of the note cannot be a duplicate
+Adds a note from user input with title `TITLE` and content `CONTENT`, that you can conveniently access later. The title of the note cannot be a duplicate
 of an existing note title.
 
 ```
@@ -662,10 +665,11 @@ New note added:
 The added Note has no detected note fragment tags!
 ```
 
-More advanced usage: Tagging of note fragments is also supported. The note fragment tagging is added at the
+More advanced usage: This is where our Notes feature stands out from the others!
+Tagging of note fragments is also supported. The note fragment tagging is added at the
 same time as the note is created.
 
-Note fragment tags are added with content `FRAGMENT_CONTENT`, at least one tag
+Note fragments can be visualised as a form of highlighting your notes. Its tags are added with content `FRAGMENT_CONTENT`, at least one tag
 `FRAGMENT_TAG`, and any number of additional tags `ADDITIONAL_FRAGMENT_TAG`:
 
 ```
@@ -716,7 +720,9 @@ commands.
 
 //end::notesAdd[]
 
-=== Deleting a note: `delete`
+=== To delete note: `delete`
+
+Simply get rid of any unwanted notes and make your life easier using `delete`.
 
 Deletes the note of index `NOTE_INDEX`.
 
@@ -760,7 +766,7 @@ For example, calling `delete 3`, then an `invalid command` and then `delete 3` a
 //tag::notesView[]
 
 
-=== Viewing a note: `view`
+=== To view a note: `view`
 
 Views the note of index `NOTE_INDEX`. If the note contains any note fragment tags, those tags will be hidden.
 
@@ -808,7 +814,7 @@ Viewing raw note:
 
 //end::notesView[]
 
-=== Listing notes: `list`
+=== To list all notes: `list`
 
 Lists all notes found in StudyBuddyPro.
 
@@ -842,6 +848,8 @@ visualize specific note fragment tags, use the `filter` command (see Section 6.6
 //tag::notesFilter[]
 
 === Filtering by tags: `filter`
+
+`filter` allows you to quickly search for your notes by their specified tags.
 
 * Filters the note library by the user specified tag(s).
 * The user must specify at least one tag, and can specify multiple tags.
@@ -917,13 +925,14 @@ you are _cheatsheet_ mode, please ensure you used the `switch cs` command before
 screen should now look like the one found in the screenshot below.
 ====
 
-image::CheatSheetSuccess.PNG[width="700"]
+image::CheatSheetSuccess.png[width="700"]
 
 //tag::cheatsheetAdd[]
 
-=== Creating a Cheatsheet: `add`
+=== To auto-generate a Cheatsheet: `add`
 
-Adds a cheatsheet from user input title <TITLE> and content <CONTENT>. Flashcards and notes in StudyBuddyPro that have the specified tag upon creation of the cheatsheet will be used as contents.
+Adds a cheatsheet from user input title <TITLE> and content <CONTENT>.
+Voila! To your convenience, flashcards and notes in StudyBuddyPro that have the specified tag upon creation of the cheatsheet will be used as contents.
 
     Format: add t/TITLE [tag/TAG]...
 
@@ -948,9 +957,10 @@ Tags: [cs2100midterm]
 
 //tag::cheatsheetEdit[]
 
-=== Editing a Cheatsheet: `edit`
+=== To edit a Cheatsheet: `edit`
 
-Edits cheatsheet's title, tag, content by a specified <CHEATSHEET_INDEX>. At least one of the optional fields must be specified to edit.
+Oh no! It appears that you might have accidentally misspelled something during creating a cheatsheet.
+Fret not, instead of deleting the cheatsheet and adding another one, edit allows you to edit a cheatsheet's title, tag, content by a specified <CHEATSHEET_INDEX>. At least one of the optional fields must be specified to edit.
 
     Format: edit (index) [t/TITLE] [tag/TAG]...
 
@@ -1012,9 +1022,8 @@ Upon hitting enter, then the specified cheatsheet will be deleted.
 Expected output:
 ```
 Deleted Cheatsheet:
-    Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
-    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
-        [ 2. 110 in Binary is 6 is Decimal ]
+    Title: CS2100 Finals CheatSheet
+    Tags: [finalcheatsheet]
 ```
 
 [IMPORTANT]
@@ -1024,9 +1033,9 @@ For example, calling `delete 3`, then an `invalid command` and then `delete 3` a
 
 //tag::cheatsheetView[]
 
-=== Viewing Cheatsheets: `view`
+=== To view Cheatsheets: `view`
 
-Views a cheatsheet by the specified index.
+Views a cheatsheet and its contents by the specified index.
 
    Format: view (index)
 
@@ -1052,7 +1061,7 @@ The above screenshot shows the cheatsheet with index 1 in the GUI of StudyBuddyP
 
 //tag::cheatsheetViewSpecific[]
 
-=== Viewing Cheatsheets of Specific Tag: `show`
+=== To view Cheatsheets of a Specific Tag: `show`
 
 Views a cheatsheet's content for a specified tag. User must be in a `view` command before using `show` command.
 
@@ -1083,17 +1092,23 @@ Currently, cheatsheets only allow contents that match all the specified tags. He
 
 //tag::cheatsheetList[]
 
-=== Listing Cheatsheets: `list`
+=== To list all Cheatsheets: `list`
 
 Lists all cheatsheets found in StudyBuddyPro.
 
    Format: list
 
+    Example output: Listing all cheatsheets:
+    1.  Title: CS2100 midterms
+    Tags: [cs2100][midterms]
+    2.  Title: ma1521 finals
+     Tags: [finals][ma1521]
+
 //end::cheatsheetList[]
 
 === Listing by tags: `filter`
 
-Filters the cheatsheet library by the user specified tag(s).
+Want to quickly acccess your items? `filter` helps to list the cheatsheet library by the user specified tag(s).
 
 [IMPORTANT]
 ====
@@ -1124,7 +1139,8 @@ Expected output:
 
 === Updating a Cheatsheet: `update` (Coming in v2.0)
 
-Updates cheatsheet's contents by a specified <CHEATSHEET_INDEX>. Tags specified are added into the list of tags for the cheatsheet if it not already exist.
+Ever wanted to re-use your midterm cheatsheet by adding more contents into it and then use it for your final examinations?
+Our `update` feature updates cheatsheet's contents by a specified <CHEATSHEET_INDEX>. Tags specified are added into the list of tags for the cheatsheet if it not already exist.
 
 [WARNING]
 ====

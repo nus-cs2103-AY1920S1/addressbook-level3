@@ -7,7 +7,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_CONFIRM_DELETE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -30,6 +32,9 @@ public class DeleteFlashcardCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_FLASHCARD_SUCCESS = "Deleted Flashcard: %1$s";
+
+    private static final Logger logger = LogsCenter.getLogger(DeleteFlashcardCommand.class);
+
 
     /**
      * The successfulDeletionOnPreviousCommand is to prevent the user from calling, for instance,
@@ -61,6 +66,9 @@ public class DeleteFlashcardCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
         }
         Flashcard flashcardToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+        logger.info("Executing DeleteFlashcardCommand for the flashcard: " + flashcardToDelete);
+
         FlashcardCommandResult commandResult = new FlashcardCommandResult ((
                 MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_FLASHCARD
                 + "\n" + flashcardToDelete
