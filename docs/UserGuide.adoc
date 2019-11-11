@@ -535,7 +535,9 @@ Usage:
 
 INFO:
 
-* `DATE_INTERVAL`: Specifies the date interval to be used to aggregate the expenses by. For example, supported date intervals include 'day', 'week', 'month' and 'year'.
+* `DATE_INTERVAL`: Specifies the date interval to be used to aggregate the expenses by. Supported date intervals include 'day', 'week', 'month' and 'year'.
+The start date of each interval will always be the "logical" start, ie. the start date for "week" will always be a Monday and the start date for "month" will always be the 1st of that month.
+
 * `GROUPING`: Specifies the grouping to use to group the expenses into each separate timeline. Supported groupings include "none", "tag", "month" and "day-of-week".
 
 {nbsp} +
