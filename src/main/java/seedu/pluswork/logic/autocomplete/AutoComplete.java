@@ -39,12 +39,6 @@ public class AutoComplete {
             SortedSet<String> commandList = new TreeSet<>(Keywords.commandList);
             suggestions.addAll(commandList.subSet(input, input + Character.MAX_VALUE));
         }
-        // String commandWord = input.substring(0, firstSpace);
-
-        // input is not a valid commandWord/ commandWord has no valid prefix to autocomplete
-        if (input.endsWith("/")) { // entering a new prefix for the valid commandWord
-            suggestions = getPrefixSuggestion(input);
-        }
         return suggestions;
     }
 
@@ -61,27 +55,28 @@ public class AutoComplete {
         String prefix = input.substring(lastSpace + 1);
         switch (prefix) {
 
-            case "mi/":
-                return members;
+        case "mi/":
+            return members;
 
-            case "s/":
-                List<String> taskStatus = Arrays.asList("done", "unbegun", "doing");
-                return new LinkedList<>(taskStatus);
+        case "s/":
+            List<String> taskStatus = Arrays.asList("done", "unbegun", "doing");
+            return new LinkedList<>(taskStatus);
 
-            case "ty/":
-                List<String> inventoryType = Arrays.asList("members", "tasks");
-                return new LinkedList<>(inventoryType);
+        case "ty/":
+            List<String> inventoryType = Arrays.asList("members", "tasks");
+            return new LinkedList<>(inventoryType);
 
-            case "tt/":
-                return tags;
+        case "tt/":
+            return tags;
 
-            default:
-                return new LinkedList<>();
+        default:
+            return new LinkedList<>();
         }
     }
 
     /**
      * gets memberId suggestion from created {@code Member}
+     * for prefix suggestions in v2.0
      *
      * @param memberList
      * @return
@@ -96,7 +91,7 @@ public class AutoComplete {
 
     /**
      * gets all the existing tags created by {@Code Task}
-     *
+     * for prefix suggestions in v2.0
      * @param taskList
      * @return
      */

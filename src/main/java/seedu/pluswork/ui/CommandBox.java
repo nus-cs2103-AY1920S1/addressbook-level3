@@ -85,7 +85,7 @@ public class CommandBox extends UiPart<Region> {
                 LinkedList<String> searchResult = logic.getAutoCompleteResults(text);
                 populatePopup(searchResult);
                 if (!entriesPopup.isShowing()) {
-                    entriesPopup.show(this.commandTextField, Side.BOTTOM, commandTextField.getCaretPosition() * 8, 0);
+                    entriesPopup.show(this.commandTextField, Side.BOTTOM, 0, 0);
                 }
                 if (searchResult.size() == 1 && searchResult.getFirst().equals(text)) {
                     entriesPopup.hide();
@@ -134,7 +134,7 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         try {
-            commandExecutor.execute(commandTextField.getText());
+            commandExecutor.execute(commandTextField.getText().toLowerCase());
             commandTextField.setText("");
         } catch (CommandException | ParseException | FileNotFoundException e) {
             setStyleToIndicateCommandFailure();
