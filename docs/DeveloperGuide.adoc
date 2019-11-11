@@ -288,21 +288,63 @@ Each of these features have their own design and implementation logic.
 
 === Calendar
 
-The calendar feature in TravEzy allows users to easily find a free duration of time to travel.
+The calendar feature in _TravEzy_ allows users to easily plan when to travel. In this section, we will discuss how the calendar is designed and how the _add an event_ feature is implemented.
 
-*Calendar Class Diagram:*+
+==== Calendar Model
 
-image::CalendarClassDiagram.png[]
+This section discusses some design details of the calendar model.
 
-The above diagram shows that ``Calendar`` stores information about the state of the user's calendar, including information about the user's current view as indicated by ``currentViewOnlyMonth``.
+The following diagram illustrates the class diagram of the most important part of the calendar model. Specifically, it focuses on the ``Event`` package which can be found https://github.com/AY1920S1-CS2103T-T17-2/main/tree/master/src/main/java/seedu/address/calendar/model/event[here].
 
-image::ShowSequenceDiagram.png[]
+. Calendar model class diagram
+image::CalendarClassDiagram.png[Calendar model class diagram]
 
-The above sequence diagram shows the sequence of events that take place when a user calls ``show`` command. Do note that the above sequence of events are very similar to those for the other commands which extend ``Command`` class.
+As shown above, the ``Calendar`` instance interacts with the ``EventManager`` by querying it. With the help of ``EventManger``, the ``Calendar`` instance does not need to deal with "lower-level" concerns (for instance, how ``Event``s are managed internally). 
 
-image::SmartSuggestActivityDiagram.png[]
+Every ``EventManager`` can access ``Event``s that have been added. These ``Event``s can be ``Commitment``, ``Trip``, ``SchoolBreak`` or ``Holiday`` instances. If other instances need a read-only access to ``EventManager``, they can obtain it using the observer ``EventViewer`` which is implemented by ``EventManager``. 
 
-The above activity diagram shows how ``smartSuggest`` command works.
+In addition, every ``EventManager`` depends on ``EventQuery`` to perform queries. 
+
+More information about this package is provided below.
+
+*What is an ``Event``?*
+
+* represents the event specified by the user: it is made up of the relevant ``Name``, ``EventType`` and ``Date`` (which is found in the ``Date`` package) instances
+
+*What is an ``EventQuery``?*
+
+* similar to an ``Event`` but is only made up of ``Date``
+* is used to query the ``IntervalSearchTree`` (from the ``Util`` package) to obtain events that are relevant to the user's request more efficiently.
+
+*How do classes in ``Util`` interact with those from ``Event``?*
+
+* ``Util`` contains important classes and interfaces like ``DateUtil``, ``IntervalSearchTree`` and ``Interval``
+* ``DateUtil`` helps ``EventManager`` to deal with manipulation of ``Date``-related operations
+* ``IntervalSearchTree`` makes certain user-requested operations more efficent computationally. However, to facilliate the use of ``IntervalSearchTree``, ``Event`` and ``EventType`` need to inherit from ``Interval``. 
+
+To find out how ``Calendar``, ``EventManager`` and ``IntervalSearchTree`` described above interact, consider the following sequence diagram. It descibes how these classes work together when the user tries to add a holiday, which is represented by ``event`` (a ``Holiday`` instance) in the diagram below. 
+
+. Calendar model sequence diagram
+image::CalendarSequenceDiagram.png[Calendar model sequence diagram]
+
+
+WARNING: To simplify the sequence diagram, the process of validating that ``event`` is in fact a ``Holiday`` instance has been left out.
+
+==== Add an event feature
+
+This section provides some details about how the _add an event_ feature is implemented.
+
+The following diagram illustrates the course of action(s) that is(are) possibly taken when a user tries to add a new trip to his/her calendar.
+
+. Calendar activity diagram
+image::CalendarActivityDiagram.png[Calendar activity diagram]
+
+From the diagram, it can be seen that there are three major reasons that can interrupt the user request:
+
+* the user entered an invalid input (for instance, by typing an invalid date)
+* the user tried to add a duplicate event 
+* the user tried to add an event that may result in conflicts in his/her schedule
+
 
 === Itinerary
 
@@ -461,44 +503,49 @@ Hope that you are excited as I am in all these cool features that are coming up 
 
 // tag::financialtracker[]
 === Financial Tracker
-The _Financial Tracker_ feature in _TravEzy_ allows users to keep track of their financial expenses with appropriate categorized expenditure by different countries.
+The Financial Tracker feature in TravEzy allows users to keep track of their financial expenses with appropriate categorized expenditure and country.
 
 *Architecture:*
 
-The Architecture Diagram given below explains the high-level design of the _Financial Tracker_ feature.
+.Architecture Diagram of the Financial Tracker feature
+image::FinancialTrackerDiagram.png[]
 
-image::FinancialTrackerDiagram.png[width=600]
+The Architecture Diagram given above explains the high-level design of the financial tracker feature.
+Inputs given by the user are channeled from the `textUI` and parsed by `CommandParser` before different commands are formed which generates
+the `Model` and updates the `FinancialTracker` object which contains the expense list.
 
-Inputs given by the user are channeled from the `textUI` and handled by `Logic` before different commands are formed which execute on
-the `Model`. The `Model` will then update the `FinancialTracker` object which contains the expense list.
+The `textUI`, `Log Centre` and `Storage` all stem from the common package of the main TravEzy application.
+This is to ensure that each command in financial tracker have only one parser validating the command.
+The GUI also collaborate with `Model` Class directly, which will be changed to only communicate with `Logic` class in later time.
 
-The `textUI` and `Log Centre` stem from the common package of the main _TravEzy_ application while ``Logic``, ``Model,`` and ``Storage`` all have similar architecture design with the other features (Calendar, Itinerary, etc.).
+*Financial Tracker Class Diagram*
 
-*Financial Tracker Class Diagram:*
+.Class Diagram of the Financial Tracker feature
+image::FinancialTrackerClassDiagram.png[]
+The Model,
+stores the `FinancialTracker` data which includes the `ExpenseList` which keeps track of all the expenses
+that are included by the user and stores it into the storage in a JSON file.
 
-image::FinancialTrackerClassDiagram.png[width=800]
-The `Model` stores the `FinancialTracker` data which includes several `ExpenseList` each associated with a country that keeps track of all the expenses.
-
-``Financial Tracker`` exposes an unmodifiable `ObservableMap<String, ExpenseList>` that can be observed. The UI is bound to the `Model` whereby the `Model` returns an expense list associated with the current ``Country`` of the `Financial Tracker` and updates when the querying `Country` changed.
+It exposes an unmodifiable `ObservableList<Expense>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 
 [NOTE]
-Each time a new `Country` is selected from the _Countries dropdown box_, the respective expense list will be returned for that specific country, this implementation is to ease categorising and sorting.
+Each time a new `Country` is selected from the javafx drop down menu, an expense list will be generated for that specific country, this
+implementation is to ease categorising and sorting.
 
-*Sequence Diagram example:*
+*Sequence Diagram example*
 
-The sequence diagram below shows the sequence of events that will take place when a user calls `Summary` command.
+.Sequence Diagram of the Financial Tracker feature
+image::FinancialTrackerSummaryCommandDiagram.png[]
 
-image::FinancialTrackerSummaryCommandDiagram.png[width=800]
+The above sequence diagram shows the sequence of events that will take place when a user calls `Summary` command.
+Note that that above sequence of events are very likely to those for the other commands in Financial Tracker feature.
 
-The sequence of events are very likely to those of the other commands in _Financial Tracker_ feature.
+*Activity Diagram example*
 
-*Activity Diagram example:*
+.Activity Diagram of the Financial Tracker feature
+image::FinancialTrackerActivityDiagram.png[]
 
-The activity diagram below shows how `edits` command works.
-
-image::FinancialTrackerActivityDiagram.png[width=800]
-
-
+The above activity shows how `edits` command works.
 
 // end::financialtracker[]
 
