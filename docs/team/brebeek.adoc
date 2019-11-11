@@ -8,6 +8,8 @@
 --
 image::brebeek.png[width="130", align="left"]
 --
+// This section is originally created by jun-ha0
+
 [blue]#This page serves as my _CS2103T_ project portfolio page on project *_Typee_*.# The following technologies
 and software were used in the development of *_Typee_* application:
 --
@@ -16,8 +18,6 @@ image::javafx-logo.png[width="80", height="80", float="left"]
 image::junit5-logo.png[width="80", height="80", 66,70, float="left"]
 image::json-logo.png[width="80", height="80", 67,70, float="left"]
 image::travis-logo.png[width="80", height="80", 68,70,float="left"]
-//image::appveyor-logo.png[width="80", height="80", float="left"]
-//image::coveralls-logo.png[width="80", height="80", float="left"]
 image::github-logo.png[width="80", height="80"]
 
 ====
