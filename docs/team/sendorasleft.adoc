@@ -92,7 +92,7 @@ the visual data by implementing `list` and `view` commands to switch between sid
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.4` (4 major releases, 1 minor) on GitHub
+*** Managed releases `v1.1` - `v1.4` (4 major releases, 1 minor) on GitHub (https://github.com/AY1920S1-CS2103-T11-2/main/releases[Releases])
 *** Refactored and renamed the initial AB3 source code in preparation for MAMS development (https://github.com/AY1920S1-CS2103-T11-2/main/pull/39[#39])
 *** Set up issue tracker
 *** Managed milestones `v1.2` - `v1.4` (3 milestones) on GitHub
@@ -102,9 +102,9 @@ the visual data by implementing `list` and `view` commands to switch between sid
 (Pull requests https://github.com/AY1920S1-CS2103-T11-2/main/pull/68[#68],
 https://github.com/AY1920S1-CS2103-T11-2/main/pull/75[#75],
 https://github.com/AY1920S1-CS2103-T11-2/main/pull/104[#104])
-*** Updated the GUI color scheme (Pull requests https://github.com/AY1920S1-CS2103-T11-2/main/pull/81[#81], https://github.com/AY1920S1-CS2103-T11-2/main/pull/112[#112])
-*** Wrote and adapted the initial common test utilities for the new application
-* Implemented tests for the new features
+*** Revised entire GUI color scheme (Pull requests https://github.com/AY1920S1-CS2103-T11-2/main/pull/81[#81], https://github.com/AY1920S1-CS2103-T11-2/main/pull/112[#112])
+*** Wrote and adapted the initial common test utilities for the new application (Pull request https://github.com/AY1920S1-CS2103-T11-2/main/pull/112[#112])
+*** Implemented tests for the new features
 increasing coverage by ~10% (Pull requests https://github.com/AY1920S1-CS2103-T11-2/main/pull/112[#112],
 https://github.com/AY1920S1-CS2103-T11-2/main/pull/203[#203])
 ** Community:

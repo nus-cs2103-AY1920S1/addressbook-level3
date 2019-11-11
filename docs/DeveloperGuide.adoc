@@ -90,7 +90,7 @@ image::UiItemListClassDiagram.png[]
 .A more detailed view of the classes within the `History` package. Note that the abstract class `UiPart` is intentionally omitted for neatness of representation.
 image::UiHistoryWindowClassDiagram.png[]
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -645,6 +645,9 @@ about the command history to the user
 * `CommandHistory`: see previous section.
 * `FilterOnlyCommandHistory`: An interface that inherits from `ReadOnlyCommandHistory`. Exposes methods to
 read and filter the internal list in `CommandHistory`, while restricting modification access.
+
+In addition to the above, a GUI for the history window was also written and implemented using JavaFX and styled with CSS.
+Refer to an earlier section of this guide for a class diagram of the classes used to implement the history GUI window: <<Design-Ui>>
 
 The following activity sequence diagram provides a high-level view
 of how the command is executed, along with the behaviour of the history window:
@@ -1764,3 +1767,15 @@ Specified lists will be updated to show items containing any of the keywords.
 .. Invalid prefix will be considered as a keyword. eg. `find s/celina y/` "y/" will be taken as a keyword to be found in the student list.
 
 // end::test4[]
+
+
+//tag::test5[]
+=== Resolve
+. Valid input format for single resolution: `approve a/INDEX [r/REASON]` or `reject a/INDEX [r/REASON]`
+.. Example: 'approve a/2' `reject a/3 r/student cannot cope`
+.. Expected: appeals selected will be resolved and changes on affected modules and students will be performed accordingly.  The message shown in the message bar will display the changes made to the related module and student.
+. Valid input format for mass resolution: `approve mass/[APPEALID]...` `reject mass/[APPEALID]...`
+.. Example: `approve mass/C000000 C000023` `reject mass/C001230  C0sdfsd`
+.. Expected: Appeals that have not yet been resolved will be resolved and will be resolved.  Invalid appeal IDs will not be resolved.  The result message in the message bar will show the following - appeals that were successfully resolved, appeals that were already resolved, invalid appeal IDs, and appeal IDs that do not exist.
+//end::test5[]
+
