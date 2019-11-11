@@ -611,47 +611,115 @@ describes the behaviour of `DeleteTransactionCommand` at each step:
 === Repeaters
 
 // tag::repeateradd[]
-==== Adding Repeater : `add`
+==== Adding Repeater
 
 ===== Overview
 This feature allows the user to add a repeater in IchiFund. Adding a repeater also creates the transactions associated with the added repeater.
 
 ===== Implementation
-The `addrep` command is facilitated by the Logic and Model components of the application. Given below is an example usage scenario of how `addrep` behaves at each step.
+The `add` command is facilitated by the Logic and Model components of the application. Given below is an example usage scenario of how `add` behaves at each step.
 
-*Step 1*: The user executes `addrep de/Phone bills a/42.15 c/Utilities ty/exp so/3 eo/2 sd/1 sm/1 sy/2019 ed/31 em/12 ey/2019` to add a repeater for phone bills with an amount of $42.15 on the third and second last day of every month between 1st January 2019 and 31st December 2019.
+*Step 1*: In the repeaters tab, the user executes `add de/Phone bills a/42.15 c/Utilities ty/exp so/3 eo/2 sd/1 sm/1 sy/2019 ed/31 em/12 ey/2019` to add a repeater for phone bills with an amount of $42.15 on the third and second last day of every month between 1st January 2019 and 31st December 2019.
 
 *Step 2*: `LogicManager` uses `IchiFundParser#parserCommand()` to parse the input from the user.
 
 *Step 3*: `IchiFundParser` determines which command is being used and creates the respective `AddRepeaterCommandParser` parser with the user's input as an argument.
 
-*Step 4*: `AddRepeaterCommandParser` does a validation check on the user's input before creating and returning an `AddRepeaterCommand` with desired `Repeater` as an argument.
+*Step 4*: `AddRepeaterCommandParser` does a validation check on the user's input.
 
-*Step 5*: `LogicManager` uses `AddRepeaterCommand#execute()` to add the `Repeater` and the associated ``Transaction``s into the `Model` which is handled by `ModelManager`. In doing so, it also fetches the `RepeaterUniqueId` counter tracked by the `Model`, sets it as the created ``Repeater``'s unique id, and increments the counter in the `Model` by 1.
+*Step 5*: `AddRepeaterCommandParser` creates and returns an `AddRepeaterCommand` with the desired `Repeater` as an arugment.
 
-*Step 6*: `AddRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
+*Step 6*: `LogicManager` calls `AddRepeaterCommand#execute()`.
+
+*Step 7*: `AddRepeaterCommand` checks for the following constraints:
+- The `Repeater` to be added does not already exist in the `Model`.
+- The end date of the `Repeater` to be added is no earlier than its start date.
+- The start date and and end date of the `Repeater` to be added span no more than 60 months.
+
+*Step 8*: `AddRepeaterCommand` fetches the running `RepeaterUniqueId` counter tracked by the `Model`, and sets it as the created ``Repeater``'s unique id.
+
+*Step 9*: `AddRepeaterCommand` adds the newly created `Repeater` to the `Model`.
+
+*Step 10*: `AddRepeaterCommand` creates the associated ``Transaction``s, setting their repeater unique ids to that of the newly created `Repeater`.
+
+*Step 11*: `AddRepeaterCommand` adds the newly created ``Transaction``s to the `Model`.
+
+*Step 12*: `AddRepeaterCommand` increments the current `RepeaterUniqueId` counter in the `Model`.
+
+*Step 13*: `AddRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
 // end::repeateradd[]
 
-// tag::repeaterdelete[]
-==== Deleting Repeater : `delete`
+// tag::repeateredit[]
+==== Editing Repeater
 
 ===== Overview
-This feature allows the user to delete repeater in IchiFund. Delete a repeater also deletes the transactions associated with the deleted repeater.
+This feature allows the user to edit a repeater in IchiFund. Editing a repeater also updates the transactions associated with the added repeater.
 
 ===== Implementation
-The `delrep` command is facilitated by the Logic and Model components of the application. Given below is an example usage scenario of how `delrep` behaves at each step.
+The `edit` command is facilitated by the Logic and Model components of the application. Given below is an example usage scenario of how `edit` behaves at each step.
 
-*Step 1*: The user executes `delrep 2` to delete the repeater in the 2nd index.
+*Step 1*: In the repeaters tab, the user executes `edit 1 a/37.24 so/-1 eo/4` to edit the repeater at the 2nd index for an amount of $37.25, occuring only at the fourth last day of every month.
+
+*Step 2*: `LogicManager` uses `IchiFundParser#parserCommand()` to parse the input from the user.
+
+*Step 3*: `IchiFundParser` determines which command is being used and creates the respective `EditRepeaterCommandParser` parser with the user's input as an argument.
+
+*Step 4*: `EditRepeaterCommandParser` does a validation check on the user's input.
+
+*Step 5*: `EditRepeaterCommandParser` creates an `EditRepeaterDescriptor` which contains the updated repeater information provided by the user.
+
+*Step 6*: `EditRepeaterCommandParser` creates and returns an `EditRepeaterCommand` with the `Index` and `EditRepeaterDescriptor` as arguments.
+
+*Step 7*: `LogicManager` executes `EditRepeaterCommand#execute()`.
+
+*Step 8*: `EditRepeaterCommand` checks for the following constraints:
+- The updated `Repeater` does not already exist in the `Model`.
+- The end date of the updated `Repeater` is no earlier than its start date.
+- The start date and and end date of the updated `Repeater` span no more than 60 months.
+
+*Step 9*: `EditRepeaterCommand` creates a new `Repeater` using the original `Repeater` and the `EditRepeaterDescriptor`.
+
+*Step 10*: `EditRepeaterCommand` replaces the original `Repeater` in the `Model` with the newly created `Repeater`.
+
+*Step 11*: `EditRepeaterCommand` deletes all associated ``Transaction``s in the `Model` using the edited repeater's unique id.
+
+*Step 10*: `EditRepeaterCommand` creates the ``Transaction``s associated with the updated `Repeater`, setting their repeater unique ids to that of the updated `Repeater`.
+
+*Step 11*: `EditRepeaterCommand` adds the newly created ``Transaction``s to the `Model`.
+
+*Step 12*: `EditRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
+// end::repeatereidt[]
+
+// tag::repeaterdelete[]
+==== Deleting Repeater
+
+===== Overview
+This feature allows the user to delete repeater in IchiFund. Deleting a repeater also deletes the transactions associated with the deleted repeater.
+
+===== Implementation
+The `delete` command is facilitated by the Logic and Model components of the application. Given below is an example usage scenario of how `delete` behaves at each step.
+
+*Step 1*: In the repeaters tab, the user executes `delete 2` to delete the repeater at the 2nd index.
 
 *Step 2*: `LogicManager` uses `IchiFundParser#parserCommand()` to parse the input from the user.
 
 *Step 3*: `IchiFundParser` determines which command is being used and creates the respective `DeleteRepeaterCommandParser` parser with the user's input as an argument.
 
-*Step 4*: `DeleteRepeaterCommandParser` does a validation check on the user's input before creating and returning an `DeleteRepeaterCommand` with desired `Index` as an argument.
+*Step 4*: `DeleteRepeaterCommandParser` does a validation check on the user's input.
 
-*Step 5*: `LogicManager` uses `DeleteRepeaterCommand#execute()` to delete the `Repeater` and the associated ``Transaction``s from the `Model` which is handled by `ModelManager`.
+*Step 5*: `DeleteRepeaterCommandParser` creates and returns a `DeleteRepeaterCommand` with the desired `Index` as an argument.
 
-*Step 6*: `DeleteRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
+*Step 6*: `LogicManager` calls `DeleteRepeaterCommand#execute()`.
+
+*Step 7*: `DeleteRepeaterCommand` checks that a `Repeater` exists at the `Index`.
+
+*Step 8*: `DeleteRepeaterCommand` retrieves the `Repeater` at the `Index` from the `Model`.
+
+*Step 9*: `DeleteRepeaterCommand` deletes the `Repeater` from the `Model`.
+
+*Step 10*: `DeleteRepeaterCommand` deletes all associated ``Transaction``s in the `Model` using the deleted repeater's unique id.
+
+*Step 11*: `DeleteRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
 // end::repeaterdelete[]
 
 === Budget
