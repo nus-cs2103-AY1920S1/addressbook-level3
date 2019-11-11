@@ -1020,23 +1020,145 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. A missing data file will load the application with sample data similar to the first launch.
+.. If a data file is corrupted, please delete the file and re-launch the application.
+
+=== Access Control
+
+This section details general testing for access control.
+
+==== System Access Restrictions
+
+. Restriction of commands prior to login.
+
+.. Prerequisites: Application launched successfully. No user logged in.
+.. Test Case: `help` +
+   Expected: Pop-up box with link to user guide shows.
+.. Test Case: `logout` +
+   Expected: Error message is shown indicating that user must be logged in.
+.. Only the following commands are available prior to login: `help`, `register`, `login`, `exit`. Execution of any other command (prior to login) will display the same error message as above.
+
+. Registering a new account
+
+.. Prerequisites: Application launched successfully. No user logged in.
+.. Test Case: `register n/Tester p/12345678 e/test@nus u/Test-1 w/password t/New` +
+   Expected: New account is NOT registered. Error message is shown indicating that you must be a logged in admin to include tags.
+.. Test Case: `register n/Tester p/12345678 e/test@nus u/Test-1 w/password` +
+   Expected: New account is registered.
+.. Other incorrect commands to try:
+... Missing argument prefix (all prefixes are mandatory except `t/`)
+... Incorrect name syntax (e.g. `n/T35t@-R`)
+... Incorrect phone syntax (e.g. `p/num`)
+... Incorrect email syntax (e.g. `e/test.com`)
+... Incorrect username syntax (e.g. `u/_Test`)
+... Incorrect password syntax (e.g. `w/123`)
+
+. Logging in with the provided sample admin account.
+
+.. Prerequisites: Application launched successfully. No user logged in. Sample admin account not deleted.
+.. Test Case: `login u/Agent01 w/password` +
+   Expected: Login success. Interface swaps to incident view. Status bar reflects username of logged in account.
+.. Test Case: `login u/Agent01 w/p` +
+   Expected: Login failure. Generic error message is shown indicating either an invalid username or password (the error message is intentionally generic so as to deter malicious intent).
+.. Other incorrect commands to try: `login u/Agent` displays command usage error message (due to missing argument prefix).
+
+. Logging out
+
+.. Prerequisites: User is logged in.
+.. Test Case: `logout` +
+   Expected: Logout success. Interface shows the account management view. Status bar reflects that no user is logged in.
+
+==== Interface Command Restrictions
+
+. Swapping interfaces to access corresponding command suites
+
+.. Prerequisites: User is logged in.
+.. Test Case: `swap` +
+   Expected: Changes to account management interface if on incident interface, and vice versa.
+.. Corresponding Restrictions:
+... Account Management Suite (must be in account management view to execute): `register`, `update`, `list-a`, `find-a`, `delete-a`
+... Incident Management Suite (must be in incident management view to execute): `new`, `fill`, `submit`, `list-i`, `find-i`, `edit-i`, `list-v`, `find-v`, `edit-v`, `add-v`, `delete-v`
+... All other commands can be executed irrespective of interface view (subject to any prevailing login restrictions).
+
+=== Account Management (User)
+
+This section details commands available to regular users (non-Admin).
+
+==== Updating Own Account
+
+. Updating own account details and/or information
+
+.. Prerequisites: Logged in. In Account Management View.
+.. Test Case: `update p/98765432` +
+   Expected: Successful update of phone number for account of user logged in.
+.. Test Case: `update u/Test-2` +
+   Expected: Successful update of username for account of user logged in. Status bar is updated with new username and reflects the time of the update.
+.. Test Case: `update  ` +
+   Expected: Error message indicating that no fields have been edited.
+
+==== Listing Accounts (with optional Tag search)
+
+. Listing all accounts
+
+.. Prerequisites: Logged in. In Account Management View.
+.. Test Case: `list-a` +
+   Expected: Lists all accounts
+
+. Listing accounts whose tags match given keyword(s)
+
+.. Prerequisites: Logged in. In Account Management View.
+.. Test Case: `list-a admin` +
+   Expected: Lists all accounts with the admin tag
+.. Test Case: `list-a admin OC` +
+   Expected: Lists all accounts with the admin tag AND the OC tag. Accounts that only have either one of the keywords are not shown.
+
+==== Finding Accounts based on Name/Username
+
+. Finding accounts whose name or username matches given keyword(s)
+
+.. Prerequisites: Logged in. In Account Management View.
+.. Test Case: `find-a alex ahmed` +
+   Expected: Account view will show all accounts matching either alex OR ahmed in their username or name.
+.. Test Case: `find-a ` +
+   Expected: Command usage error message shown. This command requires at least one keyword.
+
+=== Account Management (Admin)
+
+This section details additional commands and command parameters available to administrators. Suffice to say, non admins cannot execute the following tests.
+
+==== Updating Other Accounts
+
+. Updating other accounts after a successful `find-a` or `list-a` command.
+
+.. Prerequisites: Logged in. In Account Management View. Logged in user is an admin. There are accounts in the account management view (either after using `find-a` or `list-a`).
+.. Test Case: `update 2 n/Someone` +
+   Expected: If there is a second person on the list, updates their name.
+
+==== Add Tags when Registering and Updating
+
+. Adding tags during registration process or when performing update operation.
+
+.. Prerequisites: Logged in. In Account Management View. Logged in user is an admin. Add any additional prerequisites necessary for either the `register` or `update` command as previously covered.
+.. Test Case: `update 2 t/admin` +
+   Expected: If there is a second person on the list, updates their tag to include the admin tag. This makes that account an admin account.
+.. Test Case: `register n/Tester p/12345678 e/test@nus u/Test-1 w/password t/Admin` +
+   Expected: Registers a new admin account. New account with admin tag is populated at the bottom of the accounts list.
+
+==== Deleting a person
+
+. Deleting a person while all persons are listed
+
+.. Prerequisites: Logged in. In Account Management View. Logged in user is an admin. List all persons using the `list-a` command.
+.. Test case: `delete-a 1` +
+   Expected: First contact is deleted from the list. Details of the deleted account shown in the status message.
+.. Test case: `delete-a 0` +
+   Expected: No account is deleted. Error details shown in the status message.
+.. Other incorrect commands to try: `delete-a`, `delete-a x` (where x is larger than the list size), `delete-a i` (where i is the index of the account currently logged in). +
+   Expected: Similar to previous.
 
 === Creating an incident report
 

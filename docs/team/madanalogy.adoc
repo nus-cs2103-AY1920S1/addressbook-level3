@@ -14,7 +14,7 @@ The Incident Management System is a desktop application used for managing incide
 * *Major Enhancement*: Implemented *Access Control*
 ** What it does: Restricts usage of the product to registered users, with additional command restrictions depending on user access level.
 ** Justification: This feature improves the product significantly by implementing basic security controls. Since the product is meant to deal with management of physical resources (vehicles) and sensitive information (incident reports), security controls are necessary for accountability and protection against misuse.
-** Highlights: This complex enhancement affects existing commands and can be easily applied to any commands added in future. It required an in-depth analysis of the product architecture and design alternatives. The implementation too was challenging as it required thorough assessment of loopholes and potential security vulnerabilities.
+** Highlights: This complex enhancement affects existing commands and can be easily applied to any commands added in future. It required an in-depth analysis of the product architecture, logic, and design alternatives. The implementation too was challenging as it required thorough assessment of loopholes and potential security vulnerabilities.
 
 * *Minor Enhancement*: Implemented *Account Management*
 ** Summary: Allows users the ability to manage their own account or other accounts if granted privileged access. This feature is necessary for the effective application of access control.
