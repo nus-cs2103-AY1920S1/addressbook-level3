@@ -45,7 +45,7 @@ public class AddDutyShiftCommand extends ReversibleCommand {
             + PREFIX_REOCCURRING + "m "
             + PREFIX_REOCCURRING_TIMES + "2\n";
 
-    public static final String MESSAGE_ADD_SHIFT_SUCCESS = "Duty shift for %1$s [%2$s] were added:\n%3$s";
+    public static final String MESSAGE_ADD_SHIFT_SUCCESS = "The duty shift for %1$s [%2$s] were added:\n%3$s";
     public static final String MESSAGE_SUCCESS_REOCCURRING = "%1$s reoccurring duty shifts for [%2$s] "
             + "%3$s were added:\n%4$s";
     public static final String MESSAGE_CANCEL_SHIFTS_CONSTRAINTS = "Must indicate at least 1 shift to add";

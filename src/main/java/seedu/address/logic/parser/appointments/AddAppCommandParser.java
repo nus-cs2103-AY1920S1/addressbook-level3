@@ -95,11 +95,4 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
                     new CancelAppCommand(event));
         }
     }
-
-
-
-
-
-
-
 }

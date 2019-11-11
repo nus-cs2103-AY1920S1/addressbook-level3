@@ -586,6 +586,7 @@ The appointment will be rejected by the system, if there are insufficient staff 
 
 Before an appointment can be scheduled, the system first checks the total number of staff doctors on duty in that timeslot. Next, the system checks the existing appointments in that timeslot. If the number of appointments in that timeslot is less than the number of doctors, the appointment will be scheduled. Otherwise, the appointment will not be scheduled.
 
+
 ==== `newappt` Command
 The `newappt` command is similar to the `new` command of patient and doctor. The command takes in the parameters required to construct `ReferenceId`, `DateTime` and `Status`. The image below shows how the `Appointment` object is constructed.
 
@@ -626,6 +627,8 @@ Given below is the sequence diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `cancelappt 1` Command
 image::CancelAppointmentSequenceDiagram.png[]
 
+// end::appointment[]
+
 ==== `missappt` Command
 
 The `missappt` command displays appointments that patients did not attend. The filtered appointments are found in `ModelManager`. The list is instantiated by filtering the `UniqueEventList` using `EventsMissedPredicate` which checks all APPROVED-Status appointments' end times with current time.
@@ -641,21 +644,46 @@ In future implementations, i.e. v2.0, the valid timing slot will be given based 
 ===== Aspect:  How to store Timing fields
 
 * **Alternative 1 (current choice):** Create `DateTime` and `Timing` class to store
-** Pros: Makes it easier to calculate timings and clashes between multiple appointments with different timing field.
-** Cons: Requires additional code to implement Timing class and interact with other common methods that rely on DateTime.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Makes it easier to calculate timings and clashes between multiple appointments with different timing field.
+|*Cons*|
+1. Requires additional code to implement Timing class and interact with other common methods that rely on DateTime.
+|===
+
 * **Alternative 2:** Store as Strings
-** Pros: Makes it easier to implement.
-** Cons: Requires additional code to convert into `DateTime` class when carrying out calculating methods.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Makes it easier to implement.
+|*Cons*|
+1. Requires additional code to convert into `DateTime` class when carrying out calculating methods.
+|===
 
 ===== Aspect: display appointments
 
 * **Alternative 1 (current choice):** Display appointments in a tab
-** Pros: Creates an intuitive and easily navigable screen to display appointments.
-** Cons: Decreases the efficiency of CLI by having to use GUI inputs.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Creates an intuitive and easily navigable screen to display appointments.
+|*Cons*|
+1. Decreases the efficiency of CLI by having to use GUI inputs.
+|===
+
 * **Alternative 2:** Keeps the onscreen clutter at a minimum and stays in line with the CLI concept.
-** Pros: Makes it easier to implement.
-** Cons: Increases difficulty in freely accessing appointments.
-// end::appointment[]
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Makes it easier to implement.
+|*Cons*|
+1. Increases difficulty in freely accessing appointments.
+|===
 
 // tag::shift[]
 === Duty Shift Scheduling
@@ -709,9 +737,7 @@ image::ChangeShiftActivityDiagram.png[]
 ==== `cancelshift` Command
 
 `cancelshift` simply takes in the index of the target duty shift to cancel according to the displayed shift list.
-
 // end::shift[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
