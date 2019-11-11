@@ -9,7 +9,6 @@ src/main/resources/docs/
 /*.iml
 
 # Storage/log files
-/data/
 /config.json
 /preferences.json
 /*.log.*
@@ -19,3 +18,9 @@ src/test/data/sandbox/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
+
+# ignore modifications
+gradlew.bat
+
+# Fork-specific build icon
+README.adoc

@@ -1,0 +1,90 @@
+= Chen Su - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Module Appeal Management System (MAMS)
+
+'''
+
+== Overview
+
+**The Module Appeal Management System (MAMS)** is a desktop appeal management app for module appeal administrators.
+MAMS aims to fuse a Command Line Interface (CLI) style command input with a triple-pane GUI for easy navigation of appeals, module information, and student
+particulars all in a single display.
+MAMS provides a complete suite of tools for intuitive navigation of the comprehensive data display and
+resolving appeals (_for feature details, please refer to User Guide_).
+MAMS is written primarily in Java, and features a GUI created with JavaFX, with CSS used to augment the GUI for improved user experience. It has about 13 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement 1: added the ability to check clashes for various cases*
+** What it does: allows the admin to check timetable clash in appeals requesting to add or drop modules, between 2 modules or in a student's current timetable
+** Justification: Checking timetable clash is one of the most important checks that an admin needs to perform before he/she decides to approve or reject an appeal.
+This feature improves the user experience significantly because it provides a convenient way for the admin who needs to perform such checks constantly.
+** Highlights: There are a few types of check that can be performed. Therefore, the user inputs for this command can take various forms.
+An in-depth analysis of design alternatives is required to deal with these variations.
+
+* *Major enhancement 2: enhanced the find command that allows the user to search in different lists*
+** What it does: allows the admin to search multiple keywords in multiple lists at the same time
+** Justification: There are a huge number of appeals, modules and students given the size of the university.
+This feature provides a convenient way to locate items which the admin wants to look for.
+** Highlights: This enhancement affects other commands since it will be used together with other commands often.
+For example, to filter all appeals requesting to add a particular module and check clashes in one go.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chensu2436&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chensu2436&tabRepo=AY1920S1-CS2103-T11-2%2Fmain%5Bmaster%5D[RepoSense Link]]
+
+* *Other contributions*:
+
+** Project management:
+*** Migrated user stories to GitHub issues
+*** Managed issues on GitHub and assigned issues to corresponding Milestones and team members
+*** Managed releases `v1.3` on GitHub
+** Refactoring of original code base:
+*** Removed original Add/Delete/Clear commands and related tests https://github.com/AY1920S1-CS2103-T11-2/main/pull/60[#60]
+*** Changed prefixes to suit our app and performed related refactoring https://github.com/AY1920S1-CS2103-T11-2/main/pull/85[#85]
+** Enhancements to existing features:
+*** Rectified disagreement in sample data https://github.com/AY1920S1-CS2103-T11-2/main/pull/206[#206]
+*** Edited TestUtils to be used for more meaningful tests https://github.com/AY1920S1-CS2103-T11-2/main/pull/211[#211]
+** Documentation:
+*** Converted the first draft of User Guide to AsciiDoc https://github.com/AY1920S1-CS2103-T11-2/main/pull/25[#25]
+*** Enhanced the class diagrams of logic component in Developer Guide https://github.com/AY1920S1-CS2103-T11-2/main/pull/214[#214]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T11-2/main/pull/92[#92]
+*** Reported bugs and suggestions for other teams (examples: https://github.com/chensu2436/ped/issues/8[1], https://github.com/chensu2436/ped/issues/6[2], https://github.com/chensu2436/ped/issues/7[3])
+*** Reviewed User Guide and Developer Guide for other teams in class (example: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/33[1])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=clash]
+
+include::../UserGuide.adoc[tag=find]
+
+[NOTE]
+_Due to page limit, only 1 find command example is included. Refer to User Guide 3.4 for more examples._
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+[NOTE]
+_Due to page limit, only 1 class diagram of Logic Component is included. Refer to Developer Guide for other class diagrams_
+
+include::../DeveloperGuide.adoc[tag=logic]
+
+include::../DeveloperGuide.adoc[tag=clash1]
+
+include::../DeveloperGuide.adoc[tag=clash2]
+
+include::../DeveloperGuide.adoc[tag=find]
+
+[NOTE]
+_Due to page limit, only Find Section in Manual Testing is shown. Refer to Developer Guide Appendix E for the Clash section._
+
+include::../DeveloperGuide.adoc[tag=test4]

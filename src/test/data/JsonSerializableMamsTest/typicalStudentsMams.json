@@ -1,0 +1,46 @@
+{
+  "_comment": "MAMS save file which contains the same Student values as in TypicalStudents#getTypicalMams()",
+  "students" : [ {
+    "name" : "Alice Pauline",
+    "credits" : "16",
+    "prevMods" : "alice@example.com",
+    "matricId" : "A01527367W",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Benson Meier",
+    "credits" : "20",
+    "prevMods" : "johnd@example.com",
+    "matricId" : "A01527367W",
+    "tagged" : [ "owesMoney", "friends" ]
+  }, {
+    "name" : "Carl Kurz",
+    "credits" : "18",
+    "prevMods" : "heinz@example.com",
+    "matricId" : "A01527367W",
+    "tagged" : [ ]
+  }, {
+    "name" : "Daniel Meier",
+    "credits" : "20",
+    "prevMods" : "cornelia@example.com",
+    "matricId" : "A01527367W",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Elle Meyer",
+    "credits" : "20",
+    "prevMods" : "werner@example.com",
+    "matricId" : "A01527367W",
+    "tagged" : [ ]
+  }, {
+    "name" : "Fiona Kunz",
+    "credits" : "26",
+    "prevMods" : "lydia@example.com",
+    "matricId" : "A01527367W",
+    "tagged" : [ ]
+  }, {
+    "name" : "George Best",
+    "credits" : "16",
+    "prevMods" : "anna@example.com",
+    "matricId" : "A01527367W",
+    "tagged" : [ ]
+  } ]
+}

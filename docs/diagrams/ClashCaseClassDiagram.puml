@@ -1,0 +1,15 @@
+@startuml
+!include style.puml
+
+Class "ClashCase" LOGIC_COLOR_T1{
+- moduleA : Module
+- moduleB : Module
+- clashingSlots : ArrayList<Integer>
+---
+}
+
+skinparam classAttributeIconSize 0
+skinparam classFontColor #000000
+hide circle
+show members
+@enduml

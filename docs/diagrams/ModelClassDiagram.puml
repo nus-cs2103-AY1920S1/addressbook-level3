@@ -5,52 +5,66 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyMams <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class Mams
+Class ReadOnlyMams
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
 Package Person {
-Class Person
-Class Address
-Class Email
+Class Student
+Class PrevMods
 Class Name
-Class Phone
-Class UniquePersonList
-}
-
-Package Tag {
+Class Credits
+Class UniqueStudentList
+Class MatricId
 Class Tag
 }
+
+Package Modules {
+Class Module
+Class UniqueModuleList
+}
+
+Package Appeals {
+Class Appeal
+Class UniqueAppealList
+}
+
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+Mams .up.|> ReadOnlyMams
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" Mams
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Mams *--> "1" UniqueStudentList
+UniqueStudentList o--> "*" Student
+Student o-up-> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Student *--> Name
+Student *--> Credits
+Student *--> PrevMods
+Student *--> MatricId
 
-ModelManager -->"1" Person : filtered list
+Mams *--> "1" UniqueAppealList
+UniqueAppealList o--> "*" Appeal
+
+Mams *--> "1" UniqueModuleList
+UniqueModuleList o--> "*" Module
+
+
+ModelManager -->"1" Student : filtered list
+ModelManager -->"1" Module : filtered list
+ModelManager -->"1" Appeal : filtered list
 @enduml

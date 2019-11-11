@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MamsParser" as MamsParser LOGIC_COLOR
+participant ":ClashCommandParser" as ClashCommandParser LOGIC_COLOR
+participant "c:ClashAppealCommand" as ClashAppealCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("clash a/c000001")
+activate LogicManager
+
+LogicManager -> MamsParser : parseCommand("clash a/c000001")
+activate MamsParser
+
+create ClashCommandParser
+MamsParser -> ClashCommandParser
+activate ClashCommandParser
+
+ClashCommandParser --> MamsParser
+deactivate ClashCommandParser
+
+MamsParser -> ClashCommandParser : parse("a/c000001")
+activate ClashCommandParser
+
+create ClashAppealCommand
+ClashCommandParser -> ClashAppealCommand
+activate ClashAppealCommand
+
+ClashAppealCommand --> ClashCommandParser : c
+deactivate ClashAppealCommand
+
+ClashCommandParser --> MamsParser : c
+deactivate ClashCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ClashCommandParser -[hidden]-> MamsParser
+destroy ClashCommandParser
+
+MamsParser --> LogicManager : c
+deactivate MamsParser
+
+LogicManager -> ClashAppealCommand : execute()
+activate ClashAppealCommand
+
+ClashAppealCommand -> Model : getFilteredAppealList()
+activate Model
+
+Model --> ClashAppealCommand
+deactivate Model
+
+ClashAppealCommand -> Model : getFilteredStudentList()
+activate Model
+
+Model --> ClashAppealCommand
+deactivate Model
+
+ClashAppealCommand -> Model : getFilteredModuleList()
+activate Model
+
+Model --> ClashAppealCommand
+deactivate Model
+
+create CommandResult
+ClashAppealCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ClashAppealCommand
+deactivate CommandResult
+
+ClashAppealCommand --> LogicManager : result
+deactivate ClashAppealCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

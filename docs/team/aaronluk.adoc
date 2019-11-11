@@ -1,0 +1,97 @@
+= Luk Chi Heng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Module Appeal Management System (MAMS)
+
+---
+
+== Overview
+
+
+.Sample User Interface of MAMS
+
+image::Ui.png[height=50%]
+
+Every semester, administrators from the National University of Singapore (NUS) have to
+systematically work their way through a heavy backlog of special requests, known as "appeals".
+These appeals are usually made by frantic students during Module Registration,
+a system where students register for their
+desired courses in the upcoming academic term, and represent special circumstances that require
+human judgement to resolve.
+
+**The Module Appeal Management System (MAMS)** is hence a desktop app that aims
+to fuse a Command Line Interface (CLI) style command input with a triple-pane
+GUI for easy navigation of appeals, module information, and student
+particulars all in a single display. By combining the precision and speed of a CLI
+input with the powerful side-by-side overview afforded by a GUI,
+this app is particularly aimed towards *appeal
+administrators who prefer to blaze through their heavy backload of appeals
+without ever having to leave the comfort of the keyboard for their mouse*. MAMS aims
+to be a self-contained application for fetching appeal, module, and student information, while
+providing a complete suite of tools for intuitive navigation of the comprehensive data display and
+resolving appeals. These include, but may not be limited to:
+
+- A *powerful side-by-side triple-pane list cell display of appeal, module, and student data*, with commands to quickly navigate between
+compact list views of multiple items and comprehensive expanded displays of single items.
+- A *command history feature* for administrators to quickly cycle through and re-use old commands, while providing a comprehensive
+and permanent log of all actions performed within the application.
+- A *clash feature* that allows administrators to accurately determine any potential timetable clashes in appeal cases,
+student workloads, or any two particular modules.
+- A *find feature* that enables administrators to quickly locate specific appeal, module, and student data, narrowing down clutter within the display.
+- An *add/remove module feature* that allows administrators to allocate or remove modules from students, while automatically checking for
+potential hiccups like duplicate assignments.
+- An *approve/reject feature* that allows administrators to close or resolve appeals in fast succession, and even provides functionality for mass operations.
+- A *set credits feature* that provides administrator with the functionality to override allowable student workloads.
+- An *undo/redo feature* to correct any recent unwanted data changes that may have been accidentally committed by the administrator.
+
+MAMS is written primarily in Java, and features a GUI created with JavaFX, with CSS used to augment the GUI for improved user experience. It has about
+13 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to resolve single and multiple appeals*
+** What it does: allows the user to approve or reject one or many appeals.  Upon approval, MAMS will automatically make changes to modules and students related to the resolved appeal.  Timetable clash checks will also be performed to inform user if an appeal cannot be approved due to clashes.
+** Justification: This feature improves the product significantly because it streamlines the process of resolving appeals.  The user's quality of life will be improved as the user need not perform the other functions separately to resolve an appeal as the resolve function performs all changes and checks in the background.
+** Highlights: Appeals may be submitted in the hundreds and will be overwhelming for the user.  As such this enhancement allows the user to carry out his job more efficiently by reducing the time taking and the number of commands to resolve appeals.  This implementation was challenging as it requires the integration of many other function like `clash`, `addmod`.
+** Credits: [https://github.com/AY1920S1-CS2103-T11-2/main/blob/master/src/main/java/mams/logic/commands/ClashCommand.java[Clash Command]] [https://github.com/AY1920S1-CS2103-T11-2/main/blob/master/src/main/java/mams/logic/commands/AddModCommand.java[Addmod Command]]
+
+* *Minor enhancement*: added *the ability to add reason for the approval or rejection for an appeal*
+** What it does: allows the user to add a reason to the approval or rejection of an appeal.  The reason will be added to the MAMS.json data file for future references.
+** Justification:  This feature is important as it allows the user to provide justifications to why an appeal was approved or rejected.  Supervisors of the user can also check the reasons should there be any complaints from students with regards to their appeals the reasons added help justify the decisions of the user.
+** Highlights:  This enhancement allows users to provide students with the reason for their choices to approve or reject their appeals.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=aaronluk&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=AaronLuk&tabRepo=AY1920S1-CS2103-T11-2%2Fmain%5Bmaster%5D[RepoSense Link]] (Use provided RepoSense filters to view "Functional" and "Test" Code)
+
+* *Other contributions*:
+** Documentation:
+*** Edit documentation for MAMS - DeveloperGuide: https://github.com/AY1920S1-CS2103-T11-2/main/pull/207[#207]
+*** Update storage component for MAMS in Developer Guide https://github.com/AY1920S1-CS2103-T11-2/main/pull/217[#217]
+** Implemented tests for new features increasing coverage by ~9% (Pull request: https://github.com/AY1920S1-CS2103-T11-2/main/pull/213[#213])
+***
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T11-2/main/pull/77[#77], https://github.com/AY1920S1-CS2103-T11-2/main/pull/65[#65]
+*** Reviewed User Guide and Developer Guide, and reported suggestions for other teams in class
+*** Edit MAMS.json data file with the valid data (Pull request https://github.com/AY1920S1-CS2103-T11-2/main/pull/109[#109])
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+include::../UserGuide.adoc[tag=approve]
+
+include::../UserGuide.adoc[tag=reject]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=resolve]
+
+
+== PROJECT: PowerPointLabs
+
+---

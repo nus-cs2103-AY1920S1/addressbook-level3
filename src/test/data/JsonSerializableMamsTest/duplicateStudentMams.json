@@ -1,0 +1,14 @@
+{
+  "students": [ {
+    "name": "Alice Pauline",
+    "credits": "32",
+    "prevMods": "alice@example.com",
+    "matricId": "A1238213R",
+    "tagged": [ "friends" ]
+  }, {
+    "name": "Alice Pauline",
+    "credits": "24",
+    "prevMods": "pauline@example.com",
+    "matricId": "A12837192R"
+  } ]
+}

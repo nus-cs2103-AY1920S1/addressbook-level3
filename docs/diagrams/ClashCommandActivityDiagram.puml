@@ -1,0 +1,51 @@
+@startuml
+
+start
+- User attempts to\n enter clash command
+if () then ([valid command syntax])
+
+    - Parse input arguments and set relevant parameters
+    - Execute Clash command
+
+    if () then ([check Appeal])
+
+        if() then ([add module appeal])
+        -Check clash between \nModule To Add between \nevery current module \nthat the student has.
+
+        elseif () then ([drop module appeal])
+        -Get Student in the Appeal
+        -Check clash between  \nModule To Drop between \nthe rest modules that \nthe student has.
+
+        else ([other appeal type])
+        -Return message \n"no need to check"
+        stop
+
+        endif
+
+    elseif () then ([check Modules])
+
+        -Get modules from the \nfull module list
+
+        if() then([modules found])
+        -Check clash between the \n2 modules
+
+        else([at least 1 module not found])
+        -Throw CommandException
+        stop
+
+        endif
+
+    else ([check Student])
+        -Check clash in student's \ncurrent timetable
+
+    endif
+
+    - Return CommandResult
+
+else ([Invalid command syntax])
+-Invalid command message
+endif
+
+stop
+
+@enduml

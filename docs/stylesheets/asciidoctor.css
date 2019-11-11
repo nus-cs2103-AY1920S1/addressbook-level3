@@ -135,7 +135,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #ddddd8;padding-bottom:8px}
 #header .details{border-bottom:1px solid #ddddd8;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
-#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details span.prevMods a{color:rgba(0,0,0,.85)}
 #header .details br{display:none}
 #header .details br+span:before{content:"\00a0\2013\00a0"}
 #header .details br+span.author:before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
@@ -293,9 +293,10 @@ td.hdlist1{font-weight:bold;padding-bottom:1.25em}
 .colist>table tr>td:first-of-type{padding:0 .75em;line-height:1}
 .colist>table tr>td:last-of-type{padding:.25em 0}
 .thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock{text-align:center}
 .imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
 .imageblock.right,.imageblock[style*="float: right"]{margin:.25em 0 1.25em .625em}
-.imageblock>.title{margin-bottom:0}
+.imageblock>.title{margin-bottom:0;text-align:center}
 .imageblock.thumb,.imageblock.th{border-width:6px}
 .imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
 .image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}

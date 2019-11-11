@@ -1,0 +1,21 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+abstract class ResolveCommand
+abstract class ResolveIndividual
+abstract class MassResolve
+class ApproveCommand
+class MassApprove
+class RejectCommand
+class MassReject
+
+ResolveCommand <|-- ResolveIndividual
+ResolveCommand <|-- MassResolve
+ResolveIndividual <|-- ApproveCommand
+MassResolve  <|-- MassApprove
+ResolveIndividual <|-- RejectCommand
+MassResolve  <|== MassReject
+@enduml

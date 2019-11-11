@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.Pane?>
+<HBox id="expandedCardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+        </columnConstraints>
+        <VBox alignment="TOP_LEFT" minHeight="600" prefHeight="900" GridPane.columnIndex="0">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="15" />
+            </padding>
+            <HBox spacing="5" alignment="CENTER_LEFT">
+                <Label fx:id="appealId" text="\$appealId" styleClass="cell_bigger_label" />
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Label fx:id="approvalIcon" alignment="CENTER_RIGHT" />
+                <Label fx:id="approvalStatus" alignment="CENTER_RIGHT" />
+                <Label fx:id="resolvedStatus" styleClass="prefix-label" text="\%resolvedStatus" alignment="CENTER_RIGHT"/>
+            </HBox>
+            <Label fx:id="appealType" styleClass="cell_bigger_label, pink-text-label" text="\$appealType" />
+
+            <Label minHeight="20" />
+
+            <HBox spacing="3">
+                <padding>
+                    <Insets top="1" bottom="1" />
+                </padding>
+                <Label fx:id="studentIdPrefix" styleClass="prefix-label, prefix_yellow" text="Requested By" />
+                <Label fx:id="studentId" styleClass="cell_small_label" text="\$studentId" />
+            </HBox>
+            <HBox spacing="3">
+                <padding>
+                    <Insets top="1" bottom="1" />
+                </padding>
+                <Label fx:id="academicYearPrefix" styleClass="prefix-label, prefix_yellow" text="Academic Year" />
+                <Label fx:id="academicYear" styleClass="cell_small_label" text="\$academicYear" />
+            </HBox>
+
+            <Label minHeight="20" />
+
+            <HBox spacing="3">
+                <padding>
+                    <Insets top="1" bottom="1" />
+                </padding>
+                <Label fx:id="requestedWorkloadPrefix" styleClass="prefix-label, prefix_orange" text="Requested Workload" />
+                <Label fx:id="requestedWorkload" styleClass="cell_small_label" />
+            </HBox>
+            <HBox spacing="3">
+                <padding>
+                    <Insets top="1" bottom="1" />
+                </padding>
+                <Label fx:id="moduleToDropPrefix" styleClass="prefix-label, prefix_orange" text="Module to Drop" />
+                <Label fx:id="moduleToDrop" styleClass="cell_small_label" />
+            </HBox>
+            <HBox spacing="3">
+                <padding>
+                    <Insets top="1" bottom="1" />
+                </padding>
+                <Label fx:id="requestedModulePrefix" styleClass="prefix-label, prefix_orange" text="Requested Module" />
+                <Label fx:id="requestedModule" styleClass="cell_small_label" />
+            </HBox>
+
+            <Label minHeight="20" />
+
+            <Label fx:id="appealDescriptionPrefix" styleClass="cell_big_label, orange-text-label" text="Student Reason:"/>
+            <Label fx:id="appealDescription" styleClass="cell_small_label, description_text" text="\$appealDescription" />
+
+            <Label minHeight="20" />
+
+            <Label fx:id="adminRemarksPrefix" styleClass="cell_big_label, orange-text-label" text="Admin Remarks:"/>
+            <Label fx:id="adminRemarks" styleClass="cell_small_label, description_text" text="\$adminRemarks" />
+        </VBox>
+    </GridPane>
+</HBox>

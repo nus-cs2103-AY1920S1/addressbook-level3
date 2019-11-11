@@ -1,0 +1,16 @@
+@startuml
+!include style.puml
+
+Class "ClashCommandParameters" LOGIC_COLOR_T1{
+- appealIndex : Index
+- moduleIndices : ArrayList<Index>
+- moduleCodes : ArrayList<String>
+- studentIndex : Index
+---
+}
+
+skinparam classAttributeIconSize 0
+skinparam classFontColor #000000
+hide circle
+show members
+@enduml

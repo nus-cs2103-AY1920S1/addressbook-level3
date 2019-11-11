@@ -1,0 +1,137 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MamsParser" as MamsParser LOGIC_COLOR
+participant ":AddModCommandParser" as AddModCommandParser LOGIC_COLOR
+participant "a:AddModCommand" as AddModCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("addmod s/2 m/CS1010")
+activate LogicManager
+
+LogicManager -> MamsParser : parseCommand("addmod s/2 m/CS1010")
+activate MamsParser
+
+create AddModCommandParser
+MamsParser -> AddModCommandParser
+activate AddModCommandParser
+
+AddModCommandParser --> MamsParser
+deactivate AddModCommandParser
+
+MamsParser -> AddModCommandParser : parse("addmod s/2 m/CS1010")
+activate AddModCommandParser
+
+create AddModCommand
+AddModCommandParser -> AddModCommand
+activate AddModCommand
+
+AddModCommand --> AddModCommandParser : a
+deactivate AddModCommand
+
+AddModCommandParser --> MamsParser : a
+deactivate AddModCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddModCommandParser -[hidden]-> MamsParser
+destroy AddModCommandParser
+
+MamsParser --> LogicManager : a
+deactivate MamsParser
+
+LogicManager -> AddModCommand : execute()
+activate AddModCommand
+
+alt studentUsingIndex
+    AddModCommand -> Model : getFilteredStudentList()
+    activate Model
+
+    Model --> AddModCommand
+    deactivate Model
+else !studentUsingIndex
+    AddModCommand -> Model : getFullStudentList()
+    activate Model
+
+    Model --> AddModCommand
+    deactivate Model
+
+end
+
+alt moduleUsingIndex
+    AddModCommand -> Model : getFilteredModuleList()
+    activate Model
+
+    Model --> AddModCommand
+    deactivate Model
+else !moduleUsingIndex
+    AddModCommand -> Model : getFullModuleList()
+    activate Model
+
+    Model --> AddModCommand
+    deactivate Model
+
+end
+
+
+AddModCommand -> AddModCommand: checkQuotaLimit(moduleList);
+activate AddModCommand
+deactivate AddModCommand
+AddModCommand -> AddModCommand: checkStudentWorkloadLimit(moduleList);
+activate AddModCommand
+deactivate AddModCommand
+
+
+break exception
+   AddModCommand -> AddModCommandParser
+   activate AddModCommandParser
+   AddModCommandParser -> MamsParser
+   deactivate AddModCommandParser
+   activate MamsParser
+   MamsParser -> LogicManager
+   deactivate MamsParser
+[<--LogicManager
+end
+
+AddModCommand -> AddModCommand: UpdateList()
+
+create CommandResult
+activate AddModCommand
+
+AddModCommand -> CommandResult
+activate CommandResult
+
+CommandResult -> Model: setStudent()
+activate Model
+Model -> CommandResult
+deactivate Model
+
+CommandResult -> Model: setModule()
+activate Model
+Model -> CommandResult
+deactivate Model
+
+CommandResult -> Model: updateFilteredStudentList()
+activate Model
+Model -> CommandResult
+deactivate Model
+
+CommandResult -> Model: updateFilteredModuleList()
+activate Model
+Model -> CommandResult
+deactivate Model
+
+CommandResult --> AddModCommand
+deactivate CommandResult
+
+AddModCommand --> LogicManager : result
+deactivate AddModCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

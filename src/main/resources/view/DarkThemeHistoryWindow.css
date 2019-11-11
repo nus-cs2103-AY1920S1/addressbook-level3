@@ -1,0 +1,109 @@
+.list-view {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.list-cell {
+    -fx-label-padding: 0 0 0 0;
+    -fx-graphic-text-gap : 0;
+    -fx-padding: 1 1 1 1;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-wrap-text: true;
+}
+
+.list-cell:filled:even {
+    -fx-background-color: #20212A;
+}
+
+.list-cell:filled:odd {
+    -fx-background-color: #20212A;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #20212A;
+}
+
+.list-cell:filled:selected #cardPane {
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-radius: 0;
+}
+
+.list-cell:empty {
+    /* Empty cells will not have alternating colours */
+    -fx-background: transparent;
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-wrap-text: true;
+}
+
+.label.cell_small_label {
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13px;
+    -fx-tile-alignment: CENTER;
+}
+
+.stack-pane.history-display {
+    -fx-background-color: #20212A;
+}
+
+.label.time-stamp {
+    -fx-font-size: 11;
+    -fx-text-fill: #FA77C3;
+}
+
+#timeStamp .label {
+    -fx-font-size: 10px;
+}
+
+#historyWindowText {
+    -fx-font-family: "Courier";
+}
+
+.pane-with-border {
+    -fx-background-color: derive(#282A36, 20%);
+    -fx-border-color: derive(#282A36, 10%);
+    -fx-border-top-width: 1px;
+}
+
+.result-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "Roboto Mono for Powerline", "Courier";
+    -fx-font-size: 10pt;
+    -fx-text-fill: white;
+}
+
+.scroll-bar {
+    -fx-background-color: derive(#282A36, 20%);
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: derive(#282A36, 50%);
+    -fx-background-insets: 3;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+}
+
+.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 1 8 1 8;
+}
+
+.scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
+    -fx-padding: 8 1 8 1;
+}
+
+#resultDisplay .content {
+    -fx-background-color: transparent, #20212A, transparent, #20212A;
+    -fx-background-radius: 0;
+}

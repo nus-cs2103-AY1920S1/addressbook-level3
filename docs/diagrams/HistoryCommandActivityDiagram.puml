@@ -1,0 +1,48 @@
+
+@startuml
+
+start
+- User attempts to\n enter history command
+if () then ([valid command syntax])
+
+    - Parse input arguments
+    - Execute history command
+
+        if () then ([user specified \n to show only\nsuccessful\ncommands])
+            - Unsuccessful commands\nare filtered out from\n display.
+
+        else ([else])
+            - Show all commands (unfiltered)
+        endif
+
+
+    if () then ([user specified \n to hide output])
+        - All command outputs\n in history window\n is hidden
+
+    else ([else])
+        - Show all command \n inputs and their \n corresponding \n outputs
+    endif
+
+    if () then ([history \n window \nis open])
+        - Return focus \n to history window
+    else([else])
+        - Re-open history \n window
+    endif
+
+    while () is ([window is open])
+
+        if () then ([UP/DOWN\narrow key\npressed])
+            - Navigate across history entries
+        else([Q key pressed])
+            - Copy selected command to clipboard
+
+        endif
+
+    endwhile ([ESC key pressed\n or window closed])
+
+else ([Invalid command syntax])
+-Invalid command message
+endif
+
+stop
+@enduml

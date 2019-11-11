@@ -1,0 +1,106 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MamsParser" as MamsParser LOGIC_COLOR
+participant ":ApprovevCommandParser" as ApproveCommandParser LOGIC_COLOR
+participant "A:ApproveCommand" as ApproveCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("approve a/2")
+activate LogicManager
+
+LogicManager -> MamsParser : parseCommand("approve a/2")
+activate MamsParser
+
+create ApproveCommandParser
+MamsParser -> ApproveCommandParser
+activate ApproveCommandParser
+
+ApproveCommandParser --> MamsParser
+deactivate ApproveCommandParser
+
+MamsParser -> ApproveCommandParser : parse("a/2")
+activate ApproveCommandParser
+
+create ApproveCommand
+ApproveCommandParser -> ApproveCommand
+activate ApproveCommand
+
+ApproveCommand --> ApproveCommandParser : A
+deactivate ApproveCommand
+
+ApproveCommandParser --> MamsParser : A
+deactivate ApproveCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ApproveCommandParser -[hidden]-> MamsParser
+destroy ApproveCommandParser
+
+MamsParser --> LogicManager : A
+deactivate MamsParser
+
+LogicManager -> ApproveCommand : execute()
+activate ApproveCommand
+
+ApproveCommand -> Model : getFilteredAppealList()
+activate Model
+
+Model --> ApproveCommand
+deactivate Model
+
+ApproveCommand -> Model : getFullStudentList()
+activate Model
+
+Model --> ApproveCommand
+deactivate Model
+
+ApproveCommand -> Model : getFullModuleList()
+activate Model
+
+Model --> ApproveCommand
+deactivate Model
+
+ApproveCommand -> Model : setStudent()
+activate Model
+
+Model --> ApproveCommand
+deactivate Model
+
+ApproveCommand -> Model : setModule()
+activate Model
+
+Model --> ApproveCommand
+deactivate Model
+
+ApproveCommand -> Model : updateFilteredStudentList()
+activate Model
+
+Model --> ApproveCommand
+deactivate Model
+
+ApproveCommand -> Model : updateFilteredModuleList()
+activate Model
+
+Model --> ApproveCommand
+deactivate Model
+
+create CommandResult
+ApproveCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ApproveCommand
+deactivate CommandResult
+
+ApproveCommand --> LogicManager : result
+deactivate ApproveCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

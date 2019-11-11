@@ -1,0 +1,35 @@
+@startuml
+
+start
+- User attempts to\n enter approve command
+
+
+
+
+
+if () then ([valid command syntax])
+
+    while (has valid appeals in validAppealList) is (true)
+
+        - Parse input arguments
+        - Execute approve command
+
+        if (add module) then (yes)
+            if () then ([clash detected or\n student has module])
+            else ([else])
+                - add module to student \n add student to module
+            endif
+        elseif (drop module) then (yes)
+            if () then ([student does not\n have module])
+            else([else])
+                - remove module from student \n remove student from module
+            endif
+        elseif (increase workload) then (yes)
+            - increase workload
+        endif
+    endwhile(false)
+else ([Invalid command syntax])
+    -Invalid command message
+endif
+stop
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+
+interface Predicate
+class NamesContainsKeywordsPredicate {
+List<String> Keywords
+test()
+equals()
+}
+class ModuleContainsKeywordsPredicate {
+List<String> Keywords
+test()
+equals()
+}
+class AppealContainsKeywordsPredicate {
+List<String> Keywords
+test()
+equals()
+}
+
+Predicate <|.. NamesContainsKeywordsPredicate
+Predicate <|.. ModuleContainsKeywordsPredicate
+Predicate <|.. AppealContainsKeywordsPredicate
+
+@enduml

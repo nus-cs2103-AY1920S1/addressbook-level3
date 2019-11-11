@@ -1,0 +1,8 @@
+{
+  "students": [ {
+    "name": "Hans Muster",
+    "credits": "16",
+    "prevMods": "invalid@prevMods!3e",
+    "matricId": "A01527367W"
+  } ]
+}

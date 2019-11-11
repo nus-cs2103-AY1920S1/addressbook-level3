@@ -1,0 +1,108 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MamsParser" as MamsParser LOGIC_COLOR
+participant ":ApprovevCommandParser" as ApproveCommandParser LOGIC_COLOR
+participant "A:MassApprove" as MassApprove LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("approve mass/C000000 C000001 C000010")
+activate LogicManager
+
+LogicManager -> MamsParser : parseCommand("approve mass/C000000 C000001 C000010")
+activate MamsParser
+
+create ApproveCommandParser
+MamsParser -> ApproveCommandParser
+activate ApproveCommandParser
+
+ApproveCommandParser --> MamsParser
+deactivate ApproveCommandParser
+
+MamsParser -> ApproveCommandParser : parse("mass/C000000 C000001 C000010")
+activate ApproveCommandParser
+
+create MassApprove
+ApproveCommandParser -> MassApprove
+activate MassApprove
+
+MassApprove --> ApproveCommandParser : A
+deactivate MassApprove
+
+ApproveCommandParser --> MamsParser : A
+deactivate ApproveCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ApproveCommandParser -[hidden]-> MamsParser
+destroy ApproveCommandParser
+
+MamsParser --> LogicManager : A
+deactivate MamsParser
+
+LogicManager -> MassApprove : execute()
+activate MassApprove
+
+MassApprove -> Model : getFullAppealList()
+activate Model
+
+Model --> MassApprove
+deactivate Model
+
+loop For all valid appeal IDs
+MassApprove -> Model : getFullStudentList()
+activate Model
+
+Model --> MassApprove
+deactivate Model
+
+MassApprove -> Model : getFullModuleList()
+activate Model
+
+Model --> MassApprove
+deactivate Model
+
+MassApprove -> Model : setStudent()
+activate Model
+
+Model --> MassApprove
+deactivate Model
+
+MassApprove -> Model : setModule()
+activate Model
+
+Model --> MassApprove
+deactivate Model
+
+MassApprove -> Model : updateFilteredStudentList()
+activate Model
+
+Model --> MassApprove
+deactivate Model
+
+MassApprove -> Model : updateFilteredModuleList()
+activate Model
+
+Model --> MassApprove
+deactivate Model
+
+end
+create CommandResult
+MassApprove -> CommandResult
+activate CommandResult
+
+CommandResult --> MassApprove
+deactivate CommandResult
+
+MassApprove --> LogicManager : result
+deactivate MassApprove
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

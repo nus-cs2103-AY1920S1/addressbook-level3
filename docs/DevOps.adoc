@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Dev Ops
+= Module Appeal Management System (MAMS) - Dev Ops
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T11-2/main
 
 == Build Automation
 
@@ -34,7 +34,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:https://github.com/AY1920S1-CS2103-T11-2/main/blob/master/src/main/java/mams/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
