@@ -29,6 +29,7 @@ import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.answerable.TrueFalse;
 
 /**
+ * @author wilfredbtan
  * Parses user input.
  */
 public class ParserManager {

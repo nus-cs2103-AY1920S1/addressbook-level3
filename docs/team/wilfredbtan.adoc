@@ -486,6 +486,6 @@ move on to the next question.
 . Once the entire quiz has ended, the user will be given the choice to restart or exit the quiz.
 
 [NOTE]
-For Custom Mode, the game play is the same except that user can choose the category and difficulty of questions. +
+For Custom Mode, the game play is the same except that user can choose the category, difficulty and timer for the questions. +
 For Arcade Mode, when a users enters a wrong answer, the quiz will end.
 

@@ -36,6 +36,7 @@ import seedu.revision.ui.bar.ScoreProgressAndTimerGridPane;
 import seedu.revision.ui.bar.Timer;
 
 /**
+ * @author wilfredbtan
  * The Quiz Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
