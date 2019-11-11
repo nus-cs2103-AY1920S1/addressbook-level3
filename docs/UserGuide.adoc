@@ -502,6 +502,7 @@ list of expenses, such as `add n/automatic stats displays are cool a/50.00`, and
 
 .Live statistics display in action upon adding an expense.
 image::live-statistics-demo.gif[]
+{nbsp} +
 
 
 Should you want to view different types of statistics and customize the information you get, Billboard also supports various different types of
@@ -534,7 +535,7 @@ Usage:
 
 INFO:
 
-* `DATE_INTERVAL`: Specifies the date interval to be used to aggregate the expenses by. For example, Supported date intervals include 'day', 'week', 'month' and 'year'.
+* `DATE_INTERVAL`: Specifies the date interval to be used to aggregate the expenses by. For example, supported date intervals include 'day', 'week', 'month' and 'year'.
 * `GROUPING`: Specifies the grouping to use to group the expenses into each separate timeline. Supported groupings include "none", "tag", "month" and "day-of-week".
 
 {nbsp} +
