@@ -27,10 +27,10 @@ FlashCard Pro has a GUI created with JavaFX. It is written in Java, and has abou
 ** My team's decision to make `State` non-static influenced me to decouple `UserStats` and `DeckStats` from `State`. This required some degree of refactoring quite close to the deadline of the project.
 ** To get aggregate data from `LocalDateTime` and `Duration` objects, I implemented a number of utilities in the `DateTimeUtil` class (and some others). I also implemented `SessionListUtil` and `StatsDisplayUtil` for handling the calculation of average scores and the display of `TableView` objects. The process of writing and testing these utilities was quite enjoyable and increased my confidence in working with Java APIs.
 
-image::{imagesDir}/stats window.png[width="650", align="center"]
+image::stats window.png[width="650", align="center"]
 The Statistics window contains key statistics like the user's number of login sessions, duration of login sessions, number of decks, number of cards, and average score for test sessions. It also displays the user's login sessions in a table format, which can be sorted by clicking on the column headers. Similarly, the user's decks are summarised in a table. Double-clicking on a table row will open the corresponding deck statistics window.
 
-image::{imagesDir}/deck stats window.png[width="650", align="center"]
+image::deck stats window.png[width="650", align="center"]
 The Deck Statistics window shows the user's statistics pertaining to the deck, and all of their test sessions involving the deck in a table format.
 
 *Major enhancement*: contributions to the GUI of the app.
@@ -50,10 +50,10 @@ The Deck Statistics window shows the user's statistics pertaining to the deck, a
 *** I can also author new components via SceneBuilder (such as `StatisticsWindow`) and make significant changes to existing components (such as `MainWindow` and the various displays). By referring to the API, I was able to overcome a number of challenges to achieve my desired behaviour (e.g. components being laid out with appropriate padding, preserving the size and scale of components when the window is resized).
 *** I have also designed a different layout for my statistics windows, consisting of big numbers with labels, which is more creative and visually appealing than my initial design, which displayed the information in a bland way.
 
-image::{imagesDir}/old stats window.png[]
+image::old stats window.png[]
 My old design for the statistics window, which has since been substantially improved, as my comfort level with JavaFX has increased. See above for the new statistics window.
 
-image::{imagesDir}/initial design.png[]
+image::initial design.png[]
 My initial design work on Figma.
 
 The following table provides a summary of my GUI enhancements:
@@ -61,22 +61,23 @@ The following table provides a summary of my GUI enhancements:
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
+** Team tasks:
+*** Updated the app's icon, including for all popup windows.
+*** Also updated the title of popup windows to include "FlashCard Pro:" as a prefix.
 ** Project management:
 *** Wrote issues upon discovering bugs and assigned them to respective team members.
+*** Went through the issues from PE dry run and assigned them to respective team members.
 ** Documentation:
-*** I authored the Introduction section of the User Guide, as I was quite involved in the initial conceptualisation of the project.
+*** I authored the Introduction section of the User Guide, as I was quite involved in the initial conceptualisation of the project. See <<Contributions to the User Guide>> below.
 *** Subsequently, I made non-trivial improvements to the clarity of the writing throughout the User Guide. In particular, I abstracted out the What is a flashcard? and Interacting with flashcards sections from the Introduction.
-*** I also helped to clean up various sections of the User Guide, especially in the first draft, to make sure they abided by a consistent format.
+*** I also helped to clean up various sections of the User Guide, especially in the first draft, to make sure they adhered to a consistent format.
+*** I documented my own features (Statistics) in the Developer Guide. See <<Contributions to the Developer Guide>> below.
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-
+*** PRs reviewed (with non-trivial review comments): https://github.com/nus-cs2103-AY1920S1/duke/pull/250/files/5c0d4ea1c8b5a15f278779ee09592dda903febd5[#250]
 
 == Contributions to the User Guide
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. I have
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=introduction]
@@ -86,15 +87,8 @@ include::../UserGuide.adoc[tag=stats]
 =======
 
 == Contributions to the Developer Guide
-
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-
-
 == PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
