@@ -864,10 +864,10 @@ This behaviour is intentional and not a bug.
 * Date range starts from 1970 onwards
 ** Date of year input starts from 1970 onwards. This is enough to fit our use case. Anything lower will be rejected.
 
-* Auto truncation of labels
+* Auto truncation of labels and values
 ** the X-axis labels will adjust automatically based on the range of inputs. This is intended to give users the
 flexibility with regards to the range of dates to be inputted. Above a certain range the interval between x-axis data
-will decrease e.g 2 months
+will decrease e.g 2 months. Above a certain values, labels will be replaced by standard notation e.g 9999999E8
 
 * Stats window data not updating
 ** If you already have a stats window open and you complete an order,
