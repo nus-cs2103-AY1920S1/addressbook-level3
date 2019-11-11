@@ -15,7 +15,6 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import seedu.guilttrip.logic.commands.findcommands.FindAutoExpenseCommand;
-import seedu.guilttrip.logic.commands.findcommands.FindBudgetCommand;
 import seedu.guilttrip.logic.commands.findcommands.FindExpenseCommand;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
@@ -30,15 +29,16 @@ import seedu.guilttrip.model.entry.predicates.EntryContainsDatePredicate;
 import seedu.guilttrip.model.entry.predicates.EntryContainsDescriptionPredicate;
 import seedu.guilttrip.model.entry.predicates.EntryContainsTagsPredicate;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
- * Parses input arguments and creates a new FindBudgetCommand object
+ * Parses input arguments and creates a new FindAutoExpenseCommand object
  */
 public class FindAutoExpenseCommandParser implements Parser<FindAutoExpenseCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindBudgetCommand
-     * and returns a FindBudgetCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the FindAutoExpenseCommand
+     * and returns a FindAutoExpenseCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindAutoExpenseCommand parse(String args) throws ParseException {
@@ -64,7 +64,7 @@ public class FindAutoExpenseCommandParser implements Parser<FindAutoExpenseComma
 
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
             String name = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
-            predicateList.add(new EntryContainsCategoryPredicate(new Category(name, "Expense")));
+            predicateList.add(new EntryContainsCategoryPredicate(new Category(name, CategoryType.EXPENSE)));
         }
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
@@ -78,7 +78,7 @@ public class FindAutoExpenseCommandParser implements Parser<FindAutoExpenseComma
         }
 
         if (predicateList.size() == 0) {
-            throw new ParseException(FindBudgetCommand.INSUFFICENT_ARGUMENTS);
+            throw new ParseException(FindAutoExpenseCommand.INSUFFICENT_ARGUMENTS);
         }
 
         return new FindAutoExpenseCommand(predicateList);

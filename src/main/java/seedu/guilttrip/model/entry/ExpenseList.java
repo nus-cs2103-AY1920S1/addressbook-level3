@@ -10,7 +10,6 @@ import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.guilttrip.model.entry.exceptions.DuplicateEntryException;
 import seedu.guilttrip.model.entry.exceptions.EntryNotFoundException;
 
 /**
@@ -26,7 +25,7 @@ import seedu.guilttrip.model.entry.exceptions.EntryNotFoundException;
 public class ExpenseList implements Iterable<Expense> {
 
     private final ObservableList<Expense> internalList = FXCollections.observableArrayList(toobserve ->
-            new Observable[] {new SimpleStringProperty(toobserve.getCategory().categoryName)});
+            new Observable[] {new SimpleStringProperty(toobserve.getCategory().getCategoryName())});
     private final ObservableList<Expense> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
@@ -56,13 +55,6 @@ public class ExpenseList implements Iterable<Expense> {
         requireAllNonNull(target, editedExpense);
 
         int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new EntryNotFoundException();
-        }
-
-        if (!target.equals(editedExpense) && contains(editedExpense)) {
-            throw new DuplicateEntryException();
-        }
 
         internalList.set(index, editedExpense);
     }

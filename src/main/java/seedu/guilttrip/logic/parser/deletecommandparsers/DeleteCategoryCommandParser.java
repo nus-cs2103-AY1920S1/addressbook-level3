@@ -10,6 +10,7 @@ import seedu.guilttrip.logic.commands.deletecommands.DeleteCategoryCommand;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
+import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.Prefix;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.model.entry.Category;
@@ -36,9 +37,9 @@ public class DeleteCategoryCommandParser implements Parser<DeleteCategoryCommand
 
         String categoryType = argMultimap.getValue(PREFIX_CATEGORY).get().toLowerCase();
         String categoryName = argMultimap.getValue(PREFIX_DESC).get().toLowerCase();
-
+        Category category = ParserUtil.parseCategory(categoryName, categoryType);
         //will check if category exist when creating new category
-        return new DeleteCategoryCommand(new Category(categoryName, categoryType));
+        return new DeleteCategoryCommand(category);
     }
 
     /**

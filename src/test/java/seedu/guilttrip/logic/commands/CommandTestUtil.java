@@ -6,7 +6,10 @@ import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_OLD_NAME;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_SEQUENCE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.guilttrip.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -52,7 +55,7 @@ public class CommandTestUtil {
     // Incomes
     public static final String VALID_DESC_SALARY_INCOME = "october salary";
     public static final String VALID_DESC_TUITION_INCOME = "tution work money";
-    public static final String VALID_AMOUNT_SALARY_INCOME = "3000";
+    public static final double VALID_AMOUNT_SALARY_INCOME = 3000;
     public static final String VALID_CATEGORY_SALARY_INCOME = "Salary";
     public static final String VALID_DATE_SALARY_INCOME = "2019 10 28";
     public static final String VALID_TAG_MONEY = "money";
@@ -80,6 +83,10 @@ public class CommandTestUtil {
     public static final String VALID_CATEGORY_NAME_EXPENSE_FOOD = "food";
     public static final String VALID_CATEGORY_NAME_EXPENSE_SHOPPING = "shopping";
     public static final String VALID_CATEGORY_NAME_INCOME = "Business";
+    //For Edit
+    public static final String VALID_NEW_CATEGORY_NAME = "learning";
+    public static final String VALID_OLD_CATEGORY_NAME = "food";
+
 
     //Category related Test Utils.
     public static final String CATEGORY_TYPE_EXPENSE = " " + PREFIX_CATEGORY + VALID_CATEGORY_TYPE_EXPENSE;
@@ -88,14 +95,25 @@ public class CommandTestUtil {
     public static final String CATEGORY_NAME_INCOME = " " + PREFIX_DESC + VALID_CATEGORY_NAME_INCOME;
     public static final String CATEGORY_NAME_EXPENSE_FOR_ENTRIES = " " + PREFIX_CATEGORY
             + VALID_CATEGORY_NAME_EXPENSE_FOOD;
+    //For Edit
+    public static final String CATEGORY_NAME_FOR_EDIT_NEW = " " + PREFIX_DESC + VALID_NEW_CATEGORY_NAME;
+    public static final String CATEGORY_NAME_FOR_EDIT_OLD = " " + PREFIX_OLD_NAME + VALID_OLD_CATEGORY_NAME;
+    public static final String INVALID_CATEGORY_NAME_FOR_EDIT_NEW = " " + PREFIX_DESC + VALID_OLD_CATEGORY_NAME;
 
     public static final String INVALID_CATEGORY_TYPE_BUDGET = " " + PREFIX_CATEGORY + "Budget";
     public static final String INVALID_CATEGORY_NAME = " " + PREFIX_DESC + "Alcohol";
+    public static final String INVALID_CATEGORY_NAME_FOR_EDIT = " " + PREFIX_OLD_NAME + "Alcohol";
 
     //Find related TestUtils.
     public static final String DESCRIPTION = "pgp cotton";
     public static final double AMOUNT = 200.00;
     public static final String AMOUNT_STRING = "200.00";
+
+    //Sort related TestUtils.
+    public static final String VALID_SORT_TYPE = "time";
+    public static final String VALID_SORT_SEQUENCE = "ascending";
+    public static final String SORT_TYPE_TIME = " " + PREFIX_TYPE + VALID_SORT_TYPE;
+    public static final String SORT_TYPE_ASCENDING = " " + PREFIX_SEQUENCE + VALID_SORT_SEQUENCE;
 
     public static final String FIND_BY_DESCRIPTION = " " + PREFIX_DESC + DESCRIPTION;
     public static final String FIND_BY_AMOUNT = " " + PREFIX_AMOUNT + AMOUNT;
@@ -130,12 +148,7 @@ public class CommandTestUtil {
             Model expectedModel, CommandHistory commandHistory) {
         try {
             CommandResult result = command.execute(actualModel, commandHistory);
-            /*System.out.println("expected: " + expectedCommandResult.getFeedbackToUser());
-            System.out.println("actual:   " + result.getFeedbackToUser());
-            System.out.println("expected model: " + expectedModel.getFilteredIncomes());
-            System.out.println("actual model:   " + actualModel.getFilteredIncomes());*/
             assertEquals(expectedCommandResult, result);
-            assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
@@ -195,4 +208,16 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredIncomes().size());
     }
 
+    /**
+     * Updates {@code model}'s filtered list to show only the expense at the given {@code targetIndex} in the
+     * {@code model}'s GuiltTrip.
+     */
+    public static void showExpenseAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredIncomes().size());
+        Expense expense = model.getFilteredExpenses().get(targetIndex.getZeroBased());
+        final String[] splitDesc = expense.getDesc().fullDesc.split("\\s+");
+        model.updateFilteredExpenses(new EntryContainsDescriptionPredicate(Arrays.asList(splitDesc[0])));
+
+        assertEquals(1, model.getFilteredExpenses().size());
+    }
 }

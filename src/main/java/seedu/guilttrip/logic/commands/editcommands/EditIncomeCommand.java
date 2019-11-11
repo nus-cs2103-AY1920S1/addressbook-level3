@@ -1,6 +1,7 @@
 package seedu.guilttrip.logic.commands.editcommands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
@@ -75,6 +76,9 @@ public class EditIncomeCommand extends Command {
 
         Income incomeToEdit = lastShownList.get(index.getZeroBased());
         Income editedIncome = createEditedIncome(incomeToEdit, editIncomeDescriptor);
+        if (!model.hasCategory(editedIncome.getCategory())) {
+            throw new CommandException(MESSAGE_INVALID_CATEGORY);
+        }
 
         if (incomeToEdit.isSameEntry(editedIncome) && model.hasIncome(editedIncome)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);

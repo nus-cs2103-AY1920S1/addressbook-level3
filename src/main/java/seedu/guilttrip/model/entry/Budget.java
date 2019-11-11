@@ -1,5 +1,7 @@
 package seedu.guilttrip.model.entry;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Set;
 
 import javafx.collections.transformation.FilteredList;
@@ -64,8 +66,9 @@ public class Budget extends Entry {
         return filteredExpenses;
     }
 
-    public void setSpentAmount(Amount amount) {
-        spent = new BudgetAmount(amount.value);
+    public void setSpentAmount(BudgetAmount amount) {
+        requireNonNull(amount);
+        this.spent = amount;
     }
 
     public void setSpent(FilteredList<Expense> filteredExpenses) {
@@ -91,7 +94,7 @@ public class Budget extends Entry {
      * Returns a new Budget if and only if it's category is edited.
      */
     public Budget modifiedBudget(String newName) {
-        Category newCategory = new Category(newName, super.getCategory().categoryType);
+        Category newCategory = new Category(newName, super.getCategory().getCategoryType());
         return new Budget(newCategory, super.getDesc(), super.getDate(), this.getPeriod(),
                 this.getAmount(), super.getTags(), this.spent);
     }

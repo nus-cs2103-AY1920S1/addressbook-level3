@@ -1,3 +1,4 @@
+/*
 package seedu.guilttrip;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,7 +18,8 @@ public class AppParametersTest {
     private final ParametersStub parametersStub = new ParametersStub();
     private final AppParameters expected = new AppParameters();
 
-    @Test
+    */
+/*@Test
     public void parse_validConfigPath_success() {
         parametersStub.namedParameters.put("config", "config.json");
         expected.setConfigPath(Paths.get("config.json"));
@@ -35,7 +37,8 @@ public class AppParametersTest {
         parametersStub.namedParameters.put("config", "a\0");
         expected.setConfigPath(null);
         assertEquals(expected, AppParameters.parse(parametersStub));
-    }
+    }*//*
+
 
     private static class ParametersStub extends Application.Parameters {
         private Map<String, String> namedParameters = new HashMap<>();
@@ -56,3 +59,4 @@ public class AppParametersTest {
         }
     }
 }
+*/

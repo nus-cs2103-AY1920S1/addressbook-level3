@@ -22,6 +22,7 @@ import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
 import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
+import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.tag.Tag;
 
 /**
@@ -38,7 +39,8 @@ public class EditBudgetCommandParser implements Parser<EditBudgetCommand> {
     public EditBudgetCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DESC, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_TAG, PREFIX_PERIOD);
+                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DESC, PREFIX_DATE, PREFIX_AMOUNT,
+                        PREFIX_TAG, PREFIX_PERIOD);
 
         Index index;
 
@@ -69,6 +71,12 @@ public class EditBudgetCommandParser implements Parser<EditBudgetCommand> {
 
         if (argMultimap.getValue(PREFIX_PERIOD).isPresent()) {
             editBudgetDescriptor.setPeriod(ParserUtil.parsePeriods(argMultimap.getValue(PREFIX_PERIOD).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            Category editedCategory = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get(),
+                    "Expense");
+            editBudgetDescriptor.setCategory(editedCategory);
         }
 
         if (!editBudgetDescriptor.isAnyFieldEdited()) {

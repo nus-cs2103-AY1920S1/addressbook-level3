@@ -10,6 +10,7 @@ import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.entry.Category;
+import seedu.guilttrip.model.entry.CategoryList;
 
 
 /**
@@ -41,12 +42,20 @@ public class AddCategoryCommand extends Command {
     }
 
     /**
-     * Creates an AddCategoryCommand to add to the existing categories. Model will handle the check if the category is
+     * Adds Category toAdd to the existing categories. Model will handle the check if the category is
      * already present in the list.
+     *
+     * @param model the model to carry out commands on.
+     * @return CommandResult the CommandResult for guiltTrip to display to User.
+     * @throws CommandException if the category to be added already exists in the list.
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (model.hasCategory(toAdd)) {
+            throw new CommandException(String.format(CategoryList.MESSAGE_CONSTRAINTS_IN_LIST,
+                    toAdd.getCategoryType()));
+        }
         model.addCategory(toAdd);
         model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

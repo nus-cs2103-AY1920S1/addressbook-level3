@@ -2,6 +2,7 @@ package seedu.guilttrip.testutil;
 
 import seedu.guilttrip.logic.commands.editcommands.EditCategoryCommand.EditCategoryDescriptor;
 import seedu.guilttrip.model.entry.Category;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
  * A utility class to help with building EditCategoryDescriptor objects.
@@ -31,7 +32,8 @@ public class EditCategoryDescriptorBuilder {
      * Sets the {@code Category Type} of the {@code EditCategoryDescriptor} that we are building.
      */
     public EditCategoryDescriptorBuilder withCategoryType(String categoryType) {
-        descriptor.setCategoryType(categoryType);
+        CategoryType catType = CategoryType.parse(categoryType);
+        descriptor.setCategoryType(catType);
         return this;
     }
 

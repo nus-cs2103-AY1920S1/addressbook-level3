@@ -37,6 +37,11 @@ public final class GuiltTripCommandSuggester {
      */
     public static String getSuggestionString(String textInput) {
         try {
+            // Easter egg!!
+            if (textInput.equalsIgnoreCase("uwu")) {
+                return "uwu";
+            }
+
             String commandWord = getCommandWord(textInput);
 
             if (commandWord.isEmpty()) {
@@ -93,4 +98,5 @@ public final class GuiltTripCommandSuggester {
                 .map(String::trim)
                 .collect(Collectors.joining("\n"));
     }
+
 }

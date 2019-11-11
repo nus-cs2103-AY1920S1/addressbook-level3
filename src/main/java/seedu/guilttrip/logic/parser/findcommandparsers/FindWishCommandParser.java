@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import seedu.guilttrip.logic.commands.findcommands.FindExpenseCommand;
 import seedu.guilttrip.logic.commands.findcommands.FindWishCommand;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
@@ -29,15 +28,17 @@ import seedu.guilttrip.model.entry.predicates.EntryContainsDatePredicate;
 import seedu.guilttrip.model.entry.predicates.EntryContainsDescriptionPredicate;
 import seedu.guilttrip.model.entry.predicates.EntryContainsTagsPredicate;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
- * Parses input arguments and creates a new FindExpenseCommand object
+ * Parses input arguments and creates a new FindWishCommand object.
  */
 public class FindWishCommandParser implements Parser<FindWishCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindWishCommand
      * and returns a FindWishCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindWishCommand parse(String args) throws ParseException {
@@ -49,7 +50,7 @@ public class FindWishCommandParser implements Parser<FindWishCommand> {
             String trimmedArgs = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get()).fullDesc.trim();
             if (trimmedArgs.isEmpty()) {
                 throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindExpenseCommand.MESSAGE_USAGE));
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindWishCommand.MESSAGE_USAGE));
             }
 
             String[] nameKeywords = trimmedArgs.split("\\s+");
@@ -63,7 +64,7 @@ public class FindWishCommandParser implements Parser<FindWishCommand> {
 
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
             String name = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
-            predicateList.add(new EntryContainsCategoryPredicate(new Category(name, "Expense")));
+            predicateList.add(new EntryContainsCategoryPredicate(new Category(name, CategoryType.EXPENSE)));
         }
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {

@@ -16,7 +16,9 @@ import seedu.guilttrip.logic.commands.addcommands.AddExpenseCommand;
 import seedu.guilttrip.model.GuiltTrip;
 import seedu.guilttrip.model.ModelStub;
 import seedu.guilttrip.model.ReadOnlyGuiltTrip;
+import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Expense;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.testutil.ExpenseBuilder;
 
 public class AddExpenseCommandTest {
@@ -86,11 +88,18 @@ public class AddExpenseCommandTest {
      */
     private class ModelStubAcceptingExpenseAdded extends ModelStub {
         final ArrayList<Expense> listOfExpenses = new ArrayList<>();
-
+        final ArrayList<Category> listOfCategories =
+                new ArrayList<Category>(Arrays.asList(new Category("Food", CategoryType.EXPENSE)));
         @Override
         public boolean hasExpense(Expense expense) {
             requireNonNull(expense);
             return listOfExpenses.stream().anyMatch(expense::isSameEntry);
+        }
+
+        @Override
+        public boolean hasCategory(Category category) {
+            requireNonNull(category);
+            return listOfCategories.stream().anyMatch(category::isSameCategory);
         }
 
         @Override

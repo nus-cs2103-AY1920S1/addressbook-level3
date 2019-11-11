@@ -48,12 +48,12 @@ public class AddAutoExpenseCommandParser implements Parser<AddAutoExpenseCommand
         Frequency freq = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_FREQ).get());
         Amount amt = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         String categoryName = argMultimap.getValue(PREFIX_CATEGORY).get();
-
+        Category category = ParserUtil.parseCategory(categoryName, "Expense");
         Date date = ParserUtil.parseTime(argMultimap.getValue(PREFIX_DATE));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        AutoExpense autoExpense = new AutoExpense(new Category(categoryName, "Expense"), desc, amt, tagList, freq,
-                date);
+        AutoExpense autoExpense = new AutoExpense(category, desc, amt,
+                tagList, freq, date);
         return new AddAutoExpenseCommand(autoExpense);
     }
 

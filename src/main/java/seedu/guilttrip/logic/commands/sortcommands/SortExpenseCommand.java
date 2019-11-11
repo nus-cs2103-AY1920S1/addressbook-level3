@@ -44,4 +44,11 @@ public class SortExpenseCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, type));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortExpenseCommand // instanceof handles nulls
+                && type.equals(((SortExpenseCommand) other).type))
+                && sequence.equals(((SortExpenseCommand) other).sequence);
+    }
 }

@@ -9,6 +9,7 @@ import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.model.util.Frequency;
 import seedu.guilttrip.model.util.SampleDataUtil;
 
@@ -17,11 +18,11 @@ import seedu.guilttrip.model.util.SampleDataUtil;
  */
 public class AutoExpenseBuilder {
 
-    public static final String DEFAULT_DESCRIPTION = "Alice Pauline";
-    public static final String DEFAULT_AMOUNT = "5.60";
-    public static final String DEFAULT_TIME = "2019-09-09";
+    public static final String DEFAULT_DESCRIPTION = "Gongcha brown sugar milk tea with pearls";
+    public static final String DEFAULT_AMOUNT = "4.50";
+    public static final String DEFAULT_DATE = "2019 11 09";
     public static final String DEFAULT_FREQ = "weekly";
-    public static final String DEFAULT_CATEGORY = "Foods and Drinks";
+    public static final String DEFAULT_CATEGORY = "Food";
 
     private Category category;
     private Description desc;
@@ -31,10 +32,10 @@ public class AutoExpenseBuilder {
     private Frequency freq;
 
     public AutoExpenseBuilder() {
-        category = new Category(DEFAULT_CATEGORY, "Expense");
+        category = new Category(DEFAULT_CATEGORY, CategoryType.EXPENSE);
         desc = new Description(DEFAULT_DESCRIPTION);
         amt = new Amount(DEFAULT_AMOUNT);
-        date = new Date(DEFAULT_TIME);
+        date = new Date(DEFAULT_DATE);
         tags = new HashSet<>();
         freq = Frequency.parse(DEFAULT_FREQ);
     }
@@ -62,8 +63,8 @@ public class AutoExpenseBuilder {
     /**
      * Sets the {@code Name} of the {@code Person} that we are building.
      */
-    public AutoExpenseBuilder withTime(String time) {
-        this.date = new Date(time);
+    public AutoExpenseBuilder withDate(String date) {
+        this.date = new Date(date);
         return this;
     }
 
@@ -95,7 +96,7 @@ public class AutoExpenseBuilder {
      * Sets the {@code Category} of the {@code AutoExpense} that we are building.
      */
     public AutoExpenseBuilder withCategory(String categoryString) {
-        this.category = new Category(categoryString, "Expense");
+        this.category = new Category(categoryString, CategoryType.EXPENSE);
         return this;
     }
 

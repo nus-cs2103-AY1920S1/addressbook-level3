@@ -51,7 +51,7 @@ public class EntryCard extends UiPart<Region> {
         desc.setText(descWithType);
         date.setText(entry.getDate().toString());
         amt.setText("$" + entry.getAmount().value);
-        category.setText(entry.getCategory().categoryName);
+        category.setText(entry.getCategory().getCategoryName());
 
         entry.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

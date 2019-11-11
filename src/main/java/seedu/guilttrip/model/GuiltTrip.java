@@ -1,8 +1,6 @@
 package seedu.guilttrip.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.guilttrip.commons.core.Messages.MESSAGE_EXISTING_ENTRIES_CATEGORY;
-import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_CATEGORY;
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_NONEXISTENT_CATEGORY;
 import static seedu.guilttrip.commons.util.AppUtil.checkArgument;
 
@@ -30,6 +28,7 @@ import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.ReminderList;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.model.reminders.conditions.ConditionsManager;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.model.util.SampleDataUtil;
 
 /**
@@ -275,7 +274,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * * @param expense the specified Expense to be added.
      */
     public void addExpense(Expense expense) {
-        checkArgument(hasCategory(expense.getCategory()), MESSAGE_INVALID_CATEGORY);
         expenses.add(expense);
         conditions.addEntryUpdate(expense);
         indicateModified();
@@ -288,7 +286,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * @param income the specified Income to be added.
      */
     public void addIncome(Income income) {
-        checkArgument(hasCategory(income.getCategory()), MESSAGE_INVALID_CATEGORY);
         incomes.add(income);
         conditions.addEntryUpdate(income);
         indicateModified();
@@ -299,7 +296,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * @param budget the specified Income to be added.
      */
     public void addBudget(Budget budget) {
-        checkArgument(hasCategory(budget.getCategory()), MESSAGE_INVALID_CATEGORY);
         budgets.add(budget);
         conditions.addEntryUpdate(budget);
         indicateModified();
@@ -313,7 +309,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * @param wish the specified Wish to be added.
      */
     public void addWish(Wish wish) {
-        checkArgument(hasCategory(wish.getCategory()), MESSAGE_INVALID_CATEGORY);
         wishes.add(wish);
         conditions.addEntryUpdate(wish);
         indicateModified();
@@ -343,7 +338,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * @param autoExpense the specified AutoExpense to be added.
      */
     public void addAutoExpense(AutoExpense autoExpense) {
-        checkArgument(hasCategory(autoExpense.getCategory()), MESSAGE_INVALID_CATEGORY);
         autoExpenses.add(autoExpense);
         conditions.addEntryUpdate(autoExpense);
         indicateModified();
@@ -362,7 +356,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
         if (categoryType.equalsIgnoreCase("Income")) {
             ObservableList<Income> tocheckIncomeList = this.getIncomeList();
             List<Income> filteredListOfIncome = tocheckIncomeList.stream()
-                    .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName))
+                    .filter(t -> t.getCategory().getCategoryName().equalsIgnoreCase(oldCategoryName))
                     .collect(Collectors.toList());
             filteredListOfIncome.stream().forEach(t -> setIncome(t, t.modifiedCategory(newCategoryName)));
         } else {
@@ -371,19 +365,19 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
             ObservableList<Budget> toCheckBudget = this.getBudgetList();
             ObservableList<AutoExpense> toCheckAutoExpense = this.getAutoExpenseList();
             List<Expense> filteredListOfExpense = toCheckExpenseList.stream()
-                    .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName))
+                    .filter(t -> t.getCategory().getCategoryName().equalsIgnoreCase(oldCategoryName))
                     .collect(Collectors.toList());
             filteredListOfExpense.stream().forEach(t -> setExpense(t, t.modifiedCategory(newCategoryName)));
             List<Wish> filteredListOfWish = toCheckWishList.stream()
-                    .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName))
+                    .filter(t -> t.getCategory().getCategoryName().equalsIgnoreCase(oldCategoryName))
                     .collect(Collectors.toList());
             filteredListOfWish.stream().forEach(t -> setWish(t, t.modifiedWish(newCategoryName)));
             List<AutoExpense> filteredListOfAutoExpense = toCheckAutoExpense.stream()
-                    .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName))
+                    .filter(t -> t.getCategory().getCategoryName().equalsIgnoreCase(oldCategoryName))
                     .collect(Collectors.toList());
             filteredListOfAutoExpense.stream().forEach(t -> setAutoExpense(t, t.modifiedAutoExpense(newCategoryName)));
             List<Budget> filteredListOfBudget = toCheckBudget.stream()
-                    .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName))
+                    .filter(t -> t.getCategory().getCategoryName().equalsIgnoreCase(oldCategoryName))
                     .collect(Collectors.toList());
             filteredListOfBudget.stream().forEach(t -> setBudget(t, t.modifiedBudget(newCategoryName)));
         }
@@ -396,10 +390,10 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void setCategory(Category target, Category editedCategory) {
         requireNonNull(editedCategory);
-        String oldCategoryName = target.categoryName;
-        String newCategoryName = editedCategory.categoryName;
+        String oldCategoryName = target.getCategoryName();
+        String newCategoryName = editedCategory.getCategoryName();
         categoryList.setCategory(target, editedCategory);
-        String categoryType = target.categoryType;
+        String categoryType = target.getCategoryType().getCatType();
         editCategoryNamesToNewName(oldCategoryName, newCategoryName, categoryType);
         indicateModified();
     }
@@ -412,7 +406,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void setExpense(Expense target, Expense editedEntry) {
         requireNonNull(editedEntry);
-        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         expenses.setExpense(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
@@ -426,7 +419,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void setIncome(Income target, Income editedEntry) {
         requireNonNull(editedEntry);
-        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         incomes.setIncome(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
@@ -440,7 +432,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void setWish(Wish target, Wish editedEntry) {
         requireNonNull(editedEntry);
-        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         wishes.setWish(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
@@ -472,11 +463,11 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void setBudget(Budget target, Budget editedEntry) {
         requireNonNull(editedEntry);
-        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         budgets.setBudget(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
+
 
     /**
      * Replaces the given reminder {@code target} in the list with {@code editedTracker}.
@@ -497,7 +488,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void setAutoExpense(AutoExpense target, AutoExpense editedEntry) {
         requireNonNull(editedEntry);
-        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         autoExpenses.setAutoExpense(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
@@ -507,23 +497,23 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * Returns the truth value for whether the Category has any entries that currently exist in guilttrip.
      */
     public boolean categoryHasAnyEntries(Category category) {
-        if (category.categoryType.equalsIgnoreCase("Income")) {
+        if (category.getCategoryType().equals(CategoryType.INCOME)) {
             ObservableList<Income> tocheckIncomeList = this.getIncomeList();
             return tocheckIncomeList.stream()
-                    .anyMatch(t -> t.getCategory().categoryName.equalsIgnoreCase(category.categoryName));
+                    .anyMatch(t -> t.getCategory().getCategoryName().equalsIgnoreCase(category.getCategoryName()));
         } else {
             ObservableList<Expense> toCheckExpenseList = this.getExpenseList();
             boolean hasEntriesInExpenseList = toCheckExpenseList.stream()
-                    .anyMatch(t -> t.getCategory().categoryName.equalsIgnoreCase(category.categoryName));
+                    .anyMatch(t -> t.getCategory().getCategoryName().equalsIgnoreCase(category.getCategoryName()));
             ObservableList<Budget> tocheckBudgetList = this.getBudgetList();
             boolean hasEntriesInBudgetList = tocheckBudgetList.stream()
-                    .anyMatch(t -> t.getCategory().categoryName.equalsIgnoreCase(category.categoryName));
+                    .anyMatch(t -> t.getCategory().getCategoryName().equalsIgnoreCase(category.getCategoryName()));
             ObservableList<Wish> toCheckWish = this.getWishList();
             boolean hasEntriesInWishList = toCheckWish.stream()
-                    .anyMatch(t -> t.getCategory().categoryName.equalsIgnoreCase(category.categoryName));
+                    .anyMatch(t -> t.getCategory().getCategoryName().equalsIgnoreCase(category.getCategoryName()));
             ObservableList<AutoExpense> toCheckAutoExpense = this.getAutoExpenseList();
             boolean hasEntriesInAutoList = toCheckAutoExpense.stream()
-                    .anyMatch(t -> t.getCategory().categoryName.equalsIgnoreCase(category.categoryName));
+                    .anyMatch(t -> t.getCategory().getCategoryName().equalsIgnoreCase(category.getCategoryName()));
             return hasEntriesInBudgetList || hasEntriesInExpenseList || hasEntriesInWishList || hasEntriesInAutoList;
         }
     }
@@ -533,7 +523,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * {@code key} must exist in the guilttrip book.
      */
     public void removeCategory(Category category) {
-        checkArgument(!categoryHasAnyEntries(category), MESSAGE_EXISTING_ENTRIES_CATEGORY);
         categoryList.remove(category);
         indicateModified();
     }

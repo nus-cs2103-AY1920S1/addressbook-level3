@@ -23,7 +23,7 @@ public class Income extends Entry {
      * Returns a new Income if and only if it's category is edited.
      */
     public Income modifiedCategory(String newName) {
-        Category newCategory = new Category(newName, super.getCategory().categoryType);
+        Category newCategory = new Category(newName, super.getCategory().getCategoryType());
         return new Income(newCategory, super.getDesc(), super.getDate(), super.getAmount(), super.getTags());
     }
 

@@ -1,3 +1,4 @@
+/*
 package seedu.guilttrip.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -88,9 +89,11 @@ public class JsonUserPrefsStorageTest {
         assertThrows(NullPointerException.class, () -> saveUserPrefs(new UserPrefs(), null));
     }
 
-    /**
+    */
+/**
      * Saves {@code userPrefs} at the specified {@code prefsFileInTestDataFolder} filepath.
-     */
+     *//*
+
     private void saveUserPrefs(UserPrefs userPrefs, String prefsFileInTestDataFolder) {
         try {
             new JsonUserPrefsStorage(addToTestDataPathIfNotNull(prefsFileInTestDataFolder))
@@ -122,3 +125,4 @@ public class JsonUserPrefsStorageTest {
     }
 
 }
+*/

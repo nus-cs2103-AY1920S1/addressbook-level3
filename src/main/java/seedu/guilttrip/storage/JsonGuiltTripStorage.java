@@ -45,14 +45,14 @@ public class JsonGuiltTripStorage implements GuiltTripStorage {
     public Optional<ReadOnlyGuiltTrip> readGuiltTrip(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableGuiltTrip> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableGuiltTrip> jsonGuiltTrip = JsonUtil.readJsonFile(
                 filePath, JsonSerializableGuiltTrip.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (jsonGuiltTrip.isEmpty()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonGuiltTrip.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,8 +60,8 @@ public class JsonGuiltTripStorage implements GuiltTripStorage {
     }
 
     @Override
-    public void saveGuiltTrip(ReadOnlyGuiltTrip addressBook) throws IOException {
-        saveGuiltTrip(addressBook, filePath);
+    public void saveGuiltTrip(ReadOnlyGuiltTrip guiltTrip) throws IOException {
+        saveGuiltTrip(guiltTrip, filePath);
     }
 
     /**
@@ -69,12 +69,12 @@ public class JsonGuiltTripStorage implements GuiltTripStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveGuiltTrip(ReadOnlyGuiltTrip addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveGuiltTrip(ReadOnlyGuiltTrip guiltTrip, Path filePath) throws IOException {
+        requireNonNull(guiltTrip);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableGuiltTrip(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableGuiltTrip(guiltTrip), filePath);
     }
 
 }

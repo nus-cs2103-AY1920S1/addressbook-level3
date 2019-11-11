@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.guilttrip.model.entry.exceptions.DuplicateEntryException;
 import seedu.guilttrip.model.entry.exceptions.EntryNotFoundException;
 
 /**
@@ -54,16 +53,7 @@ public class AutoExpenseList implements Iterable<AutoExpense> {
      */
     public void setAutoExpense(AutoExpense target, AutoExpense editedAutoExpense) {
         requireAllNonNull(target, editedAutoExpense);
-
         int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new EntryNotFoundException();
-        }
-
-        if (!target.equals(editedAutoExpense) && contains(editedAutoExpense)) {
-            throw new DuplicateEntryException();
-        }
-
         internalList.set(index, editedAutoExpense);
     }
 
