@@ -521,7 +521,7 @@ Example:
 User chooses the meeting time from the grid displayed from generate timings commands (3.4.2) . A meeting is added to the internal calendar of the application, which will be displayed on the dashboard.
 
 '''
-
+// tag::Inventory[]
 === Inventory Commands
 
 ==== Adding an inventory: `add-inv`
@@ -630,7 +630,7 @@ image::pdf-inv_1.PNG[]
 ** Hit the kbd:[Enter] key and you will see that the default PDF viewer will open to show the PDF report. You should see a report like the one below.
 
 image::pdf-inv_2.PNG[]
-
+// end::Inventory[]
 
 '''
 
@@ -667,7 +667,7 @@ as well as the time taken for each task inputted into +Work.
 '''
 
 
-// start::Multiline[]
+// tag::Multiline[]
 === Multiline Commands
 
 ==== Adding a task: `add-task`
