@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.AddCommand.NOTIF_TIME_UNIT;
 import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CLAIMED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
+import static seedu.address.model.entity.body.BodyStatus.DONATED;
 import static seedu.address.model.entity.fridge.FridgeStatus.OCCUPIED;
 
 import java.util.ArrayList;
@@ -46,7 +47,8 @@ public class UpdateCommand extends UndoableCommand {
     public static final String MESSAGE_UPDATE_ENTITY_SUCCESS = "This entity was successfully updated. ID Number: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_UNDO_SUCCESS = "Undid update(s) made. ID Number: %1$s";
-    public static final String MESSAGE_CANNOT_ASSIGN_FRIDGE = "A fridge cannot be assigned to a claimed fridge";
+    public static final String MESSAGE_CANNOT_ASSIGN_FRIDGE = "A fridge cannot be assigned to a claimed or donated "
+            + "body";
     public static final String MESSAGE_UNABLE_TO_RUN_NOTIF_COMMAND = "Notification command cannot be run for the "
             + "given body";
     public static final String MESSAGE_NOTIF_DOES_NOT_EXIST = "Notif does not exist";
@@ -118,6 +120,7 @@ public class UpdateCommand extends UndoableCommand {
                 UpdateBodyDescriptor updateBodyDescriptor = (UpdateBodyDescriptor) updateEntityDescriptor;
 
                 if ((originalBodyDescriptor.getBodyStatus().equals(Optional.of(CLAIMED))
+                        || originalBodyDescriptor.getBodyStatus().equals(Optional.of(DONATED))
                         && !updateBodyDescriptor.getFridgeId().equals(Optional.ofNullable(null)))) {
                     throw new CommandException(MESSAGE_CANNOT_ASSIGN_FRIDGE);
                 }
@@ -144,7 +147,8 @@ public class UpdateCommand extends UndoableCommand {
                     addNotificationsForBody(model);
                 }
 
-                if ((updateBodyDescriptor.getBodyStatus().equals(Optional.of(CLAIMED)))) {
+                if ((updateBodyDescriptor.getBodyStatus().equals(Optional.of(CLAIMED)))
+                    || updateBodyDescriptor.getBodyStatus().equals(Optional.of(DONATED))) {
                     removeBodyFromFridge(model);
                 }
 
