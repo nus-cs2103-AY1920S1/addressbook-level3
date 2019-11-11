@@ -12,7 +12,7 @@ Package Task {
 
 'Task
 Task *--> "1" Problem
-Task *--> "1" Boolean : isSolved
-Task *--> "1" LocalDate : targetDate
+Task *--> "1" Boolean : isDone
+Task *--> "1" LocalDate : dueDate
 
 @enduml

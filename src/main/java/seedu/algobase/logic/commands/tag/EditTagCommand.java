@@ -64,10 +64,15 @@ public class EditTagCommand extends Command {
         }
 
         Tag tagToEdit = lastShownList.get(index.getZeroBased());
-        Tag editedTag = createEditedTag(tagToEdit, name, color);
+        Tag editedTag;
+        try {
+            editedTag = createEditedTag(tagToEdit, name, color);
+        } catch (IllegalArgumentException iae) {
+            throw new CommandException(Tag.MESSAGE_NAME_CONSTRAINTS);
+        }
 
         if (!tagToEdit.isSameTag(editedTag) && model.hasTag(editedTag)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_TAG, name));
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_TAG, name.get()));
         }
 
         model.setTag(tagToEdit, editedTag);
