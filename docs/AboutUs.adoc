@@ -13,6 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 === Dominique Ng
 image::hellodommy.png[width="150", align="left"]
 {empty} [https://github.com/hellodommy[github]]
+{empty} [https://ay1920s1-cs2103t-t12-3.github.io/main/team/hellodommy.html[portfolio]]
 
 Role: Team Lead +
 Responsibilities: Scheduling and tracking, Deliverables and deadlines, *Model Component*
