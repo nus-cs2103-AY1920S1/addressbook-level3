@@ -424,7 +424,6 @@ public class ModelManager implements Model {
      */
     @Override
     public void setMonthlyLimit(MonthlyLimit limit) {
-        requireNonNull(limit);
         financeTracker.setMonthlyLimit(limit);
     }
 
