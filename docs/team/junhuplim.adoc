@@ -1,13 +1,12 @@
 = Lim Jun Hup - Project Portfolio for Athletick
 
-//++++
-//<link rel="stylesheet"  href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css">
-//++++
-
+++++
+<link rel="stylesheet"  href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css">
+++++
 :site-section: AboutUs
 :imagesDir: ../images
 :sectnums:
-//:icons: font
+:icons: font
 ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
@@ -29,7 +28,7 @@ Security.
 This project is a 6 weeks long project for our software engineering module.
 We were tasked to either enhance or morph a basic command line interface (CLI) desktop
 Address Book application and one of the main constraints of this project is that
-the application has to remain as a command line interface.
+the application has to remain as a command line interface application.
 
 What my team and I decided to do was to morph the existing address book application to a team
 management desktop application called Athletick. Athletick is designed for captains and
@@ -77,13 +76,13 @@ In the event that users have made a mistake or changed their minds about executi
 a command, the `undo` command enables them to revert to a version immediately before the mistaken command
 was executed. If they change their minds again and decide to execute the command after all,
 then the `redo` command enables them to do so easily.
- * Highlights:
+ * Highlights
 ** This enhancement works with existing as well as future commands.
 
-** As there were a few ways to implement this enhancement, an in-depth analysis of design
+** An in-depth analysis of design
 alternatives was necessary to weigh the different alternatives and decide on the implementation for this enhancement.
 
-** The implementation too was challenging as it required a full understanding of
+** The implementation was challenging as it required a full understanding of
 the major components of the application and the existing features implementations.
 Also, as the enhancement is able to work with future commands, the implementation of
 this enhancement has to be considerable of the future features implementations and
@@ -95,6 +94,9 @@ allow the future enhancement for such features to be easily integrated into the 
 *Other contributions*
 
 * Project management
+** Managed version release v1.3.4 of Athletick to prepare for final
+production release on GitHub.
+(https://github.com/AY1920S1-CS2103T-T12-3/main/releases/tag/v.1.3.4[v1.3.4])
 ** Introduced Trello for tasks and deadlines management
 ** Served as the team's Backend Engineer and assisted in the logic of the program whenever needed.
 * Existing features enhancement
