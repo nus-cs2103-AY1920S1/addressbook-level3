@@ -33,7 +33,7 @@ import seedu.address.model.order.Order;
 import seedu.address.model.phone.Phone;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * Contains integration tests (interaction with the Model) and unit tests for
  * {@code CopyPhoneCommand}.
  */
 public class CopyPhoneCommandTest {
@@ -90,7 +90,7 @@ public class CopyPhoneCommandTest {
         showPhoneAtIndex(model, INDEX_FIRST_PHONE);
 
         Index outOfBoundIndex = INDEX_SECOND_PHONE;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of phone book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getPhoneBook().getList().size());
 
         CopyPhoneCommand copyCommand = new CopyPhoneCommand(outOfBoundIndex);

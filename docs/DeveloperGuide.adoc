@@ -177,7 +177,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
@@ -574,7 +574,7 @@ The undo/redo mechanism is facilitated by `UndoRedoStack`.
 `UndoableCommand` extends Command and has the following attributes and methods.
 
 
-image::dg-diagram/UndoableCommandClassDiagram.png[]
+image::dg-diagram/UndoableCommandClassDiagram.png[width="300"]
 
 When an UndoableCommand is being executed, the methods `saveCustomerBookSnapshot(Model model)`, `savePhoneBookSnapshot(Model model)`, `saveOrderBookSnapshot(Model model)`, `saveScheduleBookSnapshot(Model model)`
 and `saveArchivedOrderBookSnapshot(Model model)` will be called. This ensures that the states of all 5 books are being stored.
@@ -582,7 +582,7 @@ and `saveArchivedOrderBookSnapshot(Model model)` will be called. This ensures th
 After a command is executed, `LogicManager` will add it into the `UndoRedoStack`.
 This will be explained in the activity diagram below.
 
-image::dg-diagram/UndoRedoStackPushActivityDiagram.png[]
+image::dg-diagram/UndoRedoStackPushActivityDiagram.png[width="600"]
 
 Next, when `UndoCommand` is being performed, `UndoStack` will remove the first command in its stack and add it to `RedoStack`.
 It will then call `UndoableCommand#undo()` of the command that is removed.
@@ -598,42 +598,43 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 
 
-
 Step 1. The user launches the application for the first time. The `UndoRedoStack` will be initialized.
 
-image::dg-diagram/UndoRedoStackObjectDiagram0.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram0.png[[width="450"]
 
 Step 2. The user executes `delete-c 5` command to delete the 5th customer. The `delete-c 5` command will be pushed into the `UndoRedoStack`.
 
-image::dg-diagram/UndoRedoStackObjectDiagram1.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram1.png[[width="450"]
 
-Step 3. The user executes `add-c n/David ...` to add a new person. The `add-c` command will save all states of CustomerBook, PhoneBook, OrderBook, ScheduleBook and ArchivedOrderBook.
+Step 3. The user executes `add-c n/David ...` to add a new customer. The `add-c` command will save all states of CustomerBook, PhoneBook, OrderBook, ScheduleBook and ArchivedOrderBook.
 
-image::dg-diagram/UndoRedoStackObjectDiagram2.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram2.png[[width="450"]
 
 Step 4. The user now decides that adding the customer was a mistake, and decides to undo that action by executing the `undo` command.
 
 
-image::dg-diagram/UndoRedoStackObjectDiagram3.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram3.png[[width="450"]
 
 [NOTE]
 UndoCommand will check whether if there is any command to be undone by calling the `UndoRedoStack#canUndo()` method.
 
 The following sequence diagram shows how the undo operation works:
 
-image::dg-diagram/UndoSequenceDiagram.png[]
+image::dg-diagram/UndoSequenceDiagram.png[[width="450"]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+NOTE: XYZ here refers to Customer, Phone, Order, Schedule and ArchivedOrder.
 
 The `redo` command does the opposite -- it calls `UndoableCommand#redo()`.
 
 Step 5. The user then decides to execute the command `list-c`. Commands that do not modify the 5 books (Customer, Phone, Order, Schedule and Archived Order), such as `list-c`, do not extend UndoableCommand.
 
-image::dg-diagram/UndoRedoStackObjectDiagram4.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram4.png[[width="450"]
 
 Step 6. The user executes `clear-c`.
 
-image::dg-diagram/UndoRedoStackObjectDiagram5.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram5.png[[width="450"]
 
 ==== Design Considerations
 
@@ -645,6 +646,7 @@ image::dg-diagram/UndoRedoStackObjectDiagram5.png[]
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete-c`, just save the customer being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
+// end::undoredo[]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
@@ -654,7 +656,7 @@ image::dg-diagram/UndoRedoStackObjectDiagram5.png[]
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -719,8 +721,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |user |add a new person |
 
 |`* * *` |handphone seller |schedule my orders| deconflict and view the schedule of my sales meetings.
 
@@ -898,7 +898,7 @@ Use case resumes at step 1.
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 customers/phones/orders without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Single User for each session
 .  No internet required
@@ -912,17 +912,75 @@ _ {More to be added}_
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
+
+ [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+. *SML* +
+Initialism for our application, Seller Manager Lite.
 
-[[order]] Order::
-A order consisting of customer and phone
+. *Customer* +
+A person who buys from the seller.
 
-[[Phone]] Phone::
-Any mobile device being sold by seller
+. *Phone* +
+Multi-purpose mobile computing device. Also known as smartphones.
+
+. *Order* +
+A request for goods.
+
+. *Schedule* +
+A meetup with buyer to pass the goods. There can only be 1 schedule associated with an order at any one time.
+
+=== SML-specific Terms
+
+. *Command* +
+An instruction that will produce an output once entered in SML.
+
+. *CustomerBook* +
+A CustomerBook is a list that stores Customer(s) that has been added into SML.
+Each customer entry comprises of CustomerName, ContactNumber and Email fields and others.
+
+. *PhoneBook* +
+A PhoneBook is a list that stores Phone(s) that has been added in SML.
+Each phone entry comprises of IdentityNumber, SerialNumber, Brand, PhoneName, Colour, Cost and Capacity.
+
+. *OrderBook* +
+A OrderBook is a list that stores Order(s) that has been added in SML.
+Each order entry comprises of a customer, a phone, OrderID, Price and OrderStatus.
+
+. *ScheduleBook* +
+A ScheduleBook is a list that stores Schedules(s) that has been added in SML.
+Each schedule entry comprises a Venue and Calendar with date and time.
+
+. *Archived* +
+Archived is a list that stores Completed or Cancelled orders ONLY.
+
+. *TabPanel* +
+A view that is similar to web browser Tabs.
+
+. *Add* +
+The action of putting an entry into CustomerBook, PhoneBook, OrderBook or ScheduleBook.
+
+. *Edit* +
+If you want to make changes to any entry, you can do so with this command.
+
+. *Delete* +
+Remove an entry from CustomerBook, PhoneBook or ScheduleBook.
+
+. *Find* +
+The action of searching for customers, phones or orders that contains the keywords that you specify.
+
+. *Switch* +
+Change the Tab Panel to Customer, Phone, Order, Schedule or Archived.
+
+. *Undo* +
+If you've made a mistake, you can simply revert to the previous command.
+
+. *Redo* +
+Inverse of undo.
+
+. *Copy* +
+Action of copying an entry into clipboard.
 
 [appendix]
 == Product Survey
@@ -976,7 +1034,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Deleting a customer
 
-. Deleting a customer while all persons are listed
+. Deleting a customer while all customers are listed
 
 .. Prerequisites: List all customers using the `list-c` command. Multiple customers in the list.
 .. Test case: `delete-c 1` +
