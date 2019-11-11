@@ -52,7 +52,7 @@ Code Responsibilities: Employee-Event Manpower Allocation
 
 === Gu Chunzhi
 image::crisgu.png[width="150", align="left"]
-{empty}[https://github.com/Crisgu[github]] [<<crisgue#, portfolio>>]
+{empty}[https://github.com/Crisgu[github]] [<<crisgu#, portfolio>>]
 
 Role: Software Developer +
 Responsibilities: In charge of versioning of the code, maintaining the code repository and integration of software. +

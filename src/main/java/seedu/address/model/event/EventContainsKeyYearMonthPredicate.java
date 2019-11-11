@@ -1,3 +1,7 @@
+/*
+@@author shihaoyap
+ */
+
 package seedu.address.model.event;
 
 import java.time.YearMonth;

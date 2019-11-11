@@ -1,6 +1,11 @@
+/*
+@@author calvincxz
+ */
+
 package seedu.address.logic.commands.allocate;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_NUMBER;
 
 import java.util.List;
@@ -26,7 +31,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.ui.MainWindow;
 
 /**
- * Allocates an employee from the displayed list of employees to an event.
+ * Allocates an employee to an event.
  */
 public class ManualAllocateCommand extends Command {
 
@@ -36,10 +41,13 @@ public class ManualAllocateCommand extends Command {
             + "\n"
             + "Parameters: EVENT_INDEX "
             + PREFIX_EMPLOYEE_NUMBER + "PERSON_INDEX (must be valid positive integers)\n"
+            + "[" + PREFIX_EMPLOYEE_NUMBER + "EMPLOYEE_INDEX] "
+            + "[" + PREFIX_EMPLOYEE_ID + "EMPLOYEE_ID]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EMPLOYEE_NUMBER + "2 ";
 
     public static final String MESSAGE_ALLOCATE_EVENT_SUCCESS = "Added Employee: %1$s to %2$s.";
+
 
     private final Index employeeIndex;
     private final Index eventIndex;
@@ -49,8 +57,12 @@ public class ManualAllocateCommand extends Command {
      * @param eventIndex of the event in the filtered event list to edit
      * @param employeeIndex      of the employee in the filtered employee list to add to event
      */
-    public ManualAllocateCommand(Index eventIndex, Index employeeIndex, EmployeeId employeeId) {
+    public ManualAllocateCommand(Index eventIndex, Index employeeIndex, EmployeeId employeeId) throws CommandException {
         requireNonNull(eventIndex);
+
+        if (MainWindow.isFinanceTab() || MainWindow.isStatsTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MANUAL_ALLOCATE);
+        }
 
         this.employeeIndex = employeeIndex;
         this.eventIndex = eventIndex;
@@ -60,61 +72,90 @@ public class ManualAllocateCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
+        // Invalid user input
         if (employeeId != null && employeeIndex != null) {
-            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new CommandException(Messages.MESSAGE_INVALID_ALLOCATEM_INPUT);
         }
 
+        // Retrieves the current displayed Employee/Event list.
         List<Employee> lastShownList = model.getFilteredEmployeeList();
-        List<Event> lastShownEventList;
+        List<Event> lastShownEventList = MainWindow.getCurrentEventList(model);
 
-        //Checks the current tab index and retrieves the relevant list from model
-        if (MainWindow.getCurrentTabIndex() == 0) {
-            lastShownEventList = model.getFilteredEventList();
-        } else {
-            throw new CommandException(Messages.MESSAGE_WRONG_WINDOW);
-        }
-        Employee personToAdd;
-
+        // Retrieves the relevant Employee from the Employee list.
+        Employee employeeToAllocate;
         if (employeeIndex != null) {
-            if (employeeIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
-            }
-            personToAdd = lastShownList.get(employeeIndex.getZeroBased());
-
-        } else { //employeeId != null
-            Optional<Employee> optionalPersonToAdd = lastShownList.stream()
-                    .filter(x -> x.getEmployeeId().equals(employeeId))
-                    .findAny();
-
-            if (optionalPersonToAdd.isEmpty()) {
-                throw new CommandException(Messages.MESSAGE_EVENT_INVALID_EMPLOYEE_ID);
-            }
-            personToAdd = optionalPersonToAdd.get();
+            employeeToAllocate = getEmployeeToAllocateByIndex(employeeIndex, lastShownList);
+        } else if (employeeId != null) {
+            List<Employee> completeEmployeeList = model.getFullListEmployees();
+            employeeToAllocate = getEmployeeToAllocateById(employeeId, completeEmployeeList);
+        } else {
+            throw new CommandException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
 
+        // Retrieves the relevant Event from the Event list.
         if (eventIndex.getZeroBased() >= lastShownEventList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
-
         Event eventToAllocate = lastShownEventList.get(eventIndex.getZeroBased());
 
-        if (eventToAllocate.getManpowerAllocatedList().containsEmployee(personToAdd)) {
+        // Checks the state of Event and Employee.
+        if (eventToAllocate.getManpowerAllocatedList().containsEmployee(employeeToAllocate)) {
             throw new CommandException(Messages.MESSAGE_EMPLOYEE_ALREADY_ALLOCATED);
         }
-
         if (eventToAllocate.getCurrentManpowerCount() == eventToAllocate.getManpowerNeeded().value) {
             throw new CommandException(Messages.MESSAGE_EVENT_FULL_MANPOWER);
         }
-
-        if (!eventToAllocate.isAvailableForEvent(personToAdd, model.getFilteredEventList())) {
+        if (!eventToAllocate.isAvailableForEvent(employeeToAllocate, model.getFullListEvents())) {
             throw new CommandException(Messages.MESSAGE_UNAVAILABLE_MANPOWER);
         }
-        Event newEventForAllocation = createEditedEvent(eventToAllocate, personToAdd);
 
+        // Command success
+        Event newEventForAllocation = createEditedEvent(eventToAllocate, employeeToAllocate);
         model.setEvent(eventToAllocate, newEventForAllocation);
-        return new CommandResult(String.format(MESSAGE_ALLOCATE_EVENT_SUCCESS, personToAdd.getEmployeeName().fullName,
-                newEventForAllocation.getName().eventName));
+        return new CommandResult(String.format(MESSAGE_ALLOCATE_EVENT_SUCCESS,
+                employeeToAllocate.getEmployeeName().fullName, newEventForAllocation.getName().eventName));
+    }
+
+    /**
+     * @param employeeIndex index of Employee in the displayed Employee list.
+     * @param lastShownList the displayed Employee list.
+     *
+     * Gets the Employee from the displayed Employee list.
+     */
+    private Employee getEmployeeToAllocateByIndex(Index employeeIndex, List<Employee> lastShownList)
+            throws CommandException {
+        requireNonNull(employeeIndex);
+
+        if (MainWindow.isScheduleTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MANUAL_ALLOCATE_BY_INDEX);
+        }
+
+        if (employeeIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
+        }
+
+        return lastShownList.get(employeeIndex.getZeroBased());
+
+    }
+
+    /**
+     * @param employeeId index of Employee in the displayed Employee list.
+     * @param fullEmployeeList the complete Employee list.
+     *
+     * Gets the Employee with the {@code employeeId} from the full Employee list.
+     */
+    private Employee getEmployeeToAllocateById(EmployeeId employeeId, List<Employee> fullEmployeeList)
+            throws CommandException {
+
+        Optional<Employee> optionalPersonToAdd = fullEmployeeList.stream()
+                .filter(x -> x.getEmployeeId().equals(employeeId))
+                .findAny();
+
+        if (optionalPersonToAdd.isEmpty()) {
+            throw new CommandException(Messages.MESSAGE_EVENT_INVALID_EMPLOYEE_ID);
+        }
+
+        return optionalPersonToAdd.get();
     }
 
     /**
@@ -154,7 +195,9 @@ public class ManualAllocateCommand extends Command {
 
         // state check
         ManualAllocateCommand e = (ManualAllocateCommand) other;
-        return employeeIndex.equals(e.employeeIndex) && eventIndex.equals(e.eventIndex);
+        return eventIndex.equals(e.eventIndex)
+                && (employeeIndex == e.employeeIndex || employeeIndex.equals(e.employeeIndex))
+                && (employeeId == e.employeeId || employeeId.equals(e.employeeId));
     }
 
 }

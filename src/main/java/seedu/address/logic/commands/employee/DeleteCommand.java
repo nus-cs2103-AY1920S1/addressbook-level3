@@ -21,6 +21,7 @@ import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.MainWindow;
 
 
 /**
@@ -46,6 +47,11 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (MainWindow.isScheduleTab() || MainWindow.isStatsTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EMPLOYEE_LIST);
+        }
+
         List<Employee> lastShownList = model.getFilteredEmployeeList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {

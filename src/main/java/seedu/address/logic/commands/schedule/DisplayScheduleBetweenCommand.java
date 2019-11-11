@@ -1,3 +1,7 @@
+/*
+@@author shihaoyap
+ */
+
 package seedu.address.logic.commands.schedule;
 
 import static java.util.Objects.requireNonNull;
@@ -29,7 +33,6 @@ public class DisplayScheduleBetweenCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         model.updateFilteredScheduledEventList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW,

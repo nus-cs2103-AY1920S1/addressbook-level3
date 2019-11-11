@@ -80,7 +80,7 @@ public class StatisticsBox extends Tabs<AnchorPane> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EventCard(event, getIndex() + 1, mainWindow).getRoot());
+                setGraphic(new EventCardForStats(event, getIndex() + 1).getRoot());
             }
         }
     }

@@ -82,7 +82,7 @@ public class SampleDataUtil {
                     new EmployeePay("1"), new EmployeePhone("87455307"),
                     new EmployeeEmail("ggg@example.com"),
                     new EmployeeAddress("Blk 30 GGG Street 99, #06-40"),
-                    getTagSet("weird")),
+                    getTagSet("smart")),
             new Employee(new EmployeeId(), new EmployeeName("Jeff Gan"), new EmployeeGender("male"),
                     new EmployeePay("20"), new EmployeePhone("87128807"),
                     new EmployeeEmail("ggg@example.com"),

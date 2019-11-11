@@ -213,6 +213,42 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Returns a boolean of whether the current user is in the Main Tab
+     * used to restrict user command to specific windows.
+     * @return a boolean value of whether user is in the MainTab
+     */
+    public static boolean isMainTab() {
+        return MainWindow.getCurrentTabIndex() == 0;
+    }
+
+    /**
+     * Returns a boolean of whether the current user is in the Schedule Tab
+     * used to restrict user command to specific windows.
+     * @return a boolean value of whether user is in the MainTab
+     */
+    public static boolean isScheduleTab() {
+        return MainWindow.getCurrentTabIndex() == 1;
+    }
+
+    /**
+     * Returns a boolean of whether the current user is in the Finance Tab
+     * used to restrict user command to specific windows.
+     * @return a boolean value of whether user is in the MainTab
+     */
+    public static boolean isFinanceTab() {
+        return MainWindow.getCurrentTabIndex() == 2;
+    }
+
+    /**
+     * Returns a boolean of whether the current user is in the Statistics Tab
+     * used to restrict user command to specific windows.
+     * @return a boolean value of whether user is in the MainTab
+     */
+    public static boolean isStatsTab() {
+        return MainWindow.getCurrentTabIndex() == 3;
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -365,11 +401,13 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.getType().equals("Schedule_Update")) {
                 selectionModel.select(1);
+                System.out.println(commandResult.getUiChange());
                 scheduleBox.setLabelText(commandResult.getUiChange());
             }
 
             if (commandResult.getType().equals("Schedule_Between")) {
                 selectionModel.select(1);
+
                 scheduleBox.setLabelText("");
             }
 
@@ -392,6 +430,8 @@ public class MainWindow extends UiPart<Stage> {
 
             if (fetchEventWindow != null && !commandResult.getType().equals("List")) {
                 fetchEventWindow.updateCards();
+            } else if (fetchEventWindow != null) {
+                fetchEventWindow.hide();
             }
 
             if (commandResult.getType().equals("unfetch")) {

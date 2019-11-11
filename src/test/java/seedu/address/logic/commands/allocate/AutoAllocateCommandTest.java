@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.allocate;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,8 +18,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.allocate.AutoAllocateCommand;
 import seedu.address.logic.commands.employee.ClearEmployeesCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.EventBook;
 import seedu.address.model.Model;
@@ -31,7 +31,6 @@ import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
-
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -46,8 +45,7 @@ public class AutoAllocateCommandTest {
     private Set<Tag> tagList = new HashSet<Tag>();
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Set<Tag> tagList = new HashSet<Tag>();
+    public void execute_allFieldsSpecifiedUnfilteredList_success() throws CommandException {
         tagList.add(new Tag("male"));
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT,
                 sampleManpowerCountToAdd, tagList);
@@ -62,10 +60,8 @@ public class AutoAllocateCommandTest {
     }
 
     @Test
-    public void execute_onlyTagsSpecifiedUnfilteredList_success() {
-        Set<Tag> tagList = new HashSet<Tag>();
+    public void execute_onlyTagsSpecifiedUnfilteredList_success() throws CommandException {
         tagList.add(new Tag("male"));
-
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT, null,
                 tagList);
         String expectedMessage = String.format(MESSAGE_ALLOCATE_SUCCESS,
@@ -77,7 +73,7 @@ public class AutoAllocateCommandTest {
         assertCommandSuccess(autoAllocateCommand, model, expectedMessage, expectedModel);
     }
     @Test
-    public void execute_onlyManpowerCountToAddSpecifiedUnfilteredList_success() {
+    public void execute_onlyManpowerCountToAddSpecifiedUnfilteredList_success() throws CommandException {
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT, sampleManpowerCountToAdd,
                 tagList);
         String expectedMessage = String.format(MESSAGE_ALLOCATE_SUCCESS,
@@ -90,7 +86,7 @@ public class AutoAllocateCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
+    public void execute_noFieldSpecifiedUnfilteredList_success() throws CommandException {
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT, null,
                 tagList);
         String expectedMessage = String.format(MESSAGE_ALLOCATE_SUCCESS,
@@ -102,8 +98,8 @@ public class AutoAllocateCommandTest {
     }
 
     @Test
-    public void execute_invalidEventIndexUnfilteredList_failure() {
-        Integer outOfBoundInteger = initialEventData.getEventList().size() + 1;
+    public void execute_invalidEventIndexUnfilteredList_failure() throws CommandException {
+        int outOfBoundInteger = initialEventData.getEventList().size() + 1;
         Index invalidIndex = Index.fromOneBased(outOfBoundInteger);
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(invalidIndex,
                 sampleManpowerCountToAdd, tagList);
@@ -112,7 +108,7 @@ public class AutoAllocateCommandTest {
     }
 
     @Test
-    public void execute_invalidManpowerCountUnfilteredList_failure() {
+    public void execute_invalidManpowerCountUnfilteredList_failure() throws CommandException {
         Integer invalidManpowerCount = 20;
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT,
                 invalidManpowerCount, tagList);
@@ -121,7 +117,7 @@ public class AutoAllocateCommandTest {
     }
 
     @Test
-    public void execute_fullManpowerCountUnfilteredList_failure() {
+    public void execute_fullManpowerCountUnfilteredListNoInputSpecified_failure() throws CommandException {
         Event eventToEdit = initialEventData.getEventList().get(0);
         List<Employee> availableEmployeeList = new ArrayList<>();
         for (int i = 0; i < eventToEdit.getManpowerNeeded().value; i++) {
@@ -130,21 +126,36 @@ public class AutoAllocateCommandTest {
         Event newEvent = createEventAfterManpowerAllocation(eventToEdit, availableEmployeeList, 5);
         model.setEvent(eventToEdit, newEvent);
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT,
-                1, tagList);
+                null, tagList);
 
         assertCommandFailure(autoAllocateCommand, model, Messages.MESSAGE_EVENT_FULL_MANPOWER);
     }
 
     @Test
-    public void execute_insufficientManpowerCountUnfilteredList_failure() {
+    public void execute_fullManpowerCountUnfilteredList_failure() throws CommandException {
+        Event eventToEdit = initialEventData.getEventList().get(0);
+        List<Employee> availableEmployeeList = new ArrayList<>();
+        for (int i = 0; i < eventToEdit.getManpowerNeeded().value; i++) {
+            availableEmployeeList.add(initialData.getEmployeeList().get(i));
+        }
+        Event newEvent = createEventAfterManpowerAllocation(eventToEdit, availableEmployeeList, 5);
+        model.setEvent(eventToEdit, newEvent);
+        AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT,
+                5, tagList);
+
+        assertCommandFailure(autoAllocateCommand, model, Messages.MESSAGE_EVENT_FULL_MANPOWER);
+    }
+
+
+    @Test
+    public void execute_insufficientManpowerCountUnfilteredList_failure() throws CommandException {
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_SECOND_EVENT,
                 null, tagList);
         assertCommandFailure(autoAllocateCommand, model, Messages.MESSAGE_INSUFFICIENT_MANPOWER_COUNT);
     }
 
     @Test
-    public void equals() {
-        Set<Tag> tagList = new HashSet<Tag>();
+    public void equals() throws CommandException {
         final AutoAllocateCommand standardCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT,
                 sampleManpowerCountToAdd, tagList);
 

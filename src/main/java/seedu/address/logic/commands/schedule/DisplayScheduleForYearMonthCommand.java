@@ -1,3 +1,7 @@
+/*
+@@author shihaoyap
+ */
+
 package seedu.address.logic.commands.schedule;
 
 import static java.util.Objects.requireNonNull;
