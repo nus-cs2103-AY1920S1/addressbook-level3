@@ -5,14 +5,12 @@
 if () then ([command is universal command])
     :Return universal command;
 else ([else])
-    if () then ([current context is editing])
-        :EditingParser parses command;
+    :ContextParser parses command;
+    if () then ([command is context-specific command])
+        :Return context-specific command;
     else ([else])
-        :ContextParser parses command;
-        :Return context command;
+        :Throw ParseException;
     endif
 endif
-
-:Executes command;
 stop
 @enduml

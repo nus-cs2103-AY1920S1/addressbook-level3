@@ -200,7 +200,8 @@ public class ModelManager implements Model {
                 count++;
             }
         }
-        customerDatabase.getCustomerOrders().setNoOfOrders(count);
+        Customer customer = customerDatabase.getCustomerOrders();
+        setCustomer(customer, customer.setNoOfOrders(count));
         ObservableList<Order> modelOrders = FXCollections.observableArrayList();
         modelOrders.addAll(orders);
         return modelOrders;
@@ -250,7 +251,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedRestaurant);
 
         restaurantDatabase.setRestaurant(target, editedRestaurant);
-        if (getEditingRestaurantList().size() > 0 && target == getEditingRestaurantList().get(0)) {
+        if (getEditingRestaurantList().size() > 0 && target.equals(getEditingRestaurantList().get(0))) {
             setEditingRestaurant(editedRestaurant);
         }
     }
@@ -428,7 +429,7 @@ public class ModelManager implements Model {
                 break;
             }
         }
-        customer.addOrder(restaurant.getTags());
+        setCustomer(customer, customer.addOrder(restaurant.getTags()));
     }
 
     @Override
@@ -447,7 +448,7 @@ public class ModelManager implements Model {
                 break;
             }
         }
-        customer.deleteOrder(restaurant.getTags());
+        setCustomer(customer, customer.deleteOrder(restaurant.getTags()));
     }
 
     @Override

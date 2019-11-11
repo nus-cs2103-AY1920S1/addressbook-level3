@@ -195,7 +195,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Changes context of the system depending on {@code context}.
      */
-    private void changeContext(Context context) {
+    private void changeDisplay(Context context) {
         editingRestaurantPlaceholder.setPrefHeight(0);
         editingRestaurantPlaceholder.setMinHeight(0);
         personList.setMinWidth(340);
@@ -239,15 +239,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Changes the Ui to display depending the {@code Class} commandName.
+     * Changes the Ui to display depending the {@code Class} commandClassName.
      * */
-    private void changeUi(Class commandName) {
+    private void changeDisplay(Class commandClassName) {
         if (statisticsPlaceholder.getChildren().size() > 0) {
             statisticsPlaceholder.getChildren().remove(0);
         }
         personList.setMinWidth(340);
-        System.out.println(commandName.getSimpleName());
-        switch(commandName.getSimpleName()) {
+        switch(commandClassName.getSimpleName()) {
         case "CustomerHistoryCommand":
             orderListPanel = new OrderListPanel(logic.getCustomerOrders());;
             statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
@@ -283,14 +282,15 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             Class commandName = commandResult.getCommandName();
             Context nextContext = commandResult.getContext();
+            boolean isNewContext = (nextContext != null);
 
             if (commandName != null) {
-                changeUi(commandName);
-            } else if (nextContext != null) {
+                changeDisplay(commandName);
+            } else if (isNewContext) {
                 LogicManager.setContext(nextContext);
-                changeContext(LogicManager.getContext());
+                changeDisplay(LogicManager.getContext());
             } else {
-                changeContext(LogicManager.getContext());
+                changeDisplay(LogicManager.getContext());
             }
 
             if (commandResult.isShowHelp()) {

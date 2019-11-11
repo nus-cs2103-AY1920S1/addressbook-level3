@@ -473,112 +473,113 @@ We chose to go with the first alternative as `Customer` class will have lesser d
 We chose to go with alternative 1 as we believe speed is more important to the user and sacrificing memory space is the better choice.
 
 // end::auto tagging customer cuisine
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
-=== Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
-
-[[Implementation-Configuration]]
-=== Configuration
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
-
 // tag::editMode[]
 
-=== EditMode
+=== EditMode for restaurants
 A `Restaurant` object contains many attributes. On top of a `Name`, `Location`, `Rating` and a list of `Tag`,
 it also includes a list of `Food` as its menu, as well as a list of `Order`. This makes it difficult to edit
-an entire `Restaurant` object using just one `Command`. The EditMode feature allows editing of a
-specific `Restaurant` object's details, menu and orders separately under 1 mode, using different commands.
+an entire `Restaurant` object using just one `Command`.
+
+The EditMode feature allows editing of a specific `Restaurant` object's details (name, location, rating, tags),
+menu and orders individually under 1 interface, using different commands.
 
 ==== Implementation
-* **Model**:
+**Model**:
 
 In addition to the `filteredRestaurantList` that contains all the restaurants in the restaurant database,
-`ModelManager` now contains a `editingRestaurantList`, which contains and allows access to the restaurant
-currently under EditMode. Upon calling of `editmode INDEX` command, the restaurant
-referenced by the `INDEX` in the list of restaurants will be placed in the `editingRestaurantList`.
-Subsequent commands that edit the restaurant, such as `addFoodCommand`, `addRatingCommand` and `editDetailsCommand`
-will create a new restaurant with the edited attributes and replace the restaurant in the `editingRestaurantList`
-with the new edited restaurant.
+`ModelManager` now contains a `editingRestaurantList`, which holds and allows access to the single restaurant
+currently under EditMode.
 
-* **Logic**:
+When user inputs the `editmode INDEX` command:
+
+* The restaurant referenced by the `INDEX` in the list of restaurants will be placed
+in the `editingRestaurantList` via the function call `Model#setEditingRestaurant(Restaurant editingRestaurant`.
+* Subsequent commands that edit the restaurant, such as `AddFoodCommand`, `DeleteFoodCommand`, `AddRatingCommand`
+and `EditDetailsCommand` will create a new restaurant with the edited attributes.
+* The outdated restaurant will be replaced with the new edited restaurant
+in both the `filteredRestaurantList` and `editingRestaurantList` via the function call
+`Model#setRestaurant(Restaurant oldRestaurant, Restaurant newRestaurant)`.
+
+**Logic**:
 
 The `Logic` for EditMode is facilitated by `Context` enum type, which contains the following constants:
 `GLOBAL`, `CUSTOMER`, `RESTAURANT`, `DELIVERYMEN` and `EDITING`. It determines the `Context` the application is in,
-as well as the commands the user can access.
+as well as the commands the user can access. It is contained inside `LogicManager` as an attribute. `EditModeCommand` is only
+accessible in `Context.RESTAURANT`, and entering a valid `EditModeCommand` will change the `Context` to `Context.EDITING`.
 
-It is contained inside `UniversalParser` as an attribute. When the user inputs the command,
-`userInput` will always be parsed by `UniversalParser` first, regardless of the current `Context`.
+The following class diagram shows the relevant structure of `Logic` and `Parser`:
+
+image::developerguide\ParserClassDiagram.png[]
+
+When the user inputs a command:
+
+* `userInput` will always be parsed by `UniversalParser` first, regardless of the current `Context`.
 The reason for this is to check for universal commands, which are accessible in all `Context`.
-Subsequently, if the command word in `userInput` matches none of the universal commands, then `UniversalParser`
-will create a context specific `Parser` based on the current `Context` it is in, which takes over and parses the
-`userInput`. Any context switching command will then change the `Context` in `UniversalParser`.
+* Subsequently, if the command word in `userInput` matches none of the universal commands, then `UniversalParser`
+will create a context specific `Parser` based on the current `Context`, i.e. `CustomerParser`, `RestaurantParser`,
+`DeliverymenParser`, `EditingParser`, which takes over and parses the `userInput`.
+Any context switching command will then change the `Context` in `LogicManager`.
 
-The following class diagram shows the structure of the `UniversalParser`:
+The following activity diagram summarises what happens when the user enters a command:
 
-NOTE: Insert PNG for ParserClassDiagram.puml
+image::developerguide\ParserActivityDiagram.png[]
 
-//The `editModeCommand` is only accessible if current `Context` in `UniversalParser` is `Context.RESTAURANT`.
-//The `switch` command will change the current context to `Restaurant`, while
-//the `editmode` command will change the current context to `Editing`,
-//the `exitedit` command will exit the `Editing` context and return to the `Restaurant` context.
-//and commands for EditMode can only be accessed / unlocked if under `Editing` Context.
+When user inputs the `editmode INDEX` command:
 
-The following activity diagram summarises what happens when the user enters the command to enter EditMode:
+* `UniversalParser` will parse it first.
+* Since `editmode` matches none of the universal commands, `UniversalParser` will create a new `RestaurantParser`
+(since current `Context` is `Context.RESTAURANT` as `EditModeCommand` is only accessible in said `Context`).
+* The new `RestaurantParser` will then parse the `userInput` and subsequently change the `Context` in `LogicManager` to `Context.EDITING`,
+unlocking commands to edit the restaurant, such as `AddFoodCommand`, `DeleteFoodCommand`, `AddRatingCommand`
+and `EditDetailsCommand`.
 
-NOTE: Insert PNG for ParserActivityDiagram.puml
+**UI**:
 
-* **UI**:
+Commands that change the UI will either:
 
-Commands that change the `Context`, and hence the UI, will pass the new `Context` to `MainWindow` in the Ui package
-via the `CommandResult` returned by the command.
-When `MainWindow` receives this new `Context`, it will do the changes to the Ui accordingly via the function call
-`MainWindow#changeDisplay(Context context)`.
+* Pass its command class to `MainWindow` in the UI package if the command doesn't change the `Context`
+* Pass the new `Context` to `MainWindow` in the UI package if the command changes the `Context`.
 
-`editModeCommand` changes the `Context` to `Context.EDITING`. `MainWindow` will then display an extra `StackPane`
-showing the restaurant under EditMode, while the `StackPane` displaying the list of Restaurants
-originally will be filled with the restaurant's `Food` menu instead.
-Once `exitEditCommand` is called, `Editing` context is exited, the stackpane will be hidden,
-and the list of restaurants will be shown again.
+as the second parameter of the `CommandResult` returned by the command.
 
-The following sequence diagram summarises how the `editModeCommand` changes the Ui:
+When `MainWindow` receives the `CommandResult`, it will extract out either the command class or `Context` from
+`CommandResult` and make changes to the UI accordingly via the function call
+`MainWindow#changeDisplay(Context context)` or `MainWindow#changeDisplay(Class commandClassName)`.
 
-NOTE: Insert PNG for MainWindowSequenceDiagram.puml
+When user inputs the `EditModeCommand`:
+
+* Since `Context` is changed to `Context.EDITING`, it will be passed as the second parameter of the `CommandResult`
+returned by the `EditModeCommand`.
+* Upon receiving this new `Context`, `MainWindow` will call the function `changeDisplay(Context.EDITING)` to change
+the UI. An extra `StackPane` showing the restaurant under EditMode will be displayed,
+while the `SplitPane` displaying the list of restaurants originally will now be filled with the restaurant's `Food` menu
+and `Order` list.
+
+The following sequence diagram summarises how the `EditModeCommand` changes the UI:
+
+image::developerguide\MainWindowSequenceDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: Structure of the Parsers
-* **Alternative:** LogicManager contains all 4 parsers instead of Containing only UniversalParser whcih then creates
-the other 3 parsers.
-** Pros: Makes more sense to have LogicManager containing all 4 parsers which are activated separately based
+===== Aspect: Structure of `Logic` and `Parser`
+* **Current:** `LogicManager` contains only the `UniversalParser`, which then creates a context-specific parser
+depending on the current `Context` in `LogicManager`.
+** Pros: Checking whether `userInput` is a universal command only needs to be done once in `UniversalParser`
+** Cons: Doesn't make as much sense for `UniversalParser` to be able to create other context-specific parsers.
+* **Alternative:** Instead of containing only the `UniversalParser`, which then creates the other 4 context-specific
+parsers, `LogicManager` contains all 5 parsers.
+** Pros: Makes more sense to have `LogicManager` containing all 5 parsers which parses `userInput` individually based
 on the current context.
-** Cons: Every single universal command would have to be checked repeatedly in each context-specific parser.
+** Cons: Checking whether `userInput` is a universal command needs to be repeated in each parser.
 
-===== Aspect: Changing of User Interface
-* **Current:** Ui changed depending on
-** Pros: Will only need 1 method signature to change the display of User Interface.
-** Cons: It will create many unnecessary contexts that the Parser will never be in apart from this situation.
-* **Alternative:**
-** Pros: Will only need 1 method signature to change the display of User Interface.
-** Cons: It will create many unnecessary contexts that the Parser will never be in apart from this situation.
+===== Aspect: Changing of UI
+* **Current:** If the `Command` that changes the UI does not change the `Context`, pass its command name
+to `MainWindow` instead of creating a new `Context` to signal a change in UI.
+** Pros: Does not create unnecessary `Context`.
+** Cons: 2 method signatures are needed for `MainWindow#changeDisplay` to change the UI.
+* **Alternative:** A new `Context` is created for every `Command` that changes the UI.
+** Pros: Only 1 method signature is needed for `MainWindow#changeDisplay` to change the UI.
+** Cons: Creates many unnecessary `Context` that `LogicManager` will never be in.
 
 // end::editMode[]
 

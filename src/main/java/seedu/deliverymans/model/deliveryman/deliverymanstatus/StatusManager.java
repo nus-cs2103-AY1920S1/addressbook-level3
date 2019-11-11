@@ -147,8 +147,25 @@ public class StatusManager {
         if (availableMen.size() == 0) {
             throw new NoMoreAvailableDeliverymanException();
         }
+/*
         Deliveryman removed = availableMen.remove(0);
         return updateStatusOf(removed, DELIVERING_STATUS);
+*/
+        return availableMen.get(0);
+    }
+
+    /**
+     * Marks the given available deliveryman as delivering.
+     *
+     * @param target an available Deliveryman
+     * @return updated Deliveryman object
+     */
+    public Deliveryman orderAssigned(Deliveryman target) {
+        if (!target.getStatus().getDescription().equals(AVAILABLE_STATUS)) {
+            throw new IllegalStateException("Attempt to mark deliveryman who is not available as delivering");
+        }
+        availableMen.remove(target);
+        return updateStatusOf(target, DELIVERING_STATUS);
     }
 
     /**

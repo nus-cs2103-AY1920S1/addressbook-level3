@@ -1,4 +1,7 @@
 @startuml
+
+
+
 !include style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
@@ -17,12 +20,12 @@ Class ContextParser
 }
 
 LogicManager .up.|> Logic
-LogicManager -left-> Context
+LogicManager .left.> Context: contains >
+UniversalParser .left.> ContextParser: creates >
+LogicManager -down->"1" UniversalParser
 
-LogicManager -down-> UniversalParser
-UniversalParser ..> ContextParser: creates >
 UniversalParser ..|> Parser
-ContextParser .left.|> Parser
+ContextParser ..|> Parser
 note left of ContextParser: ContextParser = \nCustomerParser, \nRestaurantParser, \nDeliverymenParser or \nEditingParser
 
 @enduml
