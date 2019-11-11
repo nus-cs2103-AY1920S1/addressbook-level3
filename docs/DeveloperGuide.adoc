@@ -711,7 +711,7 @@ If the command is a `help`, `exit` of `export`, the `ViewPanel` will not be upda
 
 You can refer to the activity diagram below for reference.
 
-image::UpdateViewPanelActivityDiagram.png[790]
+image::UpdateViewPanelActivityDiagram.png[]
 
 [NOTE]
 If the execution by `Logic` is not successful, an error will be thrown and the `ViewPanel` will not be updated and refreshed.
@@ -1182,7 +1182,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The most recent window size and location is retained.
 
 === Command Box
-. Input Length limit
+. Input length limit
 
 .. Test case: `add|an item with a very long name that will be rejected|09/09/2020|100` +
   Expected: Input is truncated to `add|an item with a very long name that will be rejected|09/0` and turns red. +
@@ -1200,28 +1200,29 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: kbd:[↓] +
   Expected: A command that had been entered after the current retrieved command is retrieved into he Command Box.
 
-=== AllItemsList
-. Updating the AllItemsList
+=== All Items Panel
+. Updating the All Items Panel
 
 .. Prerequisites: Current view is the main list.
 .. Test case: `add|apple|09/09/2020` +
-  Expected: `AllItemsList` should be updated to display the item under "tracking items".
+  Expected: All Items Panel should be updated to display the item under "tracking items".
 
 .. Test case: `search|b` +
-  Expected: `AllItemsList` should not be updated.
+  Expected: All Items Panel should not be updated.
 
 .. Test case: `shift|1` +
   Expected: Item with index 1 is shifted from "tracking items" to "to-buy items".
 
-=== ViewPanel
+=== View Panel
 
-.Updating the colour of `ItemCard`
+. Updating the colour of `ItemCard`
+
+.. Prerequisites: Current view in the main list and the first item in `View` has not expired. It should not have a reminder and should be expiring in less than 1000 days.
 
 .. Test case: Follow the instructions under <<Adding expired items to the tracking list for testing>> to add expired items to the Xpire. Do not
 add any reminder threshold. +
   Expected: The expired items are marked as red; not expired items are green.
 
-.. Prerequisites: Current view in the main list and the first item in `View` has not expired. It should not have a reminder and should be expiring in less than 1000 days.
 .. Test case: `set reminder|1|1000` +
   Expected: the first item turns yellow.
 

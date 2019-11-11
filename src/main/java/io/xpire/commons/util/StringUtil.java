@@ -97,7 +97,8 @@ public class StringUtil {
         requireNonNull(s);
         try {
             int value = Integer.parseInt(s);
-            return value >= 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
+            // "+1" and "-0" is successfully parsed by Integer#parseInt(String)
+            return value >= 0 && !s.startsWith("+") && !s.startsWith("-");
         } catch (NumberFormatException nfe) {
             return false;
         }
@@ -150,9 +151,8 @@ public class StringUtil {
     /**
      * Returns true if {@code s} represents an integer smaller than or equal to the given maximum value {@code max}.
      * Returns false for any other non-null string input.
-     *
-     * @throws NullPointerException if {@code s} is null.
      * @author xiaoyu-nus
+     * @throws NullPointerException if {@code s} is null.
      */
     public static boolean isExceedingMaxValue(String s, int max) {
         try {
