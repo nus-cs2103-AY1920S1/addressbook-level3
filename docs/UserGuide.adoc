@@ -1080,69 +1080,213 @@ This deletes the general note G1 in the offline copy of bookmark 2.
 * `*annotate-delete* 1 p/all` +
 This removes all annotations of the offline copy of bookmark 1.
 
-'''
 
+//tag::ReminderCommand[]
+
+'''
 === Reminders
 
 The following commands carry out operations on reminders in Mark.
+You can find reminders on the Dashboard tab.
 
-//tag::ReminderCommand[]
 [[Reminder-Command]]
 ==== Adding a reminder: *`reminder`*
 
-Adds a reminder of a specified bookmark. You can set the time for the reminder.
+This command adds a reminder to a specified bookmark.
+The reminder will inform you at the time you indicate.
+
+NOTE: You can have at most one reminder for one bookmark. +
+ +
+The reminder cannot set the reminding time in the past. +
+ +
+Each reminder will reminds you with popup notification twice: +
+ +
+The first notification will show when the reminding time is within five hours,
+the second time is on the reminding spot. +
+ +
+The expired reminder will be auto delete after one hour.
 
 Format: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
 
+For example:
+
+You are using Mark, and you want to remind yourself to do the quiz on Luminus bookmark tomorrow night,
+which is 18/11/2019 8p.m.
+Now you can use the `reminder` command to add a reminder to Luminus.
+
+To add a reminder:
+
+* The index of Luminus on reminder list is 1.
+You type the command `*reminder* 1 t/18/11/2019 2000 n/Do the quiz` into the command box and press _Enter_ to execute it.
+
+image::ui-screenshots/AddReminderUi1.png[400, 500]
+
+//The image of dashboard that shows the bookmark Luminus. before command: reminder 1 t/18/11/2019 2000 n/Do the quiz
+
+* The result box will show the message: +
+"New reminder added: Do the quiz Time: 10/11/2019 0700 URL:https://luminus.nus.edu.sg/"
+
+image::ui-screenshots/AddReminderUi2.png[400, 400]
+//The image of the result box
+
+* The reminder is added to the reminder list.
+
+image::ui-screenshots/AddReminderUi3.png[400, 500]
+//The image of the reminder list
+
+* The notification will show up to inform you at the time.
+
+image::ui-screenshots/AddReminderUi4.png[200, 300]
+//The notification
+
+There are some parameter constraints:
 ****
 * `INDEX` is the index of the bookmark that you want to add with a reminder.
- * `TIME_DATE` follows `_dd/MM/uuuu HHmm_` format.
+* `TIME_DATE` follows `_dd/MM/uuuu HHmm_` format. It should be a valid time.
 * `NOTE` is the description of the reminder, the default value is Open.
 ****
-Examples:
+
+Other examples:
 
 * `*reminder* 1 t/02/07/2019 2359` +
-Adds a reminder for bookmark 1, and sets the time of the reminder as 23:59 of 02/07/2019.
+This command line adds a reminder for bookmark 1, and sets the time of the reminder as 23:59 of 02/07/2019.
 It reminds you to open the bookmark.
 
 * `*reminder* 1 t/02/07/2019 2359 n/Read announcements` +
-Adds a reminder for bookmark 1, and sets the time of the reminder as 23:59 of 02/07/2019.
+This command line adds a reminder for bookmark 1, and sets the time of the reminder as 23:59 of 02/07/2019.
 The reminder reminds you to read announcements.
 
 
 
 ==== Editing a reminder: *`reminder-edit`*
-Edits the reminder at the specified index. You can edit either the time or the note of the reminder.
+This command edits the reminder in the list at the specified index.
+You can edit either the time or the note of the reminder.
 
 Format: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
 
+
+For example:
+
+You have another assignment on Luminus that need to be done tomorrow morning,
+which is 10/11/2019 7 a.m. You want to change the note for reminder to remind you do the assignment.
+Now you can use the `reminder-edit` command to edit the reminder for Luminus.
+
+To edit a reminder:
+
+* The index of the reminder in the reminder list is 1.
+You type the command `*reminder-edit* 1 n/Do the quiz and the assignment` into the command box and press _Enter_ to execute it.
+image::ui-screenshots/EditReminderUi1.png[400, 500]
+//The image of dashboard that shows the reminder for Luminus.
+
+* The result box will show the message: +
+"Edited Reminder: Do the quiz and the assignment Time: 10/11/2019 0700 URL:https://luminus.nus.edu.sg/"
+
+image::ui-screenshots/EditReminderUi2.png[400, 400]
+//The image of the result box
+
+* The reminder is edited in the reminder list.
+
+image::ui-screenshots/EditReminderUi3.png[400, 500]
+//The image of the reminder list
+
+* The edited notification will show up to inform you at the time.
+
+image::ui-screenshots/EditReminderUi4.png[200, 300]
+//The notification
+
+There are some parameter constraints:
 ****
 * `INDEX` is the index of the reminder you want to edit on the dashboard.
-* `TIME_DATE` is the time you want to edit. The time follows `_dd/MM/uuuu HHmm_` format.
+* `TIME_DATE` is the time you want to edit. The time follows `_dd/MM/uuuu HHmm_` format. It should be a valid time.
 * `NOTE` is the description of the reminder that you want to edit.
 ****
-Examples:
+
+Other examples:
 
 * `*reminder-edit* 1 t/02/07/2019 2359` +
-Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
+This command edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 
 * `*reminder-edit* 1 t/02/07/2019 2359 n/Check daily news` +
-Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
+This command edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 Reset the note to Check daily news.
 
 ==== Deleting a reminder: *`reminder-delete`*
 
-Deletes the the reminder at the specified index.
+This command deletes the the reminder in the reminder list at the specified index.
 
 Format: `*reminder-delete* INDEX`
 
 ****
 * `INDEX` is the index of the reminder you want to delete on the dashboard.
 ****
-Examples:
+For example:
 
-* `*reminder-delete* 1` +
-Delete the reminder of index 1.
+You finished your task on Luminus early, and you do not need the reminder for Luminus anymore.
+Now you can use the `reminder-delete` command to delete the reminder for Luminus.
+
+To delete a reminder:
+
+* The index of the reminder in the reminder list is 1.
+You type the command `*reminder-delete* 1` into the command box and press _Enter_ to execute it.
+
+image::ui-screenshots/DeleteReminderUi1.png[400, 500]
+//The image of dashboard that shows the reminder for Luminus.
+
+* The result box will show the message: +
+"Deleted Reminder: Do the quiz and the assignment Time: 10/11/2019 0700 URL:https://luminus.nus.edu.sg/"
+
+image::ui-screenshots/DeleteReminderUi2.png[400, 400]
+//The image of the result box
+
+* The reminder is deleted in the reminder list.
+
+image::ui-screenshots/DeleteReminderUi3.png[400, 500]
+//The image of the reminder list
+
+
+Other examples:
+
+* `*reminder-delete* 2` +
+This command deletes the reminder of index 2.
+
+==== Opening a bookmark from a reminder: *`reminder-goto`*
+
+Opens the related bookmark of the specified reminder from the bookmark manager.
+
+Format: `*reminder-goto* INDEX`
+
+****
+* INDEX is the index of the reminder as viewed on the dashboard.
+* `INDEX` must be a positive integer `1`, `2`, `3`, …​
+****
+For example:
+
+You want to plan your time table for next semester, which is a task on reminder list.
+Now you can use the `reminder-goto` command to open the website.
+
+To open the bookmark of a reminder:
+
+* The index of the reminder in the reminder list is 2.
+You type the command `*reminder-goto* 2` into the command box and press _Enter_ to execute it.
+
+image::ui-screenshots/GotoReminderUi1.png[400, 500]
+//The image of dashboard that shows the reminder for NUSMods
+
+* The result box will show the message: +
+"Opening Reminder: Start planning next year's timetable Time: 07/12/2019 1000 URL:https://nusmods.com/"
+
+image::ui-screenshots/GotoReminderUi2.png[400, 400]
+
+* The tab will switch to Online and show NUSMODs website.
+
+image::ui-screenshots/GotoReminderUi3.png[400, 400]
+
+Other examples:
+
+* `*reminder-goto* 1` +
+If reminder 1 points to bookmark 5, this command is equivalent to
+`*goto* 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
+
 
 //end::ReminderCommand[]
 
@@ -1175,23 +1319,6 @@ Lists all the bookmarks based on name/alphabetical order.
 * `*sort* default` +
 Sort all the bookmarks based on the order they were added.
 // end::sort[]
-
-==== Opening a bookmark from a reminder: *`goto-reminder`* `[coming in v2.0]`
-
-Opens the related bookmark of the specified reminder from the bookmark manager.
-
-Format: `*goto-reminder* INDEX`
-
-****
-* INDEX is the index of the reminder as viewed on the dashboard.
-* The index must be a positive integer `1`, `2`, `3`, …​
-****
-
-Examples:
-
-* `*goto-reminder* 1` +
-If reminder 1 points to bookmark 5, this command is equivalent to
-`*goto* 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
 
 ==== Automatically completing partially typed commands `[coming in v2.0]`
 
@@ -1230,6 +1357,10 @@ reminders, and a view of the folder hierarchy for bookmarks.
 
 [[folder-hierarchy]] Folder Hierarchy::
 The structure of folders in Mark. This is displayed in the dashboard tab when the application starts.
+
+[[reminder]] Reminder::
+The reminder in Mark reminds you to check a specific bookmark.
+This is displayed in the dashboard tab when the application starts.
 
 [[offline-copy]] Offline copy::
 An copy of a bookmarked website that is used for offline viewing. It is stored as a HTML file on the computer.
@@ -1289,7 +1420,7 @@ General notes are found at the bottom of the rightmost column on the offline cop
 | Add reminder: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
 | Edit reminder: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
 | Delete reminder: `*reminder-delete* INDEX`
-| Go to reminder: `*goto-reminder* INDEX`
+| Go to reminder: `*reminder-goto* INDEX`
 |=====
 
 .Summary of common command parameters

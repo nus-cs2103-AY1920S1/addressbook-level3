@@ -695,7 +695,7 @@ more advanced tree traversal algorithms as compared to naive list or array opera
 // tag::reminder[]
 === Reminder feature
 ==== Implementation
-A bookmark can have a reminder, and a reminder can be used to open the bookmark.
+A bookmark can attach a reminder, and a reminder can be used to open the bookmark and send notifications to the user.
 This mechanism is facilitated by `Reminder` and `ReminderAssociation`.
 
 `Reminder` contains a reminding time, the `Url` of the `Bookmark` and a `Note`.
@@ -703,8 +703,38 @@ This mechanism is facilitated by `Reminder` and `ReminderAssociation`.
 `ReminderAssociation` represents the association between `Reminder` and `Bookmark`, containing
  the relation from `Reminder` to `Bookmark` and `Reminder` to `Bookmark`.
 
-.Structure of the Reminder
-image::ReminderAssociationDiagram.png[]
+.Class diagram of the Reminder component
+image::ReminderAssociationDiagram.png[600, 400]
+
+There are four parts of the reminder feature:
+
+* Add a reminder to a specific bookmark (executed by `AddReminderCommand#execute()`)
+* Edit a reminder (executed by `EditReminderCommand#execute()`)
+* Delete a reminder (executed by `DeleteReminderCommand#execute()`)
+* Goto the bookmark of a specific reminder (executed by `GotoReminderCommand#execute()`)
+
+These command are triggered by `reminder` command line entered into the command box,
+which will calls the respective command parser to create the command.
+The bookmark of the reminder will be retrieved and handled according to the command.
+
+The following sequence diagram illustrates how the adding reminder operation works:
+
+image::AddReminderSequenceDiagram.png[]
+
+NOTE: The lifeline for `AddReminderCommandParser` and `AddReminderCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+In the `reminder-delete` command, instead of calling `addReminder(bookmark, reminder)` in Model,
+it will call `removeReminder(reminder)`.
+
+In the `reminder-edit` command, instead of calling `addReminder(bookmark, reminder)` in Model,
+EditReminderCommand will create a edited copy of the target reminder and call `editReminder(target, editedReminder)` in Model.
+
+In the `reminder-goto` command, it will retrieved the bookmark of the reminder and generate a GotoCommandResult.
+It works the same as `goto` command of the bookmark.
+
+The following activity diagram summarizes what happens when a user attempts to use a reminder command:
+
+image::ReminderActivityDiagram.png[600, 500]
 
 ==== Design Considerations
 ===== Aspect: How to represent the relationship between reminder and bookmark
@@ -835,8 +865,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |check my view history |see what websites I have visited
 
 |`* *` |user |automatically clean up old or outdated bookmarks |keep my bookmark list up to date without having to look through it regularly
-
-|`* *` |user |sort the bookmarks according to name |locate a specific bookmark
 
 |`*` |user |export and import autotags |share my custom-made autotags with friends
 |=======================================================================
@@ -1165,6 +1193,7 @@ Use case resumes from step 4.
 +
 Use case resumes from step 4.
 
+//tag::use-case-reminder[]
 [[UC14]]
 [discrete]
 === Use case: UC14 - Add a reminder
@@ -1257,27 +1286,25 @@ Use case resumes at step 1.
 
 [[UC17]]
 [discrete]
-=== Use case: UC17 - Sort the bookmark list
+=== Use case: UC17 - Open reminder
 
 *MSS*
 
-1. User <<UC01, lists bookmarks (UC01)>>.
-2. User requests to sort the list in the specified criterion.
-3. Mark shows the sorted bookmark list.
+1.  User requests to open a specific reminder in the reminder list.
+2.  Mark opens the reminder.
 +
 Use case ends.
 
 *Extensions*
+
 [none]
-* 1a. The list is empty.
+* 1a. The given index is invalid.
 +
-Use case ends.
 [none]
-* 2a. Mark detects invalid criterion.
-[none]
-** 2a1. Mark shows an error message.
+** 1a1. Mark shows an error message.
 +
 Use case resumes at step 1.
+//end::use-case-reminder[]
 
 [appendix]
 == Non Functional Requirements
@@ -1342,6 +1369,77 @@ The following are some tests for the original AddressBook 3.
    Expected: Similar to previous.
 
 //end AB3 test cases
+
+=== Opening a bookmark
+
+. Opening a bookmark while all bookmarks are listed
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `goto 1` +
+   Expected: Tab view is switched to the online tab if the current view is not online tab.
+First bookmark is opened in the online tab.
+Details of the opened bookmark shown in the status message.
+.. Test case: `goto 0` +
+   Expected: No bookmark is opened. Error details shown in the status message.
+.. Other incorrect `goto` commands to try: `goto`, `goto x` (where x is larger than the list size)  +
+   Expected: Similar to previous.
+
+=== Adding a bookmark to favorites
+
+. Adding a Favorite tag to a bookmark while all bookmarks are listed
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+The first bookmark does not contain `Favorite` tag.
+.. Test case: `favorite 1` or `fav 1` +
+   Expected: A `Favorite` tag is added to the first bookmark and the bookmark also appears in the list
+of favorite bookmarks in the top right corner of the dashboard tab.
+Details of the bookmark shown in the status message.
+.. Test case: `fav 0` +
+   Expected: No bookmark is tagged `Favorite`. Error details shown in the status message.
+.. Other incorrect `favorite` commands to try: `favorite`, `favorite x` (where x is larger than the list size)  +
+   Expected: Similar to previous.
+
+=== Undoing previous commands
+
+. Undoing the most recent undoable command
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `delete 1` followed by `undo` +
+   Expected: The deleted bookmark after the first command re-appears in the bookmark list.
+Details of the `delete` action shown in the status message.
+
+. Undoing multiple previous undoable commands
+
+.. Prerequisites: List all bookmarks using the `list` command. More than two bookmarks in the list.
+.. Test case: `delete 1` followed by `delete 1` and then `undo 2` +
+   Expected: The deleted bookmarks after the first two command re-appear in the bookmark list.
+Details of the two reverted `delete` actions shown in the status message.
+.. Test case: `undo 0` +
+   Expected: No action is undone. Error details shown in the status message.
+.. Other incorrect `undo` commands to try: `undo`, `undo x` (where x is larger than the maximum number of undoable actions)  +
+   Expected: Similar to previous.
+
+=== Redoing previous undo commands
+
+. Redoing the most recent undo command
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `delete 1` followed by `undo` and `redo` +
+   Expected: The deleted bookmark after the first command re-appears in the bookmark list.
+After the `redo` command, the deleted bookmark disappears from the bookmark list again.
+Details of the restored `delete` action shown in the status message.
+
+. Redoing multiple previous undo commands
+
+.. Prerequisites: List all bookmarks using the `list` command. More than two bookmarks in the list.
+.. Test case: `delete 1` followed by `delete 1` and `undo 2`, then `redo 2` +
+   Expected: The two deleted bookmarks after the first two command re-appear in the bookmark list after the `undo 2` command.
+After the `redo 2` commands, the two bookmarks get deleted again.
+Details of the two restored `delete` actions shown in the status message.
+.. Test case: `redo 0` +
+   Expected: No action is redone. Error details shown in the status message.
+.. Other incorrect `redo` commands to try: `redo`, `redo x` (where x is larger than the maximum number of actions to redo)  +
+   Expected: Similar to previous.
 
 === Testing of folders
 
@@ -1414,76 +1512,67 @@ Expected: An error occurs, saying that there are still bookmarks/folders in `X` 
 
 _{ more test cases ... }_
 
-=== Opening a bookmark
 
-. Opening a bookmark while all bookmarks are listed
 
+
+//tag::test-reminder[]
+==== Adding a reminder
+
+. Adding a reminder while all bookmarks are listed
 .. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
-.. Test case: `goto 1` +
-   Expected: Tab view is switched to the online tab if the current view is not online tab.
-First bookmark is opened in the online tab.
-Details of the opened bookmark shown in the status message.
-.. Test case: `goto 0` +
-   Expected: No bookmark is opened. Error details shown in the status message.
-.. Other incorrect `goto` commands to try: `goto`, `goto x` (where x is larger than the list size)  +
-   Expected: Similar to previous.
+.. Test case: `reminder 1 t/12/12/2030 1200` +
+    Expected: The reminder of the first bookmark is added into reminder list.
+.. Test case: `reminder 0 t/12/12/2030 1200` +
+Expected: No reminder is added into the reminder list. Error details shown in the status message. Status bar remains the same.
+.. Test case: `reminder 1 t/30/02/2030 1200` +
+Expected: No reminder is added into the reminder list. Error details shown in the status message. Status bar remains the same.
 
-=== Adding a bookmark to favorites
+_{ more test cases ... }_
 
-. Adding a Favorite tag to a bookmark while all bookmarks are listed
+==== Editing a reminder
 
-.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
-The first bookmark does not contain `Favorite` tag.
-.. Test case: `favorite 1` or `fav 1` +
-   Expected: A `Favorite` tag is added to the first bookmark and the bookmark also appears in the list
-   of favorite bookmarks in the top right corner of the dashboard tab.
-Details of the bookmark shown in the status message.
-.. Test case: `fav 0` +
-   Expected: No bookmark is tagged `Favorite`. Error details shown in the status message.
-.. Other incorrect `favorite` commands to try: `favorite`, `favorite x` (where x is larger than the list size)  +
-   Expected: Similar to previous.
+. Editing a reminder
+.. Prerequisites: The reminder list has 5 reminder.
 
-=== Undoing previous commands
+.. Test case: `reminder-edit 1 n/Read` +
+Expected: The note of the first reminder changes to "Read".
+.. Test case: `reminder-edit 0 n/Read` +
+Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
+.. Test case: `reminder-edit 6 n/Read` +
+Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
 
-. Undoing the most recent undoable command
+_{ more test cases ... }_
 
-.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
-.. Test case: `delete 1` followed by `undo` +
-   Expected: The deleted bookmark after the first command re-appears in the bookmark list.
-Details of the `delete` action shown in the status message.
+==== Deleting a reminder
 
-. Undoing multiple previous undoable commands
+. Deleting a reminder
 
-.. Prerequisites: List all bookmarks using the `list` command. More than two bookmarks in the list.
-.. Test case: `delete 1` followed by `delete 1` and then `undo 2` +
-   Expected: The deleted bookmarks after the first two command re-appear in the bookmark list.
-Details of the two reverted `delete` actions shown in the status message.
-.. Test case: `undo 0` +
-   Expected: No action is undone. Error details shown in the status message.
-.. Other incorrect `undo` commands to try: `undo`, `undo x` (where x is larger than the maximum number of undoable actions)  +
-   Expected: Similar to previous.
+.. Prerequisites: The reminder list has 5 reminder.
 
-=== Redoing previous undo commands
+.. Test case: `reminder-delete 1` +
+Expected: The first reminder in the list is deleted.
+.. Test case: `reminder-delete 0 ` +
+Expected: No reminder is deleted in the reminder list. Error details shown in the status message. Status bar remains the same.
+.. Test case: `reminder-delete 6` +
+Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
 
-. Redoing the most recent undo command
+_{ more test cases ... }_
 
-.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
-.. Test case: `delete 1` followed by `undo` and `redo` +
-   Expected: The deleted bookmark after the first command re-appears in the bookmark list.
-After the `redo` command, the deleted bookmark disappears from the bookmark list again.
-Details of the restored `delete` action shown in the status message.
+==== Goto a reminder
 
-. Redoing multiple previous undo commands
+. Opening a bookmark using a reminder
 
-.. Prerequisites: List all bookmarks using the `list` command. More than two bookmarks in the list.
-.. Test case: `delete 1` followed by `delete 1` and `undo 2`, then `redo 2` +
-   Expected: The two deleted bookmarks after the first two command re-appear in the bookmark list after the `undo 2` command.
-After the `redo 2` commands, the two bookmarks get deleted again.
-Details of the two restored `delete` actions shown in the status message.
-.. Test case: `redo 0` +
-   Expected: No action is redone. Error details shown in the status message.
-.. Other incorrect `redo` commands to try: `redo`, `redo x` (where x is larger than the maximum number of actions to redo)  +
-   Expected: Similar to previous.
+.. Prerequisites: The reminder list has 5 reminder.
+
+.. Test case: `reminder-goto 1` +
+Expected: The first reminder in the list is opened.
+.. Test case: `reminder-goto 0 ` +
+Expected: No website will show. Error details shown in the status message. Status bar remains the same.
+.. Test case: `reminder-goto 6` +
+Expected: No website will show. Error details shown in the status message. Status bar remains the same.
+
+_{ more test cases ... }_
+//end::test-reminder[]
 
 === Saving data
 
