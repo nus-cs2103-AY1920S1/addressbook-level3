@@ -1,0 +1,71 @@
+= Jason Sathya Citro - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Dukemon
+
+== Overview
+
+Dukemon is a desktop flashcard application used to reinforce memory techniques. The user interacts with it using a CLI,
+and it has a GUI created with JavaFX. It is written in Java, and has about 25 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*:
+** *added Game Result page after game ends*
+*** What it does: It shows the user a page to indicate the game is over, which contains the user's performance on the
+current game (score, time taken), the user's progress (progress chart, achievement badges, high score, fastest clear),
+and a list of words the user has missed to help improve the user's subsequent performance.
+*** Justification: It helps game-ify the process of learning, gives the user a chance to look at how to improve their
+performance, and also gives a sense of accomplishment for being able to see the progress made after a game session
+finished.
+*** Highlights: The usage of time as a metric of performance (time taken, fastest clear) required understanding on the
+code for the timer, which led to in-depth discussion with a group mate (Koh Yida).
+
+
+** *added Statistics for each word bank*
+*** What it does: It shows the user a page on the summary of the statistics of a word bank (can be seen in open mode). It
+contains the user's progress (progress chart, achievement badges, high score, fastest clear) and a list of 5 words which
+the user gets wrong most often.
+*** Justification: It gives the user a way to see their progress on a specific word bank, and shows user which words the
+user is weak at.
+
+
+** *added Global Statistics of overall usage*
+*** What it does: It shows the user a page on the main page of their overall usage of the app. It contains the user's
+total games played, weekly games count, and most played word bank.
+*** Justification: By showing the global statistics right on the home page, it makes the app feel more personalized.
+Additionally, showing the total games played and weekly games count may increase user's app usage, as each game is
+recorded and it feels like the user is making their own footprint on the app.
+
+
+* *Code contributed*: https://github.com/AY1920S1-CS2103T-T11-2/main/commits?author=jascxx[***Link to codebase***]
+
+* *Other contributions*:
+
+*** Refactored the models of AB3 (Person, AddressBook, and their closely-connected classes) to correctly fit the app
+(Card, WordBank, etc) in the very early stage of the project, which leads to increased productivity from the other
+members,
+as it was one of the biggest bottleneck of the project's progress.
+*** Sourced for and integrated the avatars for Dukemon that provide a more fun and flavorful learning
+experience [credit to Geovanny Gavilanes].
+*** Created the logo for the app.
+
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting
+end-users._
+|===
+include::../UserGuide.adoc[tag=jasonstatscommand]
+include::../UserGuide.adoc[tag=statsjason]
+
+
+== Contributions to the Developer Guide
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project._
+|===
+include::../DeveloperGuide.adoc[tag=jasonstats]
+include::../DeveloperGuide.adoc[tag=jason-feature]

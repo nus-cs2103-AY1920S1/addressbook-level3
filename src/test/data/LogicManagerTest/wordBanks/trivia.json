@@ -1,0 +1,34 @@
+{
+  "wordBank" : [ {
+    "id" : "adswfasf3",
+    "name" : "39",
+    "description" : "How old is nus?",
+    "tagged" : [ "Medium" ]
+  }, {
+    "id" : "123124123g4",
+    "name" : "FASS",
+    "description" : "Which faculty has the most student?",
+    "tagged" : [ "Medium" ]
+  }, {
+    "id" : "1234g1234g123sadrf",
+    "name" : "Dukemon",
+    "description" : "What is the best app in the world?",
+    "tagged" : [ "Easy" ]
+  }, {
+    "id" : "adsrga3",
+    "name" : "SErebros",
+    "description" : "What is our group name?",
+    "tagged" : [ "Hard" ]
+  }, {
+    "id" : "sdfa33",
+    "name" : "cs2103",
+    "description" : "What is the module code of this mod? _ _ _ _ _ _",
+    "tagged" : [ "Easy" ]
+  }, {
+    "id" : "sadf2134",
+    "name" : "Yes",
+    "description" : "Do you like this app?",
+    "tagged" : [ "Easy" ]
+  } ],
+  "name" : "trivia"
+}

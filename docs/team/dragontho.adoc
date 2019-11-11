@@ -1,0 +1,85 @@
+= Paul Tho - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Dukemon
+
+_Link to Reposense code_: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=totalCommits%20dsc&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&until=2019-11-08&tabType=authorship&tabAuthor=dragontho&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[Reposense]
+
+_Link to Github Repo_: https://github.com/AY1920S1-CS2103T-T11-2/main[Dukemon]
+
+== Overview
+
+*Dukemon* is a desktop flashcard application used for memorising material in a fun and engaging way.
+The user operates the application through a CLI and runs on Java and the JavaFX framework.
+My main contribution to the team was the implementation of settings and the settings screen.
+
+I realise that our application was going to be UI heavy as the way we planned our application involved a lot of screens.
+I took it upon myself to learn how the JavaFX framework worked and made a platform for the rest of my
+fellow developers to build their UI components on.
+
+== Summary of contributions
+
+** *Major enhancement*: added *a settings page to the application*.
+
+.Settings Page
+image:paulthoppp.png[width='400']
+
+** [underline]_What it does_:
+*** Allows the user to change specific settings about the application. Difficulty level, colour theme, hints and avatar are the features that are implemented in settings so far.
+**** *Difficulty*: Allows the user to change the difficulty of the game in the application to one of three settings: Easy, Medium and Hard.
+**** *Theme*: Allows the user to change to one of two themes: Dark and Light.
+**** *Hints*: Allows the user to either enable hints to help them in the game or to disable them.
+**** *Avatar*: Allows the user to set the avatar in the home screen based on the provided avatars' id number.
+** [underline]_Justification_:
+*** This feature improves the product significantly because it provides options for the user to personalise their experience when using our application.
+*** For example, weaker students may use the settings to set the difficulty to easy or medium.
+*** Furthermore, some students might not want hints so as to practise what they have learnt. They can do that in the settings as well.
+** [underline]_Highlights_:
+*** This enhancement creates a platform for other developers to add their own user settings into the application, allowing for increased extendability.
+*** The process had to encroach on storage, logic as well as model and I learnt a lot integrating all the parts together.
+** [underline]_Credits_:
+*** Yi Da for implementing difficulty and hints and for integrating his logic to my settings. Jason for providing the avatars to use for my settings.
+*** https://openjfx.io/[JavaFX 11] for GUI.
+*** https://github.com/TestFX/TestFX[TestFX] and https://github.com/junit-team/junit5[JUnit5] for testing.
+
+** *Minor enhancement*:
+
+*** Added a modular display to change screens depending on what mode the application is in.
+*** This was a necessary enhancement due to how UI-heavy our application is. We needed multiple screens to handle multiple tasks and this was the solution I proposed and implemented.
+
+** *Code contributed*: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/appsettings[Functional code]] [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/test/java/seedu/address/model/AppSettingsTest.java[Test code]]
+
+** *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull request https://github.com/AY1920S1-CS2103T-T11-2/main/pull/84[#84])
+*** Wrote additional tests for existing features to increase coverage from 40% to 41% (Pull requests https://github.com/AY1920S1-CS2103T-T11-2/main/pull/124[#124], https://github.com/AY1920S1-CS2103T-T11-2/main/pull/134[#134])
+** Documentation:
+*** Added diagrams to the implementation of settings in Developer's Guide: https://github.com/AY1920S1-CS2103T-T11-2/main/pull/134[#134]
+** Community:
+
+*** The label highlighting feature that I used for my settings page was also used by other classmates(https://github.com/AY1920S1-CS2103T-T12-1/main/pull/87[1]).
+
+<<<
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=paulsettings]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=settings]
+
+

@@ -1,0 +1,41 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor #000000
+skinparam classBackgroundColor TIMER_COLOR
+
+
+package AppManager <<Rectangle>> {
+Class AppManager #00008B
+}
+package Timer <<Rectangle>> {
+Class GameTimerManager {
+}
+Class GameTimer <<Interface>> {
+}
+}
+
+
+package UI <<Rectangle>> {
+Class MainWindow UI_COLOR
+}
+
+package GameStatistics <<Rectangle>> {
+Class GameStatisticsBuilder #800080
+}
+
+package Logic <<Rectangle>> {
+Class Logic <<Interface>> #EE4347
+Class LogicManager #EE4347
+}
+
+
+GameTimerManager -down-|> GameTimer
+AppManager *--right--> GameTimer : initializes >
+AppManager *--down-> GameStatisticsBuilder : initializes >
+AppManager --down-> Logic : executes commands with >
+AppManager ..up..> MainWindow : notifies >
+MainWindow --down--> AppManager : retrieves info from >
+LogicManager --right-|> Logic
+
+@enduml

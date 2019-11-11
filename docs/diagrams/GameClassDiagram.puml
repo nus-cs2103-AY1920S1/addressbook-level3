@@ -1,0 +1,40 @@
+@startuml
+!include style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor #800080
+
+package Game <<Rectangle>>{
+Class Game {
+    boolean isOver
+}
+enum DifficultyEnum {
+    EASY
+    MEDIUM
+    HARD
+}
+
+Class Card
+Class Index
+Class Guess
+
+}
+
+package WordBank <<Rectangle>>{
+Class ReadOnlyWordBank <<Interface>> #9D0012
+Class WordBank #9D0012
+}
+
+
+Game o--down-"0..*" Card
+Game -left-> DifficultyEnum
+Game --right->"1" Index
+Game ..up..> Guess :verifies >
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Game
+HiddenOutside ..> Guess
+Game -- ReadOnlyWordBank :.clone() Cards from >
+WordBank .up.|> ReadOnlyWordBank
+
+@enduml

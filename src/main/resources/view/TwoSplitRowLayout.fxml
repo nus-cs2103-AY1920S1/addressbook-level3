@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<SplitPane fx:id="splitPane" dividerPositions="0.5" orientation="VERTICAL" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+   <items>
+      <StackPane fx:id="topPane" />
+      <StackPane fx:id="bottomPane" />
+   </items>
+</SplitPane>

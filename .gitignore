@@ -7,6 +7,8 @@ src/main/resources/docs/
 /.idea/
 /out/
 /*.iml
+/src/main/*.iml
+/src/test/*.iml
 
 # Storage/log files
 /data/
@@ -19,3 +21,4 @@ src/test/data/sandbox/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
+/src/test/data/JsonWordBankListStorageTest/wordBanks/

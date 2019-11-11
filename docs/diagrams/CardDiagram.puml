@@ -1,0 +1,24 @@
+@startuml
+!include style.puml
+
+skinparam arrowThickness 1.3
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+show members
+hide empty members
+
+Package Card <<Rectangle>>{
+Class Card {
+- id: String
+- tags: Set<Tag>
+}
+Class Word
+Class Meaning
+}
+
+Card *--> "1" Word
+Card *--> "1" Meaning
+
+Meaning *-LEFT[hidden]-> Word
+@enduml

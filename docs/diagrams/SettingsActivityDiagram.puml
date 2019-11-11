@@ -1,0 +1,16 @@
+@startuml
+start
+:User executes a
+settings command;
+
+if () then ([current mode is "settings"])
+    :Executes settings
+    command;
+    :Alters state of model;
+    :Saves settings to
+    appsettings.json;
+else ([else])
+    :Throws Exception;
+endif
+stop
+@enduml

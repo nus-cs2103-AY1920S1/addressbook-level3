@@ -1,0 +1,65 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":UI" as UI UI_COLOR
+end box
+
+box AppManager APPMANAGER_COLOR_T1
+participant ":AppManager" as AppManager APPMANAGER_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SelectCommand" as SelectCommand LOGIC_COLOR_T2
+end box
+
+box ParserManager PARSERMANAGER_COLOR_T1
+participant ":ParserManager" as ParserManager PARSERMANAGER_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR_T3
+end box
+
+
+[-> UI : execute("select pokemon")
+activate UI
+
+UI -> AppManager : executeCommand\n("select pokemon")
+activate AppManager
+
+AppManager -> LogicManager : execute\n("select pokemon")
+activate LogicManager
+
+LogicManager -> ParserManager : parseCommand("select pokemon")
+activate ParserManager
+
+ParserManager --> LogicManager: command
+deactivate ParserManager
+
+create SelectCommand
+LogicManager -> SelectCommand : command.execute()
+activate SelectCommand
+
+SelectCommand -> Model : setWordBankStatistics()
+activate Model #blue
+note right: The active WordBankStatistics\nis set in Model by SelectCommand
+deactivate Model
+
+SelectCommand --> LogicManager: commandResult
+deactivate SelectCommand
+
+LogicManager --> AppManager: commandResult
+destroy SelectCommand
+deactivate LogicManager
+AppManager --> UI
+deactivate AppManager
+
+
+deactivate AppManager
+
+[<- UI : update\n UI Component
+
+
+@enduml

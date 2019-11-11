@@ -1,9 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- @@author sreesubbash -->
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here..."/>
+<StackPane prefHeight="0.0" prefWidth="1077.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="0.0" prefWidth="1077.0">
+         <children>
+            <HBox prefHeight="30.0" prefWidth="1077.0">
+               <children>
+                  <VBox prefHeight="100.0" prefWidth="100.0">
+                     <children>
+                        <Label fx:id="modeHeader" text="Current Mode" textFill="WHITE"/>
+                        <Label fx:id="modeLabel" text="home" textFill="WHITE" />
+                     </children>
+                  </VBox>
+                   <VBox prefHeight="100.0" prefWidth="234.0">
+                       <children>
+                           <Label text="Available Modes" textFill="WHITE" />
+                           <Label fx:id="modesLabel" text="home" textFill="WHITE" />
+                       </children>
+                   </VBox>
+                 <TextField fx:id="commandTextField" onAction="#handleCommandEntered" prefHeight="40.0" prefWidth="400.0" promptText="Enter command here..." text="" HBox.hgrow="ALWAYS" />
+
+               </children>
+            </HBox>
+            <MenuBar fx:id="autoFillBar" minHeight="-Infinity" prefHeight="30.0" prefWidth="1077.0">
+              <menus>
+              </menus>
+            </MenuBar>
+         </children>
+      </VBox>
+   </children>
 </StackPane>
-

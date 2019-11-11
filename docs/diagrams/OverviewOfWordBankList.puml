@@ -1,0 +1,67 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.3
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+show members
+hide empty members
+
+Package WordBankList {
+Interface ReadOnlyWordBankList <<Interface>>
+'getFilteredWordBankList()
+'getWordBankFromName(String)
+'hasBankName(String)
+Class WordBankList {
+'   +addWordBank(ReadOnlyWordBank)
+'   +removeWordBank(WordBank)
+}
+
+Class UniqueWordBankList
+
+
+Package WordBank {
+Interface ReadOnlyWordBank <<Interface>> {
+'getName()
+'getCard(Index)
+'getCardList()
+}
+Class WordBank {
+   -name: String
+'   +addCard(Card)
+'   +removeCard(Card)
+'   +setCard(Card, Card)
+'   +hasCard(Card)
+'   +resetData(ReadOnlyWordBank)
+}
+Class UniqueCardList
+
+Package Card {
+Class Card {
+- id: String
+- tags: Set<Tag>
+}
+Class Meaning
+Class Word
+}
+'}
+}
+}
+
+WordBankList .right.|> ReadOnlyWordBankList
+WordBankList *-down-> "1" UniqueWordBankList
+UniqueWordBankList o-right-> "*" WordBank
+
+WordBank .right.|> ReadOnlyWordBank
+WordBank *-down-> "1" UniqueCardList
+UniqueCardList o-> "*" Card
+
+show members
+hide empty members
+
+Card *--> "1" Meaning
+Card *--> "1" Word
+
+Meaning *-LEFT[hidden]-> Word
+@enduml
+

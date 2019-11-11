@@ -1,0 +1,38 @@
+{
+  "wordBank" : [ {
+    "id" : "sample-id",
+    "name" : "            ",
+    "description" : "It sleeps eighteen hours a day, but employs telekinesis even while sleeping.",
+    "tagged" : [ "psychic" ]
+  }, {
+    "id" : "sample-id",
+    "name" : "Butterfree",
+    "description" : "Its wings are covered with poisonous dust. If you see one flapping its wings, be careful not to inhale any of the dust.",
+    "tagged" : [ "bug", "flying" ]
+  }, {
+    "id" : "sample-id",
+    "name" : "Charizard",
+    "description" : "It flies around the sky in search of powerful opponents. It breathes fire of such great heat that it melts anything. However, it never turns its fiery breath on any opponent weaker than itself.",
+    "tagged" : [ "flying", "fire" ]
+  }, {
+    "id" : "sample-id",
+    "name" : "Ditto",
+    "description" : "Its transformation ability is perfect. However, if it is made to laugh, it can't maintain its disguise.",
+    "tagged" : [ "normal" ]
+  }, {
+    "id" : "sample-id",
+    "name" : "Eevee",
+    "description" : "Possessing an unbalanced and unstable genetic makeup, it conceals many possible evolutions",
+    "tagged" : [ "normal" ]
+  }, {
+    "id" : "sample-id",
+    "name" : "Flareon",
+    "description" : "It fluffs out its fur collar to cool down its body temperature, which can reach 1,650 degrees.",
+    "tagged" : [ "fire" ]
+  }, {
+    "id" : "sample-id",
+    "name" : "Geodude",
+    "description" : "At rest, it looks just like a rock. Carelessly stepping on it will make it swing its fists angrily.",
+    "tagged" : [ "rock", "ground" ]
+  } ]
+}

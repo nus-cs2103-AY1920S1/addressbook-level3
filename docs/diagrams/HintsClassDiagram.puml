@@ -1,0 +1,105 @@
+@startuml
+
+skinparam BackgroundColor #FFFFFFF
+
+skinparam Shadowing false
+
+skinparam Class {
+    FontColor #FFFFFF
+    BorderThickness 1
+    BorderColor #000000
+    StereotypeFontColor #FFFFFF
+    FontName Arial
+    FontSize 14
+    AttributeFontColor #FFFFFF
+    AttributeFontSize 12
+}
+
+skinparam MinClassWidth 50
+skinparam ParticipantPadding 10
+skinparam Shadowing true
+skinparam DefaultTextAlignment center
+skinparam packageStyle Rectangle
+skinparam classAttributeIconSize 0
+
+hide footbox
+hide circle
+hide empty members
+
+skinparam arrowThickness 1.2
+skinparam arrowColor #0E4100
+skinparam classBackgroundColor #654321
+
+package Timer <<Rectangle>> {
+Class GameTimer
+
+}
+
+package AppManager <<Rectangle>> {
+
+Class AppManager #00008b {
+
+}
+
+}
+
+package Logic <<Rectangle>> {
+
+Class Logic #3333C4 {
+
+}
+
+}
+
+package Model <<Rectangle>> {
+
+Class Model #9D0012 {
+
+}
+
+}
+
+package Game <<Rectangle>>{
+
+Class Game #8403fc {
+
+}
+
+Class Card #8403fc {
+
+}
+
+Class FormattedHintSupplier #8403fc {
+    -List<Hint> hintCharacters
+    ~get() : FormattedHint
+
+}
+
+Class Word #8403fc {
+
+}
+
+Class Meaning #8403fc {
+
+}
+
+Class FormattedHint #8403fc {
+    -char[] arrayOfHintCharacters
+    ~updateHintArray(hint: Hint)
+    +toString() : String
+}
+
+}
+
+AppManager -right-> Logic
+Logic -right-> Model
+Model -down-> Game : gets FormattedHints from >
+AppManager *-down-> GameTimer : triggers Hint requests <
+
+Game -down->"0..*" Card : getCurrCardFormattedHint() >
+Card *-right-> FormattedHintSupplier : getFormattedHint() >
+Card *-left-> Meaning
+Card *-down-> Word
+
+FormattedHintSupplier *-down-> FormattedHint
+@enduml

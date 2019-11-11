@@ -7,56 +7,55 @@ skinparam classBackgroundColor LOGIC_COLOR
 package Logic {
 
 package Parser {
-Interface Parser <<Interface>>
-Class AddressBookParser
-Class XYZCommandParser
-Class CliSyntax
-Class ParserUtil
-Class ArgumentMultimap
-Class ArgumentTokenizer
-Class Prefix
+Class ParserManager PARSERMANAGER_COLOR
+Class SpecificModeParser PARSERMANAGER_COLOR
+Class ClassUtil PARSERMANAGER_COLOR
+enum ModeEnum PARSERMANAGER_COLOR
 }
 
 package Command {
-Class XYZCommand
+Class YCommand
 Class CommandResult
 Class "{abstract}\nCommand" as Command
+Class "{abstract}\nXCommand" as XCommand
 }
 
+
+Interface UiLogicHelper <<Interface>>
 Interface Logic <<Interface>>
 Class LogicManager
 }
 
-package Model{
-Class HiddenModel #FFFFFF
-}
+
+
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
+HiddenOutside ..> UiLogicHelper
+
+Logic -up-|> UiLogicHelper
 
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager -->ParserManager
 
-XYZCommandParser ..> XYZCommand : creates >
-XYZCommandParser ..|> Parser
-XYZCommandParser ..> ArgumentMultimap
-XYZCommandParser ..> ArgumentTokenizer
-ArgumentTokenizer .left.> ArgumentMultimap
-XYZCommandParser ..> CliSyntax
-CliSyntax ..> Prefix
-XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
-ArgumentTokenizer .down.> Prefix
-XYZCommand -up-|> Command
+ParserManager --> ModeEnum
+ParserManager *-->"2" SpecificModeParser
+SpecificModeParser --> ClassUtil
+
+ClassUtil .down.> Command : creates >
+YCommand -up-|> XCommand
+XCommand -up-|> Command
 LogicManager .left.> Command : executes >
 
-LogicManager --> Model
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+
+note bottom of XCommand: XCommand = OpenCommand, \nSettingsCommand, etc
+
+
+note bottom of YCommand: YCommand = AddCommand, \nEditCommand, etc
+
 
 Logic ..> CommandResult
-LogicManager .down.> CommandResult
+LogicManager .left.> CommandResult
 Command .up.> CommandResult
 CommandResult -[hidden]-> Parser
 @enduml

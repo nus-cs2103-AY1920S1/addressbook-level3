@@ -1,0 +1,89 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Storage <<Database>> {
+Class StorageManager #A38300
+}
+
+package Model <<Rectangle>> {
+Class ModelManager #BD2032
+}
+
+
+package Logic {
+
+package Parser {
+Class ParserManager #A034EB
+}
+
+package Command {
+
+package CommandResult {
+
+Class CommandResult
+
+package CardCommandResult {
+Class CardCommandResult
+}
+
+package WordBankCommandResult{
+Class "{abstract}\nWordBankCommandResult" as WordBankCommandResult
+Class ZCommandResult
+}
+}
+
+package CardCommand {
+Class "{abstract}\nCardCommand" as CardCommand
+Class XCommand
+}
+
+package WordBankCommand {
+Class "{abstract}\nWordBankCommand" as WordBankCommand
+Class YCommand
+}
+
+Class "{abstract}\nCommand" as Command
+'Class "{abstract}\nGameCommand" as GameCommand
+'Class "{abstract}\nSwitchCommand" as SwitchCommand
+}
+
+Interface Logic <<Interface>>
+Class LogicManager
+
+
+LogicManager .up.|> Logic
+LogicManager o-->"1" ParserManager
+
+CardCommand --|> Command
+WordBankCommand --|> Command
+'YCommand -[hidden]-|> XCommand
+'XCommand -[hidden]-|> WordBankCommand
+'GameCommand --|> Command
+'SwitchCommand --|> Command
+
+XCommand -|> CardCommand
+YCommand -|> WordBankCommand
+ZCommandResult -up-|> WordBankCommandResult
+WordBankCommandResult -up-|> CommandResult
+CardCommandResult -up-|> CommandResult
+
+
+LogicManager .left.> Command : executes >
+LogicManager o-right-> StorageManager
+LogicManager o--> ModelManager
+'LogicManager -down-> StorageManager
+'LogicManager -right-> ModelManager
+
+note top of XCommand: XCommand = AddCommand, \nDeleteCommand, etc
+note top of YCommand: YCommand = CreateCommand, \nImportCommand, etc
+note bottom of ZCommandResult: ZCommandResult = CreateCommandResult, \nImportCommandResult, etc
+
+
+'Logic ..> CommandResult
+LogicManager .left.> CommandResult
+Command ..> CommandResult
+'CommandResult -[hidden]-> Parser
+@enduml

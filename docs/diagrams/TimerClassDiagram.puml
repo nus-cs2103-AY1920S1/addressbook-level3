@@ -1,0 +1,46 @@
+@startuml
+!include style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor #654321
+
+package Timer <<Rectangle>>{
+Class GameTimer <<Interface>> {
+
+}
+
+Class GameTimerManager {
+}
+
+Class HintTimingQueue {
+
+}
+
+}
+
+package AppManager <<Rectangle>> {
+
+Class AppManager #00008B{
+
+}
+
+}
+
+package UI <<Rectangle>> {
+
+Class MainWindow UI_COLOR{
+
+}
+
+}
+
+
+
+GameTimerManager *--down-> HintTimingQueue : Polls timestamps from >
+GameTimerManager --up-|> GameTimer
+GameTimer .up..> AppManager : notifies >
+AppManager -down--> GameTimer : starts/stops >
+AppManager .right..> MainWindow : notifies >
+
+@enduml

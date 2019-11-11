@@ -1,0 +1,68 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STATS_COLOR
+skinparam classBackgroundColor STATS_COLOR
+
+
+Class AppManager
+Interface Logic <<Interface>>
+Package Timer {
+    Interface GameTimer <<Interface>>
+}
+
+
+
+Package Model as ModelPackage {
+    Interface Model <<Interface>>
+    Class ModelManager
+    Package Statistics {
+        Class GlobalStatistics #0451DE
+        Class WeeklyPlayed
+        Class WordBankStatisticsList #0451DE
+
+
+        Class CardStatistics
+
+        Class ScoreData
+        Class WordBankStatistics
+    }
+}
+
+Package GameStatistics as GameStatisticsPackage {
+    Class GameStatisticsBuilder
+    Class GameDataPoint
+    Class GameDataType
+    Class GameStatistics
+    Class ScoreGrade
+}
+
+Package Storage {
+    Interface Storage<<Interface>>
+    Interface WordBankStatisticsListStorage <<Interface>>
+    Interface GlobalStatisticsListStorage <<Interface>>
+}
+
+AppManager-down->Logic
+AppManager-down->GameTimer
+AppManager-down->GameStatisticsBuilder
+Logic-down->Storage
+Logic-down->Model
+ModelManager..up>Model
+ModelManager-down-> "1" WordBankStatisticsList
+WordBankStatisticsList-down->"*"WordBankStatistics
+WordBankStatistics-down->"*"CardStatistics
+WordBankStatistics-down->" * "ScoreData
+ModelManager-down-> "1" GlobalStatistics
+ModelManager-down->"1"WordBankStatistics : keeps active >
+GlobalStatistics-down->"1" WeeklyPlayed
+GameStatisticsBuilder-->GameStatistics: builds >
+GameStatistics-down->"1"ScoreGrade
+GameStatisticsBuilder-down->"*"GameDataPoint
+GameDataPoint-down->"1"GameDataType
+WordBankStatistics..left>GameStatistics : updates with >
+
+Storage..up>WordBankStatisticsListStorage
+Storage..up>GlobalStatisticsListStorage
+
+@enduml

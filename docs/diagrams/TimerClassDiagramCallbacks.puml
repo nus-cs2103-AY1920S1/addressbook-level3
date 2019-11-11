@@ -1,0 +1,45 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor TIMER_COLOR
+
+
+
+package AppManager <<Rectangle>> {
+Class AppManager #00008B
+}
+
+
+package Timer <<Rectangle>> {
+
+Class GameTimerManager {
+
+}
+
+
+Class GameTimer <<Interface>> {
+}
+
+Class UpdateHintCallBack <<Interface>> {
+
+}
+
+Class SkipOverCallBack <<Interface>> {
+
+}
+
+Class UpdateTimerCallBack <<Interface>> {
+
+}
+
+}
+
+GameTimer *-down- UpdateHintCallBack
+GameTimer *-down- SkipOverCallBack
+GameTimer *-down- UpdateTimerCallBack
+GameTimerManager -down-|> GameTimer
+GameTimer ..left..> AppManager : executes callbacks of >
+AppManager --right--> GameTimer : registers callbacks with >
+
+@enduml

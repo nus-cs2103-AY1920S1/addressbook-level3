@@ -1,0 +1,32 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.3
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+show members
+hide empty members
+
+Package WordBank <<Rectangle>>{
+Interface ReadOnlyWordBank <<Interface>> {
+hasCard(Card)
+getName()
+getCard(Index)
+getCardList()
+}
+
+class WordBank {
+   -name: String
+   +addCard(Card)
+   +removeCard(Card)
+   +setCard(Card, Card)
+   +resetData(ReadOnlyWordBank)
+}
+Class UniqueCardList
+Class Card
+}
+
+WordBank .left.|> ReadOnlyWordBank
+WordBank *-down-> "1" UniqueCardList
+UniqueCardList o-down-> "*" Card
+@enduml

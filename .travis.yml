@@ -2,6 +2,17 @@ language: java
 matrix:
   include:
     - jdk: openjdk11
+services:
+  - xvfb
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install at-spi2-core
+
+install: true
+
+before_script:
+  - export DISPLAY=:99.0
 
 script: >-
     ./config/travis/run-checks.sh &&

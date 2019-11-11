@@ -1,0 +1,39 @@
+@startuml
+start
+:AppManager receives
+a CommandResult;
+
+:AppManager calls
+updateGameStatisticsBuilder(CommandResult);
+    if () then ([Result is from
+starting the game])
+    :initialize GameStatisticsBuilder;
+
+    else ([else])
+        if () then ([Result is
+from user game
+actions])
+
+        :Get the elapsed milliseconds
+        since the word was displayed
+        from the timer;
+
+        :Add user action data point to
+        GameStatisticsBuilder with the timestamp;
+
+            if () then([Result indicates game
+                is finished])
+            :Build GameStatistics from GameStatisticsBuilder;
+
+            :Update model and storage
+            with the new GameStatistics;
+
+            else ([else])
+            endif
+
+        else ([else])
+        endif
+
+    endif
+stop
+@enduml

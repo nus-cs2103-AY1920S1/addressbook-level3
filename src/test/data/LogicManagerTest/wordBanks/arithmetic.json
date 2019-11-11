@@ -1,0 +1,34 @@
+{
+  "wordBank" : [ {
+    "id" : "threeajdshakjsd",
+    "name" : "3",
+    "description" : "2 + 2 - 1 = ?",
+    "tagged" : [ "Ez" ]
+  }, {
+    "id" : "11asdfjkhalse",
+    "name" : "121",
+    "description" : "11 * 11 = ?",
+    "tagged" : [ "Ez" ]
+  }, {
+    "id" : "sadjkfhaljk2",
+    "name" : "0",
+    "description" : "1236123 modulo 9 = ?",
+    "tagged" : [ "Medium" ]
+  }, {
+    "id" : "1kbasdasdasdf",
+    "name" : "1024",
+    "description" : "2 ^ 10 = ?",
+    "tagged" : [ "Medium" ]
+  }, {
+    "id" : "adjksfhk",
+    "name" : "29126",
+    "description" : "square root of 848323876 = ?",
+    "tagged" : [ "Secret" ]
+  }, {
+    "id" : "uadiosf12",
+    "name" : "2103",
+    "description" : "21 * 100 + 3 = ?",
+    "tagged" : [ "Ez" ]
+  } ],
+  "name" : "arithmetic"
+}

@@ -1,0 +1,30 @@
+@startuml
+start
+
+:Game session finishes;
+note left: AppManager is notified
+
+if () then ([revision dont exist])
+    : Create revision bank;
+    note left: StorageManager
+    else (else)
+
+endif
+
+- Retrieves correct and\n wrong cards from statistics
+note left: GameStatistics
+
+if () then ([word bank played is revision bank])
+note left: LogicManager
+    :Removes correct card from current bank;
+else ([word bank played is not revision bank])
+    :Removes correct card from revision bank;
+    :Updates revision bank with cards that were wrong;
+
+endif
+
+- Update storage
+    note left: StorageManager
+
+stop
+@enduml

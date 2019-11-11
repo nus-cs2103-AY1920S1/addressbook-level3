@@ -1,15 +1,35 @@
 @startuml
-start
-:User executes command;
+skinparam linetype ortho
 
-'Since the beta syntax does not support placing the condition outside the
-'diamond we place it as the true branch instead.
-
-if () then ([command commits AddressBook])
-    :Purge redunant states;
-    :Save AddressBook to
-    addressBookStateList;
-else ([else])
-endif
-stop
+(*) -down-> "State"
+note right
+A:git clone url/to/repository
+scp -p url/to/hooks/commit_msg repository/.git/hooks
+end note
+-down->[get an assignment] "coding"
+-down-> "commit locally"
+note right
+B:git add xxx
+git commit
+end note
+-down-> "review"
+note right
+C:git push origin refs/for/<branch>
+end note
+if "" then
+  -left->[rejected] "rework"
+  -up-> "recommit"
+'note left
+'D:git add xxx
+'git commit --amend
+'end note
+  -right-> "review"
+else
+  --right-->[approved] "submit"
+note right: E:click "submit" on on corresponding gerrit page
+  -up-> "update local repository"
+note right
+F:git pull --rebase
+end note
+  -left->[get another task(a new cycle)] "coding"
 @enduml

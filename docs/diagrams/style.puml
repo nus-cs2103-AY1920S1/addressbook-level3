@@ -19,7 +19,8 @@
 !define LOGIC_COLOR_T3 #1616B0
 !define LOGIC_COLOR_T4 #101086
 
-!define MODEL_COLOR #9D0012
+'!define MODEL_COLOR #9D0012
+!define MODEL_COLOR #BD2032
 !define MODEL_COLOR_T1 #F97181
 !define MODEL_COLOR_T2 #E41F36
 !define MODEL_COLOR_T3 #7B000E
@@ -31,6 +32,22 @@
 !define STORAGE_COLOR_T3 #806600
 !define STORAGE_COLOR_T2 #544400
 
+!define TIMER_COLOR #654321
+!define TIMER_COLOR_T1 #D2B48C
+
+!define STATS_COLOR #6600DB
+
+!define MAINAPP_COLOR #00D6E6
+!define MAINAPP_COLOR_T1 #02BAC7
+!define MAINAPP_COLOR_T2 #018A94
+!define MAINAPP_COLOR_T3 #00565C
+
+!define APPMANAGER_COLOR #00008B
+!define APPMANAGER_COLOR_T1 #6495ED
+
+!define PARSERMANAGER_COLOR #A034EB
+!define PARSERMANAGER_COLOR_T1 #DFB0FF
+
 !define USER_COLOR #000000
 
 skinparam BackgroundColor #FFFFFFF
@@ -40,9 +57,10 @@ skinparam Shadowing false
 skinparam Class {
     FontColor #FFFFFF
     BorderThickness 1
-    BorderColor #FFFFFF
+    BorderColor #000000
     StereotypeFontColor #FFFFFF
     FontName Arial
+    AttributeFontColor #FFFFFF
 }
 
 skinparam Actor {
@@ -66,10 +84,12 @@ skinparam Participant {
 
 skinparam MinClassWidth 50
 skinparam ParticipantPadding 10
-skinparam Shadowing false
+skinparam Shadowing true
 skinparam DefaultTextAlignment center
 skinparam packageStyle Rectangle
+skinparam classAttributeIconSize 0
 
 hide footbox
 hide members
 hide circle
+hide empty members

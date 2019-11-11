@@ -8,7 +8,6 @@ import java.util.Objects;
  * Represents the result of a command execution.
  */
 public class CommandResult {
-
     private final String feedbackToUser;
 
     /** Help information should be shown to the user. */
@@ -17,6 +16,9 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application is prompting a guess. */
+    private final boolean promptsGuess;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -24,6 +26,7 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.promptsGuess = false;
     }
 
     /**
@@ -31,7 +34,18 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false);
+    }
+
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean promptsGuess) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.promptsGuess = promptsGuess;
+    }
+
+    public CommandResult(String feedbackToUser, boolean promptsGuess) {
+        this(feedbackToUser, false, false, promptsGuess);
     }
 
     public String getFeedbackToUser() {
@@ -44,6 +58,18 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isPromptingGuess() {
+        return promptsGuess;
+    }
+
+    public boolean isStartCommandResult() {
+        return false;
+    }
+
+    public boolean isGameCommandResult() {
+        return false;
     }
 
     @Override

@@ -1,0 +1,34 @@
+{
+  "wordBank" : [ {
+    "id" : "abrajfbeoudnjcp",
+    "name" : "Abra",
+    "description" : "It sleeps eighteen hours a day, but employs telekinesis even while sleeping.",
+    "tagged" : [ "psychic" ]
+  }, {
+    "id" : "butterfreejdfbo",
+    "name" : "Butterfree",
+    "description" : "Its wings are covered with poisonous dust. If you see one flapping its wings, be careful not to inhale any of the dust.",
+    "tagged" : [ "bug", "flying" ]
+  }, {
+    "id" : "dittonfjsdodc",
+    "name" : "Ditto",
+    "description" : "Its transformation ability is perfect. However, if it is made to laugh, it can't maintain its disguise.",
+    "tagged" : [ "normal" ]
+  }, {
+    "id" : "eeveeouhvdsn",
+    "name" : "Eevee",
+    "description" : "Possessing an unbalanced and unstable genetic makeup, it conceals many possible evolutions",
+    "tagged" : [ "normal" ]
+  }, {
+    "id" : "flareonaedjlcs",
+    "name" : "Flareon",
+    "description" : "It fluffs out its fur collar to cool down its body temperature, which can reach 1,650 degrees.",
+    "tagged" : [ "fire" ]
+  }, {
+    "id" : "geodudejnfslohl",
+    "name" : "Geodude",
+    "description" : "At rest, it looks just like a rock. Carelessly stepping on it will make it swing its fists angrily.",
+    "tagged" : [ "rock", "ground" ]
+  } ],
+  "name" : "sample"
+}

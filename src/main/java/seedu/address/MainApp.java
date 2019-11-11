@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import seedu.address.appmanager.AppManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
@@ -15,19 +16,28 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.model.appsettings.AppSettings;
+import seedu.address.model.appsettings.ReadOnlyAppSettings;
+import seedu.address.model.globalstatistics.GlobalStatistics;
+import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
+import seedu.address.model.wordbanklist.WordBankList;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.appsettings.AppSettingsStorage;
+import seedu.address.storage.appsettings.JsonAppSettingsStorage;
+import seedu.address.storage.globalstatistics.GlobalStatisticsStorage;
+import seedu.address.storage.globalstatistics.JsonGlobalStatisticsStorage;
+import seedu.address.storage.statistics.JsonWordBankStatisticsListStorage;
+import seedu.address.storage.statistics.WordBankStatisticsListStorage;
+import seedu.address.storage.userprefs.JsonUserPrefsStorage;
+import seedu.address.storage.userprefs.UserPrefsStorage;
+import seedu.address.storage.wordbanks.JsonWordBankListStorage;
+import seedu.address.storage.wordbanks.WordBankListStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -35,20 +45,19 @@ import seedu.address.ui.UiManager;
  * Runs the application.
  */
 public class MainApp extends Application {
-
-    public static final Version VERSION = new Version(0, 6, 0, true);
-
+    private static final Version VERSION = new Version(1, 4, 0, true);
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
     protected Model model;
-    protected Config config;
+    private Config config;
+    private AppManager appManager;
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing Dukemon ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,41 +65,51 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
-
+        logger.info("initialized userPrefs");
+        WordBankListStorage wordBankListStorage = initWordBankListStorage(userPrefsStorage, userPrefs);
+        logger.info("initialized wordBankListStorage");
+        WordBankStatisticsListStorage wbStatsStorage =
+                new JsonWordBankStatisticsListStorage(userPrefs.getDataFilePath());
+        logger.info("initialized wbStatsStorage");
+        GlobalStatisticsStorage globalStatsStorage = new JsonGlobalStatisticsStorage(userPrefs.getDataFilePath());
+        logger.info("initialized globalStatsStorage");
+        AppSettingsStorage appSettingsStorage = new JsonAppSettingsStorage(userPrefs.getAppSettingsFilePath());
+        logger.info("initialized appSettingsStorage");
+        storage = new StorageManager(wordBankListStorage, userPrefsStorage,
+                wbStatsStorage, globalStatsStorage, appSettingsStorage);
+        logger.info("initialized Storage");
         initLogging(config);
-
-        model = initModelManager(storage, userPrefs);
-
+        model = initModel(storage, userPrefs);
         logic = new LogicManager(model, storage);
-
-        ui = new UiManager(logic);
+        appManager = new AppManager(logic);
+        ui = new UiManager(appManager);
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s storage and {@code userPrefs}. <br>
+     * The data from the sample storage will be used instead if {@code storage}'s storage is not found,
+     * or an empty storage will be used instead if errors occur when reading {@code storage}'s storage.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        }
 
-        return new ModelManager(initialData, userPrefs);
+    private Model initModel(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        Optional<ReadOnlyWordBankList> optionalWbl = storage.getWordBankList();
+        WordBankList wbl;
+        if (optionalWbl.isPresent()) {
+            wbl = (WordBankList) optionalWbl.get();
+        } else {
+            wbl = null;
+            logger.warning("Word Bank List not initiated. IO exception.");
+        }
+        WordBankStatisticsList wbStatsList = storage.getWordBankStatisticsList();
+        GlobalStatistics globalStatistics = storage.getGlobalStatistics();
+        ReadOnlyAppSettings appSettings = null;
+        try {
+            Optional<AppSettings> settingsOptional = storage.readAppSettings();
+            appSettings = settingsOptional.orElse(new AppSettings());
+        } catch (IOException | DataConversionException e) {
+            logger.warning("Init model failed. IO exception.");
+        }
+        return new ModelManager(wbl, wbStatsList, globalStatistics, userPrefs, appSettings);
     }
 
     private void initLogging(Config config) {
@@ -102,7 +121,7 @@ public class MainApp extends Application {
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
      */
-    protected Config initConfig(Path configFilePath) {
+    private Config initConfig(Path configFilePath) {
         Config initializedConfig;
         Path configFilePathUsed;
 
@@ -134,11 +153,34 @@ public class MainApp extends Application {
     }
 
     /**
+     /**
+     * Returns a {@code WordBankListStorage} with the data from {@code UserPrefs}'s storage and {@code userPrefs}. <br>
+     *
+     * @param userPrefsStorage user preferences storage.
+     * @param userPrefs user preferences.
+     * @return WordBankListStorage.
+     * @throws IOException file is not found.
+     */
+    private WordBankListStorage initWordBankListStorage(UserPrefsStorage userPrefsStorage, UserPrefs userPrefs)
+            throws IOException {
+        WordBankListStorage wordBankListStorage = new JsonWordBankListStorage(userPrefs.getDataFilePath(),
+                userPrefs.isSampleInitiated());
+
+        if (!userPrefs.isSampleInitiated()) {
+            userPrefs.setSampleInitiated();
+            logger.info("UserPrefs isSampleInitiated set to true");
+            userPrefsStorage.saveUserPrefs(userPrefs);
+            logger.info("UserPrefs saved");
+        }
+        return wordBankListStorage;
+    }
+
+    /**
      * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
      * or a new {@code UserPrefs} with default configuration if errors occur when
      * reading from the file.
      */
-    protected UserPrefs initPrefs(UserPrefsStorage storage) {
+    private UserPrefs initPrefs(UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 
@@ -151,7 +193,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Dukemon");
             initializedPrefs = new UserPrefs();
         }
 
@@ -167,13 +209,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Dukemon " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Dukemon ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

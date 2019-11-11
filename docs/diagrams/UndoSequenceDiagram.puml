@@ -1,36 +1,45 @@
 @startuml
 !include style.puml
 
-box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
+box UI UI_COLOR_T1
+participant ":UiLogicHelper" as UiLogicHelper UI_COLOR
 end box
 
-box Model MODEL_COLOR_T1
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+end box
+
+box ParserManager PARSERMANAGER_COLOR_T1
+participant ":ParserManager" as ParserManager PARSERMANAGER_COLOR
+participant "u:SpecificModeParser" as SpecificModeParser LOGIC_COLOR
 participant ":Model" as Model MODEL_COLOR
 participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
 end box
-[-> LogicManager : execute(undo)
+
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(undo)
-activate AddressBookParser
+[-> UiLogicHelper : execute(start)
+activate UiLogicHelper
 
-create UndoCommand
-AddressBookParser -> UndoCommand
-activate UndoCommand
+UiLogicHelper -> LogicManager : execute(start)
 
-UndoCommand --> AddressBookParser
-deactivate UndoCommand
+LogicManager -> ParserManager : parseCommand(undo)
+activate ParserManager
 
-AddressBookParser --> LogicManager : u
-deactivate AddressBookParser
+create SpecificModeParser
+ParserManager -> SpecificModeParser
+activate SpecificModeParser
 
-LogicManager -> UndoCommand : execute()
-activate UndoCommand
+SpecificModeParser --> ParserManager
+deactivate SpecificModeParser
 
-UndoCommand -> Model : undoAddressBook()
+ParserManager --> LogicManager : u
+deactivate ParserManager
+
+LogicManager -> SpecificModeParser : execute()
+activate SpecificModeParser
+
+SpecificModeParser -> Model : undoAddressBook()
 activate Model
 
 Model -> VersionedAddressBook : undo()
@@ -40,13 +49,13 @@ VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
 VersionedAddressBook --> Model :
 deactivate VersionedAddressBook
 
-Model --> UndoCommand
+Model --> SpecificModeParser
 deactivate Model
 
-UndoCommand --> LogicManager : result
-deactivate UndoCommand
-UndoCommand -[hidden]-> LogicManager : result
-destroy UndoCommand
+SpecificModeParser --> LogicManager : result
+deactivate SpecificModeParser
+SpecificModeParser -[hidden]-> LogicManager : result
+destroy SpecificModeParser
 
 [<--LogicManager
 deactivate LogicManager

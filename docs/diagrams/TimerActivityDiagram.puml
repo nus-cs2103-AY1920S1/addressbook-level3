@@ -1,0 +1,33 @@
+@startuml
+start
+:GameTimerManager
+starts internal java.util.Timer;
+
+repeat
+    if () then ([timeLeft > 0])
+    :Notify (callback) to
+    update TimerDisplay;
+        if () then ([timeLeft
+        == timeForNextHint])
+        : Notify (callback) to
+        update Hints;
+        : Poll next timing for Hint
+        from HintTimingQueue;
+        else ([timeLeft
+        != timeForNextHint])
+        endif
+
+    :Decrease timeLeft by 50ms;
+    else ([timeLeft <= 0])
+    :Notify (callback) to
+    update TimerDisplay;
+
+    :Cancel Timer;
+    :Notify (callback) to skip
+    over to next Card in Game;
+    endif
+repeat while (Timer is cancelled?) is (no)
+->yes;
+
+stop
+@enduml

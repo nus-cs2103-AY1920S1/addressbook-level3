@@ -16,7 +16,7 @@ public class Config {
     private Level logLevel = Level.INFO;
     private Path userPrefsFilePath = Paths.get("preferences.json");
 
-    public Level getLogLevel() {
+    Level getLogLevel() {
         return logLevel;
     }
 
@@ -55,8 +55,8 @@ public class Config {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Current log level : " + logLevel);
-        sb.append("\nPreference file Location : " + userPrefsFilePath);
+        sb.append("Current log level : ").append(logLevel);
+        sb.append("\nPreference file Location : ").append(userPrefsFilePath);
         return sb.toString();
     }
 

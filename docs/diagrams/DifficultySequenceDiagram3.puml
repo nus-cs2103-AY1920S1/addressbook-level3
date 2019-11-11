@@ -1,0 +1,76 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":UI" as UI UI_COLOR
+end box
+
+box AppManager APPMANAGER_COLOR_T1
+participant ":AppManager" as AppManager APPMANAGER_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+end box
+
+box ParserManager PARSERMANAGER_COLOR_T1
+participant ":ParserManager" as ParserManager PARSERMANAGER_COLOR
+participant ":DifficultyCommand" as DifficultyCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":AppSettings" as AppSettings LOGIC_COLOR
+end box
+
+[-> UI : execute("difficulty hard")
+activate UI
+
+UI -> AppManager : executeCommand("difficulty hard")
+activate AppManager
+
+AppManager -> LogicManager : execute("difficulty hard")
+activate LogicManager
+
+LogicManager -> ParserManager : parseCommand("difficulty hard")
+activate ParserManager
+
+create DifficultyCommand
+ParserManager -> DifficultyCommand
+activate DifficultyCommand
+
+DifficultyCommand --> ParserManager
+
+ParserManager --> LogicManager
+deactivate ParserManager
+
+LogicManager -> DifficultyCommand : execute()
+
+DifficultyCommand -> ModelManager : setDefaultDifficulty(HARD)
+activate ModelManager
+
+ModelManager -> AppSettings : setDefaultDifficulty(HARD)
+activate AppSettings
+
+note right: Difficulty is changed\nHERE
+AppSettings --> ModelManager
+deactivate AppSettings
+
+ModelManager --> DifficultyCommand
+deactivate ModelManager
+
+DifficultyCommand --> LogicManager
+deactivate DifficultyCommand
+DifficultyCommand -[hidden]-> LogicManager : result
+destroy DifficultyCommand
+
+LogicManager --> AppManager
+deactivate LogicManager
+
+AppManager --> UI
+deactivate AppManager
+
+[<- UI : update\n UI Component
+
+
+@enduml

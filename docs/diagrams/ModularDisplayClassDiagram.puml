@@ -1,0 +1,61 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package ModularDisplayItems <<Rectangle>>{
+Class TwoSplitColumnLayout
+Class TwoSplitRowLayout
+Class LoadBankPanel
+Class SettingsPanel
+Class QuestionLabel
+Class HintLabel
+Class MainTitlePanel
+Class WordBankStatisticsPanel
+Class CardListPanel
+Class GameResultPanel
+}
+
+
+package AppManager <<Rectangle>> {
+}
+
+Class "{abstract}\nUiPart" as UiPart
+
+Class ModularDisplay UI_COLOR
+
+ModularDisplay *--> AppManager
+
+ModularDisplay *-down-> TwoSplitColumnLayout
+ModularDisplay *-down-> TwoSplitRowLayout
+ModularDisplay *.down.> MainTitlePanel
+ModularDisplay *-down-> LoadBankPanel
+ModularDisplay *-down-> SettingsPanel
+ModularDisplay *.down.> WordBankStatisticsPanel
+ModularDisplay *.down.> CardListPanel
+ModularDisplay *.down.> GameResultPanel
+ModularDisplay *-down-> QuestionLabel
+ModularDisplay *-down-> HintLabel
+
+TwoSplitColumnLayout -down-|> UiPart
+TwoSplitRowLayout -down-|> UiPart
+LoadBankPanel -down-|> UiPart
+SettingsPanel -down-|> UiPart
+QuestionLabel -down-|> UiPart
+HintLabel -down-|> UiPart
+MainTitlePanel -down-|> UiPart
+WordBankStatisticsPanel -down-|> UiPart
+CardListPanel -down-|> UiPart
+GameResultPanel -down-|> UiPart
+
+
+TwoSplitRowLayout -down[hidden]-> MainTitlePanel
+GameResultPanel -down[hidden]-> LoadBankPanel
+CardListPanel -down[hidden]-> SettingsPanel
+TwoSplitColumnLayout -down[hidden]-> WordBankStatisticsPanel
+TwoSplitColumnLayout -down[hidden]-> CardListPanel
+TwoSplitColumnLayout -down[hidden]-> GameResultPanel
+WordBankStatisticsPanel -down[hidden]-> QuestionLabel
+WordBankStatisticsPanel -down[hidden]-> HintLabel
+@enduml

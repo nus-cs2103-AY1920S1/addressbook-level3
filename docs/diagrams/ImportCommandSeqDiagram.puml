@@ -1,0 +1,102 @@
+@startuml
+!include style.puml
+
+!define MODEL_COLOR #BD2032
+!define MODEL_COLOR_T1 #F97181
+!define MODEL_COLOR_T2 #E41F36
+!define MODEL_COLOR_T3 #7B000E
+!define MODEL_COLOR_T4 #51000A
+
+!define STORAGE_COLOR #A38300
+!define STORAGE_COLOR_T1 #FFE374
+!define STORAGE_COLOR_T2 #EDC520
+!define STORAGE_COLOR_T3 #806600
+!define STORAGE_COLOR_T2 #544400
+
+!define TIMER_COLOR #654321
+!define TIMER_COLOR_T1 #D2B48C
+
+!define APPMANAGER_COLOR #00008B
+!define APPMANAGER_COLOR_T1 #6495ED
+
+!define PARSERMANAGER_COLOR #A034EB
+!define PARSERMANAGER_COLOR_T1 #DFB0FF
+
+!define COMMONS_COLOR #999999
+!define COMMONS_COLOR_T1 #CCCCCC
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ParserManager" as ParserManager PARSERMANAGER_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":WordBankList" as WordBankList MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":StorageManager" as StorageManager STORAGE_COLOR
+participant ":JsonWordBankListStorage" as JsonWordBankListStorage STORAGE_COLOR
+end box
+
+box Commons COMMONS_COLOR_T1
+participant ":JsonUtil" as JsonUtil COMMONS_COLOR
+end box
+
+[-> LogicManager : import w/.. f/..
+activate LogicManager
+LogicManager -> ParserManager : parseCommand("...")
+note right: 1.
+
+activate ParserManager
+ParserManager --> LogicManager : ImportCommand
+deactivate ParserManager
+
+LogicManager -> ModelManager : command.execute(model)
+activate ModelManager
+ModelManager -> WordBankList : hasWordBank(..)
+note right: 2.
+activate WordBankList
+
+WordBankList --> ModelManager : false
+deactivate WordBankList
+
+ModelManager --> LogicManager : ImportCommandResult
+deactivate ModelManager
+note left: 3.
+
+
+LogicManager -> StorageManager : commandResult.updateStorage(..)
+note right: 4.
+activate StorageManager
+StorageManager -> JsonWordBankListStorage : importWordBank(..)
+note right: 5.
+activate JsonWordBankListStorage
+
+JsonWordBankListStorage -> JsonWordBankListStorage : addWordBank(..)
+note right: 6.
+
+JsonWordBankListStorage -> JsonUtil : saveWordBank(..)
+activate JsonUtil
+
+
+JsonUtil -> JsonUtil : saveJsonFile(..)
+note right: 7.
+JsonUtil --> JsonWordBankListStorage
+
+deactivate JsonUtil
+JsonWordBankListStorage --> StorageManager
+deactivate JsonWordBankListStorage
+
+StorageManager --> LogicManager
+deactivate StorageManager
+note left: 8.
+'ModelManager --> LogicManager
+'deactivate ModelManager
+
+
+
+[<--LogicManager : CommandResult
+
+@enduml

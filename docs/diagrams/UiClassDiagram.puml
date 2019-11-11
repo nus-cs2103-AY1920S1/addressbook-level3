@@ -11,47 +11,41 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class ModularDisplay
+Class ModularDisplayItems
 Class StatusBarFooter
 Class CommandBox
+Class UpdateUi
 }
 
-package Model <<Rectangle>> {
-Class HiddenModel #FFFFFF
+package AppManager <<Rectangle>> {
 }
-
-package Logic <<Rectangle>> {
-Class HiddenLogic #FFFFFF
-}
-
-Class HiddenOutside #FFFFFF
-HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
+MainWindow *-down-> ModularDisplay
 MainWindow *-down-> StatusBarFooter
+MainWindow --> UpdateUi
+UpdateUi -left-> ModularDisplay
 
-PersonListPanel -down-> PersonCard
+ModularDisplay -down-> ModularDisplayItems
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+ModularDisplay --|> UiPart
+ModularDisplayItems --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
-PersonCard ..> Model
-UiManager -right-> Logic
-MainWindow -left-> Logic
+UiManager -right-> AppManager
+MainWindow -left-> AppManager
 
-PersonListPanel -[hidden]left- HelpWindow
+ModularDisplay -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter

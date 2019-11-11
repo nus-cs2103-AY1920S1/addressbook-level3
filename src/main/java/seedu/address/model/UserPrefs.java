@@ -12,9 +12,11 @@ import seedu.address.commons.core.GuiSettings;
  * Represents User's preferences.
  */
 public class UserPrefs implements ReadOnlyUserPrefs {
-
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path dataFilePath = Paths.get("data");
+    private Path wordBankListFilePath = Paths.get("data", "wordBanks");
+    private Path appSettingsFilePath = Paths.get("data" , "appsettings.json");
+    private boolean isSampleInitiated = false;
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -32,10 +34,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     /**
      * Resets the existing data of this {@code UserPrefs} with {@code newUserPrefs}.
      */
-    public void resetData(ReadOnlyUserPrefs newUserPrefs) {
+    void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setDataFilePath(newUserPrefs.getDataFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,13 +49,22 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    public Path getDataFilePath() {
+        return dataFilePath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+    public void setDataFilePath(Path dataFilePath) {
+        requireNonNull(dataFilePath);
+        this.dataFilePath = dataFilePath;
+    }
+
+    public Path getAppSettingsFilePath() {
+        return appSettingsFilePath;
+    }
+
+    public void setAppSettingsFilePath(Path appSettingsFilePath) {
+        requireNonNull(appSettingsFilePath);
+        this.appSettingsFilePath = appSettingsFilePath;
     }
 
     @Override
@@ -68,20 +79,35 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && dataFilePath.equals(o.dataFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, dataFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + dataFilePath);
         return sb.toString();
     }
 
+    /**
+     * Retrieves whether if sample data has been initiated before.
+     *
+     * @return whether if sample data has been initiated before.
+     */
+    public boolean isSampleInitiated() {
+        return isSampleInitiated;
+    }
+
+    /**
+     * Set the boolean isSampleInitiated to true.
+     */
+    public void setSampleInitiated() {
+        isSampleInitiated = true;
+    }
 }

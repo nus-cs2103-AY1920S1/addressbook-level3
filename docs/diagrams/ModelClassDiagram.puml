@@ -1,56 +1,72 @@
 @startuml
 !include style.puml
-skinparam arrowThickness 1.1
+skinparam arrowThickness 1.2
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyWordBankStatisticsList <<Interface>>
+Interface ReadOnlyAppSettings <<Interface>>
+Interface ReadOnlyUserPrefs <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class WordBankList
+Class WordBankStatisticsList
+Class GlobalStatistics
+Class AppSettings
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class Game
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Package WordBankList {
+Interface ReadOnlyWordBankList <<Interface>>
+Class WordBankList
+Class UniqueWordBankList
+
+Package WordBank {
+Interface ReadOnlyWordBank <<Interface>>
+Class WordBank
+Class UniqueCardList
+
+Package Card {
+Class Card
+Class Meaning
+Class Word
+}
+'}
+}
 }
 
-Package Tag {
-Class Tag
-}
-}
+WordBankList .right.|> ReadOnlyWordBankList
+WordBankStatisticsList .up.|> ReadOnlyWordBankStatisticsList
+AppSettings .up.|> ReadOnlyAppSettings
 
-Class HiddenOutside #FFFFFF
-HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
-
-ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
+ModelManager .left.|> Model
+Model .left.> ObservableList
+ModelManager o-down--> "1" WordBankList
+ModelManager o-up-> "1" WordBankStatisticsList
+ModelManager o-up-> "1" GlobalStatistics
+ModelManager o-up-> "1" AppSettings
+ModelManager o-up-> "1" UserPrefs
+ModelManager o-up-> "1" Game
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+WordBankList *-down-> "1" UniqueWordBankList
+UniqueWordBankList o-right-> "*" WordBank
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+WordBank .right.|> ReadOnlyWordBank
+WordBank *-down-> "*" UniqueCardList
+UniqueCardList o-right-> "*" Card
 
-ModelManager -->"1" Person : filtered list
+Card *--> "1" Meaning
+Card *--> "1" Word
+
+ModelManager --> "1" WordBank : selected
+ModelManager --> "1" Card : filtered list
+
 @enduml
+
+

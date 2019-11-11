@@ -4,17 +4,21 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import seedu.address.appmanager.AppManager;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.Logic;
+import seedu.address.logic.UiLogicHelper;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.gamecommands.GameCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -24,48 +28,77 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String MESSAGE_INIT_BANK = "Welcome to Dukemon!\n"
+            + "Start by creating or selecting a bank:\n"
+            + "Eg. create mybank\n"
+            + "Eg. select sample";
+
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    private Logic logic;
+
+    private AppManager appManager;
+
+    private UiLogicHelper uiLogicHelper;
+
+    //Secondary parser for updating the Ui.
+    private UpdateUi updateUi;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private TimerDisplay timerDisplay;
     private ResultDisplay resultDisplay;
+    private ModularDisplay modularDisplay;
     private HelpWindow helpWindow;
+    private CommandBox commandBox;
 
+    @FXML
+    private Scene scene;
+
+    /** CommandBox placeholder.*/
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
 
-    @FXML
-    private StackPane personListPanelPlaceholder;
-
+    /** ResultDisplay placeholder.*/
     @FXML
     private StackPane resultDisplayPlaceholder;
 
+    /** ModularDisplay placeholder.*/
+    @FXML
+    private StackPane modularDisplayPlaceholder;
+
+    /** TimerDisplay placeholder.*/
+    @FXML
+    private AnchorPane timerDisplayPlaceholder;
+
+    /** StatusBar placeholder.*/
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+
+    MainWindow(Stage primaryStage, AppManager appManager) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
-        this.logic = logic;
+
+        this.appManager = appManager;
+        this.modularDisplay = new ModularDisplay(appManager);
+
+        this.uiLogicHelper = appManager.getLogic();
 
         // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
+        setWindowDefaultSize(appManager.getGuiSettings());
 
         setAccelerators();
 
         helpWindow = new HelpWindow();
     }
 
-    public Stage getPrimaryStage() {
+    Stage getPrimaryStage() {
         return primaryStage;
     }
 
@@ -75,6 +108,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -107,18 +141,48 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        //Setting modularDisplay to load mode by default.
+        modularDisplay.swapToHomeDisplay(modularDisplayPlaceholder);
+        modularDisplay.registerDragAndDropCallBack(this::executeCommand, this::executeCommand);
+        modularDisplay.initialiseFilePath("data");
 
+        //Set up the resultDisplay (main feedback for commands).
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        //Give user instruction to load a bank when first starting up the app.
+        resultDisplay.setFeedbackToUser(MESSAGE_INIT_BANK);
+
+        //Set up timer display
+        timerDisplay = new TimerDisplay();
+        timerDisplayPlaceholder.getChildren().add(timerDisplay.getRoot());
+
+        //Set up callback function in AppManager to update TimerDisplay
+        appManager.registerTimerDisplayCallBack(this::updateTimerDisplay);
+
+        //Set up callback function in AppManager to update HintDisplay
+        appManager.registerHintDisplayCallBack(this::updateHintDisplay);
+
+        //Set up callback function in AppManager to update QuestionDisplay
+        appManager.registerQuestionDisplayCallBack(this::updateQuestionDisplay);
+
+        //Set up callback function in AppManager to call MainWindow's executeCommand
+        appManager.registerMainWindowExecuteCallBack(this::executeCommand);
+
+        //Set up status bar footer
+        StatusBarFooter statusBarFooter = new StatusBarFooter();
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        //Set up command box
+        commandBox = new CommandBox(this::executeCommand, uiLogicHelper);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        //Set up UpdateUI
+        updateUi = new UpdateUi(modularDisplay);
+        updateUi.setTheme(appManager.getAppSettings().getDefaultTheme(), scene);
     }
+
+
 
     /**
      * Sets the default size based on {@code guiSettings}.
@@ -136,7 +200,7 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
-    public void handleHelp() {
+    private void handleHelp() {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {
@@ -155,13 +219,22 @@ public class MainWindow extends UiPart<Stage> {
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
+        appManager.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    /**
+     * Opens the result stats window when the game is finished.
+     */
+    private void handleFinishedGame() {
+        if (appManager.getGameStatistics() == null) {
+            throw new IllegalStateException("gameStatistics in gameManager should not be null when game"
+                    + "is finished");
+        }
+
+        modularDisplay.swapToGameResult(modularDisplayPlaceholder, appManager.getGameStatistics(),
+                appManager.getActiveWordBankStatistics());
     }
 
     /**
@@ -171,9 +244,17 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+
+            CommandResult commandResult = appManager.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
+
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            //Updates the Ui.
+            updateUi.updateModularDisplay(uiLogicHelper.getMode(), modularDisplayPlaceholder);
+
+            updateUi.setTheme(appManager.getAppSettings().getDefaultTheme(), scene);
+
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -183,6 +264,19 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isPromptingGuess()) {
+                commandBox.setGuessTextAndCaret();
+            } else {
+                commandBox.clearCommandBox();
+            }
+
+            if (commandResult instanceof GameCommandResult) {
+                GameCommandResult gameCommandResult = (GameCommandResult) commandResult;
+                if (gameCommandResult.isFinishedGame()) {
+                    handleFinishedGame();
+                }
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -190,4 +284,38 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    /**
+     * Updates the timerDisplay module of MainWindow to be called from GameTimerManager.
+     * @param timerMessage Message to be displayed on the TimerDisplay.
+     * @param timeLeft Time in milliseconds that is left in the current timer.
+     */
+    private void updateTimerDisplay(String timerMessage, long timeLeft, long totalTimeGiven) {
+        double percentageTimeLeft = (timeLeft * 1.0) / totalTimeGiven;
+
+        /* when time left is <= half of totalTime given, switch to alert colour */
+        if (percentageTimeLeft <= 0.5) {
+            this.timerDisplay.setAlertTextColour();
+        } else {
+            this.timerDisplay.setNormalTextColour();
+        }
+        timerDisplay.setProgressBarProgress(percentageTimeLeft);
+        timerDisplay.setFeedbackToUser(timerMessage);
+    }
+
+    /**
+     * Updates the HintDisplay section of the UI with the {@code hintString}.
+     */
+    private void updateHintDisplay(String hintString) {
+        modularDisplay.updateHint(hintString, modularDisplayPlaceholder);
+    }
+
+    /**
+     * Updates the QuestionDisplay section of the UI in the modularDisplay with
+     * {@code questionString}
+     */
+    private void updateQuestionDisplay(String questionString) {
+        modularDisplay.updateQuestion(questionString, modularDisplayPlaceholder);
+    }
+
 }
