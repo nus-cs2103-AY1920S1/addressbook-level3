@@ -360,6 +360,8 @@ public class MainWindow extends UiPart<Stage> {
         displayPlaceHolder.getChildren().clear();
         assert displayPlaceHolder.getChildren().isEmpty();
         displayPlaceHolder.getChildren().add(displayPanel.getRoot());
+        lastExpandedIsPerson = false;
+        lastExpandedIsPolicy = false;
         setLogo();
     }
 
