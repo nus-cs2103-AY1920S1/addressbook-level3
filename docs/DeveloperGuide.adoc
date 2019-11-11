@@ -574,7 +574,7 @@ It extends Mortago with the ability to create a report, supported by https://git
 Additionally, it implements the following operations:
 
 * `[purple]#ReportGenerator#generate(body, sign)#` -- Creates report containing sign name of manager in a PDF file for the specific body.
-* `[purple]#ReportGenerator#generateAll(sign)#` -- Creates reports containing sign name of manager in a PDF file for all bodies registepurple in Mortago.
+* `[purple]#ReportGenerator#generateAll(sign)#` -- Creates reports containing sign name of manager in a PDF file for all bodies registered in Mortago.
 * `[purple]#ReportGenerator#generateSummary(sign)#` -- Creates a tabular summary report containing sign name of manager  in a PDF file for all bodies registered in Mortago.
 
 The following sequence diagram (Figure 17) shows how the generate operation works:
