@@ -69,7 +69,7 @@ public class FlipCommand extends Command {
         } else {
             McqFlashcard mcqCard = (McqFlashcard) flashcard;
             int index = Integer.parseInt(answer.getAnswer()) - 1;
-            if (index >= mcqCard.getChoices().size()) {
+            if (index >= mcqCard.getChoices().size() || index < 0) {
                 throw new CommandException(MESSAGE_INVALID_CHOICE);
             }
             Answer newAnswer = new Answer(mcqCard.getChoices().get(index).getChoice());

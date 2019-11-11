@@ -49,148 +49,20 @@ users who has a huge number of flashcards, especially for those who are memorizi
 
 == Contributions to the User Guide
 
-*The following shows the parts I wrote in the User Guide.*
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
 
-====
-*Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add q/QUESTION`, `QUESTION` is a parameter which can be used as `add q/How long is Mount Blanc Tunnel?`.
-* Items in square brackets are optional e.g `q/QUESTION [t/TAG]` can be used as `q/How long is Mount Blanc Tunnel? t/geography` or as `q/How long is Mount Blanc Tunnel?`.
-* Items with `…` after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/geography`, `t/geography t/civil engineering` etc.
-* Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
-* To view all the available commands that the user can use. Use help command +
-Format: `help`
-====
-
-
-=== Adding new flashcards
-
-Add a new flashcard and specify its question, definition, tags, choices and answer. +
-Format: `add q/QUESTION d/DEFINITION [t/TAG]... [c/CHOICE]... a/ANSWER`
-
-****
-* QUESTION, DEFINITION and ANSWER must be provided while creating a flashcard, tags and choices are optional.
-* If there are no choices specified in the flashcard, the system will generate a short answer flashcard. Otherwise,
-the system will generate an MCQ flashcard.
-* Note that during the quiz mode, to answer a short answer flashcard correctly, you must input an answer exactly match
-answer you typed while this flashcard is created. Thus, be sure to provide enough information in QUESTION and DEFINITION
-for you to figure out the exact correct answer.
-* Note that while creating an MCQ flashcard, the answer is the input for your correct choice, not just a number.
-If the answer you input does not match any of the choices, the system will tell you this flashcard is invalid.
-Please refer to the following examples for a better understanding.
-****
-
-Examples:
-
-* `add q/What is the tallest mountain in the world? d/This mountain is on the boarder of China and Nepal. a/Mount Everest` :
-Creates a new short answer flashcard with the given question, definition and answer.
-* `add q/What is the tallest mountain in thw world? d/This mountain is on the boarder of China and Nepal. c/Mountain Everest
-  c/Mount Blanc c/Shkhara c/Bukit Timah a/Mountain Everest` : Creates a new MCQ flashcard with the given question, definition choices and answer.
-* `add q/What is the tallest mountain in thw world? d/This mountain is on the boarder of China and Nepal. c/Mountain Everest
-  c/Mount Blanc c/Shkhara c/Bukit Timah a/Alps` : Since the answer you input does not match with any of the choices, the
-system will generate an error message.
-
-=== Listing all flashcards
-
-Shows a list of all existing flashcards in the system. +
-Format: `list`
-
-
-=== Listing all flashcard by tags
-
-Shows a list of all flashcard under given tag names. If there are no flashcards under the input tag name, you should see
-an empty flashcard list being displayed. Note you can list multiple tags at the same time. +
-Format: `listbytag t/TAG...`
-****
-* At least on tag needs to be specified after keyword `listbytag`, otherwise the system will show an error message.
-****
-
-Examples:
-
-* `listbytag t/mathematics` : List all flashcards under the tag mathematics.
-* `listbytag t/mathematics t/geography` : List all flashcards under the tag mathematics OR the tag geography.
-
-
-=== Listing all tags
-
-Show the list of tags exists in the system. +
-Format: `listtag`
-
-
-=== Editing a flashcard
-
-Edits an existing flashcard in the address book. +
-
-Format: `edit INDEX [q/QUESTION] [a/ANSWER] [d/DEFINITION] [t/TAG]... [c/CHOICE]...`
-
-
-****
-* INDEX is the index of this target flashcard in the displayed list.
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* Note that while updating choices or tags, they are updated together. This means, assume you have 4 choices for
-flashcard number 2, then you typed `edit 2 c/Mount Blanc`, then there will be only one choice left for flashcard number 2,
-which is Mount Blanc. The same applies when editing tags.
-* While editing the answer for an MCQ flashcard, still ensure that the updated answer matches any one of the choices.
-****
-
-
-Examples:
-
-* `edit 5 q/What is the tallest mountain?` +
-Edits the question of the card with index 5 to "What is the tallest mountain?".
-* `edit 5 a/Mount Everest`
-Edits the answer of the card with number 5 to "Mount Everest".
-
-=== Delete a flashcard
-Deletes the specified flashcard from the list of all flashcards. +
-Format: `delete INDEX`
-
-****
-* Deletes the flashcard with the specified `INDEX`.
-****
-
-Example:
-
-* `delete 5` : Removes the flashcard with index 5 in the list.
-
-
-=== Finding a flashcard
-Find a flashcard based on the keyword in its question, definition or answer. +
-Format: `find KEYWORD`
-
-****
-* The key word must not be empty.
-****
-
-Example:
-
-* `find Blanc` : Find flashcards whose question or answer contains string "Blanc".
-
-=== Exiting the program
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-Flashcards are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+include::../UserGuide.adoc[tag=basic]
+include::../UserGuide.adoc[tag=basic2]
+include::../UserGuide.adoc[tag=basic3]
 
 == Contributions to the Developer Guide
 
-The following are the parts I added to the developer guide. *I clearly clarify here that none of these features are implemented by
+|===
+|_Given below are sections I contributed to the README. They showcase my ability to write documentation advertising the project._
+|===
+*I clearly clarify here that Quiz, Flip and Stats features are all NOT implemented by
 me, they are implemented by my teammates. I simply drew the sequence diagrams of these features.*
 
-=== Quiz and Flip feature
-In the flashcard system, quiz and flip is a special function that can help the user quiz themselves on the flashcards and see
-there own improvements. The flip command, which is answering the quizzed flashcard, can only be used when a current flashcard is being quizzed.
-The following sequence diagram shows how the quiz and flip diagram works.
-
-image::QuizSequenceDiagram.png[]
-
-After each flip, the each flashcard can automatically record how many correct answers and wrong answers has the user did on this flashcard.
-The stats command helps the user to see their progress while doing the quizzes. Below is a sequence diagram of how this command
-works.
-
-image::StatsSequenceDiagram.png[]
+include::../DeveloperGuide.adoc[tag=quizdiagram]

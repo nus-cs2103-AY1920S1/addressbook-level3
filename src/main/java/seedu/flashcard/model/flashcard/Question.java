@@ -4,8 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.flashcard.commons.util.AppUtil.checkArgument;
 
 /**
- * The word itself of the flashcard.
- * TODO: Can be replaced by the flashcard question.
+ * The question of the flashcard.
  */
 public class Question {
 

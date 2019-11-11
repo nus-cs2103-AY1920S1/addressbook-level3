@@ -24,7 +24,7 @@ It is used mainly for questions that can be answered with a short answer or seve
 ** What it does: Allows the user to choose whether they want their flashcard to have MCQ options or simply be a short answer flashcard.
 ** Justification: This feature enhances the user's learning experiences as flashcards are now more versatile, allowing users to have MCQ options for questions that are harder to remember.
 ** Highlights: This enhancement required a modification of storage, as well as a refactoring of the code to distinguish between MCQ and Short Answer flashcards.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
 
 * *Minor enhancement*:
 ** Split up the UI to return consecutive flashcards and the result to different displays.
@@ -34,21 +34,12 @@ It is used mainly for questions that can be answered with a short answer or seve
 
 * *Other contributions*:
 
-
 ** Enhancements to existing features:
 *** Wrote additional tests for existing features to increase coverage
 ** Documentation:
 *** Updated relevant sections of User Guide for all commands in quiz mode: https://github.com/AY1920S1-CS2103-T14-3/main/pull/85[#85]
-** Community: //not updated
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools: //not updated
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+** Community:
+*** Reviewed PR for treasurerPro (tP) (with non-trivial review comments): https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/30[#30]
 
 == Contributions to the User Guide
 
@@ -59,7 +50,6 @@ _{you can add/remove categories in the list above}_
 
 include::../UserGuide.adoc[tag=quiz]
 
-
 == Contributions to the Developer Guide
 
 |===
@@ -67,6 +57,8 @@ include::../UserGuide.adoc[tag=quiz]
 |===
 
 include::../DeveloperGuide.adoc[tag=logic]
+
+include::../DeveloperGuide.adoc[tag=quiztagfeature]
 
 
 == Contributions to the README
