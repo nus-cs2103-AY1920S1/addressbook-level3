@@ -1382,6 +1382,8 @@ Create a workout to be added in to your schedule that will show up in your dashb
 Now you know all there is to the workout planner! What are you waiting for? Go out there and put your
 gym membership to use!
 
+// tag::diary[]
+[[DiaryTag]]
 === Diary
 
 Want to share great recipes and workout tips with your friends? Look through the available commands in this section and
@@ -1638,6 +1640,7 @@ Examples:
 
 * `link records BP129391 /to Healthy Living` +
  Creates a health page about “BP129391” and adds it to the diary named “Healthy Living”
+// end::diary[]
 
 == Command Summary
 

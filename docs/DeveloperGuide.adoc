@@ -286,24 +286,35 @@ The diagram below shows a simplified class diagram for Commands and Parser.
 .Structure of Commands and Parser
 image::CommandImplementation.png[]
 
-{nbsp} +
-The current implementation provides the added benefit of easier scalability. Overall, we only need to account for the
-type of command (i.e `AddCommand`, `DeleteCommand` etc). It's corresponding variants (i.e `AddRecipeCommand`,
-`DeleteExerciseCommand`) can simply further extend from it. However, its implementation is rather complex and it increases the amount of code within the repository. For each
-command variant added, a corresponding command variant parser needs to be added as well.
+==== Design Considerations
+[cols="20%,40%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
 
-*Alternatives*
+|Implementing commands and parser
+|Command variants (i.e `AddRecipeCommand`, `AddExerciseCommand`) extend from `AddCommand`.
 
-Another possible structure would be for all command variants to extend from the abstract `Command` class directly.
-Although this implementation is simpler, it can greatly increase the number of switch cases within `DukeCooksParser`.
-This could potentially increase the difficulty of debugging as it becomes harder to locate the bugs. Furthermore,
-this structure exposes all the different types of commands to `DukeCooksParser`.
+*Pros* +
+Easier scalability as subsequent variants of `AddCommand` can simply extend from it.
 
-*Our Choice*
+*Cons* +
+Complex implementation and increases the amount of code within repository as for each command variant added, a
+corresponding variant parser needs to be added.
 
-We chose to follow the structure provided in the figure above. As our application is comprised of many different
-components with the same variants of commands (i.e Add, Delete, Edit etc), this structure is more suitable as it
-reduces the amount of switch cases within `DukeCooksParser` and makes testing more manageable.
+*Our Choice* +
+This choice was chosen for DukeCooks which comprises of different components with the same variants of commands (i.e Add, Edit, Delete etc.)
+This reduces the amount of switch cases within `DukeCooksParser` and makes testing more manageable.
+
+|Command variants extend from `Command` class
+
+*Pros* +
+Relatively easier to implement.
+
+*Cons* +
+Greatly increase number of switch cases within `DukeCooksParser` and this could increase the difficulty of debugging as it becomes
+harder to locate bugs. Furthermore, this implementation exposes all underlying command variants to `DukeCooksParser`.
+|===
 
 // tag::dashboard[]
 === What makes up a Dashboard?
@@ -655,7 +666,8 @@ Introduce each health type as a Class on its own
 * Cons: Limited to a specific number of health types. User cannot introduce their own health type for record tracking. Requires diligence on developer’s end to introduce new classes for more variations.
 
 
-
+// tag::diary[]
+[[DiaryTag]]
 === Diary feature
 ==== Implementation
 The current implementation of Diary consists of the following:
@@ -697,24 +709,6 @@ image::DeleteDiarySequenceDiagram.png[]
 {nbsp} +
 After a successful execution, the specified diary will be removed.
 
-==== Design Considerations
-
-The current implementation of `Diary` makes use of an ArrayList to store the `Page` objects.
-This is the simplest implementation as most novice programmers would be familiar with ArrayLists.
-However, list operations tend to take more time to run compared to other data structures such as Sets.
-
-*Alternatives*
-
-An alternative to using ArrayList would be to use sets to store `Page` objects. This could increase the
-overall performance of the program as set operations tend to be faster than list operations. However, using sets
-does not provide an order to `Page` objects, unlike in lists.
-
-*Our Choice*
-
-We chose to use ArrayLists instead as we require the `Page` objects to be ordered, so that the implementation of
-`DeletePageCommand` is simplified. An index can simply be provided in `DeletePageCommand` and the corresponding `Page`
-object can simply be removed from the ArrayList, using the specified index.
-
 ==== Implementation of Images
 
 All images used in DukeCooks are copied into an internal data folder and all subsequent loading of images is done from
@@ -724,21 +718,57 @@ within this internal folder. The following activity diagram explains how an imag
 image::ImageActivityDiagram.png[]
 
 ==== Design Considerations
+[cols="20%,40%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
 
-This current implementation of images defensively copies the images into the internal data folder, instead of loading images
-from the user's local directory. While it may be slower in terms of performance, it is less prone to unexpected errors when
-loading images.
+|Data structures used to store `Page`
+| `Page` objects are stored using an ArrayList
 
-*Alternatives*
+*Pros* +
+Simplest implementation and most novice programmers are familiar with it.
 
-An alternative to copying images into an internal data folder would be to load images directly from the user's directory
-without saving it internally. This implementation performs better and is much easier to implement.
+*Cons* +
+List operations tend to run slower as compared to other data structures such as sets.
 
-*Our Choice*
+*Our Choice* +
+This choice was chosen as we require the `Page` objects to be ordered, which is a functionality only provided in lists.
+In addition, the ordered `Page` objects greatly simplify the implementation of other commands such as `DeletePageCommand`
+as an page index can simply be provided to execute the command.
 
-We decided to make defensive copies of images in our internal folder as we want to eliminate unexpected errors. By making
-defensive copies internally, we ensure that all images used can be loaded, even if the user decides to delete the original
-image in their local directory.
+
+| `Page` objects are stored using Sets
+
+*Pros* +
+Faster runtime.
+
+*Cons* +
+Sets do not provide an order to the `Page` objects.
+
+| Loading of images
+
+| Defensively copies images into our internal data folder and all subsequent loading of images is done from this folder.
+
+*Pros* +
+Less prone to user errors when loading images (i.e Deleted image in local directory)
+
+*Cons* +
+ Increased memory usage as each image needs to be saved internally
+
+*Our Choice* +
+This choice was chosen as it is less-prone to user errors and is safer.
+
+| Load images directly from user's directory
+
+*Pros* +
+Easy to implement.
+
+*Cons* +
+ May lead to unexpected errors when loading images (i.e when user deletes the image from directory)
+|===
+
+// end::diary[]
 
 === Logging
 
