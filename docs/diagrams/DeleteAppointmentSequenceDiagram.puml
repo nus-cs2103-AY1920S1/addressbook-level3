@@ -1,0 +1,71 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AppParser" as AppParser LOGIC_COLOR
+participant "dp:DeleteAppointmentCommandParser" as DeleteAppointmentCommandParser LOGIC_COLOR
+participant "dc:DeleteAppointmentCommand" as DeleteAppointmentCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("appt-delete 1")
+activate LogicManager
+
+LogicManager -> AppParser : parseCommand("appt-delete 1")
+activate AppParser
+
+create DeleteAppointmentCommandParser
+AppParser -> DeleteAppointmentCommandParser
+activate DeleteAppointmentCommandParser
+DeleteAppointmentCommandParser --> AppParser : dp
+AppParser -> DeleteAppointmentCommandParser : parse(args)
+
+create DeleteAppointmentCommand
+DeleteAppointmentCommandParser -> DeleteAppointmentCommand
+
+activate DeleteAppointmentCommand
+DeleteAppointmentCommand --> DeleteAppointmentCommandParser : dc
+deactivate DeleteAppointmentCommand
+
+DeleteAppointmentCommandParser --> AppParser : dc
+deactivate DeleteAppointmentCommandParser
+'DeleteAppointmentCommandParser -[hidden]-> AppParser : dc
+'destroy DeleteAppointmentCommandParser
+
+AppParser --> LogicManager : dc
+deactivate AppParser
+
+LogicManager -> DeleteAppointmentCommand : execute(model)
+activate DeleteAppointmentCommand
+
+DeleteAppointmentCommand -> Model : getStagedAppointmentList()
+activate Model
+Model --> DeleteAppointmentCommand : apptList
+deactivate Model
+
+ref over DeleteAppointmentCommand, Model
+    delete appointment and add the next recurred appointment
+end
+
+create CommandResult
+DeleteAppointmentCommand -> CommandResult
+activate CommandResult
+CommandResult --> DeleteAppointmentCommand : result
+deactivate CommandResult
+
+DeleteAppointmentCommand --> LogicManager : result
+deactivate DeleteAppointmentCommand
+DeleteAppointmentCommand -[hidden]-> LogicManager : result
+
+[<-- LogicManager
+
+deactivate LogicManager
+
+@enduml
+
+

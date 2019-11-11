@@ -80,8 +80,8 @@ public class Appointment {
 
         return otherAppointment != null
                 && otherAppointment.getStartDateTime().equals(getStartDateTime())
-                && (otherAppointment.getEndDateTime().equals(getEndDateTime())
-                && otherAppointment.getFrequency().equals(getFrequency()))
+                && otherAppointment.getEndDateTime().equals(getEndDateTime())
+                && otherAppointment.getFrequency().equals(getFrequency())
                 && otherAppointment.getPatient().equals(getPatient());
     }
 
