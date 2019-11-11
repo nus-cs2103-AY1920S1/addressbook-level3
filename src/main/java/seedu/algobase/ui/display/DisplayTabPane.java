@@ -39,6 +39,7 @@ public class DisplayTabPane extends UiPart<Region> {
         this.uiActionExecutor = uiActionExecutor;
 
         addTabsToTabPane(displayTabs);
+        addListenerToTabPaneIndexChange();
         selectTab(tabManager.getDisplayTabPaneIndex().getValue().intValue());
 
         addListenerForIndexChange(tabManager.getDisplayTabPaneIndex());
