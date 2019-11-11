@@ -95,6 +95,12 @@ public class TransactionListCommandParser implements CommandParser {
             }
         }
 
+        if (optionalFromAmount.isPresent() && optionalUntil.isPresent()) {
+            if (!optionalFromAmount.get().lessThanEquals(optionalUntilAmount.get())) {
+                throw new ParseException("The minimum amount cannot be greater than the maximum amount.");
+            }
+        }
+
         return new TransactionListCommand(new TransactionMatchesConditionsPredicate(categoryList,
                 optionalFrom, optionalUntil, optionalFromAmount, optionalUntilAmount, optionalDescription),
                 optionalTransactionComparator);

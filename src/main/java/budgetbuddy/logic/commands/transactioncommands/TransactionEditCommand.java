@@ -32,7 +32,6 @@ import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Transaction;
-import budgetbuddy.model.transaction.exceptions.TransactionNotFoundException;
 import javafx.collections.ObservableList;
 
 /**
@@ -109,8 +108,6 @@ public class TransactionEditCommand extends ScriptCommand {
             RuleEngine.executeRules(model, scriptEngine, updatedTxnIndex, targetAccount);
             model.getAccountsManager().setActiveAccount(targetAccount);
 
-        } catch (TransactionNotFoundException e) {
-            throw new CommandException(MESSAGE_FAILURE);
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException(MESSAGE_INVALID_DISPLAYED_INDEX);
         }

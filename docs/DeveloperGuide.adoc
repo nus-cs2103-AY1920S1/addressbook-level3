@@ -272,6 +272,191 @@ After each command, `AccountsManager#resetFilteredAccountList` is called to rese
 ** Cons: Hard to implement.
 // end::accounts_2[]
 
+// tag::activeAccount
+
+=== Active Account
+==== Implementation
+The active `Account` allows operations on `Transaction` objects to not have to specify the concerning `Account` when
+the command is entered. This allows for a more user-friendly and intuitive experience with managing finances. By updating
+`ActiveAccountIndex` where appropriate, the `activeAccount` is implemented on the idea that users want to continue to
+manipulate transactions within the same `Account` that they last interacted with.
+
+The current active `Account` is indicated in the UI by a highlight as shown below.
+
+.Screenshot of the UI showing the highlighted active Account.
+image::ActiveAccount1.png[]
+
+The following user commands, if executed successfully, can change the active account:
+
+* `AccountAddCommand` -- The added `Account` becomes the active account.
+* `AccountDeleteCommand` -- If the active `Account` is deleted, a new active `Account` will be selected.
+* `AccountEditCommand` -- The edited `Account` becomes the active account.
+* `AccountFindCommand` -- The first `Account` in the list is set as the active `Account`.
+* `AccountListCommand` -- The first `Account` in the list is set as the active `Account`.
+* `AccountReportCommand` -- The target `Account` is set as the new active `Account`.
+* `AccountSwitchCommand` -- The target `Account` is set as the new active `Account`.
+
+* `TransactionAddCommand` -- The target `Account` is set as the new active `Account`.
+* `TransactionEditCommand` -- The target `Account` is set as the new active `Account`.
+
+==== Design Considerations
+===== Aspect: responsive UI for showing the active `Account`
+An `Extractor` is used to update the UI when an `Account` is set as active, or when the `balance` is updated. This is because
+the `FilteredList<Account>` only updates automatically when the Accounts themselves are changed, but not when their internal
+elements are altered.
+
+* **Alternative 1 (current choice)**: Use an `Extractor` to listen for changes to `isActiveBooleanProperty` and `balanceLongProperty`.
+** Pros: Less overhead/unnecessary movement of accounts
+** Cons: Not as easy for new developers to understand and implement.
+* **Alternative 2**: Refresh the account list by forcing removal and re-addition of each of the accounts.
+** Pros: Easy to implement, no need to change members to adapt to the `Property` class, and easier for newer developers to read and understand.
+** Cons: High overhead, as more and more accounts are added to the BudgetBuddy.
+// end::activeAccount
+
+// tag::transactions[]
+=== Transaction Model
+==== Implementation
+Transactions are the main elements of the BudgetBuddy's expenses tracker. Within each `Account`, a `TransactionList` is
+stored, and inside each `TransactionList`, `Transaction` objects are stored internally in the `internalList` of the
+`TransactionList`.
+
+The class diagram below shows how `Transaction` objects are stored within an `Account`.
+
+.Class Diagram of the Transactions Model
+image::TransactionClassDiagram.png[]
+
+Each `Transaction` object must have:
+
+* `direction: Direction` -- The direction of the transaction (either `IN` for money inflow or `OUT` for money outflow).
+* `amount: Amount` -- The amount of money transacted.
+* `date: LocalDate` -- The date of the transaction.
+
+Optional attributes for `Transaction` objects:
+
+* `description: Description` -- A short description about the transaction.
+* `categories: Set<Category>` -- A `Set` of `Category` objects that categorize the transaction.
+
+Because `Transaction` and `TransactionList` objects are contained within `Account` objects, which are in turn stored within the
+`AccountsManager`, it is called when any operations is made on a `Transaction`. Additionally, `AccountsManager` has an
+`activeTransactionList` which holds the `TransactionList` of the current active `Account`. `activeTransactionList` is then
+wrapped by a `SortedList` and `FilteredList` to enable the sorting and filtering of the `Transaction` objects.
+
+These methods in `AccountsManager` below that manipulate the `activeTransactionList` are called when the list of
+transactions needs to be filtered/sorted:
+
+* `AccountsManager#getFilteredTransactionList()` -- Returns an `ObservableList` of the filtered transactions.
+* `AccountsManager#updateFilteredTransactionList(Predicate<Transaction> predicate)` --
+Updates the `Predicate<Transaction>` of the `FilteredList` to filter by the given `Predicate<Transaction>`
+* `AccountsManager#resetFilteredTransactionList()` -- Resets and removes any filter on the `FilteredList`.
+* `AccountsManager#updateSortedTransactionList(Comparator<Transaction> comparator)` --
+Updates the `Comparator<Transaction>` of the `SortedList` to sort by the given `Comparator<Transaction>`
+* `AccountsManager#resetSortedTransactionList()` -- Resets the `Comparator` on the `FilteredList` to the default comparator.
+
+When `Transaction` objects are added/edited/deleted, the following implemented methods are called from `Account`:
+
+* `Account#addTransaction(Transaction toAdd)` -- Adds a `Transaction` to the `transactionList`.
+* `Account#updateTransaction(Index txnIndex, Transaction editedTxn)` -- Sets a `Transaction` to the `transactionList` at the specified `Index`.
+* `Account#deleteTransaction(Transaction toDelete)` -- Deletes a `Transaction` from the `transactionList`.
+
+`Transaction` objects are saved within their respective `Account` objects after every command, and they are saved
+into the file `accounts.json`, stored in the same directory as the JAR executable.
+
+==== Design Considerations
+===== Aspect: Reference to respective Account in Transaction
+
+* **Alternative 1 (current choice)**: `Transaction` has no reference to `Account`; any commands that create/edit/delete `Transaction` objects
+are called via the active `Account`.
+** Pros: Reduced coupling, which makes testing/maintenance easier.
+** Cons: More methods are required to ensure the logic of `Transaction` commands and the current active `Account`,
+instead of calling getAccount() on a `Transaction`.
+* **Alternative 2**: `Transaction` holds a reference to `Account`; commands that create/edit/delete `Transaction` objects
+directly reach the `Account` through the `Transaction`.
+** Pros: It would result in shorter code by avoiding having to go through `AccountsManager` to find the respective `Account`.
+** Cons: This would result in a circular dependency between `Transaction` and `Account`, as well as high coupling.
+This lowers testability and increases the risk of bugs.
+
+=== Adding Transactions: `txn`
+
+Given below is an example usage scenario and how the `txn` command is processed and executed at each step.
+
+Step 1: The user (ideally an NUS Computing Student) executes `txn dn/out x/50 d/books a/school` to add a purchase of $50 worth of
+books, to be added to the `school` `Account`.
+
+Step 2: `LogicManager` calls `parseCommand` on the command string `txn dn/out x/50 d/books a/school`
+
+Step 3: `CommandLineParser` creates a new `TransactionAddCommandParser` by identifying the `txn` String that represents a
+`TransactionAddCommand`
+
+Step 4: `TransactionAddCommandParser` parses the rest of the command string `dn/out x/50 d/books a/school` and return a
+new `TransactionAddCommand` with the parsed details.
+
+Step 5: `LogicManager` then calls `execute()` on the `TransactionAddCommand`, which gets the `Account` `school` from the
+`AccountsManager`
+
+Step 6: `addTransaction` is called on the returned `Account` to add the `Transaction` to the `TransactionList` of
+the Account`.
+
+Step 7: After adding the `Transaction`, RuleEngine is called to execute its rules over the newly added `Transaction`.
+The full diagram sequence diagram for this step can be found <<rule-execution-sequence-diagram,below>>, in the Implementation of the Rules Execution feature.
+
+Step 8: The `Account` which was added to is set as the active `Account` with `setActiveAccount()`.
+
+Step 9: Finally, `TransactionAddCommand` returns a `CommandResult` to the `LogicManager`.
+
+Step 10: Before `LogicManager` returns the `CommandResult`, it calls `save(Model model)` on the `StorageManager`, which
+saves all the `Account` objects.
+
+The following sequence diagram illustrates the scenario as described above (the execution of `txn dn/out x/50 d/books a/school`):
+
+.Sequence Diagram of the TransactionAddCommand
+image::TransactionSequenceDiagram.png[]
+
+=== Editing transactions: `txn edit`
+`txn edit` allows users to edit any attribute of the `Transaction`. It uses a `TransactionEditDescriptor` to store the details
+of the new `Transaction`, then uses `getUpdatedTransaction` to generate the edited `Transaction` as well as validate that
+changes have been made to the transaction.
+
+Below is an example scenario to demonstrate how a `Transaction` is edited, as well as certain additional steps that are taken when certain
+attributes of the `Transaction` are edited, for example to edit the `Account` or to edit the `categories`. The activity diagram
+accompanies this explanation, to help visualise the steps that might take place.
+
+.Activity Diagram of the execution of a TransactionEditCommand
+image::TransactionActivityDiagram.png[]
+
+Assume that `txn add dn/out x/20 d/bill a/home` was just executed, and that the `Transaction` shows up in the first index:
+
+.Screenshot of previously added transaction
+image::TransactionEdit1.png[]
+
+Step 1: The user (ideally an NUS Computing Student) executes `txn edit 1 x/28 d/phone bill a/personal c/phone c/bill`
+to edit the previously added `Transaction` to a $28 phone bill, to be added to the `personal` `Account`.
+
+Step 2: `LogicManager` calls `parseCommand` on the command string `txn edit 1 x/28 d/phone bill a/personal c/phone c/bill`
+
+Step 3: `CommandLineParser` creates a new `TransactionEditCommandParser` by identifying the `txn edit` String that represents a
+`TransactionAddCommand`
+
+Step 4: `TransactionAddCommandParser` parses the rest of the command string `1 x/28 d/phone bill a/personal c/phone c/bill` and return a
+new `TransactionEditCommand` along with the `TransactionEditDescriptor` and the `updatedAccountName`, which represents the
+`Name` of the new target `Account`. A new `Set<Categories>` is also created from the `c/phone` and `c/bill` arguments provided.
+
+Step 5: `LogicManager` then calls `execute()` on the `TransactionEditCommand`. Then, the original `Transaction` is obtained,
+followed by the target `Account` and the edited `Transaction` via `getUpdatedTransaction`. Meanwhile, validation occurs
+at every step, to ensure that the parsed attributes conform to the requirements to edit the `Transaction.
+
+Step 6: `deleteTransaction` is called on the `Account` containing the `Transaction` to be edited.
+
+Step 7: `addTransaction` is called on the target `Account`, followed by the execution of the RulesEngine, similar to the
+situation as shown <<rule-execution-sequence-diagram,further below>>.
+
+Step 8: The `Account` which was added to is set as the active `Account` with `setActiveAccount()`.
+
+Step 9: Finally, `TransactionAddCommand` returns a `CommandResult` to the `LogicManager`.
+
+Step 10: Before `LogicManager` returns the `CommandResult`, it calls `save(Model model)` on the `StorageManager`, which
+saves all the `Account` objects.
+// end::transactions[]
+
 // tag::loans[]
 // tag::kenneth-ppp-loan-class[]
 === Loans Feature
@@ -345,6 +530,7 @@ image::LoanSequenceDiagram.png[]
 In general, the rest of the operations work using a similar sequence of steps.
 Some commands might create a new `Loan` object (as shown above) while others might just use the `Index` of a loan (e.g. `loan delete`).
 // end::kenneth-ppp-loan-sequence[]
+
 
 Step 3.
 The user executes the command `loan list out p/John w/1/11/2019 s/x`
@@ -645,6 +831,7 @@ the `*Performable#perform*` method on the given transaction.
 The following sequence diagram shows the interaction between the `*RuleEngine*` and the different objects involved in the
 execution of the rules on a transaction:
 
+[[rule-execution-sequence-diagram]]
 .Sequence diagram representing Rule Execution after adding a new Transaction
 image::RuleExecutionSequenceDiagram.png[]
 
