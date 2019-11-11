@@ -103,9 +103,25 @@ Information on the dish still can be viewed as a tooltip, when hovering over the
 
 image::consumed_pane.png[]
 
+The Consumed Meals pane will display the current meals that were consumed today.
+This pane will automatically updating upon adding, editing or deleting meals.
+
+Each meal displays its name and tags, together with its index in the whole list.
+The `edit`/`delete` commands can be given indexes of meals from this list, to manipulate them further.
+
 === Suggested Meals
 
 image::suggest_pane.png[]
+
+At the start of the program, the Suggested Meals pane displays all dishes that fit within the remaining calorie budget.
+As more meals are logged as consumed, it will automatically update and filter out dishes that no longer fit.
+Additionally, it will also track dishes from directly-added meals, for future reuse.
+
+It also doubles as the result pane for the `find` command. To toggle it back to suggestion mode, use the `suggest` command.
+
+Each dish displays its name and tags, together with its index in the whole list.
+The `add` command can be given the indexes of dishes from the list, to add them as meals today.
+
 
 // end::ui[]
 
@@ -116,10 +132,11 @@ image::suggest_pane.png[]
 
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/<<mealname_syntax, MEAL_NAME>>`, `<<mealname_syntax, MEAL_NAME>>` is a parameter which can be used as `add n/Carbonara`.
-* Items in square brackets are optional e.g `add n/<<mealname_syntax, MEAL_NAME>> [c/<<calories_syntax, CALORIES>>]` can be used as `add n/Carbonara c/430` or as `add n/Carbonara`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/<<mealname-syntax, MEAL_NAME>>`, `<<mealname-syntax, MEAL_NAME>>` is a parameter which can be used as `add n/Carbonara`.
+* Items in square brackets are optional e.g `add n/<<mealname-syntax, MEAL_NAME>> [c/<<calories-syntax, CALORIES>>]` can be used as `add n/Carbonara c/430` or as `add n/Carbonara`.
 ====
 
+// tag::mealTrack[]
 === Meal Tracking
 
 ==== Adding a meal: `add`
@@ -127,7 +144,7 @@ image::suggest_pane.png[]
 Adds a meal that the user ate to be tracked by CaloFit. +
 There are 2 formats that can be used: +
 
-Format 1: `add n/<<mealname_syntax, MEAL_NAME>> [c/<<calories_syntax, CALORIES>>] [t/TAGS]` +
+Format 1: `add n/<<mealname-syntax, MEAL_NAME>> [c/<<calories-syntax, CALORIES>>] [t/TAGS]` +
 Inputting calories of the meal is optional. +
 If the meal is a dish stored in CaloFit, the calories will be taken from CaloFit. If not, a default value of 700 will be added for you, +
 Tags are completely optional and there is no default tag. You could also have more than 1 tag. +
@@ -138,7 +155,7 @@ You can also add multiple meals at one go using the indexes. This can be done by
 e.g. `add 1 2 3`
 
 [NOTE]
-<<mealname_syntax, MEAL_NAME>> can only be a maximum of 30 characters to ensure it displays correctly for you.
+<<mealname-syntax, MEAL_NAME>> can only be a maximum of 30 characters to ensure it displays correctly for you.
 
 Examples usage: +
 It is lunchtime and you are about to go have some Mushroom Soup.
@@ -189,11 +206,11 @@ Commands below are come other example commands:
 ==== Editing previous meal entry : `edit`
 
 Edits a meal that the user previously ate today. +
-Format: `edit MEAL_NUMBER [n/<<mealname_syntax, MEAL_NAME>>] [c/<<calories_syntax, CALORIES>>] [tr/TAGSTOREMOVE]` +
+Format: `edit MEAL-NUMBER [n/<<mealname-syntax, MEAL-NAME>>] [c/<<calories-syntax, CALORIES>>] [tr/TAGSTOREMOVE]` +
 The input of at least 1 field (either NAME, CALORIES, TAGS or TAGSTOREMOVE) is required.
 
-Format: `edit MEAL_NUMBER [n/<<mealname_syntax, MEAL_NAME>>] [c/<<calories_syntax, CALORIES>>] [t/TAGS]` +
-The input of at least 1 field (either NAME, <<calories_syntax, CALORIES>> or TAGS) is required.
+Format: `edit MEAL-NUMBER [n/<<mealname-syntax, MEAL-NAME>>] [c/<<calories-syntax, CALORIES>>] [t/TAGS]` +
+The input of at least 1 field (either NAME, <<calories-syntax, CALORIES>> or TAGS) is required.
 A mix of the different fields is possible as well.
 //with the exception of TAGS and TAGSTOREMOVE.
 //This means if you use the TAGS flag (t/), you cannot use the TAGSTOREMOVE flag (tr/).
@@ -254,6 +271,7 @@ Commands below are come other example commands:
 
 * `delete 1` - deletes the first meal in the consumed meal section.
 * `delete 1 2 3` - bulk deleting of meals 1, 2 and 3 in the consumed meal section.
+// end::mealTrack[]
 
 === Find meals in the meal database: `find`
 
@@ -345,11 +363,13 @@ Set user calorie intake budget for today. +
 This will update the calorie bar to show reflect the new amount of calories remaining.
 If in suggestion mode, the suggest meals will also be refreshed depending on the calories remaining as well.
 
-Format: `set <<calories_syntax, CALORIES>>`
+Format: `set <<calories-syntax, CALORIES>>`
 
 Examples:
 
 * `set 2500`
+Sets the calorie budget to 2500 calories.
+
 // end::setcmd[]
 
 // tag::report[]
@@ -402,15 +422,15 @@ Format: `help`
 
 == Command Summary
 
-* *Add* `add n/<<mealname_syntax, MEAL_NAME>> [c/<<calories_syntax, CALORIES>>]` +
+* *Add* `add n/<<mealname-syntax, MEAL_NAME>> [c/<<calories-syntax, CALORIES>>]` +
 e.g. `add n/duck rice c/360`
 * *Add* `add NUMBER_IN_SUGGESTED_MEAL_LIST` +
 e.g. `add 1`
-* *Edit* : `edit MEAL_NUMBER [n/<<mealname_syntax, MEAL_NAME>>] [c/<<calories_syntax, CALORIES>>]` +
+* *Edit* : `edit MEAL_NUMBER [n/<<mealname-syntax, MEAL_NAME>>] [c/<<calories-syntax, CALORIES>>]` +
 e.g. `edit 1 n/duck noodle c/250`
 * *Delete* : `delete MEAL_NUMBER` +
 e.g. `delete 3`
-* *Set* : `set <<calories_syntax, CALORIES>>` +
+* *Set* : `set <<calories-syntax, CALORIES>>` +
 e.g. `set 2600`
 * *Find* : `find <<mealname_syntax, MEAL_NAME>>` +
 e.g. `find soup`
@@ -425,8 +445,8 @@ e.g. `help`
 // tag::syntax[]
 == Command Syntax Notes
 
-* [[calories_syntax]] Calorie values are positive integers from 0 to 2 billion, inclusive.
-* [[mealname_syntax]] Dish names must be alphanumeric (`[A-Z], [a-z],[0-9]`), and at most 30 characters long.
+* [[calories-syntax]] Calorie values are positive integers from 0 to 2 billion, inclusive.
+* [[mealname-syntax]] Dish names must be alphanumeric (`[A-Z], [a-z],[0-9]`), and at most 30 characters long.
 // end::syntax[]
 
 == Trouble shooting/FAQ
@@ -437,7 +457,7 @@ Q: Do I have to pay for anything? +
 A: Currently CaloFit is totally free!
 
 Q: Will the dishes that I add be saved for future use? +
-A:
+A: The dishes added will be saved for future use! Clearing of outdated dishes will come in v2.0.
 
 Q: What are the dishes stored when I just installed CaloFit? +
 A: Currently we have a sample dish database loaded, however we plan to integrate the database from the Health Promotion Board(HPB) in v2.0 of CaloFit!

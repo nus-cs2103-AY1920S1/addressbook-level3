@@ -7,18 +7,28 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
+import calofit.logic.commands.exceptions.CommandException;
 import calofit.model.Model;
 import calofit.model.dish.Dish;
 import calofit.model.dish.DishDatabase;
 import calofit.model.dish.Name;
 import calofit.model.dish.ReadOnlyDishDatabase;
+import calofit.model.meal.Meal;
 import calofit.model.meal.MealLog;
 import calofit.testutil.Assert;
 import calofit.testutil.DishBuilder;
+import calofit.testutil.TypicalDishes;
 
 public class AddCommandTest {
 
@@ -38,10 +48,25 @@ public class AddCommandTest {
         assertEquals(Arrays.asList(validDish), modelStub.dishesAdded);
     }
 
+    @Test
+    public void execute_mealAddedToMealLog_addSuccessful() throws CommandException {
+        ObservableList<Dish> dishes = FXCollections.observableList(TypicalDishes.getTypicalDishes());
+        MealLog mealLog = Mockito.mock(MealLog.class);
+        Model model = Mockito.mock(Model.class);
+        Mockito.doReturn(mealLog).when(model).getMealLog();
+        Mockito.doReturn(dishes).when(model).getFilteredDishList();
+
+        List<Integer> indexes = List.of(1, 3, 6);
+        CommandResult result = new AddCommand(indexes).execute(model);
+        ArgumentCaptor<LinkedList<Meal>> mealsAdded = ArgumentCaptor.forClass(LinkedList.class);
+        Mockito.verify(mealLog).addListOfMeals(mealsAdded.capture());
+        Set<Dish> addedDishes = mealsAdded.getValue().stream().map(Meal::getDish).collect(Collectors.toSet());
+        Set<Dish> targetDishes = indexes.stream().map(i -> dishes.get(i - 1)).collect(Collectors.toSet());
+        assertEquals(targetDishes, addedDishes);
+    }
+
     //@Test
-    //public void execute_mealAddedToMealLog_addSuccessful() {
-    //
-    //}
+    //public void execute_
 
     @Test
     public void equals() {

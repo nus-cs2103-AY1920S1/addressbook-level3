@@ -135,6 +135,7 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for *_DeleteCommandParser_* should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+// tag::model[]
 [[Design-Model]]
 === Model component
 
@@ -156,6 +157,8 @@ The *_Model_*,
 
 This design allows many parts of CaloFit to be created without the fear of conflict with other classes. This is due to the *_Model_* interface acting as a Facade class that manages the interactions between the components that makeup CaloFit.
 
+// end::model[]
+
 [[Design-Storage]]
 === Storage component
 
@@ -169,8 +172,9 @@ The *_Storage_* component,
 * can save *_UserPref_* objects in json format and read it back.
 * can save the *_DishDatabase_* data in json format and read it back.
 * can save the *_MealLog_* data in json format and read it back.
+* can save the *_CalorieBudget_* data in json format and read it back.
 
-This design allows the users to save their *_MealLog_* and *_DishDatabase_* in a directory of their choice that is specified by the *_Path_* in the *_UserPrefs_* object.
+This design allows the users to save their *_MealLog_*, *_DishDatabase_* and *_CalorieBudget_* in a directory of their choice that is specified by the *_Path_* in the *_UserPrefs_* object.
 
 [[Design-Commons]]
 === Common classes
