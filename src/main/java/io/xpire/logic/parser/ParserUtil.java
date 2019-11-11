@@ -1,5 +1,6 @@
 package io.xpire.logic.parser;
 
+import static io.xpire.commons.core.Messages.MESSAGE_INVALID_INDEX;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
@@ -23,7 +24,6 @@ import io.xpire.model.tag.TagComparator;
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -33,6 +33,9 @@ public class ParserUtil {
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
+        if (!StringUtil.isNumeric(trimmedIndex)) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
@@ -92,13 +95,13 @@ public class ParserUtil {
     public static Quantity parseQuantity(String quantity) throws ParseException {
         requireNonNull(quantity);
         String trimmedQuantity = quantity.trim();
+        if (!StringUtil.isUnsignedNumericWithoutLeadingZeroes(trimmedQuantity)) {
+            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
+        }
         if (Quantity.isNumericButExceedQuantity(trimmedQuantity)) {
             throw new ParseException(Quantity.MESSAGE_QUANTITY_LIMIT);
         }
-        if (!Quantity.isPositiveIntegerQuantity(trimmedQuantity)) {
-            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
-        }
-        if (!Quantity.isAcceptedRange(trimmedQuantity)) {
+        if (!Quantity.isValidQuantity(trimmedQuantity)) {
             throw new ParseException(Quantity.MESSAGE_QUANTITY_LIMIT);
         }
         return new Quantity(trimmedQuantity);

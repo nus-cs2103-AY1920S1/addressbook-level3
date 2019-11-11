@@ -115,6 +115,7 @@ public class MainApp extends Application {
         LogsCenter.init(config);
     }
 
+
     /**
      * Returns a {@code Config} using the file at {@code configFilePath}. <br>
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead

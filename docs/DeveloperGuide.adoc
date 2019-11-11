@@ -222,8 +222,8 @@ the item is automatically tagged as `#Expired`.**
 ==== Commands in the replenish list
 
 ===== Implementation
-As shown in the snippet of the `Logic` class diagram below, both `XpireParser` and `ReplenishParser` implement the interface `Parser`.
-`ReplenishParser` parses and handles the commands in the replenish list.
+As shown in a snippet of the `Logic` class diagram below, both `XpireParser` and `ReplenishParser` implement the interface `Parser`.
+In particular, `ReplenishParser` parses and handles the commands in the replenish list.
 
 .Snippet of Logic class diagram to highlight the relationship between the parsers
 image::ParserClassDiagram.png[]
@@ -239,9 +239,12 @@ replenish list.
 image::ParseCommandActivityDiagram.png[]
 
 In the event that `ReplenishParser` is selected, it will prevent any invalid or prohibited commands and also check for spelling mistakes in the user input.
-This will be further explained in a <<Spelling correction with alternative recommendations,later section>>.
+This will be further explained to you in a <<Spelling correction with alternative recommendations,later section>>.
 
 ===== Design Considerations
+When designing the replenish list, I had to make decisions on how best to parse and execute commands in an efficient manner
+that would minimise code repetition and delay in runtime. The following is a brief summary of
+my analysis and decisions.
 
 ====== Aspect: How commands are executed in the list
 * **Alternative 1 (current choice): Create two separate parsers, one for the main tracking list and another for the replenish list.**
@@ -299,6 +302,8 @@ The list returned is the sortedInternalList wrapped as an unmodifiable list.
 [NOTE]
 Every time view is called, the current method of sorting specified is retrieved. If it has not been explicitly specified,
 the default method of sorting is then retrieved.
+
+<<<
 // end::autosortPartOne[]
 
 // tag::autosortPartTwo[]

@@ -5,6 +5,7 @@ import java.util.Stack;
 
 /**
  * A class that wraps two internal stacks that handles Undo/Redo commands.
+ * @@author Kalsyc
  */
 public class StackManager implements StateManager {
 

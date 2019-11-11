@@ -20,6 +20,7 @@ public class JsonSerializableXpireTest {
     private static final Path TYPICAL_ITEMS_FILE = TEST_DATA_FOLDER.resolve("typicalItemsXpire.json");
 
     private static final Path INVALID_ITEM_FILE = TEST_DATA_FOLDER.resolve("invalidItemXpire.json");
+
     private static final Path DUPLICATE_ITEM_FILE = TEST_DATA_FOLDER.resolve("duplicateItemXpire.json");
 
 

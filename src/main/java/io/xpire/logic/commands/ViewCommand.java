@@ -16,6 +16,7 @@ public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
     public static final String COMMAND_SHORTHAND = "v";
 
+    public static final String MESSAGE_VIEW_OPTIONS = "Only two lists (main and replenish) are available to view.";
     public static final String MESSAGE_SUCCESS = "Displayed all items in %s list";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Views all items in tracking or toReplenish list.\n"
             + "If key is 'replenish', items in the to-buy list will be displayed.\n"

@@ -52,11 +52,11 @@ public class ExpiryDateTest {
     public void getStatus_success() {
         LocalDate dateStub = LocalDate.of(2019, 8, 18);
 
-        //xpireItem is not expired
+        // XpireItem is not expired
         ExpiryDate validExpiryDate = new ExpiryDate("1/2/2020");
         assertEquals(validExpiryDate.getStatus(dateStub), "167 days left");
 
-        //XpireItem has expired
+        // XpireItem has expired
         ExpiryDate pastDate = new ExpiryDate("15/7/2019");
         assertEquals(pastDate.getStatus(dateStub), "Expired!");
     }

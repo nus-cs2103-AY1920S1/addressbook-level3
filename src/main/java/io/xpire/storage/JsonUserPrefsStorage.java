@@ -10,7 +10,7 @@ import io.xpire.model.ReadOnlyUserPrefs;
 import io.xpire.model.UserPrefs;
 
 /**
- * A class to access UserPrefs stored in the hard disk as a json file
+ * A class to access UserPrefs stored in the hard disk as a json file.
  */
 public class JsonUserPrefsStorage implements UserPrefsStorage {
 

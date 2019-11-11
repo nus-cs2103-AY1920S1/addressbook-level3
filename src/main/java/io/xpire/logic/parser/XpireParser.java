@@ -29,7 +29,7 @@ import io.xpire.logic.parser.exceptions.ParseException;
 
 //@@author JermyTan
 /**
- * Parses user input.
+ * Parses user input in {@code Xpire}.
  */
 public class XpireParser implements Parser {
     private static final int NUM_COMMAND_PATITIONS = 2;
@@ -39,9 +39,9 @@ public class XpireParser implements Parser {
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput full user input string
-     * @return the command based on the user input
-     * @throws ParseException if the user input does not conform the expected format
+     * @param userInput full user input string.
+     * @return Command according to user input.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public Command parse(String userInput) throws ParseException {
         // Removes leading and trailing white spaces and trailing bars.
@@ -147,9 +147,9 @@ public class XpireParser implements Parser {
     /**
      * Parses invalid command words to check if there were any possible input mistakes.
      *
-     * @param command the invalid command word
-     * @return the command based on the user input
-     * @throws ParseException if the user input does not conform the expected format
+     * @param command the invalid command word.
+     * @return the command based on the user input.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     private static Command parseUnknownCommandWord(String command) throws ParseException {
 
