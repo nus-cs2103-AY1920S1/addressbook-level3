@@ -1,11 +1,34 @@
 @startuml
+skinparam backgroundColor white
+
+skinparam activity {
+  StartColor RoyalBlue
+  EndColor RoyalBlue
+  BackgroundColor RoyalBlue
+  arrowColor Blue
+  activityDiamondBackgroundColor Blue
+  activityBarColor blue
+  BorderColor blue
+  ControlBackgroundColor white
+  FontColor Snow
+  FontName Calibri
+  FontSize 16
+}
+
+skinparam activityDiamond {
+    BackgroundColor Snow
+    BorderColor blue
+
+    FontSize 24
+}
 
 start
 
 :User launches EzWatchlist;
 :User goes to the **Search Page**;
+:User executes Search command;
 
-while (User executes ""Search"" command) is ([Incorrect command format])
+while () is ([Incorrect command format])
     : EzWatchlist prompts user about the correct command format;
 endwhile ([Correct command format])
 
