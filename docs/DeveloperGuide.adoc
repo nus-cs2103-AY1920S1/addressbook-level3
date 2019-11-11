@@ -364,7 +364,6 @@ one with the `training` command makes it editing much quicker.
 
 // end::training_design[]
 
-// tag::performance[]
 === Performance feature
 
 Athletick allows users to record athlete's performance details from timed trials.
@@ -453,6 +452,9 @@ image::viewrecords_sequencediagram.png[width="700"]
 
 .Reference frame for interactions in the RecordsPanel in the previous sequence diagram.
 image::recordspanel_sequencediagram.png[width="700"]
+
+// tag::performance_designconsiderations[]
+
 ==== Design Considerations
 
 This section explains the factors that we took into consideration when making decision on how different
@@ -526,7 +528,7 @@ can be difficult when the event of interest is located at the end
 chat title (in this case, viewing records for a particular event), to see the whole conversation (record
 details for a particular event)
 
-// end::performance[]
+// end::performance_designconsiderations[]
 
 === Calendar feature
 
