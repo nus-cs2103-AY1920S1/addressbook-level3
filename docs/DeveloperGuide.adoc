@@ -68,7 +68,7 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1` in the Meme tab.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1` in the Memes tab.
 
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
@@ -181,8 +181,8 @@ Commands such as `list`, `find` that only change the user interface, commands su
 
 These are the list of commands that support undo / redo operations:
 
-* Meme Tab: `add`, `edit`, `delete`, `clear`, `archive`, `unarchive`, `like`, `dislike`, `stage`
-* Template Tab: `add`, `edit`, `delete`, `clear`, `archive`, `unarchive`, `use`
+* Memes Tab: `add`, `edit`, `delete`, `clear`, `archive`, `unarchive`, `like`, `dislike`, `stage`
+* Templates Tab: `add`, `edit`, `delete`, `clear`, `archive`, `unarchive`, `use`
 * Create Tab: `add`, `edit`, `delete`, `move`, `abort`, `create`
 * Export Tab: `unstage`, `clear`
 * Import Tab: `import`
@@ -273,7 +273,7 @@ When the handleExit command is called, MainWindow will create a Thread to call `
 ** Cons: User might expect to undo only when they are in the same context. i.e. Undo Meme commands in Meme context.
 * **Alternative 2:** Restrict undoing to its own context
 ** Pros: More user intuitive. Commands will only affect their own context.
-** Cons: Heavily complicates the model. Model will then need to keep track of a versioning of every single context. Does not allow for commands such as `create` which affects the Creation tab and Meme tab without many modifications to the existing structure.
+** Cons: Heavily complicates the model. Model will then need to keep track of a versioning of every single context. Does not allow for commands such as `create` which affects the Creation tab and Memes tab without many modifications to the existing structure.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
@@ -718,6 +718,23 @@ image::TabSwitchSequenceDiagram.png[]
 
 // end::tabs[]
 
+=== Archives Feature
+Archives are an important part of resource management. While users typically enjoy seeing all their memes in one place, some might want to hide some memes, but still keep them in their collection. The archives are the solution to this problem. Users may archive memes they have grown tired of, or even templates they have found a newer version of. It is a way of hiding memes and templates from their default view to reduce clutter.
+
+==== Current Implementation
+Both `Meme` and `Template` implement the `Archivable` interface. The `Archivable` interface has one method, `isArchived`. This forces the implementing class to have an `isArchived` boolean field to indicate its current archival status. When archiving an existing `Meme` or `Template`, just like edit, the `archive` command creates a new object but with `isArchived` set to true. While it is possible to archive archived memes, there is no change and it is more likely to be a mistake, hence a `CommandException` is thrown instead. The same applies for `unarchive`.
+
+Since the default view should show all memes/templates that are unarchived, the predicates for the individual filtered lists have to be changed accordingly. The default predicate filters the UniqueLists for the memes/templates where `isArchived` is false, and the opposite is done for the archives predicate.
+
+==== Design Considerations
+
+===== Aspect: Making resources archivable
+* **Alternative 1 (current choice):** Implement from an `Archivable` interface
+** Pros: Allows for more flexibility when extending the functionality of implementing classes.
+** Cons: Some code repetition (Cannot declare instance fields or define the implementing methods).
+* **Alternative 2:** Extend a `ArchivableResource` abstract class
+** Pros: Less code repetition.
+** Cons: Less flexibility in the future. If new types of resouces are considered in the future where Meme and Template have to extend, this implementation becomes technical debt.
 
 // tag::view[]
 

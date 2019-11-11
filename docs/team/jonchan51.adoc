@@ -57,5 +57,9 @@ include::../UserGuide.adoc[tag=archive]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+****
+Besides the section below, I have also written the https://ay1920s1-cs2103-t16-3.github.io/main/DeveloperGuide.html#archives-feature[Archives Feature] section.
+****
+
 include::../DeveloperGuide.adoc[tag=undoredo]
 
