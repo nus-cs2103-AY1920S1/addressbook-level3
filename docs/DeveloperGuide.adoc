@@ -172,7 +172,6 @@ This section describes some noteworthy details on how certain features are imple
 
 //tag::find[]
 === Find feature
-==== Implementation
 
 The find feature is facilitated by `FindCommand` class. The `FindCommand` stores a `List` of `Predicates`, which can be
 `StudentContainsKeywordsPredicate`, `ModuleContainsKeywordsPredicate`, or `AppealContainsKeywordsPredicate`. Each `Predicate` stores a `List` of String of keywords.
@@ -201,7 +200,6 @@ image::FindSequenceDiagram.png[]
 
 //tag::clash1[]
 === Clash feature
-==== Implementation
 
 The clash feature is facilitated by `ClashCommand` class, and two additional static classes:
 
