@@ -98,8 +98,7 @@ public class UpdateCommand extends Command {
             Budget updatedBudget = createUpdatedOperation(budgetToReplace,
                     updateTransactionDescriptor);
             model.set(budgetToReplace, updatedBudget);
-            model.updateProjectionsAfterDelete(budgetToReplace);
-            model.updateProjectionsAfterAdd(updatedBudget);
+            model.updateProjectionsAfterUpdate(budgetToReplace, updatedBudget);
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_UPDATE_ENTRY_SUCCESS, updatedBudget),
                     false, false, Tab.BUDGET);

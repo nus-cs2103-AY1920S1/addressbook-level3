@@ -88,11 +88,11 @@ Example: If the command specifies `$/AMOUNT n/ITEM`, `n/ITEM $/AMOUNT` is also a
 * Parameters that need to be concatenated together are represented as `PARAM+PARAM`. +
 Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a space, such as `t1`.
 
-*Parameter Restrictions* :
-
+* *Parameter Constraints* :
++
 [width="100%",cols="30%,20%,<50%",options="header",]
 |=======================================================================
-| Parameter | Prefix | Restriction
+| Parameter | Prefix | Constraints
 | AMOUNT | $/ | - a valid amount between 0 and 1000000 dollars exclusive +
 - a valid amount up to 2 decimal places
 | DATE | d/ |- a valid date with the format DDMMYY in the Gregorian calendar
@@ -496,6 +496,28 @@ image::project3.png[]
 .The project earlier seen in <<Figure19, Figure 19>> has been automatically deleted.
 image::project4.png[]
 
+===== Valid Budget Start Dates and Deadlines
+A projection will only project upon budgets with deadlines set before or equal to the projection `DATE`. An example
+is depicted below:
+
+. Suppose there is currently a general `BUDGET` with a deadline set for 28th November 2019
++
+.Two budgets with dates 20112019 and 28112019 in the "GENERAL" category
+image::project5.png[]
++
+
+. If a general `PROJECTION` is cast to 20th November 2019, it will contain
+the budget with deadline 20112019 but not 28112019,
+since the projection's `DATE` is earlier than 28112019.
+
++
+.The projection only contains the budget with deadline 20112019
+image::project6.png[]
+
+===== Backward Projections
+While it is possible in _PalPay_, projecting your balance amount backwards in time is not guaranteed to
+produce sensible results. It is generally not advisable to do so.
+
 === Display a Projection Graph: `display`
 
 Display a graphical representation of a `projection` in a new window.
@@ -516,11 +538,44 @@ If there are any budgets associated with the projection, a corresponding graphic
 representation of the budget will be additionally displayed.
 +
 image::display3.png[]
-+
 
+==== Interpreting the Projection graph
+Here is a typical projection graph.
+
+.A typical projection graph
+image::project7.png[]
+
+* The X-Axis +
+The X-Axis denotes your balance in dollars ($).
+
+* The Y-Axis +
+The Y-Axis denotes the number of days from now, with today being Y = 0.
+
+* Red Points +
+The red points on the graph each represent your account balance (denoted by the X-value)
+at a particular point of time (denoted by the Y-value).
+
+* Blue Line Graph +
+The blue line graph represents the projection line, with each point along it representing
+a prediction of your account balance (denoted by the X-value)
+at a certain point of time (denoted by the Y-value).
+
+* All Other Coloured Line Graphs +
+All other coloured line graphs represent various budgets which fall within the `CATEGORY` and `DATE` range
+of the `PROJECTION`. Each of these line graphs have three parts:
+****
+.A budget line graph with its parts labelled by a green, blue and yellow box each
+image::project8.png[]
+. The line in the green box denotes the budget amount in dollars ($).
+
+. The line in the blue box denotes the budget duration (i.e. the number of days from its inception to
+its deadline)
+
+. The line in the yellow box denotes the projection deficit or surplus, at the point of its deadline.
+****
 
 ==== Usage Constraints
-===== Valid Projection ID
+===== Valid Projection Index
 * A `Projection` with `PROJECTION_ID` must exist.
 Attempting to display a non-existent `PROJECTION` will result in the following error message:
 ****

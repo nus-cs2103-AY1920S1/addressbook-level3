@@ -233,6 +233,8 @@ public interface Model {
 
     void updateProjectionsAfterUpdate(BankAccountOperation toUpdate, BankAccountOperation updated);
 
+    void updateProjectionsAfterUpdate(Budget toUpdate, Budget updated);
+
     /**
      * Returns an unmodifiable view of the filtered budget list
      */
