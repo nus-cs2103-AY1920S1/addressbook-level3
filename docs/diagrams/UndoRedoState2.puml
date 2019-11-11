@@ -3,12 +3,12 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "delete 1"
+title After command "deleteexpense-primary 1"
 
 package ModelHistory{
     package PastModels {
-        class State1 as "__m0:Model__"
-        class State2 as "__m1:Model__"
+        class State1 as "__m0:ModelChanges__"
+        class State2 as "__m1:ModelChanges__"
 
         State1 -[hidden]up-> State2
     }
@@ -16,9 +16,4 @@ package ModelHistory{
     package FutureModels {}
 }
 
-class State3 as "__m2:Model__"
-
-class Pointer as "Current State" #FFFFF
-
-Pointer -up-> State3
 @end
