@@ -1039,7 +1039,7 @@ See <<Feature-Statistics, statistics print feature>>
 
 [NOTE]
 The screenshot will be saved based on the current settings of your event schedule.
-For example if you are viewing 2019-11-23 on a weekly mode, the filename will be saved as WEEKLY_2019-11-23.
+For example if you are viewing 2019-11-23 on a weekly mode, the filename will be saved as WEEKLY_2019-11-23. NJoy will also overwrite any screenshots from the past with the same event name, to ensure that the screenshot in the printable directory is the most updated.
 
 
 * Example: `event screenshot` +

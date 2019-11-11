@@ -77,7 +77,7 @@ public class EventEditCommandTest {
 
         Model expectedModel = new ModelManager();
         expectedModel.setEventRecord(getTypicalEventsRecord());
-        expectedModel.setVEvent(INDEX_ONE, editedVEvent);
+        expectedModel.setVEvent(indexLastVEvent, editedVEvent);
 
         assertCommandSuccess(editCommand, model, new CommandResult(expectedMessage, CommandResultType.SHOW_SCHEDULE),
                 expectedModel);
@@ -108,7 +108,6 @@ public class EventEditCommandTest {
         EventEditCommand editCommand = new EventEditCommand(outOfBoundIndex, descriptor);
         assertThrows(CommandException.class, () -> editCommand.execute(model), MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
     }
-
 
     @Test
     public void equals() {
