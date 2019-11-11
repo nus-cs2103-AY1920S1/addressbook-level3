@@ -71,7 +71,7 @@ Additionally, I added an extra Pastel color theme for users who prefer a brighte
 ** Documentation:
 *** I wrote the team's About Us document, which consisted of information about our team members: https://github.com/AY1920S1-CS2103T-F12-4/main/pull/7[#7]
 *** I added our project's user stories, use cases and non functional requirements to the Developer Guide: https://github.com/AY1920S1-CS2103T-F12-4/main/pull/19[#19]
-*** I renamed all instances of placeholder name "_Financial Tracker_" to "_Billboard_" in User Guide, Developer Guide and Readme documents: https://github.com/AY1920S1-CS2103T-F12-4/main/pull/26[26]
+*** I renamed all instances of placeholder name "_Financial Tracker_" to "_Billboard_" in User Guide, Developer Guide and Readme documents: https://github.com/AY1920S1-CS2103T-F12-4/main/pull/26[#26]
 
 ** Community:
 *** Pull Requests of team members reviewed and approved by me:
