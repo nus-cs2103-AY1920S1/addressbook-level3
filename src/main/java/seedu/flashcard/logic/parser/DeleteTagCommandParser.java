@@ -6,7 +6,6 @@ import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.stream.Stream;
 
 import seedu.flashcard.logic.commands.DeleteTagCommand;
-import seedu.flashcard.logic.commands.ListCardByTagCommand;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
 import seedu.flashcard.model.tag.Tag;
 
@@ -20,7 +19,7 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
         if (!arePrefixesPresent(argMultimap, PREFIX_TAG) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT
-                    + ListCardByTagCommand.MESSAGE_USAGE));
+                    + DeleteTagCommand.MESSAGE_USAGE));
         }
 
         Tag tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());

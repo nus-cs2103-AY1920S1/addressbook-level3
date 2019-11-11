@@ -218,6 +218,14 @@ Format: `end`
 
 // tag::stat[]
 
+=== Skip Flashcards in Quiz
+
+Format: `skip`
+
+****
+*Used to skip a flashcard during a quiz if the user does not know the answer or want to answer
+****
+
 === Display current progress
 Shows the current progress of a set of flashcards. +
 Format: `stats [t/TAG]...`

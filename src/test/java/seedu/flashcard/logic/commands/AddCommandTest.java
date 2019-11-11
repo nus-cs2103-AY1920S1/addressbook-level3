@@ -82,7 +82,7 @@ public class AddCommandTest {
         assertFalse(addCard1Command.equals(1));
 
         // null -> returns false
-        assertFalse(addCard1Command.equals(null));
+        assertFalse(addCard1Command == null);
 
         // different person -> returns false
         assertFalse(addCard1Command.equals(addCard2Command));

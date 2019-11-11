@@ -38,4 +38,11 @@ public class DeleteTagCommand extends Command {
         model.commitFlashcardList();
         return new CommandResult(MESSAGE_DELETE_TAG_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeleteTagCommand // instanceof handles nulls
+                && target.equals(((DeleteTagCommand) other).target));
+    }
 }

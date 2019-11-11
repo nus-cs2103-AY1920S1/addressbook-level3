@@ -36,7 +36,7 @@ public class FlashcardTest {
     public void equalsFlashcard() {
         McqFlashcard mountBlancCopy = new FlashcardBuilder((McqFlashcard) MOUNT_BLANC).buildMcqFlashcard();
         assertTrue(MOUNT_BLANC.equals(mountBlancCopy));
-        assertFalse(MOUNT_BLANC.equals(null));
+        assertFalse(MOUNT_BLANC == null);
 
         Flashcard editedMountBlanc =
             new FlashcardBuilder((McqFlashcard) MOUNT_BLANC).withDefinition("Smells good").buildMcqFlashcard();
