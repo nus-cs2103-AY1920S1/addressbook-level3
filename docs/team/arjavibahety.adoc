@@ -3,11 +3,11 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-=== PROJECT: Mortago
+== PROJECT: Mortago
 
 === **1. Introduction**
 
-This project portfolio page showcases my contributions for Mortago - A Software Engineering project developed in my
+This project portfolio page showcases my contributions to Mortago - A Software Engineering project developed in my
 second year of undergraduate study at the National University of Singapore.
 
 ==== About the Team
@@ -36,14 +36,13 @@ well as other team project tasks.
 
 The following are the frequently used symbols used in this document:
 
-* `delete` : A grey highlight indicates that this text is either a full or partial command that can be
-entered into the CLI. It can also mean a component, class, function, or object used in the code base.
+* `delete` : A dark-red text (also known as a mark-up) indicates that this text is either a full or partial command that
+can be entered into the CLI. It can also mean a component, class, function, or object used in the code base.
 
 * Tips : An annotation indicates important information which may be useful to a user.
 
 [TIP]
 This is an example of a tip.
-
 
 === 2. Summary of contributions
 This section summarizes my coding, documentation, and other contributions to the team project.
@@ -52,11 +51,11 @@ This section summarizes my coding, documentation, and other contributions to the
 
 *Major Enhancement:* I added the notification feature.
 
-* What it does: This enhancement reminds the mortuary manager to contact the police after 10 seconds by automatically
-changing the status of a body and showing a pop-up notification. It also maintains a list of all the notifications
-(`Notif`) and can be viewed by either using the `showNotif` command or clicking on the bell icon beside the command
+* What it does: This enhancement reminds the mortuary manager to contact the police, after 10 seconds, by automatically
+changing the status of a `Body` and showing a pop-up notification. It also maintains a list of all the notifications
+(`Notif`) that can be viewed by either using the `showNotif` command or clicking on the bell icon beside the command
 box.
-* Justification: If the next-of-kin of a body has been uncontactable for more than 24 hours, police must be notified
+* Justification: If the next-of-kin of a body has been uncontactable for more than 24 hours, police must be informed
 to start a more thorough investigation. It can be tedious for the mortuary manager to manually keep checking which
 bodies have crosses the 24 hour period. This feature serves the dual purpose of automatically changing the status of
 the body as well as reminding the manager. For the purpose of testing, the time period is set to 10 seconds instead
@@ -70,8 +69,8 @@ was reused to create `NotifWindow`.
 
 * What it does: The `delete` command allows the user to delete a `Body`, `Worker`, or `Fridge` in Mortago. It uses
 flagging to differentiate them.
-* Justification: If the user enters a body by mistake, the `delete` command offers a convenient way to rectify the
-mistake. Flagging is used because it is more convenient for the user instead of using 3 different commands for
+* Justification: If the user adds a `Body` by mistake, the `delete` command offers a convenient way to remove it.
+Flagging is used because it is more convenient for the user instead of using 3 different commands for
 deletion.
 * Highlights: Since Mortago aims to automate mortuary management, deleting a `Body` makes additional
 changes as follows:
@@ -80,13 +79,15 @@ changes as follows:
 `UNOCCUPIED`.
 ** If the `Body` has an associated `Notif`, this command will also delete the `Notif`.
 
-*Major Enhancement:* I automated fridge management
+*Minor Enhancement:* I automated fridge management
 
-* What it does: When `delete` or `update` command for a `Body` which is assigned a `Fridge` are used, Mortago will
+* What it does: If a `Body` is assigned a `Fridge` and either `delete` or `update` commands are used on this `Body`,
+Mortago
+will
 automatically make relevant changes to the `Fridge`.
 * Justification: Manually managing bodies and fridges in a mortuary is very tedious as any change to a body may mean
-that the status of the fridge as well. For instance, when a body is claimed, the fridges it was stored in needs to be
-updated to unoccupied. If a manager is handling several bodies and fridges simultaneously, he may be prone to making
+that the status of the fridge has changed as well. For instance, when a body is claimed, its fridge is no longer
+occupied. If a manager is handling several bodies and fridges simultaneously, he may make
 errors.
 * Highlights: How Mortago automates fridge management for the `delete` command was explained earlier. In addition to
 that, the following features are automated:
@@ -96,13 +97,13 @@ that, the following features are automated:
 ** A user cannot assign a `Fridge` to a `Body` with status `CLAIMED` or `DONATED`.
 ** An `OCCUPIED` `Fridge` cannot be deleted. The user needs to either assign the `Body` to another `Fridge` or delete
 the `Body`.
-** A `Fridge` cannot be assigned multiple `Body`(s)
+** A `Fridge` cannot be assigned multiple `Body`(s).
 
 ==== Code Contributed
 You can view my code -[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=falsegroupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=arjavibahety&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D[via Reposense]]
 
 ==== Other Contributions
-Other contributions which I made to the team are discussed in this section
+Other contributions which I made to the team are discussed in this section.
 
 * Project Management:
 
@@ -121,7 +122,7 @@ https://github.com/AY1920S1-CS2103T-T13-2/main/pull/267/files[#267]).
 ** Updated existing diagrams and color scheme in developer guide
 (https://github.com/AY1920S1-CS2103T-T13-2/main/pull/123/files[#123]).
 ** Updated use cases for notification feature in developer guide
-(https://github.com/AY1920S1-CS2103T-T13-2/main/pull/40[#40])
+(https://github.com/AY1920S1-CS2103T-T13-2/main/pull/40[#40]).
 
 * Community
 
@@ -130,17 +131,17 @@ https://github.com/AY1920S1-CS2103T-T13-2/main/pull/9[#9],
 https://github.com/AY1920S1-CS2103T-T13-2/main/pull/22[#22],
 https://github.com/AY1920S1-CS2103T-T13-2/main/pull/31[#31],
 https://github.com/AY1920S1-CS2103T-T13-2/main/pull/47[47],
-https://github.com/AY1920S1-CS2103T-T13-2/main/pull/49[#49]
+https://github.com/AY1920S1-CS2103T-T13-2/main/pull/49[#49].
 
-** Reported bugs and suggestions for other teams:
+** Reported bugs and gave suggestions to other teams:
 https://github.com/arjavibahety/ped/issues/2[#2],
 https://github.com/arjavibahety/ped/issues/7[#7],
 https://github.com/arjavibahety/ped/issues/10[#10],
 https://github.com/arjavibahety/ped/issues/13[#13],
-https://github.com/arjavibahety/ped/issues/15[#15]
+https://github.com/arjavibahety/ped/issues/15[#15].
 
 === 3. Contributions to the User Guide
-The following are the excerpts I wrote in the Mortago user guide to teach a user how the notification feature works and
+The following are the excerpts I wrote in the user guide to teach a user how the notification feature works and
 how  they can use the delete command.
 
 _{start of extract 1: notification feature}_
@@ -156,7 +157,8 @@ include::../UserGuide.adoc[tag=delete]
 _{end of extract 2}_
 
 === 4. Contributions to the Developer Guide
-The following is the excerpt I wrote in the Mortago developer guide and are targeted at potential future developers.
+The following is the excerpt I wrote in the Mortago developer guide. It is targeted at potential future
+developers who may be interested to further develop the application.
 
 _{start of extract: notification feature}_
 
