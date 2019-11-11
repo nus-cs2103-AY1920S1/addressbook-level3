@@ -774,14 +774,17 @@ Updating a *Transaction* entry.
 
 . Identify the index number of the entry you want to edit. In this case, we will be using entry 3.
 +
+.Transaction List Containing Entry 3
 image::update_ug_1.png[]
 +
 . Put `t` as your `TYPE` input and key in the fields you want to change. In this case, we will only be changing the amount of the transaction.
 +
+.User Input for the Update Command
 image::update_ug_2.png[]
 +
 . Success message will be displayed upon successful update. Fields will now be updated accordingly.
 +
+.Success message for the Update Command
 image::update_ug_3.png[]
 
 ===== Example 2:
@@ -790,15 +793,18 @@ Updating a *Budget* entry.
 
 . Identify the index number of the entry you want to edit
 +
+.Budget Tab Containing 1 Entry
 image::update_ug_4.png[]
 +
 . Put `b` as your `TYPE` input and key in the fields you want to change. In this case, we will be changing both the date and amount of this Budget.
 When you update the amount of a budget, the budget will be re-initialised (reset to 100%).
 +
+.User Input for Updating Budget
 image::update_ug_5.png[]
 +
 . Success message will be displayed upon successful update. Fields will now be updated accordingly.
 +
+.Success message for Updating Budget
 image::update_ug_6.png[]
 
 [[UG_UPDATE_EXAMPLE_3]]
@@ -808,22 +814,27 @@ Updating a *Transaction* entry which has the same category field as a *Budget* e
 
 . Identify the index number of the *Transaction* entry you want to edit.
 +
+.Transaction Sharing a Category with a Budget
 image::update_ug_7.png[]
 +
 . Notice that a *Budget* entry has the same category field as the *Transaction* entry mentioned above. (*Budget* entry 2).
 +
+.Budget sharing a Category with the Target Transaction
 image::update_ug_8.png[]
 +
 . Put `t` as your `TYPE` input and key in the fields you want to change. In this case, we will be changing only the amount of this *Transaction*.
 +
+.User Input for Updating Transaction Amount
 image::update_ug_9.png[]
 +
 . Success message will be displayed upon successful update. Fields of the *Transaction* entry will now be updated accordingly.
 +
+.Success message for Updating Transaction Amount
 image::update_ug_10.png[]
 +
 . Remaining amount of the *Budget* entry will also be updated accordingly.
 +
+.Automatic Update of Relevant Budget
 image::update_ug_11.png[]
 
 ===== Example Commands:
