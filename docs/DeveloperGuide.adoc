@@ -127,20 +127,19 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
     * The execution of a reactive search differs from the normal command, in the way that it only allows the execution of `NonActionableCommand` types.
         Hence, there is no modification of any data in the system's model when executing a reactive search.
 
-
+// tag::queueuml[]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `enqueue E0000001A` API call.
 
 .Interactions inside the Logic Component for the `enqueue E0000001A` Command.
 image::EnqueueSequenceDiagram.png[]
 
-
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
 image::ModelOverviewClassDiagramV3.png[]
-
+// end::queueuml[]
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 ==== Overall Model component
