@@ -11,7 +11,7 @@ image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/Ui.PNG[width="600"]
 endif::[]
 
 *Njoy Teaching Assistant* aims to help teachers increase their productivity by managing their daily teaching activities.
