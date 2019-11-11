@@ -21,6 +21,8 @@ By: `Team AY1920S1-CS2103T-W11-3`      Since: `September 2019`      Licence: `MI
 
 EatMe is a *food diary app for people who love good food*. It helps you manage places you have been to, keep track of your experience and expenditure, and even keep you up-to-date with the latest food trends and events!
 
+EatMe comes with two different modes: *Main* and *Todo* modes. In the Main mode, you will be able to manipulate eateries that you have visited before. In the Todo mode, however, you will be able to manipulate eateries that you have yet to visit but are planning to visit in the future.
+
 EatMe is optimized for those who like the speed of a Command Line Interface (CLI) while still maintaining the user-friendliness of a Graphical User Interface (GUI). *Interested to keep track of your favorite food places with maximum efficiency? Try EatMe today!* Jump to the <<Quick Start>> to get started.
 
 == About
@@ -44,13 +46,12 @@ The following are some terms used in this document:
 
 image::Ui.png[width="790"]
 
-. Type a command in the command box and press kbd:[Enter] to execute it. +
+. Type a command in the command box and press kbd:[Enter] to execute it.
 e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 . Some example commands you can try:
 
 * `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese` : Adds an eatery named Two Chefs Eating Place with the specified address and category.
-* `review \n Two Chefs Eating Place \d Nice Condensed Milk Pork Ribs \p 15 \r 4 \w 23/10/2019` : Adds a review to Two Chefs Eating Place with the specified description, price, rating and date.
-* `random` : Shows a random eatery - Useful if you can't decide what to eat!
+* `review 1 \d Nice Condensed Milk Pork Ribs \p 15 \r 4 \w 23/10/2019` : Adds a review to the first eatery in the eatery list with the specified description, price, rating and date.
 * `exit` : Exits the app.
 
 These are just a few of the commands you can execute on EatMe. Refer to <<Features>> for the full list of available commands and their details.
@@ -60,11 +61,11 @@ These are just a few of the commands you can execute on EatMe. Refer to <<Featur
 ====
 *Command Format*
 
-* Items in square brackets are the parameters to be supplied by the user. For example, in `add \n [name of eatery]`, `[name of eatery]` is a parameter which can be used as `add n\ Two Chefs Eating Place`.
-* Items in curly brackets are optional parameters. For example, in `add \n [name of eatery] \a [address] \c [category] {\t [tags]...}`, `{\t [tags]...}` is an optional parameter that the user can choose to supply if he/she wishes to add certain tags to the eatery.
-* Items with `…` after them can be used multiple times including zero times e.g. `{nbsp}` can be used as (i.e. 0 times), `\t non-aircon`, `\t good-for-groups \t non-aircon`, etc.
+* Items in square brackets are the parameters to be supplied by the user. For example, in `add \n [name of eatery]`, `[name of eatery]` is a parameter which can be used as `add \n Two Chefs Eating Place`.
+* Items in curly brackets are optional parameters. For example, in `add \n [name of eatery] \a [address] \c [category] {\t [tags]...}`, `{\t [tags] ...}` is an optional parameter that the user can choose to supply if he/she wishes to add certain tags to the eatery.
+* Items with `...` after them can be used multiple times including zero times e.g. `{nbsp}` (i.e. 0 times), `\t non-aircon`, `\t good-for-groups \t non-aircon`, etc.
 * Parameters can be in any order. For example, if the command specifies `\n [name of eatery] \a [address] \c [category]`, `\a [address] \n [name of eatery] \c [category]` is also acceptable.
-* For parameters requiring `index`, `index` refers to the index number shown in the displayed eatery or review list. The index *must be a positive integer* 1, 2, 3, ... .
+* For parameters requiring `index`, `index` refers to the index number shown in the displayed eatery list or review list. The index *must be a positive integer* (e.g. 1, 2, 3, ...) .
 ====
 
 === General
@@ -74,29 +75,45 @@ Format: `help`
 
 ==== Listing all eateries: `list`
 
-Shows a list of all eateries in the app.  +
+Shows a list of all eateries in the app.
+
 Format: `list`
 
 ==== Clearing all entries: `clear`
 
+Clears all eateries in the app.
+
 Format: `clear`
 
-// tag::import[]
-==== Importing eateries: `import`
+// tag::load[]
+==== Load eateries from another user profile: `load`
 
-Imports eateries from a json file. +
-Format: `import \u [filename]`
+Loads eateries from another user profile.
+
+EatMe allows you to share eatery data with your friends by simply transferring your user profile.
+Your user profile is a file that ends with `.json` and can be found in the same place where you saved the EatMe app.
+
+Did a friend pass you their user profile?
+Simply place their file where you saved the EatMe app, and execute this command with their username to view their data.
+
+Format: `load \u [username]`
 
 ****
-* Imports eatery data from the specified json file.
-* The user can type in the filename without the ".json" extension, however, the file *must* still be a json file.
+* Loads eatery data from the specified user profile.
+* The user can supply the user profile with or without ".json" extension, however, the file *must* still be a valid user profile generated by the EatMe app.
 ****
 
 Examples:
 
-* `import \u john`
-* `import \u john.json`
-// end::import[]
+* `load \u john`
+* `load \u john.json`
+// end::load[]
+
+==== Toggling between main and todo modes: `mode`
+
+Toggles between main and todo modes.
+
+Format: `mode`
 
 ==== Exit the app: `exit`
 
@@ -104,13 +121,14 @@ Format: `exit`
 
 === Main Mode
 
-In Main mode, users will be able to view and manipulate the eateries that they visited. +
+In Main mode, users will be able to view and manipulate the eateries that they have already visited. Specifically, users will be able to add, edit, and delete eateries. Furthermore, users will also be able to add, edit, and delete reviews from eateries. Users can also generate statistics from the eateries and reviews they have added into the app.
 
 ==== Working with Eateries
 // tag::add[]
 ===== Adding an eatery: `add`
 
-Adds an eatery to the app. +
+Adds an eatery to the app.
+
 Format: `add \n [name of eatery] \a [address] \c [category] {\t [tags]...}`
 
 ****
@@ -124,42 +142,11 @@ Examples:
 * `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese \t good-for-groups \t non-aircon`
 // end::add[]
 
-===== Finding an eatery: `find`
-
-Finds an eatery based on name or tag. +
-Format: `find \n [name of eatery]` or `find \t [tag]`
-
-Examples:
-
-* `find \n Two Chefs Eating Place`
-* `find \t Chinese`
-
-// tag::close[]
-===== Marking an eatery as closed: `close`
-
-Closes an eatery if the eatery no longer exists. The eatery will still be listed, but will be highlighted in red to inform you that the eatery no longer exists. In the case that you accidentally closed the wrong eatery or the eatery reopens, typing `reopen` does the opposite of `close`. +
-Format: `close [index]`
-
-Examples:
-
-* `close 2`
-// end::close[]
-
-// tag::reopen[]
-===== Reopening a closed eatery: `reopen`
-
-Reopens a previously closed eatery. +
-Format: `reopen [index]`
-
-Examples:
-
-* `reopen 2`
-// end::reopen[]
-
 // tag:: edit[]
 ===== Editing an eatery: `edit`
 
-Edits an existing eatery in the application. +
+Edits an existing eatery in the application.
+
 Format: `edit [index] {\n [name of eatery]} {\a [address]} {\c [category]} {\t [tags]...}`
 
 ****
@@ -175,9 +162,72 @@ Examples:
 * `edit 1 \a NUS Biz School`
 // end::edit[]
 
+===== Tagging an eatery: `addtag`
+
+Adds tags to an eatery.
+
+Format: `addtag [index] \t [tag] {\t [tags]...}`
+
+****
+* At least *one* tag must be specified.
+****
+
+Examples:
+
+* `addtag 2 \t hawker \t good-for-sharing`
+
+===== Removing tags from an eatery: `removetag`
+
+Removes tags from an eatery.
+
+Format: `removetag [index] \t [tags]...`
+
+****
+* If the tags to be removed are not associated to the eatery in the first place, no changes will be made.
+****
+
+Examples:
+
+* `removetag 2 \t hawker`
+
+===== Finding an eatery: `find`
+
+Finds an eatery based on a set of user-supplied conditions.
+
+Format: `find {\n [name of eatery]} {\a [address]} {\c [category]} {\t [tags]...}`
+
+****
+* At least one condition must be supplied, but there is no upper limit.
+* Eateries that match *any* of the conditions will be shown.
+** `find \n Noodle \t cheap` will show eateries that either have "Noodle" in their name, or the tag "cheap", or both.
+* Conditions are case-insensitive.
+* For `name` and `address`, eateries that match the conditions partially will be shown.
+** `find \n rice` will show both "Tian Tian Chicken Rice" and "The Ricebowl".
+****
+
+Examples:
+
+* `find \n Noodle \t cheap`
+* `find \a Jurong`
+
+===== Viewing an eatery: `show`
+
+Shows an eatery with all its details - address, category, tags, reviews, and a map of its location.
+
+Format: `show [index]`
+
+****
+* In order *to view the eatery's map, you must be connected to the Internet*.
+****
+
+Examples:
+
+* `show 2`
+
 ===== Reviewing an eatery: `review`
 
-Leaves a review for an eatery. +
+Leaves a review for an eatery.
+
 Format: `review [index] \d [description] \p [price per person] \r [rating] \w [date in DD/MM/YYYY format]`
 
 ****
@@ -192,6 +242,7 @@ Examples:
 ===== Editing a review: `editreview`
 
 Edits an eatery's review. The `show` command helps to view an eatery's reviews.
+
 Format: `editreview [index] {\d [description]} {\p [price per person]} {\r [rating]} {\w [date in DD/MM/YYYY format]}`
 
 ****
@@ -208,12 +259,10 @@ Examples:
 image::EditReviewCommand.png[width="790"]
 
 ===== Deleting a review: `deletereview`
-Deletes an eatery's review. The `show` command helps to view an eatery's reviews.
-Format: `deletereview [index]`
 
-****
-* Deletes the review at the specified index.
-****
+Deletes an eatery's review. The `show` command helps to view an eatery's reviews.
+
+Format: `deletereview [index]`
 
 Examples:
 
@@ -221,67 +270,47 @@ Examples:
 
 image::DeleteReviewCommand.png[width=""790"]
 
-===== Tagging an eatery: `addtag`
-Adds tags to an eatery. +
-Format: `addtag [index] \t [tags]...`
+// tag::close[]
+===== Marking an eatery as closed: `close`
 
-****
-* At least *one* tag must be specified.
-****
+Closes an eatery if the eatery no longer exists.
+The eatery will still be listed, but will be highlighted in red to inform you that the eatery no longer exists.
+In the case that you accidentally closed the wrong eatery or the eatery reopens, the `reopen` command does the opposite of `close`.
 
-Examples:
-
-* `addtag 2 \t hawker \t good-for-sharing`
-
-===== Removing tags from an eatery: `removetag`
-Removes tags from an eatery. +
-Format: `removetag [index] \t [tags]...`
-
-****
-* If the tags to be removed are not associated to the eatery in the first place, no changes will be made.
-****
+Format: `close [index]`
 
 Examples:
 
-* `removetag 2 \t hawker`
+* `close 2`
+// end::close[]
 
-===== Getting a random eatery: `random` [Coming in v2.0]
+// tag::reopen[]
+===== Reopening a closed eatery: `reopen`
 
-Shows a completely random restaurant -- Useful in case you cannot decide what to eat! +
-Format: `random`
-
-===== Viewing an eatery: `show`
-
-Shows an eatery with all its details - address, category, tags, reviews, and a map of its location.
-
-Format: `show [index]`
-
-****
-* Shows the eatery at the specified index.
-* The index refers to the index number shown in the displayed eatery list.
-* In order *to view the eatery's map, you must be connected to the Internet*.
-****
+Reopens a previously closed eatery.
+Format: `reopen [index]`
 
 Examples:
 
-* `show 2`
+* `reopen 2`
+// end::reopen[]
 
 ===== Deleting an eatery: `delete`
 
-Deletes an eatery in the application. +
+Deletes an eatery in the application.
+
 Format: `delete [index]`
 
-****
-* Deletes the eatery at the specified index.
-****
+Example:
 
-Example: `delete 1`
+* `delete 1`
 
 ==== Visualisation
 // tag::stats[]
 ===== Showing overall statistics: `stats`
 
-Presents a visual overview of the user’s eateries and reviews. Eatery and review data used to generate the statistics are collated from the start of the application. The command will generate six types of statistics:  most visited eateries, least visited eateries, eateries you spent the most at (on average), eateries you spent the least at (on average), price per category, number of visits per category. +
+Presents a visual overview of the user’s eateries and reviews. Eatery and review data used to generate the statistics are collated from the start of the application. The command will generate six types of statistics:  most visited eateries, least visited eateries, eateries you spent the most at (on average), eateries you spent the least at (on average), price per category, number of visits per category.
+
 Format: `stats`
 
 ****
@@ -292,16 +321,13 @@ Format: `stats`
 
 === Todo Mode
 
-In Todo mode, users will be able to manipulate eateries which they are yet to visit. +
+In Todo mode, users will be able to manipulate eateries which they have yet to visit, but are planning on visiting. Similarly, users will be able to add, edit, and delete eateries. Futhermore, users are able to save a particular eatery from the todo list into the main list if the user has finally visited that eatery.
 
-==== Toggling between main and todo modes: `mode`
+==== Working with Eateries
+===== Adding an eatery: `add`
 
-Toggles between main and todo modes. +
-Format: `mode`
+Adds an eatery to the todo list.
 
-==== Adding an eatery: `add`
-
-Adds an eatery to the todo list. +
 Format: `add \n [name of eatery] \a [address] {\t [tags]...}`
 
 Examples:
@@ -309,41 +335,11 @@ Examples:
 * `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129`
 * `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \t good-for-groups \t non-aircon`
 
-==== Saving a todo eatery to the main eatery list : `save`
+===== Tagging an eatery: `addtag`
 
-Remove a todo eatery from the todo list and provides a quick way to add it to the main list of eateries. +
-Format: `save [index]`
+Adds tags to an eatery.
 
-****
-* Save the eatery at the specified index.
-* The eatery will be removed from the todo list after `save` is executed
-* User will be required to input the missing field before the eatery is saved in the main list.
-****
-
-Examples:
-
-* `save 2`
-** Save the second eatery in the todo list
-** The eatery is removed from the todo list
-** Application will toggle to Main
-** `add` command will be constructed, allowing user to just input missing fields.
-
-==== Finding an eatery: `find`
-
-*Coming in v1.4*
-
-Finds an eatery based on name or tag. +
-Format: `find \n [name of eatery]` or `find \t [tag]`
-
-Examples:
-
-* `find \n Two Chefs Eating Place`
-* `find \t Chinese`
-
-==== Tagging an eatery: `addtag`
-
-Adds tags to an eatery. +
-Format: `addtag [index] \t [tags]...`
+Format: `addtag [index] \t [tag] {\t [tags]...}`
 
 ****
 * At least *one* tag must be specified.
@@ -351,26 +347,29 @@ Format: `addtag [index] \t [tags]...`
 
 Examples:
 
-* `addtag 2 \t hawker good-for-sharing`
+* `addtag 2 \t hawker \t good-for-sharing`
 
-==== Removing tags from an eatery: `removetag`
+===== Removing tags from an eatery: `removetag`
 
-Removes tags from an eatery. +
+Removes tags from an eatery.
+
 Format: `removetag [index] \t [tags]...`
+
+****
+* If the tags to be removed are not associated to the eatery in the first place, no changes will be made.
+****
 
 Examples:
 
 * `removetag 2 \t hawker`
 
-==== Viewing an eatery: `show`
+===== Viewing an eatery: `show`
 
 Shows an eatery with all its details - address, tags, reviews, and a map of its location.
 
 Format: `show [index]`
 
 ****
-* Shows the eatery at the specified index.
-* The index refers to the index number shown in the displayed eatery list.
 * In order *to view the eatery's map, you must be connected to the Internet*.
 ****
 
@@ -378,13 +377,53 @@ Examples:
 
 * `show 2`
 
-==== Deleting an eatery: `delete`
 
-Delete an eatery in the application. +
+===== Finding an eatery: `find`
+
+Finds an eatery based on a set of user-supplied conditions.
+
+Format: `find {\n [name of eatery]} {\a [address]} {\t [tags]...}`
+
+****
+* At least one condition must be supplied, but there is no upper limit.
+* Eateries that match *any* of the conditions will be shown.
+** `find \n Noodle \t cheap` will show eateries that either have "Noodle" in their name, or the tag "cheap", or both.
+* Conditions are case-insensitive.
+* For `name` and `address`, eateries that match the conditions partially will be shown.
+** `find \n rice` will show both "Tian Tian Chicken Rice" and "The Ricebowl".
+****
+
+Examples:
+
+* `find \n Noodle \t cheap`
+* `find \a Jurong`
+
+===== Deleting an eatery: `delete`
+
+Delete an eatery in the application.
+
 Format: `delete [index]`
 
 Examples:
-* `delete 1`
+
+ * `delete 1`
+
+===== Saving a todo eatery to the main eatery list : `save`
+
+Remove a todo eatery from the todo list and provides a quick way to add it to the main list of eateries.
+
+Format: `save [index]`
+
+****
+* Save the eatery at the specified index.
+* The eatery will be removed from the todo list after `save` is executed.
+* Application will toggle to Main mode.
+* Subsequently, the `add` command will be constructed and the user will be required to input the missing field before the eatery is saved in the main list.
+****
+
+Examples:
+
+* `save 2`
 
 === News Feed
 
@@ -408,7 +447,7 @@ Format: `addfeed \n [name of feed] \a [Web address of the feed]`
 * Fetches the 5 latest posts from the feed and displays them in the right panel.
 * The Web address *must point to a valid RSS XML feed*.
 * In order *to fetch the latest posts, you must be connected to the Internet*.
-If you are not connected to the Internet, you can still add the feed but feed posts will only be fetched when the app is restarted with Internet connectivity.
+If you are not connected to the Internet, you can still add feeds but feed posts will only be fetched when the app is restarted with Internet connectivity.
 ****
 
 Example:
@@ -449,10 +488,8 @@ Examples:
 |`addtag`|Tagging an eatery
 |`removetag`|Removing tags from an eatery
 |`list`|Listing all eateries
-|`random`|Getting a random eatery
 |`show`|Viewing an eatery
-|`import`|Importing eateries
-|`export`|Exporting eateries
+|`load`|Load eateries from other file
 |`stats`|Showing overall statistics
 |`mode`|Toggling between main and todo modes
 |`save`|Saving a todo eatery to the main eatery list
@@ -462,6 +499,5 @@ Examples:
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
+*Q*: How do I transfer my data to another computer?
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous EatMe folder.
-
