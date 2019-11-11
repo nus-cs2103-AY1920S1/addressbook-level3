@@ -1,9 +1,14 @@
 package seedu.billboard.ui.charts.converters;
 
-import javafx.util.StringConverter;
-
 import java.math.BigDecimal;
 
+import javafx.util.StringConverter;
+
+/**
+ * StringConverter to convert between a number and the truncated string representation of that number. If the number's
+ * string representation is longer than a certain specified length, the number will be formatted in scientific notation
+ * instead.
+ */
 public class TruncatedNumberConverter extends StringConverter<Number> {
     private static final int MAX_CHARS = 19; // Quintillion dollars :)
     @Override
