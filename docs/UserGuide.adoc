@@ -1038,6 +1038,8 @@ Each of your expense has 6 key fields:
 
 The Date and Time specify when you spend your expenses, followed by the amount, description, types of expenditure and country where you're current travelling at. Example of the types of expenditure are food, entertainment, health care, etc. You name it, _TravEzy_ tracks it! In _Financial Tracker_, you will be able to manage your expenses easily.
 
+WARNING: Valid year range is from 1000 to 3999.
+
 === Interface
 This is what you will see when navigated to the _Financial Tracker_:
 
