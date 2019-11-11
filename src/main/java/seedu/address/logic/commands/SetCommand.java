@@ -24,7 +24,7 @@ public class SetCommand extends Command {
         + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_AMOUNT + "100 "
-        + PREFIX_DATE + "010120120 "
+        + PREFIX_DATE + "01012020 "
         + PREFIX_CATEGORY + "food ";
 
     public static final String MESSAGE_SUCCESS = "New budget successfully set: %1$s";
