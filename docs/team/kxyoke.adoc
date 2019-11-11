@@ -64,9 +64,9 @@ I created tabs and added the ability to switch views from tab to tab.
 
 === Code contributed
 To view the code I wrote, please click on the following links:
-https://github.com/kxyoke/main/tree/master/src/test/java/seedu/mark[Test code]
 https://github.com/kxyoke/main/tree/master/src/main/java/seedu/mark[Functional code]
-https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kxyoke&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=kxyoke&tabRepo=AY1920S1-CS2103T-T13-4%2Fmain%5Bmaster%5D[Reposense]
+https://github.com/kxyoke/main/tree/master/src/test/java/seedu/mark[Test code]
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kxyoke&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=kxyoke&tabRepo=AY1920S1-CS2103T-T13-4%2Fmain%5Bmaster%5D[Reposense overview]
 
 
 === Other contributions
@@ -89,7 +89,7 @@ and provided suggestions for https://github.com/nus-cs2103-AY1920S1/addressbook-
 
 == Contributions to the User Guide
 |===
-|_Given below is one of the sections I contributed to our User Guide for Mark. It showcases my ability to write documentation targeting end-users._
+|_Given below is one of the sections that I contributed to our User Guide for Mark. It showcases my ability to write documentation targeting end-users._
 |===
 
 _Start of extract from Mark User Guide_
@@ -112,6 +112,10 @@ include::../DeveloperGuide.adoc[tag=addAnn]
 //include::../DeveloperGuide.adoc[tag=dataencryption]
 
 _End of extract from Mark Developer Guide_
+
+_Here is the referenced diagram drawn by Dorcas:_
+
+include::../DeveloperGuide.adoc[tag=annPkg]
 
 ---
 

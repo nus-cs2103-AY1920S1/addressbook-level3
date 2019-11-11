@@ -192,9 +192,11 @@ set of annotations (in the `Annotation` package).
 NOTE: Each Bookmark has a different `Tag` object and a different `Folder` object, even if bookmarks have the same
 tag or folder name. More details regarding the implementation of Folders can be found in <<Folders feature>>.
 
+// tag::annPkg[]
 [[annotation-cd]]
 .Structure of the Annotation Package
 image::AnnotationPackageClassDiagram.png[Annotation Package Class Diagram, 350]
+// end::annPkg[]
 
 The above diagram shows the structure of the Annotation package, which is accessed by `ModelManager` via `OfflineDocument`.
 An `OfflineDocument` consists of zero or more `Paragraph` objects, which are each identified by a `ParagraphIdentifier`.

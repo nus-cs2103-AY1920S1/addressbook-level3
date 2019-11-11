@@ -983,7 +983,7 @@ For example:
 image::ui-screenshots/AddAnnotationCommandUi1.png[100,400]
 // offline tab, showing result after   annotate 1 p/p2
 
-* Observe that paragraph P2 is now highlighted orange and a note with content “summary of paragraph” is attached to it.
+* Observe that paragraph P1 is now highlighted orange and a note with content “summary of paragraph” is attached to it.
 
 image::ui-screenshots/AddAnnotationCommandUi2.png[300, 400]
 // offline tab, showing result.
@@ -1112,7 +1112,7 @@ For example:
 image::ui-screenshots/DeleteAnnotationCommandUi1.png[200,400]
 // offline tab, after   annotate 1 p/p2 h/pink n/this note is originally not general
 
-* Observe that the highlight of paragraph P2 if removed and the note is moved to the _General notes section_.
+* Observe that the highlight of paragraph P1 if removed and the note is moved to the _General notes section_.
 
 image::ui-screenshots/DeleteAnnotationCommandUi2.png[200,400]
 
