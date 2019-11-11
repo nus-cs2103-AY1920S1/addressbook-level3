@@ -1095,6 +1095,14 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+=== Graphic for schedules in TimeBook
+
+. Adding events to the schedules TimeBook can be tested with a given list of events.
+.. Each event should fit into the time table cell properly without overlapping with one another.
+.. Events that overlap in time slots should not be allowed to be added into TimeBook.
+. Resizing the window should not distort the schedule graphics displayed.
+. Ensure that the first column of the schedule graphic is always today's date.
+
 === Saving data
 
 . Dealing with missing/corrupted data files
