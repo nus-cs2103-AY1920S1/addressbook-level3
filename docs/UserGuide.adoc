@@ -316,7 +316,7 @@ image::AfterFireMember.png[]
 // tag::task[]
 === Task-related Commands
 
-==== Adding a task: `add task`
+==== Adding a task: `add-task`
 
 To add a task to the project, use the `add-task` command in the format below. +
 Format: `add-task [tn/TASK_NAME]` +
