@@ -23,3 +23,5 @@ exclude_paths:
   - '**.min.js'
   - '**/tests/**'
   - '**/test/**'
+  - '**/find/**'
+  - '**/browse/**'

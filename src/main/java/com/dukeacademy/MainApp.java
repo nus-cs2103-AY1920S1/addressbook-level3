@@ -25,12 +25,12 @@ import com.dukeacademy.logic.commands.exit.ExitCommandFactory;
 import com.dukeacademy.logic.commands.find.FindCommandFactory;
 import com.dukeacademy.logic.commands.help.HelpCommandFactory;
 import com.dukeacademy.logic.commands.home.DashboardCommandFactory;
-import com.dukeacademy.logic.commands.list.ListCommandFactory;
 import com.dukeacademy.logic.commands.load.LoadCommandFactory;
 import com.dukeacademy.logic.commands.notes.DeleteNoteCommandFactory;
 import com.dukeacademy.logic.commands.notes.NewNoteCommandFactory;
 import com.dukeacademy.logic.commands.notes.OpenNoteCommandFactory;
 import com.dukeacademy.logic.commands.notes.SaveNoteCommandFactory;
+import com.dukeacademy.logic.commands.showall.ShowallCommandFactory;
 import com.dukeacademy.logic.commands.submit.SubmitCommandFactory;
 import com.dukeacademy.logic.commands.tab.TabCommandFactory;
 import com.dukeacademy.logic.commands.view.ViewCommandFactory;
@@ -306,8 +306,8 @@ public class MainApp extends Application {
                 this.programSubmissionLogic, applicationState);
         commandLogicManager.registerCommand(dashboardCommandFactory);
         // Registering list command
-        ListCommandFactory listCommandFactory = new ListCommandFactory(this.questionsLogic, applicationState);
-        commandLogicManager.registerCommand(listCommandFactory);
+        ShowallCommandFactory showallCommandFactory = new ShowallCommandFactory(this.questionsLogic, applicationState);
+        commandLogicManager.registerCommand(showallCommandFactory);
         // Registering bookmark command
         BookmarkCommandFactory bookmarkCommandFactory = new BookmarkCommandFactory(this.questionsLogic);
         commandLogicManager.registerCommand(bookmarkCommandFactory);
