@@ -53,7 +53,7 @@ public class DisplayStatsCommand extends Command {
         model.setStatisticsFormat(newFormat);
         model.setStatisticsFormatOptions(newOptions);
 
-        return new CommandResult(MESSAGE_DISPLAYED_STATS_CHANGED_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_DISPLAYED_STATS_CHANGED_SUCCESS, newFormat.getName()));
     }
 
     @Override

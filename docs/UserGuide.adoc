@@ -259,6 +259,7 @@ image:tagging/listtagtwo.png[] +
 {nbsp} +
 
 // end::tagging[]
+[[Find]]
 === Finding expenses by attributes: `find`
 
 . _Find : find_ +
@@ -501,13 +502,19 @@ The options available are tailored to each specific chart type and thus, not all
 for each command goes into further detail about the supported options for that command.
 
 
-With this, it becomes extremely easy for you to perform advanced queries on specific types of statistics!
-
+With this, it becomes extremely easy for you to perform advanced queries on specific types of statistics! For example,
+if you want to track the weekly total spending of all your expenses that contain the word "food" over a specific month, simply type `display-stats timeline interval/week`
+followed by `find d/food sd/01/01/2019 ed/01/02/2019`! (Unsure about this command? Refer to <<Find>> for more information) +
+{nbsp} +
 
 
 . _Display timeline overview of expenses: display-stats timeline_ +
-You can view a timeline overview of your currently displayed expenses. The expenses over a
-specified time period are aggregated and added as data points on the timeline. +
+
+.Timeline of expenses grouped by tag
+image::display-timeline-example.png[]
+
+You can view a timeline overview of your currently displayed expenses. The expenses over a specified time period are aggregated and added as data points on
+the timeline, allowing you to easily keep track of your relative spending. You can customize the date interval used as well as how the expenses are split into individual timelines. +
 {nbsp} +
 Usage:
 
@@ -517,11 +524,13 @@ Options:
 
 * `interval/`: Specifies the date interval to be used to split the expenses into groups by.
 Supported date intervals include 'day', 'week', 'month' and 'year'.
+* `groupby/`: Specifies the grouping to use to group the expenses into each separate timeline. Supported groupings include
+"none" (default), "tag", "month" and "day-of-week". +
 {nbsp} +
 
 +
 Example: +
-`display-stats timeline interval/week` +
+`display-stats timeline interval/week groupby/tag` +
 Displays a timeline overview of the displayed expenses with the expenses being grouped into weeks. +
 {nbsp} +
 
