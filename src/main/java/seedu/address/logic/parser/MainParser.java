@@ -95,32 +95,35 @@ public class MainParser {
         }
     }
 
+    /**
+     * Parses single word commands.
+     */
     public Command singleCommandWordParser(String commandWord, String arguments) throws ParseException {
         if (!arguments.equals("")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "One word only."));
         }
 
         switch(commandWord) {
-            case ClearCommand.COMMAND_WORD:
-                return new ClearCommand();
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
-            case UndoCommand.COMMAND_WORD:
-                return new UndoCommand();
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
-            case RedoCommand.COMMAND_WORD:
-                return new RedoCommand();
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 }
