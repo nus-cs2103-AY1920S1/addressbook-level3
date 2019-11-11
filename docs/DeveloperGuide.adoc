@@ -318,9 +318,15 @@ These operations are exposed in the `ModelManager` class as `ModelManager#addOrd
 
 Order manager implements its own `Model`, `Command` and `Parser` for the `Logic Component`, `JsonOrderDatabaseStorage`, `JsonSerializableOrderDatabase`, `JsonAdaptedOrder` and `JsonAdaptedFoodOrder`, along with methods in the `StorageManager` for the `Storage Component` and lastly, `OrderCard` and `OrderListPanel` for displaying on the `Ui Component`.
 
-==== Implementation
-Listed are the implementations of each command.
+.Class diagram illustrating the design of `Order` components
+image::OrderClassDiagram.png[width="790"]
 
+==== Implementation
+Listed are the implementations of each command. The sequence of command execution for `Orders` is as follows: the `LogicManager` receives input from the user and calls `UniversalParser#parseCommand()`.
+The `UniversalParser` calls the respective `OrderCommandParser#parse()` to create new `OrderCommand` objects.
+The object is passed back to the `LogicManager`, and executed through `OrderCommand#execute()`. The `ModelManager` is used for the storing of changes to `Orders` (if any), and the `CommandResult` is passed back to the `LogicManager` to be displayed on the `Ui` for the user.
+
+.Sequence diagram illustrating the execution of `Order` commands
 image::OrderSequenceDiagram.png[width="790"]
 
 **Add command:** `-add_order`
