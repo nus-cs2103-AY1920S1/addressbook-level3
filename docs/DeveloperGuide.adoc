@@ -665,7 +665,7 @@ The Sequence diagram below also shows how the GuiState is saved to Storage:
 
 [.text-center]
 .Sequence Diagram for storing new GUI state
-image::gui/SwitchTabsSequenceDiagram3.png[width=100%, scaledwidth=18cm]
+image::gui/SwitchTabsSequenceDiagram3.png[width=100%, scaledwidth=14cm]
 
 The `StorageManager` saves the modified `GuiState` as a new `JSON` file.
 This is done with the help of the `JsonSerializableGui`, `JsonSerializableTabManager` and `JsonSerializableTab` classes that are wrappers for the `GuiState`, `TabManager` and `TabData` classes.
