@@ -68,7 +68,7 @@ public class EditTemplateListCommand extends Command {
         if (!editTemplateListDescriptor.isAnyFieldEdited()) {
             throw new CommandException(MESSAGE_NOT_EDITED);
         }
-        if (lastShownList.contains(editedTemplate) && editTemplateListDescriptor.isNameFieldEdited(templateToEdit)) {
+        if (model.hasTemplate(editedTemplate) && editTemplateListDescriptor.isNameFieldEdited(templateToEdit)) {
             throw new CommandException(MESSAGE_DUPLICATE_TEMPLATE);
         }
 

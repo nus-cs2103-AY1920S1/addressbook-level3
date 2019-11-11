@@ -37,11 +37,11 @@ activate AddTemplateListCommandParser
 AddTemplateListCommandParser --> TemplateListParser
 deactivate AddTemplateListCommandParser
 
-TemplateListParser -> AddTemplateListCommandParser
+TemplateListParser -> AddTemplateListCommandParser : parse("args3")
 activate AddTemplateListCommandParser
 
 create AddTemplateListCommand
-AddTemplateListCommandParser -> AddTemplateListCommand : parse("args3")
+AddTemplateListCommandParser -> AddTemplateListCommand
 activate AddTemplateListCommand
 
 AddTemplateListCommand -> AddTemplateListCommandParser : a
