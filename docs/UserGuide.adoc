@@ -132,7 +132,7 @@ Format: `help`
 // tag::transactions[]
 === Managing transactions: `txn`
 
-.Transactions in the transaction list
+.Transactions in the transaction tab
 image::txnUG1.png[width=85%,scaledwidth=85%]
 
 Transactions form the core of Budget Buddy. They can be used to track any purchases you make,
@@ -348,7 +348,7 @@ image::accountOverview4.png[width=85%,scaledwidth=85%]
 // tag::kenneth-ppp-loan-intro[]
 === Managing loans: `loan`
 
-.Loans in the loan list
+.Loans in the loan tab
 image::LoanUG1.png[width=85%,scaledwidth=85%]
 
 This feature enables you to keep track of who owes you money and exactly how much they owe you.
@@ -574,7 +574,7 @@ A way for you to automate certain actions based on a certain predicate.
 Spend less time typing repetitive commands, and spend more time keeping track of your expenses!
 
 [[Figure]]
-.Some rules in the rule engine
+.Rules in the rule tab
 image::RuleUG1.png[width=85%,scaledwidth=85%]
 
 Rules have the following structure: if "predicate" is true, then perform "action". By creating a
