@@ -159,6 +159,32 @@ The `FileReadWrite` component,
 * interface for user to provide their custom root directory
 * writes file and creates path directories if none
 
+// tag::parsejson[]
+==== Implementation
+The parsing is done by `JsonParser`.
+It takes a string and attempts to read it as one of a `JsonValueTypes` and create its corresponding object wrapped in `JsonValue`.
+Since Objects and Arrays can recursively contain a json value, their contents are also read, created and wrapped.
+
+* `JsonParser#parseJsonInput()` -- constructs the `JsonValue` object from a string input
+
+Given below is the overview activity diagram of parsing a json string input.
+
+image::jsonParserProcessDynamicValue.png[]
+
+It will first be tested to see if its an integer and if it fails it will be tested for a double.
+Consequently, boolean, string, json object, json array.
+
+Json object values are themselves json values thus the activity diagram is called recursively
+Likewise for json array values.
+
+[NOTE]
+If all parsing types fail, there must be an error with the string input, thus a JsonFormatException is thrown.
+
+==== Design Considerations
+
+The JsonParser is designed to be a utility class with a pure function without any mutation of state.
+Thus it should be self contained within a single function call.
+
 [[Design-Util]]
 === Code Component
 .Structure of the Code component within Utilities
@@ -204,32 +230,6 @@ parallel to the arguments of the input.
 
 Classes used by multiple components are in the `dream.fcard.datastructures` package and root of `dream.fcard.util`
 
-// tag::parsejson[]
-=== Implementation
-The parsing is done by `JsonParser`.
-It takes a string and attempts to read it as one of a `JsonValueTypes` and create its corresponding object wrapped in `JsonValue`.
-Since Objects and Arrays can recursively contain a json value, their contents are also read, created and wrapped.
-
-* `JsonParser#parseJsonInput()` -- constructs the `JsonValue` object from a string input
-
-Given below is the overview activity diagram of parsing a json string input.
-
-image::jsonParserProcessDynamicValue.png[]
-
-It will first be tested to see if its an integer and if it fails it will be tested for a double.
-Consequently, boolean, string, json object, json array.
-
-Json object values are themselves json values thus the activity diagram is called recursively
-Likewise for json array values.
-
-[NOTE]
-If all parsing types fail, there must be an error with the string input, thus a JsonFormatException is thrown.
-
-=== Design Considerations
-
-The JsonParser is designed to be a utility class with a pure function without any mutation of state.
-Thus it should be self contained within a single function call.
-
 == Implementation
 === Logging
 
@@ -269,17 +269,24 @@ image::TestClassDiagram.png[]
 
 Tests are driven by the main `ExamRunner` class which ensures that only a single `Exam` object exists at any point in time.
 
-`Exam` objects are where the bulk of the test logic resides. They each will also contain *ONE* `Results` object that keeps track of score.
+`Exam` objects are where the bulk of the test logic resides. `Exam` objects are used to control what card the user is currently attempting via the `getCurrentCard()` method, used to control the AnchorPanes that show up on the GUI and also to keep track of score through the `Result` object within.
+
+`Exam` objects have a *composition* relationship with `Result` objects, whereby a `Result` object cannot exist without an `Exam` object.
 
 The sequence diagram of the three classes is as follows:
 
 image::TestSequenceDiagram.png[]
 
+When a user first chooses to start the test, he will call on the `createExam()` within `ExamRunner`, which will create an Exam object with the duration specified by the user.
+
+Creating an `Exam` object automatically creates a `Result` object in the constructor. The `Exam` object is then able to interact with it via the `getResult()` method.
+
+Responses and Controllers will then be able to get the current instance of `Exam` via the `getCurrentExam()` method in `ExamRunner`
+
 Given below is an example usage scenario and how the timed/untimed mechanism behaves at each step. The activity diagrams for Timed and Untimed Tests are also as follows:
 
 image::UntimedTestActivityDiagram.png[]
 image::TimedTestActivityDiagram.png[]
-
 
 =====
 Step 1. User keys in the command `test deck/DECK_NAME duration/DURATION_IN_SECONDS` (Eg. test deck/german duration/0)
@@ -298,6 +305,19 @@ Step 7. Upon closing that popup, users will be able to review their mistakes and
 
 Step 8. When the user is done reviewing, he can type `exit` or click `Exit Session` to exit test mode and go back to the main Deck Display screen. Users can also use this command prematurely to exit test mode mid-test.
 =====
+
+==== Managing the CLI and GUI
+
+
+CLI is largely driven by the `Responses` class which can be found above. However, the test mechanism differs slightly as it relies on a greater amount of `States` in order to control which commands can be used at what time.
+
+For example, a `correct` command cannot be used on a MCQCard.
+
+Commands are checked if they belong to a certain `ResponseGroup` for a `State`. Only commands that are registered within that state's `ResponseGroup` will be executed.
+
+GUI is also controlled by `States` but does not go through the `ResponseGroup` class. Instead, it relies on EventHandlers triggered by button clicks. Ideally, one should make GUI go through `Responses` as well to streamline both the GUI and CLI together.
+
+This design choice is reflected on further below.
 
 
 ==== Design Considerations
@@ -331,6 +351,40 @@ Step 8. When the user is done reviewing, he can type `exit` or click `Exit Sessi
 *** Allows the project to be open for extension. Developers may potentially develop other kinds of Exam modes (eg. speed round whereby there's a limited time *per card*)
 ** Cons:
 *** Relatively redundant at the current version (`v1.4`)
+
+===== Aspect: Streamlining of GUI and CLI
+
+* **Alternative 1:** Have both GUI and CLI managed by the `Response` class
+** Pros:
+*** More streamlined
+*** Lesser chance of performance glitches since both interfaces rely on the same logic.
+** Cons:
+*** Limited customization if different behaviours want to be implemented in the GUI and CLI (though unlikely).
+
+* **Alternative 2: (Current Choice)** Individual logics for both GUI and CLI:
+** Pros:
+*** Greater customization.
+** Cons:
+*** Slightly more "spaghetti code"
+*** Limited expansion as having many different types of cards will result in many different `ResponseGroups`
+
+* While FlashCard Pro went with the "inferior" design choice for `v1.4`, there is definitely room for expansion by using an external state controller like Redux (see below).
+
+==== Future Extensions
+===== Relationship between GUI and CLI
+* Currently GUI and CLI are not implemented ideally because CLI is dependent on the `Responses` class while GUI relies on button handlers.
+
+* Ideally, GUI and CLI should both rely on the `Responses` class which will streamline the back-end logic.
+
+* However, due to time constraints and the late discovery of the bug, `v1.4` was made with the GUI and CLI not streamlined.
+
+* Future enhancements could either streamline the GUI and CLI both rely on `Responses` class or port over to an external state manager like Redux for better performance.
+
+===== Exam Interface
+* The Exam interface exists such that the project remains open for extension with various different test modes.
+
+* One example would be a speed round (whereby specific time limits are set for *each card*).
+
 // end::test[]
 
 
@@ -381,6 +435,48 @@ Then, the computation of the number of `HIGH_PRIORITY` and `LOW_PRIORITY` cards 
 
 // end::configure_difficulty[]
 
+// tag::statistics[]
+== Saving and viewing user statistics
+
+* The Statistics feature revolves around the storage and interpretation of the user's *sessions*, be it _login_ sessions or _test_ sessions.
+* Therefore, the `Session` class is the main building block of all Statistics-related classes. They are stored in `SessionList` objects.
+* Due to design considerations, the `UserStats` and `DeckStats` objects are intended to be singletons, created upon application startup and modified, but never duplicated or deleted.
+** Thus, they are accessible via the static methods `getUserStats()` and `getDeckStats()` accessible via the `StatsHolder` class.
+** This method of implementation is similar to what my teammates have used to store `State`.
+** Initially, the `UserStats` and `DeckStats` objects were intended to be stored within `State` as well. However, the addition of undo/redo functionality complicated matters. Thus, the statistics objects have been decoupled from `State`.
+
+The structure of Statistics-related classes is depicted in the class diagram below.
+
+image::nattanyz/class diagram.png[]
+
+Or, simplified:
+
+image::nattanyz/class diagram simplified.png[]
+
+The following sequence diagram depicts the starting, ending and saving of the user's `Session` when they open and close the app.
+
+image::nattanyz/sequence diagram.png[]
+
+=== Challenges in implementation
+* Because of the custom `StorageManager` class used to load and save JSON objects, the implementation of loading and saving statistics is somewhat tightly coupled with `StorageManager`.
+** It is insufficient to simply override the `toJson()` method to ensure that the statistics objects would be stored correctly. Instead, the underlying structure of the statistics objects must be known and exposed during the implementation of e.g. the `loadDeckStats()` and `saveDeckStats()` methods in `StorageManager`.
+** Perhaps in v2.0, refactoring of `StorageManager` could allow for a higher level of abstraction of storage-related methods and reduced coupling between `StorageManager` and the unrelated Statistics classes.
+* As our application is quite significantly different than AB3, we used an MSS-focused approach to development: i.e. we focused on making sure that the user's "happy path" could be completed via the GUI, before linking up the app's behaviour with the CLI commands. This resulted in insufficient clarity and tight coupling of the `Responses` class with other classes.
+** The logic of parsing CLI input, handling incorrect commands, determining if the application is in an appropriate `State` etc., along with the actual handling of the command, is all bundled within `Responses` at present.
+** In v2.0, we could focus on removing duplicated code between the CLI and GUI implementations.
+** In v2.0, we could also work towards abstracting out the app's desired response to a command in `Command` classes, allowing for a `Parser` to handle CLI calls and a `Dispatcher` to handle all `Command` s, whether they originate from the CLI or GUI.
+** By abstracting out the handling of each command into separate classes, each team member can check the logic of how each `Command` interacts with their component with ease and avoid duplicated code. e.g. A `startTestSessionCommand` could initialise the `ExamRunner`, update `Statistics`, and so on.
+** Because of the current less-than-ideal implementation of the app's behaviour, in order to support creating/renaming/deleting decks along with undo/redo, code pertaining to `DeckStats` needed to be inserted at many disparate places in the code, e.g. within a button action in the `EditDeckDisplay` controller and in `Responses`.
+
+=== Proposed extension: Statistics for individual cards in a deck
+
+* Statistics for specific cards in a deck could be stored within the `Session` object representing the user's test session on a deck.
+** In this way, summary statistics e.g. how many times the card was reviewed in the past week or whether the user attempted the card correctly on average, can be generated with ease.
+** There is no need to store duplicated data about when each card is accessed.
+* One challenge for the implementation of card-specific statistics is the tight coupling of `Responses` with other classes, as mentioned above.
+** Because individual cards are prone to change, e.g. when the user edits the front or back of the card, not to mention the decks themselves can also be renamed or deleted, it is important that the implementation of `DeckStats` is fully cleaned up before work on `CardStats` can begin.
+
+// end::statistics[]
 
 == Documentation
 
