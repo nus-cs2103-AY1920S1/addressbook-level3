@@ -349,7 +349,7 @@ NOTE: The lifeline for `ExpenseCommand` should end at the destroy marker (X) but
 The following activity diagram encapsulates the high level logic of the expense adding operation:
 
 .Activity diagram for adding an expense
-image::ExpenseActivityDiagram.png[]
+image::ExpenseActivityDiagram.png[0,380]
 
 // end::createexpense[]
 // tag::algorithm[]

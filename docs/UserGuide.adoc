@@ -214,7 +214,7 @@ If a contact is involved in any expense, he cannot be disinvited.
 // tag::expense[]
 === Add expenses to an activity : `expense`
 
-Creates a new expense with a list of contacts, an amount and an optional description, and adds it to the currently viewed activity. The first contact in the list is taken to be the person who paid for the expense, and the remaining people will be counted as owing the first person money. Any duplicated person will be ignored. +
+This command creates a new expense with a list of contacts, an amount and an optional description, and adds it to the currently viewed activity. The first contact in the list is taken to be the person who paid for the expense, and the remaining people will be counted as owing the first person money. Any duplicated person will be ignored. +
 
 If only one contact is specified in the list, then SplitWiser will assume that all current participants in the activity are involved in this expense and thus owe this person money. +
 
@@ -229,12 +229,17 @@ Format: `expense p/PERSON e/AMOUNT_PAID [p/PERSON ...] [d/DESCRIPTION]`
 
 Examples:
 
-* `expense p/John Doe e/100` +
-Adds a single expense of $100 by John Doe to the currently viewed activity. If John Doe is not in the current activity, an error will occur and no expense will be created. Otherwise, all existing participants of the activity will now owe John a portion of the $100. +
-If no activity is currently viewed, an error will occur as there is no description provided to use for automatic activity creation to contain this expense.
-* `expense p/Mary e/100 p/Joseph p/Silva d/Drinks` +
-Adds an expense of $100 to the currently viewed activity by Mary where Joseph and Silva are involved i.e. Joseph and Silva owe Mary a portion of the $100. This expense will be named `Drinks`. If any one of the participants are not in the present activity, then an error will occur and no expense will be created. +
-Alternatively, if no activity is currently viewed, an activity titled `Drinks` will be created to contain this expense. Mary, Joseph and Silva will then be added to the activity.
+* `expense p/David Lim e/100` +
+Adds a single expense of $100 by David Lim to the currently viewed activity. If David is not in the current activity, an error will occur and no expense will be created. Otherwise, all existing participants of the activity will now owe David a portion of the $100 (left image). +
+If no activity is currently viewed, an error will occur as there is no description provided to use for automatic activity creation to contain this expense (right image):
+
+image::Expense1.png[]
+
+* `expense p/David e/100 p/Bernice p/Irfan d/Drinks` +
+Adds an expense of $100 to the currently viewed activity by David where Bernice and Irfan are involved i.e. Bernice and Irfan owe David a portion of the $100. This expense will be named `Drinks` (left image). If any one of the participants are not in the present activity, then an error will occur and no expense will be created. +
+Alternatively, if no activity is currently viewed, an activity titled `Drinks` will be created to contain this expense. David, Bernice and Irfan will then be added to the activity (right image):
+
+image::Expense2.png[]
 
 NOTE: It is in fact possible to add an expense where no one else is involved in by specifying that the people involved only include the person who is paying, +
 e.g. `expense p/John Doe e/15 p/John Doe d/Cab` +
@@ -284,7 +289,7 @@ If instead Joseph owes Mary $10, the command will fail, since in this case any w
 // tag::edit[]
 === Edit an existing contact or activity : `edit`
 
-Edits some details of the current contact or activity in view. Note that contact names must be unique, so if a specified name already exists in the address book, the edit will not be processed. +
+This command edits some details of the current contact or activity in view. Note that contact names must be unique, so if a specified name already exists in the address book, the edit will not be processed. +
 
 Format: `edit [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tag/TAG ...]` for contacts OR `edit [t/ACTIVITY_TITLE]` for activities.
 
@@ -299,8 +304,13 @@ Examples:
 
 * `edit p/999` +
 Edits the phone number of the current contact in view to `999`. No changes are made if a contact is not being viewed.
-* `edit t/BBQ` +
-Edits the title of the current activity in view to `BBQ`. No changes are made if an activity is not being viewed.
+
+image::Edit1.png[]
+
+* `edit t/Lunch` +
+Edits the title of the current activity in view to `Lunch`. No changes are made if an activity is not being viewed.
+
+image::Edit2.png[]
 // end::edit[]
 
 
