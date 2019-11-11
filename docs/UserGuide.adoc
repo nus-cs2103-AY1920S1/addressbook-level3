@@ -102,8 +102,9 @@ image::UG-HelpWindow.png[width="500"]
 --
 image::tip.png[width = "80", float = "left"]
 --
-Instead of typing in `help`, you can also access help by clicking on the `help` button on the top left of the FinSec
-application GUI or just press kbd:[F1] on your keyboard as shown below!
+Instead of typing in `help`, you can also access help by clicking on the `help` button +
+on the top left of the FinSec application GUI or just press kbd:[F1] on your keyboard +
+as shown below!
 
 ====
 
@@ -819,7 +820,8 @@ image::UG-BudgetExample1.PNG[width="600"]
 --
 image::tip.png[width = "80", float = "left"]
 --
-You will never have to worry about going over budget, as FinSec will warn you when that happens.
+You will never have to worry about going over budget, +
+as FinSec will warn you when that happens. +
 It would also result in a negative balance.
 
 ====
@@ -837,8 +839,9 @@ image::UG-BudgetExample2.PNG[width="600"]
 --
 image::tip.png[width = "80", float = "left"]
 --
-Clicking on one of the data-points of any line will cause a tooltip similar to the one shown in the picture above to pop
-up.
+Clicking on one of the data-points of any line +
+will cause a tooltip similar to the one shown in the picture +
+above to pop up.
 
 ====
 

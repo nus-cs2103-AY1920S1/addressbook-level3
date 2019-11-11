@@ -122,7 +122,7 @@ public class FinSecParser {
         FinSecParser.commandList.put(GotoCommand.COMMAND_WORD, GotoCommand.COMMAND_WORD);
         FinSecParser.commandList.put(RejectClaimCommand.COMMAND_WORD, RejectClaimCommand.COMMAND_WORD);
         FinSecParser.commandList.put(DeleteShortcutCommand.COMMAND_WORD, DeleteShortcutCommand.COMMAND_WORD);
-        FinSecParser.commandList.put(NoShortCutCommand.COMMAND_WORD, NoShortCutCommand.COMMAND_WORD);
+        //FinSecParser.commandList.put(NoShortCutCommand.COMMAND_WORD, NoShortCutCommand.COMMAND_WORD);
     }
 
     /**

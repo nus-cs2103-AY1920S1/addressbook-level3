@@ -676,18 +676,22 @@ The code snippet below shows the `**ClaimPlotter::plotClaims**` method +
 
 [source, java]
 
-XYSeries plotClaims() {
+   XYSeries plotClaims() {
+        Double amountToAdd;
         findClaimValueAtStartOfMonth();
         claimSeries.add(1, startingExpenses);
         double currentExpenses = startingExpenses;
         List<Claim> approvedClaimsInCurrentMonthList = findApprovedClaimsInCurrentMonth();
-        for (Claim claim : approvedClaimsInCurrentMonthList) {
-            for (int day = 2; day <= 31; day++) {
+        for (int day = 2; day <= 30; day++) {
+            for (Claim claim : approvedClaimsInCurrentMonthList) {
                 if (claim.getDate().date.getDayOfMonth() == day) {
-                    currentExpenses += Double.parseDouble(claim.getAmount().value);
+                    amountToAdd = Double.parseDouble(claim.getAmount().value);
+                    assert amountToAdd >= 0 : "A negative claim value managed to get into the claim list";
+                    currentExpenses += amountToAdd;
+                    currentExpenses = Math.round(currentExpenses * 100) / 100.0;
                 }
-                claimSeries.add(day, currentExpenses);
             }
+            claimSeries.add(day, currentExpenses);
         }
         return claimSeries;
     }
