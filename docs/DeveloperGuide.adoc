@@ -411,8 +411,9 @@ MSS:
 Use case ends.
 
 *Extensions:
+[start=4]
 
-4a) The user decides that they prefer Deck2 to be deleted.
+. a) The user decides that they prefer Deck2 to be deleted.
     .. i) The user types 'redo' into the CLI.
     .. i) Deck2 is deleted again.
 
