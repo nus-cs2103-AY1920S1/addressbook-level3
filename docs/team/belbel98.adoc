@@ -70,7 +70,8 @@ https://github.com/AY1920S1-CS2103-T11-3/main/pull/34[#34],
 https://github.com/AY1920S1-CS2103-T11-3/main/pull/35[#35])
 
 ** Documentation:
-*** Done up <<about-us,About Us Page>>
+*** Done up <<AboutUs#, About Us Page>> (Pull Request https://github.com/AY1920S1-CS2103-T11-3/main/pull/4[#4],
+https://github.com/AY1920S1-CS2103-T11-3/main/pull/120[#120])
 *** <<user-guide, Contributions to the User Guide>>
 *** <<developer-guide, Contributions to the Developer Guide>>
 
