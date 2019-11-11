@@ -68,7 +68,6 @@ MAMS is written primarily in Java, and features a GUI created with JavaFX, with 
 
 * *Other contributions*:
 
-
 *** Set up the basic continuous integration functionality and repository for the project
 ** Enhancements to existing features:
 *** Add Appeal classes and data -

@@ -66,12 +66,14 @@ MAMS is written primarily in Java, and features a GUI created with JavaFX, with 
 
 * *Other contributions*:
 ** Documentation:
+*** Edit documentation for MAMS - DeveloperGuide: https://github.com/AY1920S1-CS2103-T11-2/main/pull/207[#207]
 *** Update storage component for MAMS in Developer Guide https://github.com/AY1920S1-CS2103-T11-2/main/pull/217[#217]
 ** Implemented tests for new features increasing coverage by ~9% (Pull request: https://github.com/AY1920S1-CS2103-T11-2/main/pull/213[#213])
 ***
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T11-2/main/pull/77[#77], https://github.com/AY1920S1-CS2103-T11-2/main/pull/65[#65]
 *** Reviewed User Guide and Developer Guide, and reported suggestions for other teams in class
+*** Edit MAMS.json data file with the valid data (Pull request https://github.com/AY1920S1-CS2103-T11-2/main/pull/109[#109])
 
 
 |===
