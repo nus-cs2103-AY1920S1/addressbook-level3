@@ -29,11 +29,22 @@ DukeAcademy can also be used as a teaching tool by educators as they can set the
 Duke Academy is written in Java, and has about 15 kLoC.
 
 == My Roles and Contributions
+The following segment illustrates the different roles and tasks that I have performed for our team in detail. It also provides a bit of justification for the different choices that I have made pertaining to these  roles and tasks.
+
 === Change underlying architecture to suit our needs - [refactor]
-. Separated Logic component into cohesive parts
-. Separated model into cohesive parts
-. Implemented Observer pattern
-. Refactor Command pattern
+I was given the task of modifying the existing architecture of AddressBook3 to suit our application. Due to the increased complexity of our product, a large part of the existing architecture had to be changed. I have summarized most of the changes into the following 4 sections:
+
+. *Separated Logic component into cohesive parts*
+. *Separated model into cohesive parts*
+
+. *Implemented Observer pattern* +
+
+  * What it does : +
+  Provides a simple and lightweight observable class that can be customized using Java generics. This enables various different components such as the UI to observe changes to the state of the application without introducing them as unnecessary dependencies.
+  * Justification : +
+  The existing AddressBook3 implementation made use of JavaFX's native ObservableList class to display the list of contacts. However, as we needed to observe other objects, we realized that JavaFX's native Observable class was slightly too over-engineered for our use cases.
+
+. *Refactor Command pattern*
 
 === Program evaluation feature - [feature]
 
@@ -42,13 +53,13 @@ Duke Academy is written in Java, and has about 15 kLoC.
 === Tabs - [design]
 
 === Various commands - [feature]
-. Tab
-. Submit
-. New Note
-. Open Note
-. Delete Note
-. Save Note
-. Exit
+. *Tab*
+. *Submit*
+. *New Note*
+. *Open Note*
+. *Delete Note*
+. *Save Note*
+. *Exit*
 
 == Summary of contributions
 
