@@ -3,13 +3,14 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":SystemCommandParser" as SystemCommandParser LOGIC_COLOR
+participant ":CommandHistory" as CommandHistory LOGIC_COLOR
 participant ":CancelAppCommandParser" as CancelAppCommandParser LOGIC_COLOR
-'participant "command : ReversibleActionPairCommand" as ReversibleActionPairCommand LOGIC_COLOR
-'participant "addCmd : EnqueueCommand" as EnqueueCommand LOGIC_COLOR
-'participant "deleteCmd : DequeueCommand" as DequeueCommand LOGIC_COLOR
-participant "d:CancelAppCommand" as CancelAppCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "command : ReversibleActionPairCommand" as ReversibleActionPairCommand LOGIC_COLOR
+participant "cancelappt: CancelAppCommand" as CancelAppCommand LOGIC_COLOR
+participant "addappt: AddAppCommand" as AddAppCommand LOGIC_COLOR
+
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -19,17 +20,17 @@ end box
 [-> LogicManager : execute("cancelappt 1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("cancelappt 1")
-activate AddressBookParser
+LogicManager -> SystemCommandParser : parseCommand("cancelappt 1")
+activate SystemCommandParser
 
 create CancelAppCommandParser
-AddressBookParser -> CancelAppCommandParser
+SystemCommandParser -> CancelAppCommandParser
 activate CancelAppCommandParser
 
-CancelAppCommandParser --> AddressBookParser
+CancelAppCommandParser --> SystemCommandParser
 deactivate CancelAppCommandParser
 
-AddressBookParser -> CancelAppCommandParser : parse("1")
+SystemCommandParser -> CancelAppCommandParser : parse("1")
 activate CancelAppCommandParser
 
 CancelAppCommandParser -> Model : getUniqueAppointmentList()
@@ -42,22 +43,43 @@ create CancelAppCommand
 CancelAppCommandParser -> CancelAppCommand
 activate CancelAppCommand
 
-CancelAppCommand --> CancelAppCommandParser : d
+CancelAppCommand --> CancelAppCommandParser :
 deactivate CancelAppCommand
 
-CancelAppCommandParser --> AddressBookParser : d
+create AddAppCommand
+CancelAppCommandParser -> AddAppCommand
+activate AddAppCommand
+
+AddAppCommand --> CancelAppCommandParser
+deactivate AddAppCommand
+
+create ReversibleActionPairCommand
+CancelAppCommandParser -> ReversibleActionPairCommand : ReversibleActionPair(cancelappt, addappt)
+activate ReversibleActionPairCommand
+
+ReversibleActionPairCommand --> CancelAppCommandParser
+deactivate ReversibleActionPairCommand
+CancelAppCommandParser --> SystemCommandParser : command
+
 deactivate CancelAppCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-CancelAppCommandParser -[hidden]-> AddressBookParser
+
+SystemCommandParser --> CommandHistory : addToCommandHistory(command)
+activate CommandHistory
+CommandHistory --> SystemCommandParser
+deactivate CommandHistory
+
 destroy CancelAppCommandParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+SystemCommandParser --> LogicManager
+deactivate SystemCommandParser
 
-LogicManager -> CancelAppCommand : execute()
+LogicManager -> ReversibleActionPairCommand : execute()
+activate ReversibleActionPairCommand
+
+ReversibleActionPairCommand -> CancelAppCommand : execute()
 activate CancelAppCommand
 
-CancelAppCommand -> Model : deleteEvent(1)
+CancelAppCommand -> Model : execute()
 activate Model
 
 Model --> CancelAppCommand
@@ -70,8 +92,11 @@ activate CommandResult
 CommandResult --> CancelAppCommand
 deactivate CommandResult
 
-CancelAppCommand --> LogicManager : result
+CancelAppCommand --> ReversibleActionPairCommand: result
 deactivate CancelAppCommand
+
+ReversibleActionPairCommand --> LogicManager : result
+deactivate ReversibleActionPairCommand
 
 [<--LogicManager
 deactivate LogicManager

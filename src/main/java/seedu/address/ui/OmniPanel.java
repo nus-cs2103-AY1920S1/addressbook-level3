@@ -38,7 +38,7 @@ public abstract class OmniPanel<T> extends UiPart<Region> {
                 msm.select(0);
                 omniPanelListView.scrollTo(0);
                 keyEvent.consume();
-                return;
+                break;
             case UP:
                 if (msm.getSelectedIndex() > 0) {
                     return;
@@ -46,11 +46,11 @@ public abstract class OmniPanel<T> extends UiPart<Region> {
                 msm.select(size - 1);
                 omniPanelListView.scrollTo(size - 1);
                 keyEvent.consume();
-                return;
+                break;
             case TAB:
             case LEFT:
                 dropSelector();
-                return;
+                break;
             default:
             }
         });

@@ -132,7 +132,7 @@ public class MainAppTest extends ApplicationTest {
         var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
 
         robot.clickOn(commandBox).write("onduty 1").type(KeyCode.ENTER);
-        Assertions.assertThat(resultDisplay.getText()).endsWith("is now on duty");
+        Assertions.assertThat(resultDisplay.getText()).endsWith("is now on duty.");
 
         robot.write("newpatient -id E0000001A -name John Doe -phone 98765432"
                         + " -email johnd@example.com -address 311, Clementi Ave 2, #02-25")
@@ -177,6 +177,27 @@ public class MainAppTest extends ApplicationTest {
         Assertions.assertThat(resultDisplay.getText()).startsWith("Invalid command format!");
 
         robot.eraseText(7);
+    }
+
+    @Test
+    public void editdoctorTest(FxRobot robot) {
+        var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
+        var resultDisplay = robot.lookup("#resultDisplay").queryTextInputControl();
+
+        robot.clickOn(commandBox).write("newdoctor -id E0000001W -name bee").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).startsWith("New staff added");
+
+        robot.clickOn(commandBox).write("doctor E0000001W").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).startsWith("1 person(s) listed!");
+
+        robot.clickOn(commandBox).write("editdoctor -entry 1 -name Bae").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).startsWith("Edited Staff details: E0000001W Name: Bae");
+
+        robot.write("undo").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).startsWith("Undo successful!");
+
+        robot.write("undo").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).startsWith("Undo successful!");
     }
 
     @Test

@@ -11,7 +11,7 @@ import java.util.HashMap;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
+    public static final String MESSAGE_CONSTRAINTS = "Tags names should only contain alphanumeric characters";
     private static final String VALIDATION_REGEX = "\\p{Alnum}+";
     private static final HashMap<String, Tag> UNIQUE_UNIVERSAL_TAG_MAP = new HashMap<>();
 

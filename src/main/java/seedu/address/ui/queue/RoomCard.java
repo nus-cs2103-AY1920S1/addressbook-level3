@@ -23,9 +23,9 @@ public class RoomCard extends UiPart<Region> {
     @FXML
     private VBox roomCard;
     @FXML
-    private HBox cardPane;
-    @FXML
     private HBox doctorPane;
+    @FXML
+    private HBox patientPane;
     @FXML
     private Label doctorName;
     @FXML

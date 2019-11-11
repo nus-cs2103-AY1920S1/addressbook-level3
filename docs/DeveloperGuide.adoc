@@ -380,6 +380,41 @@ image::CommitActivityDiagram.png[]
 
 // end::undoredo[]
 
+// tag::reactivesearch[]
+
+=== Reactive Search
+
+The main concept behind reactive searching is that we would like time-consuming searching to be UI non-blocking and executed as rapidly as possible so that user is instantly provided with results for a given keyword.
+
+Similar to eager evaluation, Reactive Search attempts to process commands if it does not mutate the storage. Otherwise it does a simple redirect to the tab relevant to the command.
+
+.Reactive Search Sequence Diagram showing how a thread is created to do the expensive processing.
+image::ReactiveSearchSequenceDiagram.png[]
+
+After the newly created thread starts, it will attempt to kill any previous thread that is still processing asynchronously before starting its own processing.
+
+After which, changes to the ObservableList will trigger the updateItem listener in UI. And since each graphical update is fast and can only be executed from the JavaFX main application thread, we defer each of them via Platform.run() so that the FX main application thread can execute them in order whenever it is free.
+
+[source, java]
+----
+class EventListViewCell extends ListCell<Event> {
+    @Override
+    protected void updateItem(Event event, boolean empty) {
+        super.updateItem(event, empty);
+
+        if (empty || event == null) {
+            Platform.runLater(() -> setGraphic(null));
+        } else {
+            Platform.runLater(() -> setGraphic(new EventCard(event, getIndex() + 1, displayStatus).getRoot()));
+        }
+    }
+}
+----
+
+Hence, this ensures the main FX application thread is always polling for user inputs or graphical updates and handles them rapidly as they are lightweight tasks.
+
+// end::reactivesearch[]
+
 // tag::autocomplete[]
 
 === AutoComplete
@@ -388,8 +423,6 @@ We are using Prefix Tree which is known as a Trie for AutoComplete. This gives u
 
 .AutoComplete Sequence Diagram
 image::AutoCompleteSequenceDiagram.png[]
-
-// tag::autocompleteDesignConsideration[]
 
 ===== Aspect: Data structure to implement AutoComplete
 
@@ -415,7 +448,6 @@ image::AutoCompleteSequenceDiagram.png[]
 1. Time Complexity Inefficient.
 |===
 
-// end::autocompleteDesignConsideration[]
 // end::autocomplete[]
 
 === Queue feature
@@ -459,10 +491,15 @@ Step 2: The command then calls Model#enqueuePatient to enqueue the patient into 
 Step 3: Patient will then displayed in the queue.
 
 === Appointment feature
+
 The Appointment feature enables users to manage appointments for patients by providing basic Create, Read, Update, Delete (CRUD) of appointments. User is also able to find missed appointments and settle each missed appointment efficiently.
 
 * e.g. `newappt -id E0000001A -start 01/12/19 0900 -end 01/12/19 0940 -reoccur m -num 2` - creates two monthly reoccurring appointments to patient whose `referenceId` is E0000001A.
 * e.g. `editappt -entry 1 -start 01/12/19 1000 -end 01/12/19 1040` - edits a patient's first appointment timing to be the input timing if there is no conflict with doctor's duty shift.
+
+
+
+The number of scheduled appointments cannot be more than the number of on-duty staff doctors at any given time.
 
 ==== Current Implementation
 The Appointment feature contains multiple operations to indirectly manipulate the `UniqueEventList`. The implemented operations include:
@@ -485,9 +522,14 @@ The Appointment feature contains multiple operations to indirectly manipulate th
 .Appointment class diagram illustrating interactions between the Appointment class and associated classes.
 image::AppointmentClassDiagram.png[]
 
+he appointment will be rejected by the system, if there are insufficient staff doctors on duty at the time of the appointment. +
 Each `Appointment` object consists of a `PersonReferenceId`, `Timing`, `Status`. `Timing` class has 2 `DateTime` objects which indicates the start and end time of the `appointment`. The `UniqueEventList` contains 0 or more appointments.
 
 The current implementation of `Appointment` checks with `patient` object by the unique `referenceId` and also checks the timing with doctors' dutyRoster. If the `referenceId` exists within the Model#UniquePersonList and the timing is valid, then the `Appointment` object is constructed. This ensures that the patient is registered before making any appointments and the appointment's timing is valid.
+
+The appointment will be rejected by the system, if there are insufficient staff doctors on duty at the time of the appointment. +
+
+Before an appointment can be scheduled, the system first checks the total number of staff doctors on duty in that timeslot. Next, the system checks the existing appointments in that timeslot. If the number of appointments in that timeslot is less than the number of doctors, the appointment will be scheduled. Otherwise, the appointment will not be scheduled.
 
 ==== `newappt` Command
 The `newappt` command is similar to the `new` command of patient and doctor. The command takes in the parameters required to construct `ReferenceId`, `DateTime` and `Status`. The image below shows how the `Appointment` object is constructed.
@@ -577,9 +619,13 @@ The duty shift scheduling contains multiple operations to indirectly manipulate 
 
 `cancelshift` Command - Cancels duty shift.
 
-Each Duty Shift is an `Event` object consists of a `PersonReferenceId`, `Timing`, `Status`. `Timing` class has 2 `DateTime` object as they indicate the start and end times of the duty shift. The `UniqueEventList` contains 0 or more duty shifts.
+Each Duty Shift is an `Event` object consists of a `PersonReferenceId`, `Timing`, `Status`. `Timing` class has 2 `DateTime` object as they indicate the start and end times of the duty shift.
 
 The current implementation of duty shift checks with doctor object by the unique `referenceId` and also checks the timing with appointments. If the `referenceId` exists within the Model#UniquePersonList and the timing is valid, then the duty shift is constructed. This ensures that the doctor is registered and the duty shift's timing is valid before making any duty shifts.
+
+The duty  shift will be rejected by the system, if there are insufficient staff doctors on duty at the given time. +
+
+Before a duty shift's time can be edited, the system first checks the total number of staff doctors on duty in that timeslot. Next, the system checks the existing appointments in that timeslot. If the number of appointments in that timeslot is less than the number of doctors, the duty shift's time will be changed. Otherwise, the duty shift will not be allowed to edit.
 
 ==== `newshift` Command
 The `newshift` command behaves similarly to the `new` command used for patient and doctor. The command takes in the parameters required to construct `ReferenceId`, `DateTime` and `Status`.

@@ -17,7 +17,7 @@ import seedu.address.logic.commands.appointments.AckAppCommand;
 import seedu.address.logic.commands.appointments.AddAppCommand;
 import seedu.address.logic.commands.appointments.AppointmentsCommand;
 import seedu.address.logic.commands.appointments.CancelAppCommand;
-import seedu.address.logic.commands.appointments.ChangeAppCommand;
+import seedu.address.logic.commands.appointments.EditAppCommand;
 import seedu.address.logic.commands.appointments.MissAppCommand;
 import seedu.address.logic.commands.appointments.SettleAppCommand;
 import seedu.address.logic.commands.common.Command;
@@ -42,7 +42,7 @@ import seedu.address.logic.parser.appointments.AckAppCommandParser;
 import seedu.address.logic.parser.appointments.AddAppCommandParser;
 import seedu.address.logic.parser.appointments.AppointmentsCommandParser;
 import seedu.address.logic.parser.appointments.CancelAppCommandParser;
-import seedu.address.logic.parser.appointments.ChangeAppCommandTimingParser;
+import seedu.address.logic.parser.appointments.EditAppCommandParser;
 import seedu.address.logic.parser.appointments.MissAppCommandParser;
 import seedu.address.logic.parser.appointments.SettleAppCommandParser;
 import seedu.address.logic.parser.duties.AddDutyShiftCommandParser;
@@ -147,8 +147,8 @@ public class SystemCommandParser {
         case CancelAppCommand.COMMAND_WORD:
             return new CancelAppCommandParser(model).parse(arguments);
 
-        case ChangeAppCommand.COMMAND_WORD:
-            return new ChangeAppCommandTimingParser(model).parse(arguments);
+        case EditAppCommand.COMMAND_WORD:
+            return new EditAppCommandParser(model).parse(arguments);
 
 
         case DutyShiftCommand.COMMAND_WORD:
@@ -236,7 +236,7 @@ public class SystemCommandParser {
         case AddAppCommand.COMMAND_WORD:
         case AckAppCommand.COMMAND_WORD:
         case CancelAppCommand.COMMAND_WORD:
-        case ChangeAppCommand.COMMAND_WORD:
+        case EditAppCommand.COMMAND_WORD:
         case MissAppCommand.COMMAND_WORD:
         case SettleAppCommand.COMMAND_WORD:
             return new SetFocusOnTabCommand(OmniPanelTab.APPOINTMENTS_TAB);

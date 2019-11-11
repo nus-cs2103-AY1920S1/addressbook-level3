@@ -17,7 +17,7 @@ import seedu.address.model.util.SampleAppointmentDataUtil;
 /**
  * Chnageing the timing of the appointment.
  */
-public class ChangeAppCommand extends ReversibleCommand {
+public class EditAppCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "editappt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": change the appointment date "
@@ -40,7 +40,7 @@ public class ChangeAppCommand extends ReversibleCommand {
     /**
      * Creates an ChangeAppCommand to add the specified {@code Person}
      */
-    public ChangeAppCommand(Event eventToEdit, Event editedEvent) {
+    public EditAppCommand(Event eventToEdit, Event editedEvent) {
         requireNonNull(eventToEdit);
         requireNonNull(editedEvent);
         this.eventToEdit = eventToEdit;
@@ -69,8 +69,8 @@ public class ChangeAppCommand extends ReversibleCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ChangeAppCommand // instanceof handles nulls
-                && editedEvent.equals(((ChangeAppCommand) other).editedEvent));
+                || (other instanceof EditAppCommand // instanceof handles nulls
+                && editedEvent.equals(((EditAppCommand) other).editedEvent));
     }
 
 }

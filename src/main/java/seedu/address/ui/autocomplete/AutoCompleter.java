@@ -17,7 +17,7 @@ import seedu.address.logic.commands.appointments.AckAppCommand;
 import seedu.address.logic.commands.appointments.AddAppCommand;
 import seedu.address.logic.commands.appointments.AppointmentsCommand;
 import seedu.address.logic.commands.appointments.CancelAppCommand;
-import seedu.address.logic.commands.appointments.ChangeAppCommand;
+import seedu.address.logic.commands.appointments.EditAppCommand;
 import seedu.address.logic.commands.appointments.MissAppCommand;
 import seedu.address.logic.commands.appointments.SettleAppCommand;
 import seedu.address.logic.commands.duties.AddDutyShiftCommand;
@@ -74,7 +74,7 @@ public class AutoCompleter {
             AddAppCommand.COMMAND_WORD,
             AppointmentsCommand.COMMAND_WORD,
             CancelAppCommand.COMMAND_WORD,
-            ChangeAppCommand.COMMAND_WORD,
+            EditAppCommand.COMMAND_WORD,
             MissAppCommand.COMMAND_WORD,
             SettleAppCommand.COMMAND_WORD,
 
