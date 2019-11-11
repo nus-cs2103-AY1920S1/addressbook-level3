@@ -39,46 +39,28 @@ These icons and their following descriptions enable greater clarity in understan
 
 This section shows a summary of my contributions to the team project.
 
-=== Major enhancement: Added the ability to import & export spending data
+* *Major enhancement*: Added the ability to import & export spending data.
 
-I have implemented both the import and export feature to make the spending data more portable for the user.
-
-==== What it does
-
-It allows the user to save his spending data in an external file and modifies the data before importing it back into the application.
-
+* *What it does*: It allows the user to save his spending data in an external file and modifies the data before importing it back into the application.
 It also allows the user to change between computers without a fear of losing his spending data.
-
-==== Justification
-
-This feature improves the product significantly as the user may have existing data before starting to use the application
+* *Justification*: This feature improves the product significantly as the user may have existing data before starting to use the application
 and to export the spending data if he would like to change between multiple computers.
 
-==== Highlights
-This enhancement functions well with existing commands as it adds more spending into the list, all the other features such as budget, graph and statistics are updated as well.
+* *Highlights*: This enhancement functions well with existing commands as it adds more spending into the list, all the other features such as budget, graph and statistics are updated as well.
 It required an in-depth analysis of design alternatives.
 
-==== Credits
-https://github.com/FasterXML/jackson[Jackson].
+* *Credits*: https://github.com/FasterXML/jackson[Jackson].
 
-=== Minor enhancement: Redesign the user interface to be more user-friendly
+* *Minor enhancement*: Redesign the user interface to be more user-friendly.
 
-I have also redesigned the entire user interface to be more user-friendly.
-
-==== What it does
-
-This enhancement allows the application to have a better-looking, more user-friendly colour theme
+* *What it does*: This enhancement allows the application to have a better-looking, more user-friendly colour theme
 as well as allows the application window size to be resizeable.
 
-==== Justification
+* *Justification*: As the application is targeting to solve a financial problem, I figure it would be better to have a light theme coupled with a green colour scheme as opposed to the dark theme given by the base project, AddressBook-Level3.
 
-As the application is targeting to solve a financial problem, I figure it would be better to have a light theme coupled with a green colour scheme as opposed to the dark theme given by the base project, AddressBook-Level3.
+* *Highlights*: When the application window is resized, all components in the application is resized as well according to the window size. This allows the application to still be usable even after the window size is resized.
 
-==== Highlights
-
-When the application window is resized, all components in the application is resized as well according to the window size. This allows the application to still be usable even after the window size is resized.
-
-==== Code contributed:
+=== Code contributed:
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jonathantjendana&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jonathantjendana&tabRepo=AY1920S1-CS2103T-F13-3%2Fmain%5Bmaster%5D[Collated code]
 
 == Other contributions
