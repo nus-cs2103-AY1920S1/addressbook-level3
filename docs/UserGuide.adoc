@@ -221,7 +221,8 @@ This feature cannot be disabled and will start once the application starts. +
 
 [NOTE]
 The first meal will always be breakfast, hence no matter at which timing, if the first meal is not consumed, it will always notify the user as breakfast missed. +
-If lunch have not been consumed after 8pm, notification will change and notify user that they have not consumed their dinner instead of lunch, as consuming two meals at once is not healthy.
+If lunch have not been consumed after 8pm, notification will change and notify user that they have not consumed their dinner instead of lunch, as consuming two meals at once is not healthy. +
+Notification of dinner will notify the user till 11.59pm, then it will be counted as breakfast.
 
 [NOTE]
 Notification will be prompted: +
