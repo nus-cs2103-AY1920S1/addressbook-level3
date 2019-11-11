@@ -16,8 +16,8 @@ working on git,
 distributing works on Github,
 negotiating and teamwork.
 
-
-Mark is a __desktop bookmark manager__ used for organising websites.
+Mark is a enhanced version of https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book (Level 3)] and target on NUS computing students.
+This application is a __desktop bookmark manager__ used for organising websites.
 This application can help the user organize websites by bookmarks,
 manage the bookmarks into folders,
 take note on the offline copy and set reminders for the task.
