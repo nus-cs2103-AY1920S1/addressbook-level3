@@ -118,7 +118,7 @@ Examples:
 * 'addlesson l/Math 4E7 st/12/01/2020 1200 et/12/01/2020 1300'
 * 'addlesson l/English 3E8 st/06/01/2020 1200 et/06/01/2020 1300'
 
-==Editing: editlesson
+==== Editing: editlesson
 Edits a lesson at the specific index in the day list of reminder panel. +
 Day index represents day in week, e.g. Monday: 1, Tuesday: 2 +
 Format: 'editlesson LESSON_INDEX day/DAY_INDEX [l/LESSON_NAME] [st/START_TIME] [et/END_TIME]'

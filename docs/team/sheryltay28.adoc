@@ -30,6 +30,7 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 ** Gave comments to other people in the group before merging pr.
 ** Enhancements to existing features:
 ** Fixed exit issues for the app (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/183)
+** Improved test coverage (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/210)
 ** Community:
 ** Reviewed other pr's and bugs in class with group mates.
 ** Documentation:
