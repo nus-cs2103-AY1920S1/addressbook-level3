@@ -15,7 +15,7 @@ import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.show.Show;
 
-/**
+/** @@author wongchuankai
  * Adds a show to the watchlist.
  */
 public class AddCommand extends Command {

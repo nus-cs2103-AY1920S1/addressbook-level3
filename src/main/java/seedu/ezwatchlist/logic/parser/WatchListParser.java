@@ -15,7 +15,6 @@ import seedu.ezwatchlist.logic.commands.DeleteCommand;
 import seedu.ezwatchlist.logic.commands.EditCommand;
 import seedu.ezwatchlist.logic.commands.ExitCommand;
 import seedu.ezwatchlist.logic.commands.HelpCommand;
-import seedu.ezwatchlist.logic.commands.ListCommand;
 import seedu.ezwatchlist.logic.commands.SearchCommand;
 import seedu.ezwatchlist.logic.commands.SyncCommand;
 import seedu.ezwatchlist.logic.commands.WatchCommand;
