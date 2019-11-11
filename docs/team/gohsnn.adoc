@@ -88,9 +88,10 @@ expenditure once.
 
 ==== Code contributed
 
-Please click on these links to see a sample of my code for this project:
-https://drive.google.com/open?id=1IGHKCYYw612gu4e2cUfr0B2Gcmdy-3-8[functional code]
-and https://drive.google.com/open?id=1JwHdtob_-5TGDpFWXw8Fq2--81RLfbQc[test code].
+Please click to see my code contribution on
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=gohsnn&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=gohsnn&tabRepo=AY1920S1-CS2103T-T10-1%2Fmain%5Bmaster%5D[Reposense]
+as well as my
+https://github.com/AY1920S1-CS2103T-T10-1/main/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aclosed+author%3Agohsnn[pull requests on GitHub].
 
 ==== Documentation
 
