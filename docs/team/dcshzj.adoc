@@ -5,8 +5,6 @@
 
 == PROJECT: Scheduler
 
----
-
 == Overview
 
 In many student clubs or even in the corporate world, there are many instances in which the organisation needs to match interviewers with interviewees, especially during times of mass recruitment. Scheduler is a desktop application that was conceived to automate this laborious process of scheduling interviews and to minimise human errors in the scheduing process.

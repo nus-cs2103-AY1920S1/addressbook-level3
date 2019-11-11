@@ -653,6 +653,7 @@ Opens an email dialog containing the interviewee’s result/interview outcome an
 
 Format: `email ct/results n/INTERVIEWEE NAME`
 
+// end::email[]
 
 // tag::export[]
 
