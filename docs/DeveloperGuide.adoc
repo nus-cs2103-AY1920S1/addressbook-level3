@@ -1214,15 +1214,51 @@ due to invalid format for email address)
      Expected: No task is edited. Error details shown in the status message.
   .. Other incorrect editTask commands to try: `editTask x` (where x is negative or larger than the list size), `editTask c/1/1/2019 1500` (Wrong time format)
 
+
 === Sorting a task
 .. Prerequisites: Checkout to a project using the `checkout` command. Multiple tasks in the task list sorted according to the default order of increasing time(index 2).
 .. Test case: `sortTask 4` +
   Expected: Tasks will automatically be sorted by which tasks are done/not done and then by increasing order of time.
 .. Test: `sortTask 1`
-  Expected: Tasks will automatically be sorted by alphabetical.
+Expected: Tasks will automatically be sorted by alphabetical.
 .. Test: `addTask c/05/05/2019 1200 s/Allocate roles
   Expected: Task will be added to the first index as the list is sorted by alphabetical order and 'Allocate roles' has the highest priority.
 .. Incorrect sortTask commands to try: `sortTask x`(where x is not within the range mentioned which is between integers 1-4)
+
+=== Adding a member from contacts
+
+.. Prerequisites: Checkout to a project using the `checkout` command. You also need to have multiple `Person`(s)
+in your contacts.
+
+.. Test case: `addFromContacts 1` +
+Expected: First person in your contacts is added your your project.
+
+.. Test case: `addFromContacts 2 3` +
+Expected: Adds both the second and third person into your project.
+
+.. Test case: `addFromContacts 2000`
+Expected: No members are added, error message is shown saying the index is invalid.
+
+.. Other incorrect addFromContacts commands to try: `addFromContacts` (this is an incorrect format since no index is specified) +
+`addFromContacts -1` (This is an invalid format since index should be positive)
+
+=== Assigning a task to members
+
+.. Prerequisites: Checkout to a project using the `checkout` command. There are one or more tasks in your project. There
+are one or more members in your project.
+
+.. Test case: `assignTask 1 1` +
+Expected: First task listed in the project is assigned to the first person listed in the project as a member.
+
+.. Test case: `assignTask 1 2 3` +
+Expected: First task listed in the project is assigned to both the second and third person listed in the project.
+
+.. Test case: `assignTask` +
+Expected: No tasks are assigned and error message for invalid format is shown.
+
+.. Other incorrect `assignTask` commands to try: `assignTask 2000 1` (this should be an incorrect task index specified) +
+`assignTask -1 2 3` (this is an incorrect format as indexes should be positive).
+
 
 === Saving data
 

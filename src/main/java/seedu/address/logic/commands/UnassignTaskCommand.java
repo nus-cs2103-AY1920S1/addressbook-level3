@@ -24,6 +24,7 @@ public class UnassignTaskCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Unassigned task(s): %1$s \n"
             + "from %2$s.";
+    public static final String MESSAGE_NO_TASK_SPECIFIED = "No tasks are specified.";
 
     private final List<Index> targetIndexList;
 
@@ -53,6 +54,10 @@ public class UnassignTaskCommand extends Command {
         if (containsInvalidIndexes(targetIndexList, displayedTaskList)) {
             int invalidIndex = getInvalidIndex(targetIndexList, displayedTaskList);
             throw new CommandException(MESSAGE_INVALID_TASK_DISPLAYED_INDEX + " Invalid index: " + invalidIndex);
+        }
+
+        if (targetIndexList.isEmpty()) {
+            throw new CommandException(MESSAGE_NO_TASK_SPECIFIED);
         }
 
         List<Task> removedTasks = new ArrayList<>();

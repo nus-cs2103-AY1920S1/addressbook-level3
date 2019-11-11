@@ -68,6 +68,10 @@ public class AssignTaskCommand extends Command {
         List<Person> personsToAssign = new ArrayList<>(); //List of persons to assign the task to
         List<Index> personIndexList = targetIndexes;
 
+        if (personIndexList.isEmpty()) {
+            throw new CommandException(MESSAGE_NO_MEMBER_SPECIFIED);
+        }
+
         // Finds all the persons who will be assigned the task and adds them to personsToAssign list
         for (Index personIndex : personIndexList) {
             if (personIndex.getZeroBased() >= personList.size()) {

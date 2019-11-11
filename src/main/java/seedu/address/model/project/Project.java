@@ -97,6 +97,24 @@ public class Project {
         return builder.toString();
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Project)) {
+            return false;
+        }
+
+        Project otherProject = (Project) other;
+        return otherProject.description.equals(this.description)
+                && otherProject.title.equals(this.title)
+                && otherProject.members.equals(this.members)
+                && otherProject.finance.equals(this.finance)
+                && otherProject.generatedTimetable.equals(this.generatedTimetable);
+    }
+
     public Timetable getGeneratedTimetable() {
         return generatedTimetable;
     }

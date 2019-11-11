@@ -10,6 +10,7 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_FILE_DOES_NOT_EXIST = "Image file does not exist";
     public static final String MESSAGE_DUPLICATE_INDEX = "Same index is specified more than once";
+    public static final String MESSAGE_NO_MEMBER_SPECIFIED = "No members are specified";
 
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";

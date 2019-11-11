@@ -29,7 +29,19 @@ public class Title {
         return test.matches(VALIDATION_REGEX);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
 
+        if (!(other instanceof Title)) {
+            return false;
+        }
+
+        Title otherTitle = (Title) other;
+        return otherTitle.title.equals(this.title);
+    }
     @Override
     public String toString() {
         return this.title;
