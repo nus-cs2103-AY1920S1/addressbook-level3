@@ -96,6 +96,10 @@ public class AliasMappings implements Serializable {
         this.aliasNameToAliasMap = new HashMap<>(aliasMappings.aliasNameToAliasMap);
     }
 
+    public AliasMappings copy() {
+        return new AliasMappings(this);
+    }
+
     public Alias getAlias(String aliasName) {
         return aliasNameToAliasMap.get(aliasName);
     }

@@ -79,7 +79,7 @@ public class DeleteBudgetByNameCommandTest {
         // null -> returns false
         assertNotEquals(null, deleteSchoolCommand);
 
-        // different expense -> returns false
+        // different description -> returns false
         assertNotEquals(deleteSchoolCommand, deleteOutsideSchoolCommand);
     }
 

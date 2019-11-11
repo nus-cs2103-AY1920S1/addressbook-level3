@@ -39,7 +39,7 @@ class JsonSerializableMooLah {
 
 
     /**
-     * Constructs a {@code JsonSerializableMooLah} with the given expenses.
+     * Constructs a {@code JsonSerializableMooLah} with the given expenses, events and budgets.
      */
     @JsonCreator
     public JsonSerializableMooLah(@JsonProperty("expenses") List<JsonAdaptedExpense> expenses,

@@ -39,13 +39,21 @@ image::Ui_annotated.png[width="790"]
 
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
-== Before We Start
-//insert UG legend
+== How to Read This User Guide
+
+First, let's familiarize ourselves with the symbols and formats used in this document:
+
+NOTE: Contains key information relevant to the execution of commands.
+
+```
+{contains sample command-line input}
+```
 
 == Quick Start
+Follow this installation guide to get MooLah up and running in your computer:
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `MooLah-v1.4.0.jar` link:{repoURL}/releases[here].
+.  Download the latest `MooLah-v1.4.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for `MooLah`.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 .  Type a command in the command box and press kbd:[Enter] to execute it. +
@@ -256,6 +264,9 @@ Examples:
 * `addexpense d/birthday p/40 c/Shopping t/10-10`
 * `addexpense d/Buffet c/Food p/250`
 * `addexpense d/Chicken rice p/2.50 c/Food t/yesterday noon`
+
+NOTE: The highest amount for Price is `100000`. +
+The accepted <TIMESTAMP> range is `1 Jan 2000 to 31 Dec 2099`.
 
 After typing in the command and entering it.
 

@@ -16,7 +16,7 @@ import seedu.moolah.model.expense.Expense;
 import seedu.moolah.ui.expense.ExpenseListPanel;
 
 /**
- * Deletes a expense identified using it's displayed index from the MooLah.
+ * Deletes a expense identified using its displayed index from MooLah.
  */
 public class DeleteExpenseCommand extends UndoableCommand {
 

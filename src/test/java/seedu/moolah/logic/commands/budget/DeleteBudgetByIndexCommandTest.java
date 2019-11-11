@@ -88,7 +88,7 @@ public class DeleteBudgetByIndexCommandTest {
         // null -> returns false
         assertNotEquals(null, deleteFirstCommand);
 
-        // different expense -> returns false
+        // different index -> returns false
         assertNotEquals(deleteFirstCommand, deleteSecondCommand);
     }
 }

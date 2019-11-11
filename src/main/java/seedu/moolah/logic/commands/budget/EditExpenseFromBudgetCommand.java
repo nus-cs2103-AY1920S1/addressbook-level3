@@ -51,8 +51,10 @@ public class EditExpenseFromBudgetCommand extends UndoableCommand {
     private final EditExpenseDescriptor editExpenseDescriptor;
 
     /**
-     * @param index of the expense in the filtered expense list to edit
-     * @param editExpenseDescriptor details to edit the expense with
+     * Creates an EditExpenseFromBudgetCommand to edit the expense with the specified {@code index}.
+     *
+     * @param index Index of the expense in the filtered expense list
+     * @param editExpenseDescriptor Details to edit the expense with
      */
     public EditExpenseFromBudgetCommand(Index index, EditExpenseDescriptor editExpenseDescriptor) {
         requireNonNull(index);

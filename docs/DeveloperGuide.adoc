@@ -44,6 +44,16 @@ MooLah is a desktop CLI application that help users track their expenses.
 The App supports many other extensions such as budgeting, planning and reminders.
 In particular, it is tailored to students in National University of Singapore who dine frequently in school canteens.
 
+=== Before We Begin
+
+Here are some widely-used symbols in this document:
+
+[NOTE]
+Contains essential information that explains a concept more clearly.
+
+[TIP]
+Contains extra information that might be useful.
+
 == Setting Up
 This section contains information on steps to set up the developer environment on your computer.
 
@@ -184,7 +194,7 @@ link:{repoURL}/src/main/java/seedu/moolah/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `MooLahParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a expense).
+.  The command execution can affect the `Model` (e.g. adding an expense).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -211,7 +221,6 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Budget>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * exposes an unmodifiable `ObservableList<Event>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
 
 [[Design-Storage]]
 === Storage component
@@ -497,7 +506,7 @@ as the budget, except: (i) it flattens the `BudgetWindow` field into start date,
 
 The following activity diagram summarizes what happens to budgets when the app launches and when a new expense is added:
 
-image::BudgetActivityDiagram.png[width=50%]
+image::BudgetActivityDiagram.png[width=55%]
 
 ==== Integration with Undo-Redo
 Budgeting-related commands integrate well with Undo-Redo feature, by extending `UndoableCommand`. Undoable commands are
@@ -509,8 +518,6 @@ every change must result in a new budget object being created and replacing the 
 change is reflected backend, it will not show in frontend because the Budgets in two models are still referring to
 the same object. This task is handled by `Budget#deepCopy()`, which is widely called from `UniqueBudgetList`, in every method
 that modifies the existing budgets.
-
-//table for all undoable commands
 
 ==== Design Considerations
 
@@ -994,14 +1001,18 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
+This section contains information on how to edit, publish, convert documentation, as well as relevant tools and settings.
 
 Refer to the guide <<Documentation#, here>>.
 
 == Testing
+This section contains information on running tests and troubleshooting.
 
 Refer to the guide <<Testing#, here>>.
 
 == Dev Ops
+
+This section contains information on project workflow and useful automation tools.
 
 Refer to the guide <<DevOps#, here>>.
 
@@ -1021,9 +1032,9 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*:
 
-* manage contacts faster than a typical mouse/GUI driven app
+* manage expenses faster than a typical mouse/GUI driven app
 * optimized for students in National University of Singapore
-* make prediction for future spending based on extrapolation from past statistics and upcoming important dates
+* make prediction for future spending based on extrapolation from past statistics and upcoming important dates (Coming in v2.0)
 * customizable categories, budgets and aliases
 * flexible forms of viewing a summary of expenses
 * give input suggestions while typing
@@ -1211,8 +1222,6 @@ Use case ends.
 +
 Use case ends.
 
-==Idk why==
-
 [discrete]
 === Use case: Viewing Statistics summary
 
@@ -1339,12 +1348,6 @@ Use case ends.
 Use case ends
 
 
-
-
-
-
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
@@ -1358,19 +1361,19 @@ _{More to be added}_
 .  Should adhere to the project scope (e.g. Not required to have digital wallet support).
 .  Should be able to work without internet connection.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
 [[alias]] Alias::
 A user-defined keyword that represents a specific Expense, acting as a quality-of-life replacement for common Expenses.
+
+[[CLI]] Command-Line Interface::
+A means of interacting with a computer program where the user issues commands to the program in the form of successive lines of text.
+
+
 
 [appendix]
 == Product Survey
@@ -1433,7 +1436,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample expenses. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -1441,21 +1444,134 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting an expense
 
-=== Deleting a expense
-
-. Deleting a expense while all expenses are listed
+Deleting an expense while all expenses are listed
 
 .. Prerequisites: List all expenses using the `listexpense` command. Multiple expenses in the list.
 .. Test case: `deleteexpense 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First expense is deleted from the list. Details of the deleted expense shown in the result display message.
 .. Test case: `deleteexpense 0` +
-   Expected: No expense is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `deleteexpense`, `deleteexpense x` (where x is larger than the list size) _{give more}_ +
+   Expected: No expense is deleted. Error details shown in the result display message.
+.. Other incorrect delete commands to try: `deleteexpense`, `deleteexpense x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Adding a budget
+
+Adding a budget to MooLah
+
+.. Prerequisites: None.
+.. Test case: `addbudget d/school p/100 sd/01-10 pr/month` +
+   Expected: A budget "school" is added to MooLah, and set as primary budget. The GUI is switched to the Budget Panel.
+.. Test case: `addbudget d/school p/100` +
+   Expected: No budget is added. Error details shown in the result display message.
+.. Test case: `addbudget d/default budget` +
+   Expected: No budget is added. Error details shown in the result display message.
+.. Other incorrect addbudget commands to try: `addbudget`, `addbudget p/100`, `addbudget p/0`
+   Expected: Similar to previous.
+
+=== Editing a budget
+
+Editing a budget in MooLah while all budgets are listed
+
+.. Prerequisites: List all budgets using the `listbudget` command. Multiple budgets in the list.
+.. Test case: `editbudget 2 d/abc` +
+   Expected: Second budget's description is updated to "abc".
+.. Test case: `editbudget 2 p/400` +
+   Expected: Second budget's limit is updated to 400. Percentage in progress bar is updated accordingly.
+.. Test case: `editbudget 1 d/abc` +
+   Expected: No budget is edited. Error details shown in the result display message.
+.. Other incorrect editbudget commands to try: `editbudget 2`, `editbudget x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Deleting a budget
+
+. Deleting a budget by index while all budgets are listed
+
+.. Prerequisites: List all budgets using the `listbudget` command. Multiple budgets in the list.
+.. Test case: `deletebudget-id 2` +
+   Expected: Second budget is deleted from the list. Details of the deleted budget shown in the result display message.
+.. Test case: `deletebudget-id 1` +
+   Expected: No budget is deleted. Error details shown in the result display message.
+.. Other incorrect deletebudget-id commands to try: `deletebudget-id`, `deletebudget-id x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+. Deleting a budget by name
+
+.. Prerequisites: None.
+.. Test case: `deletebudget d/school` (suppose budget "school" exists) +
+   Expected: Budget "school" is deleted from MooLah. Details of the deleted budget shown in the result display message.
+.. Test case: `deletebudget d/default budget` +
+   Expected: No budget is deleted. Error details shown in the result display message.
+.. Other incorrect deletebudget commands to try: `deletebudget`, `deletebudget d/x` (where x does not exist) +
+   Expected: Similar to previous.
+
+=== Switching the primary budget
+
+Switching the primary budget to another budget
+
+.. Prerequisites: None.
+.. Test case: `switchbudget d/school` (suppose budget "school" exists and is not primary) +
+   Expected: Budget "school" becomes the primary budget. GUI switches to primary budget panel.
+.. Test case: `switchbudget d/holiday` (suppose budget "holiday" is already primary) +
+   Expected: No action taken. Error details shown in the result display message.
+.. Other incorrect switchbudget commands to try: `switchbudget`, `switchbudget d/x` (where x does not exist) +
+   Expected: Similar to previous.
+
+=== Switching budget period
+
+Switching the budget period to view past expenses
+
+.. Prerequisites: None.
+.. Test case: `switchperiod t/01-09` +
+   Expected: Period of primary budget is switched to the period containing 1 Sep.
+.. Test case: `switchperiod t/now` +
+   Expected: Period of primary budget is switched to the period containing the current date.
+.. Test case: `switchperiod t/01-12` +
+   Expected: No action taken. Error details shown in the result display message.
+.. Other incorrect switchperiod commands to try: `switchperiod` +
+   Expected: Similar to previous.
+
+=== Listing all budgets
+
+Listing all budgets in MooLah
+
+.. Prerequisites: None.
+.. Test case: `listbudget` +
+   Expected: GUI switches to budget list panel to show a list of all budgets. The primary budget is marked with red border.
+.. Test case: `listbudget d/abc` +
+   Expected: No action taken. Error details shown in the result display message.
+
+=== Clearing all budgets
+
+Clearing all budgets in MooLah
+
+.. Prerequisites: None.
+.. Test case: `clearbudget` +
+   Expected: GUI switches to the budget list panel. All budgets except default budget are deleted. Default budget is marked with red border.
+
+=== Deleting an expense from budget panel
+
+.. Prerequisites: Go to primary budget panel using the `view priamry budget` command. Multiple expenses in the list.
+.. Test case: `deleteexpense-primary 1` +
+   Expected: First expense is deleted from the list. Details of the deleted expense shown in the result display message.
+.. Test case: `deleteexpense-primary 0` +
+   Expected: No expense is deleted. Error details shown in the result display message.
+.. Other incorrect deleteexpense-primary commands to try: `deleteexpense-primary`, `deleteexpense-primary x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Editing an expense from budget panel
+
+.. Prerequisites: Go to primary budget panel using the `view priamry budget` command. Multiple expenses in the list.
+.. Test case: `editexpense-primary 1 d/a` +
+   Expected: First expense's description is updated to "a".
+.. Test case: `editexpense-primary 1 p/5` +
+   Expected: First expense's price is updated to 5. Percentage in progress bar is updated accordingly.
+.. Test case: `editexpense-primary 1` +
+   Expected: No expense is edited. Error details shown in the result display message.
+.. Other incorrect editexpense-primary commands to try: `editexpense-primary`, `editexpense-priamry x d/a` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
 
 === Saving data
 

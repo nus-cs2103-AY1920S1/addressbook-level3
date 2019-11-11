@@ -92,9 +92,7 @@ public class Timekeeper {
     public String displayReminders() {
         for (Event event : events) {
             Optional<Reminder> potentialReminder = createReminderIfValid(event);
-            if (potentialReminder.isPresent()) {
-                reminders.add(potentialReminder.get());
-            }
+            potentialReminder.ifPresent(reminder -> reminders.add(reminder));
         }
 
         StringBuilder remindersMessage =
@@ -109,8 +107,7 @@ public class Timekeeper {
     }
 
     /**
-     * Refreshes all budgets in the budget list.
-     *
+     * Refreshes all budgets (except default budget) in MooLah.
      */
     public void refreshBudgets() {
         for (Budget budget : budgets) {

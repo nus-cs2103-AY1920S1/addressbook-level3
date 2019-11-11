@@ -71,7 +71,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public void setAliasMappings(AliasMappings aliasMappings) {
         requireNonNull(aliasMappings);
-        this.aliasMappings = aliasMappings;
+        this.aliasMappings = aliasMappings.copy();
     }
 
     public boolean removeAliasWithName(String name) {

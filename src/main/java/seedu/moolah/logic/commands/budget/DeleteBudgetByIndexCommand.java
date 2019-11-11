@@ -16,7 +16,7 @@ import seedu.moolah.model.budget.Budget;
 import seedu.moolah.ui.budget.BudgetListPanel;
 
 /**
- * Deletes a budget identified using its displayed index from MooLah.
+ * Deletes a budget identified using its displayed index from BudgetListPanel.
  */
 public class DeleteBudgetByIndexCommand extends UndoableCommand {
     public static final String COMMAND_WORD = GenericCommandWord.DELETE + CommandGroup.BUDGET + "-id";
@@ -30,6 +30,9 @@ public class DeleteBudgetByIndexCommand extends UndoableCommand {
 
     private final Index targetIndex;
 
+    /**
+     * Creates an DeleteBudgetByIndexCommand to delete the budget with the specified {@code targetIndex}.
+     */
     public DeleteBudgetByIndexCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }

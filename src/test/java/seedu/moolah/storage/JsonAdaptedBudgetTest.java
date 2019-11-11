@@ -23,21 +23,12 @@ public class JsonAdaptedBudgetTest {
     public static final String VALID_PERIOD = "month";
     public static final List<JsonAdaptedExpense> VALID_EXPENSES = new ArrayList<>();
     public static final List<String> VALID_EXPENSE_IDS = new ArrayList<>();
-    public static final boolean VALID_IS_PRIMARY = true;
-    public static final String VALID_PROPORTION_USED = "60%";
 
     private static final String INVALID_DESCRIPTION = "sch@@l related expenses";
     private static final String INVALID_AMOUNT = "-200";
     private static final String INVALID_START_DATE = "blah";
     private static final String INVALID_END_DATE = "bleh";
     private static final String INVALID_PERIOD = "dfa";
-    private static final String INVALID_PROPORTION_USED = "-2%";
-
-    //    @Test
-    //    public void toModelType_validBudgetDetails_returnsBudget() throws Exception {
-    //        JsonAdaptedBudget budget = new JsonAdaptedBudget(OUTSIDE_SCHOOL);
-    //        assertEquals(OUTSIDE_SCHOOL, budget.toModelType(VALID_EXPENSES));
-    //    }
 
     @Test
     public void toModelType_invalidDescription_throwsIllegalValueException() {
