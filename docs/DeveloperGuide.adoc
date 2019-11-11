@@ -530,6 +530,20 @@ The expiry notification is facilitated by `ExpiryDisplay`. It exists as an attri
 * `ExpiryDisplay#hasCards()` -- Returns true if there are expiring cards.
 * `MainWindow#handleExpiry()` -- Pops up a notification if there are expiring cards upon startup of the app.
 
+The following sequence diagram shows how the expiry notification shows up.
+
+image::ExpiryNotification.png[Diagram, 700]
+
+Step 1. The user opens the app and a new `MainWindow` is created. The `logic` in MainWindow` calls `LogicManager#getExpiringCardList()` to obtain a list of expiring cards.
+
+Step 2. `MainWindow` creates a new instance of `ExpiryDisplay` using the list of expiring cards.
+
+Step 3. The `UiManager` calls `MainWindow#handleExpiry()`, and the `MainWindow` checks if there are expiring cards with `ExpiryDisplay#hasCards()`.
+
+Step 4. The call returns `true` and `MainWindow` checks if the notification is showing with the call `ExpiryDisplay#isShowing()`.
+
+Step 5. This call returns `false` and `MainWindow` does a final call `ExpiryDisplay#show()` to render the expiry notification.
+
 // end::carddg[]
 // tag::fileencryption[]
 === File Management
