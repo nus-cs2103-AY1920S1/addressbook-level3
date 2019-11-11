@@ -1,8 +1,11 @@
 package seedu.address.diaryfeature.model.details;
 
+/**
+ * Password
+ */
 public class Password {
-    public static final String MESSAGE_CONSTRAINTS = "" +
-            "Password has to be at least 8 characters, is case insensitive and has to be alphanumeric ";
+    public static final String MESSAGE_CONSTRAINTS = ""
+            + "Password has to be at least 8 characters, is case insensitive and has to be alphanumeric ";
     public static final int PASSWORD_MIN_LENGTH = 8;
     private final String password;
 

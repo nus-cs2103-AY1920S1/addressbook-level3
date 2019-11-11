@@ -83,7 +83,7 @@ public class DiaryEntry {
     }
 
     public DiaryEntry copy() {
-        return new DiaryEntry(getTitle(),getDate(),getPlace(),getMemory());
+        return new DiaryEntry(getTitle(), getDate(), getPlace(), getMemory());
     }
 
     /**
@@ -125,8 +125,8 @@ public class DiaryEntry {
         }
 
         DiaryEntry otherEntry = (DiaryEntry) other;
-        return otherEntry.getTitle().equals(getTitle()) &&
-                otherEntry.getDateAsStringtoStore().equalsIgnoreCase(getDateAsStringtoStore());
+        return otherEntry.getTitle().equals(getTitle())
+                && otherEntry.getDateAsStringtoStore().equalsIgnoreCase(getDateAsStringtoStore());
     }
 
 

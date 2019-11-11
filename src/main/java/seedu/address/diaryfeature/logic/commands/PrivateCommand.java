@@ -16,8 +16,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
  */
 public class PrivateCommand extends Command<DiaryModel> {
     public static final String COMMAND_WORD = "private";
-    private static final String OVERFLOW = "For the Private command, your index has to be less than the size" +
-            " of the list! Make your number smaller.";
+    private static final String OVERFLOW = "For the Private command, your index has to be less than the size"
+            + " of the list! Make your number smaller.";
     private static final String MESSAGE_PRIVATE_ENTRY_SUCCESS = "Your Entry has become private. No one can see it";
     private final Index targetIndex;
 

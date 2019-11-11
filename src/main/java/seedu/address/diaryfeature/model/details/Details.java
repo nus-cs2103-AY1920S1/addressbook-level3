@@ -1,5 +1,8 @@
 package seedu.address.diaryfeature.model.details;
 
+/**
+ *
+ */
 public class Details {
     private final Username userName;
     private final Password password;

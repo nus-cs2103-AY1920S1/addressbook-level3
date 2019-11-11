@@ -1,16 +1,15 @@
 package seedu.address.diaryfeature.logic.parser;
 
-
 import java.util.Date;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions.DateParseException;
 import seedu.address.diaryfeature.logic.parser.exceptions.DetailParseException;
-import seedu.address.diaryfeature.logic.parser.exceptions.EmptyArgumentException;
+import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions.DateParseException;
 import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions.MemoryParseException;
 import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions.PlaceParseException;
 import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions.TitleParseException;
+import seedu.address.diaryfeature.logic.parser.exceptions.EmptyArgumentException;
 import seedu.address.diaryfeature.model.diaryEntry.DateFormatter;
 import seedu.address.diaryfeature.model.diaryEntry.Memory;
 import seedu.address.diaryfeature.model.diaryEntry.Place;
@@ -22,8 +21,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
-    private static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer. " +
-            "Has to be 1 or more.";
+    private static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer. "
+            + "Has to be 1 or more.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -136,7 +135,8 @@ public class ParserUtil {
      * @throws DetailParseException   if the input does not match the Detail constraints
      */
 
-    public static String parseDetail(String input, String parserName) throws EmptyArgumentException, DetailParseException {
+    public static String parseDetail(String input, String parserName) throws EmptyArgumentException,
+            DetailParseException {
         String user = parseStringArgs(input, parserName);
         if (Validators.isValidDetail(user)) {
             return Encryptor.encrypt(user);
@@ -145,6 +145,11 @@ public class ParserUtil {
         }
     }
 
+    /**
+     *
+     * @param input
+     * @return
+     */
     public static boolean isValidEncryptedDetail(String input) {
         if (Validators.isNotNull(input)) {
             return Validators.isValidEncryptedDetail(input);
