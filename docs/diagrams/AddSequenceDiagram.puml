@@ -36,14 +36,13 @@ LogicManager -> AddCourseCommand : execute()
 AddCourseCommand -> Model : addCourse(CS2102)
     |||
     return
-
 |||
 
 create CommandResult
 AddCourseCommand -> CommandResult
-    return
+    return result
 
 return result
 
-[<--LogicManager
+[<--LogicManager : result
 @enduml
