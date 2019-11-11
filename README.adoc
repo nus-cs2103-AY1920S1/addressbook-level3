@@ -11,14 +11,12 @@ image::docs/images/Ui.png[width="600"]
 endif::[]
 
 
-This is a lifestyle application. It's designed for health-conscious individuals with the preference of using *Command Line Interface (CLI)*.
+This is a lifestyle application. It's designed for health-conscious students with a strong preference of using *Command Line Interface (CLI)*.
 You'll be able to manage various aspects of your life, such as your diet, health and exercise regime.
 
-DukeCooks in your hands, get your life all planned!
+With DukeCooks, you can say goodbye to unhealthy living and say hello to a healthier you!
 
 == Site Map
-
-Work in Progress, to be linked.
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
