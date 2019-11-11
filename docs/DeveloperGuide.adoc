@@ -1179,7 +1179,7 @@ Use case ends
 ** Steps 2a1-2a3 are repeated until the description entered is valid
 ** Use case resumes from step 4
 
---
+
 
 [none]
 * 5a. No text entered
