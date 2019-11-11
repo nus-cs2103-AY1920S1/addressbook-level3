@@ -220,6 +220,24 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String endDateTime} into a {@code EndDateTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code endDateTime} is invalid.
+     */
+    public static EndDateTime parseEndDateTime(String endDateTime) throws ParseException {
+        requireNonNull(endDateTime);
+        String trimmedEndDateTime = endDateTime.trim();
+        if (!EndDateTime.isValidDateTime(trimmedEndDateTime)) {
+            throw new ParseException(EndDateTime.MESSAGE_CONSTRAINTS);
+        }
+        if (!EndDateTime.isAfterSystemDateTime(endDateTime)) {
+            throw new ParseException(EndDateTime.END_AFTER_SYSTEM_DATE_TIME_CONSTRAINTS);
+        }
+        return new EndDateTime(trimmedEndDateTime);
+    }
+
+    /**
      * Parses a {@code String frequency} into a {@code Long}.
      * Leading and trailing whitespaces will be trimmed.
      *

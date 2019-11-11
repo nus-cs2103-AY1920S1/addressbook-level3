@@ -50,6 +50,12 @@ Format: `appt-add p/PATIENT_INDEX sdt/START_DATE_TIME edt/END_DATE_TIME [desc/DE
 * The appointment added cannot clash in timing with any other existing appointment, i.e. their start and end date times must not overlap in any way.
 ****
 
+Examples:
+
+* `appt-add p/1 sdt/24-12-2019 1200 edt/24-12-2019 1400 desc/Medical checkup
+
+* `appt-add p/2 sdt/09-12-2019 1300 edt/09-12-2019 1330 ryr/1 rmon/3`
+
 === Editing an Appointment: `appt-edit`
 
 You can edit an existing appointment in the app using `appt-edit`.

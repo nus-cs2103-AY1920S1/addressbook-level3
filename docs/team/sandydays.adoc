@@ -7,41 +7,57 @@
 
 ---
 
+I am Year 2 Computer Science student at the National University of Singapore. I enjoy learning new technologies and software tools as well as helping out in any project that is interesting, challenging, and can have a positive impact in any community. Here you can find my contributions to one of my projects.
+
 == Overview
 
-NurseTraverse is a desktop application meant for community nurse to help manage all the data that a community nurse might need. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
+NurseTraverse is a desktop application designed to help community nurses manage all the data they may need, including visit management, appointment scheduling, and importing and exporting of patient data.
+The user interacts with the app using a CLI (Command Line Interface) enhanced with an autocomplete functionality and ability to undo and redo commands. The app has a GUI created with JavaFX and is written in Java.
+NurseTraverse is built by me and 4 other students.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+Lists all appointments nurses have scheduled, including reference to patient details, appointment start and end date and time, frequency with which the appointment recurs (if it does), and additional description details associated with the appointment.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement*: added *the ability to manage appointments*
+** What it does: allows the user to schedule and manage appointments with their patients. The user can add, edit, delete their appointments, Preceding undo commands can be reversed by using the redo command.
+** Justification: This feature improves the product significantly because tracking the appointments associated with different patients is a must-have for every community nurse so that they can organize their schedule before paying visits to the patients. +
+This feature has been identified as a required feature in user story https://github.com/AY1920S1-CS2103-F10-1/main/issues/7[#7].
+** Highlights:
+*** This enhancement adds a new feature to the app. Lot of groundwork to be done in terms of setting up the `AppointmentBook`, converting `AppointmentBook` data to `JSON` for storage, adding it to be tracked by the `ModelManager` when the app is running, etc.
+*** The feature adds new commands for listing appointments scheduled, finding specific appointments by patient name, adding, deleting, and editing appointments, where the appointments can be recurring or non-recurring. It affects any appointment-related commands to be added in the future.
+*** Particularly challenging was implementing recurring appointments and prevention of clashing appointments alongside each other, since appointments that are added may clash with future date and time of a recurring appointment. Many design alternatives had to be considered before it was decided to recur appointments until they did not clash with any appointments in the existing list of appointments.
+*** Moreover, since this feature takes into account the association from the `Appointments` to the `Patient` class, it affected existing patient commands' behaviour (for instance, deleting or editing of patients accordingly result in deleting and editing the appointments associated with this patient). +
+Handling and implementing this association while trying to minimise the coupling as much as possible was challenging and required an in-depth analysis of design alternatives.
+** Credits: No code or ideas were borrowed or adapted from outside applications, nor were any third-party libraries used. Only referenced, used, and modified code within _Address Book 3_.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancements*:
+** Added appointment card and appointment list in a separate tab for easy user visibility.
+** Improved date time printing such that the date times are viewed as, for example, `Sun, 1st Dec 2019, 18:00` instead of `01-12-2019 1800`.
+
+* *Code contributed*: Code contributed can be found in the following link (there are filters on the landing page to view the code contributed as functional or tests) link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=sandydays[here].
+For a more specific breakdown, my PRs reference the following issues
+(v1.2 https://github.com/AY1920S1-CS2103-F10-1/main/issues/65[#65],
+v1.3 https://github.com/AY1920S1-CS2103-F10-1/main/issues/97[#97],
+v1.4 https://github.com/AY1920S1-CS2103-F10-1/main/issues/64[#64])
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Opened user stories issues
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Pointed out various issues in the early stages of designing the User Guide for the app: https://github.com/AY1920S1-CS2103-F10-1/main/pull/42[#42].
+*** Updated About Us and Contact Us Pages: https://github.com/AY1920S1-CS2103-F10-1/main/pull/38[#38].
+*** Opened draft PPPs for everyone, as well as updated (and made more specific) the app's information in the PPPs: https://github.com/AY1920S1-CS2103-F10-1/main/pull/38[#38].
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments or reviewed to approve):
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/73[#73],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/80[#80],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/104[#104],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/194[#194]
+*** Contributed to forum discussions (in Pull Requests(s) https://github.com/AY1920S1-CS2103-F10-1/main/pull/42[#42] and offline/Telegram discussions)
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Set up team repo and organization.
 
 == Contributions to the User Guide
 
@@ -50,9 +66,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../userguide/Appointment.adoc[]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +74,4 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../devguide/AppointmentManagement.adoc[]

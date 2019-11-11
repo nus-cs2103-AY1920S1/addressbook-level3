@@ -72,9 +72,9 @@ making them permanent and updating the UI data. The committing `MutatorCommand` 
 ** Pros:
 *** Easier to implement.
 ** Cons:
-*** Relies on the assumption that the objects in `PatientBook` and `AddressBook`
+*** Relies on the assumption that the objects in `PatientBook` and `AppointmentBook`
 are immutable; if they are not truly immutable, changes to the current model's
-`PatientBook` and `AddressBook` state may leak and affect the states stored in
+`PatientBook` and `AppointmentBook` state may leak and affect the states stored in
 the history.
 
 * **Alternative 2 (current choice):** Defensively store deep copies of the `PatientBook` and `AppointmentBook`.

@@ -1,0 +1,69 @@
+@startuml
+!include style.puml
+skinparam ParticipantPadding 5
+
+mainframe **sd** delete appointment and add the next recurred appointment
+
+box Logic LOGIC_COLOR_T1
+participant "dc:DeleteAppointmentCommand" as DeleteAppointmentCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":AppointmentBook" as AppointmentBook MODEL_COLOR
+participant ":UniqueAppointmentList" as UniqueAppointmentList MODEL_COLOR
+end box
+
+activate DeleteAppointmentCommand
+
+DeleteAppointmentCommand -> Model : deleteAppointment(d)
+activate Model
+Model -> AppointmentBook : removeAppointment(d)
+activate AppointmentBook
+
+AppointmentBook -> UniqueAppointmentList : removeAppointment(d)
+activate UniqueAppointmentList
+UniqueAppointmentList --> AppointmentBook
+deactivate UniqueAppointmentList
+
+opt d is recurring appointment
+    AppointmentBook -> AppointmentBook : addRecurringAppointment(d)
+    activate AppointmentBook
+    AppointmentBook -> AppointmentBook : getRecurredAppointment(d)
+    activate AppointmentBook
+    AppointmentBook --> AppointmentBook : nextAppt
+    deactivate AppointmentBook
+    loop nextAppt clashes with any existing appointment
+        AppointmentBook -> AppointmentBook : getRecurredAppointment(nextAppt)
+        activate AppointmentBook
+        AppointmentBook --> AppointmentBook : nextAppt
+        deactivate AppointmentBook
+    end
+    AppointmentBook -> AppointmentBook : addAppointment(nextAppt)
+    activate AppointmentBook
+    AppointmentBook -> UniqueAppointmentList : add(nextAppt)
+    activate UniqueAppointmentList
+    UniqueAppointmentList --> AppointmentBook
+    deactivate UniqueAppointmentList
+    AppointmentBook --> AppointmentBook
+    deactivate AppointmentBook
+    AppointmentBook --> AppointmentBook
+    deactivate AppointmentBook
+end
+
+AppointmentBook --> Model
+deactivate AppointmentBook
+
+Model -> Model : refreshStagedAppointments()
+Model -> Model : sortStagedAppointments()
+Model -> Model : replaceStagedAppointmentBook(stagedAppointments)
+Model -> Model : refreshFilteredAppointmentList()
+
+Model --> DeleteAppointmentCommand
+deactivate Model
+
+
+
+
+
+@enduml

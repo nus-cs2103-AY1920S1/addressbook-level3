@@ -68,8 +68,7 @@ public class EditAppointmentCommandParser {
                         .getValue(PREFIX_APPOINTMENT_START_DATE_AND_TIME).get()));
             } else {
                 editAppointmentDescriptor.setEndDateTime(ParserUtil.parseEndDateTime(argMultimap
-                        .getValue(PREFIX_APPOINTMENT_END_DATE_AND_TIME).get(), editAppointmentDescriptor
-                        .getStartDateTime().toString()));
+                        .getValue(PREFIX_APPOINTMENT_END_DATE_AND_TIME).get()));
             }
         }
         if (argMultimap.getValue(PREFIX_PATIENT_INDEX).isPresent()) {
@@ -81,23 +80,23 @@ public class EditAppointmentCommandParser {
                     .getValue(PREFIX_RECUR_YEARS)));
         }
         if (argMultimap.getValue(PREFIX_RECUR_MONTHS).isPresent()) {
-            editAppointmentDescriptor.setYears(ParserUtil.parseFrequency(argMultimap
+            editAppointmentDescriptor.setMonths(ParserUtil.parseFrequency(argMultimap
                     .getValue(PREFIX_RECUR_MONTHS)));
         }
         if (argMultimap.getValue(PREFIX_RECUR_WEEKS).isPresent()) {
-            editAppointmentDescriptor.setYears(ParserUtil.parseFrequency(argMultimap
+            editAppointmentDescriptor.setWeeks(ParserUtil.parseFrequency(argMultimap
                     .getValue(PREFIX_RECUR_WEEKS)));
         }
         if (argMultimap.getValue(PREFIX_RECUR_DAYS).isPresent()) {
-            editAppointmentDescriptor.setYears(ParserUtil.parseFrequency(argMultimap
+            editAppointmentDescriptor.setDays(ParserUtil.parseFrequency(argMultimap
                     .getValue(PREFIX_RECUR_DAYS)));
         }
         if (argMultimap.getValue(PREFIX_RECUR_HOURS).isPresent()) {
-            editAppointmentDescriptor.setYears(ParserUtil.parseFrequency(argMultimap
+            editAppointmentDescriptor.setHours(ParserUtil.parseFrequency(argMultimap
                     .getValue(PREFIX_RECUR_HOURS)));
         }
         if (argMultimap.getValue(PREFIX_RECUR_MINUTES).isPresent()) {
-            editAppointmentDescriptor.setYears(ParserUtil.parseFrequency(argMultimap
+            editAppointmentDescriptor.setMinutes(ParserUtil.parseFrequency(argMultimap
                     .getValue(PREFIX_RECUR_MINUTES)));
         }
         if (argMultimap.getValue(PREFIX_APPOINTMENT_DESCRIPTION).isPresent()) {

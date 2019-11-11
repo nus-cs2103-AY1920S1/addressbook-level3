@@ -43,7 +43,7 @@ public class AppointmentCard extends UiPart<Region> {
     @FXML
     private Label patientAddress;
     @FXML
-    private Label description;
+    private FlowPane description;
     @FXML
     private FlowPane recurDateTime;
     @FXML
@@ -61,6 +61,10 @@ public class AppointmentCard extends UiPart<Region> {
         patientPhone.setText(appointment.getPatient().getPhone().value);
         patientAddress.setText(appointment.getPatient().getAddress().value);
         patientEmail.setText(appointment.getPatient().getEmail().value);
+
+        if (!appointment.getDescription().equals("")) {
+            description.getChildren().add(new Label(appointment.getDescription()));
+        }
 
         if (appointment.getFrequency().isRecurringFrequency()) {
             recurDateTime.getChildren().add(new Label("recurring"));

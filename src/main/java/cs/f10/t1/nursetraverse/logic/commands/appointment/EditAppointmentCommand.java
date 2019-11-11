@@ -99,9 +99,11 @@ public class EditAppointmentCommand extends MutatorCommand {
         if (!appointmentToEdit.isSameAppointment(editedAppointment) && model.hasAppointment(editedAppointment)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
+        model.deleteRecurringAppointment(appointmentToEdit);
         if (model.hasClashingAppointment(editedAppointment)) {
             throw new CommandException(MESSAGE_CLASHING_APPOINTMENT);
         }
+        model.addAppointment(appointmentToEdit);
         if (editedAppointment.getStartDateTime().dateTime.isAfter(editedAppointment.getEndDateTime().dateTime)) {
             throw new CommandException(MESSAGE_START_AFTER_END_DATE_TIME);
         }
