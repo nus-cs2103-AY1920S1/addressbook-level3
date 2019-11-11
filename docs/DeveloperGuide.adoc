@@ -832,12 +832,6 @@ image::reminders/tabchange.png[]
 User will execute `change_tab` command with the parameters of `tab/TAB`. Using this, TutorAid will display the list and the view that the user wishes to see, effectively changing tabs.
 
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -983,6 +977,156 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: Add Earnings
+
+*MSS*
+
+1.  User adds an earnings by specifying its details
+2.  TutorAid shows a success message
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The arguments provided are invalid.
+
+** 1a1. TutorAid shows an error message.
++
+Use case ends.
+
+* 1b. The mandatory arguments are not provided.
+
+** 1b1. TutorAid shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete Earnings
+
+*MSS*
+
+1.  User requests to change tab to earnings
+2.  TutorAid shows a list of earnings
+3.  User requests to delete a specific earnings in the list
+4.  TutorAid deletes the earnings
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The list is empty.
++
+Use case ends
+
+* 3a. The given index is invalid.
+
+** 3a1. TutorAid shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Find Earnings
+
+*MSS*
+
+1.  User requests to find earnings with specified keyword(s)
+2.  TutorAid shows a success message
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The mandatory arguments are not provided.
+
+** 1a1. TutorAid shows an error message.
++
+Use case ends.
+
+* 2a. The arguments provided have no match.
+
+** 2a1. TutorAid shows an empty list.
++
+Use case ends.
+
+[discrete]
+=== Use case: Claim Earnings
+
+*MSS*
+
+1.  User requests to claim earnings with specified arguments
+2.  TutorAid shows a success message
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The mandatory arguments are not provided.
+
+** 1a1. TutorAid shows an error message.
++
+Use case ends.
+
+* 1b. The arguments provided are invalid.
+
+** 1b1. TutorAid shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Automate Earnings
+
+*MSS*
+
+1.  User requests to change tab to earnings
+2.  TutorAid shows a list of earnings
+3.  User requests to automate a specific earnings in the list
+4.  TutorAid add the earnings into a list.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The list is empty.
++
+Use case ends
+
+* 3a. The mandatory arguments are not provided.
+
+** 3a1. TutorAid shows an error message.
++
+Use case ends.
+
+* 3b. The arguments provided are invalid.
+
+** 3b1. TutorAid shows an error message.
++
+Use case ends.
+
+* 3c. The given index is invalid.
+
+** 3c1. TutorAid shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Add Automated Earnings
+
+*MSS*
+
+1.  User requests to add automated earnings
+2.  TutorAid shows a success message
++
+Use case ends.
+
+*Extensions*
+
+* 1a. No new earnings are added.
+
+** 1a1. TutorAid shows an error message.
++
+Use case ends
+
 _{More to be added}_
 
 [appendix]
@@ -1017,6 +1161,35 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
+
+. Saving window preferences
+
+.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The most recent window size and location is retained.
+
+=== Registering an account
+
+. Registering an account
+
+.. Test case: `register user/bryan pass/Pa55w0rd` +
+    Expected: Success message shown in status bar.
+.. Test case: `register user/abc pass/hello` +
+    Expected: No account created. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect register commands to try: `register`, `register bryan Pa55w0rd` +
+    Expected: Similar to previous.
+
+=== Logging In
+
+. Logging into TutorAid with personal account
+
+.. Test case: `login user/bryan pass/Pa55w0rd` +
+    Expected: Login Window closes and Main Window pops up.
+.. Test case: `login user/wad efsf pass/hello` +
+    Expected: Not logged in. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect login commands to try: `login`, `login bryan Pa55w0rd` +
+    Expected: Similar to previous.
+
 === Deleting a person
 
 . Deleting a person while all persons are listed
@@ -1029,6 +1202,76 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete Tom` +
    Expected: Similar to previous.
 
+
+=== Adding an earning
+
+. Adding earnings to TutorAid
+
+.. Prerequisites: Arguments are valid and mandatory parameters are provided.
+.. Test case: `add_earnings d/11/10/2014 type/lab c/CS1101S amt/90.30` +
+    Expected: Adds an earnings of $90.30 of a CS1101S Lab lesson to TutorAid on 11/10/2014
+.. Test case: `add_earnings d/10/03/2019 type/tut` +
+    Expected: No earnings is added Error details shown in the status message. Status bar remains the same.
+.. Other incorrect add earnings commands to try: `add_earnings`, `add_earnings d/today type/c` and `add_earnings 2` +
+    Expected: Similar to previous.
+
+=== Deleting an earning
+
+. Deleting earnings while all earnings are listed
+
+.. Prerequisites: List all earnings either using tab button on application or `change_tab tab/earnings` command. Multiple earnings in the list.
+.. Test case: `delete_earnings 1` +
+    Expected: First earnings is deleted from the list. Details of the deleted earnings shown in the status message.
+.. Test case: `delete_earnings 0` +
+    Expected: No earnings is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete earnings command to try: `delete_earnings`, `delete_earnings x` (where x is larger than the list size). +
+    Expected: Similar to previous.
+
+=== Finding an earning
+
+. Finding earnings
+
+.. Test case: `find_earnings CS` +
+    Expected: All earnings that contains "CS" (regardless case of the letters)
+    will show in TutorAid. Partial match of "CS" will be shown as well. Number of earnings found were stated in the status message.
+.. Test case: `find_earnings` +
+    Expected: No earnings will be shown. Error details shown in the status message. Status bar remains the same.
+
+=== Claiming an earning
+
+. Change the Claim status of an earning
+
+.. Prerequisites: List all earnings either using tab button on application or `change_tab tab/earnings` command. Multiple earnings in the list.
+.. Test case: `claim_earnings 1 claim/processing` +
+    Expected: First earnings will change claim status to `processing`.
+.. Test case: `claim_earnings 1` +
+    Expected: No change in claim status of the first earnings. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect claim earnings command to try: `claim_earnings 1 claim/done`, `claim_earnings` +
+    Expected: Similar to previous.
+
+=== Automating earnings
+
+. Automate the addition of earnings
+
+.. Prerequisites: List all earnings either using tab button on application or `change_tab tab/earnings` command. Multiple earnings in the list.
+.. Test case: `weekly_earnings 1 count/2` +
+    Expected: Success message shows up. No change in earnings list. First earnings will be automatically added in the next 2 weeks on the same day of the week, after invoking the `auto` command.
+.. Test case: `weekly_earnings 0 count/4` +
+    Expected: No earnings will be automatically added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect weekly earnings command to try: `weekly_earnings`, `weekly_earnings 3 count/15`, `weekly_earnings x count/8` (where x is larger than the list size). +
+    Expected: Similar to previous.
+
+=== Adding automated earnings
+
+. Adds automated earnings to list.
+
+.. Prerequisites: There must have been a few pre-existing earnings that were invoked by the `weekly_earnings` command.
+.. Test case: `auto` +
+    Expected: Depending on the number of earnings that were invoked by `weekly_earnings` command and the day of the week, earnings will be automatically added to the list.
+.. Test case: `auto 5` +
+    Expected: No earnings are added. Error details shown in the status message. Status bar remains the same.
+
+=== Saving data
 
 // tag::ManualTestTask[]
 === Adding a task

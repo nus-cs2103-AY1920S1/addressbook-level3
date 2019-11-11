@@ -75,7 +75,7 @@ public class AutoCommand extends Command {
 
         if (map.containsKey(day)) {
             ArrayList<Earnings> list = map.get(day);
-
+            int counter = 0;
             for (Earnings e : list) {
 
                 if (Integer.parseInt(e.getCount().count) > 0) {
@@ -89,11 +89,15 @@ public class AutoCommand extends Command {
                     e.setCount(new Count("0"));
                     try {
                         if (model.hasEarnings(newEarnings)) {
+                            counter++;
                             throw new CommandException("Unable to auto add weekly earnings. "
                                     + MESSAGE_DUPLICATE_EARNINGS);
                         }
                     } catch (CommandException exception) {
                         continue;
+                    }
+                    if (counter == list.size()) {
+                        throw new CommandException("No earnings added.");
                     }
                     model.addEarnings(newEarnings);
                 } else if (Integer.parseInt(e.getCount().count) == 0) {
