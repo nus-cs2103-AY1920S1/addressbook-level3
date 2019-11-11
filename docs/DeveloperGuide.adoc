@@ -724,6 +724,34 @@ The `delete` command is facilitated by the Logic and Model components of the app
 *Step 11*: `DeleteRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
 // end::repeaterdelete[]
 
+// tag::repeaterdelete[]
+==== Finding Repeater
+
+===== Overview
+This feature allows the user to find repeaters in IchiFund. The search by matching provided keywords against repeater descriptions.
+
+===== Implementation
+The `find` command is facilitated by the Logic and Model components of the application. Given below is an example usage scenario of how `find` behaves at each step.
+
+*Step 1*: In the repeaters tab, the user executes `find phone husband` to find all repeaters whose descriptions contain both the keywords "phone" and "husband".
+
+*Step 2*: `LogicManager` uses `IchiFundParser#parserCommand()` to parse the input from the user.
+
+*Step 3*: `IchiFundParser` determines which command is being used and creates the respective `FindRepeaterCommandParser` parser with the user's input as an argument.
+
+*Step 4*: `FindRepeaterCommandParser` does a validation check on the user's input.
+
+*Step 5*: `FindRepeaterCommandParser` creates a `RepeaterDescriptionPredicate` which filters ``Repeater``s based on whether a `Repeater` contains all the keywords provided by the user.
+
+*Step 6*: `FindRepeaterCommandParser` creates and returns a `FindRepeaterCommand` with the `RepeaterDescriptionPredicate` as an arugment.
+
+*Step 7*: `LogicManager` calls `FindRepeaterCommand#execute()`.
+
+*Step 8*: `FindRepeaterCommand` sets the `RepeaterDescriptionPredicate` as the filter for the repeater list in the `Model`.
+
+*Step 9*: `FindRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
+// end::repeaterfind[]
+
 === Budget
 
 // tag::budgetadd[]
