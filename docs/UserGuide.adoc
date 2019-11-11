@@ -798,7 +798,6 @@ Currently, the following commands are undoable and redoable. +
 
 [underline]#Examples#:
 
-// tag::statisticsCommand[]
 * Redo clear Customer Book
 . `clear-c`
 . `undo`
@@ -827,9 +826,6 @@ Exits the program. +
 [underline]#Format#: `exit`
 
 If there are any statistics window open when executing this, the application will not terminate until those windows are closed too
-
-
-// tag::statisticsCommand[]
 
 // tag::statisticsCommandUG[]
 === Generate stats: `generate-s`
@@ -863,7 +859,7 @@ The argument must match these three words perfectly.
 
 Shown below:
 
-
+UndoRedoStack
 image::StatsExampleDefault.png[width="300"]
 
 
@@ -874,7 +870,7 @@ Format for the date is in YYYY.MM.DD e.g `2019.05.12`
 
 Shown below:
 
-image::StatsExampleGraph.png[width="300"]
+image::StatsExampleGraph.png[]
 
 // end::statisticsCommandUG[]
 [TIP]
@@ -1164,8 +1160,8 @@ simplified to `gp`.
 |Command | Summary
 |`switch-c` | Switches to customer tab panel.
 |`add-c n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]…`| Adds a new customer into SML
-|`edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]…​ `| Edits an existing customer.
-|`delete-c INDEX`| Deletes a customer and its associated orders and schedules.
+|`edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]…​`| Edits an existing customer.
+|`delete-c INDEX`| Deletes a customer anUndoRedoStackd its associated orders and schedules.
 |`clear-c`| Deletes all customers and their associated orders and schedules.
 |`find-c KEYWORD [MORE_KEYWORDS]`| Finds the customers that contain the keywords in its field.
 |`copy-c INDEX`| Copies a customer into the clipboard.
