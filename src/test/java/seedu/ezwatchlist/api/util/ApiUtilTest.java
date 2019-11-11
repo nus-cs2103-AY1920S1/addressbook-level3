@@ -1,13 +1,13 @@
 package seedu.ezwatchlist.api.util;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
+
 import seedu.ezwatchlist.model.show.Show;
-import seedu.ezwatchlist.testutil.TestUtil;
 import seedu.ezwatchlist.testutil.TypicalShows;
 
 class ApiUtilTest {
