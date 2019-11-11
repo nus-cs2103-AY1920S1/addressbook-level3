@@ -86,7 +86,7 @@ public class CategoryList {
      */
     public void setCategory(Category target, Category editedCategory) {
         requireAllNonNull(target, editedCategory);
-        ObservableList internalList = determineWhichList(target.getCategoryType());
+        ObservableList<Category> internalList = determineWhichList(target.getCategoryType());
         int index = internalList.indexOf(target);
         if (index == -1) {
             logger.info("Category isn't contained in GuiltTrip.");
@@ -97,7 +97,6 @@ public class CategoryList {
             logger.info("Category is a duplicate in GuiltTrip.It already exists.");
             throw new DuplicateCategoryException();
         }
-
         internalList.set(index, editedCategory);
     }
 
