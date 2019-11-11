@@ -39,6 +39,7 @@ public class MatchedWordUpdater {
             isSecondWordCorrect = checkCommandWord(parsedUserInputList);
         }
 
+        // Check third word (either prefix or index word)
         boolean isThirdWordCorrect = false;
         if (isSecondWordCorrect) {
             isThirdWordCorrect = checkThirdWord(parsedUserInputList);

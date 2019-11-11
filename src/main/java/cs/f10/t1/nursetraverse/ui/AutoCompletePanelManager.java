@@ -1,11 +1,13 @@
 package cs.f10.t1.nursetraverse.ui;
 
 import java.util.LinkedList;
+import java.util.logging.Logger;
 
 import cs.f10.t1.nursetraverse.autocomplete.AutoCompleteListHandler;
 import cs.f10.t1.nursetraverse.autocomplete.AutoCompleteWordStorage;
 import cs.f10.t1.nursetraverse.autocomplete.MatchedWordUpdater;
 import cs.f10.t1.nursetraverse.autocomplete.UserinputParserUtil;
+import cs.f10.t1.nursetraverse.commons.core.LogsCenter;
 import cs.f10.t1.nursetraverse.model.HistoryRecord;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
@@ -19,6 +21,8 @@ import javafx.scene.input.KeyCode;
  * This class was created to process and handle requests to update autocomplete panel
  */
 public class AutoCompletePanelManager implements UiObserver, DataSender {
+    private final Logger logger = LogsCenter.getLogger(AutoCompletePanelManager.class);
+
     private AutoCompleteListHandler autoCompleteListHandler;
     private MatchedWordUpdater matchedWordUpdater;
     private AutoCompletePanel autoCompletePanel;
@@ -43,7 +47,6 @@ public class AutoCompletePanelManager implements UiObserver, DataSender {
     }
 
     public void setSelected(int index) {
-
         if (index > getTotalItems() - 1) {
             this.selectedIndex = getTotalItems() - 1;
         } else if (index < 0) {
@@ -53,6 +56,7 @@ public class AutoCompletePanelManager implements UiObserver, DataSender {
         }
         autoCompletePanel.getAutoCompleteWordListView().getSelectionModel().select(selectedIndex);
         autoCompletePanel.getAutoCompleteWordListView().scrollTo(selectedIndex);
+        logger.info("Selected " + selectedIndex);
     }
 
     public int getTotalItems() {
@@ -95,6 +99,7 @@ public class AutoCompletePanelManager implements UiObserver, DataSender {
 
     @Override
     public String[] sendData() {
+        logger.info("Send data to commandbox");
         String textAfterSelection = matchedWordUpdater.getCombinedMatchedWords() + getSelected().getSuggestedWord();
         String selectedWordDescription = getSelected().getDescription();
 

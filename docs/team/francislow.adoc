@@ -35,6 +35,7 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=francislow
 ** Documentation:
 *** Updated developers guide(appendix A-E) https://github.com/AY1920S1-CS2103-F10-1/main/pull/44[#44]
 ** Community:
+*** Misc team bug fixes https://github.com/AY1920S1-CS2103-F10-1/main/issues/186[#186]
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F10-1/main/pull/81[#81], https://github.com/AY1920S1-CS2103-F10-1/main/pull/98[#98]
 *** Set up travis CI for the project
 
