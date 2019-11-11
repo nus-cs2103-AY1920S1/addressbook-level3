@@ -69,11 +69,13 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 image::ArchitectureSequenceDiagram.png[]
 The sections below give more details of each component.
 
+// tag::ui[]
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
 image::UiComponentClassDiagram.png[]
+// end::ui[]
 
 *API* : link:{repoURL}/src/main/java/io/xpire/ui/Ui.java[`Ui.java`]
 
@@ -779,7 +781,7 @@ The following changes have been made to the layout of the item card for a better
 
 Here is the redesigned `ItemCard`:
 
-image::ExpandCard.png[]
+image::ExpandCard.png[300]
 // end::userinterface[]
 
 === Logging

@@ -61,7 +61,6 @@ The feature is not hard coded and can easily integrate with future commands.
 |_You can refer to parts of my changes to the User Guide below, including some GUI components and reminder components._
 |===
 
-include::../UserGuide.adoc[tag=card]
 include::../UserGuide.adoc[tag=retrieve]
 
 include::../UserGuide.adoc[tag=setreminder]
@@ -72,6 +71,7 @@ include::../UserGuide.adoc[tag=setreminder]
 |_The following section are parts of my changes to the Developer Guide. Hope you can understands my features from a more technical point of view._
 |===
 
+include::../DeveloperGuide.adoc[tag=ui]
 include::../DeveloperGuide.adoc[tag=setreminder]
 include::../DeveloperGuide.adoc[tag=userinterface]
 //
