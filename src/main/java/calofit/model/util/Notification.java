@@ -18,7 +18,7 @@ public class Notification {
      * @return boolean value
      */
     public boolean eatenBreakfast() {
-        if (currDateTime.getHour() > 9) {
+        if (currDateTime.getHour() >= 10) {
             return false;
         } else {
             return true;
@@ -35,7 +35,7 @@ public class Notification {
             return true;
         }
 
-        if (dishDateTime.getDateTime().getHour() > 11) {
+        if (dishDateTime.getDateTime().getHour() >= 11) {
             return true;
         } else {
             return currDateTime.getHour() <= 13 || currDateTime.getHour() >= 20;
@@ -52,10 +52,10 @@ public class Notification {
             return true;
         }
 
-        if (dishDateTime.getDateTime().getHour() > 16) {
+        if (dishDateTime.getDateTime().getHour() >= 16) {
             return true;
         } else {
-            return (currDateTime.getHour() < 20);
+            return (currDateTime.getHour() <= 20);
         }
     }
 
