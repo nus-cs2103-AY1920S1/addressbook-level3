@@ -43,7 +43,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public Optional<Person> get(Person p) {
         requireNonNull(p);
-        return internalList.stream().filter(person -> person.equals(p)).findFirst();
+        return internalList.stream().filter(person -> person.isSamePerson(p)).findFirst();
     }
     /**
      * Adds a person to the list.

@@ -16,15 +16,15 @@ import seedu.address.model.util.Date;
 
 
 public class BudgetTest {
-    private static final Amount ONE = new Amount(100);
+    private static final Amount HUNDRED = new Amount(100);
 
     private static final String VALID_DATE = "31122025";
     private static final Set<Category> CATEGORIES = new HashSet<>();
     private static final String VALID_CATEGORIES = "food";
 
     private static final Budget BUDGET_ONE = new Budget();
-    private static final Budget BUDGET_TWO = new Budget(ONE, new Date(VALID_DATE));
-    private static final Budget BUDGET_THREE = new Budget(ONE, new Date(VALID_DATE), CATEGORIES);
+    private static final Budget BUDGET_TWO = new Budget(HUNDRED, new Date(VALID_DATE));
+    private static final Budget BUDGET_THREE = new Budget(HUNDRED, new Date(VALID_DATE), CATEGORIES);
 
 
     @Test
@@ -37,18 +37,31 @@ public class BudgetTest {
 
     @Test
     public void getBudget_success() {
-        assertEquals(ONE, new Budget(ONE, new Date(VALID_DATE)).getBudget());
+        assertEquals(HUNDRED, new Budget(HUNDRED, new Date(VALID_DATE)).getBudget());
         assertEquals(new Amount(10000), new Budget(new Amount(10000), new Date(VALID_DATE)).getBudget());
     }
 
     @Test
     public void getBudget_fail() {
-        assertNotEquals(ONE, new Budget(new Amount(10000), new Date(VALID_DATE)).getBudget());
+        assertNotEquals(HUNDRED, new Budget(new Amount(10000), new Date(VALID_DATE)).getBudget());
     }
 
     @Test
+    public void getInitialBudget_success() {
+        assertEquals(HUNDRED, new Budget(HUNDRED, new Date(VALID_DATE)).getInitialBudget());
+        assertEquals(new Amount(10000), new Budget(new Amount(10000), new Date(VALID_DATE)).getInitialBudget());
+        assertEquals(HUNDRED, new Budget(HUNDRED, HUNDRED, new Date(VALID_DATE), CATEGORIES).getInitialBudget());
+    }
+
+    @Test
+    public void getInitialBudget_fail() {
+        assertNotEquals(HUNDRED, new Budget(new Amount(10000), new Date(VALID_DATE)).getInitialBudget());
+    }
+
+
+    @Test
     public void getDeadline_success() {
-        assertEquals(new Date(VALID_DATE), new Budget(ONE, new Date(VALID_DATE)).getDeadline());
+        assertEquals(new Date(VALID_DATE), new Budget(HUNDRED, new Date(VALID_DATE)).getDeadline());
         assertEquals(new Date("31122020"), new Budget(new Amount(10000), new Date("31122020")).getDeadline());
     }
 
@@ -60,19 +73,19 @@ public class BudgetTest {
     @Test
     public void getCategories_success() {
         CATEGORIES.add(new Category(VALID_CATEGORIES));
-        assertEquals(CATEGORIES, new Budget(ONE, new Date(VALID_DATE), CATEGORIES).getCategories());
+        assertEquals(CATEGORIES, new Budget(HUNDRED, new Date(VALID_DATE), CATEGORIES).getCategories());
     }
 
     @Test
     public void getCategories_fail() {
         CATEGORIES.add(new Category(VALID_CATEGORIES));
-        assertNotEquals(new HashSet<Category>(), new Budget(ONE, new Date(VALID_DATE), CATEGORIES).getCategories());
+        assertNotEquals(new HashSet<Category>(), new Budget(HUNDRED, new Date(VALID_DATE), CATEGORIES).getCategories());
     }
 
     @Test
     public void isValid_true() {
-        assertTrue(new Budget(ONE, new Date(VALID_DATE)).isValid());
-        assertTrue(new Budget(ONE, new Date(VALID_DATE), CATEGORIES).isValid());
+        assertTrue(new Budget(HUNDRED, new Date(VALID_DATE)).isValid());
+        assertTrue(new Budget(HUNDRED, new Date(VALID_DATE), CATEGORIES).isValid());
     }
 
     @Test

@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -27,6 +25,8 @@ public class LedgerCard extends UiPart<Region> {
     private Label date;
     @FXML
     private FlowPane people;
+    @FXML
+    private FlowPane amounts;
 
     public LedgerCard(LedgerOperation ledgerOperation, int displayedIndex) {
         super(FXML);
@@ -34,11 +34,10 @@ public class LedgerCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         amount.setText(ledgerOperation.getAmount().toString());
         date.setText(ledgerOperation.getDate().toString());
-        // TODO FIX
-        //balance.setText(ledgerOperation.getAmount().toString());
         ledgerOperation.getPeopleInvolved().asUnmodifiableObservableList().stream()
-            .sorted(Comparator.comparing(person -> person.getName().fullName))
             .forEach(person -> people.getChildren().add(new Label(person.getName().fullName)));
+        ledgerOperation.getAmounts().stream()
+            .forEach(a -> amounts.getChildren().add(new Label(a.toString())));
     }
 
     @Override

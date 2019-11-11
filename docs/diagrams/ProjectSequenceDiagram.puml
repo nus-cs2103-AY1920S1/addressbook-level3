@@ -1,0 +1,117 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MainParser" as MainParser LOGIC_COLOR
+participant ":ProjectCommandParser" as ProjectCommandParser LOGIC_COLOR
+participant "p:ProjectCommand" as ProjectCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":ReadOnlyBankAccount" as ReadOnlyBankAccount MODEL_COLOR
+participant "dc:DateComparator" as DateComparator MODEL_COLOR
+participant "pr:Projection" as Projection MODEL_COLOR
+
+end box
+
+[-> LogicManager : execute("project d/DATE")
+activate LogicManager
+
+LogicManager -> MainParser : parseCommand("project d/DATE [c/CATEGORY]")
+activate MainParser
+
+create ProjectCommandParser
+MainParser -> ProjectCommandParser
+activate ProjectCommandParser
+
+ProjectCommandParser --> MainParser
+deactivate ProjectCommandParser
+
+MainParser -> ProjectCommandParser : parse("d/DATE [c/CATEGORY]")
+activate ProjectCommandParser
+
+create ProjectCommand
+ProjectCommandParser -> ProjectCommand : DATE, CATEGORY
+activate ProjectCommand
+
+ProjectCommand --> ProjectCommandParser : p
+deactivate ProjectCommand
+
+ProjectCommandParser --> MainParser : p
+deactivate ProjectCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ProjectCommandParser -[hidden]-> MainParser
+destroy ProjectCommandParser
+
+MainParser --> LogicManager : p
+deactivate MainParser
+
+LogicManager -> ProjectCommand : execute()
+activate ProjectCommand
+
+ProjectCommand -> ProjectCommand : ensureDateToProjectionIsWithinRange(DATE)
+
+ProjectCommand -> Model : getBankAccount()
+activate Model
+
+Model --> ProjectCommand : ReadOnlyBankAccount
+deactivate Model
+
+create DateComparator
+ProjectCommand --> DateComparator
+activate DateComparator
+
+DateComparator --> ProjectCommand
+deactivate DateComparator
+
+ProjectCommand --> ReadOnlyBankAccount : getSortedTransactionHistory(dc)
+activate ReadOnlyBankAccount
+
+ReadOnlyBankAccount --> ProjectCommand : th
+deactivate ReadOnlyBankAccount
+
+ProjectCommand --> Model : getFilteredBudgetList()
+    activate Model
+    Model --> ProjectCommand : budgets
+    deactivate Model
+
+alt has specified category
+    ProjectCommand --> ProjectCommand : th.filtered(CATEGORY)
+    ProjectCommand --> ProjectCommand : ensureMinimumTransactions(th)
+    ProjectCommand --> ProjectCommand : budgets.filtered(CATEGORY);
+    create Projection
+    ProjectCommand --> Projection : th, DATE, CATEGORY
+    activate Projection
+    Projection --> ProjectCommand
+    deactivate Projection
+else no category specified
+    ProjectCommand --> ProjectCommand : ensureMinimumTransactions(th)
+    ProjectCommand --> ProjectCommand : budgets.filtered(Category.GENERAL)
+    create Projection
+    ProjectCommand --> Projection : th, DATE
+    activate Projection
+    Projection --> ProjectCommand
+    deactivate Projection
+end
+ProjectCommand --> Model : add(pr)
+activate Model
+
+ProjectCommand --> Model : commitUserState()
+deactivate Model
+
+create CommandResult
+ProjectCommand --> CommandResult :pr
+activate CommandResult
+
+CommandResult --> ProjectCommand
+deactivate CommandResult
+
+ProjectCommand --> LogicManager : result
+deactivate ProjectCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -1,0 +1,19 @@
+@startuml
+start
+:User executes Filter command;
+:FilterCommandParser parses and validates user input;
+
+if() then ([Valid input])
+
+:Creates TransactionPredicate;
+:Creates FilterCommand containing TransactionPredicate;
+:Update FilteredTransactionList;
+:Commit UserState;
+
+else([else])
+:Throw ParseException;
+endif
+
+stop
+
+@enduml

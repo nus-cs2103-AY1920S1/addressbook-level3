@@ -11,7 +11,7 @@ import java.text.DecimalFormat;
  */
 public class Amount implements Comparable<Amount> {
 
-    public static final int UNSIGNED_INT_LIMIT = 100000000;
+    public static final int UNSIGNED_INT_LIMIT = 1000000000;
 
     public static final String MESSAGE_CONSTRAINTS =
         "Amounts should only be in integer or double, and it should not be blank";
@@ -26,7 +26,7 @@ public class Amount implements Comparable<Amount> {
         "Shares cannot be negative";
 
     public static final String DIVIDE_CONSTRAINTS =
-            "You cannot divide by $0";
+        "You cannot divide by $0";
 
     public static final DecimalFormat AMOUNT_DOUBLE_FORMAT = new DecimalFormat("#.00");
 
@@ -47,7 +47,6 @@ public class Amount implements Comparable<Amount> {
      */
     public Amount(int amount) {
         requireNonNull(amount);
-        checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
         checkArgument(isWithinLimits(amount), INT_CONSTRAINTS);
         this.amount = amount;
     }
@@ -64,7 +63,7 @@ public class Amount implements Comparable<Amount> {
     }
 
     public static double format(double value) {
-        return Double.valueOf(AMOUNT_DOUBLE_FORMAT.format(value));
+        return Double.parseDouble(AMOUNT_DOUBLE_FORMAT.format(value));
     }
 
     /**
@@ -149,6 +148,20 @@ public class Amount implements Comparable<Amount> {
      */
     public Amount makeNegative() {
         if (amount < 0) {
+            return new Amount(this.amount);
+        }
+        final int newAmount = this.amount * -1;
+        return new Amount(newAmount);
+    }
+
+    /**
+     * Make amount positive.
+     *
+     * @param
+     * @return positive amount
+     */
+    public Amount makePositive() {
+        if (amount >= 0) {
             return new Amount(this.amount);
         }
         final int newAmount = this.amount * -1;

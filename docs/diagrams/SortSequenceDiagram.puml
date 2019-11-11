@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":BankAccountParser" as BankAccountParser LOGIC_COLOR
+participant ":MainParser" as MainParser LOGIC_COLOR
 participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
 participant "s:SortCommand" as SortCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
@@ -11,23 +11,25 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
+participant ":VersionedUserState" as VersionedUserState MODEL_COLOR
+participant ":UserState" as UserState MODEL_COLOR
 participant ":ReadOnlyBankAccount" as ReadOnlyBankAccount MODEL_COLOR
 end box
 
-[-> LogicManager : execute(sort amount)
+[-> LogicManager : execute(sort date/d)
 activate LogicManager
 
-LogicManager -> BankAccountParser : parseCommand(sort amount)
-activate BankAccountParser
+LogicManager -> MainParser : parseCommand(sort date/d)
+activate MainParser
 
 create SortCommandParser
-BankAccountParser -> SortCommandParser
+MainParser -> SortCommandParser
 activate SortCommandParser
 
-SortCommandParser --> BankAccountParser
+SortCommandParser --> MainParser
 deactivate SortCommandParser
 
-BankAccountParser -> SortCommandParser : parse(sort amount)
+MainParser -> SortCommandParser : parse(sort date/d)
 activate SortCommandParser
 
 create SortCommand
@@ -37,14 +39,14 @@ activate SortCommand
 SortCommand --> SortCommandParser
 deactivate SortCommand
 
-SortCommandParser --> BankAccountParser
+SortCommandParser --> MainParser
 deactivate SortCommandParser
 
-SortCommandParser -[hidden]-> BankAccountParser
+SortCommandParser -[hidden]-> MainParser
 destroy SortCommandParser
 
-BankAccountParser --> LogicManager : s
-deactivate BankAccountParser
+MainParser --> LogicManager : s
+deactivate MainParser
 
 LogicManager -> SortCommand : execute()
 activate SortCommand
@@ -52,16 +54,35 @@ activate SortCommand
 SortCommand -> Model : getBankAccount()
 activate Model
 
-Model -> ReadOnlyBankAccount : getSortedTransactionHistory(comparator)
+Model -> VersionedUserState : getBankAccount()
+activate VersionedUserState
+
+VersionedUserState -> UserState : getBankAccount()
+activate UserState
+
+return
+
+return
+
+return
+
+SortCommand -> ReadOnlyBankAccount : getTransactionHistory()
+
 activate ReadOnlyBankAccount
 
-ReadOnlyBankAccount --> Model : sortedTransactionHistory
-deactivate ReadOnlyBankAccount
+return transactionHistory
+
+SortCommand -> SortCommand : sortTransactionHistory(transactionHistory)
+activate SortCommand
+
+return sortedTransactionHistory
 
 SortCommand -> Model : setTransactions(sortedTransactionHistory)
+activate Model
+
 Model --> SortCommand
 
-SortCommand -> Model : commitBankAccount()
+SortCommand -> Model : commitUserState()
 Model --> SortCommand
 deactivate Model
 
@@ -69,7 +90,7 @@ create CommandResult
 SortCommand -> CommandResult
 activate CommandResult
 
-CommandResult -> SortCommand
+CommandResult --> SortCommand
 deactivate CommandResult
 
 SortCommand --> LogicManager : r

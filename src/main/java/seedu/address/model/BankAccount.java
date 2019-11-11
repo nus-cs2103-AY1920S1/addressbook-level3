@@ -68,13 +68,16 @@ public class BankAccount implements ReadOnlyBankAccount {
 
     /**
      * Replaces the given transaction {@code target} in the list with {@code editedTransaction}.
+     * Updates the {@code budgets} with the {@code editedTransaction} amount if it is an OutTransaction
      * {@code target} must exist in the bank account.
      * The transaction identity of {@code editedTransaction} must not be the same as
      * another existing transaction in the bank account.
      */
     public void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
         requireNonNull(transactionEdit);
-
+        this.balance = this.balance.subtractAmount(transactionTarget.getAmount());
+        this.balance = this.balance.addAmount(transactionEdit.getAmount());
+        updateBudgets(transactionTarget, transactionEdit);
         transactions.setTransaction(transactionTarget, transactionEdit);
     }
 
@@ -98,7 +101,7 @@ public class BankAccount implements ReadOnlyBankAccount {
      */
     public void add(BankAccountOperation txn) {
         transactions.add(txn);
-        updateBudgets(txn);
+        updateBudgets(txn, false);
         Amount newBalance = txn.handleBalance(this.balance);
         this.balance = newBalance;
     }
@@ -129,6 +132,7 @@ public class BankAccount implements ReadOnlyBankAccount {
      */
     public void remove(BankAccountOperation key) {
         transactions.remove(key);
+        updateBudgets(key, true);
         this.balance = this.balance.subtractAmount(key.getAmount());
     }
 
@@ -177,15 +181,45 @@ public class BankAccount implements ReadOnlyBankAccount {
 
     /**
      * Updates each budget in {@code budgets} when OutTransaction is made.
+     * Each budget is updated only if it belongs to the same {@code Category} as the OutTransaction,
+     * and if OutTransaction is dated after Today, before the deadline.
      *
      * @param txn Transaction can be either InTransaction or OutTransaction.
      */
-    private void updateBudgets(BankAccountOperation txn) {
+    private void updateBudgets(BankAccountOperation txn, boolean isRemoveTransaction) {
         if (txn instanceof OutTransaction) {
             Amount outAmount = txn.getAmount();
             Set<Category> outCategories = txn.getCategories();
             for (Budget bd : budgets) {
-                Budget newBd = bd.updateBudget(outAmount, outCategories);
+                boolean beforeDeadline = txn.getDate().compareTo(bd.getDeadline()) < 0;
+                if (beforeDeadline) {
+                    Budget newBd = bd.updateBudget(outAmount, outCategories, isRemoveTransaction);
+                    setBudget(bd, newBd);
+
+                }
+            }
+        }
+    }
+
+    /**
+     * Updates each budget in {@code budgets} when OutTransaction is updated/changed.
+     *
+     * @param transactionTarget accepts the Transaction to be changed.
+     * @param transactionEdit accepts the Transaction to be edited.
+     * Only updates when transactionTarget and transactionEdit are both OutTransactions
+     */
+    private void updateBudgets(BankAccountOperation transactionTarget,
+                               BankAccountOperation transactionEdit) {
+        boolean isSameTransactionCategory = transactionTarget.getCategories()
+                .equals(transactionEdit.getCategories());
+        if (transactionTarget instanceof OutTransaction
+                && transactionEdit instanceof OutTransaction) {
+            Amount amountToReplace = transactionTarget.getAmount();
+            Amount amountReplacement = transactionEdit.getAmount();
+            Set<Category> outCategories = transactionEdit.getCategories();
+            for (Budget bd : budgets) {
+                Budget newBd = bd.updateBudget(amountToReplace,
+                        amountReplacement, outCategories, isSameTransactionCategory);
                 setBudget(bd, newBd);
             }
         }

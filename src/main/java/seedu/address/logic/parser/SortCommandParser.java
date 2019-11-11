@@ -20,11 +20,14 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     public SortCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        // TODO: CHANGE TO ENUMS
-        if (trimmedArgs.equals("date")) {
+        if (trimmedArgs.toLowerCase().equals("date/a")) {
             return new SortCommand(new DateComparator());
-        } else if (trimmedArgs.equals("amount")) {
+        } else if (trimmedArgs.toLowerCase().equals("amount/a")) {
             return new SortCommand(new AmountComparator());
+        } else if (trimmedArgs.toLowerCase().equals("date/d")) {
+            return new SortCommand(new DateComparator().reversed());
+        } else if (trimmedArgs.toLowerCase().equals("amount/d")) {
+            return new SortCommand(new AmountComparator().reversed());
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }

@@ -11,7 +11,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.commands.UpdateCommand.UpdateTransactionDescriptor;
@@ -23,6 +25,8 @@ import seedu.address.model.category.Category;
  */
 public class UpdateCommandParser implements Parser<UpdateCommand> {
 
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
     /**
      * Parses the given {@code String} of arguments in the context of the UpdateCommand
      * and returns an UpdateCommand object for execution.
@@ -31,6 +35,8 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
      */
     public UpdateCommand parse(String args) throws ParseException {
         requireNonNull(args);
+        logger.info("User entered: " + args);
+
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_CATEGORY);
 
@@ -38,35 +44,24 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         Index index;
 
         try {
-            type = ParserUtil.parseType(argMultimap.getPreamble());
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            String preamble = argMultimap.getPreamble();
+            type = ParserUtil.parseType(preamble);
+            index = ParserUtil.parseIndex(preamble);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE), pe);
         }
-        UpdateTransactionDescriptor updateTransactionDescriptor = new UpdateTransactionDescriptor();
-        if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
-            /* handles negative amount */
-            if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (NEGATIVE_AMOUNT_SIGN)) {
-                throw new ParseException(String.format(UpdateCommand.MESSAGE_AMOUNT_NEGATIVE));
-            }
 
-            /* handles 0 value */
-            if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (ZERO_AMOUNT)
-                && argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray().length == 1) {
-                throw new ParseException(String.format(UpdateCommand.MESSAGE_AMOUNT_ZERO));
-            }
-            /* handles overflow value */
-            if (Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) >= 1000000) {
-                throw new ParseException(String.format(UpdateCommand.MESSAGE_AMOUNT_OVERFLOW));
-            }
+        UpdateTransactionDescriptor updateTransactionDescriptor = new UpdateTransactionDescriptor();
+
+        if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
             updateTransactionDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
         }
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             updateTransactionDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            updateTransactionDescriptor.setDescription(
-                ParserUtil.parseDescription(argMultimap.getValue(PREFIX_NAME).get()));
+            updateTransactionDescriptor.setDescription(ParserUtil
+                    .parseDescription(argMultimap.getValue(PREFIX_NAME).get()));
         }
         parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY))
             .ifPresent(updateTransactionDescriptor::setCategories);

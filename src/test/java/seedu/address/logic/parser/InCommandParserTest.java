@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_ALICE;
@@ -10,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_RANGE_
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_TYPE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_ZERO_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATETYPE;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATETYPE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
@@ -24,6 +26,7 @@ import static seedu.address.testutil.TypicalTransactions.ALICE;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.InCommand;
 import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
@@ -55,13 +58,15 @@ public class InCommandParserTest {
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        BankAccountOperation expectedTransaction2 = new TransactionBuilder(ALICE).withCategories().build();
-        /* TODO: FIX
+        BankAccountOperation expectedTransaction2 = new TransactionBuilder(ALICE)
+                .withCategories("GENERAL").build();
+
         assertParseSuccess(parser, " " + AMOUNT_DESC_ALICE + DATE_DESC_ALICE
                 + DESCRIPTION_DESC_ALICE, new InCommand(expectedTransaction2));
-         */
     }
-    @Test void parse_compulsoryFieldMissing_failure() {
+
+    @Test
+    void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, InCommand.MESSAGE_USAGE);
 
         // missing amount prefix
@@ -86,11 +91,11 @@ public class InCommandParserTest {
 
         // invalid amount (zero)
         assertParseFailure(parser, " " + INVALID_AMOUNT_ZERO_DESC + DATE_DESC_ALICE
-                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, InCommand.MESSAGE_AMOUNT_ZERO);
+                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, Messages.MESSAGE_AMOUNT_ZERO);
 
         // invalid amount (range)
         assertParseFailure(parser, " " + INVALID_AMOUNT_RANGE_DESC + DATE_DESC_ALICE
-                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, InCommand.MESSAGE_AMOUNT_OVERFLOW);
+                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, Messages.MESSAGE_AMOUNT_OVERFLOW);
 
         // invalid amount (double)
         assertParseFailure(parser, " " + INVALID_AMOUNT_TYPE_DESC + DATE_DESC_ALICE
@@ -98,7 +103,7 @@ public class InCommandParserTest {
 
         // invalid amount (overflow)
         assertParseFailure(parser, " " + INVALID_AMOUNT_OVERFLOW_DESC + DATE_DESC_ALICE
-                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, InCommand.MESSAGE_AMOUNT_OVERFLOW);
+                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, Messages.MESSAGE_AMOUNT_OVERFLOW);
 
         // invalid date (format)
         assertParseFailure(parser, " " + AMOUNT_DESC_ALICE + INVALID_DATE_DESC
@@ -106,7 +111,8 @@ public class InCommandParserTest {
 
         // invalid date (type)
         assertParseFailure(parser, " " + AMOUNT_DESC_ALICE + INVALID_DATETYPE_DESC
-                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, Date.MESSAGE_DATE_INVALID);
+                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE,
+                String.format(Date.MESSAGE_DATE_INVALID, INVALID_DATETYPE));
 
         // invalid description
         assertParseFailure(parser, " " + AMOUNT_DESC_ALICE + DATE_DESC_ALICE

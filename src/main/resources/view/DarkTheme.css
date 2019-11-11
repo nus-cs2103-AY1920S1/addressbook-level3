@@ -122,6 +122,12 @@
     -fx-text-fill: #010504;
 }
 
+.minus {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: #d06651 !important;
+}
+
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
@@ -361,6 +367,30 @@
     -fx-font-size: 11;
 }
 
+#amounts .label {
+     -fx-text-fill: white;
+     -fx-background-color: #56ae87;
+     -fx-padding: 1 3 1 3;
+     -fx-border-radius: 2;
+     -fx-background-radius: 2;
+     -fx-font-size: 11;
+ }
+
+#budgetMinus {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#budgetMinus .label {
+    -fx-background-color: #DC143C;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
 #people {
     -fx-hgap: 7;
     -fx-vgap: 3;
@@ -375,29 +405,36 @@
     -fx-font-size: 14;
 }
 
+#budgetInfo {
+    -fx-vgap: 7;
+    -fx-hgap: 7;
+    -fx-padding: 7 0 10 0;
+}
+
+#category {
+    -fx-background-color: #0000FF;
+    -fx-text-fill: #7FFF00;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 14;
+}
+
 #budgetInfo .label {
-    -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
+    -fx-background-color: LightGray;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
-    -fx-font-size: 11;
+    -fx-font-size: 12;
 }
 
-#DEFICIT .label {
+#budgetInfo #deficit {
     -fx-background-color: #DC143C;
-    -fx-text-fill: white;
     -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
-    -fx-background-radius: 2;
-    -fx-font-size: 11;
 }
 
-#SURPLUS .label {
+#budgetInfo #surplus {
     -fx-background-color: #BDB76B;
-    -fx-text-fill: white;
     -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
-    -fx-background-radius: 2;
-    -fx-font-size: 11;
 }
+

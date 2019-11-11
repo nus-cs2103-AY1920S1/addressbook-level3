@@ -1,0 +1,16 @@
+{
+  "_comment": "UserState save file which contains the same Budget values as in TypicalBudgets#getTypicalUserState()",
+  "transactions": [],
+  "budgets": [
+    {
+      "initialAmount": "100.00",
+      "amount": "100.00",
+      "date": "abcdefg",
+      "tagged": [
+        "food"
+      ]
+    }
+  ],
+  "ledgers": [],
+  "projections": []
+}

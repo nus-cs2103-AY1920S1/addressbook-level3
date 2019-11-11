@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -12,10 +13,14 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.ProjectCommand;
+import seedu.address.model.person.Person;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
+import seedu.address.model.transaction.UniqueBudgetList;
+import seedu.address.model.transaction.UniqueTransactionList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -127,29 +132,41 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteTransaction(BankAccountOperation transaction) {
+    public void delete(BankAccountOperation transaction) {
         versionedUserState.remove(transaction);
     }
 
     @Override
-    public void deleteBudget(Budget budget) {
+    public void delete(Budget budget) {
         versionedUserState.remove(budget);
     }
 
     @Override
-    public void deleteProjection(Projection projectionToDelete) {
+    public void delete(Projection projectionToDelete) {
         versionedUserState.remove(projectionToDelete);
     }
 
     @Override
-    public void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
+    public void delete(LedgerOperation ledgerToDelete) {
+        versionedUserState.remove(ledgerToDelete);
+    }
+
+    @Override
+    public void set(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
         requireAllNonNull(transactionTarget, transactionEdit);
 
         versionedUserState.set(transactionTarget, transactionEdit);
     }
 
     @Override
-    public void setBudget(Budget budgetTarget, Budget budgetEdit) {
+    public void set(LedgerOperation ledgerTarget, LedgerOperation ledgerEdit) {
+        requireAllNonNull(ledgerTarget, ledgerEdit);
+
+        versionedUserState.set(ledgerTarget, ledgerEdit);
+    }
+
+    @Override
+    public void set(Budget budgetTarget, Budget budgetEdit) {
         requireAllNonNull(budgetTarget, budgetEdit);
 
         versionedUserState.set(budgetTarget, budgetEdit);
@@ -176,6 +193,15 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public List<BankAccountOperation> getTransactionList() {
+        Predicate<? super BankAccountOperation> pred = this.filteredTransactions.getPredicate();
+        this.filteredTransactions.setPredicate(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        List<BankAccountOperation> transactionList = new ArrayList<>(this.filteredTransactions);
+        this.filteredTransactions.setPredicate(pred);
+        return transactionList;
+    }
+
+    @Override
     public ObservableList<BankAccountOperation> getFilteredTransactionList() {
         return filteredTransactions;
     }
@@ -196,6 +222,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Person> getPeopleInLedger() {
+        return versionedUserState.getLedger().getPeople();
+    }
+
+    @Override
     public boolean canUndoUserState() {
         return versionedUserState.canUndo();
     }
@@ -203,6 +234,7 @@ public class ModelManager implements Model {
     @Override
     public void undoUserState() {
         versionedUserState.undo();
+        updateAllPredicates();
     }
 
     @Override
@@ -213,11 +245,16 @@ public class ModelManager implements Model {
     @Override
     public void redoUserState() {
         versionedUserState.redo();
+        updateAllPredicates();
     }
 
     @Override
     public void commitUserState() {
-        versionedUserState.commit();
+        Predicate<? super BankAccountOperation> transPred = this.filteredTransactions.getPredicate();
+        Predicate<? super Budget> budgetPred = this.filteredBudgets.getPredicate();
+        Predicate<? super LedgerOperation> ledgerPred = this.filteredLedgerOperations.getPredicate();
+        Predicate<? super Projection> projectionPred = this.filteredProjections.getPredicate();
+        versionedUserState.commit(transPred, budgetPred, ledgerPred, projectionPred);
     }
 
     @Override
@@ -238,6 +275,125 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateProjectionsAfterAdd(BankAccountOperation added) {
+        this.getFilteredProjectionsList().forEach(x -> {
+            if (x.isGeneral()) {
+                this.delete(x);
+                UniqueTransactionList newTransactions = new UniqueTransactionList();
+                newTransactions.setTransactions(x.getTransactionHistory());
+                newTransactions.add(added);
+                this.add(new Projection(newTransactions.asUnmodifiableObservableList(), x.getDate(), x.getBudgets()));
+            } else {
+                boolean sameCategory = added.getCategories().stream().anyMatch(c -> {
+                    if (x.getCategory() != null) {
+                        return c.equals(x.getCategory());
+                    }
+                    return false;
+                });
+                if (sameCategory) {
+                    this.delete(x);
+                    UniqueTransactionList newTransactions = new UniqueTransactionList();
+                    newTransactions.setTransactions(x.getTransactionHistory());
+                    newTransactions.add(added);
+                    this.add(new Projection(newTransactions.asUnmodifiableObservableList(),
+                        x.getDate(), x.getBudgets(), x.getCategory()));
+                }
+            }
+        });
+    }
+
+    @Override
+    public void updateProjectionsAfterAdd(Budget added) {
+        this.getFilteredProjectionsList().forEach(x -> {
+            if (added.isGeneral() && x.isGeneral()) {
+                this.delete(x);
+                UniqueBudgetList newBudgets = new UniqueBudgetList();
+                newBudgets.setBudgets(x.getBudgets());
+                newBudgets.add(added);
+                this.add(new Projection(this.getFilteredTransactionList(), x.getDate(),
+                    newBudgets.asUnmodifiableObservableList()));
+            } else {
+                boolean sameCategory = added.getCategories().stream().anyMatch(c -> {
+                    if (x.getCategory() != null) {
+                        return c.equals(x.getCategory());
+                    }
+                    return false;
+                });
+                if (sameCategory) {
+                    this.delete(x);
+                    UniqueBudgetList newBudgets = new UniqueBudgetList();
+                    newBudgets.setBudgets(x.getBudgets());
+                    newBudgets.add(added);
+                    this.add(new Projection(x.getTransactionHistory(),
+                        x.getDate(), newBudgets.asUnmodifiableObservableList(), x.getCategory()));
+                }
+            }
+        });
+    }
+
+    @Override
+    public void updateProjectionsAfterDelete(BankAccountOperation deleted) {
+        this.getFilteredProjectionsList().forEach(x -> {
+            if (x.isGeneral()) {
+                this.delete(x);
+                UniqueTransactionList newTransactions = new UniqueTransactionList();
+                newTransactions.setTransactions(x.getTransactionHistory());
+                newTransactions.remove(deleted);
+                if (newTransactions.asUnmodifiableObservableList().size()
+                    >= ProjectCommand.REQUIRED_MINIMUM_TRANSACTIONS) {
+                    this.add(new Projection(newTransactions.asUnmodifiableObservableList(),
+                        x.getDate(), x.getBudgets()));
+                }
+            } else {
+                boolean sameCategory = deleted.getCategories().stream().anyMatch(c -> {
+                    if (x.getCategory() != null) {
+                        return c.equals(x.getCategory());
+                    }
+                    return false;
+                });
+                if (sameCategory) {
+                    this.delete(x);
+                    UniqueTransactionList newTransactions = new UniqueTransactionList();
+                    newTransactions.setTransactions(x.getTransactionHistory());
+                    newTransactions.remove(deleted);
+                    this.add(new Projection(newTransactions.asUnmodifiableObservableList(),
+                        x.getDate(), x.getBudgets(), x.getCategory()));
+                }
+            }
+        });
+    }
+
+    @Override
+    public void updateProjectionsAfterDelete(Budget deleted) {
+        this.getFilteredProjectionsList().forEach(x -> {
+            if (deleted.isGeneral() && x.isGeneral()) {
+                this.delete(x);
+                UniqueBudgetList newBudgets = new UniqueBudgetList();
+                newBudgets.setBudgets(x.getBudgets());
+                newBudgets.remove(deleted);
+                this.add(new Projection(this.getFilteredTransactionList(), x.getDate(),
+                    newBudgets.asUnmodifiableObservableList()));
+            } else {
+                boolean sameCategory = deleted.getCategories().stream().anyMatch(c -> {
+                    if (x.getCategory() != null) {
+                        return c.equals(x.getCategory());
+                    }
+                    return false;
+                });
+                if (sameCategory) {
+                    this.delete(x);
+                    UniqueBudgetList newBudgets = new UniqueBudgetList();
+                    newBudgets.setBudgets(x.getBudgets());
+                    newBudgets.remove(deleted);
+                    this.add(new Projection(x.getTransactionHistory(),
+                        x.getDate(), newBudgets.asUnmodifiableObservableList(), x.getCategory()));
+                }
+            }
+        });
+    }
+
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -255,6 +411,16 @@ public class ModelManager implements Model {
             && userPrefs.equals(other.userPrefs)
             && filteredTransactions.equals(other.filteredTransactions)
             && filteredBudgets.equals(other.filteredBudgets);
+    }
+
+    /**
+     * Updates all list with the current predicates stored in {@code VersionedUserState}.
+     */
+    private void updateAllPredicates() {
+        this.filteredTransactions.setPredicate(versionedUserState.getCurrentTransPred());
+        this.filteredBudgets.setPredicate(versionedUserState.getCurrentBudgetPred());
+        this.filteredLedgerOperations.setPredicate(versionedUserState.getCurrentLedgerPred());
+        this.filteredProjections.setPredicate(versionedUserState.getCurrentProjectionPred());
     }
 
 }

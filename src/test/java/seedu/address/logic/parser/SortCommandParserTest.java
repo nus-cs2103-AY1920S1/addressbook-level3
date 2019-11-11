@@ -26,11 +26,25 @@ public class SortCommandParserTest {
         SortCommand expectedDateSortCommand = new SortCommand(new DateComparator());
 
         // no leading and trailing whitespaces
-        assertParseSuccess(parser, "amount", expectedAmountSortCommand);
-        assertParseSuccess(parser, "date", expectedDateSortCommand);
+        assertParseSuccess(parser, "amount/a", expectedAmountSortCommand);
+        assertParseSuccess(parser, "date/a", expectedDateSortCommand);
 
         // leading and trailing whitespaces
-        assertParseSuccess(parser, "   amount   ", expectedAmountSortCommand);
-        assertParseSuccess(parser, "   date   ", expectedDateSortCommand);
+        assertParseSuccess(parser, "   amount/a   ", expectedAmountSortCommand);
+        assertParseSuccess(parser, "   date/a   ", expectedDateSortCommand);
+    }
+
+    @Test
+    public void parse_validArgs_returnsReverseSortCommand() {
+        SortCommand expectedAmountSortCommand = new SortCommand(new AmountComparator().reversed());
+        SortCommand expectedDateSortCommand = new SortCommand(new DateComparator().reversed());
+
+        // no leading and trailing whitespaces
+        assertParseSuccess(parser, "amount/d", expectedAmountSortCommand);
+        assertParseSuccess(parser, "date/d", expectedDateSortCommand);
+
+        // leading and trailing whitespaces
+        assertParseSuccess(parser, "   amount/d   ", expectedAmountSortCommand);
+        assertParseSuccess(parser, "   date/d   ", expectedDateSortCommand);
     }
 }

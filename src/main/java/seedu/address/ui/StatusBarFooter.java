@@ -2,11 +2,13 @@ package seedu.address.ui;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 
@@ -17,6 +19,8 @@ public class StatusBarFooter extends UiPart<Region> {
 
     private static final String FXML = "StatusBarFooter.fxml";
 
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
     @FXML
     private Label saveLocationStatus;
 
@@ -25,18 +29,23 @@ public class StatusBarFooter extends UiPart<Region> {
 
     private Amount amount;
 
-    public StatusBarFooter(Path saveLocation, ObservableList<BankAccountOperation> transactions) {
+    public StatusBarFooter(Path saveLocation, List<BankAccountOperation> transactions) {
         super(FXML);
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
         setBalance(transactions);
     }
 
-    public void setBalance(ObservableList<BankAccountOperation> transactions) {
+    public void setBalance(List<BankAccountOperation> transactions) {
         Amount amount = Amount.zero();
         for (BankAccountOperation transaction : transactions) {
             amount = amount.addAmount(transaction.getAmount());
         }
         this.amount = amount;
         balance.setText("Balance: " + this.amount.toString());
+    }
+
+    public void setBalance(Amount amount) {
+        logger.info("Amount supplied: " + amount.toString());
+        balance.setText(amount.toString());
     }
 }

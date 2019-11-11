@@ -8,7 +8,7 @@ package Logic {
 
 package Parser {
 Interface Parser <<Interface>>
-Class AddressBookParser
+Class BankAccountParser
 Class XYZCommandParser
 Class CliSyntax
 Class ParserUtil
@@ -18,13 +18,13 @@ Class Prefix
 }
 
 package Command {
-Class XYZCommand
-Class CommandResult
-Class "{abstract}\nCommand" as Command
+Class XYZCommand MODEL_COLOR
+Class CommandResult MODEL_COLOR
+Class "{abstract}\nCommand" as Command MODEL_COLOR
 }
 
-Interface Logic <<Interface>>
-Class LogicManager
+Interface Logic <<Interface>> LOGIC_COLOR_T2
+Class LogicManager LOGIC_COLOR_T2
 }
 
 package Model{
@@ -35,8 +35,8 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager -->"1" BankAccountParser
+BankAccountParser .left.> XYZCommandParser: creates >
 
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
@@ -53,7 +53,7 @@ LogicManager .left.> Command : executes >
 
 LogicManager --> Model
 Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+note right of XYZCommand: XYZCommand = InCommand, \nSetCommand, etc
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult

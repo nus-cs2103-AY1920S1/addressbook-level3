@@ -20,8 +20,8 @@ public class AmountTest {
     @Test
     public void isWithinLimits_withinLimits_true() {
         assertTrue(Amount.isWithinLimits(Amount.UNSIGNED_INT_LIMIT));
-        assertTrue(Amount.isWithinLimits(100000000));
-        assertTrue(Amount.isWithinLimits(99999999));
+        assertTrue(Amount.isWithinLimits(1000000000));
+        assertTrue(Amount.isWithinLimits(999999999));
         assertTrue(Amount.isWithinLimits(0));
         assertTrue(Amount.isWithinLimits(1));
         assertTrue(Amount.isWithinLimits(-1));
@@ -30,7 +30,7 @@ public class AmountTest {
 
     @Test
     public void isWithinLimits_overLimits_false() {
-        assertFalse(Amount.isWithinLimits(100000001));
+        assertFalse(Amount.isWithinLimits(1000000001));
         assertFalse(Amount.isWithinLimits(Amount.UNSIGNED_INT_LIMIT + 1));
         assertFalse(Amount.isWithinLimits(-Amount.UNSIGNED_INT_LIMIT - 1));
     }
@@ -120,5 +120,27 @@ public class AmountTest {
     @Test
     public void byShare_invalidShares_throwsException() {
         assertThrows(IllegalArgumentException.class, () -> ONE.byShare(-1));
+    }
+
+    @Test
+    public void makeNegative_success() {
+        Amount negativeOne = new Amount(-1);
+        assertEquals(negativeOne, ONE.makeNegative());
+        assertEquals(negativeOne, negativeOne.makeNegative());
+    }
+
+    @Test
+    public void makePositive_success() {
+        Amount negativeOne = new Amount(-1);
+        assertEquals(ONE, ONE.makePositive());
+        assertEquals(ONE, negativeOne.makePositive());
+    }
+
+    @Test
+    public void isNegative_success() {
+        Amount negativeOne = new Amount(-1);
+        assertTrue(negativeOne.isNegative());
+        assertFalse(ONE.isNegative());
+        assertFalse(ZERO.isNegative());
     }
 }

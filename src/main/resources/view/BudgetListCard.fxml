@@ -26,6 +26,7 @@
                     </minWidth>
                 </Label>
                 <Label fx:id="amount" text="\$first" styleClass="cell_big_label" />
+                <Label fx:id="minus" text="\$first" styleClass="minus" />
             </HBox>
             <FlowPane fx:id="budgetDetails" />
             <FlowPane fx:id="categories" />

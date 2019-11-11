@@ -11,6 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyUserState;
+import seedu.address.model.person.Person;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -76,6 +77,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public List<BankAccountOperation> getTransactionList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ReadOnlyBankAccount getBankAccount() {
         throw new AssertionError("This method should not be called.");
     }
@@ -136,17 +142,37 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void deleteTransaction(BankAccountOperation target) {
+    public void delete(BankAccountOperation target) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setTransaction(BankAccountOperation target, BankAccountOperation editedTransaction) {
+    public void delete(LedgerOperation target) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setBudget(Budget budgetTarget, Budget budgetEdit) {
+    public void delete(Budget budgetToDelete) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void delete(Projection projectionToDelete) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void set(BankAccountOperation target, BankAccountOperation editedTransaction) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void set(LedgerOperation ledgerTarget, LedgerOperation ledgerEdit) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void set(Budget budgetTarget, Budget budgetEdit) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -166,18 +192,26 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void updateProjectionsAfterDelete(BankAccountOperation deleted) {
+    }
+
+    @Override
+    public void updateProjectionsAfterDelete(Budget budget) {
+
+    }
+
+    @Override
+    public void updateProjectionsAfterAdd(BankAccountOperation added) {
+    }
+
+    @Override
+    public void updateProjectionsAfterAdd(Budget budget) {
+
+    }
+
+    @Override
     public ObservableList<Budget> getFilteredBudgetList() {
         throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void deleteBudget(Budget budgetToDelete) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void deleteProjection(Projection projectionToDelete) {
-
     }
 
     @Override
@@ -187,6 +221,11 @@ public class ModelStub implements Model {
 
     @Override
     public ObservableList<Projection> getFilteredProjectionsList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Person> getPeopleInLedger() {
         throw new AssertionError("This method should not be called.");
     }
 }

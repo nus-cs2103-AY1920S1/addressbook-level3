@@ -38,7 +38,8 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTRY_SUCCESS, transactionToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getUserState(), new UserPrefs());
-        expectedModel.deleteTransaction(transactionToDelete);
+        expectedModel.delete(transactionToDelete);
+        expectedModel.updateProjectionsAfterDelete(transactionToDelete);
         expectedModel.commitUserState();
         assertCommandSuccess(deleteCommand, model,
             new CommandResult(expectedMessage, false, false, Tab.TRANSACTION), expectedModel);
@@ -54,7 +55,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
+        // showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
 
         BankAccountOperation transactionToDelete = model
             .getFilteredTransactionList()
@@ -64,8 +65,8 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTRY_SUCCESS, transactionToDelete);
 
         Model expectedModel = new ModelManager(model.getUserState(), new UserPrefs());
-        expectedModel.deleteTransaction(transactionToDelete);
-        showNoTransaction(expectedModel);
+        expectedModel.delete(transactionToDelete);
+        // showNoTransaction(expectedModel);
         expectedModel.commitUserState();
         assertCommandSuccess(deleteCommand, model,
             new CommandResult(expectedMessage, false, false, Tab.TRANSACTION), expectedModel);

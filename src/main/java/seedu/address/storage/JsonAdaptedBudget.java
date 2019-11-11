@@ -23,6 +23,7 @@ class JsonAdaptedBudget {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Budget's %s field is missing!";
 
+    private final String initialAmount;
     private final String amount;
     private final String date;
     private final List<JsonAdaptedCategory> tagged = new ArrayList<>();
@@ -31,8 +32,10 @@ class JsonAdaptedBudget {
      * Constructs a {@code JsonAdaptedBudget} with the given budget details.
      */
     @JsonCreator
-    public JsonAdaptedBudget(@JsonProperty("amount") String amount, @JsonProperty("date") String date,
+    public JsonAdaptedBudget(@JsonProperty("initialAmount") String initialAmount,
+                             @JsonProperty("amount") String amount, @JsonProperty("date") String date,
                              @JsonProperty("tagged") List<JsonAdaptedCategory> tagged) {
+        this.initialAmount = initialAmount;
         this.amount = amount;
         this.date = date;
         if (tagged != null) {
@@ -44,6 +47,7 @@ class JsonAdaptedBudget {
      * Converts a given {@code Budget} into this class for Jason use.
      */
     public JsonAdaptedBudget(Budget source) {
+        initialAmount = source.getInitialBudget().toString();
         amount = source.getBudget().toString();
         date = source.getDeadline().toString();
         tagged.addAll(source.getCategories().stream()
@@ -62,6 +66,10 @@ class JsonAdaptedBudget {
             budgetCategories.add(category.toModelType());
         }
 
+        if (initialAmount == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
+        }
+
         if (amount == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
         }
@@ -74,9 +82,14 @@ class JsonAdaptedBudget {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
 
+        if (!Date.isValid(date)) {
+            throw new IllegalValueException(Date.MESSAGE_FORMAT_CONSTRAINTS);
+        }
+
         final Set<Category> modelCategories = new HashSet<>(budgetCategories);
 
-        return new Budget(new Amount(Double.parseDouble(amount)), new Date(date), modelCategories);
+        return new Budget(new Amount(Double.parseDouble(initialAmount)),
+            new Amount(Double.parseDouble(amount)), new Date(date), modelCategories);
     }
 
 }

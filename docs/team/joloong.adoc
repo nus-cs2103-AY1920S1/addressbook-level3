@@ -13,30 +13,39 @@ This portfolio documents my contributions to PalPay, a software engineering proj
 CS2103T Software Engineering. For this module, we were provided with a working software application which we
 could enhance or morph to suit our target audience.
 
-For the project, my main role was the System Tester where I ensured the application was free from bugs and good code
-quality.
+For the project, my main role was
 
 == Summary of contributions
 
 * *Code contributed*: https://ay1920s1-cs2103t-w12-3.github.io/publish-RepoSense/#search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=joloong&tabRepo=AY1920S1-CS2103T-W12-3%2Fmain%5Bmaster%5D[RepoSense]
 
-* *Major enhancement*:
+* *Major enhancement*: Implemented the ability to undo and redo previous commands.
 
-** What it does:
+** What it does: Undo command allows the user to undo all previous commands one at a time. Redo command reverses
+preceding undo command.
 
-** Justification:
+** Justification: It gives users the ability to easily rectify their mistakes in commands. Hence, it improves
+the user experience and a more convenient way of self-correction.
 
 
-** Highlights:
+** Highlights: This requires a thorough understanding of the starting infrastructure of the application in other
+to make changes to it. This enhancement affects existing commands and commands to be added in future. I need to
+ensure the commands are undoable and redoable, and that there are no conflicts.
 
 * *Minor enhancement*:
 
-** Placeholder
+** *View* command for users to switch tabs without the need of a mouse to click another tab. This meets the needs
+of the target audiences who prefer using the command line.
+** *Sort* command for users to sort their lists of transactions in PalPay.
+** *Filter* command for users to filter their lists of transactions to reduce the need of scrolling through their lists.
+
 
 * *Other contributions*:
 
 ** Project management:
-*** PlaceHolder
+*** Managed the biweekly project releases on GitHub.
+*** Managed the issue tracker of the group repository.
+*** Reviewed and merged pull requests.
 
 ** Enhancements to existing features:
 *** Wrote comprehensive unit and integration test cases for the application's logic and model.
@@ -46,21 +55,34 @@ https://github.com/AY1920S1-CS2103T-W12-3/main/pull/202[#202],
 https://github.com/AY1920S1-CS2103T-W12-3/main/pull/205[#205])
 
 ** Documentation:
-*** User Guide
-**** Placeholder
-*** Developer Guide
-**** Placeholder
+*** Reformatted the User Guide for a more sequential flow.
+*** Wrote the details for the following commands in the User Guide.
+**** View
+**** Sort
+**** Filter
+**** Undo
+**** Redo
+**** Clear
+**** List
+**** Help
+**** Exit
+*** Wrote user stories in the Developer Guide.
+*** Created UML diagrams to help in the explanation of view, sort and filter commands in the Developer Guide.
 
 ** Community:
-*** Reported bugs and suggestions for other teams in the module. (
-Examples: https://github.com/AY1920S1-CS2103T-T10-3/main/issues/219[#219],
+*** Reported bugs and suggestions for other teams in the module. (Examples:
+https://github.com/AY1920S1-CS2103T-T10-3/main/issues/219[#219],
 https://github.com/AY1920S1-CS2103T-T10-3/main/issues/220[#220],
 https://github.com/AY1920S1-CS2103T-T10-3/main/issues/222[#222],
 https://github.com/AY1920S1-CS2103T-T10-3/main/issues/229[#229])
+*** Provided tips and help to other students in the module. (Examples:
+https://github.com/nus-cs2103-AY1920S1/forum/issues/70[#70],
+https://github.com/nus-cs2103-AY1920S1/forum/issues/79[#79],
+https://github.com/nus-cs2103-AY1920S1/forum/issues/110[#110])
 
 ** Tools:
-*** Managed the initial set up of group repository on GitHub.
-*** Integrated Travis CI, Coveralls, Netlify and RepoSense into our repository.
+*** Managed the initial set up of the group repository on GitHub.
+*** Integrated Travis CI, Coveralls, Netlify and RepoSense into the group repository.
 
 == Contributions to the User Guide
 

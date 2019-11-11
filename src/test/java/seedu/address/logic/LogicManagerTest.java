@@ -103,7 +103,7 @@ public class LogicManagerTest {
             .withDescription("milk")
             .withAmount("69")
             .withDate("19112019")
-            .withCategories("Uncategorised")
+            .withCategories("GENERAL")
             .build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.add(expectedOp);
@@ -118,8 +118,8 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getTransactionList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getTransactionList().remove(0));
+    public void getTransactionList_modifyList_throwsIndexOutOfBoundsException() {
+        assertThrows(IndexOutOfBoundsException.class, () -> logic.getTransactionList().remove(0));
     }
 
     @Test
@@ -130,6 +130,11 @@ public class LogicManagerTest {
     @Test
     public void getLedgerOperationsList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getLedgerOperationsList().remove(0));
+    }
+
+    @Test
+    public void getPeopleInLedger_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getPeopleInLedger().remove(0));
     }
 
     /**

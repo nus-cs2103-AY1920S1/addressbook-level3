@@ -26,13 +26,17 @@ public class MainTabPanel extends UiPart<Region> {
     private StackPane ledgerListPanelPlaceholder;
 
     @FXML
+    private StackPane personListPanelPlaceholder;
+
+    @FXML
     private StackPane projectionGraphPlaceholder;
 
     @FXML
     private TabPane mainTabPanel;
 
     public MainTabPanel(TransactionListPanel transactionListPanel, BudgetListPanel budgetListPanel,
-                        LedgerListPanel ledgerListPanel, ProjectionListPanel projectionListPanel) {
+                        LedgerListPanel ledgerListPanel, ProjectionListPanel projectionListPanel,
+                        PersonListPanel personListPanel) {
         super(FXML);
 
         transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
@@ -40,6 +44,8 @@ public class MainTabPanel extends UiPart<Region> {
         budgetListPanelPlaceholder.getChildren().add(budgetListPanel.getRoot());
 
         ledgerListPanelPlaceholder.getChildren().add(ledgerListPanel.getRoot());
+
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         projectionGraphPlaceholder.getChildren().add(projectionListPanel.getRoot());
     }

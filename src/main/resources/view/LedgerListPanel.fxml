@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
-    <ListView fx:id="ledgerListView" VBox.vgrow="ALWAYS"/>
-</VBox>
+<HBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" >
+    <ListView fx:id="operationListView" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"/>
+</HBox>

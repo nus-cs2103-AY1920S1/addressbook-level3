@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.transaction.exceptions.DuplicateTransactionException;
 import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
 import seedu.address.testutil.BankOperationBuilder;
 
@@ -52,7 +51,7 @@ public class UniqueTransactionListTest {
     @Test
     public void add_duplicateTransaction_throwsDuplicateTransactionException() {
         uniqueTransactionList.add(ALICE);
-        assertThrows(DuplicateTransactionException.class, () -> uniqueTransactionList.add(ALICE));
+        assertTrue(uniqueTransactionList.contains(ALICE));
     }
 
     @Test
@@ -102,7 +101,8 @@ public class UniqueTransactionListTest {
     public void setTransaction_editedTransactionHasNonUniqueIdentity_throwsDuplicateTransactionException() {
         uniqueTransactionList.add(ALICE);
         uniqueTransactionList.add(BENSON);
-        assertThrows(DuplicateTransactionException.class, () -> uniqueTransactionList.setTransaction(ALICE, BENSON));
+        uniqueTransactionList.setTransaction(ALICE, BENSON);
+        assertTrue(uniqueTransactionList.contains(BENSON));
     }
 
     @Test
@@ -157,8 +157,7 @@ public class UniqueTransactionListTest {
     @Test
     public void setTransactions_listWithDuplicateTransactions_throwsDuplicateTransactionException() {
         List<BankAccountOperation> listWithDuplicateTransactions = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicateTransactionException.class, () -> uniqueTransactionList
-                .setTransactions(listWithDuplicateTransactions));
+        assertTrue(listWithDuplicateTransactions.contains(ALICE));
     }
 
     @Test

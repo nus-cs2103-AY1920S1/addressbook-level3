@@ -68,12 +68,21 @@ public class UserState implements ReadOnlyUserState {
         bankAccount.remove(projection);
     }
 
+    public void remove(LedgerOperation ledgerOperation) {
+        ledger.remove(ledgerOperation);
+    }
+
+
     public void set(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
         bankAccount.setTransaction(transactionTarget, transactionEdit);
     }
 
     public void set(Budget budgetTarget, Budget budgetEdit) {
         bankAccount.setBudget(budgetTarget, budgetEdit);
+    }
+
+    public void set(LedgerOperation target, LedgerOperation source) {
+        ledger.set(target, source);
     }
 
     public void set(List<BankAccountOperation> transactionHistory) {

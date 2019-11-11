@@ -2,8 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SHARE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -20,9 +21,10 @@ public class ReceiveCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Friend pays you some money.\n"
         + "Parameters: "
-        + PREFIX_AMOUNT + "AMOUNT\n"
-        + PREFIX_NAME + "NAME\n"
-        + "[" + PREFIX_SHARE + "SHARE]...\n"
+        + PREFIX_AMOUNT + "AMOUNT "
+        + PREFIX_NAME + "NAME "
+        + "[" + PREFIX_DESC + "DESCRIPTION] "
+        + "[" + PREFIX_DATE + "DATE]\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_AMOUNT + "600 "
         + PREFIX_NAME + "John Doe \n";
@@ -46,6 +48,18 @@ public class ReceiveCommand extends Command {
             model.add(transaction);
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, transaction), false, false, Tab.LEDGER);
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof ReceiveCommand) {
+            ReceiveCommand receiveMoney = (ReceiveCommand) obj;
+            return transaction.equals(receiveMoney.transaction);
+        } else {
+            return false;
         }
     }
 

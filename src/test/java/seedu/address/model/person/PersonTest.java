@@ -2,25 +2,23 @@ package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.GEORGE;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.transaction.Amount;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
 
-    @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Person person = new PersonBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> person.getCategories().remove(0));
+
+    @BeforeEach
+    public void setUp() {
+
     }
 
     @Test
@@ -31,27 +29,13 @@ public class PersonTest {
         // null -> returns false
         assertFalse(ALICE.isSamePerson(null));
 
-        // same name, different phone and email -> returns true
-        Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        // same name, different balance -> returns true
+        Person editedAlice = new PersonBuilder(ALICE).withAmount("100").build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
         // different name -> returns false
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
-
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-            .withCategories(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
-
-        // same name, same email, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
-            .withCategories(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
-
-        // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withCategories(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
     }
 
     @Test
@@ -70,26 +54,71 @@ public class PersonTest {
         assertFalse(ALICE.equals(5));
 
         // different person -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(ALICE.equals(BENSON));
 
         // different name -> returns false
         Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different phone -> returns false
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+    }
 
-        // different email -> returns false
-        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+    @Test
+    public void spend() {
+        Person georgeCopy = new PersonBuilder(GEORGE).build();
+        Amount amount = new Amount(100.00);
+        georgeCopy.spend(amount);
 
-        // different address -> returns false
-        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        // 500 - 100 = 400 -> return true
+        assertTrue(georgeCopy.getBalance().equals(new Amount(400.00)));
 
-        // different categories -> returns false
-        editedAlice = new PersonBuilder(ALICE).withCategories(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Amount zeroAmount = Amount.zero();
+        georgeCopy.spend(zeroAmount);
+        // 400 - 0 = 400 -> return true
+        assertTrue(georgeCopy.getBalance().equals(new Amount(400.00)));
+    }
+
+    @Test
+    public void receive() {
+        Person georgeCopy = new PersonBuilder(GEORGE).build();
+        Amount amount = new Amount(100.00);
+        georgeCopy.receive(amount);
+        // 500 + 100 = 600 -> return true
+        assertTrue(georgeCopy.getBalance().equals(new Amount(600.00)));
+
+        Amount zeroAmount = Amount.zero();
+        georgeCopy.receive(zeroAmount);
+        // 600 + 0 = 600 -> return true
+        assertTrue(georgeCopy.getBalance().equals(new Amount(600.00)));
+    }
+
+    @Test
+    public void resetBalance() {
+        Person georgeCopy = new PersonBuilder(GEORGE).build();
+        georgeCopy.resetBalance();
+        // 0 dollars -> return true
+        assertTrue(georgeCopy.getBalance().equals(Amount.zero()));
+    }
+
+    @Test
+    public void testToString() {
+        // same values -> return true
+        assertTrue(GEORGE.toString().equals("George Best Balance: 500.00"));
+
+        // same object -> return true
+        assertTrue(GEORGE.toString().equals(GEORGE.toString()));
+    }
+
+    @Test
+    public void testHashCode() {
+        Person georgeCopy = new PersonBuilder(GEORGE).build();
+
+        // same values -> return true
+        assertTrue(GEORGE.hashCode() == georgeCopy.hashCode());
+
+        // same object -> return true
+        assertTrue(GEORGE.hashCode() == GEORGE.hashCode());
+
+        // different object -> return false
+        assertFalse(GEORGE.hashCode() == ALICE.hashCode());
     }
 }

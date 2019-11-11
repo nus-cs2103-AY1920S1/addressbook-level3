@@ -2,13 +2,8 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
 
-import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Split;
 
@@ -20,67 +15,29 @@ public class Person {
 
     // Identity fields
     private final Name name;
-    private final Optional<Phone> phone;
-    private final Optional<Email> email;
 
     // Data fields
-    private final Optional<Address> address;
-    private final Set<Category> categories = new HashSet<>();
-
     private Amount balance;
 
     /**
-     * Only name must be non-null
+     * All parameters must be non-null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Category> categories, Amount amount) {
-        requireAllNonNull(name, phone, email, address, categories, amount);
+    public Person(Name name, Amount amount) {
+        requireAllNonNull(name, amount);
         this.name = name;
-        this.phone = Optional.of(phone);
-        this.email = Optional.of(email);
-        this.address = Optional.of(address);
-        this.categories.addAll(categories);
         this.balance = amount;
     }
 
-    public Person(Name name, Phone phone, Email email, Address address, Set<Category> categories) {
-        this(name, phone, email, address, categories, Amount.zero());
-    }
-
     public Person(Name name) {
-        requireAllNonNull(name);
-        this.name = name;
-        this.phone = Optional.empty();
-        this.email = Optional.empty();
-        this.address = Optional.empty();
-        this.balance = Amount.zero();
+        this(name, Amount.zero());
     }
 
     public Name getName() {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone.orElse(new Phone("65166666"));
-    }
-
-    public Email getEmail() {
-        return email.orElse(new Email("empty@emptyemail.com"));
-    }
-
-    public Address getAddress() {
-        return address.orElse(new Address("empty"));
-    }
-
     public Amount getBalance() {
         return balance;
-    }
-
-    /**
-     * Returns an immutable category set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Category> getCategories() {
-        return Collections.unmodifiableSet(categories);
     }
 
     /**
@@ -124,16 +81,13 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-            && otherPerson.getPhone().equals(getPhone())
-            && otherPerson.getEmail().equals(getEmail())
-            && otherPerson.getAddress().equals(getAddress())
-            && otherPerson.getCategories().equals(getCategories());
+            && balance.equals(otherPerson.balance);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, categories);
+        return Objects.hash(name, balance);
     }
 
     @Override
@@ -141,16 +95,11 @@ public class Person {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
             .append(" Balance: ")
-            .append(getBalance())
-            .append(" Phone: ")
-            .append(getPhone())
-            .append(" Email: ")
-            .append(getEmail())
-            .append(" Address: ")
-            .append(getAddress())
-            .append(" Categories: ");
-        getCategories().forEach(builder::append);
+            .append(getBalance());
         return builder.toString();
     }
 
+    public void resetBalance() {
+        balance = Amount.zero();
+    }
 }

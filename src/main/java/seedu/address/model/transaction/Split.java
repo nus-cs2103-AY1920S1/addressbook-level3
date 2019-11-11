@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import seedu.address.model.person.Person;
@@ -15,7 +14,7 @@ import seedu.address.model.util.Date;
 /**
  * Split consists of Amount amount, Date date, {@code List<Amount> splitAmount}, and peopleInvolved
  */
-public class Split extends Transaction implements UndoableAction, LedgerOperation {
+public class Split extends Transaction implements LedgerOperation {
 
     public static final String SHARE_CONSTRAINTS = "number of shares must be one more than people involved";
 
@@ -33,8 +32,8 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
         List<Amount> amounts = shares.stream()
             .map(share -> amount.byShare((double) share / denominator))
             .collect(Collectors.toList());
-        amounts.remove(0); // share to user no longer useful
-        splitAmounts = rebalanceAmounts(amount, amounts);
+        Amount userShare = amounts.remove(0); // share to user no longer useful
+        splitAmounts = rebalanceAmounts(amount.subtractAmount(userShare), amounts);
     }
 
     public static boolean isValidSharesLength(List<Integer> shares, UniquePersonList people) {
@@ -93,7 +92,8 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
             return this.amount.equals(splitObj.amount)
                 && this.date.equals(splitObj.date)
                 && peopleInvolved.equals(splitObj.peopleInvolved)
-                && splitAmounts == splitObj.splitAmounts;
+                && description.equals(splitObj.description)
+                && splitAmounts.equals(splitObj.splitAmounts);
         } else {
             return false;
         }
@@ -101,7 +101,7 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
 
     @Override
     public Amount getAmount() {
-        return amount;
+        return amount.makeNegative();
     }
 
     @Override
@@ -115,7 +115,12 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
     }
 
     @Override
-    public Optional<List<Integer>> getShares() {
-        return Optional.of(shares);
+    public List<Integer> getShares() {
+        return shares;
+    }
+
+    @Override
+    public List<Amount> getAmounts() {
+        return splitAmounts;
     }
 }

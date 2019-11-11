@@ -9,7 +9,10 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 import static seedu.address.testutil.TypicalTypes.TYPE_TRANSACTION;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -33,7 +36,8 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
+import seedu.address.model.category.Category;
+import seedu.address.model.transaction.TransactionPredicate;
 
 // TODO: ADD ALL THE COMMANDS
 public class MainParserTest {
@@ -42,11 +46,11 @@ public class MainParserTest {
 
     @Test
     public void parseCommand_split() throws Exception {
-        assertTrue(parser.parseCommand(SplitCommand.COMMAND_WORD + " $/69 n/John") instanceof SplitCommand);
+        assertTrue(parser.parseCommand(SplitCommand.COMMAND_WORD + " $/69 n/John a/desc") instanceof SplitCommand);
         assertTrue(parser.parseCommand(
-            SplitCommand.COMMAND_WORD + " $/69 n/John n/Lisa s/2 s/3") instanceof SplitCommand);
+            SplitCommand.COMMAND_WORD + " $/69 n/John n/Lisa s/2 s/3 a/desc") instanceof SplitCommand);
         assertTrue(parser.parseCommand(
-            SplitCommand.COMMAND_WORD + " $/69 n/John n/Lisa s/1 s/2 s/3") instanceof SplitCommand);
+            SplitCommand.COMMAND_WORD + " $/69 n/John n/Lisa s/1 s/2 s/3 a/desc") instanceof SplitCommand);
     }
 
     @Test
@@ -90,18 +94,24 @@ public class MainParserTest {
 
     @Test
     public void parseCommand_filter() throws Exception {
-        assertTrue(parser.parseCommand(FilterCommand.COMMAND_WORD + " food") instanceof FilterCommand);
+        assertTrue(parser.parseCommand(FilterCommand.COMMAND_WORD + " c/food") instanceof FilterCommand);
 
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        Optional<Set<Category>> categories = Optional.of(new HashSet<>(Arrays.asList(
+            new Category("foo"), new Category("bar"), new Category("baz"))));
         FilterCommand command = (FilterCommand) parser.parseCommand(
-            FilterCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FilterCommand(new TransactionContainsCategoriesPredicate(keywords)), command);
+            FilterCommand.COMMAND_WORD + " "
+                + keywords.stream().map(cat -> "c/" + cat).collect(Collectors.joining(" ")));
+        assertEquals(new FilterCommand(new TransactionPredicate(categories,
+            Optional.empty(), Optional.empty(), Optional.empty())), command);
     }
 
     @Test
     public void parseCommand_sort() throws Exception {
-        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " amount") instanceof SortCommand);
-        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " date") instanceof SortCommand);
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " amount/a") instanceof SortCommand);
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " date/a") instanceof SortCommand);
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " amount/d") instanceof SortCommand);
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " date/d") instanceof SortCommand);
     }
 
     @Test

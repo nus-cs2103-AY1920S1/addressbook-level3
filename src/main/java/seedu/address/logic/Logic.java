@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -9,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserState;
+import seedu.address.model.person.Person;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -52,21 +54,19 @@ public interface Logic {
 
     /**
      * Returns an unmodifiable view of the filtered list of transactions
-     *
-     * @return
      */
     ObservableList<BankAccountOperation> getFilteredTransactionList();
 
     /**
      * Returns an ObservableList of Transactions
-     *
-     * @return
      */
-    ObservableList<BankAccountOperation> getTransactionList();
+    List<BankAccountOperation> getTransactionList();
 
     ObservableList<Budget> getBudgetList();
 
     ObservableList<LedgerOperation> getLedgerOperationsList();
 
     ObservableList<Projection> getProjectionList();
+
+    ObservableList<Person> getPeopleInLedger();
 }

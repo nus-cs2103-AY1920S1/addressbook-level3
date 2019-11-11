@@ -28,6 +28,7 @@
                 <Label fx:id="amount" text="\$first" styleClass="cell_big_label"/>
             </HBox>
             <FlowPane fx:id="people"/>
+            <FlowPane fx:id="amounts"/>
             <Label fx:id="date" styleClass="cell_small_label" text="\$date"/>
         </VBox>
     </GridPane>

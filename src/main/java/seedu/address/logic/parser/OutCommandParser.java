@@ -25,6 +25,15 @@ import seedu.address.model.util.Date;
  */
 public class OutCommandParser implements Parser<OutCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the OutCommand
+     * and checks for valid conditions of arguments
+     *
+     * @param args user input after command word 'out'
+     * @return InCommand of an InTransaction if all checks passes
+     * @throws ParseException if amount is negative, 0 or larger than 1 million.
+     * Exception is also thrown if compulsory fields Description, Amount or date is not entered correctly or missing.
+     */
     @Override
     public OutCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
@@ -35,30 +44,14 @@ public class OutCommandParser implements Parser<OutCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OutCommand.MESSAGE_USAGE));
         }
 
-        /* handles negative amount */
-        if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (NEGATIVE_AMOUNT_SIGN)) {
-            throw new ParseException(String.format(OutCommand.MESSAGE_AMOUNT_NEGATIVE));
-        }
-
-        /* handles 0 value */
-        if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (ZERO_AMOUNT)
-            && argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray().length == 1) {
-            throw new ParseException(String.format(OutCommand.MESSAGE_AMOUNT_ZERO));
-        }
-
-        /* handles overflow value */
-        if (Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) >= 1000000) {
-            throw new ParseException(String.format(OutCommand.MESSAGE_AMOUNT_OVERFLOW));
-        }
-
-        Description description = new Description(argMultimap.getValue(PREFIX_NAME).get());
+        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_NAME).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
         if (categoryList.isEmpty()) {
-            categoryList.add(new Category("Uncategorised"));
+            categoryList.add(Category.GENERAL);
         }
 
         BankAccountOperation transaction = new OutTransaction(amount, date, description, categoryList);

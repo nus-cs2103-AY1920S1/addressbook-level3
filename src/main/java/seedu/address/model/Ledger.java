@@ -3,6 +3,8 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
@@ -15,6 +17,8 @@ import seedu.address.model.transaction.UniqueLedgerOperationList;
  * Separate field in BankAccount to store transactions related to split
  */
 public class Ledger implements ReadOnlyLedger {
+
+
     private Amount pot;
     private UniquePersonList people;
     private UniqueLedgerOperationList ledgerHistory;
@@ -28,14 +32,13 @@ public class Ledger implements ReadOnlyLedger {
     public Ledger(ReadOnlyLedger ledger) {
         this();
         requireNonNull(ledger);
-        pot = ledger.getBalance();
-        setLedgerHistory(ledger);
-        setPersonList(ledger);
+        resetData(ledger);
     }
 
     private void setLedgerHistory(ReadOnlyLedger ledger) {
         requireNonNull(ledger.getLedgerHistory());
         this.ledgerHistory.setLedgerOperations(ledger.getLedgerHistory());
+        recalculatePot();
     }
 
     private void setPersonList(ReadOnlyLedger ledger) {
@@ -52,6 +55,41 @@ public class Ledger implements ReadOnlyLedger {
     public void addOperation(LedgerOperation transaction) {
         pot = transaction.handleBalance(pot, people);
         ledgerHistory.add(transaction);
+        removePeopleWithNoBalance();
+    }
+
+    /**
+     * Removes person from {@code people} that is not in deficit or surplus.
+     *
+     */
+    private void removePeopleWithNoBalance() {
+        List<Person> filtered = people.asUnmodifiableObservableList().stream()
+                .filter(person -> !person.getBalance().equals(Amount.zero()))
+                .collect(Collectors.toList());
+        people.setPersons(filtered);
+    }
+
+    /**
+     * Removes {@code key} from this {@code BankAccount}.
+     * {@code key} must exist in the bank account.
+     */
+    public void remove(LedgerOperation key) {
+        ledgerHistory.remove(key);
+        recalculatePot();
+    }
+
+    /**
+     * Updates the people and pot in ledger after removing a certain LedgerOperation
+     */
+    private void recalculatePot() {
+        Amount updatedAmount = Amount.zero();
+        UniquePersonList updatedPeople = new UniquePersonList();
+        for (LedgerOperation lo : ledgerHistory) {
+            updatedAmount = lo.handleBalance(updatedAmount, updatedPeople);
+        }
+        pot = updatedAmount;
+        people.setPersons(updatedPeople);
+        removePeopleWithNoBalance();
     }
 
     @Override
@@ -102,5 +140,10 @@ public class Ledger implements ReadOnlyLedger {
         return this.pot.equals(otherLedger.pot)
             && this.people.equals(otherLedger.people)
             && this.ledgerHistory.equals(otherLedger.ledgerHistory);
+    }
+
+    public void set(LedgerOperation target, LedgerOperation source) {
+        ledgerHistory.set(target, source);
+        recalculatePot();
     }
 }

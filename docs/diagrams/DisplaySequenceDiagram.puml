@@ -1,0 +1,69 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MainParser" as MainParser LOGIC_COLOR
+participant ":DisplayCommandParser" as DisplayCommandParser LOGIC_COLOR
+participant "d:DisplayCommand" as DisplayCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "projection:Projection" as Projection MODEL_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("display PROJECTION_ID")
+activate LogicManager
+
+LogicManager -> MainParser : parseCommand("display PROJECTION_ID")
+activate MainParser
+
+create DisplayCommandParser
+MainParser -> DisplayCommandParser
+activate DisplayCommandParser
+
+DisplayCommandParser --> MainParser
+deactivate DisplayCommandParser
+
+MainParser -> DisplayCommandParser : parse("PROJECTION_ID")
+activate DisplayCommandParser
+
+create DisplayCommand
+DisplayCommandParser -> DisplayCommand : type, ID
+activate DisplayCommand
+
+DisplayCommand --> DisplayCommandParser : d
+deactivate DisplayCommand
+
+DisplayCommandParser --> MainParser : d
+deactivate DisplayCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DisplayCommandParser -[hidden]-> MainParser
+destroy DisplayCommandParser
+
+MainParser --> LogicManager : d
+deactivate MainParser
+
+LogicManager -> DisplayCommand : execute()
+activate DisplayCommand
+alt valid ID
+    DisplayCommand -> Model : getFilteredProjectionsList().get(ID)
+    activate Model
+    Model --> DisplayCommand : projection
+    deactivate Model
+    DisplayCommand --> Projection
+    activate Projection
+    Projection --> Projection : displayAsStage()
+    activate Projection
+    deactivate Projection
+    deactivate Projection
+    DisplayCommand --> LogicManager : result
+else invalid ID
+    DisplayCommand --> LogicManager : error
+end
+deactivate DisplayCommand
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -14,9 +14,10 @@ import seedu.address.model.util.Date;
 /**
  * Handles Budget of a BankAccount.
  */
-public class Budget {
+public class Budget implements Comparable<Budget> {
     private Amount initialAmount;
     private Amount amount;
+    private Date start = Date.now();
     private Date deadline;
     private boolean valid;
     private int between;
@@ -31,11 +32,20 @@ public class Budget {
      * Constructor for Budget with no categories given.
      * By default, category is "Uncategorised"
      */
+    public Budget(Amount initialAmount, Amount amount, Date date, Set<Category> categories) {
+        this.initialAmount = initialAmount;
+        this.amount = amount;
+        this.deadline = date;
+        this.categories.addAll(categories);
+        this.valid = true;
+        this.between = calculateRemaining();
+    }
+
     public Budget(Amount amount, Date date) {
         this.initialAmount = amount;
         this.amount = amount;
         this.deadline = date;
-        this.categories.add(new Category("Uncategorised"));
+        this.categories.add(Category.GENERAL);
         this.valid = true;
         this.between = calculateRemaining();
     }
@@ -53,12 +63,21 @@ public class Budget {
         this.initialAmount = amount;
         this.amount = amount;
         this.deadline = calculateDeadline(duration);
+        this.categories.add(Category.GENERAL);
         this.valid = true;
         this.between = calculateRemaining();
     }
 
+    public Date getStart() {
+        return this.start;
+    }
+
     public void setInitialAmount(Amount amount) {
         this.initialAmount = amount;
+    }
+
+    public Amount getInitialBudget() {
+        return this.initialAmount;
     }
 
     public Amount getBudget() {
@@ -71,6 +90,14 @@ public class Budget {
 
     public Set<Category> getCategories() {
         return Collections.unmodifiableSet(categories);
+    }
+
+    public boolean isGeneral() {
+        return this.categories.contains(Category.GENERAL);
+    }
+
+    public int getBetweenRaw() {
+        return this.between;
     }
 
     public String getBetween() {
@@ -87,7 +114,7 @@ public class Budget {
      * @param amount
      * @return
      */
-    public Budget updateBudget(Amount amount, Set<Category> categories) {
+    public Budget updateBudget(Amount amount, Set<Category> categories, boolean isRemoveTransaction) {
         boolean isSameCategory = false;
 
         for (Category ct : categories) {
@@ -97,7 +124,12 @@ public class Budget {
             }
         }
 
-        if (isSameCategory) {
+        if (isSameCategory && isRemoveTransaction) {
+            Amount newAmount = this.amount.subtractAmount(amount);
+            Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
+            newBudget.setInitialAmount(this.initialAmount);
+            return newBudget;
+        } else if (isSameCategory) {
             Amount newAmount = this.amount.addAmount(amount);
             Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
             newBudget.setInitialAmount(this.initialAmount);
@@ -107,8 +139,39 @@ public class Budget {
         }
     }
 
-    private void updateDeadline(Date date) {
-        this.deadline = date;
+    /** Updates the amount of this budget if a Transaction of the same category is replaced/changed.
+     *
+     * @param amountToReplace accepts the amount to be replaced
+     * @param amountReplacement accepts the amount to replace {@code amountToReplace}
+     * @param categories accepts the set of categories to be cross checked with existing budgets
+     * @param isSameTransactionCategory returns true if the categories of both transactions
+     * to be edited and replaced are the same.
+     * @return
+     */
+    public Budget updateBudget(Amount amountToReplace, Amount amountReplacement,
+                               Set<Category> categories, boolean isSameTransactionCategory) {
+        boolean isSameCategory = false;
+
+        for (Category ct : categories) {
+            if (this.categories.contains(ct)) {
+                isSameCategory = true;
+                break;
+            }
+        }
+
+        if (isSameCategory && !isSameTransactionCategory) {
+            Amount newAmount = this.amount.addAmount(amountReplacement);
+            Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
+            newBudget.setInitialAmount(this.initialAmount);
+            return newBudget;
+        } else if (isSameCategory) {
+            Amount newAmount = this.amount.addAmount(amountReplacement).subtractAmount(amountToReplace);
+            Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
+            newBudget.setInitialAmount(this.initialAmount);
+            return newBudget;
+        } else {
+            return this;
+        }
     }
 
     /**
@@ -157,6 +220,9 @@ public class Budget {
      */
     public String displayPercentage() {
         double percentage = this.amount.divideAmount(this.initialAmount) * 100;
+        if (percentage < 0.00) {
+            percentage = 0.0; // should not display a negative percentage
+        }
         return String.format("%.2f%% remaining", percentage);
     }
 
@@ -166,7 +232,7 @@ public class Budget {
             return true;
         } else if (obj instanceof Budget) {
             Budget inObj = (Budget) obj;
-            return amount.equals(inObj.amount)
+            return initialAmount.equals(inObj.initialAmount)
                 && deadline.equals(inObj.deadline)
                 && categories.equals(inObj.categories)
                 && valid == inObj.valid;
@@ -178,5 +244,14 @@ public class Budget {
     @Override
     public String toString() {
         return String.format("$%s by %s", this.amount.toString(), this.deadline.toString());
+    }
+
+    public String toLabelText() {
+        return String.format("$%s by %s", this.getInitialBudget(), this.deadline.toString());
+    }
+
+    @Override
+    public int compareTo(Budget o) {
+        return o.getInitialBudget().compareTo(this.getInitialBudget());
     }
 }

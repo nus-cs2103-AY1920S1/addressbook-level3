@@ -30,23 +30,6 @@ public class SetCommandParser implements Parser<SetCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetCommand.MESSAGE_USAGE));
         }
 
-        /* handles negative amount */
-        if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (NEGATIVE_AMOUNT_SIGN)) {
-            throw new ParseException(String.format(SetCommand.MESSAGE_AMOUNT_NEGATIVE));
-        }
-
-        /* handles 0 value */
-        if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (ZERO_AMOUNT)
-                && argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray().length == 1) {
-            throw new ParseException(String.format(SetCommand.MESSAGE_AMOUNT_ZERO));
-
-        }
-
-        /* handles overflow value */
-        if (Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) >= 1000000) {
-            throw new ParseException(String.format(SetCommand.MESSAGE_AMOUNT_OVERFLOW));
-        }
-
         Amount budget = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
 
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
@@ -57,10 +40,13 @@ public class SetCommandParser implements Parser<SetCommand> {
 
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
-        Budget newBudget = new Budget(budget, date, categoryList);
-
-        return new SetCommand(newBudget);
-
+        if (categoryList.isEmpty()) {
+            Budget newBudget = new Budget(budget, date);
+            return new SetCommand(newBudget);
+        } else {
+            Budget newBudget = new Budget(budget, date, categoryList);
+            return new SetCommand(newBudget);
+        }
     }
 
     /**

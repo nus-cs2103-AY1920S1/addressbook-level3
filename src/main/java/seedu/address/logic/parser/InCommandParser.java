@@ -24,6 +24,15 @@ import seedu.address.model.util.Date;
  */
 public class InCommandParser implements Parser<InCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the InCommand
+     * and checks for valid conditions of arguments
+     *
+     * @param args user input after command word 'in'
+     * @return InCommand of an InTransaction if all checks passes
+     * @throws ParseException if amount is negative, 0 or larger than 1 million.
+     * Exception is also thrown if compulsory fields Description, Amount or date is not entered correctly or missing.
+     */
     @Override
     public InCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
@@ -34,24 +43,6 @@ public class InCommandParser implements Parser<InCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InCommand.MESSAGE_USAGE));
         }
 
-        /* handles negative amount */
-        if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (NEGATIVE_AMOUNT_SIGN)) {
-            throw new ParseException(String.format(InCommand.MESSAGE_AMOUNT_NEGATIVE));
-        }
-
-        /* handles 0 value */
-        if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (ZERO_AMOUNT)
-            && argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray().length == 1) {
-            throw new ParseException(String.format(InCommand.MESSAGE_AMOUNT_ZERO));
-
-        }
-
-        /* handles overflow value */
-        if (Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) >= 1000000) {
-            throw new ParseException(String.format(InCommand.MESSAGE_AMOUNT_OVERFLOW));
-        }
-
-
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_NAME).get());
 
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
@@ -61,7 +52,7 @@ public class InCommandParser implements Parser<InCommand> {
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
         if (categoryList.isEmpty()) {
-            categoryList.add(new Category("Uncategorised"));
+            categoryList.add(Category.GENERAL);
         }
 
         BankAccountOperation transaction = new InTransaction(amount, date, description, categoryList);

@@ -31,7 +31,6 @@ public class OutTransaction extends Transaction implements BankAccountOperation 
             OutTransaction inObj = (OutTransaction) obj;
             return super.amount.equals(inObj.amount)
                 && super.date.equals(inObj.date)
-                // && super.peopleInvolved.equals(inObj.peopleInvolved) // TODO
                 && super.description.equals(inObj.description)
                 && super.categories.equals(inObj.categories);
         } else {

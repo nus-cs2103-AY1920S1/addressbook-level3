@@ -30,20 +30,24 @@ public class ViewCommandParserTest {
         ViewCommand viewTransaction = new ViewCommand(Tab.TRANSACTION);
         ViewCommand viewBudget = new ViewCommand(Tab.BUDGET);
         ViewCommand viewLedger = new ViewCommand(Tab.LEDGER);
+        ViewCommand viewProjection = new ViewCommand(Tab.PROJECTION);
 
         // no leading and trailing whitespaces
         assertParseSuccess(parser, "transaction", viewTransaction);
         assertParseSuccess(parser, "budget", viewBudget);
         assertParseSuccess(parser, "ledger", viewLedger);
+        assertParseSuccess(parser, "projection", viewProjection);
 
         // leading and trailing whitespaces
         assertParseSuccess(parser, "   transaction   ", viewTransaction);
         assertParseSuccess(parser, "   budget      ", viewBudget);
         assertParseSuccess(parser, "        ledger         ", viewLedger);
+        assertParseSuccess(parser, "     projection       ", viewProjection);
 
         // upper and lower case
         assertParseSuccess(parser, "TrAnSaCtIoN", viewTransaction);
         assertParseSuccess(parser, "bUdGeT", viewBudget);
         assertParseSuccess(parser, "   lEdGer   ", viewLedger);
+        assertParseSuccess(parser, "   PrOjEcTiOn        ", viewProjection);
     }
 }

@@ -84,6 +84,16 @@ public class SetCommandTest {
             requireNonNull(budget);
             return this.budget.isSameBudget(budget);
         }
+
+        @Override
+        public void updateProjectionsAfterAdd(Budget budget) {
+
+        }
+
+        @Override
+        public void updateProjectionsAfterDelete(Budget budget) {
+
+        }
     }
 
     /**
@@ -106,6 +116,16 @@ public class SetCommandTest {
         public void add(Budget budget) {
             requireNonNull(budget);
             budgetsAdded.add(budget);
+        }
+
+        @Override
+        public void updateProjectionsAfterAdd(Budget budget) {
+
+        }
+
+        @Override
+        public void updateProjectionsAfterDelete(Budget budget) {
+
         }
 
         @Override

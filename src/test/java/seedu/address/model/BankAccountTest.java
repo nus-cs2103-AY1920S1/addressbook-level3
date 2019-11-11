@@ -5,13 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTransactions.ALICE;
+import static seedu.address.testutil.TypicalTransactions.BENSON;
 import static seedu.address.testutil.TypicalTransactions.getTypicalUserState;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +20,6 @@ import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
-import seedu.address.model.transaction.exceptions.DuplicateTransactionException;
 import seedu.address.testutil.BankOperationBuilder;
 
 public class BankAccountTest {
@@ -30,8 +28,10 @@ public class BankAccountTest {
 
     @Test
     public void constructor() {
+        assertEquals(Amount.zero(), bankAccount.getBalance());
         assertEquals(Collections.emptyList(), bankAccount.getTransactionHistory());
         assertEquals(Collections.emptyList(), bankAccount.getBudgetHistory());
+        assertEquals(Collections.emptyList(), bankAccount.getProjectionHistory());
     }
 
     @Test
@@ -46,17 +46,6 @@ public class BankAccountTest {
         assertEquals(newData, bankAccount);
     }
 
-    @Test
-    public void resetData_withDuplicateTransactions_throwsDuplicateTransactionException() {
-        // Two transactions with the same identity fields
-        BankAccountOperation editedAlice = new BankOperationBuilder(ALICE)
-            .build();
-        List<BankAccountOperation> newTransactions = Arrays.asList(ALICE, editedAlice);
-        BankAccountStub newData = new BankAccountStub(newTransactions);
-
-        assertThrows(DuplicateTransactionException.class, () -> bankAccount.resetData(newData));
-    }
-
     // TODO: implement test for budget during copying
     // @Test
     // public  void resetData_withDuplicateBudget_throwsDuplicateBudgetException() {
@@ -64,9 +53,10 @@ public class BankAccountTest {
     // }
 
     @Test
-    public void hasTransaction_nullTransaction_throwsNullPointerException() {
+    public void has_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> bankAccount.has((BankAccountOperation) null));
         assertThrows(NullPointerException.class, () -> bankAccount.has((Budget) null));
+        assertThrows(NullPointerException.class, () -> bankAccount.has((Projection) null));
     }
 
     @Test
@@ -92,6 +82,48 @@ public class BankAccountTest {
     public void getTransactionList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () ->
             bankAccount.getTransactionHistory().remove(0));
+    }
+
+    @Test
+    public void addTransaction_handleBalanceInTransaction() {
+        // test if inTransaction adds to balance
+        String transactionAmount = "100";
+        BankAccountOperation testTransactionIn = new BankOperationBuilder(ALICE).withAmount(transactionAmount).build();
+        // inTransaction to add to balance
+        bankAccount.add(testTransactionIn);
+        assertEquals(bankAccount.getBalance(), testTransactionIn.getAmount());
+
+        // test if two max in transactions can still update amount;
+        bankAccount.setBalance(Amount.zero());
+        String transactionAmountMax = "999999";
+        BankAccountOperation testTransactionInMax1 = new BankOperationBuilder(ALICE)
+            .withAmount(transactionAmountMax).build();
+        BankAccountOperation testTransactionInMax2 = new BankOperationBuilder(BENSON)
+            .withAmount(transactionAmountMax).build();
+        bankAccount.add(testTransactionInMax1);
+        bankAccount.add(testTransactionInMax2);
+        assertEquals(bankAccount.getBalance(), Amount.of(2 * Integer.parseInt(transactionAmountMax)));
+    }
+
+    @Test
+    public void addTransaction_handleBalanceOutTransaction() {
+        // test if outTransaction subtracts from balance
+        String transactionAmount = "-100";
+        BankAccountOperation testTransactionIn = new BankOperationBuilder(ALICE).withAmount(transactionAmount).build();
+        // outTransaction to subtract from balance
+        bankAccount.add(testTransactionIn);
+        assertEquals(bankAccount.getBalance(), testTransactionIn.getAmount());
+
+        // test if two max out transactions can still update amount;
+        bankAccount.setBalance(Amount.zero());
+        String transactionAmountMax = "-999999";
+        BankAccountOperation testTransactionInMax1 = new BankOperationBuilder(ALICE)
+            .withAmount(transactionAmountMax).build();
+        BankAccountOperation testTransactionInMax2 = new BankOperationBuilder(BENSON)
+            .withAmount(transactionAmountMax).build();
+        bankAccount.add(testTransactionInMax1);
+        bankAccount.add(testTransactionInMax2);
+        assertEquals(bankAccount.getBalance(), Amount.of(2 * Integer.parseInt(transactionAmountMax)));
     }
 
     /**

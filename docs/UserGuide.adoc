@@ -30,7 +30,7 @@ Enjoy!
 == Quick Start
 
 . Ensure you have Java `11` or above installed in your Computer.
-. Download the latest `palpay.jar` link:{repoURL}/releases[here].
+. Download the latest `PalPay.jar` link:{repoURL}/releases[here].
 . Copy the file to the folder you want to use as the home folder for your finance manager.
 . Double-click the file to start the app.
 The GUI should appear within a few seconds.
@@ -47,10 +47,21 @@ the category *mother* and the description *allowance*.
 the category *food* and the description *pie*.
 * `exit` : exits the app
 
-. Refer to <<Features>> for details of each command.
+. Refer to <<Commands>> for details of each command.
 
 [[Features]]
 == Features
+
+=== Transactions
+
+=== Budgets
+
+=== Ledgers
+
+=== Projections
+
+[[Commands]]
+== Commands
 
 ====
 *Command Format*
@@ -68,79 +79,141 @@ Example: If the command specifies `$/AMOUNT n/ITEM`, `n/ITEM $/AMOUNT` is also a
 Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a space, such as `t1`.
 ====
 
-=== Splitting a Bill with Friends : `split`
+[[In]]
+=== Logging Income : `in`
 
-Split a bill with your friends +
-Format: `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...`
+Have an income that you need to log down? PalPay accepts all income inputs through the `in` command. Inputting an `in` command will increase the overall balance value. Your income statements have the added option to be tagged under one or more categories. You can do so by including the `[c/CATEGORY]` parameter in your command line. All uncategorized incomes will be tagged under the `GENERAL` category.
 
+==== Command Syntax
 
-* `[SHARE]` defines portion of bill to be paid by each person
-** if no shares are given, `amount` will be split evenly across all people, including user
-** user is included in the bill if number of shares is *1* more than number of people
-*** user's share will be the first listed share
-** each person's share is assigned in order
-*** i.e. last person's share is the last share listed
-** shares cannot be negative numbers
+Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
-Examples:
+****
+* `AMOUNT` accepts the value of this income. The `AMOUNT` value must be non-negative, non zero and lesser than 1,000,000.
+* `ITEM` accepts the description of this income.
+* `DATE` accepts accepts the date of this transaction
+* `CATEGORY` accepts the CATEGORY for this income. An in` Transaction can be created without `CATEGORY` inputs.
+* `in` updates the Bank Account with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** Bank Acount balance by $1000)
+****
 
-* `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
-** $1000 is split equally between Amy, Betty, Catherine, Dan and the user.
-* `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
-** $100 is split with Albert owing $20, Bernard owing $10 and Clement owing $70.
+==== Example Usage
 
-=== Settling Up with a Friend : `receive`
+===== Example 1
 
-Receives money from 1 friend +
-Format: `receive $/AMOUNT n/NAME1 [d/DATE]`
+  in $/120 d/31122019 n/work
 
-Examples:
+. Inputs an income of $120 with description set to 'work' and date set on 31/12/2019.
+. The income has not utilized the optional `CATEGORY` field.
+. Initial balance (red box in Figure 1) has a value of $0.
 
-* `pay $/2.5 n/Albert`
+.Income Logging Example 1
+image::in_ug_1.png[]
 
+. The income is added to the empty *Transactions* tab.
+. The added income is given a `GENERAL` category.
+. Balance has increased from $0 to $120 (red box in Figure 2).
+
+.Sample Income 1 Added
+image::in_ug_2.png[]
+
+===== Example 2
+
+  in $/500.50 n/allowance d/01012020 c/parents
+
+. Inputs an income of $500.50 with description set to 'allowance' and date set on 01/01/2020.
+. The income includes `parents` under the `CATEGORY` field.
+. Initial balance (red box in Figure 3) has a value of $120.
+
+.Income Logging Example 2
+image::in_ug_3.png[]
+
+. The income is added to the bottom of the *Transactions* tab.
+. The added income tagged under `parents` category.
+. Balance has increased from $120 to $620.50 (red box in Figure 4).
+
+.Sample Income 2 Added
+image::in_ug_4.png[]
+
+===== Example Commands:
+
+* `in $/100 d/01012019 n/errand c/work c/company`
+* `in $/250.50 d/29022020 n/mom c/family`
+* `in $/120 d/31122019 n/helping friend`
+
+[[Out]]
 === Logging Expense : `out`
 
-Adds an expenditure of your personal finance +
+Have you recently made an expenditure that requires logging down? PalPay accepts all expenditure inputs through the `out` command. Inputting an `out` command will decrease the overall balance value. Your expenditure statements, just like the income statements, have the added option to be tagged under one or more categories. You can do so by including the `[c/CATEGORY]` parameter in your command line. All uncategorized incomes will be tagged under the `GENERAL` category.
+
+==== Command Syntax
+
 Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ****
-* `AMOUNT` input accepts a non-negative value lesser than 1,000,000 of the expenditure.
-* `ITEM` input accepts the description of the expenditure
+* `AMOUNT` accepts the value of this expenditure. The `AMOUNT` value must be non-negative, non zero and lesser than 1,000,000.
+* Users should not input negative values into `AMOUNT` (i.e. `out $/-100 ...`) as PalPay has already accounted for the difference between incomes and expenditures.
+* `ITEM` accepts the description of this expenditure.
 * `DATE` accepts the date of this transaction
-* `CATEGORY` accepts the CATEGORY for this expenditure
-* `in` will update the Bank Account with a net **negative** amount (e.g. `out n/milk $/2 d/10102019` will **decrease** Bank Acount balance by $2)
+* `CATEGORY` accepts the CATEGORY for this expenditure. An `out` Transaction can be created without any `CATEGORY`.
+* `out` will update the Bank Account with a net **negative** amount (e.g. `out n/milk $/2 d/10102019` will **decrease** Bank Acount balance by $2)
 ****
 
-Examples:
+==== Important Details:
+
+Note that `out` transactions differ from `in` transactions in the display amount. The `in` transactions are characterized by the *positive* value within their display box whilst the `out` transactions are characterized by the *negative* values in their display box. The difference can be observed in the example usage below.
+
+==== Example Usage
+
+===== Example 1
+
+ out $/5 d/01012020 n/burger
+
+. Inputs an expenditure of $5 with description set to 'burger' and date set on 01/01/2020.
+. The expenditure has not utilized the optional `CATEGORY` field.
+. Initial balance (red box in Figure 5) has a value of $620.50.
+
+.Expenditure Logging Example 1
+image::out_ug_1.png[]
+
+. The expenditure is added to the bottom of the *Transactions* tab.
+. The amount value of the expenditure box should display a negative value (see Figure 6 entry 3).
+. The added expenditure is given a `GENERAL` category.
+. Balance has decreased from $620.50 to $615.50 (red box in Figure 6).
+
+.Sample Expenditure 1 Added
+image::out_ug_2.png[]
+
+===== Example 2
+
+ out $/1000 n/maintenance d/02012020 c/car c/transport
+
+. Inputs an expenditure of $1000 with description set to 'maintenance' and date set on 02/01/2020.
+. The income includes `car` and `transport` under the `CATEGORY` field.
+. Initial balance (red box in Figure 7) has a value of $615.50.
+
+.Expenditure Logging Example 2
+image::out_ug_3.png[]
+
+. The expenditure is added to the bottom of the *Transactions* tab.
+. The added expenditure is tagged under `car` and `transport` category.
+. Balance has decreased from $615.50 to -$384.50 (red box in Figure 8).
+. The negative value of the balance indicates that the total spending amount outweighs the total savings amount.
+
+.Sample Expenditure 2 Added
+image::out_ug_4.png[]
+
+===== Example Commands:
 
 * `out $/100 d/01012019 n/milk c/food c/drinks`
 * `out $/29 d/29022020 n/taxi c/transport`
 * `out $/12 d/31122019 n/burger`
 
-=== Logging Income : `in`
-
-Adds an income of your personal finance +
-Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
-
-****
-* `AMOUNT` input accepts a non-negative value lesser than 1,000,000 of the income.
-* `ITEM` input accepts the description of the income
-* `DATE` input accepts accepts the date of this transaction
-* `CATEGORY` input accepts the CATEGORY for this income
-* `in` updates the Bank Account with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** Bank Acount balance by $1000)
-****
-
-Examples:
-
-* `in $/100 d/01012019 n/errand c/work c/drinks`
-* `in $/200 d/29022020 n/mom c/family`
-* `in $/120 d/31122019 n/work`
-
+[[Set]]
 === Setting a Budget : `set`
 
-You can set a budget for a particular category until a certain date, given it is not a duplicate.
+You can set a budget for a particular category until a certain date, given it is not already present in the budget list.
 A duplicate budget is a budget with the same `AMOUNT` and `DATE` and `CATEGORY`. +
-If you attempt to do so, you will receive an error message: `This budget already exists in the bank account`. +
+If you attempt to do so, you will receive an error message: `This budget already exists`. +
 
 Format: `set $/AMOUNT d/DATE c/CATEGORY`
 
@@ -148,157 +221,537 @@ Format: `set $/AMOUNT d/DATE c/CATEGORY`
 * `AMOUNT` input accepts the new budget amount to be set. This amount must be non-negative, non-zero and
 less than 1,000,000.
 * `DATE` input accepts the deadline to be set. It cannot be a date in the past.
-* `CATEGORY` accepts the CATEGORY for the budget. A budget can be created without any `CATEGORY`.
+* `CATEGORY` accepts the CATEGORY for the budget. A budget can be created without `CATEGORY` inputs in which case, the budget will automatically be assigned `GENERAL' category.
 ****
 
-Example: Let's say you want to restrict your spending for a certain category until a certain deadline.
+Let's say you want to restrict your spending for a certain category until a certain deadline.
 PalPay allows you to set a budget and serve as a reminder to show how much of the budget set you have left
-until the deadline. (V1.4) You will be more self-conscious of your spending and minimise your spending by setting a budget. +
+until the deadline. You will be more self-conscious of your spending and minimise your spending by setting a budget. +
 
 To set a new budget: +
 1. Type `set` and enter the relevant details (amount, deadline, category) in the format given above. +
-2. The result box will display the message "New budget successfully set". +
-3. If the budget already exists in the budget list, the result box will display the message "This budget already exists". +
-4. Now you can see the newly set budget in the budget list. +
+2. The result box will display the message `New budget successfully set`. +
+3. If the budget already exists in the budget list, the result box will display the message `This budget already exists`. +
+4. Now you can see the newly set budget in the budget list.
 
+As you make an *OutTransaction* of a particular `CATEGORY`, your budgets with the same `CATEGORY` will be adjusted
+to display the remaining amount of budget. Other budgets in the list belonging to different `CATEGORY` will not be adjusted.
+Budget will not take into consideration past *OutTransaction* when calculating the remaining budget. Remember, you are setting a budget
+from TODAY till the stated `DATE`! +
 
+If you overspend beyond a set budget, the overspent budget will be displayed in red.
+Shown below as budget index 3 is an example of an overspent budget:
+
+.Overspent Budget
+image::overspentBudget.png[]
+
+As the day you have set for the budget approaches, the countdown placeholder as well as the percentage remaining placeholder
+will turn to red when the number of remaining days reaches 3 and below.
+Shown below as budget index 4 is an example of a budget approaching its deadline:
+
+.Budget approaching deadline
+image::approachingBudget.png[]
+
+Examples:
+
+* `set $/100 d/010120120 c/BBT`
+* `set $/300 d/29022020 c/shopping`
+
+[[Split]]
+=== Splitting a Bill with Friends : `split`
+
+Split a bill with your friends +
+Format: `split $/AMOUNT n/NAME1 a/DESCRIPTION [d/DATE] [n/NAME2]... [s/SHARE]...`
+
+====
+* `DESCRIPTION` encompasses more details for the bill being split. User can make use of this
+field to determine nature of bill.
+* `[SHARE]` defines portion of bill to be paid by each person
+** if no shares are given, `amount` will be split evenly across all people, including user
+** user is included in the bill if number of shares is *1* more than number of people
+*** user's share will be the first listed share
+** each person's share is assigned in order
+*** i.e. last person's share is the last share listed
+** shares cannot be negative numbers
+====
+
+===== Ledger GUI
+
+.Sample Ledger Graphical User Interface
+image::LedgerUI.png[]
+
+This is how the *Ledger* looks when you switch to the *Ledger* tab. +
+The left shows the people who has unresolved balances with you, while the right lists
+all transactions that have to do with the *Ledger*. +
+*Ledger*'s balance is separate from the *BankAccount*. It is displayed in the same position,
+at the bottom right corner.
+
+==== Example Usage:
+
+* `split $/1000 n/Amy n/Betty n/Catherine n/Dan a/haidilao`
+
+ $1000 is split equally between Amy, Betty, Catherine, Dan and the user.
+
+. Enter appropriate command into the command line.
++
+.Splitting evenly
+image::SplitEven1.png[]
++
+. Result is displayed accordingly
++
+.Splitting evenly (result)
+image::SplitEven2.png[]
++
+For an even split of $1000, each person pays $200. Therefore *Ledger* shows $200 on the tab of each person.
+*Ledger* balance does not include the amount spent by the user. In this bill, the user is owed $800 in total
+from the rest of his friends. Therefore *Ledger* balance is -$800, as shown in the bottom right.
+
+* `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7 a/kbbq dinner`
+
+ $100 is split with Albert owing $20, Bernard owing $10 and Clement owing $70.
+
+. Enter appropriate command into the command line.
++
+.Splitting unevenly
+image::SplitUneven1.png[]
++
+. Result is displayed accordingly
++
+.Uneven split results
+image::SplitUneven2.png[]
+
+[[Receive]]
+=== Receiving Money from a Friend : `receive`
+
+Receives money from 1 friend +
+Format: `receive $/AMOUNT n/NAME1 [d/DATE] [a/DESCRIPTION]`
+
+==== Example usage:
+
+* `receive $/20 n/Albert`
+
+ Transfers $20 from Albert to user. If Albert is no longer owe or is owed money, he will be removed from the Ledger.
+
+. Enter appropriate command into the command line.
++
+.Receive payment
+image::Receive1.png[]
++
+. Result is displayed accordingly.
++
+.Receive payment result
+image::Receive2.png[]
++
+Albert is removed from the *Ledger* since he no longer owes any money. *Ledger* balance is also updated accordingly.
+
+[[Project]]
+=== Projecting Balance : `project`
+
+Cast a projection on your future balance amount and budget statuses based on your transaction history. +
+Format: `project d/DATE [c/test]`
+
+****
+* `DATE` input only accepts date in format DDMMYYYY.
+* `DATE` input must be preceded by its tag `d/`.
+* `DATE` input must be set in the future.
+* `Date` cannot be more than _720_ days from the day of projection.
+* There must be a minimum of _5_ transactions in total, or in the specified category
+for a projection to be successfully cast.
+* Should the number of `transactions` in a  `projection` fall below _5_, the `projection`
+will be automatically deleted.
+****
+
+==== Example Usage:
+
+. `project d/22072020`
+
+ Projected balance: $955.80
+
+. `project d/01012020 c/Food`
+
+ Projected balance: $188.04
+ You are on track to meeting your budget of $600 by 08122019, with a surplus of $484.32!
+
+=== Display Projection Graph: `display`
+
+Display a graphical representation of a `projection` in a new window.
+
+Format: `display PROJECTION_ID`
+
+****
+* A `Projection` with `PROJECTION_ID` must exist.
+* `Projection` graphs do not update automatically when a new `Transaction` or `Budget` is
+added or removed. Instead, they are statically rendered upon the `display` command.
+****
+
+==== Example Usage
+
+. Type *display PROJECTION_ID* into the command box and press kbd:[Enter].
++
+image::display1.png[]
++
+. A new window containing a graphical representation of the specified projection will pop up.
++
+image::display2.png[]
++
+If there are any budgets associated with the projection, a corresponding graphical
+representation of the budget will be additionally displayed.
++
+image::display3.png[]
++
+
+[[View]]
 // tag::view[]
-=== Displaying View : `view`
 
-Want to switch tabs without using your mouse? You can switch to another tab with the `view` command. +
+=== Switching Tabs : `view`
+
+Want to switch tabs without using your mouse? You can switch to another tab with the `view` command.
+
+==== Command Syntax
+
 Format: `view TAB`
 
 ****
-* `TAB` input only accepts `transaction`, `budget` and `ledger` in v1.4.
+* `TAB` input only accepts `transaction`, `budget`, `ledger` and `projection` in v1.4. It is case-insensitive.
 ****
 
-Examples:
+==== Example Usage:
 
-* `view transaction`
-* `view budget`
+You do not have to use your mouse in PalPay to switch tabs anymore.
+
+. By default, you are in the `transaction` tab.
++
+image::view1.png[]
++
+. Simply type *view budget* in the command box and press kbd:[Enter].
++
+image::view2.png[]
++
+. You can now view your budgets. Easy!
++
+image::view3.png[]
+
 // end::view[]
 
+[[Delete]]
 // tag::delete[]
 === Deleting Finance : `delete`
 
-Deletes the specified Transaction or Budget from the finance manager. +
+Deletes the specified Transaction, Budget, Ledger or Projection from PalPay. +
+
+
+==== Command Syntax
+
 Format: `delete TYPE+INDEX`
 
 ****
-* `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added)
-* `TYPE` only accepts `t` (Transaction) or `b` (Budget). (e.g. `delete b1` refers to deleting an *Budget* of index 1)
-* `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `delete b 1` or `delete 1` or `delete 1b` will not work)
-* You can only delete an existing transaction or budget. Nothing will be deleted if the transaction or budget with `INDEX` does not exists.
+* `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added).
+* `TYPE` accepts either `t` (Transaction), `b` (Budget), `l` (Ledger) or `p` (Projection). (e.g. `delete b1` refers to deleting a *Budget* of index 1).
+* `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `delete b 1` or `delete 1` or `delete 1b` will not work).
+* You can only delete an existing transaction or budget. Nothing will be deleted if the transaction or budget of `INDEX` does not exists.
 * Example: `delete t1` will delete the first transaction from the list of transactions.
 ****
 
-Examples:
+PalPay deletes items based on the entry index of the target item. You can only delete a maximum of 1 entry per command. (i.e. `delete t1 t2 b1` is not allowed)
+
+==== Example Usage:
+
+ Deleting the 5th entry of the transactions list
+
+. Note the index of the entry you want to delete. In this example, *entry 5* is the field we will be deleting.
++
+image::delete_ug_1.png[]
++
+. Since we are deleting a *Transaction* entry of index 5, we will input `t` into our `TYPE` field and `5` into our `INDEX` field.
++
+image::delete_ug_2.png[]
++
+. Success message will be displayed upon successful deletion.
++
+image::delete_ug_3.png[]
+
+===== Example Commands:
 
 * `delete t1`
 * `delete b3`
+* `delete l2`
+* `delete p4`
 
+[[Update]]
 === Updating Finance : `update`
 
-Updates the specified income or expenditure from the finance manager. +
-Format: `update TYPE+INDEX [$/AMOUNT] [d/date] [n/ITEM] [c/CATEGORY]`
+Did you make a mistake in one of your entries? Perhaps you over counted that expenditure you made. PalPay provides you with an `update` feature which helps you change specific fields within your entries.
+
+==== Command Syntax
+
+The `update` feature has different implementations for different entry types. The conditions for the `update` feature is as follows.
+
+Format (Transactions): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [n/ITEM] [c/CATEGORY]` +
+
+Format (Budget): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [c/CATEGORY]` +
+
+Format (Ledger): Cannot be updated +
+
+Format (Projections): `update TYPE+INDEX [d/DATE]`
 
 ****
-* `AMOUNT` accepts a non-negative value less than or equal to 1,000,000 to update the target Transaction or Budget
-* `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added)
-* `TYPE` only accepts `t` (Transaction) or `b` (Budget). (e.g. `update b1 ...` refers to updating a *Budget* of index 1)
-* `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update b 1 ..` or `update 1 ..` or `update 1b ..` will not work)
-* `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted but `update t1` will not be accepted).
-* You can only update an existing transaction or budget. Nothing will be updated if the transaction or budget with `INDEX` does not exists.
+* `AMOUNT` accepts a non-negative, non zero value lesser than 1,000,000.
+* `ITEM` accepts the description of this entry.
+* `DATE` accepts the date of this entry.
+* `CATEGORY` accepts the CATEGORY for the entry.
+* At least one `AMOUNT`, `DATE`, `ITEM` or `CATEGORY` fields must be entered. You can input more than 1 of the mentioned fields (e.g. `update t1 $/100 n/milk`).
+* `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added).
+* `TYPE` accepts either `t` (Transaction), `b` (Budget), or `p` (Projection). (e.g. `update t1 ..` refers to updating a *Transaction* of index 1).
+* `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update b 1 ..` or `update 1 ..` or `update 1b ..` will not work).
+* You can only update an existing transaction, budget or projection. Nothing will be updated if the entry of index `INDEX` does not exists.
 * Example: `update t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
 ****
 
-Examples:
+==== Important Details:
+
+* `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted).
+* Ledger does not have an update function. If you need to change specific fields within a ledger entry, you should delete the target entry and recreate a new ledger entry with your preferred fields.
+* You can not change an `in` transaction to an `out` transaction.
+* Changing an expenditure with the same category field as a budget will reflect changes on the `Budget` as well.
+
+==== Example Usage
+
+===== Example 1:
+
+Updating a *Transaction* entry.
+
+. Identify the index number of the entry you want to edit. In this case, we will be using entry 3.
++
+image::update_ug_1.png[]
++
+. Put `t` as your `TYPE` input and key in the fields you want to change. In this case, we will only be changing the amount of the transaction.
++
+image::update_ug_2.png[]
++
+. Success message will be displayed upon successful update. Fields will now be updated accordingly.
++
+image::update_ug_3.png[]
+
+===== Example 2:
+
+Updating a *Budget* entry.
+
+. Identify the index number of the entry you want to edit
++
+image::update_ug_4.png[]
++
+. Put `b` as your `TYPE` input and key in the fields you want to change. In this case, we will be changing both the date and amount of this Budget.
++
+image::update_ug_5.png[]
++
+. Success message will be displayed upon successful update. Fields will now be updated accordingly.
++
+image::update_ug_6.png[]
+
+===== Example Commands:
 
 * `update t1 $/20 n/coke c/drinks d/12122019`
 * `update b2 $/300`
 * `update t4 $/30 d/12102019`
+* `update p4 d/10102019`
 
+[[Sort]]
 // tag::sort[]
 === Sorting Transactions : `sort`
 
 Have you ever wonder which is the most expensive transaction you ever made?
-Or wondered which is the latest transaction you made? Fret not!
+Or which is the latest transaction you made? Fret not!
 You can now `sort` your transactions according to `date` or `amount`. +
-Format: `sort PREDICATE`
+
+
+==== Command Syntax
+
+Format: `sort PREDICATE/ORDER`
 
 ****
-* You are only able to `sort` by `date` and `amount` in v1.3.
-* Transactions will be sorted in ascending order.
+* `PREDICATE` accepts only `date` or `amount`. It is case-insensitive.
+* `ORDER` accepts only `a` or `d` which represents ascending and descending, respectively.
 ****
 
-Examples:
+==== Example Usage:
 
-* `sort amount`
-* `sort date`
+Do you want to know what is the latest transaction you made? No need to scroll all the way down anymore. PalPay
+has made it simple for you.
+
+. By default, your transactions are sorted from the earliest
+transaction you entered to the latest transaction you entered.
++
+image::sort1.png[]
++
+. Simply type *sort date/d* in the command box and press kbd:[Enter].
++
+image::sort2.png[]
++
+. Great! You can now see the latest transactions you made.
++
+image::sort3.png[]
+
 // end::sort[]
 
+
+[[Filter]]
 // tag::filter[]
 === Filtering Transactions : `filter`
 
-PalPay gives you the power to filter your transactions with your desired `CATEGORY`. +
-Format: `filter CATEGORY...`
+Here at PalPay, you do not need to scroll through your history of transactions to find out what you spend two months ago.
+PalPay gives you the power to filter your transactions to solve that problem. +
+
+
+==== Command Syntax
+
+Format: `filter [n/DESCRIPTION] [y/YEAR] [m/MONTH] [c/CATEGORY]...`
 
 ****
-* All transactions with at least one `CATEGORY` in the `CATEGORY...` input will be displayed.
-* Example: `filter transport allowance` will display transactions with `transport`, `allowance`, or
-`transport` and `allowance`.
+* `YEAR` accepts only integers from 1900 to 9999.
+* `MONTH` accepts only integers from 1 to 12.
+* All transactions with at least one `CATEGORY` in the `[c/CATEGORY]...` input will be displayed.
+* Example: `filter c/transport c/allowance y/2019` will display transactions with `transport`, `allowance`, or
+`transport` and `allowance` that occurred in 2019.
 ****
 
-Examples:
+==== Example Usage:
 
-* `filter food`
-* `filter transport allowance`
+Imagine that you wanted to find out what you spent on shopping in October 2019.
+
+. By default, PalPay shows your all your transactions you have made.
++
+image::filter1.png[]
++
+. Simply type *filter c/Shopping m/10 y/2019* in the command box and press kbd:[Enter].
++
+image::filter2.png[]
++
+. You will now see the list of transactions you have made while shopping in October 2019. Hurray!
++
+image::filter3.png[]
+
 // end::filter[]
 
-=== Projecting Balance : `project`
-
-Projects future balance based on past In or Out transactions +
-Format: `project d/DATE`
-
-****
-* `DATE` input only accepts date in format DDMMYYYY.
-* `DATE` input must be preceded by its tag `d\`
-* `DATE` input must be set in the future.
-****
-
-Examples:
-
-* `project d/22072020`
-* `project d/01012020`
-
-=== Redoing the Last Command : `redo`
-
-Redo the last command +
-Format: `redo`
-
+[[Undo]]
+// tag::undo[]
 === Undoing the Last Command : `undo`
 
-Undo the last command. +
+Did you accidentally delete a transaction? Do not panic! PalPay lets you undo your previous commands with just one
+word, `undo`.
+
+==== Command Syntax
+
 Format: `undo`
 
+****
+* Once you exit PalPay, you cannot undo the previous commands.
+* List of Undoable Commands:
+** `in`
+** `out`
+** `set`
+** `split`
+** `receive`
+** `project`
+** `filter`
+** `sort`
+** `update`
+** `delete`
+** `clear`
+** `list`
+****
+
+==== Example Usage:
+
+Suppose you want to update your allowance you received in October 2019 to $800 but you accidentally update the GrabTaxi
+ride instead. Without going through the trouble of updating the same transaction again, you can simply perform the
+`undo` command. Just follow these three simple steps.
+
+. Here, you can see the wrong update you just made.
++
+image::undo1.png[]
++
+. Simply type *undo* in the command box and press kbd:[Enter].
++
+image::undo2.png[]
++
+. As you wish, your command has been undone.
++
+image::undo3.png[]
+// end::undo[]
+
+[[Redo]]
+// tag::redo[]
+=== Redoing the Last Command : `redo`
+
+Made an extra `undo` by mistake? Do not worry! PalPay lets you redo your previous undo(s) with just one word, `redo`.
+
+==== Command Syntax
+
+Format: `redo`
+
+****
+* You can only redo `undo` commands.
+* Once you exit PalPay, you cannot redo the previous undo(s).
+****
+
+==== Example Usage:
+
+Suppose you want to undo your last update but you accidentally undo twice instead.
+You can simply perform the `redo` command to revert the changes. Just follow these three simple steps.
+
+. Here, you can see the extra undo you just made and the GrabTaxi ride is back at $800.
++
+image::redo1.png[]
++
+. Simply type *redo* in the command box and press kbd:[Enter].
++
+image::redo2.png[]
++
+. Great! Your transaction is back to normal.
++
+image::redo3.png[]
+
+// end::redo[]
+
+[[Clear]]
 === Clearing All Entries : `clear`
 
-Clears all entries from your Bank Account. +
+Do you want to start PalPay from a clean slate again? The `clear` command lets you do that! +
+
+
+==== Command Syntax
+
 Format: `clear`
 
+[[List]]
 === Listing All Entries : `list`
 
-Lists all entries from your Bank Account. +
+After filtering your transactions, you can use the `list` command to see all of your transactions in PalPay again. +
+
+
+==== Command Syntax
+
 Format: `list`
 
+[[Help]]
 === Viewing Help : `help`
 
-Opens help page for the list of usable commands +
+Did you forget how to use the `in` command? Fret not! You can easily find the link to this User Guide with the
+`help` command. Simply copy and paste the URL into your browser to access our User Guide.
+
+==== Command Syntax
+
 Format: `help`
 
+image::help.png[]
+
+[[Exit]]
 === Exiting the Application : `exit`
 
-Exits the program. +
+Finishing using PalPay for the day? You can use the `exit` command to close PalPay.
+
+==== Command Syntax
+
 Format: `exit`
 
 === Saving the Data
@@ -313,29 +766,31 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Split* `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...` +
-Example: `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
-* *Out* : `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
-Example: `out $/20 n/coke d/19112019 c/drink c/lunch`
-* *In* `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
+* <<In, *In*>> : `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
 Example: `in $/100 n/allowance d/11112019 c/income`
-* *Set* : `set $/AMOUNT d/DATE c/CATEGORY` +
+* <<Out, *Out*>> : `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
+Example: `out $/20 n/coke d/19112019 c/drink c/lunch`
+* <<Set, *Set*>> : `set $/AMOUNT d/DATE c/CATEGORY` +
 Example: `set $/100 d/10102019 c/food`
-* *View* : `view TAB` +
-Example: `view transaction`
-* *Delete* : `delete TYPE+INDEX` +
-Example: `delete t1`
-* *Update* : `update TYPE+INDEX [$/AMOUNT] [d/date] [n/ITEM] [c/CATEGORY]` +
-Example: `update b1 $/100 c/transport`
-* *Sort* : `sort PREDICATE` +
-Example: `sort amount`
-* *Filter* : `filter CATEGORY...` +
-Example: `filter food`
-* *Project* : `project DURATION` +
+* <<Split, *Split*>> : `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...` +
+Example: `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
+* <<Receive, *Receive*>> : `receive $/AMOUNT n/NAME` +
+Example:  `receive $/20 n/Albert`
+* <<Project, *Project*>> : `project DURATION` +
 Example: `project d/22072020`
-* *Redo* : `redo`
-* *Undo* : `undo`
-* *Clear* : `clear`
-* *List* : `list`
-* *Help* : `help`
-* *Exit* : `exit`
+* <<View, *View*>> : `view TAB` +
+Example: `view transaction`
+* <<Delete, *Delete*>> : `delete TYPE+INDEX` +
+Example: `delete t1`
+* <<Update, *Update*>> : `update TYPE+INDEX [$/AMOUNT] [d/date] [n/ITEM] [c/CATEGORY]` +
+Example: `update b1 $/100 c/transport`
+* <<Sort, *Sort*>> : `sort PREDICATE` +
+Example: `sort amount`
+* <<Filter, *Filter*>> : `filter [n/DESCRIPTION] [y/YEAR] [m/MONTH] [c/CATEGORY]...` +
+Example: `filter c/transport c/allowance y/2019`
+* <<Undo, *Undo*>> : `undo`
+* <<Redo, *Redo*>> : `redo`
+* <<Clear, *Clear*>> : `clear`
+* <<List, *List*>> : `list`
+* <<Help, *Help*>> : `help`
+* <<Exit, *Exit*>> : `exit`

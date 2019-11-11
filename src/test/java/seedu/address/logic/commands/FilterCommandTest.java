@@ -9,13 +9,19 @@ import static seedu.address.testutil.TypicalTransactions.getTypicalUserState;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
+import seedu.address.model.category.Category;
+import seedu.address.model.transaction.TransactionPredicate;
 import seedu.address.ui.tab.Tab;
 
 
@@ -29,10 +35,14 @@ public class FilterCommandTest {
 
     @Test
     public void equals() {
-        TransactionContainsCategoriesPredicate firstPredicate =
-            new TransactionContainsCategoriesPredicate(Collections.singletonList("first"));
-        TransactionContainsCategoriesPredicate secondPredicate =
-            new TransactionContainsCategoriesPredicate(Collections.singletonList("second"));
+        Optional<Set<Category>> categoriesOne = Optional.of(
+            new HashSet<>(Collections.singletonList(new Category("first"))));
+        Optional<Set<Category>> categoriesTwo = Optional.of(
+            new HashSet<>(Collections.singletonList(new Category("second"))));
+        TransactionPredicate firstPredicate = new TransactionPredicate(
+            categoriesOne, Optional.empty(), Optional.empty(), Optional.empty());
+        TransactionPredicate secondPredicate = new TransactionPredicate(
+            categoriesTwo, Optional.empty(), Optional.empty(), Optional.empty());
 
         FilterCommand filterFirstCommand = new FilterCommand(firstPredicate);
         FilterCommand filterSecondCommand = new FilterCommand(secondPredicate);
@@ -58,7 +68,7 @@ public class FilterCommandTest {
     @Test
     public void execute_zeroKeywords_noTransactionFound() {
         String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 0);
-        TransactionContainsCategoriesPredicate predicate = preparePredicate(" ");
+        TransactionPredicate predicate = preparePredicate(" ");
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredTransactionList(predicate);
         expectedModel.commitUserState();
@@ -68,9 +78,16 @@ public class FilterCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code TransactionContainsCategoriesPredicate}.
+     * Parses {@code userInput} into a {@code TransactionPredicate}.
      */
-    private TransactionContainsCategoriesPredicate preparePredicate(String userInput) {
-        return new TransactionContainsCategoriesPredicate(Arrays.asList(userInput.split("\\s+")));
+    private TransactionPredicate preparePredicate(String userInput) {
+        List<Category> listOfCat = Arrays
+            .asList(userInput.split("\\s+"))
+            .stream()
+            .map(cat -> new Category(cat))
+            .collect(Collectors.toList());
+        Optional<Set<Category>> categories = Optional.of(new HashSet<>(listOfCat));
+        return new TransactionPredicate(categories,
+            Optional.empty(), Optional.empty(), Optional.empty());
     }
 }

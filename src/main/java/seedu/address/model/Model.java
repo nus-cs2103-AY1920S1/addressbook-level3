@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.Person;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -20,6 +21,11 @@ public interface Model {
      */
     Predicate<BankAccountOperation> PREDICATE_SHOW_ALL_TRANSACTIONS = unused -> true;
     Predicate<LedgerOperation> PREDICATE_SHOW_ALL_LEDGER_OPERATIONS = unused -> true;
+
+    String LEDGER_TYPE = "l";
+    String BUDGET_TYPE = "b";
+    String TRANSACTION_TYPE = "t";
+    String PROJECTION_TYPE = "p";
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -119,7 +125,6 @@ public interface Model {
 
     /**
      * Returns true if a projection with the same date as {@code projection} exists in the bank account.
-     *
      */
     boolean has(Projection projection);
 
@@ -129,7 +134,25 @@ public interface Model {
      *
      * @param transaction
      */
-    void deleteTransaction(BankAccountOperation transaction);
+    void delete(BankAccountOperation transaction);
+
+    /**
+     * Deletes the given budget.
+     * The budget must exist in the bank account.
+     */
+    void delete(Budget budgetToDelete);
+
+    /**
+     * Deletes the given projection.
+     * The projection must exist in the bank account.
+     */
+    void delete(Projection projectionToDelete);
+
+    /**
+     * Deletes the given ledger.
+     * The ledger must exist in the bank account.
+     */
+    void delete(LedgerOperation ledgerToDelete);
 
     /**
      * Replaces the given transaction {@code target} with {@code editedTransaction}.
@@ -137,7 +160,15 @@ public interface Model {
      * The transaction identity of {@code editedTransaction} must not be
      * the same as another existing transaction in the bank account.
      */
-    void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit);
+    void set(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit);
+
+    /**
+     * Replaces the given ledger operation {@code ledgerTarget} with {@code ledgerEdit}.
+     * {@code target} must exist in the bank account.
+     * The ledger operation identity of {@code ledgerEdit} must not be
+     * the same as another existing ledger operation in the Ledger.
+     */
+    void set(LedgerOperation ledgerTarget, LedgerOperation ledgerEdit);
 
     /**
      * Replaces the given budget {@code budget} with {@code editedBudget}.
@@ -145,7 +176,7 @@ public interface Model {
      * The budget identity of {@code editedBudget} must not be
      * the same as another existing budget in the bank account.
      */
-    void setBudget(Budget budgetTarget, Budget budgetEdit);
+    void set(Budget budgetTarget, Budget budgetEdit);
 
     /**
      * Adds the given transaction.
@@ -174,9 +205,12 @@ public interface Model {
     void add(Projection projection);
 
     /**
-     * Returns an unmodifiable view of the filtered transaction list
-     *
-     * @return
+     * Returns an unmodifiable view of the non-filtered transaction list.
+     */
+    List<BankAccountOperation> getTransactionList();
+
+    /**
+     * Returns an unmodifiable view of the filtered transaction list.
      */
     ObservableList<BankAccountOperation> getFilteredTransactionList();
 
@@ -189,23 +223,23 @@ public interface Model {
 
     void updateFilteredLedgerList(Predicate<LedgerOperation> predicate);
 
+    void updateProjectionsAfterAdd(BankAccountOperation added);
+
+    void updateProjectionsAfterAdd(Budget budget);
+
+    void updateProjectionsAfterDelete(Budget budget);
+
+    void updateProjectionsAfterDelete(BankAccountOperation deleted);
+
     /**
      * Returns an unmodifiable view of the filtered budget list
      */
     ObservableList<Budget> getFilteredBudgetList();
 
-    /**
-     * Deletes the given budget.
-     * The budget must exist in the bank account.
-     */
-    void deleteBudget(Budget budgetToDelete);
-
-    /**
-     * Deletes the given projection.
-     * The projection must exist in the bank account.
-     */
-    void deleteProjection(Projection projectionToDelete);
 
     ObservableList<LedgerOperation> getFilteredLedgerOperationsList();
+
     ObservableList<Projection> getFilteredProjectionsList();
+
+    ObservableList<Person> getPeopleInLedger();
 }

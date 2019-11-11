@@ -10,7 +10,7 @@ import seedu.address.model.util.Date;
 /**
  * API of Transaction.
  */
-public abstract class Transaction implements UndoableAction {
+public abstract class Transaction {
 
     protected Amount amount;
     protected Date date;
@@ -44,6 +44,10 @@ public abstract class Transaction implements UndoableAction {
      */
     public Set<Category> getCategories() {
         return Collections.unmodifiableSet(categories);
+    }
+
+    public boolean isGeneral() {
+        return this.categories.contains(Category.GENERAL);
     }
 
     public Description getDescription() {

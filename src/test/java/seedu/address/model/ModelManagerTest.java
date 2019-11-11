@@ -11,12 +11,13 @@ import static seedu.address.testutil.TypicalTransactions.getTypicalTransactions;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.category.Category;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.projection.Projection;
@@ -26,7 +27,8 @@ import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.LendMoney;
-import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
+import seedu.address.model.transaction.TransactionPredicate;
+import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.util.Date;
 import seedu.address.testutil.BankOperationBuilder;
 import seedu.address.testutil.UserStateBuilder;
@@ -176,7 +178,8 @@ public class ModelManagerTest {
     public void hasProjection_projectionNotInUserState_returnsFalse() {
         Model falseModel = new ModelManager();
         falseModel.setTransactions(getTypicalTransactions());
-        Projection projection = new Projection(falseModel.getFilteredTransactionList(), new Date("19112019"));
+        Projection projection = new Projection(falseModel.getFilteredTransactionList(), new Date("19112019"),
+            new UniqueBudgetList().asUnmodifiableObservableList());
         assertFalse(modelManager.has(projection));
     }
 
@@ -184,7 +187,8 @@ public class ModelManagerTest {
     public void hasProjection_projectionInUserState_returnsTrue() {
         Model stubModel = new ModelManager();
         stubModel.setTransactions(getTypicalTransactions());
-        Projection projection = new Projection(stubModel.getFilteredTransactionList(), new Date("19112019"));
+        Projection projection = new Projection(stubModel.getFilteredTransactionList(), new Date("19112019"),
+            new UniqueBudgetList().asUnmodifiableObservableList());
         modelManager.add(projection);
         assertTrue(modelManager.has(projection));
     }
@@ -194,7 +198,7 @@ public class ModelManagerTest {
         modelManager.add(ALICE);
         assertTrue(modelManager.has(ALICE));
 
-        modelManager.deleteTransaction(ALICE);
+        modelManager.delete(ALICE);
         assertFalse(modelManager.has(ALICE));
     }
 
@@ -204,7 +208,7 @@ public class ModelManagerTest {
         modelManager.add(budget);
         assertTrue(modelManager.has(budget));
 
-        modelManager.deleteBudget(budget);
+        modelManager.delete(budget);
         assertFalse(modelManager.has(budget));
     }
 
@@ -212,11 +216,12 @@ public class ModelManagerTest {
     public void deleteProjection_projectionInUserState_returnsTrue() {
         Model stubModel = new ModelManager();
         stubModel.setTransactions(getTypicalTransactions());
-        Projection projection = new Projection(stubModel.getFilteredTransactionList(), new Date("19112019"));
+        Projection projection = new Projection(stubModel.getFilteredTransactionList(), new Date("19112019"),
+            new UniqueBudgetList().asUnmodifiableObservableList());
         modelManager.add(projection);
         assertTrue(modelManager.has(projection));
 
-        modelManager.deleteProjection(projection);
+        modelManager.delete(projection);
         assertFalse(modelManager.has(projection));
     }
 
@@ -293,12 +298,10 @@ public class ModelManagerTest {
 
 
         // different filteredList -> returns false
-        final List<String> categories = ALICE
-            .getCategories()
-            .stream()
-            .map(category -> category.getCategoryName())
-            .collect(Collectors.toList());
-        modelManager.updateFilteredTransactionList(new TransactionContainsCategoriesPredicate(categories));
+        Optional<Set<Category>> categories = Optional.of(ALICE
+            .getCategories());
+        modelManager.updateFilteredTransactionList(new TransactionPredicate(categories,
+            Optional.empty(), Optional.empty(), Optional.empty()));
         assertFalse(modelManager.equals(new ModelManager(userState, userPrefs)));
 
 

@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.stream.IntStream;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -24,22 +26,32 @@ public class ProjectionCard extends UiPart<Region> {
     @FXML
     private Label date;
     @FXML
+    private Label category;
+    @FXML
     private FlowPane budgetInfo;
 
-    public ProjectionCard(Projection projection, int displayedIndex) {
+    ProjectionCard(Projection projection, int displayedIndex) {
         super(FXML);
         this.projection = projection;
         id.setText(displayedIndex + ". ");
         amount.setText(projection.getProjection().toString());
         date.setText(projection.getDate().toString());
-        if (projection.getBudget().isPresent()) {
-            budgetInfo.getChildren().add(new Label(projection.getBudget().get().toString()));
-            budgetInfo.getChildren().add(new Label(projection.getBudgetForecastAbbreviatedText()));
-            if (projection.isOnTrackToMeetBudget()) {
-                budgetInfo.setId("SURPLUS");
-            } else {
-                budgetInfo.setId("DEFICIT");
-            }
+        if (projection.getCategory() != null) {
+            category.setText(projection.getCategory().toString());
+        } else {
+            category.setVisible(false);
+        }
+        if (projection.getBudgets() != null) {
+            IntStream.range(0, projection.getBudgets().size()).forEach(x -> {
+                budgetInfo.getChildren().add(new Label(projection.getBudgets().get(x).toLabelText()));
+                Label budgetForecastLabel = new Label(projection.getBudgetForecastAbbreviatedText(x));
+                budgetInfo.getChildren().add(budgetForecastLabel);
+                if (projection.getBudgetProjection(x).getIntegerValue() >= 0) {
+                    budgetForecastLabel.setId("surplus");
+                } else {
+                    budgetForecastLabel.setId("deficit");
+                }
+            });
         }
     }
 

@@ -45,4 +45,14 @@ public class DescriptionTest {
         assertFalse(MAN.equals(MILK));
         assertFalse(MAN.equals(null));
     }
+
+    @Test
+    public void hashCode_returnsTrue() {
+        assertTrue(MILK.hashCode() == new Description("Milk").hashCode());
+    }
+
+    @Test
+    public void hashCode_returnsFalse() {
+        assertFalse(MILK.hashCode() == new Description("MilkMan").hashCode());
+    }
 }
