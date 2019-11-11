@@ -22,7 +22,7 @@ public class EditCommandParser {
      * and returns a EditCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditCommand parse(String args) throws ParseException {
+    public EditCommand parse(String args) throws ParseException, InvalidNumberException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_CATEGORY, PREFIX_QUANTITY, PREFIX_COST,
                         PREFIX_PRICE);
@@ -51,7 +51,7 @@ public class EditCommandParser {
                 } else {
                     editItemDescriptor.setQuantity(quantity);
                 }
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 throw new ParseException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
             }
         }
@@ -65,7 +65,7 @@ public class EditCommandParser {
                 } else {
                     editItemDescriptor.setCost(cost);
                 }
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 throw new ParseException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
             }
         }
@@ -79,7 +79,7 @@ public class EditCommandParser {
                 } else {
                     editItemDescriptor.setPrice(price);
                 }
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 throw new ParseException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
             }
         }

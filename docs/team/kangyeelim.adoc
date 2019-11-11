@@ -397,4 +397,4 @@ image::homeDG/2lists.png[width = "450"]
 .Code snippet of `CheckAndGetPersonByNameOnly` facade class for `ModelManager` from Members Tab
 image::homeDG/facadeForDesignConsiderations.png[width = "450"]
 
-{End of Extract}
+{End of Second Extract}

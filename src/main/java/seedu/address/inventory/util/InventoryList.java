@@ -125,7 +125,7 @@ public class InventoryList {
         // Used for sorting in ascending order
         @Override
         public int compare(Item a, Item b) {
-            return a.getDescription().compareTo(b.getDescription());
+            return a.getDescription().toLowerCase().compareTo(b.getDescription().toLowerCase());
         }
     }
 
@@ -153,7 +153,7 @@ public class InventoryList {
         // Used for sorting in ascending order
         @Override
         public int compare(Item a, Item b) {
-            return a.getCategory().compareTo(b.getCategory());
+            return a.getCategory().toLowerCase().compareTo(b.getCategory().toLowerCase());
         }
     }
 

@@ -13,14 +13,17 @@ public class Item {
     private final String category;
     private final String description;
     private Integer quantity;
-    //the cost below is the cost rounded up to 2 decimal places
+    //the cost below is the cost rounded up to 2 decimal places for displaying in the GUI
     private Double cost;
     //the cost below is the cost to 15 decimal place for accuracy
     private Double trueCost;
     private Double totalCost;
     private Double price;
     private Double subtotal;
+    //the id below is a temporary id that corresponds to the item's position in the list being shown in the GUI
     private String id;
+    //the id below is the id that corresponds to the item's position in the list displayed when the application
+    //is first opened. It is relatively permanent and can be subject to change only when the application is closed.
     private Integer trueId;
 
 
@@ -41,7 +44,8 @@ public class Item {
     }
 
     /**
-     * A separate constructor in the event that the Item is not for sale. Price can be set later.
+     * A separate constructor in the event that the Item is not for sale and the user input does not include price.
+     * Price can be set later.
      */
     public Item(String description, String category, int quantity, double cost, int i) {
         this.description = description;
@@ -102,9 +106,7 @@ public class Item {
     }
 
     /**
-     * Checks if the item is available for sales.
-     *
-     * @return true if the item is available for sales. Else, return false
+     * Returns true if the item is available for sales.
      */
     public boolean isSellable() {
         if (price == 0) {
