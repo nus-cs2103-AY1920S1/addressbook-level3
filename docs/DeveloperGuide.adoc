@@ -1830,48 +1830,48 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Updating a transaction's details and reflecting changes in the list.
 
-.. Prerequisites: List all transactions using the `list` command. The first transaction is `1. [-] Laksa ($10.50) [Lunch][Food]`.
-.. Test case: `update i/1 n/Fried Rice` +
+.. Prerequisites: List all transactions using the **list** command. The first transaction is "[-] Laksa ($10.50) Date: 02/11/2019 Remarks:  Tags: [Lunch][Food]".
+.. Test case: **update i/1 n/Fried Rice** +
    Expected: Details of the updated transaction and original transaction shown in status message. Displayed list scrolls to updated item which reflects the changes.
-.. Test case: `update i/1 v/20` +
+.. Test case: **update i/1 v/20** +
    Expected: Details of the updated transaction and original transaction shown in status message. Displayed list scrolls to updated item which reflects the changes.
-.. Test case: `update i/1 n/Fried Rice v/20 t/Lunch t/Food` +
+.. Test case: **update i/1 n/Fried Rice v/20 t/Lunch t/Food** +
    Expected: Details of the updated transaction and original transaction shown in status message. Displayed list scrolls to updated item which reflects the changes.
-.. Test case: `update i/INVALID_INDEX` where `INVALID_INDEX` is a number less than 1 or more than list size. +
+.. Test case: **update i/INVALID_INDEX** where **INVALID_INDEX** is a number less than 1 or more than list size. +
    Expected: No changes. Error details shown in status message.
-.. Test case: `update i/1 z/Calamari` +
+.. Test case: **update i/1 z/Calamari** +
    Expected: No changes. Error details shown in status message.
-.. Test case: `update firstTransaction` +
+.. Test case: **update firstTransaction** +
    Expected: No changes. Error details shown in status message.
-.. Test case: `update` +
+.. Test case: **update** +
    Expected: No changes. Error details shown in status message.
 
 === Cloning a transaction
 
 . Creating a duplicate of a transaction.
 
-.. Prerequisites: List all transactions using the `list` command. At least one transaction in the list.
-.. Test case: `clone i/1` +
+.. Prerequisites: List all transactions using the **list** command. At least one transaction is in the list.
+.. Test case: **clone i/1** +
    Expected: New transaction identical to first transaction in the list added to the bottom of the list. Details of the cloned transaction shown in the status message. Date string for new transaction is automatically saved into the transaction list.
-.. Test case: `clone i/INVALID_INDEX` where `INVALID_INDEX` is a number less than 1 or more than list size. +
+.. Test case: **clone i/INVALID_INDEX** where **INVALID_INDEX** is a number less than 1 or more than list size. +
    Expected: No transaction is cloned. Error details shown in status message.
-.. Test case: `clone firstTransaction` +
+.. Test case: **clone firstTransaction** +
    Expected: No changes. Error details shown in status message.
-.. Test case: `clone` +
+.. Test case: **clone** +
    Expected: No changes. Error details shown in status message.
-.. Test case: `clone i/1 o/daily:3` +
+.. Test case: **clone i/1 o/daily:3** +
    Expected: 3 new transactions identical to first transaction in the list added to the bottom of the list, with their dates set 1 day apart.
-.. Test case: `clone i/1 o/daily:-1` +
+.. Test case: **clone i/1 o/daily:-1** +
    Expected: No changes. Error details shown in status message.
-.. Test case: `clone i/1 o/onceeveryday:-1` +
+.. Test case: **clone i/1 o/onceeveryday:-1** +
    Expected: No changes. Error details shown in status message.
-.. Test case: `clone i/1 o/yearly:6` +
+.. Test case: **clone i/1 o/yearly:6** +
    Expected: No changes. Error details shown in status message.
-.. Test case: `clone i/1 o/monthly:13` +
+.. Test case: **clone i/1 o/monthly:13** +
    Expected: No changes. Error details shown in status message.
-.. Test case: `clone i/1 o/daily` +
+.. Test case: **clone i/1 o/daily** +
    Expected: No changes. Error details shown in status message.
-.. Test case: `clone i/1 o/monthly:5:6:fgzsfdsf:y564s:3234:` +
+.. Test case: **clone i/1 o/monthly:5:6:fgzsfdsf:y564s:3234:** +
    Expected: No changes. Error details shown in status message.
 
 === Listing the transactions

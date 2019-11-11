@@ -6,25 +6,24 @@
 
 == 1. Introduction
 In 2019, I worked on a team project for CS2103T, a Year Two undergraduate software engineering module at the National
-University of Singapore (NUS). This portfolio serves as a documentation of my contributions to that project, THRIFT.
-Through this portfolio, I hope to showcase my abilities in coding and documentation.
+University of Singapore (NUS). This portfolio documents my contributions to that project, THRIFT. Through this portfolio,
+I hope to showcase my abilities in coding and documentation.
 
 === 1.1. My team
-I have worked with four other talented coders to implement features for the THRIFT product.
-Each of us was assigned an additional role; I was the _Quality Assurance Manager_ in charge of ensuring our product met
-user needs and functioned properly through testing. **Poh Jia Hao** was the _Project Manager_, **Lee Bo Qiang** was the
-_User Experience Developer_, **Melvin Ang** was the _Software Architect_ and **Kenson Oen** was the _Process Analyst_.
+I have worked with four other talented coders to implement features. Each of us was assigned an additional role; I was
+the _Quality Assurance Manager_ in charge of ensuring our product met user needs and functioned properly through testing.
+**Poh Jia Hao** was the _Project Manager_, **Lee Bo Qiang** was the _User Experience Developer_, **Melvin Ang** was the
+_Software Architect_ and **Kenson Oen** was the _Process Analyst_.
 
 === 1.2. Project THRIFT
 My team morphed the address book application https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook-Level3]
 into THRIFT, a desktop finance tracker application. THRIFT is meant for NUS students who wish to keep track of all their
-income and expenditure information to better control, manage and plan out their flow of money.
+income and expenditure information to better control, manage and plan their flow of money.
 
-To that end, some of THRIFT's features include setting a monthly budget, adding and deleting income and expense-type
-entries, updating details of entries, tagging and untagging entries with categories, listing entries in a given month,
+To that end, some of THRIFT's unique features include setting a monthly budget, tagging and untagging entries with categories, listing entries in a given month,
 creating copies of entries across periods of occurrence and converting currencies.
 
-As part of the requirements for CS2103T, THRIFT has an  intuitive Command Line Interface - everything you want
+As part of CS2103T requirements, THRIFT has an  intuitive Command Line Interface - everything you want
 to do is executed by typing a command in the Command Box indicated in Figure 1 below. The following image shows what
 THRIFT looks like:
 
@@ -53,17 +52,15 @@ the frequency of multiple copies across a **daily**, **weekly**, **monthly** or 
 per day for 7 days.
 ** Justification: This feature makes it much more convenient to create copies of a transaction. Most users have
 similar recurring transactions across a period of time and will use this feature often.
-** Highlights: I did some in-depth logical analysis to implement the logic for cloning one **or** multiple
-transactions. A new `Occurrence` class was implemented after considering the design alternatives for representing
-clone occurrences.
+** Highlights: Implementing the logic for cloning one or multiple transactions required in-depth logical analysis.
 
 * I overhauled the function of **updating transactions** for THRIFT.
 ** What it does: The **update** command allows users to modify details of a transaction.
-** Justification: Being able to update details of a transaction or rectify mistakes in transaction information is a
+** Justification: Updating transaction details or rectifying mistakes in transaction information is a
 basic core feature.
-** Highlights: I refactored AddressBook-Level3's **edit** feature to create an **update** command syntax suitable for
-THRIFT, disallowing the inputting of multiple instances of the same field type which was previously allowed. I also
-changed the way **update** saves the updated transaction as the old implementation only worked when all transactions in the list are unique.
+** Highlights: I refactored AddressBook-Level3's **edit** feature into an **update** command syntax suitable for
+THRIFT, disallowing input with multiple instances of the same field type which had been allowed. I also
+changed the way **update** saves the updated transaction as the old implementation only works when all transactions are unique.
 ** Credits: The **update** feature is built on https://github.com/nus-cs2103-AY1920S1/addressbook-level3/blob/master/docs/UserGuide.adoc#editing-a-person-edit[AddressBook-Level3's **edit**].
 
 === 2.2. Minor enhancements
@@ -110,7 +107,7 @@ https://github.com/AY1920S1-CS2103T-W12-2/main/pull/165[#165])
 == 3. Contributions to the User Guide
 
 This section showcases part of my contributions to the User Guide, demonstrating my ability to write documentation
-as a guide for end users making use of the product.
+as a guide for end users making use of the product. A screenshot of the product display follows each instruction step.
 
 The User Guide uses this text style in addition to <<PPPFormattingTag, those in this portfolio's section 1.3>>:
 
@@ -161,18 +158,18 @@ image::update/updateUG/UpdateStep2.png[,500]
 . You should see that the "Curry Laksa" transaction's name is updated to "Laksa". The status message also tells you what
 the original transaction was.
 +
-image::update/updateUG/UpdateStep3.png[,600]
+image::update/updateUG/UpdateStep3.png[,500]
 +
 . Later on, you want to change the name and value, as well as add a remark and tag. In the Command Box, you type: +
 **update i/2 n/Asam Laksa v/12 r/My first time trying! t/Food t/Lunch** +
 and press kbd:[Enter].
 +
-image::update/updateUG/UpdateStep4.png[,600]
+image::update/updateUG/UpdateStep4.png[,500]
 +
 . You can see the updated details of the transaction at index 2. The status message tells you what the original
 transaction was. The transaction month's Expense and Balance trackers are also updated.
 +
-image::update/updateUG/UpdateStep5.png[,600]
+image::update/updateUG/UpdateStep5.png[,500]
 
 ----------_{End of extract from User Guide}_----------
 
@@ -232,14 +229,14 @@ transaction at index 4.
 
 :figure-caption!:
 .Example list on startup
-image::clone/cloneDG/CloneStep1.png[,500]
+image::clone/cloneDG/CloneStep1.png[,450]
 
 Step 2 (i). The user inputs **clone i/4** or **clone i/4 o/daily:0** to create 1 copy of the transaction at index 4 on
 the date when command is called - for this example, current date when command is used is 02/12/2019.
 
-image::clone/cloneDG/CloneStep2Part1.png[,500]
+image::clone/cloneDG/CloneStep2Part1.png[,450]
 .Creating one copy of transaction at index 4 and adding it to the list.
-image::clone/cloneDG/CloneStep2Part2.png[,500]
+image::clone/cloneDG/CloneStep2Part2.png[,450]
 
 Step 2 (ii). The user removes the clone created in Step 2 (i) using **delete i/6** command.
 
@@ -247,22 +244,22 @@ Step 3. The user inputs **clone i/4 o/monthly:12** to create 12 copies of the tr
 month apart from each other (30/12/2019 to 30/11/2020), and add them to the list. Input is parsed by
 `CloneCommandParser#parse()` which creates a `**CloneCommand**`.
 
-image::clone/cloneDG/CloneStep3.png[,500]
+image::clone/cloneDG/CloneStep3.png[,150]
 
 Step 4. `CloneCommand#execute()` creates copies of the transaction to be cloned with their dates of occurrence set one
 month apart. The copies are then added to the list.
 
-image::clone/cloneDG/CloneStep4Part1.png[,500]
-image::clone/cloneDG/CloneStep4Part2.png[,500]
+image::clone/cloneDG/CloneStep4Part1.png[,450]
+image::clone/cloneDG/CloneStep4Part2.png[,450]
 .Creating copies of transaction at index 4 and adding them to the list.
-image::clone/cloneDG/CloneStep4Part3.png[,500]
+image::clone/cloneDG/CloneStep4Part3.png[,450]
 
 ===== Execution observed by user
 The following activity diagram gives an overview of what the user observes when executing **clone** command:
 
 :figure-caption: Figure
 .Activity diagram for execution of **clone** command
-image::clone/cloneDG/CloneActivityDiagram.png[,400]
+image::clone/cloneDG/CloneActivityDiagram.png[,350]
 
 ==== Design considerations
 This subsection explores some alternative designs considered for certain aspects of the feature's implementation.
@@ -278,16 +275,5 @@ execution methods.
 - Pros: Quick and efficient in producing parameters for execution.
 - Cons: May be complicated to trace parameters when passing between different methods. Unable to implement utility
 methods to process occurrences within a single class.
-
-===== Aspect: Maintaining a store for valid values of `Occurrence#frequency`
-* **Alternative 1 (current choice)**: Store valid `frequency` values within a static non-modifiable "final" array inside
-`**Occurrence**`
-- Pros: Implementation is simple with relatively little coding needed. Values cannot be modified after initialization of
-array, preventing invalid values from being added later.
-- Cons: An additional field of type array has to be included in `**Occurrence**` class.
-
-* **Alternative 2**: Store valid values as `**Enum**`
-- Pros: Validity of values in `**Enum**` form all but assured, there will never be invalid values.
-- Cons: More code and memory required for entire `**Enum**` classes.
 
 ----------_{End of extract from Developer Guide}_----------
