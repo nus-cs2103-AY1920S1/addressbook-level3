@@ -7,4 +7,17 @@
 Jarvis was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team.
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
-=== Marc Fong Yung Kit
+== Marc Fong Yung Kit
+
+== About the project
+My team was tasked with contributing to a Command Line
+Interface (CLI) desktop address book application for our
+Software Engineering project. We decided morph the
+application into a productivity tool for students called
+Jarvis.
+
+Jarvis enables students to track their calendar, CCAs,
+finances and modules. The application will display all
+these information in their respective tabs to allow
+students to manage all these aspects of their life in
+this single application.
