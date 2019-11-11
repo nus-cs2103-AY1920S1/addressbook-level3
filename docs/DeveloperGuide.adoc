@@ -415,8 +415,8 @@ The student current modules are stored as String of module code to reduce coupli
 
 [NOTE]
 The `Student` who submits the appeal and requested `Module` are stored as String of Matric ID and module code respectively in an `Appeal` object to reduce coupling.
-Hence, `Student` who submits the appeal is retrieved from `model.getFilteredStudentList()` by matching Matric ID,
-and `Module` requested is retrieved from `model.getFilteredModuleList()` by matching module codes.
+Hence, `Student` who submits the appeal is retrieved from `model.getFullStudentList()` by matching Matric ID,
+and `Module` requested is retrieved from `model.getFullModuleList()` by matching module codes.
 
 
 Step 5.  Upon approval of an appeal, `ApproveCommand` will return a `CommandResult` object which contains the message of the action performed.  Each appeal type will give a different feedback message.
