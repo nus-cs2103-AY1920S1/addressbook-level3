@@ -65,6 +65,8 @@ public enum SuggestionLabels {
 
     EXIT_INSTRUCTION(new Text("(Exits from application)")),
 
+    VIEW_INSTRUCTION(new Text("(Views a specific Entity)")),
+
     //Constants that are used as template(this Text is also indicative of command type)
 
     //ADD Templates
@@ -117,7 +119,9 @@ public enum SuggestionLabels {
     //OTHER Templates
     HELP(new Text("help ")),
 
-    EXIT(new Text("exit "));
+    EXIT(new Text("exit ")),
+
+    VIEW(new Text("view "));
 
     private final Text text;
 

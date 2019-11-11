@@ -62,6 +62,8 @@ import static seedu.address.ui.SuggestionLabels.SCORE_SUB;
 import static seedu.address.ui.SuggestionLabels.SCORE_SUB_INSTRUCTION;
 import static seedu.address.ui.SuggestionLabels.UNDO;
 import static seedu.address.ui.SuggestionLabels.UNDO_INSTRUCTION;
+import static seedu.address.ui.SuggestionLabels.VIEW;
+import static seedu.address.ui.SuggestionLabels.VIEW_INSTRUCTION;
 
 import java.util.stream.Collectors;
 
@@ -121,7 +123,9 @@ public class SuggestionTemplates {
     public static final TextFlow SCORE_SET_TEMPLATE;
     public static final TextFlow LEADERBOARD_TEMPLATE;
     public static final TextFlow GET_TOP_TEMPLATE;
+
     public static final TextFlow EXIT_TEMPLATE;
+    public static final TextFlow VIEW_TEMPLATE;
 
 
     static {
@@ -418,6 +422,13 @@ public class SuggestionTemplates {
         Text numbers18 = new Text("[NUMBER] ");
         REDO_TEMPLATE = new TextFlow(
                 REDO.getText(), numbers18, REDO_INSTRUCTION.getText()
+        );
+
+        //VIEW Method
+        Text id19 = new Text("{mentor/participant/team} ID ");
+        id19.setFill(Color.GREY);
+        VIEW_TEMPLATE = new TextFlow(
+                VIEW.getText(), id19, VIEW_INSTRUCTION.getText()
         );
 
     }

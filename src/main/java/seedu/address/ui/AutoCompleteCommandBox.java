@@ -47,7 +47,7 @@ public class AutoCompleteCommandBox extends JFXTextField {
             "remove participant", "remove mentor", "add participant", "add mentor", "add team", "list participants",
             "list mentors", "list teams", "edit participant", "edit mentor", "edit team", "delete participant",
             "delete mentor", "delete team", "find participant", "find mentor", "find team", "leaderboard", "getTop",
-            "score add", "score sub", "score set", "history", "undo", "redo", "import", "export", "help");
+            "score add", "score sub", "score set", "history", "undo", "redo", "import", "export", "help", "view");
 
     public AutoCompleteCommandBox(CommandExecutor commandExecutor) {
         super();
@@ -335,6 +335,9 @@ public class AutoCompleteCommandBox extends JFXTextField {
 
         case "exit":
             return suggestionTemplates.EXIT_TEMPLATE;
+
+        case "view":
+            return suggestionTemplates.VIEW_TEMPLATE;
 
         default:
             logger.info("Other Template is null");
