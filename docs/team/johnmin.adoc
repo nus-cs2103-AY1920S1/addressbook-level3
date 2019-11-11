@@ -50,7 +50,7 @@ i.e. `add [param]` indicates that both `add` and `add param` commands will work.
 
 * *Highlights:* Although this is included as a minor enhancement, it required creation of 12 new Java classes along with syncing of new methods exposed by our new manager class.
 
-*Code contributed*: [https://tinyurl.com/tzuvoyh[Contributions]]
+*Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=john0227&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=john0227&tabRepo=AY1920S1-CS2103T-F11-1%2Fmain%5Bmaster%5D[Contributions]]
 
 *Other contributions*:
 
