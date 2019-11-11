@@ -48,7 +48,8 @@ These are the steps you should take:
 
 .  Copy the downloaded file to the folder you want to use as the home folder for your Athletick.
 
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The graphical user interface (GUI) should appear in a
+few seconds.
 +
 
 image::Gui.png[width=450]
@@ -641,7 +642,7 @@ Format: `calendar MMYYYY`
 
 Example: `calendar 102017`
 
-Type `calendar 102017` into the command box, and press kbd:[enter] to execute it.
+Type `calendar 102017` into the command box, and press kbd:[Enter] to execute it.
 
 image::calendar5.png[width=450]
 
@@ -690,7 +691,7 @@ You should have either training or attendance records on the specified date ente
 // tag::calendar3[]
 Example: `calendar 31102019`
 
-Type `calendar 31102019` into the command box, and press kbd:[enter] to execute it.
+Type `calendar 31102019` into the command box, and press kbd:[Enter] to execute it.
 
 image::calendar8.png[width=350]
 
@@ -1042,6 +1043,7 @@ Check attendance of an athlete:: `attendance INDEX`
 Jump to a specific month and year on calendar:: `calendar MMYYYY`
 View details for specific date on calendar:: `calendar DDMMYYYY`
 Clear data:: `clear`
+Delete a training session:: `delete -t d/DDMMYYYY`
 Edit athlete:: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... i/IMAGE`
 Add event:: `event EVENT_NAME`
 Delete athlete:: `delete INDEX`
@@ -1055,14 +1057,22 @@ Sort athletes:: `sort`
 Record a training (by athletes present):: `training d/DDMMYYYY #/INDEX [INDEX]...`
 Record a training (by athletes absent):: `training -a d/DDMMYYYY #/INDEX [INDEX]...`
 Edit attendance of a training:: `training` or `training -a`
-Delete a training session:: `delete -t d/DDMMYYYY`
-View attendance of an athlete:: `attendance INDEX`
-View team's attendance:: `view attendance`
 Undo a command:: `undo`
+View team's attendance:: `view attendance`
 View calendar:: `view calendar`
 View all created events:: `view performance`
 
 == Glossary
+CLI::
+Command line interface (CLI) is a text-based interface that is used to operate software and operating systems while allowing the user to respond to visual prompts by typing single commands into the interface and receiving a reply in the same way.
+
+GUI::
+Graphical user interface (GUI) is a visual way of interacting with a computer using items such as windows, icons, and menus, used by most modern operating systems.
+
+Timing-based Sports::
+Examples of timing-based sports are swimming and track & field, where performance can be measured
+in terms of time taken to complete a certain distance.
+
 
 
 

@@ -1366,7 +1366,7 @@ Windows, Linux, Unix, OS-X
 [[cli]] CLI::
 Command line interface (CLI) is a text-based interface that is used to operate software and operating systems while allowing the user to respond to visual prompts by typing single commands into the interface and receiving a reply in the same way.
 
-[[time-base-sports]] Time-base Sports::
+[[time-based-sports]] Time-based Sports::
 Examples of time-based sports are swimming and track & field, where performance can be measured in terms of time or distance.
 
 [appendix]
