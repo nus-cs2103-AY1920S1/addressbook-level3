@@ -44,8 +44,13 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
 
+    /**
+     * links result display
+     * so autocomplete feedback can be given to user
+     * @param resultDisplay
+     */
     public void linkResultsDisplay(ResultDisplay resultDisplay) {
-        assert resultDisplay != null: "Result Display cannot be null!";
+        assert resultDisplay != null : "Result Display cannot be null!";
         this.resultDisplay = resultDisplay;
     }
 
@@ -107,8 +112,7 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
                 } catch (Exception e) {
                     logger.info("Exception thrown from autocomplete.");
                 }
-            }
-            else {
+            } else {
                 commandTextField.initListener();
                 isAutoCompleteOn = true;
                 resultDisplay.setFeedbackToUser("AutoComplete feature turned on.");

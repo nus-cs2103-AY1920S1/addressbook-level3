@@ -178,7 +178,7 @@ public class AutoCompleteTextField extends TextField {
      * hide autocomplete results if needed
      */
     public void hidePopUp() {
-        if (entriesPopup.isShowing()){
+        if (entriesPopup.isShowing()) {
             entriesPopup.hide();
         }
     }
