@@ -13,6 +13,7 @@ Class HelpWindow
 Class ResultDisplay
 Class StatusBarFooter
 Class CommandBox
+Class MainTabPanel
 
 package {
 Class TransactionListPanel
@@ -42,10 +43,11 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> TransactionListPanel
-MainWindow *-down-> BudgetListPanel
-MainWindow *-down-> LedgerListPanel
-MainWindow *-down-> ProjectionListPanel
+MainWindow *-down-> MainTabPanel
+MainTabPanel *-down-> TransactionListPanel
+MainTabPanel *-down-> BudgetListPanel
+MainTabPanel *-down-> LedgerListPanel
+MainTabPanel *-down-> ProjectionListPanel
 MainWindow *-down-> StatusBarFooter
 
 StatusBarFooter -[hidden]down-> CommandBox

@@ -333,7 +333,7 @@ image::SetBudgetSimpleActivityDiagram.png[]
 As shown, a new budget cannot have the same *initalAmount*, *deadline* and *categories* as any other existing budget in
 budget list. Allowing existence of duplicate budgets will crowd the interface of `Budget` tab,
 which prevents the user from getting a quick overview of his budget status. Hence, a duplicate check is essential
-in providing a pleasing user experience. +
+in providing a pleasing user exp. +
 
 ==== Example of Usage
 
