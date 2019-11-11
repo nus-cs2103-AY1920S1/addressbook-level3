@@ -140,6 +140,7 @@ Format: `exit`
 
 === Task Management Commands
 
+// tag::addT-command[]
 ==== Add a delivery task: `addT`
 
 Adds a delivery task to the task manager. +
@@ -155,7 +156,9 @@ Examples:
 
 * `addT g/100 frozon boxes of red grouper c/13 dt/10/12/2019`
 * `addT g/1x washing machine c/10 dt/12/1/2020`
+// end::addT-command[]
 
+// tag::editT-command[]
 ==== Edits a delivery task : `editT`
 
 Edits a existing delivery task in the task manager. +
@@ -165,6 +168,8 @@ Format: `editT [TASK ID] [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE OF DE
 * Edited DATE OF DELIVERY must be today onwards.
 Date format: d/M/yyyy.
 * Only indicate fields that you want to change.
+* Edited DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.
+* COMPLETED tasks cannot be edited.
 ****
 
 Examples:
@@ -173,7 +178,9 @@ Examples:
 Edits the description of the task (Task ID: 3) to be `50 frozen boxes of catfish`.
 * `editT 5 c/2 dt/10/12/2019` +
 Edits the customer and date of delivery of the task (Task ID: 5) to be `Customer (Customer ID: 2)` and `10/12/2019` respectively.
-j
+// end::editT-command[]
+
+
 
 // tag::suggest-command[]
 ==== Automatically scheduling a task: `suggest`
@@ -272,6 +279,7 @@ Gets the details of task (Task ID: 3).
 * `read d/2` +
 Gets the details of driver (Driver ID: 2).
 
+// tag::del-command[]
 ==== Deletes a delivery task / driver / customer: `del`
 
 Deletes a task / driver / customer from its respective managers. +
@@ -290,8 +298,10 @@ Examples:
 Deletes task (Task ID: 1) from the task manager.
 * `del d/2` +
 Deletes driver (Driver ID: 2) from the driver manager.
+// end::del-command[]
 
-==== Views completed delivery tasks delivered to Customer
+
+==== Views completed delivery tasks delivered to Customer `viewC`
 
 Displays a list of completed tasks delivered to the customer, located in the completed delivery list under History tab.
 
@@ -300,7 +310,7 @@ Examples:
 * `viewC 1` +
 View the tasks delivered to the customer (Customer ID: 1).
 
-==== Views completed delivery tasks delivered by Driver
+==== Views completed delivery tasks delivered by Driver: `viewD`
 
 Displays a list of completed tasks delivered by the driver, located in the completed delivery list under History tab.
 
@@ -309,26 +319,38 @@ Examples:
 * `viewD 1` +
 View the tasks delivered by the driver (Driver ID: 1).
 
-==== Saves assigned delivery tasks for a specific date into PDF document: `savepdf`
 
-The PDF document is arranged in a table format to allow easy reference of the delivery tasks that is assigned to each drivers for the date.
-Its purpose is for user reference and archive. +
-Refer to <<PdfLayout>> for sample. +
-Format: `savepdf [DATE]`
+
+// tag::savepdf-command[]
+==== Generates Task Summary or Delivery Orders for a specific date in PDF document: `savepdf`
+Document Type: `summary` +
+The `Task Summary` is a summary of delivery tasks that is assigned to each driver for the specific date.
+Its purpose is for user reference and archive. Refer to <<PdfSummary>> for sample.
+
+Document Type: `order` +
+The `Delivery Order` is a document that contain goods' information and requires customers' confirmation.
+Its purpose is to act as a proof between the delivery company and receiver that goods are delivered
+as per order and accepted in good condition. Refer to <<PdfDeliveryOrder>> for sample.
+
+Format: `savepdf [pdf/DOCUMENT TYPE] [dt/DATE]`
 
 ****
 * `DATE` format is dd/mm/yyy.
 * `DATE` field is OPTIONAL. If date field is not declared, it will take the date of today.
-* PDF document will be saved under `data` folder which is the same directory as where you put the deliveria.jar.
-* Name of the PDF document will be DeliveryTasks [DATE].pdf .
+* PDF document will be saved in a folder in the same directory as where you put the deliveria.jar.
+** PDF Task Summary will be saved in `DeliveryTasks` folder as `DeliveryTasks [DATE].pdf`.
+** PDF Delivery Order will be saved in "DeliveryOrders" folder as `DeliveryOrders [DATE].pdf`.
+* Use the `update` command to update the company's information displayed in the Delivery Order PDF.
 ****
 
 Examples:
 
-* `savepdf` +
-Saves the assigned delivery tasks in PDF format for today.
-* `savepdf 20/10/2019` +
-Saves the assigned delivery tasks in PDF format for 20/10/2019.
+* `savepdf pdf/order` +
+Saves the delivery orders in PDF format for today.
+* `savepdf pdf/summary dt/15/11/2019` +
+Saves the task summary in PDF format for 15/11/2019.
+// end::savepdf-command[]
+
 
 === Customer Management Commands
 
@@ -393,6 +415,26 @@ Examples:
 
 * `viewDW 1`
 // end::viewdw-command[]
+
+
+=== Company Commands
+
+==== Updates the company's information: `update`
+Updates the information of the company so that it can be displayed in the Delivery Order PDF.
+Refer to `savepdf` command on how to generate Delivery Order PDF. +
+Format: `update [n/NAME] [a/ADDRESS] [p/PHONE] [f/FAX] [e/EMAIL] [r/CO REG. NO.] [gst/GST REG. NO]`
+
+****
+* Only GST Registration Number is a optional field and can be removed by typing `update gst/-`
+****
+
+Examples
+
+* `update n/Fast Supply Pte Ltd p/67331928` +
+Updates the company's name to "Fast Supply Pte Ltd" and phone no to "67331928".
+* `update r/18387752B gst/-` +
+Updates the company's registration number to "18387752B" and remove GST registration number.
+
 == Saving the data
 
 Deliveria data are saved in the hard disk automatically after any command that changes the data. +
@@ -410,7 +452,13 @@ There will be a folder called `data`.
 *Q*: How do I know the list of commands? +
 *A*: The `help` command will give a list of available commands.
 
+// tag::appendix[]
 == Appendix
 
-.PDF Document generated by `savepdf` command
-image::/images/DeliveryTasks_Pdf_Layout.png[id="PdfLayout",Delivery Tasks PDF]
+.PDF Task Summary generated by `savepdf` command.
+image::/images/DeliveryTasks_Pdf_Layout.png[id="PdfSummary", Delivery Task Summary PDF]
+
+.PDF Delivery Order generated by `savepdf` command.
+image::/images/Delivery_Order_Pdf.png[id="PdfDeliveryOrder", Delivery Order PDF]
+// end::appendix[]
+

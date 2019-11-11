@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-F14-4/main/blob/master
 
 By: `Team Team CS2103T-F14-4`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -136,6 +136,7 @@ The `Model`,
 // end::model[]
 
 [[Design-Storage]]
+// tag::storage-component[]
 === Storage component
 
 .Structure of the Storage Component
@@ -148,9 +149,9 @@ image::CentralManager.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* uses `CentralManager` to consolidate all the managers' data that needs to be saved. (e.g. Task Manager's data)
+* uses `CentralManager` to consolidate all the data that needs to be saved. (e.g. Task Manager's data)
 * can save the `CentralManager` data in json format and read it back.
-
+// end::storage-component[]
 [[Design-Commons]]
 === Common classes
 
@@ -283,13 +284,18 @@ Decreases testability.
 
 
 
-// tag:generate-pdf[]
-=== Generate PDF Task Summary Feature
 
+// tag::generate-pdf[]
+=== Generate Task Summary and Delivery Orders in PDF Feature
 ==== Implementation
+Generation of PDF documents is handled by `PdfManager`.
+It is responsible in taking the essential inputs required to generate the document.
+The following inputs are required to generate a PDF document such as a PDF Delivery Order:
 
-The *generate PDF Task Summary* feature creates a task summary in a user-friendly layout in PDF format for *user reference* and *archive* usage.
-`PdfCreator` class creates and saves the PDF document as well as formatting its layout.
+* `filePath` - the directory where the pdf document is to be saved.
+* `data` - the data that is to be displayed in the PDF document.
+
+The `PdfManager` utilizes `PdfCreator` to create and save the PDF document as well as formatting the layouts.
 It is implemented with the help of an external library, https://github.com/itext/itext7[iText7].
 
 [NOTE]
@@ -297,6 +303,7 @@ Regarding iText's license, it can be used for free in situations where you distr
 It is a Affero General Public License (AGPL) library. +
 Information updated as of 6 November 2019. For more information, please visit the https://itextpdf.com/en[iText official website].
 
+To show how the PDF document is generated, *generating PDF Task Summary will be used as an example* for this showcase.
 The following sequence diagram shows how the user command `savepdf` is being executed and handled.
 
 .Sequence Diagram of how PDF task summary is saved.
@@ -304,13 +311,13 @@ image::SavePdfCommand.png[]
 
 NOTE: The lifeline for `SavePdfCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-Notice that only the `filepath` and the `date of delivery` is needed when calling `saveDriverTaskPdf`.
-This is because only the saving location of the PDF file and the date, where the task summary will be based on, are the only fields needed for the `PdfCreator`.
-The rest of the components, such as fetching of the tasks, will be handled by the `Model` while the formatting will be handled by `PdfCreator`.
+Notice that only the `filepath` and the `date of delivery` is needed when calling `generateTaskSummaryPdf`.
+This is because only the saving location of the PDF file and the date, where the task summary will be based on, are the only fields needed for the `PdfManager`.
+The rest of the components, such as fetching of the tasks, will be handled in the `Model` while the formatting will be handled by `PdfCreator`.
 
-The following sequence diagram shows how the model interact with `PdfCreator` to generate the PDF task summary.
+The following sequence diagram shows how the model interact with `PdfManager` to generate the PDF task summary.
 
-.Sequence Diagram of how the model generates the PDF task summary.
+.Sequence Diagram of how the model interact with `PdfManager` to generates the PDF task summary.
 image::GeneratePdfSequenceDiagram.png[]
 
 The `PdfWrapperLayout` provides a outer canvas to encapsulates all the layouts.
@@ -329,10 +336,11 @@ image::GeneratePdfActivityDiagram.png[]
 
 ===== Aspect:
 
-* **Alternative 1 (current choice)**: Abstract the layout of each part of the task summary.
+* **Alternative 1 (current choice)**: Abstract the layout of each part of the PDF document
+(Eg. Class that handles task layout is separated from class that handles customer layout.)
 ** Pros: Encourages reuse and easier to manage and add on.
 ** Cons: Harder to implement.
-* **Alternative 2**: Do the whole task summary layout in 1 class.
+* **Alternative 2**: Do the whole PDF document layout in 1 class.
 ** Pros: Easy to implement.
 ** Cons: Harder to manage.
 // end::generate-pdf[]
@@ -458,17 +466,11 @@ The `LogsCenter` class is used to manage the logging levels and logging destinat
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-<<<<<<< HEAD
-=== Customer Feature (E.g. Add Customer)
-
-==== Implementation
-
-=======
 // tag::customerfeature[]
 === Customer Feature
 ==== Add Customer
 ===== Implementation
->>>>>>> master
+
 The *Add Customer* feature adds a new Customer into a Customer list. +
 It uses the `AddCustomerCommand`, which extends `Command`, to add a `Customer` into the `CustomerManager`.
 `AddCustomerCommandParser` is also utilised to parse and validate the user inputs before sending it to `AddCustomerCommand` to execute.
@@ -487,12 +489,6 @@ The following sequence diagram shows how the add customer operation works:
 .Sequence Diagram of adding a task.
 image::AddCustomerCommand.png[]
 
-<<<<<<< HEAD
-=== Driver Feature (E.g. Add Driver)
-
-==== Implementation
-
-=======
 ===== Design Considerations
 
 ====== Aspect: Usage of universal Command word
@@ -536,7 +532,7 @@ all essential details. Allow the space for working map showing the location of t
 === Driver Feature
 ==== Add Driver
 ===== Implementation
->>>>>>> master
+
 The *Add Driver* feature adds a new Driver into a Driver list. +
 It uses the `AddDriverCommand`, which extends `Command`, to add a `Driver` into the `DriverManager`.
 `AddDriverCommandParser` is also utilised to parse and validate the user inputs before sending it to `AddCustomerCommand` to execute.
@@ -562,14 +558,8 @@ image::AddDriverCommand.png[]
 * **Alternative 1 (current choice):** Have a individual command word for adding driver. (`addD`)
 ** Pros: Easy to implement and increases clarity for users.
 ** Cons: Increases the number of commands.
-<<<<<<< HEAD
-* **Alternative 2:** Combine `AddCustomerCommand` with other `add` commands
-** Pros: Will use only 1 universal `add` command for adding any entities.
-(Task, Customer and Driver)
-=======
 * **Alternative 2:** Combine `AddDriverCommand` with other `add` commands
 ** Pros: Will use only 1 universal `add` command for adding any entities. (Task, Customer and Driver)
->>>>>>> master
 ** Cons: Have to handle different type of parameters and some parameters of commands are overlap which requires more validation.
 
 ==== View Driver Window

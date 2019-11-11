@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":CommandParser" as CommandParser LOGIC_COLOR
 participant ":SavePdfCommandParser" as SavePdfCommandParser LOGIC_COLOR
 participant "p:SavePdfCommand" as SavePdfCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -13,45 +13,46 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute(\n"savepdf 5/11/2019")
+[-> LogicManager : execute(savepdf)
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(\n"savepdf 5/11/2019")
-activate AddressBookParser
+LogicManager -> CommandParser : parseCommand(savepdf)
+activate CommandParser
+note right: savepdf's FULL COMMAND: "savepdf pdf/summary dt/5/11/2019"
 
 create SavePdfCommandParser
-AddressBookParser -> SavePdfCommandParser : SavePdfCommandParser()
+CommandParser -> SavePdfCommandParser : SavePdfCommandParser()
 activate SavePdfCommandParser
 
-SavePdfCommandParser --> AddressBookParser
+SavePdfCommandParser --> CommandParser
 deactivate SavePdfCommandParser
 
-AddressBookParser -> SavePdfCommandParser : parse("savepdf 5/11/2019")
+CommandParser -> SavePdfCommandParser : parse(savepdf)
 activate SavePdfCommandParser
 
 create SavePdfCommand
-SavePdfCommandParser -> SavePdfCommand : SavePdfCommand(5/11/2019)
+SavePdfCommandParser -> SavePdfCommand : SavePdfCommand(\n"summary", 5/11/2019)
 activate SavePdfCommand
 
 SavePdfCommand --> SavePdfCommandParser : p
 deactivate SavePdfCommand
 
-SavePdfCommandParser --> AddressBookParser : p
+SavePdfCommandParser --> CommandParser : p
 deactivate SavePdfCommandParser
 
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-SavePdfCommandParser -[hidden]-> AddressBookParser
+SavePdfCommandParser -[hidden]-> CommandParser
 destroy SavePdfCommandParser
 
-AddressBookParser --> LogicManager : p
-deactivate AddressBookParser
+CommandParser --> LogicManager : p
+deactivate CommandParser
 
 LogicManager -> SavePdfCommand : execute()
 activate SavePdfCommand
 
 
 note right : FILEPATH*: "./data/DeliveryTasks 2019-11-05.pdf"
-SavePdfCommand -> Model : saveDriverTaskPdf(FILEPATH*, 5/11/2019)
+SavePdfCommand -> Model : generateTaskSummaryPdf(\nFILEPATH*, 5/11/2019)
 activate Model
 
 Model --> SavePdfCommand
