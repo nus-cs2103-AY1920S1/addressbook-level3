@@ -37,6 +37,7 @@ public class ViewCommand extends Command {
             + "[" + PREFIX_APPEAL + "INDEX" + "] "
             + "[" + PREFIX_MODULE + "INDEX" + "] "
             + "[" + PREFIX_STUDENT + "INDEX" + "]\n"
+            + "Where INDEX refers to a non-zero, non-negative integer number\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_APPEAL + "1 "
             + PREFIX_MODULE + "11 "

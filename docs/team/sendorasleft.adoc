@@ -1,49 +1,120 @@
 = YongKuan - Project Portfolio
 :site-section: AboutUs
+:toc:
+:experimental:
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Module Appeal Management System (MAMS) - Level 3
+[discrete]
+== Project: Module Appeal Management System (MAMS)
 
 ---
 
 == Overview
 
-MAMS - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+.Sample User Interface of MAMS
+image::Ui.png[height=50%]
 
-Note: This portfolio was adapted from the AddressBook project. All information written herein (28th Septemeber 2019) is not yet revised for the new application.
+Every semester, administrators from the National University of Singapore (NUS) have to
+systematically work their way through a heavy backlog of special requests, known as "appeals".
+These appeals are usually made by frantic students during Module Registration,
+a system where students register for their
+desired courses in the upcoming academic term, and represent special circumstances that require
+human judgement to resolve.
+
+**The Module Appeal Management System (MAMS)** is hence a desktop app that aims
+to fuse a Command Line Interface (CLI) style command input with a triple-pane
+GUI for easy navigation of appeals, module information, and student
+particulars all in a single display. By combining the precision and speed of a CLI
+input with the powerful side-by-side overview afforded by a GUI,
+this app is particularly aimed towards *appeal
+administrators who prefer to blaze through their heavy backload of appeals
+without ever having to leave the comfort of the keyboard for their mouse*. MAMS aims
+to be a self-contained application for fetching appeal, module, and student information, while
+providing a complete suite of tools for intuitive navigation of the comprehensive data display and
+resolving appeals. These include, but may not be limited to:
+
+- A *powerful side-by-side triple-pane list cell display of appeal, module, and student data*, with commands to quickly navigate between
+compact list views of multiple items and comprehensive expanded displays of single items.
+- A *command history feature* for administrators to quickly cycle through and re-use old commands, while providing a comprehensive
+and permanent log of all actions performed within the application.
+- A *clash feature* that allows administrators to accurately determine any potential timetable clashes in appeal cases,
+student workloads, or any two particular modules.
+- A *find feature* that enables administrators to quickly locate specific appeal, module, and student data, narrowing down clutter within the display.
+- An *add/remove module feature* that allows administrators to allocate or remove modules from students, while automatically checking for
+potential hiccups like duplicate assignments.
+- An *approve/reject feature* that allows administrators to close or resolve appeals in fast succession, and even provides functionality for mass operations.
+- A *set credits feature* that provides administrator with the functionality to override allowable student workloads.
+- An *undo/redo feature* to correct any recent unwanted data changes that may have been accidentally committed by the administrator.
+
+MAMS is written primarily in Java, and features a GUI created with JavaFX, with CSS used to augment the GUI for improved user experience. It has about
+13 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *a suite of history-related features and functionality*
+** What it does:
+- Gives administrators the ability to cycle through previous commands for auto-filling of the command-box using kbd:[&uarr;]/kbd:[&darr;] keys
+- Keeps a permanent log of command execution by time-stamping each command, storing its result, and marking it according to execution success.
+- Enables administrator to open a new window displaying all command history.
+The display is updated in real-time, and can be filtered or toggled to hide verbose outputs.
+It also uses hot-keys for mouse-less navigation and triggering of clipboard functions.
+- Persistent serialization of command history to disk, with subsequent deserialization and loading on startup.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** Justification:
+- Appeal resolution can drastically affect a student's academic career. It is hence extremely
+important for the system (and those in supervisory positions over the administrators) to keep a permanent,
+time-stamped, displayable and filterable log of all executed commands and actions that an administrator performs.
+- Improves usability and convenience of the product significantly as administrators can easily recycle past commands using arrow keys, drastically cutting down
+on monotonous and repetitive typing, which is crucial for a CLI-style application.
+- History window can also provide real-time display of recently entered commands, helping administrators to keep on track through a real-time display of recent commands. It also further enhances convenience
+by allowing users to quickly search through history (using hot-keys) and copy desired commands/parameters that may be too verbose or context-dependent to recall from memory
+or identify from cycling through the arrow keys alone.
+- Lastly but not exhaustively, persistent logging of history can allow administrators to quickly orientate themselves to what they did in a previous session,
+allowing them to resume their work much more quickly.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** Highlights:
+- This enhancement can have useful and interesting implications for future command development. For example, an `undo` command having the knowledge of all previously
+executed commands, along with their details and execution status, can specifically target certain types of commands to be undone. Time-stamped history entries, along
+with the record of successful/non-successful commands, can provide valuable work statistics for the admin/NUS. The independent serialization of command history to disk can allow MAMS to recover from
+catastrophic data corruption by repeating the same sequence of commands on the original data source retrieved from NUS.
+- This suite of history features was especially challenging as it required extensive end-to-end implementation across the whole of MAMS (from backend storage,
+to model and logic, and finally to extensive changes and creation of new element in GUI). To integrate the entire suite of features into MAMS smoothly, it
+required an in-depth analysis of design alternatives (eg. how existing commands can access history, placement of CommandHistory,
+implementing real-time updates of the history window) in order for it to mesh well with the existing code architecture.
+
+* *Minor enhancement*: Was solely in charge of the MAMS UI/UX. Re-worked entire GUI with revised layout/colour-scheme, and further improved the display and navigability of
+the visual data by implementing `list` and `view` commands to switch between side-by-side compact list views and expanded card views.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=sendorasleft&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=SendorasLeft&tabRepo=AY1920S1-CS2103-T11-2%2Fmain%5Bmaster%5D[RepoSense Link]]
+(Use provided RepoSense filters to view "Functional" and "Test" Code)
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Managed releases `v1.1` - `v1.4` (4 major releases, 1 minor) on GitHub
+*** Refactored and renamed the initial AB3 source code in preparation for MAMS development (https://github.com/AY1920S1-CS2103-T11-2/main/pull/39[#39])
+*** Set up issue tracker
+*** Managed milestones `v1.2` - `v1.4` (3 milestones) on GitHub
 
-_{you can add/remove categories in the list above}_
+** Enhancements to existing features:
+*** Responsible for adapting and redesigning of the entire layout of GUI for new application
+(Pull requests https://github.com/AY1920S1-CS2103-T11-2/main/pull/68[#68],
+https://github.com/AY1920S1-CS2103-T11-2/main/pull/75[#75],
+https://github.com/AY1920S1-CS2103-T11-2/main/pull/104[#104])
+*** Updated the GUI color scheme (Pull requests https://github.com/AY1920S1-CS2103-T11-2/main/pull/81[#81], https://github.com/AY1920S1-CS2103-T11-2/main/pull/112[#112])
+*** Wrote and adapted the initial common test utilities for the new application
+* Implemented tests for the new features
+increasing coverage by ~10% (Pull requests https://github.com/AY1920S1-CS2103-T11-2/main/pull/112[#112],
+https://github.com/AY1920S1-CS2103-T11-2/main/pull/203[#203])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T11-2/main/pull/77[#77], https://github.com/AY1920S1-CS2103-T11-2/main/pull/61[#61]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/33[1], https://github.com/AY1920S1-CS2103-T14-3/main/issues/128[2], https://github.com/AY1920S1-CS2103-T14-3/main/issues/132[3], https://github.com/AY1920S1-CS2103-T14-3/main/issues/125[4])
+** Tools:
+*** Integrated Netlify (a third-party website deployment platform) into the team GitHub repository (https://github.com/AY1920S1-CS2103-T11-2/main/pull/197[#197])
+*** Set up Coveralls for the team Github repository to track test coverage (https://github.com/AY1920S1-CS2103-T11-2/main/pull/105[#105])
+*** Set up Codacy for the team Github repository to automatically identify coding quality issues (https://github.com/AY1920S1-CS2103-T11-2/main/pull/105[#105])
+
 
 == Contributions to the User Guide
 
@@ -52,9 +123,23 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+=== Introduction
+[discrete]
+include::../UserGuide.adoc[tag=intro]
 
-include::../UserGuide.adoc[tag=dataencryption]
+=== Quick Start
+[discrete]
+include::../UserGuide.adoc[tag=quickStart]
+
+=== Features
+[discrete]
+include::../UserGuide.adoc[tag=featuresPreamble]
+
+include::../UserGuide.adoc[tag=view]
+
+include::../UserGuide.adoc[tag=list]
+
+include::../UserGuide.adoc[tag=history]
 
 == Contributions to the Developer Guide
 
@@ -62,13 +147,22 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=ui]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=history]
+
+=== Product Scope
+[discrete]
+include::../DeveloperGuide.adoc[tag=productScope]
+
+include::../DeveloperGuide.adoc[tag=uc1]
+
+include::../DeveloperGuide.adoc[tag=uc5]
+
+include::../DeveloperGuide.adoc[tag=testingView]
+
+include::../DeveloperGuide.adoc[tag=testingList]
+
+include::../DeveloperGuide.adoc[tag=testingHistory]
 
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
