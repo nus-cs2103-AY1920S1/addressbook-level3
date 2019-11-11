@@ -32,7 +32,8 @@ import seedu.pluswork.model.task.TaskStatus;
 public class EditTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "edit-task";
-    public static final String PREFIX_USAGE = PREFIX_TASK_INDEX + " " + PREFIX_TASK_NAME + " " + PREFIX_TASK_TAG + " " + PREFIX_TASK_STATUS;
+    public static final String PREFIX_USAGE = PREFIX_TASK_INDEX + " " + PREFIX_TASK_NAME + " " + PREFIX_TASK_TAG + " "
+            + PREFIX_TASK_STATUS;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task identified "
             + "by the index number used in the displayed task list. "
@@ -77,11 +78,6 @@ public class EditTaskCommand extends Command {
         }
 
         Task taskToEdit = lastShownList.get(index.getZeroBased());
-
-        /* deadline should not be set in EditTaskCommand, {@see SetDeadlineCommand} */
-        if (!taskToEdit.hasDeadline()) {
-            throw new CommandException(MESSAGE_NOT_EDITED_DEADLINE);
-        }
 
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
 
