@@ -32,13 +32,6 @@ Welcome to _TravEzy_! 😊
 Firstly, thank you for downloading our application. We greatly appreciate your support and
 we *promise* to make travel easy with _TravEzy_.
 
-So, is _TravEzy_ for you?
-
-. Are you a busy university student with a passion for travelling?
-. Are your summers and winters swamped with internships, projects and CCA activities?
-. Do your numerous commitments get in the way of your travel plans?
-
-IF you answered yes to the questions above, then *yes* it is. If not, it still is :)
 
 What is _TravEzy_?
 
@@ -46,15 +39,27 @@ _TravEzy_ is a desktop application with a command line interface (CLI) and is *p
 
 TravEzy is perfect for:
 
-. Managing your busy calendar and finding the a good time to take that much needed holiday!
+* Managing your busy calendar and finding the best time to take that much needed holiday!
 
-. Creating the ideal itinerary for your trips :)
+* Crafting the ideal itinerary for your trip :)
 
-. Tracking your expenses during your trip, so that you have enough money left for the trip home
+* Tracking your expenses during your trip, so that you have enough money left for the trip home
 
-. Journaling in your travel diary and effortlessly looking at old entries to recall your favourite moments
+* Journaling and looking at fond old memories in your diary
 
-. Keep in contact with your old and new friends with the help of _TravEzy's_ address book
+* Keeping in contact with your old and new friends with the help of _TravEzy's_ address book
+
+
+
+So, is _TravEzy_ for you?
+
+* Are you a busy university student with a passion for travelling?
+* Are your summers and winters swamped with internships, projects and CCA activities?
+* Do your numerous commitments get in the way of your travel plans?
+
+IF you answered yes to the questions above, then *yes* it is. If not, it still is :)
+
+
 
 
 What are you waiting for? Hop on to this user guide and we will
@@ -64,7 +69,7 @@ travel to +++<u>+++Section 2, “Quick Start”+++</u>+++ to start TravEzy 😊
 
 . Grab a cup of coffee.
 
-. Ensure that you have Java 11 or above installed in your Computer.
+. Ensure that you have Java 11 or above installed in your computer.
 
 . Download the latest
 https://github.com/AY1920S1-CS2103T-T17-2/main/releases[TravEzy.jar]
@@ -86,11 +91,15 @@ Refer to Section 3, “Features” for details of each command.
 
 == Preface
 
-Excited to start using _TravEzy_? Read this section to find out how this document is structured, and what each symbol and special font style mean. We promise that this will help you to get started with using _TravEzy_ more quickly! 😊
+Excited to start using _TravEzy_?
+Read this section to find out how this document is structured,
+and what all the symbols and special fonts mean.
+We promise that this will help you to get started with _TravEzy_ more quickly! 😊
 
 === Structure of this Document
 
-There are *alot* of things that TravEzy can do. So, we have organised this document such that you can easily look for what *you* need.
+There are *alot* of things that TravEzy can do.
+So, we have organised this document such that you can easily look for what *you* need.
 
 
 We've split up this guide into the different features of our application, namely:
@@ -102,11 +111,19 @@ We've split up this guide into the different features of our application, namely
 * Diary
 * Achievements
 
-In each of the above sections, you will be introduced to the *interface* of the feature and the *commands* that will do the menial tasks for you.
+In each of the above sections, you will be introduced to the *Interface* of the feature and the *Commands* that will
+help you make travel easy.
+
+NOTE: *Interface* refers to how _TravEzy_ will be presented to you and how you can interact with _TravEzy_.
+In this guide, we have included images of *exactly* what you should see in _TravEzy_ at every step, so don't worry! 😊
+
+NOTE: *Commands* refers to what you wil be typing into _TravEzy_ to start making travel easy. Again, there are plenty of
+images to ensure clarity. 😊
+
 
 === Reading this Document
 
-Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's find out more about what they mean in this document!
+Symbols and exquisite (okay, different) fonts are exciting, aren't they? Let's find out more about what they mean in this document!
 
 .Symbols and fonts
 [grid="rows", frame="none"]
@@ -1290,10 +1307,18 @@ Enjoy!
 
 Trying to journal about your fishing trip? The Diary allows you to add entries and keep them alive in your desktop forever.
 
-Format: `add t/TITLE d/DATE TIME [p/PLACE] [m/MEMORY]`
+Format:
+
+`add t/TITLE d/DATE TIME [p/PLACE] [m/MEMORY]`
 
 
-Example: Lets take the example of our midnight fishing trip!
+Example:
+
+``add t/Fishing Trip d/12/12/2019 2300 p/Pulau Tekong m/Caught the biggest fish ever!``
+
+*Step by step:*
+
+Lets take the example of our midnight fishing trip!
 
 Step 1: Enter ``add t/Fishing Trip d/12/12/2019 2300 p/Pulau Tekong m/Caught the biggest fish ever!``
 
