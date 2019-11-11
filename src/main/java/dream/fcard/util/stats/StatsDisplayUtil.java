@@ -33,6 +33,8 @@ public class StatsDisplayUtil {
         stage.getIcons().add(new Image(StatisticsWindow.class.getResourceAsStream(
             "/images/icon_black_resized.png")));
         stage.setTitle("FlashCard Pro: My overall statistics");
+        stage.setMinHeight(600);
+        stage.setMinWidth(600);
         stage.show();
     }
 
@@ -45,6 +47,8 @@ public class StatsDisplayUtil {
         stage.getIcons().add(new Image(DeckStatisticsWindow.class.getResourceAsStream(
             "/images/icon_black_resized.png")));
         stage.setTitle("My statistics for deck: " + deck.getDeckName());
+        stage.setMinHeight(400);
+        stage.setMinWidth(600);
         stage.show();
     }
 

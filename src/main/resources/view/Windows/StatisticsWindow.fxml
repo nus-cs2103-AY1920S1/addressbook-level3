@@ -50,19 +50,19 @@
          <Label styleClass="window-subtitle" text="My statistics by deck" />
          <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
             <children>
-               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="170.0">
                   <children>
                      <Label fx:id="testSessionsTotal" styleClass="big-number" text="0" />
                      <Label fx:id="testSessionsTotalExplainer" text="total test sessions all time" />
                   </children>
                </VBox>
-               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="170.0">
                   <children>
                      <Label fx:id="testSessionsThisWeek" styleClass="big-number" text="0" />
                      <Label fx:id="testSessionsThisWeekExplainer" text="total test sessions this week" />
                   </children>
                </VBox>
-               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0">
                   <children>
                      <Label fx:id="averageScore" styleClass="big-number" text="0" />
                      <Label fx:id="averageScoreExplainer" text="average score" />
