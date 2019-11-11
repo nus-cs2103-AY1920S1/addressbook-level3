@@ -78,7 +78,7 @@ This can prove to be rather tedious and cumbersome as users must remember every 
 Typee overcomes this by allowing users to interact with its interface and build commands sequentially. Users just need
 to type the relevant command word to get prompted about subsequent inputs.
 
-.The interactive component of Typee is highlighted above.
+.The interactive component of Typee is highlighted above. +
 image::interactive_parsing_0.png[width='520']
 
 With interactive parsing, the aforementioned 'Add' command reduces to the following sequence of inputs: -
@@ -93,7 +93,7 @@ a/John | Smith
 p/High
 ```
 
-.Typee's prompt in response to the user entering `add`
+.Typee's prompt in response to the user entering `add` +
 image::interactive_parsing_1.png[height='125' width="800"]
 
 Experienced users that have a grasp of the structure and format of various commands can also benefit from this feature.
@@ -108,10 +108,10 @@ d/Team Meeting
 a/John | Smith p/High
 ```
 
-.A user about to pass 3 arguments to Typee in one input, following `add`.
+.A user about to pass 3 arguments to Typee in one input, following `add`. +
 image::interactive_parsing_2.png[height='125' width='800']
 
-.Typee's response to the above input.
+.Typee's response to the above input. +
 image::interactive_parsing_3.png[height='125' width='800']
 
 Finally, a highly experienced user can create an 'Add' command in the conventional manner, i.e. by typing out
@@ -178,19 +178,19 @@ invalid and the user is prompted to enter a start date-time.
 This happens because the parser expects an argument for `s/`, but there is no such argument.
 As a consequence, all arguments that are supposed to be entered after `s/` (like `l/`) are not parsed.
 
-.Typee's response to `add t/meeting l/Meeting Room 2`.
+.Typee's response to `add t/meeting l/Meeting Room 2`. +
 image::interactive_parsing_6.png[width='800' height='125']
 
 
 Similarly, `add t/meeting s/15/01/2019/1500 d/desc p/low` is parsed till `s/` and a prompt is raised to enter a valid end date-time, leaving `d/`
 and `p/` untouched.
 
-.Typee's response to `add t/meeting s/15/01/2019/1500 d/desc p/low`.
+.Typee's response to `add t/meeting s/15/01/2019/1500 d/desc p/low`. +
 image::interactive_parsing_7.png[width='800' height='125']
 
 
 [NOTE]
-There lies a quirk with respect to the ordering of inputs if the parser has sufficient arguments.
+There lies a quirk with respect to the ordering of inputs if the parser has sufficient arguments. +
 Consider the case when the user inputs `add t/meeting e/15/11/2019/1500 s/15/11/2019/1400`. This input is deemed *valid* even
 though `e/` and `s/` are flipped. This is because after 't/', the parser expects to find an `s/`, which is in-turn contained in the input.
 
@@ -209,11 +209,12 @@ An example of the first case is as follows: `add t/teeming`. "Teeming" is an inv
 and prompts the user to enter an acceptable engagement type instead. Since Typee has already begun building an 'Add' command,
 the subsequent input must begin with `t/...`
 
-.A user about to enter an invalid input.
+.A user about to enter an invalid input. +
 image::interactive_parsing_4.png[height='125' width='800']
 
-.Typee's response to the invalid input.
+.Typee's response to the invalid input. +
 image::interactive_parsing_5.png[height='125' width='800']
+
 
 Attempting to replace the argument for a parameter or supply different arguments to the same parameter will result in Typee rejecting
 the user input.
@@ -267,25 +268,30 @@ image::tab_2.png[width="800"]
 
 === Adding an engagement: `add`
 
-Adds an engagement to the system. Engagement can be in different types; `Engagement`, `Meeting` and `Interview` +
-Format: `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION a/ATTENDEES d/DESCRIPTION p/PRIORITY`
+Adds an engagement to the system. There are three types of engagements; `Appointment`, `Meeting` and `Interview` +
+Format: `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION d/DESCRIPTION a/ATTENDEES[Separated by '|'] p/PRIORITY`
 
 .Enters Add Engagement Command in Command Input Text field.
 image::add_1.png[width="800"]
 
 Examples:
 
-* `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John, Elijah, Sam d/CS2103T Discussion p/High` +
+* `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 d/CS2103T a/John | Elijah | Sam  Discussion p/High` +
 Adds an engagement with following information;
 ** Engagement Type: Meeting
 ** Start Time: 18/10/2019/1500
 ** End Time: 18/10/2019/1800
 ** Location: COM-2-B1-03
-** Attendees: John, Elijah, Sam
 ** Engagement Description: CS2103T Discussion
+** Attendees: John, Elijah, Sam
 ** Priority: High
 
-After user enters the above command, system will save the engagement information and displays the brief engagement information as a list item on the List View.
+After user enters the above command, Typee will store the information and append it to the displayed list of engagements.
+
+[TIP]
+The arguments to this command can be entered sequentially, leveraging the interaction offered by Typee. Example: `add` +
+`t/meeting` `s/11/11/2019/1500` ... `p/High`
+
 
 .Engagement successfully saved in system storage.
 image::add_2.png[width="800"]
