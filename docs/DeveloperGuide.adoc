@@ -1259,6 +1259,27 @@ Expected: No tasks are assigned and error message for invalid format is shown.
 .. Other incorrect `assignTask` commands to try: `assignTask 2000 1` (this should be an incorrect task index specified) +
 `assignTask -1 2 3` (this is an incorrect format as indexes should be positive).
 
+=== Set timetable to person
+
+.. Test case: `setTimetable 1 n/https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D27` +
+Expected: Data is fetch from the internet and added successfully. Scroll down on the result box to view visualization of timetable set.
+
+.. Test case: `setTimetable 1 n/https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D1` +
+Expected: Error message should show due to invalid URL. System should pinpoint which module is invalid on the URL
+
+=== Generate timetable
+
+Assuming timetable is added as above, with person at index 1 in the checked out project
+
+.. Test case: `generate d/2 r/MONDAY 0800 MONDAY 1000` +
+Expected: Time slots generated successfully. Should see visualization on result panel.
+
+.. Test case: `generate d/2 r/MONDAY 0900 MONDAY 1100` +
+Expected: Unable to generate any time slots.
+
+.. Other test cases to try out
+... Other timetables added to other members in the same project, and use generate command.
+
 === Saving data
 
 . Dealing with missing/corrupted data files
