@@ -1112,7 +1112,7 @@ _{ more test cases ... }_
 
 === Deleting an expense
 
-. Deleting an expense while all persons are listed
+. Deleting an expense while all expenses are listed
 
 .. Prerequisites: List all expenses using the `list` command. Multiple expenses in the list.
 .. Test case: `delete 1` +
@@ -1122,12 +1122,68 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Adding an expense to an archive
 
-=== Saving data
+. Adding an expense to an archive when current expenses list.
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: List all expenses using the `list` command. At least 3 expenses in the list. Test cases should be completed in chronological order.
+.. Test case: `archive add 1 arc/test` +
+   Expected: First expense is removed from the list. Message in result box indicates that a `test` archive is created, since it was not an existing archive prior, and the first expense was added to it. +
+   Use the `archive list test` command to display the archive list to check if the expense was correctly archived. +
+   After verifying, use the `list` command to go back to the default list of expenses.
+.. Test case: `archive add 2 arc/test` +
+   Expected: Second expense is removed from the list. However, since the `test` archive was already created in the first test case, the message in the result box would only indicate that the second expense was added to the `test` archive. +
+   Use the `archive list test` command to display the archive list check if the expense was correctly archived. +
+   After verifying, use the `list` command to go back to the default list of expenses.
+.. Test case: `archive add 0 arc/test` +
+   Expected: No expenses removed from the list and no creation of archives. An invalid archive command message should appear in the result box.
+.. Test case: `archive add X arc/test` (where X is larger than the list size) +
+   Expected: No expenses removed from the list and no creation of archives. An error message indicating an invalid expense index will be shown in the result box.
+.. Test case: `archive add` or `archive add X` (where X is any invalid argument string not in the form of `[INDEX] arc/[ARCHIVE NAME]`) +
+   Expected: No expenses removed from the list and no creation of archives. The invalid archive command format message and the `archive add` usage message should appear in the result box.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Displaying the expenses in an archive
+. Displaying the expenses in a particular archive when any list of expenses are listed.
 
-_{ more test cases ... }_
+.. Prerequisites: Test cases in this section should be done after carrying out the test cases in the *_Adding an expense to an archive_* section.
+.. Test case: `archive list test` +
+   Expected: The list of expenses displayed should change to contain the two expenses archived in the prior *_Adding an expense to an archive_* section.
+.. Test case: `archive list` or `archive list X` (where X is any amount of whitespace) +
+   Expected: An error message indicating that the archive name cannot be empty and the `archive list` usage message will be displayed in the result box.
+.. Test case: `archive list X` (where X is any non-existent archive name) +
+   Expected: An error message indicating that there is no existing archive name and the `archive list` usage message will be displayed in the result box.
+
+=== Displaying a list of archive names
+. Displaying the list of archive name when any list of expenses are listed
+
+.. Prerequisites: Test cases in this section should be done after carrying out the test cases in the *_Adding an expense to an archive_* section.
+.. Test case: `archive listall` or `archive listall X` (where X is any String) +
+   Expected: The displayed list of expenses should not be changed. The result box should display a list of existing archive names, including `test` archive which was added in the prior *_Adding an expense to an archive_* section.
+
+=== Deleting an expense from an archive
+. Deleting an expense from an archive. Test cases should be completed in chronological order.
+
+.. Prerequisites: List the expenses in a particular archive using the `archive list [ARCHIVE NAME]` command. Have 2 expenses in this archive. All test cases in this section will be done using this same [ARCHIVE NAME] archive.
+.. Test case: `archive delete 1 arc/[ARCHIVE NAME]` +
+   Expected: The expense in the first index should be removed from the list. A message indicating that the expense is deleted from the archive will be displayed in the result box.
+.. Test case: `archive delete` or `archive delete X` (where X is any string not in the form of [INDEX] arc/[ARCHIVE NAME]) +
+   Expected: No change in the list of expenses displayed. The invalid command format message and `archive delete` usage message are displayed in the result box.
+.. Test case: `archive delete 1 arc/[ARCHIVE NAME]` +
+   Expected: Since there is only one expense in the [ARCHIVE NAME] archive left, the empty archive will be deleted together with the expense as well. +
+   The displayed list of expenses will switch back to the default non-archive expense list. +
+   A message indicating the deletion of the expense and the archive will be displayed in the result box.
+
+=== Reverting/unarchiving an expense from an archive
+. Unarchives an expense from an archive. Test cases should be completed in chronological order.
+
+.. Prerequisites: List the expenses in a particular archive using the `archive list [ARCHIVE NAME]` command. Have 2 expenses in this archive. All test cases in this section will be done using this same [ARCHIVE NAME] archive.
+.. Test case: `archive revert 1 arc/[ARCHIVE NAME]` +
+   Expected: The expense in the first index should be removed from the list. A message indicating that the expense is removed from the archive and added back to the current expense list will be displayed in the result box.
+   Use the `list` command to display the current non-archive expense list to check if the expense was correctly reverted back. The reverted expense should be at the last index of the current expense list. +
+   After verifying, use the `archive list [ARCHIVE NAME]` command to go back to the archive list of expenses.
+.. Test case: `archive revert` or `archive revert X` (where X is any string not in the form of [INDEX] arc/[ARCHIVE NAME]) +
+   Expected: No change in the list of expenses displayed. The invalid command format message and `archive revert` usage message are displayed in the result box.
+.. Test case: `archive revert 1 arc/[ARCHIVE NAME]` +
+   Expected: Since there is only one expense in the [ARCHIVE NAME] archive left, the empty archive will be deleted after the expense is removed from it. +
+   The displayed list of expenses will switch back to the default non-archive expense list. The reverted expenses should be at the last index of the displayed list of default non-archive expenses. +
+   A message indicating that the expense is removed from the archive and added back to the current expense list, and the deletion of the archive will be displayed in the result box.
