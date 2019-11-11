@@ -2,11 +2,9 @@ package seedu.billboard.ui.charts;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.EnumMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -18,15 +16,17 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.util.Pair;
-import javafx.util.StringConverter;
 
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.date.DateRange;
+import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.expense.Amount;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.statistics.formats.ExpenseGrouping;
 import seedu.billboard.model.statistics.formats.ExpenseHeatMap;
 import seedu.billboard.model.statistics.generators.HeatMapGenerator;
+import seedu.billboard.ui.charts.converters.DayOfWeekConverter;
+import seedu.billboard.ui.charts.converters.MonthConverter;
 
 
 /**
@@ -35,6 +35,7 @@ import seedu.billboard.model.statistics.generators.HeatMapGenerator;
 public class ExpenseHeatMapChart extends ExpenseChart {
 
     private static final String FXML = "ExpenseHeatMapChart.fxml";
+    private static final int SCALE_FACTOR = 8;
 
     @FXML
     private ProportionalBubbleChart<Integer, Integer> heatMapChart;
@@ -45,71 +46,56 @@ public class ExpenseHeatMapChart extends ExpenseChart {
     @FXML
     private NumberAxis yAxis;
 
+    private final ObservableData<ExpenseGrouping> expenseGrouping;
     private final HeatMapGenerator heatMapGenerator;
-    private final XYChart.Series<Integer, Integer> series;
+    private final SeriesManager<Integer, Integer> seriesManager;
     private final DateRange currentYearRange = getCurrentYearRange();
 
-    public ExpenseHeatMapChart(ObservableList<? extends Expense> expenses, HeatMapGenerator heatMapGenerator) {
+    /**
+     * Returns a new {@code ExpenseHeatMapChart} with the specified parameters.
+     *
+     * @param expenses           An observable wrapper of the currently displayed expenses.
+     * @param expenseGrouping    An observable wrapper of the currently selected grouping to group expenses by.
+     * @param heatMapGenerator   Instance of a generator that generates the heatmap to be viewed.
+     */
+    public ExpenseHeatMapChart(ObservableList<? extends Expense> expenses,
+                               ObservableData<ExpenseGrouping> expenseGrouping,
+                               HeatMapGenerator heatMapGenerator) {
         super(FXML, expenses);
+        this.expenseGrouping = expenseGrouping;
+        expenseGrouping.setValue(ExpenseGrouping.NONE); // Default value
+
         this.heatMapGenerator = heatMapGenerator;
+        this.seriesManager = new SeriesManager<>(
+                expenseGrouping.getValue().getGroupingFunction().group(expenses).keySet(),
+                heatMapChart);
 
-        series = new XYChart.Series<>();
-        series.setName("All expenses");
+        xAxis.setTickLabelFormatter(new MonthConverter(currentYearRange.getStartDate(), TextStyle.SHORT));
+        yAxis.setTickLabelFormatter(new DayOfWeekConverter(TextStyle.SHORT));
 
-        setUpAxesFormatting();
-        initChart();
-    }
-
-    private void setUpAxesFormatting() {
-        xAxis.setTickLabelFormatter(new StringConverter<>() {
-            @Override
-            public String toString(Number number) {
-                return Month.of((int) Math.ceil(((number.doubleValue() / 4.5)
-                        + currentYearRange.getStartDate().getMonthValue()) % 12))
-                        .getDisplayName(TextStyle.SHORT, Locale.getDefault());
-            }
-
-            @Override
-            public Number fromString(String string) {
-                return Month.valueOf(string).getValue();
-            }
-        });
-
-        yAxis.setTickLabelFormatter(new StringConverter<>() {
-            @Override
-            public String toString(Number number) {
-                return DayOfWeek.of(number.intValue()).getDisplayName(TextStyle.SHORT, Locale.getDefault());
-            }
-
-            @Override
-            public Number fromString(String string) {
-                return DayOfWeek.valueOf(string).getValue();
-            }
-        });
+        updateHeatMap(expenses, expenseGrouping.getValue());
+        setupListeners();
     }
 
     /**
-     * Initializes the chart.
+     * Sets up listeners to observe for changes in the relevant observables and update the heatmap accordingly.
      */
-    private void initChart() {
-        ExpenseHeatMap expenseHeatMap = heatMapGenerator.generate(expenses, currentYearRange);
-
-        series.getData().setAll(mapToData(expenseHeatMap.getHeatMapValues()));
-        heatMapChart.getData().add(series);
+    private void setupListeners() {
+        expenseGrouping.observe(grouping -> updateHeatMap(expenses, grouping));
 
         expenses.addListener((ListChangeListener<Expense>) c ->
-                onDataChange(heatMapGenerator.generateAsync(c.getList(), currentYearRange)));
+                updateHeatMap(c.getList(), expenseGrouping.getValue()));
     }
 
     /**
-     * Helper method called when the displayed list of expenses change.
+     * Updates the heatmap based on the given parameters.
      */
-    private void onDataChange(Task<ExpenseHeatMap> newDataTask) {
-        newDataTask.setOnSucceeded(event -> {
-            ExpenseHeatMap heatMap = newDataTask.getValue();
-            List<XYChart.Data<Integer, Integer>> data = mapToData(heatMap.getHeatMapValues());
-            Platform.runLater(() -> series.getData().setAll(data));
-        });
+    private void updateHeatMap(List<? extends Expense> expenses, ExpenseGrouping grouping) {
+        var expenseListMap = grouping.getGroupingFunction().group(expenses);
+        seriesManager.updateSeriesSet(expenseListMap.keySet());
+        seriesManager.updateSeries(series ->
+                updateSeries(heatMapGenerator
+                        .generateAsync(expenseListMap.get(series.getName()), currentYearRange), series));
     }
 
     /**
@@ -121,15 +107,25 @@ public class ExpenseHeatMapChart extends ExpenseChart {
     }
 
     /**
+     * Helper method called when the displayed list of expenses change.
+     */
+    private void updateSeries(Task<ExpenseHeatMap> newDataTask, XYChart.Series<Integer, Integer> series) {
+        newDataTask.setOnSucceeded(event -> {
+            ExpenseHeatMap heatMap = newDataTask.getValue();
+            List<XYChart.Data<Integer, Integer>> data = mapToData(heatMap.getHeatMapValues());
+            Platform.runLater(() -> series.getData().setAll(data));
+        });
+    }
+
+    /**
      * Helper method to convert the heatmap values into a list of {@code XYChart.Data} for the chart to use.
      */
     private List<XYChart.Data<Integer, Integer>> mapToData(
-            List<Pair<DateRange, EnumMap<DayOfWeek, Amount>>> heatmapValues) {
+            List<EnumMap<DayOfWeek, Amount>> heatmapValues) {
 
         return IntStream.range(0, heatmapValues.size())
                 .boxed()
                 .flatMap(idx -> heatmapValues.get(idx)
-                        .getValue()
                         .entrySet()
                         .stream()
                         .map(entry -> heatMapEntryToData(idx, entry)))
@@ -140,11 +136,13 @@ public class ExpenseHeatMapChart extends ExpenseChart {
      * Converts a heatmap entry with an index representing the week, to a data item for the chart.
      */
     private XYChart.Data<Integer, Integer> heatMapEntryToData(Integer week, Map.Entry<DayOfWeek, Amount> entry) {
-        return new XYChart.Data<>(week, entry.getKey().getValue(), getAmountValueAdjusted(entry));
+        return new XYChart.Data<>(week + 1, entry.getKey().getValue(), getAmountValueAdjusted(entry));
     }
 
-
+    /**
+     * Gets the value of the given amounted adjusted by an appropriate scale factor to fit on the chart.
+     */
     private double getAmountValueAdjusted(Map.Entry<DayOfWeek, Amount> entry) {
-        return Math.log10(entry.getValue().amount.doubleValue()) / 2;
+        return Math.log10(entry.getValue().amount.doubleValue()) / SCALE_FACTOR;
     }
 }

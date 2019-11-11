@@ -13,7 +13,7 @@
               AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0"
               AnchorPane.topAnchor="0.0"
-              minHeight="370.0" prefHeight="370.0" maxHeight="370.0"
+              minHeight="370.0" prefHeight="400.0" maxHeight="400.0"
               minWidth="540.0" prefWidth="540.0" maxWidth="540.0"
               title="Breakdown"
               legendSide="LEFT">

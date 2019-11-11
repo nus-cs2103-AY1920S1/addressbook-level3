@@ -34,7 +34,7 @@ public class TimelineGeneratorTest {
     private final TimelineGenerator timelineGenerator = new TimelineGenerator();
 
     @Test
-    public void generate_nullArguments_throwsNullPointerException() {
+    void generate_nullArguments_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> timelineGenerator.generate(null));
         assertThrows(NullPointerException.class, () ->
                 timelineGenerator.generate(null, null));
