@@ -743,7 +743,7 @@ Adds an out-transaction for $10 with description "Lunch".
 
 Stores a script for future invocation. If a script with the same name already exists, that script is replaced.
 
-Format: `script add <script name> [d/<description>] [p/<file path> | s/<script>]`
+Format: `script add <script name> [d/<description>] [p/<file path>|s/<script>]`
 
 ****
 * Script names may contain only alphanumeric characters, underscores, and dashes.
@@ -752,7 +752,7 @@ Format: `script add <script name> [d/<description>] [p/<file path> | s/<script>]
 ** If you launched Budget Buddy from the command line, the current working directory starts from the directory your shell was in.
 ** If you launched Budget Buddy by double-clicking the JAR file, the current working directory is typically the directory the JAR file is in.
 ** There is no command that changes the current working directory, but a script may have done that.
-* If neither a file path nor the script code is given, a file browser is opened for you to
+* If neither a file path nor the script code is given, a file picker is opened for you to
 select the script file.
 ****
 
@@ -790,7 +790,7 @@ Format: `script run <script name> [<argument>]`
 ****
 * Script names are case-sensitive.
 * The script is run in the current script environment, which may contain variables from previous scripts that have run.
-* The argument is the rest of the command line after the script name, and is passed to the script as a single string.
+* The argument is the rest of the input after the script name, and is passed to the script as a single string.
 ****
 
 Examples:
