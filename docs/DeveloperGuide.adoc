@@ -347,6 +347,8 @@ From the diagram, it can be seen that there are three major reasons that can int
 
 ==== Design considerations
 
+This section details a few design considerations I made before deciding how I would like to implement the functionalities of this calendar.
+
 .Design considerations for calendar
 [grid="rows", frame="none"]
 |===
