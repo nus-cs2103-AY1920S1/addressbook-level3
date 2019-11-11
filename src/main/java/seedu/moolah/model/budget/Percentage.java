@@ -14,6 +14,11 @@ public class Percentage {
 
     private final int value;
 
+    /**
+     * Constructs a Percentage object with a specified value.
+     *
+     * @param value A non-negative integer that represents the percentage.
+     */
     public Percentage(int value) {
         checkArgument(isValidPercentage(value), MESSAGE_CONSTRAINTS);
         this.value = value;
@@ -52,21 +57,41 @@ public class Percentage {
 
     /**
      * Returns true if a given integer is a valid percentage.
+     *
+     * @param input The integer inputted.
+     * @return True if the integer is non-negative, false otherwise.
      */
     public static boolean isValidPercentage(int input) {
         return input >= 0;
     }
 
+    /**
+     * Generates a string representation of this Percentage.
+     *
+     * @return A string that contains the value, followed by a percentage sign.
+     */
     @Override
     public String toString() {
         return value + "%";
     }
 
+    /**
+     * Creates a hash code by hashing all relevant attributes of this Percentage object.
+     *
+     * @return A hash code of this Percentage object.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(value);
     }
 
+
+    /**
+     * Checks whether another object is identical to this Percentage.
+     *
+     * @param other The other object to be compared.
+     * @return True if the other object is a Percentage with the same value, false otherwise.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {

@@ -216,33 +216,90 @@ public interface Model {
 
     // ================================ BUDGET =======================================
 
+    /**
+     * Checks whether the model contains an equivalent budget as the given argument.
+     *
+     * @param budget The budget to check.
+     * @return True if the model contains budget identical to the budget to check.
+     */
     boolean hasBudget(Budget budget);
 
+    /**
+     * Returns true if there is a budget with the specified description in the model.
+     *
+     * @param targetDescription The specified description.
+     * @return True if there exists a budget with the specified description in the model, false otherwise.
+     */
     boolean hasBudgetWithName(Description targetDescription);
 
+    /**
+     * Returns the primary budget in this model.
+     *
+     * @return The primary budget in this model.
+     */
     Budget getPrimaryBudget();
 
+    /**
+     * Checks if the model has a primary budget.
+     *
+     * @return True if the model has a primary budget, false otherwise.
+     */
     boolean hasPrimaryBudget();
 
+    /**
+     * Adds a budget to the model.
+     *
+     * @param budget The budget to be added.
+     */
     void addBudget(Budget budget);
 
+    /**
+     * Switches the primary budget to the budget with the specified description.
+     *
+     * @param description The specified description.
+     */
     void switchBudgetTo(Description description);
 
+    /**
+     * Removes a budget from this model.
+     *
+     * @param target The budget to remove.
+     */
     void deleteBudget(Budget target);
 
+    /**
+     * Replaces the target budget with an edited budget.
+     *
+     * @param target The budget to be replaced.
+     * @param editedBudget The updated budget.
+     */
     void setBudget(Budget target, Budget editedBudget);
 
+    /**
+     * Changes window of primary budget to a different window anchored by the specified date.
+     *
+     * @param pastDate A date in the past to anchor the window to be switched to.
+     */
     void changePrimaryBudgetWindow(Timestamp pastDate);
 
-    /** Returns an unmodifiable view of the filtered budget list */
+    /** Returns an unmodifiable view of the filtered budget list. */
     ObservableList<Budget> getFilteredBudgetList();
 
-    void updateFilteredBudgetList(Predicate<? super Budget> budget);
+    /** Updates the filter of the filtered budget list to filter by the given {@code predicate}. */
+    void updateFilteredBudgetList(Predicate<? super Budget> predicate);
 
+    /** Returns the predicate of the filtered budget list. */
     Predicate<? super Budget> getFilteredBudgetPredicate();
 
+
+    /** Clears all budgets in the model, except the default budget. */
     void clearBudgets();
 
+    /**
+     * Deletes the budget with the specified description from the model.
+     *
+     * @param description The specified description.
+     */
     void deleteBudgetWithName(Description description);
 
     // ================================ EVENT =======================================

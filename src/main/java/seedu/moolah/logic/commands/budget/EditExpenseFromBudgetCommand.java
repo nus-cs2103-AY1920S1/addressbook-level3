@@ -64,11 +64,22 @@ public class EditExpenseFromBudgetCommand extends UndoableCommand {
         this.editExpenseDescriptor = new EditExpenseDescriptor(editExpenseDescriptor);
     }
 
+    /**
+     * Returns a description of this EditExpenseFromBudgetCommand.
+     *
+     * @return A string that describes this EditExpenseFromBudgetCommand.
+     */
     @Override
     public String getDescription() {
         return String.format(COMMAND_DESCRIPTION, index.getOneBased());
     }
 
+    /**
+     * Validates this EditExpenseFromBudgetCommand with the current model, before execution.
+     *
+     * @param model The current model.
+     * @throws CommandException If the index is invalid, or if the command will result in duplicate expenses.
+     */
     @Override
     protected void validate(Model model) throws CommandException {
         requireNonNull(model);
@@ -85,6 +96,12 @@ public class EditExpenseFromBudgetCommand extends UndoableCommand {
         }
     }
 
+    /**
+     * Executes this EditExpenseFromBudgetCommand with the current model.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return A CommandResult consisting of success message and panel change request.
+     */
     @Override
     protected CommandResult execute(Model model) {
         requireNonNull(model);
@@ -106,6 +123,10 @@ public class EditExpenseFromBudgetCommand extends UndoableCommand {
     /**
      * Creates and returns a {@code Expense} with the details of {@code expenseToEdit}
      * edited with {@code editExpenseDescriptor}.
+     *
+     * @param expenseToEdit The expense to be edited.
+     * @param editExpenseDescriptor The descriptor that describes modified attributes.
+     * @return An updated expense.
      */
     private static Expense createEditedExpense(Expense expenseToEdit,
                                                EditExpenseDescriptor editExpenseDescriptor) {

@@ -19,11 +19,22 @@ public class ListBudgetsCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "List budgets";
     public static final String MESSAGE_SUCCESS = "Listed all budgets";
 
+    /**
+     * Validates this ListBudgetsCommand with the current model, before execution.
+     *
+     * @param model The current model.
+     */
     @Override
     protected void validate(Model model) {
         // No validation necessary.
     }
 
+    /**
+     * Executes this ListBudgetsCommand with the current model.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return A CommandResult consisting of success message and panel change request.
+     */
     @Override
     protected CommandResult execute(Model model) {
         requireNonNull(model);

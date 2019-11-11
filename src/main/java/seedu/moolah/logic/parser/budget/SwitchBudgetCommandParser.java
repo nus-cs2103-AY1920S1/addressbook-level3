@@ -27,6 +27,8 @@ public class SwitchBudgetCommandParser implements Parser<SwitchBudgetCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the SwitchBudgetCommand
      * and returns an SwitchBudgetCommand object for execution.
+     *
+     * @param args String arguments inputted by the user.
      * @throws ParseException if the user input does not conform the expected format
      */
     public SwitchBudgetCommand parse(String args) throws ParseException {

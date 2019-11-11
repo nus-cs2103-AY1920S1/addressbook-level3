@@ -31,9 +31,8 @@ visual representation the user can choose from.
 ** Highlights: As the feature is closely coupled to the budget features and requires to support other dependencies such as
 undo/redo, constant coordination with other developers is required.
 
-
-
 * *Code contributed*:(https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=qweiping31415&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional Code])
+(https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=qweiping31415&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Test Code])
 
 * *Other contributions*:
 
@@ -43,20 +42,18 @@ undo/redo, constant coordination with other developers is required.
 *** Facilitated meetings every Wednesday and Friday and consolidated discussion minutes,
 *** Scheduled milestone tasks and ensure that project deliverables are completed on time in the right format.
 *** Wrote additional tests for existing features to increase coverage from 52% to 59%
-(https://github.com/AY1920S1-CS2103T-T11-1/main/pull/254[#254])
-
+(PR https://github.com/AY1920S1-CS2103T-T11-1/main/pull/254[#254])
 
 
 ** Enhancements to existing features:
-*** Refactored Tag classes from AddressBook - Level 3  to Category class (TO BE FILLED IN)
+*** Refactored Tag classes from AddressBook - Level 3  to Category class (PR https://github.com/AY1920S1-CS2103T-T11-1/main/pull/100[#100], https://github.com/AY1920S1-CS2103T-T11-1/main/pull/129[#129])
+*** Populated SampleDataUtil class with various budgets and expenses so that MooLah has sufficient data upon first launch (PR https://github.com/AY1920S1-CS2103T-T11-1/main/pull/254[#254])
 
 ** Documentation:
-*** Documented new statistics features in User Guide (TO BE FILLED IN)
-*** Added the implementation of Statistics in Developer’s Guide (TO BE FILLED IN)
-
+*** Documented new statistics features in User Guide
+*** Added the implementation of Statistics in Developer’s Guide
 
 == Contributions to the User Guide
-
 
 |===
 |We had to update the original AddressBook - Level 3 with instruction for the enhancement that we have added.
@@ -72,11 +69,12 @@ include::../UserGuide.adoc[tag=statsug]
 |===
 |The following section shows my additions to the MooLah Developer Guide for the Statistics features.
 They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
-
 |===
 
 include::../DeveloperGuide.adoc[tag=statsdg]
+include::../DeveloperGuide.adoc[tag=statsdesign]
 
-== PROJECT: MooLah
+For more sequence diagrams, you can find them below Figure 1 (https://github.com/AY1920S1-CS2103T-T11-1/main/blob/master/docs/DeveloperGuide.adoc#statistics-feature[here])
+
 
 

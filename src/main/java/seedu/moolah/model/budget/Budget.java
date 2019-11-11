@@ -15,7 +15,7 @@ import seedu.moolah.model.general.Timestamp;
 
 /**
  * Represents a Budget in MooLah.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Guarantees: details are present and not null, field values are validated.
  */
 public class Budget {
     public static final Description DEFAULT_BUDGET_DESCRIPTION = new Description("Default Budget");
@@ -296,12 +296,23 @@ public class Budget {
                 && otherBudget.description.equals(description);
     }
 
+    /**
+     * Creates a hash code by hashing all relevant attributes of this Budget object.
+     *
+     * @return A hash code of this Budget object.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(description, amount, getWindowStartDate(), getWindowEndDate(), getBudgetPeriod(),
                 expenses, isPrimary);
     }
 
+    /**
+     * Checks whether another object is identical to this Budget.
+     *
+     * @param other The other object to be compared.
+     * @return True if the other object is a Budget with the same attributes, false otherwise.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -320,6 +331,11 @@ public class Budget {
                 && otherBudget.isPrimary == isPrimary;
     }
 
+    /**
+     * Generates a string representation of this Budget.
+     *
+     * @return A string that describes the budget name, amount, and period.
+     */
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

@@ -104,9 +104,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `deleteexpense 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `deleteexpense 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -442,21 +442,21 @@ takes in a `Timestamp` and switches the budget window to a period anchored by th
 
 Given below is an example usage scenario of `SwitchPeriodCommand`: +
 
-*Step 1.* The user has a monthly budget "school" that recurs on the 5th of each month. Suppose the current date is
+*Step 1.* The user has a monthly budget "school" that recurs on `the 5th of each month`. Suppose the current date is
 `10 Nov`. As a result, the current budgeting period will be `5 Nov - 4 Dec`.
 
 *Step 2.* The user wants to view expenses in September. As such, the user executes `switchperiod t/20-09`
 (`20-09` is interchangeable with any other dates within `5 Sep - 4 Oct`). This command calls
-`BudgetWindow#normalize(Timestamp anchor)`, which shifts the window's start and end dates to `5 Sep` and `4 Oct` respectively,
+`BudgetWindow#normalize`, which shifts the window's start and end dates to `5 Sep` and `4 Oct` respectively,
 while maintaining the fixed period -- `MONTH`. As a result, the user sees expenses tracked under the budget during `5 Sep - 4 Oct`.
 
-The `BudgetWindow#normalize(Timestamp anchor)` method is also called upon adding a new `Budget` to MooLah. No matter how
+The `BudgetWindow#normalize` method is also called upon adding a new `Budget` to MooLah. No matter how
 far the start date inputted by the user is from now, it will be normalized to the current period, such that expenses added
 subsequently will correctly be reflected in the budget panel.
 
-Each budget, once added, will recur infinitely. This is achieved by `Budget#refresh()`, along the `Timekeeper` class.
+Each budget, once added, will recur infinitely. This is achieved by `Budget#refresh()`, along with the `Timekeeper` class.
 Every 10 seconds, `Timekeeper` checks if it is a new day, and call `Budget#refresh()` if necessary. Subsequently,
-`BudgetWindow#normalize(Timestamp anchor)` is called; the anchor passed in is current time. As a result, the `Budget` is
+`BudgetWindow#normalize` is called; the anchor passed in is current time. As a result, the `Budget` is
 successfully normalized to the current period.
 
 //==== Add, Edit, Delete Expense from a Budget
@@ -521,7 +521,7 @@ that modifies the existing budgets.
 
 ==== Design Considerations
 
-===== Aspect: Since `Budget` already keeps a list of `Expense`, should `Expense` have a `Budget` field?
+===== Aspect: Since Budget already keeps a list of Expense, should Expense have a Budget field?
 
 * **Alternative 1:** `Expense` has a `Budget` field
 ** Pros: Easier to manage expenses.
@@ -539,7 +539,7 @@ disallows duplicate budget names, a name is sufficient to identify a `Budget`. B
 when creating Json files. Also, the resulting `JsonAdaptedExpense` file will not be too long, since the `budgetName` property
 stores only the budget name instead of the full `Budget` object.
 
-===== Aspect: Can one `Expense` be tracked under multiple `Budget`? Or under no `Budget` at all?
+===== Aspect: Can one Expense be tracked under multiple Budget? Or under no Budget at all?
 
 * **Alternative 1:** Every `Expense` must be tracked under one, and only one `Budget`.
 ** Pros: Budgets would be a partition of all expenses, which makes generating statistics (pie charts, etc.) easier.
@@ -559,24 +559,23 @@ Besides, it leads to neater statistics.
 
 ===== Aspect: How should JsonAdaptedBudget keep track of the budget's expenses?
 
-* **Alternative 1:** JsonAdaptedBudget stores a list of JsonAdaptedExpenses
-** Pros: More intuitive, improving readability of json file. Also eases reconstruction of MooLah from storage file,
-since JsonAdaptedExpenses can be easily converted to model type Expenses.
+* **Alternative 1:** `JsonAdaptedBudget` stores a list of `JsonAdaptedExpense`
+** Pros: More intuitive, improving readability of Json file. Also eases reconstruction of MooLah from storage file,
+since `JsonAdaptedExpense` can be easily converted to model type `Expense`.
 ** Cons: Json file is subject to user modification. If expenses are modified such that those in general expense list
 differ from their counterparts in budget's expense list, this will cause data inconsistency and introduce bugs into
 MooLah.
 
-* **Alternative 2:** JsonAdaptedBudget stores a list of UniqueIdentifiers
-** Pros: Guards against accidental user modification of json file.
-** Cons: More hassle when reconstructing MooLah from storage, since the JsonAdaptedBudget#toModelType() will need to
-refer to MooLah's expense list, identify those expenses by their UniqueIdentifiers, and add them to the budget.
+* **Alternative 2:** `JsonAdaptedBudget` stores a list of `UniqueIdentifier`
+** Pros: Guards against accidental user modification of Json file.
+** Cons: More hassle when reconstructing MooLah from storage, since `JsonAdaptedBudget#toModelType` will need to
+refer to MooLah's expense list, identify those expenses by their `UniqueIdentifier`, and add them to the budget.
 
 * **Solution (Current implementation):**
-Adopt Alternative 2. Since every expense has a unique identifier, a list of UniqueIdentifiers, supplemented with a list
+Adopt Alternative 2. Since every expense has a unique identifier, a list of `UniqueIdentifier`, supplemented with a list
 of MooLah's general expenses, is sufficient to correctly reconstruct those expenses tracked under this budget. The
-benefit of protecting MooLah from external json modification outweighs the extra hassle in reconstructing MooLah from
+benefit of protecting MooLah from external Json modification outweighs the extra hassle in reconstructing MooLah from
 storage.
-
 // end::budget[]
 
 // tag::events[]
@@ -655,6 +654,7 @@ the user's decision) that can then be added as expenses when their due dates are
 // tag::statsdg[]
 === Statistics Feature
 
+==== Implementation
 The statistics feature allows users to have an alternative view for the entries in `MooLah`.
 It is facilitated by the `Statistics` interface, which is part of the `model` package, and is implemented by 3 classes
 `PieChartStatistics`, `TabularStatistics` and `TrendStatistics`. Each of the implementing classes will be invoked when
@@ -684,7 +684,7 @@ as well as its design considerations.
 
 ==== `statsbasic`
 
-===== Implementation
+
 
 The purpose of the `statsbasic` command word is to request `MooLah` to visualise the total expenditure across
 expenses of different categories as a percentage of the total expenditure of all expenses tracked under the budget
@@ -712,44 +712,49 @@ If the end date happens to be before the start date, a `ParseException` will be 
 
 Step 4. The filled `desc` will be returned to the `LogicManager` where a new `StatsCommand` command, `statsCommand` will be created with `desc`
 
-Figure 1. below illustrates the details from Steps 2 to 4.
-
-image::BasicStatisticsParserToCommand.png[]
-
-Figure 1. Reference Diagram for creating a `StatsCommand`
 
 
-Step 4. The `LogicManager` calls `StatsCommand#run()`, where the `StatsCommand` will be validated before getting executed.
+Step 5. The `LogicManager` calls `StatsCommand#run()`, where the `StatsCommand` will be validated before getting executed.
 
-Step 5. During execution, `StatsCommand` calls `ModelManager#getPrimaryBudget()` to retrieve the primary budget to calculate statistics from.
-After which, `StatsCommand` will call `createPieChartStatistics', which takes in `desc` and the primary budget.
+Step 6. During execution, `StatsCommand` calls `ModelManager#getPrimaryBudget()` to retrieve the primary budget to calculate statistics from.
+After which, `StatsCommand` will call `createPieChartStatistics`, which takes in `desc` and the primary budget.
 
-Step 6. To construct the time interval required for statistics, information from `desc` is being processed.
+Step 7. To construct the time interval required for statistics, information from `desc` is being processed.
 If there are unspecified inputs inside `desc`, the time interval will be constructed with some information from the primary budget.
 
-Step 7. The `PieChartStatistics` object will be created with the constructed interval as well as the expenses the primary budget tracks.
+Step 8. The `PieChartStatistics` object will be created with the constructed interval as well as the expenses the primary budget tracks.
 After which, `StatsCommand` will call `PieChartStatistics` implementation of `populateData()` to fill up its other fields
 
-Step 8. `StatsCommand` calls `ModelManager#setStatistics(statistics)` which updates the `Statistics` attribute in `ModelManager`.
+Step 9. `StatsCommand` calls `ModelManager#setStatistics(statistics)` which updates the `Statistics` attribute in `ModelManager`.
 
-Step 9. A `CommandResult` is then created and returned to `LogicManager`, which will then force a switch
+Step 10. A `CommandResult` is then created and returned to `LogicManager`, which will then force a switch
 to the `Statistics Panel` where a Pie Chart will be generated.
 
+The following sequence diagram shows how the `statsbasic` operation works:
 
-Figure 2. below illustrates the details from Steps 6 to 9.
+image::BasicStatisticsCommandSequenceDiagram.png[]
 
-image::CreatePieChartReference.png[]
+Figure 1. Sequence Diagram for executing a `StatsCommand`
+
+// end::statsdg[]
+
+Figure 2. below illustrates the details from Steps 2 to 4.
+
+image::BasicStatisticsParserToCommand.png[]
 
 Figure 2. Reference Diagram for creating a `StatsCommand`
 
 
-The following sequence diagram shows how the `statsbasic` operation works as a big picture:
+Figure 3. below illustrates the details from Steps 6 to 9.
 
-image::BasicStatisticsCommandSequenceDiagram.png[]
+image::CreatePieChartReference.png[]
 
-Figure 3. Sequence Diagram for executing a `StatsCommand`
+Figure 3. Reference Diagram for creating a `StatsCommand`
 
 
+
+
+// tag::statsdesign[]
 
 ==== Design Considerations
 
@@ -758,7 +763,7 @@ suitable visual representation for `statsbasic` particular use case.
 
 * ** Alternative 1:** Table view
 ** Pros: Sequential view, can capture number of entries
-** Cons: May be a duplicate of the `ListExpense` command, just sorted via categories
+** Cons: May be a duplicate of the `ListExpense` command, just grouping expenses via categories
 
 * ** Alternative 2:** Pie chart
 ** Pros: Offers a visual view of size to represent the expenditure under each category
@@ -770,8 +775,7 @@ inclusion of `Statistics` is the appreciation of percentage expenditure in each 
 observed in its chronological order using `ListExpense` while individual view of expenses under a category can be accessed
 using `FindExpense`. Offering a visual view on expenditure under each category complements with the existing implementation
 of sequential view in the primary budget.
-
-NOTE: Once again, this question will be better addressed holistically once all 3 features has been rolled out.
+// end::statsdesign[]
 
 ===== Future Implementation (Coming in v2.0)
 
@@ -787,7 +791,7 @@ other than being restricted within the same budget
 
 
 
-// end::statsdg[]
+
 
 
 // category::Alias[]
@@ -1580,11 +1584,3 @@ Clearing all budgets in MooLah
    Expected: A success message will appear.
 .. Within 10 seconds, a popup will appear to prompt for the automatic addition of an expense corresponding to the event.
 Pressing 'Yes' will add the expense into whichever primary budget you were on when you added the event.
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
