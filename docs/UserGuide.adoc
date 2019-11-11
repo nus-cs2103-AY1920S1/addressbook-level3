@@ -165,7 +165,7 @@ The indicated timeslots for interviewer/interviewee has to be one of these times
 * Items with `...` after them can be used multiple times, including zero times.
 * *Parameters* can be in any order. E.g if a command specifies `n/NAME p/PHONE`, passing the input as `p/PHONE n/NAME` is also acceptable.
 * Example: `add r/interviewee n/NAME p/PHONE f/FACULTY y/YEAR_OF_STUDY ep/PERSONAL_EMAIL ew/NUS_WORK_EMAIL d/DEPARTMENT... s/SLOT... [t/TAG]...`
-** `NAME`, `PHONE`. `FACULTY`, `YEAR_OF_STUDY`, `PERSONAL_EMAIL`, `NUS_WORK_EMAIL`, `DEPARTMENT`, `SLOT` and `TAG` are to be supplied by the user.
+** `NAME`, `PHONE`, `FACULTY`, `YEAR_OF_STUDY`, `PERSONAL_EMAIL`, `NUS_WORK_EMAIL`, `DEPARTMENT`, `SLOT` and `TAG` are to be supplied by the user.
 *** Valid input: `add r/interviewee n/John Doe p/88888888 f/School of Computing y/2019 ep/john_doe@gmail.com ew/john_doe@u.nus.edu d/Marketing s/17/10/2019 13:00-14:00 t/friends`
 *** `t/friends` is optional, and can be omitted from the command.
 *** Multiple tags can be supplied as input in place of just `t/friends`: `t/friends t/strong t/likesDogs`
@@ -191,7 +191,7 @@ Constraints:
 
 * Data in .csv file must follow the settings defined in the user preference file. View <<User Preferences, User Preferences>> if you wish to change the
 default settings.
-* Data to be imported should only be in english and should strictly follow the format of the templates given above, e.g. format of headers and timeslots.
+* Data to be imported should only be in English and should strictly follow the format of the templates given above, e.g. format of headers and timeslots.
 
 ==== Importing interviewers’ availability
 Imports interviewers’ availability from a comma separated values (CSV) file. After import command is ran, the GUI should display the imported data.
@@ -374,6 +374,11 @@ Example:
 
  add r/interviewee n/John Doe p/88888888 t/CAP5 t/dogLover f/School of Computing ep/JohnDoe@gmail.com ew/JohnDoe@u.nus.edu y/2018 d/Marketing s/20/09/2019 18:00-18:30
 
+Notes:
+
+* If a name prefix `n/` is supplied, the `NAME` given should not match (case-insensitive) that of other interviewees already in Scheduler.
+** `John Doit` and `John Do it` are considered different names.
+
 // end::add_interviewee[]
 
 // tag::add_constraints[]
@@ -383,22 +388,23 @@ Constraints:
 
 * A `n/NAME` must only contain alphanumeric characters and spaces, and should not be blank.
 * A `p/PHONE` must only contain numbers, and should be at least 3 digits long.
-* A `f/FACULTY` can take any value in english, but should not be blank.
+* A `f/FACULTY` can take any value in English, but should not be blank.
 * A `y/YEAR_OF_STUDY` must be a positive integer.
 * A `ep/PERSONAL_EMAIL` or `ew/NUS_WORK_EMAIL` must be of format local-part@domain.
 ** The local-part must only contain alphanumeric characters and special characters ( !#$%&'*+/=?`{|}~^.- ), excluding the parenthesis.
 ** The domain name must at least be 2 characters long, start and end with alphanumeric characters and consist of alphanumeric characters, with a period or a hyphen for the characters in-between, if any.
-* A `d/DEPARTMENT` can take any value in english, but should not be blank.
+* A `d/DEPARTMENT` should be in English, and should not be blank.
 * A `t/TAG` must only be alphanumeric and one word, i.e `t/catLover` is correct while `t/cat lover` is not.
 * `s/SLOT` must follow the format: `dd/MM/yyyy HH:mm-HH:mm`, where *dd/MM/yyyy* refers to a *date*, the leftmost *HH:mm* refers to the *start duration*
 and the rightmost *HH:mm* refers to the *end duration*.
 * The date *dd/MM/yyyy* must strictly be a valid date, i.e 30/02/2019  cannot be supplied as a date.
-* The duration of a `s/SLOT` must follow these constraints:
-** A duration must be in 24-hour format.
-** The range of durations available for input must be within <<Working Hours, Working Hours>>.
-** The start duration must be earlier than the end duration, and be in increments of `duration`.
-The time elapsed from the start duration to end duration must also follow the number of minutes as specified
-by the value of `duration` in <<User Preferences, User Preferences>>. See <<Duration of Time slot, Duration of Time slot>> for more details.
+* The *start duration* and *end duration* of a `s/SLOT` must follow these constraints:
+** A *start duration* and *end duration* must be in 24-hour format.
+** The range of *start durations* and *end durations* available for input must be within <<Working Hours, Working Hours>>.
+** The *start duration* must be earlier than the *end duration*, and be in increments of `duration`.
+The time elapsed from the *start duration* to *end duration* must also follow the number of minutes as specified
+by the value of `duration` in <<User Preferences, User Preferences>>. Otherwise, the scheduled data will not be displayed
+properly in the user interface. See <<Duration of Time slot, Duration of Time slot>> for more details.
 
 ====
 
@@ -415,6 +421,11 @@ Example:
 
  add r/interviewer n/Mary Jane p/98765432 ew/mary_jane@u.nus.edu d/Marketing s/20/09/2019 18:00-18:30
 
+Notes:
+
+* If a name prefix `n/` is supplied, the `NAME` given should not match (case-insensitive) that of other interviewers already in Scheduler.
+** `John Doit` and `John Do it` are considered different names.
+
 // end::add_interviewer[]
 
 ====
@@ -425,17 +436,18 @@ Constraints:
 * A `ew/NUS_WORK_EMAIL` must be of format local-part@domain.
 ** The local-part must only contain alphanumeric characters and special characters ( !#$%&'*+/=?`{|}~^.- ), excluding the parenthesis.
 ** The domain name must at least be 2 characters long, start and end with alphanumeric characters and consist of alphanumeric characters, with a period or a hyphen for the characters in-between, if any.
-* A `d/DEPARTMENT` can take any value in english, but should not be blank.
+* A `d/DEPARTMENT` should be in English, and should not be blank.
 * A `t/TAG` must only be alphanumeric and one word, i.e `t/catLover` is correct while `t/cat lover` is not.
 * `s/SLOT` must follow the format: `dd/MM/yyyy HH:mm-HH:mm`, where *dd/MM/yyyy* refers to a *date*, the leftmost *HH:mm* refers to the *start duration*
 and the rightmost *HH:mm* refers to the *end duration*.
 * The date *dd/MM/yyyy* must strictly be a valid date, i.e 30/02/2019  cannot be supplied as a date.
-* The duration of a `s/SLOT` must follow these constraints:
-** A duration must be in 24-hour format.
-** The range of durations available for input must be within <<Working Hours, Working Hours>>.
-** The start duration must be earlier than the end duration, and be in increments of `duration`.
-The time elapsed from the start duration to end duration must also follow the number of minutes as specified
-by the value of `duration` in <<User Preferences, User Preferences>>. See <<Duration of Time slot, Duration of Time slot>> for more details.
+* The *start duration* and *end duration* of a `s/SLOT` must follow these constraints:
+** A *start duration* and *end duration* must be in 24-hour format.
+** The range of *start durations* and *end durations* available for input must be within <<Working Hours, Working Hours>>.
+** The *start duration* must be earlier than the *end duration*, and be in increments of `duration`.
+The time elapsed from the *start duration* to *end duration* must also follow the number of minutes as specified
+by the value of `duration` in <<User Preferences, User Preferences>>. Otherwise, the scheduled data will not be displayed
+properly in the user interface. See <<Duration of Time slot, Duration of Time slot>> for more details.
 
 ====
 
@@ -458,6 +470,8 @@ Notes:
 * An empty tag prefix `t/` can be supplied to reset the tags of an interviewee.
 * If a department prefix `d/` is supplied, at least one valid, non-empty department must be provided.
 * If a slot prefix `s/` is supplied, at least one valid, non-empty slot must be provided.
+* If a name prefix `n/` is supplied, the `NAME` given should not match (case-insensitive) that of other interviewees.
+** `John Doit` and `John Do it` are considered different names.
 
 Example:
 
@@ -474,22 +488,23 @@ Constraints:
 
 * A `n/NAME` must only contain alphanumeric characters and spaces, and should not be blank.
 * A `p/PHONE` must only contain numbers, and should be at least 3 digits long.
-* A `f/FACULTY` can take any value in english, but should not be blank.
+* A `f/FACULTY` can take any value in English, but should not be blank.
 * A `y/YEAR_OF_STUDY` must be a positive integer.
 * A `ep/PERSONAL_EMAIL` or `ew/NUS_WORK_EMAIL` must be of format local-part@domain.
 ** The local-part must only contain alphanumeric characters and special characters ( !#$%&'*+/=?`{|}~^.- ), excluding the parenthesis.
 ** The domain name must at least be 2 characters long, start and end with alphanumeric characters and consist of alphanumeric characters, with a period or a hyphen for the characters in-between, if any.
-* A `d/DEPARTMENT` can take any value in english, but should not be blank.
+* A `d/DEPARTMENT` should be in English, and should not be blank.
 * A `t/TAG` must only be alphanumeric and one word, i.e `t/catLover` is correct while `t/cat lover` is not.
 * `s/SLOT` must follow the format: `dd/MM/yyyy HH:mm-HH:mm`, where *dd/MM/yyyy* refers to a *date*, the leftmost *HH:mm* refers to the *start duration*
 and the rightmost *HH:mm* refers to the *end duration*.
 * The date *dd/MM/yyyy* must strictly be a valid date, i.e 30/02/2019  cannot be supplied as a date.
-* The duration of a `s/SLOT` must follow these constraints:
-** A duration must be in 24-hour format.
-** The range of durations available for input must be within <<Working Hours, Working Hours>>.
-** The start duration must be earlier than the end duration, and be in increments of `duration`.
-The time elapsed from the start duration to end duration must also follow the number of minutes as specified
-by the value of `duration` in <<User Preferences, User Preferences>>. See <<Duration of Time slot, Duration of Time slot>> for more details.
+* The *start duration* and *end duration* of a `s/SLOT` must follow these constraints:
+** A *start duration* and *end duration* must be in 24-hour format.
+** The range of *start durations* and *end durations* available for input must be within <<Working Hours, Working Hours>>.
+** The *start duration* must be earlier than the *end duration*, and be in increments of `duration`.
+The time elapsed from the *start duration* to *end duration* must also follow the number of minutes as specified
+by the value of `duration` in <<User Preferences, User Preferences>>. Otherwise, the scheduled data will not be displayed
+properly in the user interface. See <<Duration of Time slot, Duration of Time slot>> for more details.
 
 ====
 
@@ -504,6 +519,8 @@ Notes:
 
 * An empty tag prefix `t/` can be supplied to reset the tags of an interviewee.
 * If a slot prefix `s/` is supplied, at least one valid, non-empty slot must be provided.
+* If a name prefix `n/` is supplied, the `NAME` given should not match (case-insensitive) that of other interviewers.
+** `John Doit` and `John Do it` are considered different names.
 
 Example:
 
@@ -523,17 +540,18 @@ Constraints:
 * A `ew/NUS_WORK_EMAIL` must be of format local-part@domain.
 ** The local-part must only contain alphanumeric characters and special characters ( !#$%&'*+/=?`{|}~^.- ), excluding the parenthesis.
 ** The domain name must at least be 2 characters long, start and end with alphanumeric characters and consist of alphanumeric characters, with a period or a hyphen for the characters in-between, if any.
-* A `d/DEPARTMENT` can take any value in english, but should not be blank.
+* A `d/DEPARTMENT` should be in English, and should not be blank.
 * A `t/TAG` must only be alphanumeric and one word, i.e `t/catLover` is correct while `t/cat lover` is not.
 * `s/SLOT` must follow the format: `dd/MM/yyyy HH:mm-HH:mm`, where *dd/MM/yyyy* refers to a *date*, the leftmost *HH:mm* refers to the *start duration*
 and the rightmost *HH:mm* refers to the *end duration*.
 * The date *dd/MM/yyyy* must strictly be a valid date, i.e 30/02/2019  cannot be supplied as a date.
-* The duration of a `s/SLOT` must follow these constraints:
-** A duration must be in 24-hour format.
-** The range of durations available for input must be within <<Working Hours, Working Hours>>.
-** The start duration must be earlier than the end duration, and be in increments of `duration`.
-The time elapsed from the start duration to end duration must also follow the number of minutes as specified
-by the value of `duration` in <<User Preferences, User Preferences>>. See <<Duration of Time slot, Duration of Time slot>> for more details.
+* The *start duration* and *end duration* of a `s/SLOT` must follow these constraints:
+** A *start duration* and *end duration* must be in 24-hour format.
+** The range of *start durations* and *end durations* available for input must be within <<Working Hours, Working Hours>>.
+** The *start duration* must be earlier than the *end duration*, and be in increments of `duration`.
+The time elapsed from the *start duration* to *end duration* must also follow the number of minutes as specified
+by the value of `duration` in <<User Preferences, User Preferences>>. Otherwise, the scheduled data will not be displayed
+properly in the user interface. See <<Duration of Time slot, Duration of Time slot>> for more details.
 
 ====
 
