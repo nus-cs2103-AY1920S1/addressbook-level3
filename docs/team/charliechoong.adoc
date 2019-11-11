@@ -7,10 +7,16 @@
 
 ---
 
-== Overview
+== Introduction
 
-DeliveryMANS is a food delivery management application used for managing food orders. The user interacts
+*DeliveryMANS* is a food delivery management application used for managing food orders. The user interacts
 with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 25 kLoC.
+
+*DeliveryMANS* has 4 different contexts: universal/order, deliverymen, restaurant, and customer. I
+
+
+This is what our project looks like:
+
 
 == Summary of contributions
 
@@ -22,7 +28,8 @@ with it using a CLI, and it has a GUI created with JavaFX. It is written in Java
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=charliechoong&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&until=2019-11-10&tabOpen=true&tabType=authorship&tabAuthor=charliechoong&tabRepo=AY1920S1-CS2103T-T12-2%2Fmain%5Bmaster%5D[RepoSense]]
+[https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 

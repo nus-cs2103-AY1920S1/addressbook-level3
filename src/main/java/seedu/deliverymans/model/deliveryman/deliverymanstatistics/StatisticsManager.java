@@ -4,9 +4,10 @@ import javafx.collections.ObservableList;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 
 /**
- * To be added.
+ * Manages all statistics-related methods and functions.
  */
 public class StatisticsManager {
+
     private final Analyzer analyzer;
 
     {
