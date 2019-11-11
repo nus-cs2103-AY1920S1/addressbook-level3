@@ -1449,6 +1449,14 @@ Expected: The current tab switches to game tab
 (iv) Test case: `tab b/report` +
 Expected: The current tab switches to report tab
 
+=== Game
+
+(i) Test case: Click on `Start` button of the starting window of the game tab.
+Expected: New game window opens.
+
+(ii) Test case: Click on `Close` button of the game window.
+Expected: Game window closes.
+
 === Generating PDF
 
 (i) Test case:

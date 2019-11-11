@@ -78,7 +78,7 @@ The implementation was also challenging because there were various JavaFX API li
 === Minor enhancement: added `find` command
 ** [red]#*_What it does:_* -# Case-insensitive search for engagements based on the given keyword.
 
-** [red]#*_Justification:_* -# Secretaries and receptionists may want to filter or search their list of engagements depending
+** [red]#*_Justification:_* -# The feature allows secretaries and receptionists to filter or search their list of engagements depending
 on certain criteria. This allows them to better manage and schedule their appointments.
 
 ** [red]#*_Highlights_* -#
