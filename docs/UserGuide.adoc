@@ -186,7 +186,7 @@ toggle to the Tab Panel that it belongs to.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add -c n/NAME`, `NAME` is a parameter which can be used as `add -c n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add-c n/NAME`, `NAME` is a parameter which can be used as `add-c n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME c/CONTACT_NUMBER`, `c/CONTACT_NUMBER n/NAME` is also acceptable.
@@ -360,14 +360,16 @@ Switches to Phone Tab Panel.
 ==== Add a phone: `add-p`
 Adds a phone. Similar to adding a customer. +
 
-[underline]#Format#: `add-p i/IDENTITY NUMBER (IMEI) s/SERIAL NUMBER n/NAME b/BRAND cp/CAPACITY (in GB) cl/COLOUR $/COST [t/TAG]…​`
+[underline]#Format#: `add-p i/IDENTITY_NUMBER s/SERIAL_NUMBER n/NAME b/BRAND cp/CAPACITY (in GB) cl/COLOUR $/COST [t/TAG]…​`
 
 [TIP]
-IMEI Number should be 15 digits long.
+Identity Number (IMEI) should be 15 digits long.
 [TIP]
 Capacity can be 8GB, 16GB, 32GB, 64GB, 128GB, 256GB, 512GB or 1024GB. You do not need to type GB after the prefix cp/.
 [TIP]
 Cost must start with $ and can only have a maximum of 2 decimal place.
+[TIP]
+The maximum cost allowed is $999999999.99.
 [TIP]
 A customer can have any number of tags, including 0.
 
@@ -442,7 +444,7 @@ Clears every phone in SML. +
 
 ==== Edit a phone: `edit-p`
 Edits the data fields of a phone. Note that orders in the order tab panel associated with the phone will also be edited. +
-[underline]#Format#: `edit-p INDEX [i/IMEI] [s/SERIAL NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`
+[underline]#Format#: `edit-p INDEX [i/IDENTITY_NUMBER] [s/SERIAL_NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`
 
 
 ****
@@ -504,9 +506,7 @@ Format: `add-o c/CUSTOMER_INDEX p/PHONE_INDEX $/PRICE [t/TAG]...`
 ****
 * Negative prices will be rejected.
 * $0 is accepted to accommodate for free transactions.
-* Prices above 1.7 * 10^308^ will not be rejected. However, they will
-*corrupt* the data. There is no practical reason
-for a price to be that high.
+* The maximum price allowed is $999999999.99.
 ****
 
 ==== Find an order: `find-o`
@@ -798,7 +798,6 @@ Currently, the following commands are undoable and redoable. +
 
 [underline]#Examples#:
 
-// tag::statisticsCommand[]
 * Redo clear Customer Book
 . `clear-c`
 . `undo`
@@ -827,9 +826,6 @@ Exits the program. +
 [underline]#Format#: `exit`
 
 If there are any statistics window open when executing this, the application will not terminate until those windows are closed too.
-
-
-// tag::statisticsCommand[]
 
 // tag::statisticsCommandUG[]
 === Generate stats: `generate-s`
@@ -863,9 +859,7 @@ The argument must match these three words perfectly.
 
 Shown below:
 
-
 image::StatsExampleDefault.png[width="300"]
-
 
 Generates the statistics with date input in chart format (in pop-up modal dialogue). +
 Format: `generate-s s/stat d1/YYYY.MM.DD d2/YYYY.MM.DD` +
@@ -874,7 +868,7 @@ Format for the date is in YYYY.MM.DD e.g `2019.05.12`
 
 Shown below:
 
-image::StatsExampleGraph.png[width="300"]
+image::StatsExampleGraph.png[]
 
 // end::statisticsCommandUG[]
 [TIP]
@@ -966,7 +960,7 @@ The system may lag and not work if you are typing too fast.
 [TIP]
 The system is case-sensitive.
 
-==== Example: `add`
+==== `add`
 
 image::AutoCompleteAddExample.png[]
 
@@ -996,7 +990,7 @@ confusion.
 accordingly.
 ****
 
-==== Example: `delete-c`
+==== `delete`
 
 image::AutoCompleteDeleteExample.png[]
 
@@ -1009,7 +1003,7 @@ where `N` is the largest valid index that can be entered. In this case,
 * Commands of this type include `delete`, `copy`, `complete`, `cancel`.
 ****
 
-==== Example: `edit`
+==== `edit`
 
 *** When you enter `edit-c` followed by a space, the system will suggest
 two numbers: `1` and `N`, where `N` is the largest valid index that can
@@ -1033,7 +1027,7 @@ the system is designed to always suggest the entire set of possible prefixes.
 * Autocomplete works similarly for all `edit` commands.
 ****
 
-==== Example: `find`
+==== `find`
 
 image::AutoCompleteFindExample.png[]
 
@@ -1049,7 +1043,7 @@ entered.
 ****
 
 
-==== Example: `switch`
+==== `switch`
 
 *** For simple commands such as `switch-c`, the system will suggest the command word
 and nothing else.
@@ -1058,7 +1052,7 @@ and nothing else.
 * Simple commands include `switch`, `export`, `list`, `clear`, `undo`, `redo`, `history`, `exit`, `help`.
 ****
 
-==== Example: `schedule`
+==== `schedule`
 
 image::AutoCompleteScheduleExample.png[]
 
@@ -1134,6 +1128,8 @@ The hashtag represents the length of the valid input for the primary key.
 
 [underline]#Format#: `addfield PRODUCT_NAME FIELD_NAME DATA_TYPE`
 
+// tag::autocomplete[]
+
 ==== Autocomplete integrated with command history `[coming in v2.0]`
 
 This extension of the autocomplete feature is to allow users to receive
@@ -1144,6 +1140,8 @@ suggestions based on past inputs.
 This feature is to allow users to define customized command words to
 simplify long commands. For example, `generate-s s/profit` can be
 simplified to `gp`.
+
+// end::autocomplete[]
 
 == FAQ
 *Q*: How do I transfer my data to another Computer? +
@@ -1173,8 +1171,8 @@ simplified to `gp`.
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
 |Command | Summary
-|`add-p i/IDENTITY NUMBER (IMEI) s/SERIAL NUMBER n/NAME b/BRAND cp/CAPACITY (in GB) cl/COLOUR $/COST [t/TAG]…​`| Adds a new phone into SML.
-|`edit-p INDEX [i/IMEI] [s/SERIAL NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`| Edits an existing phone.
+|`add-p i/IDENTITY_NUMBER s/SERIAL_NUMBER n/NAME b/BRAND cp/CAPACITY (in GB) cl/COLOUR $/COST [t/TAG]…​`| Adds a new phone into SML.
+|`edit-p INDEX [i/IDENTITY_NUMBER] [s/SERIAL_NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`| Edits an existing phone.
 |`delete-p INDEX`| Deletes a phone and its associated orders and schedules.
 |`clear-p`| Deletes all phones and their associated orders and schedules.
 |`find-p KEYWORD [MORE_KEYWORDS]`| Finds the phones that contain the keywords in its field.
