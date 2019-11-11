@@ -583,14 +583,13 @@ image::viewrecords_wyss.png[width=450]
 
 // end::performance_viewrecord[]
 
-// tag::performance[]
+// tag::calendar1[]
 === Calendar
 
 To allow you to retrieve training and performance records using the date they were recorded on, Athletick has a calendar feature which provides 2 main functions:
 
-. Displays an overview of training and performance records in a selected month (see <<Viewing the calendar : `view calendar`>> and <<Navigating the calendar to a specific month : `calendar MMYYYY`>>).
-
-. Displays training and performance records entered on a specific date (see <<Viewing training / performance details for a specific date : `calendar DDMMYYYY`>>).
+. Displays an overview of training and performance records in a selected month
+. Displays training and performance records entered on a specific date
 
 ==== Viewing the calendar : `view calendar`
 
@@ -614,7 +613,7 @@ image::calendar3.png[width=450]
 
 With reference to the diagram below, **Header 1** displays today’s day and date. **Header 2** displays the month and year you are currently viewing.
 
-image::calendarview_calendar.png[width=450]
+image::calendarview_calendar.png[width=300]
 
 You may use the left and right arrow icons beside header 2 to navigate to the previous or next month.
 
@@ -653,6 +652,8 @@ Additionally, the feature box (yellow box) will display the calendar for the sel
 
 image::calendar7.png[width=450]
 
+// end::calendar1[]
+
 With reference to the diagram below, **Header 1** displays today’s day and date. **Header 2** displays the month and year you are currently viewing.
 
 image::monthview_calendar.png[width=450]
@@ -661,6 +662,7 @@ You may use the left and right arrow icons beside header 2 to navigate to the pr
 
 Days with training entries are marked with a green dot indicator, and days with performance entries are marked with a purple dot indicator. Days with both training and performance entries are marked with both indicators.
 
+// tag::calendar2[]
 ==== Viewing training / performance details for a specific date : `calendar DDMMYYYY`
 
 This command displays the training and performance details entered on a specific date.
@@ -674,14 +676,14 @@ Let's say that you have entered both training and performance records into **Ath
 Type in the command `calendar` followed by the desired date in the format `DDMMYYYY`.
 
 Format: `calendar DDMMYYYY`
-
+// end::calendar2[]
 [NOTE]
 ====
 `MM` provided has to be within the range `01` to `12` (`0` must be included in front of single-digit numbers) and `YYYY` provided has to be within the range 0001 to 9999 for the command to execute successfully.
 
 You should have either training or attendance records on the specified date entered into **Athletick**, otherwise no records will be displayed.
 ====
-
+// tag::calendar3[]
 Example: `calendar 31102019`
 
 Type `calendar 31102019` into the command box, and press kbd:[enter] to execute it.
@@ -701,7 +703,7 @@ In the event your list of attendance and performance records exceeds the size of
 With reference to the diagram below, the **attendance pie chart** indicates the overall team attendance percentage and the number of present and absent team members. The **attendance table** displays your team members and whether they were present or absent. The **performance statistic** indicates the total number of performance records and the **performance table** displays the records for each event.
 
 image::calendar11.png[width=450]
-// end::performance[]
+// end::calendar3[]
 
 === Athlete Management
 // tag::select[]
