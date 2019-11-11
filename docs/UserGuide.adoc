@@ -82,7 +82,7 @@ to type the relevant command word to get prompted about subsequent inputs.
 image::interactive_parsing_0.png[width='520']
 {empty} +
 
-With interactive parsing, the aforementioned 'Add' command reduces to the following sequence of inputs: -
+With interactive parsing, the aforementioned `Add` command reduces to the following sequence of inputs: -
 ```
 add
 t/meeting
@@ -102,7 +102,7 @@ Experienced users that have a grasp of the structure and format of various comma
 Interactive parsing allows multiple arguments to be input simultaneously, as long as the entered arguments adhere to a
 set of rules detailed in a later subsection.
 
-The same 'Add' command can be constructed this way by a fairly experienced user: -
+The same `Add` command can be constructed this way by a fairly experienced user: -
 ```
 add t/meeting
 s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2
@@ -110,7 +110,7 @@ d/Team Meeting
 a/John | Smith p/High
 ```
 
-.A user about to pass 3 arguments to Typee in one input, following `add`.
+.A user about to pass 3 arguments to Typee in one input, following `Add`.
 image::interactive_parsing_2.png[height='90' width='800']
 {empty} +
 
@@ -118,7 +118,7 @@ image::interactive_parsing_2.png[height='90' width='800']
 image::interactive_parsing_3.png[height='90' width='800']
 {empty} +
 
-Finally, a highly experienced user can create an 'Add' command in the conventional manner, i.e. by typing out
+Finally, a highly experienced user can create an `Add` command in the conventional manner, i.e. by typing out
 the entire command at once. This is identical to the format introduced in the beginning of this section: -
 `add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
 
@@ -138,13 +138,13 @@ parsing an ongoing static command.
 
 Examples:
 
-'Add' and 'Delete' are static commands. The following input sequence is invalid: -
+`Add` and `Delete` are static commands. The following input sequence is invalid: -
 ```
 add t/meeting
 delete
 ```
 
-'Help' and 'Exit' are dynamic commands. Therefore, the following input sequence is *valid*: -
+`Help` and `Exit` are dynamic commands. Therefore, the following input sequence is *valid*: -
 
 ```
 add t/meeting
@@ -155,8 +155,8 @@ exit
 
 [NOTE]
 Calling another dynamic command in the midst of building a `Tab` command will erase the details of the command preceding
-'Tab'. This happens if the command preceding `Tab` isn't fully built. +
-For example: `add t/meeting` `tab` `// current` `b/calendar` will erase the information of the add command.
+`Tab`. This happens if the command preceding `Tab` isn't fully built. +
+For example: `add t/meeting` `tab` `// current` `b/calendar` will erase the information of the `Add` command.
 
 ==== Valid Input Sequences
 
@@ -169,7 +169,7 @@ Valid input sequences can be one of three types.
 After the last argument is specified, the required command is built and executed, carrying out the operation
 intended by the user.
 
-*The order of arguments entered is important*. Consider the 'Add' command. The ideal ordering is as follows: -
+*The order of arguments entered is important*. Consider the `Add` command. The ideal ordering is as follows: -
 `add t/ s/ e/ l/ d/ a/ p/`
 
 When users resort to any of the three aforementioned forms of supplying arguments, they are required to conform to the
@@ -213,7 +213,7 @@ Erroneous inputs occur in three mutually exclusive categories.
 * Inputs with valid arguments, but irrelevant additional arguments.
 
 An example of the first case is as follows: `add t/teeming`. "Teeming" is an invalid engagement type. Typee flags this inaccuracy
-and prompts the user to enter an acceptable engagement type instead. Since Typee has already begun building an 'Add' command,
+and prompts the user to enter an acceptable engagement type instead. Since Typee has already begun building an `Add` command,
 the subsequent input must begin with `t/...`
 
 .A user about to enter an invalid input.
@@ -240,7 +240,7 @@ t/interview
 
 Last but not least, Typee will reject cases wherein the user supplies excessive and irrelevant arguments.
 `add t/meeting s/16/11/2019/1600 e/16/11/2019/1700 l/COM-1 d/Meeting a/Damith p/High o/High` will be rejected because `o/`
-is not a parameter for the 'Add' command.
+is not a parameter for the `Add` command.
 
 //end::interactive-parsing[]
 
@@ -261,7 +261,7 @@ Users can switch between respective windows in order to make full use of the app
 `tab b/game` is used instead of `tab b/typinggame` to simplify typing. +
 `Engagement` window is set to default window upon starting the application.
 
-If the user wants to switch to different windows, simply enter the tab command
+If the user wants to switch to different windows, simply enter the `Tab` command
 with a reference to the menu name listed on the left end of the application window. +
 
 For example, user enters `tab b/calendar`
@@ -316,7 +316,7 @@ image::add_2.png[width="800"]
 The arguments to this command can be entered sequentially, leveraging the interaction offered by Typee. +
 Example: `add` `t/meeting` `s/11/11/2019/1500` ... `p/High`
 
-The table below summarizes the parameters of the add command.
+The table below summarizes the parameters of the `Add` command.
 
 [%header, cols=3*]
 |===
