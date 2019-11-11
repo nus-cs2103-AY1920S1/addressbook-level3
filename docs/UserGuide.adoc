@@ -366,6 +366,7 @@ Lists all engagements. +
 Format: `list`
 
 This command is useful in retrieving the original engagement list after executing commands that modify the viewed list, like `find`.
+This command can be executed in any tab but its results will only be shown in the engagements tab.
 
 //tag::sort[]
 === Sorting all engagements : `sort`
