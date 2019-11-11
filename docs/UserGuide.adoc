@@ -757,10 +757,9 @@ image::ui-screenshots/AutotagPanel.png[]
 [[Autotag-Command]]
 ==== Creating an automatic tag: *`autotag`*
 
-If you are looking to tag a group of similar bookmarks without manually editing each one, you
-can use the `autotag` command to create an autotag that will do that for you. You can define
-the group of bookmarks to be tagged using _conditions_ that describe the key characteristics
-of the group.
+If you want to tag a group of similar bookmarks without manually editing each one, you
+can use the `autotag` command to create an autotag to do it for you.
+You will need to define _conditions_ that describe the key characteristics of the bookmarks to be tagged.
 
 NOTE: Conditions fall into two categories: _normal conditions_, which are characteristics that
 bookmarks to be tagged **should** match, and _not-conditions_, which are conditions that bookmarks
@@ -780,15 +779,12 @@ For example:
 
 * To add a new autotag, input `*autotag* NUS n/NUS n/School n/Uni` into the command box.
 +
-// show dashboard and bookmark list, with some bookmarks named NUS/School/Uni but no tags
-// also show the command in the command box
 image::ui-screenshots/AutotagCommandUi1.png[]
 
 * You can then check that an autotag named `NUS` with three name conditions (`NUS`, `School`, and `Uni`)
 has been added to the autotag panel of the Dashboard. Also, notice that bookmarks with names
 that contain `NUS`, `School` or `Uni` now have the tag `NUS`.
 +
-// show updated dashboard and bookmark list, with the relevant bookmarks having been tagged
 image::ui-screenshots/AutotagCommandUi2.png[]
 
 [[autotag-parameter-constraints]]
@@ -830,7 +826,6 @@ If multiple conditions are specified, bookmarks that meet the following requirem
 
 Other examples:
 
-// TODO: add screenshots and improve descriptions
 * `*autotag* LumiNUS u/luminus.nus.edu.sg nf/Miscellaneous`
 +
 image::ui-screenshots/AutotagCommandExample1.png[]
@@ -843,7 +838,7 @@ containing `luminus.nus.edu.sg` that are not in the folder `Miscellaneous`.
 image::ui-screenshots/AutotagCommandExample2.png[]
 +
 Creates an autotag named `Quiz` which tags all bookmarks that are either in
-the folder `NUS` or in the folder `Module`, and that do not contain any of the
+the folder `NUS` or in the folder `Module`, and that do not contain the
 keywords `github` or `stackoverflow` in their URLs.
 // end::autotagcommand[]
 
