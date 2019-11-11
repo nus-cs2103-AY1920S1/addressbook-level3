@@ -153,7 +153,7 @@ Classes used by multiple components are in the `budgetbuddy.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::accounts[]
+// tag::accounts_1[]
 === Accounts Feature
 ==== Implementation
 
@@ -173,7 +173,7 @@ Each `Account` object has the following attributes:
 * `balance:long` -- The balance of the account, calculated by the net sum of expenses and income.
 * `balanceLongProperty:LongProperty` -- The Long property of the balance.
 * `categoryset:Set<Category>` -- The set of categories involved in the account.
-
+// end::accounts_1[]
 To facilitate the manipulation of `Account` objects, `AccountsManager` implements the following operations:
 
 * `AccountsManager#updateFilteredAccountList(Predicate<Account> predicate)` -- Updates the predicate of `filteredAccounts`.
@@ -194,7 +194,7 @@ To facilitate the manipulation of `Account` objects, `AccountsManager` implement
 * `AccountsManager#transactionListSwitchSource(Account account)` -- Switches the account source for the TransactionList.
 * `AccountsManager#transactionListUpdateSource()` -- Updates the transactionList linked to the currentActiveAccount.
 * `AccountsManager#exportReport()` -- Exports the overview report of all accounts.
-
+// tag::accounts_2[]
 When the user inputs a command, several of the above operations are carried out.
 For example, `account edit` will call `AccountsManager#resetFilteredAccountList` to update the `filteredAccounts`,
 so that all accounts present in `accounts` will be present in `filteredAccounts`,
@@ -269,7 +269,7 @@ After each command, `AccountsManager#resetFilteredAccountList` is called to rese
 * **Alternative 2**: `AccountListPanel` is associated with both `filteredAccounts` and `accounts`, and the display of the list switches when necessary.
 ** Pros: Easy to understand and align with the common sense.
 ** Cons: Hard to implement.
-// end::accounts[]
+// end::accounts_2[]
 
 // tag::loans[]
 // tag::kenneth-ppp-loan-class[]
