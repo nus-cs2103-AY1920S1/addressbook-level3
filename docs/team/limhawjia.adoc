@@ -1,15 +1,32 @@
 = Lim Haw Jia - Project Portfolio
 :site-section: AboutUs
-:imagesDir: ../images
-:stylesDir: ../stylesheets
+:imagesDir: ../images/hj_ppp
+:stylesDir: ../stylesheets/
 
-== PROJECT: Duke Academy
+== Project: Duke Academy
+Duke Academy is a Java based programming practice application equipped with a wide range of questions related to the field of Data Structures and Algorithms.
 
-'''
 
 == Overview
 
-Duke Academy is a Java programming platform equipped with a library of programming questions related to the field of Data Structures and Algorithms, as well as an automated judging system. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 15 kLoC.
+Duke Academy was built to emulate a Command Line Application where users interact with the GUI by typing commands into a command box. This decision was made to allow new learners to also familiarize themselves with
+using a Command Line Interface, an invaluable skill for all programmers.
+
+[.text-center]
+.Main GUI of Duke Academy
+image::DukeAcademyGUI.png[align="center"]
+
+Duke Academy is an integrated platform with a built-in text editor, an auto-grader and a note-taking feature. It provides all the tools needed for a good practice session so that its users will never have to tab out to another application.
+
+.Text editor and auto-grader
+image::TextEditorAndGrader.png[align="center]
+
+.Note-taking feature
+image::NotesFeature.png[align="center"]
+
+DukeAcademy can also be used as a teaching tool by educators as they can set their own questions to be loaded by their students using our very own simplified text file format.
+
+Duke Academy is written in Java, and has about 15 kLoC.
 
 == Summary of contributions
 
