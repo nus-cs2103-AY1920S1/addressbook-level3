@@ -47,29 +47,29 @@ class. However, there is much more coupling compared to the Person class, thus i
 stringent testing required, such as `Date` parsing.
 
 * *Minor enhancement*: added the *Approve and Reject Claim features*
-** *What it does*: This feature allows users to approve or reject pending claims.
+** *What it does*: To allow users to approve or reject pending claims.
 ** *Justification*: Claims can have different statuses, and `Budget` will behave differently depending on their
 statuses.
 ** *Implementation*: ApproveClaimCommand and RejectClaimCommand will check whether the claim chosen is a PendingClaim,
 and only if it is can its status be approved or rejected respectively.
 
 * *Minor enhancement*: added the *association between Claims and Contacts*
-** *What it does*: Adding a claim into the app's list of claims will add the claim into the associated contact's list
-of claims as well.
+** *What it does*: To ensure that adding a claim into the app's list of claims will also add the claim into the
+associated contact's list of claims as well.
 ** *Justification*: Each claim added is associated to a contact. The user will be able to view all the claims associated
 to a contact when viewing them using the CheckCommand.
 ** *Implementation*: During the addition of a claim, the app checks if there is a contact with the
 entered name. Only if there is an existing contact for the claim will the command be executed. It also adds
 the Claim ID to the contact's list of claims.
 ** *Highlights*: I have also added a table to the IndividualContactWindow for the user to view the details of every
-claim of each contact easily.
+claim of each contact easily when they use `check` command on the contact.
 
 * *Code contributed*: [https://github.com/AY1920S1-CS2103T-W12-1/main/commits?author=weigenie[All commits]][https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=weigenie[Project Code Dashboard]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed the release of version `v1.1` on GitHub
+*** Managed the release of version `v1.2` on GitHub
 *** Created GitHub organisation, team repository and managed access for the team.
 *** Integrated various build services into the team repository.
 
@@ -82,7 +82,7 @@ https://github.com/AY1920S1-CS2103T-W12-1/main/pull/182[#182]
 ** Community
 *** I conducted reviews on other team's PR to give suggestions and constructive comments:
 https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/4[#4],
-*** I also reported bugs and potential flaws in other teams' project to help prepare them for the demo:
+*** I also reported bugs and potential flaws in other teams' projects to help prepare them for the demo:
 https://github.com/weigenie/ped/issues/8[#8],
 https://github.com/weigenie/ped/issues/5[#5],
 https://github.com/weigenie/ped/issues/4[#4]
