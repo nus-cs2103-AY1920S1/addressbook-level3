@@ -32,12 +32,13 @@ contributions to the team project.
 
 * What it does:
 ** The `training` command adds training information to *Athletick*. Users store the date of training and
-players attended, allowing coaches to view, edit and delete past training data.
+players attended, allowing them to view, edit and delete past training data.
 
 * Justification:
-** Coaches keep records of past trainings so they can use the information to manage their team.
-Allowing coaches to store training dates helps them to monitor their training schedule and plan for future training
-programs. We also allow storage of attendance information as a coach would want to know attendance for that training
+** Coaches and captains keep records of past trainings so they can use the information to manage their team.
+Allowing them to store training dates helps them to monitor their training schedule and plan for future training
+programs. We also allow storage of attendance information as a coach or captain would want to know attendance for that
+training
 session.
 
 * Highlights:
@@ -57,23 +58,23 @@ amount of typing which will save time.
 *Enhancement added:* I added the ability to monitor an athlete’s attendance.
 
 * What it does:
-** A built-in attendance tracker allows coaches and captains to track their team’s attendance using the `attendance`,
-`select`, `view attendance` and `calendar` commands.
+** A built-in attendance tracker allows users to track their team’s attendance using the `attendance`, `select`,
+`view attendance` and `calendar` commands.
 
 
 * Justification:
-** Coaches are concerned about their team’s overall attendance rate as it is a good indicator an
+** Coaches and captains are concerned about their team’s overall attendance rate as it is a good indicator an
 athlete’s commitment and how prepared an athlete is for a competition. Providing an automatic attendance tracker
-removes the need for manual calculation as it can be tedious for coaches and captains, especially if they have to go
+removes the need for manual calculation as it can be tedious for them, especially if they have to go
 through many training sessions.
 
 * Highlight:
-** Attendance of a particular training is used in the calendar command and attendance rate is used in the
-select command. A TrainingManager was implemented to provide other components use with important information from
+** Attendance of a particular training is used in the `calendar` command and attendance rate is used in the
+`select` command. A TrainingManager was implemented to provide other components use with important information from
 training information and attendance rate.
 
 *Code contributed:* The links provided show my code contribution for the project.
-https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jeunhoe&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[(RepoSense)]
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=jeunhoe[(RepoSense)]
 https://github.com/AY1920S1-CS2103T-T12-3/main/commits?author=jeunhoe[(All commits)]
 
 *Other contributions:*
@@ -90,14 +91,14 @@ before merging.
 
 * Enhancement to existing features:
 
-** Extended the existing delete command to support deletion of trainings.
+** Extended the existing `delete` command to support deletion of trainings.
 (Pull request
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/194[#194])
 
-** Tweaked the edit person command to work with training information.
+** Tweaked the `edit` person command to work with training information.
 (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/195[#195])
 
-** Tweaked the clear command to clear training information.
+** Tweaked the `clear` command to clear training information.
 (Pull request
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/194[#194])
 
@@ -139,7 +140,7 @@ https://github.com/AY1920S1-CS2103T-T12-3/main/pull/187[#187])
 == Contributions to the user guide
 This section displays excerpts of my contributions to the user guide for the training and attendance features. They
 showcase my ability to write documentation targeting end-users of our application.
-You can view the entire document https://ay1920s1-cs2103t-t12-3.github.io/main/UserGuide.html#training-feature[here].
+You can view the entire document https://ay1920s1-cs2103t-t12-3.github.io/main/UserGuide.html[here].
 
 {Start of extract from User Guide}
 
@@ -155,7 +156,7 @@ include::../UserGuide.adoc[tag=view_attendance_command]
 == Contributions to the developer guide
 This section displays excerpts of my contributions to the developer guide for the training feature. They showcase my
 ability to write technical documentation to developers, as well as the technical depth of my contributions to the project.
-You can view the entire document https://ay1920s1-cs2103t-t12-3.github.io/main/DeveloperGuide.html#training-feature[here].
+You can view the entire document https://ay1920s1-cs2103t-t12-3.github.io/main/DeveloperGuide.html[here].
 
 {Start of extract from Developer Guide}
 
