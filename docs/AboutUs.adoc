@@ -39,7 +39,7 @@ Responsibilities: Diary
 
 '''
 
-=== Khairul
+=== Muhammad Khairul Azman
 image::khairulazman1997.png[width="150", align="left"]
 {empty}[http://github.com/khairulazman1997[github]] [<<muhammadkhairulazman#, portfolio>>]
 
