@@ -20,55 +20,50 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 
 == Summary of contributions
 
-* *Major enhancement*: added the *ability to manually add, edit and delete entities (interviewees and interviewers)* in Scheduler.
+* *Major enhancement*: added the *ability to manually `add`, `edit` and `delete` entities (interviewees and interviewers)* in Scheduler.
 ** What it does: This allows the user to manually alter the data currently in Scheduler .
 ** Justification: This feature is necessary to the product as interview schedules change frequently - interviewees may suddenly
 be unable to attend an interview, withdraw from the interview. Interviewers may also be forced to
 withdraw due to urgent business. There may also be more applicants, and hence interviewees. In these cases, the ability to
 manually change data in Scheduler is essential.
 ** Highlights: This enhancement deeply affects the foundational structure of Scheduler. It required an in-depth understanding of
-the existing code base. The implementation too was challenging as it required changes to existing commands and needed to be
-designed such that enhancements could be easily added.
+the existing code base. The implementation was also challenging as it required changes to existing commands and needed to be
+designed such that enhancements could be easily added. The large number of possible input arguments for these commands also required extensive testing
+to ensure Scheduler was bug-free.
 ** Credits: Joshua Bloch, author of Effective Java, for his ideas on Builder patterns as a way to generate objects with optional parameters.
 
-* *Minor enhancement*: added the ability to clear all entities from Scheduler.
+* *Minor enhancement*: added the ability to `clear` all entities from Scheduler's internal model.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kendrickang&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kendrickang&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=KendrickAng&tabRepo=AY1920S1-CS2103-F09-1%2Fmain%5Bmaster%5D[Functional code]]
+ [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kendrickang&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=KendrickAng&tabRepo=AY1920S1-CS2103-F09-1%2Fmain%5Bmaster%5D[Test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Contributed non-trivially to pull request code discussion
-*** Coordinated assignment of bugs after mock practical exam
+*** Contributed non-trivially to pull request code discussion: (pull requests https://github.com/AY1920S1-CS2103-F09-1/main/pull/90[#90], https://github.com/AY1920S1-CS2103-F09-1/main/pull/158[#158])
+*** Coordinated assignment of bugs after mock practical exam: (https://github.com/AY1920S1-CS2103-F09-1/main/issues[github issues page])
+
 ** Enhancements to existing features:
-*** Wrote additional tests for existing features to increase coverage to above 75%: https://github.com/AY1920S1-CS2103-F09-1/main/pull/148[#148], https://github.com/AY1920S1-CS2103-F09-1/main/pull/154[#154]
+*** Wrote additional tests for existing features to increase coverage to above 75%: (pull requests https://github.com/AY1920S1-CS2103-F09-1/main/pull/148[#148], https://github.com/AY1920S1-CS2103-F09-1/main/pull/154[#154])
+
 ** Documentation:
-*** Did cosmetic and structural tweaks to existing contents of the User Guide to improve readability: https://github.com/AY1920S1-CS2103-F09-1/main/pull/156[#156]
+*** Did cosmetic and structural tweaks to existing contents of the User Guide to improve readability: (pull request https://github.com/AY1920S1-CS2103-F09-1/main/pull/156[#156])
+
 ** Community:
-*** Contributed to forum discussions: https://github.com/nus-cs2103-AY1920S1/forum/issues/88#issuecomment-533785777[#1]
-
-
-====
-
-** Project management:
-*** Managed releases
-** Enhancements to existing features:
-** Documentation:
-** Community:
-** Tools:
-
-====
+*** Contributed to forum discussion: (example https://github.com/nus-cs2103-AY1920S1/forum/issues/88#issuecomment-533785777[1])
 
 == Contributions to the User Guide
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=add]
-
-include::../UserGuide.adoc[tag=edit]
-
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=add_interviewee]
+include::../UserGuide.adoc[tag=add_interviewer]
+include::../UserGuide.adoc[tag=add_constraints]
+---
+include::../UserGuide.adoc[tag=edit_interviewee]
+include::../UserGuide.adoc[tag=edit_interviewer]
+---
 
 == Contributions to the Developer Guide
 
@@ -77,5 +72,6 @@ include::../UserGuide.adoc[tag=delete]
 |===
 
 include::../DeveloperGuide.adoc[tag=logic]
-
+---
+include::../DeveloperGuide.adoc[tag=KendrickFeatures]
 include::../DeveloperGuide.adoc[tag=add]
