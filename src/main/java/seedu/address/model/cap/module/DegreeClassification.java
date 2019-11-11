@@ -9,5 +9,6 @@ public enum DegreeClassification {
     SECONDLOWER,
     THIRD,
     PASS,
-    FRESHIE
+    FRESHIE,
+    FAIL
 }

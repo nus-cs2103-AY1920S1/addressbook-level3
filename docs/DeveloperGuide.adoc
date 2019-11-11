@@ -490,6 +490,7 @@ These entries have to fulfill the following requirements set by the budget to be
 The class diagram below gives an overview of the Module class.
 
 image::ModuleClassDiagram.png[]
+.Class Diagram of Module
 
 ==== Implementation of module commands
 
@@ -502,6 +503,7 @@ Module class supports multiple command. It includes:
 * `ListCommand` - List all the modules. Often required after the find command.
 
 image::DeleteSequenceDiagram.png[]
+.Sequence Diagram of DeleteCommand
 
 [NOTE]
 The lifelines for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifelines reaches the end of diagram.
@@ -511,10 +513,18 @@ After a successful execution, the module with the specified module code will be 
 The search for the matching module code is implemented with a linear search. With 70 modules in Modulo, the linear search is still responsive and there were not observable lags.
 
 *Alternative*
+
 An alternative would be to use a search algorithm that comprises a Hash set and linear search.
 
 The interactions in the Model Component for the same command are shown in the sequence diagram below.
 // end::grades tracker[]
+
+== UI
+
+The User Interface features a sleak and modern interface. The primary concept of the user interface includes simplicity, rounded corners, shadow-like back panes and trendy fonts. We have greatly enhanced the UI from the original addressbook. Borders are removed to ensure a smooth flow of content, delivering a "less is more" modern concept to enhance the user experience.
+
+The quiz feature remains to have a dark theme as the dark theme doesn't harm the eyes of the user. It uses a more neutral tone to improve the productivity of the user.
+
 
 == Documentation
 

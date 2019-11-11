@@ -13,7 +13,7 @@ public class Fail extends Rank {
     private static final String imageFilePath = "/images/failcourse.png";
 
     public Fail() {
-        super(DegreeClassification.FIRST, TITLE);
+        super(DegreeClassification.FAIL, TITLE);
     }
 
     public static double getMaximumCap() {
