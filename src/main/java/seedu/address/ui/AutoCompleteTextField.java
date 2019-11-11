@@ -77,15 +77,22 @@ public class AutoCompleteTextField extends TextField {
         List<String> commandMasterList = new ArrayList<String>(CommandMasterList.getCommandWords());
         assert !commandMasterList.isEmpty() : "Command master list cannot be empty!";
         entries.addAll(commandMasterList);
-        setListener();
+        initListener();
     }
 
     /**
      * adds listener to suggest commands
      */
-    private void setListener() {
+    public void initListener() {
         textProperty().addListener(changeListener);
         logger.info("Listening to textfield.");
+    }
+    /**
+     * shutsdown listener for autocomplete
+     */
+    public void shutDownListener() {
+        logger.info("Shutting down autocomplete listener for textfield....");
+        textProperty().removeListener(changeListener);
     }
 
     /**
@@ -145,20 +152,12 @@ public class AutoCompleteTextField extends TextField {
      * @param popUpItem
      * @param mainText
      */
-    public void setOnSelection(CustomMenuItem popUpItem, String mainText) {
+    private void setOnSelection(CustomMenuItem popUpItem, String mainText) {
         popUpItem.setOnAction(actionEvent -> {
             setText(mainText);
             positionCaret(mainText.length());
             entriesPopup.hide();
         });
-    }
-
-    /**
-     * shutsdown listener for autocomplete
-     */
-    public void shutdown() {
-        logger.info("Shutting down autocomplete listener for textfield....");
-        textProperty().removeListener(changeListener);
     }
 
     /**
@@ -179,7 +178,8 @@ public class AutoCompleteTextField extends TextField {
      * hide autocomplete results if needed
      */
     public void hidePopUp() {
-        entriesPopup.hide();
-
+        if (entriesPopup.isShowing()) {
+            entriesPopup.hide();
+        }
     }
 }
