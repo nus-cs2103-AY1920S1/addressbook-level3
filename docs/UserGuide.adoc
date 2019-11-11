@@ -21,6 +21,10 @@ By: `AY1920S1-CS2103T-W12-3`      Since: `SEPT 2019`      Licence: `MIT`
 PalPay is for those who *prefer to use a desktop app for managing personal finances*.
 More importantly, PalPay is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, PalPay can get your finance management tasks done faster than traditional GUI apps.
+
+.PalPay's Graphical User Interface
+image::dg_gui_example.png[]
+
 This User Guide is written for the users of PalPay as an introductory document of the application.
 You are strongly encouraged to read this document before using the application to enjoy the full functionality of the application.
 Ready to start your journey to financial freedom?
@@ -289,7 +293,10 @@ image::out_ug_8.png[]
 * `out $/29 d/29022020 n/taxi c/transport`
 * `out $/12 d/31122019 n/burger`
 
+=======
 //end::out[]
+
+// tag::set[]
 
 [[Set]]
 === Setting a Budget : `set`
@@ -359,7 +366,7 @@ Examples:
 
 * `set $/100 d/010120120 c/BBT`
 * `set $/300 d/29022020 c/shopping`
-
+// end::set[]
 
 // tag::split[]
 
