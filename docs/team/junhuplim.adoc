@@ -130,7 +130,5 @@ This section showcases my contribution to the Developer Guide. They showcase my 
 documentation and the technical depth of my contributions to the project.
 
 {Start of extract from Developer Guide}
-
 include::../DeveloperGuide.adoc[tag=undoredo]
-
 {End of extract from Developer Guide}
