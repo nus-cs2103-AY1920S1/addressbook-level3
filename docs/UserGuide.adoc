@@ -1199,6 +1199,7 @@ e.g. `editexpense 1 p/2.50 t/15-09-2019 1230 c/Food`
 
 * *Clear all expenses and budgets* (_undoable_) : +
 `clearmoolah`
+
 ---
 
 *All about events:*
