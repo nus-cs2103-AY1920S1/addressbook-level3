@@ -1,5 +1,12 @@
 package dukecooks.logic.commands.mealplan;
 
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY1;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY2;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY3;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY4;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY5;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY6;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY7;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
@@ -35,7 +42,16 @@ public class AddMealPlanCommand extends AddCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meal plan to Duke Cooks. \n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_INGREDIENT + "INGREDIENTS... ";
+            + PREFIX_DAY1 + "DAY 1 RECIPES... "
+            + PREFIX_DAY2 + "DAY 2 RECIPES... "
+            + PREFIX_DAY3 + "DAY 3 RECIPES... "
+            + PREFIX_DAY4 + "DAY 4 RECIPES... "
+            + PREFIX_DAY5 + "DAY 5 RECIPES... "
+            + PREFIX_DAY6 + "DAY 6 RECIPES... "
+            + PREFIX_DAY7 + "DAY 7 RECIPES...\n"
+            + "Example: " + COMMAND_WORD + " " + VARIANT_WORD + " "
+            + PREFIX_NAME + "Vegetarian Plan"
+            + PREFIX_DAY1 + "Broccoli Soup ";
 
     public static final String MESSAGE_SUCCESS = "New meal plan added: %1$s";
     public static final String MESSAGE_DUPLICATE_MEALPLAN = "This meal plan already exists in Duke Cooks";

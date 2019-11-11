@@ -5,17 +5,13 @@
 
 == PROJECT: DukeCooks
 
-== What is in this document?
-
-This document is a project portfolio documenting the contributions made for DukeCooks by the writer - Hua Lun . It will present the user and developer guide of the Dashboard function in DukeCooks.
-
 == What exactly is DukeCooks?
 
 DukeCooks is a desktop application designed for health-conscious students.
 As busy student project developers for DukeCooks, we understand that it can be daunting to keep track of various
 tasks and yet, manage a healthy lifestyle at the same time.
 
-DukeCooks aims to simplify this by allowing you to manage various aspects of your lifestyle, all within a single app!
+DukeCooks aims to simplify this by allowing you to manage various aspects of your lifestyle, all within a single application.
 In DukeCooks, you will be able to manage tasks, store recipes, plan workouts, monitor health and write diaries.
 
 Not only that, DukeCooks runs on the command-line interface (CLI). This means that all the tasks mentioned above can be
@@ -25,13 +21,29 @@ executed all within a single line, saving you even more time!
 
 DukeCooks is developed by a group of five Year 2 Computing students from the National University of Singapore.
 
+== What is in this document?
+
+This document is a collection of my contributions made to DukeCooks. These contributions can be categorized
+in the following 3 main areas:
+
+. Overall Project
+
+. User Guide
+
+. Developer Guide
+
 == My Contributions to DukeCooks
 
-=== Building the Dashboard
+=== Building the Recipe Book
 
-The Dashboard in DukeCooks provides an overview of the list of tasks to be done. It is also coupled with a progress bar, mini calendar and pop up messages for encouragement.
+The Recipe Book in DukeCooks allows the user to create and store his own personal recipes. This allows the user to keep
+track of each recipe's ingredients and nutritional value, to aid them in monitoring the food they eat, and their
+nutritional intake.
 
-Initial works for the Dashboard include referencing the AB3 codebase. The add / delete / edit / list / find functions from AB3 was adapted and available in the Dashboard. As a comparison, the functions listed before was used in AB3 to create and manipulate a person's contact information. In DukeCook’s Dashboard, these functions are used to create and manipulate a task's information.
+Initial works for the Recipe Book include referencing the AB3 codebase. The add / delete / edit / list / find functions
+from AB3 were adapted and are made available in Recipe Book. As a comparison, the functions listed before was used in
+AB3 to create and manipulate a person's contact information. In DukeCook’s Dashboard, these functions are used to create
+and manipulate a recipe's information.
 
 === Enhancement 1: Creating the `done` command
 
@@ -52,7 +64,7 @@ Using AB3’s GUI as a backbone, the Dashboard was created. In the GUI for the D
 Based off AB3's add command, the task that is last added will be display at the last of the list. Hence, in order to improve user's experience, a sorting system is built. Now, when a task is added, the task will be displayed based off the date entered in.
 
 === Code contributed:
-Visit this https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=hua-lun&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=hua-lun&tabRepo=AY1920S1-CS2103T-T10-2%2Fmain%5Bmaster%5D[link] to check out my code contributions to DukeCooks.
+Visit this https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=bakwxh&sort=totalCommits%20dsc&sortWithin=totalCommits%20dsc&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom[link] to check out my code contributions to DukeCooks.
 
 
 === Other contributions:
@@ -61,25 +73,21 @@ Visit this https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=hua-lun&so
 | |What I did
 
 |Project management
-|Managed releases `v1.2.1` (1 release) on GitHub
+|Managed releases `v1.3.1` (1 release) on GitHub
 
 |Reviewed PRs
-|PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+|PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T10-2/main/pull/43[#43]
 
 |Reported bugs
 |Reported bugs and suggestions for other teams in the class +
-(https://github.com/hua-lun/ped/issues/1[1],
-https://github.com/hua-lun/ped/issues/2[2],
-https://github.com/hua-lun/ped/issues/3[3],
-https://github.com/hua-lun/ped/issues/4[4],
-https://github.com/hua-lun/ped/issues/5[5],
-https://github.com/hua-lun/ped/issues/6[6],
-https://github.com/hua-lun/ped/issues/7[7],
-https://github.com/hua-lun/ped/issues/8[8],
-https://github.com/hua-lun/ped/issues/9[9],
-https://github.com/hua-lun/ped/issues/10[10],
-https://github.com/hua-lun/ped/issues/11[11],
-https://github.com/hua-lun/ped/issues/12[12],)
+(https://github.com/bakwxh/ped/issues/1[1],
+https://github.com/bakwxh/ped/issues/2[2],
+https://github.com/bakwxh/ped/issues/3[3],
+https://github.com/bakwxh/ped/issues/4[4],
+https://github.com/bakwxh/ped/issues/5[5],
+https://github.com/bakwxh/ped/issues/6[6],
+https://github.com/bakwxh/ped/issues/7[7],
+https://github.com/bakwxh/ped/issues/8[8])
 
 |===
 

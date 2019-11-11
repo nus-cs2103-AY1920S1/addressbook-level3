@@ -20,9 +20,10 @@ public class ViewMealPlanCommand extends ViewCommand {
 
     public static final String VARIANT_WORD = "mealplan";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a page to a specific mealplan "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Views a specific mealplan "
             + "Parameters: "
-            + "1";
+            + "INDEX (must be a positive integer) \n"
+            + "Example: " + COMMAND_WORD + " " + VARIANT_WORD + " 2";
 
     public static final String MESSAGE_SUCCESS = "You are viewing mealplan : %1$s";
 
