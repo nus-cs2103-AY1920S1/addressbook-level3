@@ -257,7 +257,7 @@ Generally it is similar to how you would add an ordinary expense.
 If no match is found for any person provided, or if multiple matches are found, the command will do nothing as it is ambiguous.
 
 An entry will be added within the activity display so you can keep track of past payments.
-These entries will have a generic description tagged to them to make it clear what it is.
+These entries will have a generic description tagged to them to make it clear what it is, and they will also be highlighted in a frame to distinguish them from ordinary expenses.
 
 Format: `expense p/PERSON1 e/AMOUNT_PAID p/PERSON2`
 
@@ -267,16 +267,28 @@ Format: `expense p/PERSON1 e/AMOUNT_PAID p/PERSON2`
 * Naturally this also means that in this case Alice paying Bob is not possible, since that would suggest paying a negative amount of money!
 ****
 
-Examples:
+Example run:
 
-* `settle p/John p/bob e/100` +
-Adds an settlement to the activity stating thet John has paid Bob $100.
-If John owes less than $100 to Bob, the command will be rejected.
-If no activity is currently viewed, an error will occur as it is unclear where to add the entry.
-* `expense p/Mary p/Joseph` +
-Say Mary owes Joseph $10.
-Then the command will add an settlement assuming Mary paid Joseph exactly $10.
-If instead Joseph owes Mary $10, the command will fail, since in this case any way of Mary paying Joseph will only make the debt worse.
+* Go to the activity you wish to modify with the `list a/` and `view` commands.
+You will see something like this:
+
+image:settle-view-activity.png[width="300"]
+
+* `settle p/alex p/david e/10` +
+Adds an settlement to the activity stating that Alex has paid David $10.
+If Alex owes less than $10 to David, the command will be rejected.
+In this case it is accepted since Alex owes about $20 or so to David.
+The two pictures below show what will happen before and after the command.
+Notice the new expense added, which is also conveniently highlighted.
+
+image:settle-enter-command.png[width="300"] image:settle-result.png[width="300"]
+
+* `expense p/charlotte p/li` +
+No amount to pay is provided, so it is assumed that Charlotte wants to pay David (Li) as much as is needed to clean their debt.
+This is what we see:
+
+image:settle-result-2.png[width="300"]
+
 // end::settle[]
 
 // tag::edit[]
