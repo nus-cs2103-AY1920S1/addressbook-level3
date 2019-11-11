@@ -14,7 +14,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning_sign:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-F09-1/main
 
 By: `Team AY1920S1-CS2103-F09-1`      Since: `Oct 2019`      Licence: `MIT`
 
@@ -52,7 +52,7 @@ To add an interviewee, use the `add` command. Here we add an interviewee with th
 . *Work email* (should be an NUS email) - john_doe@u.nus.edu
 . *Preferred time slots* - 17/10/2019, 1pm to 2pm
 
- add r/interviewee n/John Doe p/91234567 f/School of Computing y/2019 ep/john_doe@gmail.com ew/john_doe@u.nus.edu d/Marketing s/17/10/2019 13:00-14:00
+ add interviewee n/John Doe p/91234567 f/School of Computing y/1 ep/john_doe@gmail.com ew/john_doe@u.nus.edu d/Marketing s/17/10/2019 13:00-14:00
 
 * Note that all fields specified above are *compulsory* when adding an interviewee manually.
 * Please also note that the added interviewee cannot be already present in the application data, ie. no duplicates are allowed.
@@ -65,7 +65,7 @@ Similarly, to add an interviewer with the characteristics:
 . *Department* - Marketing
 . *Available time slots* - 17/10/2019, 1pm to 2pm
 
- add r/interviewer n/Bohn Coe p/97654321 ew/bohn_coe@u.nus.edu d/Marketing s/17/10/2019 13:00-14:00
+ add interviewer n/Bohn Coe p/97654321 ew/bohn_coe@u.nus.edu d/Marketing s/17/10/2019 13:00-14:00
 
 * Again, the fields specified above are *compulsory when adding an interviewer manually.
 * Please also note that the added interviewer cannot be already present in the application data, ie. no duplicates are allowed.
@@ -164,9 +164,9 @@ The indicated timeslots for interviewer/interviewee has to be one of these times
 * Items in square brackets `[]` are optional.
 * Items with `...` after them can be used multiple times, including zero times.
 * *Parameters* can be in any order. E.g if a command specifies `n/NAME p/PHONE`, passing the input as `p/PHONE n/NAME` is also acceptable.
-* Example: `add r/interviewee n/NAME p/PHONE f/FACULTY y/YEAR_OF_STUDY ep/PERSONAL_EMAIL ew/NUS_WORK_EMAIL d/DEPARTMENT... s/SLOT... [t/TAG]...`
+* Example: `add interviewee n/NAME p/PHONE f/FACULTY y/YEAR_OF_STUDY ep/PERSONAL_EMAIL ew/NUS_WORK_EMAIL d/DEPARTMENT... s/SLOT... [t/TAG]...`
 ** `NAME`, `PHONE`, `FACULTY`, `YEAR_OF_STUDY`, `PERSONAL_EMAIL`, `NUS_WORK_EMAIL`, `DEPARTMENT`, `SLOT` and `TAG` are to be supplied by the user.
-*** Valid input: `add r/interviewee n/John Doe p/88888888 f/School of Computing y/2019 ep/john_doe@gmail.com ew/john_doe@u.nus.edu d/Marketing s/17/10/2019 13:00-14:00 t/friends`
+*** Valid input: `add interviewee n/John Doe p/88888888 f/School of Computing y/1 ep/john_doe@gmail.com ew/john_doe@u.nus.edu d/Marketing s/17/10/2019 13:00-14:00 t/friends`
 *** `t/friends` is optional, and can be omitted from the command.
 *** Multiple tags can be supplied as input in place of just `t/friends`: `t/friends t/strong t/likesDogs`
 
@@ -360,7 +360,7 @@ Format: `email ct/status`
 // tag::add_interviewee[]
 
 === Add interviewees/interviewers manually `add`
-Manually add a new entity to the database. The command format differs on the `r/ROLE` prefix supplied:
+Manually add a new entity to the database. The command format differs on the preamble supplied, which should be `interviewee` or `interviewer`:
 
 * If `interviewee` is supplied, refer to <<Adding a new interviewee, Adding a new interviewee>> below.
 * If `interviewer` is supplied, refer to <<Adding a new interviewer, Adding a new interviewer>> below.
@@ -368,11 +368,11 @@ Manually add a new entity to the database. The command format differs on the `r/
 ==== Adding a new interviewee
 Manually add a new interviewee to the database.
 
-Format: `add r/interviewee n/NAME p/PHONE f/FACULTY y/YEAR_OF_STUDY ep/PERSONAL_EMAIL ew/NUS_WORK_EMAIL d/DEPARTMENT... s/SLOT... [t/TAG]...`
+Format: `add interviewee n/NAME p/PHONE f/FACULTY y/YEAR_OF_STUDY ep/PERSONAL_EMAIL ew/NUS_WORK_EMAIL d/DEPARTMENT... s/SLOT... [t/TAG]...`
 
 Example:
 
- add r/interviewee n/John Doe p/91234567 f/School of Computing y/1 ep/john_doe@gmail.com ew/john_doe@u.nus.edu d/Marketing s/17/10/2019 13:00-14:00 t/friends
+ add interviewee n/John Doe p/91234567 f/School of Computing y/1 ep/john_doe@gmail.com ew/john_doe@u.nus.edu d/Marketing s/17/10/2019 13:30-14:00 t/friends
 
 
 Notes:
@@ -390,7 +390,7 @@ Constraints:
 * A `n/NAME` must only contain alphanumeric characters and spaces, and should not be blank.
 * A `p/PHONE` must only contain numbers, and should be at least 3 digits long.
 * A `f/FACULTY` can take any value in English, but should not be blank.
-* A `y/YEAR_OF_STUDY` must be a positive integer with the range [1,5].
+* A `y/YEAR_OF_STUDY` must be a positive integer within the range [1,5].
 * A `ep/PERSONAL_EMAIL` or `ew/NUS_WORK_EMAIL` must be of format local-part@domain.
 ** The local-part must only contain alphanumeric characters and special characters ( !#$%&'*+/=?`{|}~^.- ), excluding the parenthesis.
 ** The domain name must at least be 2 characters long, start and end with alphanumeric characters and consist of alphanumeric characters, with a period or a hyphen for the characters in-between, if any.
@@ -404,8 +404,8 @@ and the rightmost *HH:mm* refers to the *end duration*.
 ** The range of *start durations* and *end durations* available for input must be within <<Working Hours, Working Hours>>.
 ** The *start duration* must be earlier than the *end duration*, and be in increments of `duration`.
 The time elapsed from the *start duration* to *end duration* must also follow the number of minutes as specified
-by the value of `duration` in <<User Preferences, User Preferences>>. Otherwise, the scheduled data will not be displayed
-properly in the user interface. See <<Duration of Time slot, Duration of Time slot>> for more details.
+by the value of `duration` in <<User Preferences, User Preferences>>. Otherwise, scheduled data will not be displayed
+properly in the user interface. See <<Duration of Timeslot, Duration of Timeslot>> for more details.
 
 ====
 
@@ -416,11 +416,11 @@ properly in the user interface. See <<Duration of Time slot, Duration of Time sl
 ==== Adding a new interviewer
 Manually add a new interviewer to the database.
 
-Format: `add r/interviewer n/NAME p/PHONE ew/NUS_WORK_EMAIL d/DEPARTMENT  s/SLOT... [t/TAG]...`
+Format: `add interviewer n/NAME p/PHONE ew/NUS_WORK_EMAIL d/DEPARTMENT  s/SLOT... [t/TAG]...`
 
 Example:
 
- add r/interviewer n/Mary Jane p/98765432 ew/mary_jane@u.nus.edu d/Marketing s/20/09/2019 18:00-18:30
+ add interviewer n/Mary Jane p/98765432 ew/mary_jane@u.nus.edu d/Marketing s/20/09/2019 18:00-18:30
 
 Notes:
 
@@ -447,8 +447,8 @@ and the rightmost *HH:mm* refers to the *end duration*.
 ** The range of *start durations* and *end durations* available for input must be within <<Working Hours, Working Hours>>.
 ** The *start duration* must be earlier than the *end duration*, and be in increments of `duration`.
 The time elapsed from the *start duration* to *end duration* must also follow the number of minutes as specified
-by the value of `duration` in <<User Preferences, User Preferences>>. Otherwise, the scheduled data will not be displayed
-properly in the user interface. See <<Duration of Time slot, Duration of Time slot>> for more details.
+by the value of `duration` in <<User Preferences, User Preferences>>. Otherwise, scheduled data will not be displayed
+properly in the user interface. See <<Duration of Timeslot, Duration of Timeslot>> for more details.
 
 ====
 
@@ -463,7 +463,7 @@ Manually edit an entity in the database. The command format depends on the `r/RO
 ==== Edit an existing interviewee
 Manually edit an existing interviewee in the database.
 
-Format: `edit NAME r/interviewee [p/PHONE] [f/FACULTY] [y/YEAR_OF_STUDY] [ep/PERSONAL_EMAIL] [ew/NUS_WORK_EMAIL]
+Format: `edit NAME r/interviewee [n/NAME] [p/PHONE] [f/FACULTY] [y/YEAR_OF_STUDY] [ep/PERSONAL_EMAIL] [ew/NUS_WORK_EMAIL]
 [d/DEPARTMENT]... [s/SLOT]... [t/TAG]...`
 
 Notes:
@@ -476,7 +476,7 @@ Notes:
 
 Example:
 
- edit John Doe r/interviewee p/91234567 f/School of Computing s/05/11/2019 18:00-19:00
+ edit John Doe r/interviewee p/91234567 f/School of Computing s/05/11/2019 18:30-19:00
 
 // end::edit_interviewee[]
 
@@ -504,8 +504,8 @@ and the rightmost *HH:mm* refers to the *end duration*.
 ** The range of *start durations* and *end durations* available for input must be within <<Working Hours, Working Hours>>.
 ** The *start duration* must be earlier than the *end duration*, and be in increments of `duration`.
 The time elapsed from the *start duration* to *end duration* must also follow the number of minutes as specified
-by the value of `duration` in <<User Preferences, User Preferences>>. Otherwise, the scheduled data will not be displayed
-properly in the user interface. See <<Duration of Time slot, Duration of Time slot>> for more details.
+by the value of `duration` in <<User Preferences, User Preferences>>. Otherwise, scheduled data will not be displayed
+properly in the user interface. See <<Duration of Timeslot, Duration of Timeslot>> for more details.
 
 ====
 
@@ -514,18 +514,18 @@ properly in the user interface. See <<Duration of Time slot, Duration of Time sl
 ==== Edit an existing interviewer
 Manually edit an existing interviewer in the database.
 
-Format: `edit NAME r/interviewer [p/PHONE] [t/TAG]... [d/DEPARTMENT] [ew/NUS_WORK_EMAIL] [s/SLOT...]`
+Format: `edit NAME r/interviewer [n/NAME] [p/PHONE] [t/TAG]... [d/DEPARTMENT] [ew/NUS_WORK_EMAIL] [s/SLOT]...`
 
 Notes:
 
-* An empty tag prefix `t/` can be supplied to reset the tags of an interviewee.
+* An empty tag prefix `t/` can be supplied to reset the tags of an interviewer.
 * If a slot prefix `s/` is supplied, at least one valid, non-empty slot must be provided.
 * If a name prefix `n/` is supplied, the `NAME` given should not match (case-insensitive) that of other interviewers.
 ** `John Doit` and `John Do it` are considered different names.
 
 Example:
 
- edit John Doe r/interviewee p/91234567 f/School of Computing s/05/11/2019 18:00-19:00
+ edit John Doe r/interviewer p/91234567 s/05/11/2019 18:30-19:00
 
 // end::edit_interviewer[]
 
@@ -551,8 +551,8 @@ and the rightmost *HH:mm* refers to the *end duration*.
 ** The range of *start durations* and *end durations* available for input must be within <<Working Hours, Working Hours>>.
 ** The *start duration* must be earlier than the *end duration*, and be in increments of `duration`.
 The time elapsed from the *start duration* to *end duration* must also follow the number of minutes as specified
-by the value of `duration` in <<User Preferences, User Preferences>>. Otherwise, the scheduled data will not be displayed
-properly in the user interface. See <<Duration of Time slot, Duration of Time slot>> for more details.
+by the value of `duration` in <<User Preferences, User Preferences>>. Otherwise, scheduled data will not be displayed
+properly in the user interface. See <<Duration of Timeslot, Duration of Timeslot>> for more details.
 
 ====
 
@@ -575,30 +575,22 @@ Example:
 
  delete John Doe r/interviewee
 
-====
+Notes:
 
-Constraints:
-
-* The interviewee with `NAME` must exist in the Scheduler.
-
-====
+* An interviewee with the same name as the given `NAME` argument (case-insensitive) should exist in Scheduler.
 
 ==== Delete an existing interviewer
 Deletes the specified interviewer from the database.
 
-Format: `delete NAME r/interviewee`
+Format: `delete NAME r/interviewer`
 
 Example:
 
  delete Bohn Doe r/interviewer
 
-====
+Notes:
 
-Constraints:
-
-* The interviewer with `NAME` must exist in the Scheduler.
-
-====
+* An interviewer with the same name as the given `NAME` argument (case-insensitive) should exist in Scheduler.
 
 // end::delete[]
 
@@ -695,11 +687,11 @@ Format: `record rank`
 |`clear` +
 
 |Add interviewee
-|`add r/interviewee n/NAME p/PHONE f/FACULTY y/YEAR_OF_STUDY ep/PERSONAL_EMAIL ew/NUS_WORK_EMAIL
+|`add interviewee n/NAME p/PHONE f/FACULTY y/YEAR_OF_STUDY ep/PERSONAL_EMAIL ew/NUS_WORK_EMAIL
 d/DEPARTMENT... s/SLOT... [t/TAG]...` +
 
 |Add interviewer
-|`add r/interviewer n/NAME p/PHONE ew/NUS_WORK_EMAIL d/DEPARTMENT  s/SLOT... [t/TAG]...` +
+|`add interviewer n/NAME p/PHONE ew/NUS_WORK_EMAIL d/DEPARTMENT  s/SLOT... [t/TAG]...` +
 
 |Edit interviewee
 |`edit NAME r/interviewee [p/PHONE] [f/FACULTY] [y/YEAR_OF_STUDY] [ep/PERSONAL_EMAIL] [ew/NUS_WORK_EMAIL]

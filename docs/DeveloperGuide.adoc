@@ -280,7 +280,7 @@ Each of <<Add Interviewee/Interviewer feature, add>>, <<Edit Interviewee/Intervi
 ==== Add Interviewee/Interviewer feature
 The `add` command feature essentially allows a user to add an `Interviewee` or `Interviewer` object to the underlying `IntervieweeList`
  or `InterviewerList` of `ModelManager`.
-Upon successful parsing of the `add` command arguments, an instance of `Interviewee`/`Interviewer` is created based on the `r/ROLE` prefix supplied,
+Upon successful parsing of the `add` command arguments, an instance of `Interviewee`/`Interviewer` is created based on the preamble supplied,
 which is added to its corresponding list in `ModelManager`.
 The underlying `UniquePersonList` of `IntervieweeList` and `InterviewerList` ensures
 that no duplicate entities are present at any time, checked by Interviewee#isSamePerson() and Interviewer#isSamePerson().
@@ -902,9 +902,9 @@ Please refer to the Add interviewees/interviewer section in the <<UserGuide#, us
 For simplicity, we refer to interviewees and interviewers as *entities* collectively.
 
 . Upon launching Scheduler, input the following command to add an interviewee:
-.. `add r/interviewee n/Ronald p/88888888 t/CAP5 t/dogLover f/School of Computing ep/JohnDoe@gmail.com ew/JohnDoe@u.nus.edu y/2018 d/Marketing s/20/09/2019 18:00-18:30`
+.. `add interviewee n/Ronald p/88888888 t/CAP5 t/dogLover f/School of Computing ep/JohnDoe@gmail.com ew/JohnDoe@u.nus.edu y/2 d/Marketing s/20/09/2019 18:00-18:30`
 . To add an interviewer, input the following command:
-.. `add r/interviewer n/Delilah p/98765432 ew/delilah@u.nus.edu d/Marketing s/20/09/2019 18:00-18:30`
+.. `add interviewer n/Delilah p/98765432 ew/delilah@u.nus.edu d/Marketing s/20/09/2019 18:00-18:30`
 . Expected: The Interviewees and Interviewers tab now reflects the newly added interviewee and interviewer, with each column in the tab corresponding to the various fields input.
 (i.e the column in the interviewees tab with header `name` now reflects `Ronald` as input by the user)
 . You can change the different prefix fields (e.g `n/Ronald`) to any valid value, as stated in the User Guide under the `add` command section.
