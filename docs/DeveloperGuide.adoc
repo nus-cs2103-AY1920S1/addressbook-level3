@@ -206,6 +206,10 @@ Step 1. The user launches the application for the first time and navigates to th
 
 Step 2. Statistics are generated on-demand and displayed to the user based on the current data by either clicking the Generate Statistics button on the UI or `generate_stats` command.
 
+Step 3. Detailed Statistics are generated on-demand and displayed to the user based on the current data by either clicking the Generate Detailed Statistics button on the UI or `generate_stats_detail` command.
+
+Step 4. These commands execute in a flow starting from parsing the command via the AddressBookParser.
+
 ==== Design Considerations
 
 ===== Aspect: How statistics executes
