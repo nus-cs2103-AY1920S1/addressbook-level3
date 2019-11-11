@@ -1,12 +1,12 @@
 = Na Nazhou - Project Portfolio
-
-== PROJECT: Mark
-
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+== PROJECT: Mark
+
 == Overview
+
 *Mark* is designed for those who prefer to use a desktop application for managing bookmarks as well as tasks related to web pages.
 More importantly, it is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
@@ -15,6 +15,7 @@ enhancements were made to it over a period of 8 weeks by my team of 5 software d
 The following sections document all the contributions that I have made to Mark.
 
 == Summary of Contributions
+
 Here is a summary of my personal contributions to the team project over the 8 weeks. All the code contribution
  can be found https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=na-nazhou&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Na-Nazhou&tabRepo=AY1920S1-CS2103T-T13-4%2Fmain%5Bmaster%5D[here].
 
@@ -46,7 +47,6 @@ in place of the `URL` field
 * Improved the existing `find` command to support filtering bookmarks by tags and/or folders
 
 === Other Contributions
-
 * Project management:
 ** Set up the team organisation and team repo
 ** Managed issue tracker and milestones for team repo
