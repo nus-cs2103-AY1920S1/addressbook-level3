@@ -623,7 +623,6 @@ Format: `add a/AMOUNT [c/NAME] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [
 
 You can use the `add` command to create a loan. This also creates the other objects associated with the created repeater.
 
-<<<<<<< HEAD
 The optional arguments take the following default values if left unspecified:
 
 |==============================
