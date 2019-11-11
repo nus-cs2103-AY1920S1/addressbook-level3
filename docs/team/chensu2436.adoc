@@ -14,6 +14,7 @@ The MAMS system provides display commands to view the expanded details of any pa
 a suite of commands for resolving appeals, checking timetable clashes, overriding MC limits, and leaving special notes on students.
 The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
+
 == Summary of contributions
 
 * *Major enhancement 1: added the ability to check clashes for various cases*
