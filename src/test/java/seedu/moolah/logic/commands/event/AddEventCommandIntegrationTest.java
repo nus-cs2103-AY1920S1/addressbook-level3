@@ -7,10 +7,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.model.Model;
-import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.modelhistory.ModelHistory;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddExpenseCommand}.
@@ -20,7 +20,7 @@ public class AddEventCommandIntegrationTest {
     private Model model;
 
     @BeforeEach
-    public void setUp() {
+    public void setup() {
         model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
     }
 

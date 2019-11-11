@@ -36,6 +36,11 @@ public class DeleteAliasCommand extends UndoableCommand {
     }
 
     @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, aliasName);
+    }
+
+    @Override
     protected void validate(Model model) throws CommandException {
         // no validation needed
         if (!model.aliasWithNameExists(aliasName)) {
@@ -57,8 +62,4 @@ public class DeleteAliasCommand extends UndoableCommand {
                 && this.aliasName.trim().equals(((DeleteAliasCommand) obj).aliasName.trim()));
     }
 
-    @Override
-    public String getDescription() {
-        return String.format(COMMAND_DESCRIPTION, aliasName);
-    }
 }

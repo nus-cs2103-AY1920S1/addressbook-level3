@@ -14,9 +14,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.UserPrefs;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ModelHistory;
 import seedu.moolah.testutil.AliasTestUtil;
 
 /**
@@ -28,7 +29,7 @@ public class AddAliasCommandIntegrationTest {
     private Model expectedModel;
 
     @BeforeEach
-    public void freshModel() {
+    public void setup() {
         model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
         expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
     }
@@ -52,10 +53,11 @@ public class AddAliasCommandIntegrationTest {
 
     @Test
     public void run_aliasCommandIsValid_success() {
-        expectedModel.commitModel("");
+        AddAliasCommand command = new AddAliasCommand(ALIAS_A_TO_B);
         expectedModel.addUserAlias(ALIAS_A_TO_B);
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()).setUserPrefs(model.getUserPrefs()));
         assertCommandSuccess(
-                new AddAliasCommand(ALIAS_A_TO_B), model,
+                command, model,
                 String.format(AddAliasCommand.MESSAGE_SUCCESS, ALIAS_A_TO_B.getAliasName()), expectedModel);
     }
 }

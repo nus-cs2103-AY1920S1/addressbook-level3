@@ -2,12 +2,12 @@ package seedu.moolah.logic.commands.alias;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.moolah.commons.core.GuiSettings;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.ReadOnlyModelHistory;
 import seedu.moolah.model.ReadOnlyMooLah;
 import seedu.moolah.model.ReadOnlyUserPrefs;
 import seedu.moolah.model.alias.Alias;
@@ -17,6 +17,8 @@ import seedu.moolah.model.expense.Description;
 import seedu.moolah.model.expense.Event;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ReadOnlyModelHistory;
 import seedu.moolah.model.statistics.Statistics;
 
 /**
@@ -41,6 +43,11 @@ public class ModelSupportingAliasStub implements Model {
     }
 
     @Override
+    public void applyChanges(ModelChanges changes) {
+        throw new AssertionError("Method should not be called.");
+    }
+
+    @Override
     public ReadOnlyModelHistory getModelHistory() {
         throw new AssertionError("Method should not be called.");
     }
@@ -51,22 +58,17 @@ public class ModelSupportingAliasStub implements Model {
     }
 
     @Override
-    public String getLastCommandDesc() {
+    public void addToPastChanges(ModelChanges changes) {
         throw new AssertionError("Method should not be called.");
     }
 
     @Override
-    public void addToPastHistory(Model model) {
+    public void addToFutureChanges(ModelChanges changes) {
         throw new AssertionError("Method should not be called.");
     }
 
     @Override
-    public void addToFutureHistory(Model model) {
-        throw new AssertionError("Method should not be called.");
-    }
-
-    @Override
-    public void commitModel(String description) {
+    public void commit(String changeMessage, Model prevModel) {
         throw new AssertionError("Method should not be called.");
     }
 
@@ -76,7 +78,7 @@ public class ModelSupportingAliasStub implements Model {
     }
 
     @Override
-    public void rollbackModel() {
+    public Optional<String> rollback() {
         throw new AssertionError("Method should not be called.");
     }
 
@@ -86,7 +88,7 @@ public class ModelSupportingAliasStub implements Model {
     }
 
     @Override
-    public void migrateModel() {
+    public Optional<String> migrate() {
         throw new AssertionError("Method should not be called.");
     }
 

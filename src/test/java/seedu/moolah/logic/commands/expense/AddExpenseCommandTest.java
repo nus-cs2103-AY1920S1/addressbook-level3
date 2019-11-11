@@ -2,14 +2,14 @@ package seedu.moolah.logic.commands.expense;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.moolah.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Stack;
 import java.util.function.Predicate;
 
@@ -20,8 +20,6 @@ import seedu.moolah.commons.core.GuiSettings;
 import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.MooLah;
-import seedu.moolah.model.ReadOnlyModelHistory;
 import seedu.moolah.model.ReadOnlyMooLah;
 import seedu.moolah.model.ReadOnlyUserPrefs;
 import seedu.moolah.model.alias.Alias;
@@ -31,6 +29,8 @@ import seedu.moolah.model.expense.Description;
 import seedu.moolah.model.expense.Event;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ReadOnlyModelHistory;
 import seedu.moolah.model.statistics.Statistics;
 import seedu.moolah.testutil.ExpenseBuilder;
 
@@ -54,7 +54,6 @@ public class AddExpenseCommandTest {
 
         assertEquals(String.format(AddExpenseCommand.MESSAGE_SUCCESS, validExpense), commandResult.getFeedbackToUser());
         assertEquals(expectedExpensesAdded, modelStub.expensesAdded);
-        assertEquals(expectedPastModels, modelStub.pastModels);
     }
 
     @Test
@@ -75,20 +74,20 @@ public class AddExpenseCommandTest {
         AddExpenseCommand addBobCommand = new AddExpenseCommand(bob);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertEquals(addAliceCommand, addAliceCommand);
 
         // same values -> returns true
         AddExpenseCommand addAliceCommandCopy = new AddExpenseCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        assertEquals(addAliceCommand, addAliceCommandCopy);
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertNotEquals(1, addAliceCommand);
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertNotEquals(null, addAliceCommand);
 
         // different expense -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertNotEquals(addAliceCommand, addBobCommand);
     }
 
     /**
@@ -147,6 +146,11 @@ public class AddExpenseCommandTest {
         }
 
         @Override
+        public void applyChanges(ModelChanges changes) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyModelHistory getModelHistory() {
             throw new AssertionError("This method should not be called.");
         }
@@ -157,17 +161,12 @@ public class AddExpenseCommandTest {
         }
 
         @Override
-        public String getLastCommandDesc() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean canRollback() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void rollbackModel() {
+        public Optional<String> rollback() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -177,22 +176,22 @@ public class AddExpenseCommandTest {
         }
 
         @Override
-        public void migrateModel() {
+        public Optional<String> migrate() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitModel(String description) {
+        public void commit(String changeMessage, Model prevModel) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addToPastHistory(Model model) {
+        public void addToPastChanges(ModelChanges changes) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addToFutureHistory(Model model) {
+        public void addToFutureChanges(ModelChanges changes) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -406,16 +405,18 @@ public class AddExpenseCommandTest {
      */
     private class ModelStubAcceptingExpenseAdded extends ModelStub {
         final ArrayList<Expense> expensesAdded;
-        final Stack<ModelStub> pastModels;
 
         public ModelStubAcceptingExpenseAdded() {
             expensesAdded = new ArrayList<>();
-            pastModels = new Stack<>();
         }
 
         public ModelStubAcceptingExpenseAdded(ModelStubAcceptingExpenseAdded model) {
             expensesAdded = new ArrayList<>(model.expensesAdded);
-            pastModels = (Stack<ModelStub>) model.pastModels.clone();
+        }
+
+        @Override
+        public Model copy() {
+            return new ModelStubAcceptingExpenseAdded(this);
         }
 
         @Override
@@ -431,28 +432,8 @@ public class AddExpenseCommandTest {
         }
 
         @Override
-        public void commitModel(String description) {
-            pastModels.push(new ModelStubAcceptingExpenseAdded(this));
-        }
-
-        @Override
-        public ReadOnlyMooLah getMooLah() {
-            return new MooLah();
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
-            }
-
-            if (!(obj instanceof ModelStubAcceptingExpenseAdded)) {
-                return false;
-            }
-
-            ModelStubAcceptingExpenseAdded other = (ModelStubAcceptingExpenseAdded) obj;
-            return expensesAdded.equals(other.expensesAdded)
-                    && pastModels.equals(other.pastModels);
+        public void commit(String changeMessage, Model prevModel) {
+            // Should not do anything for isolated testing.
         }
     }
 

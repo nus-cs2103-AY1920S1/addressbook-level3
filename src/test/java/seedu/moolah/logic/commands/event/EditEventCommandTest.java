@@ -1,7 +1,7 @@
 package seedu.moolah.logic.commands.event;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.moolah.logic.commands.CommandTestUtil.DESC_BUFFET;
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_EVENT_CATEGORY_BUFFET;
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_EVENT_DESCRIPTION_BUFFET;
@@ -9,11 +9,11 @@ import static seedu.moolah.logic.commands.CommandTestUtil.VALID_EVENT_PRICE_BUFF
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_EVENT_TIMESTAMP_BIRTHDAY;
 import static seedu.moolah.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.moolah.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.moolah.testutil.TestUtil.makeModelStack;
 import static seedu.moolah.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.moolah.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.moolah.testutil.TypicalMooLah.getTypicalMooLah;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.commons.core.Messages;
@@ -21,11 +21,11 @@ import seedu.moolah.commons.core.index.Index;
 import seedu.moolah.logic.commands.event.EditEventCommand.EditEventDescriptor;
 import seedu.moolah.logic.commands.general.ClearCommand;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
-import seedu.moolah.model.MooLah;
 import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ModelHistory;
 import seedu.moolah.testutil.EditEventDescriptorBuilder;
 import seedu.moolah.testutil.EventBuilder;
 
@@ -34,22 +34,26 @@ import seedu.moolah.testutil.EventBuilder;
  */
 public class EditEventCommandTest {
 
-    private Model model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+    private Model model;
+    private Model expectedModel;
+
+    @BeforeEach
+    public void setup() {
+        model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+        expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+    }
 
     @Test
     public void run_allFieldsSpecifiedUnfilteredList_success() {
         Event editedEvent = new EventBuilder().build();
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder(editedEvent).build();
-        EditEventCommand editEventCommand = new EditEventCommand(INDEX_FIRST, descriptor);
+        EditEventCommand command = new EditEventCommand(INDEX_FIRST, descriptor);
+
+        expectedModel.setEvent(model.getFilteredEventList().get(0), editedEvent);
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()));
 
         String expectedMessage = String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
-
-        Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
-                new UserPrefs(), new ModelHistory());
-        expectedModel.setEvent(model.getFilteredEventList().get(0), editedEvent);
-        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
-
-        assertCommandSuccess(editEventCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -69,31 +73,24 @@ public class EditEventCommandTest {
                 .withPrice(VALID_EVENT_PRICE_BUFFET)
                 .withCategory(VALID_EVENT_CATEGORY_BUFFET)
                 .withTimestamp(VALID_EVENT_TIMESTAMP_BIRTHDAY).build();
-        EditEventCommand editEventCommand = new EditEventCommand(indexLastEvent, descriptor);
+        EditEventCommand command = new EditEventCommand(indexLastEvent, descriptor);
+
+        expectedModel.setEvent(lastEvent, editedEvent);
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()).setMooLah(model.getMooLah()));
 
         String expectedMessage = String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
-
-        Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
-                new UserPrefs(), new ModelHistory());
-        expectedModel.setEvent(lastEvent, editedEvent);
-        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
-
-        assertCommandSuccess(editEventCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void run_noFieldSpecifiedUnfilteredList_success() {
-        EditEventCommand editEventCommand =
-                new EditEventCommand(INDEX_FIRST, new EditEventDescriptor());
+        EditEventCommand command = new EditEventCommand(INDEX_FIRST, new EditEventDescriptor());
         Event editedEvent = model.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
 
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()));
+
         String expectedMessage = String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
-
-        Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
-                new UserPrefs(), new ModelHistory());
-        expectedModel.commitModel("");
-
-        assertCommandSuccess(editEventCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     //    @Test
@@ -155,19 +152,19 @@ public class EditEventCommandTest {
         // same values -> returns true
         EditEventDescriptor copyDescriptor = new EditEventDescriptor(DESC_BUFFET);
         EditEventCommand commandWithSameValues = new EditEventCommand(INDEX_FIRST, copyDescriptor);
-        assertTrue(standardCommand.equals(commandWithSameValues));
+        assertEquals(standardCommand, commandWithSameValues);
 
         // same object -> returns true
-        assertTrue(standardCommand.equals(standardCommand));
+        assertEquals(standardCommand, standardCommand);
 
         // null -> returns false
-        assertFalse(standardCommand.equals(null));
+        assertNotEquals(null, standardCommand);
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertNotEquals(standardCommand, new ClearCommand());
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditEventCommand(INDEX_SECOND, DESC_BUFFET)));
+        assertNotEquals(standardCommand, new EditEventCommand(INDEX_SECOND, DESC_BUFFET));
     }
 
 }

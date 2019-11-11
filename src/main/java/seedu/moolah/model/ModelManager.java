@@ -7,6 +7,7 @@ import static seedu.moolah.model.Timekeeper.hasTranspired;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -21,6 +22,9 @@ import seedu.moolah.model.expense.Description;
 import seedu.moolah.model.expense.Event;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ModelHistory;
+import seedu.moolah.model.modelhistory.ReadOnlyModelHistory;
 import seedu.moolah.model.statistics.Statistics;
 
 /**
@@ -38,10 +42,9 @@ public class ModelManager implements Model {
     private Statistics statistics;
 
     /**
-     * Initializes a ModelManager with the given mooLah and userPrefs.
+     * Initializes a ModelManager with the given MooLah, UserPrefs, and ModelHistory.
      */
-    public ModelManager(ReadOnlyMooLah mooLah, ReadOnlyUserPrefs userPrefs,
-                        ReadOnlyModelHistory modelHistory) {
+    public ModelManager(ReadOnlyMooLah mooLah, ReadOnlyUserPrefs userPrefs, ReadOnlyModelHistory modelHistory) {
         requireAllNonNull(mooLah, userPrefs, modelHistory);
 
         logger.fine("Initializing with MooLah: " + mooLah + " and user prefs " + userPrefs);
@@ -69,33 +72,27 @@ public class ModelManager implements Model {
     @Override
     public void resetData(Model model) {
         requireNonNull(model);
-
         setMooLah(model.getMooLah());
         setUserPrefs(model.getUserPrefs());
         setModelHistory(model.getModelHistory());
-
-        if (model.getFilteredEventPredicate() != null) {
-            updateFilteredEventList(model.getFilteredEventPredicate());
-        } else {
-            updateFilteredEventList(model.PREDICATE_SHOW_ALL_EVENTS);
-        }
-
-        if (model.getFilteredExpensePredicate() != null) {
-            updateFilteredExpenseList(model.getFilteredExpensePredicate());
-        } else {
-            updateFilteredExpenseList(model.PREDICATE_SHOW_ALL_EXPENSES);
-        }
-
-        if (model.getFilteredBudgetPredicate() != null) {
-            updateFilteredBudgetList(model.getFilteredBudgetPredicate());
-        } else {
-            updateFilteredBudgetList(model.PREDICATE_SHOW_ALL_BUDGETS);
-        }
+        updateFilteredExpenseList(model.getFilteredExpensePredicate());
+        updateFilteredEventList(model.getFilteredEventPredicate());
+        updateFilteredBudgetList(model.getFilteredBudgetPredicate());
     }
 
     @Override
     public Model copy() {
         return new ModelManager(this);
+    }
+
+    @Override
+    public void applyChanges(ModelChanges changes) {
+        requireNonNull(changes);
+        changes.getMooLah().ifPresent(this::setMooLah);
+        changes.getUserPrefs().ifPresent(this::setUserPrefs);
+        changes.getExpensePredicate().ifPresent(this::updateFilteredExpenseList);
+        changes.getEventPredicate().ifPresent(this::updateFilteredEventList);
+        changes.getBudgetPredicate().ifPresent(this::updateFilteredBudgetList);
     }
 
     //=========== ModelHistory ==================================================================================
@@ -112,54 +109,60 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String getLastCommandDesc() {
-        return modelHistory.getDescription();
+    public void addToPastChanges(ModelChanges change) {
+        requireNonNull(change);
+        modelHistory.addToPastChanges(change);
     }
 
     @Override
-    public void addToPastHistory(Model model) {
-        requireNonNull(model);
-        modelHistory.addToPastModels(new ModelManager(model));
+    public void addToFutureChanges(ModelChanges change) {
+        requireNonNull(change);
+        modelHistory.addToFutureChanges(change);
     }
 
     @Override
-    public void addToFutureHistory(Model model) {
-        requireNonNull(model);
-        modelHistory.addToFutureModels(new ModelManager(model));
-    }
-
-    @Override
-    public void commitModel(String desc) {
-        modelHistory.addToPastModels(new ModelManager(this));
-        modelHistory.clearFutureModels();
-        modelHistory.setDescription(desc);
+    public void commit(String changeMessage, Model prevModel) {
+        requireAllNonNull(changeMessage, prevModel);
+        ModelChanges changes = ModelChanges.compareModels(changeMessage, prevModel, this);
+        modelHistory.addToPastChanges(changes);
+        modelHistory.clearFutureChanges();
     }
 
     @Override
     public boolean canRollback() {
-        return !modelHistory.isPastModelsEmpty();
+        return !modelHistory.isPastChangesEmpty();
     }
 
     @Override
-    public void rollbackModel() {
-        Model prevModel = modelHistory.getPrevModel();
-        requireNonNull(prevModel);
-        prevModel.addToFutureHistory(new ModelManager(this));
-        prevModel.handleAlreadyTranspiredEvents();
-        resetData(prevModel);
+    public Optional<String> rollback() {
+        Optional<ModelChanges> prevChanges = modelHistory.getPrevChanges();
+        if (prevChanges.isPresent()) {
+            ModelChanges changes = prevChanges.get();
+            modelHistory.addToFutureChanges(changes.revertChanges(this));
+            applyChanges(changes);
+            handleAlreadyTranspiredEvents();
+            return Optional.of(changes.getChangeMessage());
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override
     public boolean canMigrate() {
-        return !modelHistory.isFutureModelsEmpty();
+        return !modelHistory.isFutureChangesEmpty();
     }
 
     @Override
-    public void migrateModel() {
-        Model nextModel = modelHistory.getNextModel();
-        requireNonNull(nextModel);
-        nextModel.addToPastHistory(new ModelManager(this));
-        resetData(nextModel);
+    public Optional<String> migrate() {
+        Optional<ModelChanges> nextChanges = modelHistory.getNextChanges();
+        if (nextChanges.isPresent()) {
+            ModelChanges changes = nextChanges.get();
+            modelHistory.addToPastChanges(changes.revertChanges(this));
+            applyChanges(changes);
+            return Optional.of(changes.getChangeMessage());
+        } else {
+            return Optional.empty();
+        }
     }
 
     //=========== UserPrefs ==================================================================================
@@ -395,6 +398,10 @@ public class ModelManager implements Model {
 
     @Override
     public Predicate<? super Expense> getFilteredExpensePredicate() {
+        if (filteredExpenses.getPredicate() == null) {
+            return PREDICATE_SHOW_ALL_EXPENSES;
+        }
+
         return filteredExpenses.getPredicate();
     }
 
@@ -417,6 +424,10 @@ public class ModelManager implements Model {
 
     @Override
     public Predicate<? super Event> getFilteredEventPredicate() {
+        if (filteredEvents.getPredicate() == null) {
+            return PREDICATE_SHOW_ALL_EVENTS;
+        }
+
         return filteredEvents.getPredicate();
     }
 
@@ -445,6 +456,10 @@ public class ModelManager implements Model {
 
     @Override
     public Predicate<? super Budget> getFilteredBudgetPredicate() {
+        if (filteredBudgets.getPredicate() == null) {
+            return PREDICATE_SHOW_ALL_BUDGETS;
+        }
+
         return filteredBudgets.getPredicate();
     }
 

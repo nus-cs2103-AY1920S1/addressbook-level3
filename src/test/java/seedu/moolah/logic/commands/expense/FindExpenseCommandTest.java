@@ -1,8 +1,7 @@
 package seedu.moolah.logic.commands.expense;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.moolah.commons.core.Messages.MESSAGE_EXPENSES_LISTED_OVERVIEW;
 import static seedu.moolah.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.moolah.testutil.TypicalMooLah.CHICKEN_RICE;
@@ -13,20 +12,29 @@ import static seedu.moolah.testutil.TypicalMooLah.getTypicalMooLah;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.model.Model;
-import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.expense.DescriptionContainsKeywordsPredicate;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ModelHistory;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindExpenseCommandTest {
-    private Model model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
-    private Model expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+
+    private Model model;
+    private Model expectedModel;
+
+    @BeforeEach
+    public void setup() {
+        model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+        expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+    }
 
     @Test
     public void equals() {
@@ -39,20 +47,20 @@ public class FindExpenseCommandTest {
         FindExpenseCommand findSecondCommand = new FindExpenseCommand(secondPredicate);
 
         // same object -> returns true
-        assertTrue(findFirstCommand.equals(findFirstCommand));
+        assertEquals(findFirstCommand, findFirstCommand);
 
         // same values -> returns true
         FindExpenseCommand findFirstCommandCopy = new FindExpenseCommand(firstPredicate);
-        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+        assertEquals(findFirstCommand, findFirstCommandCopy);
 
         // different types -> returns false
-        assertFalse(findFirstCommand.equals(1));
+        assertNotEquals(new Object(), findFirstCommand);
 
         // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
+        assertNotEquals(null, findFirstCommand);
 
         // different expense -> returns false
-        assertFalse(findFirstCommand.equals(findSecondCommand));
+        assertNotEquals(findFirstCommand, findSecondCommand);
     }
 
     @Test
@@ -60,8 +68,11 @@ public class FindExpenseCommandTest {
         String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 0);
         DescriptionContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindExpenseCommand command = new FindExpenseCommand(predicate);
-        expectedModel.commitModel("");
+
         expectedModel.updateFilteredExpenseList(predicate);
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription())
+                .setExpensePredicate(model.getFilteredExpensePredicate()));
+
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredExpenseList());
     }
@@ -71,8 +82,11 @@ public class FindExpenseCommandTest {
         String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 3);
         DescriptionContainsKeywordsPredicate predicate = preparePredicate("the Chicken Movie");
         FindExpenseCommand command = new FindExpenseCommand(predicate);
-        expectedModel.commitModel("");
+
         expectedModel.updateFilteredExpenseList(predicate);
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription())
+                .setExpensePredicate(model.getFilteredExpensePredicate()));
+
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CHICKEN_RICE, ENTERTAINMENT, FASHION), model.getFilteredExpenseList());
     }

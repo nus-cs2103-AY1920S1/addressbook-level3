@@ -42,6 +42,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setAliasMappings(newUserPrefs.getAliasMappings());
     }
 
+    @Override
+    public ReadOnlyUserPrefs copy() {
+        return new UserPrefs(this);
+    }
+
     public GuiSettings getGuiSettings() {
         return guiSettings;
     }

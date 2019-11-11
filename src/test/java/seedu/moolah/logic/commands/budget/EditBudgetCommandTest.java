@@ -9,11 +9,11 @@ import static seedu.moolah.logic.commands.CommandTestUtil.VALID_BUDGET_PERIOD_HO
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_BUDGET_START_DATE_HOLIDAY;
 import static seedu.moolah.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.moolah.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.moolah.testutil.TestUtil.makeModelStack;
 import static seedu.moolah.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.moolah.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.moolah.testutil.TypicalMooLah.getTypicalMooLah;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.commons.core.Messages;
@@ -21,16 +21,24 @@ import seedu.moolah.commons.core.index.Index;
 import seedu.moolah.logic.commands.budget.EditBudgetCommand.EditBudgetDescriptor;
 import seedu.moolah.logic.commands.general.ClearCommand;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
-import seedu.moolah.model.MooLah;
 import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.budget.Budget;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ModelHistory;
 import seedu.moolah.testutil.BudgetBuilder;
 import seedu.moolah.testutil.EditBudgetDescriptorBuilder;
 
 public class EditBudgetCommandTest {
-    private Model model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+
+    private Model model;
+    private Model expectedModel;
+
+    @BeforeEach
+    public void setup() {
+        model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+        expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+    }
 
     @Test
     public void run_allFieldsSpecified_success() {
@@ -43,16 +51,13 @@ public class EditBudgetCommandTest {
 
         EditBudgetDescriptor descriptor = new EditBudgetDescriptorBuilder(editedBudget).build();
 
-        EditBudgetCommand editBudgetCommand = new EditBudgetCommand(INDEX_SECOND, descriptor);
+        EditBudgetCommand command = new EditBudgetCommand(INDEX_SECOND, descriptor);
+
+        expectedModel.setBudget(model.getFilteredBudgetList().get(INDEX_SECOND.getZeroBased()), editedBudget);
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()).setMooLah(model.getMooLah()));
 
         String expectedMessage = String.format(EditBudgetCommand.MESSAGE_EDIT_BUDGET_SUCCESS, editedBudget);
-
-        Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
-                new UserPrefs(), new ModelHistory());
-        expectedModel.setBudget(model.getFilteredBudgetList().get(INDEX_SECOND.getZeroBased()), editedBudget);
-        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
-
-        assertCommandSuccess(editBudgetCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -68,31 +73,25 @@ public class EditBudgetCommandTest {
         EditBudgetDescriptor descriptor = new EditBudgetDescriptorBuilder()
                 .withAmount(VALID_BUDGET_AMOUNT_HOLIDAY)
                 .build();
-        EditBudgetCommand editBudgetCommand = new EditBudgetCommand(indexLastBudget, descriptor);
+        EditBudgetCommand command = new EditBudgetCommand(indexLastBudget, descriptor);
+
+        expectedModel.setBudget(lastBudget, editedBudget);
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()).setMooLah(model.getMooLah()));
 
         String expectedMessage = String.format(EditBudgetCommand.MESSAGE_EDIT_BUDGET_SUCCESS, editedBudget);
-
-        Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
-                new UserPrefs(), new ModelHistory());
-        expectedModel.setBudget(lastBudget, editedBudget);
-        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
-
-        assertCommandSuccess(editBudgetCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void run_noFieldSpecified_success() {
-        EditBudgetCommand editBudgetCommand =
+        EditBudgetCommand command =
                 new EditBudgetCommand(INDEX_SECOND, new EditBudgetDescriptor());
         Budget editedBudget = model.getFilteredBudgetList().get(INDEX_SECOND.getZeroBased());
 
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()));
+
         String expectedMessage = String.format(EditBudgetCommand.MESSAGE_EDIT_BUDGET_SUCCESS, editedBudget);
-
-        Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
-                new UserPrefs(), new ModelHistory());
-        expectedModel.commitModel("");
-
-        assertCommandSuccess(editBudgetCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     @Test

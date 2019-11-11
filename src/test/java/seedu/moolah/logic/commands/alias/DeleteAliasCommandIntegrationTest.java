@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.alias.Alias;
+import seedu.moolah.model.modelhistory.ModelHistory;
 import seedu.moolah.testutil.AliasTestUtil;
 
 class DeleteAliasCommandIntegrationTest {
@@ -22,7 +22,7 @@ class DeleteAliasCommandIntegrationTest {
     private Model expectedModel;
 
     @BeforeEach
-    public void freshModel() {
+    public void setup() {
         model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
         expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
     }

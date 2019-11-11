@@ -2,6 +2,7 @@ package seedu.moolah.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -13,6 +14,8 @@ import seedu.moolah.model.expense.Description;
 import seedu.moolah.model.expense.Event;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ReadOnlyModelHistory;
 import seedu.moolah.model.statistics.Statistics;
 
 /**
@@ -28,7 +31,7 @@ public interface Model {
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
 
     /**
-     * Resets data to the given model.
+     * Resets the model according to the given model.
      */
     void resetData(Model model);
 
@@ -36,6 +39,11 @@ public interface Model {
      * Creates a copy of the current model.
      */
     Model copy();
+
+    /**
+     * Modifies the model according to the given changes.
+     */
+    void applyChanges(ModelChanges changes);
 
     // ======== MODEL HISTORY ===============
 
@@ -50,24 +58,19 @@ public interface Model {
     void setModelHistory(ReadOnlyModelHistory history);
 
     /**
-     * Returns the description of the last command executed at the time.
+     * Adds an entry to the past changes.
      */
-    String getLastCommandDesc();
+    void addToPastChanges(ModelChanges changes);
 
     /**
-     * Adds an entry to the past history.
+     * Adds an entry to the future changes.
      */
-    void addToPastHistory(Model model);
+    void addToFutureChanges(ModelChanges changes);
 
     /**
-     * Adds an entry to the future history.
+     * Commits the current model to the history with respect to the previous model.
      */
-    void addToFutureHistory(Model model);
-
-    /**
-     * Commits the current model to the history.
-     */
-    void commitModel(String description);
+    void commit(String changeMessage, Model prevModel);
 
     /**
      * Checks whether model can be rolled-back.
@@ -75,9 +78,10 @@ public interface Model {
     boolean canRollback();
 
     /**
-     * Rolls back model to the immediate previous state.
+     * Rolls back model to the immediate previous state and returns the
+     * description of the applied change.
      */
-    void rollbackModel();
+    Optional<String> rollback();
 
     /**
      * Checks whether model can be migrated.
@@ -85,9 +89,10 @@ public interface Model {
     boolean canMigrate();
 
     /**
-     * Migrates model to the immediate next state.
+     * Migrates model to the immediate next state and returns the
+     * description of the applied change.
      */
-    void migrateModel();
+    Optional<String> migrate();
 
     // ======== USER PREFS ===============
     /**

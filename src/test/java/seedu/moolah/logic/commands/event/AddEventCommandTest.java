@@ -2,15 +2,14 @@ package seedu.moolah.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.moolah.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Stack;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -20,8 +19,6 @@ import seedu.moolah.commons.core.GuiSettings;
 import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.MooLah;
-import seedu.moolah.model.ReadOnlyModelHistory;
 import seedu.moolah.model.ReadOnlyMooLah;
 import seedu.moolah.model.ReadOnlyUserPrefs;
 import seedu.moolah.model.alias.Alias;
@@ -31,6 +28,8 @@ import seedu.moolah.model.expense.Description;
 import seedu.moolah.model.expense.Event;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ReadOnlyModelHistory;
 import seedu.moolah.model.statistics.Statistics;
 import seedu.moolah.testutil.EventBuilder;
 
@@ -46,15 +45,12 @@ public class AddEventCommandTest {
         ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
         Event validEvent = new EventBuilder().build();
 
-        List<Event> expectedEventsAdded = Arrays.asList(validEvent);
-        Stack<ModelStub> expectedPastModels = new Stack<>();
-        expectedPastModels.push(new ModelStubAcceptingEventAdded(modelStub));
+        List<Event> expectedEventsAdded = Collections.singletonList(validEvent);
 
         CommandResult commandResult = new AddEventCommand(validEvent).run(modelStub);
 
         assertEquals(String.format(AddEventCommand.MESSAGE_SUCCESS, validEvent), commandResult.getFeedbackToUser());
         assertEquals(expectedEventsAdded, modelStub.eventsAdded);
-        assertEquals(expectedPastModels, modelStub.pastModels);
     }
 
     @Test
@@ -75,20 +71,20 @@ public class AddEventCommandTest {
         AddEventCommand addBobCommand = new AddEventCommand(bob);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertEquals(addAliceCommand, addAliceCommand);
 
         // same values -> returns true
         AddEventCommand addAliceCommandCopy = new AddEventCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        assertEquals(addAliceCommand, addAliceCommandCopy);
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertNotEquals(1, addAliceCommand);
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertNotEquals(null, addAliceCommand);
 
         // different expense -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertNotEquals(addAliceCommand, addBobCommand);
     }
 
     /**
@@ -151,6 +147,11 @@ public class AddEventCommandTest {
         }
 
         @Override
+        public void applyChanges(ModelChanges changes) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyModelHistory getModelHistory() {
             throw new AssertionError("This method should not be called.");
         }
@@ -161,17 +162,12 @@ public class AddEventCommandTest {
         }
 
         @Override
-        public String getLastCommandDesc() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean canRollback() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void rollbackModel() {
+        public Optional<String> rollback() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -181,22 +177,22 @@ public class AddEventCommandTest {
         }
 
         @Override
-        public void migrateModel() {
+        public Optional<String> migrate() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitModel(String description) {
+        public void commit(String changeMessage, Model prevModel) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addToPastHistory(Model model) {
+        public void addToPastChanges(ModelChanges changes) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addToFutureHistory(Model model) {
+        public void addToFutureChanges(ModelChanges changes) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -405,16 +401,18 @@ public class AddEventCommandTest {
      */
     private class ModelStubAcceptingEventAdded extends ModelStub {
         final ArrayList<Event> eventsAdded;
-        final Stack<ModelStub> pastModels;
 
         public ModelStubAcceptingEventAdded() {
             eventsAdded = new ArrayList<>();
-            pastModels = new Stack<>();
         }
 
         public ModelStubAcceptingEventAdded(ModelStubAcceptingEventAdded model) {
             eventsAdded = new ArrayList<>(model.eventsAdded);
-            pastModels = (Stack<ModelStub>) model.pastModels.clone();
+        }
+
+        @Override
+        public Model copy() {
+            return new ModelStubAcceptingEventAdded(this);
         }
 
         @Override
@@ -430,29 +428,10 @@ public class AddEventCommandTest {
         }
 
         @Override
-        public void commitModel(String description) {
-            pastModels.push(new ModelStubAcceptingEventAdded(this));
+        public void commit(String changeMessage, Model prevModel) {
+            // Not doing anything as this is tested in isolation of Model.
         }
 
-        @Override
-        public ReadOnlyMooLah getMooLah() {
-            return new MooLah();
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
-            }
-
-            if (!(obj instanceof ModelStubAcceptingEventAdded)) {
-                return false;
-            }
-
-            ModelStubAcceptingEventAdded other = (ModelStubAcceptingEventAdded) obj;
-            return eventsAdded.equals(other.eventsAdded)
-                    && pastModels.equals(other.pastModels);
-        }
     }
 
 }

@@ -8,8 +8,8 @@ import java.util.Stack;
 
 import seedu.moolah.commons.core.index.Index;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.expense.Expense;
+import seedu.moolah.model.modelhistory.ModelChanges;
 
 /**
  * A utility class for test cases.
@@ -56,12 +56,12 @@ public class TestUtil {
     }
 
     /**
-     * Creates a {@code Model} stack populated by the copies of the {@code models} provided.
+     * Creates a stack of {@code ModelChanges} with each of the entries has the message given.
      */
-    public static Stack<Model> makeModelStack(Model... models) {
-        Stack<Model> stack = new Stack<>();
-        for (Model model : models) {
-            stack.push(new ModelManager(model));
+    public static Stack<ModelChanges> makeModelChangesStack(String... messages) {
+        Stack<ModelChanges> stack = new Stack<>();
+        for (String message : messages) {
+            stack.push(new ModelChanges(message));
         }
         return stack;
     }

@@ -1,40 +1,49 @@
 package seedu.moolah.logic.commands.budget;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.moolah.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.moolah.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.moolah.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.moolah.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.moolah.testutil.TypicalMooLah.getTypicalMooLah;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.commons.core.Messages;
 import seedu.moolah.commons.core.index.Index;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.MooLah;
 import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.budget.Budget;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ModelHistory;
 
 public class DeleteBudgetByIndexCommandTest {
-    private Model model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+
+    private Model model;
+    private Model expectedModel;
+
+    @BeforeEach
+    public void setup() {
+        model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+        expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+    }
 
     @Test
     public void run_validIndexUnfilteredList_success() {
         Budget budgetToDelete = model.getFilteredBudgetList().get(INDEX_SECOND.getZeroBased());
-        DeleteBudgetByIndexCommand deleteBudgetByIndexCommand = new DeleteBudgetByIndexCommand(INDEX_SECOND);
+        DeleteBudgetByIndexCommand command = new DeleteBudgetByIndexCommand(INDEX_SECOND);
 
         String expectedMessage = String.format(DeleteBudgetByIndexCommand.MESSAGE_DELETE_BUDGET_SUCCESS,
                 budgetToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getMooLah(), new UserPrefs(), new ModelHistory());
-        expectedModel.commitModel("");
         expectedModel.deleteBudget(budgetToDelete);
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()).setMooLah(model.getMooLah()));
 
-        assertCommandSuccess(deleteBudgetByIndexCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -67,20 +76,20 @@ public class DeleteBudgetByIndexCommandTest {
         DeleteBudgetByIndexCommand deleteSecondCommand = new DeleteBudgetByIndexCommand(INDEX_SECOND);
 
         // same object -> returns true
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
+        assertEquals(deleteFirstCommand, deleteFirstCommand);
 
         // same values -> returns true
         DeleteBudgetByIndexCommand deleteFirstCommandCopy = new DeleteBudgetByIndexCommand(INDEX_FIRST);
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+        assertEquals(deleteFirstCommand, deleteFirstCommandCopy);
 
         // different types -> returns false
-        assertFalse(deleteFirstCommand.equals(1));
+        assertNotEquals(1, deleteFirstCommand);
 
         // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
+        assertNotEquals(null, deleteFirstCommand);
 
         // different expense -> returns false
-        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+        assertNotEquals(deleteFirstCommand, deleteSecondCommand);
     }
 }
 

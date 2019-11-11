@@ -2,22 +2,27 @@ package seedu.moolah.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moolah.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 import static seedu.moolah.testutil.Assert.assertThrows;
-import static seedu.moolah.testutil.TestUtil.makeModelStack;
+import static seedu.moolah.testutil.TestUtil.makeModelChangesStack;
 import static seedu.moolah.testutil.TypicalMooLah.ANNIVERSARY;
 import static seedu.moolah.testutil.TypicalMooLah.BUSAN_TRIP;
+import static seedu.moolah.testutil.TypicalMooLah.getTypicalMooLah;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.commons.core.GuiSettings;
 import seedu.moolah.model.expense.DescriptionContainsKeywordsPredicate;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ModelHistory;
 import seedu.moolah.testutil.MooLahBuilder;
 
 public class ModelManagerTest {
@@ -28,7 +33,7 @@ public class ModelManagerTest {
     @BeforeEach
     public void setup() {
         modelManager = new ModelManager();
-        expectedModelManager = new ModelManager(modelManager);
+        expectedModelManager = new ModelManager();
     }
 
     @Test
@@ -53,34 +58,88 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void rollbackModel_noModel_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.rollbackModel());
+    public void applyChanges_nullArguments_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.applyChanges(null));
     }
 
     @Test
-    public void rollbackModel_hasModel_returnsModelOptional() {
-        Model other = new ModelManager();
-        modelManager.addToPastHistory(other);
-        expectedModelManager.addToFutureHistory(other);
+    public void applyChanges_success() {
+        UserPrefs userPrefs = new UserPrefs();
+        userPrefs.setMooLahFilePath(Paths.get("dummyFilepath"));
 
-        modelManager.rollbackModel();
-        assertEquals(modelManager.getModelHistory(), expectedModelManager.getModelHistory());
+        ModelChanges changes = new ModelChanges("dummy")
+                .setMooLah(getTypicalMooLah())
+                .setUserPrefs(userPrefs)
+                .setExpensePredicate(expense -> false)
+                .setEventPredicate(event -> false)
+                .setBudgetPredicate(budget -> false);
+
+        expectedModelManager.setMooLah(getTypicalMooLah());
+        expectedModelManager.setUserPrefs(userPrefs);
+        expectedModelManager.updateFilteredExpenseList(expense -> false);
+        expectedModelManager.updateFilteredEventList(event -> false);
+        expectedModelManager.updateFilteredBudgetList(budget -> false);
+
+        modelManager.applyChanges(changes);
+        assertEquals(expectedModelManager, modelManager);
     }
 
     @Test
-    public void migrateModel_noModel_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.migrateModel());
-
+    public void commit_nullArguments_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.commit(null, null));
     }
 
     @Test
-    public void migrateModel_hasModel_returnsModelOptional() {
-        Model other = new ModelManager();
-        modelManager.addToFutureHistory(other);
-        expectedModelManager.addToPastHistory(other);
+    public void commit_success() {
+        ModelChanges past = new ModelChanges("past");
+        ModelChanges future = new ModelChanges("future");
+        String changeMessage = "test";
 
-        modelManager.migrateModel();
-        assertEquals(modelManager.getModelHistory(), expectedModelManager.getModelHistory());
+        modelManager.addToPastChanges(past);
+        modelManager.addToFutureChanges(future);
+
+        expectedModelManager.addToPastChanges(past);
+        expectedModelManager.addToPastChanges(new ModelChanges("test"));
+
+        modelManager.commit(changeMessage, new ModelManager());
+
+        assertEquals(expectedModelManager, modelManager);
+    }
+
+    @Test
+    public void rollback_noChanges_returnsEmptyOptional() {
+        assertTrue(modelManager.rollback().isEmpty());
+    }
+
+    @Test
+    public void rollback_hasChanges_returnsStringOptional() {
+        ModelChanges changes = new ModelChanges("test");
+
+        modelManager.addToPastChanges(changes);
+        expectedModelManager.addToFutureChanges(changes);
+
+        Optional<String> returnedMessage = modelManager.rollback();
+
+        assertTrue(returnedMessage.isPresent());
+        assertEquals(changes.getChangeMessage(), returnedMessage.get());
+        assertEquals(expectedModelManager, modelManager);
+    }
+
+    @Test
+    public void migrate_noChanges_returnsEmptyOptional() {
+        assertTrue(modelManager.migrate().isEmpty());
+    }
+
+    @Test
+    public void migrate_hasChanges_returnsStringOptional() {
+        ModelChanges changes = new ModelChanges("test");
+        modelManager.addToFutureChanges(changes);
+        expectedModelManager.addToPastChanges(changes);
+
+        Optional<String> returnedMessage = modelManager.migrate();
+        assertTrue(returnedMessage.isPresent());
+        assertEquals(changes.getChangeMessage(), returnedMessage.get());
+        assertEquals(modelManager, expectedModelManager);
     }
 
     @Test
@@ -160,24 +219,24 @@ public class ModelManagerTest {
         // same values -> returns true
         modelManager = new ModelManager(mooLah, userPrefs, modelHistory);
         ModelManager modelManagerCopy = new ModelManager(mooLah, userPrefs, modelHistory);
-        assertTrue(modelManager.equals(modelManagerCopy));
+        assertEquals(modelManager, modelManagerCopy);
 
         // same object -> returns true
-        assertTrue(modelManager.equals(modelManager));
+        assertEquals(modelManager, modelManager);
 
         // null -> returns false
-        assertFalse(modelManager.equals(null));
+        assertNotEquals(null, modelManager);
 
         // different types -> returns false
-        assertFalse(modelManager.equals(5));
+        assertFalse(modelManager.equals(1));
 
         // different mooLah -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentMooLah, userPrefs, modelHistory)));
+        assertNotEquals(modelManager, new ModelManager(differentMooLah, userPrefs, modelHistory));
 
         // different filteredList -> returns false
         String[] keywords = ANNIVERSARY.getDescription().fullDescription.split("\\s+");
         modelManager.updateFilteredExpenseList(new DescriptionContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(mooLah, userPrefs, modelHistory)));
+        assertNotEquals(modelManager, new ModelManager(mooLah, userPrefs, modelHistory));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
@@ -185,11 +244,11 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setMooLahFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(mooLah, differentUserPrefs, modelHistory)));
+        assertNotEquals(modelManager, new ModelManager(mooLah, differentUserPrefs, modelHistory));
 
         // different history -> returns false
-        ModelHistory differentHistory = new ModelHistory("", makeModelStack(modelManager), makeModelStack());
-        modelManagerCopy.setModelHistory(differentHistory);
-        assertFalse(modelManager.equals(modelManagerCopy));
+        ModelHistory diffHistory = new ModelHistory(makeModelChangesStack("dummy"), makeModelChangesStack());
+        modelManagerCopy.setModelHistory(diffHistory);
+        assertNotEquals(modelManager, modelManagerCopy);
     }
 }
