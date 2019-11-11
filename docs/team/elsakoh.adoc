@@ -140,4 +140,5 @@ The following sequence diagram shows how the autocomplete works.
 .Operational flow of `getAutoCompleteResults()`
 image::AutoCompleteFlow.png[]
 
+<<<
 include::../DeveloperGuide.adoc[tag=architecture]
