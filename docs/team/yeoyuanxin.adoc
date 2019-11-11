@@ -11,7 +11,7 @@ DukeCooks is an all-in-one lifestyle desktop application designed specially for 
 
 In DukeCooks, managing your meals preparation and workouts has never been made easier! Everything that you can only imagine to be done in more than one application, can now simply be done in DukeCooks alone! DukeCooks saves you the time and effort to switch between application!
 
-Furthermore, DukeCooks runs on a command-line interface (CLI). This means that everything that DukeCooks is capable for doing, can be executed all within a single line.
+Furthermore, DukeCooks runs on a command-line interface (CLI). This means that everything that DukeCooks is capable for doing, can be executed within a single line.
 
 == Who is behind DukeCooks?
 
@@ -51,6 +51,10 @@ Visit this https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=yyuanxin&s
 
 |Project management
 |Managed issue trackers on GitHub
+
+|Enhancement to existing feature
+| Update GUI color scheme and other cosmetic changes +
+(PR https://github.com/AY1920S1-CS2103T-T10-2/main/pull/99[#99], https://github.com/AY1920S1-CS2103T-T10-2/main/pull/155[#155])
 
 |Reported bugs
 |Reported bugs and suggestions for other teams in the class +

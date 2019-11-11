@@ -36,7 +36,7 @@ architecture and goals of DukeCooks.
 
 === Understanding the document
 
-[TIP] Pro tips which you may find useful.
+TIP: Pro tips which you may find useful.
 
 NOTE: Information that you should take note of.
 
@@ -879,7 +879,7 @@ in sync with health records.
 
 ==== Design Considerations
 
-[cols="10%,50%,40%""]
+[cols="20%,40%,40%""]
 [width="100%"]
 |===
 |Aspect |Option 1 (Chosen)|Option 2
@@ -887,18 +887,22 @@ in sync with health records.
 |Data Structure used to store Record Type
 |`Enum` class is used to store record types.
 
-- **Pros**: Type safe and more static control over the record types. +
+*Pros* +
+Type safe and more static control over the record types.
 
-- **Cons**: Limiting health record types as no dynamic additions can be made. +
+*Cons* +
+Limiting health record types as no dynamic additions can be made.
 
 This choice was chosen as it is easier to maintain for our model. Additionally, the extension of having user defined health
-types would mean more validity checks and maintainence needed.
+types would mean more validity checks and maintenance needed.
 
 |A `HashMap` is used to store record types.
 
-- **Pros**: Increase flexibility and have the possible extension of allowing user defined health types. +
+*Pros* +
+Increase flexibility and have the possible extension of allowing user defined health types.
 
-- **Cons**: More error prone compared to enums +
+*Cons* +
+More error prone compared to enums.
 
 |===
 
@@ -1237,10 +1241,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-The following is a Use Case diagram (Figure 26) for the Dashboard.
+The following is a Use Case diagram (Figure 29) for the Dashboard.
 
 .Dashboard Use Case Diagram
-[caption="Figure 26: "]
 image::DashboardUseCase.png[width="200"]
 
 (For all use cases below, the *System* is `DukeCooks` and the *Actor* is the `user`, unless specified otherwise)
@@ -1417,18 +1420,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample data. The window size will be automatically set to full-screen.
 
-=== Deleting a person
-
-. Deleting a person while all userprofile are listed
-
-.. Prerequisites: List all userprofile using the `list` command. Multiple userprofile in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
-   Expected: Similar to previous.
-
 === Adding a recipe
 
 . Adding a recipe while all recipes are listed
@@ -1558,7 +1549,7 @@ name and recipes of the edited meal plan.
    Expected: A new diary named "Yummy Food" is added to the list. Details of the added diary is shown in the result display.
 .. Test case: `add diary n/ Yummy Food` (A repeat of the previous test case) +
    Expected: No diary is added. Error message is shown in the result display. Status bar remains the same.
-.. Other incorrect add commands to try: `add diary`, `add diary n/ <name>` (where <name> already exists in the diary list) +
+.. Other incorrect add commands to try: `add diary n/ <name>` (where <name> already exists in the diary list) +
 Expected: Similar error messages to previous.
 
 === Deleting a diary
@@ -1571,6 +1562,20 @@ Expected: Similar error messages to previous.
 .. Test case: `delete diary 0` +
    Expected: No diary is deleted. Error message is shown in the result display. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete diary`, `delete diary x` (where x is larger than the list size) +
+   Expected: Similar error messages to previous.
+
+=== Editing a diary
+
+. Editing a diary while all diaries are listed
+
+.. Prerequisites: List all diaries using the `list` command. Multiple diaries should be shown in the list. Ensure no
+diary in the diary list is named "Asian Food".
+.. Test case: `edit diary 1 n/ Asian Food` +
+   Expected: First diary from the list is edited. Details of the edited diary are shown in the result display, notably the
+name of the edited diary.
+.. Test case: `edit diary 0` +
+   Expected: No diary is edited. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect edit commands to try: `edit diary`, `edit diary x` (where x is larger than the list size) +
    Expected: Similar error messages to previous.
 
 === Deleting a page

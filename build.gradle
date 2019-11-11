@@ -76,7 +76,7 @@ dependencies {
 apply plugin: 'org.asciidoctor.convert'
 
 shadowJar {
-    archiveName = 'dukecooks_v1.3.jar'
+    archiveName = 'dukecooks_v1.4.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

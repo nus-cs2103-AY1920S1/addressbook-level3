@@ -30,7 +30,7 @@ public class EditDiaryCommand extends EditCommand {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DIARY_NAME + "NAME] "
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " " + VARIANT_WORD + " 1 "
             + PREFIX_DIARY_NAME + "newDiaryName";
 
     public static final String MESSAGE_EDIT_DIARY_SUCCESS = "You have edited the diary: %1$s";
