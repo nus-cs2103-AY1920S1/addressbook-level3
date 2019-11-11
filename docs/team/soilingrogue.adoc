@@ -17,7 +17,7 @@ endif::[]
 This document serves to highlight my contributions to the project, DeliveryMANS.
 
 intro to team, project, reqs (desktop app CLI), list main features
-This six week project was done by a group 5 year 2 NUS SoC students as part of ….
+This six week project was done by a group of 5 year 2 NUS School of Computing (SoC) Computer Science students as part of our Software Engineering requirements.
 
 Below are the symbols and formatting used in this document.
 
@@ -52,8 +52,8 @@ This section serves to summarize my contributions to the project, namely feature
 ** Updated User Guide with texts and images for explaining universal commands https://github.com/AY1920S1-CS2103T-T12-2/main/pull/81[#81] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/83[#83] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/193[#193] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/232[#232]
 ** Updated Developer Guide with UML diagrams and texts for explaining implementation of features https://github.com/AY1920S1-CS2103T-T12-2/main/pull/77[#77] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/85[#85] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/87[#87] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/217[#217] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/234[#234]
 * Community
-** Reported bugs and suggestions for other teams:  https://github.com/SoilingRogue/ped/issues/9[1], https://github.com/SoilingRogue/ped/issues/10[2], https://github.com/SoilingRogue/ped/issues/6[3]
-** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+** Reported bugs and suggestions for other teams https://github.com/SoilingRogue/ped/issues/9[1], https://github.com/SoilingRogue/ped/issues/10[2], https://github.com/SoilingRogue/ped/issues/6[3]
+** Reviewed PRs with non-trivial review comments
 * Project management
 ** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
 
@@ -312,9 +312,119 @@ They showcase my ability to write technical documentation and the technical dept
 
 *_Start of extract_*
 
-include::../DeveloperGuide.adoc[tag=autocompletecommands]
+=== Autocomplete commands feature
 
-include::../DeveloperGuide.adoc[tag=orders]
+This is a feature which allows you to view all available commands matching the input keyword or letters, eliminating the need to memorize the commands or leave a browser tab open with the User Guide of this application.
+
+==== Implementation
+
+The autocomplete mechanism is facilitated by the `[blue]#KeyListener#` and a `[blue]#Trie#`, a tree-like abstract data type (ADT).
+The `[blue]#KeyListener#` passes the current input text in the input command box to the `[blue]#TrieManager#` via `[blue]#LogicManager#getAutoCompleteResults()#`.
+The `[blue]#TrieManager#` calls `[blue]#Trie#autoCompleteCommandWord()#` and a sorted list of matching commands is passed back to the `[blue]#CommandBox#` and is displayed on the `[blue]#Ui#` via a dropdown box below the user input command box.
+
+The underlying data structure used is a directed graph with the `[blue]#Trie#` as a node and `[blue]#HashMap<Character, Trie>#` to represent all outgoing edges.
+The keys in the `[blue]#HashMap#` are `[blue]#Characters#` in the command words while the values are the `[blue]#Tries#` containing the subsequent `[blue]#Characters#` in the command words.
+Each `[blue]#Trie#` contains a `[blue]#List<String>#` of command words, which is returned when `[blue]#Trie#autoCompleteCommandWord()#` is called.
+
+Given below is an example usage scenario and how the autocomplete mechanism behaves at each step.
+
+Step 1: You launch the application. The `[blue]#TrieManager#` initializes the respective `[blue]#Tries#` with their context-specific command words using `[blue]#Trie#insertCommand()#`.
+The `[blue]#Trie#` adds each `[blue]#Character#` of the input `[blue]#String#` and new `[blue]#Tries#` into the `[blue]#HashMap<Character, Trie>#`, as well as the command word into the `[blue]#List<String>#`, recursively as illustrated by the activity diagram below.
+
+image::AutoCompleteActivityDiagram.png[width="790"]
+
+Step 2: You want to add an order to the database, however are uncertain how to spell the command and type in `_order_`.
+The `[blue]#KeyListener#` passes the `[blue]#String#` in the `[blue]#CommandBox#` to the `[blue]#Trie#` via the `[blue]#LogicManager#` and `[blue]#TrieManager#`.
+The trie searches for relevant commands and pass them as a list back to the `[blue]#CommandBox#` via `[blue]#Trie#getAutoCompleteCommandWord()#`, `[blue]#Trie#search()#` and `[blue]#Trie#getAllCommandWords()#`.
+The `[blue]#Ui#` displays the relevant results in a dropdown box below the user input command box.
+
+.Sequence diagram illustrating the handling of user input via autocomplete
+image::AutoCompleteSequenceDiagram.png[width="790"]
+
+
+Step 3: You can now complete the command you want by entering the relevant command shown in the dropdown box.
+
+image::AutoCompleteUi.png[width="790"]
+
+==== Design Considerations
+
+Below are a few design considerations of the autocomplete commands feature.
+
+===== Aspect: How autocomplete executes
+
+* **Alternative 1 (current choice):** Use a `[blue]#KeyListener#` to record and handle user inputs in the user input command box before they are entered.
+** Pros: Aesthetically pleasing, allows for on-the-fly display of results.
+** Cons: Laborious to implement, especially in terms of debugging and troubleshooting. It may also break Object-Oriented Programming (OOP) principles if not implemented properly.
+* **Alternative 2:** Handle user input only when the command is entered, utilizing the `[blue]#Parser#` to  handle user inputs and pass it to the `[blue]#Trie#` to be evaluated.
+** Pros: Adheres to current flow of command executions, will not break any OOP principles.
+** Cons: Tedious for the user, as the user will have to retype the whole command again. Furthermore, it does not look aesthetically pleasing.
+
+Alternative 1 was selected, as it is more user friendly, and leaves a better impression onto users compared to alternative 2.
+
+===== Aspect: Data structure to support the autocomplete commands feature
+
+* **Alternative 1 (current choice):** Use a `[blue]#Trie#` to store `[blue]#Characters#` of commands as keys.
+** Pros: Efficient and rapid searching, retrieving and displaying of results due to the tree-like ADT.
+** Cons: Tedious to implement, as `[blue]#Tries#` are not currently implemented in Java.
+* **Alternative 2:** Use a list to store all current commands.
+** Pros: Easy to implement as lists are already available in Java.
+** Cons: Inefficient and slow searching, because of the need to iterate through the entire list of commands while calling `.substring()` and `.contains()` methods.
+
+Alternative 1 was selected, as it allows for faster searching and listing of relevant commands compared to alternative 2.
+
+// end::autocompletecommands[]
+// tag::orders[]
+=== Order Manager
+Order Manager is an address book of Orders and has some useful functions specifically catered towards the ease of management of orders.
+
+Firstly, the automated allocation of deliveryman once new orders are added or completed. When a new order is created on the database, or when an existing order is completed, a deliveryman will be assigned to deliver the new/existing pending orders based on whether he/she is present as well as whether he/she is currently preoccupied with delivering another order. This helps to ease the burden on the user as they would not need to manually allocate deliverymen to the orders. However, the feature to manually allocate is still present if the user wishes to do so.
+
+Secondly, the Order Manager allows for sorting of orders, based on date, customer, restaurant, menu or even deliveryman, depending on what information the user wishes to see to allow for better management.
+
+Additionally it implements the following operations:
+
+* `-add_order` - adds an order to the database.
+* `-assign_order` - assigns an available deliveryman to an existing order in the database.
+* `-complete_order` - updates the completion status of an existing order in the database.
+* `-delete_order` - removes an existing order in the database.
+* `-edit_order` - edits an existing order in the database.
+* `-list_orders` - lists all existing orders in the database.
+
+
+These operations are exposed in the `[blue]#ModelManager#` class as `[blue]#ModelManager#addOrder()#`, `[blue]#ModelManager#getOrder(Name targetOrder)#`, `ModelManager#setOrder(Order target, Order editedOrder)`, `ModelManager#deleteOrder(Order order)` and `ModelManager#assignUnassignedOrder()`.
+
+Order manager implements its own `[blue]#Model#`, `[blue]#Command#` and `[blue]#Parser#` for the 'Logic Component', `[blue]#JsonOrderDatabaseStorage#`, `[blue]#JsonSerializableOrderDatabase#`, `[blue]#JsonAdaptedOrder#` and `[blue]#JsonAdaptedFoodOrder#`, along with methods in the `[blue]#StorageManager#` for the `Storage Component` and lastly, `[blue]#OrderCard#` and `[blue]#OrderListPanel#` for displaying on the `Ui Component`.
+
+*insert object diagrams here + brief explanation of object diagrams*
+
+==== Implementation
+
+**Add command:** `-add_order`
+
+The add command adds an order to the `ModelManager` and `UniqueOrderList`. The `UniversalParser` invokes `AddOrderCommandParser#parse()`, which parses the target **customer**, **restaurant**, **food** and **quantity** from a *String* into *Name* and *Integer* objects.
+
+Only valid **customer**, **restaurant**, **food** and **quantity** are allowed. This validation is done through accessing `UniqueCustomerList` and `UniqueRestaurantList` through `ModelManager#getFilteredCustomerList()`, `ModelManager#getFilteredRestaurantList()` and calling their respective `isValidName()` methods. **Food** validity will be checked through retrieving the respective using `Restaurant#getMenu()` and `Menu#isValidName()`.
+
+Duplicated `Order` will be checked for using `ModelManager#hasOrder()` and is then added to the `UniqueOrderList` via `ModelManager#addOrder()`.
+
+**Delete command:** `-delete_order`
+
+The delete command deletes an `Order` from the `ModelManager` and `UniqueOrderList` by a specified index. The `UniversalParser` invokes `DeleteOrderCommandParser#parse()` and user input is used to get the index of the `Order` to be deleted.
+
+==== Design Considerations
+
+Below are a few design considerations of the Order manager class.
+
+===== Aspect: Data structure for modelling, storage and utilization of `Order`.
+
+* **Alternative 1 (current choice):** Make use of existing data structures as references to create new data structures needed for the implementation of an Order Manager.
+** Pros: Straightforward to implement.
+** Cons: Tedious to implement as several regions of the codebase needs to be edited for `Order` to run, display and save successfully.
+* **Alternative 2:** Implement data structures from scratch.
+** Pros: Pride and accomplishment of implementing data structures from scratch.
+** Cons: Tedious and time wasting to code the necessary classes.
+
+Alternative 1 was selected, as it is much faster to implement compared to alternative 2, given the short time spam of 6 weeks to complete the project.
 
 *_End of extract_*
 
