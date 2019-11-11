@@ -212,7 +212,7 @@ These three classes are implemented together with `CopyCommandParser` class to c
 Since this is a command that would be used frequently, command alias are added to increase the efficiency for the user.
 The activity diagram below describes the flow of the `CopyPasswordCommand`:
 
-Some diagram.
+image::CopyPasswordSequenceDiagram.png[]
 
 The following sequence diagram describes the detailed interactions between any `CopyPasswordCommand` and the architecture:
 
