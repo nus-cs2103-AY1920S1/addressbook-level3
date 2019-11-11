@@ -332,16 +332,16 @@ For participant, `n/NAME e/EMAIL p/PHONE` are all options to search for.
 
 For team, `n/TEAMNAME pn/PROJECTNAME` are also all options to search for.
 
-For mentor, `n/NAME, e/EMAIL, p/PHONE o/ORGANIZATION` are all available
+For mentor, `n/NAME, e/EMAIL, p/PHONE o/ORGANIZATION` are all available.
 
 Example for multiple fields:
 
 * `find participant n/Damith e/damith.com` finds all participants
-whose name contains the string "Damith" and whose emails contain "damith.com"
+whose name contains the string "Damith" and whose email contains "damith.com"
 
 === Advanced Finding of a Specific Entity by Union or Negative: `find [AND/OR] {mentor/team/participant} n/NAME ... [EXCLUDE] ...`
 
-The default find command for single and multiple fields works via a find by intersection. That is, entities
+The default `find` command for single and multiple fields works via a find by intersection. That is, entities
 must be true for all the predicates for it to be displayed. However, Alfred also supports finding by union.
 
 As above, all find commands are case insensitive.
@@ -376,7 +376,7 @@ However, there are also some caveats when it comes to using `find`.
 Some notes on the logic used in find.
 
 * The logic used in find obeys normal boolean, probabilistic logic.
-* Hence commands like `find participant n/Ki EXCLUDE n/Ki` will return an empty list
+* Hence commands like `find participant n/Ki EXCLUDE n/Ki` will return an empty list.
 * Likewise, commands like `find participant OR n/Ki EXCLUDE n/Ki` will return the full list.
 ****
 

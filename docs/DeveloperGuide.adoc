@@ -193,17 +193,17 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores other things like `Storage`, `CommandHistory` that also depend on Model
+* stores other things like `Storage`, `CommandHistory` that also depend on `Model`
 * stores the lists of our various entities.
-* Model is the bridge between Logic and Storage and provides an abstraction of how the data is stored in memory.
-* It exposes multiple `ReadableEntityList` which only has the list method to remind Logic that the data given should not be modified.
+* `Model` is the bridge between `Logic` and `Storage` and provides an abstraction of how the data is stored in memory.
+* It exposes multiple `ReadableEntityList` which only has the list method to remind `Logic` that the data given should not be modified.
 * The UI can be bound to these lists so that it automatically updates when the contents of the list change.
-* At the heart of the model are observable lists which allow for the dynamic updating of the UI.
+* At the heart of the `Model` are observable lists which allow for the dynamic updating of the UI.
 * The `Model` interface also serves as an API through which controller can edit the data stored in memory.
 
 `ModelManager`
 
-* ModelManager implements all the methods exposed by the Model Interface. The 3 most important aspects for its in-memory
+* `ModelManager` implements all the methods exposed by the `Model` interface. The 3 most important aspects for its in-memory
 storage and UI are the `FilteredList`, `EntityList` and `UserPrefs` objects. As mentioned above, `ModelManager` also
 consists of other components, but these are not reflected in the diagrams for brevity and clarity.
 
@@ -230,7 +230,7 @@ image::MentorClassDiagram.png[]
 
 When the ModelManager object is first created upon starting the application, the existing data is loaded from
 the disc via methods on the `Storage` object. However, if there are any bugs in the process, perhaps due
-corrupted data, a new `EntityList` is instantiated rather than run the risk of working with outdated data.
+to corrupted data, a new `EntityList` is instantiated rather than run the risk of working with outdated data.
 
 Due to its role as the API of the application, all calls which require access to the `Entity` objects will be done
 through `Model` and not via the lists directly. These operations are listed as public methods on the `Model` interface.
@@ -238,11 +238,11 @@ through `Model` and not via the lists directly. These operations are listed as p
 For operations which would entail mutating the data within the
 `EntityList` objects in any form, `Model` automatically communicates with the `Storage` object to save the data.
 The saving logic can be found within the `Storage` object and thus `Model` only needs to pass it `EntityList` objects
-on its end. The same applies for the other attributes in `Model`, such as `CommandHistory`; `Model` will
+on its end. The same applies for the other attributes in `Model`, such as `CommandHistory`; `ModelManager` will
 automatically communicate with it for you.
 
 If there are any errors along the way, it will be logged but the error would be handled within `Model` itself.
-Moreover, if there is an during a model operation, it will not be saved.
+Moreover, if there is an error during a `Model` operation, the data will not be saved to disc.
 
 ==== Design Considerations
 
@@ -252,18 +252,19 @@ These are some design considerations for Model.
     * The role of `ModelManager` is to ensure that the data is in sync with each other across all 3 `EntityList`
 objects. The reason behind this is because for example, the `Participant` object in `ParticipantList` is a separate
 object from the one inside `Team`. It was not possible due to make the `Participant` object hold a reference
-to team due to serialization issues on `Storage`.
+to `Team` due to serialization issues on `Storage`.
     * As such, for each CRUD operation, `ModelManager` has to perform validation to ensure that the data modified/added
 is sync across all 3 `EntityList` objects.
     * This was also the reason why `Storage` was moved into the `Model` object, as in the current implementation of
-Alfred, only `ModelManager` needs to be aware of `Storage` to ensure that only it can save/read data. This would
-hence help to synchronize data better.
+Alfred, only `ModelManager` needs to communicate with `Storage`. This would
+hence help to better ensure data integrity.
 
 ===== Aspect: Single Responsibility Principle and Inheritance
     * Each class in `Model` is only responsible for a single task. For example, `TeamList` is only concerned
 with managing the `Team` entities stored in it. This would help to improve testability and code quality, especially
-since the size of the `Model` codebase is substantial
-    * Inheritance was used to show links between related objects. For `Model`, the two related objects are
+since the size of the `Model` codebase is substantial.
+    * Inheritance was used to show links between related objects. For `Model`, the two objects whose subclasses are related
+are
 `EntityList` and `Entity`. Inheritance was used to show this relationship and to reduce the need for code
 duplication.
 
@@ -287,8 +288,7 @@ Alfred to do significant validation
 
 We decided to opt for Alternative 1 as there was no easy solution to solve the issues `Storage` had with
 bidirectional associations. Also, the validation code for Alternative 1 was implemented early and employed
-many defensive programming practices, reducing the likelihood of bugs occurring due to similar objects having
-data that is out of sync.
+many defensive programming practices, reducing the likelihood of bugs affecting data integrity.
 
 ==== Future Extensions
 1. As the single source of truth for the application in runtime, there are many small functions on `ModelManager` now.
@@ -1415,7 +1415,7 @@ that has been inspired by the power of Excel Macros.
 `find` offers a search by a single field and multiple fields. The list of fields that can be searched for
 for each entity can be found in the
 <<UserGuide.adoc#finding-a-specific-entity-code-find-mentor-team-participant-n-name-code, user guide>>, or by
-simply typing in an incorrect command in the application.
+simply typing in an incorrect `find` command in the application.
 
 The find command also offers an option to do a negative search of the fields in the list. This can be
 done via the `EXCLUDE` keyword. All the parameters that come after the keyword will undergo a negative
@@ -1452,7 +1452,7 @@ is invalid and does not follow the specified format, an error will be thrown. Li
 is called and no parameters are provided, an error will also be thrown. During the parsing, the parser splits
 the input string given into two separate strings, one for normal parameters and the other for parameters
 that will undergo negated search. Two separate `ArgumentMultimap` objects are generated using the two
-strings. These `ArgumentMultimap` objects are the same as the ones found in AB3 and thus behave in a similar manner
+strings. These `ArgumentMultimap` objects are the same as the ones found in AddressBook3 and thus behave in a similar manner
 and have the same constraints.
 
 3. If there are no errors, the `FindParticipantCommandParser` then creates
@@ -1473,7 +1473,7 @@ the generated predicate.
 
 ==== Design Considerations
 
-The following are some design considerations for the Find Command Feature
+The following are some design considerations for the `find` Command Feature
 
 ===== Aspect: Format of the input string
 
@@ -1483,7 +1483,7 @@ The following are some design considerations for the Find Command Feature
 
 * *Alternative 2*: Use the current format of `n/NAME e/EMAIL ...` (current)
     -  Pros: Maintains consistency within the application
-    -  Cons: It is not as clear as SQL style syntax.
+    -  Cons: It is not as clear as SQL style syntax
 
 
 Alternative 1 would take the form
@@ -1503,7 +1503,7 @@ the new query format would have to be written and tested thoroughly, thus negati
 velocity.
 
 ===== Aspect: Storing of the predicates
-* *Alternative 1*: Store the Predicates in a central file (current)
+* *Alternative 1*: Store the predicates in a central file (current)
     - Pros: Makes the predicates accessible to the whole application
 hence reducing code duplication
     - Cons: A large conditional statement would be needed in each Command class.

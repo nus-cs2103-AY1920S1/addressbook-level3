@@ -10,31 +10,31 @@
 == Overview
 
 As part of our software engineering project, my team of five, including me, were tasked with either improving
-the existing *AddressBook3* application codebase, or morphing it into any application, as long as
-it maintained a command line interface and had a Graphical Display. We opted for the latter and morphed the
-*AddressBook3* codebase into a Hackathon manager, named *Alfred* that is targeted at Hackathon HR managers to aid them in
-the organization of hackathons, including the logistics and administration. *Alfred* packages multiple
+the existing AddressBook3 application codebase, or morphing it into any application, as long as
+it maintained a command line interface and had a graphical display. We opted for the latter and morphed the
+AddressBook3 codebase into a Hackathon manager, named Alfred. Alfred is targeted at Hackathon HR managers to aid them in
+the organization of hackathons, including the logistics and administration. Alfred packages multiple
 features into a single application, such as but not including judging, data validation, find, undo/redo, a
 whole new UI and more!
 
-For *Alfred*, I was mainly in charge of the Model backend, the find command and the enhancement of existing commands.
+For Alfred, I was mainly in charge of the Model backend, the find command and the enhancement of existing commands.
 
 == Summary of contributions
 
-* *Major Enhancement*: Added *the command to perform advanced finding functions on the stored data*
+* *Major Enhancement*: Added *the `find` command to perform advanced search on the stored data*
 ** What it does: This functionality enables the user to search for users in the database via different fields
 and complements the preexisting `view` command, which only gets a single user by `ID`.
 ** Justification: This functionality makes searching for users extremely convenient, especially if
 the hackathon has hundreds of participants. It also can return multiple users that match the given search
 parameters in a single command, which makes it more efficient than the more specialized `view` command and
 removes the need for the hackathon organizer to remember randomly generated `ID` numbers. This functionality
-makes *Alfred* a viable alternative to existing software like Excel.
-** Highlights: Like existing query langages, the find command supports a powerful search, allowing users
+makes Alfred a viable alternative to existing software like Excel.
+** Highlights: Like existing query languages, the `find` command supports a powerful search, allowing users
 to search by intersection, union across multiple fields and to perform a negative search on selected fields.
 
-* *Major Enhancement*: Refactored and Implemented the new `Model` for *Alfred*
-** What it does: The preexisting *AddressBook3* codebase only has the relevant objects for the address book
-application. However, *Alfred* required new objects such as `Score`, `Participant` and `Team`, and to create
+* *Major Enhancement*: Refactored and implemented the new `Model` for Alfred
+** What it does: The preexisting AddressBook3 codebase only has the relevant objects for the address book
+application. However, Alfred required new objects such as `Score`, `Participant` and `Team`, and
 new methods for the other parts of the codebase to interact with this in-memory data. It is also the only component
 of the codebase that interacts with `Storage`.
 ** Justification:  Without the new objects created by `Model`,
@@ -42,8 +42,10 @@ it would also impossible to store anything in memory. The methods exposed by `Mo
 parts of the object can interact with the in-memory data.
 Thus, `Model` serves as a single source of truth for the application in order to ensure that the
 hackathon information managed by the application is accurate.
+** Highlights: It abstracts all the details and validation away. Other objects which call `Model` can be assured that
+their input will be validated and stored correctly.
 
-* *Minor enhancement*: Updated the help command UI to reflect the new commands in *Alfred*
+* *Minor enhancement*: Updated the `help` command UI to reflect the new commands in Alfred.
 
 * *Code contributed*:
 ** https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=hcwong&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=hcwong&tabRepo=AY1920S1-CS2103T-F11-1%2Fmain%5Bmaster%5D[Functional code]
@@ -54,11 +56,16 @@ hackathon information managed by the application is accurate.
 ** Project management:
 *** Managed release `v1.1`
 *** Set up the repository and continous deployment of documentation
-*** Deprecated old *AddressBook3* code (#160, #169, #316)
+*** Deprecated old AddressBook3 code (https://github.com/AY1920S1-CS2103T-F11-1/main/pull/160[#160],
+https://github.com/AY1920S1-CS2103T-F11-1/main/pull/169[#169],
+https://github.com/AY1920S1-CS2103T-F11-1/main/pull/316[#316])
 ** Tests:
-*** Wrote tests that helped to raise the coverage of the codebase by 8% (#187, #316)
+*** Wrote tests that helped to raise the coverage of the codebase by 8% (https://github.com/AY1920S1-CS2103T-F11-1/main/pull/187[#187],
+https://github.com/AY1920S1-CS2103T-F11-1/main/pull/316[#316])
 ** Documentation:
-*** Updated User Guide and Developer Guides to reflect features implemented (#145, #200)
+*** Updated User Guide and Developer Guide to reflect features implemented (
+https://github.com/AY1920S1-CS2103T-F11-1/main/pull/145[#145],
+https://github.com/AY1920S1-CS2103T-F11-1/main/pull/200[#200])
 ** Community:
 *** Maintained the develop branch on Github in the initial stages when the master branch
 was broken
@@ -78,7 +85,7 @@ was broken
 |===
 |_Given below are sections I contributed to the User Guide.
 They showcase my ability to write documentation targeting end-users._
-The sections I added mainly pertained to the guide for the find feature.
+The sections I added mainly pertained to the guide for the `find` feature.
 |===
 
 === Finding a Specific Entity: `find {mentor/team/participant} n/NAME otherParameters`
@@ -109,16 +116,16 @@ For participant, `n/NAME e/EMAIL p/PHONE` are all options to search for.
 
 For team, `n/TEAMNAME pn/PROJECTNAME` are also all options to search for.
 
-For mentor, `n/NAME, e/EMAIL, p/PHONE o/ORGANIZATION` are all available
+For mentor, `n/NAME, e/EMAIL, p/PHONE o/ORGANIZATION` are all available.
 
 Example for multiple fields:
 
 * `find participant n/Damith e/damith.com` finds all participants
-whose name contains the string "Damith" and whose emails contain "damith.com"
+whose name contains the string "Damith" and whose email contains "damith.com"
 
 === Advanced Finding of a Specific Entity by Union or Negative: `find [AND/OR] {mentor/team/participant} n/NAME otherParameters [EXCLUDE] otherParameters`
 
-The default find command for single and multiple fields works via a find by intersection. That is, entities
+The default `find` command for single and multiple fields works via a find by intersection. That is, entities
 must be true for all the predicates for it to be displayed. However, Alfred also supports finding by union.
 
 As above, all find commands are case insensitive.
@@ -153,7 +160,7 @@ However, there are also some caveats when it comes to using `find`.
 Some notes on the logic used in find.
 
 * The logic used in find obeys normal boolean, probabilistic logic.
-* Hence commands like `find participant n/Ki EXCLUDE n/Ki` will return an empty list
+* Hence commands like `find participant n/Ki EXCLUDE n/Ki` will return an empty list.
 * Likewise, commands like `find participant OR n/Ki EXCLUDE n/Ki` will return the full list.
 ****
 
@@ -170,7 +177,7 @@ the default find does a search by intersection.
 |===
 |_Given below are sections I contributed to the Developer Guide.
 They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-Apart from the excerpts provided below, I also contributed to the Model Section of the developer guide.
+The following showcases my contributions to the Model and Find Command portions of the developer guide.
 |===
 
 === Model component
@@ -185,17 +192,17 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores other things like `Storage`, `CommandHistory` that also depend on Model
+* stores other things like `Storage`, `CommandHistory` that also depend on `Model`.
 * stores the lists of our various entities.
-* Model is the bridge between Logic and Storage and provides an abstraction of how the data is stored in memory.
-* It exposes multiple `ReadableEntityList` which only has the list method to remind Logic that the data given should not be modified.
+* Model is the bridge between `Logic` and `Storage` and provides an abstraction of how the data is stored in memory.
+* It exposes multiple `ReadableEntityList` which only has the list method to remind `Logic` that the data given should not be modified.
 * The UI can be bound to these lists so that it automatically updates when the contents of the list change.
-* At the heart of the model are observable lists which allow for the dynamic updating of the UI.
+* At the heart of the `Model` are observable lists which allow for the dynamic updating of the UI.
 * The `Model` interface also serves as an API through which controller can edit the data stored in memory.
 
 `ModelManager`
 
-* ModelManager implements all the methods exposed by the Model Interface. The 3 most important aspects for its in-memory
+* `ModelManager` implements all the methods exposed by the `Model` interface. The 3 most important aspects for its in-memory
 storage and UI are the `FilteredList`, `EntityList` and `UserPrefs` objects. As mentioned above, `ModelManager` also
 consists of other components, but these are not reflected in the diagrams for brevity and clarity.
 
@@ -211,7 +218,7 @@ You can see the diagrams for the aforementioned 3 objects in our developer guide
 
 When the ModelManager object is first created upon starting the application, the existing data is loaded from
 the disc via methods on the `Storage` object. However, if there are any bugs in the process, perhaps due
-corrupted data, a new `EntityList` is instantiated rather than run the risk of working with outdated data.
+to corrupted data, a new `EntityList` is instantiated rather than run the risk of working with outdated data.
 
 Due to its role as the API of the application, all calls which require access to the `Entity` objects will be done
 through `Model` and not via the lists directly. These operations are listed as public methods on the `Model` interface.
@@ -219,29 +226,30 @@ through `Model` and not via the lists directly. These operations are listed as p
 For operations which would entail mutating the data within the
 `EntityList` objects in any form, `Model` automatically communicates with the `Storage` object to save the data.
 The saving logic can be found within the `Storage` object and thus `Model` only needs to pass it `EntityList` objects
-on its end. The same applies for the other attributes in `Model`, such as `CommandHistory`; `Model` will
+on its end. The same applies for the other attributes in `Model`, such as `CommandHistory`; `ModelManager` will
 automatically communicate with it for you.
 
 If there are any errors along the way, it will be logged but the error would be handled within `Model` itself.
-Moreover, if there is an during a model operation, it will not be saved.
+Moreover, if there is an error during a `Model` operation, the data will not be saved to disc.
 
 ==== Design Considerations
 1. Synchronization of data
 * The role of `ModelManager` is to ensure that the data is in sync with each other across all 3 `EntityList`
 objects. The reason behind this is because for example, the `Participant` object in `ParticipantList` is a separate
 object from the one inside `Team`. It was not possible due to make the `Participant` object hold a reference
-to team due to serialization issues on `Storage`.
+to `Team` due to serialization issues on `Storage`.
 * As such, for each CRUD operation, `ModelManager` has to perform validation to ensure that the data modified/added
 is sync across all 3 `EntityList` objects.
 * This was also the reason why `Storage` was moved into the `Model` object, as in the current implementation of
-Alfred, only `ModelManager` needs to be aware of `Storage` to ensure that only it can save/read data. This would
-hence help to synchronize data better.
+Alfred, only `ModelManager` needs to communicate with `Storage`. This would
+hence help to better ensure data integrity.
 
 2. Single Responsibility Principle and Inheritance
 * Each class in `Model` is only responsible for a single task. For example, `TeamList` is only concerned
 with managing the `Team` entities stored in it. This would help to improve testability and code quality, especially
-since the size of the `Model` codebase is substantial
-* Inheritance was used to show links between related objects. For `Model`, the two related objects are
+since the size of the `Model` codebase is substantial.
+* Inheritance was used to show links between related objects. For `Model`, the two objects whose subclasses
+are related are
 `EntityList` and `Entity`. Inheritance was used to show this relationship and to reduce the need for code
 duplication.
 
@@ -265,8 +273,7 @@ Alfred to do significant validation
 
 We decided to opt for Alternative 1 as there was no easy solution to solve the issues `Storage` had with
 bidirectional associations. Also, the validation code for Alternative 1 was implemented early and employed
-many defensive programming practices, reducing the likelihood of bugs occurring due to similar objects having
-data that is out of sync.
+many defensive programming practices, reducing the likelihood of bugs affecting data integrity.
 
 ==== Future Extensions
 1. As the single source of truth for the application in runtime, there are many small functions on `ModelManager` now.
@@ -285,7 +292,7 @@ that has been inspired by the power of Excel Macros.
 `find` offers a search by a single field and multiple fields. The list of fields that can be searched for
 for each entity can be found in the
 https://ay1920s1-cs2103t-f11-1.github.io/main/UserGuide.html#finding-a-specific-entity-code-find-mentor-team-participant-n-name-code[user guide], or by
-simply typing in an incorrect command in the application.
+simply typing in an incorrect `find` command in the application.
 
 The find command also offers an option to do a negative search of the fields in the list. This can be
 done via the `EXCLUDE` keyword. All the parameters that come after the keyword will undergo a negative
@@ -321,7 +328,7 @@ is invalid and does not follow the specified format, an error will be thrown. Li
 is called and no parameters are provided, an error will also be thrown. During the parsing, the parser splits
 the input string given into two separate strings, one for normal parameters and the other for parameters
 that will undergo negated search. Two separate `ArgumentMultimap` objects are generated using the two
-strings. These `ArgumentMultimap` objects are the same as the ones found in AB3 and thus behave in a similar manner
+strings. These `ArgumentMultimap` objects are the same as the ones found in AddressBook3 and thus behave in a similar manner
 and have the same constraints.
 
 3. If there are no errors, the `FindParticipantCommandParser` then creates
@@ -343,7 +350,7 @@ the generated predicate.
 
 ==== Design Considerations
 
-The following are some design considerations for the Find Command Feature
+The following are some design considerations for the `find` Command Feature
 
 ===== Aspect: Format of the input string
 
@@ -353,7 +360,7 @@ The following are some design considerations for the Find Command Feature
 
 * *Alternative 2*: Use the current format of `n/NAME e/EMAIL ...` (current)
 -  Pros: Maintains consistency within the application
--  Cons: It is not as clear as SQL style syntax.
+-  Cons: It is not as clear as SQL style syntax
 
 
 Alternative 1 would take the form
@@ -372,7 +379,7 @@ the new query format would have to be written and tested thoroughly, thus negati
 velocity.
 
 ===== Aspect: Storing of the predicates
-* *Alternative 1*: Store the Predicates in a central file (current)
+* *Alternative 1*: Store the predicates in a central file (current)
 - Pros: Makes the predicates accessible to the whole application
 hence reducing code duplication
 - Cons: A large conditional statement would be needed in each Command class.
