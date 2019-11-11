@@ -10,7 +10,7 @@ SplitWiser is developed by https://github.com/orgs/AY1920S1-CS2103T-W11-2/teams/
 
 === Lim Daekoon
 image::daekoon.jpg[width="150", align="left"]
-{empty}[https://github.com/daekoon[github]]
+{empty}[https://github.com/daekoon[github]][https://ay1920s1-cs2103t-w11-2.github.io/main/team/daekoon[Project Portfolio page]]
 
 Role: Project Advisor, Agile Coach
 

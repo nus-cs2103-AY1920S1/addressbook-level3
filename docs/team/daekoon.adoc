@@ -27,6 +27,14 @@ image::../images/Ui.png[]
 
 I was responsible for creating the activity class, and the entire infrastructure required to support it. It is the foundational feature of our product, as it stores all information necessary to handle bill splitting. This makes my role particularly crucial as all features related to bill splitting interacts with this class. Furthermore, I created the functionality to create activities, and updated the find functionality to search based on context. The following sections describe my contributions in greater depth, in addition to the documentation that I added pertaining to the aforementioned features.
 
+The table below provides a quick summary of the symbols and formatting used in this portfolio.
+
+[width="70%",cols="^15%,85%"]
+|===
+a| `code` | Command that can be typed into the command box, or indicates a component, class or object in the architecture of the application.
+a| icon:info-circle[role="icon-note", size="2x"] | Additional information that is good to know.
+|===
+
 // Explain what the symbols mean
 == Summary of contributions
 This section shows a summary of my coding, documentation, and other helpful contributions to the
