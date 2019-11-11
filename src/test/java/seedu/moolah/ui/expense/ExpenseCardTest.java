@@ -64,18 +64,18 @@ public class ExpenseCardTest extends GuiUnitTest {
     }
 
     /**
-     * Asserts that {@code personCard} displays the details of {@code expectedPerson} correctly and matches
+     * Asserts that {@code expenseCard} displays the details of {@code expectedExpense} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(ExpenseCard personCard, Expense expectedPerson, int expectedId) {
+    private void assertCardDisplay(ExpenseCard expenseCard, Expense expectedExpense, int expectedId) {
         guiRobot.pauseForHuman();
 
-        ExpenseCardHandle personCardHandle = new ExpenseCardHandle(personCard.getRoot());
+        ExpenseCardHandle expenseCardHandle = new ExpenseCardHandle(expenseCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(expectedId), personCardHandle.getIndex());
+        assertEquals(Integer.toString(expectedId), expenseCardHandle.getIndex());
 
-        // verify person details are displayed correctly
-        assertCardDisplaysExpense(expectedPerson, personCardHandle);
+        // verify expense details are displayed correctly
+        assertCardDisplaysExpense(expectedExpense, expenseCardHandle);
     }
 }
