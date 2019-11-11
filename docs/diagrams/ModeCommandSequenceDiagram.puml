@@ -1,0 +1,53 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":EatMeParser" as EatMeParser LOGIC_COLOR
+participant "m:ModeCommand" as ModeCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":EateryList" as EateryList MODEL_COLOR
+end box
+
+[-> LogicManager : execute(mode)
+activate LogicManager
+
+LogicManager -> EatMeParser : parseCommand(mode)
+activate EatMeParser
+
+create ModeCommand
+EatMeParser -> ModeCommand
+activate ModeCommand
+
+ModeCommand --> EatMeParser : m
+deactivate ModeCommand
+
+EatMeParser --> LogicManager : m
+deactivate EatMeParser
+
+LogicManager -> ModeCommand : execute()
+activate ModeCommand
+
+ModeCommand -> Model : toggle()
+activate Model
+
+Model -> EateryList : toggle()
+activate EateryList
+
+EateryList --> Model
+deactivate EateryList
+
+Model --> ModeCommand
+deactivate Model
+
+ModeCommand --> LogicManager
+deactivate ModeCommand
+ModeCommand -[hidden]-> LogicManager
+destroy ModeCommand
+
+[<--LogicManager : result
+
+@enduml

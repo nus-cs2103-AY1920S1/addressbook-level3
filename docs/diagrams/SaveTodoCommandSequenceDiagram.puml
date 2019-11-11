@@ -1,0 +1,74 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":EatMeParser" as EatMeParser LOGIC_COLOR
+participant ":SaveTodoCommandParser" as SaveTodoCommandParser LOGIC_COLOR
+participant "s:SaveTodoCommand" as SaveTodo LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":EateryList" as EateryList MODEL_COLOR
+end box
+
+[-> LogicManager : execute(save)
+activate LogicManager
+
+LogicManager -> EatMeParser : parseCommand(save)
+activate EatMeParser
+
+create SaveTodoCommandParser
+EatMeParser -> SaveTodoCommandParser
+activate SaveTodoCommandParser
+
+SaveTodoCommandParser --> EatMeParser
+deactivate SaveTodoCommandParser
+
+EatMeParser -> SaveTodoCommandParser
+activate SaveTodoCommandParser
+
+SaveTodoCommandParser -> SaveTodo
+activate SaveTodo
+
+SaveTodo --> SaveTodoCommandParser : s
+deactivate SaveTodo
+
+SaveTodoCommandParser --> EatMeParser : s
+deactivate SaveTodoCommandParser
+SaveTodoCommandParser -[hidden]-> EatMeParser
+destroy SaveTodoCommandParser
+
+EatMeParser --> LogicManager : s
+deactivate EatMeParser
+
+LogicManager -> SaveTodo : execute()
+activate SaveTodo
+
+SaveTodo -> Model : deleteEatery(eatery)
+activate Model
+
+Model -> EateryList : removeEatery(eatery)
+activate EateryList
+
+EateryList --> Model
+Model --> SaveTodo
+
+SaveTodo -> Model : toggle()
+Model -> EateryList : toggle()
+
+EateryList --> Model
+deactivate EateryList
+
+Model --> SaveTodo
+deactivate Model
+
+SaveTodo --> LogicManager
+deactivate SaveTodo
+SaveTodo -[hidden]-> LogicManager
+destroy SaveTodo
+
+[<--LogicManager : result
+
+@enduml

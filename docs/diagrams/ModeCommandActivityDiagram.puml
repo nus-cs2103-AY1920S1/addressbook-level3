@@ -1,0 +1,20 @@
+@startuml
+title ModeCommand
+
+start
+
+:User executes ""Mode"" command;
+
+if () then (Main Mode)
+    :EatMe toggle to Todo Mode;
+
+    :Show success message to the user;
+else (Todo Mode)
+    :EatMe toggle to Main Mode;
+
+    :Show success message to the user;
+endif
+
+stop
+
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+title ModeCommand
+
+start
+
+:User executes ""SaveTodo"" command;
+
+if () then (Main Mode)
+    :Application display error massage;
+
+    stop
+
+else (Todo Mode)
+    :EatMe delete eatery from todo list;
+
+    :EatMe toggle to Main mode;
+
+    :EatMe construct add command;
+
+    if () then (User input missing field)
+
+    :EatMe add eatery to main list;
+
+    stop
+
+    else (else)
+
+stop
+
+@enduml

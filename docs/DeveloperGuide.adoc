@@ -624,9 +624,11 @@ Step 2: The user execute `mode` command and the mode of the application will be 
 Step 3: The user can execute `mode` command again, returning the application to `main` mode, showing the items stored in the `main` list.
 
 The following sequence diagram shows how the `mode` command works:
+
 image::ModeCommandSequence.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
+
 image::ModeCommandActivity.png[]
 
 ==== Design Considerations
@@ -726,9 +728,11 @@ Step 3: The user can execute `save 1`, indicating to the system the index of eat
 Step 4: The eatery in the todo list will be removed and an add command will be constructed in the CommandBox for the user to input any necessary fields before adding.
 
 The following sequence diagram shows how the `SaveTodo` command works:
+
 image::SaveTodoCommandSequence.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
+
 image::SaveTodoCommandActivity.png[]
 
 ==== Design Considerations
@@ -746,7 +750,6 @@ This situation will result in the user requiring to type the whole `add` command
 * **Alternative 1 (current choice):** No additional data structure is required for `SaveTodo` command
 
 //end::saveTodoCommand[]
-
 === Load friend's EateryList feature
 ==== Implementation
 
