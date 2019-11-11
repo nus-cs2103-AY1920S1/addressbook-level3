@@ -54,4 +54,5 @@ include::../UserGuide.adoc[tag=email]
 
 include::../DeveloperGuide.adoc[tag=storage]
 include::../DeveloperGuide.adoc[tag=email]
+include::../DeveloperGuide.adoc[tag=emailTest]
 

@@ -997,7 +997,10 @@ Use case resumes at step 1.
 A list of date and times that either an interviewer or interviewee is available for an interview.
 
 [[email-blast]] Email blast::
-A process of sending an email to multiple recipients, which may or may not be tailored to the recipient.
+A process of sending an email to multiple recipients in rapid succession.
+
+[[headless-machine]] Headless machine::
+A machine that is able to run the software, but does not have a graphical user interface (GUI) screen (i.e. monitor) attached.
 
 [[interview]] Interview::
 A particular time and date in which an interviewee meets an interviewer.
@@ -1007,6 +1010,9 @@ A person that is attending an interview and is required to meet at least one int
 
 [[interviewer]] Interviewer::
 A person that is conducting interviews and is required to meet multiple interviewees.
+
+[[mail-client]] Mail client::
+A software that is capable of sending emails over the Internet and is able to respond to the "mailto:" URI scheme.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
@@ -1176,3 +1182,61 @@ image::scheduleListFormat.png[]
    if the name of the interviewee does not exist in the schedule.
 
 // end::scheduleTest[]
+
+// tag::emailTest[]
+
+=== Emailing an Interviewee
+. Import .csv files of interviewers' availability and interviewees' details using the `import` command.
+.. Please refer to the QuickStart section in the <<UserGuide#, user guide>> to download the templates of the interviewers' availability and interviewees details.
+
+. Type `schedule` in the text console of the app and press Enter.
+
+.. You can use the sample test data below to get a combination of interviewees and interviewers that can be matched.
+... http://bit.ly/2Ny64Q8[Interviewers test data]
+... http://bit.ly/36KLxj4[Interviewees test data]
+
+. After an interview schedule has been successfully generated, you can try to email one of the interviewees that have been allocated a slot using the `email ct/timeslot` command. For the sample test data above, you can try `email ct/timeslot n/John Doe` to send an email to John Doe.
+
+.. Expected: Your <<mail-client,mail client>> will open with the Compose window. The `To`, `Cc`, `Subject` and message body is pre-populated with the details specific to the interviewee that you have selected.
+
+. If you do not have a mail client installed, or you are running this software in a headless machine, it is expected that no Compose windows will appear, and an error message will be returned about having a missing mail client.
+
+=== Emailing all Interviewees
+
+. Import .csv files of interviewers' availability and interviewees' details using the `import` command.
+.. Please refer to the QuickStart section in the <<UserGuide#, user guide>> to download the templates of the interviewers' availability and interviewees details.
+
+. Type `schedule` in the text console of the app and press Enter.
+
+.. You can use the sample test data below to get a combination of interviewees and interviewers that can be matched.
+... http://bit.ly/2Ny64Q8[Interviewers test data]
+... http://bit.ly/36KLxj4[Interviewees test data]
+
+. After an interview schedule has been successfully generated, email one interviewee using the `email ct/timeslot` command and choosing any interviewee that has a slot allocated.
+
+. After you emailed one of the interviewees, you can try to email the remaining interviewees using the `email ct/alltimeslot` command.
+
+.. Expected: Your mail client will open with multiple Compose windows for each of the interviewees that have been allocated a slot but have not been emailed yet. The interviewee that was emailed in step 3 will not appear again.
+
+. If you do not have a mail client installed, or you are running this software in a <<headless-machine,headless machine>>, it is expected that no Compose windows will appear, and an error message will be returned about having a missing mail client.
+
+=== Getting the status of the email sending process
+
+. Import .csv files of interviewers' availability and interviewees' details using the `import` command.
+.. Please refer to the QuickStart section in the <<UserGuide#, user guide>> to download the templates of the interviewers' availability and interviewees details.
+
+. Type `schedule` in the text console of the app and press Enter.
+
+.. You can use the sample test data below to get a combination of interviewees and interviewers that can be matched.
+... http://bit.ly/2Ny64Q8[Interviewers test data]
+... http://bit.ly/36KLxj4[Interviewees test data]
+
+. After an interview schedule has been successfully generated, you can obtain the status of the email sending process using the `email ct/status` command.
+.. Expected: A message will appear with the statistics on the number of interviewees that have been emailed before. There should be 0 interviewees in this case.
+
+. Send an email to an interviewee that has a slot allocated using the `email ct/timeslot` command.
+
+. After sending the email to the interviewee, you can obtain the status of the email sending process again using the `email ct/status` command.
+.. Expected: The same message will appear as in step 3, except that the message will reflect that there is 1 interviewee that has been sent an email.
+
+// end::emailTest[]

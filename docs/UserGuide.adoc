@@ -733,6 +733,16 @@ WARNING: The exported data will erase and replace all pre-existing data in the s
 // tag::email[]
 
 === Sending of email `email`
+
+====
+Constraints
+
+* A supported mail client should be installed on your machine. This mail client should be able to handle the `mailto:` URI scheme.
+* In the software, an email is considered to be sent if the email dialog has successfully appeared on your screen. It *does not* recognise whether or not you have actually sent the email across the Internet successfully.
+* For all command types, the `schedule` command must be run first, as an email dialog will only appear for interviewees that have slots allocated to them.
+====
+
+
 ==== Sending of interview time slot to interviewee
 Opens an email dialog containing the interviewee’s allocated interview time slot to a particular interviewee specified, including other details such as the interviewer and location.
 
@@ -741,6 +751,8 @@ Format: `email ct/timeslot n/INTERVIEWEE NAME`
 Notes:
 
 * The email dialog will only appear if the interviewee’s email is present in the database and that the interview schedule has already been generated.
+* The email dialog will appear even if the interviewee has been emailed before.
+* The email dialog will also not appear if you do not have a supported mail client installed on your computer.
 
 ==== Sending of interview time slot to all interviewees
 Opens an email dialog containing the interviewee's allocated interview time slot to every interviewee, including other details such as the interviewer and location. A summary report is then generated at the end of the command execution.
@@ -750,6 +762,8 @@ Format: `email ct/alltimeslot`
 Notes:
 
 * The email dialog will only appear if the interviewee’s email is present in the database and that the interview schedule has already been generated.
+* The email dialog will not appear if the interviewee has been emailed previously.
+* The email dialog will also not appear if you do not have a supported mail client installed on your computer.
 
 ==== Checking status of emails sent
 Provides a summary report of the number of interviewees with emails sent and the total number of interviewees stored in the database.
