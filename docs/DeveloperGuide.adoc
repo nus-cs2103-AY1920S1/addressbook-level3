@@ -514,33 +514,33 @@ image::UndoRedo/ActivityDiagramUndoRedoCommand.png[width="790"]
 
 ==== Design Considerations
 
-The following class diagram shows the entirety of the undo/redo mechanism and its associations.
-
-.Class Diagram for Undo/Redo mechanism (Note that only classes that are in the feature are included)
-image::UndoRedo/UndoRedoSystemClassDiagram.png[width="790"]
-
 There are two classes that inherit from the abstract class `State` which are `FilteredState` and `ModifiedState`.
 
 The states that are stored at each valid and undoable command depends on the type of command itself as `FilteredState` only copies over the predicate and method of sorting but not the backend `Xpire` or `ReplenishList` data. Thus, commands that do not alter items such as `SortCommand` and `CheckCommand` commands instantiate a `FilteredState`.
 
 On the other hand, `ModifiedState` is created with commands that alters the item of the data, thus new `Xpire` and `ReplenishList` objects will be stored within the state. Commands that instantiate a `ModifiedState` include `AddCommand`, `TagCommand` and `DeleteCommand`.
 
+The following class diagram shows the entirety of the undo/redo mechanism and its associations.
+
+.Class Diagram for Undo/Redo mechanism (Note that only classes that are in the feature are included)
+image::UndoRedo/UndoRedoSystemClassDiagram2.png[]
+
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves and clones the entire model.
+* **Option 1 (current choice):** Saves and clones the entire model.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage, need to have a limit for the amount of states that we can save.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
+* **Option 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `DeleteCommand`, just save the item being deleted and apply the corresponding reverse command which is and `AddCommand`).
 ** Cons: Ensure that the implementation of each individual command are correct. +
 Hard to do when applying stackable `SearchCommand` and `SortCommand` as the `predicate` and XpireMethodOfSorting needs to be updated properly.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a stack to store the different commands and states.
+* **Optional 1 (current choice):** Use a stack to store the different commands and states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update the filtered list shown to the user and the backend `Xpire`/`ReplenishList` data.
-* **Alternative 2:** Use `HistoryManager` for undo/redo that stores previous versions of Item/XpireItem
+* **Optional 2:** Use `HistoryManager` for undo/redo that stores previous versions of Item/XpireItem
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires `Item`/`XpireItem` to have a history of its edits. Violates Single Responsibility Principle and Separation of Concerns as each `Item` now needs to do two different things which is to store data and know its previous edited versions.
 // end::undoredo[]
@@ -651,31 +651,23 @@ also be made "stackable" through using the API.
 // tag::tag[]
 === Tag Feature
 
-This feature allows users to tag specific items in the list. Items can only have a maximum of 5 tags and all of the tags are parsed in Sentence-Case and must not be more than 20 characters long each.
-
-If the user simply enters `tag`, all the tags in the current list view will be collected and displayed to the user.
-
-This implementation is under `Logic` and `Model` components.
+This feature allows users to tag specific items in the list. Items can only have a maximum of 5 tags and all tags are parsed in Sentence-Case and must not be more than 20 characters long each. If the user enters `tag`, all the tags in the current list view will be collected and displayed to the user.
 
 ==== Implementation
 
-Below is an activity diagram of what happens when a user keys in a Tag Command.
+Below are diagrams of what happens when a user keys in a Tag Command in `Xpire` as current list.
 
 .Activity Diagram for executing Tag Command
 image::Tag/ActivityDiagramTagCommand.png[width="790"]
 
-
-Below is a sequence diagram of what happens when a user keys in a Tag Command in the main list view. Note that the diagram has been simplified and assumes that all arguments are valid.
-
-.Sequence Diagram for executing Tag Command
-image::Tag/SequenceDiagramTagCommand.png[width="790"]
+.Simplified Sequence Diagram for executing Tag Command that assumes valid arguments.
+image::Tag/SequenceDiagramTagCommand.png[height="790"]
 
 // end::tag[]
 
 
 // tag::search[]
 === Search
->>>>>>> 7a9c5fc271183379425342c81d2f7b0f441903f4
 
 // tag::export[]
 === Export
@@ -1568,6 +1560,29 @@ set for them previously.
 .. Test case `check` +
    Expected: Expired items and items with active reminder in the `View` (items in red or yellow). +
    Feedback shows listing of expired items and items whose reminder has been activated.
+
+=== Undo/Redo commands
+. Undo an earlier command or redo a previously done command.
+
+.. Prerequisites: No commands have been entered yet and the current view is the main list. There is at least one item in the main list that is expiring within 50 days, and one item in the replenish list.
+.. Test case: `add|Apple|12/03/2025|3` followed by `undo` and then `redo` +
+   Expected: The item with name Apple, expiry date 12/03/2025 and with quantity 3 will be added. Undo command will proceed to remove the item whilst the Redo command will proceed to add the same item back.
+
+.. Test case: `check|50` followed by `undo` and then `redo` +
+   Expected: The items with 50 days before expiry date or less will be filtered out to you. Undo command will revert the current view to show all items. Redo command will then filter out those same items again.
+
+.. Test case: `shift|1` followed by `undo` and then `redo` +
+   Expected: The item on the first index will be shifted to the ReplenishList. Undo command will shift the item back to the main list. Redo command will shift the item back to the replenish list.
+
+.. Test case: `view|replenish` followed by `shift|1|12/03/2025` followed by `undo` and lastly `redo` +
+   Expected: The view changes to the replenish list and the first item on the list gets shifted to the main list with expiry date 12/03/2025. Undo command will shift the item back to the main list. Redo command will shift the item back to the replenish list.
+
+.. Test case: `undo` +
+   Expected: Feedback stating that there are no commands to undo.
+
+.. Test case: `redo` +
+   Expected: Feedback stating that there are no commands to redo.
+
 
 === Sorting items
 
