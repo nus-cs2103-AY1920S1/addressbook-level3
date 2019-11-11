@@ -1,19 +1,13 @@
 package calofit.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import calofit.commons.util.ObservableUtil;
-import calofit.logic.commands.exceptions.CommandException;
-import calofit.model.CalorieBudget;
-import calofit.model.Model;
-import calofit.model.dish.Calorie;
-import calofit.testutil.Assert;
-import calofit.testutil.TypicalDishes;
-import calofit.testutil.TypicalMeals;
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import calofit.logic.commands.exceptions.CommandException;
+import calofit.model.Model;
+
 
 public class SuggestCommandTest {
 
