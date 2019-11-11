@@ -13,9 +13,9 @@ endif::[]
 == Introduction
 
 This document serves to highlight my contributions to the project, DeliveryMANS.
-
-intro to team, project, reqs (desktop app CLI), list main features
-This six week project was done by a group of 5 year 2 NUS School of Computing (SoC) Computer Science students as part of our Software Engineering requirements.
+DeliveryMANS is a command line interface (CLI), desktop application catered towards food delivery administrators to assist them in all their delivery needs.
+It includes features such as autocomplete, the ability to add, list and delete orders and deliverymen, as well as statistics generation for administrators to manage deliveries effectively.
+This six week project was done by a group of 5 year 2 NUS School of Computing (SoC) Computer Science students as part of our Software Engineering https://nus-cs2103-ay1920s1.github.io/website/index.html[2103T] module requirements to morph https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book 3] into a https://workplace.stackexchange.com/questions/17293/what-is-a-greenfield-project-in-it[greenfield project] with CLI constraints.
 
 Below are the symbols and formatting used in this document.
 
@@ -30,35 +30,56 @@ Tips to assist you.
 [cols="2,2"]
 |===
 |`undo`
-|Commands or user input which can be entered into the application.
+|Commands or user input which can be entered into the application for the User Guide.
 
-|`[blue]#Logic#`
-|Components, classes or objects used in the architecture of the application.
+Components, classes or objects used in the architecture of the application for the Developer Guide.
 |===
+
+<<<
 
 == Summary of contributions
 
 This section serves to summarize my contributions to the project, namely feature enhancements, code as well as other contributions.
 
-=== Feature....
-* What it does:
-* Justification:
-* Highlight:
+*Autocomplete feature - Major*
 
-=== Code contributed
-* Implementation of context switching for user targeted commands (Pull requests https://github.com/AY1920S1-CS2103T-T12-2/main/pull/1[#1] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/9[#9] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/44[#44] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/50[#50])
-* Implementation of Order Manager
+* What it does: It autocompletes the commands entered by the user.
+* Justification: This feature allows the application to be more user-friendly as the administrator would not need to refer to the User Guide or memorize input commands to navigate the application.
+This enables effective and efficient management of deliveries.
+* Highlight: This feature works with user commands with more than 1 input field (see "3.1 Adding an order" below) and is designed for the ease of integration of with future commands.
+The implementation was also challenging as it required results to be displayed even before the user input was entered using the `Enter` key.
+
+*Order Manager feature - Major*
+
+* What it does: It allows the user to add, edit, delete, assign, complete and list orders.
+* Justification: This feature allows for more effective management of deliveries as delivery administrators may be required to do last-minute edits of orders before delivery, such as when the customer cancels an order or adds more food to be delivered.
+* Highlight: The implementation was challenging as it required changes to existing commands as well as in-depth analysis of the `Logic`, `Model`, `Storage` and `Ui` components of the architecture to allow for the ease of integration with future commands and for the application to run smoothly.
+
+*Context switching feature - Minor*
+
+* What it does: It allows for user targeted commands for different contexts such as deliveryman, customer and restaurant.
+* Justification: This feature allows for a greater variety of commands for the administrator to manage different aspects of a delivery, while reducing the confusion caused due to similar command names such as `add` for both restaurant and deliveryman.
+* Highlight: The implementation allows for near instantaneous switching of contexts when entered.
+
+*Code contributed*
+
+* Implementation of context switching (Pull requests https://github.com/AY1920S1-CS2103T-T12-2/main/pull/1[#1] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/9[#9] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/44[#44] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/50[#50])
+* Implementation of Order Manager (Pull requests https://github.com/AY1920S1-CS2103T-T12-2/main/pull/49[#49] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/50[#50] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/51[#51] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/59[#59] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/180[#180] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/181[#181] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/184[#184])
 * Implementation of autocomplete feature (Pull requests https://github.com/AY1920S1-CS2103T-T12-2/main/pull/98[#98] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/111[#111] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/188[#188] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/200[#200] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/205[#205])
+* Over 3000 lines of code on https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=soilingrogue[RepoSense]
 
-==== Other contributions
+*Other contributions*
+
 * Documentation
 ** Updated User Guide with texts and images for explaining universal commands (Pull requests https://github.com/AY1920S1-CS2103T-T12-2/main/pull/81[#81] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/83[#83] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/193[#193] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/232[#232])
 ** Updated Developer Guide with UML diagrams and texts for explaining implementation of features (Pull requests https://github.com/AY1920S1-CS2103T-T12-2/main/pull/77[#77] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/85[#85] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/87[#87] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/217[#217] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/234[#234])
 * Community
-** Reported bugs and suggestions for other teams (Examples https://github.com/SoilingRogue/ped/issues/9[1], https://github.com/SoilingRogue/ped/issues/10[2], https://github.com/SoilingRogue/ped/issues/6[3])
-** Reviewed PRs with non-trivial review comments
+** Reported bugs and suggestions for other teams (Examples https://github.com/SoilingRogue/ped/issues/9[#1] https://github.com/SoilingRogue/ped/issues/10[#2] https://github.com/SoilingRogue/ped/issues/6[#3])
+** Reviewed PRs with non-trivial review comments (Pull requests https://github.com/AY1920S1-CS2103T-T12-2/main/pull/54[#54] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/74[#74])
 * Project management
 ** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
+
+<<<
 
 == Contributions to the User Guide
 
@@ -107,7 +128,7 @@ exists currently in the database.
 
 * Fill in the restaurant `r/RESTAURANT` before entering the restaurant menu item `f/FOOD` for the autocompletion feature to load the list of that restaurant's menu in a drop down box for you.
 
-image::userguide\AutoComplete1.png[width="350"]
+image::userguide\AutoComplete1.png[width="400"]
 ====
 
 ==== Editing an order: `-edit_order`
@@ -158,12 +179,14 @@ image::userguide\EditOrder3.png[width="480"]
 
 * Fill in the restaurant `r/RESTAURANT` before entering the restaurant menu item `f/FOOD` for the autocompletion feature to load the list of that restaurant's menu in a drop down box for you.
 
-image::userguide\AutoComplete2.png[width="350"]
+image::userguide\AutoComplete2.png[width="400"]
 ====
 
 *_End of extract_*
 
 My other contributions to the https://github.com/AY1920S1-CS2103T-T12-2/main/blob/master/docs/UserGuide.adoc[User Guide] include: switching contexts, assigning, completing, deleting and listing of orders.
+
+{nbsp} +
 
 == Contributions to the Developer Guide
 
@@ -191,7 +214,7 @@ Given below is an example usage scenario and how the autocomplete mechanism beha
 Step 1: You launch the application. The `[blue]#TrieManager#` initializes the respective `[blue]#Tries#` with their context-specific command words using `[blue]#Trie#insertCommand()#`.
 The `[blue]#Trie#` adds each `[blue]#Character#` of the input `[blue]#String#` and new `[blue]#Tries#` into the `[blue]#HashMap<Character, Trie>#`, as well as the command word into the `[blue]#List<String>#`, recursively as illustrated by the activity diagram below.
 
-image::AutoCompleteActivityDiagram.png[height="100"]
+image::AutoCompleteActivityDiagram.png[width="300"]
 
 Step 2: You want to add an order to the database, however are uncertain how to spell the command and type in `_order_`.
 The `[blue]#KeyListener#` passes the `[blue]#String#` in the `[blue]#CommandBox#` to the `[blue]#Trie#` via the `[blue]#LogicManager#` and `[blue]#TrieManager#`.
@@ -234,4 +257,4 @@ Alternative 1 was selected, as it allows for faster searching and listing of rel
 
 *_End of extract_*
 
-My other contributions to the https://github.com/AY1920S1-CS2103T-T12-2/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide] include: Order Manager.
+My other contributions to the https://github.com/AY1920S1-CS2103T-T12-2/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide] include: Order Manager, class and sequence diagrams.
