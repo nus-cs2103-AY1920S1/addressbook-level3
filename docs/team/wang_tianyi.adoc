@@ -28,9 +28,9 @@ This section encompasses an overview of my contribution to the TravelPal applica
 implementation and how they add value to the application in terms of functionality and user experience.
 |===
 
-=== *Major enhancements*: Implementation of the _Expense Manager_ feature
+==== *Major enhancements*: Implementation of the _Expense Manager_ feature
 
-** *What it does*: the _Expense Manager_ allows users to micromanage a list of expenses. User can choose to manually add a new
+** *What it does*: The _Expense Manager_ allows users to micromanage a list of expenses. User can choose to manually add a new
 expense to a day or include an expense when adding an event in trip itinerary. All expenses will be displayed according
 to the days, and a summary of the daily expenses and the total expenses for the trip will be displayed.
 ** *Justification*: This is one of the most useful features for pre-trip planning. A potential user may use the manager
@@ -40,13 +40,13 @@ there is a change in trip events. The expenses also need to be grouped under eac
 that the interactions between event class, day list and expenses are bug-free and efficient.
 ** *Credits*: I used the concepts and logic from the existing code of address book to implement my features.
 
-'''
 
-=== Second enhancements: Implementation of the _Currency Manager_ feature.
+
+==== Second enhancements: Implementation of the _Currency_ feature.
 
 I added a _Currency_ feature which allows users to create and select customised currency with exchange rate.
 
-** *What it does*: the _Currency_ feature allows users to add and select currencies with customised currency name, symbol and
+** *What it does*: The _Currency_ feature allows users to add and select currencies with customised currency name, symbol and
 exchange rate. When a currency is selected, all the monetary valued will be displayed in that currency.
 
 ** *Justification*: Given the limited domestic tourism size, currency conversion is very relevant to travellers in Singapore.
@@ -54,8 +54,6 @@ International travellers may want to view the expenses in local currency so that
 
 ** *Highlights*: To help users type currency symbols more efficiently, I added a list of preset currency symbols with index. This feature allows
  users to simply enter an index, which is automatically converted into currency symbols. The implementation demands effective handling of javafx.
-
-'''
 
 
 
@@ -97,8 +95,9 @@ This section displays the section of Developer Guide showing the logic, model an
 
 include::../DeveloperGuide.adoc[tag=expense_ppp]
 
-== Conclusion
+== Achievements and Learnings
 
 Development of __TravelPal__ is one of my first brown-field software engineering projects. During the process, I have gained many
-useful programming knowledge and consolidated my understanding of application design. It has been an educational and rewarding team working
+useful programming knowledge and consolidated my understanding of application design. I also learned how to work on a large code base as a team.
+It has been an educational and rewarding team working
 experience.
