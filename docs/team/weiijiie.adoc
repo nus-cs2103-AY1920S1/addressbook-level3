@@ -43,7 +43,7 @@ These contributions include code, documentation, as well as project management.
 
 * *Major Feature*: Completely implemented statistics chart feature from the ground up
 
-image::../images/live-statistics-demo.gif[]
+image::../images/PPP-chart.png[]
 
 ** Details: Feature is a fully responsive statistic display feature. Statistics based on the currently shown expenses are displayed in a statistics panel.
 Any changes to the expenses will automatically trigger an update in the displayed statistics. In addition, various types of charts with various ways to add extra configuration are bundled with the feature.
