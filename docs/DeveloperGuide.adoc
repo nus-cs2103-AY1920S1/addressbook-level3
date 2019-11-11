@@ -156,6 +156,9 @@ The `AppointmentBook`,
 * stores a `Event` object that, depending on its usage, can represent either a patient's appointment and staff duty shift.
 * stores a `UniquePersonList` which represents a list of all registered appointments or shifts.
 
+
+
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -171,6 +174,8 @@ The `Storage` component,
 * saves and read data of the Appointments and duty shifts data in json format.
 * reuses `JsonAddressBookStorage` to store the details of doctors and patients.
 * reuses `JsonAppointmentBookStorage` to store the details of staff duty shifts and patient's appointments.
+
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -196,21 +201,52 @@ This unique reference identifier consist of two parts:
 
 The undo/redo feature allows users to revert the action of a command or redo a command action that has been undone.
 
-==== Implementation
+==== Current Implementation
 
-The undo/redo mechanism is facilitated by the `CommandHistory` class, which is found in the `logic` component.
-The history class stores undoable commands as a `ReversibleActionPairCommand`,
-which pairs two `ReversibleActionCommand`, the first command being the action to be executed and its inverse. (e.g. Pairing 'add event A' and 'delete event A' command).
+We use a pairing of two commands to describe any action that can be undone.
+This pairing is encapsulated as a `ReversibleActionPairCommand`, which consists of the command to be executed and its inverse.
 
-A `Command` object can be classified as one of two types, a `ReversibleCommand` and a `NonActionableCommand`.
-A `ReversibleCommand` refers to any command which modifies the data in the system's model.
-Commands that only reads data from the model without modifying it, will not be added to the undo history stack.
+Consider that our appointment management system provides the user the ability to
+add, delete and reschedule an appointment using the commands named
+`AddApptCommand`, `CancelApptCommand`, `EditApptCommand` respectively.
+
+The implementation of the undo feature of
+the `AddApptCommand` which schedules a new appointment for a given patient,
+would be the equivalent of cancelling the newly added appointment. By invoking its inverse
+command, `CancelApptCommand`, we can mimic the undo functionality of `AddApptCommand`.
+
+Unlike implementing the undo functionality into every command that modifies the database of our system,
+we can mimic these undo functionality by pairing and executing existing commands which are available to us.
+
+
+With such an implementation, our design can conform to the Command pattern without violating the Single Responsibility Principle.
+Moreover, this implementation is less likely to face performance issues in terms of memory usage, compared to the Memento Pattern,
+which implements the undo capability by storing an instance of every previous state of the application in memory.
+
+
+The following activity diagram summarises what happens when a user executes a new command:
+
+.Commit Activity Diagram
+image::CommitActivityDiagram.png[]
+
+
+
+
+
+
+A Command can be classified as one of two types, a `ReversibleCommand` or `NonActionableCommand`.
+A `ReversibleCommand` refers to any command which modifies the data stored by the system.
 Conversely, a `NonActionableCommand` only reads data from the system's model without modifying it.
 
+The undo/redo mechanism is facilitated by the `CommandHistory` class, which is found in the `logic` component.
+The history class stores commands that can be undone as a `ReversibleActionPairCommand`,
+which describes a pairing of two `ReversibleActionCommand`, the first command being the action to be executed and its inverse.
+(e.g. Pairing 'add event A' and 'delete event A' command).
 
-Consider that the undo functionality of an 'add event' command is similar to the action of the 'delete event' command.
-The execution of the 'delete event' command could be done in place of the undo functionality of the 'add event' command.
-Hence, with such an implementation, we can avoid unnecessary duplication of code.
+
+//TODO: insert class diagram
+
+
 
 The design of `CommandHistory` uses the Command pattern, a common design pattern often used in software engineering.
 It implements the following operations:
@@ -285,10 +321,7 @@ We designed it this way because it no longer makes sense to redo the `newpatient
 
 image::UndoRedoState5.png[]
 
-The following activity diagram summarizes what happens when a user executes a new command:
 
-.Commit Activity Diagram
-image::CommitActivityDiagram.png[]
 
 
 ==== Design Considerations
@@ -303,6 +336,7 @@ image::CommitActivityDiagram.png[]
 1. Use less memory (e.g. for `delete`, just save the person being deleted).
 |*Cons*|
 1. Must ensure that the implementation of each individual command are correct.
+2. Must ensure that commands are paired
 |===
 
 * *Alternative 3:* Individual command knows how to undo/redo by itself.
@@ -350,18 +384,24 @@ image::CommitActivityDiagram.png[]
 
 // end::undoredo[]
 
-// tag::reactivesearch[]
+// end::reactivesearch[]
+// tag::reactivesearchIntro[]
 
 === Reactive Search
 
-The main concept behind reactive searching is that we would like time-consuming searching to be UI non-blocking and executed as rapidly as possible so that user is instantly provided with results for a given keyword.
+The main concept behind reactive searching is to provide feedback to the user of their search results for
+a given keyword as they type. However, filtering larger data sets may be a time consuming process.
+Hence, the queries are processed on a separate thread to avoid blocking the `UI` thread.
+
+// end::reactivesearchIntro[]
+
+This is achieved in two phases:
+
+==== Phase 1: UI invoking a Reactive Search Request
 
 Similar to eager evaluation, Reactive Search attempts to process commands if it does not mutate the storage. Otherwise it does a simple redirect to the tab relevant to the command.
 
-.Reactive Search Sequence Diagram showing how a thread is created to do the expensive processing.
 image::ReactiveSearchSequenceDiagram.png[]
-
-After the newly created thread starts, it will attempt to kill any previous thread that is still processing asynchronously before starting its own processing.
 
 After which, changes to the ObservableList will trigger the updateItem listener in UI. And since each graphical update is fast and can only be executed from the JavaFX main application thread, we defer each of them via Platform.run() so that the FX main application thread can execute them in order whenever it is free.
 
@@ -383,6 +423,21 @@ class EventListViewCell extends ListCell<Event> {
 
 Hence, this ensures the main FX application thread is always polling for user inputs or graphical updates and handles them rapidly as they are lightweight tasks.
 
+
+==== Phase 2: Multi-threading and synchronisation of Reactive Search requests
+
+// tag::reactivesearchthreading[]
+
+If the `UI` triggers another reactive search request before previous request is completed,
+the thread of the previous request is first interrupted and joined to the thread of the new request.
+Only after the previous thread has been successfully interrupted, the new request will be processed.
+This is done to ensure that the UI thread only displays the results of the latest request.
+
+.Sequence Diagram showing how the multi-threading is handled.
+image::ReactiveSearchThreadingSequenceDiagram.png[]
+
+// end::reactivesearchthreading[]
+
 // end::reactivesearch[]
 
 // tag::autocomplete[]
@@ -391,8 +446,11 @@ Hence, this ensures the main FX application thread is always polling for user in
 
 We are using Prefix Tree which is known as a Trie for AutoComplete. This gives us a worst case time complexity of O(m), where m is length of the search string. While the space complexity is O(bm), where b is number of unique characters used, m is length of longest word stored.
 
-.AutoComplete Sequence Diagram
+.AutoComplete Sequence Diagram showing the sequence upon typing the character 'a' into an empty Command Box.
 image::AutoCompleteSequenceDiagram.png[]
+
+.AutoCompleter Class Diagram
+image::AutoCompleterClassDiagram.png[]
 
 ===== Aspect: Data structure to implement AutoComplete
 
