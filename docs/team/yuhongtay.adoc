@@ -1,0 +1,51 @@
+= Tay Yu Hong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: guiltTrip()
+
+---
+==== Overview
+
+Craving for a nice bowl of Mala but can’t seem to save up enough for it? guiltTrip() is the perfect platform for those
+*aspiring to be able to afford their Mala*, finally!
+
+== Summary of contributions
+
+* *Major enhancement*: added * The ability to set reminders.*
+** What it does: allows the user to receive notifications for upcoming events (such as making a future purchase) or other user-specified events.
+** Justification: This feature improves the product significantly because users will be able to keep track and better regulate their spendings.
+** Highlights: This enhancement was highly extensive to implement. Due to their stateful nature, reminders have to appropriately and efficiently respond to the wide variety of changes made to the guilTrip() databank while minimising coupling as much as possible. A efficient and more or less self contained system was required.
+
+* *Minor enhancement*:
+** TimeUtil which periodically updates the app with the current local date.
+** Implemented Add, Edit, Delete and Search functions for Wish entry class.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=yuhongtay&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Response code]]
+
+* *Other contributions*:
+**Enhancements to existing features:
+***Replace Time with Date class (Pull requests https://github.com/AY1920S1-CS2103-T16-4/main/pull/84[#84])
+**Documentation:
+***Updated AboutUs Documentation.  (Pull requests https://github.com/AY1920S1-CS2103-T16-4/main/pull/37[#37])
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=reminders]
+
+include::../UserGuide.adoc[tag=wishlist]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=reminders]

@@ -595,6 +595,7 @@ image::AutoExpenseActivityDiagram.png[]
 
 // end::qol[]
 
+// tag::reminders[]
 === Reminders
 
 ==== Implementation
@@ -642,7 +643,7 @@ STEP 3) Once the date of the event itself has passed, the reminder is deactivate
 * **Alternative 2** Users commands require an index argument to indicate the reminder to modify.
 ** Pros: Faster as it involves one less step. May be more convenient for users who frequently forget to first select reminder to modify.
 ** Cons: Aforementioned benefits are mitigated as reminders are hidden in default GUI settings, and most users will have to open up the    reminderList to know which reminder to modify anyway.
-
+// end::reminders[]
 === Undo/ Redo
 
 ==== Implementation

@@ -39,7 +39,7 @@ Responsibilities: Testing, Data organisation
 
 === Tay Yu Hong
 image::yuhongtay.png[width="150", align="left"]
-{empty}[https://github.com/yuhongtay[github]] [<<yuhongtag#, portfolio>>]
+{empty}[https://github.com/yuhongtay[github]] [http://localhost:63342/Group%20Project/Group_Project/build/docs/html5/team/yuhongtay.html?_ijt=8knnqjm52asvlcuj89bdqjpqd9[portfolio]]
 
 Role: Developer +
 Responsibilities: Code quality, Reminders
