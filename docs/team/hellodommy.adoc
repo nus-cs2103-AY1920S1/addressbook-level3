@@ -16,22 +16,18 @@ endif::[]
 
 == Introduction
 
-This document details my contributions to the team project, Athletick.
+This project portfolio details my key contributions to the team software engineering project, Athletick.
 
-=== About the Team
+The team consists of five Year 2 Computer Science undergraduates in the National University of Singapore
+(NUS), including myself.
 
-The team consists of five Year 2 Computer Science undergraduates, including myself.
+The project was completed as part of a CS2103T Software Engineering module offered by the NUS School of Computing.
+We were given six weeks to to either _morph_ or _enhance_ an existing Java project,
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book (Level 3)].
 
-=== About the Project
-
-The project was completed as part of a CS2103T Software Engineering module offered by the National
-University of Singapore's School of Computing.
-
-We were given six weeks to to either _morph_ or _enhance_ an existing Java product,
-https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book (Level 3)]. We chose to morph the
-product into *Athletick*, a tool for coaches and captains to use to keep track of their
+We chose to morph the project into *Athletick*, a tool for coaches and captains to use to keep track of their
 team's attendance and performance. *Athletick* also features a calendar for coaches and captains to plan
-ahead, and supports the sorting, filtering, and finding of athletes their database.
+ahead, and supports the sorting, filtering, and finding of athletes in their database.
 
 Like Address Book, Athletick uses the command-line as its main method of input and a JavaFX Graphical User
 Interface for display. Some constraints of the project were that it should have a command-line input, and
@@ -39,17 +35,12 @@ it should be used by a single user only. The full list of constraints can be fou
 https://nus-cs2103-ay1920s1.github.io/website/admin/project-constraints.html[here].
 
 My role was to build the _Performance_ feature, which encompasses the adding, deleting and viewing of
-events and records. Additionally, I acted as the Team Lead, where I managed milestone requirements and
-delegated roles for the team.
+events and records.
 
 Note the following symbols and formatting used in this document.
 [horizontal]
 
-`undo`:: Black test with a grey highlight (called a mark-up) indicates that this is a command and can be
-inputted into the command-line and executed by the application.
-
-`[green]#Performance#`:: Green text with a grey highlight indicates a component, class, or object in the
-architecture of the application.
+include::../DeveloperGuide.adoc[tag=symbol]
 
 == Summary of Contributions
 
@@ -68,7 +59,8 @@ hence the ability to add records. There are also different types of recordings t
 The ability to delete records and events was also necessary, as teams may no longer participate in certain
 events, or records can be entered incorrectly.
 +
-Viewing
+The presentation of record progress over a line chart was meant to give coaches and captains a quick
+overview on their athlete's fitness status.
 
 * Highlights: This enhancement works well with future extensions to further analyse and present the records
 data as the required framework has been built.
@@ -100,13 +92,14 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sort
 *Other contributions*
 
 * Project management
+** Acted as the Team Lead and assigned GitHub issues to team members
 ** Managed the deliverables for all 4 milestones -
 https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/1[v1.1],
 https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/2[v1.2],
 https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/3[v1.3],
 https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/4[v1.4]
 ** Released https://github.com/AY1920S1-CS2103T-T12-3/main/releases/tag/v1.3.3[v1.3.3]
-of the product
+of the product, prior to the final v1.4 release
 * Enhancement to existing feature
 ** Extended the existing _find by name_ feature to allow users to _find by tags_ (Pull requests
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/64[#64],
@@ -154,8 +147,6 @@ They showcase my ability to write documentation targeting end-users._
 _[Start of extract from User Guide]_
 
 include::../UserGuide.adoc[tag=performance]
-
-include::../UserGuide.adoc[tag=filter]
 
 _[End of extract from User Guide]_
 
