@@ -1,0 +1,18 @@
+{
+  "expenses": [ {
+    "name": "Valid Expense",
+    "amount": "$23.50",
+    "currency" : {
+      "name" : "SGD",
+      "rate" : 1.0
+    },
+    "date": "13/10/2019",
+    "tag": "education"
+  }, {
+    "name": "Expense with Invalid amount",
+    "amount": "$94asd44",
+    "currency": "SGD",
+    "date": "12/12/2019",
+    "tag": "education"
+  } ]
+}

@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= MYMorise - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,30 +12,49 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T14-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+*MYMorise -- Manage Your Money(MYM)* is a desktop application for those who *prefer tracking personal expenses on their
+computers*. With MYMorise, you can easily see your daily expenses as well as a summary, along with other useful
+functionalities. More importantly, MYMorise is *optimized for those who prefer to work with Command Line Interface (CLI)* while still having the benefits of a *Graphical User Interface
+(GUI)*. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+****
+*Things to note in MYMorise:*
+
+* Expense - refers to the cost incurred in or required for something which the user would like to record
+* Budget - refers to an estimate of income and expenditure for a set period of time.
+* Default expense list - refers to all expenses that do not fall into any budgets in MYMorise.
+* The amounts used in MYMorise can only work for numbers up to 2 decimal places.
+* MYMorise's GUI consists of 3 display panels:
+
+    The left panel - displays all expenses recorded in MYMorise. User commands do not reference from this panel and should not be made based on this panel. Commands made should reference from the centre panel. The purpose of this panel is solely for displaying all expenses recorded only.
+
+    The centre panel - displays the current view requested by user. All commands made are in relative to the content displayed in this panel. That is, if a user enters the command `listBudgets` or `view 1`, this panel will reflect the content requested. Subsequent commands such as `editExpense` and `editBudget` will reference from this panel. On start up, the centre panel displays the default expense list.
+
+    The right panel - displays the visual graphics of the content shown in the centre panel only.
+****
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Download the latest `MYMorise.jar`.
+.  Copy the jar file to the folder you want to use as the home folder for MYMorise.
+.  Run `java -jar path_to_folder/MYMorise.jar` in your CLI. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::UIUG.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`listDefaultExpenses`* : lists all expenses that do not fall into any budget.
+* **`expense`**`n/Textbook a/23.50 t/education` : adds an expense named `Textbook` to the expense list with the tag
+`education`.
+* **`delete`**`3` : deletes the 3rd item shown in the centre list panel.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,132 +65,302 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Bread t/Food` or as `n/Bread`.
 ====
 
 === Viewing help : `help`
-
+Displays all CLI commands available. +
 Format: `help`
 
-=== Adding a person: `add`
+=== Listing all expenses in the default expense list : `listDefaultExpenses`
+Shows a list of all expenses that do not fall into any budgets in MYMorise. +
+Format: `listDefaultExpenses`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+=== Listing all budgets in the budget list : `listBudgets`
+Shows a list of all budgets. +
+Format: `listBudgets`
+
+An example is provided to show how the listBudgets command will result after the call.
+
+image::ListBudgetUI.png[]
+
+=== Adding an expense: `expense`
+Adds an expense to track.* +
+Format: `expense n/NAME a/AMOUNT [c/CURRENCY] [d/DATE] [t/TAG]…​`
 
 [TIP]
-A person can have any number of tags (including 0)
+An expense with no currency specified will have the default currency set (SGD).
+[TIP]
+An expense with no date specified will default to current date and time of addition.
+[TIP]
+User may input time in the format "HHMM" in the [d/DATE] portion to specify current date with specified time
+[TIP]
+If user wants to add an expense onto the last day of a month, just specify the day to be 31 and it will automatically be added onto the last day of the month. +
+E.g., if user wants to add an expense to the last day of April but is unsure of which day is the last day, just specify date to be 31/4/2019 and it will be added to 30th April 2019 (last day of April). +
+This tip works on budget dates too!
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `expense n/Coffee a/1.80 t/food`
+* `expense n/Textbook a/23.50 t/education`
 
-=== Listing all persons : `list`
+*An added expense may automatically fall into a budget if the date of expense
+falls into a budget period. Otherwise it will fall into the default expense list.
 
-Shows a list of all persons in the address book. +
-Format: `list`
+An example is provided to show how the expense command will result after the call.
 
-=== Editing a person : `edit`
+image::AddExpenseUI.png[]
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+=== Adding a budget : `budget`
+Specifies a budget for a period beginning from the specified start date to an end date. +
+Format: `budget n/NAME a/AMOUNT [c/CURRENCY] d/STARTDATE ed/ENDDATE`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Sets a budget for a period beginning from STARTDATE (dd/MM/yyyy) to ENDDATE (dd/MM/yyyy) (inclusive). All expenses made during
+that period after the budget is set, will be included into the budget and the budget will deduct the expense
+to indicate how much funds are left available to spend.
+* Only expenses made that fall into the budget period after the budget is set will
+be included into the budget. Expenses created before the budget is set but falls into the budget period
+will not be included into the budget. They will remain in the default expense list.
+* Budgets may not have overlapping dates. +
+Example: There is an existing budget with
+start date 12/1/2019 and end date 18/1/2019, then new budgets to be added cannot have start date and/or
+end dates from 12/1/2019 to 18/1/2019 (inclusive)
+****
+[TIP]
+A budget with no currency specified will have the default currency set.
+[TIP]
+User may input time in the format "HHMM" in the [d/DATE] portion to specify current date with specified time
+
+Examples:
+
+* `budget n/Japan Travel a/4000 c/USD d/9/10/2019 ed/19/10/2019` +
+Sets a budget of SGD4000 for the period from Wed, 9th Oct 2019 to Sat, 19th Oct 2019.
+* `budget n/January 2019 Budget a/800 c/SGD d/1/1/2019 ed/31/1/2019` +
+Sets a budget of SGD800 for the period from Tue, 1st Jan 2019 to Thu, 31st Jan 2019.
+
+An example is provided to show how the budget command will result after the call.
+
+image::AddBudgetUI.png[]
+
+=== Viewing a budget : `view`
+Views an existing budget in the budget list. +
+Format: `view INDEX`
+
+****
+* Views the expenses stored in the budget, and shows the percentage amount of money left in the budget.
+****
+
+An example is provided to show how the View command will result after the call.
+
+image::ViewBudgetUI.png[]
+
+=== Editing an expense : `editExpense`
+Edits an existing expense in the expense list. +
+Format: `editExpense INDEX [n/NAME] [a/AMOUNT] [c/CURRENCY] [t/TAG]…`
+
+****
+* Edits the expense at the specified `INDEX`. The index refers to the index number shown in the displayed expense
+list. The index *must be a positive integer* 1, 2, 3, …​ The index is relative to what is displayed on the GUI rather
+than the actual index of the expense in the expense list.
+* The user has to be viewing an expense list to edit an expense.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the expense will be removed i.e adding of tags is not cumulative.
+* You can remove all the expense’s tags by typing `t/`  without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `editExpense 1 a/20.10` +
+Edits the amount of the first expense to be `20.10`.
+* `editExpense 2 n/Poets Coffee t/` +
+Replaces the name of the second expense to `Poets Coffee` and clears the existing tag.
 
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+=== Editing a budget : `editBudget`
+Edits an existing budget in the budget list. +
+Format: `editBudget INDEX [n/NAME] [a/AMOUNT] [c/CURRENCY]…`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Edits the budget at the specified `INDEX`. The index refers to the index number shown in the displayed budget list.
+The index *must be a positive integer* 1, 2, 3, …​ The index is relative to what is displayed on the GUI rather than
+the actual index of the budget in MYMorise.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `editBudget 1 n/Japan Travel a/4000` +
+Edits the name and the amount of the first budget to `Japan Travel` and `4000` respectively.
+* `editBudget 2 c/USD` +
+Edits the currency of the second budget to `USD` only. Other fields remain unchanged.
 
 // tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
+=== Deleting an item : `delete`
+Deletes the item at the specified index.* +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the item at the specified INDEX.
+* The index refers to the index number shown in the displayed list.
+* The index *must be a positive integer* 1, 2, 3, …​
+ The index is relative to what is displayed on the GUI rather than the actual index of the stored items.
+****
+
+*The item to be deleted depends on the current view state. If the user is currently viewing
+a list of expenses, then delete will delete the expense specified by index. If the user
+is currently viewing a list of budgets, then delete will delete the budget specified by index.
+
+Examples:
+
+*While viewing list of expenses*
+
+* `listDefaultExpenses` +
+`delete 2` +
+Deletes the second expense in the default expense list in MYMorise.
+
+* `find n/Coffee` +
+`delete 1` +
+Deletes the first expense in the results of the find command.
+
+*While viewing list of budgets*
+
+* `listBudgets` +
+`delete 2`
+Deletes the second budget in the budget list in MYMorise.
+
+An example is provided to show how the Delete command will result after the call when user is viewing the default expense list.
+
+Before calling Delete:
+
+image::BeforeDeleteUI.png[]
+
+After calling Delete:
+
+image::AfterDeleteUI.png[]
+
+// end::delete[]
+
+=== Automatic currency conversion for foreign currencies
+MYMorise is able to automatically display foreign currencies in the default currency set by the user. By default this is set
+to Singapore Dollars (SGD). The conversions are done in the following scenarios:
+
+* When an expenses specifies a currency that is not the default currency
+* When an expense specifies a currency that is different from that budget it is associated to.
+
+This automatic conversion allows for the computation of budgets and expenses regardless of their underlying currencies to provide
+a cleaner experience when viewing budgets and expenses with multiple differing currencies.
+
+The latest Foreign Exchange data for a limited set of supported currencies are updated whenever the application is launched. The list of supported currencies are as follows:
+
+[width="80%",cols="10%,10%,10%,10%,10%,10%,10%,10%,10%,10%,10%",options="header",]
+|=======================================================================
+| CAD | HKD | ISK | PHP | DKK | HUF | CZK | GBP | RON | SEK | IDR
+| INR | BRL | RUB | HRK | JPY | THB | CHF | EUR | MYR | BGN | TRY
+| CNY | NOK | NZD | ZAR | USD | MXN | SGD | AUD | ILS | KRW | PLN
+|=======================================================================
+
+=== Clearing a list : `clear`
+Deletes all items in the current list.* +
+Format: `clear`
+
+Using `clear` while viewing an expense list will delete all expenses in that list. +
+Using `clear` while viewing the budget list will delete all budgets in the list.
+
+An example is provided to show how the Clear command will result after the call when user is viewing a specific budget.
+
+Before calling Clear:
+
+image::BeforeClearUI.png[]
+
+After calling Clear:
+
+image::AfterClearUI.png[]
+
+=== Autocomplete
+Equip with IDE-like autocomplete function for faster input and
+enables users to quickly fill in command arguments with
+autocomplete suggestions.
+
+Suggestions include commonly used words in MYMorise and users may customize the suggestion list by changing the
+`vocabulary.txt`
+
+When the user types, if there are suggestions for a certain input, user can press kbd:[tab] to autofill the first
+suggestion or press kbd:[DOWN] and kbd:[UP] to navigate between suggestions and then press kbd:[tab] or kbd:[enter]
+to autofill the selected item. User may also just kbd:[click] on an item to autofill.
+
+=== Retrieve the history of the commands executed: `history`
+Returns the list of history commands executed.
+[TIP]
+Press kbd:[F3] to navigate to previous input; Press kbd:[F4] to navigate to next input;
+[NOTE]
+Use keyboard to navigate through the history will only take effect when the focus is in `TextField`.
+[NOTE]
+kbd:[UP] and kbd:[DOWN] cannot be used here to navigate through the history since they are used to navigate through
+the autocomplete suggestions.
+
+=== Exiting the program : `exit`
+Exits the program. +
+Format: `exit`
+
+// tag::saving[]
+=== Saving data
+Expense and Budget data are saved in the hard disk automatically after any command that changes the data.
+There is no need to save manually.
+// end::saving[]
+
+=== Locating expenses by name: `find` `[coming in v2.0]`
+Finds all expenses by name, date, tag. +
+Format: `find [n/NAME] [d/DATE] [t/TAG]`
+
+****
+* Search by name and tag is case insensitive. e.g hans will match Hans
+* Search by date must use the date format `dd/MM/yyyy`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the fields provided are searched.
+* Only whole words will be matched e.g. `Han` will not match `Hans`
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `find n/Coffee` +
+Returns `coffee` and `Starbucks Coffee`.
+* `find n/Cheesecake` +
+Returns any expense having names `Cheesecake`, eg: `Strawberry Cheesecake`, `Blueberry Cheesecake`.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+=== Set a Recurring Expense `[coming in v2.0]`
+_{Sets a recurring expense for a specific duration and frequency.}_
 
-Clears all entries from the address book. +
-Format: `clear`
+=== Undo/Redo commands `[coming in v2.0]`
+_{Allows user to undo and redo commands.}_
 
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-== FAQ
+=== FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Run the app in the other computer and overwrite the empty data file it creates with the file that contains the data from your MYMorise/data folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
+* *Help* : `help`
+* *List Default Expenses* : `listDefaultExpenses`
+* *List Budgets* : `listBudgets`
+* *Add Expense* : `expense n/NAME a/AMOUNT [c/CURRENCY] [d/DATE] [t/TAG]…` +
+e.g. `expense n/Coffee a/2.00 c/SGD t/nourishment t/school`
+* *Add Budget* : `budget n/NAME a/AMOUNT [c/CURRENCY] d/STARTDATE ed/ENDDATE`
+e.g. `budget n/Japan Travel a/4000 c/USD d/9/10/19 ed/19/10/19`
+* *View Budget* : `view INDEX`
+* *Edit Expense* : `editExpense INDEX [n/NAME] [a/AMOUNT] [c/CURRENCY] [t/TAG]…​` +
+e.g. `editExpense 2 n/Starbucks Coffee t/nourishment`
+* *Edit Budget* : `editBudget INDEX [n/NAME] [a/AMOUNT] [c/CURRENCY]` +
+e.g. `editBudget 3 n/Korea Travel c/KRW`
+* *Find* : `find [n/NAME] [d/DATE] [t/TAG]` +
+e.g. `find n/Coffee d/13/12/2019 t/nourishment` +
+e.g. `find t/nourishment`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Clear* : `clear`
+* *History*: `history`
+* *Exit* : `exit`
+

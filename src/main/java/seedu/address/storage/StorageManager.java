@@ -7,23 +7,30 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyBudgetList;
+import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.exchangedata.ExchangeData;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of ExpenseList data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private ExpenseListStorage expenseListStorage;
+    private ExchangeDataStorage exchangeDataStorage;
+    private BudgetListStorage budgetListStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(ExpenseListStorage expenseListStorage, BudgetListStorage budgetListStorage,
+                          ExchangeDataStorage exchangeDataStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.expenseListStorage = expenseListStorage;
+        this.exchangeDataStorage = exchangeDataStorage;
+        this.budgetListStorage = budgetListStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -45,33 +52,78 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ ExpenseList methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getExpenseListFilePath() {
+        return expenseListStorage.getExpenseListFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Path getExchangeDataFilePath() {
+        return exchangeDataStorage.getExchangeDataFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ExchangeData> readExchangeData() throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: ");
+        return exchangeDataStorage.readExchangeData();
+    }
+
+    @Override
+    public Optional<ExchangeData> readExchangeData(Path filePath) throws DataConversionException, IOException {
+        return exchangeDataStorage.readExchangeData(filePath);
+    }
+
+    @Override
+    public Optional<ReadOnlyExpenseList> readExpenseList(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return expenseListStorage.readExpenseList(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyExpenseList> readExpenseList() throws DataConversionException, IOException {
+        return readExpenseList(expenseListStorage.getExpenseListFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveExpenseList(ReadOnlyExpenseList expenseList) throws IOException {
+        saveExpenseList(expenseList, expenseListStorage.getExpenseListFilePath());
+    }
+
+    @Override
+    public void saveExpenseList(ReadOnlyExpenseList expenseList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        expenseListStorage.saveExpenseList(expenseList, filePath);
+    }
+
+    // ================ BudgetList methods ==============================
+
+    @Override
+    public Path getBudgetListFilePath() {
+        return budgetListStorage.getBudgetListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyBudgetList> readBudgetList() throws DataConversionException, IOException {
+        return readBudgetList(budgetListStorage.getBudgetListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyBudgetList> readBudgetList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return budgetListStorage.readBudgetList(filePath);
+    }
+
+    @Override
+    public void saveBudgetList(ReadOnlyBudgetList budgetList) throws IOException {
+        saveBudgetList(budgetList, budgetListStorage.getBudgetListFilePath());
+    }
+
+    @Override
+    public void saveBudgetList(ReadOnlyBudgetList budgetList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        budgetListStorage.saveBudgetList(budgetList, filePath);
     }
 
 }

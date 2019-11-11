@@ -1,19 +1,24 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENCY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.commons.Amount;
+import seedu.address.model.commons.Currency;
+import seedu.address.model.commons.Date;
+import seedu.address.model.commons.Name;
+import seedu.address.model.commons.Tag;
+import seedu.address.model.exchangedata.ExchangeDataSingleton;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -25,6 +30,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -51,48 +57,89 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String amount} into a {@code Amount}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code amount} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static Amount parseAmount(String amount) throws ParseException {
+        requireNonNull(amount);
+        String trimmedAmount = amount.trim();
+        if (!Amount.isValidAmount(trimmedAmount)) {
+            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
-        return new Phone(trimmedPhone);
+        return new Amount(trimmedAmount);
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String currency} into a {@code Currency}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code currency} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+    public static Currency parseCurrency(String currency) throws ParseException {
+        requireNonNull(currency);
+        String trimmedCurrency = currency.trim().toUpperCase();
+        if (!Currency.isValidCurrency(trimmedCurrency)
+            || !ExchangeDataSingleton.getInstance().isValidCurrency(trimmedCurrency)) {
+            throw new ParseException(Currency.MESSAGE_CONSTRAINTS);
         }
-        return new Address(trimmedAddress);
+        return new Currency(trimmedCurrency, ExchangeDataSingleton.getInstance().getRates().getRate(trimmedCurrency));
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code ArgumentMultiMap argMultiMap} into an {@code Currency}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code currency} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+    public static Currency parseCurrency(ArgumentMultimap argMultimap) throws ParseException {
+        Optional<String> currencyField = argMultimap.getValue(PREFIX_CURRENCY);
+        String currency;
+        if (!currencyField.isPresent()) {
+            currency = "SGD";
+        } else {
+            currency = currencyField.get();
         }
-        return new Email(trimmedEmail);
+        return parseCurrency(currency);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        try {
+            if (!Date.isValidDate(trimmedDate)) {
+                throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+            }
+        } catch (DateTimeParseException e) {
+            throw new ParseException("Input date contains " + e.getCause().getMessage());
+        }
+        return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code ArgumentMultiMap argMultiMap} into an {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Date parseDate(ArgumentMultimap argMultimap) throws ParseException {
+        Optional<String> dateField = argMultimap.getValue(PREFIX_DATE);
+        String date;
+        if (!dateField.isPresent()) {
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy Hmm");
+            date = currentDateTime.format(formatter);
+        } else {
+            date = dateField.get();
+        }
+        return parseDate(date);
     }
 
     /**
@@ -111,14 +158,19 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses a {@code ArgumentMultiMap argMultiMap} into an {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static Tag parseTag(ArgumentMultimap argMultimap) throws ParseException {
+        Optional<String> tagField = argMultimap.getValue(PREFIX_TAG);
+        String tag;
+        if (!tagField.isPresent()) {
+            tag = "";
+        } else {
+            tag = tagField.get();
         }
-        return tagSet;
+        return parseTag(tag);
     }
 }

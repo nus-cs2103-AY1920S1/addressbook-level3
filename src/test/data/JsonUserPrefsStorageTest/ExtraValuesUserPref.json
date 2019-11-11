@@ -9,5 +9,6 @@
       "z" : 99
     }
   },
-  "addressBookFilePath" : "addressbook.json"
+  "expenseListFilePath" : "expenselist.json",
+  "budgetListFilePath" : "budgetlist.json"
 }

@@ -1,0 +1,67 @@
+{
+  "_comment": "ExpenseList save file which contains the same Expense values as in TypicalExpenses#getTypicalExpenseList()",
+  "expenses" : [ {
+    "name" : "Bus",
+    "amount": "3.20",
+    "currency" : {
+      "name" : "SGD",
+      "rate" : 1.0
+    },
+    "date": "13/10/2019",
+    "tag" : "school"
+  }, {
+    "name" : "Lunch",
+    "amount": "4.50",
+    "currency" : {
+      "name" : "SGD",
+      "rate" : 1.0
+    },
+    "date": "14/12/2019",
+    "tag" : "school"
+  }, {
+    "name" : "Adidas shoe",
+    "amount": "120.00",
+    "currency" : {
+      "name" : "SGD",
+      "rate" : 1.0
+    },
+    "date": "24/12/2019",
+    "tag" : ""
+  }, {
+    "name" : "Groceries",
+    "amount": "17.80",
+    "currency" : {
+      "name" : "SGD",
+      "rate" : 1.0
+    },
+    "date": "1/2/2019",
+    "tag" : "groceries"
+  }, {
+    "name" : "Chocolates",
+    "amount": "12.30",
+    "currency" : {
+      "name" : "SGD",
+      "rate" : 1.0
+    },
+    "date": "13/2/2019",
+    "tag" : ""
+  }, {
+    "name" : "Socks",
+    "amount": "5.00",
+    "currency" : {
+      "name" : "SGD",
+      "rate" : 1.0
+    },
+    "date": "24/12/2019",
+    "tag" : ""
+  }, {
+    "name" : "Cheese",
+    "amount": "10.00",
+    "currency" : {
+      "name" : "SGD",
+      "rate" : 1.0
+    },
+    "date": "31/12/2019",
+    "tag" : ""
+  } ]
+}

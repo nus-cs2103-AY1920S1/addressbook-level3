@@ -3,8 +3,8 @@
 
 Participant ":LogicManager" as logic LOGIC_COLOR
 Participant ":AddressBookParser" as abp LOGIC_COLOR
-Participant ":EditCommandParser" as ecp LOGIC_COLOR
-Participant "command:EditCommand" as ec LOGIC_COLOR
+Participant ":EditExpenseCommandParser" as ecp LOGIC_COLOR
+Participant "command:EditExpenseCommand" as ec LOGIC_COLOR
 
 [-> logic : execute
 activate logic

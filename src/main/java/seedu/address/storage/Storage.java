@@ -5,14 +5,16 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyBudgetList;
+import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.exchangedata.ExchangeData;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends ExpenseListStorage, BudgetListStorage, ExchangeDataStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -21,12 +23,22 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getExpenseListFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyExpenseList> readExpenseList() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    Optional<ExchangeData> readExchangeData() throws DataConversionException, IOException;
 
+    void saveExpenseList(ReadOnlyExpenseList expenseList) throws IOException;
+
+    @Override
+    Path getBudgetListFilePath();
+
+    @Override
+    Optional<ReadOnlyBudgetList> readBudgetList() throws DataConversionException, IOException;
+
+    @Override
+    void saveBudgetList(ReadOnlyBudgetList budgetList) throws IOException;
 }

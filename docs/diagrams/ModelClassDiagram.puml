@@ -5,52 +5,87 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyExpenseList <<Interface>>
+Interface ReadOnlyBudgetList <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class ExpenseList
+Class BudgetList
+Class ExchangeData
+Class ReadOnlyExpenseList
+Class ReadOnlyBudgetList
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Person {
-Class Person
-Class Address
-Class Email
+Package Commons {
 Class Name
-Class Phone
-Class UniquePersonList
-}
-
-Package Tag {
+Class Amount
+Class Currency
+Class Date
 Class Tag
 }
+
+Package Expense {
+Class Expense
+Class UniqueExpenseList
 }
 
-Class HiddenOutside #FFFFFF
-HiddenOutside ..> Model
+Package Budget {
+Class Budget
+Class UniqueBudgetList
+}
 
-AddressBook .up.|> ReadOnlyAddressBook
+Package ExchangeData {
+Class ExchangeData
+Class ExchangeDataSingleton
+Class Rates
+}
 
-ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
+Package AutoComplete {
+Class AutoCompleteModel
+Class Word
+}
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Budget *-down-> "1" Name
+Budget *-down-> "2" Amount
+Budget *-down-> "1" Currency
+Budget *-down-> "2" Date
+Budget *-down-> "1" ExpenseList
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+ExchangeDataSingleton o-left->"1" ExchangeData
+ExchangeData o-down-> "1" Rates
 
-ModelManager -->"1" Person : filtered list
+AutoCompleteModel o-right->"*" Word
+
+ExpenseList .left.|> ReadOnlyExpenseList
+ExpenseList *--> "1" UniqueExpenseList
+
+
+BudgetList .left.|> ReadOnlyBudgetList
+BudgetList *-right-> "1" UniqueBudgetList
+
+UniqueBudgetList o-right-> "*" Budget
+
+ModelManager o-down-> "1" BudgetList
+ModelManager o-down-> "1" ExpenseList
+ModelManager .left.|> Model
+ModelManager o-right-> "1" UserPrefs
+ModelManager o-down-> "1" ExchangeData
+
+
+Model .left.> ObservableList
+
+UserPrefs .right.|> ReadOnlyUserPrefs
+
+UniqueExpenseList o-right-> "*" Expense
+Expense *-up-> "1 " Name
+Expense *-up-> "1   " Amount
+Expense *-up-> "1 " Currency
+Expense *-up-> "1   " Date
+Expense *-up-> "1 " Tag
+
+ModelManager -down->"1" Expense : filtered list
+ModelManager -down->"1" Budget : filtered list
 @enduml

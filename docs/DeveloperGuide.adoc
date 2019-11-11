@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= MYMorise - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,10 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T14-4/main/blob/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+
+By: `Team T14-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -56,7 +57,7 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
@@ -79,7 +80,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ExpenseListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -98,9 +99,9 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `MymParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding an expense).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -122,14 +123,10 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+* stores a `BudgetList` object that represents the user's budgets.
+* stores an `ExpenseList` object that represents the user's untagged expenses.
+* stores an `ExchangeData` object that represents the foreign exchange rates for conversion of currencies.
+* exposes an unmodifiable `ObservableList<Expense>` and an unmodifiable `ObservableList<Budget>` that can be 'observed' e.g. the UI can be bound to either list so that the UI automatically updates when the data in the list change.
 
 [[Design-Storage]]
 === Storage component
@@ -142,7 +139,9 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save `Budget` objects in json format and read it back.
+* can save `Expense` objects in json format and read it back.
+* can read `Exchange` objects in json format.
 
 [[Design-Commons]]
 === Common classes
@@ -153,94 +152,196 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Budget Feature
+==== Overview
+The Budget feature allows users to track their expenses in relation to the budget set. Expenses created by the user after a budget is set and falls into a budget period will
+automatically be added into that budget.
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The feature allows the user to view a list of all the budgets created in the app. From the list of budgets, users may view any specific budget
+showing all the expenses allocated into the budget, along with the amount left in the budget.
+Users may add, delete, edit a budget as well as the expenses inside the budget.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+==== Implementation
+The `BudgetList` stores all the budgets created in the App. To facilitate the adding, deleting and editing of budgets, the BudgetList provides a
+few operations such as: +
+`BudgetList#addBudget(budget)` - Add a new budget into the list of budgets in the budget list. +
+`BudgetList#setBudget(budget, editedBudget)` - Edit a current existing budget to a different budget +
+`BudgetList#removeBudget(budget)` - Remove a specified budget
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Given below is an activity diagram to show how a budget is added.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+image::AddBudgetActivityDiagram.png[]
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Given below is an activity diagram to show how an expense is added after the implementation of budget.
 
-image::UndoRedoState0.png[]
+image::AddExpenseActivityDiagram.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Given below is a class diagram of a Budget.
 
-image::UndoRedoState1.png[]
+image::BudgetClassDiagram.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Notice that the budget consists of 2 Amounts and 2 Dates. +
+The 2 Amounts refer to the Budget Amount set by the user and the Budget Amount
+currently left after deducting all expenses in the budget. +
+The 2 Dates refer to the Start Date of the Budget and the End Date of the budget. All expenses added after the budget is created,
+and fall within this 2 dates, will be automatically added into the budget.
 
-image::UndoRedoState2.png[]
+Given below is an example of a object diagram of a newly created Budget.
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+image::BudgetObjectDiagram.png[]
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+The Budget consists of an ExpenseList which holds all expenses added into the Budget.
 
-image::UndoRedoState3.png[]
+==== Design Consideration
+There were 2 main design choices we had to choose from for the implementation of the Budget Feature. +
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+*Aspect: A single source of truth* +
+The model consists of an expense list and a budget list.
 
-The following sequence diagram shows how the undo operation works:
+- *Alternative 1:* Have a master expense list to store all expenses created and a budget list that consist of an internal
+expense list that stores copies of the expenses from master expense list that fall into the budget. In this option, commands that affect expenses, will require
+an update in the master expense list and the expense lists inside budgets affected. +
+    * Pros: Easy to implement, easy to keep track of a overall expenses.
+    * Cons: Multiple objects of the same expense. An update to an expense in the overall expense list will require a same update
+            to the same expense located in the budget. May result in bugs when commands affect expenses.
 
-image::UndoSequenceDiagram.png[]
+- *Alternative 2:* Have a default expense list that stores only expenses that do not fall into a budget, and a budget list that consist
+of an internal expense list that stores the expenses that fall into a budget when the expense is added or edited. In this option, there is only
+1 copy of any expense created by the user. Any edit or delete of an expense affects directly to the original expense object.
+    * Pros: Achieve a single source of truth. Does not introduce possible bugs that may be present if there were multiple copies of the same expense.
+    * Cons: More complex to implement. In order to view all expenses in the app, the program will have to loop through the default expense list
+            and the expense lists of every single budget.
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+*Alternative 2* was chosen. Reason is because a single source of truth would eliminate duplicate entries of the same data. This would
+also reduce the possibility of bugs that may come with duplicate entries.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+=== AutoComplete Feature
+==== Implementation
+Autocomplete is facilitated by several parts.
+The logic part is implemented through `java.seedu.address.logic.search` package which contains `AutoComplete` and
+`BinarySearch`.
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+The model is constructed through `java.seedu.address.model.autocomplete` which contains `AutoCompleteModel` and `Word`.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+The Ui part is implemented through `java.seedu.address.ui.QueryCard` on top of `CommandBox`.
 
-image::UndoRedoState4.png[]
+Given below is an example usage scenario and how the autocomplete mechanism behaves at each step. (p.s. details are
+omitted)
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 1. The user launches MYMorise and the user will be prompted to enter a command as shown in the command box.
 
-image::UndoRedoState5.png[]
+Step 2. User enter `a` and the listener is triggered. Then `AutoComplete#initAc()` and
+`AutoComplete#getSuggestions()` is invoked.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+Step 3. `initAc()` calls `AutoComplete#readWordsFromFile()` which reads the vocabulary from our local dictionary to get
+the database and then construct an `AutocompleteModel` with the vocabulary read.
 
-image::CommitActivityDiagram.png[]
+Step 4. `getSuggestions(input)` calls `AutocompleteModel#allMatches()` which utilises the improved version of binary
+search algorithm `BinarySearch`. The algorithm will return the first and last index of potential matched results.
+Since the result is based on a pre-order for sorting, all the words inside this range will be the qualified ones.
+
+Step 5. The listview of `QueryCard` will be updated based on the words and weights given and attached to the
+`TextField`.
+
+The following sequence diagram shows how autocomplete operation works:
+
+image::AutocompleteSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user enter something new.
+
+image::AutocompleteActivityDiagram.png[]
 
 ==== Design Considerations
+===== Aspect: How Autocomplete works
+In terms of the retrieving suggestion list, an enhanced binary search algorithm is used. Since a word (which
+represents a autocomplete term) has a name and weight, the default "vocabulary" will be first sort based on weight
+and for same weight, sort alphanumerically.
 
-===== Aspect: How undo & redo executes
+In terms of replacing the target term to the `TextField`, 2 approaches are proposed
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Approach 1 (current choice)**: 2 listeners were added. 1) 1st listener for `TextFormatter`, this is especially
+utilised
+to retrieving the updated cursor position, which is where it outperforms. 2) 2nd listener for
+`TextInputControl`
+to detect the text change of `TextField`. Then combined with previously returned caret position, we can replace the
+corresponding position with target term (the one user selected)
 
-===== Aspect: Data structure to support the undo/redo commands
+* **Approach 2**. 1 listener for `caretProperty` is added to detect the change of position of caret (i.e., cursor).
+This approach is simpler with regard to logic but more complicated during implementation. Since caret position change
+does not necessarily mean textField change, therefore extra check would be required, also resulting in
+potential inaccuracy.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+In terms of user interaction, different listeners are added for different valid actions (e.g. press TAB, ENTER and
+navigate using UP and DOWN) to make user benefit by typing faster.
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== History Feature
+==== Implementation
+History is mainly facilitated by `CommandHistory` with `HistoryPointer`. When the app starts, a `CommandHistory`
+instance is created and any command executed (no matter valid or not) will be saved to a list of history commands.
+And when the user calls the `history`, the overall history list will display on the `resultDisplayPanel`. And when
+user press *F3* and *F4* to navigate through the history list, the `HistoryPointer` will point to corresponding
+history.
 
-_{Explain here how the data encryption feature will be implemented}_
+Similar to Section 3.1, the history displayed on `textField` is facilitated by `KeyEventListener`. When the keyinput
+event of *F3* or *F4* is triggered, it will navigate to previous input and next input correspondingly.
 
-// end::dataencryption[]
+The following class diagram illustrates the interaction between `historyCommand` and other parts:
+
+image::HistoryClassDiagram.png[]
+
+The following sequence diagram illustrates the flow of how history commands works:
+
+image::HistorySequenceDiagram.png[]
+
+=== Currency Conversion
+==== Implementation
+The Currency conversion is achieved by having a default base currency that all expenses and budgets use if one is not specified. The expenses that are stored
+with a different currency can be converted from the base currency and back. Every time a currency is specified, the present day exchange rate is stored with the expense. This
+is to ensure that the expense value is timeless.
+
+This was implemented in the `java.seedu.address.model.exchangedata` package, which contains `ExchangeDataSingleton`, `ExchangeData`, and `Rates`. These classes facilitate retrieval of exchange rates that will be requested from various parts of the app, namely `Expense` and `Budget`.
+
+*Step 1*
+The foreign currency exchange rates are downloaded for the app to use from http://exchangeratesapi.io/[ExchangeRatesAPI.io] using their endpoint `https://api.exchangeratesapi.io/latest?base=SGD`. The endpoint returns the data in JSON format, which works well with the existing JSON based storage used for `Expense` and `Budget`. This was implemented in the `java.seedu.address.commons.utils` package containing `HttpsClientUtil` which facilitates the Asynchronous calls to the endpoint to update the local copy of the foreign currency exchange rates upon app startup.
+
+*Step 2*
+The JSON response is persisted on disk. A default data-set of exchange rates will be generated at runtime (but not stored) in the case of unstable or no internet access if one is not yet present. If one was present however a more recent one could not be downloaded, the existing data will be reused.
+
+*Step 3*
+If the exchange data is present as a JSON, it will first be loaded into its JSON reflection class `JsonAdaptedExchangeData` which depends on `JsonAdaptedRates`. These classes assist in the conversions of the JSON to the Model Class `ExchangeData`.
+
+    Presently, ExchangeData is also stored in the StorageManager which was intended to be used to store multiple instances of ExchangeData to load historical exchange rates when the user does an edit, however this proved to be infeasible to implement within the course of the project.
+
+*Step 4*
+The `ExchangeDataSingleton` is updated with the new  `ExchangeData` using the `ExchangeDataSingleton#updateInstance`. The reason for using the Singleton pattern in this case was to ensure that one and only one instance of `ExchangeData` is being referenced to retrieve data at any point in time. Since it is also required to be accessed by `Expense` and `Budget`.
+
+*Step 5*
+Conversions are done in `Expense#getConvertedAmount` for conversion back into the base currency (SGD) and `Expense#getConvertedAmount(Currency currency)` for conversions to any other currency. As most transactions in the app that require the conversion of currency involve an expense (including recomputing `amountLeft` of `Budget`), the computation is done in the expense. The following are the instance where the currency is converted:
+
+* Whenever an expense is displayed on the `ExpenseCard` or `CommandResult`, its converted value will be computed and displayed together with its conversion rate and original amount.
+
+The following sequence diagram shows how currency conversion works:
+
+image::CurrencyConversionSequenceDiagram.png[]
+
+
+
+==== Design Consideration
+There were 3 main design choices we had to choose from for the implementation of the Currency Conversion Feature. +
+
+- *Alternative 1:* Do not store currency rates when expenses are added with a selected currency and simply store the currency. +
+    * Pros: Easy to implement, recompute the amount of the expense based on the present day currency exchange rate.
+* Cons: If there was a crash in any currency, the expense amount will no longer be timeless. For instance, if an expense of of 10 MYR was stored today and was converted to 3 SGD (converted at 3.33), then the exchange rate became 2.0 the following day, the budget would reflect the amount left wrongly when it was recomputed the next day.
+
+- *Alternative 2:* Persist all the exchange rates to file every time the app is launched to ensure that the user's expenses are computed based on the exchange rate that was on that specific day. The specific exchange rate used is not stored in the expense itself.
+* Pros: Achieve timeless expense which will provide the most accurate values when computing the budget amount left.
+* Cons: Slightly harder to implement as there are multiple sources for exchange rate data based on dates. This will also bloat the amount of space requirement of the app as time persists.
+
+- *Alternative 3:* Store the specific exchange rate used together with the expense whenever it is added, update the exchange rates daily and only persist the latest rates.
+* Pros: Achieve timeless expense which will provide the most accurate values when computing the budget amount left, without the need to store historical exchange rates. Reduced space used and single source of truth for computing exchange rates.
+* Cons: Expenses added in the past that have their currencies changed will not be able to use the exchange rate of that specific day.
+
+*Alternative 3* was chosen as it was a balance between the cons across all 3 considerations, and the timelessness of an expense carries more weight than the unlikely event that the user would need to alter the currency of a past expense.
 
 === Logging
 
@@ -279,76 +380,620 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* has a need to manage expenses,
+* requires categorization of expenses,
+* prefer desktop apps,
+* prefers CLI type interfaces.
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* manage expenses faster than a typical mouse/GUI driven app.
+* easily view spending metrics.
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="80%",cols="1%,<25%,<25%,<40%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+4.+| *Basic Functionality*
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |create an expense |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |create an expense with a tag |identify my expenses by tags
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |retrieve all expenses |review my spending
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |find an expense name |locate a specific expense without having to go through the entire list
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |edit an expense |change the expense amount, date or tag
+
+|`* * *` |user |delete an expense |
+
+|`* *` |user |terminate a recurring expense |
+
+|`* *` |user |retrieve all expenses for today |review my spending for the day
+
+|`* *` |user |create a recurring expense |don't have to input recurring expenses every time
+
+|`* *` |user |retrieve list of all recurring expenses |view all my recurring expenses
+
+|`* *` |user |retrieve all expenses for the week |review my spending for the week
+
+|`* *` |user |retrieve all expenses for the month |review my spending for the month
+
+|`* *` |user |retrieve all expenses for the year |review my spending for the year
+
+4.+| *Budgeting*
+
+|`* * *` |user |set a budget for a period |track my expenses according to the budget amount
+
+|`* * *` |user |delete a budget |remove a budget that is not needed anymore
+
+|`* * *` |user |edit a budget |change my budget details
+
+|`* * *` |user |view a list of my budgets |see what budgets i have already set
+
+|`* * *` |user |view a budget |know my expenses and how much I have left to spend in the budget
+
+|`* *` |user |be notified every time I add an expense if I have less than 50% of my budget left  |notify myself that i may be spending too much according to my budget
+
+4.+| *UI*
+
+|`* * *` |user |view in a pie chart expenditure breakdown by tag |view my expenses easily with visual aid
+
+|`* * *` |user |view in a pie chart how much of my budget is spent/available for the current month |view how much of my budget is left
+
+|`* *` |user |view in a bar chart my expenditure | visualise my spending habits
+
+4.+| *Inputs*
+
+|`* *` |user | recall commands previously used in session | improve my productivity
+
+|`*` |user | command autocomplete suggestions| improve my productivity
+
+4.+| *Multi-Currency*
+
+|`* * *` |user | set my default currency for tracking |
+
+|`* *` |user | store expenses in a specific currency | track expenses in a different currency
+
+|`* *` |user | automatically convert the expense to my default currency | track expenses of different currency in terms of my default currency
+
 |=======================================================================
 
-_{More to be added}_
+_{More may be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
-[discrete]
-=== Use case: Delete person
+Note: For all use cases below, the *System* is `MYMorise(MYM)`, the *Actor* is the `user` and the *Precondition* is
+`MYMorise is running`, unless specified otherwise).
 
+Inputs specified in a square bracket i.e [input] are optional inputs from the user.
+
+[none]
+[#_UC01]
+=== UC01 - Get Help +
+Guarantees:
+
+* The list of all commands will be shown.
+
+
+[none]
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+. User requests for help.
+. MYM responds with the list of all commands.
 +
 Use case ends.
 
+//[none]
+//*Extensions*
+//
+//[none]
+//* 1a. AltScene1
+//+
+//Use case ends.
+//* 2a. AltScene2
+//+
+//Use case ends.
+//
+//* 3a. AltScene3
+//+
+//[none]
+//** 3a1. A
+//+
+//Use case resumes at step 2.
+//
+//_{More may be added}_
+
+[none]
+[#_UC02]
+=== UC02 - Create an expense +
+Guarantees:
+
+* A new expense will be added into MYM if valid data were specified.
+
+[none]
+*MSS*
+
+. User requests to add an expense specifying data.
+. MYM creates and stores the expense with the specified data.
++
+Use case ends.
+
+[none]
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. MYM detects an error in entered data.
+[none]
+** 1a1. MYM informs the user what data was invalid.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
 [none]
-** 3a1. AddressBook shows an error message.
+[#_UC03]
+=== UC03 - Create a recurring expense +
+Guarantees:
+
+* A new recurring expense with will be added into MYM if valid data were specified.
+* A single expense with will be added into MYM if valid data were specified.
+
+*MSS*
+
+. User requests to add a recurring expense specifying data.
+. MYM creates and stores the expense with the specified data .
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 1a. MYM detects an error in entered data.
+[none]
+** 1a1. MYM informs the user what data was invalid.
++
+Use case ends.
+
+[none]
+[#_UC04]
+=== UC04 - Retrieve all expenses +
+Preconditions: MYMorise is running, there is at least 1 expense stored.
+Guarantees:
+
+* A list of all expenses is shown.
+
+[none]
+*MSS*
+
+. User requests to see all expenses.
+. MYM shows all expenses.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 1a. User requests to see all expenses made today.
+[none]
+** 1a1. MYM shows a list of all expenses made today.
++
+Use case ends.
+
+[none]
+* 1b. User requests to see all expenses made for the current week.
+[none]
+** 1b1. MYM shows a list of all expenses made for the current week.
++
+Use case ends.
+
+[none]
+* 1c. User requests to see all expenses made for the current month.
+[none]
+** 1c1. MYM shows a list of all expenses made for the current month.
++
+Use case ends.
+
+[none]
+* 1d. User requests to see all expenses made for the specified date range.
+[none]
+** 1d1. MYM shows a list of all expenses made for the the specified date range.
++
+Use case ends.
+
+[none]
+[#_UC05]
+=== UC05 - Retrieve all recurring expenses +
+Preconditions: MYMorise is running, there is at least 1 recurring expense stored. +
+Guarantees:
+
+* A list of all recurring expenses is shown.
+
+[none]
+*MSS*
+
+. User requests to see for all recurring expenses.
+. MYM shows a list of all expenses made for the day.
++
+Use case ends.
+
+[none]
+[#_UC06]
+=== UC06 - Find an expense +
+Preconditions: MYMorise is running, there is at least 1 recurring expense stored. +
+Guarantees:
+
+* A list of all expenses containing the specified keyword if any were found
+
+[none]
+*MSS*
+
+. User requests for all expenses containing a keyword.
+. MYM shows a list of all expenses containing the keyword.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 1a. No expenses contain the keyword specified.
+[none]
+** 1a1. MYM informs user that no matching expenses were found.
++
+Use case ends.
+
+[none]
+[#_UC07]
+=== UC07 - Update an expense +
+Preconditions: MYMorise is running, there is at least 1 expense stored. +
+Guarantees:
+
+* The expense selected for editing will be updated with the new data.
+
+[none]
+*MSS*
+
+. User  <<_UC04, requests to see all expenses (UC04).>>
+. User reviews the list of expenses.
+. User requests to update an expense from the list and provides the new data.
+. MYM updates the selected expense with the new data.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 2a. User decides not to edit the expense.
++
+Use case ends.
+
+[none]
+* 2b. User could not locate the expense to be edited.
++
+Use case resumes at step 1.
+
+* 3a. MYM detects an error in entered data.
+[none]
+** 3a1. MYM informs the user what data was invalid.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[none]
+[#_UC08]
+=== UC08 - Delete an expense +
+Preconditions: MYMorise is running, there is at least 1 expense stored. +
+Guarantees:
+
+* The expense specified for deletion will be deleted.
+
+[none]
+*MSS*
+
+. User <<_UC04, requests to see all expenses (UC04).>>
+. User reviews the list of expenses.
+. User requests to delete the expense with a specific index from the list.
+. MYM deletes the expense with the specified index.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 2a. User decides not to delete the expense.
++
+Use case ends.
+
+[none]
+* 2b. User could not locate the expense to be deleted.
++
+Use case resumes at step 1.
+
+* 3a. MYM detects an error in entered data.
+[none]
+** 3a1. MYM informs the user what data was invalid.
++
+Use case resumes at step 2.
+
+[none]
+[#_UC09]
+=== UC09 - Delete a recurring expense +
+Preconditions: MYMorise is running, there is at least 1 recurring expense stored. +
+Guarantees:
+
+* The recurring expense specified for deletion will be deleted.
+
+[none]
+*MSS*
+
+. User <<_UC05, requests to see all recurring expenses (UC05)>>
+. User reviews the list of recurring expenses.
+. User requests to delete the recurring expense with a specific index from the list.
+. MYM deletes the expense with the specified index.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 2a. User decides not to delete the recurring expense.
++
+Use case ends.
+
+* 3a. MYM detects an error in entered data.
+[none]
+** 3a1. MYM informs the user what data was invalid.
++
+Use case resumes at step 2.
+
+[none]
+[#_UC10]
+=== UC10 - Set a budget for a specific period +
+Guarantees:
+
+* The budget will be set to a specified amount for a specific period.
+
+[none]
+*MSS*
+
+. User requests to set the budget, specifying the amount, the start date and the end date of the period.
+. MYM sets the budget for the amount and period specified.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 1a. MYM detects an error in the entered data.
+[none]
+** 1a1. MYM requests for the correct data.
+** 1a2. User enters new data.
+** Steps 1a1-1a2 are repeated until the data are correct.
+** Use case resumes from step 2.
+[none]
+* 1b. MYM detects a budget period clash.
+[none]
+** 1b1. MYM requests for different period dates.
+** 1b2. User enters new data.
+** Steps 1b1-1b2 are repeated until the dates do not clash with existing budget periods.
+** Use case resumes from step 2.
+
+
+[none]
+[#_UC11]
+=== UC11 - Visualize funds left for current month +
+Preconditions: MYMorise is running, <<_UC11,A budget should have been set (UC10)>> +
+Guarantees:
+
+* Visualization of funds left for current month will be updated.
+
+[none]
+*MSS*
+
+. User <<_UC02, creates an expense (UC02)>> *OR* User <<_UC07, updates an expense (UC07)>> *OR* User <<_UC08, deletes an expense (UC08)>>
+. MYM updates the visualization of funds left for the month.
++
+Use case ends.
+
+
+[none]
+[#_UC12]
+=== UC12 - Notify when funds are < 50% +
+Preconditions: MYMorise is running, <<_UC11,A budget should have been set (UC10)>> +
+
+Guarantees:
+
+* The user is notified that funds are low, if resulting budget balance is < 50%.
+
+[none]
+*MSS*
+
+. User <<_UC02, adds an expense (UC02)>>
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 1a. Resulting budget balance is < 50%
+[none]
+** 1a1. MYM informs the user the new budget balance and that funds are running low.
++
+Use case ends.
+
+[none]
+[#_UC13]
+=== UC13 - Visualize expenditure +
+
+Guarantees:
+
+* Visualisation of expenditure will be shown if there is sufficient data.
+
+[none]
+*MSS*
+
+. User <<_UC04, requests for all expenses>>
+. MYM updates visualization based on expenses requested in Step 1.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 2a. There are no expenditures.
+[none]
+** 2a1. MYM informs User that there is not enough data to visualise expenditure breakdown by tag.
++
+Use case ends.
+
+
+[none]
+[#_UC14]
+=== UC14 - Visualize expenditure breakdown by tag +
+
+Guarantees:
+
+* Breakdown by tag visualisation will be shown if there is sufficient data.
+
+[none]
+*MSS*
+
+. User <<_UC02, creates an expense (UC02)>> *OR* User <<_UC07, updates an expense (UC07)>> *OR* User <<_UC08, deletes an expense (UC08)>>
+. MYM updates the breakdown of expenditure by tag visualisation.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 2a. There are no expenditures.
+[none]
+** 2a1. MYM informs User that there is not enough data to visualise expenditure breakdown by tag.
++
+Use case ends.
+
+
+
+[none]
+[#_UC15]
+=== UC15 - Recall commands previously used in current session +
+
+Guarantees:
+
+* Commands used previously can be cycled through by the user if there are previously used commands in the current session.
+
+[none]
+*MSS*
+
+. User request for previous command.
+. Step 1 is repeated till user found the target command.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 1a. No prior commands entered.
++
+Use case ends.
+
+[none]
+[#_UC16]
+=== UC16 - Set default currency of expenses +
+
+Guarantees:
+
+* MYMorise will convert display amounts in the specified currency, if the specified currency is valid..
+
+[none]
+*MSS*
+
+. User requests to set the default currency
+. MYM converts all expenses into the defualt currency and updates the display.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 1a. The specified currency is not valid.
+[none]
+** 1a1. MYM informs the user that the currency specified is not valid.
++
+Use case ends.
+
+[none]
+[#_UC17]
+=== UC17 - Create expense with specific currency +
+Guarantees:
+
+* A new expense with the specified currency will be added into MYM if the specified data is valid.
+
+[none]
+*MSS*
+
+. User requests to create an expense specifying required data.
+. MYM creates and stores the expense with the specified data.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 1a. MYM detects an error in entered data.
+[none]
+** 1a1. MYM informs the user what data was invalid.
++
+Use case ends.
+
+[none]
+[#_UC18]
+=== UC18 - Automatically convert expenses in foreign currencies to default currency +
+Preconditions: Preconditions: MYMorise is running, at least 1 expense stored in foreign currency +
+
+Guarantees:
+
+* Expense will display expense amount in both default and foreign currencies
+but all computations will default converted amount.
+
+[none]
+*MSS*
+
+. User <<_UC17,  creates an expense with specific currency>>
+. User <<_UC05, requests for all expenses>>
+
+. MYM shows list of expenses. Expenses with foreign currencies are shown together with their default currency converted
+amounts.
++
+Use case ends.
+
+_{More may be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  (Technical) Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  (Capacity, Performance) Should be able to hold up to 10000 expenses without a noticeable sluggishness in performance for typical usage.
+.  (Scalability) Should be able to handle expense amounts up to 10^12^.
+.  (Process) Project should be production ready by 11th November 2019.
 
 _{More to be added}_
 
@@ -357,9 +1002,6 @@ _{More to be added}_
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
@@ -402,15 +1044,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting an expense
 
-. Deleting a person while all persons are listed
+. Deleting an expense while all expenses are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all expenses using the `list` command. Multiple expenses in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First expense is deleted from the list. Details of the deleted expense shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No expense is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 

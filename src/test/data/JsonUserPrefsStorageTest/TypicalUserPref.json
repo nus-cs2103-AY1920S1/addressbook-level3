@@ -7,5 +7,6 @@
       "y" : 100
     }
   },
-  "addressBookFilePath" : "addressbook.json"
+  "expenseListFilePath" : "expenselist.json",
+  "budgetListFilePath" : "budgetlist.json"
 }

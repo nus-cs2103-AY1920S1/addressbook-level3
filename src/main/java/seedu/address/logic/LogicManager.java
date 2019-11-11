@@ -10,28 +10,33 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.MymParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyBudgetList;
+import seedu.address.model.ReadOnlyExpenseList;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.expense.Expense;
 import seedu.address.storage.Storage;
 
 /**
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
+
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final CommandHistory history;
+    private final MymParser mymParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        history = new CommandHistory();
+        mymParser = new MymParser();
     }
 
     @Override
@@ -39,11 +44,21 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        try {
+            Command command = mymParser.parseCommand(commandText);
+            commandResult = command.execute(model, history);
+        } finally {
+            history.add(commandText);
+        }
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveExpenseList(model.getExpenseList());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+
+        try {
+            storage.saveBudgetList(model.getBudgetList());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,18 +67,48 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyExpenseList getExpenseList() {
+        return model.getExpenseList();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Expense> getExpenses() {
+        return model.getExpenses();
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public ObservableList<Expense> updateExpenses() {
+        return model.initExpenses();
+    }
+
+    @Override
+    public ObservableList<Expense> getFilteredExpenseList() {
+        return model.getFilteredExpenseList();
+    }
+
+    //    @Override
+    //    public ObservableList<Expense> getFilteredFullExpenseList() {
+    //        return model.getFilteredFullExpenseList();
+    //    }
+
+    @Override
+    public Path getExpenseListFilePath() {
+        return model.getExpenseListFilePath();
+    }
+
+    @Override
+    public ReadOnlyBudgetList getBudgetList() {
+        return model.getBudgetList();
+    }
+
+    @Override
+    public ObservableList<Budget> getFilteredBudgetList() {
+        return model.getFilteredBudgetList();
+    }
+
+    @Override
+    public Path getBudgetListFilePath() {
+        return model.getBudgetListFilePath();
     }
 
     @Override
@@ -74,5 +119,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public ObservableList<String> getHistory() {
+        return history.getHistory();
     }
 }

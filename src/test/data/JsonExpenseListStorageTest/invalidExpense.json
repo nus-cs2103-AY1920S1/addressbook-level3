@@ -1,0 +1,22 @@
+{
+  "expenses": [ {
+    "name": "Expense with invalid date field",
+    "amount": "$23.50",
+    "currency" : {
+      "name" : "SGD",
+      "rate" : 1.0
+    },
+    "date": "136/10/2019",
+    "tag": "education"
+  },
+  {
+      "name": "Expense with invalid currency field",
+      "amount": "$23.50",
+    "currency" : {
+      "name" : "X21",
+      "rate" : 1.0
+    },
+      "date": "13/10/2019",
+      "tag": "education"
+    }]
+}
