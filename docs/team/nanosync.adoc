@@ -50,7 +50,7 @@ This section shows a summary of my contributions to the team project.
 ** Justification: It enables users to customise the order of the information being presented of greater priority, for instance, showing their most expensive purchases first, followed by date of purchase, to allow them to be mindful of their spending.
 ** Highlights: This enhancement had a challenging design approach. It also required some restructuring of the code base implementation and an in-depth analysis of design alternatives.
 
-* *Other enhancements*: Implemented *natural language date parsing*, *exchange rate* and *currency* features.
+* *Other enhancements*: Implemented *exchange rate* and *currency* features, and *natural language date parsing* (https://github.com/joestelmach/natty[Natty]).
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=nanosync[Collated code]]
 
