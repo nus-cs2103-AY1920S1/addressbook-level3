@@ -1,4 +1,8 @@
 = Athletick - User Guide
+<<<<<<< HEAD
+=======
+
+>>>>>>> 97778e6401649d638758e42f83e889b4b97f3106
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -8,7 +12,6 @@
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
-//:icons: font
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
