@@ -321,7 +321,8 @@
 
 }
 .test-box {
-    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-color: transparent, white, transparent, white;
+    -fx-border-color: white;
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 20px;
     -fx-font-weight: bold;

@@ -327,6 +327,7 @@
 
 #commandTextField {
     -fx-background-color: transparent #383838 transparent #383838;
+    -fx-border-color: #26ff00;
     -fx-background-insets: 0;
     -fx-border-color: #383838 #383838 #ffffff #383838;
     -fx-border-insets: 0;
@@ -392,7 +393,8 @@
 }
 
 .test-box {
-    -fx-background-color: transparent, #38383, transparent, #383838;
+    -fx-background-color: transparent, #26ff00, transparent, #26ff00;
+    -fx-border-color:#ffffff;
     -fx-font-family: "monospace";
     -fx-font-size: 20px;
     -fx-text-fill: #26ff00;
@@ -401,3 +403,4 @@
 #testquestion .content, #testanswer .content {
     -fx-background-color: #383838;
 }
+
