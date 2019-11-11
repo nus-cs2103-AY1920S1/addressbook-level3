@@ -3,31 +3,30 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":MooLahParser" as MooLahParser LOGIC_COLOR
 participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant "model:Model" as Model MODEL_COLOR
-participant "history:ModelHistory" as ModelHistory MODEL_COLOR
-participant "prevModel:Model" as PrevModel MODEL_COLOR
-participant "prevHistory:ModelHistory" as PrevModelHistory MODEL_COLOR
+participant ":ModelHistory" as ModelHistory MODEL_COLOR
 end box
-[-> LogicManager : execute(undo)
+
+[-> LogicManager : execute("undo")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(undo)
-activate AddressBookParser
+LogicManager -> MooLahParser : parseCommand("undo")
+activate MooLahParser
 
 create UndoCommand
-AddressBookParser -> UndoCommand
+MooLahParser -> UndoCommand
 activate UndoCommand
 
-UndoCommand --> AddressBookParser
+UndoCommand --> MooLahParser
 deactivate UndoCommand
 
-AddressBookParser --> LogicManager : u
-deactivate AddressBookParser
+MooLahParser --> LogicManager : u
+deactivate MooLahParser
 
 LogicManager -> UndoCommand : run(model)
 activate UndoCommand
@@ -38,7 +37,7 @@ activate UndoCommand
 UndoCommand -> Model : canRollback()
 activate Model
 
-Model -> ModelHistory : isPastModelsEmpty()
+Model -> ModelHistory : isPastChangesEmpty()
 activate ModelHistory
 
 ModelHistory --> Model :
@@ -53,34 +52,22 @@ deactivate UndoCommand
 UndoCommand -> UndoCommand :execute(model)
 activate UndoCommand
 
-UndoCommand -> Model : rollbackModel()
+UndoCommand -> Model : rollback()
 activate Model
 
-Model -> ModelHistory : getPrevModel()
+Model -> ModelHistory : getPrevChanges()
 activate ModelHistory
 
-ModelHistory --> Model : prevModel
+ModelHistory --> Model : prevChanges
 deactivate ModelHistory
 
-Model -> PrevModel : addToFutureHistory(model)
-activate PrevModel
-
-PrevModel -> PrevModelHistory : addToFutureModels(model)
-activate PrevModelHistory
-
-PrevModelHistory --> PrevModel :
-deactivate PrevModelHistory
-
-PrevModel --> Model :
-deactivate PrevModel
-
-Model --> UndoCommand : pastModel
-deactivate Model
-
-UndoCommand -> Model : resetData(prevModel)
+Model -> Model : applyChanges(prevChanges)
 activate Model
 
-Model --> UndoCommand :
+Model --> Model
+deactivate Model
+
+Model --> UndoCommand
 deactivate Model
 
 UndoCommand --> UndoCommand

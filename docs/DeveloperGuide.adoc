@@ -245,45 +245,54 @@ Classes used by multiple components are in the `seedu.moolah.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== Undo/Redo feature
+=== Undo and Redo feature
 ==== Implementation
 
-The undo/redo functionality is facilitated by `ModelHistory` which is an instance-level member for models.
-Internally, it stores model snapshots by using two stacks: `pastModels` and `futureModels`.
-With the addition of model history, now `Model` also supports these operations:
+The undo and redo functionality is facilitated by `ModelHistory`, which is available as an instance-level member of `Model`. It keeps track of the model's history
+by storing the changed fields of the model throughout execution, which will be represented as `ModelChanges`. Internally, `ModelHistory` stores the history by using two stacks of `ModelChanges`, namely: `pastChanges` and `futureChanges`.
 
-* `Model#addToHistory()` -- Moves the history forward by saving the current model snapshot in its past history and clearing the future history.
-* `Model#rollback()` -- Restores the state to the immediate previous model in the history.
-* `Model#migrate()` -- Forwards the state to the immediate next model in the history.
+With the addition of model history, `Model` can support these operations:
 
-`ModelHistory` only stores histories of models which were about to be (or are going to be) executed by model-changing commands.
-As some of the commands available are intuitively not undoable (e.g. `help`), we make commands extend to either `UndoableCommand` or a non-undoable `Command` classes.
-So, the `Model#addToHistory()` will only be called if the command to be executed is an instance of `UndoableCommand`.
+* `Model#commit(String, Model)` -- Saves the changes between the current model and the given previous model to the past changes history, keeping the previous model's data should there be any differences. This adds the changes to the past history, and clearing the future history.
+* `Model#applyChanges(ModelChanges)` -- Applies the changes in history
+* `Model#canRollback()` -- Checks whether the model can be rolled-back
+* `Model#rollback()` -- Restores the model one step back by applying the changes described in the immediate previous changes in history.
+* `Model#canMigrate()` -- Checks whether the model can be migrated
+* `Model#migrate()` -- Moves the model one step forward in history by applying the changes described in the immediate next changes.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+To support these capabilities, `ModelChanges` offers these methods as well:
+
+* `ModelChanges#compareModels(Model, Model)` -- Compares two models' data and creates a new `ModelChanges` object that c
+* `ModelChanges#revertChanges(Model)` -- Reverts the current changes with respect to the base model given.
+
+`ModelHistory` only stores changes of models that were (or are going to be) executed by model-manipulating - or simply, undoable - commands.
+As some of the commands available are intuitively not undoable (e.g. `help`), every command is configured to extend either `UndoableCommand` or a non-undoable `Command` classes.
+With the division, `Model#commit(String, Model)` will only be called if the command to be executed is an instance of `UndoableCommand`.
+
+Given below is an example usage scenario and how the undo and redo functionality behaves at each step.
 
 Step 1. The user launches the application for the first time. The current `ModelHistory` is now empty.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `add d/Chicken Rice p/2.50 ...` command to add an expense.
-The `add` command, being an `UndoableCommand`, calls `Model#addToHistory()`, which saves the state of the model just before the command executes to `pastModels`, and `futureModels` is cleared.
+Step 2. The user executes `addexpense d/chicken rice p/2.50 c/food` command to add an expense.
+The `addexpense` command, being an `UndoableCommand`, calls `Model#commit(String, Model)`, which saves the state of the model just before the command executes to `pastChanges`, and `futureChanges` is cleared.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `delete 1` to delete the first expense on the list. The `delete` command, also an `UndoableCommand`, calls `Model#addToHistory()`, inserting another entry to the `pastModels` and clearing `futureModels` again.
+Step 3. The user executes `deleteexpense-primary 1` to delete the first expense on the list. The `deleteexpense-primary` command, also an `UndoableCommand`, calls `Model#commit(String, Model)`, inserting another entry to the `pastChanges` and clearing `futureChanges` again.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#addToHistory()`, so the model will not be saved into `ModelHistory`.
+If a command fails its execution, it will not call `Model#commit(String, Model)`, so the model will not be saved into `ModelHistory`.
 
-Step 4. The user now decides that deleting the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#rollbackModel()`, which will retrieve the immediate previous model in history, adding the current model to the future history of the retrieved model, and restores the model according to that state.
+Step 4. The user now decides that deleting the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#rollback()`, which will retrieve the immediate previous change in history, adding the reverting change to the future history of the retrieved model, and applies the change to the model.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If `pastModels` is empty, then there are no previous models to roll back. The `undo` command uses `Model#canRollback()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If `pastChanges` is empty, then there are no previous changes to roll back. The `undo` command uses `Model#canRollback()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo command works:
 
@@ -291,26 +300,42 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-Inversely, the `redo` command calls `Model#migrate()`, which retrieves the immediate next model in history, adds the current model to the past history of the retrieved model, and resets the model according to that snapshot.
+Inversely, the `redo` command calls `Model#migrate()`, which retrieves the immediate next changes in history, adds the reverting change to the past history, and applies the changes to the model.
 
 [NOTE]
-If `futureModels` is empty, then there are no snapshots to be redone. The `redo` command uses `Model#canMigrate()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If `futureChanges` is empty, then there are no snapshots to be redone. The `redo` command uses `Model#canMigrate()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+As explained earlier, additions of entry to `ModelHistory` will only be performed when the command being executed is an instance of `UndoableCommand`.
+The following diagram briefly describes how the execution of undoable commands will do so:
+
+image::UndoableCommandActivityDiagram.png[]
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire model.
-** Pros: Easier to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual commands have their own counter-command that can negate the effects.
-** Pros: Quite intuitive (e.g. for `add`, just do `delete` to counter it).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-We choose Alternative 1 as this approach will be less likely to cause problems specific to restoring the state to the way it was before the execution of a command,
+* **Alternative 1:** Saves the model data.
+** Pros: It is easier to implement.
+** Cons: The approach introduces a new
+* **Alternative 2:** Individual commands have their own counter-command that negate the effects.
+** Pros: This approach is quite intuitive (e.g. for `addmenuexpense`, we can do `deleteexpense-primary` to counter it).
+** Cons: It has to be ensured that the implementation of each individual command is correct.
+* **Current implementation (Alternative 1)**:
+We choose this approach as it will be less likely to cause problems specific to restoring the state precisely to the state before the execution of a command,
 as some commands will create a problem specific on their own which might not be supported by the proposed counter-command.
-As an example, to undo `delete 3`, we must re-add that expense to that specific position, which at the moment is not supported
-by the `add` command.
+As an example, to undo `delete 3`, we must re-add that expense to that specific position (third from beginning), which at the moment is not supported
+by the `addexpense` command.
+
+===== Aspect: How to store the model data
+
+* **Alternative 1:** Saves the entire model.
+** Pros: It is easier to implement.
+** Cons: The approach introduces a lot of memory usage.
+* **Alternative 2:** Saves the members of the model that were (or are going to be) changed.
+** Pros: This approach is more conservative in memory usage.
+** Cons: We have to make sure every field is immutable to preserve changes.
+* **Current implementation (Alternative 2)**:
+We choose this approach as the time and memory resource trade-off is less significant compared to Alternative 1.
 
 // end::undoredo[]
 
@@ -590,7 +615,7 @@ and allow them to automatically add these events as expenses.
 
 image::EventClassDiagram.png[]
 
-Like expenses, events hold two Descriptions (one for its details and one fir the budget it belongs to), a Price, a Timestamp
+Like expenses, events hold two Descriptions (one for its details and one for the budget it belongs to), a Price, a Timestamp
 and a Category. The `setBudget` method of Event is used for the Event to remember which budget it was added to. This facilitates
 the potential conversion of the Event into an Expense through the `convertToExpense` method. This method is called when the user
 accepts the automated addition of an expense from the corresponding event, into the budget that the event was added into a while back.
@@ -789,17 +814,16 @@ can be a possible complementary feature to a prediction feature to pre-empt user
 Last of all, more modes can be added to all existing commands, such as comparing with periods across different budgets
 other than being restricted within the same budget
 
+// tag::alias[]
 
-
-
-
-
-// category::Alias[]
 === Alias feature
-==== Implementation
 The Alias feature allows users to assign inputs they may use very often to a shortcut, and execute the input by entering
 the shortcut, (a.k.a ``Alias``), in place of the full or partial command.
 
+
+==== Implementation
+
+.AliasMappings Class Diagram
 image::AliasMappingsClassDiagram.png[AliasMappingsClassDiagram]
 
 These user defined ``Alias``es are saved in an ``AliasMappings`` object within ``UserPref`` as seen in the above diagram.
@@ -817,19 +841,35 @@ to validate that an `Alias` will not cause an infinite loop by chaining multiple
 - ``UserPref#setAliasMappings(AliasMappings mappings)`` -- To overwrite all the `Alias` saved by the user.
 
 
+===== Alias creation
+.AddAliasCommand Class Diagram
 image::AliasCommandClassDiagram.png[]
 
 In order for the user to save an ``Alias``, they first define it using the ``AliasCommand``. The ``AliasCommand`` command extends
 `UndoableCommand` to allow users to undo defining an `Alias`. The following sequence diagram describe in more detail how an ``Alias``
 is added.
 
+****
+Note: +
+Alias and AliasMapping are in Model and not Core. This change has yet to be reflected in the following sequence diagrams.
+****
+
+.AddAliasCommand execution Sequence Diagram
 image::HighLevelAddAliasSequenceDiagram.png[]
+
+
 [None]
 . 1. The user enters a command with the following syntax `` alias a/ <name> i/ <input>``.
 . 2. The `UI` passes this command string to the `LogicManager` which passes it onto the `MooLahParser`.
 . 3. The parser extracts the argument string and passes it to an ``AliasCommandParser``.
 
+****
+ref : extract arguments create alias
+
+.AliasCommandParser Sequence Diagram
 image::ParseAliasCommandSequenceDiagram.png[]
+****
+
 [None]
 . 4. The ``AliasCommandParser`` uses the ``ArgumentTokenizer`` to tokenize the argument string and extract the
 ``alias name`` and ``input`` fields into an ``ArgumentMultimap``.
@@ -837,7 +877,13 @@ image::ParseAliasCommandSequenceDiagram.png[]
 . 6. An `AliasCommand` is created containing this new `Alias` to add to the `UserPref`.
 . 7. This is passed back to the `LogicManager` to call `AliasCommand#run()`.
 
+****
+ref: validate command
+
+.AliasCommand #Validate Sequence Diagram
 image::verifyAlias.png[]
+****
+
 [None]
 . 8. The `AliasCommand` is validated using `AliasCommand#validate()`. The `Alias` is checked to ensure it does not
 [None]
@@ -845,19 +891,38 @@ image::verifyAlias.png[]
     ** b. Have an input beginning with a supported `Alias`.
 . If is not valid, handled exception is thrown.
 
+****
+ref: execute command
+
+.AliasCommand #execute Sequence Diagram
 image::addAlias.png[]
+****
 [None]
 . 9. If it was validated that the `Alias` can be added.
 . 10. The `Alias` is then added to the `AliasMappings` object within `UserPref`.
 . 11. The `Alias` is now usable  by the user.
 
 
-When a user enters an ``input`` to be executed, the ``MooLahParser`` will first try to parse first token in
-the ``input`` as a ``CommandWord``, failing which, it will try to parse it as an ``Alias``. If it successfully does so,
-it replaces the first token in the original command string with the ``input`` stored in the ``Alias``.
-Finally, the ``MooLahParser`` re-parses the modified ``input``.
+===== Usage of aliases in input
+.Activity Diagram showing the a high level view of the events that occur when parsing a command.
+image::CommandParsingActivityDiagram.png[]
+
+When a user enters an ``input`` to be executed, the ``MooLahParser`` will do the following:
+
+. Attemps to parse the ``input`` as an input which begins with a valid ``CommandWord``
+. If that fails, it will try to parse it as an input which begins with an ``Alias``.
+.. If it successfully does so, it replaces the alias in the original `input` with the ``input`` stored in the ``Alias``.
+.. Finally, the ``MooLahParser`` re-parses the modified ``input``.
+. If this too fails, an exception is thrown indicating that the command was invalid
+
 
 ==== Design Considerations
+
+===== Potential Recursive aliases
+As users may modify the data files of MooLah, they may modify the aliases directly. As such it was necessary to validate
+that the modified aliases will not cause infinite recursion. This is done by traversing between aliases which chain to each other
+and ensuring that none of them lead back to themselves. Otherwise, if it is detected that an alias can loop to itself, the
+alias data is reset.
 
 ===== Aspect: Why can an `Alias` only be used at the beginning of an input versus anywhere within an input.
 * ** Alternative 1(Chosen):** Beginning only
@@ -882,10 +947,11 @@ However, that is far out of the scope of the module and would require much more 
 Another alternative would have been to have an alias name follow the following convention `'aliasName'` (i.e. some character before and after)
 clear what is an `Alias` within an input.
 
-===== Future Implementation (Coming in v2.0)
 The purpose behind this feature was to make CLI input less troublesome, so users do not need to type in the full input string
 to carry out commands they may use frequently. In v2.0 we want to look into using data analysis track users' input habits in
 order to make suggestions on possible shortcuts or Aliases they may find convenient to have.
+
+// end::alias[]
 
 ===== Aspect: Data structure to store Aliases.
 
@@ -909,79 +975,137 @@ It also makes it easier to prevent sharing of alias names between aliases and a 
 set cannot contain duplicates, and makes it easier to handle overwriting of existing aliases with same name.
 
 
-// end::Alias[]
 
+// tag::CommandLine[]
+=== Easier Command-Line feature
+==== Necessity of feature.
+Due to the constraints of this project, the application had to be designed such that the main interaction
+between the user and the application was the Command Line Interface. However, this required the user to be able to
+remember the commands as well as the syntax for these commands, or be forced to heavily refer to the user guide or to
+refer to the error messages.
 
-// category::SyntaxAutofill[]
-=== Syntax Highlighting and Autofill feature
-==== Implementation
-The Autofill feature was implemented to make it less important for users to remember the appropriate syntax for each command which
-can be a common issue in CLI based applications. This feature utilises regular expressions and JavaFX's TextFormatter to extend the
-functionality of the existing TextField used in the original AB3 application.
+The Easier Command-Line feature was implemented to remove the need to refer to the user guide just to
+find out the syntax needed to use a command, as well as to provide some quality-of-life features found in most Command Line
+Interfaces not present in the original Address Book 3. This feature consists of several features:
 
-The Autofill feature also inserts `placeholders` into the text area to make it clearer which arguments each prefix delimit in the input.
-e.g. `add d/ <description> p/ <price> c/ <category>`. These `placeholder` are removed when the user types over them and
-are filtered from the input and not parsed by the `Parser` if the user forgets to type over them. The following diagram briefly describe
-the logic used to insert auto fill a command's syntax.
+.Command Box class diagram
+image::CommandBoxClassDiagram.png[]
 
-::image:AutoFillActivityDiagram.png[]
+. Syntax highlighting
+. Input Suggestion and auto complete
+. Input History
+. Context based Generic Commands
 
+==== Syntax highlighting Implementation
 The Syntax highlighting feature was implemented to make it easier to differentiate the different arguments after typing
 as well as to implement some basic realtime input validation. This feature utilises RichTextFX's StyleClassTextArea to
-apply different styles to different regions of the text, and regular expressions to determine which to highlight.
+apply different styles to different regions of the text, and regular expressions to determine how to to highlight user input.
 
-::image:SyntaxHighlightingActivityDiagram.png[]
+.Activity diagram of depicting the events triggering text to be highlighted
+image::SyntaxHighlightingActivityDiagram.png[width=70%, align=center]
 
-Because RichTextFX's TextAreas do not support JavaFX's TextFormatter, the `SyntaxHighlightingTextArea` actually has two different
-TextAreas. One as the visible TestArea (RichTextFX) and one as the functional one (JavaFX).
+As it would be quite resource intensive to recalculate the syntax highlighting every time the user types,
+the updated highlighting is only computed after a delay of 300 milliseconds after the user stops typing.
 
-::image:SyntaxHighlightingTextAreaClassDiagram.png[]
+When the `MainWindow` is initialized and the inner UI parts are created, the commands which are supported by the `syntax
+highlighting` feature are configured. Each `SyntaxHighlightingSupportedInput` object contains a `CommandWord` to highlight
+prefixes the command supports. When it is created it creates a regex pattern such as below.
+----
+(?<command-word>COMMAND)|(?<prefix0>PREFIX0)|(?<prefix1>PREFIX1)|...
 
-The two TextArea are layered on top of each other. The invisible functional TextArea overlays the visible one, and mirrors the TextProperty of the
-visible one mirrors the functional TextArea. The KeyEvents which occur in the functional text area are also mirrored by the visible text area.
+(?<command-word>addalias)|(?<prefix0> a/)|(?<prefix1> i/)(?<arg>\S+)
+----
+This pattern is used to find the command word in the user input, as well as the prefixes.
 
-==== Design Considerations
-===== Aspect: Which configuration of Input fields to use? - RichTextFX TextArea alone, JavaFX alone, both together?
-* ** Alternative 1:**  JavaFX alone (JavaFX `TextField`) and manually place coloured elements to handle highlighting.
-** Pros: Already supports single line input.
-** Pros: Easy to implement autofill.
-** Cons: Does not inherently support styling of text with multiple styles.
-** Cons: Manually inserting worked, but not all the time.
 
-* ** Alternative 2:** `RichTextFX StyleClassTextArea` and ``Listener``s to handle formatting of text.
-** Pros: Supports styling of text.
-** Cons: Needs have certain `Events` blocked and functionality removed in order to act as a single line input field. e.g.
-preventing users from pasting text with newlines and the enter key event from making a new line.
-** Cons: Does not support javafx `TextFormatter`, intermediate results (unwanted text) can possibly be evaluated.
+==== Syntax highlighting Design Considerations
+===== Aspect: How long should the delay between updating text and recomputing highlighting?
+* ** Alternative 1:**  Text is re-highlighted immediately upon a change to the text
+** Pros: Looks much more natural without a delay
+** Cons: Much more resource intensive as typing involves multiple changes to the text.
 
-* ** Alternative 3(Chosen):** Both
-** Pros: Utilise best of both worlds, with `TextFormatter` and `RichTextFX StyleClassTextArea`
-** Cons: Need to properly align the two text areas so visible text and caret position is accurate.
-** Cons: Needs have certain `Events` blocked and functionality removed in order to act as a single line input field. e.g.
-preventing users from pasting text with newlines and the enter key event from making a new line.
+* ** Alternative 2 (Chosen):** Text is re-highlighted after a delay
+** Pros: Can reduce the computations needed to highlight the text.
+** Cons: Does not look at natural, and is less helpful in validating input.
 
 * **Solution (Current Implementation): **
-With alternative 1, using a `TextFlow` was a problem when the text needed to remain in
-a single line. Manually layering coloured elements over the text was also an issue as the the position and size of elements
-eeded to be recalculated every time the text change, the UI moved, or was resized.
+In the end, despite the fact alternative 1 was more natural looking, alternative 2 was chosen as this option would make
+the application less taxing for less powerful systems.
 
-While it was possible to use RichTextFX text areas alone, the text that the user inputs before it is formatted
-still enters the text area. Which interferes with realtime parsing as the text is not properly sanitized, which was
-why the uses `TextFormatter` was necessary.
+===== Aspect: Extent of input validation
+* ** Alternative 1:**  All parts of the input are validated (including the arguments)
+** Pros: This would make it more obvious to the user what is valid
+** Cons: This is more resource intensive
 
-This meant only alternative 3 was viable, but because of layer of the two text areas, the events causing a change in text
-or what text was visible needed to be properly mirrored from the invisible to the visible text area. As a result, certain behaviours
-supported by a normal textfield needed to be blocked to ensure proper alignment e.g. copy and paste.
+* ** Alternative 2 (Chosen):** Only the command word and prefixes are validated.
+** Pros: Less resource intensive while still being helpful to the user
+** Cons: Not as helpful to the user.
 
-At the moment, mass deletion and selection of text (e.g. Ctrl/Cmd+A > Backspace) has been prevented in order to properly align the
-two textarea.
+* **Solution (Current Implementation): ** +
+In the end, despite the fact alternative 1 provides more use to the user, input is already validated when it is parsed,
+and the error provides sufficient details on what is wrong with the user input. Validation by constantly parsing the text and then
+applying some sort of style to indicate an invalid input does not give as detailed information on why the input is invald.
+While it may be a nice feature to have, it may not be worth the resources required to repeatedly calculate the
+positions I should move my bones.
 
-===== Future Implementation (Coming in v2.0)
-MooLah v2.0 should support better real time parsing of input and support validation of input without requiring the user
+In future implementations, MooLah v2.0 should support better real time parsing of input and support validation of input without requiring the user
 to enter the command as well as a more functional input field.
 
+==== Suggestion Feature Implementation.
+The Suggestion feature is the main part of this feature and provides users with suggestions of valid inputs they may need.
+There are three states of the suggestion feature
 
-// end::SyntaxAutofill[]
+1. Disabled
+2. Suggesting command word
+3. Suggesting prefixes
+
+When the user chooses to disable the feature, the suggestion feature does not analyse the user input.
+
+.Activity Diagram depicting what
+image::SuggestionActivityDiagram.png[width=60%,align=center]
+
+When the user chooses to enable it, if the user has only entered one or zero tokens (a string of characters without spaces),
+the suggestion menu will be populated with command words which begin with the user input.
+If the user has entered multiple tokens, and the command word (first token) if a valid command, the suggestion menu
+searches for the command's supported prefixes and populates the menu with the prefixes the user has not entered yet.
+
+This feature uses the ``ArgumentTokenizer`` from the ``Logic`` to determine what prefixes are present in the input
+and which ones have yet to be provided by the user.
+
+==== Suggestion Feature Design Considerations
+===== Aspect: Automatically complete upon typing, or show suggestions and auto complete upon selection
+
+* ** Alternative 1:**  Auto complete upon typing
+
+** Pros: This would make result in the least keystrokes required to enter a command.
+** Cons: Requires a lot of logic for behaviour of autocomplete depending what the user is typing or deleting
+form the input and a very rigid syntax for commands.
+
+* ** Alternative 2(Chosen):**  Show suggestions and complete upon selection
+** Pros: Gives user more information on what commands are available and allows for more options for command syntax.
+** Cons: Requires more steps to use suggestion
+
+* **Solution (Current Implementation): ** +
+Between the two, Alternative 1 was the first way this feature was implemented. However, as the number of commands increased,
+the time taken to generate the suggestions increased to a point where suggestions were not shown immediately. Alternative 2 was
+chosen as this method is less prone to bugs, less resource intensive, and allows the menu to display more information
+for the user such as what each prefix stands for.
+
+In the future, MooLah v2.0 will support suggestions for arguments on top of prefixes and command words.
+
+
+==== Input History Feature Implementation.
+This feature enables users to re-enter previous input without having to retype the entire input.
+It is a relatively simple feature which saves user input into a list and iterates through the list when the user
+presses the `up` or `down` arrow keys. When a user enters a new input, the position of the iterator is reset.
+
+==== Generic Command Implementation
+This feature allows allows different commands to use the same command word. As MooLah has around 30 commands with only the current
+features, it may becomes a problem that command words become very long in order to make it clear what the command
+does when there are multiple commands which do similar things in different context. This feature reduces the ambiguity of
+a command by enabling certain common command words to behave differently depending on which `panel` of the UI the user is viewing.
+
+// end::CommandLine[]
 
 === Logging
 
@@ -1578,9 +1702,10 @@ Clearing all budgets in MooLah
 === Testing events
 .. Test case: `addevent d/ test p/ 10 c/ Shopping t/ a week from now` +
    Expected: A success message will appear.
-.. Now, view the event list using either `listevent` or `view event list`.
+.. Now, view the event list using either `listevent` or `view event list`. (Event commands can be inputted on any panel, but this is to facilitate the next step.) +
    Expected: The event with description `test` should be at the bottom of the event list.
-.. Edit the expense via the command `editevent <INDEX> t/ now`, where <INDEX> is the index of the event you want to test. +
+.. Edit the event via the command `editevent <INDEX> t/ now`, where <INDEX> is the index of the event you want to test. +
    Expected: A success message will appear.
 .. Within 10 seconds, a popup will appear to prompt for the automatic addition of an expense corresponding to the event.
-Pressing 'Yes' will add the expense into whichever primary budget you were on when you added the event.
+Pressing 'Yes' will add the expense into whichever primary budget you were on when you added the event. You can then view that budget
+to see that the expense has been added.

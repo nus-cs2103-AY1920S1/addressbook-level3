@@ -70,7 +70,7 @@ public class PieChartStatistics implements Statistics {
 
         this.budgetCategories = collateBudgetCategories(expenses);
 
-        ArrayList<ArrayList<Expense>> expensesInCategories = extractRelevantExpenses(startDate, endDate);
+        List<List<Expense>> expensesInCategories = extractRelevantExpenses(startDate, endDate);
         String title = String.format("Statistics Summary from %s to %s\n", startDate.showDate(), endDate.showDate());
 
         ArrayList<Double> percentages = new ArrayList<>();
@@ -93,8 +93,8 @@ public class PieChartStatistics implements Statistics {
      *
      * @return A list of categorised expenses according to their categories
      */
-    private ArrayList<ArrayList<Expense>> extractRelevantExpenses(Timestamp startDate, Timestamp endDate) {
-        ArrayList<ArrayList<Expense>> expensesInCategories = new ArrayList<>();
+    private List<List<Expense>> extractRelevantExpenses(Timestamp startDate, Timestamp endDate) {
+        List<List<Expense>> expensesInCategories = new ArrayList<>();
 
         for (int i = 0; i < budgetCategories.size(); i++) {
             expensesInCategories.add(new ArrayList<>());
@@ -134,10 +134,9 @@ public class PieChartStatistics implements Statistics {
      * @param names List of all names to be shown in the legend representing the category
      * @param titleWithPeriod String containing the period of time the statistics is taken
      */
-    private void generatePercentages(ArrayList<ArrayList<Expense>> data, ArrayList<Double> percentages,
-                                     ArrayList<Integer> numberOfEntries, ArrayList<String> names,
+    private void generatePercentages(List<List<Expense>> data, List<Double> percentages,
+                                     List<Integer> numberOfEntries, List<String> names,
                                      String titleWithPeriod) {
-
         double totalAmount = 0.0;
 
 
@@ -145,7 +144,7 @@ public class PieChartStatistics implements Statistics {
 
         for (int i = 0; i < percentages.size(); i++) {
 
-            ArrayList<Expense> categoryStats = data.get(i);
+            List<Expense> categoryStats = data.get(i);
 
 
             for (Expense expense : categoryStats) {
@@ -192,12 +191,8 @@ public class PieChartStatistics implements Statistics {
         return formattedCategories;
     }
 
-    public List<Double> getFormattedPercentages() {
-        return formattedPercentages;
-    }
-
     public String toString() {
-        return String.format("%s\n%s\n%s", getTitle(), getFormattedCategories(), getFormattedPercentages());
+        return String.format("%s\n%s\n%s", getTitle(), formattedCategories, formattedPercentages);
     }
 
     @Override

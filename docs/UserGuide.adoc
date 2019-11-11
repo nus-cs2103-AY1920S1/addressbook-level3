@@ -56,9 +56,9 @@ Follow this installation guide to get MooLah up and running in your computer:
 .  Download the latest `MooLah-v1.4.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for `MooLah`.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-.  Type a command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Press kbd:[TAB] if you want to enable the suggestion feature.
+.  Type a command in the command box and press `Enter` to execute it. +
+e.g. typing *`help`* and pressing `Enter` will open the help window.
+.  Press `TAB` if you want to enable the suggestion feature.
 .  Some example commands you can try:
 
 * *`listexpense`* : lists all expenses
@@ -267,9 +267,6 @@ Examples:
 * `addexpense d/Buffet c/Food p/250`
 * `addexpense d/Chicken rice p/2.50 c/Food t/yesterday noon`
 
-NOTE: The highest amount for Price is `100000`. +
-The accepted <TIMESTAMP> range is `1 Jan 2000 to 31 Dec 2099`.
-
 After typing in the command and entering it...
 
 .Entering an addexpense command into the command box
@@ -399,7 +396,7 @@ Examples:
 listexpense
 delete 2
 ----
-Deletes the 2nd expense in the list of expenses, shown after `listexpenses` is executed.
+Deletes the 2nd expense in the list of expenses, shown after `listexpense` is executed.
 
 ----
 listexpense
@@ -428,7 +425,8 @@ Once an event has transpired, it is permanently deleted from MooLah and you cann
 that event was still present would not restore the event.
 [NOTE]
 MooLah updates time every 10 seconds, so you may experience a slight delay of 10 seconds maximum when it comes to
-event popups!
+event popups! +
+A popup would also not appear if the transpired event has had its corresponding budget deleted.
 
 ==== Adding an event: `addevent`
 
@@ -501,10 +499,10 @@ deleteevent <INDEX>
 Examples:
 
 ----
-listevents
+listevent
 delete 2
 ----
-Deletes the 2nd event in the list of events, shown by `listevents`.
+Deletes the 2nd event in the list of events, shown by `listevent`.
 
 // end::events[]
 
@@ -782,11 +780,11 @@ If you find yourself forgetting the syntax for some commands, enable the suggest
 suggest valid commands, as well as prefixes when you already have a command word entered.
 
 *Enable* +
-To enable the suggestion feature, press the kbd:[TAB] key. This will enable the suggestion feature!
+To enable the suggestion feature, press the `TAB` key. This will enable the suggestion feature!
 You will see that the command box has a green border. This indicates that the feature is enabled.
 
 *Disable* +
-To disable the suggestion feature, press the kbd:[TAB] key again. This will disable the suggestion feature!
+To disable the suggestion feature, press the `TAB` key again. This will disable the suggestion feature!
 You will see that the command box no longer has a green border. This indicates that the feature is no longer enabled.
 
 The suggestion menu will show you the command words which match your current input.
@@ -796,8 +794,8 @@ image::suggestions3.png[align="center",width=400]
 The suggestion menu showing suggestions for built-in commands which begin with 'add' when the feature has been enabled
 ****
 
-You can cycle through the choices using the kbd:[UP] and kbd:[DOWN] keys. To confirm your choice, push the kbd:[ENTER] or kbd:[SPACE] key!
-kbd:[LEFT], kbd:[RIGHT], and kbd:[ESC] can be used to close the menu without disabling suggestions.
+You can cycle through the choices using the `UP` and `DOWN` keys. To confirm your choice, push the `ENTER` or `SPACE` key!
+`LEFT`, `RIGHT`, and `ESC` can be used to close the menu without disabling suggestions.
 
 When you have entered a valid command, MooLah will show you a list of prefixes that are supported by this command and that
 you have not yet entered.
@@ -847,8 +845,8 @@ MooLah remembers what commands you have previously entered, and allows you to ac
 If you need to enter the same input multiple times but do not want to save it as an `alias`
 you may cycle through the history of successfully executed inputs within the current session.
 
-Press kbd:[UP] to scroll through previously executed commands. +
-Press kbd:[DOWN] to go back the more recent commands.
+Press `UP` to scroll through previously executed commands. +
+Press `DOWN` to go back the more recent commands.
 
 
 
@@ -858,14 +856,14 @@ For example, if you entered these commands previously.
 > addexpense d/chickenrice p/12.3 c/food
 > add d/chicken rice p/2.30 c/food
 ----
-Pressing the kbd:[UP] key to quickly enter the previous input.
+Pressing the `UP` key to quickly enter the previous input.
 
 .the last input which was successfully executed will be entered into the command box.
 image::highlight1.png[align="center", width=400]
 
 
 [NOTE]
-When the suggestion menu is open, the kbd:[UP] and kbd:[DOWN] keys will cycle through the suggestions instead!
+When the suggestion menu is open, the `UP` and `DOWN` keys will cycle through the suggestions instead!
 
 
 // end::shortcuts[]
@@ -1201,7 +1199,7 @@ e.g. `statstrend sd/11-11-2018 ed/12-12-2018 mode/category`
 
 * *Add alias* (_undoable_) : `addalias a/<ALIAS_NAME> c/<INPUT>` +
 e.g. `alias a/chicken rice c/ add d/ Chicken Rice p/2.50 c/Food`
-* *See all aliases* : `listaliases`
+* *See all aliases* : `listalias`
 * *Delete an alias* : `deletealias <DESCRIPTION>`
 
 == Menu Items List

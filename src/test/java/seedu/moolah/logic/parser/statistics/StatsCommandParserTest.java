@@ -53,15 +53,6 @@ class StatsCommandParserTest {
         assertParseFailure(parser, CommandTestUtil.STATS_HIGHER_END_DATE, Messages.MESSAGE_CONSTRAINTS_END_DATE);
     }
 }
-        /*
-        assertParseFailure(parser, CommandTestUtil.STATS_DUPLICATE_DATE_PREFIX,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, CommandTestUtil.STATS_DUPLICATE_DATE_PREFIX_WITH_COMMAND,
-                MESSAGE_REPEATED_PREFIX_COMMAND);
-
-        consider checking for natural language commands
-
-         */
 
 
 

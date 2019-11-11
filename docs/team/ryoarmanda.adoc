@@ -9,35 +9,70 @@
 
 == Overview
 
-MooLah is an expense tracker application developed in Java by and for students from National University of Singapore. The application
-is command-line based but presented with a GUI created with JavaFX for display purposes.
+MooLah is a Command Line Interface (CLI)-centered expense tracker poised to be hassle-free and tailored for students of National University of Singapore (NUS).
+This project is developed by me and 4 Computer Science students in NUS. In developing the project, we were initially tasked to enhance or morph an existing project, Address Book Level 3.
+Throughout the semester, we decided to morph the original codebase into MooLah and developed features for it incrementally. Although MooLah is CLI-centered, it also has
+a neat Graphical User Interface (GUI) made by JavaFX code, and supports features such as autosuggestion to achieve the intended convenience of using MooLah.
 
 == Summary of contributions
 
-* *Major enhancement*: implemented *undo/redo functionality*
-** What it does: The functionality enables the user to undo commands that have been executed in a one-by-one manner. Commands that have been undone can be reverted back by using the redo command, provided that the user have not executed any new commands at the time.
-** Justification: This component improves the application significantly as a user can make mistakes in commands and the component helps the user amend them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required a thoughtful analysis of design approaches and resource trade-offs. The implementation too was challenging as it hinges on the immutability of the data structures of the model.
+=== *Major enhancement*
 
-* *Other contributions*:
+I implemented the functionality to *undo and redo commands* that have been executed by the user. The details are
+as follows:
 
-** Project management:
-*** Ensured the master branch is protected from rogue code pushes
-*** Made passing Travis build a requirement for merging pull requests to ensure passing build of the master branch.
-*** Configured Coveralls to post coverage status to pull requests after passing Travis build, with a warning if coverage drops by 5%.
-*** Set the requirement for one teammate approval to be able to merge pull requests to improve codebase quality.
-** Improvements to existing components:
-*** Separated command validation from execution https://github.com/AY1920S1-CS2103T-T11-1/main/pull/[#85]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T11-1/main/pull/[#62], https://github.com/AY1920S1-CS2103T-T11-1/main/pull/[#89]
-** Tools:
-*** Integrated Coveralls to the team repo
+* What it does: The functionality enables the user to undo commands that have been executed one-by-one. Commands that have been undone can be reverted back by using the redo command, provided that the user has not executed any new commands at the time.
+* Justification: This component improves the application significantly as a user can make mistakes in commands and the component helps the user amend them.
+* Highlights: This enhancement affects existing commands and commands to be added in future, as commands can now be either undoable or non-undoable in nature.
+It required a thoughtful analysis of design approaches and resource trade-offs, namely in computation time versus memory.
+The implementation too was challenging as it hinges on the immutability of the data structures of the model, and persistence of model states throughout execution.
+
+=== *Minor enhancements*
+
+Other than the major enhancement described above, I have also:
+
+* Added a new command that adds an expense from the list of NUS canteens' food and drinks supported by MooLah. This command
+is a shorthand form of the general add expense command tailored for NUS students.
+
+=== *Code contributed*
+
+Refer https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=ryoarmanda&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ryoarmanda&tabRepo=AY1920S1-CS2103T-T11-1%2Fmain%5Bmaster%5D[here]
+for the list of code contributions I have done for the project.
+
+=== *Other contributions*
+
+==== Project management
+As the person-in-charge for project integration, my responsibility is to streamline the process of proposing code
+changes and contributions, and to preserve the integrity of the codebase. The measures I have taken to achieve that, are
+namely:
+
+* Ensured the master branch is protected from rogue code pushes
+* Made passing Travis build a requirement for merging pull requests to ensure the integrity of the master branch.
+* Configured Coveralls to post coverage status to pull requests after passing Travis build with a warning if coverage drops by 5%.
+* Set the requirement for one teammate approval to be able to merge pull requests to improve codebase quality.
+
+==== Improvements to existing components
+I improved some aspects of the original codebase to better complement my enhancements and to improve
+the quality of the project as a whole. For the improvements, I have:
+
+* Separated command validation from execution https://github.com/AY1920S1-CS2103T-T11-1/main/pull/[#85]
+
+==== Community
+As part of a project community with my teammates, I have done the following as contributions to the group discussion:
+
+* Reviewing pull requests (with in-depth comments): https://github.com/AY1920S1-CS2103T-T11-1/main/pull/[#62], https://github.com/AY1920S1-CS2103T-T11-1/main/pull/[#89]
+
+==== Integration Tools
+I have incorporated third-party tools to help automate or manage the development of the project. In summary, I have:
+
+* Integrated Coveralls to the team repo to keep track of the project's line coverage.
+* Integrated Trello to manage project issues and backlog throughout the development process.
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Below are the *major* sections that I contributed to the User Guide. These showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=undo]
@@ -47,7 +82,7 @@ include::../UserGuide.adoc[tag=redo]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Below are the *major* sections that I contributed to the Developer Guide. These showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=undoredo]

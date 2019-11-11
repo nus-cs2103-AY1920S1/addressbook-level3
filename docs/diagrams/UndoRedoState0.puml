@@ -6,14 +6,8 @@ skinparam ClassBorderColor #000000
 title Initial state
 
 package ModelHistory{
-    package PastModels {}
-    package FutureModels {}
+    package PastChanges {}
+    package FutureChanges {}
 }
-
-class State1 as "__m0:Model__"
-
-class Pointer as "Current State" #FFFFF
-
-Pointer -up-> State1
 
 @end

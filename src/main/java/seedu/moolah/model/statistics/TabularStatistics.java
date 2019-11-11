@@ -63,16 +63,16 @@ public class TabularStatistics implements Statistics {
      * Gathers the data to be used for the elements of the table
      */
     private void generateTableData() {
-        ArrayList<ArrayList<Expense>> firstData = extractRelevantExpenses(firstStartDate, firstEndDate);
-        ArrayList<ArrayList<Expense>> secondData = extractRelevantExpenses(secondStartDate, secondEndDate);
+        List<List<Expense>> firstData = extractRelevantExpenses(firstStartDate, firstEndDate);
+        List<List<Expense>> secondData = extractRelevantExpenses(secondStartDate, secondEndDate);
 
         String title = String.format("Statistics Summary: Comparing %s to %s with %s to %s\n",
                 firstStartDate.showDate(), firstEndDate.showDate(),
                 secondStartDate.showDate(), secondEndDate.showDate());
 
-        ArrayList<ThreeElementTableEntry> firstTable = createEmptyTableWithoutPercentage();
-        ArrayList<ThreeElementTableEntry> secondTable = createEmptyTableWithoutPercentage();
-        ArrayList<ThreeElementTableEntry> unionTable = createEmptyTableWithoutPercentage();
+        List<ThreeElementTableEntry> firstTable = createEmptyTableWithoutPercentage();
+        List<ThreeElementTableEntry> secondTable = createEmptyTableWithoutPercentage();
+        List<ThreeElementTableEntry> unionTable = createEmptyTableWithoutPercentage();
 
         convertDataToFigures(firstData, firstTable);
         convertDataToFigures(secondData, secondTable);
@@ -90,7 +90,7 @@ public class TabularStatistics implements Statistics {
             overlapStartDate = firstStartDate;
         }
 
-        ArrayList<ArrayList<Expense>> unionData = extractRelevantExpenses(overlapStartDate, overlapEndDate);
+        List<List<Expense>> unionData = extractRelevantExpenses(overlapStartDate, overlapEndDate);
         convertDataToFigures(unionData, unionTable);
 
         this.unionDifferenceTable = combine(unionTable, differenceTable);
@@ -103,7 +103,7 @@ public class TabularStatistics implements Statistics {
      *
      * @return An list of table entries
      */
-    private ArrayList<ThreeElementTableEntry> createEmptyTableWithoutPercentage() {
+    private List<ThreeElementTableEntry> createEmptyTableWithoutPercentage() {
         ArrayList<ThreeElementTableEntry> table = new ArrayList<>();
         for (int i = 0; i < Category.getNumValidCategory() + 1; i++) {
             table.add(ThreeElementTableEntry.createEmptyEntry());
@@ -117,9 +117,9 @@ public class TabularStatistics implements Statistics {
      * @param secondTable The basic statistics of the second time period
      * @return A table containing the differences in the two tables of basic statistics
      */
-    private ArrayList<ThreeElementTableEntry> secondMinusFirst(ArrayList<ThreeElementTableEntry> firstTable,
-                                                               ArrayList<ThreeElementTableEntry> secondTable) {
-        ArrayList<ThreeElementTableEntry> result = createEmptyTableWithoutPercentage();
+    private List<ThreeElementTableEntry> secondMinusFirst(List<ThreeElementTableEntry> firstTable,
+                                                               List<ThreeElementTableEntry> secondTable) {
+        List<ThreeElementTableEntry> result = createEmptyTableWithoutPercentage();
         int rowSize = firstTable.size();
         for (int i = 0; i < rowSize; i++) {
             ThreeElementTableEntry firstInput = firstTable.get(i);
@@ -136,8 +136,8 @@ public class TabularStatistics implements Statistics {
      *
      * @return A list of categorised expenses according to their categories
      */
-    ArrayList<ArrayList<Expense>> extractRelevantExpenses(Timestamp startDate, Timestamp endDate) {
-        ArrayList<ArrayList<Expense>> data = new ArrayList<>();
+    List<List<Expense>> extractRelevantExpenses(Timestamp startDate, Timestamp endDate) {
+        List<List<Expense>> data = new ArrayList<>();
         for (int i = 0; i <= categorySize; i++) {
             data.add(new ArrayList<>());
         }
@@ -156,14 +156,14 @@ public class TabularStatistics implements Statistics {
     /**
      * Fills in the table with calculations from the expenses
      */
-    private void convertDataToFigures(ArrayList<ArrayList<Expense>> data,
-                                      ArrayList<ThreeElementTableEntry> table) {
+    private void convertDataToFigures(List<List<Expense>> data,
+                                      List<ThreeElementTableEntry> table) {
 
         table.set(categorySize, new ThreeElementTableEntry("TOTAL", 0, 0));
         ThreeElementTableEntry entryForTotal = table.get(categorySize);
 
         for (int i = 0; i < categorySize; i++) {
-            ArrayList<Expense> categoryStats = data.get(i);
+            List<Expense> categoryStats = data.get(i);
 
             double categoricalTotal = 0;
             int entryNumber = 0;

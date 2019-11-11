@@ -7,17 +7,15 @@ title After command "undo"
 
 package ModelHistory{
     package PastModels {
-        class State1 as "__m0:Model__"
+        class State1 as "__m0:ModelChanges__"
     }
 
     package FutureModels {
-        class State3 as "__m2:Model__"
+        class State3 as "__m2:ModelChanges__"
     }
 }
 
-class State2 as "__m1:Model__"
+class Pointer as "Changes to revert undo." #FFFFF
 
-class Pointer as "Current State" #FFFFF
-
-Pointer -up-> State2
+Pointer -up-> State3
 @end

@@ -1,6 +1,5 @@
 package seedu.moolah.ui.statistics;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.chart.CategoryAxis;
@@ -17,11 +16,11 @@ import seedu.moolah.model.general.Timestamp;
 public class LineChartCategoriesRegionFactory implements StatisticsRegionFactory {
 
     private final List<Timestamp> dates;
-    private final List<ArrayList<Double>> periodicCategoricalExpenses;
+    private final List<List<Double>> periodicCategoricalExpenses;
     private final String title;
 
     public LineChartCategoriesRegionFactory(List<Timestamp> dates,
-                                            List<ArrayList<Double>> periodicCategoricalExpenses, String title) {
+                                            List<List<Double>> periodicCategoricalExpenses, String title) {
         this.dates = dates;
         this.periodicCategoricalExpenses = periodicCategoricalExpenses;
         this.title = title;
@@ -43,7 +42,7 @@ public class LineChartCategoriesRegionFactory implements StatisticsRegionFactory
             Category category = categories.get(i);
             XYChart.Series<String, Number> categoryTrendLine = new XYChart.Series<String, Number>();
             categoryTrendLine.setName(category.getCategoryName());
-            ArrayList<Double> periodicCategoricalExpenditure = periodicCategoricalExpenses.get(i);
+            List<Double> periodicCategoricalExpenditure = periodicCategoricalExpenses.get(i);
             int numberOfZeroes = 0;
             for (int j = 0; j < periodicCategoricalExpenditure.size(); j++) {
                 double yValue = periodicCategoricalExpenditure.get(j);

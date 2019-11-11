@@ -1,0 +1,16 @@
+@startuml
+start
+:User enters an undoable command;
+:Check for command validity;
+if () then (is valid)
+    :Create a copy of the current model;
+    :Execute command;
+    :Compare changes between the
+    current model and the previous copy;
+    :Add changes to history;
+    :Show success message;
+else (invalid)
+    :Show error message;
+endif;
+stop
+@enduml
