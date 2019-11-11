@@ -3,7 +3,7 @@ package io.xpire.model.history;
 /**
  * Generic interface that provides methods to save current status and retrieve previous/next
  * elements in HistoryManager.
- * @@author Kalsyc Xiaoyu
+ * @@author Kalsyc
  * @param <T> Type to be stored in HistoryManager.
  */
 public interface HistoryManager<T> {

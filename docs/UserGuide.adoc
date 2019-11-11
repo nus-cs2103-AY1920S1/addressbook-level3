@@ -446,6 +446,7 @@ Deletes the 3rd item in the sorted main list.
 `delete|1` +
 Deletes the 1st item in the results of the `search` command.
 
+// tag::deletetag[]
 ===== Deleting certain tags from an item
 Deletes tag(s) from the specified item. +
 Format: `delete|<index>|<tag>[<other tags>]...` +
@@ -455,7 +456,7 @@ Examples:
 * `view|main` +
 `delete|3|#Fruit #Food` +
 Deletes the tags `#Fruit` and `#Food` from the 3rd item in the main list.
-
+// end::deletetag[]
 ===== Reducing the quantity of an item
 
 .Item at index 4 reduced in quantity by 1

@@ -126,7 +126,7 @@ public class ModelManager implements Model {
      * Returns the {@code ReplenishList}
      */
     @Override
-    public ReplenishList getReplenishList() {
+    public ReadOnlyListView<Item> getReplenishList() {
         return this.replenishList;
     }
 

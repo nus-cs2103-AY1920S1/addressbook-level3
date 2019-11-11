@@ -1,7 +1,6 @@
 package io.xpire.model;
 
 import io.xpire.model.item.Item;
-import io.xpire.model.item.XpireItem;
 import io.xpire.model.state.State.StateType;
 
 /**
@@ -11,10 +10,10 @@ import io.xpire.model.state.State.StateType;
 public class CloneModel {
 
     private final Xpire xpire;
-    private final ReplenishList replenishList;
+    private final ReadOnlyListView<Item> replenishList;
     private final ReadOnlyUserPrefs userPrefs;
 
-    public CloneModel(Xpire xpire, ReplenishList replenishList,
+    public CloneModel(Xpire xpire, ReadOnlyListView<Item> replenishList,
                       ReadOnlyUserPrefs userPrefs, StateType stateType) {
         switch(stateType) {
         case FILTERED:
@@ -35,7 +34,7 @@ public class CloneModel {
 
     }
 
-    public ReadOnlyListView<XpireItem> getXpire() {
+    public Xpire getXpire() {
         return this.xpire;
     }
 
