@@ -769,12 +769,12 @@ For example:
 
 * To modify the autotag named `NUS`, type `*autotag-edit* NUS t/University f/School f/General f/Modules f/CS2103T`
 +
-image::AutotagEditCommandUi1.png[]
+image::ui-screenshots/AutotagEditCommandUi1.png[]
 
 * You can then observe that the autotag `NUS` has been renamed `University`, and its folder conditions now
 include the folder `CS2103T`.
 +
-image::AutotagEditCommandUi2.png[]
+image::ui-screenshots/AutotagEditCommandUi2.png[]
 
 The parameter constraints are similar to <<autotag-parameter-constraints, those for the `*autotag*` command>>,
 with the following differences:
@@ -788,14 +788,14 @@ Other examples:
 
 * `*autotag-edit* Quiz u/luminus.nus.edu.sg u/quiz nu/attempt`
 +
-image::AutotagEditCommandExample1.png[]
+image::ui-screenshots/AutotagEditCommandExample1.png[]
 +
 Modifies the autotag `Quiz` such that it tags bookmarks with URLs that contain either of the keywords
 `luminus.nus.edu.sg` or `quiz`, but do not contain the keyword `attempt`.
 
 * `*autotag-edit* Quiz t/Quizzes`
 +
-image::AutotagEditCommandExample2.png[]
+image::ui-screenshots/AutotagEditCommandExample2.png[]
 +
 Modifies the name of the autotag `Quiz` such that it now tags bookmarks with the tag `Quizzes` instead of `Quiz`.
 
@@ -922,12 +922,12 @@ For example:
 
 * Input `*annotate* 1 p/p2 n/summary of paragraph h/orange` into the command box.
 
-image::AddAnnotationCommandUi1.png[]
+image::ui-screenshots/AddAnnotationCommandUi1.png[]
 // offline tab, showing result after   annotate 1 p/p2
 
 * Observe that any pre-existing annotation is overwritten. Paragraph P2 is now highlighted orange and a note with content “summary of paragraph” is attached to it.
 
-image::AddAnnotationCommandUi2.png[]
+image::ui-screenshots/AddAnnotationCommandUi2.png[]
 // offline tab, showing result.
 
 
@@ -986,12 +986,12 @@ For example:
 
 * Input `*annotate-edit* 1 p/g1 to/p1 h/green` into the command box.
 
-image::EditAnnotationCommandUi1.png[]
+image::ui-screenshots/EditAnnotationCommandUi1.png[]
 // offline tab after   annotate 1 p/null n/this note was once a general note
 
 * Observe that the general note removed from the bottom and attached to pararaph P1. At the same time, paragraph P1 is highlighted green.
 
-image::EditAnnotationCommandUi2.png[]
+image::ui-screenshots/EditAnnotationCommandUi2.png[]
 
 ****
 * `INDEX` is the bookmark that you want to annotate offline version of.
@@ -1050,12 +1050,12 @@ For example:
 
 * Input `*annotate-delete* 1 p/p2 n/true` into the command box.
 
-image::DeleteAnnotationCommandUi1.png[]
+image::ui-screenshots/DeleteAnnotationCommandUi1.png[]
 // offline tab, after   annotate 1 p/p2 h/pink n/this note is originally not general
 
 * Observe that the highlight of paragraph P2 if removed and the note is moved to the _General notes section_.
 
-image::DeleteAnnotationCommandUi2.png[]
+image::ui-screenshots/DeleteAnnotationCommandUi2.png[]
 
 
 ****
