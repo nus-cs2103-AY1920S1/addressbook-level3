@@ -24,7 +24,6 @@ public class HttpsClientUtil {
     }
 
     public static boolean getLatestExchangeData(String base) throws ExecutionException, InterruptedException {
-
         // Build request
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create("https://api.exchangeratesapi.io/latest?base=" + base))

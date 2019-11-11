@@ -3,10 +3,10 @@ package seedu.address.testutil;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import seedu.address.model.commons.Currency;
+import seedu.address.model.commons.Date;
 import seedu.address.model.exchangedata.ExchangeData;
-import seedu.address.model.expense.Currency;
-import seedu.address.model.expense.Date;
-import seedu.address.model.rates.Rates;
+import seedu.address.model.exchangedata.Rates;
 
 /**
  * Returns the typical rates for currency exchange.

@@ -20,7 +20,7 @@ import seedu.address.model.BudgetList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.expense.NameContainsKeywordsPredicate;
+import seedu.address.model.commons.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

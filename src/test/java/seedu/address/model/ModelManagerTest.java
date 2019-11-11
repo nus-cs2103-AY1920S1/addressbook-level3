@@ -17,8 +17,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.commons.NameContainsKeywordsPredicate;
 import seedu.address.model.exchangedata.ExchangeData;
-import seedu.address.model.expense.NameContainsKeywordsPredicate;
 import seedu.address.testutil.BudgetListBuilder;
 import seedu.address.testutil.ExpenseListBuilder;
 
