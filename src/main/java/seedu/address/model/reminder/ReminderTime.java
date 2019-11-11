@@ -8,8 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Represents a Task's time in the calendar.
- * Guarantees: immutable; is valid as declared in {@link #isValidTaskTime(String)}
+ * Represents a Reminder's time in the calendar.
+ * Guarantees: immutable; is valid as declared in {@link #isValidReminderTime(String)}
  */
 public class ReminderTime implements Comparable<ReminderTime> {
     public static final String MESSAGE_CONSTRAINTS =
@@ -33,7 +33,7 @@ public class ReminderTime implements Comparable<ReminderTime> {
     }
 
     /**
-     * Returns true if a given string is a valid task time.
+     * Returns true if a given string is a valid reminder time.
      */
     public static boolean isValidReminderTime(String reminderTime) {
         Date dateStart;
@@ -50,8 +50,8 @@ public class ReminderTime implements Comparable<ReminderTime> {
                     || !endingTime.equals(simpleDateFormat.format(dateEnd))) {
                 dateStart = null;
             }
-        } catch (ParseException ex) {
-            return false;
+        } catch (IndexOutOfBoundsException | ParseException ex) {
+            throw new IllegalArgumentException();
         }
         return dateStart != null;
     }

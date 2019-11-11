@@ -1278,8 +1278,10 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Add a task and list all tasks out with the added task.
 
-.. Test case: `add_task c/CS2103T mark/Y tt/13/09/2019 13:00, 20/09/2019 16:00` +
-   Expected: A marked task with Class Id "CS2103T" and Task Time "13/09/2019 13:00 to 16:00" was added to the task list. Details of the added task shown in the status message. Task list shown in Main window.
+.. Test case: `add_task c/CS2103T mark/Y tt/13/09/2019 13:00, 13/09/2019 16:00` +
+   Expected: A marked task with Class Id "CS2103T" and Task Time "13/09/2019 13:00 to 16:00" was added to the task list. Details of the added task shown in the status message. Task list shown in Main window. +
+Reminder with Description "CS2103T" and Time "13/09/2019 13:00, 20/09/2019 16:00" will be created as well. +
+A Task will be shown on that date in the Calendar view as well.
 .. Test case: `add_task` +
    Expected: No task is added. Error details and correct format shown in the status message.
 .. Other incorrect command format to try: `add_task task`, `add_task c/ mark/ tt/`
@@ -1339,6 +1341,61 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The previously deleted task reappeared in the list.
 .. Test case: `delete_task 1` + `undo` + `redo` +
    Expected: The recovered task was deleted again from the list.
+
+// tag::ManualTestReminder[]
+=== Adding a reminder
+
+. Add a reminder and list all reminders out with the added reminder.
+
+.. Test case: `add_reminder rd/CS2103T rt/13/09/2019 13:00, 20/09/2019 16:00` +
+   Expected: A Reminder with Class Id "CS2103T" and Task Time "13/09/2019 13:00, 20/09/2019 16:00" was added to the reminder list. Details of the added reminder shown in the status message. Reminder list shown in Main window.
+.. Test case: `add_reminder` +
+   Expected: No reminder is added. Error details and correct format shown in the status message.
+.. Other incorrect command format to try: `add_reminder reminder`, `add_reminder rd/error rt/20/9/2019 13:00, 21/9/2019 15:00`
+.. Reminder: Reminders with duplicate `description` cannot be created.
+//end::ManuelTestReminder[]
+
+=== Deleting a reminder
+
+. Delete a reminder and list all reminders out without the deleted reminder.
+
+.. Test case: `delete_reminder 1` +
+   Expected: The first reminder in the reminder list was deleted. Details of the deleted reminder shown in the status message. Reminder list shown in Main window.
+.. Test case: `delete_reminder` +
+   Expected: No reminder is deleted. Error details and correct format shown in the status message.
+.. Other incorrect command format to try: `delete_reminder 0` `delete_reminder 1 rd/`
+.. Reminder: Make sure the index of the reminder is not larger than the total number of reminder in reminder list.
+
+=== Finding a reminder
+
+. Find reminders by their Description or its Reminder Time.
+
+.. Test case: `find_reminder_by_description cs2100` +
+   Expected: All reminders that description contains "cs2100" (regardless case of the letters) were shown in the MainWindow. Number of reminders found were stated in the status message.
+.. Test case: `find_reminder_by_date 20/10/2019` +
+   Expected: All reminders that Reminder Time contains "20/10/2019" were shown in the MainWindow. Number of reminder found were stated in the status message.
+.. Test case: `find_reminder_by_description` +
+   Expected: Error details and correct format shown in the status message.
+.. Other incorrect command format to try: `find_reminder_by_date`, `find_reminder_by_date 13/10/2019 15/10/2019`
+.. Reminder: Reminder can be found by multiple numbers of Description but only one Date.
+
+=== Listing all reminders
+
+. List out all reminders.
+
+.. Test case: `list_reminder` +
+   Expected: All reminders were listed in Main Window.
+.. Test case: `list reminders` +
+   Expected: Error details shown in the status message.
+
+=== Tab Change
+
+. Change Tab.
+
+.. Test case: `change_tab tab/earnings` +
+   Expected: All earnings were listed in Main Window.
+.. Test case: `changetab tasks` +
+   Expected: Error details shown in the status message.
 
 === Listing by class
 
@@ -1426,3 +1483,4 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Error. Invalid command, TutorAid can't find such a command to delete.
 .. Test case: `deleteCustomCommand BASICCOMMAND` +
    Expected: Error. You can't delete a basic built-in command.
+
