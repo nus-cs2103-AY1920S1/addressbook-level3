@@ -2,6 +2,7 @@ package seedu.deliverymans.model.deliveryman.deliverymanstatus;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.AVAILABLE_STATUS;
+import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.DELIVERING_STATUS;
 import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.UNAVAILABLE_STATUS;
 
 import javafx.collections.FXCollections;
@@ -146,8 +147,15 @@ public class StatusManager {
         if (availableMen.size() == 0) {
             throw new NoMoreAvailableDeliverymanException();
         }
-        Deliveryman removed = availableMen.remove(0);
-        return updateStatusOf(removed, "DELIVERING");
+        return availableMen.get(0);
+    }
+
+    public Deliveryman orderAssigned(Deliveryman target) {
+        if (!target.getStatus().getDescription().equals(AVAILABLE_STATUS)) {
+            throw new IllegalStateException("Attempt to mark deliveryman who is not available as delivering");
+        }
+        availableMen.remove(target);
+        return updateStatusOf(target, DELIVERING_STATUS);
     }
 
     /**
