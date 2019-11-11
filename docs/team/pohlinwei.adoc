@@ -97,7 +97,7 @@ To view my code in more detail, please click https://nus-cs2103-ay1920s1.github.
 .In addition to the above, I also...
 -	implemented the common command ``goto``. This enables the user to easily navigate from one feature to another without having to open multiple windows. (Pull requests https://github.com/AY1920S1-CS2103T-T17-2/main/pull/32[#32], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/37[#37])
 -	reviewed pull request and provided suggestions for improvements (Pull request https://github.com/AY1920S1-CS2103T-T17-2/main/pull/39[#39], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/180[#180])
--	managed the release of TravEzy version 1.1 and 1.2 
+-	managed the release of _TravEzy_ version 1.1 and 1.2 
 -	made the user guide more reader-friendly (Pull requests https://github.com/AY1920S1-CS2103T-T17-2/main/pull/104[#104], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/108[#108], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/193[#193])
 
 = Contributions to User Guide 
