@@ -43,6 +43,10 @@ public class AutoExpense extends Entry {
         return lastTime;
     }
 
+    public boolean isUpToDate() {
+        return getNextTime().isAfter(Date.now());
+    }
+
     //TODO HIGHLY LIKELY ERROR
 
     /**
@@ -89,13 +93,6 @@ public class AutoExpense extends Entry {
      */
     public Frequency getFrequency() {
         return freq;
-    }
-
-    /**
-     * @param lastTime the lastTime to set
-     */
-    public void setLastTime(Date lastTime) {
-        this.lastTime = lastTime;
     }
 
     /**
