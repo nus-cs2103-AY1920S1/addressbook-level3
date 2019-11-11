@@ -948,7 +948,7 @@ of the current window of the budget, seen on the top right of the budget progres
 Example of configurations:
 ----
 statsbasic
-statsbasic sd/ytd
+statsbasic sd/tmr
 statsbasic sd/11-11-2018 ed/12-12-2018
 ----
 
@@ -1008,14 +1008,14 @@ is calculated using the formula `second period` - `first period`.
 - The end dates for both start dates specified by the user are constructed using the period
 that the current budget is using.
 
-
+- The entries for amount only supports 1 decimal place despite price having 2dp.
 ****
 
 
 Example of configurations:
 ----
 statscompare sd1/12-12 sd2/ 1 month ago
-statscompare sd2/ today sd1/ytd
+statscompare sd2/ today sd1/tmr
 statscompare sd2/ 23-09-2019 sd1/1 year ago
 ----
 
@@ -1084,7 +1084,7 @@ start date of the current window of the current budget.
 Example of configurations:
 ----
 statstrend mode/category
-statstrend sd/ytd mode/category
+statstrend sd/tmr mode/category
 statstrend sd/11-11-2018 ed/12-12-2018 mode/category
 ----
 
