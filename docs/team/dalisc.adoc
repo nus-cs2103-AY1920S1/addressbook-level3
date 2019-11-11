@@ -70,21 +70,15 @@ team project.
 
 == 3. Contributions to the User Guide
 We wrote a User Guide targeted at the users of Mortago. The User Guide containts instructions on how to use the various commands of the application. The following is an excerpt from our Mortago User Guide, showing additions that I have
-made for the `stats`, `filter`, and `find` features.
+made for the `stats` and `filter`features.
 
 _{start of extract 1: stats command}_
 include::../UserGuide.adoc[tag=stats]
 _{end of extract 1}_
 
-
 _{start of extract 2: filter command}_
 include::../UserGuide.adoc[tag=filter]
 _{end of extract 2}_
-
-_{start of extract 3: find command}_
-include::../UserGuide.adoc[tag=find]
-_{end of extract 3}_
-
 
 == 4. Contributions to the Developer Guide
 
