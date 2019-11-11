@@ -63,7 +63,6 @@ public class AddTodoCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Eatery expectedEatery = new TodoEateryBuilder(KENTUCKY).withTags().build();
-        System.out.println(expectedEatery);
         assertParseSuccess(parser, VALID_NAME_WITH_PREFIX_KFC + VALID_ADDRESS_WITH_PREFIX_KFC,
                 new AddCommand(expectedEatery));
     }
