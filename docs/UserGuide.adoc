@@ -114,7 +114,7 @@ blank.
 E.g. "noted" will return "noted" but not "note" or "notes"
 
 * All searches, like `filter`, are case insensitive.
-E.g. 'tag/cs2103t' will match 'tag/CS2103T' and `filter important` will match `filter IMPORTANT`
+E.g. 'tag/cs2103t' will match 'tag/CS2103T' and `filter tag/important` will match `filter tag/IMPORTANT`
 
 * If multiple inputs are given for a particular field, only the last valid input for the field is taken, unless the field allows multiple inputs.
 E.g. `add q/this is a question a/this is an answer q/another question` -> the application will only take in `q/another question` as the input field for `question`.
@@ -232,13 +232,26 @@ will list all items that match all of the specified tags.
 
 === Clearing specific feature's data: `clear`
 
+[WARNING]
+
+Proceed with care when using this function!! Using the clear function will IMMEDIATELY clear ALL of the data depending on the mode you are in!
+
 Clears the data in specific feature. Depending on the _mode_ that the user is in, the `clear` command will only clear the specific feature's data.
 
 Example usage:
 
     clear
 
+Expected output:
+
+    Cleared all flashcards/notes/cheatsheets!
+
 === Clearing entire application's data: `clear all`
+
+[WARNING]
+
+Proceed with care when using this function!! Using the clear function will IMMEDIATELY clear ALL of the data in StudyBuddyPro!
+
 
 Clears all the data in the application.
 
@@ -248,7 +261,7 @@ Example usage:
 
 Expected output:
 
-    Cleared the entire StudyBuddy book!
+    Cleared the entire StudyBuddyPro!
 
 === Exiting the application: `exit`
 
@@ -311,8 +324,6 @@ Example usage:
     edit tag/midterm tag/finals
 
 Expected output:
-
-Expected output:
 ```
 Tag edited!
 All items and contents in StudyBuddy tagged ‘midterm’ is replaced with tag ‘finals’.
@@ -371,6 +382,8 @@ Displays flashcard <FLASHCARD_INDEX> to user without answer.
 Example usage:
 
     view 6
+
+will view the Flashcard at Index 6.
 
 Expected output:
 ```
@@ -436,6 +449,11 @@ Are you sure you would like to delete the following flashcard?
     Please use `delete 6` again to confirm your deletion..
 ```
 
+[IMPORTANT]
+
+Inputting invalid commands will *NOT* offer another prompt to the user.
+For example, calling `delete 3`, then an `invalid command` and then `delete 3` again will immediately delete the 3rd item without a prompt.
+
 Upon keying in `delete 6` again, then the flashcard will be deleted.
 
 Expected output:
@@ -454,8 +472,6 @@ Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashca
 Example usage:
 
     timetrial cs2103tuml hard
-
-Expected output:
 
 Expected output:
 ```
@@ -653,13 +669,18 @@ Are you sure you would like to delete the following note?
     Please use `delete 3` again to confirm your deletion.
 ```
 
-Upon hitting enter, the note will be deleted.
+Upon using `delete 3` again, then the note will be deleted.
 ```
 Deleted note:
     Title: About Notes
     Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
     Tags: [about]
 ```
+
+[IMPORTANT]
+
+Inputting invalid commands will *NOT* offer another prompt to the user.
+For example, calling `delete 3`, then an `invalid command` and then `delete 3` again will immediately delete the 3rd item without a prompt.
 
 === Viewing a note: `view`
 
@@ -888,13 +909,12 @@ Expected output:
 
 ```
 Are you sure you would like to delete the following cheatsheet?
-Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
-Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
-    [ 2. 110 in Binary is 6 is Decimal ]
+Title: CS2100 Finals CheatSheet
+Tags: [finalcheatsheet]
 Please use `delete 8` again to confirm your deletion.
 ```
 
-Upon hitting enter, the specified cheatsheet will be deleted.
+Upon hitting enter, then the specified cheatsheet will be deleted.
 
 Expected output:
 ```
@@ -903,6 +923,11 @@ Deleted Cheatsheet:
     Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
         [ 2. 110 in Binary is 6 is Decimal ]
 ```
+
+[IMPORTANT]
+
+Inputting invalid commands will *NOT* offer another prompt to the user.
+For example, calling `delete 3`, then an `invalid command` and then `delete 3` again will immediately delete the 3rd item without a prompt.
 
 //tag::cheatsheetView[]
 
