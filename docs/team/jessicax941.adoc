@@ -1,0 +1,68 @@
+= Jessica Phua Shu Xin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: GuiltTrip
+
+== Overview
+
+GuiltTrip is a finance tracker application, optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, GuiltTrip can get your finance tracker tasks done faster than traditional GUI apps. Users can track their spending, incomes, wishlist items and budgets all in one place. They could also add recurring expenses that will add expenses for users automatically based on a given frequency.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to customise the look of UI*
+
+** What it does: allows the user to toggle specific panels on and off, change the font and theme of the application. The font and theme settings are also saved.
+
+** Justification: This feature improves the product by a moderate degree as it gives the user ability to change the look of the GUI to their liking. Because these settings are saved, when the user launches the application again, it is already in the user's preferred settings. As we are targeting young people who often like to customise the look of their applications (light/dark theme, type of font used), we believe that making the GUI customisable will draw our target users in and encourage them to continue using the application.
+
+** Highlights: This enhancements supplements some of the existing commands as it allows the user to view other entries such as Budgets, Wishes and AutoExpenses or not to view them, by toggling those panels off.
+
+* *Minor enhancement*:
+
+** Implement specific `add`, `delete` and `edit` commands for Expense and Income to maintain consistency (previously was one `add`/`delete`/`edit` command for both Expense and Income while Wish, Budget, AutoExpenses had their own commands).
+
+** Improve `listBudget` and `listWish` to replace budgets/wishes with expenses and incomes in the main panel. Thus this allocates more space for the user to view budgets or wishes, whenever the user wants to.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jessicax941&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jessicax941&tabRepo=AY1920S1-CS2103-T16-4%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jessicax941&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jessicax941&tabRepo=AY1920S1-CS2103-T16-4%2Fmain%5Bmaster%5D[Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Helped to manage releases `v1.2` - `v1.4` (3 releases) on GitHub
+*** Did initial morphing of AB3 to GuiltTrip, from Person to Entry class (Pull request https://github.com/AY1920S1-CS2103-T16-4/main/pull/68[#68])
+*** Renamed some parts of AB3 to GuiltTrip as part of morphing (Pull request https://github.com/AY1920S1-CS2103-T16-4/main/pull/261[#261])
+*** Repackaged classes for better organisation (Pull request https://github.com/AY1920S1-CS2103-T16-4/main/pull/256[#256])
+** Enhancements to existing features:
+*** Updated the GUI color scheme by colour-coding different kinds of entries and improving the general look of GUI (Pull requests https://github.com/AY1920S1-CS2103-T16-4/main/pull/74[#74], https://github.com/AY1920S1-CS2103-T16-4/main/pull/140[#140] https://github.com/AY1920S1-CS2103-T16-4/main/pull/177[#177], https://github.com/AY1920S1-CS2103-T16-4/main/pull/261[#261])
+*** Wrote tests for existing feature (Pull request https://github.com/AY1920S1-CS2103-T16-4/main/pull/261[#261])
+** Documentation:
+*** Updated AboutUs and README documents (Pull requests https://github.com/AY1920S1-CS2103-T16-4/main/pull/36[#36], https://github.com/AY1920S1-CS2103-T16-4/main/pull/46[#46], https://github.com/AY1920S1-CS2103-T16-4/main/pull/62[#62])
+*** Looked through User Guide to ensure formatting is consistent, correct minor mistakes and update command summary section (Pull requests https://github.com/AY1920S1-CS2103-T16-4/main/pull/190[#190], https://github.com/AY1920S1-CS2103-T16-4/main/pull/191[#191])
+** Community:
+*** Reported bugs and suggestions for other teams (https://github.com/jessicax941/ped/issues[PE dry run])
+** Tools:
+*** Integrated a third party library (TestFX) to the project to facilitate testing of UI (Pull request https://github.com/AY1920S1-CS2103-T16-4/main/pull/283[#283])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=uifeature]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=uicomponent]
+
+include::../DeveloperGuide.adoc[tag=uifeature]
+
+
+
+

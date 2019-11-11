@@ -773,6 +773,8 @@ Examples:
 `undo` (reverses the `delete 2` command) +
 `undo` (reverses the `delete 1` command)
 
+// tag::uifeature[]
+
 === UI features
 
 ==== Toggle Panel : `toggle`
@@ -790,13 +792,6 @@ Examples:
 * `toggle wishlist`
 * `toggle budget`
 * `toggle r`
-
-==== List Fonts : `listFont`
-Lists all available fonts the user can switch to.
-
-Format: `listFont`
-
-Example: `listFont`
 
 ==== Change Font : `changeFont`
 Changes the font used in application to the specified font. The input is case-sensitive. Only the following font names are accepted:
@@ -822,6 +817,8 @@ Changes the theme from dark to light.
 Format: `setLightTheme`
 
 Example: `setLightTheme`
+
+// end::uifeature[]
 
 == FAQ
 

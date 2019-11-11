@@ -73,6 +73,8 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
+// tag::uicomponent[]
+
 .Structure of UI component
 image::UiClassDiagram.png[]
 
@@ -92,6 +94,8 @@ The `UI` component
 * Executes user commands using the `Logic` component.
 
 * Listens for changes to `Model` data so that the `UI` can be updated with the modified data.
+
+// end::uicomponent[]
 
 [[Design-Logic]]
 === Logic component
@@ -195,6 +199,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions inside the Logic Component for the `viewHistory typ/Expense` Command
 image::viewHistorySequenceDiagram.png[]
 
+// tag::uifeature[]
+
 === Toggle Panel Command
 
 ==== Implementation
@@ -247,6 +253,8 @@ image::ToggleActivityDiagram.png[width="240"]
 The `changeFont` command extends from the `Command` class. `MainWindow` checks using the
 `CommandResult` obtained from `Logic` if the user wants to change the application font.
 If so, it immediately changes the font without requiring the user to exit and launch the application again.
+
+[NOTE]
 This change in font is also saved in `UserPrefs`.
 
 The following sequence diagram shows how an example usage scenario `changeFont rockwell` would work:
@@ -287,6 +295,8 @@ image::ChangeFontActivityDiagram.png[]
 
 The `setLightTheme`/`setDarkTheme` command extends from the `Command` class. `MainWindow` checks using the `CommandResult` obtained from `Logic` if the user wants to change the theme of the application.
 If so, it immediately changes the theme without requiring the user to exit and launch the application again.
+
+[NOTE]
 This change in the application theme is also saved in `UserPrefs`.
 
 The following sequence diagram shows how an example usage scenario `setLightTheme` would work:
@@ -323,6 +333,8 @@ image::SetLightThemeActivityDiagram.png[]
 
 ** Cons: Harder to implement; may introduce cyclic dependency.
 It may also be redundant or excessive as implementing the `changeFont` command is not very complicated.
+
+// end::uifeature[]
 
 === Reminders
 
