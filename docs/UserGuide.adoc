@@ -226,6 +226,7 @@ Step 2. All _TravEzy's_ windows will close.
 
 WARNING: The above commands ``goto``, ``help`` and ``exit`` can also be executed from the other _pages_.
 
+//tag::calendar[]
 == Calendar
 
 It's the end of the semester but there are still orientation camps, internships, and family commitments to attend to. However, after a long and tiring semester, the desire to unwind by travelling is just *too strong*. Sounds like you?
@@ -456,6 +457,8 @@ Step 2. The _month and year panel_ and _month view panel_ will change to show yo
 Step 3. The _result box_ will display a message to indicate when you are able to travel during the specified time. +
 
 image::calendarScreenshots/suggest2.png[Suggest result,width=600]
+
+//end::calendar[]
 
 == Itinerary
 

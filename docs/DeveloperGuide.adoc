@@ -602,7 +602,7 @@ NOTE: `1` is the index of the Diary Entry which is to be unlocked and ``user/use
 
 In summary, the ``unlock`` command is only to be used when the user has already set ``Details``. Otherwise, the user has to use the ``unprivate`` command to see private ``DiaryEntries``
 
-
+//tag::addressdg[]
 
 === Address Book
 
@@ -647,6 +647,10 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
  +
 image:BetterAddressBookModelClassDiagram.png[]
 
+//end::addressdg[]
+
+//tag::achievementsdg[]
+
 === Achievements
 
 ==== Logic Component
@@ -689,6 +693,7 @@ The `StatisticsModel`,
 * contains the statistics data that is generated from a model from another feature e.g. `AddressBookModel`
 * does not depend on any of the models from other features / packages e.g. `AddressBookModel`
 
+//end::achievementsdg[]
 
 == Documentation
 

@@ -108,9 +108,7 @@ This section provides a sample of the contributions I have made to the user guid
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[]
-
-include::../UserGuide.adoc[]
+include::../UserGuide.adoc[tag=calendar]
 
 == Contributions to the Developer Guide
 
@@ -120,7 +118,4 @@ This section provides the contributions I have made to the developer guide.
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[]
-
-include::../DeveloperGuide.adoc[]
-
+include::../DeveloperGuide.adoc[tag=calendar]
