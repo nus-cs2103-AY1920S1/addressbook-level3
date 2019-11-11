@@ -552,7 +552,7 @@ public enum Responses {
             "^((?i)view).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Invalid deck name!");
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Invalid! Deck name not included!");
                     return true;
                 }
     ),
