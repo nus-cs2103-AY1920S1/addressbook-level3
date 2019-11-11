@@ -141,7 +141,7 @@ The `add` command can be given the indexes of dishes from the list, to add them 
 
 ==== Adding a meal: `add`
 
-Adds a meal that the user ate to be tracked by CaloFit. +
+Adds a meal that the user consumed. +
 There are 2 formats that can be used: +
 
 Format 1: `add n/<<mealname-syntax, MEAL_NAME>> [c/<<calories-syntax, CALORIES>>] [t/TAGS]` +
@@ -205,8 +205,8 @@ Commands below are come other example commands:
 
 ==== Editing previous meal entry : `edit`
 
-Edits a meal that the user previously ate today. +
-Format: `edit MEAL-NUMBER [n/<<mealname-syntax, MEAL-NAME>>] [c/<<calories-syntax, CALORIES>>] [t/TAGS] [tr/TAGSTOREMOVE]` +
+Edits a meal that the user previously consumed today. +
+Format: `edit MEAL-NUMBER [n/<<mealname-syntax, MEAL-NAME>>] [c/<<calories-syntax, CALORIES>>] [t/TAGS] [tr/TAGS-TO-REMOVE]` +
 The input of at least 1 field (either NAME, <<calories-syntax, CALORIES>> or TAGS) is required.
 A mix of the different fields is possible as well with some restrictions stated below.
 
