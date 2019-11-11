@@ -314,13 +314,14 @@ Additionally it implements the following operations:
 * `-list_orders` - lists all existing orders in the database.
 
 
-These operations are exposed in the `ModelManager` class as `ModelManager#addOrder(Order order)`, `ModelManager#getOrder(Name targetOrder)`, `ModelManager#setOrder(Order target, Order editedOrder)`, `ModelManager#deleteOrder(Order order)` and `ModelManager#assignUnassignedOrder()`.
+These operations are exposed in the `ModelManager` class as `ModelManager#addOrder()`, `ModelManager#getOrder()`, `ModelManager#setOrder()`, `ModelManager#deleteOrder()` and `ModelManager#assignUnassignedOrder()`.
 
-Order manager implements its own 'Model', 'Command' and 'Parser' for the 'Logic Component', `JsonOrderDatabaseStorage`, `JsonSerializableOrderDatabase`, `JsonAdaptedOrder` and `JsonAdaptedFoodOrder`, along with methods in the `StorageManager` for the `Storage Component` and lastly, `OrderCard` and `OrderListPanel` for displaying on the `Ui Component`.
-
-*insert object diagrams here + brief explanation of object diagrams*
+Order manager implements its own `Model`, `Command` and `Parser` for the `Logic Component`, `JsonOrderDatabaseStorage`, `JsonSerializableOrderDatabase`, `JsonAdaptedOrder` and `JsonAdaptedFoodOrder`, along with methods in the `StorageManager` for the `Storage Component` and lastly, `OrderCard` and `OrderListPanel` for displaying on the `Ui Component`.
 
 ==== Implementation
+Listed are the implementations of each command.
+
+image::OrderSequenceDiagram.png[width="790"]
 
 **Add command:** `-add_order`
 
@@ -333,6 +334,34 @@ Duplicated `Order` will be checked for using `ModelManager#hasOrder()` and is th
 **Delete command:** `-delete_order`
 
 The delete command deletes an `Order` from the `ModelManager` and `UniqueOrderList` by a specified index. The `UniversalParser` invokes `DeleteOrderCommandParser#parse()` and user input is used to get the index of the `Order` to be deleted.
+
+**Edit command:** `-edit_order`
+
+The edit command edits an `Order` in the `UniqueOrderList` of the `ModelManager` by its specified `ORDERNAME`. The `UniversalParser` invokes `EditOrderCommandParser#parse()` which parses the target **customer**, **restaurant**, **food** and **quantity** (if present) from a *String* into *Name* and *Integer* objects.
+
+Only valid **customer**, **restaurant**, **food** and **quantity** are allowed. This validation is done through accessing `UniqueCustomerList` and `UniqueRestaurantList` through `ModelManager#getFilteredCustomerList()`, `ModelManager#getFilteredRestaurantList()` and calling their respective `isValidName()` methods. **Food** validity will be checked through retrieving the respective using `Restaurant#getMenu()` and `Menu#isValidName()`.
+
+Valid edition of `Orders` will be checked through `AddOrderCommand#isValidOrder()`.
+
+**Assign command:** `-assign_order`
+
+The assign command assigns an unassigned `Order` to a random available **deliveryman** in the `UniqueOrderList` of the `ModelManager` by its specified `ORDERNAME`. The `UniversalParser` invokes `AssignOrderCommandParser#parse()` which parses the target **Order** from a *String* into a *Name* object.
+
+The **deliveryman** will then be allocated using `ModelManager#getOneAvailableDeliveryman()`.
+
+**Complete command:** `-complete_order`
+
+The complete command completes an `Order` that is already assigned by its specified `ORDERNAME` in the `UniqueOrderList` of the `ModelManager`. The `UniversalParser` invokes `CompleteOrderCommandParser#parse()` which parses the target **Order** from a *String* into a *Name* object.
+
+Validation will be done through checking the *Name* of the assigned **deliveryman** to ensure that it is not unassigned, as well as checking the completion status of the order using `Order#isCompleted()`.
+
+It also updates the **restaurant** and its **quantity** through `ModelManager#getFilteredRestaurantList()` and `Restaurant#updateQuantity()`.
+
+**List command:** `-list_order`
+
+The list command lists all orders currently in the `ModelManager`. The `UniversalParser` creates a new `ListOrderCommand` object, which changes the `Context` of the `ModelManager` to **Context.GLOBAL**.
+
+This then updates the `Ui` to display the order list.
 
 ==== Design Considerations
 
