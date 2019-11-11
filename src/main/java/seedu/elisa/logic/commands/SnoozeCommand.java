@@ -25,9 +25,9 @@ public class SnoozeCommand extends UndoableCommand {
             + "by the index number used in the reminder list "
             + "or the most recent occurred reminder if no index is provided.\n"
             + "Parameters: [INDEX] (must be a positive integer) "
-            + "[" + PREFIX_SNOOZE + "SNOOZE TIME]\n"
+            + "[" + PREFIX_SNOOZE + " SNOOZE TIME]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_SNOOZE + "1.min.later";
+            + PREFIX_SNOOZE + " 1.min.later";
 
     public static final String MESSAGE_SNOOZED_REMINDER_SUCCESS = "Snoozed Reminder: %1$s,"
             + " because someone is real lazy...";
@@ -42,7 +42,6 @@ public class SnoozeCommand extends UndoableCommand {
     private Item snoozedItem;
 
     /**
-
      * @param hasIndex              boolean that indicates if an index was specified.
      * @param index                 of the item to edit.
      * @param newReminderOccurrence LocalDateTime of new occurrence of reminder.
