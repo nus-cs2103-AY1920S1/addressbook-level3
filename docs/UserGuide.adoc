@@ -330,8 +330,7 @@ Only one status is allowed at a time.
 // tag::startEarningsTag[]
 ==== Auto Add Weekly Earnings: `weekly_earnings`
 
-Adds an earnings from the list of existing earnings to be added in the on the same
-day every week. +
+Automates the additon of earnings. +
 Format: `weekly_earnings INDEX count/NUMBER_OF_WEEKS
 
 .Weekly Earnings Example
@@ -349,6 +348,8 @@ Examples:
 the earnings twice. It will only add on the day itself.
 * Using this command assumes that all attributes of the indexed earnings are the same for future earnings other
 than the date.
+* Recommended Usage: If you have a day with several tutorials and labs that repeat every week, you can use `weekly_earnings` command to add them into a list.
+Once inside the list, for the next few weeks, depending on your `Count`, you can easily add them by invoking the `auto` command.
 ****
 
 ==== Adds Weekly Earnings: `auto`
