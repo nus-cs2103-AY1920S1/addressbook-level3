@@ -23,7 +23,7 @@ public class WithdrawCommand extends Command {
             + "Restriction: " + Savings.MESSAGE_CONSTRAINTS + "\n"
             + "Example: " + COMMAND_WORD + " 100";
 
-    private static final String MESSAGE_WITHDRAW_SUCCESS = "Withdrawn from your Savings Account: $%1$s";
+    public static final String MESSAGE_WITHDRAW_SUCCESS = "Withdrawn from your Savings Account: $%1$s";
 
     private final Savings withdrawalAmount; // withdrawal is a negative saving.
 
@@ -33,6 +33,9 @@ public class WithdrawCommand extends Command {
 
     }
 
+    public WithdrawCommand(String savings, String time) {
+        this.withdrawalAmount = new Savings(savings, time, true);
+    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
