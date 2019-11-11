@@ -25,7 +25,7 @@ public class HelpCommand extends Command {
 
 
     private static String[] allCommands =
-            {IMPORT, EXPORT, STATS, CREATE, ADD, DELETE, EDIT, TEST, UNDO, REDO, QUIT, HELP};
+        {IMPORT, EXPORT, STATS, CREATE, ADD, DELETE, EDIT, TEST, UNDO, REDO, QUIT, HELP};
 
     public static String[] getAllCommands() {
         return allCommands;
