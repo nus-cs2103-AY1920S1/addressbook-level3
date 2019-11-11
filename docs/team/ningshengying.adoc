@@ -11,7 +11,8 @@ My team of 4 Computer Science students were tasked with enhancing a basic Comman
 application for our Software Engineering project. We chose to morph it into a coding practice application called Duke Academy.
 
 Duke Academy is written in the Java programming language and the Graphical User Interface (GUI) of the application is
-created with JavaFX. It relies primarily on Command Line Interface (CLI) as its primary input for user commands.
+created with JavaFX. It relies primarily on Command Line Interface (CLI) as its primary input for user commands, which
+means users will mostly be typing to perform specific functions instead of clicking with a mouse (unlike GUI).
 
 Duke Academy is designed for both coding students and educators alike. It is equipped with a library of programming
 questions related to the field of Data Structures and Algorithms for students to practice their coding skills and allows
@@ -87,7 +88,7 @@ much such that the inner components become unusable.
 ** Enhancements to existing features:
 *** Updated the GUI theme (Pull requests https://github.com/AY1920S1-CS2103T-F14-1/main/pull/99[#99])
 *** Made early changes to the redesign of the UI for Duke Academy (Pull requests https://github.com/AY1920S1-CS2103T-F14-1/main/pull/99[#99], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/191[#191])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38]) // >>>>>>>>>>>>>>>>need work on this<<<<<<<<<<<<<<<
+
 
 ** Community:
 *** Reported bugs and suggestions for other teams in the class (https://github.com/ning-sy210/ped/tree/master/files[PE Dry Run])
@@ -126,7 +127,7 @@ Displays the question that you are currently attempting.
 
 . *Program Evaluation Panel*
 +
-This panel displays the correctness of your program when evaluated against the pre-defined list of test cases tied to the question you are solving.
+Displays the correctness of your program when evaluated against the pre-defined list of test cases tied to the question you are solving.
 . *Editor*
 +
 A built-in editor for you to write your code.
@@ -234,8 +235,6 @@ image::view.png[width="1000"]
 * `view 1` +
 Displays the question with the id "1" in the right side window of the GUI, as shown in the above picture.
 
-//end::find[]
-
 === Attempting a question : `attempt`
 
 Navigates to the *Questions* tab where you can code your solution to solve the problem statement.
@@ -263,23 +262,61 @@ the *ProgramEvaluationDisplay* on the bottom left of the GUI.
 
 image::submit.png[width="1000"]
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
-
 == Contributions to the Developer Guide
 
 |===
 |Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+=== Editor Panel
+The editor panel is the panel right next to the *Problem Display Panel* and the *Program Evaluation Panel*. The editor panel
+consists of two parts: The main text editor and the line counter component.
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+The main text editor is where the user codes and is responsible for feeding the text input to the `Program Submission
+Logic Manager` for compilation of the user-written code. It is capable of performing auto-indentations for the user and
+this is achieved by overwriting the function of the ENTER key. Through helper methods available in `Editor.java`, the
+number of unclosed braces can easily be counted so as to perform the appropriate indentations.
 
+There are other modifications to key inputs to make the text editor imitate the behaviour of an actual IDE editor. These
+include overwriting the TAB key to input 4 spaces instead of 8, and also performing auto de-indentation when a right brace
+(i.e. "}") is typed. Refer to the activity diagram below for the possible outcomes.
 
-== PROJECT: PowerPointLabs
+.Activity Diagram for Text Input
+image::TextInputActivityDiagram.png[]
 
-'''
+====
+* For this implementation, we have used a onKeyRelease event to overwrite the function of the ENTER key.
+* We recognize that this implementation is not desirable as the auto-indentation is only performed only after the ENTER
+key is released. Meaning to say, if a character is typed while the ENTER key is held down, those characters will not be
+auto-indented.
+====
 
-_{Optionally, you may include other projects in your portfolio.}_
+The line counter component of the editor keeps track of the number of lines written by the user in the editor. It takes
+in a `SimpleIntegerProperty` and is updated automatically whenever there are changes to the text observed in the editor.
+
+This is achieved through adding a `InvalidationListener` to the text property of the editor, along with using the
+necessary helper functions to count the number of newline characters in the text. The Sequence Diagram below shows how
+the `UI` interacts with the `Editor` class to generate the line counter in the text editor.
+
+.Sequence Diagram for Generating Line Counter Input
+image::LineCounterSequenceDiagram.png[]
+
+== Design Considerations
+Aspect: Overwriting ENTER key function
+
+* *Alternative 1*: Overwrite with onKeyPress event
+** *Pro*: The auto-indentation will behave exactly as intended.
+** *Drawback*: Due to a bug in JavaFX that could not be resolved, we decided to avoid this implementation.
++
+If we were to choose to overwrite with onKeyPress event, the event will have to be consumed as anything specified in the
+onKeyPress event will be executed *before* the original key function is performed. However, the mentioned bug earlier causes
+the onKeyPress events to be executed twice. Which means, 2 newline characters will be inserted on a single press of the
+overwritten ENTER key. Because of this drawback, we decided to go for the alternative implementation.
+
+* *Alternative 2 (Current Choice)*: Overwrite with onKeyRelease event
+** *Pros*: Avoids entering 2 newline characters with a single ENTER key press and auto-indention still works. OnKeyRelease
+events are executed *after* the original key function is performed. Thus, there is no need to include inserting a newline character in
+the onKeyRelease event, which avoids the issue faced by Alternative 1.
+** *Drawback*: The auto-indentation is not behaving ideally. As mentioned earlier, because the auto-indentation only happens
+after the ENTER key is released, characters typed while the ENTER key is held down will not be auto-indented.
+
