@@ -234,11 +234,11 @@ or the schedules changes.
 * exposes a list of `ObservableList<Interviewee>` that can be 'observed' by the UI.
 * does not depend on any of the three components.
 
-// tag::storage[]
 ==== Schedule
 The `Schedule` objects are filled up and created by the imported interviewer's availability. The inner data of a `Schedule` object is the same as the corresponding availability
 table in the imported interviewer's availability. The data of the `Schedule` can be changed after running the scheduling algorithm.
 
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -303,6 +303,7 @@ The following *Sequence Diagram* illustrates how the `add interviewee` command w
 image::AddSequenceDiagram.png[]
 
 NOTE: The lifeline for `AddCommandParser` and `AddIntervieweeCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 
 ====
 * See the general logic sequence diagram in <<Logic component, Section 2.3: Logic component>> for a more complete view of how
