@@ -16,7 +16,7 @@ endif
 if(In Transaction) then ([yes])
 
 elseif (Out Transaction) then ([Yes])
-:Budget remaining amount deducts Transaction's amount;
+:Budget's remaining amount to deduct from Transaction's amount;
 
 else([No])
 
