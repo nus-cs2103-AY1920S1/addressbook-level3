@@ -638,7 +638,9 @@ the command generated is a `view` command. If yes, force the `ProblemStatementPa
 //end::problem_description[]
 
 //tag::bookmark[]
+
 === Bookmark Command
+
 .Sequence Diagram for the execution of a BookmarkCommand instance
 image::BookmarkCommandSequenceDiagram.png[]
 

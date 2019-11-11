@@ -1,4 +1,4 @@
-= Alex Koh - Project Portfolio
+= Alex Koh Nan Yu - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images/ak_ppp
 :stylesDir: ../stylesheets
@@ -71,5 +71,3 @@ include::../UserGuide.adoc[tag=help]
 include::../DeveloperGuide.adoc[tag=ui]
 include::../DeveloperGuide.adoc[tag=bookmark]
 include::../DeveloperGuide.adoc[tag=manualtesting]
-include::../DeveloperGuide.adoc[tag=design]
-
