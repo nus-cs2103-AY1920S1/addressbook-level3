@@ -17,7 +17,7 @@ By: `Team T14-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-MYMorise -- Manage Your Money(MYM) is a desktop application for those who *prefer tracking personal expenses on their
+*MYMorise -- Manage Your Money(MYM)* is a desktop application for those who *prefer tracking personal expenses on their
 computers*. With MYMorise, you can easily see your daily expenses as well as a summary, along with other useful
 functionalities. More importantly, MYMorise is *optimized for those who prefer to work with Command Line Interface (CLI)* while still having the benefits of a *Graphical User Interface
 (GUI)*. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
@@ -43,8 +43,7 @@ functionalities. More importantly, MYMorise is *optimized for those who prefer t
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `MYMorise.jar`.
 .  Copy the jar file to the folder you want to use as the home folder for MYMorise.
-.  Double-click the jar to start the app. The GUI should appear in a few seconds.
-.  If Step 4 doesn't work, try `java -jar MYMorise.jar` in your CLI.
+.  Run `java -jar path_to_folder/MYMorise.jar` in your CLI. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
@@ -52,10 +51,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`listDefaultExpenses`* : lists all expenses
-* **`expense`**`n/Textbook a/23.50 t/education t/school` : adds an expense named `Textbook` to the expense list with the tags
-`education` and `school`.
-* **`delete`**`3` : deletes the 3rd expense shown in the current list
+* *`listDefaultExpenses`* : lists all expenses that do not fall into any budget.
+* **`expense`**`n/Textbook a/23.50 t/education` : adds an expense named `Textbook` to the expense list with the tag
+`education`.
+* **`delete`**`3` : deletes the 3rd item shown in the centre list panel.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -68,7 +67,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Bread t/Food` or as `n/Bread`.
-* Items post-fixed with `…`​ can be used zero or more times e.g. `[t/TAG]…`​ can be excluded or include 1 or more tags `t/food t/drinks`.
 ====
 
 === Viewing help : `help`
@@ -88,11 +86,9 @@ Adds an expense to track.* +
 Format: `expense n/NAME a/AMOUNT [c/CURRENCY] [d/DATE] [t/TAG]…​`
 
 [TIP]
-An expense with no currency specified will have the default currency set.
+An expense with no currency specified will have the default currency set (SGD).
 [TIP]
 An expense with no date specified will default to current date and time of addition.
-[TIP]
-An expense can have any number of tags (including no tags).
 [TIP]
 User may input time in the format "HHMM" in the [d/DATE] portion to specify current date with specified time
 [TIP]
@@ -221,7 +217,7 @@ Deletes the second budget in the budget list in MYMorise.
 // end::delete[]
 
 === Automatic currency conversion for foreign currencies
-MyMorise is able to automatically display foreign currencies in the default currency set by the user. By default this is set
+MYMorise is able to automatically display foreign currencies in the default currency set by the user. By default this is set
 to Singapore Dollars (SGD). The conversions are done in the following scenarios:
 
 * When an expenses specifies a currency that is not the default currency
@@ -231,6 +227,13 @@ This automatic conversion allows for the computation of budgets and expenses reg
 a cleaner experience when viewing budgets and expenses with multiple differing currencies.
 
 The latest Foreign Exchange data for a limited set of supported currencies are updated whenever the application is launched. The list of supported currencies are as follows:
+
+[width="80%",cols="10%,10%,10%,10%,10%,10%,10%,10%,10%,10%,10%",options="header",]
+|=======================================================================
+| CAD | HKD | ISK | PHP | DKK | HUF | CZK | GBP | RON | SEK | IDR
+| INR | BRL | RUB | HRK | JPY | THB | CHF | EUR | MYR | BGN | TRY
+| CNY | NOK | NZD | ZAR | USD | MXN | SGD | AUD | ILS | KRW | PLN
+|=======================================================================
 
 === Clearing a list : `clear`
 Deletes all items in the current list.* +
@@ -251,6 +254,16 @@ When the user types, if there are suggestions for a certain input, user can pres
 suggestion or press kbd:[DOWN] and kbd:[UP] to navigate between suggestions and then press kbd:[tab] or kbd:[enter]
 to autofill the selected item. User may also just kbd:[click] on an item to autofill.
 
+=== Retrieve the history of the commands executed: `history`
+Returns the list of history commands executed.
+[TIP]
+Press kbd:[F3] to navigate to previous input; Press kbd:[F4] to navigate to next input;
+[NOTE]
+Use keyboard to navigate through the history will only take effect when the focus is in `TextField`.
+[NOTE]
+kbd:[UP] and kbd:[DOWN] cannot be used here to navigate through the history since they are used to navigate through
+the autocomplete suggestions.
+
 === Exiting the program : `exit`
 Exits the program. +
 Format: `exit`
@@ -261,26 +274,7 @@ Expense and Budget data are saved in the hard disk automatically after any comma
 There is no need to save manually.
 // end::saving[]
 
-=== Automatic currency conversion for foreign currencies `[coming in v1.4]`
-MYMorise is able to automatically display foreign currencies in the default currency set by the user. By default this is set
-to Singapore Dollars (SGD). The conversions are done in the following scenarios:
-
-* When an expenses specifies a currency that is not the default currency
-* When an expense specifies a currency that is different from that budget it is associated to.
-
-This automatic conversion allows for the computation of budgets and expenses regardless of their underlying currencies to provide
-a cleaner experience when viewing budgets and expenses with multiple differing currencies.
-
-The latest Foreign Exchange data for a limited set of supported currencies are updated whenever the application is launched. The list of supported currencies are as follows:
-
-[width="80%",cols="10%,10%,10%,10%,10%,10%,10%,10%,10%,10%,10%",options="header",]
-|=======================================================================
-| CAD | HKD | ISK | PHP | DKK | HUF | CZK | GBP | RON | SEK | IDR
-| INR | BRL | RUB | HRK | JPY | THB | CHF | EUR | MYR | BGN | TRY
-| CNY | NOK | NZD | ZAR | USD | MXN | SGD | AUD | ILS | KRW | PLN
-|=======================================================================
-
-=== Locating expenses by name: `find` `[coming in v1.4]`
+=== Locating expenses by name: `find` `[coming in v2.0]`
 Finds all expenses by name, date, tag. +
 Format: `find [n/NAME] [d/DATE] [t/TAG]`
 
@@ -299,17 +293,11 @@ Returns `coffee` and `Starbucks Coffee`.
 * `find n/Cheesecake` +
 Returns any expense having names `Cheesecake`, eg: `Strawberry Cheesecake`, `Blueberry Cheesecake`.
 
-=== Display expense by tag in chart `[coming in v2.0]`
-_{Displays the expense in a pie chart to show breakdown of expenses.}_
-
 === Set a Recurring Expense `[coming in v2.0]`
 _{Sets a recurring expense for a specific duration and frequency.}_
 
 === Undo/Redo commands `[coming in v2.0]`
 _{Allows user to undo and redo commands.}_
-
-=== Show command history `[coming in v2.0]`
-_{User is able to navigate using up and down keys to cycle through past commands typed during the session.}_
 
 === FAQ
 
@@ -336,5 +324,6 @@ e.g. `find t/nourishment`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Clear* : `clear`
+* *History*: `history`
 * *Exit* : `exit`
 
