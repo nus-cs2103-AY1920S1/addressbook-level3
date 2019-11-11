@@ -3,41 +3,35 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":SchedulerParser" as SchedulerParser LOGIC_COLOR
 participant ":EmailCommandParser" as EmailCommandParser LOGIC_COLOR
 participant "e:EmailCommand" as EmailCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-end box
-
-box ParserUtil MODEL_COLOR_T2
-participant ":ParserUtil" as ParserUtil MODEL_COLOR
-end box
-
-box Interviewee MODEL_COLOR_T3
 participant ":Interviewee" as Interviewee MODEL_COLOR
 end box
 
-[-> LogicManager : execute("email timeslot Alice")
+[-> LogicManager : execute("email ct/timeslot Alice")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("email timeslot Alice")
-activate AddressBookParser
+LogicManager -> SchedulerParser : parseCommand("email ct/timeslot Alice")
+activate SchedulerParser
 
 create EmailCommandParser
-AddressBookParser -> EmailCommandParser
+SchedulerParser -> EmailCommandParser
 activate EmailCommandParser
 
-EmailCommandParser --> AddressBookParser
+EmailCommandParser --> SchedulerParser
 deactivate EmailCommandParser
 
-AddressBookParser -> EmailCommandParser : parse("timeslot Alice")
+SchedulerParser -> EmailCommandParser : parse("ct/timeslot Alice")
 activate EmailCommandParser
 
-EmailCommandParser -> EmailCommandParser : parseTimeslotCommand("timeslot Alice")
+EmailCommandParser -> EmailCommandParser : parseTimeslotCommand(emailArgs)
 activate EmailCommandParser
 
 EmailCommandParser -> ParserUtil : <<static>> \n parseName("Alice")
@@ -47,7 +41,7 @@ ParserUtil --> EmailCommandParser : name
 deactivate ParserUtil
 
 create EmailCommand
-EmailCommandParser -> EmailCommand : intervieweeName
+EmailCommandParser -> EmailCommand : name
 activate EmailCommand
 
 EmailCommand --> EmailCommandParser : e
@@ -56,25 +50,28 @@ deactivate EmailCommand
 EmailCommandParser --> EmailCommandParser : e
 deactivate EmailCommandParser
 
-EmailCommandParser --> AddressBookParser : e
+EmailCommandParser --> SchedulerParser : e
 deactivate EmailCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-EmailCommandParser -[hidden]-> AddressBookParser
+EmailCommandParser -[hidden]-> SchedulerParser
 destroy EmailCommandParser
 
-AddressBookParser --> LogicManager : e
-deactivate AddressBookParser
+SchedulerParser --> LogicManager : e
+deactivate SchedulerParser
 
 LogicManager -> EmailCommand : execute()
 activate EmailCommand
 
-EmailCommand -> Model : getFilteredPersonList()
+EmailCommand -> EmailCommand : executeTimeslotCommand()
+activate EmailCommand
+
+EmailCommand -> Model : getUnfilteredIntervieweeList()
 activate Model
 
-Model --> EmailCommand : lastShownList
+Model --> EmailCommand : intervieweeList
 deactivate Model
 
-loop person in lastShownList
+loop interviewee in intervieweeList
     EmailCommand -> Interviewee : getName()
     activate Interviewee
 
@@ -94,6 +91,12 @@ end
 
 EmailCommand -> Model : emailInterviewee(intervieweeToEmail)
 activate Model
+
+Model -> Interviewee : setEmailSent(true)
+activate Interviewee
+
+Interviewee --> Model
+deactivate Interviewee
 
 Model --> EmailCommand
 deactivate Model
