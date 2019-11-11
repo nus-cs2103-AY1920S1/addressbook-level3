@@ -73,6 +73,3 @@ deactivate SearchCommand
 [<--LogicManager
 deactivate LogicManager
 @enduml
-
-
-
