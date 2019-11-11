@@ -475,7 +475,7 @@ We chose to go with alternative 1 as we believe speed is more important to the u
 // end::auto tagging customer cuisine
 // tag::editMode[]
 
-=== EditMode
+=== EditMode for restaurants
 A `Restaurant` object contains many attributes. On top of a `Name`, `Location`, `Rating` and a list of `Tag`,
 it also includes a list of `Food` as its menu, as well as a list of `Order`. This makes it difficult to edit
 an entire `Restaurant` object using just one `Command`.
@@ -504,7 +504,8 @@ in both the `filteredRestaurantList` and `editingRestaurantList` via the functio
 
 The `Logic` for EditMode is facilitated by `Context` enum type, which contains the following constants:
 `GLOBAL`, `CUSTOMER`, `RESTAURANT`, `DELIVERYMEN` and `EDITING`. It determines the `Context` the application is in,
-as well as the commands the user can access. It is contained inside `LogicManager` as an attribute.
+as well as the commands the user can access. It is contained inside `LogicManager` as an attribute. `EditModeCommand` is only 
+accessible in `Context.RESTAURANT`, and entering a valid `EditModeCommand` will change the `Context` to `Context.EDITING`.
 
 The following class diagram shows the relevant structure of `Logic` and `Parser`:
 
@@ -523,12 +524,11 @@ The following activity diagram summarises what happens when the user enters a co
 
 image::developerguide\ParserActivityDiagram.png[]
 
-The `EditModeCommand` to enter EditMode for a restaurant can only be accessed if `LogicManager` is under
-`Context.RESTAURANT`. When user inputs the `editmode INDEX` command:
+When user inputs the `editmode INDEX` command:
 
 * `UniversalParser` will parse it first.
 * Since `editmode` matches none of the universal commands, `UniversalParser` will create a new `RestaurantParser`
-(since current context is `Context.RESTAURANT`).
+(since current `Context` is `Context.RESTAURANT` as `EditModeCommand` is only accessible in said `Context`).
 * The new `RestaurantParser` will then parse the `userInput` and subsequently change the `Context` in `LogicManager` to `Context.EDITING`,
 unlocking commands to edit the restaurant, such as `AddFoodCommand`, `DeleteFoodCommand`, `AddRatingCommand`
 and `EditDetailsCommand`.
@@ -570,7 +570,7 @@ depending on the current `Context` in `LogicManager`.
 parsers, `LogicManager` contains all 5 parsers.
 ** Pros: Makes more sense to have `LogicManager` containing all 5 parsers which parses `userInput` individually based
 on the current context.
-** Cons: Checking whether `userInput` is a universal command needs to be repeated in each context-specific parser.
+** Cons: Checking whether `userInput` is a universal command needs to be repeated in each parser.
 
 ===== Aspect: Changing of UI
 * **Current:** If the `Command` that changes the UI does not change the `Context`, pass its command name
