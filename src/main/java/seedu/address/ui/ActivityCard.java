@@ -18,8 +18,6 @@ public class ActivityCard extends UiPart<Region> {
     @FXML
     private Label index;
     @FXML
-    private Label id;
-    @FXML
     private Label title;
     @FXML
     private Label participantCount;
@@ -27,7 +25,7 @@ public class ActivityCard extends UiPart<Region> {
     public ActivityCard(Activity activity, int displayedIndex) {
         super(FXML);
         this.activity = activity;
-        id.setText("ID: " + activity.getPrimaryKey());
+
         index.setText("#" + displayedIndex);
         title.setText(activity.getTitle().toString());
 
@@ -49,7 +47,6 @@ public class ActivityCard extends UiPart<Region> {
 
         // state check
         ActivityCard card = (ActivityCard) other;
-        return id.getText().equals(card.id.getText())
-                && activity.equals(card.activity);
+        return activity.equals(card.activity);
     }
 }
