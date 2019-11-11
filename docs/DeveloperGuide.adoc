@@ -150,12 +150,10 @@ exposes its functionality to the rest of the application.
 ==== Architecture: Interactions between Components
 
 The sequence diagram below shows how the components interact with each
-other for the scenario where the user issues the command `delete 1`.
+other for the scenario where the user issues the command `delete-cca 1`.
 
-// TODO change wording in this section and the image
-
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+.Component interactions for `delete-cca 1` command
+image::JarvisArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
@@ -164,7 +162,8 @@ The sections below give more details of each component.
 
 The UI component defines the user-viewable part of the application. It consists
 of a `MainWindow` made up of parts, such as the `StatusBarFooter`, `CommandBox`
-and `HelpWindow`. Every part inherits from the abstract class `UiPart`. Shown
+and `HelpWindow`. Each individual feature of Jarvis inherits from the `View` class, which in turn inherits from the
+abstract class `UiPart`. Every other non-feature related part inherits from the abstract class `UiPart`. Shown
 below is the structure of the UI component.
 
 .Structure of the UI Component
