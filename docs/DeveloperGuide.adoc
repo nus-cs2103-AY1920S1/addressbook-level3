@@ -1417,6 +1417,140 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size). +
    Expected: Similar to previous.
 
+_{ more test cases ... }_
+
+=== Selecting an athlete
+
+. Selecting an athlete while all athletes are listed
+
+.. Prerequisites: List all athletes using the `list` command. Multiple athletes in the list.
+.. Test case: `select 1` +
+   Expected: First athlete is selected from the list. Details of the selected athlete shown in the feature box.
+.. Test case: `select 0` +
+   Expected: No person is deleted. Error details shown in result box.
+
+=== Adding/editing an image of an athlete
+
+. Adding or editing an image of an athlete
+
+.. Prerequisites: Move the image files to be used into the `images` folder.
+.. Test case: `add n/John Doe p/98765432 e/johnd@example.com g/male a/311, Clementi Ave 2, #02-25 t/backstroke i/john.png`
+   Expected: Athlete is added with the image john.png set as the profile picture.
+.. Test case: `edit 2 i/john.png`
+   Expected: Athlete's profile image is set as john.png.
+.. Test case: `edit 1 i/bobby.png`
+   Expected: Error message : Image file does not exist. Make sure image file is in the `images` folder.
+
+=== Adding a training using athletes present
+
+. Add a training by indicating athletes present
+
+.. Prerequisites: There must be at least one person in the list. Use the `list`, `filter` or `find` commands.
+
+.. Test case: `training d/11112019 #/1` +
+Expected: Result box indicates that training is successfully added. A green dot will appear on calendar at the date
+11th of November 2019 indicating successful adding of training. Running the `calendar 11112019` command will show that
+the first person attended training and everyone else will be displayed as absent.
+
+.. Test case: `training #/1` +
+Expected: Result box indicates that training is successfully added. A green dot will appear on calendar at today's
+date indicating successful adding of training. Running the `calendar` command with today's date will show that the
+first
+person attended training and everyone else will be displayed as absent.
+
+.. Test case: `training d/11112019 #/0` +
+Expected: No training added. Error details shown in the result box.
+
+.. Other incorrect commands: `training d/1234567890 #/1`, `training` +
+Expected: Similar to previous.
+
+=== Adding a training using athletes absent
+
+. Add a training by indicating athletes absent
+
+.. Prerequisites: There must be at least one person in the list. Use the `list`, `filter` or `find` commands.
+
+.. Test case: `training -a d/11112019 #/1` +
+Expected: Result box indicates that training is successfully added. A green dot will appear on calendar at the date
+11th of November 2019 indicating successful adding of training. Running the `calendar 11112019` command will show that
+the first person was absent from training and everyone else will be displayed as present.
+
+.. Test case: `training -a #/1` +
+Expected: Result box indicates that training is successfully added. A green dot will appear on calendar at today's
+date indicating successful adding of training. Running the `calendar` command with today's date will show that the first
+person was absent from training and everyone else will be displayed as present.
+
+.. Test case: `training -a d/11112019 #/0` +
+Expected: No training added. Error details shown in the result box.
+
+.. Other incorrect commands: `training d/1234567890 #/1`, `training` +
+Expected: Similar to previous.
+
+=== Editing a training
+
+. Edit a training attendance
+
+.. Prerequisites: There must exist a training on the input date.
+
+.. Test case: `training d/11112019 #/1` +
+Expected: Result box indicates that training was successfully replaced. Green dot that was previously on the calendar
+at 11th November 2019 remains there. Running the `calendar 11112019` command shows the new attendance of training.
+
+.. Test case: `training d/11112019 #/0` +
+Expected: Training is not replaced. Error details shown in the result box.
+
+=== Deleting a training
+
+. Delete a training at date
+
+.. Prerequisites: There must exist a training on the input date.
+
+.. Test case: `delete -t d/11112019` +
+Expected: Result box indicates that training was successfully deleted. Green dot that was previously on the calendar
+at 11th November 2019 disappears. Running the `calendar 11112019` command shows the new attendance of training.
+
+.. Test case: `training d/11112019 #/0` +
+Expected: Training is not replaced. Error details shown in the result box.
+
+=== Viewing attendance of one athlete
+
+. View attendance of one athlete
+
+.. Prerequisites: There must be at least one person in the list. Use the `list`, `filter` or `find` commands.
+
+.. Test case: `attendance 1` +
+Expected: Result box indicates the attendance of specified athlete.
+
+.. Test case: `attendance 0` +
+Expected: Attendance is not shown. Error details shown in the result box.
+
+.. Other incorrect attendance commands to try: `attendance`, `attendance x` (where x is larger than the list size)
+_{give more}_ +
+Expected: Similar to previous.
+
+=== Viewing overall attendance
+
+. View attendance of all athletes
+
+.. Prerequisites: None.
+
+.. Test case: `view attendance` +
+Expected: Result box indicates the team's attendance is being displayed. Also, display in the application will show u
+a list of your athletes and their attendance beside their names.
+
+.. Other incorrect view attendance commands to try: `view`, `view everyones attendance` (where x is larger than the
+list size) _{give more}_ +
+Expected: Error details shown in result box.
+
+
+=== Saving data
+
+. Dealing with missing/corrupted data files
+
+.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+
+_{ more test cases ... }_
+
 === Adding an event
 
 . Adding an event while all events are listed
