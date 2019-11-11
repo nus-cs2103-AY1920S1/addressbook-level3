@@ -228,6 +228,11 @@ public class AddAssignmentCommandTest {
         }
 
         @Override
+        public ObservableList<Lesson> getLessonList() {
+            return null;
+        }
+
+        @Override
         public void addLesson(Lesson lesson) {
             throw new AssertionError("This method should not be called");
         }

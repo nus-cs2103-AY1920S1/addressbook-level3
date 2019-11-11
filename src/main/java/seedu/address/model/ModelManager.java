@@ -299,7 +299,10 @@ public class ModelManager implements Model {
         return filteredLessonLists;
     }
 
-
+    @Override
+    public ObservableList<Lesson> getLessonList() {
+        return notebook.getLessonList();
+    }
     @Override
     public ObservableList<Classroom> getClassroomList() {
         return notebook.getClassroomList();

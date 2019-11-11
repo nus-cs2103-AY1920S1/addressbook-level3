@@ -62,11 +62,15 @@ public class TypicalLessons {
     }
 
 
-    public static List<UniqueLessonList> getTypicalLessons() {
+    public static List<UniqueLessonList> getTypicalLessonLists() {
         List<UniqueLessonList> lessonList = new ArrayList<>();
         makeLessonList(lessonList);
         return new ArrayList<>(Arrays.asList(lessonList.get(0), lessonList.get(1), lessonList.get(2),
                 lessonList.get(3), lessonList.get(4), lessonList.get(5), lessonList.get(6)));
+    }
+
+    public static List<Lesson> getTypicalLessons() {
+        return new ArrayList<>(Arrays.asList(LESSON_ONE, LESSON_TWO, LESSON_THREE));
     }
 
 }
