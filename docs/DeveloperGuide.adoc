@@ -486,6 +486,11 @@ This feature is supported by the following classes:
 * `SkipQuestionCommand` extends `NextQuestionCommand`, and allows the users to skip the question
 * `EndTestCommand` allows the use to end the test mode anytime, enabling normal commands such as `listall`
 
+The following class diagram shows the structure of the `StartCommand` class.
+The class diagrams for other test commands are omitted due to similarities.
+
+image::StartCommandClassDiagram.png[width="600"]
+
 The following sequence diagram shows the intended case for the `start` command:
 
 image::StartSequenceDiagram.png[width = "600"]
@@ -504,6 +509,9 @@ This slightly decreases code readability compared to the `LinkedList` implementa
 ** Pros: Use of `Queue` interface brings simplicity to code structure and readability while having the same performance
 as a `LinkedList` implementation.
 ** Cons: There will be potential coupling by using `Queue` instead of `List` interface.
+
+NOTE: **Alternative 1** is preferred due to better readability while maintaining O(1) efficiency, i.e. `remove(0)`
+instead of `remove(list.size() - 1)` in `ArrayList` to remove either ends of the list.
 
 // end::dataencryption[]
 
