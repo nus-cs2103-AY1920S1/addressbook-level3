@@ -432,7 +432,8 @@ As with any other application, our prediction algorithm will be more accurate wi
 
 Adding new templates into your template list can help make shopping for groceries easier.
 For example, you can add an ingredients list for a favourite recipe, or add a template for
-items you buy on a regular basis.
+items you buy on a regular basis. For easy viewing, templates in the template list are sorted
+automatically by alphabetical order.
 
 Add a new template into template list. +
 Format: `tlist add n/TEMPLATENAME`
@@ -509,8 +510,8 @@ Format: `tlist template add TEMPLATEINDEX n/NAME a/AMOUNT`
 * Adds item into the template under the specified `INDEX` as shown in the displayed template list.
 * All items in the template must be unique. Checking of similar names is case-insensitive.
 * Amount must have both magnitude and unit.
-* The system only recognises metric units. e.g. kilogram, liter. Items with the same name (check is non-case-sensitive and across templatelist, grocerylist and shoppinglist)
-can have different units as long as the unit belongs in the same unit category.
+* The system only recognises metric units. e.g. kilogram, liter. Items with the same name (check is non-case-sensitive
+and across templatelist, grocerylist and shoppinglist) can have different units as long as the unit belongs in the same unit category.
 * Only the units in the following unit categories are supported:
 ** `Weight`: `kg`, `g`, `oz`, `lbs`
 ** `Volume`: `L`, `ml`
@@ -523,6 +524,7 @@ Examples:
 * `tlist template add 2 n/Eggs a/12units`
 
 ==== Edit item name: `tlist template edit`
+You can also edit the name and the amount of existing items.
 
 Edits a specified item in the specified template `TEMPLATENAME`. +
 Format: `tlist template edit TEMPLATEINDEX i/ITEMINDEX [n/NAME] [a/AMOUNT]`
@@ -532,8 +534,8 @@ Format: `tlist template edit TEMPLATEINDEX i/ITEMINDEX [n/NAME] [a/AMOUNT]`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * Amount must have both magnitude and unit.
-* The system only recognises metric units. e.g. kilogram, liter. Items with the same name (check is non-case-sensitive and across templatelist, grocerylist and shoppinglist)
-can have different units as long as the unit belongs in the same unit category.
+* The system only recognises metric units. e.g. kilogram, liter. Note that unit type in the amount field must belong to the same unit category
+of the item specified and pre-existing items with the same name (check for names is non case-sensitive).
 * Only the units in the following unit categories are supported:
 ** `Weight`: `kg`, `g`, `oz`, `lbs`
 ** `Volume`: `L`, `ml`
@@ -549,6 +551,8 @@ Edits the amount of the first food item in the first template to 2 litres.
 
 ==== Delete food item: `tlist template delete`
 
+You can also delete items in a specific template.
+
 Deletes the specified item from the specified template. +
 Format: `tlist template delete TEMPLATEINDEX i/ITEMINDEX`
 
@@ -562,6 +566,8 @@ Examples:
 Deletes the first food item in the first template.
 
 ==== Shows template: `tlist template list`
+
+You can also view all the items in a specific template currently.
 
 Shows all entries in the specified template. +
 Format: `tlist template list TEMPLATEINDEX`

@@ -102,7 +102,7 @@ public class UniqueTemplateItems implements Iterable<TemplateItem>, Comparable<U
      * Replaces the contents of this list with {@code foods}.
      * {@code foods} must not contain duplicate food items.
      */
-    public void setTemplateItems(List<TemplateItem> foods) {
+    public void setTemplateItems(List<TemplateItem> foods) throws DuplicateFoodException {
         requireAllNonNull(foods);
         if (!foodItemsAreUnique(foods)) {
             throw new DuplicateFoodException();
