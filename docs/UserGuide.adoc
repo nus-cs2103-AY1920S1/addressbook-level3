@@ -124,6 +124,8 @@ different command: `event view` has to be keyed into the command line.
 ====
 All commands start with a command word (e.g `student`, `question`, `quiz`, `event`, `note`) followed by the command action. Certain commands may include additional keywords and will be specified in the description.
 [NOTE]
+Njoy might choose to ignore or validate against additional arguments provided as commands.
+[NOTE]
 Duplication of the specified keywords and options might result in errors or nondeterministic selection of fields. In most cases, the latest field option overwrites the duplicate fields provided.
 ====
 
@@ -412,6 +414,11 @@ Exports the group named G01 to a word document named `G01.docx`, found under the
 ==== Showing students from a group:
 
 Allows a user to see all students from a group.
+
+[NOTE]
+Groups and students are meant to be separate entities, and only adding a student to the group or removing a student
+from a group will change the group view obtained by typing the below command. Tagging, Marking/Unmarking and editing students
+will not reflect in changes in the group view obtained.
 
 Format: `group groupID/...`
 
@@ -961,6 +968,8 @@ YYYY-MM-DDThh:mm, with the time being in 24 hour format. For example, 21st Oct 2
 Note that the event name should not contain backslash characters.
 [NOTE]
 Events in the future have a slightly darker color. This is intentional.
+[NOTE]
+If invalid event start and end date times are provided that exceed the bounds, Njoy might choose to pick the closest date time available or validate against the invalid date.
 
 The options supported by this feature includes:
 
