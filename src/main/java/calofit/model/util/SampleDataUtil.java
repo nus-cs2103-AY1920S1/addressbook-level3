@@ -1,9 +1,12 @@
 package calofit.model.util;
 
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import calofit.model.CalorieBudget;
 import calofit.model.dish.Calorie;
 import calofit.model.dish.Dish;
 import calofit.model.dish.DishDatabase;
@@ -17,6 +20,9 @@ import calofit.model.tag.Tag;
  * Contains utility methods for populating {@code DishDatabase} with sample data.
  */
 public class SampleDataUtil {
+
+    public static final int TYPICAL_BUDGET = 2200;
+
     public static Dish[] getSampleDishes() {
         return new Dish[] {
             new Dish(new Name("Spaghetti"),
@@ -58,4 +64,7 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
+    public static CalorieBudget getSampleBudget() {
+        return new CalorieBudget(Map.of(LocalDate.now(), TYPICAL_BUDGET));
+    }
 }

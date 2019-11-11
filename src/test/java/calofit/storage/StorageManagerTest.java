@@ -13,7 +13,10 @@ import calofit.commons.core.GuiSettings;
 import calofit.model.UserPrefs;
 import calofit.model.dish.DishDatabase;
 import calofit.model.dish.ReadOnlyDishDatabase;
+import calofit.model.meal.MealLog;
+import calofit.model.meal.ReadOnlyMealLog;
 import calofit.testutil.TypicalDishes;
+import calofit.testutil.TypicalMeals;
 
 public class StorageManagerTest {
 
@@ -27,7 +30,9 @@ public class StorageManagerTest {
         JsonDishDatabaseStorage dishDatabaseStorage = new JsonDishDatabaseStorage(getTempFilePath("dishData"));
         JsonMealLogStorage mealLogStorage = new JsonMealLogStorage(getTempFilePath("mealData"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(dishDatabaseStorage, mealLogStorage, userPrefsStorage);
+        JsonCalorieBudgetStorage calorieBudgetStorage = new JsonCalorieBudgetStorage(getTempFilePath("budget"));
+        storageManager = new StorageManager(dishDatabaseStorage, mealLogStorage,
+            userPrefsStorage, calorieBudgetStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -66,4 +71,17 @@ public class StorageManagerTest {
         assertNotNull(storageManager.getDishDatabaseFilePath());
     }
 
+
+    @Test
+    public void mealLogReadSave() throws Exception {
+        MealLog original = TypicalMeals.getTypicalMealLog();
+        storageManager.saveMealLog(original);
+        ReadOnlyMealLog retrieved = storageManager.readMealLog().get();
+        assertEquals(original, new MealLog(retrieved));
+    }
+
+    @Test
+    public void getMealLogFilePath() {
+        assertNotNull(storageManager.getMealLogFilePath());
+    }
 }

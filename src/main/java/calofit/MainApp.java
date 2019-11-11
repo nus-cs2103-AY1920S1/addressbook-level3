@@ -21,6 +21,7 @@ import calofit.commons.util.ConfigUtil;
 import calofit.commons.util.StringUtil;
 import calofit.logic.Logic;
 import calofit.logic.LogicManager;
+import calofit.model.CalorieBudget;
 import calofit.model.Model;
 import calofit.model.ModelManager;
 import calofit.model.ReadOnlyUserPrefs;
@@ -30,7 +31,9 @@ import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.MealLog;
 import calofit.model.meal.ReadOnlyMealLog;
 import calofit.model.util.SampleDataUtil;
+import calofit.storage.CalorieBudgetStorage;
 import calofit.storage.DishDatabaseStorage;
+import calofit.storage.JsonCalorieBudgetStorage;
 import calofit.storage.JsonDishDatabaseStorage;
 import calofit.storage.JsonMealLogStorage;
 import calofit.storage.JsonUserPrefsStorage;
@@ -73,7 +76,8 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         DishDatabaseStorage dishDatabaseStorage = new JsonDishDatabaseStorage(userPrefs.getDishDatabaseFilePath());
         MealLogStorage mealLogStorage = new JsonMealLogStorage(userPrefs.getMealLogFilePath());
-        storage = new StorageManager(dishDatabaseStorage, mealLogStorage, userPrefsStorage);
+        CalorieBudgetStorage calorieBudgetStorage = new JsonCalorieBudgetStorage(userPrefs.getCalorieBudgetFilePath());
+        storage = new StorageManager(dishDatabaseStorage, mealLogStorage, userPrefsStorage, calorieBudgetStorage);
 
         initLogging(config);
 
@@ -138,6 +142,28 @@ public class MainApp extends Application {
     }
 
     /**
+     * Loads the meal log from its saved file.
+     * @param storage Storage handler object
+     * @param userPrefs User preference object
+     * @return Meal loaded from file, or a new instance if file is missing or invalidn
+     */
+    private CalorieBudget loadCalorieBudget(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        Optional<CalorieBudget> calorieBudgetOptional;
+        try {
+            calorieBudgetOptional = storage.readCalorieBudget();
+            if (!calorieBudgetOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a default budget");
+            }
+            return calorieBudgetOptional.orElseGet(SampleDataUtil::getSampleBudget);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an default calorie budget");
+            return new CalorieBudget();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty calorie budget");
+            return new CalorieBudget();
+        }
+    }
+    /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s dish database and {@code userPrefs}. <br>
      * The data from the sample dish database will be used instead if {@code storage}'s dish database is not found,
      * or an empty dish database will be used instead if errors occur when reading {@code storage}'s dish database.
@@ -145,7 +171,8 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         ReadOnlyDishDatabase dishDb = loadDishDatabase(storage, userPrefs);
         ReadOnlyMealLog mealLog = loadMealLog(storage, userPrefs);
-        return new ModelManager(mealLog, dishDb, userPrefs);
+        CalorieBudget budget = loadCalorieBudget(storage, userPrefs);
+        return new ModelManager(mealLog, dishDb, userPrefs, budget);
     }
 
     private void initLogging(Config config) {
@@ -234,5 +261,7 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
+        logger.info("============================ [ Stopping Timers ] =============================");
+        timer.stop();
     }
 }

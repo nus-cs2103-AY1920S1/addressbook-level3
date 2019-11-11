@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import calofit.model.CalorieBudget;
 import calofit.model.dish.Dish;
 import calofit.model.dish.DishDatabase;
 import calofit.model.meal.Meal;
 import calofit.model.meal.MealLog;
+import calofit.model.util.SampleDataUtil;
 import calofit.model.util.Timestamp;
 
 /**
@@ -97,5 +99,9 @@ public class TypicalDishes {
 
     private static Meal dishToMeal(Dish dish) {
         return new Meal(dish, new Timestamp(LocalDateTime.now()));
+    }
+
+    public static CalorieBudget getTypicalBudget() {
+        return SampleDataUtil.getSampleBudget();
     }
 }

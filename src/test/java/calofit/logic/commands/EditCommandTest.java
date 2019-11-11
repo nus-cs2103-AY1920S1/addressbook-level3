@@ -33,7 +33,7 @@ import calofit.testutil.TypicalIndexes;
 public class EditCommandTest {
 
     private Model model = new ModelManager(TypicalDishes.getTypicalMealLog(),
-            TypicalDishes.getTypicalDishDatabase(), new UserPrefs());
+            TypicalDishes.getTypicalDishDatabase(), new UserPrefs(), TypicalDishes.getTypicalBudget());
 
     @Test
     public void execute_allFieldSpecified_success() {

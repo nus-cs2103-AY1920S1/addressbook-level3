@@ -6,13 +6,13 @@ skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
 Interface ReadOnlyDishDatabase <<Interface>>
+Interface ReadOnlyUserPrefs <<Interface>>
+Interface ReadOnlyMealLog <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class ReadOnlyDishDatabase
 Class Model
 Class ModelManager
 Class UserPrefs
-Class ReadOnlyUserPrefs
 Class CalorieBudget
 
 Package Dish {
@@ -48,10 +48,11 @@ ModelManager .up.|> Model
 Model .right.> ObservableList
 ModelManager o--> "1" DishDatabase
 ModelManager o--> "1" MealLog
-ModelManager o-left-> "1" UserPrefs
+ModelManager o-right-> "1" UserPrefs
 ModelManager o-right-> "1" CalorieBudget
 ModelManager o--> "1" Statistics
 UserPrefs .up.|> ReadOnlyUserPrefs
+MealLog .up.|> ReadOnlyMealLog
 
 DishDatabase *--> "1" UniqueDishList
 UniqueDishList o--> "*" Dish
@@ -64,8 +65,10 @@ Meal *--> "1" TimeStamp
 
 Name -[hidden]right-> Calorie
 Calorie -[hidden]right-> Tag
-DishDatabase -[hidden]right-> MealLog
+DishDatabase -[hidden]left-> MealLog
 Tag -[hidden]right-> TimeStamp
 
 ModelManager -->"1" Dish : filtered list
+
+CalorieBudget *--> Calorie
 @enduml

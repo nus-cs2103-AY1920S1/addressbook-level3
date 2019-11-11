@@ -16,38 +16,110 @@ endif::[]
 
 By: `Team AY1920S1-CS2103T-W11-4`      Since: `Sep 2019`      Licence: `MIT`
 
+
 == Introduction
 
 CaloFit is suitable for those who prefer to track their calories gained from day-to-day meals. CaloFit is primarily uses a Command Line Interface(CLI) while still displaying the results through a Graphical User Interface(GUI). You can set your daily calorie target and CaloFit will do its best to help you stay on track.
 
+As of our latest version, v1.4. CaloFit would be able to run on all computers, be it Windows, Mac, Linux and more!
+
+Currently our product would be able to let you set a desired calorie budget, track your meals, provide assistance to keep you on track, last but not least a monthly report will be provided for you!
+
+== About
+
+This user guide provides the user a simple yet useful utility guide on how CaloFit operates.
+
+There will be very minimal prior technical knowledge that the user would need to have in order to use Calofit.
+
+
+
 == Quick Start
 
-* Ensure you have Java 11 or above installed in your Computer.
+Here are the steps to download CaloFit and start using it immediately!:
 
-* Download the latest version of CaloFit.
+1. Ensure you have Java 11 or above installed in your Computer.
 
-* Open Calofit and start using it now!
+2. Go to our [https://github.com/AY1920S1-CS2103T-W11-4/main/releases[GitHub Releases page]] and find our latest release! An example is shown in the picture below.
++
+image::UserGuideQuickStartReleasesPage.png[]
+{empty} +
+
+3. Download the latest version of CaloFit by clicking on the .jar file.
+
+4. Open Calofit and start using it now!
 
 Refer to <<Features>> for details of each command.
+
+// tag::ui[]
+[[UIOverview]]
+== UI Overview
+
+This section covers the various parts of the CaloFit user interface.
+
+=== Command Box
+
+image::command_bar.png[]
+The command box is the main means of interacting with CaloFit.
+Users can enter commands, as detailed in <<Commands>>, in order to work with the app.
+
+To submit a command, the user can press the `Enter` key.
+The application will parse and evaluate the command.
+Any further feedback from the command will be displayed in the feedback box below.
+
+image::command_bar_err.png[]
+If any error is encountered, the command text will not be cleared, and turn red.
+
+=== Budget Bar
+image::budgetbar_partial.png[]
+
+The budget bar shows a visual overview of the meals the user has consumed today.
+Each meal displayed in the budget bar is proportionately sized to its calories,
+and is labelled by its dish name.
+Additionally, a white buffer segment is shown, representing the remaining amount of calories availablee today.
+
+The [yellow]#yellow# mark indicates the current budget limit,
+while the [red]#red# mark indicates 120% of the current budget limit.
+This gives you a visual overview as to how much more the user can consume for today,
+and give a margin of error even when exceeding the budget.
+
+
+When the total calorie count of meals today exceeds even the 120% mark, the bar will not show a buffer segment.
+Instead, the meals will occupy the entire width of the bar, remaining proportionate to their calorie counts.
+The budget marks will also move to the appropriate positions, still representing 100% and 120% of the budget.
+
+_Coming in v2.0:_
+When a meal's bar segment is too small, its dish name will be hidden.
+Information on the dish still can be viewed as a tooltip, when hovering over the segment.
+
+=== Consumed Meals
+
+image::consumed_pane.png[]
+
+=== Suggested Meals
+
+image::suggest_pane.png[]
+
+// end::ui[]
 
 [[Features]]
 == Features
 
 ====
+
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/MEAL_NAME`, `MEAL_NAME` is a parameter which can be used as `add n/Carbonara`.
-* Items in square brackets are optional e.g `add n/MEAL_NAME [c/CALORIES]` can be used as `add n/Carbonara c/430` or as `add n/Carbonara`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/<<mealname_syntax, MEAL_NAME>>`, `<<mealname_syntax, MEAL_NAME>>` is a parameter which can be used as `add n/Carbonara`.
+* Items in square brackets are optional e.g `add n/<<mealname_syntax, MEAL_NAME>> [c/<<calories_syntax, CALORIES>>]` can be used as `add n/Carbonara c/430` or as `add n/Carbonara`.
 ====
 
-// tag::mealTracking[]
 === Meal Tracking
+
 ==== Adding a meal: `add`
 
 Adds a meal that the user ate to be tracked by CaloFit. +
 There are 2 formats that can be used: +
 
-Format 1: `add n/MEAL_NAME [c/CALORIES] [t/TAGS]` +
+Format 1: `add n/<<mealname_syntax, MEAL_NAME>> [c/<<calories_syntax, CALORIES>>] [t/TAGS]` +
 Inputting calories of the meal is optional. +
 If the meal is a dish stored in CaloFit, the calories will be taken from CaloFit. If not, a default value of 700 will be added for you, +
 Tags are completely optional and there is no default tag. You could also have more than 1 tag. +
@@ -58,7 +130,7 @@ You can also add multiple meals at one go using the indexes. This can be done by
 e.g. `add 1 2 3`
 
 [NOTE]
-MEAL_NAME can only be a maximum of 30 characters to ensure it displays correctly for you.
+<<mealname_syntax, MEAL_NAME>> can only be a maximum of 30 characters to ensure it displays correctly for you.
 
 Examples usage: +
 It is lunchtime and you are about to go have some Mushroom Soup.
@@ -109,8 +181,11 @@ Commands below are come other example commands:
 ==== Editing previous meal entry : `edit`
 
 Edits a meal that the user previously ate today. +
-Format: `edit MEAL_NUMBER [n/NAME] [c/CALORIES] [t/TAGS] [tr/TAGSTOREMOVE]` +
+Format: `edit MEAL_NUMBER [n/<<mealname_syntax, MEAL_NAME>>] [c/<<calories_syntax, CALORIES>>] [tr/TAGSTOREMOVE]` +
 The input of at least 1 field (either NAME, CALORIES, TAGS or TAGSTOREMOVE) is required.
+
+Format: `edit MEAL_NUMBER [n/<<mealname_syntax, MEAL_NAME>>] [c/<<calories_syntax, CALORIES>>] [t/TAGS]` +
+The input of at least 1 field (either NAME, <<calories_syntax, CALORIES>> or TAGS) is required.
 A mix of the different fields is possible as well.
 //with the exception of TAGS and TAGSTOREMOVE.
 //This means if you use the TAGS flag (t/), you cannot use the TAGSTOREMOVE flag (tr/).
@@ -174,17 +249,13 @@ Commands below are come other example commands:
 
 === Find meals in the meal database: `find`
 
-Searches for meals contains the words you have input. +
+Searches for meals that contains the words the user has inputted. +
 The search results will be shown under the "Suggested Meals" section of the application. +
-The find feature will replace the suggest feature, vise versa. Thus, in order to get the suggest feature back, the user would have to type "suggest" into the command box.
-
-Format: `find MEAL_WORD`
+The find feature will replace the suggest feature when being used, vise versa. Thus, in order to get the suggest feature back, the user would have to type "suggest" into the command box.
 
 Example usage:
-You would like to know the amount of calories in an "Apple Pie" which
-you know exist in the CaloFit database. However, you
-do not want to scroll through the suggested list just to find it.
-What do you do?
+You would like to know the amount of calories in an "Apple Pie" which you know exist in the CaloFit database. However, you
+do not want to scroll through the entire suggested list just to find it.
 
 * Type `find apple pie` into the command bar and press the `enter` key.
 
@@ -194,8 +265,10 @@ image::FindCommandFindApplePie.png[]
 relevant calorie information.
 
 image::FindCommandFindApplePieSuccess.png[]
-// end::mealTracking[]
 
+Format: `find MEAL_WORD`
+
+// tag::suggest[]
 === Suggesting Meal options: `suggest`
 
 Suggest possible meals based on user calorie intake budget. +
@@ -206,7 +279,7 @@ Example usage:
 You're tired from work and you don't want to think about what to eat for the day, you just want to have a meal to keep yourself full and stay within the calorie budget that you want set for yourself.
 
 [NOTE]
-Type "suggest" into the command bar and press the 'enter' key, if you have previously use the find feature to look for a meal.
+Type "suggest" into the command bar and press the 'enter' key, if you have previously used the find feature to look for a meal.
 
 image::SuggestCommandToggle.png[]
 
@@ -219,53 +292,100 @@ image::SuggestCommandBefore.png[]
 image::SuggestCommandAfter.png[]
 
 Format: `suggest`
+// end::suggest[]
 
+// tag::notification[]
+=== Notification that a meal is missed
+
+A notification will automatically be prompted when the application starts up or every 10 minutes if a meal is missed. +
+This feature cannot be disabled and will start once the application starts. +
+
+[NOTE]
+The first meal will always be breakfast, hence no matter at which timing, if the first meal is not consumed, it will always notify the user as breakfast missed. +
+If lunch have not been consumed after 8pm, notification will change and notify user that they have not consumed their dinner instead of lunch, as consuming two meals at once is not healthy. +
+Notification of dinner will notify the user till 11.59pm, then it will be counted as breakfast.
+
+[NOTE]
+Notification will be prompted: +
+- After 10am for breakfast +
+- After 2pm for lunch +
+- After 8pm for dinner
+
+[NOTE]
+Meals that will be counted:
+- As breakfast - anytime +
+- As lunch - after 11am +
+- As dinner - after 4pm +
+
+* If breakfast is missed this will be how it looks like
+
+image::NotificaitonMissedBreakfast.png[]
+
+* If lunch is missed this will be how it looks like
+
+image::NotificaitonMissedLunch.png[]
+
+* If dinner is missed this will be how it looks like
+
+image::NotificaitonMissedDinner.png[]
+// end::notification[]
+
+// tag::setcmd[]
 === Setting calorie intake budget: `set`
 
 Set user calorie intake budget for today. +
-Format: `set CALORIES`
+This will update the calorie bar to show reflect the new amount of calories remaining.
+If in suggestion mode, the suggest meals will also be refreshed depending on the calories remaining as well.
+
+Format: `set <<calories_syntax, CALORIES>>`
 
 Examples:
 
 * `set 2500`
+// end::setcmd[]
 
+// tag::report[]
 === Generating a Report: `report`
 
-To create your report that displays your progress over this month: +
+Want to have your very own report that summarises your calorie intake progress over this month? Here are the steps to create one now!:
 
 1. Type the word "report" in the command box. A picture is shown below highlighting the command box.
-
++
 image::UserGuideReportStep1.png[]
-
-2. Press "Enter" on your keyboard. A separate window which is the report will appear in the center of your screen.
+{empty} +
+2. Press "Enter" and a separate window which is the report will appear in the center of your screen as highlighted in the picture below.
 
 image::UserGuideReportStep2.png[]
+{empty} +
 
-The report displays:
+[NOTE]
+If an error message pops up like the one in the picture below, do not panic! This simply means that you have not entered a meal into CaloFit for this month. To fix this, go ahead and `add` a meal, and you should now be able to generate your report!
+
+image::ReportCommandError.png[]
+{empty} +
+
+Your report will display the following statistical data for you to monitor your own progress!:
 
 1. Your Maximum, Minimum and Average calorie intake per day of the current month.
 [NOTE]
-Average value is rounded down.
+Average value is rounded. +
+Average value is calculated by totalling your calorie intake in that month so far and dividing it by the total number of days in that month, *NOT* the number of days that have passed in that month so far.
 2. The number of days where calorie intake exceeded calorie budget of the month.
 3. Your list of most consumed dishes of the month.
 4. Your calorie intake per day over the entire month.
 5. The quantity of each type of dish consumed in that month.
 
-Below is a picture of the report showing where each type of information mentioned above can be found.
+Below is a picture of the report showing where each type of information mentioned above can be found, corresponding to their number.
 
 image::UserGuideReportStep3.png[]
-
-Format: `report`
-
-=== Notification that a meal is missed
-
-A notification will automatically be displayed every 10 minutes if a meal is missed.
+{empty} +
 
 [NOTE]
-Notification will be prompted: +
--After 10am for breakfast +
--After 2pm for lunch +
--After 8pm for dinner
+Changing your system time at any point while CaloFit is running may affect the report shown! +
+To ensure correct data is displayed to you, allow 2 minutes for CaloFit to update itself before creating your report.
+
+Format: `report`
+// end::report[]
 
 === Shows an overview of commands usable in CaloFit: `help`
 
@@ -274,19 +394,41 @@ Format: `help`
 
 == Command Summary
 
-* *Add* `add n/MEAL_NAME [c/CALORIES]` +
+* *Add* `add n/<<mealname_syntax, MEAL_NAME>> [c/<<calories_syntax, CALORIES>>]` +
 e.g. `add n/duck rice c/360`
 * *Add* `add NUMBER_IN_SUGGESTED_MEAL_LIST` +
 e.g. `add 1`
-* *Edit* : `edit MEAL_NUMBER [n/MEAL_NAME] [c/CALORIES]` +
+* *Edit* : `edit MEAL_NUMBER [n/<<mealname_syntax, MEAL_NAME>>] [c/<<calories_syntax, CALORIES>>]` +
 e.g. `edit 1 n/duck noodle c/250`
 * *Delete* : `delete MEAL_NUMBER` +
 e.g. `delete 3`
-* *Set* : `set CALORIES` +
+* *Set* : `set <<calories_syntax, CALORIES>>` +
 e.g. `set 2600`
+* *Find* : `find <<mealname_syntax, MEAL_NAME>>` +
+e.g. `find soup`
 * *Suggest* : `suggest` +
 e.g. `suggest`
 * *Report* : `report` +
 e.g. `report`
 * *Help* : `help` +
 e.g. `help`
+
+
+// tag::syntax[]
+== Command Syntax Notes
+
+* [[calories_syntax]] Calorie values are positive integers from 0 to 2 billion, inclusive.
+* [[mealname_syntax]] Dish names must be alphanumeric (`[A-Z], [a-z],[0-9]`), and at most 30 characters long.
+// end::syntax[]
+
+== Trouble shooting/FAQ
+Q: Do I need to key in the date or time? +
+A: There won't be a need to as CaloFit automatically update the current system date and time for the user.
+
+Q: Do I have to pay for anything? +
+A: Currently CaloFit is totally free!
+
+Q: Will the dishes that I add be saved for future use? +
+A:
+
+== Product Glossary
