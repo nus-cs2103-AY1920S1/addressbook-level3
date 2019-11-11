@@ -79,20 +79,18 @@ Please click the following link to see my code contributions dashboard. https://
 * Project management:
 ** Reviewed team's code coverage, resolved issues in the tracker, update project Ui.png.
 
-* Enhancements to team documentation:
+* Enhancements to personal and team documentation:
+** Updated the Developer Guide AddressBook documentation to Njoy diagrams with descriptions : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/211[#211]
 ** Updated README and ContactUs with missing acknowledgements and developer contacts.
-** Updated Glossary and Product Survey : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/24[#24]
+** Updated Glossary and Product Survey : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/24[#24], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/25[#25]
+** Documented the implemented features: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/77[#77],
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/97[#97], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/181[#181], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/190[#190]
 
 * Enhancements to team code:
 ** Wrote the skeleton for storage using the Student entity : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/47[#47]
 ** Wrote the skeleton for the generic printable interface for print/export functions : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/105[#105]
 ** Refactor poor practices to follow better scalability and readability : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/91[#91]
 ** Wrote additional tests and generic model stubs for testing : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/123[#123]
-
-* Documentation:
-** Made modifications to the Developer Guide and improved readability: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/25[#25]
-** Documented the implemented features: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/77[#77],
-https://github.com/AY1920S1-CS2103T-W13-2/main/pull/97[#97], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/181[#181], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/190[#190]
 
 * Community:
 ** Reviewed Pull Requests of Other Teams: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/190[#190], review under username 'lumwb' : https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/23[#23]
