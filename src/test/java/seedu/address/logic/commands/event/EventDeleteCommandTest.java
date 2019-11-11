@@ -7,14 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
 import static seedu.address.commons.util.EventUtil.vEventToString;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_ONE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_TWO;
-import static seedu.address.testutil.event.TypicalEvents.getTypicalEventsRecord;
 import static seedu.address.testutil.event.TypicalVEvents.VEVENT1;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,8 +20,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.testutil.model.ModelStub;
 
 public class EventDeleteCommandTest {

@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_ONE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_TWO;
 import static seedu.address.testutil.note.TypicalNotes.getTypicalNotesRecord;
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
