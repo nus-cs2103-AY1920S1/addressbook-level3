@@ -9,6 +9,7 @@ Interface ReadOnlyBillboard <<Interface>>
 Interface ReadOnlyArchiveWrapper <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
+Interface ReadOnlyRecurrenceList <<Interface>>
 Class Billboard
 Class ReadOnlyBillboard
 Class ArchiveWrapper
@@ -16,6 +17,7 @@ Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class RecurrenceList
 
 Package Expense {
 Class Expense
@@ -24,6 +26,7 @@ Class Description
 Class Amount
 Class ExpenseList
 Class Archive
+Class Recurrence
 }
 
 Package Tag {
@@ -38,11 +41,13 @@ HiddenOutside ..> Model
 
 Billboard .up.|> ReadOnlyBillboard
 ArchiveWrapper .up.|> ReadOnlyArchiveWrapper
+RecurrenceList .up.|> ReadOnlyRecurrenceList
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
 ModelManager o--> "1" Billboard
 ModelManager o--> "1" ArchiveWrapper
+ModelManager o--> "1" RecurrenceList
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
@@ -52,9 +57,12 @@ Billboard *--> "1" TagCountManager
 UniqueTagList *--> "*" Tag
 TagCountManager o--> "*" Tag
 ArchiveWrapper *--> "*" Archive
+RecurrenceList *--> "*" Recurrence
 ExpenseList o--> "*" Expense
 Archive o--> "*" Expense
+Recurrence o--> "*" Expense
 ExpenseList <|-right Archive
+ExpenseList <|-right Recurrence
 Expense *--> Name
 Expense *--> Amount
 Expense *--> Description
@@ -62,5 +70,5 @@ Expense o--> "*" Tag
 
 Description -[hidden]right-> Amount
 
-ModelManager ----->"1..*" Expense : filtered list
+ModelManager ->"1..*" Expense : filtered list
 @enduml

@@ -92,6 +92,7 @@ public class Billboard implements ReadOnlyBillboard {
         requireNonNull(newData);
 
         setExpenses(newData.getExpenses());
+        setRecurrences(newData.getRecurrences());
         setUniqueTagList(newData.getUniqueTagList());
         setCountManager(newData.getCountManager());
     }
@@ -108,6 +109,7 @@ public class Billboard implements ReadOnlyBillboard {
                 .stream().filter(x -> !x.isArchived()).collect(Collectors.toList());
         Billboard billboard = new Billboard();
         billboard.setExpenses(nonArchiveExpenses);
+        billboard.setRecurrences(recurrences);
         billboard.setCountManager(count.getCountMap());
         billboard.setUniqueTagList(tags.getTagList());
         return billboard;
@@ -195,7 +197,19 @@ public class Billboard implements ReadOnlyBillboard {
      * The recurrence must not already exist in the billboard.
      */
     public void addRecurrence(Recurrence recurrence) {
+        requireNonNull(recurrence);
         recurrences.add(recurrence);
+    }
+
+    /**
+     * Adds an recurrence to the billboard.
+     * The recurrence must not already exist in the billboard.
+     */
+    public void addRecurrence(List<Recurrence> recurrences) {
+        requireNonNull(recurrences);
+        for (Recurrence r : recurrences) {
+            recurrences.add(r);
+        }
     }
 
     /**

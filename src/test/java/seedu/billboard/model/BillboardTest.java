@@ -24,6 +24,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.exceptions.DuplicateExpenseException;
+import seedu.billboard.model.recurrence.RecurrenceList;
 import seedu.billboard.model.tag.Tag;
 import seedu.billboard.model.tag.TagCountManager;
 import seedu.billboard.model.tag.UniqueTagList;
@@ -149,6 +150,11 @@ public class BillboardTest {
         @Override
         public ObservableList<Expense> getExpenses() {
             return expenses;
+        }
+
+        @Override
+        public RecurrenceList getRecurrences() {
+            return null;
         }
 
         @Override

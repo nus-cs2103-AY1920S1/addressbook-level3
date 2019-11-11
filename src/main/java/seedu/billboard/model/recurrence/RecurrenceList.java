@@ -19,11 +19,13 @@ import seedu.billboard.model.recurrence.exceptions.RecurrenceNotFoundException;
  */
 public class RecurrenceList implements Iterable<Recurrence> {
 
-    public static final String MESSAGE_NO_RECURRENCES = "There are no existing recurrences";
-
-    public static final String MESSAGE_EXISTING_RECURRENCES = "Here are the existing recurrence(s):\n";
-
     private final List<Recurrence> internalList = new ArrayList<>();
+
+    public RecurrenceList() {};
+
+    public RecurrenceList(List<Recurrence> recurrences) {
+        internalList.addAll(recurrences);
+    }
 
     /**
      * Returns true if the list contains an equivalent recurrence as the given argument.
@@ -174,10 +176,10 @@ public class RecurrenceList implements Iterable<Recurrence> {
 
     @Override
     public String toString() {
-        String output = internalList.isEmpty() ? MESSAGE_NO_RECURRENCES : MESSAGE_EXISTING_RECURRENCES;
+        String output = "";
 
         for (int i = 0; i < internalList.size(); i++) {
-            output += (i + 1) + ". [" + internalList.get(i) + "]";
+            output += "[" + internalList.get(i) + "]";
             if (i != internalList.size() - 1) {
                 output += ",\n";
             }

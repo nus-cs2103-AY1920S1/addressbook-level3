@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.billboard.commons.core.date.DateInterval;
-import seedu.billboard.logic.parser.exceptions.ParseException;
-import seedu.billboard.model.recurrence.Recurrence;
 
 /**
  * Represents a Expense's created dateTime in the Billboard.
@@ -104,9 +102,8 @@ public class CreatedDateTime {
      * @param interval A date interval
      * @param i Iteration of intervals
      * @return CreatedDateTime that is {@code i} iterations of {@code interval} later
-     * @throws ParseException When a unsupported interval is input into the function.
      */
-    public CreatedDateTime plus(DateInterval interval, int i) throws ParseException {
+    public CreatedDateTime plus(DateInterval interval, int i) {
         requireNonNull(interval);
         requireNonNull(i);
 
@@ -122,9 +119,8 @@ public class CreatedDateTime {
 
         case YEAR:
             return new CreatedDateTime(dateTime.plusYears(i));
-
         default:
-            throw new ParseException(Recurrence.MESSAGE_DATE_INTERVAL_CONSTRAINTS);
+            return new CreatedDateTime(dateTime);
         }
     }
 }

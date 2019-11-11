@@ -10,7 +10,7 @@ import static seedu.billboard.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.billboard.commons.core.date.DateInterval;
@@ -20,11 +20,7 @@ import seedu.billboard.logic.parser.exceptions.ParseException;
 import seedu.billboard.model.expense.Amount;
 import seedu.billboard.model.expense.CreatedDateTime;
 import seedu.billboard.model.expense.Description;
-import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.expense.ExpenseList;
 import seedu.billboard.model.expense.Name;
-import seedu.billboard.model.recurrence.Recurrence;
-import seedu.billboard.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -62,7 +58,7 @@ public class AddRecurrenceCommandParser implements Parser<AddRecurrenceCommand> 
                 ? ParserUtil.parseCreatedDateTime(argMultimap.getValue(PREFIX_END_DATE).get())
                 : new CreatedDateTime(LocalDateTime.now());
 
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        List<String> tagList = ParserUtil.parseTagNames(argMultimap.getAllValues(PREFIX_TAG));
 
         DateInterval interval = ParserUtil.parseInterval(argMultimap.getValue(PREFIX_INTERVAL).get());
 
@@ -70,22 +66,7 @@ public class AddRecurrenceCommandParser implements Parser<AddRecurrenceCommand> 
                 DateRange.fromClosed(createdDateTime.dateTime.toLocalDate(), endDateTime.dateTime.toLocalDate()),
                 interval);
 
-        Expense expense;
-        ExpenseList expenses = new ExpenseList();
-
-        for (int i = 0; i < iterations; i++) {
-            expense = new Expense(
-                    name.getClone(),
-                    description.getClone(),
-                    amount.getClone(),
-                    createdDateTime.plus(interval, i),
-                    tagList);
-            expenses.add(expense);
-        }
-
-        Recurrence recurrence = new Recurrence(expenses, interval, iterations);
-
-        return new AddRecurrenceCommand(recurrence);
+        return new AddRecurrenceCommand(name, description, amount, createdDateTime, tagList, interval, iterations);
     }
 
     /**

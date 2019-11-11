@@ -3,8 +3,10 @@ package seedu.billboard.model.recurrence;
 import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.model.expense.Amount;
@@ -26,16 +28,14 @@ public class Recurrence {
     // Identity fields
     private ExpenseList expenses;
     private DateInterval interval;
-    private int iterations;
 
     /**
      * Every field must be present and not null.
      */
-    public Recurrence(ExpenseList expenses, DateInterval interval, int iterations) {
-        requireAllNonNull(expenses, interval, iterations);
+    public Recurrence(ExpenseList expenses, DateInterval interval) {
+        requireAllNonNull(expenses, interval);
         this.expenses = expenses;
         this.interval = interval;
-        this.iterations = iterations;
     }
 
     public ExpenseList getExpenses() {
@@ -67,21 +67,9 @@ public class Recurrence {
     }
 
     public int getIterations() {
-        return iterations;
+        return expenses.size();
     }
 
-    /*public String getArchiveName() {
-        return firstExpense.getArchiveName();
-    }
-
-    public boolean isArchived() {
-        return !archiveName.equals("");
-    }
-
-    public void archiveTo(String archiveName) {
-        this.archiveName = archiveName;
-    }
-    */
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -90,6 +78,9 @@ public class Recurrence {
         return Collections.unmodifiableSet(getFirstExpense().getTags());
     }
 
+    public List<String> getTagNames() {
+        return getFirstExpense().getTags().stream().map(t -> t.getTagName()).collect(Collectors.toList());
+    }
     /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
@@ -100,20 +91,19 @@ public class Recurrence {
             return true;
         }
 
-        if (!(other instanceof Expense)) {
+        if (!(other instanceof Recurrence)) {
             return false;
         }
 
         Recurrence otherRecurrence = (Recurrence) other;
         return otherRecurrence.getFirstExpense().equals(getFirstExpense())
-                && otherRecurrence.getInterval().equals(getInterval())
-                && otherRecurrence.getIterations() == getIterations();
+                && otherRecurrence.getInterval().equals(getInterval());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(expenses, interval, iterations);
+        return Objects.hash(expenses, interval);
     }
 
     @Override

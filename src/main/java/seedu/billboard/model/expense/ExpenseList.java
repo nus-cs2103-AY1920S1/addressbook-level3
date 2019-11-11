@@ -3,6 +3,7 @@ package seedu.billboard.model.expense;
 import static java.util.Objects.requireNonNull;
 import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,12 +23,39 @@ public class ExpenseList implements Iterable<Expense> {
     private final ObservableList<Expense> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    public ExpenseList() {}
+
+    /**
+     * Initialise {@code ExpenseList} from a collection of expenses.
+     *
+     * @param expenses collection of expenses
+     */
+    public ExpenseList(Collection<Expense> expenses) {
+        requireNonNull(expenses);
+
+        expenses.forEach(e -> internalList.add(e));
+    }
+
     /**
      * Returns true if the list contains an equivalent expense as the given argument.
      */
     public boolean contains(Expense toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::equals);
+    }
+
+    /**
+     * Clears all expenses
+     */
+    public void clear() {
+        internalList.clear();
+    }
+
+    /**
+     * Get the count of expenses in {@code ExpenseList}
+     */
+    public int size() {
+        return internalList.size();
     }
 
     /**
