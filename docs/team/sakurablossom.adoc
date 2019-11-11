@@ -3,6 +3,18 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+== Introduction
+
+image::sakurablossom.png[width="150", align="left"]
+{empty}[https://github.com/sakurablossom[github]]
+
+Hello! My name is Shawn lum. I'm currently a Year 2 student in NUS School of Computing (SOC), studying Computer Science.
+
+This portfolio page aims to document the contributions I have made in the development of ClerkPro,
+a project that my team and I undertook to complete the CS2103T module.
+This journey through this project has taught me the necessary skills
+to become a more competent and knowledgeable software engineer.
+
 == PROJECT: ClerkPro
 
 ---
@@ -21,7 +33,8 @@ ClerkPro is a desktop application used for managing clinic's appointments, queue
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=sakurablossom&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=SakuraBlossom&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Functional code]]
+[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=sakurablossom&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=SakuraBlossom&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
