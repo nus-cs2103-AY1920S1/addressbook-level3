@@ -33,6 +33,10 @@ public class ItemModelManagerTest {
     private Item.ItemBuilder template = new Item.ItemBuilder().setItemDescription(new ItemDescription("test"));
     private Item validItem = TypicalItems.ITEM_WITH_ALL;
 
+    /**
+     * Helper method to check all the sizes of the list.
+     * @param size the expected size of all the lists.
+     */
     private void checkAllList(int size) {
         try {
             testModel.setVisualList("T");
@@ -331,7 +335,7 @@ public class ItemModelManagerTest {
     }
 
     @Test
-    public void emptyList_AllListsEmpty() {
+    public void emptyList_allListsEmpty() {
         testModel.addItem(validItem);
         testModel.emptyLists();
         checkAllList(0);

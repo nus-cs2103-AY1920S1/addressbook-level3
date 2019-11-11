@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDateTime;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.elisa.commons.core.item.Item;
@@ -51,6 +49,11 @@ public class TaskListTest {
         assertEquals(testList, testList.sort());
     }
 
+    /**
+     * Helper function to easily create an item with a task
+     * @param value the description of the item
+     * @return an item with a task and the description.
+     */
     private Item generateTask(String value) {
         Item template = new Item.ItemBuilder().setTask(new Task(false))
                 .setItemDescription(new ItemDescription(value))
