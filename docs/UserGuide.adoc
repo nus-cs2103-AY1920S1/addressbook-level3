@@ -111,22 +111,22 @@ There are several fields in each lesson as shown below:
 
 Adds a lesson to the lesson list of the notebook, +
 feature to repeat lessons will be implemented in v2.0 +
-Format: addlesson l/LESSON st/START_TIME et/ET_TIME:dd/MM/yy HHmm
+Format: `addlesson l/LESSON st/START_TIME et/ET_TIME:dd/MM/yy HHmm`
 
 Examples:
 
-* 'addlesson l/Math 4E7 st/12/01/2020 1200 et/12/01/2020 1300'
-* 'addlesson l/English 3E8 st/06/01/2020 1200 et/06/01/2020 1300'
+* `addlesson l/Math 4E7 st/12/01/2020 1200 et/12/01/2020 1300`
+* `addlesson l/English 3E8 st/06/01/2020 1200 et/06/01/2020 1300`
 
 ==== Editing: editlesson
 Edits a lesson at the specific index in the day list of reminder panel. +
 Day index represents day in week, e.g. Monday: 1, Tuesday: 2 +
-Format: 'editlesson LESSON_INDEX day/DAY_INDEX [l/LESSON_NAME] [st/START_TIME] [et/END_TIME]'
+Format: `editlesson LESSON_INDEX day/DAY_INDEX [l/LESSON_NAME] [st/START_TIME] [et/END_TIME]`
 
 Examples:
 
-'editlesson 1 day/3 l/English 4E2'
-'editlesson 2 day/4 st/05/01/2020 1200 et/05/01/2020 1300'
+* `editlesson 1 day/3 l/English 4E2`
+* `editlesson 2 day/4 st/05/01/2020 1200 et/05/01/2020 1300`
 
 [NOTE]
 The index and day index provided must be valid and at least one field must be edited.
@@ -135,12 +135,12 @@ The index and day index provided must be valid and at least one field must be ed
 
 Deletes a lesson at the specified index in the day list of reminder panel. +
 Day index represents day in week, e.g. Monday: 1, Tuesday: 2 +
-Format: 'deletelesson LESSON_INDEX day/DAY_INDEX'
+Format: `deletelesson LESSON_INDEX day/DAY_INDEX`
 
 Examples:
 
-'deletelesson 1 day/2'
-'deletelesson 3 day/4'
+* `deletelesson 1 day/2`
+* `deletelesson 3 day/4`
 
 [NOTE]
 The index and day index provided must be valid and at least one field must be edited.
@@ -148,12 +148,12 @@ The index and day index provided must be valid and at least one field must be ed
 ==== Finding: findlesson
 
 Finds lessons which match the given keyword. +
-Format: 'findlesson KEYWORD'
+Format: `findlesson KEYWORD`
 
 Examples:
 
-'findlesson Math'
-'findlesson 12:00'
+* `findlesson Math`
+* `findlesson 12:00`
 
 // end::lessons[]
 
@@ -265,7 +265,6 @@ Example:
 
 // tag::assignments[]
 === Assignments
-// end::assignments[]
 
 Assignments are contained within each class. There are two fields in each assignment as shown below:
 
@@ -337,23 +336,34 @@ Format (One Student): `as/ASSIGNMENT_INDEX s/STUDENT_INDEX g/GRADE` +
 
 Examples:
 
-*`grades as/1 g/ 10 20 30 40`+
-*`grades as/1 s/1 10`+
+* `grades as/1 g/10 20 30 40`
+* `grades as/1 s/1 g/10`
 
 [NOTE]
-Grades must be an integer from 0 to 100, and ASSIGNMENT_INDEX must be valid (check above for definition of valid ASSIGNMENT_INDEX). For the All Students variant, the number of grades input must be equal to the total number of students in the classroom. For the One Student variant, the STUDENT_INDEX must be valid.+
-The default grades of all students is "Not Submitted". Once there are no longer any "Not Submitted" grades belonging to the assignment, the assignment is marked as completed+
-When a student is added, each uncompleted assignment will include the new student with the grade "Not Submitted"+
+Grades must be an integer from 0 to 100, and ASSIGNMENT_INDEX must be valid (check above for definition of valid ASSIGNMENT_INDEX). For the All Students variant, the number of grades input must be equal to the total number of students in the classroom. For the One Student variant, the STUDENT_INDEX must be valid. +
+The default grades of all students is "Not Submitted". Once there are no longer any "Not Submitted" grades belonging to the assignment, the assignment is marked as completed +
+When a student is added, each uncompleted assignment will include the new student with the grade "Not Submitted" +
 When a student is added, each completed assignment will include the new student with the grade "Late to the party". This distinguishes the whether the student was added before or after the assignment was marked (completed) by the user, and it would be unfair to expect a new student to submit work that was assigned before he/she joined the classroom.
 
-Examples:
+// tag::get[]
+==== Get Grades: getgrades
 
-* `editassignment 1 as/English Test d/29/11/2020 1400`
-* `editassignment 1 as/Math Test d/29/11/2020 1600`
+Gets all the grades of the chosen student index in the current classroom. +
+The command result will show all the grades of the specified student. +
+Format: `getgrades STUDENT_INDEX`
 
-[NOTE]
-The index provided must be valid (is an integer and exists in the assignment list) and at least one field must be edited. If the list has been filtered through the Finding Assignment command, the index provided corresponds to the index on the filtered list.
+Example:
 
+* `getgrades 1`
+
+==== Get Unsubmitted Assignments: getunsubmitted
+
+Gets all the unsubmitted assignments in the current classroom. +
+The command result will unsubmitted assignments with the corresponding student names. +
+Format: `getunsubmitted`
+
+// end::get[]
+// end::assignments[]
 
 // tag::userfriendly[]
 === User-Friendly Features
@@ -467,6 +477,20 @@ How do I transfer my data from the current notebook to another computer?::
 
 == Command Summary
 
+* Add Class: `addclass c/CLASS_NAME` +
+e.g. `addclass c/4E3`
+* Delete Class: `deleteclass c/CLASS_NAME` +
+e.g. `deleteclass c/4E3`
+* Set Class: `setclass c/CLASS_NAME` +
+e.g. `setclass c/4C3`
+* Add Lesson: `l/LESSON st/START_TIME et/ET_TIME:dd/MM/yy HHmm` +
+e.g. `addlesson l/Math 4E7 st/12/01/2020 1200 et/12/01/2020 1300`
+* Edit Lesson: `editlesson LESSON_INDEX day/DAY_INDEX [l/LESSON_NAME] [st/START_TIME] [et/END_TIME]` +
+e.g `editlesson 2 day/4 st/05/01/2020 1200 et/05/01/2020 1300`
+* Delete Lesson: `deletelesson LESSON_INDEX day/DAY_INDEX` +
+e.g. `deletelesson 1 day/2`
+* Find Lesson: `findlesson KEYWORD` +
+e.g. `findlesson Math`
 * Add Student: `addstudent n/NAME e/EMAIL p/PHONE a/ADDRESS pp/PARENT_PHONE [m/MEDICAL_CONDITIONS]... [t/TAG]...` +
 e.g. `addstudent n/John Doe e/johndoe@gmail.com p/81930042 a/Jurong East Avenue 3 Blk 639 #12-02 pp/84295512 m/Sinus`
 * Edit Student: `editstudent STUDENT_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pp/PARENT_PHONE] [m/MEDICAL_CONDITIONS], [t/TAG]...` +
@@ -475,17 +499,31 @@ e.g. `editstudent 2 p/98510293`
 e.g. `deletestudent 3`
 * Upload: `upload STUDENT_INDEX` +
 e.g. `upload 2`
+* List Students: `liststudents`
 * Find Student: `findstudent STUDENT_NAME` +
 e.g. `findstudent John Doe`
-
-* Undo Action `undo` +
-
-* Redo Action `redo` +
-
-* Clear data `clear` +
-
-* Bring up help window `help` +
-
-* Exit the application `exit` +
+* Reset Display Picture: `resetdisplaypic`
+* Add Assignment: `addassignment as/ASSIGNMENT d/DEADLINE:dd/MM/yyyy HHmm` +
+e.g. `addassignment as/Math Test d/29/11/2020 1400`
+* Edit Assignment: `editassignment ASSIGNMENT_INDEX [as/ASSIGNMENT_NAME] [d/ASSIGNMENT_DEADLINE]` +
+e.g. `editassignment 1 as/English Test d/29/11/2020 1400`
+* Delete Assignment: `deleteassignment ASSIGNMENT_INDEX` +
+e.g. `deleteassignment 1`
+* List Assignments: `listassignments`
+* Find Assignment: `findassignment ASSIGNMENT_NAME` +
+e.g. `findassignment Math`
+* Update Grades: +
+Format (All Students): `as/ASSIGNMENT_INDEX g/GRADE GRADE ... GRADE` +
+Format (One Student): `as/ASSIGNMENT_INDEX s/STUDENT_INDEX g/GRADE` +
+e.g. `grades as/1 g/10 20 30 40` +
+e.g. `grades as/1 s/1 g/10`
+* Get Grades: `getgrades STUDENT_INDEX` +
+e.g. `getgrades 1`
+* Get Unsubmitted Assignments: `getunsubmitted`
+* Undo Action: `undo`
+* Redo Action: `redo`
+* Clear Data: `clear`
+* Bring up help window: `help`
+* Exit the application: `exit`
 
 
