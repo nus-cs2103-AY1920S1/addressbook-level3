@@ -8,14 +8,12 @@ import java.util.regex.Pattern;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AddGroupCommand;
 import seedu.address.logic.commands.AddNusModCommand;
 import seedu.address.logic.commands.AddNusModsCommand;
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddToGroupCommand;
-import seedu.address.logic.commands.ClosestLocationCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeleteFromGroupCommand;
 import seedu.address.logic.commands.DeleteGroupCommand;
@@ -47,7 +45,6 @@ public class SuggestingCommandUtil {
             AddNusModsCommand.COMMAND_WORD,
             AddPersonCommand.COMMAND_WORD,
             AddToGroupCommand.COMMAND_WORD,
-            ClosestLocationCommand.COMMAND_WORD,
             DeleteEventCommand.COMMAND_WORD,
             DeleteFromGroupCommand.COMMAND_WORD,
             DeleteGroupCommand.COMMAND_WORD,
