@@ -33,7 +33,7 @@ The challenge in implementing this feature was checking appointments time with d
 
 * *Code contributed*
 *** The following link contains all the code contributed throughout the entire project:
-https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=woon&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&until=2019-11-10&tabType=authorship&tabAuthor=woon17&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Functional code]
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=woon&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&until=2019-11-10&tabType=authorship&tabAuthor=woon17&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Functional code] and
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=woon&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&until=2019-11-10&tabType=authorship&tabAuthor=woon17&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Test code]
 
 * *Other contributions*:
@@ -48,13 +48,12 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=woon&sort=groupTitle&
 *** Added UML diagrams for appointment feature into the Development Guide:(examples: https://github.com/AY1920S1-CS2103T-T09-3/main/pull/92[1])
 
 ** Database:
-*** edits pre-load database(Pull request https://github.com/AY1920S1-CS2103T-T09-3/main/pull/139[#139])
+*** Edited pre-load database(Pull request https://github.com/AY1920S1-CS2103T-T09-3/main/pull/139[#139])
 
 ** Enhancements to existing features:
 *** Wrote additional tests for existing features to increase coverage from 66.25% to 71.55% (Pull requests https://github.com/AY1920S1-CS2103T-T09-3/main/pull/112[#112])
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -71,5 +70,5 @@ include::../UserGuide.adoc[tag=shift]
 |===
 
 include::../DeveloperGuide.adoc[tag=appointment]
-
+include::../DeveloperGuide.adoc[tag=consideration]
 include::../DeveloperGuide.adoc[tag=shift]

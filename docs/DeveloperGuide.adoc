@@ -53,26 +53,6 @@ The rest of the App consists of four components.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
-Each of the four components
-
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
-
-[discrete]
-==== How the architecture components interact with each other
-
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
-
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
-
-The sections below give more details of each component.
-
 [[Design-Ui]]
 === UI component
 
@@ -310,7 +290,7 @@ image::UndoRedoState5.png[width="500"]
 
 // end::undoredo[]
 
-// end::reactivesearch[]
+// tag::reactivesearchUI[]
 // tag::reactivesearchIntro[]
 
 === Reactive Search
@@ -349,10 +329,13 @@ class EventListViewCell extends ListCell<Event> {
 
 Hence, this ensures the main FX application thread is always polling for user inputs or graphical updates and handles them rapidly as they are lightweight tasks.
 
+// end::reactivesearchUI[]
+
+// tag::reactivesearchthreading[]
 
 ==== Phase 2: Multi-threading and synchronisation of Reactive Search requests
 
-// tag::reactivesearchthreading[]
+
 
 If the `UI` triggers another reactive search request before previous request is completed,
 the thread of the previous request is first interrupted and joined to the thread of the new request.
@@ -364,16 +347,17 @@ image::ReactiveSearchThreadingSequenceDiagram.png[]
 
 // end::reactivesearchthreading[]
 
-// end::reactivesearch[]
-
 // tag::autocomplete[]
 
 === AutoComplete
 
 We are using Prefix Tree which is known as a Trie for AutoComplete. This gives us a worst case time complexity of O(m), where m is length of the search string. While the space complexity is O(bm), where b is number of unique characters used, m is length of longest word stored.
 
-.AutoComplete Sequence Diagram
+.AutoComplete Sequence Diagram showing the sequence upon typing the character 'a' into an empty Command Box.
 image::AutoCompleteSequenceDiagram.png[]
+
+.AutoCompleter Class Diagram
+image::AutoCompleterClassDiagram.png[]
 
 ===== Aspect: Data structure to implement AutoComplete
 
@@ -445,14 +429,10 @@ Step 3: Patient will then displayed in the queue.
 // end::queue[]
 
 // tag::appointment[]
-=== Appointment feature
+
+=== Appointment Feature
 
 The Appointment feature enables users to manage appointments for patients by providing basic Create, Read, Update, Delete (CRUD) of appointments. User is also able to find missed appointments and settle each missed appointment efficiently.
-
-* e.g. `newappt -id E0000001A -start 01/12/19 0900 -end 01/12/19 0940 -reoccur m -num 2` - creates two monthly reoccurring appointments to patient whose `referenceId` is E0000001A.
-* e.g. `editappt -entry 1 -start 01/12/19 1000 -end 01/12/19 1040` - edits a patient's first appointment timing to be the input timing if there is no conflict with doctor's duty shift.
-
-
 
 The number of scheduled appointments cannot be more than the number of on-duty staff doctors at any given time.
 
@@ -480,7 +460,7 @@ The appointment class diagram below illustrates the interactions between the App
 .Appointment class diagram
 image::AppointmentClassDiagram.png[]
 
-he appointment will be rejected by the system, if there are insufficient staff doctors on duty at the time of the appointment. +
+The appointment will be rejected by the system, if there are insufficient staff doctors on duty at the time of the appointment. +
 Each `Appointment` object consists of a `PersonReferenceId`, `Timing`, `Status`. `Timing` class has 2 `DateTime` objects which indicates the start and end time of the `appointment`. The `UniqueEventList` contains 0 or more appointments.
 
 The current implementation of `Appointment` checks with `patient` object by the unique `referenceId` and also checks the timing with doctors' dutyRoster. If the `referenceId` exists within the Model#UniquePersonList and the timing is valid, then the `Appointment` object is constructed. This ensures that the patient is registered before making any appointments and the appointment's timing is valid.
@@ -492,7 +472,7 @@ Before an appointment can be scheduled, the system first checks the total number
 ==== `newappt` Command
 The `newappt` command is similar to the `new` command of patient and doctor. The command takes in the parameters required to construct `ReferenceId`, `DateTime` and `Status`. The image below shows how the `Appointment` object is constructed.
 
-The following activity diagram summarizes what happens when a user executes a `AddAppointment` command:
+The following activity diagram summarizes what happens when a user executes a `newappt` command:
 
 .Interactions Inside the Logic Component when a user executes a `newappt` command
 image::AddAppointmentActivityDiagram.png[]
@@ -529,6 +509,8 @@ Given below is the sequence diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `cancelappt 1` Command
 image::CancelAppointmentSequenceDiagram.png[]
 
+// end::appointment[]
+
 ==== `missappt` Command
 
 The `missappt` command displays appointments that patients did not attend. The filtered appointments are found in `ModelManager`. The list is instantiated by filtering the `UniqueEventList` using `EventsMissedPredicate` which checks all APPROVED-Status appointments' end times with current time.
@@ -539,34 +521,60 @@ The `settleappt` command helps users to remove any missed appointments once user
 
 In future implementations, i.e. v2.0, the valid timing slot will be given based on the doctor's availability. This ensures users can easily choose a slot to arrange appointments for patients.
 
+// end::appointment[]
+// tag::consideration[]
 ==== Design Considerations
 
 ===== Aspect:  How to store Timing fields
 
 * **Alternative 1 (current choice):** Create `DateTime` and `Timing` class to store
-** Pros: Makes it easier to calculate timings and clashes between multiple appointments with different timing field.
-** Cons: Requires additional code to implement Timing class and interact with other common methods that rely on DateTime.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Makes it easier to calculate timings and clashes between multiple appointments with different timing field.
+|*Cons*|
+1. Requires additional code to implement Timing class and interact with other common methods that rely on DateTime.
+|===
+
 * **Alternative 2:** Store as Strings
-** Pros: Makes it easier to implement.
-** Cons: Requires additional code to convert into `DateTime` class when carrying out calculating methods.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Makes it easier to implement.
+|*Cons*|
+1. Requires additional code to convert into `DateTime` class when carrying out calculating methods.
+|===
 
 ===== Aspect: display appointments
 
 * **Alternative 1 (current choice):** Display appointments in a tab
-** Pros: Creates an intuitive and easily navigable screen to display appointments.
-** Cons: Decreases the efficiency of CLI by having to use GUI inputs.
-* **Alternative 2:** Keeps the onscreen clutter at a minimum and stays in line with the CLI concept.
-** Pros: Makes it easier to implement.
-** Cons: Increases difficulty in freely accessing appointments.
-// end::appointment[]
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Creates an intuitive and easily navigable screen to display appointments.
+|*Cons*|
+1. Decreases the efficiency of CLI by having to use GUI inputs.
+|===
 
+* **Alternative 2:** Keeps the onscreen clutter at a minimum and stays in line with the CLI concept.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Makes it easier to implement.
+|*Cons*|
+1. Increases difficulty in freely accessing appointments.
+|===
+
+// end::consideration[]
 // tag::shift[]
+
 === Duty Shift Scheduling
 
 The duty shift scheduling provides users the ability to schedule duty shifts for doctors. It can help doctors to check, add, edit duty shifts efficiently.
-
-* e.g. `newshift -id W0000001A -start 01/11/19 0900 -end 01/12/19 2100 -reoccur m -num 2` - allows the user to create two monthly reoccurring duty shifts to doctor whose `referenceId` is W0000001A.
-* e.g. `editshift -entry 1 -start 02/12/19 0900 -end 02/12/19 2100` - allows the user to change a doctor's first duty shift to be the input timing if there is no conflict with appointments.
 
 ==== Current Implementation
 The duty shift scheduling contains multiple operations to indirectly manipulate the `UniqueEventList`. The implemented operations include:
@@ -600,7 +608,9 @@ The shifts command searches for duty shifts that belong to the doctor based on t
 
 Case 2: `shifts`
 
-The shifts behaves similarly to `shifts ReferenceId` when it does not take in any other arguments. Instead, it automatically executes with the predicate `EventContainsApprovedStatusPredicate`. updateFilteredEventList() is called and the entire list of the upcoming duty shifts is shown to the user.
+The shifts command behaves similarly to `shifts ReferenceId` when it does not take in any other arguments. Instead, it automatically executes with the predicate `EventContainsApprovedStatusPredicate`. updateFilteredEventList() is called and the entire list of the upcoming duty shifts is shown to the user.
+
+// end::shift[]
 
 ==== `editshift` Command
 The following activity diagram summarizes what happens when a user executes a `editshift` command:
@@ -612,8 +622,6 @@ image::ChangeShiftActivityDiagram.png[]
 ==== `cancelshift` Command
 
 `cancelshift` simply takes in the index of the target duty shift to cancel according to the displayed shift list.
-
-// end::shift[]
 
 === Logging
 

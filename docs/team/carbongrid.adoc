@@ -2,6 +2,13 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+:icons: font
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
 
 == PROJECT: ClerkPro
 
@@ -51,6 +58,7 @@ ClerkPro is a desktop application designed for ease of managing clinic's appoint
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=quickStart]
 ====
 include::../UserGuide.adoc[tag=autoCompleteAndHistoryUG]
 include::../UserGuide.adoc[tag=reactiveSearchUG]
@@ -63,5 +71,5 @@ include::../UserGuide.adoc[tag=reactiveSearchUG]
 |===
 
 include::../DeveloperGuide.adoc[tag=autocomplete]
-include::../DeveloperGuide.adoc[tag=reactivesearch]
+include::../DeveloperGuide.adoc[tag=reactivesearchUI]
 include::../DeveloperGuide.adoc[tag=carbongridContribManualTesting]

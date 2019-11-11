@@ -423,10 +423,11 @@ public class ModelManager implements Model {
             }
         }
 
-        if (numOfAvailableStaff <= countNumberOfConcurrentAppointments
+        if (numOfAvailableStaff == 0
+                || (numOfAvailableStaff <= countNumberOfConcurrentAppointments
                 && !(numOfAvailableStaff == countNumberOfConcurrentAppointments
-                && ignoreEventCase != null
-                && !appointment.conflictsWith(ignoreEventCase))) {
+                    && ignoreEventCase != null
+                    && !appointment.conflictsWith(ignoreEventCase)))) {
 
             throw new InvalidEventScheduleChangeException(
                     String.format(MESSAGE_NOT_ENOUGH_STAFF_FOR_ADD,
