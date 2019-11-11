@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-This is a portfolio page for Wang Shiyao - intended to highlight the contributions that he has made to his CS2103T Software Engineering Project.
+This is Wang Shiyao's Project Portfolio Page - highlighting his contributions to his CS2103T Software Engineering Project.
 
 == LiBerry
 
