@@ -80,9 +80,9 @@ e.g. after executing *`showall`* command, "List all questions..." will be displa
 
 3. *Tab Panes*
 +
-Consists of 4 different tabs: _Home_, _Questions_, _Workspace_ and _Help_
+Consists of 5 different tabs: _Home_, _Questions_, _Workspace_, _Notes_ and _Help_
 
-. After executing *`showall`* in the *CommandBox*, find a question that interests you and type `attempt <Qn Index>`
+. After executing *`showall`* in the *CommandBox*, find a question that interests you and type `attempt [Qn Index]`
   into the *CommandBox* to start your DukeAcademy experience.
 +
 _Note: the index of a question is the number displayed next to its title._
@@ -91,13 +91,11 @@ _Note: the index of a question is the number displayed next to its title._
 image::questionindex.png[width="1000"]
 +
 
-
 [[Overview]]
-
 == Overview
 
-The application is divided into 3 separate tabs, each one of them serving a specific purpose. You can toggle between the
-different tabs by entering `tab` into the *Command Box*.
+The application is divided into 5 separate tabs, each one of them serving a specific purpose. You can toggle between the
+different tabs by entering `tab` into the *CommandBox*.
 
 === Home
 The *Home* tab contains an introduction of the application, and more importantly, a *Personal Dashboard* for you to keep track of your progress made in Duke Academy.
@@ -121,10 +119,10 @@ Duke 90 - 100 %
 The *Questions* tab contains a list of all the available questions and also a window to view your problem statements.
 
 You can use commands such as `browse` and `find` to filter through the list of questions in order to find what you
-are looking for. `browse` can lookup any keywords in titles, difficulty, description, topics, etc. `find` only finds by titles._(View <<Features>> for more details.)_
+are looking for. `browse` can lookup any keywords in titles, difficulty, description, topics, etc. `find` only finds by titles. _(View <<Features>> for more details.)_
 
 . To quickly see all questions, enter `showall` into the *CommandBox*.
-. To view the problem statement for a question, enter `view <Qn Index>`. The problem statement will then be displayed
+. To view the problem statement for a question, enter `view [Qn Index]`. The problem statement will then be displayed
   on the right.
 
 +
@@ -150,9 +148,56 @@ A built-in editor for you to write your code.
 
 To submit your attempt, enter `submit` into the *CommandBox*.
 
-To begin your attempt on a question, enter `attempt <Qn Index>` into the *CommandBox*.
+To begin your attempt on a question, enter `attempt [Qn Index]` into the *CommandBox*.
 
 To submit your attempt, enter `submit` into the *CommandBox*.
+
+=== Notes
+The notes page is where you can record notes or even sketch out some of your ideas to aid your learning process.
+
+image::notespage.png[width="1000"]
+
+. NotesListDisplay
++
+Displays all of the notes that you have previously created.
++
+
+. CurrentNoteTitle
++
+Shows the title of the note that you are currently viewing/editing.
++
+
+. NoteTextInput
++
+Input space for any text-based notes that you wish to record.
++
+
+. Sketchpad
++
+A canvas for you to draw any ideas you may have pertaining to data structures!
++
+
+
+To create a new note, enter `newnote [Title]` into the *CommandBox*
+
+To open an exiting note, enter `opennote [Id] into the *CommandBox*.
+
+The id of the note is the number that appears next to the title in the *NotesListDisplay*.
+
+To save any changes to your notes, enter `savenote` into the *CommandBox*.
+
+=== Help
+The help page is where you can get a quick summary of all of the features and commands in the application.
+
+[[BeforeStart]]
+== Before you start
+
+. The program evaluator uses *stdin* to feed your program inputs and *stdout* to receive your program's outputs. Thus,
+it is important that your program uses the `Scanner` class to read inputs and for you to print your results.
+
+. Take note that your program is being evaluated *on your local machine* and not within a container or a virtual machine.
+Thus, *do not write any code that you would not want to run on your local machine*.
+
 
 [[Features]]
 == Features
@@ -334,7 +379,67 @@ the *ProgramEvaluationDisplay* on the bottom left of the GUI.
 
 image::submit.png[width="1000"]
 
-//tag::load[]
+=== Creating a new note: `newnote`
+
+Navigates to the *Notes* tab and creates a new note with the given title.
+
+*Format:* `newnote [title]`
+
+****
+* The new note will be loaded immediately into the notes tab
+* You can start writing/drawing your ideas in the note text input or the sketchpad.
+* Save any changes you wish to make using the `savenote` command.
+****
+
+*Examples:*
+
+image::newnotecommand.png[width="1000"]
+
+* `newnote Linked Lists` +
+Creates a new note titled "Linked Lists" and loads it into the Notes page for you to edit/view.
+
+
+
+=== Saving changes to a note: `savenote`
+
+Navigates to the *Notes* tab and saves any changes made to the note that you were previously viewing/editing.
+
+*Format:* `savenote`
+
+****
+* The saved changes will be reflected the next time you open the note again.
+****
+
+=== Opening an existing note: `opennote`
+
+Navigates to the *Notes* tab and opens the note corresponding to the id for viewing/editing.
+
+*Format:* `opennote [id]`
+
+****
+* Be careful as there is no way to retrieve your notes once they are deleted!
+****
+
+image::opennotecommand.png[width="1000"]
+
+* `opennote 1` +
+Navigates to the *Notes* page after opening the note with the id 1.
+
+=== Deleting an existing note: `deletenote`
+
+Navigates to the *Notes* tab and deleting the note corresponding to the id.
+
+*Format:* `deletenote [id]`
+
+****
+* Displays the text content of the note into the note text input
+* Displays the sketch of the note into the sketchpad
+****
+
+* `deletenote 1` +
+Navigates to the *Notes* page after deleting the note with the id 1.
+
+
 === Loading new questions: `loadquestions`
 
 Imports your own set of questions into the application through a text file.
@@ -385,8 +490,11 @@ with the file that contains the data of your previous DukeAcademy folder.
 *Q:* What is the format of problem setting?
 
 *A:* It should contain the following: problem statement, input and output files, difficulty
-level, solution, algorithm category. Check out ​ default_problem_set.txt​ for reference.
+level, solution, as well as algorithm category. Check out <<Custom-Questions>> for detailed reference.
 
+*Q:* What if I want to delete questions?
+
+*A:* Currently there is no delete question feature implemented. To restore to default setting, delete the `DukeAcademy` folder located at the same directory as the `DukeAcademy.jar`, and restart the app.
 
 == Command Summary
 
@@ -400,6 +508,10 @@ level, solution, algorithm category. Check out ​ default_problem_set.txt​ fo
 * Attempt a question: `attempt​ [id]`
 * Submit:​ `submit`
 * Load questions: ​`loadquestions​ [filename]`
+* Create a new note: `newnote [title]`
+* Save current note: `savenote`
+* Open a  note: `opennote [id]`
+* Delete a note: `deletenote [id]`
 * Switch tab sequentially: `tab`
 * Exit: `exit`
 
@@ -450,13 +562,13 @@ Output::
 
 * Title, Description can be any non-empty string.
 
-* Difficulty can only be EASY, MEDIUM or HARD.
+* Difficulty can only be EASY, MEDIUM or HARD. (Must be capitalized)
 
-* Topics can only be ARRAY, LINKED_LIST, HASHTABLE, TREE, GRAPH, RECURSION, DIVIDE_AND_CONQUER, DYNAMIC_PROGRAMMING, SORTING, or OTHERS.
+* Topics can only be ARRAY, LINKED_LIST, HASHTABLE, TREE, GRAPH, RECURSION, DIVIDE_AND_CONQUER, DYNAMIC_PROGRAMMING, SORTING, or OTHERS. (Must be capitalized)
 
 * One question can only have one title, description and difficulty. It can have multiple topics separated by `,`. It can have multiple test cases, each begin with a `TestCase::` identifier.
 
-* For sample questions, refer to the image above.
+* For sample questions, refer to the `DukeAcademy/newQuestions/NewProblems.txt` file.
 
 //end::customqn[]
 

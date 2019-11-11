@@ -19,6 +19,7 @@ public class FindCommand implements Command {
     private final QuestionsLogic questionsLogic;
     private final ApplicationState applicationState;
     private final TitleContainsKeywordsPredicate predicate;
+    private final boolean validity;
 
     /**
      * Instantiates a new Find command.
@@ -33,10 +34,18 @@ public class FindCommand implements Command {
         String[] titleKeywords = keywords.trim().split("\\s+");
         this.predicate =
             new TitleContainsKeywordsPredicate(Arrays.asList(titleKeywords));
+        if(keywords.isEmpty()) {
+            validity = false;
+        } else {
+            validity = true;
+        }
     }
 
     @Override
     public CommandResult execute() throws CommandException {
+        if(validity == false) {
+            throw new CommandException("Find should be followed by keywords.");
+        }
         // Update status of question
         this.questionsLogic.filterQuestionsList(predicate);
         logger.info("Listing questions that contains keywords specified.");

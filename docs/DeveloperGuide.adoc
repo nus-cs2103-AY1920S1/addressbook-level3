@@ -181,7 +181,7 @@ Classes used by multiple components are in the `com.dukeacademy.commons` package
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::submit[]
-=== [Proposed] Submit feature
+=== Submit feature
 
 The submit mechanism is facilitated by `UserInterface`.
 
@@ -379,7 +379,7 @@ the various test cases.
 These information are then displayed on the Code Result Panel through standard JavaFX controls.
 
 //tag::problem_description[]
-== Problem Description Panel
+=== Problem Description Panel
 //end::problem_description[]
 
 == Documentation

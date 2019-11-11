@@ -19,6 +19,7 @@ public class BrowseCommand implements Command {
     private final QuestionsLogic questionsLogic;
     private final ApplicationState applicationState;
     private final AttributeContainsKeywordsPredicate predicate;
+    private final boolean validity;
 
     /**
      * Instantiates a new Browse command.
@@ -33,10 +34,19 @@ public class BrowseCommand implements Command {
         String[] attributeKeywords = keywords.trim().split("\\s+");
         this.predicate =
             new AttributeContainsKeywordsPredicate(Arrays.asList(attributeKeywords));
+        if(keywords.isEmpty()) {
+            validity = false;
+        } else {
+            validity = true;
+        }
     }
 
     @Override
     public CommandResult execute() throws CommandException {
+        if(validity == false) {
+            throw new CommandException("Browse should be followed by keywords"
+                + ".");
+        }
         // Update status of question
         this.questionsLogic.filterQuestionsList(predicate);
         logger.info("Listing questions that contains keywords specified.");

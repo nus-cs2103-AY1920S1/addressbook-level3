@@ -38,20 +38,6 @@
 
             <HBox spacing="3.0">
 
-                <Label text="Topic:">
-                    <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0"/>
-                    </font>
-                </Label>
-                <Label fx:id="topic" text="Some Topic">
-                    <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0"/>
-                    </font>
-                </Label>
-
-            </HBox>
-            <HBox spacing="3.0">
-
                 <Label text="Difficulty:">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="12.0"/>

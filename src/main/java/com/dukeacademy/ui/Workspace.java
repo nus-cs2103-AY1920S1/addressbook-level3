@@ -26,20 +26,30 @@ public class Workspace extends UiPart<Region> {
     private AnchorPane editorPlaceholder;
 
     private ProblemStatementPanel problemStatementPanel;
+    private ProgramEvaluationPanel programEvaluationPanel;
     private Editor editor;
+    private Question currentlyAttemptingQuestion;
 
     public Workspace(Observable<Question> attemptingQuestion, Observable<TestResult> resultObservable) {
         super(FXML);
 
         problemStatementPanel = new ProblemStatementPanel();
+        programEvaluationPanel = new ProgramEvaluationPanel(resultObservable);
+
         attemptingQuestion.addListener(question -> {
             if (question != null) {
                 this.problemStatementPanel.setProblemStatement(question.getDescription());
             }
-        });
-        problemStatementPanelPlaceholder.getChildren().add(problemStatementPanel.getRoot());
 
-        ProgramEvaluationPanel programEvaluationPanel = new ProgramEvaluationPanel(resultObservable);
+            // If a new question is attempted, clear old results
+            if (question == null || !question.equals(currentlyAttemptingQuestion)) {
+                this.programEvaluationPanel.clearResults();
+            }
+
+            currentlyAttemptingQuestion = question;
+        });
+
+        problemStatementPanelPlaceholder.getChildren().add(problemStatementPanel.getRoot());
         programEvaluationPanelPlaceholder.getChildren().add(programEvaluationPanel.getRoot());
 
         editor = new Editor(attemptingQuestion);
