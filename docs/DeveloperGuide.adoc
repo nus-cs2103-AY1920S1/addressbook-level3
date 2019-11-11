@@ -940,7 +940,7 @@ image::SnakeGame.PNG[500,600]
 Expected: Enters easy mode of game (Refer to figure above)
 .. Test case: `game e` +
 Expected: Same as above.
-.. Test case: `game EASY` 
+.. Test case: `game EASY`
 Expected: Same as above.
 
 .Entering game mode (hard)
