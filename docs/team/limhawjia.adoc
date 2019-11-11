@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images/hj_ppp
 :stylesDir: ../stylesheets/
+:sectnums:
 
 == Project: Duke Academy
 
@@ -10,7 +11,7 @@ Duke Academy is a Java based programming practice application equipped with a wi
 == Overview
 
 Duke Academy was built to emulate a Command Line Application where users interact with the GUI by typing commands into a command box.
-This decision was made to allow new learners to also familiarize themselves with using a Command Line Interface, an invaluable skill for all programmers.
+This is to allow new learners to also familiarize themselves with using a Command Line Interface, an invaluable skill for all programmers.
 
 [.text-center]
 .Main GUI of Duke Academy
@@ -77,8 +78,8 @@ Justification :
   It is difficult to come up with your own test cases to evaluate your solutions whenever you attempt programming questions. It is also very cumbersome to run each test case manually. Allowing users to automatically have their solutions evaluated will allow them to focus more on their learning.
 
 * *Highlights* :
-** Compile and runtime errors are also displayed to the user in the event that they occur so that user's are able to learn from their mistakes.
-** A _Time Limit Exceeded_ error is displayed if the user's program takes too long to complete. This will enable users to know if their solutions are properly optimized.
+** Compile and runtime errors are also displayed to the user in the event that they occur so that users are able to learn from their mistakes.
+** A _Time Limit Exceeded_ error is displayed if the user's program takes too long to complete. This will allow users to know if their solutions are properly optimized.
 
 .Program evaluation example
 image::ProgramEvaluation.png[align="center" width="800"]
@@ -91,7 +92,7 @@ image::CompileError.png[align="center" width="800"]
   Allows users to record notes in the form of text or a simple sketch.
 
 * Justification : +
-  Being able to pen down ideas is extremely useful when coming up with solutions to programming questions. Furthermore, being able to take notes for future reference will help to reinforce the user's learning.
+  Being able to pen down ideas is extremely useful when coming up with solutions to programming questions. Furthermore, being able to take notes for future reference will help to reinforce our users' learning.
 
 * Highlights : +
   In addition to taking notes in the form of text, user's are also able to sketch their ideas within a a sketch pad and have them saved for future reference. This is particularly useful when dealing with data structures.
@@ -101,7 +102,7 @@ image::NotePage.png[align="center" width="800"]
 
 === Tabs [feature]
 * What it does  : +
-  Splits the various functions of the application, _browsing and viewing of questions_, _attempting of questions and evaluation of results_, _note-taking_, into individual tabs.
+  Splits the various functions of the application -- _browsing and viewing of questions_, _attempting of questions and evaluation of results_, _note-taking_, into individual tabs.
 
 * Justification : +
   Separating the various functions of our application into their own separate tabs will reduce clutter and enable users to be more organized in their learning.
@@ -141,6 +142,8 @@ Given below are some of the sections that I contributed to the User Guide. They 
 include::../UserGuide.adoc[tag=overview]
 
 include::../UserGuide.adoc[tag=beforestart]
+
+include::../UserGuide.adoc[tag=submit]
 
 == Contributions to the Developer Guide
 

@@ -49,6 +49,9 @@ programmers), you can get used to it while working on your coding skills here in
 
 . Download the latest DukeAcademy.jar link:{repoURL}/releases[here].
 . Double-click the .jar file to start the app. The GUI should appear in a few seconds. If the app cannot be launched by double-clicking:
++
+For Windows:
+
 - Launch Notepad (or any text editor), then copy and paste the following line into the text editor.
 
  java -jar [name_of_file].jar
@@ -89,7 +92,7 @@ e.g. after executing *`showall`* command, "List all questions..." will be displa
 +
 Consists of 5 different tabs: _Home_, _Questions_, _Workspace_, _Notes_ and _Help_
 
-. After executing *`showall`* in the *CommandBox*, find a question that interests you and type `attempt <Qn Index>`
+. After executing *`showall`* in the *CommandBox*, find a question that interests you and type `attempt [Qn Index]`
   into the *CommandBox* to start your DukeAcademy experience.
 +
 _Note: the index of a question is the number displayed next to its title._
@@ -261,7 +264,6 @@ Navigates to the *Home* Tab.
 
 image::home.png[width="800" align="center"]
 
-//tag::showall[]
 
 === List all questions: `showall`
 
@@ -271,7 +273,6 @@ Navigates to the *Questions* Tab and displays all available questions.
 
 image::listallquestions.png[width="800" align="center"]
 
-//end::showall[]
 === Adding bookmark: `bookmark`
 
 Bookmarks a specific question.
@@ -296,7 +297,6 @@ Removes the bookmark from a specific question.
 * The question with the bookmark removed will disappear from the list of bookmarked questions located within your *Personal Dashboard*.
 ****
 
-//tag::find[]
 === Find question by title : `find`
 
 Searches for question of which the title contains *strictly* the keywords entered.
@@ -338,7 +338,7 @@ contains one of the keyword(s) in their _title, topics, description, status_ or 
 ****
 * *NOTE*: This function does *NOT* work for character sequences!
 +
-e.g. Searching for `su` will not yield questions that do not strictly contain the word "su".
+e.g. Searching for `su` will not yield questions with titles that do not strictly contain the word "su", such as "super".
 * The category is case insensitive.
 +
 e.g `easy` will match `Easy`.
@@ -373,10 +373,9 @@ image::view.png[width="800" align="center"]
 
 *Examples:*
 
-* `view 2` +
-Displays the question with the id "2" in the right side window of the GUI.
+* `view 1` +
+Displays the question with the id "1" in the right side window of the GUI, as shown in the above picture.
 
-//end::find[]
 
 === Attempting a question : `attempt`
 
@@ -472,6 +471,7 @@ Navigates to the *Notes* tab and deleting the note corresponding to the id.
 * `deletenote 1` +
 Navigates to the *Notes* page after deleting the note with the id 1.
 
+//tag::load[]
 === Loading new questions: `loadquestions`
 
 Imports new questions into the application through a text file.
@@ -479,20 +479,23 @@ Imports new questions into the application through a text file.
 *Format:* `loadquestions [filename]`
 
 ****
-* Your text file should be located at the Desktop.
+* Your text file should be located in the `../DukeAcademy/newQuestions/` directory. The `DukeAcademy` folder
+is located in the same directory as where you put the jar file.
 * Your text file should follow the format specified at <<Custom-Questions>>.
-* The questions in the text file will only be loaded after entering this command.
-* Your questions will be loaded immediately.
 ****
-
-image::loadquestions.png[width="800" align="center"]
 
 *Examples:*
 
 * `loadquestions my_problem_set.txt` +
-Loads the questions from the file "my_problem_set.txt" located on your desktop.
-//end::load[]
+Loads the questions from the file "my_problem_set.txt" located in the `../DukeAcademy/newQuestions/` directory.
 
+We have prepared a dummy problem set for you to try out as shown in diagram below.
+
+image::default_problem_set.png[width="1000"]
+
+Type `loadquestions NewProblems.txt` (case sensitive), and
+two new questions titled `Apple` and `Banana` will be loaded onto Duke Academy.
+//end::load[]
 
 === Exit the application: `exit`
 
@@ -516,8 +519,11 @@ with the file that contains the data of your previous DukeAcademy folder.
 *Q:* What is the format of problem setting?
 
 *A:* It should contain the following: problem statement, input and output files, difficulty
-level, solution, algorithm category. Check out ​ default_problem_set.txt​ for reference.
+level, solution, as well as algorithm category. Check out <<Custom-Questions>> for detailed reference.
 
+*Q:* What if I want to delete questions?
+
+*A:* Currently there is no delete question feature implemented. To restore to default setting, delete the `DukeAcademy` folder located at the same directory as the `DukeAcademy.jar`, and restart the app.
 
 == Command Summary
 
@@ -527,14 +533,15 @@ level, solution, algorithm category. Check out ​ default_problem_set.txt​ fo
 * Removing bookmark: `deletebookmark [id]`
 * Find by question title: `find​ [keyword]...`
 * Browse by category: ​`browse​ [keyword]...`
-* View: view: ​`view​ [id]`
+* View: `view​ [id]`
 * Attempt a question: `attempt​ [id]`
 * Submit:​ `submit`
 * Load questions: ​`loadquestions​ [filename]`
 * Create a new note: `newnote [title]`
 * Save current note: `savenote`
-* Open a  note: `opennote [id]`
+* Open a note: `opennote [id]`
 * Delete a note: `deletenote [id]`
+* Switch tab sequentially: `tab`
 * Exit: `exit`
 
 //end::summary[]
@@ -554,7 +561,8 @@ level, solution, algorithm category. Check out ​ default_problem_set.txt​ fo
 
 //tag::customqn[]
 [[Custom-Questions]]
-== Load Your Custom Questions
+== Format for Custom Questions
+image::custom_questions.png[width="920"]
 
 * Create a .txt file.
 * The format of a question goes like follows:
@@ -581,13 +589,13 @@ Output::
 
 * Title, Description can be any non-empty string.
 
-* Difficulty can only be EASY, MEDIUM or HARD.
+* Difficulty can only be `EASY`, `MEDIUM` or `HARD`. (Must be capitalized)
 
-* Topics can only be ARRAY, LINKED_LIST, HASHTABLE, TREE, GRAPH, RECURSION, DIVIDE_AND_CONQUER, DYNAMIC_PROGRAMMING, SORTING, or OTHERS.
+* Topics can only be `ARRAY`, `LINKED_LIST`, `HASHTABLE`, `TREE`, `GRAPH`, `RECURSION`, `DIVIDE_AND_CONQUER`, `DYNAMIC_PROGRAMMING`, `SORTING`, or `OTHERS`. (Must be capitalized)
 
 * One question can only have one title, description and difficulty. It can have multiple topics separated by `,`. It can have multiple test cases, each begin with a `TestCase::` identifier.
 
-* For sample questions, refer to the image above.
+* For sample questions, refer to the `../DukeAcademy/newQuestions/NewProblems.txt` file.
 
 //end::customqn[]
 

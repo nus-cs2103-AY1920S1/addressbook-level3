@@ -1,4 +1,4 @@
-package com.dukeacademy.logic.commands.list;
+package com.dukeacademy.logic.commands.showall;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -16,7 +16,7 @@ import com.dukeacademy.testutil.TypicalQuestions;
 
 import javafx.collections.ObservableList;
 
-class ListCommandTest {
+class ShowallCommandTest {
     @TempDir public Path tempFolder;
 
     private MockQuestionsLogic questionsLogic;
@@ -28,7 +28,8 @@ class ListCommandTest {
     }
 
     @Test void execute() {
-        ListCommand command = new ListCommand(questionsLogic, applicationState);
+        ShowallCommand
+            command = new ShowallCommand(questionsLogic, applicationState);
 
         command.execute();
         List<Question> expectedQuestions = TypicalQuestions.getTypicalQuestions();
