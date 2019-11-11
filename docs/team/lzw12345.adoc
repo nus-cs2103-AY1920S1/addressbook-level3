@@ -17,24 +17,23 @@ Flashmind is a flashcard program to help users memorise content. FlashMind has a
 ** What it does: Allows the user to generate statistics about cards by tag or overall. Displays information in a helpful graphical information as well as in text
 ** Justification: This feature improves the product significantly because the user might want to track the progress of his learning experience.
 ** Highlights: This enhancement required some architecture changes to allow statistics information to communicated to the UI . It required an in-depth analysis of  UI design alternatives. The implementation was challenging due to communication between the GUI to detailed information and creating a separate window with graphics.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
 
 * *Major enhancement*: added *the ability to add choices to flashcard*
 ** What it does: Allows the user to add a list of choices to the flashcard.
 ** Justification: This feature improves the product significantly because the user can now create multiple choice flashcards which greatly improves versatility and .
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 * *Major enhancement*: added *a timer to the quiz mode*
 ** What it does: Allows the user to have timed quizzes.
 ** Justification: This feature improves the product significantly because the user can simulate test environments with the quiz system adding a new layer of functionality .
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of UI design. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
 
 
 * *Minor enhancement*:
 ** Major changes to UI to fix the majority of the bugs and improved usability.
-*** Added the ability to skip cards in quiz with a skip command
+** Added the ability to skip cards in quiz with a skip command
 
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
@@ -46,7 +45,7 @@ Flashmind is a flashcard program to help users memorise content. FlashMind has a
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide
 
-_{you can add/remove categories in the list above}_
+
 
 == Contributions to the User Guide
 
@@ -78,4 +77,3 @@ include::../../README.adoc[tag=description]
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_
