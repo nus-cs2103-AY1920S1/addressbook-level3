@@ -567,7 +567,7 @@ Spend less time typing repetitive commands, and spend more time keeping track of
 .Some rules in the rule engine
 image::RuleUG1.png[width=85%,scaledwidth=85%]
 
-Rules have the following structure: If "predicate" is true, then perform "action". By creating a
+Rules have the following structure: if "predicate" is true, then perform "action". By creating a
 predicate which defines the condition you set, you can perform any action you create whenever a
 transaction is added/edited, if the transaction satisfies that condition.
 
@@ -596,7 +596,7 @@ Adds a new rule to the rule engine.
 Both the predicate and action have to be specified.
 A rule can be formed using either expressions or scripts, or both.
 
-Format: `rule add p/<expression | script name> a/<expression | script name>`
+Format: `rule add p/<expression|script name> a/<expression|script name>`
 // end::ruleExtract2[]
 
 NOTE: Note that scripts used in rules are not validated; make sure they are free from error.
@@ -616,8 +616,8 @@ Action scripts will be executed if the predicate returns true, and any return va
 ** A predicate operator can be one of the following:
 *** `=` : Equality comparison operator
 *** `<` , `\<=`  , `>=` , `>` : Inequality comparison operators
-*** `contains` : Substring check operator (Cannot be used on dates)
-** A value can be a number or a string of length not more than 180 characters
+*** `contains` : Substring check operator (cannot be used on dates)
+** A value can be a number or a string of length not more than 180 characters.
 It can contain the following special characters: +
 !#$%&'*+=?`+_+/[{|}]~^.-
 // end::ruleExtract3[]
@@ -640,7 +640,7 @@ and is not required for `set_in`, `set_out` and `switch_direct`
 * Scripts used in rules have access to two additional arguments:
 ** The transaction to test/act upon is stored in `argv[0]`
 ** The account that the transaction belongs to is stored in `argv[1]`
-* Refer to <<Scripting>> for general script usage.
+* Refer to the <<Scripting,Scripting section>> for general script usage.
 ****
 
 Examples:
@@ -669,7 +669,7 @@ Format: `rule list`
 Edits the specified fields in the rule with the specified ID.
 Both the predicate and action can be modified.
 
-Format: `rule edit <rule ID> [p/<expression | script>] [a/<expression | script>]`
+Format: `rule edit <rule ID> [p/<expression|script>] [a/<expression|script>]`
 
 Examples:
 
