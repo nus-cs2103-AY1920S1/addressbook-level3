@@ -41,7 +41,6 @@ public class BudgetTest {
         assertEquals(new Budget(HUNDRED, new Date(VALID_DATE)), BUDGET_TWO);
         assertEquals(new Budget(HUNDRED, new Date(VALID_DATE), CATEGORIES), BUDGET_THREE);
         assertEquals(new Budget(HUNDRED, HUNDRED, new Date(VALID_DATE), CATEGORIES), BUDGET_FOUR);
-        assertEquals(new Budget(HUNDRED, HUNDRED.addAmount(HUNDRED), new Date(VALID_DATE), CATEGORIES), BUDGET_FOUR);
     }
 
     @Test
