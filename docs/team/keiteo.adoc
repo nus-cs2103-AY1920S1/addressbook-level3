@@ -30,6 +30,12 @@ Here is a screenshot of our project:
 
 image::annotatedUi.png[width="600"]
 
+Note the following symbols and formatting used in this document.
+
+[NOTE]
+This section explains certain information that require the user to take note of.
+i.e. prefixes used in our application and what it represents, certain functionality of the command
+
 == Summary of contributions
 
 |===
