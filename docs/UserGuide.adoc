@@ -859,9 +859,7 @@ The argument must match these three words perfectly.
 
 Shown below:
 
-UndoRedoStack
 image::StatsExampleDefault.png[width="300"]
-
 
 Generates the statistics with date input in chart format (in pop-up modal dialogue). +
 Format: `generate-s s/stat d1/YYYY.MM.DD d2/YYYY.MM.DD` +
@@ -962,7 +960,7 @@ The system may lag and not work if you are typing too fast.
 [TIP]
 The system is case-sensitive.
 
-==== Example: `add`
+==== `add`
 
 image::AutoCompleteAddExample.png[]
 
@@ -992,7 +990,7 @@ confusion.
 accordingly.
 ****
 
-==== Example: `delete-c`
+==== `delete`
 
 image::AutoCompleteDeleteExample.png[]
 
@@ -1005,7 +1003,7 @@ where `N` is the largest valid index that can be entered. In this case,
 * Commands of this type include `delete`, `copy`, `complete`, `cancel`.
 ****
 
-==== Example: `edit`
+==== `edit`
 
 *** When you enter `edit-c` followed by a space, the system will suggest
 two numbers: `1` and `N`, where `N` is the largest valid index that can
@@ -1029,7 +1027,7 @@ the system is designed to always suggest the entire set of possible prefixes.
 * Autocomplete works similarly for all `edit` commands.
 ****
 
-==== Example: `find`
+==== `find`
 
 image::AutoCompleteFindExample.png[]
 
@@ -1045,7 +1043,7 @@ entered.
 ****
 
 
-==== Example: `switch`
+==== `switch`
 
 *** For simple commands such as `switch-c`, the system will suggest the command word
 and nothing else.
@@ -1054,7 +1052,7 @@ and nothing else.
 * Simple commands include `switch`, `export`, `list`, `clear`, `undo`, `redo`, `history`, `exit`, `help`.
 ****
 
-==== Example: `schedule`
+==== `schedule`
 
 image::AutoCompleteScheduleExample.png[]
 
@@ -1173,7 +1171,7 @@ simplified to `gp`.
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
 |Command | Summary
-|`add-p i/IDENTITY_NUMBER s/SERIAL_NUMBER n/NAME b/BRAND cp/CAPACITY (in GB) cl/COLOUR $/COST [t/TAG]…​`| Adds a new phone into SML
+|`add-p i/IDENTITY_NUMBER s/SERIAL_NUMBER n/NAME b/BRAND cp/CAPACITY (in GB) cl/COLOUR $/COST [t/TAG]…​`| Adds a new phone into SML.
 |`edit-p INDEX [i/IDENTITY_NUMBER] [s/SERIAL_NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`| Edits an existing phone.
 |`delete-p INDEX`| Deletes a phone and its associated orders and schedules.
 |`clear-p`| Deletes all phones and their associated orders and schedules.

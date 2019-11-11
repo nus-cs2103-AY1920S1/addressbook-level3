@@ -44,9 +44,9 @@ In Charge of: Storage
 image::zhixianggg.png[width="150", align="left"]
 {empty}[https://github.com/zhixianggg[github]][<<zhixianggg#, portfolio>>]
 
-Role: Code Quality, Logic
+Role: Code Quality
 
-In Charge of: Parsing + CRUD
+In Charge of: Undo/Redo Commands, CRUD Commands and Logic
 
 '''
 
