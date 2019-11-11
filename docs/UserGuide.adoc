@@ -367,15 +367,14 @@ image::ExportDemo1.png[width="600"]
 +
 image::ExportDemo2.png[width="600"]
 
-. Navigate to the directory that you specified in the command (in this case, it would be `C:\Documents`). Sure enough, your exported file is there!
+. Using your file explorer, navigate to the directory that you specified in the command (in this case, it would be `C:\Documents`). Sure enough, your exported file is there!
 +
 image::ExportDemo3.png[width="600"]
 
 Please refer to the table below for a summary of the file formats that we support exporting to:
 
 |====
-|**Format**|Document|JSON
-|**Extension**|'.docx'|'.json'
+|**Format**|Document ('.docx')|JSON ('.json')
 |**Intended purpose**|For use as a cheat sheet|For sharing
 |**What is copied from each FlashCard**|Question and answer only|Question, answer, and the category which you specified in the export command
 |====

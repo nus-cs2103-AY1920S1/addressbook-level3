@@ -313,8 +313,7 @@ Once created, an `ExportPath` will expose the following relevant methods:
 * `export(List<FlashCard> list)` -- Exports the given `List` of `FlashCards` to the file path embodied by this `ExportPath`
 * `importFrom()` -- Attempts to import `FlashCards` from the file path represented by this `ExportPath`
 
-CAUTION: Not all `ExportPath` subclasses will implement the `importFrom()` method. `DocumentPath`, for example, does not - this is because documents are
-relatively unstructured and impractical to import from, and there are other reasons for exporting to a document (e.g. to use as cheat sheet).
+CAUTION: Not all `ExportPath` subclasses will implement the `importFrom()` method. `DocumentPath`, for example, does not.
 
 Because `ExportPath` follows the factory pattern, any class that deals with `ExportPath` or its subclasses need not know which particular subclass it is
 dealing with exactly. Each `ExportPath` subclass will implement its own `export` and `import` methods, which, when called, will perform the required operations
@@ -327,23 +326,7 @@ NOTE: You can find all relevant classes in the `seedu.address.model.export` pack
 
 The following table shows the classes and methods that you may have to deal with when exporting to or importing from each format:
 
-[width="59%",cols="20%,35%,35%",options="header",]
-|====
-
-|**File format**                        |Document ('.docx') |JSON ('.json')
-
-|**`ExportPath` subclass**              |`DocumentPath`     |`JsonExportPath`
-
-a|**Export utility**
-a|`DocumentExportUtil#exportFlashCardsToDocument( List<FlashCard>, DocumentPath)`
-a|`JsonExportUtil#exportFlashCardsToJson( List<FlashCard>, JsonExportPath)`
-
-a|**Import utility**
-a|_None - importing not supported_
-a|`JsonImportUtil#importFlashCardsFromJson( JsonExportPath)`
-
-|**External library**              |Apache POI         |Jackson
-|====
+image::ExportDgTable.png[width="75%"]
 
 _Table 1: Overview of classes and methods involved in the Export/Import feature_
 
@@ -358,16 +341,14 @@ _Figure 1: Class diagram of the classes directly relevant to importing and expor
 The following sequence diagram shows the classes, methods, and interactions involved
 when the user tries to `export` to a document file:
 
-image::ExportSequenceDiagram.png[width = "600"]
+image::ExportSequenceDiagram.png[]
 
 _Figure 2: Sequence diagram showing the process of exporting to a document file_
 
-NOTE: Due to a limitation of PlantUML, object lifelines in the diagram extend beyond the destroy markers. Of course, you should ignore this.
-
 The following activity diagrams provide a general overview of the events that occur when a user executes an `export` or `import` command:
 
-image:ExportActivityDiagram.png[width=430,height=518]
-image:ImportActivityDiagram.png[width=373,height=513]
+image:ExportActivityDiagram.png[width=440,height=518]
+image:ImportActivityDiagram.png[width=383,height=513]
 
 _Left - Figure 3: Activity diagram of the execution of an `export` command_ +
 _Right - Figure 4: Activity diagram of the execution of an `import` command_

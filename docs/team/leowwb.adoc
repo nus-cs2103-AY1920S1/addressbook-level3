@@ -27,11 +27,7 @@ _Figure 1. The graphical user interface of **KeyboardFlashCards**_
 
 Please note the following symbols and formatting, which will appear throughout the rest of the document:
 
-NOTE: A point of information to take note of
-
-TIP: A tip or suggestion
-
-CAUTION: A cautionary warning
+image::leowwbPppAdmonitions.png[width="80%"]
 
 == Summary of contributions
 
@@ -80,7 +76,6 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=LeowWB&sort=totalComm
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/19[#19],
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/24[#24]
     )
-*** Created issue labels on GitHub for better issue management
 ** Documentation
 *** Created an early framework for the User Guide (
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/19[#19]
