@@ -91,10 +91,10 @@ public class FinancialTracker {
     /**
      * Edits an expense in the expense list associated with current country key.
      */
-    public void setExpense(Expense expenseToEdit, Expense editedExpense) throws CommandException {
+    public void setExpense(int index, Expense expenseToEdit, Expense editedExpense) throws CommandException {
         requireNonNull(editedExpense);
         editedExpense.setCountry(new Country(currentCountry));
-        expenseListMap.get(currentCountry).setExpense(expenseToEdit, editedExpense);
+        expenseListMap.get(currentCountry).setExpense(index, expenseToEdit, editedExpense);
     }
 
     /**
