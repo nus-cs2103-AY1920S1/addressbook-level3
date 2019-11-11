@@ -54,7 +54,7 @@ This sections will show my contribution to the team project which consists of my
 
 ** Documentation:
 **** Made improvement to Developer Guide with diagram and details issues: (Pull request: https://github.com/AY1920S1-CS2103T-F14-2/main/pull/243[#243])
-**** Improve UserGuide to allow reader to have a clearer understanding on how does the software works: (Pull request: https://github.com/AY1920S1-CS2103T-F14-2/main/pull/212[#212])
+**** Improve UserGuide to allow reader to have a clearer understanding on how does the software works: (Pull request: https://github.com/AY1920S1-CS2103T-F14-2/main/pull/212[#212], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/387[#387])
 
 ** Community:
 **** Review and provide feedback to each of the team members commits: (Pull request: https://github.com/AY1920S1-CS2103T-F14-2/main/pull/216[#216], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/337[#337])
