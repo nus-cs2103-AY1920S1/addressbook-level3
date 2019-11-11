@@ -15,17 +15,28 @@ include::overview.adoc[]
 
 * *Major enhancement*: added the ability to create/edit and delete budgets
 ** What it does: allows the user to better manage their expenses by having customizable budgets to track their expenses for them.
-** Justification: This feature is fundamental in an application that tracks expenses.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis on every aspect of the app and design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Justification: This feature is fundamental in an application that tracks expenses. It is important for users to be able to track how much they are spending according to how much has been set aside (budget)
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis on every aspect of the app and design alternatives. The implementation too was challenging as it required changes to all existing commands.
 ** Credits: AddressBook Level 3
 
-* *Minor enhancements*: Updated certain existing commands to work well with the major enhancement without creating separate commands. Example: Delete command will be able to delete an expense or a budget depending on what the user is viewing instead of creating a separate DeleteBudget command.
+* *Minor enhancements*:
+*** Updated certain existing commands to work well with the major enhancement without creating separate commands. +
+These commands include: AddExpense, Delete, Clear, ListDefaultExpenses, EditExpenseCommand. +
+Example: Delete command will be able to delete an expense or a budget depending on what the user is viewing instead of creating a separate DeleteBudget command.
 
 * *Other contributions*:
 
-** Enhancements to existing features: AddExpenseCommand, DeleteCommand, ClearCommand,
-*** Updated the GUI color scheme
-*** Wrote additional tests for existing features to increase coverage from 52% to 60%
+*** link:https://github.com/AY1920S1-CS2103-T14-4/main/pull/25[#25] Refactored AddressBook test to MYMorise test
+*** link:https://github.com/AY1920S1-CS2103-T14-4/main/pull/151[#151] Updated the GUI color scheme
+*** link:https://github.com/AY1920S1-CS2103-T14-4/main/pull/143[#143] Wrote additional tests for existing features to increase coverage from 52% to 60%
+*** link:https://github.com/AY1920S1-CS2103-T14-4/main/pull/9[#9], link:https://github.com/AY1920S1-CS2103-T14-4/main/pull/18[#18],
+link:https://github.com/AY1920S1-CS2103-T14-4/main/pull/62[#62], link:https://github.com/AY1920S1-CS2103-T14-4/main/pull/76[#76]
+Consistent updates to User Guide, App icon and refactoring it from AddressBook to MYMorise
+
+== Code Contributed
+
+Full code contributed can be found at link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=choonx99&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]
+
 
 == Contributions to the User Guide
 
@@ -39,6 +50,10 @@ include::overview.adoc[]
 Shows a list of all budgets. +
 Format: `listBudgets`
 
+An example is provided to show how the listBudgets command will result after the call.
+
+image::ListBudgetUI.png[]
+
 === Viewing a budget : `view`
 Views an existing budget in the budget list. +
 Format: `view INDEX`
@@ -46,6 +61,10 @@ Format: `view INDEX`
 ****
 * Views the expenses stored in the budget, and shows the amount of money left in the budget.
 ****
+
+An example is provided to show how the View command will result after the call.
+
+image::ViewBudgetUI.png[]
 
 === Adding a budget : `budget`
 Specifies a budget for a period beginning from the specified start date to an end date. +
@@ -76,6 +95,8 @@ Sets a budget of SGD4000 for the period from Wed, 9th Oct 2019 to Sat, 19th Oct 
 Sets a budget of SGD800 for the period from Tue, 1st Jan 2019 to Thu, 31st Jan 2019.
 
 An example is provided to show how the budget command will result after the call.
+
+image::AddBudgetUI.png[]
 
 === Editing a budget : `editBudget`
 Edits an existing budget in the budget list. +
@@ -125,6 +146,10 @@ image::AddBudgetActivityDiagram.png[]
 Given below is an activity diagram to show how an expense is added after the implementation of budget.
 
 image::AddExpenseActivityDiagram.png[]
+
+Given below is a sequence diagram to show when a Delete command is called.
+
+image::DeleteSequenceDiagram.png[]
 
 Given below is a class diagram of a Budget.
 
