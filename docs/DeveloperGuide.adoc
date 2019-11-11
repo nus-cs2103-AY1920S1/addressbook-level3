@@ -590,7 +590,7 @@ image::SearchCommandSequenceDiagram.png[]
 Invalid commands are checked for spelling mistakes.
 The spelling correction mechanism is based primarily on the Damerau–Levenshtein distance algorithm, which computes the edit distance between two strings.
 This distance is based on the number of substitutions, deletions, insertions or transpositions of characters, needed to convert the source string into the target string.
-Relevant functions supporting this operation are implemented in link:{repoURL}/src/main/java/io/xpire/commons/util/StringUtil.java[`StringUtil`].
+Relevant functions supporting this operation are implemented in link:https://github.com/AY1920S1-CS2103T-F11-2/main/tree/master/src/main/java/io/xpire/commons/util/StringUtil.java[`StringUtil`].
 
 [NOTE]
 Only keywords with edit distance of less than 2 are recommended, to filter away less similar word recommendations.
