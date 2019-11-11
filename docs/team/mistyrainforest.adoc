@@ -33,15 +33,11 @@ Module Appeal Managament System (MAMS) is a desktop appeal management interface.
 
 *** Set up the basic continuous integration functionality and repository for the project
 ** Enhancements to existing features:
-*** Refactored `persons` object into student (Pull requests https://github.com/AY1920S1-CS2103-T11-2/main/pull/63[#63], https://github.com/AY1920S1-CS2103-T11-2/main/pull/78[#78])
+*** Add Appeal classes and data -
 ** Documentation:
-*** Replaced all outdated addressbook - level 3 diagrams with new MAMS diagrams in DeveloperGuide: https://github.com/AY1920S1-CS2103-T11-2/main/pull/116[#116]
+*** Edit documentation for MAMS - DeveloperGuide: https://github.com/AY1920S1-CS2103-T11-2/main/pull/207[#207]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T11-2/main/pull/77[#77], https://github.com/AY1920S1-CS2103-T11-2/main/pull/65[#65]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S1-CS2103-T16-4/main/issues/227[1], https://github.com/AY1920S1-CS2103-T16-4/main/issues/224[2], https://github.com/AY1920S1-CS2103-T16-4/main/issues/221[3])
-***
-** Tools:
-*** Integrated a new Github plugin (TravisCI) to the team repo
+*** Edit MAMS.json data file with the valid data (Pull request https://github.com/AY1920S1-CS2103-T11-2/main/pull/109[#109])
 
 == Contributions to the User Guide
 

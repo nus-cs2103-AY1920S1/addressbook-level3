@@ -17,18 +17,22 @@ Module Appeal Managament System (MAMS) is a desktop appeal management interface.
 ** What it does: allows the user to approve or reject one or many appeals.  Upon approval, MAMS will automatically make changes to modules and students related to the resolved appeal.  Timetable clash checks will also be performed to inform user if an appeal cannot be approved due to clashes.
 ** Justification: This feature improves the product significantly because it streamlines the process of resolving appeals.  The user's quality of life will be improved as the user need not perform the other functions separately to resolve an appeal as the resolve function performs all changes and checks in the background.
 ** Highlights: Appeals may be submitted in the hundreds and will be overwhelming for the user.  As such this enhancement allows the user to carry out his job more efficiently by reducing the time taking and the number of commands to resolve appeals.  This implementation was challenging as it requires the integration of many other function like `clash`, `addmod`.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** Credits: [https://github.com/AY1920S1-CS2103-T11-2/main/blob/master/src/main/java/mams/logic/commands/ClashCommand.java[Clash Command]] [https://github.com/AY1920S1-CS2103-T11-2/main/blob/master/src/main/java/mams/logic/commands/AddModCommand.java[Addmod Command]]
 
 * *Minor enhancement*: added *the ability to add reason for the approval or rejection for an appeal*
 ** What it does: allows the user to add a reason to the approval or rejection of an appeal.  The reason will be added to the MAMS.json data file for future references.
 ** Justification:  This feature is important as it allows the user to provide justifications to why an appeal was approved or rejected.  Supervisors of the user can also check the reasons should there be any complaints from students with regards to their appeals the reasons added help justify the decisions of the user.
 ** Highlights:  This enhancement allows users to provide students with the reason for their choices to approve or reject their appeals.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com/AY1920S1-CS2103-T11-2/main/tree/master/src/main/java/mams[Functional code]] [https://github.com/AY1920S1-CS2103-T11-2/main/tree/master/src/test[Test code]]
 
 * *Other contributions*:
-
-
+** Documentation:
+*** Update storage component for MAMS in Developer Guide https://github.com/AY1920S1-CS2103-T11-2/main/pull/217[#217]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T11-2/main/pull/77[#77], https://github.com/AY1920S1-CS2103-T11-2/main/pull/65[#65]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S1-CS2103-T16-4/main/issues/227[1], https://github.com/AY1920S1-CS2103-T16-4/main/issues/224[2], https://github.com/AY1920S1-CS2103-T16-4/main/issues/221[3])
+*** Reviewed User Guide and Developer Guide, and reported suggestions for other teams in class
 
 
 |===
