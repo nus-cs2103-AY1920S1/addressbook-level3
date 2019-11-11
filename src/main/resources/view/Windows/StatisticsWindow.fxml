@@ -72,7 +72,7 @@
          </HBox>
          <ScrollPane fx:id="deckTableScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="400.0" minHeight="200.0">
             <content>
-               <TableView fx:id="decKTableView" fixedCellSize="24.0" />
+               <TableView fx:id="deckTableView" fixedCellSize="24.0" />
             </content>
          </ScrollPane>
       </VBox>

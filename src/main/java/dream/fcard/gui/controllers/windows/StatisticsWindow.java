@@ -58,6 +58,8 @@ public class StatisticsWindow extends ScrollPane {
     @FXML
     private Label testSessionsThisWeekExplainer;
     @FXML
+    private Label averageScore;
+    @FXML
     private ScrollPane deckTableScrollPane;
     @FXML
     private TableView<Deck> deckTableView;
@@ -133,6 +135,8 @@ public class StatisticsWindow extends ScrollPane {
         this.testSessionsThisWeek.setText(String.valueOf(numTestSessionsThisWeek));
         this.testSessionsThisWeekExplainer.setText("total test "
             + (numTestSessionsThisWeek == 1 ? "session" : "sessions") + " this week");
+
+        this.averageScore.setText(deckStats.getAverageScore());
     }
 
     /** Allows the relevant DeckStatisticsWindow to be opened when a row of the deckTableView is double-clicked. */

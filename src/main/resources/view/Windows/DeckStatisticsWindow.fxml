@@ -12,22 +12,28 @@
       <Label fx:id="windowTitle" styleClass="window-title" text="My statistics for deck" />
          <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
             <children>
-               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="130.0">
                   <children>
                   <Label fx:id="numCards" styleClass="big-number" text="0" />
                      <Label fx:id="numCardsExplainer" text="cards in this deck" />
                   </children>
                </VBox>
-               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="130.0">
                   <children>
                      <Label fx:id="totalSessions" styleClass="big-number" text="0" />
                      <Label fx:id="totalSessionsExplainer" text="test sessions all time" />
                   </children>
                </VBox>
-               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="130.0">
                   <children>
                      <Label fx:id="sessionsThisWeek" styleClass="big-number" text="0" />
                      <Label fx:id="sessionsThisWeekExplainer" text="test sessions this week" />
+                  </children>
+               </VBox>
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="130.0">
+                  <children>
+                     <Label fx:id="averageScore" styleClass="big-number" text="0" />
+                     <Label fx:id="averageScoreExplainer" text="average score" />
                   </children>
                </VBox>
             </children>

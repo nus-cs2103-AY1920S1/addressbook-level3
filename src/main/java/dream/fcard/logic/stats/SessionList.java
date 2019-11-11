@@ -83,6 +83,11 @@ public class SessionList implements JsonInterface {
         return SessionListUtil.getAverageScore(this);
     }
 
+    /** Returns true if this SessionList contains no sessions. */
+    public boolean isEmpty() {
+        return this.sessionArrayList.isEmpty();
+    }
+
     @Override
     public JsonValue toJson() {
         JsonArray arr = new JsonArray();

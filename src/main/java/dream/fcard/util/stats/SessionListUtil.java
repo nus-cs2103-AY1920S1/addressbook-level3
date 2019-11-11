@@ -97,6 +97,14 @@ public class SessionListUtil {
     }
 
     /**
+     * Converts a String representing the percentage of correct answers to a double.
+     */
+    public static double convertScoreStringToDouble(String score) {
+        String strippedScore = score.split("%")[0];
+        return Double.parseDouble(strippedScore);
+    }
+
+    /**
      * Calculates the average score of a list of test sessions.
      * @param sessionList The list of test sessions.
      * @return The average score of the list of test sessions, as a String.
@@ -119,6 +127,30 @@ public class SessionListUtil {
         }
 
         double averageScoreAsDouble = sumOfScores / numOfTestSessionsWithScore;
+        double roundedAverageScore = roundToTwoDecimalPlaces(averageScoreAsDouble);
+        String averageScoreAsString = convertScoreDoubleToString(roundedAverageScore);
+        return averageScoreAsString;
+    }
+
+    /**
+     * Calculates the average score of a list of test session lists.
+     * @param sessionsList The list of test session lists.
+     * @return The average score of the list of test sessions, as a String.
+     */
+    public static String getAverageScore(ArrayList<SessionList> sessionsList) {
+        int numSessionList = 0; // number of non-empty SessionLists
+        double sumOfScores = 0.0;
+
+        for (SessionList sessionList : sessionsList) {
+            if (sessionList.isEmpty()) {
+                continue;
+            }
+            String averageScoreOfSessionList = getAverageScore(sessionList);
+            sumOfScores += convertScoreStringToDouble(averageScoreOfSessionList);
+            numSessionList++;
+        }
+
+        double averageScoreAsDouble = sumOfScores / numSessionList;
         double roundedAverageScore = roundToTwoDecimalPlaces(averageScoreAsDouble);
         String averageScoreAsString = convertScoreDoubleToString(roundedAverageScore);
         return averageScoreAsString;

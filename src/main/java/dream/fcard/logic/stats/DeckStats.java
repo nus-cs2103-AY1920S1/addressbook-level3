@@ -11,6 +11,9 @@ import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
+import dream.fcard.util.stats.SessionListUtil;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -196,6 +199,12 @@ public class DeckStats extends Stats implements JsonInterface {
             totalSessionList.addSessions(sessionList);
         }
         return totalSessionList;
+    }
+
+    /** Gets the average score of all non-empty test session lists, as a String. */
+    public String getAverageScore() {
+        ArrayList<SessionList> sessionLists = new ArrayList<>(this.deckHashMap.values());
+        return SessionListUtil.getAverageScore(sessionLists);
     }
 
     @Override
