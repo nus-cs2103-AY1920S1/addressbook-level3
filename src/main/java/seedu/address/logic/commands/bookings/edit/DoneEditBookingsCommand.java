@@ -50,8 +50,8 @@ public class DoneEditBookingsCommand extends Command {
 
             model.setPageStatus(model.getPageStatus()
                     .withResetEditEventDescriptor()
-                    .withNewPageType(PageType.EXPENSE_MANAGER)
-                    .withResetExpense());
+                    .withNewPageType(PageType.BOOKINGS)
+                    .withResetBooking());
 
             return new CommandResult(String.format(MESSAGE_EDIT_BOOKING_SUCCESS, bookingToAdd), true);
         } catch (NullPointerException | BookingNotFoundException ex) {

@@ -26,12 +26,13 @@
                             <Font name="System Bold" size="16.0" />
                         </font>
                     </Label>
-                    <Label fx:id="nameLabel" layoutX="38.0" layoutY="5.0" minWidth="-Infinity" style="-fx-font-family: Helvetica;" styleClass="cell_big_label" text="\$name" textFill="#434343" />
-                    <Label fx:id="budgetLabel" layoutX="179.0" layoutY="4.5" minWidth="-Infinity" style="-fx-font-family: Helvetica;" styleClass="cell_big_label" text="\$budget" textFill="#434343" AnchorPane.rightAnchor="10.0">
+                    <Label fx:id="nameLabel" layoutX="38.0" layoutY="5.0" minWidth="-Infinity" style="-fx-font-family: Helvetica;" styleClass="cell_big_label" text="\$booking" textFill="#434343" />
+                    <Label fx:id="expenseLabel" layoutX="179.0" layoutY="4.5" minWidth="-Infinity" style="-fx-font-family: Helvetica;" styleClass="cell_big_label" text="\$expense" textFill="#434343" AnchorPane.rightAnchor="10.0">
                         <opaqueInsets>
                             <Insets />
                         </opaqueInsets>
                     </Label>
+               <Label fx:id="contactLabel" layoutX="164.0" layoutY="7.0" minWidth="-Infinity" style="-fx-font-family: Helvetica;" styleClass="cell_big_label" text="\$contact" textFill="#434343" />
                 </children>
             </AnchorPane>
             <GridPane.margin>

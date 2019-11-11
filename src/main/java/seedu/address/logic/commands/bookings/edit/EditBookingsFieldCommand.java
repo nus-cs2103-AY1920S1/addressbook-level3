@@ -14,6 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.booking.Name;
+import seedu.address.model.expense.Expense;
 
 /**
  *
@@ -83,10 +84,12 @@ public class EditBookingsFieldCommand extends Command {
     public static class EditBookingsDescriptor {
         private Optional<Name> name;
         private Optional<String> contact;
+        private Optional<Expense> expense;
 
         public EditBookingsDescriptor() {
             name = Optional.empty();
             contact = Optional.empty();
+            expense = Optional.empty();
         }
 
         /**
@@ -96,6 +99,7 @@ public class EditBookingsFieldCommand extends Command {
         public EditBookingsDescriptor(EditBookingsDescriptor toCopy) {
             name = toCopy.getName();
             contact = toCopy.getContact();
+            expense = toCopy.getExpense();
         }
 
 
@@ -106,6 +110,7 @@ public class EditBookingsFieldCommand extends Command {
         public EditBookingsDescriptor(Booking toCopy) {
             setName(toCopy.getName());
             setContact(toCopy.getContact());
+            setExpense(toCopy.getExpense());
         }
 
 
@@ -138,7 +143,7 @@ public class EditBookingsFieldCommand extends Command {
          */
         public Booking buildBooking() {
             if (isAllPresent(name, contact)) {
-                return new Booking(name.get(), contact.get()) {
+                return new Booking(name.get(), contact.get(), expense.get()) {
                 };
             } else {
                 throw new NullPointerException();
@@ -156,6 +161,7 @@ public class EditBookingsFieldCommand extends Command {
         public Booking buildExpenditure(Booking booking) {
             Name bookingName = booking.getName();
             String contact = booking.getContact();
+            Expense expense = booking.getExpense();
 
             if (this.name.isPresent()) {
                 bookingName = this.name.get();
@@ -163,8 +169,11 @@ public class EditBookingsFieldCommand extends Command {
             if (this.contact.isPresent()) {
                 contact = this.contact.get();
             }
+            if (this.expense.isPresent()) {
+                expense = this.expense.get();
+            }
 
-            return new Booking(bookingName, contact) {
+            return new Booking(bookingName, contact, expense) {
             };
         }
 
@@ -190,6 +199,14 @@ public class EditBookingsFieldCommand extends Command {
 
         public Optional<String> getContact() {
             return contact;
+        }
+
+        public void setExpense(Expense expense) {
+            this.expense = Optional.of(expense);
+        }
+
+        public Optional<Expense> getExpense() {
+            return expense;
         }
 
         /*

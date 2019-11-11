@@ -1,5 +1,7 @@
 package seedu.address.model.booking;
 
+import seedu.address.model.expense.Expense;
+
 /**
  * Placeholder javadoc.
  */
@@ -12,8 +14,8 @@ public class RestaurantBooking extends Booking {
 
     //Check Budget of Itinerary and Name
 
-    public RestaurantBooking(Name restName, String contact) {
-        super(restName, contact);
+    public RestaurantBooking(Name restName, String contact, Expense expense) {
+        super(restName, contact, expense);
         //this.duration = duration;
     }
 

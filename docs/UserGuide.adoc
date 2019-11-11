@@ -365,6 +365,12 @@ To add an currency with name _USD_, symbol _$ (pre-set symbol with index 1)_, an
 `edit n/USD s/1 r/0.74`
 ======
 
+// tag::booking_ppp[]
+===Booking
+
+====Introduction
+
+
 
 // tag::diary_ppp[]
 === Diary

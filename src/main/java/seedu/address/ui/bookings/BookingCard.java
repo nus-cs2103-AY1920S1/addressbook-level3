@@ -20,7 +20,9 @@ public class BookingCard extends UiPart<HBox> {
     @FXML
     private Label nameLabel;
     @FXML
-    private Label budgetLabel;
+    private Label expenseLabel;
+    @FXML
+    private Label contactLabel;
 
     @FXML
     private VBox propertiesContainer;
@@ -41,7 +43,8 @@ public class BookingCard extends UiPart<HBox> {
     private void fillExpenditureCardLabels() {
         idLabel.setText(displayedIndex.getOneBased() + ".");
         nameLabel.setText(booking.getName().toString());
-        budgetLabel.setText(booking.getContact().toString());
+        expenseLabel.setText(booking.getContact().toString());
+        contactLabel.setText(booking.getExpense().toString());
     }
     @Override
     public boolean equals(Object other) {

@@ -1,18 +1,22 @@
 package seedu.address.model.booking;
 
+import seedu.address.model.expense.Expense;
+
+import java.util.Optional;
+
 /**
  * Abstract Class Booking
  */
 
 public abstract class Booking {
-    public final Name name;
-    private String contact;
+    private final Name name;
+    private final String contact;
+    private final Expense expense;
 
-    public Booking(Name name, String contact) {
+    public Booking(Name name, String contact, Expense expense) {
         this.name = name;
-        //this.description = description;
         this.contact = contact;
-        //this.expenditure = expenditure;
+        this.expense = expense;
     }
 
     public Name getName() {
@@ -23,17 +27,13 @@ public abstract class Booking {
         return this.contact;
     }
 
+    public Expense getExpense() { return expense; }
+
     /*
     public String description;
 
     public String getDescription() {
         return this.description;
-    }
-
-    public String expenditure;
-
-    public String getExpenditure() {
-        return this.expenditure;
     }
     */
 

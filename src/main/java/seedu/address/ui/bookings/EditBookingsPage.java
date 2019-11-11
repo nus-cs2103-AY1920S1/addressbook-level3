@@ -1,5 +1,7 @@
 package seedu.address.ui.bookings;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
@@ -11,8 +13,10 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.bookings.edit.CancelEditBookingsCommand;
 import seedu.address.logic.commands.bookings.edit.DoneEditBookingsCommand;
 import seedu.address.logic.commands.bookings.edit.EditBookingsFieldCommand;
+import seedu.address.logic.commands.itinerary.events.edit.EditEventFieldCommand;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
+import seedu.address.ui.components.form.DoubleFormItem;
 import seedu.address.ui.components.form.TextFormItem;
 import seedu.address.ui.template.Page;
 
@@ -26,6 +30,7 @@ public class EditBookingsPage extends Page<AnchorPane> {
 
     private TextFormItem bookingsNameFormItem;
     private TextFormItem bookingsContactFormItem;
+    private DoubleFormItem bookingsExpenseFormItem;
 
     @javafx.fxml.FXML
     private VBox formItemsPlaceholder;
@@ -53,6 +58,8 @@ public class EditBookingsPage extends Page<AnchorPane> {
                 bookingsNameFormItem.setValue(name.toString()));
         currentEditDescriptor.getContact().ifPresent(contact ->
                 bookingsContactFormItem.setValue(contact.toString()));
+        currentEditDescriptor.getExpense().ifPresent(expense ->
+                bookingsExpenseFormItem.setValue(expense.getBudget().getValue()));
     }
 
     /**
@@ -60,21 +67,26 @@ public class EditBookingsPage extends Page<AnchorPane> {
      */
     private void initFormWithModel() {
         //Initialise with new display data
-        bookingsNameFormItem = new TextFormItem("Name of Expenditure : ", nameFormValue -> {
+        bookingsNameFormItem = new TextFormItem("Name of Booking : ", nameFormValue -> {
             mainWindow.executeGuiCommand(
                     EditBookingsFieldCommand.COMMAND_WORD
                             + " " + PREFIX_NAME + nameFormValue);
         });
-        bookingsContactFormItem = new TextFormItem("Day Number : ", dayNumber -> {
+        bookingsContactFormItem = new TextFormItem("Contact : ", contact -> {
             mainWindow.executeGuiCommand(EditBookingsFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_DAY_NUMBER + dayNumber);
+                    + " " + PREFIX_CONTACT + contact);
+        });
+        bookingsExpenseFormItem = new DoubleFormItem("Total budget (in Singapore Dollar): ", totalBudget -> {
+            mainWindow.executeGuiCommand(EditEventFieldCommand.COMMAND_WORD
+                    + " " + PREFIX_BUDGET + String.format("%.2f", totalBudget));
         });
 
         fillPage(); //update and overwrite with existing edit descriptor
 
         formItemsPlaceholder.getChildren().addAll(
                 bookingsNameFormItem.getRoot(),
-                bookingsContactFormItem.getRoot());
+                bookingsContactFormItem.getRoot(),
+                bookingsExpenseFormItem.getRoot());
     }
 
     @FXML

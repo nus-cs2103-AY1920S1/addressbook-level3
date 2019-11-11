@@ -18,7 +18,7 @@
             <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
         </rowConstraints>
         <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#handleEditExpenditureDone" prefHeight="35.0" prefWidth="150.0" text="Done" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#handleEditBookingsDone" prefHeight="35.0" prefWidth="150.0" text="Done" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                 <GridPane.margin>
                     <Insets bottom="5.0" top="5.0" />
                 </GridPane.margin></Button>

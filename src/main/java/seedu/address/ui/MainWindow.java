@@ -24,8 +24,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.appstatus.PageType;
-import seedu.address.ui.bookings.BookingListPage;
 //import seedu.address.ui.bookings.BookingsPage;
+import seedu.address.ui.bookings.BookingsPage;
 import seedu.address.ui.bookings.EditBookingsPage;
 import seedu.address.ui.components.CommandBox;
 import seedu.address.ui.components.ResultDisplay;
@@ -262,7 +262,7 @@ public class MainWindow extends UiPart<Stage> {
             newPage = new DiaryPage(this, logic, model);
             break;
         case BOOKINGS:
-            newPage = new BookingListPage(this, logic, model);
+            newPage = new BookingsPage(this, logic, model);
             break;
         case ADD_BOOKINGS:
             newPage = new EditBookingsPage(this, logic, model);
