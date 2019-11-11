@@ -3,6 +3,7 @@ package seedu.guilttrip.logic.parser.editcommandparsers;
 import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
@@ -20,6 +21,7 @@ import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
 import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
+import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.tag.Tag;
 
 /**
@@ -35,7 +37,7 @@ public class EditWishCommandParser implements Parser<EditWishCommand> {
     public EditWishCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DESC, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DESC, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_TAG);
 
         Index index;
 
@@ -53,6 +55,12 @@ public class EditWishCommandParser implements Parser<EditWishCommand> {
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             editWishDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            Category editedCategory = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get(),
+                    "Expense");
+            editWishDescriptor.setCategory(editedCategory);
         }
 
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {

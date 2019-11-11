@@ -21,6 +21,12 @@ Class StatusBarFooter
 Class CommandBox
 Class FontName
 Class Theme
+Class StatisticsWindow
+Class StatisticsPieChartPanel
+Class StatisticsTable
+Class StatisticsPieChart
+Class StatisticsTablePanel
+Class StatisticsBarChart
 }
 
 package Model <<Rectangle>> {
@@ -42,11 +48,17 @@ MainWindow *--> ResultDisplay
 MainWindow *--> ExpenseListPanel
 MainWindow *--> IncomeListPanel
 MainWindow --> XYZPanel
+MainWindow *--> StatisticsWindow
 MainWindow *--> StatusBarFooter
 MainWindow *--> FontName
 MainWindow *--> Theme
 
 ExpenseListPanel --> ExpenseCard
+
+StatisticsWindow *-->"1" StatisticsPieChartPanel
+StatisticsPieChartPanel *-->"0..2" StatisticsPieChart
+StatisticsWindow *-->"1" StatisticsTablePanel
+StatisticsTablePanel *-->"0..2" StatisticsTable
 
 IncomeListPanel --> IncomeCard
 
@@ -62,6 +74,16 @@ XYZPanel --|> UiPart
 XYZCard --|> UiPart
 ExpenseCard --|> UiPart
 IncomeCard --|> UiPart
+StatisticsBarChart --|> UiPart
+StatisticsWindow --|> UiPart
+StatisticsBarChart --|> UiPart
+StatisticsTable --|> UiPart
+StatisticsPieChart --|> UiPart
+StatisticsPieChartPanel --|> UiPart
+StatisticsTablePanel --|> UiPart
+
+MainWindow --> StatisticsWindow
+MainWindow --> StatisticsBarChart
 
 StatusBarFooter -down-|> UiPart
 HelpWindow -down-|> UiPart

@@ -12,6 +12,7 @@ import seedu.guilttrip.model.entry.AutoExpense;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.model.util.Frequency;
 import seedu.guilttrip.ui.autoexpense.AutoExpensesPanel;
 import seedu.guilttrip.ui.gui.guihandles.AutoExpenseCardHandle;
@@ -84,7 +85,7 @@ public class AutoExpenseListPanelTest extends GuiUnitTest {
         for (int i = 0; i < autoExpenseCount; i++) {
             Description desc = new Description(i + "a");
             Amount amt = new Amount("20");
-            Category category = new Category("Food", "Expense");
+            Category category = new Category("Food", CategoryType.EXPENSE);
             Date date = new Date("2019 11 09");
             Frequency freq = Frequency.parse("weekly");
             AutoExpense autoExpense = new AutoExpense(category, desc, amt, Collections.emptySet(), freq, date);

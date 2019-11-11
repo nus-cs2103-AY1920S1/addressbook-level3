@@ -1,0 +1,18 @@
+@startuml
+start
+:User executes ViewPie command;
+:GuiltTrip parses the date range;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([date range is only one month])
+    :Retrieves the relevant MonthList to be calculated;
+
+else ([date range is a range of months])
+     :Retrieves the range of MonthList to be calculated;
+endif
+    :Does calculations according to categories;
+    :Updates the relevant displays;
+stop
+@enduml

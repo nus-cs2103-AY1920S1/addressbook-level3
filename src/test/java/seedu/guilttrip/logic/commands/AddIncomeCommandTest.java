@@ -16,6 +16,7 @@ import seedu.guilttrip.model.GuiltTrip;
 import seedu.guilttrip.model.ModelStub;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Income;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.testutil.IncomeBuilder;
 
 public class AddIncomeCommandTest {
@@ -86,7 +87,7 @@ public class AddIncomeCommandTest {
     private class ModelStubAcceptingIncomeAdded extends ModelStub {
         final ArrayList<Income> incomesAdded = new ArrayList<>();
         final ArrayList<Category> listOfCategories =
-                new ArrayList<Category>(Arrays.asList(new Category("Salary", "Income")));
+                new ArrayList<Category>(Arrays.asList(new Category("Salary", CategoryType.INCOME)));
 
         @Override
         public void addIncome(Income income) {

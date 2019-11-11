@@ -13,18 +13,25 @@ import java.time.temporal.ChronoField;
 import seedu.guilttrip.model.util.Frequency;
 
 /**
- * Represents a Person's name in the guilttrip book. Guarantees: immutable; is
- * valid as declared in {@link #isValidDate(String)}
+ * Represents a Date in the guiltTrip. Guarantees: immutable; is
+ * valid as declared in {@link #parseIfValidDate(String)} (@link #checkIfWithinTime(LocalDate)}
  */
 public class Date {
 
     public static final String MESSAGE_CONSTRAINTS_FOR_ENTRIES = "Date is not in a valid format. Below are some of the "
-            + "possible formats. [yyyy MM dd] , [yyyy/MM/dd], [dd/MM/yyyy]. Date also must not exceed the maximum "
-            + "allowed days allowed for the month";
+            + "possible formats. \n [yyyy MM dd] , [yyyy/MM/dd], [dd/MM/yyyy]. \n Date also must not exceed the maximum"
+            + " allowed days allowed for the month";
 
     public static final String MESSAGE_CONSTRAINTS_FOR_STATS = "Date is not in a valid format. Below are some of the "
-            + "possible formats. [yyyy-MM] , [yyyy MM]. Date also cannot exceed the maximum allowed "
-            + "months allowed for the year and must only contain in the format [yyyy-MM] without days";
+            + "possible formats. \n [yyyy-MM] , [yyyy MM]. \n Date also cannot exceed the maximum allowed "
+            + "months allowed for the year and must only contain in the format [yyyy-MM] without days. \n If you "
+            + "wish to search for a period dates seperate the start and end with a comma.";
+
+    public static final String MESSAGE_CONSTRAINTS_FOR_DATES = "Oops! We only allow dates between 2000-01-01 "
+            + "and 2100-12-31.";
+
+    private static final LocalDate START_DATE = LocalDate.of(1999, 12, 31);
+    private static final LocalDate END_DATE = LocalDate.of(2101, 1, 1);
 
     /*
      * The first character of the guilttrip must not be a whitespace, otherwise " " (a
@@ -70,8 +77,6 @@ public class Date {
     private LocalDate date;
     private String fullTime;
 
-
-    //TODO: Hacky way of ensuring date is correct
     /**
      * Converts String to LocalDate
      *
@@ -82,13 +87,21 @@ public class Date {
         checkArgument(parseIfValidDate(date), MESSAGE_CONSTRAINTS_FOR_ENTRIES);
         LocalDate ldt = LocalDate.parse(date, INPUTFORMATTERWITHRESOLVER);
         this.date = ldt;
+        checkArgument(checkIfWithinTime(ldt), MESSAGE_CONSTRAINTS_FOR_DATES);
         parseDate();
     }
 
+    /**
+     * Converts String to LocalDate. Pads the month with a dummy day 1 value.
+     *
+     * @param date in the format yyyy mm dd.
+     */
     public Date(String date, boolean isMonth) {
         requireNonNull(date);
         checkArgument(parseIfValidMonth(date), MESSAGE_CONSTRAINTS_FOR_STATS);
         LocalDate ldt = LocalDate.parse(date, INPUTMONTHFORMATTER);
+        System.out.println(ldt);
+        checkArgument(checkIfWithinTime(ldt), MESSAGE_CONSTRAINTS_FOR_DATES);
         this.date = ldt;
     }
 
@@ -111,6 +124,15 @@ public class Date {
         } catch (DateTimeParseException pe) {
             return false;
         }
+    }
+
+    /**
+     * Checks if the date is within the specified range of time.
+     * @param testDate the date to check.
+     * @return boolean if the date is valid.
+     */
+    public static boolean checkIfWithinTime(LocalDate testDate) {
+        return testDate.isAfter(START_DATE) && testDate.isBefore(END_DATE);
     }
 
     /**

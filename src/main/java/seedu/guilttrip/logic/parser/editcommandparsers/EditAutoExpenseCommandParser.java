@@ -1,7 +1,6 @@
 package seedu.guilttrip.logic.parser.editcommandparsers;
 
 import static java.util.Objects.requireNonNull;
-// import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_ARGUMENT_FORMAT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
@@ -25,6 +24,7 @@ import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
  * Parses input arguments and creates a new EditAutoExpenseCommand object
@@ -63,7 +63,8 @@ public class EditAutoExpenseCommandParser implements Parser<EditAutoExpenseComma
         }
 
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
-            editAutoExpenseDescriptor.setCategory(new Category(argMultimap.getValue(PREFIX_CATEGORY).get(), "Expense"));
+            editAutoExpenseDescriptor.setCategory(new Category(argMultimap.getValue(PREFIX_CATEGORY).get(),
+                    CategoryType.EXPENSE));
         }
 
         if (argMultimap.getValue(PREFIX_FREQ).isPresent()) {

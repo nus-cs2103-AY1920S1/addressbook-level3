@@ -23,7 +23,7 @@ public class SortBudgetCommandParser implements Parser<SortBudgetCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the SortBudgetCommand
-     * and returns a SortExpenseCommand object for execution.
+     * and returns a SortBudgetCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public SortBudgetCommand parse(String args) throws ParseException, IllegalArgumentException {

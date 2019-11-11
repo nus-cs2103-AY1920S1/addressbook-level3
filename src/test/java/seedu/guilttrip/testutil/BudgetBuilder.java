@@ -11,6 +11,7 @@ import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Period;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.model.util.SampleDataUtil;
 
 /**
@@ -34,7 +35,7 @@ public class BudgetBuilder {
     private Set<Tag> tags;
 
     public BudgetBuilder() {
-        cat = new Category(DEFAULT_CATEGORY, "Expense");
+        cat = new Category(DEFAULT_CATEGORY, CategoryType.EXPENSE);
         desc = new Description(DEFAULT_DESCRIPTION);
         spentAmt = new BudgetAmount(DEFAULT_SPENT_AMOUNT);
         totalAmt = new Amount(DEFAULT_TOTAL_AMOUNT);
@@ -68,7 +69,7 @@ public class BudgetBuilder {
      * Sets the {@code category name} of the {@code Budget} that we are building.
      */
     public BudgetBuilder withCategory(String catName) {
-        this.cat = new Category(catName, "Expense");
+        this.cat = new Category(catName, CategoryType.EXPENSE);
         return this;
     }
 

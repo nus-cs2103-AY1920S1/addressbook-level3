@@ -13,12 +13,12 @@ import seedu.guilttrip.model.statistics.CategoryStatistics;
 import seedu.guilttrip.ui.UiPart;
 
 /**
- * Displays the user's statistics in graphics for the more visual User.
+ * Displays the user's statistics in graphics for the more visual User. PlaceHolder for PieChart.
  */
-public class StatisticsPieChartHolder extends UiPart<Region> {
+public class StatisticsPieChartPanel extends UiPart<Region> {
 
     private static final String FXML = "statistics/StatisticsChart.fxml";
-    private final Logger logger = LogsCenter.getLogger(StatisticsPieChartHolder.class);
+    private final Logger logger = LogsCenter.getLogger(StatisticsPieChartPanel.class);
     private final StatisticsPieChart expenseChart;
     private final StatisticsPieChart incomeChart;
     private final ObservableList<CategoryStatistics> expenseStats;
@@ -36,8 +36,8 @@ public class StatisticsPieChartHolder extends UiPart<Region> {
     @FXML
     private AnchorPane pieChartPanelHolderRight;
 
-    public StatisticsPieChartHolder(ObservableList<CategoryStatistics> expenseStats,
-                                    ObservableList<CategoryStatistics> incomeStats) {
+    public StatisticsPieChartPanel(ObservableList<CategoryStatistics> expenseStats,
+                                   ObservableList<CategoryStatistics> incomeStats) {
         super(FXML);
         expenseChart = new StatisticsPieChart(expenseStats, "Expense");
         incomeChart = new StatisticsPieChart(incomeStats, "Income");

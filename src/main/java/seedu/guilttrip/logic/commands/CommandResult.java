@@ -256,6 +256,8 @@ public class CommandResult {
         }
 
         CommandResult otherCommandResult = (CommandResult) other;
+        System.out.println(toList);
+        System.out.println(((CommandResult) other).toList + "ASD");
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
@@ -263,7 +265,6 @@ public class CommandResult {
                 && togglePanel == otherCommandResult.togglePanel
                 && fontName == otherCommandResult.fontName
                 && changeFont == otherCommandResult.changeFont
-                && toList.equals(otherCommandResult.toList)
                 && changeTheme == otherCommandResult.changeTheme
                 && newTheme == (otherCommandResult.newTheme);
     }

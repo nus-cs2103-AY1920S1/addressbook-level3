@@ -16,6 +16,7 @@ import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.model.util.Frequency;
 
 /**
@@ -56,7 +57,7 @@ class JsonAdaptedAutoExpense {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedAutoExpense(AutoExpense source) {
-        category = source.getCategory().categoryName;
+        category = source.getCategory().getCategoryName();
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().toString();
         date = source.getDate().toString();
@@ -90,7 +91,7 @@ class JsonAdaptedAutoExpense {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
 
-        final Category modelCategory = new Category(category, "Expense");
+        final Category modelCategory = new Category(category, CategoryType.EXPENSE);
 
         final Description modelDesc = new Description(desc);
 

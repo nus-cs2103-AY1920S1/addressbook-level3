@@ -86,7 +86,7 @@ public class Entry {
      * This defines a weaker notion of equality between two entries.
      */
     public Entry modifiedCategory(String newName) {
-        Category newCategory = new Category(newName, category.categoryType);
+        Category newCategory = new Category(newName, category.getCategoryType());
         return new Entry(newCategory, this.desc, this.date, this.amt, this.tags);
     }
 

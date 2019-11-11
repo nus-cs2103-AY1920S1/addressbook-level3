@@ -4,8 +4,8 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":guiltTripParser" as guiltTripParser LOGIC_COLOR
-participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
-participant "s:SortCommand" as SortCommand LOGIC_COLOR
+participant ":SortExpenseCommandParser" as SortExpenseCommandParser LOGIC_COLOR
+participant "s:SortExpenseCommand" as SortExpenseCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -13,56 +13,56 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("sort typ/amount s/ascending")
+[-> LogicManager : execute("sortExpense typ/amount s/ascending")
 activate LogicManager
 
-LogicManager -> guiltTripParser : parseCommand("sort typ/amount s/ascending")
+LogicManager -> guiltTripParser : parseCommand("sortExpense typ/amount s/ascending")
 activate guiltTripParser
 
-create SortCommandParser
-guiltTripParser -> SortCommandParser
-activate SortCommandParser
+create SortExpenseCommandParser
+guiltTripParser -> SortExpenseCommandParser
+activate SortExpenseCommandParser
 
-SortCommandParser --> guiltTripParser
-deactivate SortCommandParser
+SortExpenseCommandParser --> guiltTripParser
+deactivate SortExpenseCommandParser
 
-guiltTripParser -> SortCommandParser : parse("typ/amount s/ascending")
-activate SortCommandParser
+guiltTripParser -> SortExpenseCommandParser : parse("typ/amount s/ascending")
+activate SortExpenseCommandParser
 
-create SortCommand
-SortCommandParser -> SortCommand
-activate SortCommand
+create SortExpenseCommand
+SortExpenseCommandParser -> SortExpenseCommand
+activate SortExpenseCommand
 
-SortCommand --> SortCommandParser : s
-deactivate SortCommand
+SortExpenseCommand --> SortExpenseCommandParser : s
+deactivate SortExpenseCommand
 
-SortCommandParser --> guiltTripParser : s
-deactivate SortCommandParser
+SortExpenseCommandParser --> guiltTripParser : s
+deactivate SortExpenseCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-SortCommandParser -[hidden]-> guiltTripParser
-destroy SortCommandParser
+SortExpenseCommandParser -[hidden]-> guiltTripParser
+destroy SortExpenseCommandParser
 
 guiltTripParser --> LogicManager : s
 deactivate guiltTripParser
 
-LogicManager -> SortCommand : execute()
-activate SortCommand
+LogicManager -> SortExpenseCommand : execute()
+activate SortExpenseCommand
 
-SortCommand -> Model : sortFilteredEntry(amount,ascending)
+SortExpenseCommand -> Model : sortFilteredExpenseList(amount,ascending)
 activate Model
 
-Model --> SortCommand
+Model --> SortExpenseCommand
 deactivate Model
 
 create CommandResult
-SortCommand -> CommandResult
+SortExpenseCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> SortCommand
+CommandResult --> SortExpenseCommand
 deactivate CommandResult
 
-SortCommand --> LogicManager : result
-deactivate SortCommand
+SortExpenseCommand --> LogicManager : result
+deactivate SortExpenseCommand
 
 [<--LogicManager
 deactivate LogicManager
