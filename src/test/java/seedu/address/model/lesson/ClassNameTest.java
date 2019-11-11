@@ -2,9 +2,9 @@ package seedu.address.model.lesson;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSNAME_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSNAME_MATH;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 

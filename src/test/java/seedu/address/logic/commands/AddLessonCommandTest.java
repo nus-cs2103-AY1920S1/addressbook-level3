@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -25,6 +27,7 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
 import seedu.address.model.student.Student;
 import seedu.address.testutil.LessonBuilder;
+
 
 public class AddLessonCommandTest {
 
@@ -191,6 +194,11 @@ public class AddLessonCommandTest {
 
         @Override
         public void setAssignment(Assignment target, Assignment editedAssignment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateAllAssignmentsWithName(Student oldStudent, Student newStudent) {
             throw new AssertionError("This method should not be called.");
         }
 
