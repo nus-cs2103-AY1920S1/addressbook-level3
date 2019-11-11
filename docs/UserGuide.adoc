@@ -260,45 +260,39 @@ If no keyword is given, all upcoming appointments will be displayed. +
 
 Format: `appointments [<REFERENCE_ID>]`
 
-* e.g. `appointments E0000001A`
-
 ==== Schedules an appointment: `newappt` ====
 
 Schedules a new appointments for a patient. +
-NOTE: The appointment will be rejected by the system, if there are insufficient staff doctors on duty at the time of the appointment. +
+
+NOTE: The appointment(s) will be rejected by the system, if there are insufficient staff doctors on duty at the time of the appointment. +
 e.g. Cannot schedule more appointments than available doctors on duty.
 
-If both `-reoccur <INTERVALS>` and `-num <NUMBER_OF_TIMES>` fields are present, appointments of these `<NUMBER_OF_TIMES>` will be added to the patient
+If both `-reoccur <INTERVALS>` and `-num <REOCCURRING_TIMES>` fields are present, appointments of these `<REOCCURRING_TIMES>` will be added to the patient
 appointment schedule in `<INTERVALS>`. Otherwise, only one event will be added. +
 
-If the optional field `[-end <END_TIMING>]` is absent, default end timing is 30 mins after start timing of the appointment. Otherwise, end Timing will be `[-end <END_TIMING>]`. +
+If the optional field `[-end <END_TIMING>]` is absent, default end time is 30 mins after start time of the appointment. Otherwise, end time will be `[-end <END_TIMING>]`. +
 
 The optional field `[-reoccur <INTERVALS>]` can be `-reoccur w`, `-reoccur m`, or `-reoccur y`.They represent to add weekly, monthly, yearly repeat appointment respectively.
 
-Format: `newappt -id <PATIENT_REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-reoccur <INTERVALS> -num <NUMBER_OF_TIMES>]`
+Format: `newappt -id <PATIENT_REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-reoccur <INTERVALS> -num <REOCCURRING_TIMES>]`
 
-* e.g. `newappt -id E0000001A -start 12/12/19 0900 -end 12/12/19 1000 -reoccur m -num 2`
 
 ==== Acknowledges a appointment: `ackappt` ====
 
-Acknowledges the most upcoming appointment only if patient arrives on the same day and the arriving time is before the appointment's end time +
+Acknowledges the most upcoming appointment only if patient arrives on the same day and the arriving time is before the appointment's end time. +
 Format: `ackappt <REFERENCE_ID>`
-
-* e.g. `ackappt E0000001A`
 
 ==== Cancels an appointment: `cancelappt` ====
 Cancels the specified appointment. +
 
-NOTE: To avoid accidental cancellation of another patient's appointments, the user must first narrow down the search to a single patient using the `appointments [<REFERENCE_ID>]` command. +
+NOTE: To avoid accidental cancellation of another patient's appointments, the user must first narrow down the search to a single patient by using the `appointments [<REFERENCE_ID>]` command. +
 
 Format: `cancelappt <ENTRY_ID>`
-
-* e.g. `cancelappt 1`
 
 ==== Changes the appointment date: `editappt` ====
 
 Changes the timing for an existing appointment. +
-If no optional fields `[-end <END_TIMING>]` is present, default endTiming is 30 mins after startTiming. Otherwise new endTiming will be `[-end <END_TIMING>]`. +
+If optional field `[-end <END_TIMING>]` is not present, default endTiming is 30 mins after startTiming. Otherwise new endTiming will be `[-end <END_TIMING>]`. +
 
 NOTE: To avoid accidental rescheduling of another patient's appointments, the user must first narrow down the search to a single patient using the `appointments [<REFERENCE_ID>]` command. +
 
@@ -306,30 +300,22 @@ NOTE: The operation is rejected if there are insufficient staff doctors on duty 
 
 Format: `editappt -entry <ENTRY_ID> -start <START_TIMING> [-end <END_TIMING>]`
 
-* e.g. `editappt -entry 1 -start 12/12/19 1300 -end 12/12/19 1400`
-
-
 ==== Lists patients who have missed their appointments: `missappt` ====
 
 Lists all appointments that are missed. +
 
 NOTE: An appointment is considered missed if the appointment was not acknowledged and the current time has passed the appointment's end time.
 
-
 Format: `missappt`
-
-* e.g. `missappt`
 
 ==== Sets missed appointments as settled/notified: `settleappt` ====
 
 Settles and removes the missed appointment based on the given index. +
 Settling refers to the user following up on contacting the patient who has missed his/her appointment. +
 
-NOTE: Only missed appointments can be settled. The user must first display the missed appointment listing, using `missappt`, before using this command. +
+NOTE: Only missed appointments can be settled. The user must first display the missed appointment listing by using `missappt`, before using this command. +
 
 Format: `settleappt <ENTRY_ID>`
-
-* e.g. `settleappt 1`
 
 ==== Shows the empty slots: `slot` (v2.0) ====
 
@@ -342,24 +328,22 @@ Format: `slot -start <START_DATE>`
 
 === Duty-shift Management
 
-==== Displays duty shifts: `shift` ====
+NOTE: Before you process any commands in Duty-shift Management, please ensure you have a doctor with referenceId of W0000001A by using `doctor W0000001A`. +
+You can refer to `newdoctor` command to register this doctor if the doctor is not registered.
+
+==== Displays duty shifts: `shifts` ====
 
 Displays a sorted list of upcoming duty shifts for the staff doctors that is associated to the given `REFERENCE_ID`.
-If no keyword is given, all upcoming appointments will be displayed. +
+If no keyword is given, all upcoming shifts will be displayed. +
 
 Format: `shifts [<REFERENCE_ID>]`
 
-* e.g. `shifts S0111111A`
-
 ==== Adds a duty shift for a doctor: `newshift` ====
 
-Adds a new duty shift for a doctor. +
-If both -reoccur <INTERVALS> and -num <NUMBER_OF_TIMES> fields are present, duty shifts of these <NUMBER_OF_TIMES> will be added to the doctor duty roster in <INTERVALS>.
+If both `-reoccur <INTERVALS>` and `-num <REOCCURRING_TIMES>` fields are present, duty shifts of these `<REOCCURRING_TIMES>` will be added to the doctor duty roster in `<INTERVALS>`.
 Otherwise, only one shift will be added. +
 
-Format: `newshift -id <STAFF_REFERENCE_ID> -start <START_TIMING> -end <END_TIMING> [-reoccur REOCCURRING -num REOCCURRING_TIMES]`
-
-* e.g. `newshift -id W0000001A -start 12/12/19 0900 -end 12/12/19 2100 -reoccur m -num 2`
+Format: `newshift -id <STAFF_REFERENCE_ID> -start <START_TIMING> -end <END_TIMING> [-reoccur INTERVALS -num REOCCURRING_TIMES]`
 
 ==== Cancels a duty shift for a doctor: `cancelshift` ====
 
@@ -371,8 +355,6 @@ NOTE: The operation is rejected if it results in there being more appointments t
 
 Format: `cancelshift <ENTRY_ID>`
 
-* e.g. `cancelshift 1`
-
 ==== Changes the duty shift for a doctor: `editshift` ====
 
 Changes the timing of an existing duty shift based on the given entry index.  +
@@ -381,11 +363,9 @@ NOTE: To avoid accidental cancellation of another doctor's shift, the user must 
 
 NOTE: The operation is rejected if it results in there being more appointments than staff doctors on duty at any given point in time. +
 
-The patient's appointment affected by the deletion of the duty shift must be resolved first. +
+The patient's appointment affected by the editing of the duty shift must be resolved first. +
 
 Format: `editshift -entry <ENTRY_ID> -start <START_TIMING> -end <END_TIMING>`
-
-* e.g. `editshift -entry 1 -start 12/12/19 1200 -end 12/12/19 2100`
 
 // end::shift[]
 
@@ -402,7 +382,6 @@ Format: `inventory`
 Displays the prescription. A prescription is a list of medications prescribed by the doctor. +
 
 Format: `prescription <PRESCRIPTION_ID | PRESCRIPTION_NAME>`
-
 
 === User Accounts (v2.0) ===
 
@@ -475,7 +454,7 @@ Format: `redo`
 
 * *Appointment Management* +
 ** Search for appointments: `appointments [<REFERENCE_ID>]`
-** Add new appointment: `newappt -id <REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-reoccur <INTERVALS> -num <NUMBER_OF_TIMES>]`
+** Add new appointment: `newappt -id <REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-reoccur <INTERVALS> -num <REOCCURRING_TIMES>]`
 ** Edit appointment: `editappt -entry <ENTRY_ID> -start <START_TIMING> [-end <END_TIMING>]`
 ** Cancel appointment: `cancelappt <ENTRY_ID>`
 ** Acknowledge arrival of patient for appointment: `ackappt <REFERENCE_ID>`
@@ -484,7 +463,7 @@ Format: `redo`
 
 * *Duty-shift Management* +
 ** Search for shift: `shifts [<REFERENCE_ID>]`
-** Add new shift: `newshift -id STAFF_REFERENCE_ID -start <START_TIMING> -end <END_TIMING> [-reoccur <INTERVALS> -num <NUMBER_OF_TIMES>]`
+** Add new shift: `newshift -id STAFF_REFERENCE_ID -start <START_TIMING> -end <END_TIMING> [-reoccur <INTERVALS> -num <REOCCURRING_TIMES>]`
 ** Change shift: `editshift -entry <ENTRY_ID> -start <START_TIMING> -end <END_TIMING>`
 ** Cancel shift: `cancelshift <ENTRY_ID>`
 
