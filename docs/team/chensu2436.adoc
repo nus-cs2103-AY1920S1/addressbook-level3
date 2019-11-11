@@ -9,11 +9,12 @@
 
 == Overview
 
-The Module Appeal Management System (MAMS) is a desktop appeal management app for module appeal administrators.
-The MAMS system provides display commands to view the expanded details of any particular appeal, module, or student object,
-a suite of commands for resolving appeals, checking timetable clashes, overriding MC limits, and leaving special notes on students.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
-
+**The Module Appeal Management System (MAMS)** is a desktop appeal management app for module appeal administrators.
+MAMS aims to fuse a Command Line Interface (CLI) style command input with a triple-pane GUI for easy navigation of appeals, module information, and student
+particulars all in a single display.
+MAMS provides a complete suite of tools for intuitive navigation of the comprehensive data display and
+resolving appeals (_for feature details, please refer to User Guide_).
+MAMS is written primarily in Java, and features a GUI created with JavaFX, with CSS used to augment the GUI for improved user experience. It has about 13 kLoC.
 
 == Summary of contributions
 
@@ -31,7 +32,7 @@ This feature provides a convenient way to locate items which the admin wants to 
 ** Highlights: This enhancement affects other commands since it will be used together with other commands often.
 For example, to filter all appeals requesting to add a particular module and check clashes in one go.
 
-* *Code contributed*: [https://github.com/AY1920S1-CS2103-T11-2/main/tree/master/src/main/java/mams[Functional code]] [https://github.com/AY1920S1-CS2103-T11-2/main/tree/master/src/test/java/mams[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chensu2436&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chensu2436&tabRepo=AY1920S1-CS2103-T11-2%2Fmain%5Bmaster%5D[RepoSense Link]]
 
 * *Other contributions*:
 
@@ -50,8 +51,8 @@ For example, to filter all appeals requesting to add a particular module and che
 *** Enhanced the class diagrams of logic component in Developer Guide https://github.com/AY1920S1-CS2103-T11-2/main/pull/214[#214]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T11-2/main/pull/92[#92]
-*** Reported bugs and suggestions for other teams (examples:  https://github.com/chensu2436/ped/issues/8[1], https://github.com/chensu2436/ped/issues/6[2], https://github.com/chensu2436/ped/issues/7[3])
-*** Reviewed User Guide and Developer Guide for other teams in class
+*** Reported bugs and suggestions for other teams (examples: https://github.com/chensu2436/ped/issues/8[1], https://github.com/chensu2436/ped/issues/6[2], https://github.com/chensu2436/ped/issues/7[3])
+*** Reviewed User Guide and Developer Guide for other teams in class (example: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/33[1])
 
 == Contributions to the User Guide
 
