@@ -838,6 +838,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |edit items |can update their details easily when I need to
 
+|`* *` |user |filter items by expiry date |can check what items are expiring before a certain date
+
+|`*` |user |view a summary of items |can quickly scan through all items (tracked and to-buy) to see what have been added to each list
+
 |`*` |user |import tracking list into phone via QR Code |can remind my other friends when their items are expiring
 
 //|`*` |user |track items via recipes |can be reminded of what items are expiring soon and need replenishing
@@ -1087,11 +1091,15 @@ _{More to be added}_
 
 |CommandBox |UI component that takes in user input
 
+|ResultDisplay |UI component that displays the feedback to the user
+
 |FXML |XML-based user interface markup language for defining user interface of a JaxaFX application
 
 |ItemCard |UI component that displays information on an item
 
 |ViewPanel |UI component that displays list of items
+
+|AllItemsPanel |UI component that displays list of all items in an expandable list
 
 |JavaFX |Software platform for creating and delivering desktop applications and rich Internet applications
 
@@ -1173,6 +1181,50 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Command Box
+. Input Length limit
+
+.. Test case: `add|an item with a very long name that will be rejected|09/09/2020|100` +
+  Expected: Input is truncated to `add|an item with a very long name that will be rejected|09/0` and turns red. +
+  Feedback to user that the maximum length of input cannot exceed 60 characters.
+
+. Retrieving previous commands
+
+.. Prerequisites: Some command have been entered by pressing kbd:[enter], and the tester is not already at the least recent command.
+.. Test case: kbd:[↑] +
+  Expected: Previously entered command is retrieved into the Command Box.
+
+. Retrieving later commands
+
+.. Prerequisites: The tester has retrieved at least one previous commands and nothing has been entered since the retrieval.
+.. Test case: kbd:[↓] +
+  Expected: A command that had been entered after the current retrieved command is retrieved into he Command Box.
+
+=== AllItemsList
+. Updating the AllItemsList
+
+.. Prerequisites: Current view is the main list.
+.. Test case: `add|apple|09/09/2020` +
+  Expected: `AllItemsList` should be updated to display the item under "tracking items".
+
+.. Test case: `search|b` +
+  Expected: `AllItemsList` should not be updated.
+
+.. Test case: `shift|1` +
+  Expected: Item with index 1 is shifted from "tracking items" to "to-buy items".
+
+=== ViewPanel
+
+.Updating the colour of `ItemCard`
+
+.. Test case: Follow the instructions under <<Adding expired items to the tracking list for testing>> to add expired items to the Xpire. Do not
+add any reminder threshold. +
+  Expected: The expired items are marked as red; not expired items are green.
+
+.. Prerequisites: Current view in the main list and the first item in `View` has not expired. It should not have a reminder and should be expiring in less than 1000 days.
+.. Test case: `set reminder|1|1000` +
+  Expected: the first item turns yellow.
+
 === Adding expired items to the tracking list for testing
 
 Xpire automatically tags items as `Expired` in the tracking list once an item's expiry date has passed, as seen in the diagram below. See <<Replenish List>> for details.
@@ -1183,6 +1235,7 @@ image::xpire_json_file.png[]
 .. By design, our app does not accept items that have expired unless the json file is tampered with.
 .. To add an expired item to the tracking list, open the xpire.json file in an editor. Under `"xpireItems"`, add a new JSON object with values for `name`, `expiryDate`, `quantity`, `reminderThreshold` and `tags`.
 .. The expiry date should be a date that is before the current date of testing. The reminder threshold should be a non-negative integer and quantity should be a positive integer.
+.. Compute the reminder date by subtracting the reminder threshold from the expiry date. The reminder date should not be before 1/10/2019.
 .. The format to follow for adding an item can be seen within the box outline:
 
 .Format to follow for adding an XpireItem manually to xpire.json file
@@ -1229,6 +1282,45 @@ image::delete_example_list.png[]
    Expected: Quantity is not reduced. Error details showed in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the item's quantity) +
    Expected: Similar to previous.
+
+=== Setting a reminder for an item
+
+. Setting a reminder for an item
+
+.. Prerequisites: Current view is the main list. The target item should have at least 6 days before its expiry date.
+.. Test case `set reminder|1|5` +
+   Expected: First item from the list shows a reminder date which is 5 days before its expiry date. +
+   Feedback shows reminder is set successfully.
+.. Test case `set reminder|1|-5` +
+   Expected: Reminder not set. Feedback shows error details.
+.. Test case `set reminder|1|365000` +
+   Expected: Reminder not set. Feedback shows error details.
+
+. Removing a reminder for an item
+
+.. Prerequisites: Current view is the main list. The target item should not be expired and has a reminder.
+.. Test case `set reminder|1|0` +
+   Expected: First item's reminder date is removed from its item card. +
+   Feedback shows reminder is removed successfully.
+
+=== Filtering items based on its expiry date and status
+
+. Find items expiring in a specific number of days
+
+.. Prerequisites: Current view is the main list. The list contains at least one expired item.
+.. Test case `check|0` +
+   Expected: Expired items are displayed in the `View` (items in red). +
+   Feedback shows listing of items expiring in 0 day.
+.. Test case `check|20` +
+   Expected: Items expiring in 20 days are displayed in the `View`. +
+   Feedback shows listing of items expiring in 20 days.
+
+. Find all expired items and items whose reminder date has been reached (items in yellow)
+
+.. Prerequisites: Current view is the main list. The list contains at least one expired item or item with active reminder.
+.. Test case `check` +
+   Expected: Expired items and items with active reminder in the `View` (items in red or yellow).
+   Feedback shows listing of expired items and items whose reminder has been activated.
 
 === Saving data
 
