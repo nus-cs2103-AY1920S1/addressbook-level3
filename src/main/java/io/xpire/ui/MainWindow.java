@@ -200,12 +200,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            viewPanel.displayItems(logic.getCurrentFilteredItemList());
-            viewPanelPlaceholder.getChildren().remove(viewPanel.getRoot());
-            viewPanelPlaceholder.getChildren().add(viewPanel.getRoot());
-            allItemsPanel.displayItems(logic.getXpireItemList(), logic.getReplenishItemList());
-            allItemsPanelPlaceholder.getChildren().remove(allItemsPanel.getRoot());
-            allItemsPanelPlaceholder.getChildren().add(allItemsPanel.getRoot());
+            updateViewPanel();
+            updateAllItemsPanel();
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -225,5 +221,17 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void updateAllItemsPanel() {
+        allItemsPanel.displayItems(logic.getXpireItemList(), logic.getReplenishItemList());
+        allItemsPanelPlaceholder.getChildren().remove(allItemsPanel.getRoot());
+        allItemsPanelPlaceholder.getChildren().add(allItemsPanel.getRoot());
+    }
+
+    private void updateViewPanel() {
+        viewPanel.displayItems(logic.getCurrentFilteredItemList());
+        viewPanelPlaceholder.getChildren().remove(viewPanel.getRoot());
+        viewPanelPlaceholder.getChildren().add(viewPanel.getRoot());
     }
 }

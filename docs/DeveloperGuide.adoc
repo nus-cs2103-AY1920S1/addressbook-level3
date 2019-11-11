@@ -83,7 +83,7 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Listens for changes to user's input so that the UI can be updated with the modified data in `Model`.
 
 [[Design-Logic]]
 === Logic component
@@ -291,36 +291,40 @@ The list returned is the sortedInternalList wrapped as an unmodifiable list.
 // end::autosort[]
 
 // tag::setreminder[]
-=== Set Reminders for expiring items
 === Reminders for expiring items
 
 The reminder function comprises two parts. Firstly, user sets a date designated to active the reminder through the command
 `set reminder`. Then, user will be able to find all items whose reminder has been activated at present through the command `check`. +
-There is also an enhanced function which allows the user to find all items expiring within a specified number of days,
+There is also an enhanced function which allows the user to filter items expiring within a specified number of days,
  through the `check|<days>` command.
 
 ==== Implementation
 
 ===== Set reminder
-The set reminder function is facilitated by `FilteredItemList`, in which the old item will
-be replaced by a new one with its `reminderThreshold` field updated. It is activated using the command `set reminder`.
+The set reminder function is implemented in a similar way as delete, add and tag. It is facilitated by the method `setItem` in `Model`
+where the old item in `Xpire` will be replaced by a new item with an updated value for the field `ReminderThreshold`.
+It is activated using the command `set reminder`.
 
 You can refer to the example usage scenario given below to see what happens at each stage of the execution.
 
-Scenario: the user wants to activate a reminder for an item with index 1 in the current view of the list
+Scenario: the user wants to set a reminder for an item with index 1 in the current view of the list
 1 day before its expiry date.
 
 Step 1: the user input is parsed by `SetReminderCommandParser` to check validity of the reminder threshold.
 
-Step 2: the `SetReminderCommandParser` creates a `SetReminderCommand` object if the input is valid. The `SetReminderCommand` is
-returned to the `LogicManager` and executed.
+Step 2: the `SetReminderCommandParser` creates a `SetReminderCommand` object if the input is valid. The `SetReminderCommand` contains a
+ new `ReminderThreshold` object. The `SetReminderCommand` is returned to the `LogicManager` and executed.
 
-Step 3: during the execution, a copy of the old item with the reminder threshold set will be created. The copy will replace the old one
+Step 3: during the execution, a copy of the old item with the new `ReminderThreshold` will be created. The copy will replace the old one
 in the `Xpire` by `ModelManager`.
 
 Step 4: result of execution will be displayed.
 
 The reminder is now set up and is reflected in the UI like this:
+
+.SetReminderSuccess
+
+image::ItemCard.png[]
 
 The following sequence diagram shows how the operation works:
 
@@ -329,10 +333,10 @@ The following sequence diagram shows how the operation works:
 image::SetReminderUML.png[]
 
 ===== Check
-The check function uses the `updateFilteredItemList` method provided by model to filter items whose reminder has been activated.
+The basic check function uses the `updateFilteredItemList` method provided by model to filter items whose reminder has been activated.
 The predicate used by the filtering method is named `ReminderThresholdExceededPredicate`.
 
-The `ReminderThresholdExceededPredicate` will check whether the number of days to an item's expiry date is smaller than its reminder
+The `ReminderThresholdExceededPredicate` will check whether the number of days to an item's expiry date is smaller than or equal to its reminder
  threshold.
 
 You can see how the `Check` operation works in the following sequence diagram.
@@ -341,14 +345,21 @@ You can see how the `Check` operation works in the following sequence diagram.
 
 image::CheckCommandNoArgUML.png[]
 
+A successful `check` will lists all items marked as yellow and red int he `ViewPanel` of the UI component.
+
+.CheckSuccess
+
+image::CheckSuccessful.png[]
+
 ===== Check with days
 The enhanced check function also uses the `updateFilteredItemList` method provided by model to filter items. The condition
-for filtering is that the user input number of days is smaller than the number of days to an item's expiry date. This is
-done by predicate named `ExpiringSoonPredicate`.
+for filtering is that the user input number of days is smaller than or equal to the number of days to an item's expiry date. This is
+done by the predicate named `ExpiringSoonPredicate`.
 
 You can see how the `Check|<days>` operation works in the following sequence diagram.
 
 .CheckDaysSequenceDiagram
+
 
 image::CheckCommandArgUML.png[]
 
@@ -359,22 +370,15 @@ image::CheckCommandArgUML.png[]
 ===== Aspect: How set reminder executes
 
 * **Alternative 1 (current choice):** Set new item to replace the original one in `Xpire`
-** Pros: the flow is consistent with that of adding items and deleting items.
-** Cons: a new item has to be created and the list will be sorted again which could be unnecessary.
+** Pros: removes unwanted dependency as modifying the item directly in `SetReminderCommand` class requires the original `XpireItemList`
+to be passed to the class and could possibly result in unwanted modification. Using a `ObservableList` instead prevents any changes to the item by
+the `SetReminderCommand` class.
+** Cons: Time complexity is O(nlogn). Despite setting a reminder will not result in change in name or expiry date of the item, and thus
+requires no change to the sorted list, the list will still be sorted as a new item is considered added to the list.
 
-* **Alternative 2:** Update the original item directly
-** Pros: edit the original item in `Xpire`.
-** Cons: changes to the state of the item may result in unwanted bugs.
-
-===== Aspect: Active notification
-* **Alternative 1 (current choice):** No active notification; Reminder is evoked through the `check` command
-** Pros: The app does not have to run at the background. User can check the reminders at anytime easily.
-** Cons: User may miss the expiry date.
-
-* **Alternative 2:** Active notification to report expiring items
-** Pros: User gets active updates on expiring items.
-** Cons: The function will not work if the app does not activate itself on starting of the computer, which required
-change in the user's operating system.
+* **Alternative 2:** Modify the original item
+** Pros: Time complexity is low: O(n) to locate the item.
+** Cons: This is dangerous as modifying items in a sorted list is prone to unwanted side effects and undesirable modifications.
 // end::setreminder[]
 
 // tag::undoredo[]
@@ -613,6 +617,30 @@ Only search and sort commands support this operation.
 ** Pros: Simpler implementation.
 ** Cons: Not closely related words may also be recommended to the user.
 // end::recommendations[]
+
+=== User Interface Design
+The UI contains two panels that change according to the items in the `XpireItemList` and `ReplenishList`. However, these
+UI components are not able to update by listening to changes in these `ObservableLists`. This is because both lists are
+sorted and thus all items in the lists will be modified each time a `sort`, `add`, `delete`, `tag` or other commands that modify the lists
+are executed, causing the listener in the API to catch unwanted changes. Instead, the lists are passed as parameters to the
+UI classes through `MainWindow` and rendered each time a command is executed.
+
+As as an example of how the UI were implemented, we will examine the implementation of `ViewPanel`.
+
+==== The View Panel
+`ViewPanel` is a container for many `ItemCards`, each carrying information about the items. +
+Given below are the steps of an example scenario of how `ViewPanel` is updated:
+
+. The User launches the application and the `MainWindow` creates a new `ViewPanelPlaceholder` container that hosts the `ViewPanel`.
+. `MainWindow` calls `Logic` which in turn calls `Model` to obtain a current active list through `getCurrentFilteredItemList()`.
+Depending on the user's current list in view, it will either be an `XpireItemList` or `ReplenishList`.
+. `MainWindow` passes the list as parameters to the constructor of the `ViewPanel`.
+. `ViewPanel` has a `displayItems` method that is able to construct a Collection of `ItemCard` by mapping each `XpireItem` or `Item`
+to an `ItemCard` .
+. `displayItems` will first have to clear all child Nodes that the `ViewPanel` contains before adding a new Collection of `ItemCard` .
+.`ItemCard` takes as parameters the item and its index in the list. It renders all fields of an `XpireItem` and `Item` and also
+dose an additional check on whether the `XpireItem` has already expired. the remaining days before the `XpireItem` expires is less than or equal to its `ReminderThreshold`. If yes,
+
 
 === Logging
 

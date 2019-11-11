@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
 <fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
@@ -14,10 +16,17 @@
   </icons>
   <scene>
     <Scene>
-         <HBox alignment="CENTER">
+        <stylesheets>
+            <URL value="@DarkTheme.css" />
+        </stylesheets>
+
+         <HBox alignment="CENTER" styleClass="help">
             <children>
                <Label text="Refer to the User Guide: " />
-               <Hyperlink fx:id="helpMessage" text="Hyperlink" onAction="#openLink"/>
+               <Hyperlink fx:id="helpMessage" onAction="#openLink" styleClass="hyper-link" text="Hyperlink" textFill="#dfdfdf" underline="true">
+                  <font>
+                     <Font name="Segoe UI Light" size="13.0" />
+                  </font></Hyperlink>
             </children>
             <opaqueInsets>
                <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />

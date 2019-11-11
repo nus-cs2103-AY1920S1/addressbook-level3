@@ -19,7 +19,8 @@ public class CheckCommand extends Command {
     public static final String COMMAND_WORD = "check";
     public static final String COMMAND_SHORTHAND = "ch";
 
-    public static final String MESSAGE_SUCCESS_DAYS_LEFT = "Listed items with %d day(s) left before their expiry date.";
+    public static final String MESSAGE_SUCCESS_DAYS_LEFT = "Listed expired items and items with no more than "
+            + "%d day(s) left before their expiry date.";
     public static final String MESSAGE_SUCCESS_REMIND = "Listed expired items and items with active reminders.";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays all items whose expiry date is within"
