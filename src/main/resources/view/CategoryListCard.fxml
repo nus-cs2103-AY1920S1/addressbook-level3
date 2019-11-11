@@ -5,9 +5,18 @@
 <?import javafx.scene.control.Label?>
 
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.Region?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml" >
-  <left>
-   <Label fx:id = "categoryFx" text="\$category" textAlignment="CENTER" styleClass="cell_big_label" textOverrun="CLIP" />
-  </left>
+  <center>
+      <GridPane>
+          <columnConstraints>
+              <ColumnConstraints hgrow="SOMETIMES" minWidth="100" prefWidth="100" />
+          </columnConstraints>
+            <Label fx:id = "categoryFx" text="\$category" textAlignment="CENTER" styleClass="cell_big_label" wrapText="true">
+            </Label>
+      </GridPane>
+  </center>
 </BorderPane>

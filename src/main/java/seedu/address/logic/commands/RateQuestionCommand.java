@@ -25,7 +25,9 @@ public class RateQuestionCommand extends NextQuestionCommand {
 
     public RateQuestionCommand(KeyboardFlashCardsParser keyboardFlashCardsParser, Rating rating) {
         super(keyboardFlashCardsParser, MESSAGE_SUCCESS);
+
         requireNonNull(rating);
+
         this.keyboardFlashCardsParser = keyboardFlashCardsParser;
         this.rating = rating;
     }
@@ -33,6 +35,7 @@ public class RateQuestionCommand extends NextQuestionCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
         updateModelStatistics(model);
         updateFlashCardRating(model);
         return super.execute(model);
@@ -50,28 +53,39 @@ public class RateQuestionCommand extends NextQuestionCommand {
     /** Updates statistics in the model. */
     private void updateModelStatistics(Model model) {
         assert model != null;
+
         String rating = this.rating.toString();
         assert rating.equals("good") || rating.equals("hard") || rating.equals("easy");
-        if (rating.equals("good")) {
+
+        switch (rating) {
+        case "good":
             model.editStats(0);
-        } else if (rating.equals("hard")) {
+            break;
+        case "hard":
             model.editStats(1);
-        } else { // rating.equals("easy")
+            break;
+        case "easy":
             model.editStats(2);
+            break;
+        default:
+            // should not reach this stage
         }
     }
 
     /** Updates the rating of a flashcard. */
     private void updateFlashCardRating(Model model) {
         assert model != null;
+
         FlashCard flashCardToUpdate = model.getCurrentTestFlashCard();
         assert flashCardToUpdate != null;
+
         model.setFlashCard(flashCardToUpdate, createUpdatedFlashCard(flashCardToUpdate));
     }
 
     /** Creates a new immutable flashcard with the updated rating. */
     private FlashCard createUpdatedFlashCard(FlashCard flashCardToUpdate) {
         assert flashCardToUpdate != null;
+
         return new FlashCard(flashCardToUpdate.getQuestion(),
                 flashCardToUpdate.getAnswer(),
                 rating, flashCardToUpdate.getCategories());

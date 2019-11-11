@@ -16,12 +16,38 @@ endif::[]
 
 By: `T12-4`      Since: `Sept 2019`
 
+//@@author LeowWB
+
+== Introduction
+
+This document details various aspects of the implementation of the _KeyboardFlashCards_ application. It serves as
+a guide for any software developer who wishes to maintain or add on to the project - as such, it is extremely
+detailed and technical, and a certain degree of expertise may be required to fully understand everything here.
+
+_KeyboardFlashCards_ (KFC) is a desktop flashcard manager application. It is primarily targeted at university
+undergraduates, particularly computing students. As such, it is optimized for users who prefer to work with a
+Command Line Interface (CLI) while still enjoying the benefits of a Graphical User Interface (GUI).
+
+The application is written entirely in the Java programming language, with a GUI implemented using JavaFX. Its code base
+currently contains an approximate 25 KLoC.
+
+The following admonitions will occasionally appear throughout this document; you may wish to take note of them.
+Here is what each of them means:
+
+NOTE: A point of information that you may wish to take note of
+
+CAUTION: A cautionary warning
+
+TIP: A tip or word of advice
+
+//@@author
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
 
 == Design
-
+This section will show you the designs for varies component of _KeyboardFlashCards_.
 [[Design-Architecture]]
 === Architecture
 
@@ -59,7 +85,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[width = "600"]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -67,7 +93,7 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+image::ArchitectureSequenceDiagram.png[width = "600"]
 
 The sections below give more details of each component.
 
@@ -75,7 +101,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassDiagram.png[width = "600"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -93,12 +119,12 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[width = "600"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `FlashCardsParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a flashCard).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -107,7 +133,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+image::DeleteSequenceDiagram.png[width = "600"]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -115,34 +141,34 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.png[width = "600"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the KeyboardFlashCards' data.
 * exposes an unmodifiable `ObservableList<FlashCard>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Category` list in `Address Book`, which `FlashCard` can reference. This would allow `Address Book` to only require one `Category` object per unique `Category`, instead of each `Flashcard` needing their own `Category` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Category` list in `KeyboardFlashCards`, which `FlashCard` can reference. This would allow `KeyboardFlashCards` to only require one `Category` object per unique `Category`, instead of each `Flashcard` needing their own `Category` object. An example of how such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[width = "600"]
+image:BetterModelClassDiagram.png[width = "300"]
 
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageClassDiagram.png[width = "600"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the KeyboardFlashCards data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -158,14 +184,12 @@ This section describes some noteworthy details on how certain features are imple
 === Add feature
 ==== Implementation
 
-The add feature allows the user to add flashcard with compulsory field of `QUESTION` and `ANSWER`.
- `RATING` and `CATEGORY` are optional fields which the user can add to the flashcard later using the `edit` feature.
+The add feature allows the user to add flashcard with compulsory field of `QUESTION` and `ANSWER`. `CATEGORY` is optional fields which the user can add to the flashcard later using the `edit` feature.
 
 [NOTE]
 Following are the prefixes for each field: +
 - q> : `QUESTION` +
 - a> : `ANSWER` +
-- r> : `RATING` +
 - c> : `CATEGORY`
 
 Given below is an example usage scenario of `add` :
@@ -174,11 +198,14 @@ The user executes `add q>1+1 a>2 c>math` to add new flashcard.
 
 The following sequence diagram shows how the add operation works:
 
-image::AddSequenceDiagram.png[]
+image::AddSequenceDiagram.png[width="600"]
 
 
-The add feature does not allow adding of duplicate flashcards.
-If the flashcard exists in the storage, an error will be shown.
+The add feature does not allow adding of duplicate FlashCards.
+If the FlashCard exists in the storage, an error will be shown.
+
+[NOTE]
+Duplicate FlashCards refers to FlashCards that have the exact same question and answer.
 
 The following activity diagram summarizes what happens when a user executes an add command:
 
@@ -188,16 +215,21 @@ image::AddActivityDiagram.png[width="300"]
 ===== Aspect: How to implement add
 
 * **Alternative 1(current choice):** Use command `add` together with
-prefixes like `q>`, `a>`, `r>` and `c>`
-** pros: Easier to implement.
-** cons: User might miss the prefixes hence adding wrong flashcards
+prefixes like `q>`, `a>` and `c>`
+** pros: Easier to implement and easier to process the data.
+** cons: User might miss the prefixes hence adding wrong FlashCards
 * **Alternative 2:** Make use of the GUI. After user execute `add` command,
  an **add flash card window** would pop up and there is segment for individual fields.
-** pros: More user friendly.
+** pros: More user friendly and void user input error.
 ** cons: Harder to implement.
+
+NOTE: **Alternative 1** was preferred as we have constraints using command line interface.
+In addition, there was limited time.
 // end::addflashcard[]
 
 //@@author dalsontws
+
+
 // tag::deadline[]
 
 === Add and Remove Deadline feature
@@ -253,7 +285,7 @@ image::DeadlineActivityDiagram.png[width=320,height=480]
 The Remove Deadline command `remove` works in a similar way, and hence the Sequence and Activity diagrams
 will be omitted for redundancy.
 
-==== Design Considerations
+==== Design considerations
 ===== Aspect: How to implement Deadline
 
 * **Alternative 1(current choice):** Use command `deadline` together with
@@ -330,10 +362,16 @@ use a `ObservableList` that can be displayed in GUI.
 // tag::flashcardexportimport[]
 
 === Exporting/Importing of FlashCards
+
+==== About
+
+Our application currently supports the exporting of `FlashCards` to two file formats ('.docx' and '.json'), and importing of `FlashCards` from one
+file format ('.json'). Through these features, a user can easily transfer their _KFC_ data to an external file, and another user
+can just as easily transfer the same data back into their own copy of _KFC_.
+
 ==== Implementation
 
-Our application currently supports the exporting of `FlashCards` to two file formats (`.docx` and `.json`) and importing of `FlashCards` from one
-file format (`.json`). These mechanisms are primarily facilitated by the following classes:
+The Export/Import feature is primarily facilitated by the following classes:
 
 * `ExportCommand` -- Embodies an `export` command by the user; carries information about which `FlashCards` are to be exported, and to where
 * `ExportCommandParser` -- Parses user input and uses it to construct an `ExportCommand` instance
@@ -354,67 +392,46 @@ Once created, an `ExportPath` will expose the following relevant methods:
 * `export(List<FlashCard> list)` -- Exports the given `List` of `FlashCards` to the file path embodied by this `ExportPath`
 * `importFrom()` -- Attempts to import `FlashCards` from the file path represented by this `ExportPath`
 
-CAUTION: Not all `ExportPath` subclasses will implement the `importFrom()` method. `DocumentPath`, for example, does not - this is because documents are
-relatively unstructured and impractical to import from, and there are other reasons for exporting to a document (e.g. to use as cheat sheet).
+CAUTION: Not all `ExportPath` subclasses will implement the `importFrom()` method. `DocumentPath`, for example, does not.
 
 Because `ExportPath` follows the factory pattern, any class that deals with `ExportPath` or its subclasses need not know which particular subclass it is
 dealing with exactly. Each `ExportPath` subclass will implement its own `export` and `import` methods, which, when called, will perform the required operations
 without any further hassle. Of course, due to the Separation of Concerns principle, the `ExportPath` subclasses will not handle these directly.
 Instead, they will delegate the work to other utility classes, which, in turn, interface with the external libraries necessary to complete the task.
-TIP: The exporting/importing functionality is extremely easy to extend - support for new formats can be added simply through the creation of new subclasses of `ExportPath`.
+TIP: The exporting/importing functionality is extremely easy to extend - you can add support for a new format simply through the creation of new subclasses of `ExportPath`.
 
-NOTE: All relevant classes can be found in the `seedu.address.model.export` package. The only exceptions are `ExportCommand`, `ImportCommand`, `ExportCommandParser`, and `ImportCommandParser`, which can be found in the `seedu.address.logic` package.
+NOTE: You can find all relevant classes in the `seedu.address.model.export` package. The only exceptions are `ExportCommand`, `ImportCommand`, `ExportCommandParser`, and `ImportCommandParser`, which can be found in the `seedu.address.logic` package.
 
 The following table shows the classes and methods that you may have to deal with when exporting to or importing from each format:
 
-[width="59%",cols="20%,35%,35%",options="header",]
-|====
+image::ExportDgTable.png[width="75%"]
 
-|**File format**                        |Document           |JSON
+_Table 1: Overview of classes and methods involved in the Export/Import feature_
 
-|**File extension**                     |`.docx`            |`.json`
-
-|**`ExportPath` subclass**              |`DocumentPath`     |`JsonExportPath`
-
-a|**Export utility class and method**
-a|`DocumentExportUtil#exportFlashCardsToDocument( List<FlashCard>, DocumentPath)`
-a|`JsonExportUtil#exportFlashCardsToJson( List<FlashCard>, JsonExportPath)`
-
-a|**Import utility class and method**
-a|_None - importing not supported_
-a|`JsonImportUtil#importFlashCardsFromJson( JsonExportPath)`
-
-|**External library used**              |Apache POI         |Jackson
-|====
-
-The number of classes supporting the import/export feature is rather large. The following class diagram will help to clarify the associations
+The number of classes supporting the Export/Import feature is rather large. These classes also span more than one
+package in the application. The following class diagram will help you to better understand the associations and relationships
 between these classes:
 
-image::ExportClassDiagram.png[height=700]
+image::ExportClassDiagram.png[]
 
-_Figure 1: Class diagram showing the classes directly relevant to importing and exporting_
+_Figure 1: Class diagram of the classes directly relevant to importing and exporting_
 
-The following sequence diagram shows how the export operation works when the user tries to export to a document (`.docx`) file:
+The following sequence diagram shows the classes, methods, and interactions involved
+when the user tries to `export` to a document file:
 
 image::ExportSequenceDiagram.png[]
 
 _Figure 2: Sequence diagram showing the process of exporting to a document file_
 
-NOTE: Due to a limitation of PlantUML, object lifelines in the diagram extend beyond the destroy markers. This, of course, should be ignored.
+The following activity diagrams provide a general overview of the events that occur when a user executes an `export` or `import` command:
 
-The following activity diagram summarizes what happens when a user executes an export command:
+image:ExportActivityDiagram.png[width=440,height=518]
+image:ImportActivityDiagram.png[width=383,height=513]
 
-image::ExportActivityDiagram.png[width=500,height=540]
+_Left - Figure 3: Activity diagram of the execution of an `export` command_ +
+_Right - Figure 4: Activity diagram of the execution of an `import` command_
 
-_Figure 3: Activity diagram of when the user executes an export command_
-
-The following activity diagram summarizes what happens when a user executes an import command:
-
-image::ImportActivityDiagram.png[width=500,height=580]
-
-_Figure 4: Activity diagram of when the user executes an import command_
-
-==== Design Considerations
+==== Design considerations
 
 |===
 |_This section describes some of the design considerations that went into the implementation of this feature._
@@ -435,32 +452,12 @@ NOTE: **Alternative 1** was preferred for its ease of extensibility.
 
 * **Alternative 1:** Update the `Model` to show all desired `FlashCards`, then export all of said `FlashCards`
 ** Pros: Is easy to implement as it makes use of existing logic in `Model`; user receives immediate visual feedback regarding which specific `FlashCards` were exported
-** Cons: May cause confusion - `export` command does not imply that the selected `FlashCards` will also be shown to the user
+** Cons: May cause confusion - name of `export` command does not imply that the selected `FlashCards` will also be shown to the user
 * **Alternative 2 (current choice):** Implement a new method in `Model` that returns the selected `FlashCards`, without updating the on-screen list
 ** Pros: Will not cause confusion to user - `export` command does exactly what one would expect it to do
 ** Cons: Is harder to implement and might result in duplication of logic
 
 NOTE: **Alternative 2** was preferred as it provides users with an experience closer to what they would expect.
-
-===== Aspect: Parsing of file path from user input
-
-NOTE: The original AddressBook application, from which KeyboardFlashCards was morphed, delimited its command arguments using slash-containing flags
-(e.g. `c/CATEGORY`). This sometimes caused parsing problems due to the nature of file paths, which likewise contain slashes.
-
-* **Alternative 1:** Read file path as-is, using the existing AddressBook parser
-** Pros: Does not require further code changes
-** Cons: Means that errors may occur for certain file paths
-* **Alternative 2:** Disallow user from selecting file path - instead, always export to and import from a specific directory
-** Pros: Is somewhat easy to implement
-** Cons: Requires user to navigate to the specified directory; requires a means of finding alternatives if the default directory does not exist
-* **Alternative 3:** Ask user to replace slashes in file path with another character
-** Pros: Is very easy to implement
-** Cons: Greatly inconveniences the user; extra work must be done to restore the input to the original file path
-* **Alternative 4 (current choice):** Overhaul the AddressBook parser to use `>` rather than `/` as a delimiter
-** Pros: Provides the user with the most power and convenience
-** Cons: Might possibly break existing functional and test code; may require an additional button press from the user (`Shift`) in order to type `>`
-
-NOTE: **Alternative 4** was preferred as it provides users with the greatest overall convenience.
 
 // end::flashcardexportimport[]
 
@@ -473,16 +470,16 @@ flashcards contained in the system will be tested.
 ==== Implementation
 This feature is supported by the following classes:
 
-* `AddressBookParser` to control the flow of command in the entire program.
+* `KeyboardFlashCardsParser` to control the flow of command in the entire program.
 * `StartCommandParser` to parse arguments for StartCommand.
 * `ModelManager` which stores `FlashCardTestModel`, an aggregation of `FlashCards`, to be used for test mode.
 * `CategoryContainsAnyKeywordsPredicate` to search and generate a list of `FlashCards` with relevant tags.
 
 The following sequence diagram shows the intended case for the `start` command:
 
-image::StartSequenceDiagram.png[]
+image::StartSequenceDiagram.png[width = "600"]
 
-==== Design Considerations
+==== Design considerations
 Aspect: Data structure to support `FlashCardTestModel`:
 
 * **Alternative 1 (Current choice):** `LinkedList` implementation:
@@ -517,18 +514,18 @@ This feature is supported by the following classes:
 
 The sequence diagram below shows how the statistics operation works.
 
-image::StatisticsSequenceDiagram.png[width=700]
+image::StatisticsSequenceDiagram.png[width = "600"]
 
 The sequence diagram below details how these other classes (i.e. `Stage`, `Scene` and `FlowPane`) work with `StatsWindow` to create the statistics pop-up window.
 
-image::StatisticsShow.png[width=600]
+image::StatisticsShow.png[width="600"]
 
 The activity diagram below summarizes what happens when a user executes the `stats` command.
 
-image::StatisticsActivityDiagram.png[]
+image::StatisticsActivityDiagram.png[width="300"]
 
 
-==== Design Considerations
+==== Design considerations
 The following aspect was a consideration when designing the statistics feature.
 
 Aspect: Methods to collect statistics
@@ -562,18 +559,18 @@ This feature is supported by the following classes:
 
 The sequence diagram below shows how the help operation works.
 
-image::HelpSequenceDiagram.png[width=700]
+image::HelpSequenceDiagram.png[width="600"]
 
 The sequence diagram below details how these other classes (i.e. `Stage`, `Image` and `ImageView`) work with `HelpWindow` to create the help pop-up window.
 
-image::HelpShow.png[width=500]
+image::HelpShow.png[width="600"]
 
 The activity diagram below summarizes what happens when a user executes the `help` command.
 
-image::HelpActivityDiagram.png[width=300, height=300]
+image::HelpActivityDiagram.png[width="300"]
 
 
-==== Design Considerations
+==== Design considerations
 The following aspect was a consideration when designing the help feature.
 
 

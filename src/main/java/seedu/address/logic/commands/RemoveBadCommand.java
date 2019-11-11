@@ -7,7 +7,9 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deadline.BadQuestions;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.deadline.DueDate;
+import seedu.address.model.deadline.Task;
 import seedu.address.model.deadline.exceptions.DeadlineNotFoundException;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
@@ -45,13 +47,23 @@ public class RemoveBadCommand extends Command {
 
         try {
             FlashCard flashCardToDelete = badQuestions.removeBadQuestion(date, targetIndex);
+
+            if (badQuestions.getBadQuestionsList(date).size() == 0) {
+                model.deleteDeadline(
+                    new Deadline(
+                            new Task("ToDo: Bad Questions"),
+                            date
+                    )
+                );
+            }
+
             badQuestions.saveAsJson(badQuestions);
             return new CommandResult(
                     String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, flashCardToDelete.getQuestion().toString()));
         } catch (DeadlineNotFoundException e1) {
-            return new CommandResult(INVALID_DEADLINE);
+            throw new CommandException(INVALID_DEADLINE);
         } catch (FlashCardNotFoundException e2) {
-            return new CommandResult(INVALID_INDEX);
+            throw new CommandException(INVALID_INDEX);
         }
     }
 }

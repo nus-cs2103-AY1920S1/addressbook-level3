@@ -390,3 +390,14 @@
     -fx-text-fill: #FF0000;
     -fx-font-weight: bold;
 }
+
+.test-box {
+    -fx-background-color: transparent, #38383, transparent, #383838;
+    -fx-font-family: "monospace";
+    -fx-font-size: 20px;
+    -fx-text-fill: #26ff00;
+}
+
+#testquestion .content, #testanswer .content {
+    -fx-background-color: #383838;
+}

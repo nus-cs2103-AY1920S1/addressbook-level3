@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import seedu.address.model.flashcard.FlashCard;
@@ -10,28 +9,31 @@ import seedu.address.ui.TestFlashCardPanel;
 
 //@@author keiteo
 /**
- * Creates a test model to contain relevant flashcards to test users.
+ * Instantiates a test model to contain relevant flashcards to test users.
  */
 public class FlashCardTestModel {
 
-    private static FlashCard currentFlashCard;
-
+    private FlashCard currentFlashCard;
     private List<FlashCard> testList;
-    private List<FlashCard> testListOld = new LinkedList<>(); // placeholder for previous function
     private TestFlashCardPanel testFlashCardPanel;
 
     public FlashCardTestModel(List<FlashCard> testList) {
         this.testList = testList;
     }
 
+    /**
+     * Checks if the test list is empty.
+     */
     public boolean isEmpty() {
         return testList.isEmpty();
     }
 
+    /**
+     * Removes a FlashCard from the head of the test list and sets it as the current FlashCard.
+     */
     public void setFlashcard() {
         assert !testList.isEmpty();
         currentFlashCard = testList.remove(0);
-        testListOld.add(currentFlashCard);
     }
 
     //@@author shutingy
@@ -42,6 +44,7 @@ public class FlashCardTestModel {
 
     public TestFlashCardPanel getTestFlashCardPanel() {
         requireNonNull(currentFlashCard);
+
         setTestFlashCardPanel();
         return testFlashCardPanel;
     }
@@ -55,17 +58,27 @@ public class FlashCardTestModel {
     }
 
     //@@author keiteo
+
+    /**
+     * Gets the question of the current FlashCard.
+     */
     public String getQuestion() {
         requireNonNull(currentFlashCard);
         return currentFlashCard.getQuestion().toString();
     }
 
+    /**
+     * Gets the answer of the current FlashCard.
+     */
     public String getAnswer() {
         requireNonNull(currentFlashCard);
         return currentFlashCard.getAnswer().toString();
     }
 
-    public static FlashCard getCurrentFlashCard() {
+    /**
+     * Gets the current FlashCard.
+     */
+    FlashCard getCurrentFlashCard() {
         return currentFlashCard;
     }
 

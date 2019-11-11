@@ -5,9 +5,9 @@
 :stylesDir: ../stylesheets
 
 == Introduction
-This document details the various contributions that I have made to my team project, _KeyboardFlashCards_. Done as part of a second-year software engineering module,
+This document details the various contributions that I have made to my team project, _KeyboardFlashCards_ (KFC). Done as part of a second-year software engineering module,
 the project requires that students work in teams to morph a desktop addressbook application into another product. The
-project is required to conform to a number of constraints, the most significant being that the product must have primarily utilize a CLI (command-line interface); this
+project is required to conform to a number of constraints, the most significant being that the product must primarily utilize a CLI (command-line interface); this
 means that the primary means of user input to the product must be through the typing of commands.
 
 This project was the result of six weeks of hard work by my team, which comprises two final-year Computer Engineering students and three sophomore Computer Science
@@ -17,9 +17,8 @@ Our final product is _KeyboardFlashCards_ - a desktop flashcard manager applicat
 computing students (in particular, NUS School of Computing students), who will be able to use it to
 enhance their learning experience. It does this by simulating a real deck of flashcards on the user's
 computer, complete with features including creation, editing, deletion, revision, and sharing of
-flashcards. The application is written in the Java programming language, and has a GUI (graphical
-user interface) created with the JavaFX library. It has roughly 17 KLoC, up from the original
-addressbook application's 10 KLoC.
+flashcards. The application is written in the Java programming language, and has an approximate 25 KLoC
+(for comparison, the original addressbook application had about 10 KLoC).
 
 Here is a screenshot of our project:
 
@@ -27,17 +26,16 @@ image::annotatedUi.png[KeyboardFlashCards]
 _Figure 1. The graphical user interface of **KeyboardFlashCards**_
 
 Please note the following symbols and formatting, which will appear throughout the rest of the document:
-NOTE: A point of information to take note of
-TIP: A tip or suggestion
-CAUTION: A cautionary piece of advice
+
+image::leowwbPppAdmonitions.png[width="80%"]
 
 == Summary of contributions
 
 |===
-|_This section is a summary of the contributions I have made to the team project. It includes code, documentation, and various helpful contributions._
+|_This section is a summary of the contributions I have made to the team project. It includes code, documentation, and other types of helpful contributions._
 |===
 
-* *Major enhancement #1*: I added *the ability to export flashcards to various file formats*.
+* *Major enhancement #1*: I added the ability to *export flashcards to various file formats*.
 ** What it does: It allows the user to save their flashcards from the application into a specified external file.
     The file format can be either '.docx' or '.json', and is inferred from the file extension specified by the user.
     To avoid clutter, any data that would only be relevant in the context of the application (e.g. a user-given rating)
@@ -52,33 +50,41 @@ CAUTION: A cautionary piece of advice
 ** Credits: All writing of flashcards to the '.docx' and '.json' formats is done with the use of two external libraries;
     these are Apache POI and Jackson, respectively.
 
-* *Major enhancement #2: I added *the ability to import flashcards from an external file*.
+* *Major enhancement #2*: I added the ability to *import flashcards from an external file*.
 ** What it does: It allows the user to import flashcards from a JSON file (a file that ends in '.json').
     The imported flashcards are added to the application, and the user will be able to use them as if they were their own.
-** Justification: This feature, when used in combination with the `export` feature, allows users to share their flashcards with
+** Justification: This feature, when used in combination with the Export feature, allows users to share their flashcards with
     one another.
 ** Highlights: This feature does not import flashcards which the user already has. This is because
     there's no good reason for the user to have two copies of the same flashcard.
     The user will be notified if a duplicate is detected in a file while importing.
-** Credits: All reading of flashcards from the `.json` format is done with the use of Jackson, an external library.
+** Credits: All reading of flashcards from the '.json' format is done with the use of Jackson, an external library.
 
-* *Code contributed*: Please click on these links to see a sample of my code:
-[https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_ (reposense link??)
+* *Code contributed*: +
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=LeowWB&sort=totalCommits&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByAuthors&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=LeowWB&tabRepo=AY1920S1-CS2103T-T12-4%2Fmain%5Bmaster%5D[Please click here to view a sample of my code!]
 
 * *Other contributions*
 
 ** Project management
-*** Managed releases `v1.1` - `v1.2` (2 releases) on GitHub
-*** Updated the project website with the team's details (
+*** Managed releases v1.1 - v1.2 (2 releases) on GitHub
+*** Set up automatic publishing of the project's documentation (using Travis CI)
+*** Oversaw the general integration of the various team members' work into the project
+*** Created and managed the team's organization on GitHub (
+    https://github.com/AY1920S1-CS2103T-T12-4[AY1920S1-CS2103T-T12-4]
+    )
+*** Populated the project website with general information about the team (
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/19[#19],
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/24[#24]
     )
 ** Documentation
-*** Created the general framework that would be used by the User Guide (
+*** Created an early framework for the User Guide (
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/19[#19]
     )
 *** Wrote the FAQ and an early version of the Command Summary section for the User Guide (
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/19[#19]
+    )
+*** Wrote the Introduction section of the Developer Guide (
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/236[#236]
     )
 *** Wrote the User Guide and Developer Guide content pertaining to the exporting and importing of flashcards (
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/137[#137],
@@ -104,7 +110,7 @@ CAUTION: A cautionary piece of advice
 == Contributions to the User Guide
 
 |===
-|_My team's complete overhaul of the addressbook application meant that we also had to rewrite much of the User Guide. The following are excerpts of my contributions to this effort. They showcase my ability to write documentation that targets end-users._
+|_My team's complete overhaul of the addressbook application meant that we also had to rewrite much of the User Guide. The following are excerpts of my contributions to this effort. They showcase my ability to write jargon-free documentation that is suitable to be read by end-users._
 |===
 
 _(start of extract from User Guide)_

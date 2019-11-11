@@ -1,8 +1,8 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.flashcard.FlashCard;
@@ -17,12 +17,12 @@ public class TestFlashCardPanel extends UiPart<Region> {
     @FXML
     private HBox flashcardPane;
     @FXML
-    private Label question;
+    private TextArea testquestion;
     @FXML
     private HBox questionBox;
 
     @FXML
-    private Label answer;
+    private TextArea testanswer;
     @FXML
     private HBox answerBox;
     @FXML
@@ -32,8 +32,8 @@ public class TestFlashCardPanel extends UiPart<Region> {
 
     public TestFlashCardPanel(FlashCard flashCard) {
         super(FXML);
-        answer.setText(flashCard.getAnswer().fullAnswer);
-        question.setText(flashCard.getQuestion().fullQuestion);
+        testanswer.setText(flashCard.getAnswer().fullAnswer);
+        testquestion.setText(flashCard.getQuestion().fullQuestion);
         setAnswerInvisible();
     }
 

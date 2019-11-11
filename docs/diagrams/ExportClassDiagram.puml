@@ -57,7 +57,7 @@ JsonImportUtil .. JsonExportPath
 
 
 
-ExportCommand "0..1" ------> "1" ExportPath LOGIC_COLOR
+ExportCommand "0..1" --> "1" ExportPath LOGIC_COLOR
 ImportCommand "0..1" --> "1" ExportPath LOGIC_COLOR
 
 ExportCommandParser .. ExportPath LOGIC_COLOR

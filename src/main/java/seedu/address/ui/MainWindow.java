@@ -244,7 +244,9 @@ public class MainWindow extends UiPart<Stage> {
                 handleHelp();
             }
 
-            if (commandResult.isShowStats()) {
+            if (!(commandResult.isShowStats())) {
+                statsWindow.hide();
+            } else {
                 handleStats();
             }
 
