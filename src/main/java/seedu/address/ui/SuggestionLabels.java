@@ -36,10 +36,11 @@ public enum SuggestionLabels {
     LIST_MENTOR_INSTRUCTION(new Text("(Lists all Mentors)")),
     LIST_TEAM_INSTRUCTION(new Text("(Lists all Teams)")),
 
-    //SCORE Instruction
+    //SCORE Instructio
     SCORE_ADD_INSTRUCTION(new Text("(Adds POINTS to Team with TEAM_ID)")),
     SCORE_SUB_INSTRUCTION(new Text("(Subtracts POINTS to Team with TEAM_ID)")),
     SCORE_SET_INSTRUCTION(new Text("(Set Team with TEAM_ID to obtain a SCORE)")),
+    SCORE_RESET_INSTRUCTION(new Text("(Set Team with TEAM_ID to a score of zero)")),
     LEADERBOARD_INSTRUCTION(new Text("(Lists all Teams from highest to lowest Score)")),
     GET_TOP_INSTRUCTION(new Text("(Lists the top NUMBER of Teams according to Score)")),
 
@@ -64,6 +65,8 @@ public enum SuggestionLabels {
     HELP_INSTRUCTION(new Text("(Opens a new Help Window)")),
 
     EXIT_INSTRUCTION(new Text("(Exits from application)")),
+
+    VIEW_INSTRUCTION(new Text("(Views a specific Entity)")),
 
     //Constants that are used as template(this Text is also indicative of command type)
 
@@ -96,6 +99,7 @@ public enum SuggestionLabels {
     SCORE_ADD(new Text("score add ")),
     SCORE_SUB(new Text("score sub ")),
     SCORE_SET(new Text("score set ")),
+    SCORE_RESET(new Text("score reset ")),
     LEADERBOARD(new Text("leaderboard ")),
     GET_TOP(new Text("getTop ")),
 
@@ -117,7 +121,9 @@ public enum SuggestionLabels {
     //OTHER Templates
     HELP(new Text("help ")),
 
-    EXIT(new Text("exit "));
+    EXIT(new Text("exit ")),
+
+    VIEW(new Text("view "));
 
     private final Text text;
 
