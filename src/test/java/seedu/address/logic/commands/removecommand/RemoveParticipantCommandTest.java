@@ -5,21 +5,13 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIds.ID_FIRST_PARTICIPANT;
 import static seedu.address.testutil.TypicalIds.ID_FIRST_TEAM;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.assigncommand.AssignParticipantCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.entity.Id;
-import seedu.address.model.entity.Location;
-import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Participant;
-import seedu.address.model.entity.PrefixType;
-import seedu.address.model.entity.Score;
-import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
 import seedu.address.stub.ModelManagerStub;
 import seedu.address.testutil.ParticipantBuilder;
@@ -113,7 +105,8 @@ public class RemoveParticipantCommandTest {
         modelStub.addParticipant(validParticipant);
 
 
-        RemoveParticipantCommand command = new RemoveParticipantCommand(validParticipant.getId(), TypicalTeams.A.getId());
+        RemoveParticipantCommand command =
+                new RemoveParticipantCommand(validParticipant.getId(), TypicalTeams.A.getId());
 
 
         assertThrows(
