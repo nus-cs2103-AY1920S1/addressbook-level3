@@ -239,16 +239,10 @@ image::tip.png[width = "20", float = "left"]
 --
 *Try it out!*
 
-* Want to customise your password? Don't worry, we've got that covered too. You can customise the following fields during generation:
+* Want to customise your password? Don't worry, we've got that covered too. You can customise the following fields:
 ** Length of password (Between 4 and 25)
 
-** Exclusion of lower alphabets
-
-** Exclusion of upper alphabets
-
-** Exclusion of numbers
-
-** Exclusion of special characters
+** Exclusion of lower alphabets | upper alphabets | numbers | special characters
 
 * Refer to usage format below for more details.
 
@@ -260,17 +254,12 @@ Please ensure **at least one character set  is included**.
 
 Format: `generate [length/LENGTH] [lower/FALSE] [upper/FALSE] [num/FALSE] [special/FALSE]`
 
-Example: `generate`
+Example: `generate` | `generate length/10` | `generate lower/false special/false`
 
-Example: `generate length/10`
+.Example user input (left) and resultant output (right) for generate.
+image::GeneratePassword.png[width="700"]
 
-Example: `generate lower/false special/false`
 
-.Example user input for generate password
-image::GeneratePasswordScreenShot0.png[width="500"]
-
-.Example outcome for generate password
-image::GeneratePasswordScreenShot1.png[width="500"]
 // end::generate[]
 
 // tag::analyse[]
@@ -285,13 +274,8 @@ image::tip.png[width = "20", float = "left"]
 --
 *Try it out!*
 
-* You can opt to view:
 
-** A general, summary security report for **all** passwords, or
-
-** A detailed security report for a **specific** password.
-
-* To view the detailed analysis of a particular password, simply add in the `strong` prefix with the `INDEX`
+* To view the detailed analysis of a particular password, simply add in the `strong` prefix with the `INDEX` of the password.
 
 [NOTE]
 `INDEX` used should be that of an existing password.
@@ -302,21 +286,14 @@ image::tip.png[width = "20", float = "left"]
 
 Format: `analyse [strong/INDEX]`
 
-Example: `analyse`
+Example: `analyse` | `analyse strong/8`
 
-Example: `analyse strong/8`
+.Example user input (left) and resultant output (right) for analyse.
+image::AnalysePassword.png[width="700"]
 
-.Example user input for analyse
-image::AnalysePasswordScreenShot0.png[width="500"]
+.Example user input (left) and resultant output (right) for analyse strong.
+image::AnalyseStrongPassword.png[width="700"]
 
-.Example outcome for analyse
-image::AnalysePasswordScreenShot1.png[width="500"]
-
-.Example user input for analyse strong
-image::AnalyseStrongPasswordScreenShot0.png[width="500"]
-
-.Example outcome for analyse strong
-image::AnalyseStrongPasswordScreenShot1.png[width="500"]
 
 // end::analyse[]
 
