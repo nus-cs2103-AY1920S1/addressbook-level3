@@ -44,6 +44,7 @@ LogicManager -->"1" SpendingBookParser
 SpendingBookParser .left.> XYZCommandParser: creates >
 SpendingBookParser .left.> ReminderCommandParser: creates >
 ReminderCommandParser .right.> XYZReminderCommandParser: creates >
+ReminderCommandParser .down.|> Parser
 
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
