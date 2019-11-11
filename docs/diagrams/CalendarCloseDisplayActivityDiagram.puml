@@ -1,0 +1,17 @@
+@startuml
+start
+:User executes close display command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([Valid date])
+    if () then ([Display is open])
+         :Close display;
+    else ([else])
+    endif
+else ([else])
+    :Exception thrown;
+endif
+stop
+@enduml

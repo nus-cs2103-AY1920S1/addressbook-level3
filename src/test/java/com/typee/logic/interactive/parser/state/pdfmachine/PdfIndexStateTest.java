@@ -1,5 +1,6 @@
 package com.typee.logic.interactive.parser.state.pdfmachine;
 
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_LIST_INDEX;
 import static com.typee.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -14,6 +15,8 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
 class PdfIndexStateTest {
+    public static final String EXPECTED_CONSTRAINTS = "Which engagement would you like to make a PDF of? Please enter "
+            + "the index of the engagement prefixed by " + PREFIX_LIST_INDEX.getPrefix() + ". Example - [i/4]";
     private PdfIndexState typicalPdfIndexState;
     @BeforeEach
     void setUp() {
@@ -77,8 +80,7 @@ class PdfIndexStateTest {
 
     @Test
     public void getStateConstraints() {
-        assertEquals(typicalPdfIndexState.getStateConstraints(), "PDF command initiated. Please enter the index of the"
-                + " engagement you would like to generate a report for. The index should be prefixed by \"i/\".");
+        assertEquals(EXPECTED_CONSTRAINTS, typicalPdfIndexState.getStateConstraints());
     }
 
     @Test

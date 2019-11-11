@@ -77,11 +77,11 @@ careful tweaks to existing structures.
 *** Managed milestones `v1.2` - `v1.4` on GitHub
 ** Enhancements to existing features:
 *** Updated part of the find feature (Pull request https://github.com/AY1920S1-CS2103T-F14-3/main[#111])
-*** Wrote additional tests for existing features to increase coverage from 50% to 65% (Pull requests https://github.com/AY1920S1-CS2103T-F14-3/main[#36], https://github.com/AY1920S1-CS2103T-F14-3/main[#38])
+*** Wrote additional tests for existing features to increase coverage from 50% to 65% (e.g. Pull requests https://github.com/AY1920S1-CS2103T-F14-3/main[#220], https://github.com/AY1920S1-CS2103T-F14-3/main[#212])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-F14-3/main[#14]
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-F14-3/main[#112]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F14-3/main[#69], https://github.com/AY1920S1-CS2103T-F14-3/main[#32]
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F14-3/main[#69]
 *** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S1/addressbook-level3[#11], https://github.com/nus-cs2103-AY1920S1/addressbook-level3[#1], https://github.com/nus-cs2103-AY1920S1/addressbook-level3[#13])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/brebeek/ped/issues[#1], https://github.com/brebeek/ped/issues[#2], https://github.com/brebeek/ped/issues[#3])
 

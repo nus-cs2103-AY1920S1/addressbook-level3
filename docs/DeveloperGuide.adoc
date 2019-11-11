@@ -44,14 +44,15 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of four components
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Game,*`Game`*>>: Holds game data.
 
-Each of the four components
+The first four components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -196,14 +197,14 @@ The following sequence diagram shows how the undo operation works:
 
 image::UndoSequenceDiagram.png[width="750", align="center"]
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `UndoCommand` and `UndoState` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 The `redo` command does the opposite -- it calls `Model#redoEngagementList()`, which shifts the `versionPointer` once to the right, pointing to the previously undone state, and restores the engagement list to that state.
 
 [NOTE]
 If the `versionPointer` is at index `historyList.size() - 1`, pointing to the latest engagement list state, then there are no undone engagement list states to restore. The `redo` command uses `Model#hasNoRedoableCommand()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `sort start ascending`. Commands that do not modify the engagement list, such as `sort`, will usually not call `Model#saveEngagementList()`, `Model#undoEngagementList()` or `Model#redoEngagementList()`. Thus, the `historyList` remains unchanged.
+Step 5. The user then decides to execute the command `sort p/start o/ascending`. Commands that do not modify the engagement list, such as `sort`, will usually not call `Model#saveEngagementList()`, `Model#undoEngagementList()` or `Model#redoEngagementList()`. Thus, the `historyList` remains unchanged.
 
 image::UndoRedoState4.png[width="450", align="center"]
 
@@ -326,49 +327,165 @@ Table below explains the components that are included in the `ReportWindow` with
 |===
 //end::report[]
 
-=== Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
-
-[[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+// tag::calendar[]
 
 === Calendar Window
 
-The calendar window provides a visual representation of stored engagements over a monthly period.
+The `CalendarWindow` provides a visual representation of stored engagements over a monthly period.
 Users can choose to change the month being displayed and also open scrolling text windows which
 show more detailed descriptions of the stored engagements for a particular day.
 
 ==== Implementation Structure
 .Structure of the Calendar Window
-image::CalendarWindowClassDiagram.png[]
-
+image::CalendarWindowClassDiagram.png[align="center"]
+{empty} +
 The `CalendarWindow` is part of the `MainWindow`. Specifically, it is one possible `Tab` which can be
 displayed. The `CalendarWindow` class and any of its associated UI components can be found under the `com.typee.ui.calendar` package.
 
+The following sequence diagram shows the creation of a `CalendarWindow` instance when the user switches to the
+calendar window tab.
+
 .CalendarWindow Initialization Sequence Diagram
-image::CalendarWindowSequenceDiagram.png[]
+image::CalendarWindowSequenceDiagram.png[align="center"]
+{empty} +
 
-The controller is set after constructing the `CalendarWindow` because there were some issues with
-using constructors containing at least one argument.
+==== UI Design
+The `CalendarWindow` class was designed with the observer pattern in mind. The calendar's display and any open engagements
+list windows are automatically updated as engagements are added to or deleted from the application. `CalendarDateCell` and
+`EngagementListViewCell` both have a reference to an `ObervableList` of engagements in order to conform to the observer pattern.
+The following table shows all UI components which are used and their respective purposes.
 
-=== Game Window
+.Calendar Window UI Components
+[%header, cols=4*]
+|===
+|
+|UI Component Type
+|Feature
+|Purpose
+
+| `DateDisplayGrid`
+| GridPane
+| Displays a grid which represents 35 calendar dates.
+| Shows the user the days of the month which is currently being displayed.
+
+| `CalendarDateStackPane`
+| StackPane
+| Displays the date of a single `CalendarDateCell` and the number of engagements for that date.
+| Provides the user with some general engagement information for a particular date.
+
+| `PreviousMonthButton`
+| Button
+| Switches the calendar's display to the previous month.
+| Allows the user to navigate to the previous month.
+
+| `CalendarTitle`
+| Text
+| Indicates the month and year currently being displayed by the calendar window.
+| Informs the month and year currently being displayed by the calendar window.
+
+| `NextMonthButton`
+| Button
+| Switches the calendar's display to the next month.
+| Allows the user to navigate to the next month.
+
+| `EngagementListView`
+| ListView
+| Displays a list of engagements for a particular date.
+| Lets the user see more detailed information about all of his/her engagements for a particular date
+
+| `EngagementListViewCell`
+| ListCell
+| Displays information for a single engagement.
+| Allows the user to see detailed information about a single engagement. This is used as the cell factory for ListView.
+
+|===
+
+==== Command Execution Workflows
+
+The following are the four commands which interact with `CalendarWindow`. They are accompanied by their respective activity diagrams
+which are used to model their workflows:
+
+* `CalendarOpenDisplayCommand` -- Opens the engagements list window for the specified date.
+
+.Open Display Activity Diagram
+image::CalendarOpenDisplayActivityDiagram.png[align="center"]
+{empty} +
+
+* `CalendarCloseDisplayCommand` -- Closes the engagements list window for the specified date.
+
+.Close Display Activity Diagram
+image::CalendarCloseDisplayActivityDiagram.png[align="center"]
+{empty} +
+
+* `CalendarNextMonthCommand` -- Changes the calendar window's display to the month after the currently displayed month.
+
+.Next Month Activity Diagram
+image::CalendarNextMonthActivityDiagram.png[align="center"]
+{empty} +
+
+* `CalendarOpenDisplayCommand` -- Changes the calendar window's display to the month prior to the currently displayed month.
+
+.Previous Month Activity Diagram
+image::CalendarPreviousMonthActivityDiagram.png[align="center"]
+{empty} +
+
+==== Design Considerations
+
+===== Aspect: Deciding whether to let engagements list windows from other months remain open when changing the displayed month
+
+* **Alternative 1 (current choice):** Only engagements list windows from the current month can be opened. Switching to other months
+causes all opened engagements list windows to be closed.
+** Pros: Easier to implement and does not take up much memory.
+** Cons: Does not let users view engagement lists from different months simultaneously.
+* **Alternative 2:** Letting engagements list windows remain open, regardless of the month, until they are closed by users.
+** Pros: Users are able to view side-by-side comparisons of their engagement lists across different months.
+** Cons: Introduces additional dependencies because many references to `ObervableList` instances must be maintained.
+
+===== Aspect: Information being displayed in each calendar cell
+
+* **Alternative 1 (current choice):** Only display the number of engagements for each date.
+** Pros: Does not take up a lot of on-screen space. More detailed information about each day's engagements can be viewed
+by opening the engagements list window for that particular date.
+** Cons: The information shown in the calendar window is very generalized.
+* **Alternative 2:** Display the descriptions (and maybe more detailed information) of each date's engagements.
+** Pros: Shows more detailed information in the calendar window.
+** Cons: Might end up distorting the shape of the calendar window's cells since some engagements have more information than others.
+The alternative would be to add fixed constraints to the size of each cell but then information would get cut off.
+// end::calendar[]
+
+
+
+// tag::typinggame[]
+
+=== Game Feature
+==== Implementation
+The game feature is implemented using the singleton pattern using the singleton class `GameWindow` which is created
+by button-click in `StartWindow`. This means that there can only be one `gameInstance` at any given time with the exception
+of the game being over.
+
+//image::GameActivityDiagram.png[float="left"]
+image::GameActivityDiagram.png[]
+
+`GameWindow` has three main components `PlayerInformation`, `GameBody` and `Player`.
 
 .Structure of the Game Window
 image::GameWindowClassDiagram.png[]
+
+The component `GameBody` makes use of `javafx.animation.AnimationTimer` API to continuously loop `MovingWords` objects moving from top
+to bottom of the window using `GameBody#loopWords()`. `MovingWords` are created using
+`HighlighterUtil#convertToTextFlowUsing(String word)`
+, which appears as a `TextFlow` object of `javafx.scene.text` API.
+
+Player input is represented as  a `javafx.beans.property.StringProperty` in `Player`.
+Based on player input, `MovingWords` are updated using
+`HighlighterUtil#convertToTextFlowUsing(String playerInput, String word)`
+, which appears as a highlighted `TextFlow` object. In order to update the `MovingWords` object, the API
+`javafx.animation.AnimationTimer` is used by calling `MovingWords#continuouslyUpdate()`.
+
+The component `PlayerInformation` is bound to `Player` using `javafx.beans.property` API and is also updated when
+`MovingWords#continuouslyUpdate()` is called.
+
+The table below summarises the various purposes of the 3 main Game Window UI components.
 
 .Game Window UI Components
 [%header, cols=4*]
@@ -394,6 +511,24 @@ image::GameWindowClassDiagram.png[]
 | To allow user to know the next word to type.
 |===
 
+==== Design Considerations
+
+===== Aspect: Singleton pattern design of Game Window
+
+* **Alternative 1 (current choice):** Game Window with Singleton pattern design
+** Pros: +
+*** Prevent users from instantiating multiple Game Windows which may cause performance issues or even cause the application
+to crash.
+** Cons:
+*** Reduced testability as it is difficult to replace Singleton objects with stubs, and increased coupling across code base.
+
+* **Alternative 2:** Game Window without Singleton pattern design
+** Pros: Increased testability and reduced coupling.
+** Cons: There could be the risk of users being able to instantiate hundreds or thousands of GameWindows which would cause
+performance issues or application crash issues.
+
+// end::typinggame[]
+
 //tag::sort[]
 === Sort feature
 ==== Implementation
@@ -416,15 +551,17 @@ Step 1. The user launches the application for the first time. The `currentCompar
 
 image::SortListState0.png[width="450", align="center"]
 
-Step 2. The user executes `sort priority ascending` command to sort the engagement list in ascending order of priority. The `sort` command calls `Model#setComparator()`, causing the `currentComparator` in ModelManager to assume the value `EngagementComparator#PRIORITY`. The command then calls `Model#updateSortedEngagementList` to execute the sorting.
+Step 2. The user executes `sort p/priority o/ascending` command to sort the engagement list in ascending order of priority. The `sort` command calls `Model#setComparator()`, causing the `currentComparator` in ModelManager to assume the value `EngagementComparator#PRIORITY`. The command then calls `Model#updateSortedEngagementList` to execute the sorting.
 
 image::SortListState1.png[width="450", align="center"]
+
+NOTE: The parsing of `sort` follows the interactive parsing structure *_Typee_* adopts, where various stages are created while parsing. See Sequence Diagram below.
 
 The following sequence diagram shows how the sort operation works:
 
 image::SortSequenceDiagram.png[width="750", align="center"]
 
-NOTE: The lifeline for `SortCommand` and `SortCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `SortCommand` and the 3 Stages should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 Step 3. The user executes `add d/meeting ... p/high` to add a new engagement. The `add` command also calls `Model#updateSortedEngagementList()` with `currentComparator`, causing the execution of sorting after the new engagement is added to the list, to preserve the current ordering.
 
@@ -452,6 +589,26 @@ image::SortUpdateActivityDiagram.png[width="190", align="center"]
 ** Pros: Sorting the list is more intuitive, and the ordering of the engagements is automatically preserved whenever a command that modifies the list elements is executed.
 ** Cons: Features like `find` command may lose functionality and needs extra modification.
 //end::sort[]
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
@@ -762,6 +919,7 @@ Use case resumes at step 1.
 Use case resumes at step 1.
 
 //Updated by Jun Hao
+//tag::use-case-game[]
 [discrete]
 === Use case: (UC14) Typing game
 
@@ -782,6 +940,7 @@ Use case ends.
 * 2a. User exits game
 +
 Use case ends.
+//end::use-case-game[]
 
 [discrete]
 //Updated by Ko Gi Hun 30/09/19

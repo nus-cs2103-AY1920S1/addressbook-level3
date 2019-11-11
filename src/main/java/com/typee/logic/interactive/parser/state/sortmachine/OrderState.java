@@ -16,13 +16,15 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
  */
 public class OrderState extends PenultimateState {
 
-    private static final String MESSAGE_CONSTRAINTS = "Please enter the ordering to be followed,"
-            + " prefixed by \"o/\". Accepted orderings are \"ascending\" and \"descending\".";
+    private static final String MESSAGE_CONSTRAINTS = "Which ordering would you like to sort by? Please enter the"
+            + " ordering prefixed by " + PREFIX_ORDER.getPrefix()
+            + ". Example - [o/ascending]";
+    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter a valid sort order "
+            + "after " + PREFIX_ORDER.getPrefix() + ". The allowed orderings are \"ascending\" and \"descending\".";
+
     private static final String KEYWORD_ASCENDING_ORDER = "ascending";
     private static final String KEYWORD_DESCENDING_ORDER = "descending";
-    private static final String MESSAGE_MISSING_KEYWORD = "Invalid input! Please enter a valid sort order "
-            + "after \"o/\". The allowed orderings are ascending and descending.";
-    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Sort order can be ascending or descending.";
+
 
     protected OrderState(ArgumentMultimap soFar) {
         super(soFar);
@@ -44,7 +46,7 @@ public class OrderState extends PenultimateState {
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> order)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);
-        requireKeywordPresence(order, MESSAGE_MISSING_KEYWORD);
+        requireKeywordPresence(order, MESSAGE_INVALID_INPUT);
         enforceValidity(order);
     }
 

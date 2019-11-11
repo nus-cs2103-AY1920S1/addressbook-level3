@@ -1,0 +1,23 @@
+@startuml
+start
+:User executes open display command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([Valid date])
+    if () then ([Same month and year])
+    else ([else])
+        :Close all open displays;
+        : Switch to specified month and year;
+    endif
+    if () then ([Display for specified date is already open])
+        :Focus on display window;
+    else ([else])
+        :Open display window;
+    endif
+else ([else])
+    :Exception thrown;
+endif
+stop
+@enduml

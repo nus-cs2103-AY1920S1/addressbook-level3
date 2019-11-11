@@ -4,20 +4,20 @@
 actor User
 
 box UI UI_COLOR_T1
-participant ":UI" as UI UI_COLOR
+participant ":MainWindow" as MainWindow UI_COLOR
 participant ":Tab" as Tab UI_COLOR
 participant ":CalendarWindow" as CalendarWindow UI_COLOR
-participant ":IndividualDatePane" as IndividualDatePane UI_COLOR
+participant ":CalendarDateCell" as CalendarDateCell UI_COLOR
 end box
 
 box Logic LOGIC_COLOR_T1
 participant ":Logic" as Logic LOGIC_COLOR
 end box
 
-User -> UI: "tab calendar"
-activate UI
+User -> MainWindow: "tab c/calendar"
+activate MainWindow
 
-UI -> Logic: execute("tab calendar")
+MainWindow -> Logic: execute("tab calendar")
 activate Logic
 
 create Tab
@@ -27,57 +27,79 @@ activate Tab
 Tab --> Logic
 deactivate Tab
 
-Logic --> UI
+Logic --> MainWindow
 deactivate Logic
 
-UI -> UI: fetchTabInformation(tabName)
-activate UI
+MainWindow -> MainWindow: fetchTabInformation(tabName)
+activate MainWindow
 
 create CalendarWindow
-UI -> CalendarWindow
+MainWindow -> CalendarWindow: new CalendarWindow(logic.getFilteredEngagementList())
 activate CalendarWindow
 
-CalendarWindow --> UI
-deactivate CalendarWindow
-
-UI -> CalendarWindow: setLogic(Logic)
-activate CalendarWindow
-
-CalendarWindow --> UI
-deactivate CalendarWindow
-
-UI -> CalendarWindow: populateCalendar()
+CalendarWindow -> CalendarWindow: initializeUiDisplay()
 activate CalendarWindow
 
 loop 35 times
-    create IndividualDatePane
-    CalendarWindow -> IndividualDatePane
-    activate IndividualDatePane
 
-    IndividualDatePane --> CalendarWindow
-    deactivate IndividualDatePane
+    create CalendarDateCell
+    CalendarWindow -> CalendarDateCell
+    activate CalendarDateCell
+
+    CalendarDateCell --> CalendarWindow
+    deactivate CalendarDateCell
+
 end
 
-loop 35 times
-    CalendarWindow -> IndividualDatePane: add(engagements)
-    activate IndividualDatePane
-
-    IndividualDatePane --> CalendarWindow
-    deactivate IndividualDatePane
-end
-
-CalendarWindow --> UI
+CalendarWindow --> CalendarWindow
 deactivate CalendarWindow
 
-deactivate UI
+CalendarWindow -> CalendarWindow: populateCalendar()
+activate CalendarWindow
 
-UI -> Tab: setController(calendarWindow)
+loop 35 times
+
+    CalendarWindow -> CalendarDateCell: setDate(date)
+    activate CalendarDateCell
+
+    CalendarDateCell --> CalendarWindow
+    deactivate CalendarDateCell
+
+    loop For engagements in the engagements list
+
+        opt Engagement has same date as CalendarDateCell
+            CalendarWindow -> CalendarDateCell: add(engagement)
+            activate CalendarDateCell
+
+            CalendarDateCell --> CalendarWindow
+            deactivate CalendarDateCell
+        end
+
+    end
+
+    CalendarWindow -> CalendarDateCell: updateEngagementCountDisplay()
+    activate CalendarDateCell
+
+    CalendarDateCell --> CalendarWindow
+    deactivate CalendarDateCell
+
+end
+
+CalendarWindow --> CalendarWindow
+deactivate CalendarWindow
+
+CalendarWindow --> MainWindow
+deactivate CalendarWindow
+
+deactivate MainWindow
+
+MainWindow -> Tab: setController(calendarWindow)
 activate Tab
 
-Tab --> UI
+Tab --> MainWindow
 deactivate Tab
 
-UI --> User
-deactivate UI
+MainWindow --> User
+deactivate MainWindow
 
 @enduml

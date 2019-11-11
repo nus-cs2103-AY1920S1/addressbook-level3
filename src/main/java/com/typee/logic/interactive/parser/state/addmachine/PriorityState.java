@@ -18,10 +18,10 @@ import com.typee.model.engagement.Priority;
  */
 public class PriorityState extends PenultimateState {
 
-    private static final String MESSAGE_CONSTRAINTS = "The priority of an engagement can be LOW, MEDIUM, HIGH or NONE."
-            + " Please enter the priority prefixed by \"p/\".";
-    private static final String MESSAGE_MISSING_KEYWORD = "Invalid input! Please enter the priority prefixed by"
-            + " \"p/\". The priority can be one of LOW, MEDIUM, HIGH or NONE.";
+    private static final String MESSAGE_CONSTRAINTS = "How important is this engagement? Please enter a valid priority"
+            + " level prefixed by " + PREFIX_PRIORITY.getPrefix() + ". Example - [p/High]";
+    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter a valid priority level prefixed by"
+            + " " + PREFIX_PRIORITY.getPrefix() + ". The priority must be one of LOW, MEDIUM, HIGH or NONE.";
 
     protected PriorityState(ArgumentMultimap soFar) {
         super(soFar);
@@ -43,7 +43,7 @@ public class PriorityState extends PenultimateState {
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> priority)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);
-        requireKeywordPresence(priority, MESSAGE_MISSING_KEYWORD);
+        requireKeywordPresence(priority, MESSAGE_INVALID_INPUT);
         enforceValidity(priority);
     }
 

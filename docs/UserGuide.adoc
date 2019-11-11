@@ -38,16 +38,16 @@ image::Ui.png[width="750"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : Lists all appointments.
+* *`list`* : Lists all engagements.
 * **`tab` ** `b/game` : Switches main window to start window of the game.
-* **`add`** `t/appointment s/09/11/2019/1200 e/09/11/2019/1330 l/NUS a/Ben|Tom d/Meeting on Monday p/HIGH` : +
+* **`add`** `t/appointment s/09/11/2019/1200 e/09/11/2019/1330 l/NUS d/Meeting on Monday a/Ben|Tom p/HIGH` : +
 Adds an engagement to the engagements list with the following details: +
 Engagement type: Appointment +
 Start time: 09/11/2019 at 1200 hours +
 End time: 09/11/2019 at 1330 hours +
 Location: NUS +
-Attendees: Ben and Tom +
 Description: Meeting on Monday +
+Attendees: Ben and Tom +
 Priority: High +
 * **`pdf` ** `i/1 t/Jason f/Harry`: Generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
 * **`delete`** `i/3` : Deletes the 3rd appointment shown in the current list.
@@ -65,6 +65,187 @@ Format: `help`
 
 User can simply type in the `help` command in the input text area to gain additional information of the usage of our application. +
 Once `help` command is executed, system will pop out a dialog window that includes our development web page and some examples of the commands.
+
+//tag::interactive-parsing[]
+=== Interactive Parsing
+
+==== About
+
+Typically, engagement managing software require users to enter the entire command in one shot.
+
+For example, a user that wishes to add a meeting must type out the following: -
+`add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
+
+This can prove to be rather tedious and cumbersome as users must remember every detail of a command.
+
+Typee overcomes this by allowing users to interact with its interface and build commands sequentially. Users just need
+to type the relevant command word to get prompted about subsequent inputs.
+
+.The interactive component of Typee is highlighted above.
+image::interactive_parsing_0.png[width='520']
+{empty} +
+
+With interactive parsing, the aforementioned 'Add' command reduces to the following sequence of inputs: -
+```
+add
+t/meeting
+s/16/11/2019/1500
+e/16/11/2019/1600
+l/Meeting Room 2
+d/Team Meeting
+a/John | Smith
+p/High
+```
+
+.Typee's prompt in response to the user entering `add`
+image::interactive_parsing_1.png[height='90' width="800"]
+{empty} +
+
+Experienced users that have a grasp of the structure and format of various commands can also benefit from this feature.
+Interactive parsing allows multiple arguments to be input simultaneously, as long as the entered arguments adhere to a
+set of rules detailed in a later subsection.
+
+The same 'Add' command can be constructed this way by a fairly experienced user: -
+```
+add t/meeting
+s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2
+d/Team Meeting
+a/John | Smith p/High
+```
+
+.A user about to pass 3 arguments to Typee in one input, following `add`.
+image::interactive_parsing_2.png[height='90' width='800']
+{empty} +
+
+.Typee's response to the above input.
+image::interactive_parsing_3.png[height='90' width='800']
+{empty} +
+
+Finally, a highly experienced user can create an 'Add' command in the conventional manner, i.e. by typing out
+the entire command at once. This is identical to the format introduced in the beginning of this section: -
+`add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
+
+
+==== Supported Commands
+
+*All commands* are parsed and built interactively. Each command, however, adheres to its own structure. Individual commands'
+structures and idiosyncrasies are detailed in the sections belonging to the respective commands.
+
+In general, commands are of two types - *static* and *dynamic*.
+
+At any point of time, the user can enter `// current` to view the current input constraints and
+input `// clear` to stop parsing the current command. These are examples of *dynamic* commands.
+
+Static commands are executed one at a time, whereas dynamic commands can be built at any point of time, even while
+parsing an ongoing static command.
+
+Examples:
+
+'Add' and 'Delete' are static commands. The following input sequence is invalid: -
+```
+add t/meeting
+delete
+```
+
+'Help' and 'Exit' are dynamic commands. Therefore, the following input sequence is *valid*: -
+
+```
+add t/meeting
+help
+s/11/01/2019/1500
+exit
+```
+
+[NOTE]
+Calling another dynamic command in the midst of building a `Tab` command will erase the details of the command preceding
+'Tab'. This happens if the command preceding `Tab` isn't fully built. +
+For example: `add t/meeting` `tab` `// current` `b/calendar` will erase the information of the add command.
+
+==== Valid Input Sequences
+
+Valid input sequences can be one of three types.
+
+* One argument per input - `add` `t/meeting` ... `p/high`
+* Entire command in an input - `add t/meeting s/11/01/2019/1600 ... p/High`
+* More than one argument, but not the entire command in an input - `add t/meeting` `s/11/01/2019/1600 e/11/01/2019/1700` ...
+
+After the last argument is specified, the required command is built and executed, carrying out the operation
+intended by the user.
+
+*The order of arguments entered is important*. Consider the 'Add' command. The ideal ordering is as follows: -
+`add t/ s/ e/ l/ d/ a/ p/`
+
+When users resort to any of the three aforementioned forms of supplying arguments, they are required to conform to the
+specified ordering.
+
+When the arguments aren't in order, then the input is *parsed as far as possible, in the expected order of the arguments*.
+
+For example, `add t/meeting l/Meeting Room 2` is parsed till the argument for `t/`. The parameter location is deemed
+invalid and the user is prompted to enter a start date-time.
+
+This happens because the parser expects an argument for `s/`, but there is no such argument.
+As a consequence, all arguments that are supposed to be entered after `s/` (like `l/`) are not parsed.
+
+.Typee's response to `add t/meeting l/Meeting Room 2`.
+image::interactive_parsing_6.png[width='800' height='90']
+{empty} +
+
+
+Similarly, `add t/meeting s/15/01/2019/1500 d/desc p/low` is parsed till `s/` and a prompt is raised to enter a valid end date-time, leaving `d/`
+and `p/` untouched.
+
+.Typee's response to `add t/meeting s/15/01/2019/1500 d/desc p/low`.
+image::interactive_parsing_7.png[width='800' height='90']
+{empty} +
+
+
+[NOTE]
+There lies a quirk with respect to the ordering of inputs if the parser has sufficient arguments. +
+Consider the case when the user inputs `add t/meeting e/15/11/2019/1500 s/15/11/2019/1400`. This input is deemed *valid* even
+though `e/` and `s/` are flipped. This is because after 't/', the parser expects to find an `s/`, which is in-turn contained in the input.
+
+
+*Thus, to summarize, the parser continues parsing in the order of the expected arguments, as long as the corresponding prefixes are found in the input.*
+
+==== Erroneous Inputs
+
+Erroneous inputs occur in three mutually exclusive categories.
+
+* Inputs with invalid arguments
+* Inputs with multiple arguments for the same parameter.
+* Inputs with valid arguments, but irrelevant additional arguments.
+
+An example of the first case is as follows: `add t/teeming`. "Teeming" is an invalid engagement type. Typee flags this inaccuracy
+and prompts the user to enter an acceptable engagement type instead. Since Typee has already begun building an 'Add' command,
+the subsequent input must begin with `t/...`
+
+.A user about to enter an invalid input.
+image::interactive_parsing_4.png[height='90' width='800']
+{empty} +
+
+.Typee's response to the invalid input.
+image::interactive_parsing_5.png[height='90' width='800']
+{empty} +
+
+
+Attempting to replace the argument for a parameter or supply different arguments to the same parameter will result in Typee rejecting
+the user input.
+
+For example, the input `add t/meeting t/interview` will be rejected.
+
+The following sequence will also be rejected since it attempts to overwrite an argument.
+```
+add
+t/meeting
+s/15/11/2019/1500
+t/interview
+```
+
+Last but not least, Typee will reject cases wherein the user supplies excessive and irrelevant arguments.
+`add t/meeting s/16/11/2019/1600 e/16/11/2019/1700 l/COM-1 d/Meeting a/Damith p/High o/High` will be rejected because `o/`
+is not a parameter for the 'Add' command.
+
+//end::interactive-parsing[]
 
 // tag::tab-command[]
 === Switch to different windows: `tab`
@@ -94,44 +275,112 @@ Users who prefer using mouse over typing can alternatively click the green tabs 
 
 image::tab_2.png[width="800"]
 
+Users can start building a command in one tab, switch tabs midway and finish building the command in another tab.
+This can be achieved by the following sequence of inputs.
+```
+add
+t/meeting s/15/11/2019/1600 e/15/11/2019/1700
+tab
+b/calendar
+l/COM-1 d/Meeting a/Damith p/High
+```
+
 
 //end::tab-command[]
 
-=== Adding an appointment: `add`
+=== Adding an engagement: `add`
 
-Adds an engagement to the system. Engagement can be in different types; `Engagement`, `Meeting` and `Interview` +
-Format: `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION a/ATTENDEES d/DESCRIPTION p/PRIORITY`
+Adds an engagement to the system. There are three types of engagements; `Appointment`, `Meeting` and `Interview` +
+Format: `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION d/DESCRIPTION a/ATTENDEES[Separated by '|'] p/PRIORITY`
 
 .Enters Add Engagement Command in Command Input Text field.
-image::add_1.png[width="800"]
+image::add_1.png[width="800" height='90']
+{empty} +
 
 Examples:
 
-* `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John, Elijah, Sam d/CS2103T Discussion p/High` +
+* `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 d/CS2103T Discussion a/John | Elijah | Sam p/High` +
 Adds an engagement with following information;
 ** Engagement Type: Meeting
 ** Start Time: 18/10/2019/1500
 ** End Time: 18/10/2019/1800
 ** Location: COM-2-B1-03
-** Attendees: John, Elijah, Sam
 ** Engagement Description: CS2103T Discussion
+** Attendees: John, Elijah, Sam
 ** Priority: High
 
-After user enters the above command, system will save the engagement information and displays the brief engagement information as a list item on the List View.
+After user enters the above command, Typee will store the information and append it to the displayed list of engagements.
 
 .Engagement successfully saved in system storage.
 image::add_2.png[width="800"]
+{empty} +
 
-=== Listing all appointments : `list`
+[TIP]
+The arguments to this command can be entered sequentially, leveraging the interaction offered by Typee. +
+Example: `add` `t/meeting` `s/11/11/2019/1500` ... `p/High`
 
-Lists all appointments. +
+The table below summarizes the parameters of the add command.
+
+[%header, cols=3*]
+|===
+|Parameter
+|Prefix
+|Constraints
+
+|Engagement type
+|`t/`
+|Engagements must be one of 'meeting', 'appointment' or 'interview'.
+
+|Start Date-Time
+|`s/`
+|This is when the engagement to be added begins. +
+The start date-time must be entered in the `dd/MM/yyyy/HHmm` format.
+
+|End Date-Time
+|`e/`
+|This is when the engagement to be added ends. +
+The end date-time must be entered in the `dd/MM/yyyy/HHmm` format and occur *after* the start time.
+
+|Location
+|`l/`
+|The location of the engagement. The location must be non-empty.
+
+|Description
+|`d/`
+|A brief description of what the engagement is about. The description must be non-empty.
+
+|Attendees
+|`a/`
+|The list of people who will be present at the engagement. Individuals must be separated by
+a vertical line.
+
+|Priority
+|`p/`
+|Priority level of the engagement. The priority level can be one of 'Low', 'Medium', 'High' or 'None'.
+|===
+
+If the engagement to be added clashes with an existing one, the user will be notified of the add command's rejection. +
+An engagement clashes with another engagement if *all* of the below conditions are satisfied:
+
+* There is an overlap in the time-slot occupied by the engagements.
+* The engagements are held at the same location
+
+[NOTE]
+The list of attendees *does not* represent unique people. This is why attendees aren't considered in engagement conflict resolution.
+
+
+=== Listing all engagements : `list`
+
+Lists all engagements. +
 Format: `list`
 
-//tag::sort[]
-=== Sorting all appointments : `sort`
+This command is useful in retrieving the original engagement list after executing commands that modify the viewed list, like `find`.
 
-Sorts the list of all appointments in the appointment list by the order specified by user. +
-Format: `sort p/ PROPERTY o/ORDER`
+//tag::sort[]
+=== Sorting all engagements : `sort`
+
+Sorts the list of all engagements in the engagement list by the order specified by user. +
+Format: `sort p/PROPERTY o/ORDER`
 
 [TIP]
 Properties supported: `start` (Start time), `end` (End time), `priority` and `description` +
@@ -163,41 +412,120 @@ TIP: `sort` command can be done in one shot by giving all attributes at once. e.
 image::after-oneshot-sort.png[width="450"]
 
 [TIP]
-After sorting, commands that require INDEX as an input field (e.g. `delete`) will take in INDEX with regards to the new list  displayed. e.g. `delete 1` will delete the current first engagement displayed.
+After sorting, commands that require INDEX as an input field (e.g. `delete`) will take in INDEX with regards to the new list  displayed. e.g. `delete i/1` will delete the current first engagement displayed.
 //end::sort[]
 
-=== Deleting an appointment : `delete`
+=== Locating engagements by attendee, description, location and priority: `find`
 
-Deletes the specified appointment from the engagement list. +
-Format: `delete INDEX`
+Finds engagements whose names contain any of the given keywords. Engagements can be in different types: `Appointment`, `Meeting` and `Interview`.
+Searches can be interactive or non-interactive.
+
+Format: `find TAG/KEYWORD`
+
+Valid tags: `d/`, `l/`, `a/`, `p/` +
+
+With interactive parsing, the `find` command reduces to the following sequence of inputs:
+
+```
+find
+d/Singapore based a/Hans
+```
+The non-interactive equivalent of this sequence is `find d/Singapore based a/Hans`.
+
+```
+find
+l/Com Basement
+```
+The non-interactive equivalent of this sequence is `find l/Com Basement`.
+
+[%header, cols=3*]
+|===
+|Search parameter
+|Tag
+|Notes
+
+|Description
+|`d/`
+|Engagements containing description keyword will be returned. e.g. `find d/Singapore based` will return
+all engagements containing the description `Singapore based`. +
+e.g. `singapore based internship appointment`, `Singapore based project meeting`
+
+|Location
+|`l/`
+|Only exact full words will be matched e.g. `find l/Com Basement` is not equivalent to `find l/Com Basement Room 6`
+
+|Attendees
+|`a/`
+|Engagements containing attendee keyword will be returned. e.g. `find a/Hans` will return
+all engagements containing the attendee `Hans`. +
+e.g. `Hansen Gruber`, `hans christian`
+
+|Priority
+|`p/`
+|Finds engagements according to priority. e.g.`find p/High`, `find p/Medium`, `find p/Low`, `find p/None`
+|===
+
+****
+* All search are case insensitive. e.g `find a/hans` is equivalent to `find a/Hans`
+* At least one search parameter should be specified.
+* The order of the prefixes does not matter. e.g. `find a/Hans Bo p/high` is equivalent to `find p/high a/Hans`
+* Similarly, the two sequences below are similar.
+```
+find
+a/Hans d/Singapore based
+```
+```
+find
+d/Singapore based a/Hans
+```
+More examples:
+
+* `find a/John` +
+Returns engagements with `john` or `John Doe`
+```
+find
+a/Betsy d/Project Meeting l/NUS p/None
+```
+Returns any engagement having attendee `Betsy`, description `Project Meeting`, location `NUS`, and priority `None`.
+****
+
+=== Deleting an engagement : `delete`
+
+Deletes the specified engagement from the engagement list. +
+Format: `delete i/INDEX`
 
 ****
 * Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed appointment list.
+* The index refers to the index number shown in the displayed engagement list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd appointment in the appointment manager.
-* `find meeting` +
-`delete 1` +
-Deletes the 1st appointment in the results of the `find` command.
+```
+list
+delete i/2
+```
+Deletes the 2nd engagement in the engagement manager.
+```
+find p/Low
+delete i/1
+```
+Deletes the 1st engagement in the results of the `find` command.
 
 === Clearing all entries : `clear`
 
-Clears all appointments from the appointment manager. +
+Clears all engagements from the engagement manager. +
 Format: `clear`
 
 //tag::undo-redo[]
+
 === Undoing the previous command : `undo`
 Undoes the previous command, provided that it exists. +
 Format: `undo`
 
 [TIP]
-Undo supports the following commands that modify the engagement list: `add`, `edit`, `delete` and `clear`.
+Undo supports the following commands that modify the engagement list: `add`, `delete` and `clear`.
 
 Examples:
 
@@ -205,14 +533,14 @@ Examples:
 `undo` +
 Undoes the add command, i.e. the engagement with the description `CS2103T Discussion` will no longer be in the appointment manager.
 
-* `delete 1` +
+* `delete i/1` +
 `undo` +
 Undoes the delete command, i.e. restores the first engagement in the original displayed list.
 
 [.float-group]
 [.clearfix]
 --
-.Engagement list before the command `delete 1`
+.Engagement list before the command `delete i/1`
 image::after-list.png[width="450", float="left"]
 [.left]
 .Engagement list after deletion
@@ -228,11 +556,11 @@ Format: `redo`
 
 Examples:
 
-* `delete 1` +
-`undo` (reverts the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `delete i/1` +
+`undo` (reverts the `delete i/1` command) +
+`redo` (reapplies the `delete i/1` command) +
 
-Redoes the previous undo command, i.e. the appointment deleted before `undo` will be removed again from the appointment manager.
+Redoes the previous undo command, i.e. the engagement deleted before `undo` will be removed again from the engagement manager.
 
 [.clearfix]
 --
@@ -243,6 +571,8 @@ image::undo-result.png[width="450", float="left"]
 image::redo-result.png[width="450"]
 --
 //end::undo-redo[]
+
+// tag::calendar[]
 
 === Displaying the list of engagements for a specified date (calendar view only): `calendar c/opendisplay`
 Opens a separate window displaying the list of engagements for the specified date. Only one such window is allowed per date.
@@ -264,7 +594,7 @@ The calendar's display then switches to December 2019 and the engagement list wi
 This command does not work if the application is in another tab or the specified date is invalid.
 
 .Engagement list for 01/11/2019
-image::calendar-open-display.png[width="450"]
+image::calendar-open-display.png[width="450", align="center"]
 {empty} +
 The above calendar window opens up after entering `calendar c/opendisplay d/29/10/2019` into the input box while in the
 calendar view for November 2019. This does not change the display to October 2019 because 29/10/2019 is displayed in
@@ -286,7 +616,7 @@ application is in another tab or if attempting to go above the maximum allowable
 Format: `calendar c/nextmonth`
 
 .Changing to the next month from November 2019
-image::calendar-next-month.png[width="450"]
+image::calendar-next-month.png[width="450", align="center"]
 {empty} +
 Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
 to change the display to the next month. The button will not work if the calendar is displaying December 9999.
@@ -300,38 +630,50 @@ application is in another tab or if attempting to go below the minimum allowable
 Format: `calendar c/previousmonth`
 
 .Changing to the previous month from November 2019
-image::calendar-previous-month.png[width="450"]
+image::calendar-previous-month.png[width="450", align="center"]
 {empty} +
 Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
 to change the display to the previous month. The button will not work if the calendar is displaying January 0001.
 
 This command closes any open engagement windows from the current month before updating the display to the previous month.
+// end::calendar[]
 
-=== Typing game : `tab game`
-Changes the current window to the start window with a kbd:[Start] button.
 
-.Start window of the game
-image::StartWindow.png[width="450"]
+// tag::game[]
+=== Typing game : `tab b/game`
+Changes the current window to the TypingGame window which has a kbd:[Start] button.
+
+.Starting window of the TypingGame Window
+image::StartWindow.png[width="600"]
 Click the kbd:[Start] button to open the game in a new window.
-
-.Game window
-image::GameWindow.png[width="450"]
 
 There are moving words that you can type in order to score points. Once you correctly type the specified word,
 the word disappears and the increase in points is reflected in the player information panel in the game window.
-[NOTE]
-After typing a word, remember to press kbd:[Enter] to clear the text area which is located at the bottom of the screen.
 
+.Sample game play
+image::GameWindow.png[width="200" float="left"]
+
+.Sample game play when game is over
+image::GameOver.png[width="200" float="left]
+
+[TIP]
+Press kbd:[SPACEBAR] or kbd:[Enter] to clear the text area which is located at the bottom of the screen.
 
 When you fail to type the word before the moving word reaches the bottom of screen, the decrease in health points
 is reflected in the player information panel in the game window.
+
+[NOTE]
+As the game progresses, the words move faster, hence increasing difficulty such that you can improve your typing speed.
+
+[WARNING]
+Closing the game midway would result in loss of in-game progress.
+
 After the health points reaches zero, `GAME OVER` is displayed as shown below.
 
-.Sample game play when game is over
-image::GameOver.png[width="450"]
 
 Once the game is over, you can manually close the application by clicking the kbd:[x] on the top right hand corner of the window.
 If you want to play the game again, click the kbd:[Start] button shown in the Start window.
+// end::game[]
 
 // tag::pdf-command[]
 
@@ -341,10 +683,10 @@ Pdf Command allows user to create a document of selected engagement in a given f
 Document template can be customised based on the customers's requirements, however, default document format will be in an email format,
 where the user can set who the user is going to send this document to inform an engagement. +
 
-Format: `pdf i/LIST_INDEX t/RECEIVER f/FROM` +
+Format: `pdf i/LIST_INDEX f/FROM t/RECEIVER` +
 
 For example, if the user wants to create a document of an engagement, which has a list index of 1, which can by observed in `engagement` window.
-User sets the sender as `John`, which is the user's name, and sets `receiver` as `Harry`. Hence, user enters `pdf i/1 t/Harry f/John` to generate the document.
+User sets the sender as `John`, which is the user's name, and sets `receiver` as `Harry`. Hence, user enters `pdf i/1 f/John t/Harry` to generate the document.
 
 [NOTE]
 User can generate multiple report documents with the same engagement, but with different SENDER and RECEIVER names. +
@@ -420,8 +762,8 @@ Relevant data will be loaded from the external file when the application starts.
 
 == Command Summary
 
-* *Add* `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION a/ATTENDEES d/DESCRIPTION p/PRIORITY` +
-e.g. `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John | Elijah | Sam d/CS2103T Discussion p/HIGH`
+* *Add* `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION d/DESCRIPTION a/ATTENDEES p/PRIORITY` +
+e.g. `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 d/CS2103T Discussion a/John | Elijah | Sam p/HIGH`
 * *Tab*: `tab b/MENU_NAME`
 ** *Add Engagement* : `tab b/engagement`
 ** *Calendar* : `tab b/calendar`
@@ -439,7 +781,7 @@ e.g. `calendar c/closedisplay d/11/11/2019`
 e.g. `delete i/3`
 * *PDF* : `pdf i/INDEX to/RECEIVER from/SENDER`
 * *Redo* : `redo`
-* *Sort* : `sort ORDER`
+* *Sort* : `sort p/PROPERTY o/ORDER`
 * *Undo* : `undo`
 * *List* : `list`
 * *Help* : `help`

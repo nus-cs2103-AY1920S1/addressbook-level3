@@ -16,9 +16,10 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
  */
 public class DescriptionState extends State {
 
-    private static final String MESSAGE_INVALID_DESCRIPTION = "The description of an engagement cannot be empty.";
-    private static final String MESSAGE_MISSING_KEYWORD = "Please enter the description after the prefix \"d/\".";
-    private static final String MESSAGE_CONSTRAINTS = "Please enter a non-blank description prefixed by \"d/\".";
+    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter a valid description after "
+            + PREFIX_DESCRIPTION.getPrefix() + ". The description cannot be blank.";
+    private static final String MESSAGE_CONSTRAINTS = "What is the engagement about? Please enter a brief description "
+            + "prefixed by " + PREFIX_DESCRIPTION.getPrefix() + ". Example - [d/CS2103T Discussion.]";
 
     protected DescriptionState(ArgumentMultimap soFar) {
         super(soFar);
@@ -38,13 +39,13 @@ public class DescriptionState extends State {
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> description)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);
-        requireKeywordPresence(description, MESSAGE_MISSING_KEYWORD);
+        requireKeywordPresence(description, MESSAGE_INVALID_INPUT);
         enforceValidity(description);
     }
 
     private void enforceValidity(Optional<String> description) throws StateTransitionException {
         if (description.get().isBlank()) {
-            throw new StateTransitionException(MESSAGE_INVALID_DESCRIPTION);
+            throw new StateTransitionException(MESSAGE_INVALID_INPUT);
         }
     }
 
