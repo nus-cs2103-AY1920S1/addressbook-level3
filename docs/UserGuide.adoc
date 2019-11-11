@@ -1,4 +1,3 @@
-
 = Teacher’s Notebook - User Guide
 :site-section: UserGuide
 :toc:
@@ -72,12 +71,12 @@ Examples:
 Allows a user to delete the selected class, if the user no longer needs the class or entered its name wrongly. +
 Classroom must be in the current list of classrooms, and class name cannot be empty. +
 
-Format: `deleteclassroom c/CLASS_NAME`
+Format: `deleteclass c/CLASS_NAME`
 
 Examples:
 
-* `deleteclassroom c/4E7`
-* `deleteclassroom c/3E8`
+* `deleteclass c/4E7`
+* `deleteclass c/3E8`
 
 ==== Setting: setclass
 
@@ -94,6 +93,67 @@ Examples:
 
 // tag::lessons[]
 === Lessons
+The user can view his or her lessons on the left panel of the GUI of the Teacher's Notebook. +
+There are several fields in each lesson as shown below:
+
+* LessonName - Prefix: l/
+** LessonNames should be alphanumerical, and cannot be empty.
+* StartTime - Prefix: st/
+** StartTime should be in the format dd/mm/yyyy hhmm e.g. 12/01/2020 1200
+* EndTime - Prefix: et/
+** EndTime should be in the format dd/mm/yyyy hhmm e.g. 12/01/2020 1300
+* repeat - Prefix: r/
+* Day - Prefix: day/
+** Day should be an integer between 1-7.
+
+==== Adding: addlesson
+
+Adds a lesson to the lesson list of the notebook, +
+feature to repeat lessons will be implemented in v2.0 +
+Format: addlesson l/LESSON st/START_TIME et/ET_TIME:dd/MM/yy HHmm
+
+Examples:
+
+* 'addlesson l/Math 4E7 st/12/01/2020 1200 et/12/01/2020 1300'
+* 'addlesson l/English 3E8 st/06/01/2020 1200 et/06/01/2020 1300'
+
+==Editing: editlesson
+Edits a lesson at the specific index in the day list of reminder panel. +
+Day index represents day in week, e.g. Monday: 1, Tuesday: 2 +
+Format: 'editlesson LESSON_INDEX day/DAY_INDEX [l/LESSON_NAME] [st/START_TIME] [et/END_TIME]'
+
+Examples:
+
+'editlesson 1 day/3 l/English 4E2'
+'editlesson 2 day/4 st/05/01/2020 1200 et/05/01/2020 1300'
+
+[NOTE]
+The index and day index provided must be valid and at least one field must be edited.
+
+==== Deleting: deletelesson
+
+Deletes a lesson at the specified index in the day list of reminder panel. +
+Day index represents day in week, e.g. Monday: 1, Tuesday: 2 +
+Format: 'deletelesson LESSON_INDEX day/DAY_INDEX'
+
+Examples:
+
+'deletelesson 1 day/2'
+'deletelesson 3 day/4'
+
+[NOTE]
+The index and day index provided must be valid and at least one field must be edited.
+
+==== Finding: findlesson
+
+Finds lessons which match the given keyword. +
+Format: 'findlesson KEYWORD'
+
+Examples:
+
+'findlesson Math'
+'findlesson 12:00'
+
 // end::lessons[]
 
 // tag::students[]
@@ -151,6 +211,11 @@ Example:
 
 [NOTE]
 The index provided must be valid.
+
+==== Listing: liststudents
+
+Lists all the students in the current classroom.
+Format: `liststudents`
 
 ==== Finding: findstudent
 
@@ -234,16 +299,28 @@ Usage:
 
 `Arrow UP and DOWN` Key to toggle through previous commands +
 
+// tag::undoredo[]
 ==== Undo/Redo: Undo/Redo
 
-The undo/redo feature allows a user to undo any command, and there is no limit on the number of actions that can be undone or redone. +
+The undo/redo feature allows a user to undo any command, and there is no limit on the number of actions that can be undone or redone.
 After the undo/redo command the application will be in the state before/after the action was made. +
+
+States will only be made if there is a modification to the notebook. Hence, commands like `help` and `liststudents` that does not change the internal structure of the notebook will not lead to a saved state. +
+
+Undo will only be executable if there is a previous state saved. Redo will only be executable if there is a previously undone method. +
+
+If a command that changes the state of the notebook is called after an `undo` command, the other states after the current pointer will be erased.
+This means that users will not be able to redo any of the previous states, until the user calls another `undo` command again.
+This mechanism is similar to how undo/redo works for modern desktop applications.
+
 Undo/redo cannot, however, undo actions made during previous activation of Teacher's Notebook. +
 This is to say, once the application is closed, all actions done cannot be undone. +
 
 Usage:
 
 Enter `undo` or `redo` +
+
+// end::undoredo[]
 
 ==== Help
 

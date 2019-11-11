@@ -14,6 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new DeleteLessonCommand object
  */
 public class DeleteLessonCommandParser implements Parser<DeleteLessonCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteLessonCommand
      * and returns a DeleteLessonCommand object for execution.

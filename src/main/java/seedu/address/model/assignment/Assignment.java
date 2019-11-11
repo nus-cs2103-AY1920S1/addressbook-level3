@@ -34,7 +34,7 @@ public class Assignment {
     }
 
     /**
-     * Initialises the grades for students as "Not submitted" for new assignments
+     * Initialises the grades for students as "Not submitted" for new assignments.
      * @param studentNames students name to serve as keys during initialisation.
      */
     public void initialiseGrades(List<String> studentNames) {
@@ -44,26 +44,36 @@ public class Assignment {
         }
     }
 
+    /**
+     * Gets the AssignmentName.
+     * @return AssignmentName of the assignment.
+     */
     public AssignmentName getAssignmentName() {
         return this.assignmentName;
     }
 
+    /**
+     * Gets the AssignmentDeadline
+     * @return AssignmentDeadline of the assignment.
+     */
     public AssignmentDeadline getAssignmentDeadline() {
         return this.assignmentDeadline;
     }
 
+    /**
+     * Gets the AssignmentGrades
+     * @return AssignmentGrades of the assignment.
+     */
     public Map<String, String> getGrades() {
         return this.assignmentGrades.getGrades();
     }
 
     /**
      * Parses a {@code List<String> grades} and {@code List<String> newGrades} to update assignmentGrades.
-     *
      */
     public void setGrades(List<String> studentNames, List<String> newGrades) {
         requireAllNonNull(studentNames, newGrades);
         this.assignmentGrades.setGrades(studentNames, newGrades);
-        //this.isCompleted = true;
         checkCompletion();
     }
 
@@ -85,9 +95,7 @@ public class Assignment {
      */
     public void addOneStudentGrade (String studentName) {
         assignmentGrades.addOneStudentGrade(studentName);
-        //Assignment outputAssignment = new Assignment (this.assignmentName, this.assignmentDeadline);
         setGrades(this.namesStringListFromGrades(), this.marksStringListFromGrades());
-        //return outputAssignment;
     }
 
     /**

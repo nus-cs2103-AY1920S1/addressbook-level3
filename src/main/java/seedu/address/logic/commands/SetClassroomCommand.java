@@ -11,7 +11,7 @@ import seedu.address.model.classroom.Classroom;
 
 
 /**
- * Adds a classroom to the notebook.
+ * Sets a classroom in the notebook to be the current classroom.
  */
 public class SetClassroomCommand extends Command {
 

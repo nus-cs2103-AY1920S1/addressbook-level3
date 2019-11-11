@@ -18,8 +18,9 @@ import seedu.address.model.lesson.Time;
  * Parses input arguments and creates a new AddLessonCommand object
  */
 public class AddLessonCommandParser implements Parser<AddLessonCommand> {
+
     /**
-     * Parses the given {@code String} of arguments in the context of the AddLessoncommand
+     * Parses the given {@code String} of arguments in the context of the AddLessonCommand
      * and returns an AddLessonCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */

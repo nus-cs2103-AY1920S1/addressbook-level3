@@ -40,8 +40,7 @@ public class UniqueClassroomList implements Iterable<Classroom> {
     }
 
     /**
-     * Adds a classroom to the list.
-     * The classroom must not already exist in the list.
+     * Gets a classroom from the list with a class name toGet in String representation.
      */
     public Classroom get(String toGet) {
         requireNonNull(toGet);
@@ -54,8 +53,7 @@ public class UniqueClassroomList implements Iterable<Classroom> {
     }
 
     /**
-     * Adds a classroom to the list.
-     * The classroom must not already exist in the list.
+     * Gets a classroom from the list with a class name toGet in Classroom representation.
      */
     public Classroom get(Classroom toGet) {
         requireNonNull(toGet);

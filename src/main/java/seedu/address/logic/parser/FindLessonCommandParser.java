@@ -12,6 +12,7 @@ import seedu.address.model.lesson.LessonContainsKeywordsPredicate;
  * Parses input arguments and creates a new FindLessonCommand object
  */
 public class FindLessonCommandParser implements Parser<FindLessonCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the FindLessonCommand
      * and returns a FindLessonCommand object for execution.

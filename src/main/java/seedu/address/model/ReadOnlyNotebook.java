@@ -22,10 +22,14 @@ public interface ReadOnlyNotebook {
     Classroom getCurrentClassroom();
 
     /**
-     * Returns an unmodifiable view of the lessons list.
+     * Returns an unmodifiable view of the lessons list in the week.
      * This list will not contain any duplicate lessons.
      */
     ObservableList<UniqueLessonList> getLessonWeekList();
 
+    /**
+     * Returns an unmodefiable view of the lessons list in the day.
+     * This list will not contain any duplicate lessons..
+     */
     ObservableList<Lesson> getLessonList();
 }

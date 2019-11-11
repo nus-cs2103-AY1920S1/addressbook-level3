@@ -1,10 +1,8 @@
 package seedu.address.testutil;
 
-import static java.util.Objects.requireNonNull;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+
+import seedu.address.logic.parser.ParserUtil;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.lesson.ClassName;
@@ -16,93 +14,68 @@ import seedu.address.model.lesson.Time;
  * A utility class to help with building Lesson objects.
  */
 public class LessonBuilder {
-
-    public static final String DEFAULT_CLASS_NAME = "4C3 English";
-    public static final String DEFAULT_LESSON_START_TIME = "31/12/2019 1200";
-    public static final String DEFAULT_LESSON_END_TIME = "31/12/2019 1400";
-    private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    public static final String DEFAULT_CLASSNAME = "Chemistry 2E6";
 
     private ClassName className;
-    private Time lessonStartTime;
-    private Time lessonEndTime;
+    private Time startTime;
+    private Time endTime;
 
     public LessonBuilder() {
-        sdf.setLenient(false);
-        className = new ClassName(DEFAULT_CLASS_NAME);
-        try {
-            lessonStartTime = parseTime(DEFAULT_LESSON_START_TIME);
-            lessonEndTime = parseTime(DEFAULT_LESSON_END_TIME);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        className = new ClassName(DEFAULT_CLASSNAME);
+        Calendar start = Calendar.getInstance();
+        start.set(2020, 1, 12, 12, 0);
+        startTime = new Time(start);
+        Calendar end = Calendar.getInstance();
+        end.set(2020, 1, 12, 13, 0);
+        endTime = new Time(end);
     }
 
     /**
-     * Initializes the Lesson with the data of {@code lessonToCopy}.
+     * Initializes the LessonBuilder with the data of {@code lessonToCopy}.
      */
     public LessonBuilder(Lesson lessonToCopy) {
-        sdf.setLenient(false);
         className = lessonToCopy.getName();
-        lessonStartTime = lessonToCopy.getStartTime();
-        lessonEndTime = lessonToCopy.getEndTime();
+        startTime = lessonToCopy.getStartTime();
+        endTime = lessonToCopy.getEndTime();
     }
-
-    /**
-     * Parses time from string into Time.
-     * @param time to parse into Time.
-     * @return Time object
-     * @throws ParseException if the format is wrong, which will not be in this case.
-     */
-    public static Time parseTime(String time) throws ParseException {
-        requireNonNull(time);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        sdf.setLenient(false);
-        Date date;
-        Calendar calendar = Calendar.getInstance();
-        try {
-            date = sdf.parse(time);
-            calendar.setTime(date);
-        } catch (java.text.ParseException e) {
-            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
-        }
-        return new Time(calendar);
-    }
-
 
     /**
      * Sets the {@code ClassName} of the {@code Lesson} that we are building.
      */
-    public LessonBuilder withClassName(String className) {
-        this.className = new ClassName(className);
+    public LessonBuilder withClassName(String name) {
+        this.className = new ClassName(name);
         return this;
     }
 
+
     /**
-     * Sets the {@code Time} and set it to the {@code lessonStartTime} that we are building.
+     * Sets the {@code StartTime} of the {@code Lesson} that we are building.
      */
-    public LessonBuilder withStartTime(String startTime) {
+    public LessonBuilder withStartTime(String time) {
         try {
-            this.lessonStartTime = parseTime(startTime);
+            this.startTime = ParserUtil.parseTime(time);
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return this;
     }
 
+
     /**
-     * Sets the {@code Time} and set it to the {@code lessonEndTime} that we are building.
+     * Sets the {@code EndTime} of the {@code Lesson} that we are building.
      */
-    public LessonBuilder withEndTime(String endTime) {
+    public LessonBuilder withEndTime(String time) {
         try {
-            this.lessonEndTime = parseTime(endTime);
+            this.endTime = ParserUtil.parseTime(time);
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return this;
     }
+
 
     public Lesson build() {
-        return new Lesson(lessonStartTime, lessonEndTime, className);
+        return new Lesson(startTime, endTime, className);
     }
 
 }

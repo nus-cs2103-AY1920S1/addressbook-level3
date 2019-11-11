@@ -8,7 +8,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.classroom.Classroom;
 
 /**
- * An UI component that displays information of a {@code Assignment}.
+ * An UI component that displays information of a {@code Classroom}.
  */
 public class ClassroomCard extends UiPart<Region> {
 

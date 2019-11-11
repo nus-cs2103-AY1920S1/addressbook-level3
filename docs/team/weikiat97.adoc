@@ -45,6 +45,7 @@ The implementation was very challenging as one command had to be suited for vari
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide so that they are more coherent: https://github.com/AY1920S1-CS2103-T14-1/main/pull/88/[#88]
 *** Made changes to the current puml diagrams from AB3 to suit our current project: https://github.com/AY1920S1-CS2103-T14-1/main/pull/185[#185]
+*** Changed the undo redo implementation feature from AB3 to suit the current project's undo redo.
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/110[#110], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/37[#37]
 *** Reported bugs and suggestions for other teams in the class during PE dry run (examples:  https://github.com/weikiat97/ped/issues/4[1], https://github.com/weikiat97/ped/issues/1[2], https://github.com/weikiat97/ped/issues/10[3])
@@ -59,6 +60,8 @@ The implementation was very challenging as one command had to be suited for vari
 
 include::../UserGuide.adoc[tag=students]
 
+include::../UserGuide.adoc[tag=undoredo]
+
 include::../UserGuide.adoc[tag=reminders_for_assignments]
 
 include::../UserGuide.adoc[tag=statistics]
@@ -71,6 +74,15 @@ include::../UserGuide.adoc[tag=statistics]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=model]
+
+include::../DeveloperGuide.adoc[tag=storage]
+
+include::../DeveloperGuide.adoc[tag=getgrades]
+
+include::../DeveloperGuide.adoc[tag=getunsubmitted]
+
+include::../DeveloperGuide.adoc[tag=undoUseCase]
+
 
 

@@ -3,12 +3,9 @@ package seedu.address.logic.commands;
 import java.util.HashSet;
 
 /**
- * helper class
+ * Helper class
  * aggregates all command words
  * and example usages of commands
- *
- * TO ANYONE MAKING NEW COMMANDS/UPDATING CURRENT ONES
- * PLEASE UPDATE THIS AS WELL
  */
 public class CommandMasterList {
 
@@ -35,7 +32,7 @@ public class CommandMasterList {
         commandHashSet.add(DeleteClassroomCommand.COMMAND_WORD + " c/CLASS");
         commandHashSet.add(FindStudentCommand.COMMAND_WORD + " STUDENT_NAME");
         commandHashSet.add(FindAssignmentCommand.COMMAND_WORD + " ASSIGNMENT_NAME");
-        commandHashSet.add(FindLessonCommand.COMMAND_WORD + "LESSON_KEYWORD");
+        commandHashSet.add(FindLessonCommand.COMMAND_WORD + " LESSON_KEYWORD");
         commandHashSet.add(AddAssignmentCommand.COMMAND_WORD + " as/ASSIGNMENT d/DEADLINE:dd/MM/yy HHmm");
         commandHashSet.add(AddLessonCommand.COMMAND_WORD + " l/LESSON st/START_TIME et/ET_TIME:dd/MM/yy HHmm");
         commandHashSet.add(DeleteLessonCommand.COMMAND_WORD + " LESSON_INDEX day/DAY_INDEX");
