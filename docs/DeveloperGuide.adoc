@@ -414,14 +414,14 @@ Use case ends.
 [start=4]
 
 . a) The user decides that they prefer Deck2 to be deleted.
-    .. i) The user types 'redo' into the CLI.
-    .. i) Deck2 is deleted again.
+    .. ) The user types 'redo' into the CLI.
+    .. ) Deck2 is deleted again.
 
 Use case ends.
 
 ==== General Activity Diagram of Undo/Redo
 
-*Before an Undo/Redo command is called:* +
+* *Before an Undo/Redo command is called:* +
 .Activity diagram for deck altering commands
 image::DeckAlteringCommandsActivityDiagram.PNG[]
 
@@ -429,7 +429,7 @@ Whenever the `State`'s `decks` are altered, `State.addCurrDecksToDeckHistory()` 
 current `State.decks` to `State.deckHistory`. Also, `State.resetUndoHistory()` which re-initialises `State.undoHistory`.
 Then, the changes to State are carried out.
 
-*When an Undo/Redo command is called:* +
+* *When an Undo/Redo command is called:* +
 .Activity diagram for Undo/Redo
 image::UndoRedoActivityDiagram.PNG[]
 
@@ -437,7 +437,7 @@ NOTE: The Undo and Redo commands are implemented in similar ways. As such, I wil
 
 When an Undo/Redo command is parsed by Responder and Responses, it calls the appropriate method in `State` (for undo:
 `State.undoDeckChanges()`, for redo: `State.redoDeckChanges()`). This then sets `State.deck` to the topmost ArrayList
-of Decks from the appropriate Stack (for undo: `State.deckHistory`, for redo: `State.undoHistory`).
+of Decks from the appropriate Stack (for undo: `State.deckHistory`, for redo: `State.undoHistory`). +
 
 ====
 
