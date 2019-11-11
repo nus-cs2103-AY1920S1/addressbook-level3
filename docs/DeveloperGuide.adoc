@@ -996,3 +996,47 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Autocomplete
+
+. Looking at autocomplete options
+
+.. *Test case*: Type a valid partial command, e.g. `c`, `co` or `contact del`. +
+   *Expected*: The autocomplete popup will suggest the next word. So `contact` will be suggested for `c` and `co`, and `contact delete` will be suggested for `contact del`.
+.. *Test case*: Type an invalid partial command, e.g. `d` or `contact qqq` +
+   *Expected*: The autocomplete popup disappears.
+.. *Test case*: Use the arrow keys to navigate down to an option in the autocomplete popup. Press Enter or use the mouse to select it. +
+   *Expected*: The command box displays the auto-completed string.
+
+=====
+*Note*
+
+The autocomplete menu will only pop up *after* the user types in the command box. It will disappear after clicking elsewhere on the screen or selecting an autocomplete option.
+=====
+
+=== Prompting
+
+. Requesting additional information from the user
+
+.. *Test case*: `contact create` +
+   *Expected*: The chat pane will show two dialogs from TagLine. The first dialog will indicate that the user is being prompted, and the second will ask for the contact name. +
+   *Continuation*: `Bob` +
+   *Expected*: A contact named 'Bob' will be created.
+
+.. *Test case*: `note tag` +
+   *Expected*: The chat pane will show two dialogs from TagLine. The first dialog will indicate that the user is being prompted, and the second will ask for the note ID. +
+   *Continuation*: `1` (or any valid note ID) +
+   *Expected*: The chat pane will display another dialog from TagLine, asking for a tag. +
+   *Continuation*: `#TEST` (or any valid tag) +
+   *Expected*: The note with ID 1 will be tagged with the tag `#TEST`.
+
+.. *Test case*: `contact delete` +
+   *Expected*: TagLine will ask for the contact ID. +
+   *Continuation*: Enter any invalid ID. +
+   *Expected*: An error message will be shown.
+
+.. *Test case*: `contact delete` +
+   *Expected*: TagLine will ask for the contact ID. +
+   *Continuation*: Press the escape key. +
+   *Expected*: A special message will be shown indicating that the command has been aborted.
+

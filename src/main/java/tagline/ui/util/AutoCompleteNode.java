@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
  * Can have children which match further sections of the string.
  */
 public class AutoCompleteNode {
+    public static final String INVALID_TRIM_ERROR_MESSAGE = "AutoCompleteNode Error: Invalid trim";
+
     private String matcher;
     private List<AutoCompleteNode> children = new ArrayList<>();
     private boolean enabled = true;
@@ -52,11 +54,14 @@ public class AutoCompleteNode {
     }
 
     /**
-     * Returns true if {@code queryString} begins with {@code matcher} followed by a whitespace.
+     * Returns true if {@code queryString} begins with {@code matcher} as a separate word.
+     *
+     * e.g. A matcher string 'banana split' will return true for {@code isTrimmable('banana')} but not
+     * {@code isTrimmable('banan')}.
      */
     public boolean isTrimmable(String query) {
         requireNonNull(query);
-        return query.matches("^" + matcher + "\\s.*");
+        return query.matches("^" + matcher + "(|(\\s.*))");
     }
 
     /**
@@ -65,9 +70,9 @@ public class AutoCompleteNode {
     public String trimMatcher(String query) throws IllegalArgumentException {
         requireNonNull(query);
         if (!isTrimmable(query)) {
-            throw new IllegalArgumentException("AutoCompleteNode Error: Invalid trim");
+            throw new IllegalArgumentException(INVALID_TRIM_ERROR_MESSAGE);
         }
-        return query.replaceFirst("^" + matcher + "\\s+", "");
+        return query.replaceFirst("^" + matcher + "(\\s*)", "");
     }
 
     /**

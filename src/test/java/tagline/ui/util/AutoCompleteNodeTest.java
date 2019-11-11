@@ -69,7 +69,8 @@ public class AutoCompleteNodeTest {
         assertTrue(rootNodeWithNoChildren.isTrimmable("Charlie"));
 
         assertTrue(nodeWithNoChildren.isTrimmable("Charlie Bob"));
-        assertFalse(nodeWithNoChildren.isTrimmable("Charlie"));
+        assertTrue(nodeWithNoChildren.isTrimmable("Charlie"));
+        assertFalse(nodeWithNoChildren.isTrimmable("CharlieBob"));
         assertFalse(nodeWithNoChildren.isTrimmable("Charles Bob"));
         assertFalse(nodeWithNoChildren.isTrimmable("Alice Charlie "));
     }
@@ -85,13 +86,14 @@ public class AutoCompleteNodeTest {
         assertEquals("", rootNodeWithNoChildren.trimMatcher(""));
         assertEquals("Charlie", rootNodeWithNoChildren.trimMatcher("Charlie"));
 
+        assertEquals("", nodeWithNoChildren.trimMatcher("Charlie"));
         assertEquals("Bob", nodeWithNoChildren.trimMatcher("Charlie Bob"));
         assertEquals("Bob  Eric", nodeWithNoChildren.trimMatcher("Charlie         Bob  Eric"));
     }
 
     @Test
     void trimMatcher_invalidTrim_exceptionThrown() {
-        assertThrows(IllegalArgumentException.class, () -> nodeWithNoChildren.trimMatcher("Charlie"));
+        assertThrows(IllegalArgumentException.class, () -> nodeWithNoChildren.trimMatcher("CharlieBob"));
         assertThrows(IllegalArgumentException.class, () -> nodeWithNoChildren.trimMatcher("Alice Charlie"));
     }
 
@@ -117,9 +119,10 @@ public class AutoCompleteNodeTest {
     void findMatches_successful() {
         assertEquals(Arrays.asList("Charlie", "Delta"), rootNodeWithChildren.findMatches(""));
         assertEquals(Arrays.asList("Charlie"), rootNodeWithChildren.findMatches("Char"));
-        assertEquals(new ArrayList<>(), rootNodeWithChildren.findMatches("Charlie"));
         assertEquals(Arrays.asList("Charlie Alice", "Charlie Bob"),
-                rootNodeWithChildren.findMatches("Charlie "));
+                rootNodeWithChildren.findMatches("Charlie"));
+        assertEquals(Arrays.asList("Charlie Alice", "Charlie Bob"),
+                rootNodeWithChildren.findMatches("Charlie     "));
         assertEquals(Arrays.asList("Charlie Alice"),
                 rootNodeWithChildren.findMatches("Charlie Alic"));
         assertEquals(new ArrayList<>(),
