@@ -53,7 +53,7 @@ Model.ModelManager .up.|> Model.Model
 Model.Model .down.> Address.Model.AddressBookModel :gets >
 ''''''''''ModelManager Constructor
 ''' composition or aggregation?
-Model.ModelManager o--> "1" Address.Model.AddressBookModel
+Model.ModelManager *--> "1" Address.Model.AddressBookModel
 ''''''''''UserPrefs
 Model.UserPrefs .up.|> Model.ReadOnlyUserPrefs
 
@@ -65,6 +65,7 @@ Address.Model.AddressBookModelManager .up.|> Address.Model.AddressBookModel
 Address.Model.AddressBookModelManager ..> Address.Model.ReadOnlyAddressBook
 Address.Model.AddressBookModelManager ..>  Model.ReadOnlyUserPrefs
 Address.Model.AddressBookModelManager -->"1" Address.Model.Person.Person : filtered list
+Address.Model.AddressBookModelManager o--> Model.UserPrefs
 
 ''''''''''ReadOnlyAddressBook
 Address.Model.ReadOnlyAddressBook ..> Address.Model.AddressBook
