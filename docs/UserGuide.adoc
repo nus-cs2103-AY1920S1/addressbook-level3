@@ -376,7 +376,7 @@ Step 2. A pop-up will appear to show you all your _events_.
 image::calendarScreenshots/list2.png[List result,width=600]
 
 Step 3. When you click at a region outside of the pop-up, the pop-up will disappear. How neat is that?
-
+// tag::calendar[]
 === Checking your availability for a trip: ``check``
 
 Do you need to find out whether you are available to go for a trip? You can get _TravEzy_ to find that out for you (i.e. when you happen to have a _school break_/_holiday_ *and* do not have any _commitment_/_trip_).
@@ -443,6 +443,8 @@ Step 2. The _month and year panel_ and _month view panel_ will change to show yo
 Step 3. The _result box_ will display a message to indicate when you are able to travel during the specified time. +
 
 image::calendarScreenshots/suggest2.png[Suggest result,width=600]
+
+// end::calendar[]
 
 == Itinerary
 

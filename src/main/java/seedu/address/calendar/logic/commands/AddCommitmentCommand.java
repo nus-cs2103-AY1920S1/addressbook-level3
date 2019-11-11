@@ -8,6 +8,9 @@ import seedu.address.calendar.logic.parser.CliSyntax;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+/**
+ * Adds a commitment to the calendar.
+ */
 public class AddCommitmentCommand extends AddCommand {
     public static final String COMMAND_WORD = "commitment";
     public static final String MESSAGE_USAGE = AddCommand.COMMAND_WORD + " " + COMMAND_WORD
@@ -24,10 +27,23 @@ public class AddCommitmentCommand extends AddCommand {
 
     protected Commitment commitment;
 
+    /**
+     * Creates an add commitment command.
+     *
+     * @param commitment The commitment to be added.
+     */
     public AddCommitmentCommand(Commitment commitment) {
         this.commitment = commitment;
     }
 
+    /**
+     * Adds the commitment to the calendar.
+     *
+     * @param calendar The calendar to which the commitment should be added
+     * @return The result of executing this command
+     * @throws CommandException if the command is invalid
+     * @throws ClashException if adding the event may result in potential schedule conflicts
+     */
     public CommandResult execute(Calendar calendar) throws CommandException, ClashException {
         try {
             calendar.addEvent(commitment);

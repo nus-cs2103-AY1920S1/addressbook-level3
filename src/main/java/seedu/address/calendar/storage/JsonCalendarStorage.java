@@ -14,6 +14,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+/**
+ * Json representation of a calendar.
+ */
 public class JsonCalendarStorage implements CalendarStorage {
     private Path filePath;
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -22,6 +25,13 @@ public class JsonCalendarStorage implements CalendarStorage {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads the calendar.
+     *
+     * @return Returns a read only calendar, if any
+     * @throws DataConversionException If the data cannot be converted successfully
+     * @throws IOException If the file cannot be read to/read from
+     */
     public Optional<ReadOnlyCalendar> readCalendar() throws DataConversionException, IOException {
         requireNonNull(filePath);
 
@@ -39,6 +49,12 @@ public class JsonCalendarStorage implements CalendarStorage {
         }
     }
 
+    /**
+     * Save the specified calendar.
+     *
+     * @param calendar The specified calendar
+     * @throws IOException If the data cannot be saved
+     */
     public void saveCalendar(ReadOnlyCalendar calendar) throws IOException {
         requireNonNull(calendar);
         requireNonNull(filePath);

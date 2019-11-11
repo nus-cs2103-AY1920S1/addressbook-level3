@@ -7,13 +7,28 @@ import seedu.address.calendar.logic.parser.Option;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+/**
+ * Adds a commitment to the calendar and ignores any potential conflicts in schedule.
+ */
 public class AddCommitmentIgnoreCommand extends AddCommitmentCommand implements AlternativeCommand {
     private static final boolean IS_BINARY_OPTION = true;
 
+    /**
+     * Creates an add commitment that ignores any potential conflicts in schedule.
+     *
+     * @param commitment The commitment to be added to the calendar
+     */
     public AddCommitmentIgnoreCommand(Commitment commitment) {
         super(commitment);
     }
 
+    /**
+     * Adds the commitment to the calendar.
+     *
+     * @param calendar The calendar to which the commitment should be added
+     * @return The result of executing this command
+     * @throws CommandException if the command is invalid
+     */
     public CommandResult execute(Calendar calendar, Option option) throws CommandException {
         AlternativeCommandUtil.isValidUserCommand(option, IS_BINARY_OPTION);
         boolean isExecute = option.getBinaryOption();

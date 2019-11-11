@@ -1,14 +1,21 @@
 package seedu.address.calendar.logic;
 
+import java.io.IOException;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import seedu.address.calendar.logic.commands.AlternativeCommand;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.ReadOnlyCalendar;
 import seedu.address.calendar.model.date.ViewOnlyMonth;
 import seedu.address.calendar.model.event.exceptions.ClashException;
-import seedu.address.calendar.model.util.CalendarStatistics;
 import seedu.address.calendar.logic.parser.AlternativeCalendarParser;
 import seedu.address.calendar.logic.parser.CalendarParser;
 import seedu.address.calendar.logic.parser.Option;
+import seedu.address.calendar.model.util.CalendarStatistics;
 import seedu.address.calendar.storage.CalendarStorage;
 import seedu.address.calendar.storage.JsonCalendarStorage;
 import seedu.address.commons.core.LogsCenter;
@@ -19,13 +26,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import java.io.IOException;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Paths;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.logging.Logger;
-
+/**
+ * Handles all calendar logic.
+ */
 public class CalendarLogic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
@@ -33,6 +36,9 @@ public class CalendarLogic {
     private Calendar calendar;
     private SuggestionManager suggestionManager;
 
+    /**
+     * Creates a {@code CalendarLogic}.
+     */
     public CalendarLogic() {
         this.calendarStorage = new JsonCalendarStorage(Paths.get("data" , "calendar.json"));;
         this.calendar = new Calendar();
@@ -50,6 +56,14 @@ public class CalendarLogic {
         }
     }
 
+    /**
+     * Executes the command
+     * @param commandText The user input
+     * @return The result of this execution
+     * @throws CommandException If the command cannot be performed successfully
+     * @throws ParseException If the input cannot be parsed successfully
+     * @throws IOException If the file cannot be read/written to successfully
+     */
     public CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException {
         if (suggestionManager.hasSuggestedCommand() && AlternativeCalendarParser.isAlternativeCommand(commandText)) {
             return executeAlternativeCommand(commandText);
@@ -69,7 +83,15 @@ public class CalendarLogic {
         }
     }
 
-    private CommandResult executeAlternativeCommand(String commandText) throws CommandException, IOException{
+    /**
+     * Executes an alternative command.
+     *
+     * @param commandText The user input
+     * @return The result of executing the command
+     * @throws CommandException If the command cannot be executed successfully
+     * @throws IOException If the file cannot be written to or read from successfully
+     */
+    private CommandResult executeAlternativeCommand(String commandText) throws CommandException, IOException {
         Option option = new AlternativeCalendarParser().parseOptionCommand(commandText);
         AlternativeCommand command = suggestionManager.getCommand();
         CommandResult commandResult = command.execute(calendar, option);
