@@ -31,6 +31,8 @@ Click on <<Quick Start, Quick Start>> to get started!
 This guide shows you how to import your interviewees details and interviewers availability into Scheduler to begin managing your interview schedule.
 It also shows you basic tips on how to add or delete and edit interviewers/interviewees based on your changing needs.
 
+// tag::quickstart_import[]
+
 === Import your csv file into the application
 To begin, let's download sample interviewers availability and interviewees details in comma-separated value (.csv) files and import the data into Scheduler.
 
@@ -47,6 +49,8 @@ When you have imported interviewers' availability, you will see that the intervi
 the Schedules tab. In the tables, there will be cells with 1 and 0s. 1 means that the interviewer of that column is available for interview at that particular
 time slot (at the leftmost column on the same row where the 1 is located), otherwise is 0. The imported interviewers details will also be displayed
 in the `Interviewers` tab.
+
+// end::quickstart_import[]
 
 // tag::quickstart_add[]
 
@@ -88,6 +92,8 @@ The added interviewer will be displayed in the Interviewers tab.
 
 // end::quickstart_add[]
 
+// tag::quickstart_everythingElse[]
+
 === Schedule interviews
 Type `schedule` in the command line of the application. Scheduler will then schedule the interviews for you and the result
 will be displayed in the Schedules tab! If an interviewee is allocated a time slot, the name of the interviewee will be displayed
@@ -106,6 +112,8 @@ path to your target destination of the .csv file. If the .csv file has not exist
 at the target destination you specify in `file path`!
 
 That's all for the quick start and hope you enjoy using Scheduler!
+
+// end::quickstart_everythingElse[]
 
 == User Preferences
 Scheduler is initialised with default user preferences.
@@ -340,7 +348,7 @@ Constraints:
 === Scheduling `schedule`
 ==== Schedule the interviews
 Schedule and allocate interviewees to the available interview slots based on the availability of interviewees and
-their choice of department.
+their choice of department. The scheduled result will then be reflected in the Schedules tab of the Ui.
 
 Format: `schedule`
 
