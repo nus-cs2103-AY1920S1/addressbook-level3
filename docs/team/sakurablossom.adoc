@@ -29,6 +29,9 @@ while still having the benefits of a Graphical User Interface (GUI).
 [NOTE]
 This symbol indicates extra information or definition.
 
+[IMPORTANT]
+This symbol indicates an important design decision.
+
 `Model` :
 Text with this font and grey highlight indicates a component, class or object in the architecture of
 the application. It also indicates a generic command format for the command box in the User Guide.
@@ -150,6 +153,6 @@ include::../DeveloperGuide.adoc[tag=reactivesearchIntro]
 
 include::../DeveloperGuide.adoc[tag=reactivesearchthreading]
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
 include::../DeveloperGuide.adoc[tag=storage]
+
+include::../DeveloperGuide.adoc[tag=undoredo]
