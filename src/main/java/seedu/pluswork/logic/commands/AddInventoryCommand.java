@@ -134,6 +134,6 @@ public class AddInventoryCommand extends Command {
                 && taskId.equals(((AddInventoryCommand) other).taskId)
                 && name.equals(((AddInventoryCommand) other).name)
                 && price.equals(((AddInventoryCommand) other).price)
-                && memId.equals(((AddInventoryCommand)other).memId));
+                && memId.equals(((AddInventoryCommand) other).memId));
     }
 }
