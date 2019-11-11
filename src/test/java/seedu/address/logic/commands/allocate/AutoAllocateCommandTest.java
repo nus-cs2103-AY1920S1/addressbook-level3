@@ -32,7 +32,6 @@ import seedu.address.model.event.Event;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
-
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
  * {@code AutoAllocateCommandTest}.
@@ -47,7 +46,6 @@ public class AutoAllocateCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() throws CommandException {
-        Set<Tag> tagList = new HashSet<Tag>();
         tagList.add(new Tag("male"));
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT,
                 sampleManpowerCountToAdd, tagList);
@@ -63,9 +61,7 @@ public class AutoAllocateCommandTest {
 
     @Test
     public void execute_onlyTagsSpecifiedUnfilteredList_success() throws CommandException {
-        Set<Tag> tagList = new HashSet<Tag>();
         tagList.add(new Tag("male"));
-
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT, null,
                 tagList);
         String expectedMessage = String.format(MESSAGE_ALLOCATE_SUCCESS,
@@ -103,7 +99,7 @@ public class AutoAllocateCommandTest {
 
     @Test
     public void execute_invalidEventIndexUnfilteredList_failure() throws CommandException {
-        Integer outOfBoundInteger = initialEventData.getEventList().size() + 1;
+        int outOfBoundInteger = initialEventData.getEventList().size() + 1;
         Index invalidIndex = Index.fromOneBased(outOfBoundInteger);
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(invalidIndex,
                 sampleManpowerCountToAdd, tagList);
@@ -160,7 +156,6 @@ public class AutoAllocateCommandTest {
 
     @Test
     public void equals() throws CommandException {
-        Set<Tag> tagList = new HashSet<Tag>();
         final AutoAllocateCommand standardCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT,
                 sampleManpowerCountToAdd, tagList);
 

@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.employee;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.employee.NameContainsKeywordsPredicate;
 import seedu.address.testutil.PersonBuilder;
 
 public class EmployeeNameContainsKeywordsPredicateTest {

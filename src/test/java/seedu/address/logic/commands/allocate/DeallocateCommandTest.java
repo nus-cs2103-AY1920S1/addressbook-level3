@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.employee.ClearEmployeesCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.EventBook;
 import seedu.address.model.Model;
@@ -23,16 +22,17 @@ import seedu.address.model.ReadOnlyEventBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 
-
+/**
+ * Contains integration tests (interaction with the Model) and unit tests for
+ * {@code DeallocateCommandTest}.
+ */
 class DeallocateCommandTest {
     private ReadOnlyAddressBook initialData = SampleDataUtil.getSampleAddressBook();
     private ReadOnlyEventBook initialEventData = SampleDataUtil.getSampleEventBook();
     private Model model = new ModelManager(initialData, initialEventData, new UserPrefs());
-    //private final Employee sampleEmployee = initialData.getEmployeeList().get(0);
-
 
     @Test
-    public void execute_onlyIndexSpecifiedUnfilteredList_success() throws CommandException {
+    public void execute_onlyIndexSpecifiedUnfilteredList_success() {
         DeallocateCommand deallocateCommand = new DeallocateCommand(INDEX_FIRST_EVENT);
         String employeeNameToDisplay = "ALL Employees";
 

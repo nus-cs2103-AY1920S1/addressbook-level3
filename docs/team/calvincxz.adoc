@@ -25,7 +25,7 @@ image::AddMin+Ui.png[]
 My role was to design and write the code for the association of employees with event, which includes
 everything from front-end display where users can see such an association to the back-end
 storage. One interesting point of this feature was the
-development of an algorithm which internally checks schedule of individual employees and prevents
+development of an algorithm which internally checks the schedule of individual employees and prevents
 schedule clashes.
 
 The following sections illustrate these features in more detail, as well as the relevant documentation
@@ -36,26 +36,27 @@ I have added to the user and developer guides in relation to these features.
 == Summary of contributions
 
 * *Major feature*: enabled the association of employees with events which includes
-*automated/manual allocation of employees to event commands* and a *de-allocate command*, as well as the
-viewing of the association via the *fetch event* command. All related commands have *GUI features* implemented.
+_automated/manual allocation of employees to event commands_ and a _de-allocate command_, as well as the
+viewing of the association via the _fetch event_ command. All related commands have *GUI features* implemented.
 
-** What it does: This feature allows the user to allocate employees to events with filter requirements. The internal
-algorithm also ensures that employees cannot be allocated to events with conflicting time periods. The portable *Fetch Event Window*
-also allows users to allocate events manpower in different *Tabs* inside AddMin+.
+** *What it does*: This feature allows the user to allocate employees to events either manually or using a smart algorithm developed
+in AddMin+. The algorithm also ensures that employees cannot be allocated to events with conflicting time periods.
+The portable `Fetch Event Window` also allows users to allocate events manpower in the different `Tabs` of AddMin+.
 
-** Justification: This feature improves the product significantly because a user can now allocate employees to events,
+** *Justification*: This feature improves the product significantly because a user can now allocate employees to events,
 which is a key component for event management companies that our app is targeting. The algorithm used to check for
 conflicting schedule is also highly beneficial as users no longer have to waste precious time checking the availability
 of every individual employee. The GUI features further provide convenience for users who prefer using the mouse.
-** Highlights: This enhancement affects existing commands and commands to be added in the future.
+** *Highlights*: This enhancement affects existing commands and commands to be added in the future.
 It required an in-depth analysis of design alternatives. The implementation too was challenging as it
-required the knowledge of both `Event` and `Employee` classes.
+required the knowledge and understanding of both `Event` and `Employee` classes. The flexibility of the
+current design allows users to perform allocation commands in various environments in AddMin+.
 
-* *Minor feature*: added command history to allow user to view previous commands using up/down
+* *Minor feature*: added command history to allow user to view and navigate previous commands using up/down
 arrow keys.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=calvin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=calvincxz&tabRepo=AY1920S1-CS2103T-T11-3%2Fmain%5Bmaster%5D[Functional code]]
-[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=calvin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=calvincxz&tabRepo=AY1920S1-CS2103T-T11-3%2Fmain%5Bmaster%5D[Test code]] _{give links to collated code files}_
+[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=calvin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=calvincxz&tabRepo=AY1920S1-CS2103T-T11-3%2Fmain%5Bmaster%5D[Test code]] _{links to collated code files}_
 
 * *Other contributions*:
 

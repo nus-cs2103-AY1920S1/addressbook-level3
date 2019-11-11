@@ -13,8 +13,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_SCHEDULE_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_VENUE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MANPOWER_TO_ADD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR_MONTH;
@@ -51,6 +53,8 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_PAY = "10";
+    public static final String VALID_GENDER = "male";
 
     //Valid Employee Fields with Prefixes
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
@@ -63,6 +67,8 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String PAY_DESC_BOB = " " + PREFIX_PAY + VALID_PAY;
+    public static final String GENDER_DESC_BOB = " " + PREFIX_GENDER + VALID_GENDER;
 
     //Invalid Employee Fields with Prefixes
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names

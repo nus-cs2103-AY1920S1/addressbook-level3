@@ -16,9 +16,12 @@ import seedu.address.logic.commands.allocate.ManualAllocateCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.employee.EmployeeId;
 
+/**
+ * Contains unit tests for {@code DeallocateCommandParserTest}.
+ */
 class ManualAllocateCommandParserTest {
 
-    private static final String ID_000 = " " + PREFIX_EMPLOYEE_ID + "000";
+    private static final String VALID_EMPLOYEE_ID_INPUT = " " + PREFIX_EMPLOYEE_ID + "000";
     private static final String EMPLOYEE_INDEX_ONE = " " + PREFIX_EMPLOYEE_NUMBER + "1";
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, ManualAllocateCommand.MESSAGE_USAGE);
@@ -34,7 +37,7 @@ class ManualAllocateCommandParserTest {
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
 
         // only id specified
-        assertParseFailure(parser, ID_000, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_EMPLOYEE_ID_INPUT, MESSAGE_INVALID_FORMAT);
 
     }
 
@@ -56,7 +59,7 @@ class ManualAllocateCommandParserTest {
     @Test
     public void parse_idSpecified_success() throws CommandException {
         Index targetIndex = INDEX_FIRST_EVENT;
-        String userInput = targetIndex.getOneBased() + ID_000;
+        String userInput = targetIndex.getOneBased() + VALID_EMPLOYEE_ID_INPUT;
         ManualAllocateCommand expectedCommand = new ManualAllocateCommand(targetIndex, null,
                 new EmployeeId("000"));
 
@@ -79,23 +82,14 @@ class ManualAllocateCommandParserTest {
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 ManualAllocateCommand.MESSAGE_USAGE));
-    }
-
-    @Test
-    public void parse_invalidArgs2_throwsParseException() {
         assertParseFailure(parser, "n/5 id/000", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 ManualAllocateCommand.MESSAGE_USAGE));
-    }
-
-    @Test
-    public void parse_invalidArgs3_throwsParseException() {
         assertParseFailure(parser, "  id/0  ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 ManualAllocateCommand.MESSAGE_USAGE));
-    }
-
-    @Test
-    public void parse_invalidArgs4_throwsParseException() {
         assertParseFailure(parser, " 1  id/0  ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 ManualAllocateCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " 1  id/1000  ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ManualAllocateCommand.MESSAGE_USAGE));
     }
+
 }
