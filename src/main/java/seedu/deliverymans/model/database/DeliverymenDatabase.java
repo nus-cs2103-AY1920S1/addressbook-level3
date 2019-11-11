@@ -1,10 +1,10 @@
 package seedu.deliverymans.model.database;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.DELIVERING_STATUS;
 
 import java.util.List;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
@@ -25,7 +25,6 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     private final UniqueDeliverymanList deliverymen;
     private final StatusManager statusManager;
     private final StatisticsManager statisticsManager;
-    private ObservableList<Deliveryman> statusSortedList = FXCollections.observableArrayList();
 
     {
         deliverymen = new UniqueDeliverymanList();
@@ -100,14 +99,14 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
      * {@code key} must exist in the deliverymen database.
      */
     public void removeDeliveryman(Deliveryman key) throws UnableToDeleteDeliveringDeliverymanException {
-        if (key.getStatus().getDescription().equals("DELIVERING")) {
+        if (key.getStatus().getDescription().equals(DELIVERING_STATUS)) {
             throw new UnableToDeleteDeliveringDeliverymanException();
         }
         deliverymen.remove(key);
         statusManager.removeDeliveryman(key);
     }
 
-    // ========= Methods related to list command =================================================================
+    // ========= Methods related to lists command =================================================================
 
     /**
      * Lists all the available deliverymen;
@@ -130,14 +129,6 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         return statusManager.listUnavailableMen();
     }
 
-    /**
-     * Returns true if the list contains an equivalent deliveryman as the given argument.
-     */
-    public boolean contains(Deliveryman toCheck) {
-        requireNonNull(toCheck);
-        return statusSortedList.stream().anyMatch(toCheck::isSameDeliveryman);
-    }
-
     // ========== Methods related to Order ====================================================================
 
     /**
@@ -151,7 +142,8 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     }
 
     /**
-     * Updates the deliveryman status after he has completed an order.
+     * Updates the deliveryman status to be AVAILABLE after there is changes to an order
+     * (ie. completed or deleted an order).
      */
     public void updateDeliverymanStatusAfterChangesToOrder(Name name) {
         getDeliverymenList().stream()
@@ -173,8 +165,9 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     // ========== Methods related to Statistics ================================================================
 
     /**
-     *
-     * @return
+     * Analyzes the status lists to compute statistics regarding the current status of deliverymen.
+     * Passes the status lists from status manager to statistics manager to do analysis.
+     * @return StatisticsRecordCard with the computed analysis and statistics
      */
     public StatisticsRecordCard analyzeDeliverymenStatus() {
         return statisticsManager.analyzeStatusLists(statusManager.listAvailableMen(),

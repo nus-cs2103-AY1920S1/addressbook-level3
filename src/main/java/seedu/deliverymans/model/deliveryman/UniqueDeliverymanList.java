@@ -13,6 +13,13 @@ import seedu.deliverymans.model.deliveryman.exceptions.DuplicateDeliverymanExcep
 
 /**
  * A unique list of deliverymen that does not allow for duplicate deliverymen.
+ * A deliveryman is considered unique by comparing using {@code Deliveryman#isSameDeliveryman(Deliveryman)}. As such,
+ * adding and updating of deliverymen uses Deliveryman#isSameDeliveryman(Deliveryman) for equality so as to ensure that
+ * the deliveryman being added or updated is unique in terms of identity in the UniqueDeliverymenList. However, the
+ * removal of a deliveryman uses Deliveryman#equals(Object) so as to ensure that the deliveryman with exactly the same
+ * fields will be removed.
+ *
+ * Supports a minimal set of list operations.
  */
 public class UniqueDeliverymanList implements Iterable<Deliveryman> {
 
@@ -47,6 +54,12 @@ public class UniqueDeliverymanList implements Iterable<Deliveryman> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Replaces the deliveryman {@code target} in the list with {@code editedDeliveryman}.
+     * {@code target} must exist in the list.
+     * The deliveryman identity of {@code editedDeliveryman} must not be the same as another existing deliveryman in the
+     * list.
+     */
     public void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman) {
         requireNonNull(editedDeliveryman);
 
