@@ -1043,33 +1043,33 @@ Expected: No note is created. An error message is returned with the error detail
 === Listing and filtering notes
 
 . Listing all notes
-.. Prerequisite: Change list pane to list other information. E.g. `contact list`
-.. Test case: `note list` +
-    Expected: Message on successful listing is displayed. All notes are listed in the list pane on the right pane.
+.. *Prerequisite:* Change list pane to list other information. E.g. `contact list`
+.. *Test case:* `note list` +
+    *Expected:* Message on successful listing is displayed. All notes are listed in the list pane on the right pane.
 
 . Filtering notes by keywords in content
-.. Test case: `note list cs` +
-    Expected: Message on successful listing is displayed. Notes containing keyword are listed in the list pane on the right pane.
-.. Test case: `note list team bug` +
-    Expected:  Message on successful listing is displayed. Notes containing any of the keywords are listed in the list pane on the right pane.
-.. Test case: `note list notfound` +
-    Expected: No notes are listed. Message is displayed stating that no notes matching keyword is found.
+.. *Test case:* `note list cs` +
+    *Expected:* Message on successful listing is displayed. Notes containing keyword are listed in the list pane on the right pane.
+.. *Test case:* `note list team bug` +
+    *Expected:*  Message on successful listing is displayed. Notes containing any of the keywords are listed in the list pane on the right pane.
+.. *Test case:* `note list notfound` +
+    *Expected:* No notes are listed. Message is displayed stating that no notes matching keyword is found.
 
 . Filtering notes by tag
-.. Prerequisite: Ensure the sample tags are in the application with `tag list`
+.. *Prerequisite:* Ensure the sample tags are in the application with `tag list`
 
-.. Test case: `note list #songs` +
-    Expected: Message on successful listing is displayed. Notes tagged by specified tag are listed in the list pane on the right pane.
-.. Test case: `note list @1` +
-    Expected: Similar to previous.
-.. Test case: `note list %cs2103t` +
-    Expected: Similar to previous.
-.. Test case: `note list @1 %cs2103t` +
-    Expected: Similar to previous. Notes tagged by any of the tags specified are listed in the list pane on the right pane.
-.. Test case: `note list #notfound` +
-    Expected: No notes are listed. Message is displayed stating that tag cannot be found.
-.. Test case: `note list #songs #notfound` +
-    Expected: Similar to previous.
+.. *Test case:* `note list #songs` +
+    *Expected:* Message on successful listing is displayed. Notes tagged by specified tag are listed in the list pane on the right pane.
+.. *Test case:* `note list @1` +
+    *Expected:* Similar to previous.
+.. *Test case:* `note list %cs2103t` +
+    *Expected:* Similar to previous.
+.. *Test case:* `note list @1 %cs2103t` +
+    *Expected:* Similar to previous. Notes tagged by any of the tags specified are listed in the list pane on the right pane.
+.. *Test case:* `note list #notfound` +
+    *Expected:* No notes are listed. Message is displayed stating that tag cannot be found.
+.. *Test case:* `note list #songs #notfound` +
+    *Expected:* Similar to previous.
 
 === Creating a group
 
