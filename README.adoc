@@ -17,13 +17,13 @@ endif::[]
 It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java sample application intended for students and young adults to manage their personal daily expenses.
 
-## Target Users
+== Target Users
 
 Our target users are students and young adults.
 This group of people are usually too busy to remember every single expense in their daily life which makes it difficult for them to keep track of their spending.
 MYMorise hopes to resolve this issue by being their expense manager and helping them to keep their spendings in check.
 
-## Why use MYMorise?
+== Why use MYMorise?
 
 Have you experienced moments where your money seem to always be gone, then you remembered that you've used it on something but you just can't recall exactly where/what you have spent your money on?
 Or maybe you just want a platform to record your spendings so that you can better manage them the next time?
