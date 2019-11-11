@@ -4,64 +4,56 @@
 :stylesDir: ../stylesheets
 
 == Overview
-This portfolio documents all contributions I have made as part of the team project in the CS2103T Software Engineering module. 
-
-For the software engineering team project, my group of 4 other software engineering students and I were tasked with enhancing an existing application called Address Book 3. We chose to morph the current application into a food diary application called EatMe. The user interacts with it using a Command Line Interface (CLI) and it has a Graphical User Interface (GUI) created with JavaFX. It is written in Java and has about 10 kLoC.
-
-Note the following symbols and formatting used in this document:
-
-| [NOTE]
-| This symbol indicates important information. |
-| `undo` | Monospaced text with grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application OR indicates a component, class or object in the architecture of the application. |
+This portfolio documents all contributions I have made as part of the team project in the CS2103T Software Engineering module. For the software engineering team project, my group of 4 other software engineering students and I were tasked with enhancing an existing application called Address Book 3. We chose to morph the current application into a food diary application called EatMe. The user interacts with it using a Command Line Interface (CLI) and it has a Graphical User Interface (GUI) created with JavaFX. It is written in Java and has about 10 kLoC.
 
 == Summary of Contributions
-My main task was to implement the `stats`, `add` and `edit` features. The following sections illustrate the work I had carried out to implement the feature, as well as the relevant documentation I have added to the user and developer guides in relation to these features.
+My main task was to implement the `stats`, `add` and `edit` features. The following sections illustrate the work I had carried out to implement the feature, as well as the relevant documentation I have added to the user and developer guides.
 
 === Enhancements added
 ==== *Add command*
-The `add` command allows the user to add an eatery to our food diary application. The user can specify the name, address, category, and even tags for the eatery when adding the eatery. Being a food diary application, the `add` command is one of the most important commands in the application as without it, the user would not be able to manage and keep track of any food places. 
-
-The `add` command already came with the original Address Book code. Hence, all I needed to do was to make small enhancements to make it more suited for our food diary application. These small enhancements include: adding a Category field into the `add` command argument parameters and making the Tag field in the original `add` command argument parameters optional. 
+The `add` command allows the user to add an eatery to our food diary application. The user can specify the name, address, category, and even tags for the eatery when adding the eatery. Being a food diary application, the `add` command is one of the most important commands in the application as without it, the user would not be able to manage and keep track of any food places. The `add` command already came with the original Address Book code. Hence, all I needed to do was to make small enhancements to make it more suited for our food diary application. These small enhancements include: adding a Category field into the `add` command argument parameters and making the Tag field in the original `add` command argument parameters optional.
 
 ==== *Edit command*
-The `edit` command allows the user to edit an existing eatery. To edit an existing eatery, the user would need to specify the index of the eatery and other parameters that they would like to modify. Similarly, the `edit` command is one more important command in the application. There is a possibility that an eatery might change its address, or the user might have entered the eatery information wrongly, so the `edit` command is crucial to have in the application.
-
-The `edit` command also came with the original Address Book code. Hence, all I needed to do was to make small enhancements to make it more suited for our food diary application. These small enhancements include: enabling the user to edit the Category field in the existing eatery.
+The `edit` command allows the user to edit an existing eatery. To edit an existing eatery, the user would need to specify the index of the eatery and other parameters that they would like to modify. Similarly, the `edit` command is one more important command in the application as there is a possibility that the user might have entered the eatery information wrongly. The `edit` command also came with the original Address Book code. Hence, all I needed to do was to make small enhancements to make it more suited for our food diary application. These small enhancements include: enabling the user to edit the Category field in the existing eatery.
 
 ==== *Stats command*
-The `stats` command allows the user to generate statistics about the eateries they have visited and the reviews they have made at those visited eateries. The `stats` command is not one of the most crucial commands in the application, however, it is still useful for users as it gives them a breakdown of their eateries and reviews. 
-
-Unlike the `add` and `edit` commands, `stats` command did not come with the original Address Book 3 code. Hence, it required an in-depth analysis of possible design solutions and alternatives. 
+The `stats` command allows the user to generate statistics about the eateries they have visited and the reviews they have made at those visited eateries. The `stats` command is not one of the most crucial commands in the application, however, it is still useful for users as it gives them a breakdown of their eateries and reviews. Unlike the `add` and `edit` commands, `stats` command did not come with the original Address Book 3 code. Hence, it required an in-depth analysis of possible design solutions and alternatives.
 
 === Code contributed
 * `add` command: [https://github.com/AY1920S1-CS2103T-W11-3/main/blob/master/src/main/java/seedu/address/logic/commands/AddCommand.java[Functional code]][https://github.com/AY1920S1-CS2103T-W11-3/main/blob/master/src/test/java/seedu/address/logic/commands/AddCommandTest.java[Test code]]
 * `edit` command: [https://github.com/AY1920S1-CS2103T-W11-3/main/blob/master/src/main/java/seedu/address/logic/commands/EditCommand.java[Functional code]][https://github.com/AY1920S1-CS2103T-W11-3/main/blob/master/src/test/java/seedu/address/logic/commands/EditCommandTest.java[Test code]]
-* `stats` command: [[Functional code]][[Test code]]
-
+* `stats` command: [https://github.com/AY1920S1-CS2103T-W11-3/main/blob/master/src/main/java/seedu/address/model/statistics/Statistics.java[Functional code]][https://github.com/AY1920S1-CS2103T-W11-3/main/blob/master/src/test/java/seedu/address/logic/commands/StatsCommandTest.java[Test code]]
 * Category class: [https://github.com/AY1920S1-CS2103T-W11-3/main/blob/master/src/main/java/seedu/address/model/eatery/Category.java[Functional code]][https://github.com/AY1920S1-CS2103T-W11-3/main/blob/master/src/test/java/seedu/address/model/eatery/CategoryTest.javaf[Test code]]
-* Tag class:  [https://github.com/AY1920S1-CS2103T-W11-3/main/blob/master/src/main/java/seedu/address/model/eatery/Tag.java[Functional code]][https://github.com/AY1920S1-CS2103T-W11-3/main/blob/master/src/test/java/seedu/address/model/eatery/TagTest.java[Test code]]
-* Statistics class:  [[Functional code]][[Test code]]
+
 
 === Other contributions
 * Documentation
-** Made the initial improvements to the original Address Book user guide so that it reflects the actual functionality of our application. Do refer to pull request #12 for more details.
+** Made the initial improvements to the EatMe user guide so that it reflects the actual functionality of our application. Do refer to pull request [https://github.com/AY1920S1-CS2103T-W11-3/main/pull/9[#9]] for more details.
+** Made changes to the general class diagrams shown in the "Architecture" section of the EatMe developer guide so that it reflects the actual architecture of our application. Do refer to pull request [https://github.com/AY1920S1-CS2103T-W11-3/main/pull/170[#170]] for more details.
+** Made the final improvements to the EatMe user guide so that it has a more logical flow and is standardised. Do refer to pull request [https://github.com/AY1920S1-CS2103T-W11-3/main/pull/182[#182]], specifically commits [https://github.com/AY1920S1-CS2103T-W11-3/main/pull/182/commits/d8da7b45455801d64b24c2d9ba53b32b58d88eb2[d8da7b]] and [https://github.com/AY1920S1-CS2103T-W11-3/main/pull/182/commits/b3242a22024bd83ac7bd5504c088c569f4917598[b3242a]] for more details.
 
 * Community
-** Reviewed my team mates’ pull requests (with non-trivial comments). Do refer to pull requests #1, #2, #3 for more details.
-** Reviewed other teams’ pull requests (with non-trivial comments). Do refer to Team Name’s pull requests #1, #2, and Team Name’s pull requests #3 for more details.
+** Reviewed my team mates’ pull requests (with non-trivial comments). Do refer to pull requests [https://github.com/AY1920S1-CS2103T-W11-3/main/pull/76[#76]] and [https://github.com/AY1920S1-CS2103T-W11-3/main/pull/90[#90]] for more details.
 
 * Design
-** Designed and created the high-fidelity mock-up of how our food diary application should look like.
-** Designed the icon for the application.
+** Designed and created the high-fidelity mock-up of how our food diary application should look like originally and the icon for the application.
 
 == Contributions to the User Guide
-Shown below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+Shown below are some of the sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
 
 include::../UserGuide.adoc[tag=add]
+
 include::../UserGuide.adoc[tag=stats]
 
 == Contributions to the Developer Guide
-Shown below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+Shown below are some of the sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
-include::../DeveloperGuide.adoc[tag=add]
+include::../DeveloperGuide.adoc[tag=generalDiagrams1]
+
+include::../DeveloperGuide.adoc[tag=generalDiagrams2]
+
+include::../DeveloperGuide.adoc[tag=edit]
+
 include::../DeveloperGuide.adoc[tag=stats]
+
+
