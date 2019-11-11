@@ -119,7 +119,6 @@ public class DateTimeUtilTest {
         assertEquals(expectedString, returnedString);
     }
 
-    /*
     @Test
     void getStringFromDateTime_testOne() {
         LocalDateTime givenDateTime = LocalDateTime.of(2019, 10, 31, 11, 04);
@@ -128,9 +127,7 @@ public class DateTimeUtilTest {
 
         assertEquals(expectedString, returnedString);
     }
-    */
 
-    /*
     @Test
     void getStringFromDateTime_testTwo() {
         LocalDateTime givenDateTime = LocalDateTime.of(2019, 9, 8, 22, 47);
@@ -139,7 +136,6 @@ public class DateTimeUtilTest {
 
         assertEquals(expectedString, returnedString);
     }
-    */
 
     @Test
     void getStringFromDateTime_invalidDateTime_throwDateTimeException() {

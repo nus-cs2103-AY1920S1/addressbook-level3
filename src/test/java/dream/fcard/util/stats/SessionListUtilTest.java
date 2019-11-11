@@ -51,34 +51,28 @@ public class SessionListUtilTest {
         return sessionListForTest;
     }
 
-    //private SessionList getTestSessionListForTest() {
-    //    //TestSessionList testSessionList = new TestSessionList();
-    //
-    //    //TestSession testSessionOne = new TestSession(sessionOne, "3/20");
-    //    //TestSession testSessionTwo = new TestSession(sessionTwo, "6/20");
-    //    //TestSession testSessionThree = new TestSession(sessionThree, "9/20");
-    //    //TestSession testSessionFour = new TestSession(sessionFour, "12/20");
-    //    //TestSession testSessionFive = new TestSession(sessionFour, "15/20");
-    //
-    //    //testSessionList.addSession(testSessionOne);
-    //    //testSessionList.addSession(testSessionTwo);
-    //    //testSessionList.addSession(testSessionThree);
-    //    //testSessionList.addSession(testSessionFour);
-    //    //testSessionList.addSession(testSessionFive);
-    //
-    //    return testSessionList;
-    //}
+    private SessionList getTestSessionListForTest() {
+        SessionList testSessionList = getSessionListForTest();
+        ArrayList<Session> testSessionArrayList = testSessionList.getSessionArrayList();
+
+        int i = 1;
+        for (Session session : testSessionArrayList) {
+            session.setScore(3 * i + "/20");
+        }
+
+        return testSessionList;
+    }
 
     @Test
     void testSessionList_containsTestSessionsWithScores() {
         boolean isValid = true;
-        //ArrayList<TestSession> testSessionArrayList = getTestSessionListForTest()
-        //    .getTestSessionArrayList();
-        //for (TestSession testSession : testSessionArrayList) {
-        //    if (!testSession.hasScore()) {
-        //        isValid = false;
-        //    }
-        //}
+        ArrayList<Session> testSessionArrayList = getTestSessionListForTest()
+            .getSessionArrayList();
+        for (Session session : testSessionArrayList) {
+            if (!session.hasScore()) {
+                isValid = false;
+            }
+        }
 
         assertTrue(isValid);
     }
@@ -146,24 +140,28 @@ public class SessionListUtilTest {
         assertEquals(expectedString, obtainedString);
     }
 
-    //@Test
-    //void getScoreAsPercentage_onSessionList() {
-    //    SessionList sessionList = getTestSessionListForTest();
-    //    // expected output: 3/20 = 15%
-    //    ArrayList<Session> sessionArrayList = sessionList.getSessionArrayList();
-    //    Session
-    //}
+    @Test
+    void getScoreAsPercentageDouble() {
+        SessionList sessionList = getTestSessionListForTest();
+        ArrayList<Session> sessionArrayList = sessionList.getSessionArrayList();
+        Session sessionForTest = sessionArrayList.get(0);
+        // expected output: 3/20 = 15%
+
+        double expectedDouble = 15.0;
+        double obtainedDouble = SessionListUtil.getScoreAsPercentageDouble(sessionForTest);
+        assertEquals(expectedDouble, obtainedDouble);
+    }
 
     @Test
-    void getScoreAsPercentageDouble_onSession() {
-        //ArrayList<TestSession> testSessionArrayList = getTestSessionListForTest()
-        //    .getTestSessionArrayList();
-        //TestSession sessionForTest = testSessionArrayList.get(3); // score is 12/20
-        //
-        //double expectedDouble = 60.0;
-        //double obtainedDouble = SessionListUtil.getScoreAsPercentageDouble(sessionForTest);
-        //
-        //assertEquals(expectedDouble, obtainedDouble);
+    void getScoreAsPercentageString() {
+        SessionList sessionList = getTestSessionListForTest();
+        ArrayList<Session> sessionArrayList = sessionList.getSessionArrayList();
+        Session sessionForTest = sessionArrayList.get(3); // score is 12/20
+        String score = sessionForTest.getScore();
+
+        String expectedString = "60.0%";
+        String obtainedString = SessionListUtil.getScoreAsPercentageString(score);
+        assertEquals(expectedString, obtainedString);
     }
 
     @Test
