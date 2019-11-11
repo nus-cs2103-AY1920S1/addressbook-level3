@@ -113,7 +113,7 @@ Please click the following link to see my code contributions dashboard. https://
 * Tools:
 ** Integrated a third party library (iCalendarAgenda) to the project (https://github.com/AY1920S1-CS2103T-W13-2/main/pull/79[#79])
 
-== Contributions to the User Guide
+=== Contributions to the User Guide
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
@@ -123,13 +123,13 @@ of creation, editing and display for the features that I have created, as they a
 
 *The following is an example of `Event` screenshot section the User Guide:*
 
-include::../UserGuide.adoc[lines=1051..1092]
+include::../UserGuide.adoc[lines=1071..1114]
 
 *The following is an example of `Event` view section the User Guide:*
 
-include::../UserGuide.adoc[lines=1030..1049]
+include::../UserGuide.adoc[lines=1048..1068]
 
-== Contributions to the Developer Guide
+=== Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
