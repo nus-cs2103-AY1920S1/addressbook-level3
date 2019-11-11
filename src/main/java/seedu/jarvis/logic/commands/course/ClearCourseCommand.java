@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
@@ -12,6 +13,7 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.course.JsonAdaptedClearCourseCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
@@ -80,8 +82,7 @@ public class ClearCourseCommand extends Command {
 
     @Override
     public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
-        // TODO check with marc to see if this is correct
-        return null;
+        return new JsonAdaptedClearCourseCommand(this);
     }
 
     @Override
