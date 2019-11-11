@@ -1,0 +1,80 @@
+@startuml
+!include style.puml
+skinparam backgroundColor #EEEBDC
+skinparam arrowThickness 1.5
+skinparam arrowColor MediumSpringGreen
+skinparam classBackgroundColor MediumAquaMarine
+skinparam classAttributeIconSize 0
+skinparam classAttributeFontColor DarkSlateBlue
+
+skinparam Class {
+    FontColor MidnightBlue
+    BorderThickness 1
+    BorderColor MidnightBlue
+    StereotypeFontColor #FFFFFF
+    FontName Impact
+}
+
+Class Workout {
+ - name : WorkoutName
+ - averageIntensity: Intensity
+ - exercises: ArrayList<ExerciseName>
+ - musclesTrained : Set<MuscleTypes>
+ - exercisesDetails : ArrayList<Set<ExerciseDetail>>
+ - history : WorkoutHistory
+ + updateHistory(WorkoutRun run)
+ + pushExercise(Exercise exercise, Set<ExerciseDetail> details)
+ + pushExercise(Exercise exercise)
+}
+
+Class WorkoutName {
+ - workoutName : String
+ + isValidName()
+}
+
+Enum Intensity {
+ HIGH
+ MEDIUM
+ LOW
+}
+
+Class MuscleType {
+ - muscleType : String
+ + isValidMuscleType()
+}
+
+Class ExerciseDetail {
+ - magnitude : T
+ + isValidExerciseDetail()
+}
+
+Class ExerciseName {
+ - exerciseName : String
+ + isValidExerciseName()
+}
+
+Class WorkoutHistory {
+ - noTimesRan : Integer
+ - averageRunTime : Duration
+ - previousRuns : ArrayList<WorkoutRun>
+ + addRun(WorkoutRun runToAdd)
+}
+
+Class WorkoutRun {
+ - timeStarted : LocalDateTime
+ - timeEnded : LocalDateTime
+ - totalExercisesCompleted : Integer
+ - exercisesRan :  ArrayList<ExerciseRun>
+ - totalTimeTaken : Duration
+}
+
+Workout *-left-> "1" WorkoutHistory
+Workout *-down-> "1" WorkoutName
+Workout *-down-> "1" Intensity
+Workout *-down-> "0..*" ExerciseName
+Workout *-down-> "0..*" MuscleType
+Workout *-right-> "0..*" ExerciseDetail
+
+WorkoutHistory *-down-> "0..*" WorkoutRun
+show members
+@enduml

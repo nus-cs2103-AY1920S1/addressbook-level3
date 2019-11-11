@@ -379,25 +379,62 @@ We will soon implement ArrayLists instead as the current implementation of `Ingr
 for ease of use for the user whenever the user wishes to edit `Ingredient` objects present within a `Recipe`.
 
 === Workout Planner feature
+
+The workout feature allows users to create their own custom workouts with `add Workout` command and adding their own
+custom exercises to it with `push exercise`. With these custom workouts, they can then choose to run them through
+`run workout` and monitor their progress and workout history with `view workout`.
+
 ==== Implementation
+
+{nbsp} +
+*Workout Management*
+
+Every workout comprises of the following information:
+
+* `WorkoutName` representing the name of the workout
+* `Average Intensity` representing the average demands of the exercises in the workout
+* A set of `MuscleType` which represents all the muscles trained by the workout
+* An ArrayList of `ExerciseName` of exercises that would be carried out in the workout
+* `WorkoutHistory` containing information on all the previous runs of the workout as well as some statistics
+
+The Workout Class also contains the function `updateHistory(WorkoutRun run)` which adds the `WorkoutRun` into the
+WorkoutHistory and updates all the relevant fields accordingly, returning a new Workout instance with updated `WorkoutHistory`.
+The class also utilises `pushExercise(Exercise exercise, Set<ExerciseDetail> details)` function to add new `Exercise` and
+return a new Workout with update fields. There is also an option to push an exercise without the details with the overloaded
+method which instead opts to use the pre-built Set of `ExerciseDetails` in the `Exercise` itself.
+
+The Workout Class is represented by the class diagram below.
+
+.Workout Class Diagram
+image::WorkoutClassDiagram.png[]
+
+The Workout Class is managed by the following commands:
+
+* `AddWorkoutCommand` - Adds a new empty `Workout` into `WorkoutPlanner`
+* `DeleteWorkoutCommand` - Deletes a `Workout` specified by an `Index` from `WorkoutPlanner`
+* `PushExerciseCommand` - Pushes an `Exercise` specified by an `Index` into an existing `Workout`
+
+
 {nbsp} +
 *Exercise Management*
 
-Every workout comprises of varying number of exercises. Users can use existing exercises or create their own custom
-exercises. Every exercise contains the following information:
+In order to run a `Workout`, users will have to add `Exercises` into the `Workout` as an empty workout cannot be ran.
+Users can use existing exercises or create their own custom exercises. Every exercise contains the following information:
 
 * `ExerciseName` representing the name of the exercise
 * `MusclesTrained` comprising of the primary `MuscleType` as well as an ArrayList of secondary `MuscleType` trained
 * `Intensity` or how demanding the exercise is
 * A set of `ExerciseDetails` which are optional additional information of the exercise such as `ExerciseWeight`,
-`Distance`, `Sets` and `Repetitions`.
+`Distance`, `Sets` and `Repetitions`
+* `ExerciseHistory` containing information on all the previous `ExerciseRun` of the exercise
+
+Like `Workout`, `Exercise` also has the method `updateHistory` which returns an updated Exercise with a new
+`ExerciseRun` accounted for.
 
 The Exercise class is represented by the following class diagram below.
 
 .Exercise Class Diagram
 image::ExerciseClassDiagram.png[]
-
-==== Implementation of Exercise Commands
 
 The `Exercise` class is managed by the following commands :
 
@@ -410,30 +447,102 @@ The `Exercise` class is managed by the following commands :
 * 'FindExerciseCommand' - Lists all `Exercise` objects with `ExerciseName` that contains the string specified
 * 'ListExercise' - Lists all 'Exercise' objects in `WorkoutPlanner`
 
-All the commands listed above are parsed in `DukeCooksParser`, invoking the respective Command Parsers
-(Add, Delete, Edit etc.). The `Exercise` variant of the parser will then be instantiated
-(i.e `AddExerciseCommandParser`,`DeleteExerciseCommandParser` etc) to create the actual command objects
-(i.e AddDiaryCommand, DeleteDiaryCommand etc). These Command Objects will then execute the necessary steps
+All the exercise and workout commands above are parsed in `DukeCooksParser`, invoking the respective Command Parsers
+(Add, Delete, Edit etc.). The `Exercise`/`Workout` variant of the parser will then be instantiated
+(i.e `AddExerciseCommandParser`,`DeleteWorkoutCommandParser` etc) to create the actual command objects
+(i.e AddExerciseCommand, DeleteWorkoutCommand etc). These Command Objects will then execute the necessary steps
 to fulfill their functionality.
+
+{nbsp} +
+*Running of Workouts*
+
+The core functionality of the WorkoutPlanner is to run a `Workout` and have it automatically tracking your progress
+by making records in its history. This is done through the `Run Workout Command`. The following sequence diagrams show
+what happens when the command is invoked.
+
+.Sequence Diagram of RunWorkoutCommand
+image::RunWorkoutSequenceDiagram.png[]
+
+As seen in the diagram above, when the command is invoked, the `RunWorkoutParser` is initialised to parse the argument String
+to initialise `RunWorkoutCommand`. The Command object will then run its execute method, which calls upon get method of
+UniqueWorkoutList to obtain the target `Workout`. The target workout and message will then be passed back to the Ui through
+the CommandResult object. The Ui will then boot a new `RunWorkoutWindow` with the targeted workout.
+
+.Sequence Diagram of UpdateWorkoutCommand
+image::RunWorkoutSequenceDiagram1.png[]
+
+Upon completion of the workout, the Ui will immediately generate a new `UpdateWorkoutCommand` containing the `Workout`
+that has been ran and a newly instantiated `WorkoutRun` with the details of the run. `UpdateWorkoutCommand` will then
+be executed and the following will occur:
+
+. New Workout will be generated. +
+Using Workout's `updateHistory` method, a new updated `Workout` will be created.
+. The outdated Workout will be replaced by the new Workout. +
+Using `UniqueWorkoutList` 's `setWorkout` method, the old workout will be removed and the updated one will be placed in
+its stead
+. CommandResult is generated and passed back to Ui. +
+A new CommandResult will be returned containing a congratulatory message to the Ui signalling the successful completion
+of the workout.
 
 *Design Considerations*
 
-When coming up with the Exercise class there were various considerations as to what fields should be added. Initially,
-we had planned for MuscleType to be an enum given the limited number of muscles in the human body. However, we had
-strayed away from this implementation given the complexity of the way the muscles work as well as the numerous names
-that one muscle could be called. We instead allowed the user to define the muscles themselves which is better for their
-own understanding. We instead utilised enums for the Intensity field since it is only limited High, Medium and Low.
+[cols="10%,50%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
 
-*Alternatives*
+|Storing an Exercise/Workout's intensity
+|Intensity was stored as an Enumeration instead of a class
 
-When coming up with the optional details field, `ExerciseDetail` we had morphed the tag feature which was stored in a
-Set in AddressBook 3. The various details such as weight, distance would then be implementing the `ExerciseDetail`
-interface. After careful consideration, we had come to the conclusion that this method of storage is flawed given that
-we only intended for at most one instance of each detail and inability to call upon them at O(1) time complexity.
+- Pros: Intensity can be limited only a specific amount of values +
 
-Instead, we designed the `ExerciseDetails` to be a class with 4 Optional fields containing the various details. This
-allows for the details to be obtained more efficiently as well as limit them to only a single instance.
+- Cons: Intensity will only be an estimate instead of a specific value given the value limits +
 
+This option was chosen in the end to simplify the classification of exercise so that users can more easily filter by
+intensity. Furthermore, this allows for more Ui diversification by having different images for each intensity.
+
+|Setting Intensity as a Class
+
+- Pros: Easy to implement.
+
+- Cons: Makes filtering by intensity a more tedious affair for both developers and users.
+
+|Storing MuscleTypes
+
+|Have MuscleType be a class on its own
+
+- Pros: Muscles are referred to by various names and allowing the user to set their own muscle names allow for more
+familiarity
+
+- Cons: MuscleType class will require stricter validation to ensure that users do not mess up the programme with unintended
+inputs.
+
+This option was chosen to allow for greater flexibility of naming for the muscle types but at the same time still limited
+to prevent the users from going wild.
+
+|Store MuscleType as an enumeration
+
+- Pros: There are limited muscles in the body, allowing for a proper limit +
+
+- Cons: Muscles may have multiple names that are not accounted for by the enum.
+
+|Storage of Exercises in Workout
+|Workouts only store a list of ExerciseName and not the full exercise
+
+- Pros: Exercises only have to be edited once upon execution of edit command - more cost effective. It also avoids
+unnecessarily large storage files. +
+
+- Cons: Each time an exercise of workout has to be referenced, the entire storage of exercise has to be scoured
+
+In the end we decided to choose this option as we foresee that the edit command will be utilised more often than calling
+an exercise from a workout. Furthermore, to improve timing, we kept a sorted storage for exercise to allow for the quicker
+binary search.
+
+| Workouts store whole Exercises
+
+- Pros : Exercises can be extracted quickly
+- Cons : Huge storage space is required. Also complicates editing of exercises.
+|===
 
 === Health Records feature
 The Health Records feature handles the following:

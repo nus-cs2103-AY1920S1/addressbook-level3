@@ -747,7 +747,7 @@ image::addExerciseOutput.png[]
 
 ==== View Exercise: `view exercise`
 
-Ok, now that you've added your exercise, you probably want to know what all of its details. Simply
+Ok, now that you've added your exercise, you probably want to know all of its details. Simply
 input the command `view exercise` followed by the index of the exercise you want
 to view as shown below.
 
