@@ -3,17 +3,53 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.com/AY1920S1-CS2103-T16-1/main[image:https://travis-ci.com/AY1920S1-CS2103-T16-1/main.svg?branch=master[Build Status]]
 
+ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
+endif::[]
 
+ifndef::env-github[]
+image::images/Ui.png[width="600"]
+endif::[]
+
+ifdef::env-github[]
 image::docs/images/Ui_Bio.png[width="600"]
+endif::[]
 
+ifndef::env-github[]
+image::images/Ui_Bio.png[width="600"]
+endif::[]
+
+ifdef::env-github[]
 image::docs/images/Ui_Records.png[width="600"]
+endif::[]
 
+ifndef::env-github[]
+image::images/Ui_Records.png[width="600"]
+endif::[]
+
+ifdef::env-github[]
 image::docs/images/Ui_Graph.png[width="600"]
+endif::[]
 
+ifndef::env-github[]
+image::images/Ui_Graph.png[width="600"]
+endif::[]
+
+ifdef::env-github[]
 image::docs/images/Ui_Calendar.png[width="600"]
+endif::[]
 
+ifndef::env-github[]
+image::images/Ui_Calendar.png[width="600"]
+endif::[]
+
+ifdef::env-github[]
 image::docs/images/Ui_Achievements.png[width="600"]
+endif::[]
+
+ifndef::env-github[]
+image::images/Ui_Achievements.png[width="600"]
+endif::[]
 
 SugarMummy aims to help type II diabetes patients to live more healthily, conveniently, and happily.
 It is a free software with useful functions:
