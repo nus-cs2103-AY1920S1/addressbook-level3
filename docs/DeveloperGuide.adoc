@@ -291,6 +291,8 @@ _Figure 6. Activity diagram of questions search_
 
 ==== Design Considerations
 
+The following are the various design choices made regarding the feature and alternatives that were considered prior to implementation.
+
 ===== Command Syntax
 * ** Current Implementation: **
 ** Current implementation of the commands follows the command word syntax e.g question followed by the arguments necessary
@@ -368,6 +370,8 @@ image::SlideshowFeatureActivityDiagram.png[]
 _Figure 8. Activity diagram of the actions performed_
 
 ==== Design Considerations
+
+The following are the various design choices made regarding the feature and alternatives that were considered prior to implementation.
 
 ===== Controls
 
