@@ -348,7 +348,7 @@ longer than 20 characters.
 
 [NOTE]
 Each study plan is assigned a unique ID upon its creation. This ID will remain the same throughout
-the life of the study plan.
+the life of the study plan. The ID will be reset to 1 when all study plans are deleted and the application is restarted.
 
 Format: `newplan [TITLE]` +
 Examples:

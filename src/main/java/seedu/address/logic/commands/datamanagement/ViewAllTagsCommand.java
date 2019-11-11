@@ -17,7 +17,7 @@ public class ViewAllTagsCommand extends Command {
 
     public static final String COMMAND_WORD = "viewalltags";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Viewing all module tags";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Shows all module tags in the study plan. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows all module tags in the study plan. "
             + "Example: "
             + "viewalltags";
 

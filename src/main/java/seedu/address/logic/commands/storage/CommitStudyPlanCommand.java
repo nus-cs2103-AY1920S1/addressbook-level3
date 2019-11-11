@@ -15,7 +15,7 @@ public class CommitStudyPlanCommand extends Command {
 
     public static final String COMMAND_WORD = "commit";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Committing edits to a study plan";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Commits the current active study plan."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Commits the current active study plan.\n"
             + "Parameters: "
             + "commit message \n"
             + "Example: " + COMMAND_WORD + " "

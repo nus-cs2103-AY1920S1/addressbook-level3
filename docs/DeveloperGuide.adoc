@@ -1338,6 +1338,49 @@ priority tag, an error message will be shown.
 Expected:
 A left panel with a list of study plans sorted in the order such that their priorities are `high`, `low` and no priority.
 
+=== Executing study plan-level commands
+
+. Adding a study plan
+.. Test case: `newplan first` +
+Expected:
+A study plan with the title `first` is created, and a unique ID is assigned to it.
+.. Test case: `newplan` +
+Expected:
+A study plan without a title is created, and a unique ID is assigned to it.
+
+. Deleting a study plan
+.. Prerequisite
+... The study plan ID must refer to an existing study plan. You can check this by the `list` command.
+.. Test case: `removeplan 1` +
+Expected:
+The study plan with the ID `1` will be deleted. To check your study plans' indices, you can use the `list` command.
+
+. Listing all study plans
+.. Prerequisite
+... There is at least one study plan.
+.. Test case: `list` +
+Expected: all study plans are listed.
+
+. Viewing another study plan
+.. Prerequisite
+... The study plan ID must refer to an existing study plan. You can check this by the `list` command.
+.. Test case: `viewplan 1` +
+Expected:
+The study plan with the ID `1` will be displayed in the left panel as a simplified view.
+
+. Activating another study plan
+.. Prerequisite
+... The study plan ID must refer to an existing study plan. You can check this by the `list` command.
+.. Test case: `newplan title` then `activate 2` if the new plan's ID is `2` +
+Expected:
+The study plan with the ID `2` will be displayed in the left panel as a simplified view.
+
+. Editing the title
+.. Prerequisite
+... There is at least one study plan. (There is a current active plan)
+
+
+
 === Executing information and verification-related commands
 
 . Checking for study plan requirements

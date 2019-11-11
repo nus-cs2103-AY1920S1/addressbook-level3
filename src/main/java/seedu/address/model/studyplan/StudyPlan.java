@@ -810,7 +810,11 @@ public class StudyPlan implements Cloneable {
 
     @Override
     public String toString() {
-        return "[ID: " + index + "] Title: " + title.toString();
+        String titleString = title.toString();
+        if (titleString.isEmpty()) {
+            titleString = "<untitled>";
+        }
+        return "[ID: " + index + "] Title: " + titleString;
     }
 
     @Override
