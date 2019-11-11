@@ -57,6 +57,12 @@ public class LoginCommand extends Command {
         Earnings.setHashMap(list);
         AccountStorage accountStorage = new JsonAccountStorage();
 
+        if (Earnings.getTotalEarnings().equals("0.00")) {
+            for (Earnings e : Earnings.getEarningsList()) {
+                Earnings.addToTotalEarnings(e.getAmount());
+            }
+        }
+
         try {
             if (accountStorage.getAccountsList().get().sameCredentials(account.getUsername(), account.getPassword())) {
                 model.isLoggedIn();
