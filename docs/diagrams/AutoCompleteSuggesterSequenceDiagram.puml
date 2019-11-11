@@ -1,0 +1,40 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant "**:AutoCompleteTextField**" as AutoCompleteTextField UI_COLOR
+end box
+box Logic LOGIC_COLOR_T1
+participant "**:AutoCompleteParser**" as AutoCompleteParser LOGIC_COLOR
+participant "**:AutoCompleteSuggester**" as AutoCompleteSuggester LOGIC_COLOR
+end box
+activate AutoCompleteTextField
+[-> AutoCompleteTextField : getEntries(input)
+alt input contains '<' or '>'
+    [<-- AutoCompleteTextField : emptyList
+else else
+    AutoCompleteTextField --> AutoCompleteParser : parseCommandWord(input)
+    activate AutoCompleteParser
+    AutoCompleteParser --> AutoCompleteTextField : command
+    deactivate AutoCompleteParser
+    alt userMightStillBeTyping
+        [<-- AutoCompleteTextField : emptyList
+    else else
+        AutoCompleteTextField --> AutoCompleteParser : parsePreamble(input, command)
+        activate AutoCompleteParser
+        AutoCompleteParser --> AutoCompleteTextField : preamble
+        deactivate AutoCompleteParser
+        AutoCompleteTextField --> AutoCompleteParser : parsePrefix(input)
+        activate AutoCompleteParser
+        AutoCompleteParser --> AutoCompleteTextField : listOfPrefixPresent
+        deactivate AutoCompleteParser
+        AutoCompleteTextField --> AutoCompleteSuggester : getPossibilities(command, preambleIsPresent, listOfPrefixPresent)
+        activate AutoCompleteSuggester
+        ref over AutoCompleteSuggester : **getPossibilities**
+    end
+        AutoCompleteSuggester --> AutoCompleteTextField : possibilities
+        deactivate AutoCompleteSuggester
+        [<-- AutoCompleteTextField : possibilities
+end
+deactivate AutoCompleteTextField
+@enduml

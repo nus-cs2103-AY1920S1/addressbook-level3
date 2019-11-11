@@ -1,0 +1,27 @@
+@startuml
+!include style.puml
+'sub-diagram getPossibilities
+box Logic LOGIC_COLOR_T1
+participant "**:AutoCompleteSuggester**" as AutoCompleteSuggester LOGIC_COLOR
+end box
+List
+
+[-> AutoCompleteSuggester : getPossibilities(command, preambleIsPresent, listOfPrefixPresent)
+activate AutoCompleteSuggester
+AutoCompleteSuggester --> AutoCompleteSuggester : findMatchingCommandInformation(command)
+alt CommandNotFound
+    AutoCompleteSuggester --> AutoCompleteSuggester : closestMatchingCommand(command)
+    [<-- AutoCompleteSuggester : closestCommands
+else command has preamble and preamble not present in input
+    AutoCompleteSuggester --> AutoCompleteSuggester : possibilities.add(commandInformation.getPreamble().get())
+    [<-- AutoCompleteSuggester : possibilities
+else else
+    AutoCompleteSuggester --> AutoCompleteSuggester : getPossibleRequiredPrefixSingle(commandInformation, prefixesPresent);
+    AutoCompleteSuggester --> AutoCompleteSuggester : getPossibleRequiredPrefixMultiple(commandInformation);
+    AutoCompleteSuggester --> AutoCompleteSuggester : getPossibleOptionalPrefixSingle(commandInformation, prefixesPresent);
+    AutoCompleteSuggester --> AutoCompleteSuggester : getPossibleOptionalPrefixMultiple(commandInformation);
+    AutoCompleteSuggester --> List : getPossibleOptionalPrefixMultiple(commandInformation);
+    [<-- AutoCompleteSuggester : possibilities
+end
+deactivate AutoCompleteSuggester
+@enduml
