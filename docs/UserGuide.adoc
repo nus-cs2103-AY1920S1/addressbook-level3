@@ -70,6 +70,8 @@ Do not directly edit any of the  following json files: e.g. `appointments.json`,
 
 * When the command box is blank, kbd:[UP] & kbd:[DOWN] will auto-fill the command box with commands previously entered. kbd:[UP] gives older commands and kbd:[DOWN] gives newer commands.
 
+** Note: History is not saved in any manner after the application has closed.
+
 * When the command box is not blank, AutoComplete will come into action and tries to suggest commands that are available for whatever that has been typed. During which, you may traverse your selection of the suggestions via kbd:[UP] & kbd:[DOWN] then press kbd:[ENTER] to confirm selection.
 
 *Full keyboard navigable UI*

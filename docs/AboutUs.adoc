@@ -9,7 +9,7 @@ The project is a fork from AddressBook - Level 3 which was developed by the http
 
 == Project Team
 
-=== SakuraBlossom
+=== Shawn Lum
 image::sakurablossom.png[width="150", align="left"]
 {empty}[http://github.com/SakuraBlossom[github]] [<<sakurablossom#, portfolio>>]
 
@@ -24,7 +24,7 @@ Responsibilities:
 
 '''
 
-=== CarbonGrid
+=== Daniel Tan Jun Xian
 image::carbongrid.png[width="150", align="left"]
 {empty}[http://github.com/CarbonGrid[github]] [<<carbongrid#, portfolio>>]
 
@@ -39,7 +39,7 @@ Responsibilities:
 
 '''
 
-=== woon17
+=== Wen Shufa
 image::woon17.png[width="150", align="left"]
 {empty}[http://github.com/woon17[github]] [<<woon17#, portfolio>>]
 
@@ -53,7 +53,7 @@ Responsibilities:
 
 '''
 
-=== wongsm7
+=== Wong Shun Min
 image::wongsm7.png[width="150", align="left"]
 {empty}[http://github.com/wongsm7[github]] [<<wongsm7#, portfolio>>]
 

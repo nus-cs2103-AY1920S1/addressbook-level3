@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103T-T09-3/main/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T09-3/main/
 
 By: `Team T09-3`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -81,7 +81,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `OmniPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -1106,6 +1106,9 @@ Cons:
 * ...
 
 [appendix]
+
+// tag::carbongridContribManualTesting[]
+
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1125,28 +1128,58 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+   Expected: The most recent window size and location is retained. If window settings under `preferences.json` is corrupted and becomes reasonably small or large, the default size of 800x600 will be used instead.
 
-_{ more test cases ... }_
+=== Editing a patient
 
-=== Deleting a person
+. Editing a patient while certain patient(s) have been searched.
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
+.. Prerequisites: Search for an interested person via `patient [<SEARCH_KEYWORD>]` then press kbd:[ENTER].
+.. Test case: `editpatient -entry 1 -name test` +
+   Expected: All patients will be listed again with the particular patient of index found after searching has his or her name modified to `test`.
 
 === Saving data
 
 . Dealing with missed/corrupted data files
 
-.. _{explain how to simulate a missed/corrupted file and the expected behavior}_
+.. Prerequisites: Removing or Modifying files in data folder residing in same directory as `ClerkPro.jar`.
+.. Test case: Deleting the entire data folder. +
+   Expected: ClerkPro will attempt to access the folder. If it does not exists, the data folder will be automatically created with default settings. Other jsons beside `preferences.json` will be created upon modification of sample data loaded.
+.. Test case: Corrupting data files by modifying its entries. +
+   Expected: ClerkPro will try its best to parse the data. If it is not valid, it must be corrupted. Therefore the application will load up with default settings and sample data.
 
-_{ more test cases ... }_
+=== Navigating in UI
+
+. Navigating with keyboard only
+
+.. Test case: kbd:[TAB] key should change focus from the upper panels to Command Box and Command Box to Tab Bar. +
+   Expected: When TabBar or Command Box is in focus, there should exist an indication of turquoise/blue border.
+.. Test case: Both kbd:[UP] and kbd:[DOWN] keys should also work even if the selected item is of the first or last index. +
+   Expected: When UP is pressed during a selected item in the list view or Tab Bar is of first index, it should brings the selection to the last index of the list view or Tab Bar. Vice versa for the last index when selected.
+
+=== Command Box
+
+. AutoComplete
+
+.. Test case: *Any partial commands with leading spaces. +
+   Expected: AutoComplete appears in an aligned overlay showing available commands for whatever has been typed.
+.. Test case: `newpatient -id` with any number of leading spaces but at least one ending space(s). +
+   Expected: AutoComplete does not suggest any other flags because its previous word is in a flag format.
+.. Test case: `newpatient -id Mo-name` with any number of leading spaces but at least one ending space(s). +
+   Expected: Since `Mo-name` is not a flag, AutoComplete should suggest all unused flags but not `-id`.
+.. Test case: Lengthy Command in Command Box reaching the right-most end of the Command Box. +
+   Expected: AutoComplete will display all suggestions visibly at the right-most end but will lose the perfect alignment since its impossible to align any further while staying visible to the user.
+.. Test case: kbd:[UP] & kbd:[DOWN] & kbd:[ENTER] while focus is still on the Command Box. +
+   Expected: The selection should change according to kbd:[UP] & kbd:[DOWN]. While kbd:[ENTER] should set the selected tag into the Command Box, instead of executing the unfinished Command.
+
+. History
+
+.. Prerequisites:
+1. Some commands that has been entered regardless if it is invalid or valid.
+2. Command Box is focused.
+3. AutoComplete is not in action.
+.. Test case: Press kbd:[UP] then kbd:[DOWN] +
+   Expected: Upon kbd:[UP], current text in Command Box is replaced with previously entered command. Then after, pressing kbd:[DOWN] displays an empty command box since the last text that was in the Command Box is not entered and thus not part of history.
+
+// end::carbongridContribManualTesting[]
+

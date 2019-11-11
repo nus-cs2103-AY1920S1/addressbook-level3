@@ -204,16 +204,19 @@ public class MainWindow extends UiPart<Stage> implements CommandBoxManager, Omni
         primaryStage.setWidth(targetWidth);
         primaryStage.setHeight(targetHeight);
 
-        if (guiSettings.getWindowCoordinates() == null
-                || screenWidth < targetWidth + guiSettings.getWindowCoordinates().getX()
-                || screenHeight < targetHeight + guiSettings.getWindowCoordinates().getY()) {
+        double targetX = guiSettings.getWindowCoordinates().getX();
+        double targetY = guiSettings.getWindowCoordinates().getY();
+
+        if (guiSettings.getWindowCoordinates() == null || targetX < 0 || targetY < 0
+                || screenWidth < targetWidth + targetX
+                || screenHeight < targetHeight + targetY) {
             logger.warning("Existing GUI settings seems to be incompatible with the current display. Skipping Invalid"
                     + " Window Sizing.");
             return;
         }
 
-        primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-        primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        primaryStage.setX(targetX);
+        primaryStage.setY(targetY);
     }
 
     void show() {
