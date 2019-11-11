@@ -16,9 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.ExpenseList;
-import seedu.address.model.exchangedata.ExchangeData;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class containing a list of {@code Expense} objects to be used in tests.
@@ -79,11 +77,6 @@ public class TypicalExpenses {
         }
         return ab;
     }
-
-    public static ExchangeData getTypicalExchangeData() {
-        return SampleDataUtil.getSampleExchangeData();
-    }
-
 
     public static List<Expense> getTypicalExpenses() {
         return new ArrayList<>(Arrays.asList(TRANSPORT, FOOD, SHOPPING, GROCERIES, VALENTINES, CHRISTMAS, NEWYEAR));
