@@ -26,11 +26,17 @@ public class DeckStatisticsWindow extends ScrollPane {
     @FXML
     private Label numCards;
     @FXML
+    private Label numCardsExplainer;
+    @FXML
     private Label totalSessions;
+    @FXML
+    private Label totalSessionsExplainer;
     @FXML
     private Label totalDuration;
     @FXML
     private Label sessionsThisWeek;
+    @FXML
+    private Label sessionsThisWeekExplainer;
     @FXML
     private ScrollPane testSessionsScrollPane;
     @FXML
@@ -67,18 +73,21 @@ public class DeckStatisticsWindow extends ScrollPane {
     /** Retrieves and displays numerical stats, like the total number of login sessions. */
     private void displaySummaryStats() {
         int numberOfCards = deck.getNumberOfCards();
-        this.numCards.setText("Number of cards in deck: " + numberOfCards
-            + (numberOfCards == 1 ? " card" : " cards"));
+        this.numCards.setText(String.valueOf(numberOfCards));
+        this.numCardsExplainer.setText((numberOfCards == 1 ? " card" : " cards") + " in this deck");
+
+        int numSessions = this.testSessionList.getNumberOfSessions();
+        this.totalSessions.setText(String.valueOf(numSessions));
+        this.totalSessionsExplainer.setText("test" + (numSessions == 1 ? " session" : " sessions")
+            + " all time");
 
         SessionList sublistForThisWeek = SessionListUtil.getSublistForThisWeek(
             testSessionList);
         int numSessionsThisWeek = sublistForThisWeek.getNumberOfSessions();
-        this.sessionsThisWeek.setText("Total test sessions this week: " + numSessionsThisWeek
-            + (numSessionsThisWeek == 1 ? " session" : " sessions"));
-
-        int numSessions = this.testSessionList.getNumberOfSessions();
-        totalSessions.setText("Total test sessions: " + numSessions
-            + (numSessions == 1 ? " session" : " sessions"));
+        this.sessionsThisWeek.setText(String.valueOf(numSessionsThisWeek));
+        this.sessionsThisWeekExplainer.setText("test"
+            + (numSessionsThisWeek == 1 ? " session" : " sessions")
+            + " this week");
 
         String duration = this.testSessionList.getTotalDurationAsString();
         totalDuration.setText("Total test duration: " + duration);

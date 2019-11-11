@@ -21,7 +21,7 @@
                </TableView>
             </content>
          </ScrollPane>
-         <Label styleClass="helper-text" text="To view statistics for individual decks, type &quot;stats deck/[deckname]&quot;" />
+         <Label text="To view statistics for individual decks, type &quot;stats deck/[deckname]&quot;" />
          <Label styleClass="window-subtitle" text="My statistics by deck" />
          <ScrollPane fx:id="deckTableScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="400.0" minHeight="200.0">
             <content>
