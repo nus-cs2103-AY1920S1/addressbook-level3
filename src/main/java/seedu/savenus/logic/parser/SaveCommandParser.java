@@ -10,7 +10,7 @@ import seedu.savenus.model.util.Money;
  * Parses input arguments and creates a new {@code SaveCommand} to be executed later
  * to add {@code Savings} from user into his/her {@code SavingsAccount}.
  */
-public class SaveCommandParser {
+public class SaveCommandParser implements Parser<SaveCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the SaveCommand
      * and returns an SaveCommand object for execution.
