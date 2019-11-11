@@ -69,7 +69,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .List of Prefixes
 |===
-|Command Type |Prefix | Description + Parameters can be given in any order
+|Command Type |Prefix | Description +
+(Parameters can be given in any order)
 
 1.1+h|Calendars
 |fp/|File path
@@ -136,7 +137,7 @@ Format: `settings` +
 
 Entering the `settings` command will bring you to the following page:
 
-image::Settings.png[width=400]
+image::Settings.png[]
 
 [NOTE]
 You can refer to section 3.7 on specific settings-related commands to apply.
@@ -148,7 +149,7 @@ Displays a list of possible commands for the user +
 You can toggle through the command list (either through up down keys or mouse) and it will paste the correct syntax into the command line. +
 Format: `help`
 
-image::Help.png[width=400]
+image::Help.png[]
 
 ==== Undo a command: `undo`
 
@@ -247,8 +248,8 @@ image::SetImage.png[]
 Image Path refers to the folder path of the image stored in your computer, and should end with .png
 
 [IMPORTANT]
-If you shift the image's location in your computer, +Work will be unable to find the image to display, and will
-display a warning message, before displaying the default profile picture.
+If you shift the image's location in your computer, +Work will be unable to find the image to display.
+A warning message will be displayed, before displaying the default profile picture.
 It is recommended that you store all the images in a central folder to prevent this from happening.
 
 
@@ -351,6 +352,8 @@ image::AfterFireMember.png[]
 // tag::task[]
 === Task Commands
 
+The following commands will help you manage the tasks in your project.
+
 ==== Adding a task: `add-task`
 
 To add a task to the project, use the `add-task` command in the format below. +
@@ -362,18 +365,18 @@ If a status is not given for the task, +Work will assign it as `unbegun` or "Not
 
 Example:
 
-* Suppose you want to add a task called "Finish up milestones settings" to your project. First type `add-task tn/Finish up milestone setting`
+* Suppose you want to add a task called "Finish up milestones settings" to your project. First type `add-task tn/Finish up milestone settings`
 as show below.
 
 image::add-task-preview.png[]
 
-* Hit the kbd:[Enter] key and you will see that the task is added to the project! +
+* Hit the kbd:[Enter] key and you will see that the task is added to your project! +
 [IMPORTANT]
 The prompt displayed as a result of performing `add-task` is further explained in <<Multiline Commands>>.
 
 image::add-task-res-list.png[]
 
-==== Deleting a task: delete-task
+==== Deleting a task: `delete-task`
 
 To delete a task from your project, use the `delete-task` command in the format below. +
 Format: `delete-task [ti/TASK_ID]`
@@ -396,7 +399,7 @@ Format: `edit-task [ti/TASK_ID] [FIELD(S)_TO_EDIT]` +
 Optional parameters: `[tn/TASK_NAME]` `[s/STATUS]` `[tt/TAG]` `[at/dd-mm-yyyy hh:mm]`
 
 [IMPORTANT]
-At least one of the optional parameter must be provided in the command for a task to be edited successfully.
+At least one of the optional parameters must be provided in the command for a task to be edited successfully.
 
 Example:
 
@@ -445,6 +448,9 @@ Notice that "Shirts for freshman open day" has been moved to `done`.
 
 image::done-task-result-dashboard.png[]
 
+[NOTE]
+If a task previously had a deadline, it will be removed once it is marked as `done`
+
 
 ==== Setting a task's status to `doing`: `doing-task`
 
@@ -454,7 +460,7 @@ Format: `doing-task [ti/TASK_ID]`
 Example:
 
 * `doing-task ti/3` +
-This sets the status of task 3 to `doing`.
+This sets the status of the third task to `doing`.
 
 [TIP]
 Usage of this command is very similar to setting a task status to `doing` as explained above.
@@ -466,16 +472,14 @@ This sets a deadline for an existing task in your project.
 
 Format: `set-deadline [ti/TASK_ID] [at/DEADLINE] [at/dd-mm-yyyy hh:mm]`
 
-[IMPORTANT]
-The deadline you enter has to be at a future date!
-
 Example:
 
 * To set a deadline for the task "Shirts for Freshman Open Day" shown below, first navigate to the task list view using `list-tasks`.
 
 image::list-tasks-preview.png[]
 
-* Suppose the deadline for your task is on the 20th of November 2019 at 6pm, enter `set-deadline ti/5 at/10-11-2019 18:00` into the command box as shown below.
+* Suppose the deadline for your task is on the 20th of November 2019 at 6pm, enter +
+`set-deadline ti/5 at/20-11-2019 18:00` into the command box as shown below.
 
 image::set-deadline-list-preview.png[]
 
@@ -488,7 +492,7 @@ Now, navigate to the dashboard by entering `home`. Hit the kbd:[Enter] key and y
 image::set-deadline-res-dashboard.png[]
 
 [TIP]
-The "Upcoming deadlines" sidebar (right side of above picture) helps you keep track of tasks which are due in two weeks or less.
+The "Upcoming deadlines" sidebar (right side of above picture) helps you keep track of tasks which are due in *two weeks* or less.
 // end::task[]
 
 '''
@@ -566,7 +570,8 @@ You can schedule a meeting by specifying the **duration** of the meeting in hour
 Format: `find-meeting-time [start/START_DATE] [end/END_DATE] [hours/DURATION]`
 
 [NOTE]
-+Work recognises date and time in the format 'dd-mm-yyyy hh:mm
++Work recognises date and time in the format 'dd-mm-yyyy hh:mm`
+
 [TIP]
 +Work shows you the meeting times where the **most** number of people are available
 
@@ -679,7 +684,7 @@ Format: `list-inv` +
 
 Example: Entering `list-inv` into the command prompt will result in the following:
 
-image::list-inv.png[]
+image::list-inv.PNG[]
 
 ==== Editing a inventory: `edit-inv`
 
@@ -860,11 +865,33 @@ image::ml-task_4_4.PNG[]
 image::ml-task_4_5.PNG[]
 // end::Multiline[]
 
+
+'''
+// tag::autocomplete[]
+=== Command Line Autocomplete
+
++Work will automatically prompt you on the various possible commands based on input and help you paste the correct command format into the command line if chosen. +
+For example, when you type `add-mem` into the command-line, +Work will prompt you to select `add-member` from the drop down menu.
+
+image::AutoCompletePre.png[]
+
+After selecting `add-member`, +Work will paste `add-member mn/ mi/ mt/` into your command-line automatically!
+
+image::AutoCompletePost.png[]
+
+
+[TIP]
+You can use kbd:[control] to navigate along the various prefixes.
+
+//end::autocomplete[]
+
+'''
+
 // tag::settings[]
 === Settings Commands
 
 +Work helps you view your current settings by highlighting your current option! To see your current settings navigate
-to the settings panel by entering `settings` as described in section Section 3.1.3.
+to the settings panel by entering `settings` as described in section 3.1.3.
 
 ==== Switching the theme of +Work: `theme`
 
@@ -924,32 +951,6 @@ image::clock-twelve-res-dashboard.png[]
 Project data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::autocomplete[]
-=== Command Line Autocomplete
-
-+Work will automatically prompt you on the various possible commands based on input and help you paste the correct command format into the command line if chosen. +
-For example, when you type `add-mem` into the command-line, +Work will prompt you to select `add-member` from the drop down menu.
-
-image::AutoCompletePre.png[]
-
-After selecting `add-member`, +Work will paste `add-member mn/ mi/ mt/` into your command-line automatically!
-
-image::AutoCompletePost.png[]
-
-
-[TIP]
-You can use kbd:[control] to navigate along the various prefixes.
-
-//end::autocomplete[]
-
-
-// tag::dataencryption[]
-// === Encrypting data files `[coming in v2.0]`
-
-// _{explain how the user can enable/disable data encryption}_
-// // end::dataencryption[]
-
-//
 
 == FAQ
 
@@ -976,6 +977,8 @@ You can use kbd:[control] to navigate along the various prefixes.
 
 // tag::commandsummary[]
 == Command Summary
+
+The following is a summary of all the commands +Work offers arranged in alphabetical order.
 
 * `add-calendar [mn/MEMBER_NAME] [fp/PATH_TO_ICS]`:  *Imports a calendar*
 
@@ -1055,6 +1058,9 @@ You can use kbd:[control] to navigate along the various prefixes.
 
 == Upcoming Features
 
+Our team is currently working hard on the following exciting features! Make sure to follow our application for any
+updates in the future.
+
 // tag::version-2.0[]
 === Cloud Integration `[coming in v2.0]`
 
@@ -1066,9 +1072,9 @@ Create more detailed profiles for members and choose who has authority to change
 
 === AutoComplete Support for prefixes `[coming in v2.0]`
 
-AutoComplete to support users in prompting existing entities. For example, membedID and taskTags to be prompted to users when prefix is input.
+AutoComplete to support users in prompting existing entities. For example, member ID and task tags to be prompted to users when prefix is input.
 
 === Instant Messaging `[coming in v2.0]`
 
-Communicate with teammates on one central application, instead of using multiple messaging apps.
+Communicate with teammates on one central application, instead of using multiple messaging applications.
 // end::version-2.0[]

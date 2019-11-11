@@ -162,12 +162,13 @@ image::ModelClassDiagramNew.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes the unmodifiable `ObservableList<Member>`, `ObservableList<Task>`, `ObservableList<Inventory>` and `ObservableList<Mapping>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Project data.
+* stores the `UserSettings` that represents the user's preferred settings of +Work.
+* exposes the unmodifiable `ObservableList<Member>`, `ObservableList<Task>`, `ObservableList<Inventory>`, `ObservableList<Meetings>` and `ObservableList<Mapping>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Project Dashboard`, which `Member` or 'Task' can reference. This would allow `Project Dashboard` to only require one `Tag` object per unique `Tag`, instead of each `Member` or 'Task' needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Project Dashboard`, which `Member` or `Task` can reference. This would allow `Project Dashboard` to only require one `Tag` object per unique `Tag`, instead of each `Member` or 'Task' needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagramNew.png[]
 // end::ModelDevGuide[]
@@ -178,10 +179,9 @@ image:BetterModelClassDiagramNew.png[]
 
 The Storage component serves the following purposes.
 
-** It can save UserPref objects in json format and read it back.
+** It can save `UserPref` object in json format and read it back.
+** It can save `UserSettings` object in json format and read it back.
 ** It can save the +Work data in json format and read it back.
-** It can also save the user settings in json format and read it back.
-
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
