@@ -10,8 +10,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a UnPrivateCommand object
  */
 public class UnPrivateCommandParser {
-    public static final String UNPRIVATE_USAGE = "In particular, input your unprivate command like this: \n" +
-            "unprivate TARGET Eg: unprivate 1. \nNote that the input has to be a number and more than or equal to 1";
+    public static final String UNPRIVATE_USAGE = "In particular, input your unprivate command like this: \n"
+            + "unprivate TARGET Eg: unprivate 1. \nNote that the input has to be a number and more than or equal to 1";
 
     /**
      * Parses the given {@code String} of arguments in the context of theUnPrivateCommand

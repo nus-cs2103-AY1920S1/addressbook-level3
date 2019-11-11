@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Text;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 import seedu.address.ui.UiPart;
 

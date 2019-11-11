@@ -17,12 +17,13 @@ import seedu.address.logic.commands.exceptions.CommandException;
  */
 public class UnLockCommand extends Command<DiaryModel> {
     public static final String COMMAND_WORD = "unlock";
-    private static final String OVERFLOW = "For the unlock command, your index has to be less than the size" +
-            " of the list! Make your number smaller.";
-    private static final String MESSAGE_UNLOCK_ENTRY_SUCCESS = "Your Entry is now unlocked. Everyone can see it";
+    private static final String OVERFLOW = "For the unlock command, your index has to be less than the size"
+            + " of the list! Make your number smaller.";
+    private static final String MESSAGE_UNLOCK_ENTRY_SUCCESS = "Your Entry is now unlocked. "
+            + "Everyone can see it";
     private static final String MESSAGE_UNLOCK_ENTRY_FAILURE = "Password is wrong!";
-    private static final String MESSAGE_NO_DETAILS = "There are no details set! \n Use" +
-            "the unprivate command";
+    private static final String MESSAGE_NO_DETAILS = "There are no details set! \n Use"
+            + "the unprivate command";
 
     private final Index targetIndex;
     private final Details detail;

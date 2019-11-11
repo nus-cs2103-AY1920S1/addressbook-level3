@@ -2,7 +2,6 @@ package seedu.address.diaryfeature.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-
 import seedu.address.diaryfeature.logic.predicates.FindPredicate;
 import seedu.address.diaryfeature.model.DiaryModel;
 import seedu.address.logic.commands.Command;
@@ -17,8 +16,11 @@ public class FindCommand extends Command<DiaryModel> {
 
 
     public static final String COMMAND_WORD = "find";
-    private static String MESSAGE_ENTRIES_LISTED_OVERVIEW = "%1$d entries listed. Type list to get the original list back";
-    private static String MESSAGE_ENTRy_LISTED_OVERVIEW = "1 entry listed. Type list to get the original list back";
+    private static String MESSAGE_ENTRIES_LISTED_OVERVIEW = "%1$d entries listed. "
+            + "Type list to get the original list back "
+            + "Type list to get the original list back";
+    private static String MESSAGE_ENTRY_LISTED_OVERVIEW = "1 entry listed. Type "
+            + "list to get the original list back";
     private final FindPredicate predicate;
 
     /**
@@ -42,7 +44,7 @@ public class FindCommand extends Command<DiaryModel> {
         diaryModel.updateFilteredDiaryList(predicate);
         int size = diaryModel.getTotalDiaryEntries();
         if (size == 1) {
-            return new CommandResult(MESSAGE_ENTRy_LISTED_OVERVIEW);
+            return new CommandResult(MESSAGE_ENTRY_LISTED_OVERVIEW);
         }
         return new CommandResult(
                 String.format(MESSAGE_ENTRIES_LISTED_OVERVIEW,
