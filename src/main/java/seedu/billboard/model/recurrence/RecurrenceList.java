@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.recurrence.exceptions.DuplicateRecurrenceException;
 import seedu.billboard.model.recurrence.exceptions.RecurrenceNotFoundException;
 
@@ -185,10 +184,6 @@ public class RecurrenceList implements Iterable<Recurrence> {
                 output += ",\n";
             }
         }
-
         return output;
-    }
-
-    public void setExpense(Object o, Expense bills) {
     }
 }
