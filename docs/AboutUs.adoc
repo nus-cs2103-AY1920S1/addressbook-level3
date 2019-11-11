@@ -11,9 +11,10 @@ http://www.comp.nus.edu.sg[School of Computing, National University of Singapore
 
 == Project Team
 
-=== Caesar Pang
+=== Caesar Pang Jian Zhang
 image::caesarpjz.png[width="150", align="left"]
 link:https://github.com/caesarpjz[image:github_logo.png[width="30", align="left"]]
+link:https://ay1920s1-cs2103t-f14-2.github.io/main/team/caesarpjz.html[Project Portfolio Page]
 
 ==== Role: Team Leader
 Responsibilities:
@@ -24,18 +25,22 @@ Responsibilities:
 
 '''
 
-=== Kerwin Lim
+=== Kerwin Lim Shi Chen
 image::kerwin97.png[width="150", align="left"]
 link:https://github.com/kerwin97[image:github_logo.png[width="30", align="left"]]
+link:https://ay1920s1-cs2103t-f14-2.github.io/main/team/kerwin97.html[Project Portfolio Page]
+
 
 ==== Role: Developer +
 Responsibilities: UI + Dev Ops
 
 '''
 
-=== Bryan Ng
+=== Bryan Ng Soon Wei
 image::ngswbryan.png[width="150", align="left"]
 link:https://github.com/ngswbryan[image:github_logo.png[width="30", align="left"]]
+link:https://ay1920s1-cs2103t-f14-2.github.io/main/team/ngswbryan.html[Project Portfolio Page]
+
 
 ==== Role: Developer +
 Responsibilities:
@@ -48,6 +53,7 @@ Responsibilities:
 === Teo Shyan Jie
 image::teoshyanjie.png[width="150", align="left"]
 link:https://github.com/TeoShyanJie[image:github_logo.png[width="30", align="left"]]
+link:https://ay1920s1-cs2103t-f14-2.github.io/main/team/teoshyanjie.html[Project Portfolio Page]
 
 ==== Role: Developer +
 Responsibilities: Data + Dev Ops
@@ -57,6 +63,8 @@ Responsibilities: Data + Dev Ops
 === Xu Tunan
 image::xuerneas.png[width="150", align="left"]
 link:https://github.com/Xuerneas[image:github_logo.png[width="30", align="left"]]
+link:https://ay1920s1-cs2103t-f14-2.github.io/main/team/Xuerneas.html[Project Portfolio Page]
+
 
 ==== Role: Developer +
 Responsibilities: UI + Dev Ops
