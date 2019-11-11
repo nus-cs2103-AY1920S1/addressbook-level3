@@ -230,30 +230,7 @@ If all parsing types fail, there must be an error with the string input, thus a 
 The JsonParser is designed to be a utility class with a pure function without any mutation of state.
 Thus it should be self contained within a single function call.
 
-== [Proposed] Saving User Statistics feature
-=== Proposed Implementation
-
-==== Design Considerations
-
-===== Aspect: How saving executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-
-
+== Implementation
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -282,9 +259,9 @@ and passing user command input to the `Responder` class.
 // tag::test[]
 
 === Test
-==== Proposed Implementation
+==== Implementation
 
-The timed/untimed test is a exam mechanism whereby users can enter a test mode that allows users to test themselves using the various flashcards. Users will then be notified of their results at the end of the test and will also have the chance to review their answers and reattempt questions.
+The timed/un-timed test is a exam mechanism whereby users can enter a test mode that allows users to test themselves using the various flashcards. Users will then be notified of their results at the end of the test and will also have the chance to review their answers and reattempt questions.
 
 The overall test architecture is depicted in the class diagram below.
 
@@ -305,7 +282,7 @@ image::TimedTestActivityDiagram.png[]
 
 
 =====
-Step 1. User keys in the command `test deck/DECK_NAME duratoin/DURATION_IN_SECONDS` (Eg. test deck/german duration/0)
+Step 1. User keys in the command `test deck/DECK_NAME duration/DURATION_IN_SECONDS` (Eg. test deck/german duration/0)
 
 Step 2. If `DURATION_IN_SECONDS` is 0, untimed test will be initiated. Else, a timed test will be initiated.
 
@@ -314,6 +291,12 @@ Step 3. A question will be loaded and user answers the question.
 Step 4. Answer will be evaluated and if it is correct, score will be updated.
 
 Step 5. For untimed test, repeat steps 3 and 4 until the end of deck is reached. For timed test, repeat steps 3 and 4 until either end of deck is reached or time runs out.
+
+Step 6. If end of deck is reached, a popup will be triggered with the user's final score.
+
+Step 7. Upon closing that popup, users will be able to review their mistakes and reattempt all questions (but it will not contribute to their score).
+
+Step 8. When the user is done reviewing, he can type `exit` or click `Exit Session` to exit test mode and go back to the main Deck Display screen. Users can also use this command prematurely to exit test mode mid-test.
 =====
 
 

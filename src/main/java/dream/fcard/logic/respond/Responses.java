@@ -456,20 +456,23 @@ public enum Responses {
                     boolean hasDeck = res.get(0).size() == 1;
                     boolean hasIndex = res.get(1).size() == 1;
 
-                    if (!hasDeck) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! To see the "
-                                + "correct format of the Delete command, type 'help command/delete'");
-                        return true;
-                    }
-
                     String deckName = res.get(0).get(0);
 
-                    if (!hasIndex) {
+                    if (!hasIndex && hasDeck) {
                         // Delete deck
                         try {
                             StatsHolder.getDeckStats().deleteDeck(deckName);
                             State s = StateHolder.getState();
                             s.removeDeck(deckName);
+
+                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Deleted deck " + deckName);
+
+                            Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
+                            Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK,
+                                    StateHolder.getState().getDecks().size());
+
+                            return true;
+
                         } catch (DeckNotFoundException dnf) {
                             Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, dnf.getMessage());
                             return true;
@@ -481,14 +484,6 @@ public enum Responses {
                         Deck deck = StateHolder.getState().getDeck(deckName);
                         int index = Integer.parseInt(res.get(1).get(0));
 
-                        /*
-                        boolean isIndexValid = index > 0 && index <= deck.getSize();
-                        if (!isIndexValid) {
-                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! "
-                                    + "Index is invalid");
-                        }
-
-                         */
                         //@@author PhireHandy
                         StateHolder.getState().addCurrDecksToDeckHistory();
                         StateHolder.getState().resetUndoHistory();
@@ -511,19 +506,49 @@ public enum Responses {
                 }
     ),
     SEE_SPECIFIC_DECK(
-            "^((?i)view)\\s+[0-9]+$",
+            RegexUtil.commandFormatRegex("view", new String[]{"deck/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    int num = Integer.parseInt(i.split("^(?i)view\\s+")[1]);
-                    Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, num);
+                    //int num = Integer.parseInt(i.split("^(?i)view\\s+")[1]);
+                    //Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, num);
+
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("view",
+                            new String[]{"deck/"}, i);
+
+                    boolean hasOnlyOneDeck = res.get(0).size() == 1;
+                    if (!hasOnlyOneDeck) {
+                        return true;
+                    }
+
+                    String deckName = res.get(0).get(0);
+                    try {
+                        Deck deck = StateHolder.getState().getDeck(deckName);
+                        Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK,
+                                StateHolder.getState().getIndexOfDeck(deckName));
+                    } catch (DeckNotFoundException d) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, d.getMessage());
+                        return true;
+                    }
                     return true;
                 } //done
     ),
+    /*
+    SEE_ALL_DECK(
+            "^((?i)view)\\s*",
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+                    //Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Invalid deck name!");
+                    Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                    return true;
+                }
+    ),
+
+     */
     SEE_SPECIFIC_DECK_ERROR(
             "^((?i)view).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Error. Give me a deck number.");
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Invalid! Deck name not included!");
                     return true;
                 }
     ),

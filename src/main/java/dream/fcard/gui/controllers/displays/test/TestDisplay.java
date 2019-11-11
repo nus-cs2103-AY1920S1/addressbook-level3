@@ -180,6 +180,7 @@ public class TestDisplay extends VBox {
         Pane newCard = exam.getCardDisplayFront();
         Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
         Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
+        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Previous Question");
     }
 
     /**
@@ -196,6 +197,7 @@ public class TestDisplay extends VBox {
         Pane newCard = exam.getCardDisplayFront();
         Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
         Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
+        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Next Question");
     }
     //sample renderer for Shawn
     private void renderCurrentScore() {
@@ -229,5 +231,8 @@ public class TestDisplay extends VBox {
         Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
         Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
         Consumers.doTask("TOGGLE_LIST_VIEW_ON", true);
+        StateHolder.getState().setCurrState(StateEnum.DEFAULT);
+        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You have exited test mode.");
+
     }
 }
