@@ -68,7 +68,7 @@ The following table provides a summary of some of my GUI enhancements:
 |image:old flashcoder java.png[]
 |image:new flashcoder java.png[]
 
-|Allow MCQ options to expand, instead of using a scroll pane
+|Allow MCQ options in the "add card" and "edit card" displays to expand, instead of using a scroll pane.
 |image:old mcq.png[]
 |image:new mcq.png[]
 
@@ -76,14 +76,29 @@ The following table provides a summary of some of my GUI enhancements:
 |image:old resize.png[] The window can be resized beyond reasonable limits.
 |image:new empty deck.png[] The window maintains its minimum size.
 
+|Increase the size of the question and answer text areas in the "add card" and "edit card" displays, allowing for user-friendly scrolling and multi-line input.
+|image:old long question add card.png[]
+|image:new long question add card.png[]
+
+|Modify the display of the card in a test, so that long questions and MCQ options display as expected.
+|image:old review long question.png[] image:old review mcq.png[]
+|image:new review long question.png[] image:new review mcq.png[]
+
+|Change the display of cards in a deck to become scrollable, flexible-width, and display long questions correctly.
+|image:old deck display.png[]
+|image:new deck display.png[]
+
+|Improve the appearance of the result popup that appears upon completing a test. Also, add the app icon to all popup windows.
+|image:old score popup.png[]
+|image:new score popup.png[]
 |===
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=nattanyz&tabRepo=AY1920S1-CS2103-F09-2%2Fmain%5Bmaster%5D[Functional code]] [https://github.com/AY1920S1-CS2103-F09-2/main/tree/master/src/test/java/dream/fcard/util/stats[Test code for utilities]] [https://github.com/AY1920S1-CS2103-F09-2/main/tree/master/src/test/java/dream/fcard/logic/stats[Test code for other statistics classes]]
 
 * *Other contributions*:
 ** Team tasks:
-*** Updated the app's icon, including for all popup windows.
-*** Also updated the title of popup windows to include "FlashCard Pro:" as a prefix.
+*** *Updated the app's icon*, including for all popup windows.
+*** Also updated the title of JS and Java editors and playgrounds to include "FlashCard Pro:" as a prefix.
 ** Project management:
 *** Wrote issues upon discovering bugs and assigned them to respective team members.
 *** Went through the issues from PE dry run and assigned them to respective team members.
