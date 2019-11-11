@@ -436,7 +436,7 @@ Then, the computation of the number of `HIGH_PRIORITY` and `LOW_PRIORITY` cards 
 // end::configure_difficulty[]
 
 // tag::statistics[]
-== Saving and viewing user statistics
+=== Saving and viewing user statistics
 
 * The Statistics feature revolves around the storage and interpretation of the user's *sessions*, be it _login_ sessions or _test_ sessions.
 * Therefore, the `Session` class is the main building block of all Statistics-related classes. They are stored in `SessionList` objects.
@@ -457,7 +457,7 @@ The following sequence diagram depicts the starting, ending and saving of the us
 
 image::nattanyz/sequence diagram.png[]
 
-=== Challenges in implementation
+==== Challenges in implementation
 * Because of the custom `StorageManager` class used to load and save JSON objects, the implementation of loading and saving statistics is somewhat tightly coupled with `StorageManager`.
 ** It is insufficient to simply override the `toJson()` method to ensure that the statistics objects would be stored correctly. Instead, the underlying structure of the statistics objects must be known and exposed during the implementation of e.g. the `loadDeckStats()` and `saveDeckStats()` methods in `StorageManager`.
 ** Perhaps in v2.0, refactoring of `StorageManager` could allow for a higher level of abstraction of storage-related methods and reduced coupling between `StorageManager` and the unrelated Statistics classes.
@@ -468,7 +468,7 @@ image::nattanyz/sequence diagram.png[]
 ** By abstracting out the handling of each command into separate classes, each team member can check the logic of how each `Command` interacts with their component with ease and avoid duplicated code. e.g. A `startTestSessionCommand` could initialise the `ExamRunner`, update `Statistics`, and so on.
 ** Because of the current less-than-ideal implementation of the app's behaviour, in order to support creating/renaming/deleting decks along with undo/redo, code pertaining to `DeckStats` needed to be inserted at many disparate places in the code, e.g. within a button action in the `EditDeckDisplay` controller and in `Responses`.
 
-=== Proposed extension: Statistics for individual cards in a deck
+==== Proposed extension: Statistics for individual cards in a deck
 
 * Statistics for specific cards in a deck could be stored within the `Session` object representing the user's test session on a deck.
 ** In this way, summary statistics e.g. how many times the card was reviewed in the past week or whether the user attempted the card correctly on average, can be generated with ease.
