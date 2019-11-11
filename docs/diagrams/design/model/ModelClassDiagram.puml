@@ -28,6 +28,11 @@ Package Model <<Rectangle>> {
     Class Tag
     Class Task
     Class ProblemSearchRule
+    Class UniqueTagList
+    Class UniqueProblemList
+    Class UniqueFindRuleList
+    Class PlanList
+    Class GuiState
 }
 
 Class HiddenOutside #FFFFFF
