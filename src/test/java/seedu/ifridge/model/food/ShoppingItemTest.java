@@ -66,6 +66,6 @@ public class ShoppingItemTest {
     @Test
     void isCompletelyBought() {
         assertFalse(ShoppingItem.isCompletelyBought(APPLE, getTypicalBoughtList().getGroceryList()));
-        assertTrue(ShoppingItem.isCompletelyBought(EGGS, getTypicalBoughtList().getGroceryList()));
+        assertTrue(ShoppingItem.isCompletelyBought(BOUGHT_EGGS, getTypicalBoughtList().getGroceryList()));
     }
 }

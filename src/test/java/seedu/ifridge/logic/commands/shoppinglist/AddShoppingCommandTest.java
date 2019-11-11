@@ -641,6 +641,11 @@ class AddShoppingCommandTest {
         }
 
         @Override
+        public ReadOnlyGroceryList getBoughtList() {
+            return new GroceryList();
+        }
+
+        @Override
         public boolean containsShoppingItemWithName(Food shoppingItem) {
             return shoppingItemsAdded.contains(shoppingItem);
         }

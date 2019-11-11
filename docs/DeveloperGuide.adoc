@@ -142,6 +142,7 @@ For instance, shopping lists require its food items to have additional attribute
 
 //end::modelcomponent[]
 
+//tag::storagecomponent[]
 [[Design-Storage]]
 === Storage component
 
@@ -155,6 +156,7 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
+//end::storagecomponent[]
 [[Design-Commons]]
 === Common classes
 
@@ -661,7 +663,95 @@ Aspect: How edit command is parsed
 The following sequence diagram shows how the edit template item operation works for the logic component:
 //end::editTemplateItemfeature[]
 
+//tag::mergeBoughtFeature[]
 === MergeBought Feature
+==== Implementations
+The user is able to merge all the bought shopping items into the grocery list. This can be done with the use of the `slist mergebought' command.
+
+The current implementation to merge bought items is as follows:
+
+** For each boughtItem in boughtList:
+*** For each groceryItem in GroceryList
+**** If there is an existing groceryItem in GroceryList with same name and expiry date as the boughtItem, the quantity of that groceryItem will be updated according to the amount bought.
+**** If there is no existing groceryItem with same Name and ExpiryDate, the boughtItem will be added to the GroceryList.
+*** For each shoppingItem in ShoppingList find the bought shoppingItem with same name as the boughtItem:
+**** If the boughtItem has greater Amount than its corresponding shoppingItem, the shoppingItem is deleted from the ShoppingList.
+**** If the boughtItem has lesser Amount than its corresponding shoppingItem, the shoppingItem's quantity is just reduced.
+
+The Merge Bought mechanism is facilitated by `ShoppingList`, `GroceryList`, and `ShoppingComparator`.
+The `ShoppingList` is an observable list of `ShoppingItem` and `GroceryList` is an observable list of `GroceryItem`.
+
+Merging needs to use the BoughtList to modify the ShoppingList and GroceryList. Hence, the command retrieves the 3 lists.
+
+When a `GroceryItem` 's amount is be added, the GroceryItem at that index is overwritten by a new GroceryItem with the updated amount. If a new boughtItem (`Groceryitem`) is to be added to the `GroceryList`, it is appended to the `GroceryList`
+
+Similarly, when a `ShoppingItem` 's amount is reduced, the ShoppingItem at that index is overwritten by a new ShoppingItem with the updated amount. If a `ShoppingItem` is to be deleted from the `ShoppingList`, it is deleted and the `ShoppingList` is sorted using a `ShoppingComparator`.
+
+The creation of new objects to replace the existing ones is necessary since all the objects are immutable.
+
+* Model#getFilteredBoughtList -- Gets `ObservableList` with the elements of the `Model` 's boughtList (stored in a `GroceryList`)
+* Model#getFilteredGroceryList -- Gets `ObservableList` with the elements of the `Model` 's `GroceryList`
+* Model#getFilteredShoppingList -- Gets `ObservableList` with the elements of the `Model` 's `ShoppingList`
+* Model#setBoughtList -- Sets the boughtList as the specified `GroceryList`
+* Model#sortShoppingItems -- Sorts the `ShoppingList` by urgent status first, and then by alphabetical order.
+* MergeShoppingCommand#modifyGroceryListAccordingToBoughtItem -- Updates `GroceryList` according to a boughtItem
+* MergeShoppingCommand#modifyShoppingListAccordingToBoughtItem -- Updates `ShoppingList` according to a boughtItem
+
+These operations are exposed in the `Model` interface as `Model#getFilteredBoughtList`
+
+The sequence diagrams for interactions between Logic and Model components when a user executes `slist mergebought` command is shown below.
+
+image::MergeBoughtSequenceDiagram.png[]
+
+
+The following activity diagram summarises how `slist mergebought` is carried out.
+
+image::MergeBoughtActivityDiagram1.png[]
+The mergebought command supports unit conversion. The boughtAmount's unit will be converted to match the groceryAmount.
+The following activity diagram delineates how the unit conversion takes place.
+
+image::MergeBoughtActivityDiagram2.png[]
+The conversions of units are done by `Amount` class. Unit type is necessary in the implementation to allow for keeping track of different unit groups. For example, `kg`, `g`, `lbs`, and `oz` are all categorised under the unit type `Weight`.
+
+//end::mergeBoughtFeature[]
+==== Design Considerations
+===== Aspect: Storing BoughtItems
+.Design considerations for the storage of boughtItems
+[cols="34,34,34"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2 | Alternative 3
+
+a|Use `GroceryItem` to indicate boughtItems and have separate JsonStorage Classes for BoughtItems
+
+* Pros:
+** `ShoppingItem` objects can be immutable with final attributes
+** Easy to maintain due to consistent functionality.
+
+* Cons:
+** Extra Storage and maintenance.
+
+a|Use `ShoppingItem` as boughtItem with non-final *ExpiryDate* and a *boughtAmount* attribute
+
+* Pros
+** No extra storage needed.
+
+* Cons
+** `ShoppingItem` is not immutable due to non-final attribute, i.e., vulnerable to alterations.
+** Consistency of `ShoppingItem` will be compromised: some will have an ExpiryDate, some will not.
+** Extra field *boughtAmount* required, and it needs to be maintained (not intuitive for a `ShoppingItem` to have 2 different `Amount` fields)
+
+a|Use child class of `ShoppingItem` for boughtItem: `BoughtShoppingItem` with *ExpiryDate* and *boughtAmount* attributes.
+
+* Pros
+** More Intuitive
+** Immutability maintained
+
+* Cons
+** Extra Storage
+** Extra Class ,i.e., extra code
+** Extra steps for conversion from `BoughtShoppingItem` to `GroceryItem` while merging boughtItems to `GroceryList`.
+
+|===
 
 == Documentation
 
@@ -1075,6 +1165,62 @@ The estimated food wastage is predicted by taking the weighted average of waste 
 .. Other invalid test cases: `wlist report sm/Oct 2019 em/Jul 2019`, `wlist report sm/in 12 weeks`
 
 //end::wastelistmanualtesting[]
+
+//tag::shoppinglistmanualtesting[]
+=== Shopping List Manual Testing
+. List all items in shopping list
+.. Test case: `slist list` +
+Expected: The shopping list is displayed, with 3 sections (urgent, not urgent and not fully bought, fully bought). Within each of the three sections  of the shopping items, items are sorted alphabetically.
+
+. Adding an item to the shopping list
+.. Test case: `slist add n/Grapes a/500g` +
+Expected: Shopping item with name `Grapes` and amount `500g` is created and added to the shopping list. The details of the added shopping item are displayed. The new shopping item appears after urgent items and before fully bought items in the shopping list.
+.. Test case: `slist add n/Grapes a/invalidAmount` +
+Expected: Error message displayed indicating invalid amount entered.
+.. Test case: `slist add n/Grapes` +
+Expected: Error message displayed that indicates that the command format is wrong. The correct format for the add shopping command is also displayed.
+.. Test case: `slist add a/5g` +
+Expected: Error message displayed that indicates that the command format is wrong. The correct format for the add shopping command is also displayed.
+.. Test case: `slist add` +
+Expected: Error message displayed that indicates that the command format is wrong. The correct format for the add shopping command is also displayed.
+
+. Editing an item in the shopping list
+.. Test case: `slist edit 1 n/Oranges` +
+Expected: First shopping item's name is edited to 'Oranges'. Details of the edited shopping item are displayed. If some or all of the item was bought, the name of the corresponding bought item is also changed in storage to avoid inconsistencies.
+.. Test case: `slist edit 1 a/50g` +
+Expected: First shopping item's amount is edited to 50g. Details of the edited shopping item are displayed.
+.. Test case: `slist edit 1` +
+Expected: Error message displayed indicating that at least one field to be edited must be provided.
+
+. Deleting an item in the shopping list
+.. Test case: `slist delete 1` +
+Expected: First shopping item is deleted from the shopping list. Details of the removed shopping item are displayed.
+
+. Marking a shopping item as urgent
+.. Test case: `slist urgent 1` +
+Expected: Marks the first shopping item as urgent. Details of the shopping item marked as urgent are displayed. The shopping item gets an `Urgent!` tag and moves towards the upper section of the shopping list (with other urgent items).
+.. Test case: `slist urgent` +
+Expected: Error message displayed indicating wrong command format. The correct format of an urgent shopping command is also displayed.
+
+. Buying a shopping item (Marking a shopping item as Bought)
+.. Test case: `slist bought 1 a/50g e/24/11/2019` +
+Expected: First shopping item is marked as bought. A bought item is created with the name of the shopping item and with the amount and expiry date provided in the command. It gets a `Partially Bought` tag if the amount bought is less than the amount of the shopping item, and it gets a `Fully Bought` tag if the bought amount is greater than or equal to the amount of the shopping item. In either case, the tag also displays the amount of shopping item bought. *If an item is fully bought, it moves to the bottom of the shopping list (regardless of whether it is urgent or not)*. Details of the shopping item marked as bought are also shown.
+.. Test case: `slist bought 2 a/0g e/24/11/2019` +
+Expected: Error message displayed indicating that the amount specified cannot be 0 or negligible. The guidelines of how to use amount are also specified.
+.. Test case: `slist bought 1 a/50g` +
+Expected: Error message displayed indicating that the command format is wrong. The correct format for a bought shopping command is also displayed.
+.. Test case: `slist bought 1 e/23/04/2019` +
+Expected: Error message displayed indicating that the command format is wrong. The correct format for a bought shopping command is also displayed.
+
+. Merging bought items into the grocery list (moving bought items into fridge)
+
+.. Prerequisites +
+Some of the items in the shopping list must be bought for changes in the lists to take place.
+
+.. Test case: `slist mergebought` +
+Expected: All bought items are added to the grocery list according to the following conditions: If a bought item does not have a corresponding grocery item (same name and expiry date) in the grocery list, a new grocery item with the bought item's details is added to the grocery list. If a bought item has a corresponding grocery item in the grocery list, the grocery item's amount is added instead of creating a new grocery item. +
+If a shopping item was fully bought, it is removed from the shopping list while merging. If the item is only partially bought, the quantity that is bought is subtracted from the shopping item's quantity and the bought tag will be removed.
+//end::shoppinglistmanualtesting[]
 
 === Undo Redo Manual Testing
 

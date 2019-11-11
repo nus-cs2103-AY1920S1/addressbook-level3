@@ -3,8 +3,7 @@ package seedu.ifridge.logic.commands.shoppinglist;
 import static java.util.Objects.requireNonNull;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_GROCERY_ITEMS;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_SHOPPING_ITEMS;
-import static seedu.ifridge.model.food.Amount.getValue;
-import static seedu.ifridge.model.food.Amount.hasSameAmountUnit;
+import static seedu.ifridge.model.food.Amount.MESSAGE_INVALID_RESULTANT_AMOUNT;
 
 import java.util.List;
 import java.util.Set;
@@ -18,6 +17,7 @@ import seedu.ifridge.model.food.ExpiryDate;
 import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.ShoppingItem;
+import seedu.ifridge.model.food.exceptions.InvalidAmountException;
 import seedu.ifridge.model.tag.Tag;
 
 /**
@@ -57,17 +57,18 @@ public class MergeShoppingCommand extends Command {
             if (!shoppingItem.getName().equals(boughtItem.getName())) {
                 continue;
             }
-            if (!hasSameAmountUnit(shoppingAmount, boughtAmount)) {
-                boughtAmount = shoppingAmount.convertAmount(boughtAmount);
-            }
-            if (getValue(shoppingAmount) > getValue(boughtAmount)) {
-                Amount updatedShoppingAmount = shoppingItem.getAmount().reduceBy(boughtAmount);
-                ShoppingItem editShoppingItem = new ShoppingItem(shoppingItem.getName(), updatedShoppingAmount,
-                        shoppingItem.isBought(), shoppingItem.isUrgent());
-                model.setShoppingItem(shoppingItem, editShoppingItem);
-            } else {
-                model.deleteShoppingItem(shoppingItem);
-                --i;
+            try {
+                Amount updatedShoppingAmount = shoppingAmount.reduceBy(boughtAmount);
+                ShoppingItem editedShoppingItem = new ShoppingItem(shoppingItem.getName(), updatedShoppingAmount,
+                        false, shoppingItem.isUrgent()); //once amount reduced, it is not bought anymore
+                model.setShoppingItem(shoppingItem, editedShoppingItem);
+            } catch (InvalidAmountException e) {
+                if (e.getMessage().equals(MESSAGE_INVALID_RESULTANT_AMOUNT)) {
+                    model.deleteShoppingItem(shoppingItem); //when boughtAmount exceeds shoppingAmount
+                    --i;
+                } else {
+                    throw e;
+                }
             }
         }
     }

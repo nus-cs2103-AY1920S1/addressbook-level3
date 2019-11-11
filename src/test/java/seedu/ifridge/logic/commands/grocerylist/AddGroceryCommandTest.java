@@ -603,6 +603,11 @@ public class AddGroceryCommandTest {
         public ReadOnlyGroceryList getGroceryList() {
             return new GroceryList();
         }
+
+        @Override
+        public ReadOnlyGroceryList getBoughtList() {
+            return new GroceryList();
+        }
     }
 
 }

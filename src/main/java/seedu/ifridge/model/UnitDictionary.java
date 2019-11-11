@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.Food;
+import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.exceptions.InvalidDictionaryException;
 import seedu.ifridge.model.food.exceptions.InvalidUnitException;
@@ -56,7 +57,7 @@ public class UnitDictionary {
 
     private boolean inAnyList(Food foodItem, Model model) {
         return (inGroceryList(foodItem, model) || inTemplateList(foodItem, model)
-                || inShoppingList(foodItem, model));
+                || inShoppingList(foodItem, model)) || inBoughtList(foodItem, model);
     }
 
     /**
@@ -79,8 +80,29 @@ public class UnitDictionary {
         return model.containsTemplateItemWithName(foodItem);
     }
 
+    /**
+     * Check if there is a shopping item in the shopping list with same name as that of the food in argument.
+     * @param foodItem food passed as argument
+     * @param model model to compare with
+     * @return true if shopping list in model contains a shopping item with same name as food argument
+     */
     private boolean inShoppingList(Food foodItem, Model model) {
         return model.containsShoppingItemWithName(foodItem);
+    }
+
+    /**
+     * Check if there is a bought item in the bought list with same name as that of the food argument.
+     * @param foodItem food passed as argument
+     * @param model model to compare with
+     * @return true if bought list in model contains a bought item with same name as food argument
+     */
+    private boolean inBoughtList(Food foodItem, Model model) {
+        for (GroceryItem boughtItem : model.getBoughtList().getGroceryList()) {
+            if (foodItem.isSameFood(boughtItem)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public HashMap<String, String> getUnitDictionary() {
@@ -103,10 +125,6 @@ public class UnitDictionary {
     public boolean equals(Object other) {
         return other == this || (other instanceof UnitDictionary
                 && this.getUnitDictionary().keySet().equals(((UnitDictionary) other).getUnitDictionary().keySet()));
-
-        /**return other == this // short circuit if same object
-         || (other instanceof UniqueTemplateList // instanceof handles nulls
-         && internalList.equals(((UniqueTemplateList) other).internalList));**/
     }
 
 }
