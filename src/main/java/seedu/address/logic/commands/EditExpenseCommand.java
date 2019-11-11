@@ -135,7 +135,9 @@ public class EditExpenseCommand extends Command {
             throw new CommandException(MESSAGE_EDIT_ERROR);
         }
 
-        lastViewedBudget.recalculateAmountLeft();
+        if (lastViewedBudget != null) {
+            lastViewedBudget.recalculateAmountLeft();
+        }
 
         if (viewState.equals(ViewState.DEFAULT_EXPENSELIST)) {
             return new CommandResult(model.getFilteredExpenseList(), null,
