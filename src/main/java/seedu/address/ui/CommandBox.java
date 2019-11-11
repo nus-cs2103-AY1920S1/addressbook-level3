@@ -36,7 +36,7 @@ public class CommandBox extends UiPart<Region> {
     private int caretPos = 0;
     private int anchorPos = 0;
     private String newText;
-    private ListElementPointer historySnapshot;
+    private HistoryPointer historyPointer;
 
     @FXML
     private TextField commandTextField;
@@ -50,14 +50,14 @@ public class CommandBox extends UiPart<Region> {
         this.history = history;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        historySnapshot = new ListElementPointer(history);
+        historyPointer = new HistoryPointer(history);
         handleHistoryNavigation();
         caretChangeListener();
         autoCompleteListener();
     }
 
     /*
-    Following is another approach, therefore commented out
+    Following is another approach for autocomplete, therefore commented out
      */
     //    /**
     //     * Handles the autofill event
@@ -197,7 +197,7 @@ public class CommandBox extends UiPart<Region> {
                 int indexSlash = targetText.lastIndexOf(separatorSlash);
                 String[] terms = null;
                 // Ignore separator
-                if (indexSpace == targetText.length() || indexSlash == targetText.length()) {
+                if (indexSpace == targetText.length() - 1 || indexSlash == targetText.length() - 1) {
                     return;
                 }
                 if (indexSpace > indexSlash) {
@@ -308,7 +308,7 @@ public class CommandBox extends UiPart<Region> {
         try {
             commandExecutor.execute(commandTextField.getText());
             initHistory();
-            historySnapshot.next();
+            historyPointer.next();
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             initHistory();
@@ -317,13 +317,13 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * Initializes the history snapshot.
+     * Initializes a history pointer.
      */
     private void initHistory() {
-        historySnapshot = new ListElementPointer(history);
+        historyPointer = new HistoryPointer(history);
         // add an empty string to represent the most-recent end of historySnapshot, to be shown to
         // the user if she tries to navigate past the most-recent end of the historySnapshot.
-        historySnapshot.add("");
+        historyPointer.add("");
     }
 
     /**
@@ -366,12 +366,12 @@ public class CommandBox extends UiPart<Region> {
      * if there exists a previous input in {@code historySnapshot}
      */
     private void navigateToPreviousInput() {
-        assert historySnapshot != null;
-        if (!historySnapshot.hasPrevious()) {
+        assert historyPointer != null;
+        if (!historyPointer.hasPrevious()) {
             return;
         }
 
-        replaceText(historySnapshot.previous());
+        getHistory(historyPointer.previous());
     }
 
     /**
@@ -379,19 +379,19 @@ public class CommandBox extends UiPart<Region> {
      * if there exists a next input in {@code historySnapshot}
      */
     private void navigateToNextInput() {
-        assert historySnapshot != null;
-        if (!historySnapshot.hasNext()) {
+        assert historyPointer != null;
+        if (!historyPointer.hasNext()) {
             return;
         }
 
-        replaceText(historySnapshot.next());
+        getHistory(historyPointer.next());
     }
 
     /**
      * Sets {@code CommandBox}'s text field with {@code text} and
      * positions the caret to the end of the {@code text}.
      */
-    private void replaceText(String text) {
+    private void getHistory(String text) {
         commandTextField.setText(text);
         commandTextField.positionCaret(commandTextField.getText().length());
     }
