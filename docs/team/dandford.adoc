@@ -46,7 +46,7 @@ to include allowing it to find for all fields of the entry.
 
 === Categories
 Categories allow for organization of data, and improves the breakdown of information for statistics.
-For more information visit: https://github.com/AY1920S1-CS2103-T16-4/main/blob/master/docs/UserGuide.adoc#31-categories
+For more information visit: https://github.com/AY1920S1-CS2103-T16-4/main/blob/master/docs/UserGuide.adoc#categories
 
 === Statistics
 
@@ -131,8 +131,8 @@ Other Examples:
 * `viewBar`
 
 === Sorting and Finding
-Sorting allows the user to organize GuiltTrip to sort what he wants to see. For more information visit: https://github.com/AY1920S1-CS2103-T16-4/main/blob/master/docs/UserGuide.adoc#38-sorting--sortexpense-sortincome-sortbudget-sortwish-sortautoexp[Link For Sorting]
-Finding allows the user to organize GuiltTrip to filter out what he wants to see. For more information visit: https://github.com/AY1920S1-CS2103-T16-4/main/blob/master/docs/UserGuide.adoc#39-find--findexpense-findincome-findwish-findbudget-findautoexp[Link For Finding]
+Sorting allows the user to organize GuiltTrip to sort what he wants to see. For more information visit: https://github.com/AY1920S1-CS2103-T16-4/main/blob/master/docs/UserGuide.adoc#sorting-sortexpense-sortincome-sortbudget-sortwish-sortautoexp[Link For Sorting]
+Finding allows the user to organize GuiltTrip to filter out what he wants to see. For more information visit: https://github.com/AY1920S1-CS2103-T16-4/main/blob/master/docs/UserGuide.adoc#find-findexpense-findincome-findwish-findbudget-findautoexp[Link For Finding]
 
 == Contributions to the Developer Guide
 === Data Presentation: Categories

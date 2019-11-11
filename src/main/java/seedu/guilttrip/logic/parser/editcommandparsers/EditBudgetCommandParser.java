@@ -52,6 +52,11 @@ public class EditBudgetCommandParser implements Parser<EditBudgetCommand> {
         }
 
         EditBudgetCommand.EditBudgetDescriptor editBudgetDescriptor = new EditBudgetDescriptor();
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            editBudgetDescriptor.setCategory(ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get(),
+                    "Expense"));
+        }
+
         if (argMultimap.getValue(PREFIX_DESC).isPresent()) {
             editBudgetDescriptor.setDesc(ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get()));
         }
