@@ -159,7 +159,7 @@ They showcase my ability to write technical documentation and the technical dept
 The full Developer Guide can be found
 https://ay1920s1-cs2103t-t12-3.github.io/main/DeveloperGuide.html[here].
 
-My key contributions include the documentation for the `[green]#Storage#` component, `[green]#Performance#`
+My key contributions include the documentation of the `[green]#Storage#` component, `[green]#Performance#`
 implementation and `[green]#FilterCommand#` implementation._
 |===
 
