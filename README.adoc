@@ -29,7 +29,9 @@ endif::[]
 
 * You'll love our application if you hate to deal with order and schedule conflicts.
 
-* This is a desktop sales management application intended for handphone sellers selling their goods on online platforms such as Carousell.. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* This is a desktop sales management application intended for handphone sellers selling their goods on online platforms such as Carousell.
+
+* It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 
 
 == Site Map

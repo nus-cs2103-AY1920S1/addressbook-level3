@@ -27,6 +27,7 @@ import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.order.Status;
 import seedu.address.model.phone.Brand;
 import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Colour;
@@ -98,10 +99,28 @@ public class EditPhoneCommand extends UndoableCommand {
             throw new CommandException(MESSAGE_DUPLICATE_PHONE);
         }
 
+        if (!phoneToEdit.isSameAs(editedPhone)) {
+            boolean clash = model.getArchivedOrderBook().getList().stream()
+                    .filter(order -> order.getStatus().equals(Status.COMPLETED))
+                    .anyMatch(order -> order.getPhone().isSameAs(editedPhone));
+
+            if (clash) {
+                throw new CommandException(MESSAGE_DUPLICATE_PHONE);
+            }
+        }
+
         // Only identity number is edited, check if identity number already in
         if (!phoneToEdit.getIdentityNumber().equals(editedPhone.getIdentityNumber())) {
             boolean clash = model.getPhoneBook().getList().stream()
                     .anyMatch(phone -> phone.getIdentityNumber().equals(editedPhone.getIdentityNumber()));
+            if (clash) {
+                throw new CommandException(MESSAGE_DUPLICATE_PHONE);
+            }
+
+            clash = model.getArchivedOrderBook().getList().stream()
+                    .filter(order -> order.getStatus().equals(Status.COMPLETED))
+                    .anyMatch(order -> order.getPhone().getIdentityNumber().equals(editedPhone.getIdentityNumber()));
+
             if (clash) {
                 throw new CommandException(MESSAGE_DUPLICATE_PHONE);
             }
@@ -111,6 +130,14 @@ public class EditPhoneCommand extends UndoableCommand {
         if (!phoneToEdit.getSerialNumber().equals(editedPhone.getSerialNumber())) {
             boolean clash = model.getPhoneBook().getList().stream()
                     .anyMatch(phone -> phone.getSerialNumber().equals(editedPhone.getSerialNumber()));
+            if (clash) {
+                throw new CommandException(MESSAGE_DUPLICATE_PHONE);
+            }
+
+            clash = model.getArchivedOrderBook().getList().stream()
+                    .filter(order -> order.getStatus().equals(Status.COMPLETED))
+                    .anyMatch(order -> order.getPhone().getSerialNumber().equals(editedPhone.getSerialNumber()));
+
             if (clash) {
                 throw new CommandException(MESSAGE_DUPLICATE_PHONE);
             }
