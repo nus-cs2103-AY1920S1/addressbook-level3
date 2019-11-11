@@ -773,9 +773,29 @@ This process is further illustrated in the following sequence diagram:
 image::AddBudgetSequenceDiagram.png[]
 // end::budgetadd[]
 
+// tag::overviewanalytics[]
 === Analytics
 
-// tag::analyticsexpenditure[]
+[[overviewanalytics]]
+==== Overview of the Analytics Model
+
+===== Implementation
+
+Analytical data in IchiFund is represented using the `Data` class. Objects of the `Data` class are immutable in the
+internal structure. The following class diagram summarizes the details of the `Data` class:
+
+.Class Diagram from Analytics Model
+image::AnalyticsClassDiagram.png[]
+
+In addition, analytical data associated with a command is initially stored in a `Report`. Using polymorphism, this report
+is initialised as either a `TrendReport` or a `BreakdownReport` depending on the command that was executed.
+The following class diagram summarizes the details of the `Report` class:
+
+.Class Diagram from Analytics Model
+image::AnalyticsClassDiagram2.png[]
+// end::overviewanalytics[]
+
+// tag::expenditureanalytics[]
 ==== View Expenditure Trend
 
 The view expenditure trend feature allows the user to view monthly expenditure trend for a year.
@@ -786,24 +806,40 @@ The argument supported by this feature is:
 
 ===== Implementation
 
-When the user input the `expenditure` command in the Analytics tab, the following chain of operations occurs:
+After the user inputs the `expenditure` command in the Analytics tab, the following chain of operations occurs:
 
-1. The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
+*Step 1*: The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
 
-2. The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `ExpenditureTrendCommandParser`.
+*Step 2*: The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `ExpenditureTrendCommandParser`.
 
-3. `ExpenditureTrendCommandParser#parse()` will take in a `String` input consisting of the arguments.
+*Step 3*: `ExpenditureTrendCommandParser#parse()` will take in a `String` input consisting of the arguments.
 
-4. This arguments will be tokenized and the respective models for each argument are created.
+*Step 4*: This arguments will be tokenized and the respective models for each argument are created.
 
-5. If the parsing of all arguments are successful, a new `ExpenditureTrendCommand` is returned back to `LogicManager`.
+*Step 5*: If the parsing of all arguments are successful, a new `ExpenditureTrendCommand` is returned back to `LogicManager`.
 
-6. The `LogicManager` executes `ExpenditureTrendCommand#execute()`.
+*Step 6*: The `LogicManager` executes `ExpenditureTrendCommand#execute()`.
 
-7. The model is updated with the `List` of `Data` from the newly created `TrendReport`.
-// end::analyticsexpenditure[]
+*Step 7*: The model is updated with the `List` of `Data` from the newly created `TrendReport`.
 
-// tag::analyticsincome[]
+The above sequence of events is shown in greater detail in the following sequence diagram:
+
+.Sequence Diagram for `ExpenditureTrendCommand`
+image::ExpenditureTrendSequenceDiagram.png[]
+
+The details of the `fill trend report` interactions have been omitted from the diagram above, and are shown in the following separate sequence diagram:
+
+.Sequence Diagram for `fill trend report`
+image::FillTrendReportSequenceDiagram.png[]
+
+In addition, this activity diagram shows the action sequence for one iteration of the internal for-loop for the
+execution of the `fillExpenditureTrendReport` method of an `ExpenditureTrendCommand`.
+
+.Activity Diagram for `fillExpenditureTrendReport` method
+image::FillExpenditureTrendReportActivityDiagram.png[]
+// end::expenditureanalytics[]
+
+// tag::incomeanalytics[]
 ==== View Income Trend
 
 The view income trend feature allows the user to view monthly income trend for a year.
@@ -816,22 +852,26 @@ The argument supported by this feature is:
 
 When the user input the `income` command in the Analytics tab, the following chain of operations occurs:
 
-1. The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
+*Step 1*. The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
 
-2. The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `IncomeTrendCommandParser`.
+*Step 2*. The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `IncomeTrendCommandParser`.
 
-3. `IncomeTrendCommandParser#parse()` will take in a `String` input consisting of the arguments.
+*Step 3*. `IncomeTrendCommandParser#parse()` will take in a `String` input consisting of the arguments.
 
-4. This arguments will be tokenized and the respective models for each argument are created.
+*Step 4*. This arguments will be tokenized and the respective models for each argument are created.
 
-5. If the parsing of all arguments are successful, a new `IncomeTrendCommand` is returned back to `LogicManager`.
+*Step 5*. If the parsing of all arguments are successful, a new `IncomeTrendCommand` is returned back to `LogicManager`.
 
-6. The `LogicManager` executes `IncomeTrendCommand#execute()`.
+*Step 6*. The `LogicManager` executes `IncomeTrendCommand#execute()`.
 
-7. The model is updated with the `List` of `Data` from the newly created `TrendReport`.
-// end::analyticsincome[]
+*Step 7*. The model is updated with the `List` of `Data` from the newly created `TrendReport`.
 
-// tag::analyticsbalance[]
+[NOTE]
+Observe that the implementation of `income` is similar to that of `expenditure`, except that each transaction is tested
+for whether it is an income item.
+// end::incomeanalytics[]
+
+// tag::balanceanalytics[]
 ==== View Balance Trend
 
 The view balance trend feature allows the user to view monthly balance trend for a year.
@@ -857,7 +897,149 @@ When the user input the `balance` command in the Analytics tab, the following ch
 6. The `LogicManager` executes `BalanceTrendCommand#execute()`.
 
 7. The model is updated with the `List` of `Data` from the newly created `TrendReport`.
-// end::analyticsbalance[]
+
+[NOTE]
+Observe that the implementation of `balance` differs slightly from that of `expenditure` and `income`.
+
+The following activity diagram shows the action sequence for one iteration of the internal for-loop for the
+execution of the `fillBalanceTrendReport` method of an `BalanceTrendCommand`.
+
+.Activity Diagram for `fillBalanceTrendReport` method
+image::FillBalanceTrendReportActivityDiagram.png[]
+// end::balanceanalytics[]
+
+// tag::breakdownanalytics[]
+==== View Expenditure Breakdown By Category
+
+The view expenditure breakdown by category feature allows the user to view breakdown of expenditure by category.
+This feature is facilitated by `AnalyticsFeatureParser`, `BreakdownCommandParser`, and `BreakdownCommand`.
+The arguments supported by this feature are:
+
+- `Month` (optional)
+- `Year` (optional)
+
+===== Implementation
+
+When the user input the `breakdown` command in the Analytics tab, the following chain of operations occurs:
+
+*Step 1*. The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
+
+*Step 2*. The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `BreakdownCommandParser`.
+
+*Step 3*. `BreakdownCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+*Step 4*. This arguments will be tokenized and the respective models for each argument are created.
+
+*Step 5*. If the parsing of all arguments are successful, a new `BreakdownCommand` is returned back to `LogicManager`.
+
+*Step 6*. The `LogicManager` executes `BreakdownCommand#execute()`.
+
+*Step 7*. The model is updated with the `List` of `Data` from the newly created `BreakdownReport`.
+
+[NOTE]
+Observe that the implementation of `breakdown`, as well as the following command `catrank`,
+involve the creation of a `BreakdownReport` instead of a `TrendReport`.
+This is because the results of these commands are specific to a year *and* a month, as opposed to the results of the
+other commands which are only specific to a year.
+// end::breakdownanalytics[]
+
+// tag::catrankanalytics[]
+==== View Expenditure Category Ranking Chart
+
+The view expenditure category ranking chart allows the user to view the ranked breakdown of expenditure by category.
+This feature is facilitated by `AnalyticsFeatureParser`, `CategoryRankingCommandParser`, and `CategoryRankingCommand`.
+The arguments supported by this feature are:
+
+- `Month` (optional)
+- `Year` (optional)
+
+===== Implementation
+
+When the user input the `catrank` command in the Analytics tab, the following chain of operations occurs:
+
+*Step 1*. The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
+
+*Step 2*. The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `CategoryRankingCommandParser`.
+
+*Step 3*. `CategoryRankingCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+*Step 4*. This arguments will be tokenized and the respective models for each argument are created.
+
+*Step 5*. If the parsing of all arguments are successful, a new `CategoryRankingCommand` is returned back to `LogicManager`.
+
+*Step 6*. The `LogicManager` executes `CategoryRankingCommand#execute()`.
+
+*Step 7*. The model is updated with the `List` of `Data` from the newly created `BreakdownReport`.
+// end::catrankanalytics[]
+
+// tag::mthrankanalytics[]
+==== View Expenditure Ranking Chart By Month
+
+The view expenditure ranking chart by month allows the user to view the ranked monthly expenditure trends.
+This feature is facilitated by `AnalyticsFeatureParser`, `MonthlyExpenditureRankingCommandParser`, and `MonthlyExpenditureRankingCommand`.
+The argument supported by this feature is:
+
+- `Year` (optional)
+
+===== Implementation
+
+When the user input the `mthrank` command in the Analytics tab, the following chain of operations occurs:
+
+*Step 1*. The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
+
+*Step 2*. The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `MonthlyExpenditureRankingCommandParser`.
+
+*Step 3*. `MonthlyExpenditureRankingCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+*Step 4*. This arguments will be tokenized and the respective models for each argument are created.
+
+*Step 5*. If the parsing of all arguments are successful, a new `MonthlyExpenditureRankingCommand` is returned back to `LogicManager`.
+
+*Step 6*. The `LogicManager` executes `MonthlyExpenditureRankingCommand#execute()`.
+
+*Step 7*. The model is updated with the `List` of `Data` from the newly created `TrendReport`.
+
+[NOTE]
+Observe that the implementation of `mthrank` involves the creation of a `TrendReport`.
+Not only are the results of this command only specific to a year, the `mthrank` command is strikingly similar to the
+`expenditure` command, except that the sorted results are used to update the `DataList` in the `Model`.
+// end::mthrankanalytics[]
+
+// tag::exprankanalytics[]
+==== View Expenditure Ranking Chart
+
+The view expenditure ranking chart allows the user to view the ranked expenditure trends.
+This feature is facilitated by `AnalyticsFeatureParser`, `ExpenditureRankingCommandParser`, and `ExpenditureRankingCommand`.
+The arguments supported by this feature are:
+
+- `Month` (optional)
+- `Year` (optional)
+
+[NOTE]
+This command is unique in the sense that if month is not specified, the report is only specific to a year. However, if
+month is specified, the report is specific to both a month *and* a year. This is different from the other commands that
+are only specific to a year, *or* a month and a year. Hence, there is an extra if-condition in the execution loop of the
+`ExpenditureRankingCommand` to account for this discrepancy.
+// end::exprankanalytics[]
+
+===== Implementation
+
+When the user input the `exprank` command in the Analytics tab, the following chain of operations occurs:
+
+*Step 1*. The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
+
+*Step 2*. The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `ExpenditureRankingCommandParser`.
+
+*Step 3*. `ExpenditureRankingCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+*Step 4*. This arguments will be tokenized and the respective models for each argument are created.
+
+*Step 5*. If the parsing of all arguments are successful, a new `ExpenditureRankingCommand` is returned back to `LogicManager`.
+
+*Step 6*. The `LogicManager` executes `ExpenditureRankingCommand#execute()`.
+
+*Step 7*. The model is updated with the `List` of `Data` from the newly created `TrendReport`.
+// end::exprankanalytics[]
 
 //tag::loans[]
 === Loans
