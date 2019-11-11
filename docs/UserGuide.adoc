@@ -498,7 +498,7 @@ View a body with the ID B00000001.
 This command allows you to view all `Notif`(s).
 
 A `Notif` is a notification associated with a `Body`. In Singapore, if the next-of-kin is not contactable for more
-than 24 hours from the time of admission of a `Body`,
+than 24 hours from the time of addition of a `Body` in Mortago,
 police must informed. Mortago removes the hassle of manually keeping track of the status of bodies! For the purpose of
 testing, instead of 24 hours, Mortago currently
 uses 10 seconds.
