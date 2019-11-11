@@ -151,6 +151,7 @@ I wrote the introduction to ease the user into the main features of the applicat
 |===
 |_The following is an excerpt from our `EzWatchlist` User Guide, showing additions that I have
 made for the Introduction:_
+
 |===
 include::../UserGuide.adoc[tag=intro]
 
