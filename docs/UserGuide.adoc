@@ -58,6 +58,9 @@ a parameter which can be used as `n/mala at deck`.
 , guiltTrip will only accept llama meat as the description.
 ====
 
+
+// tag::autosuggestion[]
+
 === AutoSuggestion
 
 The first thing you will notice once you start typing in the command box, is AutoSuggest.
@@ -80,6 +83,8 @@ image::autosuggest_addExpense.png[]
 
 Now since `addExpense` is a valid command, your friendly AutoSuggester is showing you how to use this command!
 Isn't this COOL?
+
+// end::autosuggestion[]
 
 === Categories
 Ever feel like your list of expenses are extremely messy? This is where categories come in handy! Every entry belongs to one category, which makes it easier for you to organize your data! Categories can be either grouped under Expense or Income.
@@ -279,6 +284,7 @@ Other Examples:
 * `deleteExpense 2`
 * `deleteExpense 4`
 
+// tag::autoexpense[]
 === AutoExpense
 
 ==== Adding AutoExpense : `addAutoExp`
@@ -343,6 +349,8 @@ if you stopped your Spotify subscription.
 View after the command above is executed:
 
 image::autoexpense_delete.png[]
+
+// end::autoexpense[]
 
 === Budget
 ==== Adding Budget : `addBudget`

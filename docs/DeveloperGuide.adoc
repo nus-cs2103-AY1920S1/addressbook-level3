@@ -484,6 +484,8 @@ It may also be redundant or excessive as implementing the `changeFont` command i
 
 // end::uifeature[]
 
+// tag::qol[]
+
 === Quality of Life features
 
 ==== AutoSuggester
@@ -590,6 +592,8 @@ image::AutoExpenseActivityDiagram.png[]
 ***         Users will usually open the app for no longer than a day.
 ***         The highest frequency an AutoExpense can be is currently *daily*.
 ** Cons: Above assumptions have to be true.
+
+// end::qol[]
 
 === Reminders
 
