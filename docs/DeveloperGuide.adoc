@@ -470,7 +470,7 @@ as the budget, except: (i) it flattens the `BudgetWindow` field into start date,
 
 The following activity diagram summarizes what happens to budgets when the app launches and when a new expense is added:
 
-image::BudgetActivityDiagram.png[width=50%]
+image::BudgetActivityDiagram.png[width=55%]
 
 ==== Integration with Undo-Redo
 Budgeting-related commands integrate well with Undo-Redo feature, by extending `UndoableCommand`. Undoable commands are
@@ -482,8 +482,6 @@ every change must result in a new budget object being created and replacing the 
 change is reflected backend, it will not show in frontend because the Budgets in two models are still referring to
 the same object. This task is handled by `Budget#deepCopy()`, which is widely called from `UniqueBudgetList`, in every method
 that modifies the existing budgets.
-
-//table for all undoable commands
 
 ==== Design Considerations
 

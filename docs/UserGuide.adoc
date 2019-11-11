@@ -227,6 +227,9 @@ Examples:
 * `addexpense d/Buffet c/Food p/250`
 * `addexpense d/Chicken rice p/2.50 c/Food t/yesterday noon`
 
+NOTE: The highest amount for Price is `100000`. +
+The accepted <TIMESTAMP> range is `1 Jan 2000 to 31 Dec 2099`.
+
 ==== Adding an expense from NUS canteens' menu : `addmenuexpense`
 
 This is what makes MooLah special for NUS students.
