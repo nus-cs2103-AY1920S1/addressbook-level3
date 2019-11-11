@@ -13,12 +13,12 @@ public class ViewFlashcardCommandParserTest {
     private ViewFlashcardCommandParser parser = new ViewFlashcardCommandParser();
 
     @Test
-    public void parse_validArgs_returnsViewNoteCommand() {
+    public void parse_validArgs_returnsViewFlashcardCommand() {
         assertParseSuccess(parser, "1", new ViewFlashcardCommand(INDEX_FIRST_FLASHCARD));
     }
 
     @Test
-    public void parse_validArgsWithAdditionalWhitespace_returnsViewNoteCommand() {
+    public void parse_validArgsWithAdditionalWhitespace_returnsViewFlashcardCommand() {
         assertParseSuccess(parser, "     1", new ViewFlashcardCommand(INDEX_FIRST_FLASHCARD));
     }
 

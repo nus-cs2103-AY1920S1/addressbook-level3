@@ -641,9 +641,9 @@ image::NotesSuccess.png[width="700"]
 
 //tag::notesAdd[]
 
-=== Creating a note: `add`
+=== To create a note: `add`
 
-Adds a note from user input with title `TITLE` and content `CONTENT`. The title of the note cannot be a duplicate
+Adds a note from user input with title `TITLE` and content `CONTENT`, that you can conveniently access later. The title of the note cannot be a duplicate
 of an existing note title.
 
 ```
@@ -665,10 +665,11 @@ New note added:
 The added Note has no detected note fragment tags!
 ```
 
-More advanced usage: Tagging of note fragments is also supported. The note fragment tagging is added at the
+More advanced usage: This is where our Notes feature stands out from the others!
+Tagging of note fragments is also supported. The note fragment tagging is added at the
 same time as the note is created.
 
-Note fragment tags are added with content `FRAGMENT_CONTENT`, at least one tag
+Note fragments can be visualised as a form of highlighting your notes. Its tags are added with content `FRAGMENT_CONTENT`, at least one tag
 `FRAGMENT_TAG`, and any number of additional tags `ADDITIONAL_FRAGMENT_TAG`:
 
 ```
@@ -719,7 +720,11 @@ NOTE: Note fragment tags can be used for filtering notes (see Section 6.6), or f
 For a clearer visualization of note fragments, compare the `view` (see Section 6.3) and `viewraw` (see Section 6.4)
 commands.
 
-=== Deleting a note: `delete`
+//end::notesAdd[]
+
+=== To delete a note: `delete`
+
+Simply get rid of any unwanted notes and make your life easier using `delete`.
 
 Deletes the note of index `NOTE_INDEX`.
 
@@ -763,7 +768,7 @@ For example, calling `delete 3`, then an `invalid command` and then `delete 3` a
 //tag::notesView[]
 
 
-=== Viewing a note: `view`
+=== To view a note: `view`
 
 Views the note of index `NOTE_INDEX`. If the note contains any note fragment tags, those tags will be hidden.
 
@@ -811,7 +816,7 @@ Viewing raw note:
 
 //end::notesView[]
 
-=== Listing notes: `list`
+=== To list all notes: `list`
 
 Lists all notes found in StudyBuddyPro.
 
@@ -843,6 +848,8 @@ NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will n
 visualize specific note fragment tags, use the `filter` command (see Section 6.6).
 
 === Filtering by tags: `filter`
+
+`filter` allows you to quickly search for your notes by their specified tags.
 
 * Filters the note library by the user specified tag(s).
 * The user must specify at least one tag, and can specify multiple tags.
@@ -923,7 +930,7 @@ image::CheatSheetSuccess.png[width="700"]
 === To auto-generate a Cheatsheet: `add`
 
 Adds a cheatsheet from user input title <TITLE> and content <CONTENT>.
-Viola! To your convenience, flashcards and notes in StudyBuddyPro that have the specified tag upon creation of the cheatsheet will be used as contents.
+Voila! To your convenience, flashcards and notes in StudyBuddyPro that have the specified tag upon creation of the cheatsheet will be used as contents.
 
     Format: add t/TITLE [tag/TAG]...
 
