@@ -1343,7 +1343,7 @@ image::ui-screenshots/GotoReminderUi1.png[400, 500]
 //The image of dashboard that shows the reminder for NUSMods
 
 * The result box will show the message: +
-"Opening Reminder: Open Time: 07/12/2019 1000 URL: https://www.comp.nus.edu.sg/programmes/ug/cs/curr/" +
+"Opening Reminder: Open Time: 07/12/2019 1000 URL:https://www.comp.nus.edu.sg/programmes/ug/cs/curr/" +
 The tab will switch to Online and show NUS Computing website.
 
 image::ui-screenshots/GotoReminderUi2.png[400, 500]
