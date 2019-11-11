@@ -53,11 +53,14 @@ This section contains a summary of my coding, documentation, and other helpful c
 ** The `view calendar` and `calendar MMYYYY` commands allow users display a monthly calendar indicating which days contain training and performance records.
 ** The `calendar DDMMYYYY` command allows users to display training and performance records recorded on a specific date in the form of tables. The overall team attendance rate is displayed in the form of a pie chart as well.
 * Justification
-** Being able to keep track of when training and performance records were recorded is important for coaches and captains as it allows them to find out what happened on a specific date.
+** The ability to keep track of when training and performance records were recorded is important
+for coaches and captains as it allows them to find out what happened on a specific date.
 ** The use of a calendar to display this information is neat and easy to navigate, which makes the feature more user-friendly.
 * Highlights
 ** This enhancement provides a platform for further development of date-related features, such as
-the planning of training programmes in advance. The implementation was also challenging because it required the `[green]#Training#` and `[green]#Performance#` features to incorporate a date for the calendar to utilise and the construction of a calendar is complex.
+the planning of training programmes in advance.
+** The implementation was also challenging because it required the `[green]#Training#` and
+`[green]#Performance#` features to incorporate a date for the calendar to utilise and the construction of a calendar is complex.
 
 *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shawnlsj97&tabRepo=AY1920S1-CS2103T-T12-3%2Fmain%5Bmaster%5D[RepoSense]] [https://github.com/AY1920S1-CS2103T-T12-3/main/commits?author=shawnlsj97[GitHub repository]]
 
@@ -76,12 +79,19 @@ for each project milestone submission.
 ** Added documentation for the `calendar`, `sort` and `view` commands in the Developer Guide. (Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/111[#111], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/220[#220])
 ** Created style guide for diagrams for the team to adhere to. (https://docs.google.com/presentation/d/1JprrBR5HnnOQio1M9YEgheEYldplHqL18q4IQCGqyMk/edit#slide=id.p[Link])
 * Community:
-** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T12-3/main/pull/63[#63], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/64[#64], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/65[#65], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/91[#91]
-** Reported bugs and suggestions for other teams in the class: https://github.com/shawnlsj97/ped/issues?q=is%3Aopen+is%3Aissue+label%3Atype.FunctionalityBug[Bug reports], https://github.com/shawnlsj97/ped/issues?q=is%3Aopen+is%3Aissue+-label%3Atype.FunctionalityBug[Suggestions]
+** Reviewed PRs by peers by providing feedback and suggestions. (Pull requests
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/63[#63],
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/64[#64], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/65[#65], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/91[#91])
+** Reported bugs and suggestions for other teams in the module.
+(https://github.com/shawnlsj97/ped/issues?q=is%3Aopen+is%3Aissue+label%3Atype.FunctionalityBug[Bug reports], https://github.com/shawnlsj97/ped/issues?q=is%3Aopen+is%3Aissue+-label%3Atype.FunctionalityBug[Suggestions])
 
 == Contributions to the User Guide
 
-This section displays my contributions to the user guide for the calendar feature. They showcase my ability to write documentation targeting end-users of our application.
+|===
+|_This section displays my contributions to the User Guide for the calendar feature. They showcase
+my ability to write documentation targeting end-users of our application. The full User Guide can
+be found https://ay1920s1-cs2103t-t12-3.github.io/main/UserGuide.html[here]._
+|===
 
 [blue]#_Start of extract from User Guide_#
 
@@ -95,7 +105,12 @@ include::../UserGuide.adoc[tag=calendar3]
 
 == Contributions to the Developer Guide
 
-This section displays my contributions to the developer guide for the calendar feature. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+|===
+|_This section displays my contributions to the Developer Guide for the calendar feature. They
+showcase my ability to write technical documentation and the technical depth of my contributions
+to the project. The full Developer Guide can be found
+https://ay1920s1-cs2103t-t12-3.github.io/main/DeveloperGuide.html[here]._
+|===
 
 [blue]#_Start of extract from Developer Guide_#
 
