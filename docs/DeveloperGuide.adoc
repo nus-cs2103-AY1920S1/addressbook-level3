@@ -1024,35 +1024,6 @@ class IncomeDateComparator implements Comparator<Income> {
 
 * `sortFilteredClaimListByStatus` is implemented with the help of a comparator that compares the statuses of each claim.
 The order is as such: Pending, Approved, Rejected. There are 9 cases of comparison between 2 claims.
-The code snippet below illustrates the comparator.
-
-[source, java]
-class ClaimStatusComparator implements Comparator<Claim> {
-    @Override
-    public int compare(Claim claim1, Claim claim2) {
-        if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.APPROVED)) {
-            return -1;
-        } else if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.PENDING)) {
-            return 0;
-        } else if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.REJECTED)) {
-            return -1;
-        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.REJECTED)) {
-            return -1;
-        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.APPROVED)) {
-            return 0;
-        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.PENDING)) {
-            return 1;
-        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.PENDING)) {
-            return 1;
-        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.REJECTED)) {
-            return 0;
-        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.APPROVED)) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-}
 
 ==== Why was it implemented this way?
 The major implementation difference for claims list sorted by `name`, it is sorted based on the description of each
