@@ -4,18 +4,18 @@
 :stylesDir: ../stylesheets
 
 == About the project
-My team and I were tasked with enhancing an desktop application, which is command line interface addressbook application. After careful consideration, we have morphed the application into a Hackathon personnel management system called Alfred. With the target user of Human Resource Managers of small to medium sized enterprise and start-ups in mind, we created this application help streamline the management of Hackathon. This improved application enables users to manage different parties of participants, teams and mentors. Additionally, it automatically establishes relationship between these parties, delegating the tedious task of maintaining complex relationships to the system itself.
+My team and I were tasked with enhancing a command line interface addressbook application. After careful consideration, we morphed the application into a Hackathon personnel management system called Alfred. With human resource managers of startups and small- and medium- sized enterprise in mind, we created this application to help streamline the management of Hackathon competitions. This improved application enables users to manage different parties(like participants, teams and mentors). Additionally, it automatically establishes relationships between these parties, delegating the tedious task of maintaining complex relationships to the system itself.
 
 This is what our project looks like:
 
 .The graphical user interface for the homepage of Alfred.
-image::Ui.png[]
+image::Ui.png[][height="200", width="600"]
 
-My main role was to design and write the code for the Graphical User Interface(GUI) to ensure that information about each party(participant, team and mentor alike) is displayed in an organised and readable manner. Additionally, as part of my duty, I have also implemented the command prompt box and homepage statistics. This ensures that users do not need to type out complex commands and that they are well informed of the statistics of different parties in the system. I have also implemented assign and remove commands to assign participants or mentors to a team. The following sections illustrate these enhancements in further detail, including the relevant documentation I have included in the user and developer guide with reference to these features.
+My main role was to design and write the code for the Graphical User Interface(GUI), to ensure that information about each party is displayed in an organised and readable manner. As part of my duty, I have implemented the command suggestion prompt. I have also implemented assign and remove commands to assign participants or mentors to a team. These are the two main feature I have implemented, The following sections illustrate these enhancements in further detail, including the relevant documentation I have included in the user and developer guide with reference to these features. Further details on the `home` command feature and layout of the GUI (that I have also implemented) can be found in the user guide and developer guide.
 
 *Note the following terms used in this document*:
 
-*Entity*: The term entity refers to different parties that could be stored in the system. This includes participants, teams and mentors that are involved in the Hackathon competition.
+*Entity*: Entity refers to different parties that could be stored in the system. This includes participants, teams and mentors that are involved in the Hackathon competition.
 
 *Note the following symbols and formatting used in this document*:
 [NOTE]
@@ -35,32 +35,12 @@ the architecture of the application. Clicking these text will redirect user to t
 |_This section shows a summary of my coding, documentation, and other contributions to the project._
 |===
 
-
-*Enhancement added*: I have improved on the design of the GUI
-
-*	What it does: There are two main features of the GUI. The first feature is the sidebar. The sidebar consist of different sections. When commands are entered, the result will be shown, with respective sections of the sidebar highlighted for reference. Secondly, I have also implemented the parsing and display of information returned by the backend into cards.
-*	Justification: Upon entering commands into the application, the result of these commands will return the details of different entities. Parsing and displaying these information into a more visual manner will allow users to be able to digest such information easily and intuitively. Furthermore, being able to view the section of the sidebar that is highlighted will give the user a clearer idea of the type of entity they are looking at.
-*	Credits: Two third party libraries are used. They are Jfeonix and FontAwesomeFx Library.
-
-*Code contributed*: Please click these links to see a sample of my code: [Functional code] [Test code] {give links to collated code files}
-
-*Enhancement added*: I added the ability to view statistics on the homepage of the application
-
-* What it does: The home command allows the user to navigate to the homepage of the application. The homepage displays statistics that informs users on the number of entities ( by their entity type), as well as the distribution of entity by subjects.
-* Justification: Hackathon competitions may be a measurably large event with large volumes of entities stored in the system. Hence, the overall view of the total number of each entity is needed to keep the maximum capacity of the competition in check. Additionally, the distribution graph of entities by subjects will allow optimal allocation of participants into teams or mentors to teams (according to their subject of choice).
-* Highlights: The implementation of the distribution graph requires sieving through entities of the same type by subjects. Therefore, the Stream data structure was used to create a more elegant solution.
-* Credits: JavaFX library was used.
-
-*Code contributed*: Please click these links to see a sample of my code: [Functional code] [Test code] {give links to collated code files}
-
 *Enhancement added*: I added the ability to choose from different suggested command templates as a user types into the user input box
 
 * What it does: This feature predicts the command that a user is going to enter as they are typing, and provides suggestions. The user can then navigate and choose from these suggestions. Doing so will provide a command template for the user to work it.
 * Justification: Managing different entities in the system requires a variety of commands(in which some are more complex in nature). Thus, this feature allows users to conveniently summon commands. Furthermore, it takes the memory work of remembering numerous commands out of the equation.
 * Highlights: This enhancement works with existing as well as future commands. Addition of new commands would only require minimal changes to the code base of this feature. The fulfilment of this feature was more demanding as it requires a deeper understanding on the working of the third party library JavaFX. On top of that, its implementation was constantly met with errors, before vital concepts regarding the Node components of JavaFX came into light.
 * Credits: This was inspired by the command suggestion box in Telegram bots. The inspiration of how it can be implemented comes from the following webpage: https://stackoverflow.com/questions/50495430/how-to-customize-auto-complete-text-field-suggestion-in-javafx
-
-*Code contributed*: Please click these links to see a sample of my code: [Functional code] [Test code] {give links to collated code files}
 
 *Enhancement added*: I added the ability to assign participants or a mentor to a team
 
@@ -93,89 +73,40 @@ the architecture of the application. Clicking these text will redirect user to t
 |===
 |_We had to amend the Addressbook User Guide with instructions on how to utilise the enhancement we added. Below is an excerpt of the Alfred User Guide, showcasing the homepage statistics, command suggestion prompt and assign command features I have added._
 |===
+include::../UserGuide.adoc[tag=suggestions]
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=assign]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=remove]
 
 == Contributions to the Developer Guide
 
 |===
 |_The following sections shows my contribution to the Alfred Developer Guide for the homepage statistics feature, command suggestion and assign feature._
 |===
+include::../DeveloperGuide.adoc[tag=command-suggestion]
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
+include::../DeveloperGuide.adoc[tag=assign-remove]
 
 == Design Considerations
 |===
 |When designing the GUI, homepage statistics, command suggestion and assign/remove functions, careful deliberation was needed on optimum data structure to use and design principle to employ to implement these features. Below is a brief summary of the thought process I put in before coming to a decision. _
 |===
 
-
+[width="100%", cols="25%, 37%,38%"]
 |=======================================================================
 |Aspect |Alternative 1 |Alternative 2
-|Ways to update different entity list
-| The system collects information form Model after each command, to display the entity list as the command result.
+|How to store a set of correct commands and search through it as user types: In order to provide suggestions as a user types, there needs to be a way to store the set of correct commands as strings in the system, and search through it to check if it contains some parts of user input. The results will be provided to the user as suggestions.
+| Use an `ArrayList` and go through every element in the array list one by one to look for commands that matches the user input.
 
- *Pros*: Easy to implement with existing Model interface
+*Pros*: Easy to implement
+*Pros*: When new commands are implemented, they can easily be added into the `ArrayList`
+*Cons*: Allows duplicates, if duplicate commands are added into the `ArrayList`, duplicate suggestions may be provided.
+*Cons*: Searching through the `ArrayList` is inefficient as `Stream` is not used.
+|Store the commands in a `Set` and convert it to a `Stream` to search through the commands.
 
- *Cons*: High degree of dependency between UI components and Model components(high coupling).
+*Pros*: Prevent duplicates, so that duplicate commands will not be entered accidentally.
+*Pros*: More efficient.
+*Pros*: Easier to search through the set of commands when it is stored as `Stream`.
 
- *Cons*: Updating of the data is not automatic.
-
- |The system uses and Observable interface that observes for changes in the three types of list, namely ParticipantList, TeamList and MentorList.
-
- *Pros*: Low degree of dependency between UI and Model components(low coupling).
-
-	*Pros*: The data in GUI is automatically updated.
-
-	*Cons*: Harder to implement.
-
-
-I have decided to go with this alternative because low dependency will ensure testability and maintainability of the system.
-
-|Finding the distribution of Teams and Mentors by subjects | Implementing methods to keep track of number of mentors or participant under the respective TeamList or ParticipantList class.
-
-*Pros*: Each of TeamList or  Participant list will have their individual responsibilities in keeping track of the distribution of its teams or mentors.
-
-*Cons*: Clutters up the Model and ModelManger interface.
-
-*Cons*: Does not make use of existing methods under Model.
-
-|Getting TeamList or ParticipantList from Model and implementing operation to find the distribution separately.
-
-*Pros*: Makes use of existing Model methods of getting TeamList and ParticipantList
-
-*Pros*: Does not clutter up Model and ModelManager with different methods
-
-*Pros*: Greater flexibility in implementing methods to find the distribution of teams or mentors.
-
-*Cons*: Clutters up the Model and ModelManger interface.
-
-*Cons*: Does not make use of existing methods under Model.
-
-I decided to proceed with this option because it makes use of existing methods under Model and provides greater flexibility on how I can find the distribution number by subject from the TeamList or ParticipantList.
-
-|How to generate EntityCard and ListPanel to display different entities
-
-| Implement different classes that inherits EntityCard, like TeamCard, ParticipantCard and MentorCard respectively. Additionaly, implement different classes that extents ListPanel, like TeamListPanel and more.
-
-*Pros*: Easy to implement and style respective cards and list panels.
-
-*Cons*: Logic is duplicated many times, one for each type of entity. For example, ParticipantCard and Mentorcard are similar for most fields, except the extra field of Organisation and Specialisation.
-
-*Cons*:  Clutters the system with extra classes.
-
-|Implement a EntityCard class with a skeleton structure. Then dynamically add and morph the fields in Entity card according to the entity type.
-
-*Pros*: No duplication of the same logic and implementation, as abstraction was used
-
-*Pros*: Lesser class files required.
-
-*Cons*: Harder to implement.
-
-I have decided to proceed with this option because this alternative employs that theory of abstraction in programming, and it there is less redundant code in this implementation.
+I have decided to proceed with this option as preventing duplcates enables a more defensive style of programming. It is also more efficient.
