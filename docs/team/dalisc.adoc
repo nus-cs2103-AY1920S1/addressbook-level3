@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:bulb: 💡
 
 ---
 

@@ -46,6 +46,7 @@ This section summarizes how you can quickly set up Mortago on your computer
 
 Upon launching Mortago, you should see the following user interface.
 
+[.text-center]
 .User Interface of Mortago
 image::Ui.png[width="790"]
 

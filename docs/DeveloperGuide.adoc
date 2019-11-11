@@ -1232,6 +1232,7 @@ _
    Expected: Similar to previous.
 
 // tag::statsManualTesting[]
+
 === Using the Line Chart and Stats Command
 
 . Changing the time frame of the line's chart horizontal axis
@@ -1262,6 +1263,7 @@ _
 // end::statsManualTesting[]
 
 // tag::filterManualTesting[]
+
 === Filter entries by attributes
 
 . Filter bodies by a combination of at least on attribute.
