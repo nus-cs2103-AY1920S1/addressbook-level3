@@ -35,24 +35,25 @@ image::../images/Plan2TravelSS.png[]
 
 === *Minor enhancement*: +
 ** *Added the ability to optimise a day's schedule*
-** What it does: allows the user to optimise a day's schedule by looking for the best way to schedule activities such that there are no conflicts and that the schedule is at the lowest cost. If there are multiple possibilities, the one with the most number of activities would be chosen.
-** Justification: This feature improves the product because it allows users to rid the schedule of conflicts with a single command.
-** Highlights: This enhancement can be easily extended to allow the user to optimise the schedule besides budget.
+*** What it does: allows the user to optimise a day's schedule by looking for the best way to schedule activities such that there are no conflicts and that the schedule is at the lowest cost. If there are multiple possibilities, the one with the most number of activities would be chosen.
+*** Justification: This feature improves the product because it allows users to rid the schedule of conflicts with a single command.
+*** Highlights: This enhancement can be extended to allow the user to optimise the schedule besides cost and number of activities.
+
+** *Link different model components to update one another*
+*** What it does: allows the user to update the contact in an Activity/Accommodation from the contact list, vice versa.
+*** Justification: This feature improves the product as it incorporates different models into the product and polishes the product.
+*** Highlights: This enhancement makes the product a more cohesive ecosystem.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=KxxMxxx[RepoSense Report]]
 
 === *Other contributions*:
 ** Enhancements to existing features:
-*** Link different models to update one another https://github.com/AY1920S1-CS2103T-T09-1/main/pull/108[#108#]
-*** Wrote additional tests for existing features to increase coverage https://github.com/AY1920S1-CS2103T-T09-1/main/pull/221[#221]
+*** Wrote additional tests for existing features to increase coverage https://github.com/AY1920S1-CS2103T-T09-1/main/pull/221[#221], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/268[#268]
 
 ** Documentation:
 *** Did tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/248[#248]
 
-** Community:
-*** PRs reviewed: https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?q=is%3Apr+reviewed-by%3AKxxMxxx+is%3Aclosed[Reviews]
-
-_{you can add/remove categories in the list above}_
+** PRs reviewed: https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?q=is%3Apr+reviewed-by%3AKxxMxxx+is%3Aclosed[Reviews]
 
 == Contributions to the User Guide
 

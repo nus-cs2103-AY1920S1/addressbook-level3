@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.planner.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.planner.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.planner.testutil.Assert.assertThrows;
-import static seedu.planner.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
+import static seedu.planner.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
@@ -45,8 +45,8 @@ public class PlannerParserTest {
     public void parseCommand_delete() throws Exception {
         DeleteContactCommand command = (DeleteContactCommand) parser.parseCommand(
                 DeleteContactCommand.COMMAND_WORD + " " + DeleteContactCommand.SECOND_COMMAND_WORD + " "
-                        + INDEX_FIRST_CONTACT.getOneBased());
-        assertEquals(new DeleteContactCommand(INDEX_FIRST_CONTACT, false), command);
+                        + INDEX_FIRST.getOneBased());
+        assertEquals(new DeleteContactCommand(INDEX_FIRST, false), command);
     }
 
     @Test
@@ -54,9 +54,9 @@ public class PlannerParserTest {
         Contact contact = new ContactBuilder().build();
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
         EditContactCommand command = (EditContactCommand) parser.parseCommand(EditContactCommand.COMMAND_WORD + " "
-                + EditContactCommand.SECOND_COMMAND_WORD + " " + INDEX_FIRST_CONTACT.getOneBased() + " "
+                + EditContactCommand.SECOND_COMMAND_WORD + " " + INDEX_FIRST.getOneBased() + " "
                 + ContactUtil.getEditContactDescriptorDetails(descriptor));
-        assertEquals(new EditContactCommand(INDEX_FIRST_CONTACT, descriptor, false), command);
+        assertEquals(new EditContactCommand(INDEX_FIRST, descriptor, false), command);
     }
 
     @Test

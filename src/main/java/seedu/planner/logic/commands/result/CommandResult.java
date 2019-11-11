@@ -122,6 +122,7 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && Arrays.equals(uiFocus, otherCommandResult.uiFocus)
                 && Arrays.equals(resultInformation, otherCommandResult.resultInformation)
+                && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit;
     }
 

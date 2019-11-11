@@ -87,4 +87,24 @@ public class ResultInformation {
     public Optional<String> getDescription() {
         return Optional.ofNullable(descriptionOfInformation);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof ResultInformation)) {
+            return false;
+        }
+
+        ResultInformation otherResultInformation = (ResultInformation) other;
+        return getContact().equals(otherResultInformation.getContact())
+                && getActivity().equals(otherResultInformation.getActivity())
+                && getAccommodation().equals(otherResultInformation.getAccommodation())
+                && getActivityWithTime().equals(otherResultInformation.getActivityWithTime())
+                && displayedIndex.equals(otherResultInformation.displayedIndex)
+                && getDescription().equals(otherResultInformation.getDescription());
+    }
 }
