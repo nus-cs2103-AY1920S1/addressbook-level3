@@ -14,26 +14,26 @@ import seedu.address.commons.core.index.Index;
  * It is backed by an {@code ObservableList}.
  */
 public class PhotoList {
-    private final ObservableList<Photo> photos;
+    private final ObservableList<DiaryPhoto> photos;
 
     public PhotoList() {
         this.photos = FXCollections.observableArrayList();
     }
 
-    public PhotoList(Collection<Photo> photos) {
+    public PhotoList(Collection<DiaryPhoto> photos) {
         this();
         this.photos.addAll(photos);
     }
 
-    public void addPhoto(Photo photo) {
+    public void addPhoto(DiaryPhoto photo) {
         photos.add(photo);
     }
 
-    public Photo deletePhoto(Index index) {
+    public DiaryPhoto deletePhoto(Index index) {
         return photos.remove(index.getZeroBased());
     }
 
-    public ObservableList<Photo> getObservablePhotoList() {
+    public ObservableList<DiaryPhoto> getObservablePhotoList() {
         return photos;
     }
 
@@ -42,8 +42,8 @@ public class PhotoList {
      *
      * @param searchTerm The string search term to use.
      */
-    public Optional<Photo> getPhoto(String searchTerm) {
-        for (Photo photo : photos) {
+    public Optional<DiaryPhoto> getPhoto(String searchTerm) {
+        for (DiaryPhoto photo : photos) {
             if (photo.getDescription().matches(searchTerm)) {
                 return Optional.of(photo);
             }
@@ -65,7 +65,7 @@ public class PhotoList {
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
-        for (Photo photo : photos) {
+        for (DiaryPhoto photo : photos) {
             builder.append(photo.toString()).append("\n");
         }
 

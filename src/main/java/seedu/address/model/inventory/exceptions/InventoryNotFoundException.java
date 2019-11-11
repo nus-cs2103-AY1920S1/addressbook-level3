@@ -7,7 +7,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
  */
 public class InventoryNotFoundException extends CommandException {
 
-    public InventoryNotFoundException(String message) {
-        super(message);
+    private static final String MESSAGE = "ERROR: INVENTORY ITEM NOT FOUND";
+
+    public InventoryNotFoundException() {
+        super(MESSAGE);
     }
 }

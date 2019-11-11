@@ -18,11 +18,12 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.common.PhotoUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.itinerary.ItineraryParserUtil;
 
 /**
- * Placeholder javadoc.
+ * Parser for {@link EditDayFieldCommand}.
  */
 public class EditDayFieldParser implements Parser<EditDayFieldCommand> {
 
@@ -83,7 +84,7 @@ public class EditDayFieldParser implements Parser<EditDayFieldCommand> {
         }
         if (argMultimap.getValue(PREFIX_DATA_FILE_PATH).isPresent()) {
             editDayDescriptor.setPhoto(
-                    ItineraryParserUtil.parseFilePath(argMultimap.getValue(PREFIX_DATA_FILE_PATH).get(), imageFile));
+                    PhotoUtil.parseFilePath(argMultimap.getValue(PREFIX_DATA_FILE_PATH).get(), imageFile));
         }
 
         if (!editDayDescriptor.isAnyFieldEdited()) {

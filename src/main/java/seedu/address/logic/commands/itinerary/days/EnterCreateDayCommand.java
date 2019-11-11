@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 import seedu.address.model.appstatus.PageType;
 
 /**
- * Placeholder.
+ * Command to enter {@link seedu.address.ui.itinerary.EditDayPage} for day creation.
  */
 public class EnterCreateDayCommand extends Command {
     public static final String COMMAND_WORD = "create";

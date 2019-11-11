@@ -5,7 +5,7 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Placeholder javadoc.
+ * Parser for {@link CancelEditEventCommand}.
  */
 public class CancelEditEventParser implements Parser<CancelEditEventCommand> {
     @Override

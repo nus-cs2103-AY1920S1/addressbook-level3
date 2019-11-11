@@ -3,14 +3,19 @@ package seedu.address.testutil;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 import seedu.address.model.booking.Booking;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.inventory.Inventory;
+
 import seedu.address.model.itinerary.Description;
+
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.Event;
+
 
 /**
  * Builder class to accommodate optional properties using builder pattern.
@@ -22,8 +27,11 @@ public class EventBuilder {
     private LocalDateTime endDate;
     private Booking booking;
     private Location destination;
+
+    //Default State (If it is not set)
+    private Optional<List<Inventory>> inventoryList = Optional.empty();
+
     private Expense totalBudget;
-    private Inventory inventory;
     private Description description;
 
     /**
@@ -54,8 +62,11 @@ public class EventBuilder {
                 .setStartDate(event.getStartDate())
                 .setEndDate(event.getEndDate())
                 .setLocation(event.getDestination());
+
         event.getExpense().ifPresent(e::setTotalBudget);
-        event.getInventory().ifPresent(e::setInventory);
+
+        event.getInventoryList().ifPresent(e::setInventoryList);
+
         event.getBooking().ifPresent(e::setBooking);
         event.getDescription().ifPresent(e::setDescription);
         return e;
@@ -91,13 +102,18 @@ public class EventBuilder {
         return this;
     }
 
-    public EventBuilder setInventory(Inventory inventory) {
-        this.inventory = inventory;
+    public EventBuilder setInventoryList(List<Inventory> inventoryList) {
+        this.inventoryList = Optional.of(inventoryList);
         return this;
     }
 
+    /**
+     * Builds and returns and Event.
+     * @return An Event.
+     */
     public Event build() {
-        return new Event(name, startDate, endDate, booking, totalBudget, inventory, destination, description);
+        return new Event(name, startDate, endDate, booking, totalBudget, destination, description, inventoryList);
+
     }
 
 }

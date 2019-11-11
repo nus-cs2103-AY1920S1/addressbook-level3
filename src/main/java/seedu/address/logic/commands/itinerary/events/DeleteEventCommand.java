@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.itinerary.event.Event;
 
 /**
- * Placeholder.
+ * Command to delete a single {@link Event}.
  */
 public class DeleteEventCommand extends Command {
     public static final String COMMAND_WORD = "delete";

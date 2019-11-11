@@ -505,69 +505,82 @@ _{Explain here how the data encryption feature will be implemented}_
 === [Diary] Photo Manager
 The photo manager pertains to components for storing, and displaying user specified photos on the disk.
 
+'''
+
 [[photo_model]]
-==== Aspect : Model
+==== Aspect: Models
 
 [[diary_photo_model_class_diagram]]
-image::diary/DiaryPhotoModelClassDiagram.png[]
+image::diary/DiaryPhotoModelClassDiagram.png[title="Class diagram of a `PhotoList` as contained by a diary entry, and its contained models" align="center"]
 
 ===== Photo
-The model for a photo stored in memory is stored in the `Photo` class.
+The model for a photo stored in memory is stored in the `DiaryPhoto` class.
 
 It contains three key fields, that is, the `imagePath`, `description`, and `dateTaken` fields which are used to display key information of the image to the user.
 The `imagePath` and `dateTaken` were implemented respectively with the robust java apis of `Path` and `LocalDateTime`, while `description` is simply a `String`.
 
-In addition, a JavaFX `Image` is also stored inside the photo (not shown in <<diary_photo_model_class_diagram>> for brevity),
+In addition, a JavaFX `Image` is also stored inside the `DiaryPhoto` (not shown in <<diary_photo_model_class_diagram>> for brevity),
 which holds the `Image` to use for displaying in an `ImageView` inside the user interface. The `Image` is cached this way,
 as the `Image` construction directly in the user interface involves costly I/O operations.
 
+[NOTE]
+======
 
-===== PhotoList
-On the other hand, the `Photo` models are contained within a `PhotoList`. It stores the photos in a JavaFX `ObservableList`,
-so that changes are registered with the user interface. (see <<photo_manager_ui>>)
-
-It also supports several convenience wrapper methods around the underlying `ObservableList`, tailored for use for the logic components.
-
-'''
-
-====== Restrictions on fields during `Photo` instance construction:
+Restrictions on fields during `DiaryPhoto` instance construction:
 
 * Several restrictions on the description are enforced by class level `Pattern` matchers, such as the length of the description.
 * While the image file path is parsed and checked using the java `Files` api, it is non-strict in that a path to an invalid image will result in the `Image` field referring to the default class level variable that specifies a placeholder image.
 ** However, the original user entered file path is still stored inside the Model, to guard against accidental file deletion.
 
+======
+
+===== PhotoList
+On the other hand, the `DiaryPhoto` models are contained within a `PhotoList`. It stores the photos in a JavaFX `ObservableList`,
+so that changes are registered with the user interface. (see <<photo_manager_ui>>)
+
+It also supports several convenience wrapper methods around the underlying `ObservableList`, tailored for use for the logic components.
+
+
+'''
 
 
 [[photo_manager_ui]]
-==== Aspect : User interface of photo manager
+==== Aspect: User interface of photo manager
 
 The main `UiPart` component that displays photos is the `DiaryGallery`.
-It abides by the `Page` implementation (see <<page_api>>), and is thus contained within
+It abides by the `Page` implementation (see <<page_api>>), and is thus contained within,
 in one of `DiaryPage's` placeholders.
 
-image::diary/DiaryPhotoUiObjectDiagram.png[title="Diary gallery component object diagram"]
+image::diary/DiaryPhotoUiObjectDiagram.png[title="Object diagram of the diary gallery component, as contained by `DiaryPage` (not shown)" align="center"]
 
-The `DiaryGallery` contains a `PhotoList`, with which it uses to populate its `ListView<Photo>` component.
+The main JavaFX component responsible for displaying the photos is a `ListView<DiaryPhoto>` component.
+The `ListView` obtains its data from the `PhotoList` of
+the `DiaryGallery`, which is automatically observed by the `ListView`.
 
-The ListView uses a small, clean custom cell factory, which sets the `cells` of the `ListView` to use `DiaryGalleryCards`
-as its graphic, generated via the `ListCell` index and the `Photo` item.
+Hence, changes in the `PhotoList`, such as the addition of a `DiaryPhoto` are immediately communicated
+to the user interface.
 
-`DiaryGalleryCards` display the information in the `Photo` model supplied with a series of `Labels` and one `ImageView`.
-Additionally, the index of the card as displayed in the `DiaryGallery` is also displayed, but not stored in the model.
+The `ListView` uses a simple custom `cell factory`, which sets the `ListCells` of the `ListView` to use `DiaryGalleryCards`
+as its graphic. `DiaryGalleryCards` are in turn generated in the `cell factory` using the `ListCell's` index and a `DiaryPhoto` instance.
 
-==== Aspect : Logic of photos
+`DiaryGalleryCards` display the information as supplied by the `DiaryPhoto` model using a series of `Labels` and one `ImageView`.
+Additionally, the index of the card as ordered in the `DiaryGallery` is also displayed, but not stored in the model.
+
+'''
+
+==== Aspect: Logic of photo manager operations
 The logic for photo manager plays to the same `PageParser` structure of parsing commands, that is,
 `DiaryParser` returns either `AddPhotoParser`, `DeletePhotoParser` when the appropriate command word is parsed, which
 in turn returns instances of `AddPhotoCommand` and `DeletePhotoCommand` respectively.
 
 
-===== Aspect : Adding photos (through command line file path or os file chooser)
+===== Logic aspect 1: Adding photos (through command line file path or os file chooser)
 
 Following `DiaryParser` returning an instance of `AddPhotoParser` that calls `parse()` on the user specified arguments,
 a number of operations happen, as per the UML sequence diagram below (<<AddPhotoParser parse sequence diagram>>). The specifics of `getFilePath`,
-`parseDescription`, `parseDateTime` are detailed further down below. ()
+`parseDescription`, `parseDateTime` are detailed further down below.
 [AddPhotoParser parse sequence diagram]
-image::diary/DiaryAddPhotoParser.png[title="Sequence diagram of the parse method in AddPhotoParser"]
+image::diary/DiaryAddPhotoParser.png[title="Sequence diagram of the parse method in AddPhotoParser" align="center"]
 
 '''
 
@@ -579,16 +592,16 @@ If present, the OS file choosing gui is opened using `ImageChooser` (a simple ex
 as a valid image file.
 ** If the file chooser prefix is unspecified and the data file path is invalid, `AddPhotoParser` throws a `ParseException`
 
-image::diary/AddPhotoParserGetFilePathActivityDiagram.png[title="Activity diagram of getFilePath subroutine"]
+image::diary/AddPhotoParserGetFilePathActivityDiagram.png[title="Activity diagram of getFilePath subroutine" align="center" width="95%"]
 
 '''
 
-====== Parsing the description
-** If the description prefix is present, `AddPhotoParser` tries to construct the `Photo` instance with the specified input.
+====== Parsing the description of the photo
+** If the description prefix is present, `AddPhotoParser` tries to construct the `DiaryPhoto` instance with the specified input.
 If validation of the description, as described in the <<photo_model>> fails, then a ParseException is thrown during the instance construction.
-** Otherwise, the file name of the validated file from <<adding_photo_diary_step_1>> (truncated to match `Photo's` description constraints) is used.
+** Otherwise, the file name of the validated file from <<adding_photo_diary_step_1>> (truncated to match `DiaryPhoto's` description constraints) is used.
 
-image::diary/AddPhotoParserParseDescriptionActivityDiagram.png[title="Activity diagram of parseDescription subroutine"]
+image::diary/AddPhotoParserParseDescriptionActivityDiagram.png[title="Activity diagram of parseDescription subroutine" align="center" width="95%"]
 
 '''
 
@@ -599,11 +612,11 @@ A `ParseException` is automatically thrown in the case of date parsing failure, 
 
 '''
 
-The `Photo` instance is then constructed, and passed to `AddPhotoCommand` which simply adds the `Photo` to the
+The `DiaryPhoto` instance is then constructed, and passed to `AddPhotoCommand` which simply adds the `DiaryPhoto` to the
 current `PhotoList` of the `DiaryEntry`.
 
 
-===== Aspect : Deleting photos
+===== Logic aspect 2: Deleting photos
 Following `DiaryParser` parsing the 'delphoto' command from the user, an instance of `DeletePhotoParser` is created, which parses the received arguments.
 
 1. The `DeletePhotoParser` simply parses the arguments for a valid integer, failing which a `ParseException` is thrown.
@@ -616,18 +629,18 @@ Following `DiaryParser` parsing the 'delphoto' command from the user, an instanc
 |========================================================================================
 |Feature      |Alternative 1 | Alternative 2
 |Validation of image file path
-|The first option is to implement the file path validation directly inside the `Photo` model.
+|The first option is to implement the file path validation directly inside the `DiaryPhoto` model.
 
 This would have enforced a stricter level of validation on the image file path throughout the code,
-if an instance of `Photo` needed to be instantiated somewhere else other than the `AddPhotoParser` for future use.
+if an instance of `DiaryPhoto` needed to be instantiated somewhere else other than the `AddPhotoParser` for future use.
 
-However, since the storage model for `Photo` (which is `JsonAdaptedPhoto`), initializes the model
-through deserializing the saved file path, this would have led to needing to a separate constructor for `Photo`
+However, since the storage model for `DiaryPhoto` (which is `JsonAdaptedDiaryPhoto`), initializes the model
+through deserializing the saved file path, this would have led to needing to a separate constructor for `DiaryPhoto`
 in the case that the file path was invalidated on app startup in order to create a placeholder image.
 |The second, chosen option, was to implement the file path validation inside the parser itself.
 
 Although this option limited the validation to only the 'addphoto' command, it allowed for leeway in
-image path validation in other areas such as `JsonAdaptedPhoto`, where it is possible for deletion of an
+image path validation in other areas such as `JsonAdaptedDiaryPhoto`, where it is possible for deletion of an
 image file by the user, outside of the application, to invalidate the stored file path and erroneous data to be loaded on application start.
 
 Moreover, Since the function for parsing the image file can and was abstracted into a single utility function,
@@ -645,7 +658,7 @@ There are two primary facets of input styles to this feature, one being commands
 a part or the whole of the entry through the command line input, and the other being the JavaFX text editor.
 
 [[diary_text_editing_model]]
-==== Aspect : Models
+==== Aspect: Models
 The main model abstraction holding the data of an entry is the `DiaryEntry` class. +
 
 It stores three key fields, namely: +
@@ -656,7 +669,7 @@ It stores three key fields, namely: +
 The `DiaryEntry` models are contained within a `DiaryEntryList`, which enforces the uniqueness of the `Index` (denoting the day index)
 of each `DiaryEntry`, and supports common list operations.
 
-image::diary/DiaryModelClassDiagram.png[title="Class diagram of the models used in diary text editing"]
+image::diary/DiaryModelClassDiagram.png[title="Class diagram of the models used in diary text editing" align="center"]
 
 '''
 
@@ -667,18 +680,20 @@ This buffer model stores the same `PhotoList` and `Index` as the initial `DiaryE
 but the diary text references a different String, that is, the buffered diary text String.
 
 [[diary-entry-ui]]
-==== Aspect : User interface
-The diary entry UI abides by the `DiaryPage` implementation, and is thus contained within in one
-of its placeholders as a `UiPart`.
+==== Aspect: User interface
+Multiple `UiPart` components come into play in displaying the diary entry.
+However, `Page` implementation (see <<page_api>>) is still followed, and all components are thus contained within,
+in one of `DiaryPage's` placeholders.
 
 [[diary-entry-ui-class-diagram]]
-image::diary/DiaryUiClassDiagram.png[title="Class diagram showing the user interface of the main diary entry text display"]
+image::diary/DiaryUiClassDiagram.png[title="Class diagram showing the user interface of the main diary entry text display" align="center"]
 
 NOTE: In the diagram above, all parts and subparts of the composition of `DiaryPage` extend from `UiPart`, although not shown.
 
 The `DiaryEntryDisplay` is the component responsible for displaying the content of the `DiaryEntry` model.
 Internally, it uses a JavaFX `ListView<CharSequence>` with a custom cell factory that
-returns `DiaryTextLineCell` (as detailed in <<DiaryTextLineCell_details>>), which uses the `DiaryLine` `UiPart` as its graphic.
+returns `DiaryTextLineCell` (as detailed in <<DiaryTextLineCell_details>>). `DiaryTextLineCells` in turn uses the
+`DiaryLine UiPart` as its graphic.
 
 [[diary-entry-parsing]]
 ===== Entry text parsing
@@ -686,7 +701,7 @@ In both facets of input styles, special entry text parsing is required to displa
 dynamic text updates that occur when the text in the text editor is changed should propagate to the display immediately.
 
 To accomplish this, the internal `ListView` is set to observe the paragraphs of the `DiaryEditBox`, which is done in the
-constructor of `DiaryEntryDisplay` in the initialisation of `DiaryPage`.
+constructor of `DiaryEntryDisplay` during the initialisation of `DiaryPage`.
 
 The two facets of inputs dictate _two separate ways the paragraphs can change_.
 
@@ -733,12 +748,13 @@ Specifically, the following had to be achieved :
 * While the `DiaryEntryEditBox` is active, commands that edit the entry must behave like they edit the `DiaryEntryEditBox` directly.
 That is, the changes should not be committed immediately.
 * In general, where mentioned below, performance was favoured because of how a singular diary line can present both
-multimedia and text to the user, which puts considerable strain on the system than other areas of the application.
+multimedia and text to the user, which puts a considerable strain on the system.
 
-[width="100%", options="header" cols="1, 4, 4, 4"]
+[width="100%", options="header" cols="1, 1, 8"]
 |========================================================================================
-|Aspect      |Alternative 1 | Alternative 2 | Chosen option
-|Updating of UI
+^|Aspect      ^|Option    ^| Implementation
+.3+|Updating of UI
+^|1
 |The first option was to abide by the `fillPage` api of `Page`. The `ListView` would have all its items cleared and updated
 with the new text after each command execution.
 
@@ -746,10 +762,10 @@ However, this implies updating all `DiaryLineTextCell` inside the list view afte
 burden on the system, and defeats the intended way `ListView` is to be used (as specified in JavaFX documentation).
 
 **Alternative 2** attempts to solve this performance bottleneck.
-
+^| 2
 |The second option, was to implement the diary text in `DiaryEntry model` (see <<diary_text_editing_model>>) using an `ObservableList` of
-strings. The `ListView` would then be set to observe this list, and when the current entry changed, a new `DiaryEntryDisplay`
-would be created (as `ListView` does not support changing the `ObservableList` instance after setting it).
+strings. The `ListView` would then be set to observe this list, and when the current entry changed, the `DiaryEntryDisplay's`
+items would be set to observe the new entry's `ObservableList`.
 
 For user commands, this solves the problem posed by **alternative 1**, since user commands can make edits only where needed in
 the `ObservableList`, allowing the `ListView` to only update the relevant `DiaryLineTextCell`.
@@ -757,34 +773,35 @@ the `ObservableList`, allowing the `ListView` to only update the relevant `Diary
 However, this meant that user edits to the `DiaryEntryEditBox` could not be reflected directly to the `DiaryEntryDisplay`.
 
 Hence, one solution was to add a separate listener to the `ObservableList` of `DiaryEntryEditBox`, executing a UI initiated command that
-edited only a specific line of text inside the `DiaryEntry model` pertaining to the edited text paragraph. +
+edited only a specific line of text inside the `DiaryEntry model`, pertaining to the edited text paragraph. +
 Subsequent iterations of development and testing showed that this erased the performance benefit of implementing the observable list,
 presumably due to the overhead of firing commands whenever the text in the `DiaryEntryEditBox` changed.
 
-|
-The last option was to set the `ListView` to only observe `ObservableList` of paragraphs already
+^| 3
+| The last option was to set the `ListView` to only observe `ObservableList` of paragraphs already
 provided by the `TextArea` JavaFX component located in `DiaryEntryEditBox`.
 
 Edits to the paragraphs in the `DiaryEntryEditBox` would be directly reflected in the
-`DiaryEntryDisplay`.
+`DiaryEntryDisplay`, without the additional overhead of executing commands whenever the text in the edit box changes.
+Instead, the text edit command is only executed when the edit box loses focus.
 
 On the other hand, edits using commands would reflect in the UI through setting the text
 of the `DiaryEntryEditBox`.
 
-A hybrid solution built upon **alternatives 2 and 3** was also proposed, in that two
-`DiaryEntryDisplay` s would be maintained, one observing the `DiaryEntryEditBox`
-and the other observing the `DiaryEntry model`. However, this also proved to be costly, as it
-required maintaining two list views in memory. Moreover, the two `ListViews` would have to be
-alternated into and out of the JavaFX node tree whenever the user switched to and
-fro the `DiaryEntryEditBox`, causing a noticeable delay.
+A hybrid solution built upon **alternatives 2 and 3** was also considered, in that the
+`DiaryEntryDisplay` s would be alternate between observing the `DiaryEntryEditBox`
+and the `DiaryEntry model`. However, this also proved to be costly, as changes from the edit box cannot be
+communicated on a per paragraph basis to the model when focus is lost, defeating the performance benefit of the `ObservableList`.
+Ultimately, this also required maintaining as many `ObservableList`s` as there were diary entries in memory, presenting
+a significant memory overhead to the application.
 
 Having considered the performance impacts of **alternatives 1 and 2**, and the desired
-specifications of the application, the chosen solution was **alternative 3**.
+specifications of the application, the chosen solution was thus **alternative 3**.
 
-
-|High level composition of `DiaryEntryDisplay` component
-
-|The first solution to was to make `DiaryEntryDisplay` hold a JavaFX `TextFlow` component, which
+.2+|High level composition of `DiaryEntry` `Display` component
+^| 1
+|
+The first solution to was to make `DiaryEntryDisplay` hold a JavaFX `TextFlow` component, which
 supports displaying images alongside text.
 
 Although it supports various apis to format and position text, displaying multimedia with it required
@@ -793,11 +810,8 @@ complex parsing logic of the `DiaryEntry` text to achieve desired positioning.
 Moreover, the parsing would be re run on the entire text of the `DiaryEntry` for any form of user input,
 posing a clear performance downside.
 
-
+^| 2
 |
-
-|
-
 The second solution is to use a wrapper (`DiaryEntryDisplay) around a `ListView` containing `DiaryLine` s. (see <<diary-entry-ui-class-diagram>>)
 
 On one hand, this increases extensibility, as the the graphic of a `ListViewCell` (`DiaryTextLineCell`) is not fixed.
@@ -806,7 +820,6 @@ This allows _building other variants of diary lines easily_, such as a diary lin
 Secondly, `ListViews` render only the visible cells on the screen. Apart from the reducing the amount of nodes loaded
 in the JavaFX scene graph, it also allows running the parsing logic on only parts (paragraphs) of the text in the `DiaryEntry` model.
 This results in a considerable performance benefit.
-
 
 |========================================================================================
 

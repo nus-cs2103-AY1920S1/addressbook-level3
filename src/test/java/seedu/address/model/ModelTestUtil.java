@@ -118,6 +118,9 @@ public class ModelTestUtil {
     public static final String VALID_RATE_CURRENCY_1 = "80";
     public static final String VALID_RATE_CURRENCY_2 = "4.25";
 
+    //Inventory fields
+    public static final int VALID_INTEGER_1 = 10;
+    public static final int VALID_INTEGER_LARGE = 1000000000;
 
     //Valid days
     public static final Day VALID_DAY_1 = DayBuilder.newInstance()

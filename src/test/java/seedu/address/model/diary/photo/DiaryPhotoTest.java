@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
-import static seedu.address.model.diary.photo.Photo.MESSAGE_DESCRIPTION_CONSTRAINTS;
+import static seedu.address.model.diary.photo.DiaryPhoto.MESSAGE_DESCRIPTION_CONSTRAINTS;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.FileInputStream;
@@ -27,7 +27,7 @@ import javafx.scene.image.Image;
 
 import seedu.address.MainApp;
 
-public class PhotoTest {
+public class DiaryPhotoTest {
 
     static final Supplier<Path> VALID_IMAGE_PATH_WINDOWS = () -> {
         try {
@@ -60,19 +60,19 @@ public class PhotoTest {
      * Retrieves a test {@code Photo} instance for integration testing in other test classes.
      * Photo is guranteed to be valid if below unit test cases pass.
      *
-     * @return Valid {@link Photo} test instance.
+     * @return Valid {@link DiaryPhoto} test instance.
      * @throws IOException if photo construction from both test valid image paths fail.
      */
-    public static Photo getValidTestPhoto() throws IOException {
+    public static DiaryPhoto getValidTestPhoto() throws IOException {
         Path unixPath = VALID_IMAGE_PATH_UNIX.get();
         Path windowsPath = VALID_IMAGE_PATH_WINDOWS.get();
 
         if (windowsPath != null) {
-            return new Photo(windowsPath, VALID_DESCRIPTION_1, LocalDateTime.now());
+            return new DiaryPhoto(windowsPath, VALID_DESCRIPTION_1, LocalDateTime.now());
         }
 
         if (unixPath != null) {
-            return new Photo(unixPath, VALID_DESCRIPTION_1, LocalDateTime.now());
+            return new DiaryPhoto(unixPath, VALID_DESCRIPTION_1, LocalDateTime.now());
         }
 
         throw new IOException("Failed to retrieve test photo");
@@ -81,8 +81,8 @@ public class PhotoTest {
     @Test
     void validateDescription_validDescription_success() {
         assertDoesNotThrow(() -> {
-            new Photo("", VALID_DESCRIPTION_1, LocalDateTime.now());
-            new Photo("", VALID_DESCRIPTION_2, LocalDateTime.now());
+            new DiaryPhoto("", VALID_DESCRIPTION_1, LocalDateTime.now());
+            new DiaryPhoto("", VALID_DESCRIPTION_2, LocalDateTime.now());
         });
     }
 
@@ -90,15 +90,15 @@ public class PhotoTest {
     void validateDescription_invalidDescription_throwsIllegalArgumentException() {
         assertAll("Invalid descriptions", () ->
                 assertThrows(IllegalArgumentException.class, MESSAGE_DESCRIPTION_CONSTRAINTS, () ->
-                        new Photo("", INVALID_DESCRIPTION_1, LocalDateTime.now())), () ->
+                        new DiaryPhoto("", INVALID_DESCRIPTION_1, LocalDateTime.now())), () ->
                 assertThrows(IllegalArgumentException.class, MESSAGE_DESCRIPTION_CONSTRAINTS, () ->
-                        new Photo("", INVALID_DESCRIPTION_2, LocalDateTime.now())));
+                        new DiaryPhoto("", INVALID_DESCRIPTION_2, LocalDateTime.now())));
     }
 
     @Test
     void getDateTaken_dateTimeNow_success() {
         LocalDateTime localDateTime = LocalDateTime.now();
-        Photo photo = new Photo("", VALID_DESCRIPTION_1, localDateTime);
+        DiaryPhoto photo = new DiaryPhoto("", VALID_DESCRIPTION_1, localDateTime);
 
         assertSame(localDateTime, photo.getDateTaken());
     }
@@ -109,7 +109,7 @@ public class PhotoTest {
         Path windowsPath = VALID_IMAGE_PATH_WINDOWS.get();
 
         if (windowsPath != null) {
-            Photo windowsPhoto = new Photo(windowsPath, VALID_DESCRIPTION_1, LocalDateTime.now());
+            DiaryPhoto windowsPhoto = new DiaryPhoto(windowsPath, VALID_DESCRIPTION_1, LocalDateTime.now());
             //Check file path
             assertEquals(Paths.get(windowsPhoto.getImageFilePath()).toAbsolutePath(), windowsPath.toAbsolutePath());
 
@@ -126,7 +126,7 @@ public class PhotoTest {
         }
 
         if (unixPath != null) {
-            Photo unixPhoto = new Photo(unixPath, VALID_DESCRIPTION_1, LocalDateTime.now());
+            DiaryPhoto unixPhoto = new DiaryPhoto(unixPath, VALID_DESCRIPTION_1, LocalDateTime.now());
             //Check file path
             assertEquals(Paths.get(unixPhoto.getImageFilePath()).toAbsolutePath(), unixPath.toAbsolutePath());
 
@@ -145,7 +145,7 @@ public class PhotoTest {
 
     @Test
     void getDescription_validDescription_success() {
-        Photo photo = new Photo("", VALID_DESCRIPTION_1, LocalDateTime.now());
+        DiaryPhoto photo = new DiaryPhoto("", VALID_DESCRIPTION_1, LocalDateTime.now());
 
         assertSame(VALID_DESCRIPTION_1, photo.getDescription());
     }
@@ -153,8 +153,8 @@ public class PhotoTest {
     @Test
     void equals_sameProperties_true() {
         LocalDateTime localDateTime = LocalDateTime.now();
-        Photo p1 = new Photo(INVALID_IMAGE_PATH, "abc", localDateTime);
-        Photo p2 = new Photo(INVALID_IMAGE_PATH, "abc", localDateTime);
+        DiaryPhoto p1 = new DiaryPhoto(INVALID_IMAGE_PATH, "abc", localDateTime);
+        DiaryPhoto p2 = new DiaryPhoto(INVALID_IMAGE_PATH, "abc", localDateTime);
 
         assertEquals(p1, p1);
         assertEquals(p1, p2);
@@ -164,17 +164,17 @@ public class PhotoTest {
     void equals_differentProperties_false() {
         //Test dateTaken equality
         LocalDateTime localDateTime = LocalDateTime.now();
-        Photo p1 = new Photo(INVALID_IMAGE_PATH, "abc", localDateTime);
-        Photo p2 = new Photo(INVALID_IMAGE_PATH, "abc", localDateTime.plusDays(1));
+        DiaryPhoto p1 = new DiaryPhoto(INVALID_IMAGE_PATH, "abc", localDateTime);
+        DiaryPhoto p2 = new DiaryPhoto(INVALID_IMAGE_PATH, "abc", localDateTime.plusDays(1));
 
         assertNotEquals(p1, p2);
 
         //Test description equality
-        Photo p3 = new Photo(INVALID_IMAGE_PATH, "abcd", localDateTime);
+        DiaryPhoto p3 = new DiaryPhoto(INVALID_IMAGE_PATH, "abcd", localDateTime);
         assertNotEquals(p1, p3);
 
         //Test file path equality
-        Photo p4 = new Photo("abcde", "abc", localDateTime);
+        DiaryPhoto p4 = new DiaryPhoto("abcde", "abc", localDateTime);
         assertNotEquals(p1, p4);
 
         //Test instance of equality
