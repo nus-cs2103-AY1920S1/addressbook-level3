@@ -306,10 +306,10 @@ components with the same variants of commands (i.e Add, Delete, Edit etc), this 
 reduces the amount of switch cases within `DukeCooksParser` and makes testing more manageable.
 
 // tag::dashboard[]
-=== What makes up a Dashboard?
+=== Dashboard feature
 
 In DukeCooks, a `Dashboard` object represents an event a user needs to attend to, a task. A `Dashboard` is made up of
-a `DashboardName`, `TaskDate` and `TaskStatus`. Below is a class diagram that illustrates how `Dashboard` interacts with other classes.
+a `DashboardName`, `TaskDate` and `TaskStatus`. Below is a class diagram (Figure 10) that illustrates how `Dashboard` interacts with other classes.
 
 .Dashboard Class Diagram
 [caption="Figure 10: "]
@@ -379,43 +379,49 @@ The following sequence diagram (Figure 10) shows how the add operation works:
 
 .Done task Sequence Diagram
 [caption="Figure 12: "]
-image::DoneTaskSequenceDiagram.png[width="550"]
+image::DoneTaskSequenceDiagram.png[width="600"]
 
 ==== Making Decisions
 
 [cols="10%,50%,40%""]
 [width="100%"]
 |===
-|Aspect |Option 1 (Chosen)|Option 2
+|*Aspect* |*Option 1 (Chosen)*|*Option 2*
 
 |Storing a task's status
 |A custom class, `TaskStatus`, is created to keep track of the task's status.
 
-- Pros: Additional statuses can be introduced in easily in the future. +
-- Cons: Because a `String` is used to create a `TaskStatus`, typos could be made when adding test cases. +
+*Pros*: Additional statuses can be introduced in easily in the future. +
 
+*Cons*: Because a `String` is used to create a `TaskStatus`, typos could be made when adding test cases. +
+
+*Our Choice* +
 This choice was chosen as it does not limit us to only having tasks marked as "COMPLETED" or "NOT COMPLETE".
 Since choice 1 was used, additional status, "RECENTLY COMPLETED" could be added with ease.
 
 |Use a boolean to check if a task is complete.
 
-- Pros: Easy to implement.
-- Cons: Limits expansion since a task can only be marked as "COMPLETED" or "NOT COMPLETE".
+*Pros*: Easy to implement.
+
+*Cons*: Limits expansion since a task can only be marked as "COMPLETED" or "NOT COMPLETE".
 
 |Sorting tasks by date
 
 |Every time the `add`, `delete`, `edit` task command is called, a `sort` is executed.
 
-- Pros: Easy to implement. Because `sort` is implemented regardless if the list is in-order or not,
+*Pros*: Easy to implement. Because `sort` is implemented regardless if the list is in-order or not,
 there is lesser chance for errors.
-- Cons: Because `sort` is executed every time, this might slow down the performance.
 
-This choice was chosen as it reduces the chance of errors and is a safer option.
+*Cons*: Because `sort` is executed every time, this might slow down the performance.
+
+*Our Choice* +
+This choice was chosen as it reduces the chance of errors making it a safer option.
 
 |Keep an instance of the earliest and latest date. If dates fall out of range from the two dates, sorting does not happen.
 
-- Pros: Faster runtime. +
-- Cons: Additional lines of code needed to check if the date falls out of range. Higher chance of making mistakes during implementation.
+*Pros*: Faster runtime.
+
+*Cons*: Additional lines of code needed to check if the date falls out of range. Higher chance of making mistakes during implementation.
 |===
 // end::dashboard[]
 
