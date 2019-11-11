@@ -66,7 +66,7 @@ The following sections document other contributions made towards the project.
 *** Wrote the User Guide and Developer Guide for the `add` command and use interface
 *** Morphed the AB3 User Guide for Mortago in PR https://github.com/AY1920S1-CS2103T-T13-2/main/pull/22[#22]
 *** Added use cases for dashboard and add command to the Developer Guide in PR https://github.com/AY1920S1-CS2103T-T13-2/main/pull/45[#45]
-*** Added the Command Specifications and Appendix for the User Guide in PRs https://github.com/AY1920S1-CS2103T-T13-2/main/pull/84[#84], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/116[#116], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/[#84]
+*** Added the Command Specifications and Appendix for the User Guide in PRs https://github.com/AY1920S1-CS2103T-T13-2/main/pull/84[#84], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/116[#116], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/282[#282]
 ** Community
 *** Reviewed PRs with non-trivial comments in PRs https://github.com/AY1920S1-CS2103T-T13-2/main/pull/9[#9], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/47[#47], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/100[#100]
 *** Contributed to forum discussions in the following issues: https://github.com/nus-cs2103-AY1920S1/forum/issues/111[#111], https://github.com/nus-cs2103-AY1920S1/forum/issues/133[#133], https://github.com/nus-cs2103-AY1920S1/forum/issues/150[#150]
