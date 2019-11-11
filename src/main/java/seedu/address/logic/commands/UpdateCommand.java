@@ -130,7 +130,6 @@ public class UpdateCommand extends UndoableCommand {
                 }
                 //@@author
 
-
                 if ((originalBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE))
                         && updateBodyDescriptor.getBodyStatus().isPresent()
                         && !updateBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE)))
@@ -150,7 +149,6 @@ public class UpdateCommand extends UndoableCommand {
                     || updateBodyDescriptor.getBodyStatus().equals(Optional.of(DONATED))) {
                     removeBodyFromFridge(model);
                 }
-
 
                 // add notif when a user manually sets the bodyStatus to CONTACT_POLICE
                 // Also adds notifs when automatically updated.
@@ -187,7 +185,6 @@ public class UpdateCommand extends UndoableCommand {
     }
 
     //@@author arjavibahety
-
     /**
      * Assigns body to the new fridge when fridgeId is updated and removes it from the old fridge.
      *
@@ -383,7 +380,6 @@ public class UpdateCommand extends UndoableCommand {
                 autoNotif.add(notif);
             }
         }
-
         autoNotif.forEach((notif) -> model.deleteNotif(notif));
     }
 
@@ -427,12 +423,10 @@ public class UpdateCommand extends UndoableCommand {
         if (other == this) {
             return true;
         }
-
         // instanceof handles nulls
         if (!(other instanceof UpdateCommand)) {
             return false;
         }
-
         // state check
         UpdateCommand e = (UpdateCommand) other;
         return id.equals(e.id)

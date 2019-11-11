@@ -69,7 +69,7 @@ public class UpdateWorkerDescriptor implements UpdateEntityDescriptor {
      * @throws CommandException if the dates don't make sense
      */
     public static boolean checkDateSensibility(Date dateJoined, Date dateOfBirth) throws CommandException {
-        if (dateJoined.before(dateOfBirth)) {
+        if (dateJoined != null && dateOfBirth != null && dateJoined.before(dateOfBirth)) {
             throw new CommandException(MESSAGE_DATEJOINED_BEFORE_DOB);
         }
         return true;

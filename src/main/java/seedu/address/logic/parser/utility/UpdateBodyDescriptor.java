@@ -104,11 +104,12 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
      */
     public static boolean checkDateSensibility(Date dateOfAdmission, Date dateOfDeath, Date dateOfBirth)
             throws CommandException {
-        if (dateOfAdmission.before(dateOfDeath)) {
+        assert dateOfAdmission != null;
+        if (dateOfDeath != null && dateOfAdmission.before(dateOfDeath)) {
             throw new CommandException(MESSAGE_DOA_BEFORE_DOD);
-        } else if (dateOfAdmission.before(dateOfBirth)) {
+        } else if (dateOfBirth != null && dateOfAdmission.before(dateOfBirth)) {
             throw new CommandException(MESSAGE_DOA_BEFORE_DOB);
-        } else if (dateOfDeath.before(dateOfBirth)) {
+        } else if (dateOfDeath != null && dateOfBirth != null && dateOfDeath.before(dateOfBirth)) {
             throw new CommandException(MESSAGE_DOD_BEFORE_DOB);
         }
         return true;
