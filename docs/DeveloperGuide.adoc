@@ -144,11 +144,13 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::passwordManagement[]
 === Password Management
 ==== Model
-The `Password` model is created to support the password management feature of our application.
+We created the `Password` model to support the password management feature of our application.
 It stores the information of all the passwords created by the user. The class diagram of the `Password` model is as follows:
 
+.Class diagram of Password Model.
 image::PasswordClassDiagram.png[]
 
 The `Password` model consists of a `Password` class which has its attributes implemented as
@@ -162,36 +164,40 @@ separate classes to follow *Single Responsibility Principle*. The attributes are
 
 `Website`: The website where the password is being used for.
 
-`PasswordModifiedAt`: The local date when the password is last modified.
+`PasswordModifiedAt`: The date when the password is last modified.
 
-`PasswordExpiredAt`: The local date 1 year after the password is last modified.
+`PasswordExpiredAt`: The date 1 year after the password is last modified.
 
-`ExpiryMode`: It has 3 modes: `HEALTHY`, `EXPIRING`, `EXPIRED`, depending on how close local time is when compared to the expiry date of the password.
+`ExpiryMode`: It has 3 modes: `HEALTHY`, `EXPIRING`, `EXPIRED`, depending on how close the current date is when compared to the expiry date of the password.
 
-The `Password` are stored in a `UniquePasswordList` in the `PasswordBook` and the existing model manager is extended to
-add the functionality managing passwords into the application. Minimal functionality are added to adhere to the *YAGNI* principle.
+The `Password` objects are stored in a `UniquePasswordList` in the `PasswordBook` and the existing model manager is extended to
+add the functionality managing passwords into the application. We have adhered to *YAGNI* design principle by making sure that minimal changes are added.
 
 ==== Design Considerations:
 ===== Aspect: Model Manager for Password.
-This would be similar for all other models including `File` model, `Card` model, `Note` model and `Password` model.
+The design considerations would be similar for all other models including `File` model, `Card` model, `Note` model and `Password` model.
 
 * **Alternative 1 (current choice):** The current model manager is extended to handle the filtered lists of all the models.
-** Pros: Adheres to *DRY* design principle as it extends the functionality of the model manager without repeating.
-** Cons: It might increase coupling in the model manager.
+** Pros: Adheres to *DRY* design principle as it extends the functionality of the model manager without repeating code.
+** Cons: It might increase dependencies in the model manager.
 
 * **Alternative 2:** Create another `Model` interface and another `Model Manager` class.
 ** Pros: Easy to implement.
 ** Cons: Does not adhere to *DRY* design principle, where additional `Model Manager` class are created.
 
-==== Logic
-In this feature, you are able to `add`, `read`, `edit`, `find`, `list`, `delete` and `copy`. Additional `Parser` and `Command`
-classes are included to enhance the functionality. The class diagram for all `Command` classes available for `Password` model is as follows:
+We chose alternative 1 as there is already a model manager available and it would be logical to use it instead of creating another class and possibly write repeated code.
 
+==== Logic
+
+User is allowed to `add`, `read`, `edit`, `find`, `list`, `delete` and `copy`. Additional `PasswordBookParser`, `Parser` and `Command`
+classes are included to support the functionality stated above. The class diagram for all `Command` classes available for `Password` model is as follows:
+
+.Class diagram of all Command classes used in password management
 image::CopyCommand.png[]
 
 
 ===== Aspect: Logic Manager for Password model.
-This would be similar for all other models such as the `File` model, `Card` model, `Note` model and `Password` model.
+The design considerations would be similar for all other models such as the `File` model, `Card` model, `Note` model and `Password` model.
 
 * **Alternative 1 (current choice):** The current logic manager is extended to handle the model parsers. The logic manager
 checks for the current mode of the system and decides which model parser class to use.
@@ -201,31 +207,53 @@ However, all the fields in the command classes are different and separating them
 * **Alternative 2:** Extending one parser class to handle all the different commands. Different command will have different `add` command words.
 
 ** Pros: Easy to implement.
-** Cons: User will have to remember different command words for the same `add` command for different modes. This will decrease the usability of the application.
+** Cons: User will have to remember different command words for the same `add` command for different modes, such as `addp`, `addn`, `addc`.
+This will impact the user experience and increase coupling as the same `add` command is required to perform different tasks.
+
+We chose alternative 1 because of its pros. We place emphasis on the user
+experience of our application. In this implementation users will not have to remember different command words to
+add the same objects into our application.
 
 ==== Copy Command:
 ===== Current Implementation:
-`CopyPasswordValueCommand` class, `CopyWebsiteCommand` class and `CopyUsernameCommand` class extends `CopyPasswordCommand` class.
+`CopyPasswordValueCommand` class, `CopyWebsiteCommand` class and `CopyUsernameCommand` class extends `CopyPasswordCommand` class as shown in the earlier figure.
 
 These three classes are implemented together with `CopyCommandParser` class to create the functionality of copying the required details onto clipboard using CLI.
 Since this is a command that would be used frequently, command alias are added to increase the efficiency for the user.
 The activity diagram below describes the flow of the `CopyPasswordCommand`:
 
-image::CopyPasswordSequenceDiagram.png[]
+.Activity Diagram for CopyPasswordCommand
+image::Step1.png[]
 
 The following sequence diagram describes the detailed interactions between any `CopyPasswordCommand` and the architecture:
+
+.Sequence Diagram for CopyPasswordValueCommand
+image::CopyPasswordSequenceDiagram.png[]
+
+The process of copying a password value is as follows:
+
+1) PasswordBookParser creates CopyPasswordCommandParser and depending on the command word after `copy`, different copy commands will be created.
+
+2) In this case, the index is a valid index and `CopyPasswordValueCommand` is created.
+
+3) The `Password` object is retrieved from the filtered password list using the index and the password value is copied via
+`ClipboardUtil#copyToClipboard()` method
 
 ==== Design Considerations:
 ===== Aspect: Implementation of `CopyPasswordCommand`
 * **Alternative 1 (current choice):** The `CopyPasswordCommand` class extends `Command` class. `CopyPasswordValueCommand` class, `CopyWebsiteCommand` class and `CopyUsernameCommand` class extend `CopyPasswordCommand`.
 ** Pros: This follows closely to *Polymorphism* and *Inheritance* concepts as all three commands share the similar functionality.
 The common functionality is abstracted out and placed inside the `CopyPasswordCommand`.
-** Cons: Any further enhancement of the child commands will have to follow `Liskov Substitution Principle` and it needs to be more restrictive than the parent command.
+** Cons: Any further enhancement of the child commands will have to follow *Liskov Substitution Principle* and it needs to be more restrictive than the parent command.
 
 * **Alternative 2:** `CopyPasswordValueCommand`, `CopyWebsiteCommand` , `CopyUsernameCommand` will extend `Command` class.
 ** Pros: Easy to implement. `PasswordBookParser` can directly check for the command word instead of splitting into 2 command words.
-** Cons: Violates *DRY* design principle.
+** Cons: Does not adhere to *DRY* design principle.
 
+We chose alternative 1 because it is more logical and follows the *DRY* design principle. The cons caused by the further enhancements of child
+commands will not be considered because of *YAGNI* design principle.
+
+// end::passwordManagement[]
 // tag::generate[]
 
 === Generate Password
@@ -239,20 +267,12 @@ By default, the password generation feature will generate a random password that
 
 * is 10 letters long
 
-* includes lower case alphabets
-
-* includes upper case alphabets
-
-* includes numerals
-
-* includes Special characters
+* contains lower case alphabets, upper case alphabets, numbers, and special characters.
 
 However, users can alternatively choose to customise any of the aforementioned fields as per their needs through their input.
 
 The generation of truly random passwords is made possible through the use of the `java.security.SecureRandom` API.
 It provides a cryptographically strong random number generator (RNG) that will be used in the password generation.
-
-The intricacies will be further reviewed in the **Implementation** section below.
 
 ==== Implementation
 
@@ -269,19 +289,19 @@ The steps below outline explicity the generation of passwords :
 * Based on the user input, a `GeneratePasswordDescriptor` is instantiated.
 ** If the user input includes optional prefixes to customise configuration, we modify the attributes of the `GeneratePasswordDescriptor` through various setter methods.
 
-** Else, the default `GeneratePasswordDescriptor` instantiated through the static method `GeneratePasswordDescriptor#getDefaultConfiguration()`.
+** Else, the default `GeneratePasswordDescriptor` is instantiated through the static method `GeneratePasswordDescriptor#getDefaultConfiguration()`.
 
 
 [NOTE]
 The `GeneratePasswordDescriptor` is an object that encapsulates the settings of the **configuration** used for password generation.
 
-* Upon `GeneratePasswordCommand` is instantiated with the given configuration.
+* The `GeneratePasswordCommand` is then instantiated with the given configuration.
 
-* Upon `#execute()`, the static method `GeneratorUtil#generateRandomPassword()` is invoked:
+* Upon `GeneratePasswordCommand#execute()`, the static method `GeneratorUtil#generateRandomPassword()` is invoked:
 
 ** Based on the configuration, the relevant character sets (lower-case alphabets, upper case alphabets, numerals, special characters) are added into a list.
 
-** The `GeneratorUtil` class uses the method `java.security.SecureRandom.nextInt()` to choose a random characters set, followed by a random character within the set to be used in the new password.
+** The `GeneratorUtil` class uses the method `java.security.SecureRandom.nextInt()` to choose a random characters set, followed by a random character within that set to be included in the new password.
 
 ** This process of choosing a character to include in the password is repeated for the length of the password.
 
@@ -305,9 +325,7 @@ How to generate a truly random password
 | **Randomly choose a character set, followed by a character within the set to include in password**: +
  +
 [underline]_Pros:_ +
-Randomness is achieved because there is no predictability in the way a character set, or character is chosen.
-
-
+Randomness is achieved because there is no predictability in the way a character set, or character is chosen. +
 [underline]_Cons:_ +
 Efficiency is compromised. Generating a password this way may produce a password that does not meet user configuration
 (e.g. random password does not include special characters, although it was supposed to).
@@ -316,7 +334,6 @@ As such, program needs to keep producing new random password until all the user 
  +
 [underline]_Pros:_ +
 Efficiency is achieved. We are guaranteed to generate a password that matches users' configuration everytime (e.g. lower case -> upper case -> numeral -> special case patter) +
-
 [underline]_Cons:_ +
 Randomness is compromised. Generating passwords in such a pattern makes the password style very predictable, hence compromising randomness and security.
 
@@ -346,20 +363,20 @@ The user can either :
 SecureIT analyses 6 core components of every `Password`, using various `Analysers`. The following table summarises the functionality of each `Analyser`:
 
 |===
-||**Purpose / Checks for**
-|**UniqueAnalyser **: +
+|**Analyser:**|**Purpose:**
+|**UniqueAnalyser ** +
 | Checks that every password is unique.
-|**StrengthAnalyser **: +
+|**StrengthAnalyser ** +
 | Checks the complexity of every password.
-|**SimilarityAnalyser **: +
+|**SimilarityAnalyser ** +
 | Checks that no two accounts share a password that is at least 70% similar.
 
-|**DictionaryAnalyser **: +
+|**DictionaryAnalyser ** +
 | Checks that password does not contain any commonly-used passwords. (e.g. "password")
 
-|**SequenceAnalyser **: +
+|**SequenceAnalyser ** +
 | Checks that password does not contain any commonly-used sequences. (e.g. "ABC")
-|**KeyboardAnalyser **: +
+|**KeyboardAnalyser ** +
 | Checks that password does not contain any commonly-used keyboard patterns. (e.g. "qwerty")
 
 |===
@@ -367,7 +384,7 @@ SecureIT analyses 6 core components of every `Password`, using various `Analyser
 The following class diagram is the current structure of the `Analyser` component.
 
 .Class diagram depicting the structure of the Analyser component.
-image::AnalyserClassDiagram.png[]
+image::AnalyserClassDiagram.png[width="550"]
 
 In summary,
 
@@ -384,7 +401,7 @@ In summary,
 
 ==== Implementation
 
-On `#execute()`, AnalysePasswordCommand retrieves the current list of passwords via `Model#getFilteredPasswordList()`.
+On `#execute()`, `AnalysePasswordCommand` retrieves the current list of passwords via `Model#getFilteredPasswordList()`.
 It also retrieves the required analysers via `#getRequiredAnalysers()`.
 
 Each `Analyser` has it's own implementation of `#analyse()`, which will subsequently be invoked by the `AnalysePasswordCommand` given the current list of passwords.
@@ -392,35 +409,30 @@ Each `Analyser` has it's own implementation of `#analyse()`, which will subseque
 The following sequence diagram breaks down the general flows of events stated above, and in the context of a `DictionaryAnalyser`:
 
 [NOTE]
-The other `Analysers` are instantiated in a similar fashion in `#getRequiredAnalsyers()` and hence omitted to the make the diagram less congested.
+For the following sequence diagram, the other `Analysers` are instantiated in a similar fashion in `#getRequiredAnalsyers()` and hence omitted to the make the diagram less congested.
 
 .Sequence diagram depicting the flow of analysing the list of passwords, in the context of DictionaryAnalyser.
 image::AnalysePasswordSequenceDiagram.png[]
 
 In the following discussion, we will be reviewing how `Results` are produced for each password, in the context of the `DictionaryAnalyser`.
 
-In the case of the `DictionaryAnalyser#analyse()`, every password is checked to see if it contains any subsequence that is listed as a commonly used password in the instantiated `Dictionary`. This is done in the internal method `#getAllMatches(password)` within `#analyse()`.
+In the case of the `DictionaryAnalyser#analyse()`, every password is checked to see if it contains any subsequence that is listed as a commonly used password in the instantiated `Dictionary`. This is done in the internal method `#getAllMatches()` within `#analyse()`.
 
 [NOTE]
 The `Dictionary` is an object that maps commonly used passwords to their ranking in terms of how commonly used they are. (e.g. "123456" is mapped to rank 1 in the Dictionary because it is  the most commonly used password)
 
 If there exists a subsequence that tests positive when looked up against the `Dictionary` , a `DictionaryMatch` is created to note down the details of the subsequence.
 
-[NOTE]
-A `Match` is an object that is created to encapsulate the details of any matches found when analysing a given password. Each `Analyser` will create it's respective `Match` when needed.
-
-Thus, we see that the method `#getAllMatches(password)` will return a list of all `DictionaryMatch` found for a given password.
-
 As long as a `DictionaryMatch` is found, then the password has failed the analysis. A `DictionaryResult` with the attribute `ResultOutcome.FAIL` will be created for that password. This process is repeated for every password. Following, the list of `DictionaryResult` are returned to be compiled and written by the `AnalysisReport`.
+
+It is also worth mentioning that `DictionaryAnalyser` is capable of identifying commonly used passwords even in leet-ed variations (e.g. p@5sw0rd).
+
+This is made possible because of the method `#LeetUtil.translateLeet()`, which is a recursive algorithm designed to return all possible un-leet variations, given a leet-ed password.
 
 The following sequence diagram depicts the flow of events mentioned above:
 
 .Sequence diagram depicting the flow of getting all Match objects for a given password.
 image::GetAllMatchesSequence.png[width="500"]
-
-It is also worth mentioning that `DictionaryAnalyser` is capable of identifying commonly used passwords even in leet-ed variations (e.g. p@5sw0rd).
-
-This is made possible because of the method `#LeetUtil.translateLeet()`, which is a recursive algorithm designed to return all possible un-leet variations, given a leet-ed password. The details of the algorithm can be found here:
 
 ==== Design Considerations
 ===== Aspect: How analyse/analyse strong executes
@@ -429,26 +441,20 @@ This is made possible because of the method `#LeetUtil.translateLeet()`, which i
 
 | **Always analyse the entire list of Password objects for every "analyse" command,
 even if the list of Passwords was unchanged.** +
- +
 [underline]_Pros:_ +
-Easy to implement, not required to check state if the current list of Passwords has been modified.
- +
-
+Easy to implement, not required to check state if the current list of Passwords has been modified. +
 [underline]_Cons:_ +
 May have performance issues in terms of speed of the programme.
 |**Save in memory the result produced by the Analyser objects, and update result upon modification of
-list of Passwords (e.g. new passwords added/ passwords deleted.)** +
- +
+list of Passwords.** +
 [underline]_Pros:_ +
 Performance of programme will be a lot faster and efficient. +
-
 [underline]_Cons:_ +
 Hard to implement. Have to keep track of state of the list of Password objects and check if the list has been modified
 from the last time they were analysed.
 
 2+|**Why did we choose Alternative 1:** +
-From a more practical point of view, users are not expected to constantly want to keep analysing their passwords, so it may be a waste of memory to constantly save the results, as per Alternative 2.
-
+From a more practical point of view, users are not expected to analyse their passwords on a very regular basis, so it may be inefficient use of memory to constantly save the results.
 Also, considering the fact that each password is capped at a length of 25, time performance will not be affected significantly when analysing each password.
 
 
@@ -504,7 +510,9 @@ When a user tries to add a card, there are various checks to ensure that the exp
 
 The other operations are used in `ParserUtil#parseExpiryDate(String expiryDate)` to ensure that user input passes these validations, before allowing the card to be added to the list. Upon startup of the app, the repopulation of data also checks against these validations to ensure that there are no illegal values stored in the list.
 
-Given below is an example usage scenario and how the validations behave at each step.
+Given below is an example usage scenario and how the validations behave at each step. The following sequence diagram shows how the expiry validations work.
+
+image::CardExpiryValidation.png[Diagram, 700]
 
 Step 1. The user executes `add d/VisaPOSB v/4291728395018293 c/256 e/12/15` command to add a new card named 'VisaPOSB' in the card book. The `CardBookParser#parseCommand(String userInput)` calls `AddCardCommandParser#parse(String args)` and the command parser tries to breakdown the string in to various parameters.
 
@@ -512,9 +520,7 @@ Step 2. The `AddCardCommandParser` calls `ParserUtil#parseExpiryDate(String expi
 
 Step 3. The `ParserUtil#parseExpiryDate(String expiry)` then calls `ExpiryDate#isValidExpiryDate(String test)`, which calls `ExpiryUtil#getMonthToExp(String expiry)`. However, `-47` is returned and the condition in `ExpiryDate#isValidExpiryDate` returns `false`.
 
-Step 4. A `ParseException` is thrown from `ParserUtil#parseExpiryDate(String expiryDate)` and the error message is shown on the command box.
-
-The following sequence diagram shows how the expiry validations work:
+Step 4. A `ParseException` is thrown from `ParserUtil#parseExpiryDate(String expiryDate)` and the error message is shown on the result box.
 
 ==== Expiry Notification
 The expiry notification is facilitated by `ExpiryDisplay`. It exists as an attribute within `MainWindow` and obtains the required expiring cards list from `LogicManager`. This is internally stored as `expiringCards`. Additionally, it implements the following operations:
@@ -724,37 +730,29 @@ As the code is much cleaner, it is more readable which also helps in improving t
 
 // tag::carddesign[]
 
-[width="80%",cols="3,10,10",options="header"]
-|=========================================================
-|Aspect |Alternative 1 |Alternative 2
+===== Aspect: Implementation of expiry tagging system
+* Alternative 1 (current choice): Check for expiring and expired cards and add respective tags upon startup.
+** Pros: Adds the tag in real time on startup, removing the concern of updating tags.
+** Cons: Startup time may take longer due to extra processing of information.
 
-|Implementation of expiry tagging system
-a|The system saves a copy of the entire address book whenever the commands are executed.
+* Alternative 2: Add respective expiring and expired tags upon detection of nearing expiry.
+** Pros: Users can visibly see the addition of expiry tags when cards are expiring.
+** Cons: There will be a need to update expiring tags to expired tags, after the card has expired. This may lead to potential bugs.
 
-* Pros:
-* Cons:
+*The reason why we chose alternative 1:*
+It is much easier to code, and it is less susceptible to unforeseen circumstances such as a card having both expiring and expired tags.
 
-I decided to proceed with this option because
+===== Aspect: Deciding when the expiry notification should appear
+* Alternative 1 (current choice): Notification should appear upon startup.
+** Pros: User is immediately warned of their expiring cards and is able to take the necessary actions required.
+** Cons: Potentially disruptive as notification would appear every time the user starts up the app, as long as expiring cards exists.
 
-a|List 2.
+* Alternative 2: Notification should appear upon navigating to card book.
+** Pros: User can immediately tell which cards are in need of attention.
+** Cons: Expiring cards may be left unnoticed if user does not explicitly navigate to the card book.
 
-* Pros:
-* Cons:
-
-|Implementation of expiry tagging system
-a|The system saves a copy of the entire address book whenever the commands are executed.
-
-* Pros:
-* Cons:
-
-I decided to proceed with this option because
-
-a|List 2.
-
-* Pros:
-* Cons:
-
-|=========================================================
+*The reason why we chose alternative 1:*
+The main purpose of notifications is to remind users to take action and users can subsequently delete the card so that the notification stops appearing.
 
 // end::carddesign[]
 ==== Sort Note feature

@@ -5,7 +5,7 @@ import java.util.Objects;
 import seedu.address.model.password.Password;
 
 /**
- * Represents a {@code match} which was found by {@code SimilarityAnalyser}.
+ * Represents a {@code Match} which was found by {@code SimilarityAnalyser}.
  */
 public class SimilarityMatch extends BaseMatch implements Comparable<SimilarityMatch> {
     private double similarity;
@@ -39,7 +39,7 @@ public class SimilarityMatch extends BaseMatch implements Comparable<SimilarityM
     }
 
     /**
-     * Converts the similarity decimal into a percentage.
+     * Returns the similarity decimal into a percentage format.
      * @param similarity the similarity decimal
      */
     private String convertToPercentage(double similarity) {

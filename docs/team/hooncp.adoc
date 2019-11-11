@@ -3,26 +3,37 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+This page showcases my contribution to the SecureIT project.
+
 == PROJECT: SecureIT
 
----
+=== Overview
 
-== Overview
+SecureIT is an application to help manage your confidential information.
+More importantly, it *stores your information locally,*  and does not use any form of online storage!
 
-To be copied from UG.
+SecureIT is *optimized for those who prefer to work with a Command Line Interface* (CLI)
+while still having the benefits of a Graphical User Interface (GUI).
+
+Here's a sneak peak of our application:
+
+.Sneak peak of SecureIT
+image::UG first page.png[width = "700"]
 
 == Summary of contributions
 
 *Major enhancement*
 
-Implemented a series of commands and features to manage user's password. This includes adding a `Password` model
-and its subclasses of `Description`, `Username`, `PasswordValue`, `Website`, `ModifiedAt`, `ExpiryMode`. In addition,
-I implemented the supportive commands to the password model such as `AddPasswordCommand`, `FindPasswordCommand`, `CopyCommand`, `DeletePasswordCommand`,
-`ReadPasswordCommand` and `EditPasswordCommand`  commands.
+Implemented a series of commands to manage the user's password. This includes adding a `Password` model
+and its subclasses of `Description`, `Username`, `PasswordValue`, `Website`, `PasswordModifiedAt`, `PasswordExpiredAt`, `ExpiryMode`.
+
+In addition,
+I implemented the supportive commands to the password model such as `AddPasswordCommand`, `FindPasswordCommand`, `CopyPasswordCommand`, `DeletePasswordCommand`,
+`ReadPasswordCommand` and `EditPasswordCommand`.
 
 *What it does*
 
-* Allows the user manage passwords and keep track of when they should change their passwords.
+* Allows the user to manage their passwords and keep track of the expiry dates of the passwords.
 
 *Justification*
 
@@ -34,36 +45,39 @@ on businesses and improve data security.
 
 *  A new `Password` model was created to support the management of passwords.
 Numerous commands were also implemented for this enhancement.
-This enhancement requires in depth analysis of the current structure of the architecture as it relies on all the existing components.
-In addition, Software Engineering Principles, such as SOLID, YAGNI and DRY Principles, were used.
+This enhancement requires in depth analysis of the current structure of the architecture
+as it touches every component of the architecture.
+In addition, many Software Engineering Principles, such as *SOLID*, *YAGNI* and *DRY* Principles, were used.
 Defensive programming is also evident throughout the enhancement.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+*Minor enhancement*
+Designed the UI of the current application by adding in a `ReadDisplayPanel` and `ModeDisplay`.
+
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=hooncp&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=hooncp&tabRepo=AY1920S1-CS2103T-F11-3%2Fmain%5Bmaster%5D[RepoSense]
 
 *Other contributions*:
 
 ** Project management:
-*** Set up team repository and other essential tools such as Travis on GitHub
+*** Set up team repository and other essential tools such as Travis on GitHub.
 *** Maintained the team repository by managing issue tracking, issue assigment and milestones.
+*** Reported bugs and suggestions to teammates (Pull requests: https://github.com/AY1920S1-CS2103T-F11-3/main/issues/90[#90], https://github.com/AY1920S1-CS2103T-F11-3/main/issues/82[#82], https://github.com/AY1920S1-CS2103T-F11-3/main/issues/113[#113])
 
 ** Enhancements to existing features:
-*** Enhanced the UI of the existing application (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com[#36], https://github.com[#38])
+*** Designed and enhanced the UI of the existing application (Pull requests: https://github.com/AY1920S1-CS2103T-F11-3/main/pull/68[#68], https://github.com/AY1920S1-CS2103T-F11-3/main/pull/80[#80])
+*** The UI designed for the Password details was adopted for Card details.
+*** Wrote additional tests for existing features to increase coverage (Pull requests: https://github.com/AY1920S1-CS2103T-F11-3/main/pull/175[#175])
 
 ** Documentation:
 *** Developer Guide:
-**** Updated Use Case (Pull Request: https://github.com/AY1920S1-CS2103T-F11-3/main/commit/e03d222a8f5aac7ec6d382314eedd0bd0d6e7e06[#6])
-**** Updated UML diagrams for current implementation (Pull Request: TBC)
+**** Updated Use Case (Pull Request: https://github.com/AY1920S1-CS2103T-F11-3/main/pull/6[#6])
+**** Updated UML diagrams for current implementation (Pull Request: https://github.com/AY1920S1-CS2103T-F11-3/main/pull/58[#58])
 *** User Guide:
-**** Updated Basic Information for better clarity to address users (Pull Request: TBC)
-**** Added in icons for better clarity (Pull Request: TBC)
+**** Updated Basic Information for better clarity to address users (Pull Request: https://github.com/AY1920S1-CS2103T-F11-3/main/pull/60[#60])
+**** Added in icons for better clarity (Pull Request: https://github.com/AY1920S1-CS2103T-F11-3/main/pull/60[#60])
 
-** Repackaging of the product:
-*** Enhanced UI of the application (Pull Request: TBC)
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Issues created (with non-trivial review comments): https://github.com/hooncp/ped/issues/11[#11], https://github.com/hooncp/ped/issues/10[#10], https://github.com/hooncp/ped/issues/9[#9], https://github.com/hooncp/ped/issues/6[#6], https://github.com/hooncp/ped/issues/3[#3], https://github.com/hooncp/ped/issues/1[#1]
 
 
 == Contributions to the User Guide
@@ -73,9 +87,9 @@ Defensive programming is also evident throughout the enhancement.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=add]
+include::../UserGuide.adoc[tag=read]
 
-include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
@@ -83,7 +97,9 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=passwordManagement]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+
 
