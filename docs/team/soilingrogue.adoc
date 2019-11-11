@@ -1,33 +1,313 @@
 = Yuan Xinran, Stanley - Project Portfolio
-:site-section: AboutUs
+:site-section: StanleyYuanProjectPortfolio
+:sectnums:
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: `undo`
+:caution-caption: `[blue]#Logic#`
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2103T-T12-2/main
 
 == Introduction
-purpose ...highlights my contribution
 
-intro to team, project, reqs, list main features
+This document serves to highlight my contributions to the project, DeliveryMANS.
+
+intro to team, project, reqs (desktop app CLI), list main features
+This six week project was done by a group 5 year 2 NUS SoC students as part of ….
+
+Below are the symbols and formatting used in this document.
+
+[NOTE]
+Requirements or important things you should take note of.
+
+[TIP]
+Tips to assist you.
+
+[WARNING]
+Commands or user input which can be entered into the application.
+
+[CAUTION]
+Components, classes or objects used in the architecture of the application.
 
 == Summary of contributions
-preface
 
-what it does, justification, highlight
+This section serves to summarize my contributions to the project, namely feature enhancements, code as well as other contributions.
 
-code contributed
+=== Feature....
+* What it does:
+* Justification:
+* Highlight:
 
-other contirbutions
+=== Code contributed
+* Implementation of context switching for user targeted commands [https://github.com[Functional code]] [https://github.com[Test code]]
+* Implementation of Order Manager
+* Implementation of autocomplete feature
+
+==== Other contributions
+* Documentation
+** DG UG
+* Community
+** Reported bugs and suggestions for other teams (examples:  https://github.com/SoilingRogue/ped/issues/9[1], https://github.com/SoilingRogue/ped/issues/10[2], https://github.com/SoilingRogue/ped/issues/6[3])
+** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+* Project management
+** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
 
 == Contributions to the User Guide
-Given below are my contributions to the User Guide. They showcase my ability to write documentation targeting end-users.
+
+Given below are my contributions to the User Guide.
+They showcase my ability to write documentation targeting end-users.
 
 *_Start of extract_*
 
-include::../UserGuide.adoc[tag=order]
+==== Adding an order: `-add_order`
+This command allows you to add a new order to the database to be processed. The deliveryman to deliver the order will be allocated
+automatically based on the internal algorithms.
+
+Format: `-add_order c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
+
+Example: `-add_order c/AlexYeoh r/KFC f/Chicken Nuggets q/100`
+
+[start]
+.Example use case
+
+. Type the command statement from the example above into the program and press *Enter* to execute it.
+
+image::userguide\AddOrder1.png[width="790"]
+
+[start=2]
+. If you are successful, the result box displays the message:
+`_"New order added:  Order Name: Order 7 Customer: AlexYeoh Restaurant: KFC Deliveryman: Donald Trump Food: Chicken Nuggets x100  Completed delivery: false"._`
+
+image::userguide\AddOrder2.png[width="790"]
+
+[start=3]
+. The order list shows the newly added order.
+
+image::userguide\AddOrder3.png[width="790"]
+
+[NOTE]
+====
+
+.Requirements
+
+* A valid customer `c/CUSTOMER`, restaurant `r/RESTAURANT` and restaurant menu item `f/FOOD` must be provided and
+exists currently in the database.
+
+* The quantity of food `q/QUANTITY` to be delivered must be provided and be greater than 0.
+====
+
+[TIP]
+====
+
+.Tip
+
+* Fill in the restaurant `r/RESTAURANT` before entering the restaurant menu item `f/FOOD` for the autocompletion feature to load the list of that restaurant's menu in a drop down box for you.
+
+image::userguide\AutoComplete1.png[width="790"]
+====
+
+{nbsp} +
+
+==== Assigning an order: `-assign_order`
+This command allows you to automatically assign an available deliveryman to an existing order in the database based on the internal algorithms.
+
+Format: `-assign_order n/ORDERNAME`
+
+Example:  `-assign_order n/Order 1`
+
+[start]
+.Example use case
+
+. Type the command statement from the example above into the program and press *Enter* to execute it.
+
+image::userguide\AssignOrder1.png[width="790"]
+
+[start=2]
+. If you are successful, the result box displays the message:
+`_"Assigned Order:  Order Name: Order 1 Customer: AlexYeoh99 Restaurant: Burger Palace Deliveryman: Jackie Chan Food: Ginger Burger x2 Crispy Duck Burger x4 Pickle Burger x1  Completed delivery: false"._`
+
+image::userguide\AssignOrder2.png[width="790"]
+
+[start=3]
+. The order list shows the newly assigned order.
+
+image::userguide\AssignOrder3.png[width="790"]
+
+[NOTE]
+====
+
+.Requirements
+
+* The order name `n/ORDERNAME` must exist in the order list.
+====
+
+{nbsp} +
+
+==== Completing an order: `-complete_order`
+This command allows you to complete an order in the database by its order name. The next unassigned order, if any, will automatically be assigned to an available deliveryman in the database.
+
+Format: `-complete_order n/ORDERNAME`
+
+Example: `-complete_order n/Order 1`
+
+[start]
+.Example use case
+
+. Type the command statement from the example above into the program and press *Enter* to execute it.
+
+image::userguide\CompleteOrder1.png[width="790"]
+
+[start=2]
+. If you are successful, the result box displays the message:
+`_"Order completed:  Order Name: Order 1 Customer: AlexYeoh99 Restaurant: Burger Palace Deliveryman: Jackie Chan Food: Ginger Burger x2 Crispy Duck Burger x4 Pickle Burger x1  Completed delivery: true"._`
+
+image::userguide\CompleteOrder2.png[width="790"]
+
+[start= 3]
+. The order list shows the delivery status of the order as completed.
+
+image::userguide\CompleteOrder3.png[width="790"]
+
+[NOTE]
+====
+
+.Requirements
+
+* A deliveryman must already be assigned to the order before it can be completed.
+
+* The order name `n/ORDERNAME` must exist in the order list.
+====
+
+{nbsp} +
+
+==== Editing an order: `-edit_order`
+This command enables you to edit an order. The order to edit will have to be specified by its order name when you are entering the command.
+
+You can change:
+
+* The customer `c/CUSTOMER` who made the order
+
+* The restaurant `r/RESTAURANT` which the order was made from
+
+* The food `f/FOOD` ordered as well as its quantity `q/QUANTITY`
+
+Format: `-edit_order n/ORDERNAME [c/CUSTOMER] [r/RESTAURANT] [f/FOOD]... [q/QUANTITY]...`
+
+Example: `-edit_order n/Order 2 c/David`
+
+[start]
+.Example use case
+
+. Type the command statement from the example above into the program and press *Enter* to execute it.
+
+image::userguide\EditOrder1.png[width="790"]
+
+[start=2]
+. If you are successful, the result box displays the message:
+`_"Successful edition of order:  Order Name: Order 2 Customer: David Restaurant: Prata House Deliveryman: Donald Trump Food: Curry Waterfall x1 Plain Prata x2 Cheese Prata x4 Prata Bomb x10  Completed delivery: false"._`
+
+image::userguide\EditOrder2.png[width="790"]
+
+[start=3]
+. The order list shows the updated order.
+
+image::userguide\EditOrder3.png[width="790"]
+
+[NOTE]
+====
+
+.Requirements
+
+* The order name `n/ORDERNAME` must exist in the order list.
+
+* A customer `c/CUSTOMER`, restaurant `r/RESTAURANT` or restaurant menu item `f/FOOD` provided must be valid and exists currently in the database.
+
+* Optional items with '[]' tags may be ommitted e.g. `[r/RESTAURANT]`. However at least 1 tag has to be present for the order to be edited.
+====
+
+[TIP]
+====
+
+.Tip
+
+* Fill in the restaurant `r/RESTAURANT` before entering the restaurant menu item `f/FOOD` for the autocompletion feature to load the list of that restaurant's menu in a drop down box for you.
+
+image::userguide\AutoComplete2.png[width="790"]
+====
+
+{nbsp} +
+
+==== Deleting an order: `-delete_order`
+This command enables you to delete an unwanted/cancelled order in the database by its order name.
+
+Format: `-delete_order n/ORDERNAME`
+
+Example: `-delete_order n/Order 1`
+
+[start]
+.Example use case
+
+. Type the command statement from the example above into the program and press *Enter* to execute it.
+
+image::userguide\DeleteOrder1.png[width="790"]
+
+[start=2]
+. If you are successful, the result box displays the message:
+`_"Deleted Order:  Order Name: Order 1 Customer: AlexYeoh99 Restaurant: Burger Palace Deliveryman: Jackie Chan Food: Ginger Burger x2 Crispy Duck Burger x4 Pickle Burger x1  Completed delivery: true"._`
+
+image::userguide\DeleteOrder2.png[width="790"]
+
+[start=3]
+. The order list shows that the order has been deleted.
+
+image::userguide\DeleteOrder3.png[width="790"]
+
+[NOTE]
+====
+
+.Requirements
+* The order name `n/ORDERNAME` must exist in the order list.
+====
+
+{nbsp} +
+
+==== Listing all orders: `-list_orders`
+This command enables you to view all orders currently in the database.
+
+Format: `-list_orders`
+
+Example: `-list_orders`
+
+[start]
+.Example use case
+
+. Type the command statement from the example above into the program and press *Enter* to execute it.
+
+image::userguide\ListOrder1.png[width="790"]
+
+[start=2]
+. If you are successful, the result box displays the message:
+`_"Listed all orders"._`
+
+image::userguide\ListOrder2.png[width="790"]
+
+[start=3]
+. The order list shows all orders currently in the database.
+
+image::userguide\ListOrder3.png[width="790"]
+
+{nbsp} +
 
 *_End of extract_*
 
 == Contributions to the Developer Guide
-Given below are my contributions to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+
+Given below are my contributions to the Developer Guide.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
 *_Start of extract_*
 
