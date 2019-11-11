@@ -67,9 +67,9 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 
 .Component interactions for `add-member mn/Abhi` command
 image::ArchitectureSequenceDiagram.png[]
+//end::architecture[]
 
 The sections below give more details of each component.
-//end::architecture[]
 
 //tag::ui[]
 [[Design-Ui]]
@@ -198,50 +198,102 @@ Classes used by multiple components are in the `seedu.pluswork.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== [Proposed] Calendar feature
-==== Proposed Implementation
+=== Calendar feature
+==== Implementation
 
-The commands introduced by this feature include; `generate-timings`, `ics` import and commands.
+This feature is implemented to allow users to easily schedule a meeting time, without the hassle of having to obtain responses from team members.
+
+This feature includes basic commands for managing meetings and team member's
+calendars, i.e. `add-meeting`, `delete-meeting` and `add-calendar`,
+`delete-calendar` respectively. This feature also includes support to parse and import
+`.ics` calendar files, with help from the `net.fortuna.ical4j` library. The calendar feature also
+implements additional logic to compare member's calendars and generate possible meeting times
+where the most number of members are available.
+
+[NOTE]
+Team member's calendars in +Work are always handled and stored in a `CalendarWrapper` class, which also stores the name of the team member
+
+Apart from the basic commands for managing calendars, the command for finding a meeting time is handled by
+`UniqueCalendarList`, while the logic for accessing external `.ics` files is handled by
+`DataAccess`. Finally, the logic for parsing `.ics` files is incorporated into `ParserUtil`
+
+* `UniqueCalendarList#findMeetingTime(startDate, endDate, meetingDuration)` -- Generates a list of possible meeting timings where the *most* number of members are available
+
+* `DataAccess#getCalendarStorageFormat(filePath)` -- Converts an external `.ics` file into String format
+
+* `ParserUtil#parseCalendar(.ics String)` -- Parses an `.ics` in String format to create a `Calendar` object
+
+
+Commands for generating meeting times and managing calendars or meetings are exposed in the `Model` interface in the following respective commands
+
+* `Model#findMeetingTime(startDate, endDate, meetingDuration)`
+
+* `Model#addCalendar(calendarToAdd)`
+
+* `Model#deleteCalendar(calendarToRemove)`
+
+* `Model#addMeeting(meetingToAdd)`
+
+* `Model#deleteMeeting(meetingToRemove)`
+
+Given below is an example usage scenario and how the more complex commands work.
+
+*Command:* `Model#addCalendar(calendarToAdd)`
+
+Step 1. The user calls the `add-calendar` command, which is handled by `AddCalendarParser`
+
+Step 2. `DataAccess#getCalendarStorageFormat`  accesses the file specified by the user and converts the `.ics` file into a `String` format
+
+Step 3. The `.ics` file in `String` format is parsed using `ParserUtil#parseCalendar` and converted into a `net.fortuna.ical4j.Calendar` object
+
+Step 4. The `Calendar` object is stored as a `CalendarWrapper` object together with the `MemberName` of the associated team member
+
+Step 5. The `CalendarWrapper` object is passed to the `Model` and subsequently `ProjectDashboard`, where it is stored in `ProjectDashboard's` `UniqueCalendarList` instance variable.
+
+*Command:* `Model#findMeetingTime(startDate, endDate, meetingDuration)`
+
+The commands introduced by this feature include `generate-timings`, `ics` import and commands.
 The commands are facilitated by `ProjectCalendar`. The various `ics` files of the members are parsed in this component.
 
-* `ProjectCalendar#generateTimings()` -- Generates the free times after on syncing `ics` calendars of members.
-* `ProjectCalendar#getAvailableTimings()` -- Retrieves the available timings of members.
-* `ProjectCalendar#importCalendar()` -- Import the member's calendar.
+The following sequence diagram shows how the `findMeetingTime` operation works:
 
-These operations are exposed in the `Model` interface as `Model#generateTimings()`, `Model#getAvailableTimings()` and
-`Model#importCalendar()`.
+.FindMeetingTimeCommand Sequence Diagram
+image::find_meeting_time_sequence.png[]
 
-Given below is an example usage scenario and how the various commands work.
+Step 1. The user calls the `find-meeting-time` command, which is handled by `FindMeetingTimeParser`.
 
-Step 1. The user launches the application. The `ProjectCalendar` will be initialised based on the
-saved `ProjectCalendar`.
+Step 2. This creates a `FindMeetingTime` command that executes `Model#findMeetingTime`.
 
-Step 2. The user imports members' calendars by executing `import-calendar`.
+Step 3. The `findMeetingTime` command is passed from `Model` to `ProjectDashboard` and finally to `UniqueCalendarList`, where team member's calendars are stored.
 
-Step 3. The user executes `generate-timings` command.
+Step 4. `UniqueCalendarList` handles the logic for comparing each calendar and generates a `MeetingQuery` object, which contains the list of possible meeting times and other essential information about the most recent `findMeetingTime` command.
 
-Step 4. +Work displays available meeting times for the project members.
+[NOTE]
+Details on the logic for handling calendar 'events' and timings are excluded for the sake of simplicity.
+
+Step 5. The `MeetingQuery` is then stored in `ProjectDashboard` where the user view can update and display the list of possible meeting times.
+
+Step 6. **Follow-up from user:** The user can execute the `add-meeting` command to select a meeting from the list of timings, by referring to the `INDEX` of the meeting in the list.
 
 ==== Design Considerations
-===== Aspect: Importing and storing calendars of users
+===== Aspect: Scheduling meetings based on tasks
 
-* **Alternative 1 (current choice):** User specifies file path of `ics` file in command line.
+* **Alternative 1 (current choice):** +Work assumes
 ** Pros: Easier to implement, files can be stored in application.
 ** Cons: User must enter file path, which is error prone.
 * **Alternative 2:** Upon execution of `import-calendar` a file chooser pops up to allow user to browse and upload file.
 ** Pros: User can use UI to upload instead.
 ** Cons: Due to constraints of application, a ui based upload may not be feasible (Possibly in v2.0)
 
-===== Aspect: Flexibility in syncing calendars
+===== Aspect: Storing calendar data on +Work
 
-* **Alternative 1 (current choice):** +Work syncs all calendars uploaded when `generate-timings` is executed
-** Pros: Easier to implement.
-** Cons: User may be finding a suitable time for an event where only specific members are required, in which case timings
-may not help as much.
-* **Alternative 2:** User can specify which members calendars to sync
-** Pros: User can find more suitable timings for events which involve only specific members.
-** Cons: Association between members and their respective calendars must be rigorously tested to ensure accuracy of timings.
-May introduce complexity into storage and dependencies among components.
+* **Alternative 1 (current choice):** +Work preserves and stores the original calendar `.ics` file in `String` format
+** Pros: Less error prone when converting from storage format to `Calendar` object format
+** Pros: Captures more details about calendar 'events'. More compatible with additional `v2.0` features, such as meeting location suggestions
+** Cons: Requires more storage space when storing calendars
+* **Alternative 2:** +Work only stores essential calendar information (i.e. duration and time of calendar 'events')
+** Pros: Takes lesser time to retrieve `Calendar` objects from storage
+** Cons: Harder to implement and requires manipulating `Property` and `Component` objects stored in `net.fortuna.ical4j.Calendar` objects
 
 
 //tag::dashboard[]
@@ -686,85 +738,120 @@ The following sequence diagram shows how the autocomplete works.
 image::AutoCompleteFlow.png[]
 
 // end::autocomplete[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+This feature is implemented to allow the user to undo/redo a command, while improving the overall user experience.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
+This feature does not implement many additional functions. Rather, it takes advantage of the
+existing project architecture, to achieve the according `undo` or `redo` outcome. This
+feature includes the basic commands `undo` and `redo`. The feature introduces the ability
+for the `Model` to store previous instances of the `ProjectDashboard`,
+essentially saving the 'state' of `ProjectDashboard`, similar to a commit on
+GitHub. The user then navigates between these 'states' when using the `undo` and
+`redo` commands.
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+Each `ProjectDashboard` instance stores all information in +Work, which is why reverting to a previous `ProjectDashboard` instance does not result in any loss of data
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+The `undo`, `redo` mechanism is facilitated within `Model`, by including two variables
+`previousSaveState` and `redoSaveState` to store `ProjectDashboard` 'states'
+and the addition of the `Model#saveDashboardState` function. The `undo` and `redo`
+commands also make use of the `ProjectDashboard#resetDate` to revert the `ProjectDashboard`
+displayed by +Work to a previous 'state'.
 
+* `previousSaveState` -- Stores `ProjectDashboard` states from previous non-`undo` commands
+* `redoSaveState` -- Stores `ProjectDashboard` states from previous `undo` commands
+
+[TIP]
++Work can only `redo` and `undo` command, if no command was executed after the `undo` command
+
+* `Model#saveDashboardState()` -- Saves the current `ProjectDashboard` state
+* `ProjectDashboard#resetData(previousState)` -- Resets the data of the current `ProjectDashboard` using data from the `previousState`
+
+[NOTE]
+Only the `undo` and `redo` commands are exposed in the `Model` interface. Other commands
+are used internally as part of the logic to manage `ProjectDashboard` states
+
+Given below is an example usage scenario and how the `undo`, `redo` mechanism behaves at each step.
+
+Step 1. When the user starts up +Work, the `Model` does not store `ProjectDashboard` states
+from the previous session.
+
+Step 2. When the user executes the `delete-meeting meeting/2` command,
+`Model#saveDashboardState` is called to save a copy of the original
+`ProjectDashboard` state, `pd0:ProjectDashboard` before executing the
+command. As shown below, the original `ProjectDashboard` state has been saved.
+
+.Storing previous ProjectDashboard states
+image::UndoRedoState0.png[]
+
+Step 3. After executing another command i.e. `add-task tn/Complete DG`, a copy of the
+current `ProjectDashboard` state, `pd1:ProjectDashboard` is also saved and added
+to the list. The command continues execution on `pd2:ProjectDashboard`.
+
+.Executing more commands
+image::UndoRedoState1.png[]
+
+[NOTE]
+If an invalid command is entered by the user, `Model#saveDashboardState`
+is not called and the `ProjectDashboard` state is not saved.
+
+Step 4. When the user realises he does not need to complete the DG, the user
+executes the `undo` command, reverting to the most recent `ProjectDashboard`
+state, `pd1:ProjectDashboard`. `ProjectDashboard#resetData` is called with
+the previous state. Previously `Current State` would have been pointing to
+the `pd2:ProjectDashboard`, where the 'Complete DG' task was added.
+
+.Retrieving a previous state
+image::UndoRedoState2.png[]
+
+Step 5. The user can also execute the `undo` command again to revert to the original
+state, `pd0:ProjectDashboard`
+
+.Retrieving previous states
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+If there are no more states to revert to, +Work will notify the user that
+there is no command to `undo`. The `undo` command uses `Model#canUndo()`
+to check if this is the case.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+The `redo` command works similar to the `undo` command, except it can only
+access `ProjectDashboard` states created by the `undo` command. In other words,
+`redo` can only be executed after an `undo` command.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
+.Executing a new command
 image::CommitActivityDiagram.png[]
+
+The following sequence diagram shows how the undo operation works:
+
+.Interactions between Logic and Model
+image::updated_undo_diagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: Different implementations for undo & redo
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 1 (current choice):** Saves the entire `ProjectDashbaord` object.
+** Pros: Very easy to implement.
+** Cons: May result in performance issues, when saving numerous instances of `ProjectDashboard`.
+* **Alternative 2:** Each individual command has a `undo` couterpart.
+** Pros: Uses much less memory, since the `Model` only has to keep track of which commands need to be undone.
+** Cons: Prone to error, since +Work allows tasks, team members and inventories to be associated with one another. E.g. Trying to `undo` a deleted task may be unsuccessful in retrieving the original task.
 
-===== Aspect: Data structure to support the undo/redo commands
+===== Aspect: 'History' of `ProjectDashboard` and number of times `undo` can be executed
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* **Alternative 1 (current choice):** Keep track of all past `ProjectDashboard` states
+** Pros: Gives users the freedom 'undoing' any previous command.
+** Cons: Uses a lot of memory to store previous instances of `ProjectDashboard`.
+* **Alternative 2:** Clear redundant 'history' of previous `ProjectDashboard` states after exceeding a chosen quota. (E.g. 5 commands executed)
+** Pros: Uses memory efficiently, while giving users some freedom to `undo` multiple commands.
+** Cons: User would be unable to `undo` certain 'Older' commands.
 // end::undoredo[]
 
 // tag::dataencryption[]
@@ -1439,6 +1526,64 @@ Expected: +Work time format changed to 12 hour clock. Switch view to task list t
 .. Test case: `clock ten` +
 Expected: +Work time format is not changed. Error details shown in the status message.
 .. Other incorrect theme commands to try: `clock x` (Where x is not `twelve` or `twenty_four`).
+
+=== Calendar Feature
+
+. Adding a calendar
+.. Prerequisites: Downloaded a valid `.ics` file.
+.. Test case: `add-calendar mn/John fp/INVALID_FILE` +
+Expected: +Work throws an error message
+.. Test case: `add-calendar mn/John fp/YOUR_FILE_PATH` +
+Expected: +Work notifies you that the Calendar has been added
+.. Test case: `add-calendar mn/DUPLICATE_NAME fp/VALID_FILE_PATH` +
+Expected: +Work notifies you that a duplicate calendar has been found
+
+. Removing a calendar
+.. Test case: `delete-calendar mn/John` +
+Expected: If there is a calendar previously added under John's name, +Work notifies you that the calendar has been removed
+
+. Finding a meeting time
+.. Prerequisites: Added at least 1 calendar with the `add-calendar` command
+.. Test case: `find-meeting-time start/11-11-2019 end/12-11-2019 hours/1` +
+Expected: +Work displays a list of suitable meeting times, while indicating which members are available
+.. Test case: `find-meeting-time start/12-11-2019 end/11-11-2019 hours/1` +
+Expected: +Work prompts user to input a valid end date
+.. Test case: `find-meeting-time start/12-11-2019 end/15-11-2019 hours/-1` +
+Expected: +Work prompts user to input a valid duration
+
+. Adding a meeting
+.. Test case: `add-meeting meeting/1` +
+Expected: +Work adds the first meeting in the list and displays the meeting in the `home` page
+.. Test case: `add-meeting meeting/INVALID_INDEX` +
+Expected: +Work displays an error message
+.. Prerequisites: Did not use the `find-meeting-time` command
+.. Test case: `add-meeting meeting/2` +
+Expected: +Work prompts the user to first use the `find-meeting-time` command
+
+. Deleting a meeting
+.. Test case: `delete-meeting meeting/1` +
+Expected: +Work removes the meeting
+.. Test case: `delete-meeting meeting/INVALID_INDEX` +
+Expected: +Work displays an error message
+
+=== Undo/Redo Feature
+
+. Undo a command
+.. Test case: `list-tasks` +
+Expected: +Work will not undo the `list-tasks` command, and will find the next most recent command to undo
+.. Test case: `delete-meeting meeting/1` +
+Expected: +Work will undo the deletion
+.. Prerequisites: App has just and no command has been executed
+.. Test case: `undo` +
+Expected: +Work will display a message saying that there is no command to undo
+
+. Redo a command
+.. Prerequisites: No `undo` command has been called
+.. Test case: `redo`
+Expected: +Work will display a message saying that there is no command to redo
+.. Prerequisites: An `undo` command has been called
+.. Test case: `redo`
+Expected: +Work will redo the most recent `undo` command
 
 === Saving data
 
