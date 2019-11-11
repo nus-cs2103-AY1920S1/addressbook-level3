@@ -40,7 +40,7 @@ NOTE: Represents the things you need to notice.
 `reminder`: Represents the command.
 
 ****
-* `Tag` : Represents the constraints of the command.
+* TAG : Represents the constraints of the command.
 ****
 
 
