@@ -540,12 +540,10 @@ This command helps you to display the full reimbursement list after `find` and `
 +
 //.Screenshot of the user input into the Command Box for Back Command in Reimbursement Tab
 image::Reimbursement/ReimbursementBackCommand.png[width="600"]
-
 +
 . Hit `Enter`
 +
 The tab will now show the full reimbursement list.
-
 +
 //.Screenshot of a successful user input for Back Command in Reimbursement Tab
 image::Reimbursement/ReimbursementBackCommandSuccess.png[width="600"]

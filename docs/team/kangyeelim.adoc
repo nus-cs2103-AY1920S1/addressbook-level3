@@ -153,6 +153,9 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/201[(PR #201)]
 
 ** Helped to Debug Code in Other Member's Package:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/126[(PR #126)]
+** Extracted Repetitive Code in All Packages:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/133[(PR #133)],
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/385[(PR #385)]
 
 * Integration
 ** Integrated the Logic of the Home Tab with the Logic of the Reimbursements Tab:
@@ -372,19 +375,19 @@ This section's table explains the design considerations for some implementations
 object for viewing in the UI table that can be sorted such that when [blue]`sort reset` is called, the `TransactionList` for viewing can be set to be equals to the original one.
 |`ModelManager` contains only the shown `TransactionList` that can be sorted and reads from the data file to get
 the `TransactionList` object in original order when [blue]`sort reset` is called.
-|Alternative 1 was implemented. Alternative 1 allows the data file to be exported in the desired order anytime while treasurerPro is running while
+|Alternative 1 has been implemented. Alternative 1 allows the data file to be exported in the desired order anytime while treasurerPro is running while
 alternative 2 meant that the data file would be updated only when treasurerPro is exited. The implementation is shown in <<lists, Figure 24>>, below the table.
 
 |The Members Tab's `Model` interface is passed as parameters into Transaction Tab's `Logic` to give `Logic` access to all public methods
 of `ModelManager`.
 |A new interface is made to allow the only used method of Members Tab's `ModelManager` to be accessed in Transaction Tab's
 `Logic`.
-|Alternative 2 was implemented. The new interface acts as a facade for `ModelManager` which prevent unwanted modifications
+|Alternative 2 has been implemented. The new interface acts as a facade for `ModelManager` which prevent unwanted modifications
 to `AddressBook`. The interface implemented is `CheckAndGetPersonByNameOnlyModel` as shown in <<facade, Figure 25>>, below the table.
 
 |An `ArrayList` is used to store `Transaction` objects in `TransactionList`.
 |A `LinkedList` is used to store `Transaction` objects in `TransactionList`.
-|Alternative 1 was implemented. An `ArrayList` has better performance for the set and get methods than a `LinkedList` which would be used frequently in `ModelManager`.
+|Alternative 1 has been implemented. An `ArrayList` has better performance for the set and get methods than a `LinkedList` which would be used frequently in `ModelManager`.
 |===
 
 [[lists]]

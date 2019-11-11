@@ -15,7 +15,7 @@ public class DeleteCommandParser {
      * and returns a DeleteCommand object for execution.
      * @throws NotANumberException if the user input does not conform the expected format
      */
-    public static DeleteCommand parse(String userInput) throws NotANumberException, InvalidNumberException {
+    public static DeleteCommand parse(String userInput) throws InvalidNumberException {
         if (isNumeric(userInput.substring(1))) {
             int index = Integer.parseInt(userInput.substring(1));
             if (index < 1) {
