@@ -59,7 +59,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * You can specify the type of parameter given through a prefix. The list of allowed prefixes can be found in the table below:
 
-** Example: In `add-task tn/TASK_NAME s/TASK_STATUS`, the user inputs the name of the task after tn/ and inputs the status of the task after s/ , such as: `add task t/Finish Project Draft s/undone`
+** Example: In `add-task tn/TASK_NAME s/TASK_STATUS`, the user inputs the name of the task after `tn/` and inputs the status of the task after `s/` , such as: `add task t/Finish Project Draft s/undone`
 
 .List of Prefixes
 |===
@@ -143,6 +143,11 @@ You can toggle through the command list (either through up down keys or mouse) a
 Format: `help`
 
 image::Help.png[width=400]
+
+==== Undo a command: `undo`
+
+Undo the most recent command by
+
 
 '''
 // end::UniversalCommands[]
@@ -569,7 +574,16 @@ image::updated-meeting-time.PNG[]
 
 ==== Remove a team meeting: `delete-meeting`
 
-If you need to
+You can remove a meeting by simply referring to the `INDEX` of the meeting in the 'Upcoming Meetings' list.
+
+[TIP]
+You can view your list of meetings by going to the `home` page
+
+Format: `delete-meeting [meeting/INDEX]`
+
+Example:
+
+* To remove meeting **#3**, simply enter the command `delete-meeting meeting/3` and the meeting will be removed
 
 '''
 
