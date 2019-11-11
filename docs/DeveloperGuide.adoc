@@ -153,6 +153,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::schedule-generator
 === Schedule Generator
 
 The Schedule Generator feature allows users to generate a combined schedule of any number of people. It combines these
@@ -288,7 +289,7 @@ needs to show a schedule to the user.
 ** Pros: Better runtime performance as the `ScheduleDisplay` is already generated.
 ** Cons: Will have perfomance issues in terms of memory usage. Each Group's and Person's `ScheduleDisplay` will also
 have to be generated and stored in memory.
-
+//end::schedule-generator
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature

@@ -561,6 +561,7 @@ image::ugalvin/deleteevent.png[width=100%]
 
 After deleting that event from TimeBook, Bobby's schedule is automatically updated!
 
+//tag::schedule-command[]
 ==== Generate a Schedule: `schedule`
 ____
 Want to see a schedule between you and your friends? Simple use the `schedule` command!
@@ -587,6 +588,8 @@ Example:
 image::ugalvin/schedule.png[width=100%]
 
 When executing the command, TimeBook will calculate the free time slots among the schedule members!
+
+//end::schedule-command[]
 
 === Group Management
 
@@ -830,10 +833,9 @@ Format:
 
 * `export` +
 
-[tag=Select-Command]
 
+//tag::select-command[]
 ==== Select Time Slot: `select`
-
 ____
 Want to get more information about a particular time slot? Want to know where the venue of that time slot is?
 No worries! Simply select the time slot and TimeBook will tell you all about it!
@@ -927,6 +929,7 @@ Example:
 
 After executing that command, a pop up will be shown similar to the one above!
 
+//end::select-command[]
 
 === Closest Common Location
 
