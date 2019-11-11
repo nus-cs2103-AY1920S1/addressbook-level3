@@ -1109,14 +1109,18 @@ These instructions only provide a starting point for testers to work on.
 
 === Loans
 
-. Adding a loan
+==== Adding a Loan
+
+. Adding a loan when no duplicate loan exists in the list
 
 .. Prerequisites: None
 .. Test case: `loan out x/4.20 p/John d/For dinner` +
    Expected: A loan is added to the list at the appropriate position based on the current sorting order.
    The date of the loan should be the current system date.
 
-. Listing loans
+==== Listing Loans
+
+. Listing loans in the main display panel with optional filtering/sorting
 
 .. Prerequisites: None
 .. Test case: `loan list`
@@ -1125,13 +1129,17 @@ These instructions only provide a starting point for testers to work on.
    Expected: Only loans out involving the person "John" are listed.
    The list is also sorted by person in alphabetical order.
 
-. Editing a loan
+==== Editing a Loan
+
+. Editing an existing loan while all loans are listed
 
 .. Prerequisites: List all loans using the `loan list` command. At least one loan in the list.
 .. Test case: `loan edit 1 x/500`
    Expected: First loan's amount is changed to $500 and it is sorted into the appropriate position based on the current sorting order.
 
-. Marking a loan as paid
+==== Marking a Loan as Paid
+
+. Marking an existing loan as paid while all loans are listed
 
 .. Prerequisites: List all loans using the `loan list` command. At least one loan in the list that is unpaid.
 .. Test case: `loan paid 1`
@@ -1139,7 +1147,9 @@ These instructions only provide a starting point for testers to work on.
 .. Test case: `loan paid p/John`
    Expected: All loans pertaining to the person "John" are marked as paid.
 
-. Marking a loan as unpaid
+==== Marking a Loan as Unpaid
+
+. Marking an existing loan as unpaid while all loans are listed
 
 .. Prerequisites: List all loans using the `loan list` command. At least one loan in the list that is paid.
 .. Test case: `loan unpaid 1`
@@ -1147,13 +1157,17 @@ These instructions only provide a starting point for testers to work on.
 .. Test case: `loan unpaid p/John`
    Expected: All loans pertaining to the person "John" are marked as unpaid.
 
-. Deleting a loan
+==== Deleting a Loan
+
+. Deleting an existing loan while all loans are listed
 
 .. Prerequisites: List all loans using the `loan list` command. At least one loan in the list.
 .. Test case: `loan delete 1`
    Expected: Deletes the first loan from the list.
 .. Test case: `loan delete p/John`
    Expected: All loans pertaining to the person "John" are deleted.
+
+==== Splitting a Payment into Loans
 
 . Splitting a group payment into loans/debts
 
