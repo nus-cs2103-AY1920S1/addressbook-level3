@@ -324,7 +324,7 @@ The following is a code snippet from `getCombination(char[] arr, int n)` method:
                         .toCollection(ArrayList::new));
     }
 
-.Code snippet of `getCombination(char[] arr, int n)` method from Cashier package
+.Code snippet of `getCombination(char[] arr, int n)` method from Cashier Model
 
 {blank} +
 The `getCombination(arr, arr.length)` method in the above snippet consists of 3 nested loops. The first loop decides the
