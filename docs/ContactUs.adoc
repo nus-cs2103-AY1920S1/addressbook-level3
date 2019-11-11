@@ -3,7 +3,7 @@
 :stylesDir: stylesheets
 
 * *Bug reports, Suggestions* : Post in our https://https://github.com/AY1920S1-CS2103-T16-1/main/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
-* *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
+* *Contributions* : We welcome Pull Requests (PRs). Find out how to submit PRs by following the process described https://github.com/oss-generic/process[here].
 * *Email us* : You can also reach any of our project developers at
 
 ** Chen Xi: e0031241@u.nus.edu
