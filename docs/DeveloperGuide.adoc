@@ -420,8 +420,8 @@ The student current modules are stored as String of module code to reduce coupli
 
 [NOTE]
 The `Student` who submits the appeal and requested `Module` are stored as String of Matric ID and module code respectively in an `Appeal` object to reduce coupling.
-Hence, `Student` who submits the appeal is retrieved from `model.getFilteredStudentList()` by matching Matric ID,
-and `Module` requested is retrieved from `model.getFilteredModuleList()` by matching module codes.
+Hence, `Student` who submits the appeal is retrieved from `model.getFullStudentList()` by matching Matric ID,
+and `Module` requested is retrieved from `model.getFullModuleList()` by matching module codes.
 
 
 Step 5.  Upon approval of an appeal, `ApproveCommand` will return a `CommandResult` object which contains the message of the action performed.  Each appeal type will give a different feedback message.
@@ -485,7 +485,46 @@ and a list of appeal IDs with time table clash detected.
 .MassResolve Sequence Diagram
 image::MassResolveSequenceDiagram.png[]
 
-To implement design considerations......
+Design Consideration: How to handle different user input formats for individual and mass appeal resolution
+
+* Current choice: Resolving individual appeals, `ApproveCommand` and `RejectCommand` takes in a single index relative to the displayed list of appeals while resolving multiple appeals, `MassApprove` and `MassReject` takes in IDs of exisiting appeals.
+
+** Pros:
+*** User can easily resolve a single appeal since needs to enter the index of the appeal of choice shown in the appeal list.
+*** When resolving in bulk, typing the full appeal IDs will allow user to be certain that the appeal that is about to be resolved is indeed the correct one.
+** Cons:
+*** Users have to type the full appeal IDs of appeals when resolving in bulk.
+*** Users cannot resolve multiple appeals by index as the displayed appeal list is may be changing constantly with the filter commands entered by user.  As a result, user will be more prone to resolving a wrong appeal due to carelessness when using index.
+
+* Alternative consideration: Allow user to resolve individual and multiple appeals by both index and appeal ID.
+
+** Pros:
+*** User has options to perform appeal resolution.
+*** Easier to resolve multiple appeals in bulk, as it is quicker to type the index instead of the full ID
+** Cons:
+*** Harder to implement.  `ApproveCommandParser` and `RejectCommandParser` will need to parse different type of parameters.
+*** Some index and parameters from  the input might refer to the same appeal if the user makes a mistake.  As such, feedback provided by MAMS will not be useful, as user might have used index to mass resolve rather than appeal ID.
+*** User could resolve the wrong appeals since user does not need to cross check with the appeal ID of the appeals-of-interest.
+
+Design Consideration: How individual resolve and mass resolve extends from parent `ResolveCommand`
+
+* Current implementation: Each resolve option `Approve` and `Reject` extends from `ResolveCommand`
+
+** Pros:
+*** Easier to implement.  Resolve option specified by user will be easily parsed.
+** Cons:
+*** More parameters required from user to specify whether to resolve single or multiple appeals.
+
+
+* Alternative consideration: Having individual resolve commands and mass resolve commands extend from parent class `ResolveCommand` instead of `Approve` and `Reject`.  Refer to diagram below for better understanding.
+
+image::ResolveAltClassDiagram.png[]
+
+** Pros:
+*** User can specify whether to resolve single or multiple appeals with fewer keywords.
+** Cons:
+*** Harder to implement as the mass resolve command Parser will have to parse the inputs for different resolve types.
+*** User prone to input mistakes while performing mass resolve.
 
 //end::resolve[]
 
@@ -745,6 +784,7 @@ The three sub-classes are:
 * `SaveCommand` -- Creates a snapshot of MAMS as a backup and stores it as a json file in data.
 * `UndoCommand` -- Undo last action.
 * `RedoCommand` -- Redo last undo.
+* `RestoreCommand` -- Restores a previous snapshot created by the SaveCommand.
 
 .Structure of StoreCommand
 image::StoreCommandClassDiagram.png[]
@@ -753,7 +793,7 @@ Each sub-class has a `execute()` method that takes in a `Model` object. Store co
 
 Below shows how the Store Command mechanism behaves at each step.
 
-Step 1. The user inputs `undo/redo/backup ...`.
+Step 1. The user inputs `undo/redo/backup/restore ...`.
 
 Step 2. The relevant parser class is called.
 
@@ -764,6 +804,7 @@ Step 4. `StoreCommand.execute()` is called.
 * If the command is a `UndoCommand`, it will store a snapshot in the data file under its corresponding tag.
 * If the command is a `RedoCommand`, it will check if a redo action is availiable, restores the state and update the saved states as required.
 * If the command is a `SaveCommand`, it will store a snapshot in the data file under its given tag or a tagged with a timestamp to avoid overwriting previous data if tag is not given.
+* If the command is a `RestoreCommand`, it will restore a previous snapshot in the data folder with its given tag.
 
 [NOTE]
 The save states are stored in the same format as the mams.json data file to reduce coupling of the saving mechanism and the save commands.
@@ -794,12 +835,6 @@ image::UndoSequenceDiagram.png[]
 ** Cons: Increases coupling between the Logic class and Command subclasses
 // end::undo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -1273,24 +1308,20 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
+=== Backup and Restoring
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Default MAMS data is generated, each individual field is made invalid and tested separately.
 
-_{ more test cases ... }_
+=== Undo and Redo
+
+. Dealing with non-undoable commands
+
+.. All non-undoable commands are tested with an undo with a new set of data, it would return a failed command result
+
+. Dealing with undoable commands
+
+.. All undoable commands are undid, the final result is checked against the previous state to ensure that the undo function correctly reverts the data back to the previous state.
+
+
