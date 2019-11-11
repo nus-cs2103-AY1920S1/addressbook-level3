@@ -20,16 +20,16 @@ import seedu.billboard.model.tag.Tag;
 public class SampleDataUtil {
     public static Expense[] getSampleExpenses() {
         return new Expense[] {
-            new Expense(new Name("Welcome to Billboard!"), new Description("Description goes here (optional"),
+            new Expense(new Name("Welcome to Billboard"), new Description("Description goes here (optional)"),
                     new Amount("20.00"), new CreatedDateTime("08/11/2019"),
-                    getTagSet("many", "tags", "can", "be", "added")),
+                    getTagSet("many", "tags")),
             new Expense(new Name("Paid bills"), new Description("I can include things like bills!"),
                     new Amount("40.00"), new CreatedDateTime("12/12/2018"), getTagSet("bills")),
             new Expense(new Name("Bought lunch"), new Description("And food!"),
                     new Amount("3.70"), new CreatedDateTime("1/1/2018"), getTagSet("food")),
             new Expense(new Name("Billboard is great"), new Description("Yes it is."),
                     new Amount("12.34"), new CreatedDateTime("3/05/2019"),
-                    getTagSet("upgrade", "to", "premium")),
+                    getTagSet("upgrade", "now")),
         };
     }
 
