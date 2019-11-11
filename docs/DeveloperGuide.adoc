@@ -567,7 +567,7 @@ The undo/redo mechanism is facilitated by `UndoRedoStack`.
 `UndoableCommand` extends Command and has the following attributes and methods.
 
 
-image::dg-diagram/UndoableCommandClassDiagram.png[width="300"]
+image::dg-diagram/UndoableCommandClassDiagram.png[width="600"]
 
 When an UndoableCommand is being executed, the methods `saveCustomerBookSnapshot(Model model)`, `savePhoneBookSnapshot(Model model)`, `saveOrderBookSnapshot(Model model)`, `saveScheduleBookSnapshot(Model model)`
 and `saveArchivedOrderBookSnapshot(Model model)` will be called. This ensures that the states of all 5 books are being stored.
