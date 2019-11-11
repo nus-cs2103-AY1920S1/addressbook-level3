@@ -65,6 +65,8 @@ public class ArchivedOrderCard extends UiPart<Region> {
     private FlowPane scheduleTags;
     @FXML
     private FlowPane customerTags;
+    @FXML
+    private FlowPane phoneTags;
 
 
     public ArchivedOrderCard(Order order, int displayedIndex) {
@@ -106,6 +108,11 @@ public class ArchivedOrderCard extends UiPart<Region> {
             order.getCustomer().getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> customerTags.getChildren().add(new Label(tag.tagName)));
+        }
+        if (order.getPhone() != null) {
+            order.getPhone().getTags().stream()
+                    .sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> phoneTags.getChildren().add(new Label(tag.tagName)));
         }
 
         order.getTags().stream()
