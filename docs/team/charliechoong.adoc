@@ -9,14 +9,18 @@
 
 == Introduction
 
-*DeliveryMANS* is a food delivery management application used for managing food orders. The user interacts
-with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 25 kLoC.
-
-*DeliveryMANS* has 4 different contexts: universal/order, deliverymen, restaurant, and customer. I
-
+*DeliveryMANS* is a food delivery management system primarily for administrators in food delivery centres to effectively manage their delivery services. This necessitates
+the need to manage 4 different aspects which are food orders, deliverymen, restaurants as well as customers. To accommodate more efficient management of these aspects, *DeliveryMANS* has 4
+different in-built interfaces(also known formally as contexts): *universal*/*order*, *deliverymen*, *restaurant*, and *customer*.
+The user primarily interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoC.
 
 This is what our project looks like:
 
+My role was to design and write the codes for the context for the deliverymen side. This comprises all the features to manage deliverymen status as well as computing crucial
+statistics regarding their status.
+
+The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to
+the user and developer guides in relation to these enhancements.
 
 == Summary of contributions
 
@@ -28,13 +32,12 @@ This is what our project looks like:
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=charliechoong&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&until=2019-11-10&tabOpen=true&tabType=authorship&tabAuthor=charliechoong&tabRepo=AY1920S1-CS2103T-T12-2%2Fmain%5Bmaster%5D[RepoSense]]
-[https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=charliechoong&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&until=2019-11-10&tabOpen=true&tabType=authorship&tabAuthor=charliechoong&tabRepo=AY1920S1-CS2103T-T12-2%2Fmain%5Bmaster%5D[RepoSense]][https://github.com/AY1920S1-CS2103T-T12-2/main/blob/master/src/test/java/seedu/deliverymans/model/DeliverymanTest.java[Test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.4` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
@@ -49,18 +52,19 @@ This is what our project looks like:
 *** Integrated a third party library (Natty) to the project (https://github.com[#42])
 *** Integrated a new Github plugin (CircleCI) to the team repo
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+*_Start of extract_*
+include::../UserGuide.adoc[tag=deliverymenCommand]
 
-include::../UserGuide.adoc[tag=dataencryption]
+*_End of extract_*
+
+
 
 == Contributions to the Developer Guide
 
@@ -68,13 +72,9 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+*_Start of extract_*
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=statsfeature]
 
+*_End of extract_*
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
