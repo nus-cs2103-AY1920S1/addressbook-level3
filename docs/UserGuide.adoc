@@ -571,6 +571,7 @@ image::viewrecords_wyss.png[width=450]
 
 // end::performance[]
 
+// tag::performance[]
 === Calendar
 
 To allow you to retrieve training and performance records using the date they were recorded on, Athletick has a calendar feature which provides 2 main functions:
@@ -688,6 +689,7 @@ In the event your list of attendance and performance records exceeds the size of
 With reference to the diagram below, the **attendance pie chart** indicates the overall team attendance percentage and the number of present and absent team members. The **attendance table** displays your team members and whether they were present or absent. The **performance statistic** indicates the total number of performance records and the **performance table** displays the records for each event.
 
 image::calendar11.png[width=450]
+// end::performance[]
 
 === Athlete Management
 // tag::select[]

@@ -4,8 +4,8 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images
-:stylesDir: stylesheets
+:imagesDir: ../images
+:stylesDir: ../stylesheets
 :xrefstyle: full
 :experimental:
 ifdef::env-github[]
@@ -83,8 +83,8 @@ This section shows a summary of my coding, documentation, and other helpful cont
 ** Refactored "AddressBook" class names to match "Athletick". (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/201[#201])
 ** Updated Travis, AppVeyor and Coveralls badges to match own repository. (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/21[#21])
 * Documentation
-** Added documentation for the `calendar`, `sort` and `view` commands in the User Guide. (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/214[#14])
-** Added documentation for the `calendar`, `sort` and `view` commands in the Developer Guide. (Pull request)
+** Added documentation for the `calendar`, `sort` and `view` commands in the User Guide. (Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/124[#123], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/138[#138], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/214[#214])
+** Added documentation for the `calendar`, `sort` and `view` commands in the Developer Guide. (Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/111[#111], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/220[#220])
 ** Updated the Introduction section and styling of the Developer Guide (Pull Request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/105[#105])
 * Community:
 ** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T12-3/main/pull/63[#63], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/64[#64], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/65[#65], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/91[#91]

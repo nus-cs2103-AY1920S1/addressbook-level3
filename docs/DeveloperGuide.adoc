@@ -528,6 +528,7 @@ details for a particular event)
 
 // end::performance[]
 
+// tag::calendar[]
 === Calendar feature
 
 To allow users to retrieve training and performance records using the date they were recorded on, Athletick has a calendar feature which provides 2 main functions:
@@ -688,7 +689,7 @@ a|* Requires more flags to be added to the command syntax which makes it more co
 **Reasons for choice of alternative 1:**
 
 * Alternative 1 is more user-friendly as it reduces the number of commands users have to remember in order to access the information they want to see. In addition, attendance and performance records are displayed into separate sections in the window so the information will not be cluttered.
-
+// end::calendar[]
 
 === Select feature
 //tag::select[]
