@@ -16,7 +16,7 @@ participant ":ObservableList" as ObservableList USER_COLOR
 participant ":FilteredList" as FilteredList USER_COLOR
 end box
 
-[-> ModelManager : add_claim(claim)
+[-> ModelManager : addClaim(claim)
 activate ModelManager
 
 ModelManager -> FinSec : addClaim(claim)

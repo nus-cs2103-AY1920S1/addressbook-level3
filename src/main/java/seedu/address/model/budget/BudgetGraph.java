@@ -31,7 +31,7 @@ public class BudgetGraph extends JFrame {
     private List<Income> incomeList;
 
     /**
-     *  Basic constructor of a Budget Graph
+     *  Represents the basic constructor of a Budget Graph
      */
 
     public BudgetGraph(List<Claim> claimList, List<Income> incomeList) {

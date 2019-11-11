@@ -19,5 +19,6 @@ class NoClearCommandTest {
     public void execute_command_success() {
         CommandResult commandResult = new NoClearCommand().execute(model);
         assertEquals(SHOWING_NO_CLEAR, commandResult.getFeedbackToUser());
+
     }
 }

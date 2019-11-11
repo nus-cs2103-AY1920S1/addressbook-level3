@@ -9,6 +9,7 @@ import seedu.address.logic.commands.CheckCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteContactCommand;
 import seedu.address.logic.commands.DeleteIncomeCommand;
+import seedu.address.logic.commands.DeleteShortcutCommand;
 import seedu.address.logic.commands.EditContactCommand;
 import seedu.address.logic.commands.EditIncomeCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -84,6 +85,9 @@ public class BriefDescriptions {
 
         case "reverse":
             return SortReverseCommand.MESSAGE_USAGE;
+
+        case "delete_shortcut":
+            return DeleteShortcutCommand.MESSAGE_USAGE;
 
         default: return "Command should be self-explanatory with no additional parameters.\n"
                 + "Use 'type/guide' if you really want to know the exact details "

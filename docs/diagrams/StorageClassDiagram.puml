@@ -6,24 +6,24 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface FinSecStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonFinSecStorage
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager o--> FinSecStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .down.> JsonSerializableContact
-JsonSerializableAddressBookStorage .down.> JsonSerializableClaim
-JsonSerializableAddressBookStorage .down.> JsonSerializableIncome
-JsonSerializableAddressBookStorage .down.> JsonSerializableAutocorrectSuggestion
-JsonSerializableAddressBookStorage .down.> JsonSerializableCommandItem
+JsonFinSecStorage .left.|> FinSecStorage
+JsonFinSecStorage .down.> JsonSerializableFinSecStorage
+JsonSerializableFinSecStorage .down.> JsonSerializableContact
+JsonSerializableFinSecStorage .down.> JsonSerializableClaim
+JsonSerializableFinSecStorage .down.> JsonSerializableIncome
+JsonSerializableFinSecStorage .down.> JsonSerializableAutocorrectSuggestion
+JsonSerializableFinSecStorage .down.> JsonSerializableCommandItem
 JsonSerializableContact .down.> JsonAdaptedTag
 JsonSerializableIncome .down.> JsonAdaptedTag
 JsonSerializableClaim .down.> JsonAdaptedTag

@@ -22,12 +22,9 @@ public class SecondaryCommand {
                     "add_income",
                     "delete_contact",
                     "delete_income",
-                    //"delete_claim",
                     "edit_contact",
-                    "edit_claim",
                     "edit_income",
                     "exit",
-                    "find",
                     "check",
                     "goto",
                     "reject",
@@ -35,7 +32,8 @@ public class SecondaryCommand {
                     "clear",
                     "approve",
                     "sort",
-                    "reverse"));
+                    "reverse",
+                    "delete_shortcut"));
 
     public final String value;
 
@@ -51,6 +49,16 @@ public class SecondaryCommand {
         checkArgument(isValidSecondaryCommand(secondaryCommand), MESSAGE_CONSTRAINTS);
         value = secondaryCommand;
     }
+
+
+    /**
+     * Returns the list of commands.
+     */
+
+    public static ArrayList<String> getCommandList() {
+        return commandList;
+    }
+
 
     /**
      * Returns if a given string is a valid secondary command.
@@ -81,5 +89,7 @@ public class SecondaryCommand {
     public int hashCode() {
         return value.hashCode();
     }
+
+
 
 }

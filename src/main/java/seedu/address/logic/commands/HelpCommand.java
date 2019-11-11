@@ -19,7 +19,7 @@ import seedu.address.model.help.WebLinks;
 
 
 /**
- * Format full help instructions for every command for display.
+ * Formats full help instructions for every command for display.
  */
 public class HelpCommand extends Command {
 
@@ -78,12 +78,12 @@ public class HelpCommand extends Command {
                 resetCommandAndTypeValues();
                 return new CommandResult(briefDescription, false, false, false, false);
             case "api":
-
                 File htmlFile = new File("API.html");
-                if (!htmlFile.exists()) {
-                    InputStream link = (getClass().getResourceAsStream(ApiLinks.getLink(command)));
-                    Files.copy(link, htmlFile.getAbsoluteFile().toPath());
+                if (htmlFile.exists()) {
+                    htmlFile.delete();
                 }
+                InputStream link = (getClass().getResourceAsStream(ApiLinks.getLink(command)));
+                Files.copy(link, htmlFile.getAbsoluteFile().toPath());
                 Desktop.getDesktop().browse(htmlFile.toURI());
                 break;
             default:

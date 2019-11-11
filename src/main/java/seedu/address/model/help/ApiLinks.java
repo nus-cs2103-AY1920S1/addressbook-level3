@@ -34,23 +34,14 @@ public class ApiLinks {
         case "delete_contact":
             return base + "DeleteContactCommand.html";
 
-        //case "delete_claim":
-        //return base + "DeleteClaimCommand.html";
-
         case "delete_income":
             return base + "DeleteIncomeCommand.html";
-
-        case "edit_claim":
-            return base + "EditClaimCommand.html";
 
         case "edit_contact":
             return base + "EditContactCommand.html";
 
         case "edit_income":
             return base + "EditIncomeCommand.html";
-
-        case "find":
-            return base + "FindCommand.html";
 
         case "goto":
             return base + "GotoCommand.html";
@@ -78,6 +69,9 @@ public class ApiLinks {
 
         case "reverse":
             return base + "SortReverseCommand.html";
+
+        case "delete_shortcut":
+            return base + "DeleteShortcutCommand.html";
 
         default: return base + "Command.html";
         }
