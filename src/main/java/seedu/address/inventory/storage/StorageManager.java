@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.storage.exception.ParseFileException;
+import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.inventory.util.InventoryList;
 
 /**
@@ -55,6 +56,10 @@ public class StorageManager implements Storage {
                     Integer.parseInt(stringArr[0]));
         } else {
             throw new ParseFileException("Incorrect number of fields");
+        }
+        if (i.getSubtotal() >= 10000 || i.getTotalCost() >= 10000 || i.getQuantity() < 1
+            || i.getCost() < 0 || i.getPrice() < 0) {
+            throw new NumberFormatException("Number(s) outside of approved range.");
         }
         return i;
     }

@@ -24,7 +24,7 @@ public class EditCommand extends Command {
     private EditItemDescriptor editItemDescriptor;
 
     /**
-     * Creates an EditCommand to add the specified {@code Transaction}
+     * Creates an EditCommand to edit the specified {@code Item}
      */
     public EditCommand(int index, EditItemDescriptor editItemDescriptor) {
         assert(editItemDescriptor != null);
