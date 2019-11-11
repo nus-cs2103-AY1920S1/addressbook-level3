@@ -544,7 +544,6 @@ image::Reimbursement/ReimbursementBackCommand.png[width="600"]
 . Hit `Enter`
 +
 The tab will now show the full reimbursement list.
-
 +
 //.Screenshot of a successful user input for Back Command in Reimbursement Tab
 image::Reimbursement/ReimbursementBackCommandSuccess.png[width="600"]
