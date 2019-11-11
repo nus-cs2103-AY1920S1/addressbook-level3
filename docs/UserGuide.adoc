@@ -571,7 +571,6 @@ image::Reimbursement/ReimbursementDoneCommand.png[width="600"]
 . Hit `Enter`
 +
 The reimbursement for that person will be removed from the tab, as shown below:
-
 +
 //.Screenshot of a successful user input for Done Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDoneCommandSuccess.png[width="600"]
@@ -584,7 +583,6 @@ This command helps you to sort the reimbursement lists based on amount, in desce
 
 * Steps:
 . Type the command [blue]`sort amount`, as shown in the screenshot below:
-
 +
 //.Screenshot of the user input into Command Box for Sort Amount Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortAmountCommand.png[width="600"]
@@ -594,7 +592,6 @@ image::Reimbursement/ReimbursementSortAmountCommand.png[width="600"]
 . Hit `Enter`
 +
 The reimbursements are sorted in descending order of the amount.
-
 +
 //.Screenshot of a successful user input for Sort Amount Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortAmountCommandSuccess.png[width="600"]

@@ -278,18 +278,17 @@ The following section showcases my contribution to the developer guide for featu
 
 {Start of First Extract from Developer Guide}
 
-//[very big]##3.1 Cashier Tab##
-//
-//This tab will act as a shopping cart to add and record sales items that are to be sold from the inventory.
-//
-//Upon every successful checkout, all the sales items sold will recorded as one transaction, which will subsequently be
-//appended to the list of transactions on the `Home tab`. In addition, the stock remaining in the inventory will be updated
-//accordingly in the `Inventory tab`.
-//
-//This is the overall Class Diagram of this tab:
-//
-//image::UMLCashierTab.png[width="550"]
-//[italic small red]*Figure 9. Class Diagram of Cashier Tab (cashier package)*
+==== Details on `Logic` Implementation for the Inventory and Cashier Tab
+This section will show further details of the `Logic` Component of the Inventory tab and Cashier tab.
+Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component:
+
+[caption = "Figure 38. "]
+.Structure of `Parser` for the Inventory and Cashier tabs
+image::ParserForInventoryCashier.png[]
+
+{Start of First Extract from Developer Guide}
+
+{Start of Second Extract from Developer Guide}
 
 :sectnums!:
 === 3.5.1 Add Sales Item Feature
@@ -328,20 +327,17 @@ The following is a code snippet from `getCombination(char[] arr, int n)` method:
 
 .Code snippet of `getCombination(char[] arr, int n)` method from Cashier package
 
+{blank} +
 The `getCombination(arr, arr.length)` method in the above snippet consists of 3 nested loops. The first loop decides the
 starting character. The second loop takes each of the characters on the right of the starting character as the ending character.
 The last loop appends all the characters from the starting character to the ending character. After iterating through the nested loops,
 the ArrayList `result` is passed into a stream to filter out all subsets strings that are of length less than 3.
 
-//
-//[NOTE]
-//If the user added an item such that the total amount exceed $999999.99, the system will prohibit the addition of that item.
-
 If description and quantity are both valid, the `ModelManager` will add the item into the sales list as shown in Figure 2.
 
 The following sequence diagram shows how the `AddCommand` works which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
-[caption = "Figure 38. "]
+[caption = "Figure 39. "]
 .Sequence Diagram of Add Command in Cashier Tab (cashier package)
 image::AddCommandCashierSeq.png[width="270"]
 
@@ -355,14 +351,14 @@ it is initially false.
 
 The following activity diagram shows the steps proceeding after the user input an add command:
 
-[caption = "Figure 39. "]
+[caption = "Figure 40. "]
 .Activity Diagram of Add Command (cashier package)
 image::AddCommandCashierActivity.png[width="600"]
 
-{End of First Extract from Developer Guide}
+{End of Second Extract from Developer Guide}
 
 
-{Start of Second Extract from Developer Guide}
+{Start of Third Extract from Developer Guide}
 
 :sectnums!:
 === 3.5.3 Checkout Feature
@@ -387,7 +383,7 @@ immediately set to false.
 
 The following sequence diagram shows how the checkout command is executed:
 
-[caption = "Figure 43. "]
+[caption = "Figure 44. "]
 .Sequence Diagram of Checkout Command (cashier package)
 image::CheckoutCommandCashierSeq1.png[width="280"]
 
@@ -398,7 +394,7 @@ called to read in the entire inventory data file and transaction will be added t
 
 The following sequence diagram shows how the transaction and inventory are updated:
 
-[caption = "Figure 44. "]
+[caption = "Figure 45. "]
 .Sequence Diagram of how transaction and inventory get updated (cashier package)
 image::CheckoutCommandCashierSeq2.png[width="600"]
 
@@ -410,9 +406,9 @@ image::CheckoutCommandCashierSeq2.png[width="600"]
 //
 //image::CheckoutCommandCashierActivityDiag.png[width="490"]
 
-{End of Second Extract from Developer Guide}
+{End of Third Extract from Developer Guide}
 
-{Start of Third Extract from Developer Guide}
+{Start of Fourth Extract from Developer Guide}
 
 :sectnums!:
 === 3.1.5 Overall Design Considerations
@@ -472,7 +468,7 @@ methods from different sources and eliminates any chances of uncoordinated data 
 
 |===
 
-{End of Third Extract from Developer Guide}
+{End of Fourth Extract from Developer Guide}
 
 
 

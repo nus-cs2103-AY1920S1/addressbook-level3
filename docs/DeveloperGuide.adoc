@@ -194,7 +194,7 @@ image::LogicForAB.png[]
 This section will show further details of the `Logic` Component of the Inventory tab and Cashier tab.
 Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component:
 
-.Structure of `Parser` for the Inventory and Cashier tabs which is a reference for <<fig-LogicClassDiagram>>.
+.Structure of `Parser` for the Inventory and Cashier tabs which is a reference for <<fig-LogicClassDiagram>>
 image::ParserForInventoryCashier.png[]
 
 The `XYZTabParser` represents the `InventoryTabParser` for the Inventory tab and `CashierTabParser`
@@ -895,6 +895,7 @@ The following is a code snippet from `getCombination(char[] arr, int n)` method:
 
 .Code snippet of `getCombination(char[] arr, int n)` method from Cashier package
 
+{blank} +
 The `getCombination(arr, arr.length)` method in the above snippet consists of 3 nested loops. The first loop decides the
 starting character. The second loop takes each of the characters on the right of the starting character as the ending character.
 The last loop appends all the characters from the starting character to the ending character. After iterating through the nested loops,

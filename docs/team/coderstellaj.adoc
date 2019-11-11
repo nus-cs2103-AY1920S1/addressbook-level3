@@ -39,11 +39,8 @@ image::Reimbursement/AnnotatedUi.png[width="500"]
 [NOTE]
 This symbol indicates extra information or definition.
 
-`Model` :
-The symbol indicates a component, class or object in the architecture of the application.
-
-[blue]`command` :
-The symbol indicates a command that can be inputted by the user.
+[WARNING]
+This symbol indicates important information.
 
 == Summary of contributions
 
@@ -176,7 +173,7 @@ and adds the rounded date as the deadline.
 But our app only checks up to `31` in day.
 
 [NOTE]
-To modify the deadline for a reimbursement, you can use `deadline` command again to reassign a new deadline to a reimbursement.
+To modify the deadline for a reimbursement, you can use [blue]`deadline` command again to reassign a new deadline to a reimbursement.
 
 === Marking a reimbursement as done
 
