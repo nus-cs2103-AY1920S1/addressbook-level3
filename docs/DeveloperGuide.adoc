@@ -1385,41 +1385,27 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-//start AB3 test cases
+//==== Launch and Shutdown
+//
+//. Initial launch
+//
+//.. Download the jar file and copy into an empty folder
+//.. Double-click the jar file +
+//   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+//
+//. Saving window preferences
+//
+//.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+//.. Re-launch the app by double-clicking the jar file. +
+//   Expected: The most recent window size and location is retained.
 
-=== Testing of AddressBook 3 features
+=== Testing of general features
 
-The following are some tests for the original AddressBook 3.
+==== Changing tabs
 
-==== Launch and Shutdown
+// TODO
 
-. Initial launch
-
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-==== Deleting a bookmark
-
-. Deleting a bookmark while all bookmarks are listed
-
-.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
-.. Test case: `delete 1` +
-   Expected: First bookmark is deleted from the list. Details of the deleted bookmark shown in the status message.
-.. Test case: `delete 0` +
-   Expected: No bookmark is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect `delete` commands to try: `delete`, `delete x` (where x is larger than the list size)  +
-   Expected: Similar to previous.
-
-//end AB3 test cases
-
-=== Opening a bookmark
+==== Opening a bookmark
 
 . Opening a bookmark while all bookmarks are listed
 
@@ -1433,7 +1419,7 @@ Details of the opened bookmark shown in the status message.
 .. Other incorrect `goto` commands to try: `goto`, `goto x` (where x is larger than the list size)  +
    Expected: Similar to previous.
 
-=== Adding a bookmark to favorites
+==== Adding a bookmark to favorites
 
 . Adding a Favorite tag to a bookmark while all bookmarks are listed
 
@@ -1448,7 +1434,7 @@ Details of the bookmark shown in the status message.
 .. Other incorrect `favorite` commands to try: `favorite`, `favorite x` (where x is larger than the list size)  +
    Expected: Similar to previous.
 
-=== Undoing previous commands
+==== Undoing previous commands
 
 . Undoing the most recent undoable command
 
@@ -1468,7 +1454,7 @@ Details of the two reverted `delete` actions shown in the status message.
 .. Other incorrect `undo` commands to try: `undo`, `undo x` (where x is larger than the maximum number of undoable actions)  +
    Expected: Similar to previous.
 
-=== Redoing previous undo commands
+==== Redoing previous undo commands
 
 . Redoing the most recent undo command
 
@@ -1489,6 +1475,14 @@ Details of the two restored `delete` actions shown in the status message.
    Expected: No action is redone. Error details shown in the status message.
 .. Other incorrect `redo` commands to try: `redo`, `redo x` (where x is larger than the maximum number of actions to redo)  +
    Expected: Similar to previous.
+
+==== Exporting data
+
+// TODO
+
+==== Importing data
+
+// TODO
 
 === Testing of folders
 
@@ -1561,77 +1555,12 @@ Expected: An error occurs, saying that there are still bookmarks/folders in `X` 
 
 _{ more test cases ... }_
 
+=== Testing of cache
 
+// TODO
+// including `offline`
 
-
-//tag::test-reminder[]
-==== Adding a reminder
-
-. Adding a reminder while all bookmarks are listed
-.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
-.. Test case: `reminder 1 t/12/12/2030 1200` +
-    Expected: The reminder of the first bookmark is added into reminder list.
-.. Test case: `reminder 0 t/12/12/2030 1200` +
-Expected: No reminder is added into the reminder list. Error details shown in the status message. Status bar remains the same.
-.. Test case: `reminder 1 t/30/02/2030 1200` +
-Expected: No reminder is added into the reminder list. Error details shown in the status message. Status bar remains the same.
-
-_{ more test cases ... }_
-
-==== Editing a reminder
-
-. Editing a reminder
-.. Prerequisites: The reminder list has 5 reminder.
-
-.. Test case: `reminder-edit 1 n/Read` +
-Expected: The note of the first reminder changes to "Read".
-.. Test case: `reminder-edit 0 n/Read` +
-Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
-.. Test case: `reminder-edit 6 n/Read` +
-Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
-
-_{ more test cases ... }_
-
-==== Deleting a reminder
-
-. Deleting a reminder
-
-.. Prerequisites: The reminder list has 5 reminder.
-
-.. Test case: `reminder-delete 1` +
-Expected: The first reminder in the list is deleted.
-.. Test case: `reminder-delete 0 ` +
-Expected: No reminder is deleted in the reminder list. Error details shown in the status message. Status bar remains the same.
-.. Test case: `reminder-delete 6` +
-Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
-
-_{ more test cases ... }_
-
-==== Goto a reminder
-
-. Opening a bookmark using a reminder
-
-.. Prerequisites: The reminder list has 5 reminder.
-
-.. Test case: `reminder-goto 1` +
-Expected: The first reminder in the list is opened.
-.. Test case: `reminder-goto 0 ` +
-Expected: No website will show. Error details shown in the status message. Status bar remains the same.
-.. Test case: `reminder-goto 6` +
-Expected: No website will show. Error details shown in the status message. Status bar remains the same.
-
-_{ more test cases ... }_
-//end::test-reminder[]
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
-
-=== Making annotations
+=== Testing of annotations
 
 . Adding an annotation to a paragraph of web page
 
@@ -1696,4 +1625,67 @@ Expected: No annotation is edited. Error details are shown in the status message
 .. Test case: `annotate-edit 1 p/p1 n/modify note h/green` +
 Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 is now highlighted green and the content of its note is now "modify note".
 
+=== Testing of autotags
 
+// TODO
+
+=== Testing of reminders
+
+//tag::test-reminder[]
+==== Adding a reminder
+
+. Adding a reminder while all bookmarks are listed
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `reminder 1 t/12/12/2030 1200` +
+    Expected: The reminder of the first bookmark is added into reminder list.
+.. Test case: `reminder 0 t/12/12/2030 1200` +
+Expected: No reminder is added into the reminder list. Error details shown in the status message. Status bar remains the same.
+.. Test case: `reminder 1 t/30/02/2030 1200` +
+Expected: No reminder is added into the reminder list. Error details shown in the status message. Status bar remains the same.
+
+_{ more test cases ... }_
+
+==== Editing a reminder
+
+. Editing a reminder
+.. Prerequisites: The reminder list has 5 reminder.
+
+.. Test case: `reminder-edit 1 n/Read` +
+Expected: The note of the first reminder changes to "Read".
+.. Test case: `reminder-edit 0 n/Read` +
+Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
+.. Test case: `reminder-edit 6 n/Read` +
+Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
+
+_{ more test cases ... }_
+
+==== Deleting a reminder
+
+. Deleting a reminder
+
+.. Prerequisites: The reminder list has 5 reminder.
+
+.. Test case: `reminder-delete 1` +
+Expected: The first reminder in the list is deleted.
+.. Test case: `reminder-delete 0 ` +
+Expected: No reminder is deleted in the reminder list. Error details shown in the status message. Status bar remains the same.
+.. Test case: `reminder-delete 6` +
+Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
+
+_{ more test cases ... }_
+
+==== Opening the bookmark associated with a reminder
+
+. Opening a bookmark using a reminder
+
+.. Prerequisites: The reminder list has 5 reminder.
+
+.. Test case: `reminder-goto 1` +
+Expected: The first reminder in the list is opened.
+.. Test case: `reminder-goto 0 ` +
+Expected: No website will show. Error details shown in the status message. Status bar remains the same.
+.. Test case: `reminder-goto 6` +
+Expected: No website will show. Error details shown in the status message. Status bar remains the same.
+
+_{ more test cases ... }_
+//end::test-reminder[]
