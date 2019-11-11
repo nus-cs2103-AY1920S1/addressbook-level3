@@ -17,8 +17,8 @@ their schedules with an interactive timetable.
 
 This is what our project looks like:
 
+.User Interface for nJoyAssistant
 image::NjoyMainPage.png[]
-_Figure 1. The graphical user interface for Njoy._
 
 My role was to design and write code for the `student`, `group`, `tag` and `mark` features. The rest of the sections will cover the
 summary of my contributions to the codebase, the user guide and the developer guide.
@@ -147,21 +147,8 @@ to implement.
 
 {nbsp} +
 
-=== Code contributed
-
-Please click these links to see a sample of my code.
-
-==== Student
-[https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/main/java/seedu/address/logic/commands/student/StudentAddCommand.java[Functional code]] [https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/test/java/seedu/address/logic/commands/student/StudentAddCommandTest.java[Test code]] _{Links to samples of my code.}_
-
-==== Tag
-[https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/main/java/seedu/address/logic/commands/tag/TagCommand.java[Functional code]] [https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/test/java/seedu/address/logic/commands/tag/TagCommandTest.java[Test code]] _{Links to samples of my code.}_
-
-==== Mark
-[https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/main/java/seedu/address/logic/commands/mark/AddMarkCommand.java[Functional code]] [https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/test/java/seedu/address/logic/commands/mark/AddMarkCommandTest.java[Test code]] _{Links to samples of my code.}_
-
-==== Group
-[https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/main/java/seedu/address/logic/commands/group/GroupCreateManuallyCommand.java[Functional code]] [https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/test/java/seedu/address/logic/commands/group/GroupCreateManuallyCommandTest.java[Test code]] _{Links to samples of my code.}_
+==== Code contributed
+Please click the following link to see my code contributions dashboard. https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=alages97&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code Report]
 
 === Other contributions
 
@@ -199,17 +186,17 @@ of creation, editing and display for the features that I have created, as they a
 
 *The following is an example of `tag` creation section the User Guide:*
 
-include::../UserGuide.adoc[lines=244..276]
+include::../UserGuide.adoc[lines=247..280]
 
 *The following is an example of the `student` editing section in the User Guide:*
 
-include::../UserGuide.adoc[lines=179..210]
+include::../UserGuide.adoc[lines=183..214]
 
 *The following is an example of the `group` display section in the User Guide:*
 
-include::../UserGuide.adoc[lines=416..434]
+include::../UserGuide.adoc[lines=420..439]
 
-include::../UserGuide.adoc[lines=440..443]
+include::../UserGuide.adoc[lines=445..448]
 
 == Contributions to the Developer Guide
 
@@ -222,15 +209,15 @@ have created. Also, some of the command hyperlinks will obviously not work becau
 
 *The following is the add `student` section of the Developer Guide:*
 
-include::../DeveloperGuide.adoc[lines=695..700]
+include::../DeveloperGuide.adoc[lines=712..717]
 
-include::../DeveloperGuide.adoc[lines=712..728]
+include::../DeveloperGuide.adoc[lines=730..746]
 
 *The following is the add `mark` section of the Developer Guide:*
 
-include::../DeveloperGuide.adoc[lines=886..892]
+include::../DeveloperGuide.adoc[lines=904..910]
 
 
 *The following shows the relationship of `Student`, `Group`, `Mark` and `Tag` via a class diagram in the Developer Guide:*
 
-include::../DeveloperGuide.adoc[lines=1090..1093]
+include::../DeveloperGuide.adoc[lines=1109..1112]
