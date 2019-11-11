@@ -559,6 +559,32 @@ At the end, the strings are appended to get the full CSV file containing the var
 ** Pros: Easier to implement on the fly the decided layout of created CSV file.
 ** Cons: Harder to maintain. Had to code for the various cases in different data.
 
+==== Current Implementation
+===== Break down of the command.
+Below is a more in-depth explanation at each step.
+
+Step 1: User inputs a the export command e.g `Export FILENAME`
+
+The commandBox executes it and the MainWindow runs its executeCommand(commandText) method. Referring to the sequence diagram below, this results in logic.execute(commandText) being called and the ExportParser parses the input from the user, returning a Command object.
+
+Step 2: The logic then calls command.execute(command)
+
+When this happens the `ExportCommand` execute creates a new CommandResult object and return that to Logic, completing the execution of the user input command.
+
+Step 3: The commandResult executes `getCSVString()` which accesses JsonFiles in the data folder of Storage to parse the data into CSV strings and returns the data.
+
+Step 4: The commandResult creates CSV file in data folder and returns in the end of execution.
+
+Shown below is a quick summary of step 1-4 (Full complete diagram):
+
+image::ExportSequenceDiagram.png[]
+
+==== Notes to developer
+Developers working on adding features to this module should take note of these limitations that we have put in place for `v1.4` of SML:
+
+- File names are limited to the maximum character limit of Mac and Window users of 255 characters.
+- Simplified handling of file name which only allows file names to be alphanumeric.
+
 // end::export[]
 
 
@@ -1055,7 +1081,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect edit commands to try: `edit-c 1 c/abc`, c/ is the prefix for contact number but alphabets are entered instead +
    Expected: Error message shown due to erroneous input.
 
-// tag:: savingData[]
+// tag::savingData[]
 
 === Saving data
 
@@ -1069,7 +1095,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-// end:: savingData[]
+// end::savingData[]
 
 
 
