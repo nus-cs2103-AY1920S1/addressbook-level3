@@ -13,7 +13,7 @@ Duke Academy is an all-in-one programming practice app targeted for students tak
 
 == Summary of contributions
 
-* *Major enhancement*: Implemented the Personal Dashboard, which resides under the Home Tab, as well as two relevant user commands that interacts with it, namely `bookmark` `deletebookmark`.
+* *Major enhancement*: Implemented the Dashboard, as well as two relevant user commands that interacts with it, namely `bookmark` `deletebookmark`.
 ** What it does: The Personal Dashboard allows the user to keep track of his learning journey in Duke Academy, through three GUI components.
 +
 1) Gamified progress indicator, with both percentage of questions completed and a corresponding skill tier
@@ -35,13 +35,13 @@ The `bookmark` command allows the user to add a question to the list of bookmark
 ** Project management:
 *** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub, in terms of creation, assignment and tracking of GitHub issues, and also deadline scheduling of the version release.
 ** Enhancements to existing features:
-*** Modified AB3's `help` command to provide user with a quick overview of all commands used in Duke Academy (Pull request https://github.com/AY1920S1-CS2103T-F14-1/main/pull/175[#175])
+*** Modified AB3's `help` command to provide user with a quick overview of all commands used in Duke Academy (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/175[#175])
 ** Documentation:
 *** Updated README Page to be aligned with the app's full release (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/95[#95], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/125[#125])
 *** Wrote About Us Page (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/19[#19], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/96[#96], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/116[#116])
 *** Wrote Contact Us Page (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/15[#15], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/20[#20], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/98[#98])
-*** Contributed to the User Guide for Home Tab, `bookmark`, `deletebookmark`, `help` (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/174[#174])
-*** Contributed to the Developer Guide for Home Tab, `bookmark`, `deletebookmark`, `help` (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/79[#79])
+*** Contributed to the User Guide for `dashboard`, `bookmark`, `deletebookmark`, `help` (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/174[#174])
+*** Contributed to the Developer Guide for Ui component, `dashboard`, `bookmark`, `deletebookmark`, `help` (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/79[#79])
 ** Tools:
 *** Provided assistance with GUI development through expertise with Gluon Scene Builder
 
@@ -52,14 +52,13 @@ The `bookmark` command allows the user to add a question to the list of bookmark
 |===
 
 include::../UserGuide.adoc[tag=dashboard]
-
+include::../UserGuide.adoc[tag=dashboard1]
 include::../UserGuide.adoc[tag=bookmark]
 
 include::../UserGuide.adoc[tag=deletebookmark]
 
-include::../UserGuide.adoc[tag=dashboard]
-
 include::../UserGuide.adoc[tag=help]
+include::../UserGuide.adoc[tag=help1]
 
 == Contributions to the Developer Guide
 

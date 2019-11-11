@@ -108,6 +108,7 @@ image::questionindex.png[width="1000"]
 The application is divided into 5 separate tabs, each one of them serving a specific purpose. You can toggle between the
 different tabs by entering `tab` into the *CommandBox*.
 
+//tag::dashboard1[]
 === Dashboard Tab
 The *Dashboard* allows you to keep track of your learning journey and progress made in Duke Academy.
 
@@ -125,6 +126,7 @@ Duke 90 - 100 %
 +
 . Keep track of the questions that you are currently attempting.
 . Keep track of the questions that you bookmarked.
+//end::dashboard1[]
 
 === Questions Tab
 The *Questions* tab contains a list of all the available questions and also a window to view your problem statements.
@@ -197,8 +199,14 @@ The id of the note is the number that appears next to the title in the *NotesLis
 
 To save any changes to your notes, enter `savenote` into the *CommandBox*.
 
+//tag::help1[]
 === Help Tab
 The help tab is where you can get a quick overview of commands used in Duke Academy, and the URL to the official User Guide.
+
++
+image::help.png[width="1000"]
++
+//tag::help1[]
 
 [[BeforeStart]]
 == Before you start
