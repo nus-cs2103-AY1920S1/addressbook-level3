@@ -79,6 +79,7 @@ public class EditTaskCommand extends Command {
 
         Task taskToEdit = lastShownList.get(index.getZeroBased());
 
+        // deadline should be assigned in {@code SetDeadlineCommand}
         if (!taskToEdit.hasDeadline() && editTaskDescriptor.hasDeadline()) {
             throw new CommandException(MESSAGE_NOT_EDITED_DEADLINE);
         }
