@@ -110,7 +110,12 @@ public class ExpenseTimelineChart extends ExpenseChart {
                 .collect(summarizingLong(expense -> expense.getCreated().dateTime.toLocalDate().toEpochDay()));
 
         double tickUnit = getDateIntervalTickUnit(interval, statistics.getMax() - statistics.getMin());
-        updateXAxisRange(statistics.getMin(), statistics.getMax(), tickUnit, interval);
+        if (!expenses.isEmpty()) {
+            updateXAxisRange(statistics.getMin(), statistics.getMax(), tickUnit, interval);
+        } else {
+            long present = LocalDate.now().toEpochDay();
+            updateXAxisRange(present, present, tickUnit, interval);
+        }
 
         Map<String, ? extends List<? extends Expense>> expenseListMap = grouping.getGroupingFunction().group(expenses);
         seriesManager.updateSeriesSet(expenseListMap.keySet());

@@ -167,7 +167,7 @@ the current Billboard state will automatically commit to the `VersionedBillboard
 The current state will be store into the `stateList`,
 and a state pointer `currentStatePointer` will be maintained.
 
- List of command that will commit to `VersionedBillboard`:
+ List of command that will commit to VersionedBillboard:
 - AddArchiveCommand
 - AddCommand
 - AddTagCommand
@@ -555,7 +555,6 @@ Set of predicates can but do not need to include `AllContainsKeywordsPredicate`,
 
 // end::finding[]
 
-
 // recur:recurring[]
 === Recurring Expenses
 ==== Proposed Implementation
@@ -617,6 +616,7 @@ image::AddRecurrenceCommandActivityDiagram.png[]
 
 // end::recurring[]
 
+// tag::statistics[]
 === Statistics
 Billboard includes a dynamically updating statistics panel containing a chart. It has the following functionality: +
 
@@ -730,6 +730,8 @@ and saved.
 *** The data can be stored in a human readable format, so users can view those statistics without opening the application.
 ** Cons:
 *** Requires extra complexity to serialize the data upon each change to the overall list of expenses.
+
+#end::statistics[]
 
 // tag::history[]
 === History feature

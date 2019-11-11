@@ -61,27 +61,17 @@ https://github.com/waynefong0401/ped/issues/1[1], https://github.com/waynefong04
 == Contributions to the User Guide
 
 Given below are sections I contributed to the User Guide of Billboard, including the usage of features that I implemented
-such as undo/redo, history and up/down navigation. They showcase my ability to write good documentation for target users.
+such as undo/redo, history and up/down navigation, but due to the page limitation, I am only able to show the undo/redo user guide to you.
+It showcase my ability to write good documentation for target users.
 
 include::../UserGuide.adoc[tag=undoredo]
-
-include::../UserGuide.adoc[tag=history]
-
-include::../UserGuide.adoc[tag=updownkey]
 
 == Contributions to the Developer Guide
 
 Given below are sections I contributed to the Developer Guide of Billboard, including the technical information of features that I implemented
-such as undo/redo, history and up/down navigation. They showcase my ability to write good technical documentation for potential developers,
+such as undo/redo, history and up/down navigation, but due to the page limitation,
+I am only able to show the undo/redo developer guide to you.
+It showcase my ability to write good technical documentation for potential developers,
 and the technical depth of my contributions to the project.
 
 include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=history]
-
-include::../DeveloperGuide.adoc[tag=updownkey]
-
-
-== Summary of contributions
-
-
