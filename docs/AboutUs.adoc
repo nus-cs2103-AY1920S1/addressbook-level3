@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Chen Su
 image::chensu2436.png[width="150", align="central"]
-{empty}[https://github.com/chensu2436[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/chensu2436[github]] [<<chensu2436#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Documentation
@@ -32,7 +32,7 @@ Responsibilities: UI
 
 === Luk Chi Heng
 image::aaronluk.png[width="150", align="left"]
-{empty}[http://github.com/AaronLuk[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/AaronLuk[github]] [<<aaronluk#, portfolio>>]
 
 
 Role: Developer +
@@ -51,7 +51,7 @@ Responsibilities: Dev Ops + Threading
 
 === Tan Wei Adam
 image::mistyrainforest.png[width="150", align="left"]
-{empty}[http://github.com/MistyRainforest[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/MistyRainforest[github]] [<<mistyrainforest#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
