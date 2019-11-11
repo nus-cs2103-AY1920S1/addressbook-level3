@@ -31,7 +31,7 @@
                        <Insets bottom="5.0" top="5.0" />
                    </GridPane.margin>
                </Button>
-               <Button alignment="CENTER" contentDisplay="CENTER" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" text="Help" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <Button alignment="CENTER" contentDisplay="CENTER" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#handleHelp" text="Help" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                    <font>
                        <Font name="Consolas" size="16.0" />
                    </font>
