@@ -687,6 +687,9 @@ Examples:
 Lists all possible commands or shows the command usage of a command word. +
 Format: `help [COMMAND_WORD]`
 
+.All possible (full) command words will be listed using `help` command
+image::help.png[width="70%", scaledwidth=18cm]
+
 * `help`
 Shows all possible commands.
 * `help addprob`
