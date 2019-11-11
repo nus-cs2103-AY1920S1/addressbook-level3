@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.model.DateTime;
 
+// @@author bruceskellator
+
 /**
  * Represents a TaskSource in Horo.
  * It is immutable.

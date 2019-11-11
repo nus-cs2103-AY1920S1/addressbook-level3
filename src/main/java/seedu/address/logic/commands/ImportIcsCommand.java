@@ -17,6 +17,7 @@ import seedu.address.model.exceptions.DuplicateElementException;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UserOutput;
 
+//@@author marcusteh1238
 /**
  * Represents a Command which imports Events stored in an Ics file into Horo.
  */
@@ -24,15 +25,18 @@ public class ImportIcsCommand extends Command {
     private final ModelManager model;
     private final String filepath;
 
+    //@@author marcusteh1238
     public ImportIcsCommand(ImportIcsCommandBuilder builder) {
         this.model = builder.getModel();
         this.filepath = builder.getFilepath();
     }
 
+    //@@author marcusteh1238
     public static CommandBuilder newBuilder(ModelManager model) {
         return new ImportIcsCommandBuilder(model).init();
     }
 
+    //@@author marcusteh1238
     @Override
     public UserOutput execute() throws CommandException {
         EventSource[] newEvents;

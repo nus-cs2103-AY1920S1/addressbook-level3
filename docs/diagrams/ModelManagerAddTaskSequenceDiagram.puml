@@ -1,0 +1,46 @@
+@startuml
+
+' Style
+skinparam boxPadding 10
+skinparam shadowing false
+
+box Logic
+    participant AddTaskCommand
+end box
+
+box Model
+    participant ModelManager
+end box
+
+participant ModelDataListener1
+participant ModelDataListener2
+participant ModelDataListener3
+
+[-> AddTaskCommand : execute()
+activate AddTaskCommand
+
+AddTaskCommand -> ModelManager : setModelData()
+activate ModelManager
+
+ModelManager -> ModelDataListener1 : onModelDataChange()
+activate ModelDataListener1
+ModelManager <-- ModelDataListener1
+deactivate ModelDataListener1
+
+ModelManager -> ModelDataListener2 : onModelDataChange()
+activate ModelDataListener2
+ModelManager <-- ModelDataListener2
+deactivate ModelDataListener2
+
+ModelManager -> ModelDataListener3 : onModelDataChange()
+activate ModelDataListener3
+ModelManager <-- ModelDataListener3
+deactivate ModelDataListener3
+
+AddTaskCommand <-- ModelManager
+deactivate ModelManager
+
+[<-- AddTaskCommand
+deactivate AddTaskCommand
+destroy AddTaskCommand
+@enduml

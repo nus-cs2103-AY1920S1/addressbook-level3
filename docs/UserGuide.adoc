@@ -127,11 +127,7 @@ Examples: +
 .Delete Event Command
 image::DeleteEventCommandScreenShot.png[]
 
-.Index found on the top right of the event.
-image::EventCardScreenShot.png[]
-
 You may use the `delete_event` command to delete one or more events from the calendar. +
-Note that deletion is based of a zero-indexing that is found on the event's top right corner. +
 
 Command Format: +
 `*delete_event* INDEX...`
@@ -141,6 +137,7 @@ Command Parameters: +
 
 Remarks: +
 Events which match both `INDEX` and `TAG` will be deleted.
+`INDEX` can be found on the event's top right corner.
 
 Examples: +
 `*delete_event* 1` +
@@ -541,6 +538,8 @@ The below commands will only affect state-changing, and not UI-related commands.
 * *add_task*
 * *delete_task*
 * *edit_task*
+* *import*
+* *export*
 
 
 ==== Undo
@@ -554,32 +553,155 @@ Commands can be undone up to the program's launch.
 Command Format: +
 `*undo*`
 
+{empty} +
+
+Example:
+Suppose that you have deleted the wrong task from Horo. Rather than having to type the `add_task` command
+along with the description of the deleted task (to add back the wrongly deleted task), you can simply type in `undo`,
+which will revert Horo to the state before the deletion of the wrong task was executed.
+
+This means Horo is now restored to its desired state, as if you did not commit the deletion mistake at all!
+You can now proceed to delete the right task.
+
+Illustration:
+Suppose that we wanted to delete task 2 in the list, but deleted task 3 instead.
+(Horo also has a list view on top of the calendar view; I will illustrate the feature with with the list view)
+
+To undo:
+
+1. Type undo in the command box, and press the Enter key to execute it. +
+
+.`undo` command in the Command Box
+image::undoScenario1.png[]
+
+{empty} +
+2. The result box will display the message: “Previous command has been undone!” +
+
+.Feedback for the `undo` command
+image::undoScenario2.png[]
+
+{empty} +
+3. You can see that the wrongly deleted task (task 3) is visible in the list once again. +
+
+.Result of the `undo` command
+image::undoScenario3.png[]
+
+[NOTE]
+*The `undo` command undoes previous commands in reverse chronological order.* +
+{empty} +
+Suppose that you have executed the following commands in this order: +
+{empty} +
+1.	Adding a task +
+2.	Editing a task +
+{empty} +
+Now, if you execute the `undo` command, you will first revert Horo to the state before a task was edited.
+Then, if you execute `undo` again, you will revert Horo to the state before a task was added. +
+{empty} +
+*The `undo` command only works on state-changing commands.* +
+{empty} +
+State-changing commands are those that manipulate task and event data stored in Horo. Examples include `add_task`, `delete_task` and `edit_task`.
+`Undo` commands only work on these types of commands because there is an actual change in the state of Horo that can be undone. +
+{empty} +
+On the other hand, non-state-changing commands include `find` and `help`. These commands are only concerned with producing
+user output for the user in the GUI, but do not modify any of the data stored in Horo. As such, these types of commands
+are ignored by the `undo` operation since there is nothing to `undo`. +
+{empty} +
+As such, if we first add a task to Horo, then we call the `help` command, calling `undo` will ignore the `help` command and proceed
+to revert Horo to before a task was added. +
+{empty} +
+*The `undo` command only executes if there are previous states to revert back to.* +
+{empty} +
+If no command has been previously executed, or if Horo has already been reverted to the earliest possible state by multiple `undos`,
+then calling `undo` further will amount to no effect.
+
+{empty} +
+
 ==== Redo
 
 .Redo Command
 image::RedoCommandScreenShot.png[]
 
 The `redo` command redoes a previously undone command.
-The `redo` command is able to redo any undone commands that have not been succeeded by a separate state-changing command (e.g. add_event, delete_event, edit).
+The `redo` command is able to redo any undone commands that have not been succeeded by a separate state-changing command
+(e.g. add_event, delete_event, edit).
 
-For example, suppose you added an event `"Attend Horo's Birthday"` and ran the `undo` command, thus removing the event from Horo.
-Now, if you run `redo`, the previous state of Horo before the latest `undo` command was executed will be restored;
-`"Attend Horo's Birthday"` will once again appear in Horo.
-
-However, if you had executed any state-changing command (except for `undo` or `redo`) just after undoing the `add_event` command,
+If you had executed any state-changing command (except for `undo` or `redo`) just after undoing the `add_event` command,
 calling redo will then amount to no effect.
 
 If you've ever used another application with undo-redo functionality, just imagine that Horo's undo-redo functions are as intuitive as theirs.
 
+
 Command Format: +
 `*redo*`
 
+{empty} +
+
+Illustration:
+Suppose that you wrongly deleted task 3 from the list, but actually wanted to delete task 2 instead.
+As a result, you type in the `undo` command, and Horo is restored to the previous state where task 3 still exists.
+
+However, now you decide that you want to remove task 3 from the list after all. Without having to key in the `delete_task` command,
+you can simply type in `redo` and the most recent command that was undone (the deletion of task 3) will be re-executed.
+This results in a list where task 3 is deleted.
+
+To redo:
+
+1. Type redo in the command box, and press the Enter key to execute it. +
+
+.`redo` command in the Command Box
+image::undoScenario4.png[]
+
+{empty} +
+2. The result box will display the message “Previous undone command has been redone!” +
+
+.Feedback for the `redo` command
+image::undoScenario5.png[]
+
+{empty} +
+3. You can see that task 3 has been removed from the list. +
+
+.Result of the `redo` command
+image::undoScenario6.png[]
+
+[NOTE]
+*The `redo` command redoes previously undone commands in reverse chronological order.* +
+{empty} +
+Suppose that you have executed the following commands in this order: +
+{empty} +
+1.	Adding a task +
+2.	Editing a task +
+{empty} +
+As discussed in Undoing a previous command, if we run `undo` twice, we will revert Horo to before a task was edited,
+and then revert Horo to before a task was added. +
+Our sequence of `undo` commands are in this order: +
+{empty} +
+1.	Undo editing of a task +
+2.	Undo adding of a task +
+{empty} +
+Now, if we run the `redo` command, Horo will be restored to the state after the task was added. If we execute redo again,
+Horo will be restored to the state after the task was edited. +
+{empty} +
+*The `redo` command only executes if the most recent state-changing command(s) are undo commands.* +
+{empty} +
+If no `undo` command has been executed since the starting up of Horo, or `undo` commands have been executed
+but other state-changing commands were executed after those `undos`, then executing the `redo` command amounts to no effect. +
+{empty} +
+For example, let’s say I deleted a task from the list, undid that deletion, and then added another task to the list.
+Executing the `redo` command here will not do anything because `add_task` was executed after the `undo`.
+
+{empty} +
+
+// tag::ics[]
 === iCalendar (ICS) Integration
 
 Horo stores data in the ICS format. Files saved in this format have the extension `.ics`.
-This allows for data to be imported to and exported from other calendar applications that also use the `.ics` format.
+This allows for data to be imported from and exported to other calendar applications that also use the `.ics` format.
 
-==== Export current calendar
+This means you can export and import your calendar events and todo items straight from Google Calendar into Horo,
+and vice versa!
+It also means that you can export and import your save data between different machines running Horo.
+
+==== Export Current Data
 
 .Export Command
 image::ExportCommandScreenShot.png[]
@@ -590,6 +712,9 @@ image::ExportFileScreenShot.png[]
 The `export` command exports your current calendar as an ICS file to the specified directory.
 If no directory is specified, the file will be created in the same directory as Horo.
 
+If you want to export the ICS file to a certain directory like your desktop,
+all you have to do is specify it with the `*--directory*` parameter.
+
 Command Format: +
 `*export*` +
 `*export* *--directory* DIRECTORY`
@@ -597,13 +722,16 @@ Command Format: +
 Example: +
 `*export* *--directory* "C:\Users\USER_NAME\Desktop\Horo"`
 
-==== Import other calendar
+{empty} +
 
-.Import Command
-image::ImportCommandScreenShot.png[]
+==== Import other ICS Data
+
 
 .Imported File
 image::ImportFileScreenShot.png[]
+
+.Import Command
+image::ImportCommandScreenShot.png[]
 
 The `import` command imports an ICS file from the specified filepath.
 
@@ -612,6 +740,7 @@ Command Format: +
 
 Example: +
 `*import* "C:\Users\USER_NAME\Desktop\OtherCalendars\Others.ics"`
+// end::ics[]
 
 === Exiting the program
 

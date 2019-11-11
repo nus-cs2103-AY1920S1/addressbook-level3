@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
@@ -30,6 +32,8 @@ public class IcsParser {
     private static final String INVALID_FILE_EXTENSION = "The file specified is not an ICS file!";
     private static final String FILE_IS_CORRUPTED = "The ICS file is corrupted!";
     private static final String TIMESTAMP_IS_INVALID = "The timestamp provided is invalid!";
+
+    private static final Logger logger = LogsCenter.getLogger(IcsParser.class);
 
     private File icsFile;
 
@@ -61,6 +65,7 @@ public class IcsParser {
      * is not a proper Ics file, or if a description for an event in the file is empty.
      */
     public EventSource[] parseEvents() throws IcsException {
+        logger.info("Parsing Events");
         String fileContent = getFileContent();
         return getEventsFromFile(fileContent);
     }
@@ -73,6 +78,7 @@ public class IcsParser {
      * is not a proper Ics file, or if a description for an event in the file is empty.
      */
     public TaskSource[] parseTasks() throws IcsException {
+        logger.info("Parsing Tasks");
         String fileContent = getFileContent();
         return getTasksFromFile(fileContent);
     }
