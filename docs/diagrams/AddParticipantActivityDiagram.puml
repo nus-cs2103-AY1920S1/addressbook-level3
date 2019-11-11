@@ -1,0 +1,29 @@
+@startuml
+start
+:Search term supplied;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([Exact search returns a contact])
+    :Add contact into activity;
+    :Add success message;
+    stop
+else([Exact search returns no contacts])
+    if () then ([Keyword search returns no contacts])
+        :Ignore current keyword;
+        :Add warning message;
+        stop
+    else([Keyword search returns contacts])
+        if () then ([More than one contact found])
+            :Ignore current keyword;
+            :Add warning message;
+            stop
+        else([Exactly one contact found])
+            :Add contact into activity;
+            :Add success message;
+        endif
+    endif
+endif
+stop
+@enduml

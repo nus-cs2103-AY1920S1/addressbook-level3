@@ -51,7 +51,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 SplitWiser data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually - you don't have to worry about forgetting to save!
 
-=== Persistent app state
+=== Persistent app state (v2.0 only)
 
 SplitWiser also saves its application state with your data - meaning you can re-launch the app and continue where you left off!
 
@@ -119,16 +119,17 @@ Examples:
 * `contact n/John Doe p/98765432` +
 Creates a new contact with name John Doe and mobile number 98765432.
 
+// tag::create_activity[]
 === Create new activity: `activity`
 
 Creates a new activity with a title, contacts (optional) and no expenses.
 ****
-* Additional contacts to add to the activity can be specified by using `p/` prefix.
+* Additional contacts can be added to the activity by using `p/` prefix.
 ** Initially, the application will search for contact with exact matching name.
 ** If no exact match is found, keyword matching is used instead. Refer to <<Finding contacts or activities: `find`>> for more details.
 ** For a contact to be successfully added, given keywords must have exact 1 matching contact. Otherwise, the activity will be created without adding the contact suggested by the keywords, and warning message will be shown.
 * Changes the current view to this activity (as if `view a/ACTIVITY_ID` was called).
-* Each activity will be assigned an activity ID automatically. +
+* Each activity will be automatically assigned an activity ID. +
 ****
 
 Format: `activity t/ACTIVITY_TITLE [p/PERSON ...]`
@@ -140,6 +141,7 @@ Creates a new activity with title 'Chalet' John Doe as participants.
 
 * `activity t/Breakfast p/David Li p/Bernice Yu` +
 Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu' doesn't exist, only the contact 'David Li' will be added in as a participant, and a warning message will be shown, stating that contact named 'Bernice Yu' could not be found.
+// end::create_activity[]
 
 // tag::invite[]
 === Inviting contacts to an activity: `invite`
@@ -151,7 +153,7 @@ Example: +
 Suppose you have already created an activity with Alice, Bob and Carl in it. +
 `activity t/Holiday Trip p/Alice p/Bob p/Carl`
 
-And you have friends that wants to join an activity midway.
+And you have friends that want to join an activity midway.
 
 To invite:
 
@@ -166,12 +168,12 @@ image::InviteOutput.png[]
 NOTE: *The `invite` command only invites to current viewed activity.* +
 if there is no current viewed activity, there will be an error. +
  +
-*The `invite` command only invites contact that exist in the contact list.* +
+*The `invite` command only invites contact that exists in the contact list.* +
 If the specified contact does not exist in the contact list, then the contact cannot be added and a warning message will be shown. +
  +
 *Multiple contacts can be invited at once.* +
  +
-*Contacts that already exist in activity cannot be invited again.*
+*Contact that already exists in activity cannot be invited again.*
 // end::invite[]
 
 // tag::disinvite[]
@@ -181,7 +183,7 @@ This command disinvites the contacts specified from the current viewed activity.
 Format: `disinvite p/PERSON ...`
 
 Example: +
-Suppose you have an activity with the same participants but with an expense shared by Alice, Bob and John
+Suppose you have an activity with the same participants but with an expense shared by Alice, Bob and Carl
 
 image::DisinviteExample.png[]
 
@@ -200,19 +202,19 @@ image::DisinviteOutput.png[]
 NOTE: *The `disinvite` command only disinvites from current viewed activity.* +
 if there is no current viewed activity, there will be an error. +
  +
-*The `disinvite` command only disinvites contact that exist in the activity.* +
+*The `disinvite` command only disinvites contact that exists in the activity.* +
 If the specified contact does not exist in the activity, then a warning message will be shown. +
  +
 *Multiple contacts can be disinvited at once.* +
  +
-*Contacts that involve in expenses cannot be disinvited.* +
+*Contact that involves in any expense cannot be disinvited.* +
 If a contact is involved in any expense, he cannot be disinvited.
 // end::disinvite[]
 
 // tag::expense[]
 === Add expenses to an activity : `expense`
 
-Creates a new expense with a list of contacts, an amount and an optional description, and adds it to the currently viewed activity. The first contact in the list is taken to be the person who paid for the expense, and the remaining people will be counted as owing the first person money. Any duplicated person will be ignored. +
+This command creates a new expense with a list of contacts, an amount and an optional description, and adds it to the currently viewed activity. The first contact in the list is taken to be the person who paid for the expense, and the remaining people will be counted as owing the first person money. Any duplicated person will be ignored. +
 
 If only one contact is specified in the list, then SplitWiser will assume that all current participants in the activity are involved in this expense and thus owe this person money. +
 
@@ -227,12 +229,17 @@ Format: `expense p/PERSON e/AMOUNT_PAID [p/PERSON ...] [d/DESCRIPTION]`
 
 Examples:
 
-* `expense p/John Doe e/100` +
-Adds a single expense of $100 by John Doe to the currently viewed activity. If John Doe is not in the current activity, an error will occur and no expense will be created. Otherwise, all existing participants of the activity will now owe John a portion of the $100. +
-If no activity is currently viewed, an error will occur as there is no description provided to use for automatic activity creation to contain this expense.
-* `expense p/Mary e/100 p/Joseph p/Silva d/Drinks` +
-Adds an expense of $100 to the currently viewed activity by Mary where Joseph and Silva are involved i.e. Joseph and Silva owe Mary a portion of the $100. This expense will be named `Drinks`. If any one of the participants are not in the present activity, then an error will occur and no expense will be created. +
-Alternatively, if no activity is currently viewed, an activity titled `Drinks` will be created to contain this expense. Mary, Joseph and Silva will then be added to the activity.
+* `expense p/David Lim e/100` +
+Adds a single expense of $100 by David Lim to the currently viewed activity. If David is not in the current activity, an error will occur and no expense will be created. Otherwise, all existing participants of the activity will now owe David a portion of the $100 (left image). +
+If no activity is currently viewed, an error will occur as there is no description provided to use for automatic activity creation to contain this expense (right image):
+
+image::Expense1.png[]
+
+* `expense p/David e/100 p/Bernice p/Irfan d/Drinks` +
+Adds an expense of $100 to the currently viewed activity by David where Bernice and Irfan are involved i.e. Bernice and Irfan owe David a portion of the $100. This expense will be named `Drinks` (left image). If any one of the participants are not in the present activity, then an error will occur and no expense will be created. +
+Alternatively, if no activity is currently viewed, an activity titled `Drinks` will be created to contain this expense. David, Bernice and Irfan will then be added to the activity (right image):
+
+image::Expense2.png[]
 
 NOTE: It is in fact possible to add an expense where no one else is involved in by specifying that the people involved only include the person who is paying, +
 e.g. `expense p/John Doe e/15 p/John Doe d/Cab` +
@@ -294,7 +301,7 @@ image:settle-result-2.png[width="300"]
 // tag::edit[]
 === Edit an existing contact or activity : `edit`
 
-Edits some details of the current contact or activity in view. Note that contact names must be unique, so if a specified name already exists in the address book, the edit will not be processed. +
+This command edits some details of the current contact or activity in view. Note that contact names must be unique, so if a specified name already exists in the address book, the edit will not be processed. +
 
 Format: `edit [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tag/TAG ...]` for contacts OR `edit [t/ACTIVITY_TITLE]` for activities.
 
@@ -309,10 +316,17 @@ Examples:
 
 * `edit p/999` +
 Edits the phone number of the current contact in view to `999`. No changes are made if a contact is not being viewed.
-* `edit t/BBQ` +
-Edits the title of the current activity in view to `BBQ`. No changes are made if an activity is not being viewed.
+
+image::Edit1.png[]
+
+* `edit t/Lunch` +
+Edits the title of the current activity in view to `Lunch`. No changes are made if an activity is not being viewed.
+
+image::Edit2.png[]
 // end::edit[]
 
+
+// tag::find[]
 === Finding contacts or activities: `find`
 
 Finds contacts or activities whose name or title respectively contain *any* of the given keywords.
@@ -334,6 +348,7 @@ Examples:
 * `find John` +
 If currently viewing list of contacts, returns contacts (e.g. `john` and `John Doe`).
 If currently viewing list of activities, returns activities (e.g `lunch with john`).
+// end::find[]
 
 // tag::delete[]
 === Deleting a contact, activity or expense: `delete`
@@ -342,7 +357,7 @@ Deletes the contact/activity/expense at the specified index from the current dis
 
 Format: `delete INDEX`
 
-If current display is listing contacts e.g. `list c/`, the contact at that specified `INDEX` will be deleted if he/she is not involved in any activities.
+If current display is listing contacts e.g. `list c/`, the contact at that specified `INDEX` will be deleted if he/she is not involved in any activity.
 
 If current display is listing activities e.g. `list a/`, the activity at that specified `INDEX` will be deleted.
 

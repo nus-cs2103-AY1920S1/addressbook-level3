@@ -27,7 +27,7 @@ I was responsible for writing the expense adding feature. This makes my role par
 * *Minor enhancement*: Added a backend `Context` class that allows for various application contexts and contextual behaviour for various commands
 ** *What it does:* The `Context` class keeps track of the current application context that the user is in. This `Context` object gets updated upon the execution of each command where necessary.
 
-* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=liakify&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Link to tP dashboard]
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=liakify&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=liakify&tabRepo=AY1920S1-CS2103T-W11-2%2Fmain%5Bmaster%5D[Link to tP dashboard]
 * *Other contributions*:
 
 ** Documentation:
@@ -62,3 +62,6 @@ include::../DeveloperGuide.adoc[tag=expense]
 
 ---
 include::../DeveloperGuide.adoc[tag=createexpense]
+
+---
+include::../DeveloperGuide.adoc[tag=numericalerror]

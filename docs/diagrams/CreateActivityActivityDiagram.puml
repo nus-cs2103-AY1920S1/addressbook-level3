@@ -1,0 +1,15 @@
+@startuml
+start
+:User executes command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+:Create activity;
+if () then ([Participants specified])
+    :Add all valid participants into activity<img:rake.png>;
+else([No participants specified])
+
+endif
+stop
+@enduml
