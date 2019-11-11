@@ -24,8 +24,6 @@
 - if !(attr? 'no-site-header')
   #site-header
     nav.navbar.navbar-light.bg-light
-      a.navbar-brand href='https://ay1920s1-cs2103t-t10-2.github.io/main/'
-          img src=('https://imgur.com/DLptUuY') alt='Team DukeCooks'
       .container
         - if attr? 'site-name'
             a.navbar-brand href=(site_url 'index.html') =(attr 'site-name')

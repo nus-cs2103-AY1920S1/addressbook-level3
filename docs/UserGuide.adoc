@@ -44,17 +44,16 @@ used throughout the guide.
 |===
 a| <item> | Items in angle brackets are *compulsory* parameters
 a| {blank}[item] | Items in square brackets are *optional* parameters
-ifdef::env-github[]
-| :bulb: | Useful tips and tricks
-| :information_source: | Additional information that is good to know
-| :heavy_exclamation_mark: | Important pointers to take note
-endif::[]
-ifndef::env-github[]
-a| icon:icon-tip[role="icon-tip", size="2x"] | Useful tips and tricks
-a| icon:icon-important[role="icon-note", size="2x"] | Additional information that is good to know
-a| icon:icon-warning[role="icon-important", size="2x"] | Important pointers to take note
-endif::[]
 |===
+
+[NOTE]
+Extra information that would be good to know!
+
+[TIP]
+Additional tricks and tips!
+
+[WARNING]
+Be extra careful! +
 
 Came across some unfamiliar terms? Head over to our <<Glossary, Glossary>> section for some common terms used in this
 guide.

@@ -44,7 +44,7 @@ public class EditPageCommand extends EditCommand {
             + "[" + PREFIX_PAGE_TYPE + "PAGE TYPE] "
             + "[" + PREFIX_PAGE_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_IMAGE + "IMAGE] "
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " " + VARIANT_WORD + " 1 "
             + PREFIX_PAGE_TITLE + "Sushi";
 
     public static final String MESSAGE_EDIT_PAGE_SUCCESS = "You have edited the page: %1$s";
