@@ -701,8 +701,9 @@ image::step4.png[width="800", align="left"]
 . You should see that the command is successful and a new student called John in CS2101 has been added!
 +
 image::step5.png[width="800", align="left"]
+// end::customCommands[]
 
-
+// tag::deleteCustomCommands[]
 ==== Delete a custom command: 'deleteCustomCommand'
 To delete a custom command you previously added.
 Format: `deleteCustomCommand CUSTOMCOMMAND`
@@ -722,7 +723,7 @@ image::step2Delete.png[width="800", align="left"]
 [NOTE]
 You can't use `deleteCustomCommand` to delete basic commands like `add`, `delete`, `list` etc. You can only delete custom commands you added.
 
-// end::customCommands[]
+// end::deleteCustomCommands[]
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
