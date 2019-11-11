@@ -3,7 +3,6 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.currency.CustomisedCurrency;
-import seedu.address.model.person.Person;
 import seedu.address.model.trip.Trip;
 
 /**
@@ -11,11 +10,6 @@ import seedu.address.model.trip.Trip;
  */
 public interface ReadOnlyTravelPal {
 
-    /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
-     */
-    ObservableList<Person> getPersonList();
     ObservableList<Trip> getTripList();
     ObservableList<CustomisedCurrency> getCurrencies();
 

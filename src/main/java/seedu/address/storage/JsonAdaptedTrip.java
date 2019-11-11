@@ -43,7 +43,6 @@ class JsonAdaptedTrip {
     private final List<JsonAdaptedBooking> bookingList = new ArrayList<>();
     private final Optional<JsonAdaptedPhoto> photo;
 
-    //Added by Karan Dev Sapra
     private final List<JsonAdaptedInventory> inventoryList = new ArrayList<>();
 
     /**
@@ -147,6 +146,10 @@ class JsonAdaptedTrip {
             inventories.add(inventory.toModelType());
         }
 
+        if (diary == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Diary.class.getSimpleName()));
+        }
         Diary diary = this.diary.toModelType();
 
         if (name == null) {

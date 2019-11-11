@@ -16,8 +16,9 @@ import seedu.address.model.diary.photo.DiaryPhoto;
  * Jackson-friendly version of {@link DiaryPhoto}.
  */
 public class JsonAdaptedDiaryPhoto {
-    private static final String MISSING_FIELD_MESSAGE_FORMAT = "One of the fields provided is invalid!\n"
-            + "Cause: %1$s";
+    private static final String MISSING_FIELD_MESSAGE_FORMAT =
+            "One of the fields of a photo in the storage file is invalid!\n"
+                    + "Cause: %1$s";
 
     private final String imagePath;
     private final String description;
@@ -53,6 +54,21 @@ public class JsonAdaptedDiaryPhoto {
      * @throws IllegalValueException if there were any data constraints violated in the adapted diary.
      */
     public DiaryPhoto toModelType() throws IllegalValueException {
+        if (imagePath == null) {
+            throw new IllegalArgumentException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "missing imagePath field"));
+        }
+
+        if (description == null) {
+            throw new IllegalArgumentException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "missing description field"));
+        }
+
+        if (dateTaken == null) {
+            throw new IllegalArgumentException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "missing date taken field"));
+        }
+
         DiaryPhoto photo;
         try {
             photo = new DiaryPhoto(imagePath, description, dateTaken);

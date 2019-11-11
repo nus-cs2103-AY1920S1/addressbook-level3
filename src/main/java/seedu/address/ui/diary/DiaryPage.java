@@ -209,11 +209,9 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
 
             Button currentButton = new Button(String.valueOf(diaryEntry.getDayNumber()));
             ButtonBar.setButtonData(currentButton, ButtonBar.ButtonData.BIG_GAP);
-            currentButton.setOnMouseClicked(buttonEvent -> {
-                mainWindow.executeGuiCommand(String.format("%1$s %2$d",
-                        FlipDiaryCommand.COMMAND_WORD,
-                        diaryEntry.getDayNumber()));
-            });
+            currentButton.setOnMouseClicked(buttonEvent -> mainWindow.executeGuiCommand(String.format("%1$s %2$d",
+                    FlipDiaryCommand.COMMAND_WORD,
+                    diaryEntry.getDayNumber())));
 
             dayIndexButtonBar.getButtons().add(currentButton);
         }
@@ -230,11 +228,9 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
     private void addCreateDiaryEntryButton(int nextDayToAdd) {
         Button addButton = new Button("+");
         ButtonBar.setButtonData(addButton, ButtonBar.ButtonData.RIGHT);
-        addButton.setOnMouseClicked(buttonEvent -> {
-            mainWindow.executeGuiCommand(String.format("%1$s %2$d",
-                    CreateDiaryEntryCommand.COMMAND_WORD,
-                    nextDayToAdd));
-        });
+        addButton.setOnMouseClicked(buttonEvent -> mainWindow.executeGuiCommand(String.format("%1$s %2$d",
+                CreateDiaryEntryCommand.COMMAND_WORD,
+                nextDayToAdd)));
 
         dayIndexButtonBar.getButtons().add(addButton);
     }

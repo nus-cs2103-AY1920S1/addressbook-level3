@@ -35,8 +35,9 @@ public class DiaryPhoto extends Photo {
      */
     private static final String DESCRIPTION_VALIDATION_REGEX = "[^\\s].{1," + MAXIMUM_DESCRIPTION_LENGTH + "}$";
 
+    private final LocalDateTime dateTaken;
+
     private String description;
-    private LocalDateTime dateTaken;
 
     /**
      * Constructs a {@code Photo} from the given arguments.

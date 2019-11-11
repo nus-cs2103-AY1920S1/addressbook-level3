@@ -30,12 +30,9 @@ public class JsonAdaptedEvent {
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
     private final String destination;
-    //private final Optional<Booking> booking;
     private final Optional<JsonAdaptedExpense> expense;
-    //private final Optional<Inventory> inventory;
     private final Optional<String> description;
 
-    //Added by Karan Dev Sapra
     private final Optional<List<JsonAdaptedInventory>> inventoryList;
 
     /**
@@ -48,7 +45,6 @@ public class JsonAdaptedEvent {
             @JsonProperty("destination") String destination, @JsonProperty("description") Optional<String> description,
                             @JsonProperty("expense") Optional<JsonAdaptedExpense> expense,
                             @JsonProperty("inventoryList") Optional<List<JsonAdaptedInventory>> inventoryList) {
-        //, @JsonProperty("booking")Optional<Booking> booking
         this.name = name;
         this.startTime = from;
         this.endTime = to;
@@ -83,7 +79,6 @@ public class JsonAdaptedEvent {
             this.description = Optional.empty();
         }
 
-        //System.out.println("BEFORE ENTERING THE PRESENCE with inventoryList " + source.getInventoryList());
 
         if (source.getInventoryList().isPresent()) {
 

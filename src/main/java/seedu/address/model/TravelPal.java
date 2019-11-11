@@ -11,8 +11,6 @@ import seedu.address.model.currency.CustomisedCurrency;
 import seedu.address.model.currency.Rate;
 import seedu.address.model.currency.Symbol;
 import seedu.address.model.itinerary.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.trip.Trip;
 import seedu.address.model.trip.TripList;
 import seedu.address.model.trip.exceptions.ClashingTripException;
@@ -24,7 +22,6 @@ import seedu.address.model.trip.exceptions.TripNotFoundException;
  */
 public class TravelPal implements ReadOnlyTravelPal {
 
-    private final UniquePersonList persons;
     private final TripList tripList;
     private final CurrencyList currencies;
 
@@ -37,10 +34,8 @@ public class TravelPal implements ReadOnlyTravelPal {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
         tripList = new TripList();
         currencies = new CurrencyList();
-
     }
 
     public TravelPal() {
@@ -56,15 +51,6 @@ public class TravelPal implements ReadOnlyTravelPal {
     }
 
     //// list overwrite operations
-
-    /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
-    }
-
     public void setTripList(List<Trip> trips) {
         this.tripList.set(trips);
     }
@@ -86,66 +72,17 @@ public class TravelPal implements ReadOnlyTravelPal {
 
     //// person-level operations
 
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
-    }
-
-    /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
-     */
-    public void addPerson(Person p) {
-        persons.add(p);
-    }
-
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
-
-        persons.setPerson(target, editedPerson);
-    }
-
-    /**
-     * Removes {@code key} from this {@code TravelPal}.
-     * {@code key} must exist in the address book.
-     */
-    public void removePerson(Person key) {
-        persons.remove(key);
-    }
-
-
-    //// util methods
-
-    @Override
-    public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
-    }
-
-    @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TravelPal // instanceof handles nulls
-                && persons.equals(((TravelPal) other).persons)
-                && tripList.equals(((TravelPal) other).tripList));
+                && tripList.equals(((TravelPal) other).tripList)
+                && currencies.equals(((TravelPal) other).currencies));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return tripList.hashCode();
     }
 
     public void addTrip(Trip trip) throws ClashingTripException {

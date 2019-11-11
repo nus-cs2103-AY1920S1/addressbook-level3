@@ -15,7 +15,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
@@ -24,7 +23,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.currency.CustomisedCurrency;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.trip.Trip;
 import seedu.address.model.trip.exceptions.ClashingTripException;
 import seedu.address.model.trip.exceptions.DuplicateTripException;
@@ -107,18 +105,12 @@ public class TravelPalTest {
     /**
      * A stub ReadOnlyTravelPal whose trip list can violate interface constraints.
      */
-    @Disabled
     private static class TravelPalStub implements ReadOnlyTravelPal {
         private final ObservableList<Trip> trips = FXCollections.observableArrayList();
         private final ObservableList<CustomisedCurrency> currencies = FXCollections.observableArrayList();
 
         TravelPalStub(Collection<Trip> trips) {
             this.trips.setAll(trips);
-        }
-
-        @Override
-        public ObservableList<Person> getPersonList() {
-            return null;
         }
 
         @Override
