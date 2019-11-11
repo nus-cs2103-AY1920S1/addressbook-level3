@@ -83,6 +83,9 @@ For the components UI, Logic, Model, Timer, Storage and Game:
 The sections below give more details of each component.
 
 // tag::paului[]
+
+<<<
+
 [[Design-Ui]]
 === UI component
 
@@ -108,6 +111,8 @@ The `UI` component,
 
 // tag::yida-AppManager[]
 
+<<<
+
 [[Design-AppManager]]
 === AppManager component
 
@@ -124,6 +129,8 @@ and the `UI`.
 * Starts and Stops the `Timer` when required.
 * Makes call-backs to the `UI` to update various `UI` components.
 * Initiates collection of `Statistics` by pulling data (eg. Time Elapsed) from `Timer` and `Logic`.
+
+<<<
 
 [[Design-Timer]]
 === Timer component
@@ -146,6 +153,8 @@ _Due to the fact that the `Timer` has to work closely with the `UI` and `AppMana
 coupled directly), it is separated from the `Logic`, `Model` and `Game` components._
 
 // end::yida-AppManager[]
+
+<<<
 
 // tag::subbashdg2[]
 [[Design-Logic]]
@@ -188,6 +197,7 @@ Examples of transactions promised by Logic API include command execution, comman
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` and `AppManager`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
+<<<
 
 ==== Interaction through UiLogicHelper Interface
 
@@ -215,6 +225,8 @@ link:https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/se
 
 // tag::chenhui-model[]
 
+<<<
+
 [[Design-Model]]
 === Model component
 
@@ -222,6 +234,8 @@ link:https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/se
 image::ModelClassDiagram.png[]
 
 // end::chenhui-model[]
+
+<<<
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -236,6 +250,8 @@ the UI automatically updates when the data in the list change.
 
 
 // tag::yida-game[]
+
+<<<
 
 [[Design-Game]]
 === Game component
@@ -254,6 +270,8 @@ The `Game` component,
 
 // tag::chenhui-storage[]
 
+<<<
+
 [[Design-Storage]]
 === Storage component
 
@@ -271,6 +289,7 @@ The `Storage` component,
 * handles function calls directly to the computer's system.
 * can save data objects in json format and read it back.
 
+<<<
 
 // tag::jasonstats[]
 [[Design-Statistics]]
@@ -294,6 +313,7 @@ image::StatisticsClassDiagram.png[]
 
 Classes used by multiple components are in the `seedu.Dukemon.commons` package.
 
+<<<
 
 == Implementation
 
@@ -498,6 +518,8 @@ in this one, we do not think the added functionality of allowing the user to ext
 
 // tag::yida-timer[]
 
+<<<
+
 === [underline]#Timer-based Features#
 
 .Screenshot of the `Timer` component in action.
@@ -522,6 +544,8 @@ synchronization issues, all
 _callbacks_ to change `UI` components are forced to run on the *JavaFX Application Thread* using
 `Platform.runLater()`.
 
+<<<
+
 .Class diagram reflecting how the callback-functions are organized in the Timer component.
 image::TimerClassDiagramCallbacks.png[]
 
@@ -534,6 +558,8 @@ and display* accordingly on the `UI`.
 
 The _callbacks_ for each of these events are implemented as nested _Functional Interfaces_
 within the  `GameTimer` interface, which is implemented by the `GameTimerManager`.
+
+<<<
 
 ==== Implementation Overview - Hints
 
@@ -550,6 +576,8 @@ In order to display the `Hints` component to the user in a _Hangman-esque_ style
 
 The `Timer` component *triggers a request to update `Hints`* to the `AppManager`, who then updates and retrieves the updated `FormattedHint` from
 the current `Game` via the `Logic` component.
+
+<<<
 
 ==== Flow of Events - `Hints` Disabled
 
@@ -577,13 +605,15 @@ The `AppManager` provides information regarding the duration in which the `GameT
 
 Using this approach of _callbacks_ provides *better abstraction* between the `UI` and `Timer`.
 
+<<<
+
 ==== Flow of Events - `Hints` Enabled
 
 .Screenshot of the automatic `Hints` feature in action.
 image::HintDGScreenshot.png[width=790]
 
 .Activity diagram of the `run()` method of an instance of `GameTimerManager` when `Hints` are enabled.
-image::TimerActivityDiagramWithHints.png[]
+image::TimerActivityDiagramWithHints.png[width=400]
 
 * In the diagram as *shown above*, the internal `Timer` is started when
 `GameTimerManager` calls the `.schedule()` method of its internal `java.util.Timer`, which schedules `TimerTasks` immediately,
@@ -597,6 +627,7 @@ to be the amount of time allowed per _Card_ (in milliseconds), and is updated ev
 contains a `java.util.Queue` of _timestamps_ (in milliseconds). `GameTimer` polls from the `HintTimingQueue` and checks against
 these polled _timestamps_ to update the `Hints` provided periodically.
 
+<<<
 
 ==== Design Considerations
 
@@ -627,7 +658,12 @@ implemented as different call-backs separately. Possible overhead in performing 
 To ensure better extendability of our code for future expansion, we felt it was important to maintain as much
 abstraction between components. This is also to make life easier when there comes a need to
 debug and resolve problems in the code.
- +
+|===
+
+<<<
+
+|===
+
  ||**Alternative 1**|**Alternative 2**
  |**Aspect 2**: +
  Where and how to perform string formatting for `Hints` to be displayed.
@@ -659,6 +695,8 @@ elements can potentially affect all other components, it was safer to modify mor
 {nbsp} +
 
 // tag::chenhui-feature[]
+
+<<<
 
 === [underline]#_WordBank_ Management Feature#
 This section discusses the implementation of _WordBank_ Management in various levels of detail. +
@@ -727,6 +765,8 @@ A `_Card_` contains a unique `id`, a `word`, a unique `meaning`, a set of `tags`
 
 ---
 
+<<<
+
 ===== Next, the second level - `_WordBank_`.
 
 .Class diagram of `_WordBank_`.
@@ -746,6 +786,8 @@ change.
 
 ---
 
+<<<
+
 ===== Now the third level - `WordBankList`
 
 .Class diagram of `WordBankList`.
@@ -764,6 +806,9 @@ In Dukemon, there is should only be one `WordBankList`, which is created upon `S
 `Model` holds a reference to that specific `WordBankList`.
 
 ---
+
+<<<
+
 ===== Architecture overview - `WordBankList`
 
 // tag::chenhui-overviewOfWbl[]
@@ -774,6 +819,8 @@ image::OverviewOfWordBankList.png[]
 ---
 
 // tag::chenhui-wblStorageModel[]
+
+<<<
 
 ===== _WordBank_'s storage system integration.
 
@@ -834,6 +881,9 @@ To segregate `Cards` according to their function, we distinguished the following
 //For instance, `CreateCommand`: +
 
 ---
+
+<<<
+
 ===== Walkthrough - `ImportCommand`. +
 
 // tag::chenhui-importCommandSequenceDiagram[]
@@ -847,6 +897,8 @@ The emphasis here is to show how these commands utilise _WordBank_'s data struct
 
 We will see the case where an `ImportCommand` is valid. +
 A valid input could be: "import w/bank1, f/~/downloads"
+
+<<<
 
 1. Depending on the input, a specific `Command` type is returned by `ParserManager`. i.e. `ImportCommand`.
 
@@ -883,6 +935,8 @@ then to the `UI` to notify the user.
 
 // end::chenhui-section2[]
 // tag::chenhui-section3[]
+
+<<<
 
 ==== Drag and drop
 Allows user to export their _WordBank_ out of their computer simply by dragging it out of Dukemon. +
@@ -922,6 +976,8 @@ your desktop, or chat applications. +
 
 ---
 
+<<<
+
 // tag::chenhui-dragInWalkThrough[]
 ===== Walkthrough - Drag in.
 // tag::chenhui-dragAndDropSequenceDiagram[]
@@ -955,6 +1011,8 @@ This is possible with careful exceptions handling within the `ImportCommand` its
 // end::chenhui-section3[]
 // tag::chenhui-section4[]
 
+<<<
+
 ==== Revision _WordBank_
 Allows user to visit a centralised _WordBank_ that automatically collects _cards_ for revision. +
 _Cards_ that were answered wrongly are automatically added to this revision bank. +
@@ -972,6 +1030,8 @@ image::RevisionBankActivityDiagram.png[]
 
 Revision _WordBank_ was one of the essential and dominant features we wanted to implement since early development, however
 it had to be implemented last because it required multiple components working together. +
+
+<<<
 
 These components include:
 
@@ -994,6 +1054,8 @@ The activity diagram above is able to detail the thought process and implementat
 {nbsp}
 
 ---
+
+<<<
 
 ==== Design Considerations
 // Why one WBL is referenced both in model and in storage.
@@ -1030,6 +1092,8 @@ Commands that depend on it becomes much easier to implement. (This can be seen i
 
 |===
 
+<<<
+
 |===
 ||**Alternative 1**|**Alternative 2**
 |**Aspect 2**: +
@@ -1057,6 +1121,7 @@ As our app is designed to streamline learning, we figured that easy sharing of _
 aspect in our app, and cannot be compromised.
 |===
 
+<<<
 
 |===
 ||**Alternative 1**|**Alternative 2**
@@ -1090,6 +1155,8 @@ drop feature is now a few function calls away, as all data structure and functio
 
 |===
 
+<<<
+
 |===
 
 ||**Alternative 1**|**Alternative 2**
@@ -1121,6 +1188,8 @@ feedback messages.
 
 
 |===
+
+<<<
 
 // end::chenhui-feature[]
 // tag::jason-feature[]
@@ -1163,6 +1232,8 @@ a|
 
 We will discuss each step with its implementation details primarily on the statistics work.
 
+<<<
+
 ===== 1. [underline]#User opens the app# +
 
 When the user opens the app, their `GlobalStatistics` and `WordBankStatisticsList` are loaded into `Model` by
@@ -1183,6 +1254,8 @@ It is necessary to set the active `WordBankStatistics` in the `Model` such that 
 ===== 3. [underline]#User opens the selected word bank# +
 In open mode, the user is shown the `WordBankStatistics` of the opened word bank, which is set in `Model` at step 2.
 
+<<<
+
 ===== 4. [underline]#User plays the game# +
 A `GameStatisticsBuilder` is used to record user actions during the game.
 
@@ -1192,6 +1265,8 @@ It receives the timestamp from the `GameTimer` which also resides in `AppManager
 
 .Sequence diagram when user makes a guess.
 image::UpdateStatisticsSequenceDiagram.png[]
+
+<<<
 
 ===== [underline]#5. User finishes the game# +
 When the user finishes the game, a `GameStatistics` is created from the `GameStatisticsBuilder`. The `GameStatistics`
@@ -1209,6 +1284,8 @@ the same method `updateGameStatisticsBuilder(CommandResult)`.
 
 .Activity diagram when `AppManager` receives a `CommandResult` (Details unrelated to statistics are omitted).
 image::GameStatisticsBuilderActivityDiagram.png[width=500]
+
+<<<
 
 ==== Design Considerations
 
@@ -1258,6 +1335,8 @@ for the word bank statistics freely.
 //_The user profiles could allow multiple users to use the same app and have different statistics tracked. This feature is a work in progress and will be delayed to v2.0._
 // end::userprofiles[]
 
+<<<
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -1278,6 +1357,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+<<<
 
 [appendix]
 == Product Scope
@@ -1291,6 +1371,8 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 * Users who are famiiar and used to CLI-based apps.
 
 *Value proposition*: Making Learning and Memorization Game-like, Fun and Engaging.
+
+<<<
 
 // tag::chenhui-userstories[]
 
@@ -1356,6 +1438,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
+<<<
 
 [appendix]
 == Use Cases
@@ -1403,6 +1486,7 @@ Use case ends.
 
 Use case resumes from step 3.
 
+<<<
 
 [appendix]
 == Non Functional Requirements
@@ -1412,7 +1496,7 @@ Use case resumes from step 3.
 .  Users can export and import their <<wordbank,wordbanks>> or _Statistics_.
 .  Feedback shown to user must be fast (< 0.2s) especially during a _Game_.
 
-_{More to be added}_
+<<<
 
 [appendix]
 == Glossary
@@ -1442,6 +1526,8 @@ code that is expected to _callback_ (execute) the argument at a given time.
 
 [[gui]] GUI::
 _Graphical User Interface_, the primary interface of which _Dukemon_'s feedback to the user can be seen.
+
+<<<
 
 [appendix]
 == Instructions for Manual Testing.
@@ -1473,6 +1559,8 @@ The below instruction are only intended as starting points for testers to work o
 .. Enter `exit` and relaunch _Dukemon_. Enter `select triva` and then `open` upon restarting  +
    [underline]#Expected#: The new _Card_ ("Damith") added previously is correctly stored in the _Triva_ _WordBank_.
 
+<<<
+
 === Starting and Terminating a _Game_ session without _Hints_.
 
 . Starting a _Game_ after a target _WordBank_ has been selected.
@@ -1496,6 +1584,8 @@ The below instruction are only intended as starting points for testers to work o
 [NOTE]
 Other possible Difficulties to start with are `start medium` and `start hard`, allowing 10s and 5s
 respectively for each _Card_. Other invalid commands will yield similar results after stopping the _Game_.
+
+<<<
 
 === Importing and Exporting a _WordBank_ using Drag-and-Drop.
 
