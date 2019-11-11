@@ -776,8 +776,20 @@ the list of borrowers, we add 1 and set it as the borrower ID of the new borrowe
 Eg: There are 100 borrowers in the system. The new borrower's ID will be "K0101".
 
 However, we decided to implement a new function, which is to allow borrowers to be removed from the library system.
-Therefore, this method does not work anymore. So we decided to change to generate the new ID based on the first-found
-available ID.
+Therefore, this method does not work anymore.
+
+So we proposed the following alternatives.
+
+* **Alternative 1:** Use a TreeMap to store current Borrower ID
+** Pros: Will be efficient in generating the next valid borrower ID.
+** Cons: Will incur additional memory to maintain the TreeMap. Might also result in unexpected behaviour in some edge cases.
+* **Alternative 2 (Current choice):** Iterate from the beginning to obtain the first unused Borrower ID.
+** Pros: Will be easy to implement.
+** Cons: Will be inefficient once the number of borrowers grow.
+
+*We have decided to go with Alternative 2* and keep it simple to get in line with the *KISS* (Keep it Simple, Stupid) principle of programming.
+Also, we are expecting the number of borrowers to be relatively small (less than 10000) since our target users are small
+community library. Therefore the inefficiency will not be significant.
 //end::registerBorrower[]
 
 === Logging
