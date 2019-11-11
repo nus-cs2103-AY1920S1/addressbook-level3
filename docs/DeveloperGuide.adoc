@@ -551,34 +551,6 @@ The key steps are as follows:
 
 ==== Design Considerations
 
-===== Aspect: How user keys in `find-i` keywords
-
-* **Current choice:** Parse user input after flag (eg. `op\` or `desc\`)
-** Pros: Easy to implement.
-** Cons: Have to parse keyword from command and flag, user has to follow style of flag for successful search.
-* **Alternative:** Prompt user for search input
-** Pros: Separates command from keyword for ease of reading and parsing.
-** Cons: Difficult to implement multi-command execution.
-
-===== Aspect: How listing all incidents is called
-
-* **Current choice:** Utilise separate command `list-i`
-** Pros: Intuitive to use.
-** Cons: Similar code under different command, leading to code reuse.
-* **Alternative:** Utilise `find-i` command (eg. `find-i unfiltered`)
-** Pros: Less overlap in code.
-** Cons: Unintuitive to the user as no search is being made, even more keywords to remember.
-
-===== Aspect: Whether the search only returns full word matches
-
-* **Current choice:** Search only returns full word matches
-** Pros: Intuitive to use.
-** Cons: Unable to return similar words eg. search for "desc/fire" does not return description containing "fires"
-* **Alternative:** Search returns all keyword-containing matches
-** Pros: Able to account for similar words to be returned.
-** Cons: Unintuitive to return certain longer words from certain searches eg. "desc/the" returns descriptions containing "weather" +
-    Faster search as code is less inefficient
-
 ===== Aspect: How multiple keywords with the same prefixes are processed
 
 * **Current choice:** Keywords are read as an array into `Predicate<Incident>` to be fed into a stream to search for any match with any of the keywords
@@ -612,6 +584,35 @@ The key steps are as follows:
 * **Alternative:** `FindIncidentsCommand` or `FindIncidentsCommand` directly create Predicate based on search string.
 ** Pros: Less dependencies within the parser class.
 ** Cons: Breaks Model-View-Controller pattern.
+
+===== Aspect: How user keys in `find-i` keywords
+
+* **Current choice:** Parse user input after flag (eg. `op\` or `desc\`)
+** Pros: Easy to implement.
+** Cons: Have to parse keyword from command and flag, user has to follow style of flag for successful search.
+* **Alternative:** Prompt user for search input
+** Pros: Separates command from keyword for ease of reading and parsing.
+** Cons: Difficult to implement multi-command execution.
+
+===== Aspect: How listing all incidents is called
+
+* **Current choice:** Utilise separate command `list-i`
+** Pros: Intuitive to use.
+** Cons: Similar code under different command, leading to code reuse.
+* **Alternative:** Utilise `find-i` command (eg. `find-i unfiltered`)
+** Pros: Less overlap in code.
+** Cons: Unintuitive to the user as no search is being made, even more keywords to remember.
+
+===== Aspect: Whether the search only returns full word matches
+
+* **Current choice:** Search only returns full word matches
+** Pros: Intuitive to use.
+** Cons: Unable to return similar words eg. search for "desc/fire" does not return description containing "fires"
+* **Alternative:** Search returns all keyword-containing matches
+** Pros: Able to account for similar words to be returned.
+** Cons: Unintuitive to return certain longer words from certain searches eg. "desc/the" returns descriptions containing "weather" +
+    Faster search as code is less inefficient
+
 // end::incidentsearch[]
 
 // tag::incidentedit[]
