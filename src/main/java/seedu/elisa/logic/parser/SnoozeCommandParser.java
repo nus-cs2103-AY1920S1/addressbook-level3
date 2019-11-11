@@ -49,7 +49,8 @@ public class SnoozeCommandParser implements Parser<SnoozeCommand> {
                 hasIndex = true;
             } catch (ParseException pe) {
                 //TODO: Auto snooze most recent reminder
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SnoozeCommand.MESSAGE_USAGE), pe);
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, SnoozeCommand.MESSAGE_USAGE), pe);
             }
         } else {
             index = null;
