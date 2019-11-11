@@ -11,6 +11,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.model.UserPrefs;
+import seedu.guilttrip.ui.util.FontName;
 import seedu.guilttrip.ui.util.Theme;
 
 //import static seedu.guilttrip.testutil.TypicalEntries.getTypicalAddressBook;
@@ -43,7 +44,8 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsStorageTest} class.
          */
         UserPrefs original = new UserPrefs();
-        original.setGuiSettings(new GuiSettings(300, 600, 4, 6, "segoe UI", Theme.DARK));
+        original.setGuiSettings(new GuiSettings(300, 600, 4, 6,
+                FontName.SEGOE_UI, Theme.DARK));
         storageManager.saveUserPrefs(original);
         UserPrefs retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);
