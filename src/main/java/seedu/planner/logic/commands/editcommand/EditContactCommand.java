@@ -44,11 +44,10 @@ public class EditContactCommand extends EditCommand {
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
-            ": Edits the details of the contact identified "
-                    + "by the index number used in the displayed contact list. "
-                    + "Existing values will be overwritten by the input values.",
+            "Edits the contact's details identified "
+                    + "by it's index in contact list. ",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
-                    + "INDEX(must be a positive integer) "
+                    + "INDEX(a positive integer) "
                     + "[" + PREFIX_NAME + "NAME] "
                     + "[" + PREFIX_PHONE + "PHONE] "
                     + "[" + PREFIX_EMAIL + "EMAIL] "
