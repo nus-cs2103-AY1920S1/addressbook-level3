@@ -15,6 +15,7 @@ import seedu.ezwatchlist.model.show.Genre;
 import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Poster;
 import seedu.ezwatchlist.model.show.RunningTime;
 import seedu.ezwatchlist.model.show.Show;
 
@@ -131,6 +132,7 @@ public class DataBaseUtil {
         genreSetActionAdventureScienceFiction.add(GENRE_ADVENTURE);
         genreSetActionAdventureScienceFiction.add(GENRE_SCIENCE_FICTION);
         SHOW_AVENGER_INFINITY_WAR.addGenres(genreSetActionAdventureScienceFiction);
+        SHOW_AVENGER_INFINITY_WAR.setPoster(new Poster("/images/Avengers__Infinity_War2018423968.png"));
         showDataList.add(SHOW_AVENGER_INFINITY_WAR);
 
         Set<Genre> genreSetAdventureFantasyFamily = new HashSet<>();
@@ -138,6 +140,10 @@ public class DataBaseUtil {
         genreSetAdventureFantasyFamily.add(GENRE_FANTASY);
         genreSetAdventureFantasyFamily.add(GENRE_FAMILY);
         SHOW_FANTASTIC_BEASTS_AND_WHERE_TO_FIND_THEM.addGenres(genreSetAdventureFantasyFamily);
+        SHOW_FANTASTIC_BEASTS_AND_WHERE_TO_FIND_THEM.setPoster(
+                new Poster("/images/Fantastic_Beasts_and_Where_to_Find_Them-427997046.png"));
+        SHOW_FANTASTIC_BEASTS_THE_CRIMES_OF_GRINDELWALD.setPoster(
+                new Poster("/images/Fantastic_Beasts__The_Crimes_of_Grindelwald-392145351.png"));
         SHOW_FANTASTIC_BEASTS_THE_CRIMES_OF_GRINDELWALD.addGenres(genreSetAdventureFantasyFamily);
         showDataList.add(SHOW_FANTASTIC_BEASTS_AND_WHERE_TO_FIND_THEM);
         showDataList.add(SHOW_FANTASTIC_BEASTS_THE_CRIMES_OF_GRINDELWALD);

@@ -65,13 +65,13 @@ public class Poster {
         }
 
         try {
+            if (isOfflineImage()) {
+                return new Image(imagePath); //return offline image.
+            }
+
             String url = ROOT_LOCATION + imagePath;
             File file = new File(url);
             image = SwingFXUtils.toFXImage(ImageIO.read(file), null);
-
-            if (image == null) {
-                throw new NullPointerException("image is null in poster with url: " + url);
-            }
 
             return image;
         } catch (IOException i) {
@@ -80,6 +80,20 @@ public class Poster {
         } catch (NullPointerException e) {
             logger.info("Cause: " + e + " in Poster class for imagePath " + imagePath);
             return new Image(PLACEHOLDER_IMAGE);
+        }
+    }
+
+    /**
+     * Checks if the image path is a local image used for offline display.
+     * @return true if the image is offline.
+     */
+    private boolean isOfflineImage() {
+        try {
+            Image offlineImage = new Image(imagePath);
+            //checks if the image could be in the offline storage.
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
         }
     }
 }
