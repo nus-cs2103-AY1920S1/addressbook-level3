@@ -44,7 +44,6 @@ public class ShowCommand extends Command {
         Eatery eateryToShow = lastShownList.get(targetIndex.getZeroBased());
 
         List<Review> reviews = eateryToShow.getReviews();
-        Collections.sort(reviews);
         model.updateActiveReviews(reviews);
         model.setActiveEatery(eateryToShow);
 

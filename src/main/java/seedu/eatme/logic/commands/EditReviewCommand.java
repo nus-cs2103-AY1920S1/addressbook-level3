@@ -70,7 +70,7 @@ public class EditReviewCommand extends Command {
 
         lastShownList.set(index.getZeroBased(), editedReview);
         activeEatery.setReviews(lastShownList);
-        model.updateActiveReviews(activeEatery.getReviews());
+
         return new CommandResult(MESSAGE_EDITED_REVIEW_SUCCESS, activeEatery);
     }
 

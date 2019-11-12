@@ -68,6 +68,8 @@ public class ReviewCommand extends Command {
 
             eateryToAddReview.addReview(review);
             model.updateFilteredEateryList(Model.PREDICATE_SHOW_ALL_EATERIES);
+
+            model.setActiveEatery(eateryToAddReview);
             model.updateActiveReviews(eateryToAddReview.getReviews());
         } else {
             throw new CommandException(MESSAGE_WRONG_MODE);

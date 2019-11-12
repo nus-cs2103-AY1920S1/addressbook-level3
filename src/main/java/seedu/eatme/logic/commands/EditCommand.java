@@ -78,6 +78,8 @@ public class EditCommand extends Command {
 
         model.setEatery(eateryToEdit, editedEatery);
         model.updateFilteredEateryList(PREDICATE_SHOW_ALL_EATERIES);
+
+        model.setActiveEatery(editedEatery);
         model.updateActiveReviews(editedEatery.getReviews());
         return new CommandResult(String.format(MESSAGE_EDIT_EATERY_SUCCESS, editedEatery.getName()), editedEatery);
     }

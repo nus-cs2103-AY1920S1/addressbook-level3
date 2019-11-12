@@ -190,6 +190,7 @@ public class ModelManager implements Model {
     @Override
     public void updateActiveReviews(List<Review> reviews) {
         activeReviews.clear();
+        // todo sort??
         activeReviews.addAll(reviews);
     }
 

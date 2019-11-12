@@ -146,7 +146,7 @@ public class Statistics {
                 double e2Expense = e2.getTotalExpense() / e2.getNumberOfReviews();
 
                 return e1Expense == e2Expense ? e1.getName().compareTo(e2.getName())
-                        : (int) (e1Expense - e2Expense);
+                        : e1Expense > e2Expense ? 1 : -1;
             }
         });
 

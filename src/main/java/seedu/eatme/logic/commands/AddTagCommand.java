@@ -65,7 +65,10 @@ public class AddTagCommand extends Command {
         editedEatery.setReviews(eateryToEdit.getReviews());
         model.setEatery(eateryToEdit, editedEatery);
         model.updateFilteredEateryList(PREDICATE_SHOW_ALL_EATERIES);
-        return new CommandResult(ADD_TAG_SUCCESS);
+
+        model.setActiveEatery(editedEatery);
+        model.updateActiveReviews(editedEatery.getReviews());
+        return new CommandResult(ADD_TAG_SUCCESS, editedEatery);
     }
     /**
      * Creates and returns a {@code Eatery} with the details of {@code eateryToEdit}
