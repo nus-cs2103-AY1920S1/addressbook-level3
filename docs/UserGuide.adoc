@@ -528,10 +528,10 @@ This will delete the 2nd event in the list of events, shown by `listevent`.
 === Let's Do Budgeting
 
 Feel a need to cut your spending? Try MooLah's awesome budgeting feature!
-It can help you cultivate better financial management habits in the following ways:
+It can help you cultivate healthier saving habits and better financial management skills, in these following ways:
 
 * Each budget has a progress bar with a percentage (rounded to the nearest integer), which indicates how much you have
-spent as a proportion to the limit.
+spent as a proportion to the budget limit.
 * The color of the progress bar implies the following 4 status:
 - *GREEN*: `0% - 49%` of the limit.
 - *YELLOW*: `50% - 89%` of the limit (MooLah will notify you're halfway through)
@@ -563,10 +563,12 @@ The year in <START_DATE> is optional, i.e. you can simply input `01-10` and the 
 to the current year. +
 The <START_DATE> can be any time in the past or future, the budget period will *automatically
 normalize to the current period*.
-For example, if today is `23-10-2019`, when you type `sd/01-07 pr/month`, the resulting budget period
+For example, suppose today is `23-10-2019`, when you type `sd/01-07 pr/month`, the resulting budget period
 will be `01-10-2019 to 31-10-2019`, since that's the period anchored by today's date. +
 All budgets are *recurring*. Continuing from the example above, on 1 Nov 2019, you'll see the budget's period refreshed
-to `01-11-2019 to 30-11-2019`, and all past expenses archived, giving you an empty budget panel to start with.
+to `01-11-2019 to 30-11-2019`, and all past expenses archived, giving you an empty budget panel to start with. +
+When you add an expense that's not within the current budgeting period, the budget panel will stay at the current
+period. To see the expense you've just added, switch to that corresponding period first. See <<View Expenses in a Different Period: `switchperiod`>>
 
 ==== Switch Between Budgets : `switchbudget`
 Now that you've successfully added a few different budgets, wonder how to toggle between them? Try this magical command:
@@ -619,7 +621,7 @@ editbudget 2 d/school expenses p/400 sd/05-10
 
 It will change to `school expenses`, capped at `$400`, refreshed on `the 5th of each month`.
 
-NOTE: You can choose to edit any of these 4 attributes of a budget: `DESCRIPTION`, `AMOUNT`, `START_DATE`
+NOTE: You may choose to edit any of these 4 attributes of a budget: `DESCRIPTION`, `AMOUNT`, `START_DATE`
 and `PERIOD`, more than one at a time.
 
 ==== Delete a Budget (by Name) : `deletebudget`
