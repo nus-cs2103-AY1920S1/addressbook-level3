@@ -265,10 +265,10 @@ To support these capabilities, `ModelChanges` offers these methods as well:
 
 Refer to the class diagram below for comprehensive list of the methods offered and the association of both classes:
 
-image::ModelHistory.png[]
+image::ModelHistory.png[width=70%,pdfwidth=80%,align=center]
 
 [NOTE]
-Typical field accessor and mutator methods are omitted for brevity, except when it returns a different type from the field's type (e.g. `ModelChanges#getMooLah()`)
+Typical field accessor and mutator methods are omitted for brevity, except when it returns a different type from the field's type (e.g. `ModelChanges#getMooLah()`).
 
 `ModelHistory` only stores changes of models that were (or are going to be) executed by model-manipulating - or simply, undoable - commands.
 As some of the commands available are intuitively not undoable (e.g. `help`), every command is configured to extend either `UndoableCommand` or a non-undoable `Command` classes.
@@ -278,34 +278,34 @@ Given below is an example usage scenario and how the undo and redo functionality
 
 Step 1. The user launches the application for the first time. The current `ModelHistory` is now empty.
 
-image::UndoRedoState0.png[]
+image::UndoRedoState0.png[width=35%,pdfwidth=35%,align=center]
 
 Step 2. The user executes `addexpense d/chicken rice p/2.50 c/food` command to add an expense.
 The `addexpense` command, being an `UndoableCommand`, calls `Model#commit(String, Model)`, which saves the state of the model just before the command executes to `pastChanges`, and `futureChanges` is cleared.
 
-image::UndoRedoState1.png[]
+image::UndoRedoState1.png[width=40%,pdfwidth=50%,align=center]
 
 Step 3. The user executes `deleteexpense-primary 1` to delete the first expense on the list. The `deleteexpense-primary` command, also an `UndoableCommand`, calls `Model#commit(String, Model)`, inserting another entry to the `pastChanges` and clearing `futureChanges` again.
 
-image::UndoRedoState2.png[]
+image::UndoRedoState2.png[width=35%,pdfwidth=40%,align=center]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commit(String, Model)`, so the model will not be saved into `ModelHistory`.
 
 Step 4. The user now decides that deleting the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#rollback()`, which will retrieve the immediate previous change in history, adding the reverting change to the future history of the model, and applies the change to the model.
 
-image::UndoRedoState3.png[]
+image::UndoRedoState3.png[width=35%,pdfwidth=40%,align=center]
 
 [NOTE]
 If `pastChanges` is empty, then there are no previous changes to roll back. The `undo` command uses `Model#canRollback()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 Step 5. The user then realizes the expense should be deleted after all, and wishes to redo the deletion by entering the `redo` command. The command will call `Model#migrate()`, which will get the immediate next change in history, adding the reverting change to the past history, and applies the change to the model.
 
-image::UndoRedoState4.png[]
+image::UndoRedoState4.png[width=40%,pdfwidth=50%,align=center]
 
 The following sequence diagram shows how the undo command works:
 
-image::UndoSequenceDiagram.png[]
+image::UndoSequenceDiagram.png[width=70%,pdfwidth=50%,align=center]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -317,7 +317,7 @@ If `futureChanges` is empty, then there are no snapshots to be redone. The `redo
 As explained earlier, additions of entry to `ModelHistory` will only be performed when the command being executed is an instance of `UndoableCommand`.
 The following diagram briefly describes how the execution of undoable commands will do so:
 
-image::UndoableCommandActivityDiagram.png[]
+image::UndoableCommandActivityDiagram.png[width=40%,pdfwidth=40%,align=center]
 
 ==== Design Considerations
 In implementing the undo and redo functionality, some design approaches and trade-offs have to be considered to account
@@ -362,17 +362,17 @@ look up the list of expenses in `Menu` that matches the description, and if ther
 
 See the class diagram below for available methods on `Menu` and `MenuItem`:
 
-image::Menu.png[]
+image::Menu.png[width=30%,align=center]
 
 Given below is an example usage scenario and how the add menu-item expense feature is processed within MooLah:
 
-image::AddMenuExpenseSequenceDiagram.png[]
+image::AddMenuExpenseSequenceDiagram.png[width=100%,align=center]
 
 ==== Design Considerations
 
 ===== Aspect: The command the feature should be under
 * Alternative 1: Modify the general add expense command to accept menu-item expense format and user-defined expense format.
-** Pros: This format is quite natural for end-users.
+** Pros: This approach is quite natural for end-users to use as menu-item expense is essentially a shorthand for user-defined expense.
 ** Cons: MooLah has to support command option groups to enable multiple sets of required prefixes on the same command word.
 * Alternative 2: Create a new command for the adding menu-item expenses
 ** Pros: This approach is easier to implement.
@@ -654,7 +654,7 @@ The Events feature allows users to add events that are supposed to occur on a fu
 On launch, MooLah will remind users of upcoming events. While the app is open, MooLah will also notify the user about any events that have transpired,
 and allow them to automatically add these events as expenses.
 
-image::EventClassDiagram.png[width=70%, align=center]
+image::EventClassDiagram.png[align=center]
 
 Like expenses, events hold two Descriptions (one for its details and one for the budget it belongs to), a Price, a Timestamp
 and a Category. The `setBudget` method of Event is used for the Event to remember which budget it was added to. This facilitates
@@ -667,16 +667,16 @@ The Events feature supports the `addevent`, `deleteevent`, `editevent` and `list
 
 As mentioned earlier, MooLah displays reminders of upcoming events during launch. The implementation is shown below:
 
-image::DisplayReminders.png[width = 70%, align=center]
+image::DisplayReminders.png[align=center]
 
-To allow for accurate prompting of transpired events, MooLah tracks system time every 10 seconds using a `Timer` running
-on a parallel thread. An event is then deemed to have transpired if its timestamp has gone past system time.
+To allow for precise timekeeping of expenses and events as well as accurate prompting of transpired events, MooLah tracks system time every 0.05 seconds using a `Timer` running
+on a parallel thread. Using another `Timer`, MooLah then checks for transpired events every 2 seconds; an event is then deemed to have transpired if its timestamp has gone past system time.
 The following sequence diagram shows how MooLah handles transpired events:
 
-image::TranspiredEventsSequenceDiagram.png[]
+image::TranspiredEventsSequenceDiagram.png[align=center]
 
-1. When MooLah launches, the `start` method of `UiManager` is called. Every 10 seconds, `UiManager` calls `updateTime` of
-Timekeeper to update system time, then calls the `handleTranspiredEvents` of `MainWindow`, which fetches all transpired
+1. When MooLah launches, the `start` method of `UiManager` is called. Every 0.05 seconds, `UiManager` calls `updateTime` of
+Timekeeper to update system time. Concurrently, `UiManager` also calls the `handleTranspiredEvents` of `MainWindow` every 2 seconds, which fetches all transpired
 events and notifies the user about them. It does so by first obtaining the transpired events from the `Timekeeper` class.
 
 2. Once the transpired events have been obtained, for each transpired event, a new `TranspiredEventWindow` will be
@@ -1301,14 +1301,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is `MooLah` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Adding a budget and switching to it
+=== Use case: Adding a budget
 
 *MSS*
 
 1.  User requests to add a budget and specifies budget name, amount, start date and period
 2.  MooLah shows success in creating new budget
-3.  User requests to switch to this budget by specifying the budget name
-4.  GUI switches to the budget and sets it as current primary budget for displaying and calculating expenses
+3.  GUI switches to the budget panel and sets it as current primary budget for displaying and calculating expenses
 +
 Use case ends.
 
@@ -1324,43 +1323,6 @@ Use case ends.
 ** Steps 1a1-1a2 are repeated until the parameters entered are correct and complete.
 +
 Use case resumes at step 2.
-
-* 3a. User forgets to input the name of the budget he wants to switch to.
-+
-[none]
-** 3a1. MooLah shows an error message and requests for the budget name.
-+
-** 3a2. User re-enters the command, specifying the budget name.
-+
-Use case resumes at step 4.
-
-* 3b. User enters a budget name that does not correspond to any of the currently existing budgets.
-+
-[none]
-** 3b1. MooLah shows an error message and requests for a correct budget name that exists.
-+
-** 3b2. User re-enters the command with a new budget name.
-+
-** Steps 3b1-3b2 are repeated until the budget name entered is an existing one.
-+
-Use case resumes at step 4.
-
-
-[discrete]
-=== Use case: Showing reminders
-*MSS*
-
-1.  User requests to see reminders.
-2.  MooLah shows a list of reminders.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. There are no reminders.
-+
-Use case ends.
 
 
 [discrete]
@@ -1647,15 +1609,27 @@ Deleting an expense while all expenses are listed
 .. Other incorrect delete commands to try: `deleteexpense`, `deleteexpense x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-=== Undo and redo
+=== Adding a menu-item expense
+
+Adding an expense from a menu-item instead of manually define the expense data.
 
 .. Prerequisites: None.
-.. Test case: `addexpense d/pasta p/7.0 c/food` continued with `undo` +
-   Expected: The
-.. Test case: `addbudget d/fun p/300 sd/05-09 pr/month` continued with `undo` and then `redo` +
-   Expected: The "fun" budget is still being added to MooLah.
+.. Test case: `addmenuexpense m/deck chicken rice` +
+   Expected: An expense "Deck Chicken Rice" is added to the list. Details of the expense added is shown in the result display.
+.. Test case: `addmenuexpense m/bubble tea` +
+   Expected: No expense is added as the description provided does not match any supported menu items in MooLah.
+
+=== Undo and redo
+
+Undo and redo operations to an undoable command.
+
+.. Prerequisites: None.
 .. Test case: `undo` +
    Expected: MooLah will display an error stating that nothing can be undone.
+.. Test case: `addexpense d/pasta p/7.0 c/food` continued with `undo` +
+   Expected: The addition of the "pasta" expense will be undone. MooLah will display the undo message in the result display.
+.. Test case: `addbudget d/fun p/300 sd/05-09 pr/month` continued with `undo` and then `redo` +
+   Expected: The "fun" budget will continue to be added to MooLah.
 
 === Adding a budget
 
@@ -1774,13 +1748,15 @@ Clearing all budgets in MooLah
    Expected: Similar to previous.
 
 === Testing of events
-.. Test case: `addevent d/ test p/ 10 c/ Shopping t/ a week from now` +
+
+.. Prerequisites: None.
+.. Test case: `addevent d/ test p/ 10 c/ Shopping t/ 1 week from now` +
    Expected: A success message will appear.
 .. Now, view the event list using either `listevent` or `view event list`. (Event commands can be inputted on any panel, but this is to facilitate the next step.) +
    Expected: The event with description `test` should be at the bottom of the event list.
-.. Edit the event via the command `editevent <INDEX> t/ now`, where <INDEX> is the index of the event you want to test. +
+.. Edit the `test` event via the command `editevent <INDEX> t/ 10 seconds ago`, where <INDEX> is the index of `test` in the list. +
    Expected: A success message will appear.
-.. Within 10 seconds, a popup will appear to prompt for the automatic addition of an expense corresponding to the event.
+.. Within 2 seconds, a popup will appear to prompt for the automatic addition of an expense corresponding to `test`.
 Pressing 'Yes' will add the expense into whichever primary budget you were on when you added the event. You can then view that budget
 to see that the expense has been added.
 

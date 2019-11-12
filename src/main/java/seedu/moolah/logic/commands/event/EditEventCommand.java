@@ -79,6 +79,7 @@ public class EditEventCommand extends UndoableCommand {
 
         Event eventToEdit = lastShownList.get(index.getZeroBased());
         Event editedEvent = createEditedEvent(eventToEdit, editEventDescriptor);
+
         if (!eventToEdit.equals(editedEvent) && model.hasEvent(editedEvent)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
