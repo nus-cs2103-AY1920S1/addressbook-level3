@@ -257,7 +257,7 @@ image::editEvent.png[title="Form with previously saved information", width=500]
 4. Total Budget : `b/`
 5. Destination : `l/`
 6. Description : `d/`
-7. Add an inventory item to the event's inventory list: `<inv/<name of inventory item to add>`
+7. Add an inventory item to the event's inventory list: `inv/<name of inventory item to add>`
 8. Delete an inventory item from the event's inventory list: `dinv/<index number of item to delete>`
 
 NOTE: To delete an item from the inventory list you can also select the item's row and press backspace
