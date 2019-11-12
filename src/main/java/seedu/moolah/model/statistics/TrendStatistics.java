@@ -178,21 +178,8 @@ public class TrendStatistics implements Statistics {
         return dates;
     }
 
-    private List<Double> getPeriodicTotalExpenditure() {
-        return periodicTotalExpenditures;
-    }
-
-
-    public Timestamp getStartDate() {
-        return startDate;
-    }
-
-    public Timestamp getEndDate() {
-        return endDate;
-    }
-
     public String toString() {
-        return String.format("%s\n%s", getTitle(), getPeriodicTotalExpenditure());
+        return String.format("%s\n%s", getTitle(), periodicTotalExpenditures);
     }
 
     @Override

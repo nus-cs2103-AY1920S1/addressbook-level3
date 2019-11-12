@@ -73,7 +73,7 @@ public class TypicalMooLah {
 
     //==== For Statistics testing ===
     public static final Budget DAY_BUDGET = new BudgetBuilder()
-            .withDescription("Default Budget")
+            .withDescription("Day Budget")
             .withAmount("100")
             .withStartDate("05-09-2016 evening")
             .withPeriod("day")
@@ -434,6 +434,15 @@ public class TypicalMooLah {
         }
         return ab;
     }
+
+    public static MooLah getTypicalMooLahForStatistics() {
+        MooLah ab = new MooLah();
+        ab.addBudget(TypicalMooLah.getPopulatedDayBudget());
+        return ab;
+    }
+
+
+
 
     public static List<Expense> getTypicalExpenses() {
         return new ArrayList<>(Arrays.asList(
