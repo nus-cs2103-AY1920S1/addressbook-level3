@@ -54,10 +54,9 @@ class TrendStatistics {
 -getTotalExpenditure(List<List<Expense>>): double
 -getCategoricalExpenditure(List<List<Expense>>): List<Double>
 +getPeriodicCategoricalExpenses(): List<List<Double>>
--{{static}} hasInterval (Timestamp, Timestamp, BudgetPeriod): boolean
+-{static} hasInterval (Timestamp, Timestamp, BudgetPeriod): boolean
 +getDates(): List<Timestamp>
 -getPeriodicTotalExpenditure(): List<Double>
-+ isBudgetLimitMode(): boolean
 + getStartDate(): Timestamp
 +getEndDate(): Timestamp
 +toString(): String

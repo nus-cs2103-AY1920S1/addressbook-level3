@@ -15,7 +15,7 @@ My team of 4 Computer Science students and I were tasked with enhancing a basic 
 Line Interface desktop application AddressBook - Level 3 for our Software Engineering project.
 Over 6 weeks, we chose to morph it into a finance tracker application called MooLah. This enhanced application
 allows the typical NUS student to manage past expenses with the use of budgets, reminders for
-future expenses, helpful statistics and user-friendly input formats. It is written in Java, and has about 27k LoC.
+future expenses, helpful statistics and user-friendly input formats. It is written in Java, and has about 23k LoC.
 My main developer responsibility in the team consists of the statistics features across every component.
 
 

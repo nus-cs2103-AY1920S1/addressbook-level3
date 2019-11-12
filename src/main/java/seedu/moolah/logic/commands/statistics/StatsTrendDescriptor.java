@@ -51,13 +51,15 @@ public class StatsTrendDescriptor {
         return mode;
     }
 
+
+
     /**
-     * Returns true if start date is before end date.
+     * Returns true if end date is before start date.
      */
-    public boolean isStartBeforeEnd() {
+    public boolean isEndBeforeStart() {
         requireNonNull(startDate);
         requireNonNull(endDate);
-        return startDate.isBefore(endDate);
+        return endDate.isBefore(startDate);
     }
 
     @Override

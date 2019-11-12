@@ -1008,8 +1008,6 @@ is calculated using the formula `second period` - `first period`.
 
 - The end dates for both start dates specified by the user are constructed using the period
 that the current budget is using.
-
-- The entries for amount only supports 1 decimal place despite price having 2dp.
 ****
 
 
