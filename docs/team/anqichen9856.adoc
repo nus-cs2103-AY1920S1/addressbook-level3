@@ -20,7 +20,7 @@ With a natural language time parser, MooLah accepts more intuitive and flexible 
 help users cultivate healthy spending habits. With powerful statistics, users can visualize their expenditure in
 graphical forms. Besides, the menu feature is specially tailored to students in National University of Singapore,
 allowing them to record an expense in school canteens directly from preset menus. Furthermore, MooLah's support for undo-redo
-creates a seamless user experience. All these solid and well-developed features make MooLah a perfect personal financial assistant.
+creates a seamless user experience. All these solid and well-developed features make MooLah a perfect personal finance assistant.
 
 == Summary of Contributions
 My main role in the team was to develop the budgeting feature. The following is a summary of my

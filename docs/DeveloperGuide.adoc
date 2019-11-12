@@ -33,7 +33,7 @@ it a pie chart, a table or a trend line. Besides, users can plan ahead and set u
 Furthermore, the menu feature is specially tailored to students in National University of Singapore, allowing them to
 record a food item expense directly from preset menus in school canteens. Almost all commands in MooLah support
 undo-redo, increasing tolerance for occasional mistakes and thus creating a seamless user experience.
-All these solid and well-developed features make MooLah a perfect personal financial assistant.
+All these solid and well-developed features make MooLah a perfect personal finance assistant.
 
 === Purpose & Scope
 This document specifies architecture and software design decisions for the app MooLah.
