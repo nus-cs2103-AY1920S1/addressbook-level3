@@ -17,12 +17,16 @@ Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Expense {
-Class UniqueIdentifier
-Class Expense
+Package General {
 Class Description
 Class Category
 Class Price
+Class Timestamp
+}
+
+Package Expense {
+Class UniqueIdentifier
+Class Expense
 Class UniqueExpenseList
 }
 
@@ -40,6 +44,17 @@ Package Alias {
 Class Alias
 Class AliasMappings
 }
+
+Package ModelHistory {
+Interface ReadOnlyModelHistory <<Interface>>
+Class ModelHistory
+Class ModelChanges
+}
+
+Package Menu{
+Class Menu
+Class MenuItem
+}
 }
 
 Class HiddenOutside #FFFFFF
@@ -53,20 +68,34 @@ ModelManager o--> "1" MooLah
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
+ModelHistory .right.|> ReadOnlyModelHistory
 MooLah *--> UniqueExpenseList
 MooLah *--> UniqueEventList
 MooLah *--> UniqueBudgetList
+ModelManager *--> ModelHistory
 
 UniqueBudgetList o--> Budget
 UniqueExpenseList "*" o--> Expense
-Expense *--> Price
-Expense *--> Description
-Expense *--> Category
+Expense *---> Price
+Expense *-> Description
+Expense *----> Category
 Expense *--> UniqueIdentifier
 UserPrefs *--> AliasMappings
 AliasMappings "*" o--> Alias
-Budget "*" o--> UniqueIdentifier
+Budget o--> "*" UniqueIdentifier
 UniqueEventList "*" o-->  Event
+ModelHistory *--> ModelChanges
+Menu *-right--> MenuItem
+MenuItem ----> Description
+MenuItem ----> Price
+Expense *---> Timestamp
+Event *--> Timestamp
+Event *--> Price
+Event *--> Description
+Event *--> Category
 
+Description -[hidden]-> Price
+Price -[hidden]-> Category
+Category -[hidden]-> Timestamp
 
 @enduml

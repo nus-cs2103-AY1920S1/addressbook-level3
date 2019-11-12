@@ -249,21 +249,26 @@ This section describes some noteworthy details on how certain features are imple
 ==== Implementation
 
 The undo and redo functionality is facilitated by `ModelHistory`, which is available as an instance-level member of `Model`. It keeps track of the model's history
-by storing the changed fields of the model throughout execution, which will be represented as `ModelChanges`. Internally, `ModelHistory` stores the history by using two stacks of `ModelChanges`, namely: `pastChanges` and `futureChanges`.
+by storing the changed fields of the model throughout execution, which will be represented as `ModelChanges`. Internally, `ModelHistory` stores the history by using two stacks of `ModelChanges`, namely, `pastChanges` and `futureChanges`.
 
 With the addition of model history, `Model` can support these operations:
 
-* `Model#commit(String, Model)` -- Saves the changes between the current model and the given previous model to the past changes history, keeping the previous model's data should there be any differences. This adds the changes to the past history, and clears the future history.
 * `Model#applyChanges(ModelChanges)` -- Applies the given changes to the model.
-* `Model#canRollback()` -- Checks whether the model can be rolled-back.
+* `Model#commit(String, Model)` -- Saves the changes between the current model and the given previous model to the past changes history, keeping the previous model's data should there be any differences. This adds the changes to the past history, and clears the future history.
 * `Model#rollback()` -- Restores the model one step back by applying the changes described in the immediate previous changes in history.
-* `Model#canMigrate()` -- Checks whether the model can be migrated.
 * `Model#migrate()` -- Moves the model one step forward in history by applying the changes described in the immediate next changes.
 
 To support these capabilities, `ModelChanges` offers these methods as well:
 
 * `ModelChanges#compareModels(Model, Model)` -- Compares two models' data and creates a new `ModelChanges` object that describes the field data of the first model that is different with the second model.
 * `ModelChanges#revertChanges(Model)` -- Reverts the current changes with respect to the base model given.
+
+Refer to the class diagram below for comprehensive list of the methods offered and the association of both classes:
+
+image::ModelHistory.png[]
+
+[NOTE]
+Typical field accessor and mutator methods are omitted for brevity, except when it returns a different type from the field's type (e.g. `ModelChanges#getMooLah()`)
 
 `ModelHistory` only stores changes of models that were (or are going to be) executed by model-manipulating - or simply, undoable - commands.
 As some of the commands available are intuitively not undoable (e.g. `help`), every command is configured to extend either `UndoableCommand` or a non-undoable `Command` classes.
@@ -315,8 +320,10 @@ The following diagram briefly describes how the execution of undoable commands w
 image::UndoableCommandActivityDiagram.png[]
 
 ==== Design Considerations
+In implementing the undo and redo functionality, some design approaches and trade-offs have to be considered to account
+for feature efficiency in computation time and memory usage.
 
-===== Aspect: How undo & redo executes
+===== Aspect: How undo and redo executes
 
 * **Alternative 1:** Saves the model data.
 ** Pros: It is easier to implement.
@@ -337,7 +344,7 @@ by the `addexpense` command.
 ** Cons: The approach introduces a lot of memory usage and some data might not be necessary.
 * **Alternative 2:** Saves the members of the model that were (or are going to be) changed.
 ** Pros: This approach is more conservative in memory usage, only saving fields that are changed means every data is necessary.
-** Cons: We have to make sure every field is immutable to preserve changes.
+** Cons: Every field must be immutable to preserve changes, which requires a rework on accessing and manipulating fields.
 * **Current implementation (Alternative 2)**:
 We choose this approach as the time and memory resource trade-off is less significant compared to Alternative 1. As Alternative 2 stores
 only the data needed to correctly reflect the change, it requires less memory and also executes in less time as Alternative 1.
@@ -353,9 +360,26 @@ Each menu item is stored as a `MenuItem` object, which has a description and pri
 of accepted menu items. Whenever the user enters the `addmenuexpense` command with a menu-item description, MooLah will
 look up the list of expenses in `Menu` that matches the description, and if there is such menu item, it will add
 
+See the class diagram below for available methods on `Menu` and `MenuItem`:
+
+image::Menu.png[]
+
 Given below is an example usage scenario and how the add menu-item expense feature is processed within MooLah:
 
 image::AddMenuExpenseSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: The command the feature should be under
+* Alternative 1: Modify the general add expense command to accept menu-item expense format and user-defined expense format.
+** Pros: This format is quite natural for end-users.
+** Cons: MooLah has to support command option groups to enable multiple sets of required prefixes on the same command word.
+* Alternative 2: Create a new command for the adding menu-item expenses
+** Pros: This approach is easier to implement.
+** Cons: End-users now have two different commands to add expense, which is not too user-friendly.
+* Current implementation (Alternative 2): As of now, MooLah has not yet supported mutually-exclusive command formats.
+The time and resource to develop multiple formats, compared to adding a new command, will be much expensive, as it will take a major rework on how autocomplete processes user inputs to perform the former.
+Thus, we decided to implement Alternative 2 instead.
 
 // tag::budget[]
 === Budgeting Feature
