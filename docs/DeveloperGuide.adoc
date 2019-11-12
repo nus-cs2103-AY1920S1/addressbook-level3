@@ -16,6 +16,16 @@ endif::[]
 
 By: `Team CaloFit (AY1920S1-CS2103T-W11-4)`      Since: `Sep 2019`      Licence: `MIT`
 
+== Introduction
+
+*Get Healthy with CaloFit!* +
+
+CaloFit is a calorie tracker application written in Java. It provides a simple, fast, and easily-understood platform for users to manage their meals, find meal suggestions, and track their progress by setting their own calorie budget. +
+
+This guide provides information that will not only help you understand how CaloFit works, but also help you expand or modify its features based on what the user wants to track. +
+
+We are a team of 4 Computer Science students from the National University of Singapore(NUS), and hope that this guide has been helpful for you. In the case of any queries or bugs, feel free to contact us by following the instructions [https://github.com/AY1920S1-CS2103T-W11-4/main/blob/master/docs/ContactUs.adoc[here].
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -57,6 +67,8 @@ Each of the four components
 * Defines its _API_ in an #interface# with the same name as the Component.
 * Exposes its functionality using a #{Component Name}Manager# class.
 
+This architecture system allows for different components of CaloFit to be implemented separately without conflict. Any interaction between the components is done through the #Model# interface to avoid exposing unnecessary details of each component.
+
 For example, the #Logic# component (see the class diagram given below) defines it's API in the #Logic.java# interface and exposes its functionality using the #LogicManager.java# class.
 
 .Class Diagram of the Logic Component
@@ -80,7 +92,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a #MainWindow# that is made up of parts e.g.#CommandBox#, #ResultDisplay#, #DishListPanel#, #StatusBarFooter# etc. All these, including the #MainWindow#, inherit from the abstract #UiPart# class.
+The #UI# consists of a #MainWindow# that is made up of parts e.g.#CommandBox#, #ResultDisplay#, #DishListPanel#, #StatusBarFooter# etc. All these parts, including the #MainWindow#, inherit from the abstract #UiPart# class. +
 
 The #UI# component uses JavaFx UI framework. The layout of these UI parts are defined in matching *.fxml* files that are in the *src/main/resources/view* folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[#MainWindow#] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[#MainWindow.fxml#]
 
@@ -88,6 +100,8 @@ The #UI# component,
 
 * Executes user commands using the #Logic# component.
 * Listens for changes to #Model# data so that the UI can be updated with the modified data.
+
+This design is similiar to the Architectural design of CaloFit, whereby different #UiParts# are encapsulated in the #MainWindow# java controller class. This allows the #Logic# to minimise interaction with the #UI#, since the #MainWindow# manages the changes to any #UiPart# classes that result from the execution in the #Logic# component.
 
 [[Design-Logic]]
 === Logic component
@@ -104,6 +118,8 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[#Logic.java#]
 .  The command execution can affect the #Model# (e.g. adding a meal).
 .  The result of the command execution is encapsulated as a #CommandResult# object which is passed back to the #Ui#.
 .  In addition, the #CommandResult# object can also instruct the #Ui# to perform certain actions, such as displaying help to the user.
+
+This design allows the #Logic# component to maintain the Single Responsibility of processing the #Command# and returning the #CommandResult#. The #UI# displays any feedback to the user based on the #CommnadResult# object, without the need for the #Logic# to invoke any methods in the #UI# directly.
 
 Given below is the Sequence Diagram for interactions within the #Logic# component for the #_Logic#execute("delete 1")_# API call.
 
@@ -127,6 +143,7 @@ The #Model#,
 * exposes an unmodifiable #ObservableList<Meal># and #ObservableList<Dish># that can be 'observed' e.g. the #UI# can be bound to this list so that it automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+This design allows many parts of CaloFit to be created without the fear of conflict with other classes. This is due to the #Model# interface acting as a Facade class that manages the interactions between the components that makeup CaloFit.
 [NOTE]
 As a more OOP model, we can store a #Tag# list in #ModelManager#, which #Dish# can reference. This would allow #ModelManager# to only require one #Tag# object per unique #Tag#, instead of each #Dish# needing their own #Tag# object. An example of how such a model may look like is given below. +
  +
@@ -145,6 +162,8 @@ The #Storage# component,
 * can save #UserPref# objects in json format and read it back.
 * can save the #DishDatabase# data in json format and read it back.
 * can save the #MealLog# data in json format and read it back.
+
+This design allows the users to save their #MealLog# and #DishDatabase# in a directory of their choice that is specified by the #Path# in the #UserPrefs# object.
 
 [[Design-Commons]]
 === Common classes
