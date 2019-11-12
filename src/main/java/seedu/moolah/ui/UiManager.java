@@ -26,14 +26,16 @@ public class UiManager implements Ui {
 
     private Logic logic;
     private Timekeeper timekeeper;
-    private Timer timer;
+    private Timer eventsTimer;
+    private Timer systemTimer;
     private MainWindow mainWindow;
 
     public UiManager(Logic logic, Timekeeper timekeeper) {
         super();
         this.logic = logic;
         this.timekeeper = timekeeper;
-        this.timer = new Timer();
+        this.systemTimer = new Timer();
+        this.eventsTimer = new Timer();
     }
 
     @Override
@@ -44,17 +46,24 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, logic, timekeeper, timer);
+            mainWindow = new MainWindow(primaryStage, logic, timekeeper, systemTimer, eventsTimer);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
             mainWindow.displayReminders();
 
-            long interval = 10000;
+            long updateTimeInterval = 50;
 
-            timer.schedule(new TimerTask() {
+            systemTimer.schedule(new TimerTask() {
                 public void run() {
                     timekeeper.updateTime();
+                }
+            }, 0, updateTimeInterval);
+
+            long checkEventsInterval = 2000;
+
+            eventsTimer.schedule(new TimerTask() {
+                public void run () {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
@@ -62,7 +71,7 @@ public class UiManager implements Ui {
                         }
                     });
                 }
-            }, 0, interval);
+            }, 0, checkEventsInterval);
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

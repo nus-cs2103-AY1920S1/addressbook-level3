@@ -59,11 +59,11 @@ public class Timekeeper {
      * @return The LocalDateTime object to be wrapped in a Timestamp.
      */
     public static LocalDateTime convertToLocalDateTime(Date dateToConvert) {
-        return dateToConvert.toInstant()
+        return dateToConvert
+                .toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime()
-                .withSecond(0)
-                .withNano(0);
+                .withNano(0); // buffer to accommodate for system time only being updated every 0.5 seconds
     }
 
     /**

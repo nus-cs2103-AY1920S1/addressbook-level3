@@ -65,7 +65,7 @@ public class CommandTestUtil {
     public static final String VALID_EVENT_CATEGORY_BUFFET = "FoOd";
     public static final String VALID_EVENT_CATEGORY_BIRTHDAY = "shopping";
     public static final String VALID_EVENT_TIMESTAMP_BUFFET = "1 week later";
-    public static final String VALID_EVENT_TIMESTAMP_BIRTHDAY = "tomorrow";
+    public static final String VALID_EVENT_TIMESTAMP_BIRTHDAY = "tomorrow 6pm";
 
     public static final String VALID_BUDGET_DESCRIPTION_SCHOOL = "school related expenses";
     public static final String VALID_BUDGET_AMOUNT_SCHOOL = "300";

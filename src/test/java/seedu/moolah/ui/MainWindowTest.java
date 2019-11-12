@@ -46,7 +46,7 @@ public class MainWindowTest extends GuiUnitTest {
         FxToolkit.setupStage(stage -> {
             Storage storage = new StorageManager(jsonMooLahStorage, jsonUserPrefsStorage);
             Logic logic = new LogicManager(new ModelManager(), storage);
-            mainWindow = new MainWindow(stage, logic, new Timekeeper(logic), new Timer());
+            mainWindow = new MainWindow(stage, logic, new Timekeeper(logic), new Timer(), new Timer());
             mainWindow.fillInnerParts();
             mainWindowHandle = new MainWindowHandle(mainWindow.getPrimaryStage());
             mainWindowHandle.focus();
