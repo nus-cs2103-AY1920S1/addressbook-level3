@@ -3,10 +3,10 @@
 
 
 interface Statistics {
-~getTitle():String
+~getTitle(): String
 ~setTitle(String)
 ~populateData()
-~createFactory():StatisticsRegionFactory
+~createFactory(): StatisticsRegionFactory
 }
 
 
@@ -34,7 +34,7 @@ class TrendStatistics {
 -Timestamp: startDate
 -Timestamp: endDate
 -Budget: primaryBudget
--boolean: budgetLimitMode
+-boolean: isBudgetLimitMode
 -ObservableList<Expense>: expenses
 -List<Timestamp>: dates
 -List<Double>: periodicTotalExpenditures
@@ -42,8 +42,6 @@ class TrendStatistics {
 -List<List<Double>>: periodicCategoricalExpenses
 -String: title
 
--findClosestWindowStartDate(Timestamp, Timestamp, BudgetPeriod): Timestamp
--flatMapAdd(List<Double> categorisedExpenditureAtPeriod)
 -getCategorisedPeriodicExpenses(Timestamp, Timestamp): List<List<Expense>>
 -getExpenditureForCategory(List<Expense>): double
 -getTotalExpenditure(List<List<Expense>>): double
@@ -58,17 +56,14 @@ class TabularStatistics {
 -Timestamp: firstEndDate
 -Timestamp: secondStartDate
 -Timestamp: secondEndDate
--int: categorySize
+-int: numOfCategories
 -ObservableList<Expense>: expenses
 -List<FiveElementTableEntry>: unionDifferenceTable
 -String: title
 -createEmptyTableWithoutPercentage(): List<ThreeElementTableEntry>
 -secondMinusFirst(List<ThreeElementTableEntry>, List<ThreeElementTableEntry>): List<ThreeElementTableEntry>
 -extractRelevantExpenses(Timestamp, Timestamp): List<List<Expense>>
--convertDataToFigures(List<List<Expense>>,List<ThreeElementTableEntry>)
--{static} combine(List<ThreeElementTableEntry>, List<ThreeElementTableEntry>): List<FiveElementTableEntry>
-+{static} createEmptyTableWithTotal(): List<FiveElementTableEntry>
--{static} replaceWith(List<FiveElementTableEntry>, List<FiveElementTableEntry>): List<FiveElementTableEntry>
+-convertDataToFigures(List<List<Expense>>, List<ThreeElementTableEntry>)
 }
 
 
