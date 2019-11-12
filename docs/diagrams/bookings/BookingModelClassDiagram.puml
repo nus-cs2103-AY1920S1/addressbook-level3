@@ -1,0 +1,16 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class BookingList
+class Booking
+
+BookingList *-down-> "*" Booking
+
+Booking *---> "1" Name : name >
+Booking *---> "1" String : contact >
+Booking *---> "1" Budget : budget >
+
+@enduml

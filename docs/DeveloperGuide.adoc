@@ -456,7 +456,99 @@ All the monetary values in the application is displayed through calling the meth
 
 '''
 
+// tag::booking_ppp[]
+=== [Booking] Booking Manager
+The _Booking Manager_ is one of the main features of TravelPal. It maintains a list of `Booking` stored in a
+`BookingList`.
 
+_Booking Manager_ displays all the Bookings in one place with Name, Contact details and expenditure in the form of
+Budget.
+
+[[booking_model]]
+==== Aspect : Model
+
+[[booking_class_diagram]]
+image::bookings/developerguide/BookingModelClassDiagram.png[title=Class diagram showing the booking model]
+
+===== Booking
+
+`Booking` is a class storing Booking model.
+
+It has three compulsory fields, the _name of booking_, the _contact details of booking_ and the
+_expenditure of booking_ (in budget). These fields are used to store information related to a booking.
+
+They are implemented as instance of class `Name`, `Contact` and `Budget` respectively.
+
+===== BookingList
+
+`BookingList` is a class that stores the `Booking` models.
+It supports wrapper methods around the underlying `ObservableList` to facilitate the use in the logic components.
+
+[[booking_ui]]
+==== Aspect : UI
+
+image::bookings/developerguide/BookingUiClassDiagram.png[title=Class diagram showing the user interface of booking]
+
+The UI of Booking Manager mainly consists of two `Page`: `BookingsPage` and `EditBookingsPage`.
+
+`BookingsPage` is the component in charge of displaying all the information of the booking: name, contact details and
+associated expenditure.
+
+It has a list of `BookingCard`, a component that contains individual booking details. `BookingsPage` extends
+`PageWithSidebar` as it contains navigation bar that helps user to
+navigate between different main features.
+
+`EditBookingsPage` is the main page for creating and editing of booking. Both `BookingsPage` and `EditBookingsPage`
+have access to `Model` and `Logic` of the application, for handling of stored data and parsing commands.
+
+==== Aspect : Logic
+
+===== Create a booking
+
+The creation of a new `Booking` is done by calling `EnterCreateBookingCommand`, which brings user to a
+_Booking Setup Page_.
+
+===== Edit a booking
+
+Editing of booking can be accessed from `BookingsPage`. The execution of command is handled by `BookingsManagerParser` and
+the command accesses the model through `Model#getPageStatus()` method.
+
+The details of execution is similar to
+_Edit trip/day/event_ feature (see <<Edit-Trip>>)
+
+All the fields, namely _name_, _contact_ and _budget_, of a `Booking` can be edited with an `edit` command. When `done`
+command is executed the `Booking` in `BookingList` will be updated.
+
+The following sequence diagram shows the sequence of method call when `DoneEditCommand#execute(model)` is called in
+`LogicManager`.
+
+[[booking_model_ui_class_diagram]]
+image::bookings/developerguide/BookingModelClassDiagram.png[align="left" title=Class diagram showing the model of Booking]
+Model shows the fields available in a Booking, namely, _name_, _contact_ and _budget_.
+
+image::bookings/developerguide/BookingUiClassDiagram.png[align="left" title=Class diagram showing the UI of Booking]
+UI Diagram shows the calling of various other classes (via `FXML` pages) which are linked to creation of Booking.
+
+===== Edit a Booking
+
+[[edit_booking_activity_diagram]]
+image::bookings/developerguide/EditBookingDiagram.png[align="left" title=Activity diagram showing the `edit` functionality of Booking]
+
+NOTE: When error is thrown, the user is expected to use a valid index.
+
+
+===== Delete a Booking
+
+Deletion of booking is similar to the _Delete Trip/Day/Event_ feature (see <<Delete-Trip>>).
+
+The `DeleteBookingCommand` in logic checks for index of deletion.
+Below is the sequence diagram of deleting an expense:
+[[delete_booking_sequence_diagram]]
+image::bookings/developerguide/BookingDeleteSequenceDiagram.png[title=Activity diagram showing the execution of deleting an expense]
+
+// end::booking_ppp[]
+
+'''
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
