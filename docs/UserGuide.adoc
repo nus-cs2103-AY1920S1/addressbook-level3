@@ -500,10 +500,97 @@ bookings during creation of any booking.
 
 Furthermore, for almost every command, there is a GUI alternative using various buttons to execute the same operations.
 
-The following section of the User Guide explains hoe to use the Booking.
+The following section of the User Guide explains how to use the Booking feature of _TravelPal_.
 
 ==== Booking User Interface Overview
->>>>>>> master
+
+This section of the user guide explains how to view and manage your bookings using __Booking Manager__.
+
+===== How to reach the Landing Page of _Booking Manager_
+When inside a trip, the command `bookings` will bring you to the landing page (this command works from all pages of the
+trip).
+
+image::bookings/userguide/ReachBookingManager.png[title="How to reach Booking Manager"]
+
+Shown below is the landing page of the __Booking Manager__.
+
+image::bookings/userguide/BookingManager.png[title="Overview of Booking Manager user interface"]
+
+Bookings serve to assimilate all the activities which you have planned throughout your trip in a single convenient place
+Bookings are connected to your overall expenses and budget of the travel, activities or accommodation.
+
+==== Commands
+
+On the __Booking Manager__ page, the following commands are available:
+
+* `create`: creates a new booking; can also be accessed by clicking the button `Add Booking` for a more user-friendly
+experience.
+* `edit <index of the booking>`: edits an indexed booking, if the index is *valid*; this command brings up the booking
+setup page.
+* `delete <index of the booking>`: deletes an indexed booking, if the index is *valid*.
+
+*valid*: valid index implies that the index is lesser than or equal to the number of items so far created, i.e., you can
+edit or delete only an existing Booking. _invalid index_ will not execute and show an error message
+
+image::bookings/userguide/InvalidIndex.png[title="Error shown due to Invalid Index"]
+
+==== Booking Setup
+
+Booking setup creates/edits properties of a specified booking as per the choice of the user.
+To access the __Booking Setup__ page, use `create` or `edit <index of the booking>` command on `Booking Manager` page.
+
+It is necessary for a booking to have a:
+
+* Name: can be of any length; it can also include short description
+* Contact: a varied input field which can store alphanumeric characters to satisfy contact number, email address or
+referencing words.
+* Budget: all the bookings have a pre-assigned expenditure involved with it; it should be a cost estimated upto two
+decimal places (automatically stored in SGD)
+
+The following commands are available on __Booking Setup__ page.
+
+* `edit <prefix>/<value> ...` : edit the respective field of the booking to be created/edited.
+* `done` : confirm and save the changes, and go back to the booking manager page.
+* `cancel` : go back to the booking manager page without saving the changes.
+
+The `prefix` in `edit <prefix>/<value> ...` refers to editing each fields as follows:
+
+* `n/` Name of the booking
+* `c/` Contact details of the booking
+* `b/` The amount of expenditure, in Singaporean dollars.
+
+====== Example Usage for `create` command:
+======
+To add a booking _SampleBooking_ with contact details _98989898, DisneyLand_ with an expenditure of $_80_ SGD,
+use the following command:
+
+`edit n/SampleBooking c/98989898, DisneyLand b/80`
+======
+
+image::bookings/userguide/CreateBooking.png[title="Overview when `create` a Booking"]
+
+NOTE: If two bookings have the same information of Name, Contact and Budget, second will not be saved but the user can
+still make changes. The user can use sequential naming (Booking1, Booking2, ....) to differentiate between the two
+bookings.
+
+====== Example Usage for `edit` command:
+======
+To edit the previous created booking to with same name and contact details but with an
+expenditure of $_100_ SGD, use the following command:
+
+`edit b/100`
+======
+
+image::bookings/userguide/EditBooking.png[title="Overview of `edit` of the name of a Booking"]
+
+NOTE: You can choose to edit any number of fields any number of times. You can also choose to cancel the editing or
+creation of any booking at any time by typing `cancel` command or clicking the `Cancel` button.
+
+After adding your Bookings, beforehand or on-the-go, Booking Manager looks like this:
+
+image::bookings/userguide/Finally.png[title="Overview of the Bookings Manager Screen"]
+
+'''
 
 === Diary
 
