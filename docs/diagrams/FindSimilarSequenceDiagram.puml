@@ -1,0 +1,31 @@
+@startuml
+
+!include style.puml
+group sd findSimilar
+box Logic LOGIC_COLOR_T1
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+
+end box
+
+box Util #RosyBrown
+participant ":StringUtil" as StringUtil #SaddleBrown
+end box
+
+activate ParserUtil
+
+ParserUtil -> StringUtil : findSimilar("dat"...)
+activate StringUtil
+StringUtil -> StringUtil : getSuggestions("dat"...)
+activate StringUtil
+
+loop 2 times to compare with both "name" & "date"
+    StringUtil -> StringUtil : computeDistance("dat"...)
+end
+
+deactivate StringUtil
+
+StringUtil -> ParserUtil : "date"
+deactivate StringUtil
+deactivate StringUtil
+end
+@enduml

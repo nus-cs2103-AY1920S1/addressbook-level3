@@ -1,0 +1,42 @@
+@startuml
+!include style.puml
+group sd retrieve internal sorted list
+box Model MODEL_COLOR_T1
+participant ":Xpire" as Xpire MODEL_COLOR
+participant ":SortedUniqueItemList" as SortedUniqueItemList MODEL_COLOR
+participant "li:ObservableList" as ObservableList MODEL_COLOR
+participant ":FXCollections" as FXCollections MODEL_COLOR
+participant "s:SortedList" as SortedList MODEL_COLOR
+participant ":MethodOfSorting" as MethodOfSorting MODEL_COLOR
+end box
+Xpire -> SortedUniqueItemList : asUnmodifiableObservableList()
+activate SortedUniqueItemList
+
+SortedUniqueItemList -> ObservableList:
+activate ObservableList
+
+ObservableList -> FXCollections : unmodifiableList(s)
+activate FXCollections
+
+create SortedList
+FXCollections -> SortedList
+activate SortedList
+
+SortedList -> MethodOfSorting : getComparator()
+activate MethodOfSorting
+MethodOfSorting -> SortedList : nameComparator
+deactivate MethodOfSorting
+
+SortedList -> FXCollections
+deactivate SortedList
+
+FXCollections -> ObservableList
+deactivate FXCollections
+
+ObservableList -> SortedUniqueItemList : li
+deactivate ObservableList
+
+SortedUniqueItemList --> Xpire : li
+deactivate SortedUniqueItemList
+end
+@enduml

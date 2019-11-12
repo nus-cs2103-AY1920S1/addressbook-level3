@@ -3,6 +3,22 @@
     background-color: #383838; /* Used in the default.html file */
 }
 
+.help {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    background-color: #383838; /* Used in the default.html file */
+}
+
+.help .label {
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #eee;
+    -fx-font-size: 10pt;
+}
+
+.hyperlink {
+    -fx-border-color: transparent;
+    -fx-padding: 4 0 4 0;
+}
+
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -18,9 +34,15 @@
 }
 
 .label-header {
-    -fx-font-size: 32pt;
+    -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.list-header {
+    -fx-font-size: 15pt;
+    -fx-text-fill: #eee;
     -fx-opacity: 1;
 }
 
@@ -39,46 +61,14 @@
     -fx-max-height: 0;
 }
 
-.table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
-    -fx-table-cell-border-color: transparent;
-    -fx-table-header-border-color: transparent;
-    -fx-padding: 5;
+.split-pane:vertical .split-pane-divider {
+    -fx-background-color: #667070;
+    -fx-border-color: transparent #484848 transparent #484848;
+    -fx-padding: 0.8em 0 0.8em 0;
 }
 
-.table-view .column-header-background {
-    -fx-background-color: transparent;
-}
-
-.table-view .column-header, .table-view .filler {
-    -fx-size: 35;
-    -fx-border-width: 0 0 1 0;
-    -fx-background-color: transparent;
-    -fx-border-color:
-        transparent
-        transparent
-        derive(-fx-base, 80%)
-        transparent;
-    -fx-border-insets: 0 10 1 0;
-}
-
-.table-view .column-header .label {
-    -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
-    -fx-alignment: center-left;
-    -fx-opacity: 1;
-}
-
-.table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
-}
-
-.split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-border-color: transparent transparent transparent #4d4d4d;
+.split-pane:vertical .split-pane-divider:hover {
+    -fx-background-color: #4a738a;
 }
 
 .split-pane {
@@ -87,36 +77,77 @@
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
-.list-view {
+.scroll-pane {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background: derive(#1d1d1d, 20%);
 }
 
-.list-cell {
+.list-panel {
+    -fx-border-color: #484848;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+}
+
+/*for cards*/
+
+#cardPane {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 0px, 2px;
 }
 
-.list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+.card {
+    -fx-background-color:  #515658;
+    -fx-background-radius: 15px;
 }
 
-.list-cell:filled:odd {
-    -fx-background-color: #515658;
-}
-
-.list-cell:filled:selected {
-    -fx-background-color: #424d5f;
-}
-
-.list-cell:filled:selected #cardPane {
-    -fx-border-color: #3e7b91;
+.card:focused {
+    -fx-background-color: #576f78;
+    -fx-border-color: #4a738a;
+    -fx-border-radius: 15px;
     -fx-border-width: 1;
 }
 
-.list-cell .label {
+.card:hover {
+    -fx-border-color: #4a738a;
+    -fx-border-radius: 15px;
+    -fx-border-width: 2;
+}
+
+.card:focused > .remind {
+    -fx-background-color: #b59f30;
+}
+
+.remind {
+    -fx-background-color: #9c892a;
+}
+
+.card:focused > .expired {
+    -fx-background-color: #934d59;
+}
+
+.expired {
+    -fx-background-color: #80444e;
+}
+
+.card:focused > .healthy {
+    -fx-background-color: #729d53;
+}
+
+.healthy {
+    -fx-background-color:  #648a48;
+}
+
+.card:focused .label {
+    -fx-wrap-text: true;
+}
+
+.stack-pane-days {
+    -fx-background-radius:  0 15 15 0;
+}
+
+#cardPane .label {
     -fx-text-fill: white;
 }
 
@@ -124,13 +155,16 @@
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
+    -fx-line-spacing: 0px;
 }
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
+    -fx-font-size: 11px;
     -fx-text-fill: #010504;
 }
+
+/*for commandBox*/
 
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
@@ -138,8 +172,6 @@
 
 .pane-with-border {
      -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
 }
 
 .status-bar {
@@ -149,7 +181,7 @@
 .result-display {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
+    -fx-font-size: 10pt;
     -fx-text-fill: white;
 }
 
@@ -157,11 +189,32 @@
     -fx-text-fill: black !important;
 }
 
+/*for all items list*/
+
+.tree-view .tree-cell {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+}
+
+.tree-cell > .tree-disclosure-node > .arrow  {
+    -fx-background-color: #2c868d;
+}
+.tree-cell:expanded > .tree-disclosure-node > .arrow {
+    -fx-background-color: #35a4b0;
+}
+
+.tree-view {
+    -fx-background-color: #383838;
+}
+
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-padding: 4px;
-    -fx-pref-height: 30px;
+    -fx-pref-height: 18px;
+    -fx-font-size: 11px;
 }
 
 .status-bar-with-border {
@@ -197,7 +250,7 @@
 }
 
 .menu-bar .label {
-    -fx-font-size: 14pt;
+    -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-opacity: 0.9;
@@ -265,7 +318,7 @@
 }
 
 .dialog-pane > *.label.content {
-    -fx-font-size: 14px;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
@@ -275,11 +328,13 @@
 }
 
 .dialog-pane:header *.header-panel *.label {
-    -fx-font-size: 18px;
+    -fx-font-size: 15px;
     -fx-font-style: italic;
     -fx-fill: white;
     -fx-text-fill: white;
 }
+
+/*scroll bar*/
 
 .scroll-bar {
     -fx-background-color: derive(#1d1d1d, 20%);
@@ -287,7 +342,7 @@
 
 .scroll-bar .thumb {
     -fx-background-color: derive(#1d1d1d, 50%);
-    -fx-background-insets: 3;
+    -fx-background-insets: 2;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
@@ -300,11 +355,11 @@
 }
 
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
-    -fx-padding: 1 8 1 8;
+    -fx-padding: 1 5 1 5;
 }
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
-    -fx-padding: 8 1 8 1;
+    -fx-padding: 5 1 5 1;
 }
 
 #cardPane {
@@ -320,22 +375,43 @@
 #commandTextField {
     -fx-background-color: transparent #383838 transparent #383838;
     -fx-background-insets: 0;
-    -fx-border-color: #383838 #383838 #ffffff #383838;
+    -fx-border-color: #667070;
+    -fx-border-radius: 15;
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
+    -fx-font-size: 11pt;
     -fx-text-fill: white;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#commandTextField:focused {
+    -fx-border-color: #4a8bb0;
+    -fx-border-radius: 15;
+}
+
+#status .label{
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-color: white;
+}
+
+#filterField, #itemWebpage {
+    -fx-box-border: transparent;
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
-    -fx-background-radius: 0;
+    -fx-background-color: #383838;
+    -fx-border-radius: 10px;
+    -fx-border-color: #616161 #616161 #616161 #616161;
+    -fx-border-width: 2px;
 }
+
+/*#resultDisplayPlaceholder {*/
+/*    -fx-border-color: transparent;*/
+/*    -fx-border-width: 2px;*/
+/*}*/
 
 #tags {
     -fx-hgap: 7;
@@ -346,7 +422,14 @@
     -fx-text-fill: white;
     -fx-background-color: #3e7b91;
     -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
+    -fx-border-radius: 3;
     -fx-background-radius: 2;
-    -fx-font-size: 11;
+    -fx-font-size: 10;
+}
+
+.panel-header {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
 }

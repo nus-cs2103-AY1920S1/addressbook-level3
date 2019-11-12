@@ -1,9 +1,11 @@
-= AddressBook Level 3 - Developer Guide
+= Xpire - Developer Guide
 :site-section: DeveloperGuide
 :toc:
+:toclevels: 5
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 5
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -12,9 +14,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-F11-2/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `TeamXpire`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -30,11 +32,7 @@ image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
-
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/io/xpire/Main.java[`Main`] and link:{repoURL}/src/main/java/io/xpire/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -59,188 +57,938 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicComponentClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete|1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete|1` command
+
 image::ArchitectureSequenceDiagram.png[]
-
 The sections below give more details of each component.
 
+// tag::ui[]
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiComponentClassDiagram.png[]
+// end::ui[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/io/xpire/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ViewPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/io/xpire/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Listens for changes to user's input so that the UI can be updated with the modified data in `Model`.
 
 [[Design-Logic]]
 === Logic component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicComponentClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/io/xpire/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `XpireParser` or `ReplenishParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding an item).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete|1")` API call when the user is viewing the main list.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `delete|1` Command
+image::LogicComponentSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelComponentClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/io/xpire/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Xpire and ReplenishList data.
+* exposes an unmodifiable `ObservableList<Item>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageComponentClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/io/xpire/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the `Xpire` and `ReplenishList` data in JSON format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `io.xpire.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Replenish List
+// tag::replenishListItems[]
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+====  Items in replenish list and main list
+Items in the replenish list with only `Name` and `Tag` fields are represented by the `Item` class.
+On the other hand, items in the main list with additional fields such as `ExpiryDate`,
+`Quantity` and `ReminderThreshold` are represented by the `XpireItem` class.
+To utilise the concept of inheritance and reduce duplicate data and methods, `XpireItem` is written to inherit from `Item`.
+This relationship can be observed from the diagram below.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+.Snippet of Model Component Class Diagram to illustrate inheritance of `XpireItem` from `Item`.
+image::condensed_item_class_diagram.png[]
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+==== Storage of items in the replenish list
+An `XpireItem` is converted to a `JsonAdaptedXpireItem` whereas an `Item` is converted to a `JsonAdaptedItem` for storage.
+To store both the replenish list and main list in a single JSON file, both lists are wrapped in the `JsonSerializableList` class
+for serializing and deserializing using the Jackson Library.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+.Snippet of Storage Component Class Diagram to illustrate how an item in the replenish list is stored.
+image::condensed_storage_class_diagram.png[]
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+===== Design Considerations
 
-image::UndoRedoState0.png[]
+====== Aspect: Storage of replenish list and main list
+* **Alternative 1 (current choice): Store both lists in the same JSON file**
+** Pros: Updating the storage would be less cumbersome as only one file needs to be read and written into.
+** Cons: Challenging to find a suitable and efficient data structure that wraps both lists for storage into a single file.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+* **Alternative 2: Store both lists as separate JSON files**
+** Pros: Easier to implement as there is no need to find a data structure to wrap both lists for storage.
+** Cons: Makes updating the storage troublesome as both files need to be updated at the same time for any changes made to the lists.
 
-image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+==== Moving items in the main list into the replenish list
+An `XpireItem` in the main list can be transferred to the replenish list using the `ShiftToReplenishCommand`.
+Any `XpireItem` whose quantity is `0` will also be automatically added to the replenish list.
 
-image::UndoRedoState2.png[]
+===== Implementation
+When the user executes a `ShiftToReplenishCommand`, the target item in the main list will be adapted from a `XpireItem` into an `Item`.
+The adapted item will be subsequently added to the replenish list, while the target item is removed from the main list.
+The following sequence diagrams demonstrate how the command makes changes to both the main list and replenish list.
+
+.Sequence diagram for `ShiftToReplenishCommand`.
+image::shift_to_replenish_sequence_diagram.png[]
+
+.Sequence diagram when an item is shifted to the replenish list.
+image::transfer_item_to_replenish_sequence_diagram.png[]
+
+When the user executes a `DeleteCommand` to reduce the `Quantity` of an `XpireItem` to `0`, the item is automatically
+shifted to the replenish list. The item shift is demonstrated in the activity diagram below.
+
+.Sequence diagram when an item quantity is reduced to 0.
+image::delete_quantity_activity_diagram.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+The shift would not be successful if an item with the same `Name` already exists on the replenish list.
+The user would be prompted to delete the existing item in the replenish list in order to add the target item into the replenish list.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+==== Moving items in the replenish list to the main list
+On the other hand, items can be transferred into the main list using the `ShiftToMainCommand`.
+The following activity diagram summarises how the command works:
 
-image::UndoRedoState3.png[]
+.Activity diagram for `ShiftToMainCommand`.
+image::shift_to_main_activity_diagram.png[]
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+When utilising the `ShiftToMainCommand`, the user would have to input the item's `ExpiryDate` and `Quantity` (optional)
+so that the `Item` can be adapted into an `XpireItem`.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If an item with the same `Name` and `ExpiryDate` already exists on the main list, the `Quantity` of the item would be updated.
+However, only the tags of the item on the main list will be retained.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+===== Design Considerations
 
-image::UndoRedoState4.png[]
+====== Aspect: Handling of items that have run out
+* **Alternative 1 (current choice): Automatically shift an item to the replenish list when the item's quantity reaches 0**
+** Pros: User does not need to input any command to perform the shifting, making the user experience more fuss-free.
+** Cons: User has to delete the item from the replenish list if the user does not want to stock up on the item in future.
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+* **Alternative 2: Delete item from the main list without any shift**
+** Pros: Items that the user may not want to replenish will not be automatically added to the replenish list.
+** Cons: User has to go through the trouble to key in details of an item that was already in the main list.
 
-image::UndoRedoState5.png[]
+// end::replenishListItems[]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+// tag::replenishListCommands[]
+==== Commands in the replenish list
 
-image::CommitActivityDiagram.png[]
+===== Implementation
+As shown in a snippet of the `Logic` class diagram below, both `XpireParser` and `ReplenishParser` implement the interface `Parser`.
+In particular, `ReplenishParser` is the one that parses and handles the commands in the replenish list.
+
+.Snippet of Logic class diagram to highlight the relationship between the parsers
+image::ParserClassDiagram.png[]
+
+[NOTE]
+Certain commands such as sorting by date, or deleting
+of item quantities are not permitted by `ReplenishParser`, as items in the replenish list do not have expiry dates or quantities.
+
+The activity diagram below follows the general path of a command executed in either the main tracking list `Xpire`, or the
+replenish list.
+// end::replenishListCommands[]
+
+.Activity Diagram for general parsing of commands
+image::ParseCommandActivityDiagram2.png[]
+
+// tag::replenishListCommandsTwo[]
+In the event that `ReplenishParser` is selected, it will prevent any invalid or prohibited commands and also check for spelling mistakes in the user input.
+This will be further explained to you in a <<Spelling correction with alternative recommendations,later section>>.
+
+===== Design Considerations
+When designing the replenish list, I had to make decisions on how best to parse and execute commands in an efficient manner
+that would minimise code repetition and delay in runtime. The following is a brief summary of
+my analysis and decisions.
+
+====== Aspect: How commands are executed in the list
+* **Alternative 1 (current choice): Create two separate parsers, one for the main tracking list and another for the replenish list.**
+** Pros: This allows us to reuse existing commands that are currently functional for the main tracking list in the replenish list as well, without extensive repetition of code.
+** Cons: This would require us to check which parser is to be used every time a command is executed.
+
+* **Alternative 2: Create two versions of each command, one for each list.**
+** Pros: This allows us to greatly customise the command for each list.
+** Cons: This however would lead to unnecessary repetition of code across the code base.
+// end::replenishListCommandsTwo[]
+
+// tag::autosortPartOne[]
+=== Auto-sorting of items by name then date
+==== Implementation
+As mentioned previously, items in both lists are automatically sorted by their name then date.
+This auto-sorting mechanism is facilitated by `SortedUniqueXpireItemList` and `SortedUniqueReplenishItemList`
+that both implement `SortedUniqueItemList`, in a relationship summarised in the class diagram below.
+
+.Snippet of Model class diagram to bring attention to the relationship between internal sorted lists
+image::SortedUniqueItemListClassDiagram.png[]
+
+In both `SortedUniqueXpireItemList` and `SortedUniqueReplenishItemList`, items are stored in a `SortedList<Item>` and
+subsequently sorted based on the comparator defined. `SortedUniqueXpireItemList` supports a new function, `SortedUniqueItemList#setMethodOfSorting()`, that specifies the
+`MethodOfSorting` and comparator to be used for the list.
+
+The following sequence diagrams break down the intricacies in the view operation that works to display the sorted items in each list:
+
+.Sequence Diagram illustrating how the view operation displays items in order
+image::AutoSortViewSequenceDiagram.png[]
+
+[NOTE]
+Parsers are omitted from the diagram above to place greater emphasis on the parser selection process and sorting mechanism.
+
+The figure above shows a `view|replenish` command executed to change the current view from that of the main tracking list `Xpire`
+to the replenish list, while the figure below initialises this process.
+
+.Sequence Diagram : setting the parser
+image::ViewSetParserSequenceDiagram.png[]
+
+`LogicManager` creates and allocates a parser to parse commands entered by the user each time. It does so by first identifying the current view
+displayed. In this example, the current view is found to be `XPIRE`, and thus `XpireParser` is selected. Following that,
+new objects `ViewCommandParser` and `ViewCommand` are created and returned to `LogicManager` to be used in the execution of the `view|replenish` command.
+The figure below pictures the process of retrieving the internal sorted list of items in `ReplenishList`.
+
+.Sequence Diagram : retrieve internal sorted list
+image::AutoSortViewPartSequenceDiagram.png[]
+As items in the replenish list lack expiry dates, the command to sort by date is rendered irrelevant and thereby disallowed entirely in the replenish list.
+Instead, items are automatically sorted by their names. Therefore, in the diagram above, a `nameComparator` is always returned by default.
+
+[NOTE]
+The list returned is the sortedInternalList wrapped as an unmodifiable list.
+
+`this.internalUnmodifiableList = FXCollections.unmodifiableList(this.sortedInternalList);`
+
+[NOTE]
+Every time view is called, the current method of sorting specified is retrieved. If it has not been explicitly specified,
+the default method of sorting (by name) is then retrieved. +
+
+// end::autosortPartOne[]
+
+// tag::autosortPartTwo[]
+The following sequence diagram demonstrates how the sort command changes the default order of items displayed:
+
+.Sequence Diagram showing how sort command changes the order of items
+image::SortSequenceDiagram.png[]
+[NOTE]
+When sort is called, the method of sorting is redefined by the user.
+
+In this example, the user has chosen to re-sort the items by date. As indicated above, `ParserUtil` primarily verifies that the method of sorting is valid, i.e. either name or date. Next, `s`,
+the `SortCommand` object created executes the `sort|date` command. The figure below exhibits the specific process which sorts the items by their expiry dates.
+
+.Sequence Diagram : set method of sorting to date
+image::SortPartSequenceDiagram.png[]
+
+In the above example, the user has specified to sort items by their expiry date, thus a dateComparator is returned.
+
+[NOTE]
+The SortedList changes accordingly based on the method of sorting specified.
+
+`sortedInternalList = new SortedList<>(internalList, methodOfSorting.getComparator());`
+
+The activity diagram below details the explicit steps in the execution of a sort command.
+
+
+.Activity Diagram showing the control flow of a sort command executed by the user
+image::SortActivityDiagram2.png[]
+
+If a `sort|date` command is executed, the comparator of the internal sorted list is set to be that of a `dateComparator`,
+and the list of items are updated accordingly.
+
+[NOTE]
+The ability to check for spelling errors of command arguments is explained in a <<Spelling correction with alternative recommendations,later section>>.
+// end::autosortPartTwo[]
+
+// tag::autosortPartThree[]
+==== Design Considerations
+In the process of actualising this feature, I contemplated on when items should be automatically sorted by their names and displayed.
+I also tried and tested varied options to derive an optimal data structure to store the sorted items. The following is a brief summary of my analysis and decisions.
+
+===== Aspect: When items auto-sorted by their names are displayed
+
+* **Alternative 1 (current choice):** Maintain the current method of sorting unless a sort command is executed.
+** Pros: Does not reset the method of sorting back to name by default with the addition of every item.
+** Cons: The user might not be able to find items recently added.
+
+* **Alternative 2:** Re-sort the list of items by their names with the addition of every item.
+** Pros: Allows the user to find any added item with ease as items are sorted by their name in lexicographical order.
+** Cons: Resets the method of sorting back to name by default every time an item is added.
+
+===== Aspect: Data structure to store the auto-sorted items
+* **Alternative 1 (current choice):** `SortedList<Item>`.
+** Pros: Smooth integration with the internal ObservableList. Comparator can also be easily changed when necessary.
+** Cons: Sorted List can only be viewed when `asUnmodifiableObservableList()` in `SortedUniqueItemList` is called.
+
+* **Alternative 2:** `TreeSet<Item>`.
+** Pros: Disallows addition of identical items to the set.
+** Cons: May not be as compatible with the internalList which is of type ObservableList.
+// end::autosortPartThree[]
+
+// tag::setreminder[]
+=== Reminders for expiring items
+
+The reminder function comprises two parts. Firstly, user sets a date designated to active the reminder through the command
+`set reminder`. Then, user will be able to find all items whose reminder has been activated at present through the command `check`. +
+There is also an enhanced function which allows the user to filter items expiring within a specified number of days,
+ through the `check|<days>` command.
+
+==== Implementation
+
+===== Set reminder
+The set reminder function is implemented in a similar way as delete, add and tag. It is facilitated by the method `setItem` in `Model`
+where the old item in `Xpire` will be replaced by a new item with an updated value for the field `ReminderThreshold`.
+It is activated using the command `set reminder`.
+
+You can refer to the example usage scenario given below to see what happens at each stage of the execution.
+
+Scenario: the user wants to set a reminder for an item with index 1 in the current view of the list
+1 day before its expiry date.
+
+Step 1: the user input is parsed by `SetReminderCommandParser` to check validity of the reminder threshold.
+
+Step 2: the `SetReminderCommandParser` creates a `SetReminderCommand` object if the input is valid. The `SetReminderCommand` contains a
+ new `ReminderThreshold` object. The `SetReminderCommand` is returned to the `LogicManager` and executed.
+
+Step 3: during the execution, a copy of the old item with the new `ReminderThreshold` will be created. The copy will replace the old one
+in the `Xpire` by `ModelManager`.
+
+Step 4: result of execution will be displayed.
+
+The following sequence diagram shows how the operation works:
+
+.SetReminderSequenceDiagram
+
+image::SetReminderUML.png[]
+
+===== Check
+The basic check function uses the `updateFilteredItemList` method provided by model to filter items whose reminder has been activated.
+The predicate used by the filtering method is named `ReminderThresholdExceededPredicate`.
+
+The `ReminderThresholdExceededPredicate` will check whether the number of days to an item's expiry date is smaller than or equal to its reminder
+ threshold.
+
+You can see how the `Check` operation works in the following sequence diagram.
+
+.CheckSequenceDiagram
+
+image::CheckCommandNoArgUML.png[]
+
+A successful `check` will lists all items marked as yellow and red int he `ViewPanel` of the UI component.
+
+===== Check with days
+The enhanced check function also uses the `updateFilteredItemList` method provided by model to filter items. The condition
+for filtering is that the user input number of days is smaller than or equal to the number of days to an item's expiry date. This is
+done by the predicate named `ExpiringSoonPredicate`.
+
+You can see how the `Check|<days>` operation works in the following sequence diagram.
+
+.CheckDaysSequenceDiagram
+
+
+image::CheckCommandArgUML.png[]
+
+//The following activity diagram summarizes what happens when a user executes a set reminder command:
 
 ==== Design Considerations
 
+===== Aspect: How set reminder executes
+
+* **Alternative 1 (current choice):** Set new item to replace the original one in `Xpire`
+** Pros: removes unwanted dependency as modifying the item directly in `SetReminderCommand` class requires the original `XpireItemList`
+to be passed to the class and could possibly result in unwanted modification. Using a `ObservableList` instead prevents any changes to the item by
+the `SetReminderCommand` class.
+** Cons: Time complexity is O(nlogn). Despite setting a reminder will not result in change in name or expiry date of the item, and thus
+requires no change to the sorted list, the list will still be sorted as a new item is considered added to the list.
+
+* **Alternative 2:** Modify the original item
+** Pros: Time complexity is low: O(n) to locate the item.
+** Cons: This is dangerous as modifying items in a sorted list is prone to unwanted side effects and undesirable modifications.
+// end::setreminder[]
+
+// tag::undoredo[]
+=== Undo/Redo feature
+==== Implementation
+
+The undo/redo mechanism is facilitated by 4 different components: `CloneModel`,  `State`, `StackManager`, and `UndoableHistoryManager`.
+
+A `CloneModel` is a cloned version of the `Model` class and contains `UserPrefs` and the items in `Xpire` and `ReplenishList`.
+
+A `State` represents the status of the application at that point in history and contains the corresponding `CloneModel`, an enum `ListType` which is the current view of the application, a `XpireMethodOfSorting` which determines how the items in `Xpire` are sorted, as well as a `predicate` that filters items in the current view.
+
+The undo/redo mechanism is also supported by a `StackManager` which stores internally all the states and +
+decides when to pop or clear, depending on the command.
+There are two stacks that are stored in StackManager internally, the UndoStack and the RedoStack.
+The UndoStack is a `ArrayDeque` class, a double-ended queue which can simulate as a stack whilst the RedoStack is of the `Stack` class. Both classes are imported from java.util.
+These stacks are initialised and cleared upon the beginning and ending of every session of the application.
+
+[NOTE]
+Currently, the undo/redo mechanism only supports up to 10 previous commands. This is enforced in order to save memory by not storing too many states in one session which may slow down the application.
+
+As the UndoStack can only contain a maximum of 10 states, the UndoStack has to drop the first state from the front if there are already 10 states stored, thus influencing the design of the two stacks. +
+Therefore, an double-ended queue was used to replicate a Stack as it supports O(1) deleting operations from the front.
+
+The `UndoableHistoryManager` is a generic class that stores inputs as well as Commands so that Undo/Redo commands are able to feedback to the user what commands have been undone or redid.
+
+At every command (besides `undo`/`redo`/`help`/`exit`/`export`/`tag (show)`, the state is stored internally. +
+When an `undo` command is executed, it will pop the previous state and update the model via `update`. +
+The state that was undid will then be pushed into the RedoStack, should the user types in a `redo` command.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The two internal stacks in `StackManager` will be initialised. Both stacks should be empty as there are no previous commands by the user. The current state is s0, the initial state of the application.
+
+Step 2. The user executes `delete|5` command to delete the 5th item in `Xpire`. The `delete` will then save the previous state, s0, by pushing it into the Undo Stack. The current state will be the new state `s1` that has the 5th item in `Xpire` deleted.
+
+.Step 1 & Step 2
+
+image::UndoRedo/UndoRedoStep1and2.png[width="790"]
+
+Step 3. The user executes `add|Apple|30/10/2019|3` to add a new item. Similar to Step 2, The `AddCommand` will then save the previous state, s1, by pushing it into the UndoStack. The current state will be the new state `s2` with the item Apple added.
+
+[NOTE]
+If a command fails its execution, it will not save the previous state, thus the state will not be pushed into the UndoStack.
+
+Step 4. The user now decides that adding the Apple item earlier on was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will then update the current model with the model in the previous state.
+
+Internally within StackManager, the most recent state, s1, will be popped from the UndoStack to become the current state. At the same time, s2, the new state with the added item, will be pushed into the RedoStack.
+
+.Step 3 & Step 4
+
+image::UndoRedo/UndoRedoStep3and4.png[width="790"]
+
+[NOTE]
+If there are no commands to undo (e.g. at the start of a new Xpire session), undo will return an Error to the user instead. This is done by checking whether the UndoStack is empty.
+
+The following sequence diagram shows how the `undo` operation works:
+
+image::UndoRedo/UndoSequenceDiagram.png[width="790"]
+
+The `redo` command does the opposite -- It will pop the latest state from the Redo Stack and set it as the current state whilst pushing the current state into the UndoStack.
+
+[NOTE]
+Similarly, if there are no commands to redo, `redo` will return an Error to the user. This is done by checking if the RedoStack is empty.
+
+From Step 4, there are 3 scenarios which showcases the behaviour of `StackManager` after an Undo command has been executed.
+
+Step 5a. The user suddenly decides that he should not have undid the previous Add command, thus he wants to redo the action. This is done by inputting 'redo' in Xpire.
+
+Within `StackManager`, the current state will be the popped state, s2, from the RedoStack. The current state, s1, will then be pushed back into the UndoStack. The current states and their locations should be the same as after the execution of the `AddCommand` in Step 3.
+
+Step 5b. The user decides to further undo his actions, which now includes the first `DeleteCommand`. The initial state, s0, will then be popped from the UndoStack and set as the current state. The current state, s1, will then be pushed into the RedoStack.
+
+.Step 5a & Step 5b
+
+image::UndoRedo/UndoRedoStep5aand5b.png[width="790"]
+
+Step 5c. The user may also decide to execute some other command (which is the most likely scenario) other than Undo/Redo. For instance, the user inputs `tag|2|#Fruit`.
+
+When this happens, the existing states in the RedoStack will be cleared. The state s1, will then be pushed into the UndoStack whilst the current state will be the new state s3 that includes the new `TagCommand`.
+
+.Step 5c
+
+image::UndoRedo/UndoRedoStep5c.png[width="790"]
+
+//[PROPOSED] [v2.0] A CommandHistory that is integrated and allows users to fast-forward or go back in time to a state/version of the application instantly, as well as view the changes for each item instantly.
+
+[NOTE]
+Not all commands will save states to `StackManager`. `exit` and `help` commands will not save states. `UndoCommand` and `RedoCommand` should only act on commands that update items or change the view of the list of items to the user.
+
+The following activity diagram summarises what happens when a user executes a new command:
+
+.Activity Diagram for Undo/Redo Commands
+image::UndoRedo/ActivityDiagramUndoRedoCommand.png[width="790"]
+
+==== Design Considerations
+
+There are two classes that inherit from the abstract class `State` which are `FilteredState` and `ModifiedState`.
+
+The states that are stored at each valid and undoable command depends on the type of command itself as `FilteredState` only copies over the predicate and method of sorting but not the backend `Xpire` or `ReplenishList` data. Thus, commands that do not alter items such as `SortCommand` and `CheckCommand` commands instantiate a `FilteredState`.
+
+On the other hand, `ModifiedState` is created with commands that alters the item of the data, thus new `Xpire` and `ReplenishList` objects will be stored within the state. Commands that instantiate a `ModifiedState` include `AddCommand`, `TagCommand` and `DeleteCommand`.
+
+The following class diagram shows the entirety of the undo/redo mechanism and its associations.
+
+.Class Diagram for Undo/Redo mechanism (Note that only classes that are in the feature are included)
+image::UndoRedo/UndoRedoSystemClassDiagram2.png[]
+
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Option 1 (current choice):** Saves and clones the entire model.
 ** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: May have performance issues in terms of memory usage, need to have a limit for the amount of states that we can save.
+* **Option 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `DeleteCommand`, just save the item being deleted and apply the corresponding reverse command which is and `AddCommand`).
+** Cons: Ensure that the implementation of each individual command are correct. +
+Hard to do when applying stackable `SearchCommand` and `SortCommand` as the `predicate` and XpireMethodOfSorting needs to be updated properly.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Optional 1 (current choice):** Use a stack to store the different commands and states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update the filtered list shown to the user and the backend `Xpire`/`ReplenishList` data.
+* **Optional 2:** Use `HistoryManager` for undo/redo that stores previous versions of Item/XpireItem
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+** Cons: Requires `Item`/`XpireItem` to have a history of its edits. Violates Single Responsibility Principle and Separation of Concerns as each `Item` now needs to do two different things which is to store data and know its previous edited versions.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::search[]
+=== Search by name or tag(s)
 
-_{Explain here how the data encryption feature will be implemented}_
+This feature allows users to filter out specific items either by name or by tag(s) through providing
+the relevant keyword(s). Items which contain any of the keywords will be shown on the view panel.
+For search by name, partial words can be matched. For search by tag, only exact words will be matched.
 
-// end::dataencryption[]
+This implementation is under `Logic` and `Model` components.
+
+==== Implementation
+
+Below are the UML sequence diagrams and a step-by-step explanation of an example usage scenario.
+
+.Sequence diagram illustrating the search mechanism
+image::SequenceDiagramSearch.png[width="790"]
+
+[NOTE]
+Parsing of arguments is omitted from the diagram above to place greater emphasis on the filtering process.
+The diagram below further illustrates the parsing of arguments.
+
+.Sequence diagram illustrating the parsing of arguments
+image::SequenceDiagramSearchParseArgs.png[width="790"]
+
+Example usage scenario:
+
+[NOTE]
+Steps 1-3 and steps 4-5 describe what is shown in Figure 34 and Figure 33 respectively.
+
+Step 1. User enters command `search|banana`. The command is received by the `LogicManager` 's `execute` method which
+then calls the `getCurrentView` method of `Model` to determine which item list is currently being displayed, `XPIRE`
+or `REPLENISH`.
+
+Step 2. Depending on which item list is currently being displayed, either `XpireParser` 's or `ReplenishParser` 's `parse`
+method will be called to create a `SearchCommandParser` object.
+
+Step 3. The `parse` method of the `SearchCommandParser` will be called to parse the keyword, "banana" in our case,
+into a `ContainsKeywordsPredicate` object which will then be pass to the constructor of `SearchCommand`. Subsequently,
+the `SearchCommand` object will be returned to the `LogicManager`.
+
+Step 4. The `LogicManager` then calls the returned `SearchCommand` object's `execute` method which calls the
+`filterCurrentList` method of `Model` to update the current view list by invoking `FilteredList` 's `setPredicate` with
+the `ContainsKeywordsPredicate` object, stored in the `SearchCommand` object, as the parameter.
+
+Step 5. Upon successful updating of the current view list, a `CommandResult` object will be created by `SearchCommand`
+to encapsulate a positive feedback message that will be shown to the user. The `CommandResult` will then be returned to the `LogicManager`.
+
+To further demonstrate the high-level workflow of the `search` command, the following UML activity diagram is provided:
+
+[NOTE]
+The selection of parser and the creation of `SearchCommand` object is omitted for brevity.
+
+.Activity diagram illustrating the high-level workflow of search command
+image::ActivityDiagramSearchCommand.png[width="790"]
+
+As illustrated in Figure 35, the `search` functionality also considers the case where the current view list
+is empty and there will be a feedback to the user to inform him/her that the `search` command is not executed
+successfully.
+
+==== Design Considerations
+
+Below highlights the different considerations while implementing this feature.
+
+===== Aspect: How to implement AND search?
+
+* **Option 1 (initial choice):** Modify the input command format to include "&" as a separator. The "&" separator will be placed between 2 keywords to signify an AND condition between the them.
+** Pros:
+*** Requires only a single `search` command to do both AND and OR search.
+*** There is no need to change the original architecture for `Model`.
+** Cons:
+*** Complicates the input command format (since it has both "|" and "&" separators) and makes it not user-friendly.
+*** Could be confusing to the user when they want to a mix of AND and OR conditions in a single `search` command.
+*** Could be difficult to parse correctly since there are 2 different separators.
+*** Extra work has to be done to change the ContainsKeywordsPredicate to accept AND condition.
+* **Option 2 (current choice):** Make the `search` command "stackable". Every `search` command will now only
+execute on the current view list. e.g. the result of a `search` command can be further filtered with another `search` command.
+** Pros:
+*** Users can intuitively make an AND search of 2 or more keywords by first searching with 1 keyword and then
+search again with another keyword, and repeat again for more keywords.
+*** There is no change to the input command format.
+** Cons:
+*** Requires multiple `search` commands to be executed for AND search.
+*** Have to figure out how to implement "stackable" commands.
+
+===== Aspect: How to implement "stackable" commands?
+
+* **Option 1 (current choice):** Modify the `ModelManager`.
+** Pros:
+*** Uses the separation of concerns principle. The commands do not need to know how the item list will behave when they are executed.
+They simply need to make the relevant Application Programming Interface (API) calls and the `ModelManager` will handle the behaviour
+of the list.
+*** Adheres to the open-closed principle. The commands do not need to make any changes to its architecture and other commands can
+also be made "stackable" through using the API.
+** Cons:
+*** Have to modify the `ModelManager` 's architecture to support the API that modifies the current view list.
+* **Option 2:** Modify the commands.
+** Pros:
+*** Do not need to modify the API.
+** Cons:
+*** Violates single responsibility principle. The commands will now handle both the execution algorithm and the behaviour of the item list.
+*** Violates open-closed principle. The `Command` 's architecture will have to be modified to be "stackable".
+
+// end::search[]
+
+// tag::tag[]
+=== Tag Feature
+
+This feature allows users to tag specific items in the list. Items can only have a maximum of 5 tags and all tags are parsed in Sentence-Case and must not be more than 20 characters long each. If the user enters `tag`, all the tags in the current list view will be collected and displayed to the user.
+
+==== Implementation
+
+Below are diagrams of what happens when a user keys in a Tag Command in `Xpire` as current list.
+
+.Activity Diagram for executing Tag Command
+image::Tag/ActivityDiagramTagCommand.png[width="790"]
+
+.Simplified Sequence Diagram for executing Tag Command that assumes valid arguments.
+image::Tag/SequenceDiagramTagCommand.png[height="790"]
+
+// end::tag[]
+
+// tag::export[]
+=== Export
+
+This feature allows users to export the items in the current view list to other devices through a QR code.
+Any device with a QR code reader will be able to download the list of items.
+
+This implementation is under `Logic` and `Model` components, and it uses a helper method from `StringUtil`.
+
+==== Implementation
+
+Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
+
+.Sequence diagram illustrating the export mechanism
+image::SequenceDiagramExport.png[width="790"]
+
+Example usage scenario:
+
+Step 1. User enters command `export`. The command is received by the `LogicManager`'s `execute` method which
+then calls the `getCurrentView` method of `Model` to determine which item list is currently being displayed, `XPIRE`
+or `REPLENISH`.
+
+Step 2. Depending on which item list is currently being displayed, either `XpireParser` 's or `ReplenishParser` 's `parse`
+method will be called to create a `ExportCommand` object. The `ExportCommand` object will be returned to the `LogicManager`.
+
+Step 3. The `LogicManager` then calls the returned `ExportCommand` object's `execute` method which calls the
+`getCurrentList` method of `Model` to retrieve the list of items in the current view list.
+
+Step 4. The items in the current view list is then converted to its string representation and then passed into the `getQrCode`
+method in `StringUtil`.
+
+Step 5. The `getQrCode` method uses https://github.com/zxing/zxing[Google ZXing] library to process the input string
+into a QR code and this QR code is subsequently converted to a byte array (`pngData`) so that it can be passed around easily.
+
+Step 6. Upon successful creation of the QR code data, a `CommandResult` object will be created by `ExportCommand` to encapsulate
+a feedback message and the QR code data, which will be rendered and shown to the user. The `CommandResult` will then be returned to the `LogicManager`.
+
+The following UML activity diagram will further demonstrate the high-level workflow of the `export` command.
+
+[NOTE]
+The selection of parser and the creation of `ExportCommand` object is omitted for brevity.
+
+.Activity diagram illustrating the high-level workflow of search command
+image::ActivityDiagramExportCommand.png[width="790"]
+
+As illustrated in Figure 39, the `export` functionality also considers the case where the current view list
+is empty and there will be a feedback to the user to inform him/her that the `export` command is not executed
+successfully.
+
+==== Design Consideration
+
+Below highlights the essential design consideration while implementing this feature.
+
+===== Aspect: What is the most suitable type of export functionality required for this application?
+
+* **Option 1:** Export to a csv file.
+** Pros:
+*** Easily transferable and shared to other computers.
+*** Easily allows user to edit the exported data.
+** Cons:
+*** Does not work well on other platforms such as mobile phones and iPads.
+*** Slow to transfer the data to other computers. Have manually transfer the
+csv file through email, thumb drive or cloud drive.
+* **Option 2 (current choice):** Export through QR code.
+** Pros:
+*** Allows data to be easily transferred to any device with QR code scanner.
+*** Instantaneous data transfer upon scanning the QR code.
+** Cons:
+*** Hard to be shared to other computers since computers generally do not have QR code scanner.
+*** Focuses more on ready-only rather than editing the data.
+
+Since Xpire is an application that helps users keep track of items' expiry dates as well as
+maintain a list of to-buy items for users' reference, its exported data should focus more on
+conveniently showing users the items' information rather than emphasise on editing the data.
+
+As such, due to the nature of this application, option 2 was chosen since it can precisely meet
+the needs of the users, which is to be able to easily view the exported data anywhere and anytime
+through their mobile phones.
+
+// end::export[]
+
+// tag::recommendationsIntro[]
+=== Spelling correction with alternative recommendations
+==== Implementation
+Invalid commands are checked for spelling mistakes.
+The spelling correction mechanism is based primarily on the Damerau–Levenshtein distance algorithm, which computes the edit distance between two strings.
+This distance is based on the number of substitutions, deletions, insertions or transpositions of characters, needed to convert the source string into the target string.
+Relevant functions supporting this operation are implemented in link:https://github.com/AY1920S1-CS2103T-F11-2/main/tree/master/src/main/java/io/xpire/commons/util/StringUtil.java[`StringUtil`].
+
+[NOTE]
+Only keywords with edit distance of less than 2 are recommended, to filter away less similar word recommendations.
+// end::recommendationsIntro[]
+
+The diagram below is a simplified illustration of how the feature works.
+
+.Example showing what happens when "search|applee" is executed with "apple" misspelled
+
+image::RecommendationsExample1.png[]
+
+// tag::recommendationsPartOne[]
+[NOTE]
+The recommendations will be made solely based on the list of items previously displayed rather than all items currently in the list.
+
+As shown in the diagram below, `Banana` was not recommended even though it exists in the original list. This is because it had been filtered from the previous list prior to when the second search command was executed.
+On the other hand, if `green` was misspelled as `gren`, the algorithm will be able to identify `green` as the closest match, as `Green Apple` is present in the previous list.
+
+.Example illustrating that recommendations are solely based on the previous list
+
+image::RecommendationsExample2.png[]
+// end::recommendationsPartOne[]
+
+// tag::recommendationsPartTwo[]
+
+//Given below is an example usage scenario and how the mechanism behaves at each step.
+
+The figure below depicts the flow of events that check for spelling errors when a user executes an unknown command.
+
+.Activity diagram showing what happens when an unknown command is executed
+
+image::RecommendUnknownCommandActivityDiagram2.png[]
+
+For example, if `set reminder` was input incorrectly as `set remindre`, it will be flagged as an invalid command.
+It is then compared with an collection of all possible command words in the existing list. `set reminder` will be established
+as its closest match and wrapped as a recommendation in a `ParseException` object to be thrown and displayed to the user.
+// end::recommendationsPartTwo[]
+
+// tag::recommendationsPartThree[]
+The figure below presents what happens when a user executes a command with invalid arguments.
+
+.Activity diagram showing what happens when a command is executed with misspelled arguments
+
+image::RecommendCommandArgumentsActivityDiagram2.png[]
+
+[NOTE]
+Only search and sort commands support this operation.
+
+In the example below encapsulated in a sequence diagram, the user has misspelled `"date"` as `"dat"` in a sort command.
+
+.Sequence diagram illustrating the recommendations mechanism for command `sort|dat`
+
+image::RecommendationsSortSequenceDiagram.png[]
+
+The sequence diagram titled `find similar words` below expands on the process omitted above.
+
+.Sequence diagram showing how `"date"` is found to be the most similar word to `"dat"`
+
+image::FindSimilarSequenceDiagram.png[]
+
+The function `findSimilar` in `StringUtil` is called upon to return a set containing strings that are most similar to the misspelled argument, `"dat"`.
+In this process, `"dat"` is compared with a set of valid inputs, i.e. both `"name"` and `"date"`, and the corresponding edit distances are stored.
+`getSuggestions("dat")` then filters the results and finds `"date"` to be the best match.
+
+At last, a `ParseException` which contains the recommendation `"date"`
+is then thrown to the user as feedback.
+
+==== Design Considerations
+When tasked to implement this feature, I had to decide on what was the best way to display any form of recommendations to the user.
+I also evaluated multiple options to derive an optimal data structure to store the recommendations. The following is a brief summary of my analysis and decisions.
+
+===== Aspect: How recommendations execute
+
+* **Alternative 1 (current choice):** Displays recommendations after the user inputs a command that fails to produce results.
+** Pros: Simpler and straightforward implementation.
+** Cons: May be less intuitive to the user as opposed to auto-completed commands.
+
+* **Alternative 2:** Auto-completion of commands.
+** Pros: Lowers likelihood of spelling mistakes in user input.
+** Cons: We must ensure that the structure of every single command and their variations are taken into consideration.
+
+===== Aspect: Data structure to store the recommendations
+* **Alternative 1 (current choice):** Use a TreeMap to store entries that comprise a set of recommendations and their corresponding edit distance.
+** Pros: Entries are automatically sorted by their edit distance, thus words with a smaller edit distance will be recommended first. Duplicate entries are also prohibited.
+** Cons: May have performance issues in terms of memory usage.
+
+* **Alternative 2:** Store all possible recommendations in a long list.
+** Pros: Simpler implementation.
+** Cons: Not closely related words may also be recommended to the user.
+// end::recommendationsPartThree[]
+
+=== Retrieval of Previous Commands
+
+The retrieval of previous commands and later commands are achieved through the `InputHistoryManager` class which implements `HistoryManager` interface.
+The `CommandBox` listens to the keyboard event kbd:[↑] and kbd:[↓] when user types in the `CommandBox`.
+
+Every user input that is non-blank will be saved as a String before execution by the `save(String)` method of `InputHistoryManager`. You can refer to the following
+steps for the retrieval of a *previous* command.
+
+. Step 1: `CommandBox` listens to the KeyPressed event and makes a call to `handleUpKey()` when an up key is pressed.
+. Step 2: `handleUpKey()` checks whether the current input is successfully executed or rejected as an invalid command. This makes a difference
+because successful commands are erased after execution while invalid commands remain in the `CommandBox`.
+. Step 3: If the command is valid and erased, `InputHistoryManager` will try to retrieve the previous command by calling `previous()`.
+. Step 4: `CommandBox` will set its text to be the returned String.
+
+[NOTE]
+If the current input has not been executed or has already been successfully executed, calling the previous command will return the command
+entered before the current input. If the current input is a rejected invalid command, it means that the command has already been
+saved. In this case, calling `previous()` once will retrieve back that invalid command which to user means that the command in the `CommandBox`
+has not been changed despite the up key pressed. Hence, two calls to `previous()` will be made to retrieve the command before the current invalid command.
+
+You can refer to the activity diagram here:
+
+image::RetrievePreviousCommandActivityDiagram.png[]
+
+// tag::userinterface[]
+=== User Interface
+The UI contains two panels that change according to the items in the `XpireItemList` and `ReplenishList`. However, these
+UI components are not able to update by listening to changes in these `ObservableLists`. This is because both lists are
+sorted and thus all items in the lists will be modified each time a `sort`, `add`, `delete`, `tag` or other commands that modify the lists
+are executed, causing the listener in the API to catch unwanted changes. Instead, the lists are passed as parameters to the
+UI classes through `MainWindow` and rendered each time a command is executed.
+
+As as an example of how the UI were implemented, we will examine the implementation of `ViewPanel`.
+
+==== The View Panel
+`ViewPanel` is a container for many `ItemCards`, each carrying information about the items. +
+Given below are the steps of an example scenario of how `ViewPanel` is constructed and updated:
+
+. The User launches the application and the `MainWindow` creates a new `ViewPanelPlaceholder` container that hosts the `ViewPanel`.
+. `MainWindow` calls `Logic` which in turn calls `Model` to obtain a current active list through `getCurrentFilteredItemList()`.
+Depending on the user's current list in view, it will either be an `XpireItemList` or `ReplenishList`.
+. On starting of the GUI, `MainWindow` makes a call to `fillInnerParts()` , where the `MainWindow` passes the list as parameters to the constructor of the `ViewPanel`.
+. `ViewPanel` makes a call to `displayItems(ObservableList)` and constructs a Collection of `ItemCard` by mapping each `XpireItem` or `Item`
+to an `ItemCard` .
+.`ItemCard` takes as parameters the item and its index in the list. It renders all fields of an `XpireItem` and `Item` and also
+dose an additional check on the condition of the `XpireItem` and assign it to different colours respectively through `setColour()`.
+. The app then starts.
+
+Let's now see what happens when a command is executed.
+[NOTE]
+If the command is a `help`, `exit` of `export`, the `ViewPanel` will not be updated and refreshed.
+
+. In `MainWindow`, a call to `executeCommand(String)` is made, where `Logic` will executes the command.
+. Upon a successful execution, a call to `updateViewPanel()` is made. In this method the `ViewPanel` then calls `displayItems(ObservableList)` again to rerender the items.
+. `displayItems` will first have to clear all child Nodes that the `ViewPanel` contains before adding a new Collection of `ItemCard`.
+. `ViewPanelPlaceholder` will then have to remove the `ViewPanel` child and add the new one to allow the changes to be reflected in the GUI.
+
+You can refer to the activity diagram below for reference.
+
+image::UpdateViewPanelActivityDiagram.png[]
+
+[NOTE]
+If the execution by `Logic` is not successful, an error will be thrown and the `ViewPanel` will not be updated and refreshed.
+
+==== Design Considerations
+
+===== Aspect: How ViewPanel and AllItemsPanel updates
+* **Alternative 1 (current choice):** Updates taking in the lists as parameters.
+** Pros: Straightforward implementation that grantees correct result if the list is correct.
+** Cons: It breaks the "Model View Controller" structure because the UI is not listening to the `ObservableList` anymore. Whenever a command is executed, a function
+call has to be made to update the `ViewPanel` and the `AllItemsPanel`.
+
+* **Alternative 2:** Updates using event listeners
+** Pros: It follows the MVC structure where the panels listen to the `ObservableList` for changes.
+** Cons: As mentioned earlier, it is difficult to use event listeners on the `SortedUniqueList` because the listener will catch the sorting
+as modification to the items. In the future, alternative 2 can be considered with changes to how the listener and sorting works.
+
+===== Aspect: Layout of ResultDisplay
+* **Alternative 1 (current choice):** Directly on top of the CommandBox with resizablility.
+** Pros: Long messages can be viewed and referred to when typing the next comment.
+** Cons: It takes up a fixed space on the GUI which could be used to display more items.
+
+* **Alternative 2 (initial implementation):** Use a pop up window to display the messages which disappears when
+any key is pressed and the user can continue.
+** Pros: It saves spaces on the GUI and success and error message can be dismissed so that user do not have to see it all the time.
+** Cons: User is not able to type while referring to the message.
+
+===== Aspect: Layout of ItemCard
+
+The original design does not fit the vertical list as seen below:
+
+image::OriginalItemCard.png[]
+
+The following changes have been made to the layout of the item card for a better view of the items.
+
+. Display the number of days left before the item expires in an obvious manner for user to see.
+. Move the position of the reminder and quantity to the left so that the right is not crowede.
+. Dynamically Change the colour of the card depending on the status of the item. Red for expired, yellow for alerting, green for healthy.
+. Expand the card on clicking and collapse it when not in focus to save space for more items to be displayed.
+// end::userinterface[]
+
+Here is the redesigned `ItemCard`:
+
+image::ExpandCard.png[300]
 
 === Logging
 
@@ -272,111 +1020,431 @@ Refer to the guide <<Testing#, here>>.
 
 == Dev Ops
 
-Refer to the guide <<DevOps#, here>>.
+=== Build Automation
+
+We use Gradle for build automation. See <<UsingGradle#, here>> for more details.
+
+=== Continuous Integration
+
+We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our project. See <<UsingTravis#, here>> for more details.
+
+=== Documentation Previews
+
+We use https://www.netlify.com/[Netlify] to preview the HTML pages of any modified asciidocs files when reviewing pull requests. See <<UsingNetlify#, here>> for more details.
+
+=== Making a Release
+
+Follow the steps below to make a new release:
+
+.  Update the version number in link:{repoURL}/src/main/java/io/xpire/MainApp.java[`MainApp.java`].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v1.4`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you have created.
+
+=== Managing Dependencies
+
+Xpire often depends on third-party libraries. For instance, the https://github.com/FasterXML/jackson[Jackson library] is being used for JSON parsing in Xpire. Below are 2 ways to manage these _dependencies_:
+
+* Use Gradle to manage and automatically download dependencies (Recommended).
+* Manually download and include those libraries in the repo (this requires extra work and bloats the repo size).
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Has a preference for command-line interfaces (CLI)
+* Able to type fast
+* Has a need to track the expiry dates of numerous items
+* Prefers desktop applications over other forms
+* Prefers typing over mouse input
+* Wants to be able to search up an item’s expiry date quickly
+* Has a need for items to be tagged appropriately
+* Needs items to be organised into what has not expired and what to buy/replenish
+* Wants to be notified of items that are soon expiring or has expired
+* Tech-savvy and familiar with CLI
+* Requires an app to check what items are about to expire for a particular recipe [v2.0]
+* Wants to save recipes in a convenient format [v2.0]
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage tracking of items' expiry dates faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="59%",cols="23%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority |As a ... |I want to ... |So that I ...
+|`* * *` |new user |see usage instructions |can refer to instructions when I forget how to use the application
 
-|`* * *` |user |add a new person |
+|`* * *` |user |input the names of items |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |input the expiry dates of items |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |save the list of items I am tracking |can come back to it after closing the application
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |view the list of things I am tracking |know which items are expiring soon
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |add items to the tracking list |am able to track new items
+
+|`* * *` |user |delete items from the tracking list |can remove items that I do not need to track anymore
+
+|`* * *` |user |exit from the application |do not have to be on the application all the time
+
+|`* * *` |user |be reminded of items that are expiring soon |can use them before they expire or prepare to replenish them
+
+|`* * *` |user |view the list of expired things that are to be replenished |know what to replenish
+
+|`* * *` |user |sort my items according to name or date |can find my items more easily
+
+|`* * *` |user |search up my items by their tags or names |can find my items more easily
+
+|`* *` |user |set quantity of my items |can take note of items that are soon running out or need using before the expiry date
+
+|`* *` |user |input description of items |can write small notes or annotate about the item
+
+|`* *` |user |search items and delete |can delete an item easily without having to remember their ID
+
+|`* *` |user |undo my previous command |can return to the previous state/list if I have accidentally executed a command I do not want
+
+|`* *` |user |tag items |categorise and organise them better
+
+|`* *` |user |edit items |can update their details easily when I need to
+
+|`* *` |user |filter items by expiry date |can check what items are expiring before a certain date
+
+|`*` |user |view a summary of items |can quickly scan through all items (tracked and to-buy) to see what have been added to each list
+
+|`*` |user |import tracking list into phone via QR Code |can remind my other friends when their items are expiring
+
+//|`*` |user |track items via recipes |can be reminded of what items are expiring soon and need replenishing
+
+|`*` |user |track items and their quantity |know what items have run out and need replenishing
+
+
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+.Use case diagram for Xpire
+image::UseCaseDiagram.png[width="790"]
+
+The above use case diagram helps to summarise the use cases for Xpire.
+
+(For all use cases below, the *System* is `Xpire` and the *Actor* is the `user`, unless specified otherwise. Additionally, any references made to the `list` refers to the tracking list, unless specific otherwise.)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: UC01 - Add item
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to add an item to the list.
+2. Xpire adds the item.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. Xpire detects an error in the input.
++
+[none]
+** 1a1. Xpire shows an error message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: UC02 - Delete item
+Precondition: Display board is showing a list of items.
+
+*MSS*
+
+1.  User requests to delete a specific item in the list.
+2.  Xpire deletes the item.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. Xpire shows an error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 1.
 
-_{More to be added}_
+[discrete]
+=== Use case: UC03 - Search item(s)
+Precondition: Display board is showing a list of items.
+
+*MSS*
+
+1.  User requests to search for specific item(s) in the list.
+2.  Xpire shows the searched item(s).
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given keyword(s) has no matching results.
++
+[none]
+** 1a1. Xpire shows an empty list.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC04 - Clear list
+
+*MSS*
+
+1.  User +++<u>views all items in the list (UC05)</u>+++.
+2.  User requests to clear the list.
+3.  Xpire removes all items from the list.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC05 - View all items
+
+*MSS*
+
+1.  User requests to view all items in the list.
+2.  Xpire shows the full list of items.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC06 - View help
+
+*MSS*
+
+1.  User requests for help.
+2.  Xpire shows the help messages.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC07 - Terminate Xpire
+
+*MSS*
+
+1.  User requests to exit the program.
+2.  Xpire closes.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC08 - Check for expiring items
+
+*MSS*
+
+1.  User requests to view list of expiring items.
+2.  Xpire shows list of expiring items.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty
++
+[none]
+** 1a1. Xpire shows an empty list.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC09 - Tag item
+Precondition: Display board is showing a list of items.
+
+*MSS*
+
+1.  User requests to tag an item in the list.
+2.  Xpire tags the item.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given index is invalid.
++
+[none]
+** 1a1. Xpire shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: UC10 - Sort items
+Precondition: Display board is showing a list of items.
+
+*MSS*
+
+1.  User requests to sort the items.
+2.  Xpire sorts the items in the list.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC11 - Export
+
+*MSS*
+
+1.  User requests to export current list.
+2.  Xpire shows the QR code.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+Accessibility
+
+.  The app shall be accessible by people who have downloaded the JAR file.
+//.  The app shall be accessible to people who are colour blind, to the extent that they shall be able to discern all text and other information displayed by the system as easily as a person without colour blindness.
+
+Availability
+
+.  The app shall be available once it is started up and running.
+.  Reminders shall only be available on the app.
+.  Reminders shall only be available after the app is started.
+
+Efficiency
+
+.  The app should start up within 5 seconds.
+.  The response to any user action should become visible within 5 seconds.
+
+Performance
+
+.  The app list should be able to hold up to 200 items without a noticeable sluggishness in performance for typical usage.
+.  The app should be able to sort up to 200 items without any sags in performance.
+
+Reliability
+
+.  The app shall only accept and process user actions written in the correct format.
+.  The app shall throw appropriate exceptions when any user action is in an invalid format.
+.  The app shall throw appropriate exceptions when any user action fails to be processed.
+
+Integrity
+
+.  The precision of calculations with derived data shall be at the same degree of precision as the originating source data.
+.  All dates entered will be parsed accurately as to the original date format.
+
+Product Scope
+
+.  The product is not required to handle items without expiry dates.
+.  The product is not required to handle items without names.
+.  The product is not required to produce reminders when the app is inactive.
+.  The product is not required to handle intentionally corrupted JSON files.
+
+Usability
+
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The user interface should be self-explanatory and intuitive enough for first-time users or users who are not IT-savvy.
+
+Maintainability
+
+.  A development programmer who has at least one year of experience supporting this software application shall be able to add a new product feature, including source code modifications and testing, with no more than two days of labour.
+.  The app code base shall be easy to read and interpret by a developer with at least one year of experience.
+
+Modifiability
+
+.  Function calls shall not be nested more than two levels deep.
+
+Installability
+
+.  The installation process shall be convenient. The application shall be downloaded as a JAR file from the newest tagged release.
+.  The software shall be installed from Github, a popular portable medium.
+
+Interoperability
+
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 
 _{More to be added}_
 
 [appendix]
 == Glossary
 
+[width="100%",cols="22%,<78%"]
+|=======================================================================
+
+|Command |Executes user input in the application
+
+|CommandBox |UI component that takes in user input
+
+|ResultDisplay |UI component that displays the feedback to the user
+
+|FXML |XML-based user interface markup language for defining user interface of a JaxaFX application
+
+|ItemCard |UI component that displays information on an item
+
+|ViewPanel |UI component that displays list of items
+
+|AllItemsPanel |UI component that displays list of all items in an expandable list
+
+|JavaFX |Software platform for creating and delivering desktop applications and rich Internet applications
+
+|JSON |An open-standard file format that uses human-readable text to transmit data objects consisting of attribute–value pairs and array data types
+
+|Logic |Handles user input for the application and returns the application's output
+
+|MainWindow |Provides the basic application layout containing a menu bar and space where other JavaFX elements can be placed
+
+|Model |Represents data in the expiry date tracker and exposes immutable items list
+
+|Parser |Converts user input into a Command object
+
+|ReadOnlyListView |Provides an unmodifiable view of a list
+
+|ReminderThreshold |Number of days user wants to be reminded before item expiry date
+
+|ReplenishList |List that contains items that are to be replenished
+
+|SceneBuilder |Visual layout tool that allows developers to design JavaFX application user interfaces
+
+|SortedUniqueList |List of items that enforces uniqueness between elements and disallows nulls
+
+|Storage |Manages data in the expiry date tracker in local storage
+
+|=======================================================================
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
 
-*Product Name*
+*+++<u>Fridgely</u>+++*
 
-Author: ...
+Author: Justin Ehlert
 
 Pros:
 
-* ...
-* ...
+* Able to sync with multiple devices.
+* Has barcode scanner to automatically add item.
 
 Cons:
 
-* ...
-* ...
+* Cannot efficiently change the location tag of the item. To change the location tag, user has to manually recreate the same item with another tag and delete the current item.
+
+*+++<u>Expiry Date Tracker Lite</u>+++*
+
+Author: Lalit Kumar Verma
+
+Pros:
+
+* Has the option to use it in multiple languages.
+* Provides a summary view of "expiring" and "expired" items.
+
+Cons:
+
+* Forces user to take photo of every item while adding to the list.
 
 [appendix]
 == Instructions for Manual Testing
@@ -391,35 +1459,353 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. In the home folder for Xpire, launch the jar file using the `java -jar xpire.jar` command on +
+Terminal (for macOs) or Command Prompt (for Windows) to start the app. +
+   Expected: Shows the GUI with a set of sample items. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Re-launch the app by using the `java -jar xpire.jar` command. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Command Box
+. Input length limit
 
-=== Deleting a person
+.. Test case: `add|an item with a very long name that will be rejected|09/09/2020|100` +
+  Expected: Input is truncated to `add|an item with a very long name that will be rejected|09/0` and turns red. +
+  Feedback to user that the maximum length of input cannot exceed 60 characters.
 
-. Deleting a person while all persons are listed
+. Retrieving previous commands
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: Some command have been entered by pressing kbd:[enter], and the tester is not already at the least recent command.
+.. Test case: kbd:[↑] +
+  Expected: Previously entered command is retrieved into the Command Box.
+
+. Retrieving later commands
+
+.. Prerequisites: The tester has retrieved at least one previous commands and nothing has been entered since the retrieval.
+.. Test case: kbd:[↓] +
+  Expected: A command that had been entered after the current retrieved command is retrieved into he Command Box.
+
+=== All Items Panel
+. Updating the All Items Panel
+
+.. Prerequisites: Current view is the main list.
+.. Test case: `add|apple|09/09/2020` +
+  Expected: All Items Panel should be updated to display the item under "tracking items".
+
+.. Test case: `search|b` +
+  Expected: All Items Panel should not be updated.
+
+.. Test case: `shift|1` +
+  Expected: Item with index 1 is shifted from "tracking items" to "to-buy items".
+
+=== View Panel
+
+. Updating the colour of `ItemCard`
+
+.. Prerequisites: Current view in the main list and the first item in `View` has not expired. It should not have a reminder and should be expiring in less than 1000 days.
+
+.. Test case: Follow the instructions under <<Adding expired items to the tracking list for testing>> to add expired items to the Xpire. Do not
+add any reminder threshold. +
+  Expected: The expired items are marked as red; not expired items are green.
+
+.. Test case: `set reminder|1|1000` +
+  Expected: the first item turns yellow.
+
+=== Viewing items
+
+. Viewing items in the replenish list
+
+.. Test case: `view|replenish` +
+   Expected: All items in the replenish list are displayed.
+.. Test case: `view|replenihs` +
+   Expected:  No change in the display of items. The term `replenish` is given as a suggestion in the error message.
+.. Test case: `view|REPLENISH` +
+   Expected: Similar to previous.
+.. Test case: `view|something` +
+   Expected: No change in the display of items. Error details shown in the status message.
+.. Other incorrect sort commands to try: , `view|3000`, `view|xyz` (where xyz is any garbage input)  +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+. Viewing items in the main tracking list
+
+.. Test case: `view|main` +
+   Expected: All items in the main list are displayed.
+.. Test case: `view|mainn` +
+   Expected:  No change in the display of items. The term `main` is given as a suggestion in the error message.
+.. Test case: `view|something` +
+   Expected: No change in the order of items. Error details shown in the status message.
+.. Other incorrect view commands to try: `view|-1`, view|xyz` (where xyz is any garbage input) +
+   Expected: Similar to previous.
+
+. Viewing items in the current list
+
+.. Test case: `view` +
+   Expected: All items in the current list are displayed.
+.. Test case: `viwe` +
+   Expected: `view` is given as a recommendation in the error message.
+
+=== Adding expired items to the tracking list for testing
+By design, our app does not accept items that have expired unless the JSON file is tampered with.
+
+.. To add an expired item to the tracking list, open the xpire.json file in an editor. Under `"xpireItems"`, add a new JSON object with values for `name`, `expiryDate`, `quantity`, `reminderThreshold` and `tags`.
+.. Note that this expiry date has to be after 1/10/2019.
+.. The expiry date should be a date that is before the current date of testing. The reminder threshold should be a non-negative integer and quantity should be a positive integer.
+.. Compute the reminder date by subtracting the reminder threshold from the expiry date. The reminder date should not be before 1/10/2019.
+.. The format to follow for adding an item can be seen within the box outline:
+
+.Format to follow for adding an XpireItem manually to xpire.json file
+image::json_format_example.png[]
+
+Example:
+
+.Example of a valid XpireItem manually added to xpire.json file
+image::json_example.png[]
+An item with `name` Raspberry and `expiryDate` 8/10/2019 (which has passed) is now added to the JSON file for your testing.
+
+[NOTE]
+Remember to enclose these name-value items with `{` and `}`.
+Do note that if you manually tamper with the xpire.json file, the data file might be corrupted.
+See <<Saving data>> on details for corrupted files.
+For more information about JSON objects, please refer to https://www.digitalocean.com/community/tutorials/an-introduction-to-json[this tutorial].
+
+=== Adding an item
+. Adding an item to the main list
+
+The examples given below act according to the following list:
+
+image::add_manual_test_list.png[]
+
+.. Prerequisites: Current view is the main list.
+.. Test case: `add|Chocolate|28/6/2020` +
+   Expected: Chocolate is added to the main list. Details of the added item is shown in feedback.
+.. Test case: `add|Strawberry|30/6/2022|999` +
+   Expected: Strawberry's quantity is increased by 999. Details of the quantity increase is shown in feedback.
+.. Test case: `add|Strawberry|30/6/2022|100000` +
+   Expected: Error message shown in feedback.
+
+=== Deleting an item
+
+. Deleting an item in either list while all items are listed
+
+.. Prerequisites: List all items using the `view` command. Multiple items in the list. The item to be deleted must exist
+in the list.
+.. Test case: `delete|1` +
+   Expected: First item is deleted from the list. Details of the deleted item shown in the status message.
+.. Test case: `delete|0` +
+   Expected: No item is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+. Deleting an item quantity in the main tracking list while all items are listed
+
+The examples given below act according to the following list:
+
+image::delete_example_list.png[]
+
+.. Prerequisites: Current view is the main list. Input quantity to be deleted must be less than or equals to the item quantity.
+.. Test case `delete|2|1` +
+   Expected: Second item from the list has quantity reduced by 1. The new updated quantity is reflected in the item card.
+   Details of the item with reduced quantity is reflected in the status message.
+.. Test case `delete|2|3` +
+   Expected: Second item from the list has quantity reduced by 3. The item is shifted to the replenish list.
+   Details of this shift is reflected in the status message.
+.. Test case `delete|2|0` +
+   Expected: Quantity is not reduced. Error details showed in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the item's quantity) +
+   Expected: Similar to previous.
+
+. Deleting an item quantity in the replenish list while all items are listed
+
+.. Prerequisites: Input quantity to be deleted must be less than or equals to the item quantity.
+.. Test case `delete|2|1` +
+   Expected: Second item from the list has quantity reduced by 1. The new updated quantity is reflected in the item card.
+Details of the item with reduced quantity is reflected in the status message.
+.. Test case `delete|2|3` +
+   Expected: Second item from the list has quantity reduced by 3. The item is shifted to the replenish list.
+Details of this shift is reflected in the status message.
+.. Test case `delete|2|0` +
+   Expected: Quantity is not reduced. Error details showed in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the item's quantity) +
+   Expected: Similar to previous.
+
+=== Shifting an item to the replenish list
+
+. Shifting an item to the replenish list
+.. Prerequisites: Current view is the main list. Current list contains at least one valid item.
+
+.. Test case `shift|1` +
+   Expected: First item in the main list is shifted into the replenish list. Feedback is shown.
+
+=== Shifting an item to the main list
+
+. Shifting an item to the main list
+.. Prerequisites: Current view is the replenish list.
+   Current list contains at least one valid item.
+   Item with the same expiry date specified and name as the item of the given index does not exist on the main list.
+
+.. Test case `shift|1|25/6/2020` +
+   Expected: First item is moved to the main list. Feedback is shown.
+
+=== Tagging an item
+
+. Tagging items in either list while all items are listed
+
+.. Prerequisites: List all items using the `view` command. Multiple items in the list. The item to be tagged must have less than
+5 existing tags.
+.. Test case: `tag|1|#fruit` +
+   Expected: The first item in the list will be tagged with #Fruit.
+.. Other incorrect tagging commands to try: `tag|0`, `tag|x` +
+   Expected: No item is tagged. Error details shown in the status message.
+
+=== Setting a reminder for an item
+
+. Setting a reminder for an item
+
+.. Prerequisites: Current view is the main list. The target item should have at least 6 days before its expiry date.
+.. Test case `set reminder|1|5` +
+   Expected: First item from the list shows a reminder date which is 5 days before its expiry date. +
+   Feedback shows reminder is set successfully.
+.. Test case `set reminder|1|-5` +
+   Expected: Reminder not set. Feedback shows error details.
+.. Test case `set reminder|1|365000` +
+   Expected: Reminder not set. Feedback shows error details.
+.. Other incorrect set reminder commands to try: `set reminder|`, `set reminder|0` +
+   Expected: Similar to previous.
+
+. Removing a reminder for an item
+
+.. Prerequisites: Current view is the main list. The target item should not be expired and has a reminder.
+.. Test case `set reminder|1|0` +
+   Expected: First item's reminder date is removed from its item card. +
+   Feedback shows reminder is removed successfully.
+
+=== Filtering items based on its expiry date and status
+
+. Find items expiring in a specific number of days
+
+.. Prerequisites: Current view is the main list. The list contains at least one expired item. The items you wish to check also must have either already expired or have reminders
+set for them previously.
+.. Test case: `check` +
+   Expected: Items that are expiring soon or have already expired are listed.
+.. Test case `check|0` +
+   Expected: Expired items are displayed in the `View` (items in red). +
+   Feedback shows listing of items expiring in 0 day.
+.. Test case `check|20` +
+   Expected: Items expiring in 20 days are displayed in the `View`. +
+   Feedback shows listing of items expiring in 20 days.
+.. Other incorrect set reminder commands to try: `check|2000000` +
+   Expected: No change in the display of items. Error details shown in the status message.
+
+. Find all expired items and items whose reminder date has been reached (items in yellow)
+
+.. Prerequisites: Current view is the main list. The list contains at least one expired item or item with active reminder.
+.. Test case `check` +
+   Expected: Expired items and items with active reminder in the `View` (items in red or yellow). +
+   Feedback shows listing of expired items and items whose reminder has been activated.
+
+=== Undo/Redo commands
+. Undo an earlier command or redo a previously done command.
+
+.. Prerequisites: No commands have been entered yet and the current view is the main list. There is at least one item in the main list that is expiring within 50 days, and one item in the replenish list.
+
+.. Test case: `undo` +
+   Expected: Feedback stating that there are no commands to undo.
+
+.. Test case: `redo` +
+   Expected: Feedback stating that there are no commands to redo.
+
+.. Test case: `add|Apple|12/03/2025|3` followed by `undo` and then `redo` +
+   Expected: The item with name Apple, expiry date 12/03/2025 and with quantity 3 will be added. Undo command will proceed to remove the item whilst the Redo command will proceed to add the same item back.
+
+.. Test case: `check|50` followed by `undo` and then `redo` +
+   Expected: The items with 50 days before expiry date or less will be filtered out to you. Undo command will revert the current view to show all items. Redo command will then filter out those same items again.
+
+.. Test case: `shift|1` followed by `undo` and then `redo` +
+   Expected: The item on the first index will be shifted to the ReplenishList. Undo command will shift the item back to the main list. Redo command will shift the item back to the replenish list.
+
+.. Test case: `view|replenish` followed by `shift|1|12/03/2025` followed by `undo` and lastly `redo` +
+   Expected: The view changes to the replenish list and the first item on the list gets shifted to the main list with expiry date 12/03/2025. Undo command will shift the item back to the main list. Redo command will shift the item back to the replenish list.
+
+
+
+=== Sorting items
+
+. Sorting items by their name
+
+.. Prerequisites: List all items using the `view` command. Multiple items in the list.
+.. Test case: `sort|name` +
+   Expected: The current item list is sorted with respect to their names in lexicographical order.
+.. Test case: `sort|naem` +
+   Expected:  No change in the order of items. The term `name` is given as a suggestion in the error message.
+.. Test case: `sort|NAME` +
+   Expected: Similar to previous.
+.. Test case: `sort|something` +
+   Expected: No change in the order of items. Error details shown in the status message.
+.. Other incorrect sort commands to try: `sort|0`, `sort|xyz` (where xyz is any garbage input) +
+   Expected: Similar to previous.
+
+. Sorting items by their date
+
+.. Prerequisites: List all items using the `view` command. Multiple items in the list.
+.. Test case: `sort|date` +
+   Expected: The current item list is sorted with respect to their dates in chronological order.
+.. Test case: `sort|datee` +
+   Expected:  No change in the order of items. The term `date` is given as a suggestion in the error message.
+.. Test case: `sort|DATE` +
+   Expected: Similar to previous.
+.. Test case: `sort|something` +
+   Expected: No change in the order of items. Error details shown in the status message.
+.. Other incorrect sort commands to try: `sort|`, `sort|xyz` (where xyz is any garbage input) +
+   Expected: Similar to previous.
+
+=== Searching items
+
+. Non empty current list
+
+.. Prerequisites: current list contains "apple" tagged with "#Fruit", "pear" tagged
+with "#Fruit" and "banana" tagged with "#Yellow". Note: `view` is executed after
+every `search` command to reset the current list.
+.. Test case: `search|apple` +
+   Expected: "apple" will be in the new current list.
+.. Test case: `search|a` +
+   Expected: "apple", "pear" and "banana" will be in the new current list.
+.. Test case: `search|e` +
+   Expected: "apple" and "pear" will be in the new current list.
+.. Test case: `search|x` +
+   Expected: New current list will be empty.
+.. Test case: `search|e` then `search|r` +
+   Expected: "pear" will be in the new current list.
+.. Test case: `search|#Fruit` +
+   Expected: "apple" and "pear" will be in the new current list.
+.. Test case: `search|#fruit` +
+   Expected: "apple" and "pear" will be in the new current list.
+.. Test case: `search|#Frui` +
+   Expected: New current list will be empty.
+.. Test case: `search|#yellow|app` +
+   Expected: "apple" and "banana" will be in the new current list.
+
+. Empty current list
+
+.. Test case: `search|random string`
+   Expected: Error message indicating that current list is empty.
+
+=== Export data
+
+. Non empty current list
+
+.. Test case: `export` +
+   Expected: QR code containing item data.
+
+. Empty current list
+
+.. Test case: `export` +
+   Expected: Error message indicating that current list is empty.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. Corrupted data files will be deleted. A new JSON file without any items will be used.

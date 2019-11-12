@@ -1,9 +1,20 @@
-= AddressBook Level 3 - User Guide
+// Update the User Guide:
+// 1. Include the new feature.
+// 2. If it is a new command, include the feature in the command summary at the end.
+//    Match the order of command summary with the order of the respective features.
+// 3. If it is not a new command, ensure that the format of the feature in the command summary remain correct.
+// 4. Things have to be included in the feature: Function + Format.
+// 5. Things may be included in the feature: remark, example, tip.
+// 6. Update FAQs if applicable.
+
+= Xpire - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 4
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 5
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -12,20 +23,26 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F11-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `TeamXpire`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Xpire is for those who *prefer to use a desktop app for tracking expiry dates of items*.
+More importantly, Xpire is *optimised for those who prefer to work with a Command Line Interface*
+(CLI) while still having the benefits of a Graphical User Interface (GUI). If you have trouble
+tracking your items' expiry dates, Xpire can help you manage and notify you of items that are
+soon-expiring. Interested? Jump to the <<Quick Start>> to get started!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Download the latest `xpire.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for Xpire.
+.  In the home folder for Xpire, launch the jar file using the `java -jar xpire.jar` command on
+Terminal (for macOs) or Command Prompt (for Windows) to start the app. The GUI should appear in
+a few seconds.
 +
 image::Ui.png[width="790"]
 +
@@ -33,12 +50,112 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* `*view*|main` : views all items in the main list
+* `*check*|20` : views items that are going to expire within 20 days
+* `*add*|Banana|25/9/2020` : adds an item named `Banana` with expiry date `25/9/2020` to list
+* `*delete*|3` : deletes the 3rd item shown in the current list
+* `*exit*` : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Xpire not only has a list to track you perishable items, but also a *to-buy* list (replenish list).
+The *to-buy* list is to help you keep track of the things you want to replenish. You can move your items from the
+tracking list to the replenish list once they are consumed or expired.
+* `*shift*|1` : moves the 1st item from the tracking list (main list) to the replenish list
+
+.  Some commands are only applicable for items in the tracking list. Refer to <<Features>> for details of each command.
+
+== Graphic User Interface
+
+=== GUI components
+
+image::GUI.png[width="790"]
+
+The above image shows you the Graphic User Interface(GUI) of Xpire with its major components annotated. +
+You can refer to the following sections for details on what each component does.
+
+==== View List
+There are two lists shown on the GUI, `View` and `All Items`. On the left is the `View` list.
+This is an active list that shows you the current view of items. As you manipulate the items using
+`search`, `view` or `check`, `View` list will change accordingly to show you only the items you want to see.
+
+// tag::card[]
+==== Item Card
+image::ItemCard.png[width="710"]
+
+This is how your item will look like in the `View` list. The number on the right is the number of days left before the item expires.
+
+The colour of the item card changes according to
+the status of your item. +
+
+* An *expired* item will be red. +
+
+image::Expired.png[width="500]
+
+* An item that is *expiring soon* will be yellow. You can set when to mark an item yellow based
+on individual cases. See more information here: <<Reminder>>.
+
+image::ReminderCard.png[width="500]
+
+* An item that has *not expired* and is not going to expire soon will be green.
+
+image::ItemCard.png[width="710"]
+// end::card[]
+
+==== All Items List
+
+You can find all your items on the right, in the `All Items` list.
+
+image::AllItems.png[width="300"]
+
+The `All Items` list provides you with a static view of all your items in the app in alphabetical order. Here items are categorized into tracked items and to-buy items. You can click on the list
+name to view items in the list, or click again to collapse the list. Clicking on the item name will show you the
+expiry date of the item if it has one.
+
+==== FeedbackBox
+
+Below the `View` list panel, you can find a rectangle box which acts like a "feedback window".
+
+image::FeedbackBox.png[width="500"]
+
+Feedback on
+the successful execution of the command will be displayed in this box. If an illegal command is entered, you will
+also be able to see a failure message and relevant suggestions in the box.
+
+==== CommandBox
+
+Finally, at the very bottom, you can find a small rounded rectangle box that says "Enter command here...".
+
+image::CommandBox.png[width="500"]
+
+This is where you can type your command. The maximum you can type is 60 characters. Try typing `add|Banana|1/11/2020` and press kbd:[enter], and you will see it appears in your lists!
+
+
+=== Tips
+
+// tag::expand[]
+==== Expand cards
+When you reduce the window size, the name or other details of the item in the item card could be shortened with `...`.
+You can click on the card to expand it and view more information.
+
+image::ShortenedCard.png[width="500"]
+image::ExpandCard.png[width="500"]
+// end::expand[]
+
+//tag::resize[]
+==== Resize Feedback Box
+
+When the feedback message is too long, you can either scroll or adjust the height of the feedback box to display more information.
+To resize, simply drag the horizontal bar above the feedback box to your desired position as shown below.
+
+image::ShortenedFeedbackBox.png[width = "500]
+image::ExpandedFeedbackBox.png[width = "500]
+// end::resize[]
+
+// tag::retrieve[]
+==== Retrieve Previous Entry
+
+Just like any other Command Line App, you can easily retrieve your previous commands or go back to later commands using the
+kbd:[↑] and kbd:[↓] keys on your keyboard. You can call back up to 20 commands you entered.
+// end::retrieve[]
 
 [[Features]]
 == Features
@@ -46,132 +163,823 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words that are enclosed with `<` and `>` are the parameters to be supplied by you e.g. in `set reminder|<index>|<reminder threshold>`, `<index>` and `<reminder threshold>` are parameters which can be used as `set reminder|1|7`.
+* Tags are recognised with the prefix `#` on the CLI. e.g. Xpire recognises `Fruit` as a name while `#Fruit` as a tag.
+* Parameters in square brackets are optional e.g `check[|<days>]` can be used as `check|7` or `check`.
+* Optional parameters with `…`​ after them can be used multiple times including zero times. e.g. for [<other tags>]..., the following format for Tag Command: `tag|<index>|<tag>[<other tags>]...` can be used as `tag|1|#Fruit #Frozen #Cold` or `tag|1|#Fruit`.
+* Trailing `|` (s) are allowed. e.g. `add|banana|2/2/2020|||` or `sort|name|`.
 ====
 
-=== Viewing help : `help`
+=== Common features
 
-Format: `help`
+// tag::help[]
+==== Opening the help window: `help`
 
-=== Adding a person: `add`
+Use the command `help` to access the help window.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Example:
+
+Let's say that you wanted to view all your items that are expiring soon, but have forgotten the command word for this purpose.
+Instead of trying all possible inputs, you can simply type `help` into the command box, to find the command word `check` that you have looking for.
+
+.Help window
+image::help.png[width="790"]
+// end::help[]
+
+// tag::view[]
+==== Viewing all items : `view`
+
+===== Viewing all items in another list
+
+To toggle between the main list and the list of items to be replenished, you
+can use the command `view|<list name>`. This shows you all the items in the list automatically sorted by their name
+(lexicographical order) then date (chronological order). +
+
+Examples:
+
+Let's say that you have completely depleted some items, namely `Cherry` and `Coco Crunch` in the main tracking list, and you wish to view these items
+that have been automatically shifted to the replenish list. You can do so by typing `view|replenish` in the command box
+to change your current list view to that shown in the figure below.
+
+.Items in replenish list viewed
+image::view-replenish.png[width="790"]
+
+Perhaps after viewing all your items in the replenish list, you wish to return to the main tracking list to add some items
+that you have recently purchased. You can easily return to the main list, by typing `view|main` in the command box.
+This is also depicted in the figure below.
+
+.Items in main tracking list viewed
+image::view-main.png[width="790"]
+
+===== Viewing all items in the current list
+
+To view all the items in the current list, you can simply enter the command `view`.
+[NOTE]
+If you have not previously toggled the list view, this command will display the main tracking list by default.
+
+Example:
+
+Let's say that you have been searching for an item in the main tracking list, and you are shown the item found.
+To return back to the main list that displays all the items tracked, you can simply enter the command `view`.
+
+.Items in current list viewed
+image::view-current.png[width="790"]
+// end::view[]
+
+
+// tag::tag[]
+==== Tagging an item : `tag`
+
+===== Display all tags created
+Shows all the tags in the current list view.
+
+Format: `tag`
+
+[NOTE]
+Like `help` and `export`, this command is not undoable. +
+This command does not show tags of items that are not on the current list on the screen. +
+If you would like to view all the tags in the main list or the replenish list, simply key in `view`, followed by `tag`!
+
+===== Add new tag(s) to an item
+
+.Item at index 4 tagged with #Fruit and #Yellow
+image::tag.png[width="790"]
+
+Tags an item from the list according to your own input +
+Format: `tag|<index>|<tag>[<other tags>]...`
 
 [TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+You can tag a particular item with more than 2 tags or more at a time. Just be mindful of the 5 tags per item limit!
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* Tags the item at the specified `<index>`.
+* The index refers to the index number shown in the list.
+* The index *must be a positive integer* (e.g. 1, 2, 3, ... ).
+* Your tags must be prefixed with a '#'.
+* You are only allowed a maximum of 5 tags per item.
+* Tag lengths are restricted to 20 characters. Make use of those 20 characters wisely!
+* Your tags will be formatted in Sentence-Case (i.e. first letter will be upper-case while the rest of the letters are lower-case).
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `view|main` +
+`tag|2|#Nestle #Caffeine` +
+Tags the 2nd item in the main list with `#Nestle` and `#Caffeine`.
+// end::tag[]
 
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
 
 // tag::delete[]
-=== Deleting a person : `delete`
+==== Deleting an item or its tags: `delete`
+If you would like to delete an item or its related fields from the list, the `delete` command can be used.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+===== Deleting an item
+If you would like to delete a particular item from your list, simply follow the format: `delete|<index>`.
+
+Examples:
+
+* `view|main` +
+`delete|2` +
+Deletes the 2nd item in the main list.
+* `sort|name` +
+`delete|3` +
+Deletes the 3rd item in the sorted main list.
+* `search|potato` +
+`delete|1` +
+Deletes the 1st item in the results of the `search` command.
+
+// end::delete[]
+
+// tag::deletetag[]
+===== Deleting certain tags from an item
+If you would like to delete tag(s) from a particular item, use the `delete` command in the format: +
+Format: `delete|<index>|<tag>[<other tags>]...` +
+
+Examples:
+
+* `view|main` +
+`delete|3|#Fruit #Food` +
+Deletes the tags `#Fruit` and `#Food` from the 3rd item in the main list.
+
+// end::deletetag[]
+****
+* The index refers to the index number shown on the list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Tags must be prefixed with a '#'.
+* The item must contain the tags to be deleted.
+****
+
+// tag::search[]
+==== Searching for item(s) by name and/or tag: `search`
+
+Having a hard time looking for an item in Xpire? Not to worry, Xpire provides a search functionality to aid you in finding your items with ease.
+
+With `search`, you can simply input any words or phrases and Xpire will display all items whose names or tag(s) contain any of the given keywords.
+
+
+Format: `search|<keyword>[|<other keywords>]...`
+
+.Items matching #fruit or chicken shown
+image::search.png[width="790"]
+
+[NOTE]
+`search` is designed to work only on the current view list. In other words, `search` will only
+display matching items which exists in the current view list.
+
+[TIP]
+You can do an AND search, e.g. search for items that contains BOTH `red` and `apple` in its name,
+by keying `search|red` and then `search|apple`. Suppose there are only 3 items in your list, e.g.
+ `red fuji apple`, `red strawberry` and `green apple` (see Figure 6), the above commands will display only `red
+ fuji apple` (see Figure 7).
+
+.Item list before searching
+image::search-initial.png[width="790"]
+
+.Item list after keying `search|red` and then `search|apple`
+image::search-after.png[width="790"]
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The search is case insensitive. e.g `ham` will match `Ham` and `#fruit` will match `#Fruit`.
+* The order of the keywords does not matter. e.g. `Turkey Ham|Apple` will match `Apple|Turkey Ham`.
+* Only the name and tag fields, if any, are searched.
+* For name search, partial words can be matched e.g. `Papa` will match `Papayas`.
+* For tag search, only exact words will be matched e.g. `#Fruit` will match `#Fruit` but `#Fru` will not match `#Fruit`.
+* Items matching at least one keyword will be returned (an OR search). e.g. `Apple|Pear` will return `Granny Smith Apple` and `Japanese Pear`.
+* If no items are found, any closely related keywords, if any, will be displayed.
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `search|kebab` will display `Chicken Kebab` and `kebab` (see Figure 8).
 
-// end::delete[]
-=== Clearing all entries : `clear`
+.Item list after keying `search|kebab`
+image::search-kebab.png[width="790"]
 
-Clears all entries from the address book. +
+* `search|Chicken Ham` will display `Chicken Ham` (see Figure 9).
+
+.Item list after keying `search|Chicken Ham`
+image::search-chicken-ham.png[width="790"]
+
+* `search|milk|tea|#Drink` will display any items with names containing `milk` or `tea`, or with the tag `#Drink`.
+// end::search[]
+
+// tag::shift[]
+==== Shifting an item from one list to another: `shift`
+Let's say one of your items has expired and you want to stock up on this particular item.
+Simply use the `shift` command to transfer this item to the replenish list so that you will know which items you need to replenish.
+Once you have stocked up on your expired items, you can similarly use the `shift` command again
+to keep track of the item's new expiry date.
+
+===== Shifting an item from the main list to the replenish list
+[TIP]
+If you would like to view the list of expired items, simply type `check|0`.
+From this list of expired items, you can use the `shift` command to move any item into the replenish list.
+
+Format: `shift|<index>`
+
+Let's say you have this list of expired items and you want to remind yourself to replenish the first item in the list--the ice cream.
+To do so, you can transfer the ice cream to the replenish list by typing `shift|1`, where `1` refers to item number displayed.
+
+.Current list view of items that have expired.
+image::shift_to_replenish_command_example.png[width="790"]
+
+With this, your item will be shifted to the replenish list as seen from the figure below.
+When you go for grocery shopping in future, you can refer to this handy replenish list to stock up on your ice cream, or any items that have run out.
+
+.List view of items in the replenish list after executing `Shift` command.
+image::shift_to_replenish_success.png[width="790"]
+
+===== Shifting an item from the replenish list to the main list
+After some shopping, you may have stocked up on the items that were in the replenish list.
+Now, you want to add these items back to your tracking list to keep track of their new expiry dates.
+To do so, you can simply use the `shift` command again.
+
+Format: `shift|<index>|<expiry date>[|quantity]`
+
+For example, you have just replenished the ice cream and you wish to keep track of its expiry date again.
+To transfer the ice cream back to the tracking list, simply key in `shift|3|<expiry date>[|<quantity>]`.
+
+.List view of items in the replenish list.
+image::shift_to_main_command_example.png[width="790"]
+
+Now, the ice cream that you just bought is added back to the tracking list.
+
+.List view of items in the main list after shift.
+image::shift_to_main_success.png[width="790"]
+
+
+****
+* Item quantity **must be a positive integer** 1,2,3...
+* When not specified, the item quantity is assumed to be 1.
+****
+
+
+[TIP]
+If you only have one of a particular item, you only need to key in the item number and expiry date (without keying in the quantity)!
+We'll do the rest for you.
+// end::shift[]
+
+// tag::tag[]
+==== Tagging an item : `tag`
+
+===== Display all tags created
+Shows all the tags in the current list view.
+
+Format: `tag`
+
+[NOTE]
+Like `help` and `export`, this command is not undoable. +
+This command does not show tags of items that are not on the current list on the screen. +
+If you would like to view all the tags in the main list or the replenish list, simply key in `view`, followed by `tag`!
+
+===== Add new tag(s) to an item
+
+.Item at index 4 tagged with #Fruit and #Yellow
+image::tag.png[width="790"]
+
+Tags an item from the list according to your own input +
+Format: `tag|<index>|<tag>[<other tags>]...`
+
+[TIP]
+You can tag a particular item with more than 2 tags or more at a time. Just be mindful of the 5 tags per item limit!
+
+****
+* Tags the item at the specified `<index>`.
+* The index refers to the index number shown in the list.
+* The index *must be a positive integer* (e.g. 1, 2, 3, ... ).
+* Your tags must be prefixed with a '#'.
+* You are only allowed a maximum of 5 tags per item.
+* Tag lengths are restricted to 20 characters. Make use of those 20 characters wisely!
+* Your tags will be formatted in Sentence-Case (i.e. first letter will be upper-case while the rest of the letters are lower-case).
+****
+
+Examples:
+
+* `view|main` +
+`tag|2|#Nestle #Caffeine` +
+Tags the 2nd item in the main list with `#Nestle` and `#Caffeine`.
+// end::tag[]
+
+==== Deleting variable(s): `delete`
+
+===== Deleting an item
+Deletes the specified item from your list. +
+Format: `delete|<index>` +
+
+Examples:
+
+* `view|main` +
+`delete|2` +
+Deletes the 2nd item in the main list.
+* `sort|name` +
+`delete|3` +
+Deletes the 3rd item in the sorted main list.
+* `search|potato` +
+`delete|1` +
+Deletes the 1st item in the results of the `search` command.
+
+// tag::deletetag[]
+===== Deleting certain tags from an item
+Deletes tag(s) from the specified item. +
+Format: `delete|<index>|<tag>[<other tags>]...` +
+
+Examples:
+
+* `view|main` +
+`delete|3|#Fruit #Food` +
+Deletes the tags `#Fruit` and `#Food` from the 3rd item in the main list.
+// end::deletetag[]
+
+// tag::clear[]
+==== Clearing all entries : `clear`
+
+Want a quick way of deleting all the items in the current view list?
+You can simply type `clear` and all items in the current view list will be deleted immediately.
+
 Format: `clear`
 
-=== Exiting the program : `exit`
+[NOTE]
+`clear` is designed to work only on the current view list. In other words, `clear` will only
+delete all items which exists in the current view list.
 
-Exits the program. +
+Example:
+
+* While on the current view list (see Figure 10), input `clear` to remove all items in the list (see Figure 11)
+
+.Items in the current view list
+image::clear-before.png[width="790"]
+
+.All items in the list have been deleted.
+image::clear-after.png[width="790"]
+
+// end::clear[]
+
+// tag::undoredo[]
+==== Undo previous command : `undo`
+Undo the previous command that you have entered in. +
+Format: `undo`
+
+[TIP]
+`undo` only works on commands that alter your items or the current view! +
+Thus, commands such as `help` and `export` are not undoable as they do not alter items or the current view. +
+Also, `undo` only works for the last 10 commands. Therefore, make sure you are certain before you type in a command!
+
+The `undo` command also tells you the exact user input you have keyed in as well as what command was entered so that you know what you have undone.
+
+==== Redo an earlier command : `redo`
+Redo an earlier command that you have entered in. +
+Format: `redo`
+
+This command works in the opposite way as `undo`, it will redo any command that you have undone in the past. +
+
+[NOTE]
+Keying in a new command other than `redo` will erase the earlier command that you have undid. Thus, doing so will not allow you to redo that command again.
+
+// end::undoredo[]
+
+// tag::export[]
+==== Exporting data (multi-platform) : `export`
+
+Thinking of viewing the list of currently tracked items on your mobile phone? Want to have a
+copy of the to-buy items on your mobile phone so that you can refer to it while shopping?
+With Xpire's `export` feature, you can easily transfer the list of items to any platform
+by simply scanning the generated QR code.
+
+Xpire can not only help you track your items' expiry dates, it can also export the current
+list of items through a QR code (see Figure 12). Any device with a QR code reader will be
+able to download the list of items (see Figure 13).
+
+Format: `export`
+
+.QR code containing the data of the items in the current view list
+image::export.png[width="790"]
+
+.List of items received when scanning the QR code through a mobile phone
+image::export-phone.PNG[width="250"]
+
+[NOTE]
+====
+`export` is designed to work only on the current view list. In other words, `export` will only
+export all items which exists in the current view list.
+
+Depending on the operating system of your mobile phone, you may be directed to a google search
+page after scanning the QR code. Follow the steps below to rectify this issue if necessary.
+====
+
+* Upon scanning the QR code, you may see a pop-up prompt suggesting to you to search the content
+received on the web (see Figure 14).
+
+.Pop-up prompt to suggest to search the content on the web
+image::export-prompt.PNG[width="250"]
+
+* Instead of immediately accepting the suggestion, press and hold on the prompt to reveal the other
+options available (see Figure 15). Choose "Copy" or any other similar options.
+
+.Additional options to handle the content
+image::export-other-options.PNG[width="250"]
+
+* Once the content has been copied, you can simply paste and save the content on Notes or any other
+notepad application on your mobile phone (see Figure 16).
+
+.Pasting and saving exported content onto the mobile phone's built-in notepad application
+image::export-save-in-notes.PNG[width="250"]
+
+// end:export[]
+
+// tag::exit[]
+==== Exiting the application : `exit`
+
+Exits the application. +
 Format: `exit`
+// end::exit[]
 
-=== Saving the data
+==== Saving the data
+As items will be saved in the hard disk automatically, you do not need to worry about saving manually after executing any command that modifies the list.
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+=== Main tracking list features only
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+// tag::add[]
+==== Adding an item: `add`
+Let's say you bought an item and you want to add it into the tracker to keep track of its expiry date.
+This can be done using the `add` command easily.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+[TIP]
+For items with single quantity, you can save time by keying in only the item name and expiry date.
+
+Format: `add|<item name>|<expiry date>[|<quantity>]`
+
+For example,
+
+.New item added to main tracking list
+image::add.png[width="790"]
+
+****
+* Item quantity **must be a positive integer** 1,2,3...
+* When not specified, the item quantity is assumed to be 1.
+* The furthest date allowed as expiry date is 100 years from current date.
+****
+
+// end::add[]
+
+==== Deleting an item's quantity: `delete`
+//tag::deleteQuantity[]
+
+===== Reducing the quantity of an item
+If you would have used up a certain amount of your item, you can use the `delete` command.
+By specifying the item number and the quantity to be reduced, you can easily decrease your item's quantity in the tracking list.
+
+Format: `delete|<index>|<quantity>`
+
+Let's say you have just consumed the entire bag of Kettle potato chips as shown in the list below.
+Now, you no longer have any more potato chips, so you would like to update the item quantity on the tracking list.
+To update the potato chips with the new quantity, simply key in `delete|3|1`.
+
+.Reducing an item quantity
+image::delete_quantity_example.png[width="790"]
+
+Since the item has run out, you would also like to add it to the replenish list so that you will be reminded to stock up on it.
+To save you the trouble of keying in the details again, our system has already automatically added the chips to the replenish list for you.
+
+.Item that has run out is automatically transferred to the replenish list
+image::delete_quantity_shift_success.png[width="790"]
+//end::deleteQuantity[]
+
+****
+* The index refers to the index number shown on the list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The quantity *must be a positive integer* 1, 2, 3...
+* The quantity specified must be more than the item's current quantity.
+****
+
+Examples:
+
+* `view|main` +
+`delete|4|1` +
+Reduces the quantity of the 4th item by 1.
+// end::delete[]
+
+// tag::tag[]
+==== Tagging an item : `tag`
+
+===== Display all tags created
+Shows all the tags in the current list view.
+
+Format: `tag`
+
+[NOTE]
+Like `help` and `export`, this command is not undoable. +
+This command does not show tags of items that are not on the list you are viewing. +
+If you want to view all the tags in the main list or replenish list, simply key in `view`, followed by `tag`.
+
+===== Add new tag(s) to an item
+
+.Item at index 4 tagged with #Fruit and #Yellow
+image::tag.png[width="790"]
+
+[TIP]
+An item can have up to 5 tags.
+
+Tags an item from the list according to user input +
+Format: `tag|<index>|<tag>[<other tags>]...`
+
+****
+* Tags the item at the specified `<index>`.
+* The index refers to the index number shown in the list.
+* The index *must be a positive integer* (e.g. 1, 2, 3, ... ).
+* Tags must be prefixed with a '#'.
+* Only a maximum of 5 tags allowed per item.
+* Tag lengths are restricted to 20 characters. So make use of those 20 characters wisely!
+* Tags will be formatted in Sentence-Case (i.e. first letter will be upper-case while the rest of the letters are lower-case).
+****
+
+Examples:
+
+* `view|main` +
+`tag|2|#Nestle #Caffeine` +
+Tags the 2nd item in the main list with `#Nestle` and `#Caffeine`.
+// end::tag[]
+
+// tag::setreminder[]
+[[Reminder]]
+==== Setting reminder for an item: `set reminder`
+
+===== Adding a reminder some days before an item's expiry date
+.Reminder set for item at index 4
+image::set-reminder.png[width="790"]
+
+Sets a reminder for your item. +
+Format: `set reminder|<index>|<reminder threshold>`
+
+Set reminder is designed for you to customise when you want to be alerted of an item's condition.
+In the above example, reminder threshold refers to *the number of days before the item's expiry date*.
+The reminder for an item will be activated when the number of days left before an item's expiry date is less than or equal to
+the reminder threshold. In other words, by setting the reminder threshold
+of an item to n days, you start to be reminded of this items n days before its expiry date.
+
+To reduce disturbance, the app does not pop up notifications. Instead, you will be reminded through the alerting yellow colour
+of the item whose reminder has been activated in the `View` list. You can also view all items with active reminder through the `check` command.
+(Refer to the following section.)
+
+Examples:
+
+* `set reminder|2|4` +
+Sets a reminder for the second item in the list 4 days before its expiry date.
+
+===== Removing the reminder for an item
+You can remove the reminder for your item by resetting it to the default value 0.
+Format: `set reminder|<index>|0`
+
+Examples:
+
+* `set reminder|1|0` +
+Removes the reminder for the first item in the list.
+
+****
+* All items have their default reminder threshold set to 0.
+* Reminder cannot be set on already expired items.
+* A reminder cannot be set to be before the current date. For example, if the current date is 20/9/2019
+, it is not possible to set the reminder on 19/9/2019 by entering a reminder threshold greater than the item's number of days left.
+However, the app understands that you want the reminder to be activated immediately, and will activate the reminder right away.
+* The maximum reminder threshold is 36500 days.
+****
+// end::setreminder[]
+
+// tag::check[]
+==== Listing expiring items: `check`
+
+===== Listing all expiring items with activated reminders and expired items
+.Items expiring soon listed
+image::check.png[width="790"]
+
+You can easily view all items whose reminder has been activated and who has already expired with the command `check`.
+In other words, this command will show you all items that are in red and yellow +
+Format: `check`
+
+===== Listing items that will expire within a certain number of days
+
+Sometimes you forget to set a reminder for an item whose expiry date is drawing close. Don't worry, you can
+easily make a query for items that will expire within a specified number of days. +
+Format: `check|<days>`
+
+****
+* Number of days *must be a non-negative integer* 0,1,2,3,..
+* Maximum number of days that can be checked is 36500 days.
+****
+
+[TIP]
+`check|0` lists items that have already expired.
+
+Examples:
+
+* `check|20` +
+Lists items expiring in the next 20 days.
+// end::check[]
+
+// tag::sort[]
+==== Sorting all items : `sort`
+[NOTE]
+Your items in both lists are sorted by their names by default.
+
+To change the way your items are sorted, you can simply use the command `sort|<key>`,
+where <key> can be specified as either date or name.
+
+===== Sorting all items by their date
+Example:
+
+Let's say that you are currently on the main tracking list, and you wish to identify all your items expiring next year.
+To expedite your search for these items, simply enter the command `sort|date`, and all your items will be sorted by their expiry dates
+in chronological order.
+
+As shown in the figure below, Banana that expires on 2nd November 2019 sorts ahead of Strawberry which expires a day later.
+
+.Items sorted by their date
+image::sort-date.png[width="790"]
+
+[NOTE]
+Items that expire on the same day will be sorted by their names.
+****
+* For example, Apple will sort ahead of Banana, if both have the same expiry date.
+****
+
+===== Sorting all items by their name
+
+Example:
+
+Let's say that you have previously sorted your items by their expiry dates to find some items expiring in a certain year.
+You can use the command `sort|name` to return your list to its default method of sorting that sorts your items by their names.
+
+[NOTE]
+Items with the same name will be sorted by their expiry dates.
+****
+* For example, Milk that expires today will sort ahead of Milk that expires tomorrow.
+****
+// end::sort[]
+
+// tag::undoredo[]
+==== Undo previous command : `undo`
+Undo the previous command that you have entered in. +
+Format: `undo`
+
+[TIP]
+`undo` only works on commands that alter your items or the current view! +
+Thus, commands such as `help` and `export` are not undoable as they do not alter items or the current view. +
+Also, `undo` only works for the last 10 commands. Therefore, make sure you are certain before you type in a command!
+
+The `undo` command also tells you the exact user input you have keyed in as well as what command was entered so that you know what you have undone.
+
+==== Redo an earlier command : `redo`
+Redo an earlier command that you have entered in. +
+Format: `redo`
+
+This command works in the opposite way as `undo`, it will redo any command that you have undone in the past. +
+
+[NOTE]
+Keying in a new command other than `redo` will erase the earlier command that you have undid. Thus, doing so will not allow you to redo that command again.
+
+// end::undoredo[]
+
+=== Upcoming features (coming in v2.0)
+
+==== User authentication
+
+Want to have your own personal password-protected account? Look forward to our user authentication functionality
+where you can create an account and keep your items' data safe and secure!
+
+Here're some sneak peeks of the upcoming feature!
+
+.Login page
+image::user-login.png[width="790"]
+
+.Sign-up page
+image::user-register.png[width="790"]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Xpire folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+// tag::tablesummary[]
+=== Table Summary
+
+The table below summarises the common commands available for use in both lists.
+[cols=".<2,.^4,.^4", options="header"]
+
+|===
+|Command |Format |Example
+
+|*Help*
+|`help`|
+
+1.2+|*View*
+1.2+|`view\|<list name>`
+
+|`view\|main`
+|`view\|replenish`
+
+1.3+|*Search*
+1.3+|`search\|<keyword>[\|<other keywords>]...`
+|`search\|milk\|tea\|pearls`
+|`search\|#drink\|mango pudding`
+|`search\|#fruit #sweet`
+
+1.2+|*Shift*
+|`shift\|<index>`
+|`shift\|2`
+|`shift\|<index>\|<expiry date>[\|<quantity>]`
+|`shift\|2\|14/2/2020\|2`
+
+1.2+|*Tag*
+|`tag`
+|
+
+|`tag\|<index>\|<tag>[<other tags>]...`
+|`tag\|2\|#drink #healthy`
+
+1.2+|
+*Delete*
+|`delete\|<index>`
+|`delete\|3`
+
+|`delete\|<index>\|<tag>[<other tags>]...`
+|`delete\|3\|#fruit`
+
+|*Clear*
+|`clear`|
+
+|*Undo*
+|`undo`|
+
+|*Redo*
+|`redo`|
+
+|*Export*
+|`export`|
+
+|*Exit*|`exit`||{set:cellbgcolor!}
+
+|===
+
+The table below summarises the commands only available for use in the main list.
+[cols=".<2,.^4,.^4", options="header"]
+|===
+|Command |Format |Example
+
+1.2+|*Add*
+|`add\|<item name>\|<expiry date>`
+|`add\|durian\|30/9/2019`
+
+|`add\|<item name>\|<expiry date>\|<quantity>`
+|`add\|durian\|30/9/2019\|8`
+
+|
+*Delete*
+|`delete\|<index>\|<quantity>`
+|`delete\|3\|2`
+
+
+|*Set reminder*
+|`set reminder\|<index>\|<reminder threshold>`
+|`set reminder\|1\|7`
+
+
+1.2+|*Check*
+|`check`
+|
+
+|`check\|<days>`
+|`check\|20`
+
+1.2+|*Sort*
+1.2+|`sort\|<key>`
+|`sort\|name`
+|`sort\|date`
+
+|===
+
+// end::tablesummary[]
+
+== Command Shorthands
+
+If you are looking for a quick way to type and execute the commands, then this section is just
+for you. Commands also come with command shorthands which can be used in place of the full command word.
+For instance, `a|Strawberry|31/12/2019` is the same as `add|Strawberry|31/12/2019`.
+
+Below is a list of commands and their corresponding command shorthands:
+
+* `help` : `h`
+* `add` : `a`
+* `view` : `v`
+* `set reminder` : `sr`
+* `shift` : `sh`
+* `check` : `ch`
+* `sort` : `so`
+* `search` : `se`
+* `delete` : `d`
+* `tag` : `t`
+* `clear` : `cl`
+* `undo` : `u`
+* `redo` : `r`
+* `export` : `ex`
+* `exit` : `x`

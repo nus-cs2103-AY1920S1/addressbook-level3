@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.stage.Stage?>
+
+<fx:root resizable="false" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene fill="#ffffff00" onKeyPressed="#hideOnKey" onMouseClicked="#hide" stylesheets="@ResultWindow.css">
+         <HBox minHeight="0.0" minWidth="500.0" style="-fx-background-radius: 10; -fx-background-color: rgba(40, 40, 40, 0.8);" styleClass="result-window">
+            <children>
+               <Label fx:id="resultText" minWidth="543.0" text="Label" textFill="#dadada">
+                  <padding>
+                     <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                  </padding>
+               </Label>
+            </children>
+         </HBox>
+        </Scene>
+    </scene>
+</fx:root>

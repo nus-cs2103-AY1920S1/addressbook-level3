@@ -1,0 +1,19 @@
+@startuml
+(*)  --> "User executes XYZ command"
+note right: Only for search and sort commands
+ --> "Parser parses keywords"
+if "
+--> [specified keyword(s) exist] "Return XYZ Command Result"
+else
+--> [No] "Search for similar keywords"
+Endif
+ --> ===B1===
+ --> "Recommend similar keywords if any"
+ note left: Edit distance of up to 2 accepted
+ --> ===B2===
+
+ ===B1=== --> "Display empty list"
+ --> ===B2===
+
+ --> (*)
+@enduml

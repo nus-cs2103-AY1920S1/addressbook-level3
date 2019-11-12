@@ -1,0 +1,11 @@
+{
+  "_comment": "Expiry Date Tracker save file which contains the TypicalItem Coriander",
+  "items" : [
+    {
+      "name": "Coriander",
+      "expiryDate": "31/12/2099",
+      "quantity": "999",
+      "reminderThreshold": "2",
+      "tags": ["Fridge", "Herb"]
+    } ]
+}

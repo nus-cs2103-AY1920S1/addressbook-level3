@@ -1,0 +1,41 @@
+@startuml
+
+class ItemManager {
+- model: Model
+- storage: Storage
+~ void updateItemTags()
+}
+interface Storage {
++ void saveXpire(ReadOnlyXpire)
++ void saveXpire(ReadOnlyXpire, Path)
+}
+interface Model {
+~ void updateItemTags()
++ getXpire(): ReadOnlyXpire
+}
+class StorageManager {
+- xpireStorage: XpireStorage
+}
+class ModelManager {
+- xpire: Xpire
+}
+class Xpire {
+- items: SortedUniqueItemList
+~ void checkExpiryDates()
+}
+class SortedUniqueItemList {
++ Iterator<Item> iterator()
+}
+class Item {
+- tags: Set<Tag>
++ boolean isItemExpired()
+- void addTag(Tag)
+}
+ItemManager --> Model
+ItemManager --> Storage
+Storage <|.. StorageManager
+Model <|.. ModelManager
+ModelManager --> Xpire
+Xpire --> SortedUniqueItemList
+SortedUniqueItemList --> Item
+@enduml

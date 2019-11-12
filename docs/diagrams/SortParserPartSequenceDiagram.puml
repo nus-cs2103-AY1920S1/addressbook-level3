@@ -1,0 +1,27 @@
+@startuml
+!include style.puml
+group sd set method of sorting to date
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Xpire" as Xpire MODEL_COLOR
+participant ":SortedUniqueItemList" as SortedUniqueItemList MODEL_COLOR
+participant "mtd:MethodOfSorting" as MethodOfSorting MODEL_COLOR
+end box
+
+Model -> Xpire : setMethodOfSorting(mtd)
+activate Xpire
+
+Xpire -> SortedUniqueItemList : setComparator(mtd.getComparator())
+activate SortedUniqueItemList
+
+SortedUniqueItemList -> MethodOfSorting : getComparator()
+activate MethodOfSorting
+MethodOfSorting -> SortedUniqueItemList : dateComparator
+deactivate MethodOfSorting
+
+SortedUniqueItemList --> Xpire :
+deactivate SortedUniqueItemList
+Xpire -> Model :
+deactivate Xpire
+end
+@enduml
