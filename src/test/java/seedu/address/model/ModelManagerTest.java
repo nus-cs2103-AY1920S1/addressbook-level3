@@ -3,20 +3,24 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CHEATSHEETS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FLASHCARDS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalCheatSheets.CS1;
+import static seedu.address.testutil.TypicalCheatSheets.CS2;
+import static seedu.address.testutil.TypicalFlashcards.CS_ONE;
+import static seedu.address.testutil.TypicalFlashcards.MATH_ONE;
+import static seedu.address.testutil.TypicalNotes.PIPELINE;
+import static seedu.address.testutil.TypicalNotes.POTATO;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.StudyBuddyProBuilder;
 
 public class ModelManagerTest {
 
@@ -26,7 +30,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new StudyBuddyPro(), new StudyBuddyPro(modelManager.getStudyBuddyPro()));
     }
 
     @Test
@@ -37,14 +41,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setStudyBuddyProFilePath(Paths.get("study/buddy/pro/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setStudyBuddyProFilePath(Paths.get("new/study/buddy/pro/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -61,47 +65,91 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
+    public void setStudyBuddyProFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setStudyBuddyProFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+    public void setStudyBuddyProFilePath_validPath_setsStudyBuddyProFilePath() {
+        Path path = Paths.get("study/buddy/pro/file/path");
+        modelManager.setStudyBuddyProFilePath(path);
+        assertEquals(path, modelManager.getStudyBuddyProFilePath());
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
+    public void hasFlashcard_nullFlashcard_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasFlashcard(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
+    public void hasNote_nullNote_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasNote(null));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+    public void hasCheatSheet_nullCheatSheet_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasCheatSheet(null));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    public void hasFlashcard_flashcardNotInStudyBuddyPro_returnsFalse() {
+        assertFalse(modelManager.hasFlashcard(CS_ONE));
+    }
+
+    @Test
+    public void hasNote_noteNotInStudyBuddyPro_returnsFalse() {
+        assertFalse(modelManager.hasNote(PIPELINE));
+    }
+
+    @Test
+    public void hasCheatSheet_cheatsheetNotInStudyBuddyPro_returnsFalse() {
+        assertFalse(modelManager.hasCheatSheet(CS1));
+    }
+
+    @Test
+    public void hasFlashcard_flashcardInStudyBuddyPro_returnsTrue() {
+        modelManager.addFlashcard(CS_ONE);
+        assertTrue(modelManager.hasFlashcard(CS_ONE));
+    }
+
+    @Test
+    public void hasNote_noteInStudyBuddyPro_returnsTrue() {
+        modelManager.addNote(PIPELINE);
+        assertTrue(modelManager.hasNote(PIPELINE));
+    }
+
+    @Test
+    public void hasCheatSheet_cheatsheetInStudyBuddyPro_returnsTrue() {
+        modelManager.addCheatSheet(CS1);
+        assertTrue(modelManager.hasCheatSheet(CS1));
+    }
+
+    @Test
+    public void getFilteredFlashcardList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredFlashcardList().remove(0));
+    }
+
+    @Test
+    public void getFilteredNoteList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredNoteList().remove(0));
+    }
+
+    @Test
+    public void getFilteredCheatSheetList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredCheatSheetList().remove(0));
     }
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        StudyBuddyPro studyBuddyPro =
+                new StudyBuddyProBuilder().withFlashcard(CS_ONE).withFlashcard(MATH_ONE).withNote(PIPELINE)
+                        .withNote(POTATO).withCheatSheet(CS1).withCheatSheet(CS2).build();
+        StudyBuddyPro differentStudyBuddyPro = new StudyBuddyPro();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(studyBuddyPro, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(studyBuddyPro, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -113,20 +161,24 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different studyBuddyPro -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentStudyBuddyPro, userPrefs)));
 
+        /* Unused, kept for reference
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(studyBuddyPro, userPrefs)));
+        */
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
+        modelManager.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+        modelManager.updateFilteredCheatSheetList(PREDICATE_SHOW_ALL_CHEATSHEETS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        differentUserPrefs.setStudyBuddyProFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(studyBuddyPro, differentUserPrefs)));
     }
 }

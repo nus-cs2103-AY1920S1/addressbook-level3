@@ -1,0 +1,19 @@
+@startuml
+start
+:User executes command;
+
+if () then ([switch command])
+    :Parse commands and check the argument;
+    if () then ([argument == fs])
+        :Enter flashcard mode;
+    else if () then ([argument == cs])
+        :Enter cheatsheet mode;
+    else if () then ([argument == notes])
+        :Enter notes mode;
+    else ([else])
+        :Throw Exception;
+    endif
+else ([else])
+endif
+stop
+@enduml

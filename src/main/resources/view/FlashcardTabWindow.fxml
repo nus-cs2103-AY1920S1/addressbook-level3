@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="flashcardTabWindow" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.FlashcardTabWindowController">
+   <center>
+      <HBox style="-fx-border-color: #383838;" BorderPane.alignment="CENTER">
+         <children>
+            <TextArea fx:id="qnsTextArea" editable="false" nodeOrientation="LEFT_TO_RIGHT" styleClass="result-display" stylesheets="@DarkTheme.css" wrapText="true">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextArea>
+            <Separator fx:id="flashcardSeparator" orientation="VERTICAL" />
+            <StackPane fx:id="rightPane">
+               <children>
+                  <TextArea fx:id="ansTextArea" editable="false" styleClass="result-display" stylesheets="@DarkTheme.css" wrapText="true" />
+                  <Label fx:id="timerLabel" stylesheets="@DarkTheme.css" text="500" textFill="RED">
+                     <font>
+                        <Font size="47.0" />
+                     </font></Label>
+               </children>
+            </StackPane>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>

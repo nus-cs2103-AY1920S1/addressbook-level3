@@ -1,0 +1,27 @@
+@startuml
+start
+:User executes command;
+
+if () then ([edit command])
+    :Parse commands and check the argument;
+    if () then ([not updating both tags and contents])
+        : Create new CheatSheet object for editing;
+        : Add into object, if any, changes for title;
+        :Add changes for contents;
+        :Add changes for tags;
+
+        if () then ([contents match tag])
+                    :Remove contents;
+                else ([else])
+                    :Keep contents;
+                endif
+        : Replace edited CheatSheet object with target;
+        : Save into StudyBuddyBook;
+    else ([else])
+        :Throw Exception;
+    endif
+else ([else])
+endif
+stop
+@enduml
+

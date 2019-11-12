@@ -1,20 +1,5 @@
-= AddressBook Level 3 - Setting Up
-:site-section: DeveloperGuide
-:toc:
-:toc-title:
-:toc-placement: preamble
-:sectnums:
-:imagesDir: images
-:stylesDir: stylesheets
-:xrefstyle: full
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-:warning-caption: :warning:
-endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
-
 == Prerequisites
+:stylesDir: stylesheets
 
 . *JDK `11`* or above
 . *IntelliJ* IDE

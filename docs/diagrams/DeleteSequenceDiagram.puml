@@ -3,9 +3,9 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":StudyBuddyParser" as StudyBuddyParser LOGIC_COLOR
+participant ":DeleteFlashcardCommandParser" as DeleteFlashcardCommandParser LOGIC_COLOR
+participant "d:DeleteFlashcardCommand" as DeleteFlashcardCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -16,53 +16,53 @@ end box
 [-> LogicManager : execute("delete 1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
-activate AddressBookParser
+LogicManager -> StudyBuddyParser : parseCommand("delete 1")
+activate StudyBuddyParser
 
-create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
-activate DeleteCommandParser
+create DeleteFlashcardCommandParser
+StudyBuddyParser -> DeleteFlashcardCommandParser
+activate DeleteFlashcardCommandParser
 
-DeleteCommandParser --> AddressBookParser
-deactivate DeleteCommandParser
+DeleteFlashcardCommandParser --> StudyBuddyParser
+deactivate DeleteFlashcardCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
-activate DeleteCommandParser
+StudyBuddyParser -> DeleteFlashcardCommandParser : parse("1")
+activate DeleteFlashcardCommandParser
 
-create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
+create DeleteFlashcardCommand
+DeleteFlashcardCommandParser -> DeleteFlashcardCommand
+activate DeleteFlashcardCommand
 
-DeleteCommand --> DeleteCommandParser : d
-deactivate DeleteCommand
+DeleteFlashcardCommand --> DeleteFlashcardCommandParser : d
+deactivate DeleteFlashcardCommand
 
-DeleteCommandParser --> AddressBookParser : d
-deactivate DeleteCommandParser
+DeleteFlashcardCommandParser --> StudyBuddyParser : d
+deactivate DeleteFlashcardCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
-destroy DeleteCommandParser
+DeleteFlashcardCommandParser -[hidden]-> StudyBuddyParser
+destroy DeleteFlashcardCommandParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+StudyBuddyParser --> LogicManager : d
+deactivate StudyBuddyParser
 
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
+LogicManager -> DeleteFlashcardCommand : execute()
+activate DeleteFlashcardCommand
 
-DeleteCommand -> Model : deletePerson(1)
+DeleteFlashcardCommand -> Model : deleteFlashcard(1)
 activate Model
 
-Model --> DeleteCommand
+Model --> DeleteFlashcardCommand
 deactivate Model
 
 create CommandResult
-DeleteCommand -> CommandResult
+DeleteFlashcardCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteCommand
+CommandResult --> DeleteFlashcardCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
-deactivate DeleteCommand
+DeleteFlashcardCommand --> LogicManager : result
+deactivate DeleteFlashcardCommand
 
 [<--LogicManager
 deactivate LogicManager

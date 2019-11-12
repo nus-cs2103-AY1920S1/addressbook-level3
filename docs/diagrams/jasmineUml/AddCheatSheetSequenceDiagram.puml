@@ -1,0 +1,71 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":StudyBuddyParser" as StudyBuddyParser LOGIC_COLOR
+participant ":AddCheatSheetCommandParser" as AddCheatSheetCommandParser LOGIC_COLOR
+participant "cs:AddCheatSheetCommand" as AddCheatSheetCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":StudyBuddyBook" as StudyBuddyBook STORAGE_COLOR
+end box
+
+[-> LogicManager : execute("add t/a_title tag/a_tag")
+activate LogicManager
+
+LogicManager -> StudyBuddyParser : parseCommand("add t/a_title tag/a_tag")
+activate StudyBuddyParser
+
+StudyBuddyParser -> StudyBuddyParser : parseCheatSheetCommands("add", "t/a_title tag/a_tag")
+
+create AddCheatSheetCommandParser
+StudyBuddyParser -> AddCheatSheetCommandParser : parse("t/a_title tag/a_tag")
+activate AddCheatSheetCommandParser
+
+create AddCheatSheetCommand
+AddCheatSheetCommandParser -> AddCheatSheetCommand
+activate AddCheatSheetCommand
+
+AddCheatSheetCommand --> AddCheatSheetCommandParser
+deactivate AddCheatSheetCommand
+
+AddCheatSheetCommandParser --> StudyBuddyParser : cs
+deactivate AddCheatSheetCommandParser
+
+StudyBuddyParser --> LogicManager : cs
+deactivate StudyBuddyParser
+
+LogicManager -> AddCheatSheetCommand : execute()
+activate AddCheatSheetCommand
+
+ref over AddCheatSheetCommand
+    retrieving relevant tagged contents
+end ref
+
+AddCheatSheetCommand --> LogicManager : result
+deactivate AddCheatSheetCommand
+
+AddCheatSheetCommand -[hidden]-> LogicManager : result
+destroy AddCheatSheetCommand
+
+LogicManager -> Model : getStudyBuddyBook()
+activate Model
+
+Model --> LogicManager : studyBuddyBook
+deactivate Model
+
+LogicManager -> StudyBuddyBook : saveStudyBuddyBook(studyBuddyBook)
+activate StudyBuddyBook
+
+StudyBuddyBook --> LogicManager
+deactivate StudyBuddyBook
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

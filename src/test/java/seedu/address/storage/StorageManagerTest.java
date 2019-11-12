@@ -2,7 +2,8 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import static seedu.address.testutil.TypicalFlashcards.getTypicalStudyBuddyPro;
 
 import java.nio.file.Path;
 
@@ -11,8 +12,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyStudyBuddyProCheatSheets;
+import seedu.address.model.ReadOnlyStudyBuddyProFlashcards;
+import seedu.address.model.ReadOnlyStudyBuddyProNotes;
+import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,9 +27,10 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonStudyBuddyProStorage studyBuddyProStorage = new JsonStudyBuddyProStorage(getTempFilePath("fc"),
+                getTempFilePath("notes"), getTempFilePath("cs"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(studyBuddyProStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -47,22 +51,36 @@ public class StorageManagerTest {
         assertEquals(original, retrieved);
     }
 
+    /*
+     * Note: This is an integration test that verifies the StorageManager is properly wired to the
+     * {@link JsonStudyBuddyProStorage} class.
+     * More extensive testing of UserPref saving/reading is done in {@link JsonStudyBuddyProStorageTest} class.
+    */
     @Test
-    public void addressBookReadSave() throws Exception {
-        /*
-         * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
-         */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+    public void studyBuddyProReadSave() throws Exception {
+        StudyBuddyPro original = getTypicalStudyBuddyPro();
+        storageManager.saveStudyBuddyPro(original);
+        ReadOnlyStudyBuddyProFlashcards retrievedFlashcards = storageManager.readStudyBuddyProFlashcards().get();
+        ReadOnlyStudyBuddyProNotes retrievedNotes = storageManager.readStudyBuddyProNotes().get();
+        ReadOnlyStudyBuddyProCheatSheets retrievedCheatSheets = storageManager.readStudyBuddyProCheatSheets().get();
+
+        assertEquals(original,
+                new StudyBuddyPro(retrievedFlashcards, retrievedNotes, retrievedCheatSheets));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getFlashcardFilePath() {
+        assertNotNull(storageManager.getFlashcardFilePath());
+    }
+
+    @Test
+    public void getNoteFilePath() {
+        assertNotNull(storageManager.getNoteFilePath());
+    }
+
+    @Test
+    public void getCheatSheetFilePath() {
+        assertNotNull(storageManager.getCheatSheetFilePath());
     }
 
 }

@@ -14,7 +14,10 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path studyBuddyProFilePath = Paths.get("data" , "studybuddypro.json");
+    private Path cheatSheetFilePath = Paths.get("data", "cheatsheets.json");
+    private Path flashcardFilePath = Paths.get("data", "flashcards.json");
+    private Path noteFilePath = Paths.get("data", "notes.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -35,7 +38,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setStudyBuddyProFilePath(newUserPrefs.getStudyBuddyProFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,13 +50,25 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    public Path getStudyBuddyProFilePath() {
+        return studyBuddyProFilePath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+    public Path getCheatSheetFilePath() {
+        return cheatSheetFilePath;
+    }
+
+    public Path getFlashcardFilePath() {
+        return flashcardFilePath;
+    }
+
+    public Path getNoteFilePath() {
+        return noteFilePath;
+    }
+
+    public void setStudyBuddyProFilePath(Path studyBuddyProFilePath) {
+        requireNonNull(studyBuddyProFilePath);
+        this.studyBuddyProFilePath = studyBuddyProFilePath;
     }
 
     @Override
@@ -68,19 +83,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && studyBuddyProFilePath.equals(o.studyBuddyProFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, studyBuddyProFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + studyBuddyProFilePath);
         return sb.toString();
     }
 

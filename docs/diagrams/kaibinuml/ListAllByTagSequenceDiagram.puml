@@ -1,0 +1,77 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":StudyBuddyParser" as StudyBuddyParser LOGIC_COLOR
+participant ":FilterAllByTagCommandParser" as FilterAllByTagCommandParser LOGIC_COLOR
+participant "fa:FilterAllByTagCommand" as FilterAllByTagCommand LOGIC_COLOR
+participant "tagPredicate:StudyBuddyItemContainsTagPredicate" as StudyBuddyItemContainsTagPredicate LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("filterall tag/cs2100")
+activate LogicManager
+
+LogicManager -> StudyBuddyParser : parseCommand (filterall tag/cs2100")
+activate StudyBuddyParser
+
+create FilterAllByTagCommandParser
+StudyBuddyParser -> FilterAllByTagCommandParser
+activate FilterAllByTagCommandParser
+
+FilterAllByTagCommandParser --> StudyBuddyParser
+deactivate FilterAllByTagCommandParser
+
+StudyBuddyParser -> FilterAllByTagCommandParser : parse("cs2100")
+activate FilterAllByTagCommandParser
+
+create FilterAllByTagCommand
+FilterAllByTagCommandParser -> FilterAllByTagCommand
+activate FilterAllByTagCommand
+
+create StudyBuddyItemContainsTagPredicate
+FilterAllByTagCommand -> StudyBuddyItemContainsTagPredicate
+activate StudyBuddyItemContainsTagPredicate
+
+StudyBuddyItemContainsTagPredicate --> FilterAllByTagCommand : tagPredicate
+deactivate StudyBuddyItemContainsTagPredicate
+
+FilterAllByTagCommand --> FilterAllByTagCommandParser : fa
+deactivate FilterAllByTagCommand
+
+FilterAllByTagCommandParser --> StudyBuddyParser : fa
+deactivate FilterAllByTagCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+FilterAllByTagCommandParser -[hidden]-> StudyBuddyParser
+destroy FilterAllByTagCommandParser
+
+StudyBuddyParser --> LogicManager : fa
+deactivate StudyBuddyParser
+
+LogicManager -> FilterAllByTagCommand : execute()
+activate FilterAllByTagCommand
+
+FilterAllByTagCommand -> Model : collectTaggedItems(tagPredicate)
+activate Model
+
+Model --> FilterAllByTagCommand : tagListResult
+deactivate Model
+
+create CommandResult
+FilterAllByTagCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FilterAllByTagCommand
+deactivate CommandResult
+
+FilterAllByTagCommand --> LogicManager : result
+deactivate FilterAllByTagCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

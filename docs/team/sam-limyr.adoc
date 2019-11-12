@@ -1,0 +1,193 @@
+= Samuel Lim - StudyBuddyPro Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== About the Project
+This Project Portfolio is intended to document and detail my personal contributions to my software engineering project
+for the module CS2103T Software Engineering. In this module, me and my team of four other software engineering
+coursemates were tasked with morphing a given codebase for a desktop app that primarily made use of typed input to
+receive instructions. We decided to morph the app into an all-in-one study aid application named *StudyBuddyPro*,
+targeted specifically at NUS Computer Science students who preferred visual learning. Our app supports the use of
+flashcards and notes, provides a timetrial and reminder feature for flashcards, and includes an automatic
+cheatsheet-generation tool.
+
+The image below displays the current Graphical User Interface (GUI) of StudyBuddyPro:
+
+.The current GUI of StudyBuddyPro, with annotations
+image::samDiagrams/PPPApplicationMainGUI.png[]
+
+My role in this project was to write the code for Notes, implement their basic functions, and implement the ability
+to add tags within the content of notes. Additionally, I was tasked with completing the test cases, user guide, and
+developer guide portions for the entire Notes feature, and any other relevant documentation. This Project Portfolio
+thus details how I implemented these changes.
+
+== Informative Callouts
+
+The following symbols will be used throughout this document to indicate more important pieces of information in this
+Portfolio:
+
+[WARNING]
+====
+Information that, if not followed, will result in StudyBuddyPro not functioning correctly.
+====
+
+[IMPORTANT]
+====
+Information that is crucial for you to understand the details of this Portfolio.
+====
+
+[NOTE]
+====
+Information that will enrich your understanding of this Portfolio.
+====
+
+`colored words` --- Refers either to a command word or a part of StudyBuddyPro's architecture.
+
+== Summary of Contributions
+
+As mentioned earlier, these are my contributions to my software engineering project:
+
+* *Major Contribution 1*: Implemented *Notes*, along with their basic features.
+** *What*: Notes are pieces of information that contain a title, some content, and some tags. They can be added,
+deleted, viewed, and filtered.
+** *Why*: Notes can be used by students to store information. They form one of the two main sources of information for
+cheatsheet creation in StudyBuddyPro, and are therefore essential to the studying process.
+
+* *Major Contribution 2*: Implemented the *Add Tags Within Notes* feature.
+** *What*: This feature allows the user to use a pre-defined syntax to tag specific portions of a note with tags (these
+tags are henceforth referred to as 'note fragment tags'). Note fragment tags are independent of the note's original
+tags, and can be filtered just like normal notes can be.
+** *Why*: This feature can be used by students to add information to cheatsheets much more precisely. It can also be
+used to highlight specific important parts of a note. This would be very helpful for students to revise more
+efficiently.
+
+* *Minor Contribution 1*: Implemented the `view` and `viewraw` commands for Notes.
+** *What*: Both commands view a given note, but the `view` command also cleans up the syntax of the note
+to remove the leftover syntax from the addition of note fragment tags.
+** *Why*: Users will not want the GUI of the app to be cluttered up by note fragment tag syntax. It will be more
+aesthetically pleasing to have the option to not view the syntax when viewing a note.
+
+* *Code Contributed*: This link contains the code that I wrote for this project: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=sam-limyr&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Sam-limyr&tabRepo=AY1920S1-CS2103T-W13-3%2Fmain%5Bmaster%5D[My code]
+
+* *Other Contributions*:
+** Project management:
+*** Created specific GitHub issues for the final release of version 1.4. (https://github.com/AY1920S1-CS2103T-W13-3/StudyBuddyPro/issues/221[#221], https://github.com/AY1920S1-CS2103T-W13-3/StudyBuddyPro/issues/223[#223], https://github.com/AY1920S1-CS2103T-W13-3/StudyBuddyPro/issues/226[#226], https://github.com/AY1920S1-CS2103T-W13-3/StudyBuddyPro/issues/229[#229])
+** Enhancements to existing features:
+*** Wrote test code for features relevant to Notes to improve test coverage. (https://github.com/AY1920S1-CS2103T-W13-3/StudyBuddyPro/pull/332[#332], https://github.com/AY1920S1-CS2103T-W13-3/StudyBuddyPro/pull/336[#336], https://github.com/AY1920S1-CS2103T-W13-3/StudyBuddyPro/pull/339[#339])
+*** Created the GUI for the Note feature. (https://github.com/AY1920S1-CS2103T-W13-3/StudyBuddyPro/pull/173[#173], https://github.com/AY1920S1-CS2103T-W13-3/StudyBuddyPro/pull/182[#182], https://github.com/AY1920S1-CS2103T-W13-3/StudyBuddyPro/pull/212[#212])
+*** Connected the Note feature to the Storage component. (https://github.com/AY1920S1-CS2103T-W13-3/StudyBuddyPro/pull/167[#167])
+**** Assistance was provided by one of my teammates, Sahil. (https://github.com/AY1920S1-CS2103T-W13-3/StudyBuddyPro/pull/158[#158])
+** Documentation:
+*** Standardized formatting of User Guide to improve overall consistency. (https://github.com/AY1920S1-CS2103T-W13-3/StudyBuddyPro/pull/349[#349])
+** Community assistance:
+*** Tested bugs for another group's project during a Practical Exam dry run.
+
+== Contributions to User Guide
+
+In this project, I was tasked with writing all portions of the User Guide related to Notes (specifically Section 6 of
+the User Guide). The sections below hence document my contributions to the User Guide of StudyBuddyPro. In the
+following 3 pages, I will describe how you can add and view notes from StudyBuddyPro, in an easy-to-follow manner.
+
+[IMPORTANT]
+====
+All the operations in this section assume that you are in the _notes_ mode. To be sure
+you are in the _notes_ mode, please ensure that you have used the `switch notes` command before this.
+====
+
+include::../UserGuide.adoc[tag=notesAdd]
+include::../UserGuide.adoc[tag=notesView]
+
+== Contributions to Developer Guide
+
+In this project, I was tasked with writing all portions of the Developer Guide related to Notes (specifically
+Sections 3.4 and 4.7 of the Developer Guide). The sections below hence document my contributions to the Developer
+Guide of StudyBuddyPro. In the following 5 pages, I will detail out how I decided on and created my feature. I will
+also describe the architecture of my feature using various types of diagrams, so that you can more clearly understand
+how the feature works.
+
+=== Implementation of Notes
+
+`Notes` contain a `Title` and a `Content`, with optional `Tags` and `NoteFragments`, as shown in the class diagram
+below:
+
+.An overview of the Note class and its associated classes
+image::samDiagrams/NoteModelClassDiagram.png[pdfwidth=50vw]
+
+[NOTE]
+====
+As is standard in this Developer Guide, red classes are part of the `Model` package, and blue classes are part of
+the `Logic` package.
+====
+
+=== Implementation of the Add Tags Within Notes feature
+
+In the following section, I will describe in general how I implemented the Add Tags Within Notes feature, which
+allows users to store specific sections of their notes with tags.
+
+include::../DeveloperGuide.adoc[tag=notesImplementationIntro]
+
+.A detailed view of the Note, NoteFragment, and NoteFeatureUtil classes
+image::samDiagrams/NoteModelDetailedClassDiagram.png[pdfwidth=70vw]
+
+As shown in the diagram above, `NoteFragments` contain:
+
+** A `Title` that is the same as their parent `Note`
+** A `Content` that is a substring of their parent `Note`
+** Any indicated `Tags` that are independent of their parent `Note`
+
+=== Implementation of NoteFragment creation
+
+In the following section, I will describe how I implemented the creation of `NoteFragments`. While `Notes`
+themselves are quite useful, I felt that implementing `NoteFragments` would allow users to gain even more value out
+of the automatic cheatsheet-generation feature in StudyBuddyPro.
+
+include::../DeveloperGuide.adoc[tag=notesImplementationNoteFeatureUtil1]
+
+A `Note` has been added with the `Content` of 'Notes can be /* C/highlighted TAG/highlight TAG/important */ if
+needed.', and a note fragment tag with `Content` 'highlighted' and two `Tags` 'cs2100' and 'important'. The `Note`
+itself is instead tagged with the `Tag` 'about'.
+
+[NOTE]
+====
+You can refer to the earlier pages of this Portfolio to recall the specific syntax used in note fragment tags.
+====
+
+The following sequence diagram elaborates upon the creation process of `Notes` and `NoteFragments`:
+
+.Illustration of how Notes and NoteFragments are created
+image::samDiagrams/AddNoteSequenceDiagramZoomedIn.png[pdfwidth=50vw]
+
+include::../DeveloperGuide.adoc[tag=notesImplementationNoteFeatureUtil2]
+
+=== Implementation of ViewNoteCommand
+
+In the following section, I will describe how I implemented `ViewNoteCommand`. I chose to implement this command
+because users might not want to see complicated syntax when they are viewing notes.
+
+include::../DeveloperGuide.adoc[tag=notesImplementationView1]
+
+.Difference between ViewNoteCommand and ViewRawNoteCommand
+image::samDiagrams/ViewVersusViewRawActivityDiagram.png[pdfwidth=50vw]
+
+As can be seen in the diagram above, the method `Note#getContentCleanedFromTags()` is used to obtain a copy of the
+`Content` of the `Note`, and reformat it by replacing its note fragment tags with blank spaces. This is further
+elaborated on by the object diagram below:
+
+.A possible instance of a use of ViewNoteCommand
+image::samDiagrams/NoteCleanedContentObjectDiagram.png[pdfwidth=70vw]
+
+include::../DeveloperGuide.adoc[tag=notesImplementationView2]
+
+=== Design Considerations of the Add Tags Within Notes feature and ViewNoteCommand
+
+In the following section, I will describe two of the decisions that I had to make while creating my feature, and will
+elaborate on the pros and cons of each choice.
+
+[NOTE]
+====
+Some of the architectural components mentioned in these alternatives (e.g. `UniqueNoteList`) are not mentioned in
+this Portfolio. Should you wish to read up more about them, you can refer to the full Developer Guide https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/DeveloperGuide.adoc[here].
+====
+
+include::../DeveloperGuide.adoc[tag=notesConsiderations]

@@ -1,0 +1,20 @@
+{
+  "_comment": "StudyBuddyPro save file which contains the same Flashcard values as in TypicalFlashcards#getTypicalStudyBuddyPro(). To be completed",
+  "flashcards" : [ {
+    "question" : "What is 2 + 2?",
+    "answer" : "4",
+    "title" : "Maths Question 1",
+    "statisticsLastViewed" : "2019-11-09",
+    "statisticsToViewNext" : "2019-11-10",
+    "statisticsCurrentIncrement" : "FIRST",
+    "tagged" : [ ]
+  },  {
+    "question" : "Test",
+    "answer" : "Test",
+    "title" : "Test",
+    "statisticsLastViewed" : "2019-11-09",
+    "statisticsToViewNext" : "2019-11-10",
+    "statisticsCurrentIncrement" : "FIRST",
+    "tagged" : [ ]
+  }]
+}

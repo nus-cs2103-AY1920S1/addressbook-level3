@@ -1,0 +1,44 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Logic <<Rectangle>>{
+Class NoteFeatureUtil LOGIC_COLOR
+}
+
+Package Model <<Rectangle>>{
+Class StudyBuddyItem
+Class StudyBuddyBook
+Class ModelManager
+Class UniqueNoteList
+
+Package Note {
+Class Note
+Class NoteFragment
+Class Content
+Class Title
+}
+
+Package Tag {
+Class Tag
+}
+}
+
+Title -right[hidden]- Content
+
+ModelManager ---> "1" Note : filtered list
+UniqueNoteList o--> "*" Note
+ModelManager o-left-> "1" StudyBuddyBook
+StudyBuddyBook *-down-> "1" UniqueNoteList
+Note o--> "*" NoteFragment
+NoteFragment --|> Note
+Note -right-> NoteFeatureUtil
+Note -left-|> StudyBuddyItem
+Note *--> "1" Content
+Note *--> "1" Title
+Note o-up-> "*" Tag
+NoteFeatureUtil --> NoteFragment
+
+@enduml

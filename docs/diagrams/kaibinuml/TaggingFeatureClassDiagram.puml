@@ -1,0 +1,26 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+StudyBuddyItem <|-down- CheatSheet
+StudyBuddyItem <|-down- Flashcard
+StudyBuddyItem <|-down- Note
+Note <|-down- NoteFragment
+StudyBuddyItem *-down--- "0..10" Tag
+
+class StudyBuddyItem {
+<color:#FFFFFF>Set<Tag> tags
+<color:#FFFFFF>getTags()
+}
+
+class Note {
+<color:#FFFFFF>List<NoteFragment> noteFragments
+}
+
+class Tag {
+<color:#FFFFFF>String name
+}
+
+@enduml

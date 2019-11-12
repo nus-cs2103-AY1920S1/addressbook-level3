@@ -1,0 +1,105 @@
+== Project Portfolio for StudyBuddyPro
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+=== Done By: Jasmine Yeo Jia Min
+
+'''
+This portfolio is meant to be a well-documented data point of my Software Engineering experience on the project. It showcases my contributions to the project and my documentation skills.
+
+'''
+
+=== Overview
+
+StudyBuddyPro is a desktop Command Line Interface (CLI) application intended for Computing School students of National University of Singapore (NUS). It aims to lessen target users' revision time consumption without compromising the quality of studies with a centralized platform.
+
+StudyBuddyPro provides three main features: Flashcard, Notes and Cheatsheet. These features are used to revise using flashcards, take notes and generate cheatsheets respectively. Additionally, StudyBuddyPro is equipped with a Graphic User Interface (GUI).
+
+.StudyBuddyPro's GUI with explanations
+image::jasmineDiagrams/ssForPppUiDesc.png[]
+
+The above image shows how StudyBuddyPro looks like with the descriptions of each functional areas and icons.
+
+=== Syntax
+
+Please do take a look at the syntax notations below as they are used throughout the document.
+
+`syntax 1` -- For commands or class objects
+
+_syntax 2_ -- For figures, tables, functionality or variables
+
+=== Callouts Signs
+
+Please do refer to the signs below as they are used throughout the document.
+
+[WARNING]
+====
+Indicates information that are to be adhere as potential problems may be encountered if you are not careful.
+====
+
+[IMPORTANT]
+====
+Indicates information that are crucial to understand so that you will be able to follow the flow of the document.
+====
+
+[NOTE]
+====
+Indicates information that are note-worthy. Do read them for more information and better understandings.
+====
+
+=== Summary of contributions
+
+The sections below are a summary of my contributions to the project. It highlights my major contributions and states my minor, code and other contributions.
+
+==== Major Enhancement 1: Automated the Generation of Cheatsheets
+
+This enhancement allows users to automatically generate cheatsheets according to the _tags_ that they specify. From this, it improves the product significantly as users can sift out information to be included in a specific cheatsheet. Thus, it reduces the users' time taken in collating cheatsheets.
+
+This enhancement's implementation makes use of the other features in the StudyBuddyPro to create the contents in the cheatsheets. As such, users can make full use of this auto-generation enhancement by using _tagging_ functionality in those features.
+
+==== Major Enhancement 2: Customization of Generated Cheatsheets
+
+This enhancement allows users to remove contents in the generated cheatsheets by specifying its content indexes or tags. From this, it improves the cheatsheets' usability as users can determine which contents to be included or excluded in the cheatsheets.
+
+This enhancement ensures all contents are placed under the _tags_ specified even after users' personalization. Hence, users can be assured that the cheatsheets contain no irrelevant contents.
+
+==== Minor Enhancement 1: Switching between the Features
+
+This enhancement allows users to toggle amongst the features in the StudyBuddyPro. Also, it allows _global_ commands, like `exit` or `filterall` to be used in any features.
+
+==== Minor Enhancement 2: Clearing Specific Features's Data
+
+This enhancement allows users to clear specific feature's data in the StudyBuddyPro. As such, users do not need to clear the entire data if desired.
+
+==== Code Contribution
+
+Please do refer to the link https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jaesimin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jaesimin&tabRepo=AY1920S1-CS2103T-W13-3%2Fmain%5Bmaster%5D[here] my functional codes and https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jaesimin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jaesimin&tabRepo=AY1920S1-CS2103T-W13-3%2Fmain%5Bmaster%5D[here] for my test codes.
+
+==== Other Contributions:
+
+* Designed the GUI for `view` in the Cheatsheet feature (link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/166[#166], link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/245[#245])
+* Did cosmetic tweaks to the existing contents of the Developer Guide (link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/74[#74], link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/177[#177], link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/192[#192], link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/203[#203])
+* Reported bugs and suggestions for other teams in the class
+
+== Contributions to the User Guide (UG)
+
+The sections below are my contributions to the UG of StudyBuddyPro. They showcase my ability to write documentation that targets the end-users.
+
+[IMPORTANT]
+====
+All commands in the sections assume that the user is in the _cheatsheet_ mode.
+====
+
+include::../UserGuide.adoc[tag=cheatsheetAdd]
+include::../UserGuide.adoc[tag=cheatsheetEdit]
+include::../UserGuide.adoc[tag=cheatsheetView]
+include::../UserGuide.adoc[tag=cheatsheetViewSpecific]
+include::../UserGuide.adoc[tag=cheatsheetList]
+include::../UserGuide.adoc[tag=cheatsheetUpdate]
+
+== Contributions to the Developer Guide (DG)
+
+The sections below are my contributions to the DG of StudyBuddyPro. They showcase my ability to write technical documentation. Also, it portrays my technical depth of my contributions to StudyBuddyPro.
+
+include::../DeveloperGuide.adoc[tag=cheatsheetAutomation]

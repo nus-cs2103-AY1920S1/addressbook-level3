@@ -6,8 +6,14 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.CheatSheetDataConversionException;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.commons.exceptions.FlashcardDataConversionException;
+import seedu.address.commons.exceptions.NoteDataConversionException;
+import seedu.address.model.ReadOnlyStudyBuddyPro;
+import seedu.address.model.ReadOnlyStudyBuddyProCheatSheets;
+import seedu.address.model.ReadOnlyStudyBuddyProFlashcards;
+import seedu.address.model.ReadOnlyStudyBuddyProNotes;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -17,13 +23,13 @@ import seedu.address.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private StudyBuddyProStorage studyBuddyProStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(StudyBuddyProStorage studyBuddyProStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.studyBuddyProStorage = studyBuddyProStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -33,6 +39,7 @@ public class StorageManager implements Storage {
     public Path getUserPrefsFilePath() {
         return userPrefsStorage.getUserPrefsFilePath();
     }
+
 
     @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
@@ -45,33 +52,79 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ StudyBuddyPro methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Optional<ReadOnlyStudyBuddyProFlashcards> readStudyBuddyProFlashcards()
+            throws FlashcardDataConversionException, IOException {
+        return studyBuddyProStorage.readStudyBuddyProFlashcards(studyBuddyProStorage.getFlashcardFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyStudyBuddyProFlashcards> readStudyBuddyProFlashcards(Path flashcardFilePath)
+            throws FlashcardDataConversionException, IOException {
+        logger.fine("Attempting to read data from files: " + flashcardFilePath);
+        return studyBuddyProStorage.readStudyBuddyProFlashcards(flashcardFilePath);
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+    public Optional<ReadOnlyStudyBuddyProNotes> readStudyBuddyProNotes()
+            throws NoteDataConversionException, IOException {
+        return studyBuddyProStorage.readStudyBuddyProNotes(studyBuddyProStorage.getNoteFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyStudyBuddyProNotes> readStudyBuddyProNotes(Path noteFilePath)
+            throws NoteDataConversionException, IOException {
+        logger.fine("Attempting to read data from files: " + noteFilePath);
+        return studyBuddyProStorage.readStudyBuddyProNotes(noteFilePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+    public Optional<ReadOnlyStudyBuddyProCheatSheets> readStudyBuddyProCheatSheets()
+            throws CheatSheetDataConversionException, IOException {
+        return studyBuddyProStorage.readStudyBuddyProCheatSheets(studyBuddyProStorage.getCheatSheetFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyStudyBuddyProCheatSheets> readStudyBuddyProCheatSheets(Path cheatSheetFilePath)
+            throws CheatSheetDataConversionException, IOException {
+        logger.fine("Attempting to read data from files: " + cheatSheetFilePath);
+        return studyBuddyProStorage.readStudyBuddyProCheatSheets(cheatSheetFilePath);
+    }
+
+
+    @Override
+    public void saveStudyBuddyPro(ReadOnlyStudyBuddyPro studyBuddyPro) throws IOException {
+        saveStudyBuddyPro(studyBuddyPro, studyBuddyProStorage.getFlashcardFilePath(),
+                getNoteFilePath(), getCheatSheetFilePath());
+    }
+
+    @Override
+    public void saveStudyBuddyPro(ReadOnlyStudyBuddyPro studyBuddyPro, Path flashcardFilePath, Path noteFilePath,
+                                  Path cheatsheetFilePath) throws IOException {
+        logger.fine("Attempting to write to data files: " + flashcardFilePath
+                + ", " + noteFilePath + ", " + cheatsheetFilePath);
+        studyBuddyProStorage.saveStudyBuddyPro(studyBuddyPro, flashcardFilePath, noteFilePath, cheatsheetFilePath);
+    }
+
+    // ================ CheatSheet methods ==============================
+
+    @Override
+    public Path getCheatSheetFilePath() {
+        return studyBuddyProStorage.getCheatSheetFilePath();
+    }
+
+    // ================ Flashcard methods ==============================
+    @Override
+    public Path getFlashcardFilePath() {
+        return studyBuddyProStorage.getFlashcardFilePath();
+    }
+
+    // ================ Note methods ==============================
+    @Override
+    public Path getNoteFilePath() {
+        return studyBuddyProStorage.getNoteFilePath();
     }
 
 }

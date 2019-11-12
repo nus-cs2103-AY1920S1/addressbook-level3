@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="notesTabWindow" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.NotesTabWindowController">
+   <center>
+      <SplitPane dividerPositions="0.3, 0.5" stylesheets="@DarkTheme.css" BorderPane.alignment="CENTER">
+        <items>
+          <AnchorPane styleClass="split-pane" stylesheets="@DarkTheme.css">
+               <children>
+                  <TextArea fx:id="titleTextArea" editable="false" prefHeight="290.0" prefWidth="320.0" styleClass="result-display" stylesheets="@DarkTheme.css" wrapText="true" />
+               </children>
+            </AnchorPane>
+            <Separator orientation="VERTICAL" stylesheets="@DarkTheme.css" />
+          <AnchorPane styleClass="split-pane" stylesheets="@DarkTheme.css">
+               <children>
+                  <TextArea fx:id="contentTextArea" editable="false" styleClass="result-display" stylesheets="@DarkTheme.css" wrapText="true" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </center>
+</BorderPane>

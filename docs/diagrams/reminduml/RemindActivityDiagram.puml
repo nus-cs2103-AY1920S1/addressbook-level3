@@ -1,0 +1,15 @@
+@startuml
+start
+if () then ([User views flashcard])
+    :Something happens;
+    :Something happens;
+    :Something happens;
+else ([else])
+    if () then ([User enters timetrial mode])
+        :Something happens;
+        :Something happens;
+    else([else])
+        endif
+    endif
+    stop
+@enduml

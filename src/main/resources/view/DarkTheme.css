@@ -83,7 +83,7 @@
 
 .split-pane {
     -fx-border-radius: 1;
-    -fx-border-width: 1;
+    -fx-border-width: 0;
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
@@ -350,3 +350,72 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#timerLabel {
+    -fx-text-fill: white;
+    -fx-font-size: 70px;
+}
+
+#qnsTextArea .content {
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-border-color: #383838;
+	 -fx-background-radius: 0;
+	 -fx-text-fill: white;
+}
+
+#ansTextArea .content {
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-border-color: #383838;
+     -fx-border-top-width: 1px;
+	 -fx-background-radius: 0;
+	 -fx-text-fill: white;
+}
+
+#titleTextArea .content {
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-border-color: #383838;
+     -fx-border-top-width: 1px;
+	 -fx-background-radius: 0;
+	 -fx-text-fill: white;
+}
+
+#contentTextArea .content {
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-border-color: #383838;
+     -fx-border-top-width: 1px;
+	 -fx-background-radius: 0;
+	 -fx-text-fill: white;
+}
+
+#cheatsheetArea .content {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: #383838;
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+}
+
+#tagArea .content {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: #383838;
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+}
+
+.list-view .list-cell {
+    -fx-background-color: #383838;
+    -fx-text-fill: white;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: #ffea00;
+    -fx-text-fill: #000000;
+}
+
+.tab-pane {
+    -fx-tab-max-height: 0 ;
+}
+
+.tab-pane .tab-header-area {
+    visibility: hidden ;
+}
+

@@ -22,7 +22,7 @@ public class Tag {
     public Tag(String tagName) {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
+        this.tagName = tagName.toLowerCase();
     }
 
     /**
@@ -49,6 +49,10 @@ public class Tag {
      */
     public String toString() {
         return '[' + tagName + ']';
+    }
+
+    public String getTagName() {
+        return tagName;
     }
 
 }
