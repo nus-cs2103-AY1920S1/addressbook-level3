@@ -1,0 +1,46 @@
+{
+  "_comment": "EatMe save file which contains the same Eatery values as in TypicalEaterys#getTypicalEateryList()",
+  "eateries" : [ {
+    "name" : "Popeyes",
+    "isOpen" : "false",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "category": "Western",
+    "tagged" : [ "fastfood" ]
+  }, {
+    "name" : "McDonald",
+    "isOpen" : "false",
+    "address" : "311, Clementi Ave 2, #02-25",
+    "category": "Western",
+    "tagged" : [ "fastfood" ]
+  }, {
+    "name" : "MOS Burger",
+    "isOpen" : "false",
+    "address" : "wall street",
+    "category": "Western",
+    "tagged" : [ ]
+  }, {
+    "name" : "Kentucky Fried Chicken",
+    "isOpen" : "false",
+    "address" : "10th street",
+    "category": "Western",
+    "tagged" : [ "fastfood" ]
+  }, {
+    "name" : "Texas Chicken",
+    "isOpen" : "false",
+    "address" : "michegan ave",
+    "category": "Western",
+    "tagged" : [ ]
+  }, {
+    "name" : "Burger King",
+    "isOpen" : "false",
+    "address" : "little tokyo",
+    "category": "Western",
+    "tagged" : [ ]
+  }, {
+    "name" : "Pizza Hut",
+    "isOpen" : "false",
+    "address" : "4th street",
+    "category": "Western",
+    "tagged" : [ ]
+  } ]
+}

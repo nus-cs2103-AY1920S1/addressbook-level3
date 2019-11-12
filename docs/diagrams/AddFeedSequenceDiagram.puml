@@ -1,0 +1,72 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":EatMeParser" as EatMeParser LOGIC_COLOR
+participant ":AddFeedCommandParser" as AddFeedCommandParser LOGIC_COLOR
+participant "a:AddFeedCommand" as AddFeedCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "f:Feed" as Feed MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant ":FeedList" as FeedList MODEL_COLOR
+end box
+[-> LogicManager : execute(addfeed)
+activate LogicManager
+
+LogicManager -> EatMeParser : parseCommand(addfeed)
+activate EatMeParser
+
+create AddFeedCommandParser
+EatMeParser -> AddFeedCommandParser : parse(args)
+activate AddFeedCommandParser
+
+create Feed
+AddFeedCommandParser -> Feed
+activate Feed
+
+Feed --> AddFeedCommandParser
+deactivate Feed
+Feed -[hidden]-> AddFeedCommandParser
+destroy Feed
+
+create AddFeedCommand
+AddFeedCommandParser -> AddFeedCommand : f
+activate AddFeedCommand
+
+AddFeedCommand --> AddFeedCommandParser
+deactivate AddFeedCommand
+
+AddFeedCommandParser --> EatMeParser : a
+deactivate AddFeedCommandParser
+AddFeedCommandParser -[hidden]-> EatMeParser : a
+destroy AddFeedCommandParser
+
+EatMeParser --> LogicManager : a
+deactivate EatMeParser
+
+LogicManager -> AddFeedCommand : execute()
+activate AddFeedCommand
+
+AddFeedCommand -> Model : addFeed(f)
+activate Model
+
+Model -> FeedList : addFeed(f)
+activate FeedList
+
+FeedList --> Model
+deactivate FeedList
+
+Model --> AddFeedCommand
+deactivate Model
+
+AddFeedCommand --> LogicManager : result
+deactivate AddFeedCommand
+AddFeedCommand -[hidden]-> LogicManager : result
+destroy AddFeedCommand
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml

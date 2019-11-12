@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.stage.Stage?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root resizable="false" title="Statistics" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene>
+            <stylesheets>
+            </stylesheets>
+
+            <VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER">
+                <HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="numDisplayView" alignment="CENTER" />
+                <HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="chartDisplayView" alignment="TOP_CENTER" />
+            </VBox>
+        </Scene>
+    </scene>
+</fx:root>

@@ -1,0 +1,46 @@
+{
+  "eateries" : [ {
+    "name" : "Ali Nachia Briyani Dam",
+    "isOpen" : "false",
+    "address" : "5 Tanjong Pagar Plaza, #02-04, Singapore 081005",
+    "category" : "Malay",
+    "reviews" : [ ],
+    "tagged" : [ "nice" ]
+  }, {
+    "name" : "Fei Fei Wanton Mee",
+    "isOpen" : "true",
+    "address" : "62 Joo Chiat Place, Singapore 427785",
+    "category" : "Chinese",
+    "reviews" : [ ],
+    "tagged" : [ "delicious" ]
+  }, {
+    "name" : "Swee Choon Tim Sum",
+    "isOpen" : "true",
+    "address" : "191 Jalan Besar, Singapore 208882",
+    "category" : "Chinese",
+    "reviews" : [ ],
+    "tagged" : [ "supper" ]
+  }, {
+    "name" : "Janggut Laksa",
+    "isOpen" : "true",
+    "address" : "1 Queensway, Queensway Shopping Centre, #01-59, Singapore 149053",
+    "category" : "Peranakan",
+    "reviews" : [ ],
+    "tagged" : [ "delicious" ]
+  }, {
+    "name" : "Seng Hiang Food Stall",
+    "isOpen" : "true",
+    "address" : "Blk 85 Bedok North Street 4, Fengshan Market & FoodCentre, Singapore 460085",
+    "category" : "Chinese",
+    "reviews" : [ ],
+    "tagged" : [ "hawker", "cheap" ]
+  }, {
+    "name" : "Selegie Soya Bean",
+    "isOpen" : "true",
+    "address" : "990 Upper Serangoon Road, Singapore 534734",
+    "category" : "Chinese",
+    "reviews" : [ ],
+    "tagged" : [ "dessert" ]
+  } ],
+  "todos" : [ ]
+}

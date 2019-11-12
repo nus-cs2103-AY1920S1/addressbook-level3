@@ -159,8 +159,8 @@ obtain the arguments and index required.
 Sometimes you might end up stepping into functions that are not of interest. Simply `step out` of them!
 ====
 . The rest of the method seems to exhaustively check for the existence of each possible parameter of the `edit`
-command and store any possible changes in an `EditPersonDescriptor`. Recall that we can verify the contents of
-`editPersonDesciptor` through the `Variable` tool window.
+command and store any possible changes in an `EditEateryDescriptor`. Recall that we can verify the contents of
+`editEateryDesciptor` through the `Variable` tool window.
 +
 image:EditCommand.png[]
 . Let's continue stepping through until we return to `LogicManager#execute()`.
@@ -179,14 +179,14 @@ image::LogicSequenceDiagram.png[]
 @Override
 public CommandResult execute(Model model) throws CommandException {
     ...
-    Person personToEdit = lastShownList.get(index.getZeroBased());
-    Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-    if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+    Eatery personToEdit = lastShownList.get(index.getZeroBased());
+    Eatery editedEatery = createEditedEatery(personToEdit, editEateryDescriptor);
+    if (!personToEdit.isSameEatery(editedEatery) && model.hasEatery(editedEatery)) {
         throw new CommandException(MESSAGE_DUPLICATE_PERSON);
     }
-    model.setPerson(personToEdit, editedPerson);
-    model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+    model.setEatery(personToEdit, editedEatery);
+    model.updateFilteredEateryList(PREDICATE_SHOW_ALL_PERSONS);
+    return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedEatery));
 }
 ----
 . As suspected, `command#execute()` does indeed make changes to `model`.
@@ -205,14 +205,14 @@ constructor.
  * {@code JsonSerializableAddressBook}.
  */
 public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-    persons.addAll(
-        source.getPersonList()
+    eateries.addAll(
+        source.getEateryList()
               .stream()
-              .map(JsonAdaptedPerson::new)
+              .map(JsonAdaptedEatery::new)
               .collect(Collectors.toList()));
 }
 ----
-. It appears that a `JsonAdaptedPerson` is created for each `Person` and then added to the
+. It appears that a `JsonAdaptedEatery` is created for each `Eatery` and then added to the
 `JsonSerializableAddressBook`.
 . We can continue to step through until we return to `MainWindow#executeCommand()`.
 . Stepping into ``resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());``, we end up in:
@@ -253,6 +253,6 @@ handled?
 .. Allow `delete` to remove more than one index at a time
 .. Save the address book in the CSV format instead
 .. Add a new command
-.. Add a new field to `Person`
+.. Add a new field to `Eatery`
 .. Add a new entity to the address book
 ****

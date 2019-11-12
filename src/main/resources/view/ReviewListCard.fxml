@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox xmlns:fx="http://javafx.com/fxml/1" minWidth="240" prefWidth="240" styleClass="list-item">
+    <VBox HBox.hgrow="ALWAYS">
+        <Label fx:id="date"/>
+        <Label fx:id="description" wrapText="true"/>
+    </VBox>
+
+    <HBox minWidth="75" prefWidth="75" maxWidth="75" alignment="CENTER">
+        <Label fx:id="cost" wrapText="true"/>
+    </HBox>
+
+    <HBox minWidth="100" prefWidth="100" maxWidth="100" alignment="CENTER">
+        <Label fx:id="ratingActive" wrapText="true" styleClass="h1, rating-active"/>
+        <Label fx:id="rating" wrapText="true" styleClass="h1"/>
+    </HBox>
+</HBox>

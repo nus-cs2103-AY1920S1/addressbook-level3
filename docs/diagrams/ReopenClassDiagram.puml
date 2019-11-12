@@ -1,0 +1,82 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+	participant ":LogicManager" LOGIC_COLOR
+	participant ":EatMeParser" LOGIC_COLOR
+	participant "rp:ReopenCommandParser" LOGIC_COLOR
+	participant "r:ReopenCommand" LOGIC_COLOR
+	participant "cr:CommandResult" LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+	participant ":Model" MODEL_COLOR
+	participant ":EateryList" MODEL_COLOR
+	participant ":UniqueEateryList" MODEL_COLOR
+end box
+
+[-> ":LogicManager" : execute("reopen 1")
+
+activate ":LogicManager"
+":LogicManager" -> ":EatMeParser" : parseCommand("reopen 1")
+activate ":EatMeParser"
+
+create "rp:ReopenCommandParser"
+":EatMeParser" -> "rp:ReopenCommandParser" : parse("1")
+activate "rp:ReopenCommandParser"
+
+create "r:ReopenCommand"
+"rp:ReopenCommandParser" -> "r:ReopenCommand"
+activate "r:ReopenCommand"
+"r:ReopenCommand" --> "rp:ReopenCommandParser"
+deactivate "r:ReopenCommand"
+
+"rp:ReopenCommandParser" --> ":EatMeParser" : r
+deactivate "rp:ReopenCommandParser"
+destroy "rp:ReopenCommandParser"
+
+":EatMeParser" --> ":LogicManager" : r
+deactivate ":EatMeParser"
+
+":LogicManager" -> "r:ReopenCommand" : execute()
+activate "r:ReopenCommand"
+
+"r:ReopenCommand" -> ":Model" : setEatery()
+activate ":Model"
+
+":Model" -> ":EateryList" : setEatery()
+activate ":EateryList"
+
+activate ":UniqueEateryList"
+":EateryList" -> ":UniqueEateryList" : setEatery()
+":UniqueEateryList" -> ":UniqueEateryList" : set()
+":UniqueEateryList" --> ":EateryList"
+deactivate ":UniqueEateryList"
+
+":EateryList" --> ":Model"
+deactivate ":EateryList"
+
+":Model" --> "r:ReopenCommand"
+deactivate ":Model"
+
+"r:ReopenCommand" -> ":Model" : updateFilteredEateryList()
+activate ":Model"
+
+":Model" --> "r:ReopenCommand"
+deactivate ":Model"
+
+create "cr:CommandResult"
+"r:ReopenCommand" -> "cr:CommandResult"
+activate "cr:CommandResult"
+"cr:CommandResult" --> "r:ReopenCommand"
+deactivate "cr:CommandResult"
+
+"r:ReopenCommand" --> ":LogicManager" : cr
+deactivate "r:ReopenCommand"
+destroy "r:ReopenCommand"
+
+[<-- ":LogicManager"
+
+@enduml
+
+

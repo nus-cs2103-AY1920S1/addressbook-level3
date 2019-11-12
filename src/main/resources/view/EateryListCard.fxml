@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" minWidth="240" prefWidth="240" styleClass="list-item">
+    <Label fx:id="id"/>
+    <Label fx:id="name" wrapText="true" styleClass="h2"/>
+    <Label fx:id="address" wrapText="true"/>
+    <Label fx:id="category" wrapText="true" minHeight="0" prefHeight="0" />
+    <FlowPane fx:id="tags"/>
+</VBox>

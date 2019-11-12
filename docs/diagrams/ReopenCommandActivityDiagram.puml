@@ -1,0 +1,18 @@
+@startuml
+title ReopenCommand
+
+start
+
+:User executes ""Reopen 1"" command;
+
+if () then (Eatery 1 is already open)
+    :Shows error message to the user;
+else (Eatery 1 is not open)
+    :EatMe opens the Eatery specified;
+
+    :Show success message to the user;
+endif
+
+stop
+
+@enduml

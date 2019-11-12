@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.web.WebView?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
-    xmlns:fx="http://javafx.com/fxml/1">
-  <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display"/>
-</StackPane>
+<VBox xmlns:fx="http://javafx.com/fxml/1" minWidth="580" prefWidth="580">
+    <VBox minWidth="580" prefWidth="580" styleClass="command-feedback">
+        <Label fx:id="commandFeedback" text="Enter a command on the left to get started." wrapText="true"/>
+    </VBox>
+
+    <VBox minWidth="580" prefWidth="580" styleClass="eatery-info">
+        <Label fx:id="eateryName" styleClass="h1" wrapText="true"/>
+        <Label fx:id="eateryCategory" wrapText="true"/>
+        <Label fx:id="eateryAddress" wrapText="true"/>
+        <FlowPane fx:id="eateryTags"/>
+    </VBox>
+
+    <VBox minWidth="580" prefWidth="580" styleClass="eatery-map">
+        <WebView fx:id="eateryMap" minHeight="350" prefHeight="350"/>
+    </VBox>
+
+    <Label fx:id="reviewHeader" styleClass="h2" wrapText="true"/>
+    <StackPane fx:id="reviewListPanelPlaceholder" VBox.vgrow="ALWAYS" styleClass="eatery-reviews"/>
+</VBox>
+

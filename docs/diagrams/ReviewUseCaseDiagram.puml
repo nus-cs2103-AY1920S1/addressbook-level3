@@ -1,0 +1,11 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor user
+rectangle Review {
+  user -- (add review)
+  user -- (edit review)
+  user -- (delete review)
+
+}
+@enduml

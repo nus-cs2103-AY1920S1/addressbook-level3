@@ -1,0 +1,113 @@
+// Background
+.root, .list-cell, .text-field, .list-view {
+    -fx-background-color: #424242;
+}
+
+.list-cell:selected {
+    -fx-background-color: derive(#424242, 20%);
+}
+
+FlowPane > Label {
+    -fx-background-color: #ffca28;
+    -fx-background-radius: 10;
+}
+
+// === Type ===
+Label, TextField {
+    -fx-text-fill: #fafafa;
+    -fx-font: normal 13 sans-serif;
+}
+
+.h1 {
+    -fx-font: bold 19 sans-serif;
+}
+
+.h2 {
+    -fx-font: bold 16 sans-serif;
+}
+
+.hyperlink {
+    -fx-text-fill: #ffca28;
+    -fx-font: normal 13 sans-serif;
+}
+
+.hyperlink:hover,
+.hyperlink:visited {
+    -fx-underline: false;
+}
+
+FlowPane > Label {
+    -fx-text-fill: #424242;
+}
+
+.rating-active {
+    -fx-text-fill: #ffca28;
+}
+
+// === Borders ===
+VBox {
+    -fx-border-width: 0;
+}
+
+VBox, .text-field, .list-view, .list-item {
+    -fx-border-color: derive(#424242, 20%);
+}
+
+.left {
+    -fx-border-width: 0 1 0 0;
+}
+
+.right {
+    -fx-border-width: 0 0 0 1;
+}
+
+.bottom {
+    -fx-border-width: 1 0 0 0;
+}
+
+.list-view {
+    -fx-border-width: 1;
+}
+
+.list-item {
+    -fx-border-width: 0 0 1 0;
+}
+
+.command-feedback {
+    -fx-border-width: 0 0 1 0;
+}
+
+// === Padding ===
+.container {
+    -fx-padding: 10;
+}
+
+Label {
+    -fx-padding: 1 0 1 0;
+}
+
+.list-view,
+.hyperlink {
+    -fx-padding: 0;
+}
+
+.list-item,
+.command-feedback {
+    -fx-padding: 0 0 10 0;
+}
+
+.eatery-info,
+.eatery-map,
+.eatery-reviews {
+    -fx-padding: 10 0 0 0;
+}
+
+FlowPane {
+    -fx-padding: 5 0 0 0;
+    -fx-hgap: 5;
+    -fx-vgap: 5;
+}
+
+FlowPane > Label {
+    -fx-padding: 5;
+}

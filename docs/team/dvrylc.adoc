@@ -1,0 +1,107 @@
+= Daryl Chan - Project Portfolio for EatMe
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Overview
+
+EatMe is a desktop food diary application used for keeping track of favorite places to eat.
+It also allows the user to easily stay up-to-date with the latest food trends.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10kLoC.
+
+== Summary of contributions
+
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=dvrylc[Code contributed]
+
+* *Major enhancement*: Added the *news feed* feature
++
+image::NewsFeedDemo.png[]
+
+** What it does: Allows the user to stay up-to-date with the latest food trends using a news feed.
+The user is able to customize the news feed to their liking by adding or removing their favorite food blogs from the list.
+
+** Justification: As people who really love food, users are constantly on the lookout for the latest and most interesting kinds of food to try.
+Users usually stay up-to-date by reading their favorite food blogs.
+However, if a user has multiple food blogs that they like, going to each blog individually can be time-consuming.
+As such, we wanted to build a feature that would allow the user to simply add their favorite food blogs to the app and have a list of the latest articles shown to them.
+To read any of the articles, the user simply has to click on the article to open it up in their browser.
+This feature would allow our app to be a one-stop solution for all of the user's food content.
+
+** Highlights:
+
+*** This feature was challenging to build because it fetches data from the RSS feeds of the user's favorite food blogs.
+It involved research on how XML parsing can be done in Java, and a detailed analysis of how the news feed should behave when the user is offline.
+
+*** The implementation was challenging as it required a solution to cache previously fetched articles, so that the user can still view the feed while offline.
+
+** Credits: Besides the JSoup library that was used for XML parsing, all other parts of the feature were self-written.
+
+** Relevant PRs: https://github.com/AY1920S1-CS2103T-W11-3/main/pull/73[#73], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/78[#78], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/88[#88], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/95[#95], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/103[#103], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/165[#165]
+
+* *Major enhancement*: Added the `show` command
++
+image::ShowCommandDemo.png[]
+
+** What it does: Allows the user to view all the information about an eatery (name, address, category, tags and reviews) and shows the user an interactive map of the eatery's location for easy navigation.
+
+** Justification: Since our app allows users to add reviews to an eatery, we needed a way to display the reviews in a simple and visually-pleasing way.
+Once the user finds an eatery to visit, it is also highly likely that they would need directions to the address.
+As such, we wanted to provide the user with an interactive map that they can use to navigate to the restaurant.
+
+** Highlights:
+
+*** The existing AB3 GUI had to be morphed into a 3-column layout to allow for a larger result display that count accomodate the eatery's information, the reviews and the interactive map.
+
+*** In order for the map to be interactive, an analysis of the available map options also had to be conducted.
+I evaluated OpenStreetMaps and Google Maps, and decided to use Google Maps because it had a user interface that was more intuitive and familiar to the average user.
+
+*** The implementation was challenging because we had to use JavaFX's WebView and an embedded Google Map.
+This involved working with the Google Maps API and making API calls that are signed with a Google Maps API Key.
+
+** Relevant PRs: https://github.com/AY1920S1-CS2103T-W11-3/main/pull/63[#63], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/100[#100], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/162[#162]
+
+* *Minor enhancement*: Add *visual indicator for closed eateries*
+
+** What it does: Highlights closed eateries in red.
+
+** Justification: When the user marks an eatery as "closed", it means that the eatery has closed down and is no longer operational.
+It is important that there is a visual indicator for the user to tell that the eatery is closed, so that the user doesn't try to visit it.
+
+** Relevant PRs: https://github.com/AY1920S1-CS2103T-W11-3/main/pull/164[#164]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI layout and color scheme (PR https://github.com/AY1920S1-CS2103T-W11-3/main/pull/63[#63])
+*** Updated the `find` command to allow for attribute-based finding (PR https://github.com/AY1920S1-CS2103T-W11-3/main/pull/168[#168])
+** Documentation:
+*** Updated the User Guide with new information (PRs https://github.com/AY1920S1-CS2103T-W11-3/main/pull/91[#91], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/115[#115], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/118[#118], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/176[#176])
+*** Updated the Developer Guide with new information and diagrams (PR https://github.com/AY1920S1-CS2103T-W11-3/main/pull/174[#174])
+*** Other documentation updates (PRs https://github.com/AY1920S1-CS2103T-W11-3/main/pull/11[#11], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/12[#12])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-W11-3/main/pull/59[#59], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/68[#68], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/97[#97], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/111[#111], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/166[#166]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/27#pullrequestreview-296000216[1], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/8#pullrequestreview-305618334[2 (with teammate @JunHongT)])
+** Tools:
+*** Integrated a third party library (JSoup) to the project (PR https://github.com/AY1920S1-CS2103T-W11-3/main/pull/73/files#diff-c197962302397baf3a4cc36463dce5ea[#73])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=newsFeed]
+
+include::../UserGuide.adoc[tag=show]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=newsFeedFeature]
+
+'''

@@ -1,0 +1,43 @@
+@startuml
+title AddFeed
+
+start
+
+:User executes ""addfeed"" command;
+note left
+  Arguments should
+  contain feed name
+  and URL of RSS feed
+end note
+
+if (command is valid) then (yes)
+    :Parse arguments into an
+    ""AddFeedCommand"" object;
+
+    :Execute ""AddFeedCommand"";
+    note left
+        Adds feed and
+        fetches its latest
+        feed posts
+    end note
+
+    :Add new feed to feed list;
+
+    if (internet is available) then (yes)
+        :Fetch latest feed posts;
+
+        :Update News Feed panel with
+        newly obtained feed posts;
+    else (no)
+    endif
+
+    :Show success message to the user;
+else (no)
+    :Throw an exception;
+
+    :Show error message to the user;
+endif
+
+stop
+
+@enduml

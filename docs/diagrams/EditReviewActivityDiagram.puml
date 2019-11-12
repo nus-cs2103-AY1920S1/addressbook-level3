@@ -1,0 +1,48 @@
+@startuml
+title EditReview
+
+start
+
+:User executes ""editreview"" command;
+note left
+  Arguments should
+  contain valid review index,
+  review description,
+  cost, rating and date
+end note
+
+if (is a valid command) then (yes)
+
+
+    if (any field edited) then (yes)
+
+            :Return an
+            ""EditReviewCommand"" object;
+
+            :Execute EditReviewCommand;
+            note left
+                    Edits review
+            end note
+
+            :Edits the review;
+
+                :Show success message to the user;
+    else (no)
+            : Throw an exception;
+
+            : Show error message to the user;
+    endif
+
+
+
+
+
+else (no)
+    :Throw an exception;
+
+    :Show error message to the user;
+endif
+
+stop
+
+@enduml
