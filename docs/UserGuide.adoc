@@ -461,8 +461,7 @@ Format: `addfeed \n [name of feed] \a [Web address of the feed]`
 * Adds a new feed with the given name and Web address.
 * Fetches the 5 latest posts from the feed and displays them in the right panel.
 * The Web address *must point to a valid RSS XML feed*.
-* In order *to fetch the latest posts, you must be connected to the Internet*.
-If you are not connected to the Internet, you can still add feeds but feed posts will only be fetched when the app is restarted with Internet connectivity.
+* In order *to add feeds, you must be connected to the Internet*.
 ****
 
 Example:

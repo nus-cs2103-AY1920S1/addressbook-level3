@@ -754,7 +754,7 @@ image::DeleteFeedSequenceDiagram.png[]
 ** Pros: Separation of eatery-related and feed-related information into two separate JSON files - Allows sharing of eateries without affecting feeds.
 ** Cons: Two separate files - Minor inconvenience if the user wants to backup their data to another location.
 
-==== Aspect: Offline behavior of news feed
+===== Aspect: Offline behavior of news feed
 * Alternative 1 (current implementation): Store the feed posts from the last successful update in the feed list JSON file
 ** Pros: Allows for offline access to feed posts.
 ** Cons:
