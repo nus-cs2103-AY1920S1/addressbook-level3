@@ -124,7 +124,8 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
     private Timekeeper timekeeper;
-    private Timer timer;
+    private Timer systemTimer;
+    private Timer eventsTimer;
 
     // Panel Manager which manages which panel(extending UiPart Region) is displayed.
     private PanelManager panelManager;
@@ -151,14 +152,15 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic, Timekeeper timekeeper, Timer timer) {
+    public MainWindow(Stage primaryStage, Logic logic, Timekeeper timekeeper, Timer systemTimer, Timer eventsTimer) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.timekeeper = timekeeper;
-        this.timer = timer;
+        this.systemTimer = systemTimer;
+        this.eventsTimer = eventsTimer;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -572,8 +574,10 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-        timer.cancel();
-        timer.purge();
+        systemTimer.cancel();
+        systemTimer.purge();
+        eventsTimer.cancel();
+        eventsTimer.purge();
     }
 
     /**

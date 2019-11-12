@@ -3,6 +3,8 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
+skinparam lineType ortho
+
 
 package Logic {
 
@@ -19,7 +21,9 @@ Class Prefix
 
 package Command {
 Class XYZCommand
+Class "XYZCommand(Undoable)" as XYZUndoableCommand
 Class CommandResult
+Class "{abstract}\nUndoableCommand" as UndoableCommand
 Class "{abstract}\nCommand" as Command
 }
 
@@ -38,10 +42,13 @@ LogicManager .up.|> Logic
 LogicManager -->"1" MooLahParser
 MooLahParser .left.> XYZCommandParser: creates >
 
-XYZCommandParser ..> XYZCommand : creates >
+XYZCommandParser .right.> XYZCommand : creates >
+XYZCommandParser .right.> XYZUndoableCommand : creates >
+
+
 XYZCommandParser ..|> Parser
-XYZCommandParser ..> ArgumentMultimap
-XYZCommandParser ..> ArgumentTokenizer
+XYZCommandParser ...> ArgumentMultimap
+XYZCommandParser ....> ArgumentTokenizer
 ArgumentTokenizer .left.> ArgumentMultimap
 XYZCommandParser ..> CliSyntax
 CliSyntax ..> Prefix
@@ -49,12 +56,15 @@ XYZCommandParser ..> ParserUtil
 ParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
 XYZCommand -up-|> Command
+XYZUndoableCommand -up-|> UndoableCommand
+UndoableCommand --|> Command
+
 LogicManager .left.> Command : executes >
 
-LogicManager --> Model
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddExpenseCommand, \nFindExpenseCommand, etc
-
+LogicManager ----> Model
+Command ..> Model
+note right of XYZCommand: XYZCommand = ListExpensesCommand, \nViewPanelCommand, etc
+note right of XYZUndoableCommand: XYZCommand(Undoable) = AddExpenseCommand, \nDeleteExpenseCommand, etc.
 Logic ..> CommandResult
 LogicManager .down.> CommandResult
 Command .up.> CommandResult

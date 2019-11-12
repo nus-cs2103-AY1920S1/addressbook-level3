@@ -18,7 +18,7 @@ public class TimekeeperTest {
     @Test
     public void convertToLocalDateTime() {
         Date date = new Date();
-        LocalDateTime expectedDateTime = LocalDateTime.now().withSecond(0).withNano(0);
+        LocalDateTime expectedDateTime = LocalDateTime.now().withNano(0);
         LocalDateTime actualDateTime = Timekeeper.convertToLocalDateTime(date);
         assertEquals(expectedDateTime, actualDateTime);
     }

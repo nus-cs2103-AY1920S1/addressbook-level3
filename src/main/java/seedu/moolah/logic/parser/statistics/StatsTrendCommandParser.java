@@ -68,7 +68,7 @@ public class StatsTrendCommandParser implements Parser<StatsTrendCommand> {
             endDate = ParserUtil.parseTimestamp(endDateString.get());
             statsTrendDescriptor.setStartDate(startDate);
             statsTrendDescriptor.setEndDate(endDate);
-            if (!statsTrendDescriptor.isStartBeforeEnd()) {
+            if (statsTrendDescriptor.isEndBeforeStart()) {
                 throw new ParseException(Messages.MESSAGE_CONSTRAINTS_END_DATE);
             }
         } else if (isStartPresent) {

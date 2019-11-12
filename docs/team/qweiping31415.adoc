@@ -15,7 +15,7 @@ My team of 4 Computer Science students and I were tasked with enhancing a basic 
 Line Interface desktop application AddressBook - Level 3 for our Software Engineering project.
 Over 6 weeks, we chose to morph it into a finance tracker application called MooLah. This enhanced application
 allows the typical NUS student to manage past expenses with the use of budgets, reminders for
-future expenses, helpful statistics and user-friendly input formats. It is written in Java, and has about 27k LoC.
+future expenses, helpful statistics and user-friendly input formats. It is written in Java, and has about 23k LoC.
 My main developer responsibility in the team consists of the statistics features across every component.
 
 
@@ -31,8 +31,7 @@ visual representation the user can choose from.
 ** Highlights: As the feature is closely coupled to the budget features and requires to support other dependencies such as
 undo/redo, constant coordination with other developers is required.
 
-* *Code contributed*:(https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=qweiping31415&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional Code])
-(https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=qweiping31415&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Test Code])
+* *Code contributed*:(https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=qweiping31415&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=qweiping31415&tabRepo=AY1920S1-CS2103T-T11-1%2Fmain%5Bmaster%5D[Link to RepoSense])
 
 * *Other contributions*:
 

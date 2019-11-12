@@ -3,6 +3,8 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
+skinparam linetype ortho
+
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
@@ -18,7 +20,10 @@ StorageManager o--> MooLahStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonMooLahStorage .left.|> MooLahStorage
-JsonMooLahStorage .down.> JsonSerializableMooLahStorage
-JsonSerializableMooLahStorage .right.> JsonAdaptedExpense
+JsonMooLahStorage .down.> JsonSerializableMooLah
+JsonSerializableMooLah ..> JsonAdaptedBudget
+JsonAdaptedBudget .left.> JsonAdaptedExpense
+JsonSerializableMooLah .left.> JsonAdaptedEvent
+JsonSerializableMooLah .right.> JsonAdaptedExpense
 JsonAdaptedExpense .right.> JsonAdaptedCategory
 @enduml

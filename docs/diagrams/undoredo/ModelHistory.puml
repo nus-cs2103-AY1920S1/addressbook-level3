@@ -1,8 +1,6 @@
 @startuml
 
 class ModelHistory {
--Stack<ModelChanges>: pastChanges
--Stack<ModelChanges>: futureChanges
 +copy() : ModelHistory
 +addToPastChanges(changes : ModelChanges): void
 +addToFutureChanges(changes : ModelChanges): void
@@ -14,9 +12,22 @@ class ModelHistory {
 }
 
 class ModelChanges {
+-String: changeMessage
+-MooLah: mooLah
+-UserPrefs: userPrefs:
+-Predicate<? super Expense>: expensePredicate
+-Predicate<? super Event>: eventPredicate
+-Predicate<? super Budget>: budgetPredicate
++{static}compareModels(base : Model, other : Model): ModelChanges
++getMooLah(): Optional<MooLah>
++getUserPrefs(): Optional<UserPrefs>
++getExpensePredicate(): Optional<Predicate<? super Expense>>
++getEventPredicate(): Optional<Predicate<? super Event>>
++getBudgetPredicate(): Optional<Predicate<? super Budget>>
++revertChanges()
 }
 
-ModelHistory -right-> "1" ModelChanges : pastChanges
-ModelHistory -right-> "1" ModelChanges : futureChanges
+ModelHistory *-right-> ModelChanges : pastChanges
+ModelHistory *-right-> ModelChanges : futureChanges
 
 @enduml

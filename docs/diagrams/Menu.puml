@@ -1,0 +1,14 @@
+@startuml
+
+class Menu {
++{static}findMenuItemByDescription(desc : Description): MenuItem
+}
+
+class MenuItem {
+-Description: description
+-Price: price
+}
+
+Menu *-down-> MenuItem : MENU_ITEM
+
+@enduml

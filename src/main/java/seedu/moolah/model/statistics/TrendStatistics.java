@@ -74,14 +74,17 @@ public class TrendStatistics implements Statistics {
 
         int intervalCount = 0;
 
+
         while (hasInterval(validDate, endDate, period) && intervalCount < INTERVAL_COUNT) {
             Timestamp localStartDate = validDate;
+
 
             Timestamp nextLocalStartDate = localStartDate.plus(period.getPeriod());
             Timestamp localEndDate = nextLocalStartDate.minusDays(1);
 
             List<List<Expense>> categorisedPeriodicExpenses =
                     getCategorisedPeriodicExpenses(localStartDate, localEndDate);
+
 
             if (budgetLimitMode) {
                 double periodicTotalExpenditure = getTotalExpenditure(categorisedPeriodicExpenses);
@@ -168,32 +171,15 @@ public class TrendStatistics implements Statistics {
     }
 
     private static boolean hasInterval (Timestamp validDate, Timestamp endDate, BudgetPeriod period) {
-        return validDate.isBefore(endDate) && (validDate.plus(period.getPeriod())).isBefore(endDate);
+        return !validDate.dateIsAfter(endDate);
     }
 
     public List<Timestamp> getDates() {
         return dates;
     }
 
-    private List<Double> getPeriodicTotalExpenditure() {
-        return periodicTotalExpenditures;
-    }
-
-
-    public boolean isBudgetLimitMode() {
-        return budgetLimitMode;
-    }
-
-    public Timestamp getStartDate() {
-        return startDate;
-    }
-
-    public Timestamp getEndDate() {
-        return endDate;
-    }
-
     public String toString() {
-        return String.format("%s\n%s", getTitle(), getPeriodicTotalExpenditure());
+        return String.format("%s\n%s", getTitle(), periodicTotalExpenditures);
     }
 
     @Override
