@@ -539,8 +539,8 @@ successfully normalized to the current period.
 //This makes sure the INDEX is based on the primary budget's currently shown expense list, which includes all expenses
 //within the current budgeting period.
 
-==== List All Budgets
-`ListBudgetsCommand` shows a list of all budgets stored in MooLah. The command returns a `CommandResult` with view
+==== ListBudgetsCommand
+`ListBudgetsCommand` updates Model's `FilteredBudgetList` with a `Predicate` to show all budgets. The command returns a `CommandResult` with view
 request to `BudgetListPanel.PANEL_NAME`. Subsequently, `MainWindow#changePanel(PanelName)` will switch the currently
 shown panel to `BudgetListPanel`.
 `ListBudgetsCommand` has the same effect as "view budget list".
