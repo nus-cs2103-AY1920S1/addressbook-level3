@@ -1,0 +1,37 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+skinparam genericDisplay old
+
+Interface FileCommandParser <<Interface>>
+
+Class EncryptFileCommandParser
+EncryptFileCommandParser .up.|> FileCommandParser
+Class DecryptFileCommandParser
+DecryptFileCommandParser .up.|> FileCommandParser
+Class PreviewFileCommandParser
+PreviewFileCommandParser .up.|> FileCommandParser
+
+Interface Parser <<Interface>>
+
+Class AddFileCommandParser
+AddFileCommandParser .up.|> Parser
+Class RemoveFileCommandParser
+RemoveFileCommandParser .up.|> Parser
+Class FindFileCommandParser
+FindFileCommandParser .up.|> Parser
+Class RenameFileCommandParser
+RenameFileCommandParser .up.|> Parser
+Class MoveFileCommandParser
+MoveFileCommandParser .up.|> Parser
+
+Parser .up[hidden].> EncryptFileCommandParser
+Parser .up[hidden].> DecryptFileCommandParser
+Parser .up[hidden].> PreviewFileCommandParser
+
+skinparam classFontColor #FFFFFF
+skinparam classAttributeFontColor #FFFFFF
+skinparam classAttributeIconSize 0
+@enduml

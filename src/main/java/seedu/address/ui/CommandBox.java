@@ -3,6 +3,9 @@ package seedu.address.ui;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -39,6 +42,34 @@ public class CommandBox extends UiPart<Region> {
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
+    }
+
+    /**
+     * Handles drag over event.
+     */
+    @FXML
+    private void handleDragOver(DragEvent event) {
+        if (event.getGestureSource() != this
+                && event.getDragboard().hasFiles()) {
+            event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+        }
+        event.consume();
+    }
+
+    /**
+     * Handles drag dropped event.
+     */
+    @FXML
+    private void handleDragDropped(DragEvent event) {
+        Dragboard dragboard = event.getDragboard();
+        boolean success = false;
+        if (dragboard.hasFiles()) {
+            commandTextField.setText(commandTextField.getText() + dragboard.getFiles().get(0).toString());
+            commandTextField.positionCaret(commandTextField.getText().length());
+            success = true;
+        }
+        event.setDropCompleted(success);
+        event.consume();
     }
 
     /**

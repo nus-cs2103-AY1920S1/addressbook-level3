@@ -1,0 +1,80 @@
+@startuml
+!include style.puml
+
+participant "<<class>>\n:EncryptionUtil" as EncryptionUtil LOGIC_COLOR_T2
+
+[--> EncryptionUtil : encryptBytes(input, pwd)
+activate EncryptionUtil
+
+EncryptionUtil -> EncryptionUtil : cipherBytes(input, pwd, mode.ENCRYPT)
+activate EncryptionUtil
+
+create "keySpec:PBEKeySpec" as PBEKeySpec LOGIC_COLOR_T2
+EncryptionUtil -> PBEKeySpec : PBEKeySpec(pwd)
+activate PBEKeySpec
+
+PBEKeySpec --> EncryptionUtil : keySpec
+deactivate PBEKeySpec
+
+create "keyFactory:SecretKeyFactory" as SecretKeyFactory LOGIC_COLOR_T2
+EncryptionUtil -> SecretKeyFactory : getInstance("PBEWithMD5AndTripleDES")
+activate SecretKeyFactory
+
+SecretKeyFactory --> EncryptionUtil : keyFactory
+deactivate SecretKeyFactory
+
+EncryptionUtil -> SecretKeyFactory : generateSecret(keySpec)
+activate SecretKeyFactory
+
+create "key:SecretKey" as SecretKey LOGIC_COLOR_T2
+SecretKeyFactory -> SecretKey
+activate SecretKey
+
+SecretKey --> SecretKeyFactory : key
+deactivate SecretKey
+
+SecretKeyFactory --> EncryptionUtil : key
+deactivate SecretKeyFactory
+
+SecretKeyFactory -[hidden]-> EncryptionUtil
+destroy SecretKeyFactory
+destroy PBEKeySpec
+
+create "paramSpec:PBEParameterSpec" as PBEParameterSpec LOGIC_COLOR_T2
+EncryptionUtil -> PBEParameterSpec : PBEParameterSpec(SALT, ITERATION);
+activate PBEParameterSpec
+
+PBEParameterSpec --> EncryptionUtil : paramSpec
+deactivate PBEParameterSpec
+
+create "cipher:Cipher" as Cipher LOGIC_COLOR_T2
+EncryptionUtil -> Cipher : getInstance("PBEWithMD5AndTripleDES")
+activate Cipher
+
+Cipher --> EncryptionUtil : cipher
+deactivate Cipher
+
+EncryptionUtil -> Cipher : init(ENCRYPT_MODE, key, paramSpec)
+activate Cipher
+
+Cipher --> EncryptionUtil
+deactivate Cipher
+
+EncryptionUtil -> Cipher : doFinal(input)
+activate Cipher
+
+Cipher --> EncryptionUtil : output
+deactivate Cipher
+
+Cipher -[hidden]-> EncryptionUtil
+destroy Cipher
+destroy PBEParameterSpec
+destroy SecretKey
+
+EncryptionUtil --> EncryptionUtil : output
+deactivate EncryptionUtil
+
+[<-- EncryptionUtil : output
+deactivate EncryptionUtil
+
+@enduml

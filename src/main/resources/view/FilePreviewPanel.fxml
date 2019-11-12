@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<VBox fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER">
+    <Label fx:id="filenameLabel" prefHeight="18" style="-fx-text-fill: #FFFFFF;"/>
+    <Label fx:id="metadataLabel" prefHeight="18" style="-fx-text-fill: #FFFFFF;"/>
+    <ImageView fx:id="previewImage" fitWidth="400" fitHeight="407"/>
+    <TextArea fx:id="previewTextArea" prefHeight="407" editable="false" wrapText="true" VBox.vgrow="ALWAYS"/>
+</VBox>

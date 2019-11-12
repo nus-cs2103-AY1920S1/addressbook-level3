@@ -1,0 +1,84 @@
+@startuml
+!include style.puml
+mainframe sd Open Note
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager  " as LogicManager LOGIC_COLOR
+participant ":NoteBookParser  " as NoteBookParser LOGIC_COLOR
+participant ":OpenNoteCommandParser    " as OpenNoteCommandParser LOGIC_COLOR
+participant "d:OpenNoteCommand   " as OpenNoteCommand LOGIC_COLOR
+participant ":CommandResult  " as CommandResult LOGIC_COLOR
+participant "ParserUtil  " as ParserUtil LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+[-> LogicManager : execute("open 1")
+activate LogicManager
+
+LogicManager -> NoteBookParser : parseCommand("open 1")
+activate NoteBookParser
+
+create OpenNoteCommandParser
+NoteBookParser -> OpenNoteCommandParser
+activate OpenNoteCommandParser
+
+OpenNoteCommandParser --> NoteBookParser
+deactivate OpenNoteCommandParser
+
+NoteBookParser -> OpenNoteCommandParser : parse("1")
+activate OpenNoteCommandParser
+
+create ParserUtil
+OpenNoteCommandParser -> ParserUtil : parseIndex("1")
+activate ParserUtil
+
+ParserUtil --> OpenNoteCommandParser : index
+deactivate ParserUtil
+
+create OpenNoteCommand
+OpenNoteCommandParser -> OpenNoteCommand : OpenNoteCommand(index)
+activate OpenNoteCommand
+
+OpenNoteCommand --> OpenNoteCommandParser : d
+deactivate OpenNoteCommand
+
+OpenNoteCommandParser --> NoteBookParser : d
+deactivate OpenNoteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+OpenNoteCommandParser -[hidden]-> NoteBookParser
+destroy OpenNoteCommandParser
+
+NoteBookParser --> LogicManager : d
+deactivate NoteBookParser
+
+LogicManager -> OpenNoteCommand : execute()
+activate OpenNoteCommand
+
+OpenNoteCommand -> Model : setNote(noteToOpen, updatedNote)
+activate Model
+deactivate Model
+
+OpenNoteCommand -> Model : sortNoteBook()
+activate Model
+deactivate Model
+
+OpenNoteCommand -> Model : getNoteIndex(updatedNote)
+activate Model
+
+Model --> OpenNoteCommand : updatedIndex
+deactivate Model
+
+create CommandResult
+OpenNoteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> OpenNoteCommand : result
+deactivate CommandResult
+
+OpenNoteCommand --> LogicManager : result
+deactivate OpenNoteCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

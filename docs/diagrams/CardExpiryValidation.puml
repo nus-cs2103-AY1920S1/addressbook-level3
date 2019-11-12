@@ -1,0 +1,71 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager  " as LogicManager LOGIC_COLOR
+participant ":CardBookParser  " as CardBookParser LOGIC_COLOR
+participant ":AddCardCommandParser    " as AddCardCommandParser LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "ExpiryDate " as ExpiryDate MODEL_COLOR
+end box
+
+box Util STORAGE_COLOR
+participant "ParserUtil " as ParserUtil STORAGE_COLOR
+end box
+
+box ParseException LOGIC_COLOR_T2
+participant "e:ParseException  " as ParseException LOGIC_COLOR_T1
+end box
+
+[-> LogicManager : execute("add d/VisaPOSB\n v/4291728395018293 c/256 e/12/15")
+activate LogicManager
+
+LogicManager -> CardBookParser : parseCommand("add d/VisaPOSB\n v/4291728395018293 c/256 e/12/15")
+activate CardBookParser
+
+create AddCardCommandParser
+CardBookParser -> AddCardCommandParser
+activate AddCardCommandParser
+
+AddCardCommandParser --> CardBookParser
+deactivate AddCardCommandParser
+
+CardBookParser -> AddCardCommandParser : parse("d/VisaPOSB\n v/4291728395018293 c/256 e/12/15")
+activate AddCardCommandParser
+
+AddCardCommandParser -> ParserUtil : parseExpiryDate("12/15")
+activate ParserUtil
+
+ParserUtil -> ExpiryDate : isValidDate("12/15")
+activate ExpiryDate
+
+ExpiryDate --> ParserUtil : true
+deactivate ExpiryDate
+
+ParserUtil -> ExpiryDate : isValidExpiryDate("12/15")
+activate ExpiryDate
+
+ExpiryDate --> ParserUtil : false
+deactivate ExpiryDate
+
+create ParseException
+ParserUtil -> ParseException
+activate ParseException
+
+ParseException --> ParserUtil : e
+deactivate ParseException
+
+ParserUtil --> AddCardCommandParser : e
+deactivate ParserUtil
+
+AddCardCommandParser --> CardBookParser : e
+deactivate AddCardCommandParser
+
+CardBookParser --> LogicManager : e
+deactivate CardBookParser
+
+[<-- LogicManager : e
+deactivate LogicManager
+@enduml

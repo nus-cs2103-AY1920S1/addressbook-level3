@@ -22,9 +22,15 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
 
     private Path filePath;
+    private String password;
 
     public JsonAddressBookStorage(Path filePath) {
         this.filePath = filePath;
+    }
+
+    public JsonAddressBookStorage(Path filePath, String password) {
+        this.filePath = filePath;
+        this.password = password;
     }
 
     public Path getAddressBookFilePath() {
@@ -45,8 +51,12 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
+        Optional<JsonSerializableAddressBook> jsonAddressBook;
+        if (password == null) {
+            jsonAddressBook = JsonUtil.readJsonFile(filePath, JsonSerializableAddressBook.class);
+        } else {
+            jsonAddressBook = JsonUtil.readEncryptedJsonFile(filePath, JsonSerializableAddressBook.class, password);
+        }
         if (!jsonAddressBook.isPresent()) {
             return Optional.empty();
         }
@@ -74,7 +84,11 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        if (password == null) {
+            JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        } else {
+            JsonUtil.saveEncryptedJsonFile(new JsonSerializableAddressBook(addressBook), filePath, password);
+        }
     }
 
 }

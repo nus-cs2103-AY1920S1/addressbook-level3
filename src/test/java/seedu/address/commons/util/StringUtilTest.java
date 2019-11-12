@@ -140,4 +140,11 @@ public class StringUtilTest {
         assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
     }
 
+    // Tests for changing String to asterisks
+    @Test
+    public void passwordToAsterix_validInputs_correctResult() {
+        assertTrue(StringUtil.passwordToAsterix("password12345").equals(new String("*************")));
+
+        assertFalse(StringUtil.passwordToAsterix("password12345").equals(new String("************")));
+    }
 }

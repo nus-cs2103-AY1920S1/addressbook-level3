@@ -1,0 +1,194 @@
+= Yang Hui Ting - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SecureIT
+My team of 4 software engineering students and I were tasked with enhancing a basic command line interface desktop addressbook application for our Software Engineering project. We chose to morph it into a password manager, SecureIT. Our app allows businesses to securely store and manage their confidential information, allowing employees to easily retrieve such information if required.
+
+My role was to implement the cards management feature of our app. This is how the cards mode looks like:
+
+image::CardOverview.png[width = "600"]
+
+Note that the following symbols and formatting used in this documents:
+[cols="3,40"]
+|========
+|Icon | Meaning
+a|image::tip.png[width = "20"] | Some tips for you to familiarise with the commands
+a|image::warning.png[width = "20"] | Warning! Danger zone. Make sure you know what you are doing
+|========
+== Summary of contributions
+
+* *Major enhancement*: added *card features* to the app
+** What it does: allows the user to store credit card details securely and retrieve them easily in the app
+** Justification: In an app that stores confidential data, credit card details are definitely data that users need to keep secure. The cards feature allows users to easily retrieve their card details and take the necessary actions when their card is about to expire.
+** Highlights: This feature also sends notifications to users when their cards are about to expire. There is also an automatic tagging system displayed in the cards list when cards have expired or are about to expire.
+
+* *Minor enhancement*: Refactored `CommandResult` constructors to use the `Builder` class, to allow us to customise our constructors, thus minimizing the amount of code required for various constructors.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=yhtingg&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=yhtingg&tabRepo=AY1920S1-CS2103T-F11-3%2Fmain%5Bmaster%5D[Functional code]]
+
+* *Other contributions*
+
+** Project management:
+*** Updated website heading and github URL (Pull request https://github.com/AY1920S1-CS2103T-F11-3/main/pull/7[#7])
+*** Maintained the team repository by managing issue tracking, issue assignment and milestones.
+*** Reported bugs and suggestions to teammates (examples:  https://github.com/AY1920S1-CS2103T-F11-3/main/issues/187[1], https://github.com/AY1920S1-CS2103T-F11-3/main/issues/186[2], https://github.com/AY1920S1-CS2103T-F11-3/main/issues/117[3])
+** Enhancements to existing features:
+*** Refactor CommandResult class (Pull request https://github.com/AY1920S1-CS2103T-F11-3/main/pull/73[#73])
+** Documentation:
+*** Updated Quick Start to address users better: https://github.com[#14]
+*** Updated Use Case and Non-Functional Requirements (Pull Request: https://github.com/AY1920S1-CS2103T-F11-3/main/pull/9[#9])
+**** Updated UML diagrams (Pull Request: https://github.com/AY1920S1-CS2103T-F11-3/main/pull/54[#54])
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/yhtingg/ped/issues/1[1], https://github.com/yhtingg/ped/issues/4[2], https://github.com/yhtingg/ped/issues/3[3], https://github.com/yhtingg/ped/issues/5[4])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections that I have contributed to the updated User Guide, with additions regarding the card feature that I had implemented. They showcase my ability to write documentation targeting end-users._
+|===
+
+=== Card
+
+Too many credit cards to carry around? With SecureIT, you can easily manage your card information.
+
+To access your cards, simply enter `goto card` in the command box.
+
+For the following commands, simply follow the format given and type the command into the command box. Press `Enter` to execute it.
+
+==== Creating a card : `add`
+
+You can easily adds cards to the application.
+
+Let's say that you have just gotten a fresh new credit card from the bank and you want to add it into your cards list.
+
+You can type in the command.
+
+image::AddCard1.png[width = "400"]
+
+Format: `add d/DESCRIPTION c/CARDNUMBER v/CVC e/EXPIRY [t/TAG]`
+
+Example: `add d/VisaPOSB c/5203123458392748 v/456 e/12/25 t/groceries`
+
+The result box will display the message as shown. You can see that your card has been successfully added into the list.
+
+image::AddCard2.png[width = "400"]
+
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Format:*
+
+* Description entered is *case sensitive*.
+* Card numbers can be entered with or without dashes.
+** With dashes: 1234-5678-1234-5678
+** Without dashes: 1234567812345678
+* Card expiry is of the format MM/YY.
+* You can include up to 5 tags.
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Note:*
+
+* SecureIT does not support cards types that are not MasterCard or Visa.
+* All card numbers entered must have 16 digits.
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip:*
+
+* After adding your cards, a card's description and its index in the list are interchangeable with each other. In other words, the following commands accept either *description* or *index*, but not both.
+* If you know exactly which card you need, you can easily type the description without needing to scroll through the list.
+* When your card is about the expire, SecureIT warns you with a notification upon start up. On top of that, you can easily see which cards are expiring or expired in the cards list.
+====
+
+==== Reading a card : `read`
+
+If you already have a card in mind and want to view its details, you can easily do so by entering the card description and its CVC. You can also obtain the same result by using a card's index in the list with the correct CVC.
+
+Format: `read d/DESCRIPTION v/CVC` OR `read INDEX v/CVC`
+
+Example: `read d/VisaPOSB v/456` OR `read 1 v/456`
+
+Type in the command.
+
+image::ReadCard1.png[width = "400"]
+
+The result box will display the message as shown. You can see a new panel that contains your desired credit card details appearing at the side.
+
+image::ReadCard2.png[width = "400"]
+
+==== Copying a card : `copy`
+
+You can copy a specific card's card number to your clipboard as well.
+
+You can choose to copy the card number using its description. Alternatively, you can also perform the command with the card's index in the list:
+
+Format: `copy d/DESCRIPTION v/CVC` OR `copy INDEX v/CVC`
+
+Example: `copy d/VisaPOSB v/456` OR `copy 1 v/456`
+
+Type in the command.
+
+image::CopyCard1.png[width = "400"]
+
+The result box will display the message as shown.
+
+image::CopyCard2.png[width = "400"]
+
+Upon pasting from your clipboard, the card number of your desired card should appear.
+
+image::CopyCard3.png[width = "400"]
+
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Note:*
+
+* This command *only* copies the specified card number, and not the CVC. This is because users are expected to remember their CVC so that their card security is not compromised.
+====
+
+==== Deleting a card: `delete`
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* Deleted cards are not recoverable
+====
+
+If your card has expired, you can easily remove it from the application.
+
+Again, you could do this by the card's description or by its index:
+
+Format: `delete DESCRIPTION` OR `delete INDEX`
+
+Example: `delete VisaPOSB` OR `delete 1`
+
+Type in the command.
+
+image::DeleteCard1.png[width = "400"]
+
+The result box will display the message as shown.
+
+You can see that your card is no longer visible from the list.
+
+image::DeleteCard2.png[width = "400"]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=carddg]
+
+
+=== Design Considerations
+
+include::../DeveloperGuide.adoc[tag=carddesign]

@@ -19,6 +19,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 public class ConfigUtilTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "ConfigUtilTest");
+    private static final String PASSWORD = "password1";
 
     @TempDir
     public Path tempDir;
@@ -90,20 +91,20 @@ public class ConfigUtilTest {
         Path configFilePath = tempDir.resolve("TempConfig.json");
 
         //Try writing when the file doesn't exist
-        ConfigUtil.saveConfig(original, configFilePath);
-        Config readBack = ConfigUtil.readConfig(configFilePath).get();
+        ConfigUtil.saveConfig(original, configFilePath, PASSWORD);
+        Config readBack = ConfigUtil.readEncryptedConfig(configFilePath, PASSWORD).get();
         assertEquals(original, readBack);
 
         //Try saving when the file exists
         original.setLogLevel(Level.FINE);
-        ConfigUtil.saveConfig(original, configFilePath);
-        readBack = ConfigUtil.readConfig(configFilePath).get();
+        ConfigUtil.saveConfig(original, configFilePath, PASSWORD);
+        readBack = ConfigUtil.readEncryptedConfig(configFilePath, PASSWORD).get();
         assertEquals(original, readBack);
     }
 
     private void save(Config config, String configFileInTestDataFolder) throws IOException {
         Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        ConfigUtil.saveConfig(config, configFilePath);
+        ConfigUtil.saveConfig(config, configFilePath, PASSWORD);
     }
 
     private Path addToTestDataPathIfNotNull(String configFileInTestDataFolder) {

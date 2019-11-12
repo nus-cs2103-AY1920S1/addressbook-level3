@@ -17,7 +17,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
-/**
+/**tagged
  * Jackson-friendly version of {@link Person}.
  */
 class JsonAdaptedPerson {
