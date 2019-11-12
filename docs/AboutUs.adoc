@@ -14,8 +14,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::briyanii.png[width="150", align="left"]
 {empty}[http://github.com/briyanii[github]] [<<briyanii#, portfolio>>]
 
-Role: Developer  +
-Responsibilities: In charge of GUI
+Role: Team Lead +
+Responsibilities: In charge of GUI and Testing
 
 '''
 
@@ -51,6 +51,6 @@ image::qweiping31415.png[width="150", align="left"]
 {empty}[http://github.com/qweiping31415[github]] [<<qweiping31415#, portfolio>>]
 
 Role: Developer +
-Responsibilities: In charge of Statistics
+Responsibilities: In charge of Statistics, Scheduling and tracking
 
 '''

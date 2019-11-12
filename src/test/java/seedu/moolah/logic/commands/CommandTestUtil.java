@@ -24,14 +24,12 @@ import seedu.moolah.logic.commands.budget.EditBudgetCommand;
 import seedu.moolah.logic.commands.event.EditEventCommand;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.logic.commands.expense.EditExpenseCommand;
-import seedu.moolah.logic.commands.statistics.StatsCommand;
 import seedu.moolah.logic.commands.statistics.StatsDescriptor;
 import seedu.moolah.logic.commands.statistics.StatsTrendDescriptor;
 import seedu.moolah.model.Model;
 import seedu.moolah.model.MooLah;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.general.DescriptionContainsKeywordsPredicate;
-import seedu.moolah.model.general.Timestamp;
 import seedu.moolah.testutil.EditBudgetDescriptorBuilder;
 import seedu.moolah.testutil.EditEventDescriptorBuilder;
 import seedu.moolah.testutil.EditExpenseDescriptorBuilder;
@@ -172,26 +170,15 @@ public class CommandTestUtil {
     public static final String STATS_SECOND_START_DATE_PREFIX_MISSING_INPUT = String.format(" %s %s01-10-2019",
             PREFIX_SECOND_START_DATE, PREFIX_FIRST_START_DATE);
 
-    //may depreciate see how
     public static final String STATS_INVALID_PREFIX = String.format(" %s ", PREFIX_CATEGORY);
     public static final String STATS_HIGHER_END_DATE = String.format(" %s31-10-2019 %s01-10-2019",
             PREFIX_START_DATE, PREFIX_END_DATE);
-    public static final String STATS_DUPLICATE_DATE_PREFIX = String.format("%s31-10-2019 %s01-10-2019",
-            PREFIX_START_DATE, PREFIX_START_DATE);
-    public static final String STATS_DUPLICATE_DATE_PREFIX_WITH_COMMAND = String.format("%s %s31-10-2019 %s01-10-2019",
-            StatsCommand.COMMAND_WORD, PREFIX_START_DATE, PREFIX_START_DATE);
-
     public static final String STATS_TREND_START_DATE_PREFIX_MISSING_INPUT = String.format(" %s %s01-10-2019 %sbudget",
             PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_MODE);
     public static final String STATS_TREND_END_DATE_PREFIX_MISSING_INPUT = String.format(" %s %s01-10-2019 %scategory",
             PREFIX_END_DATE, PREFIX_START_DATE, PREFIX_MODE);
     public static final String STATS_TREND_HIGHER_END_DATE = String.format(" %s31-10-2019 %s01-10-2019 %scategory",
             PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_MODE);
-
-    public static final Timestamp ONE_MINUTE_AGO =
-            Timestamp.createTimestampIfValid("1 minute ago").get();
-    //may depreciate, see how
-
 
     static {
         DESC_CHICKEN = new EditExpenseDescriptorBuilder().withDescription(VALID_EXPENSE_DESCRIPTION_CHICKEN)

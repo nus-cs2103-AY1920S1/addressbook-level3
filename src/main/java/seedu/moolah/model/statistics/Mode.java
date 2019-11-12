@@ -8,7 +8,7 @@ import java.util.List;
 import seedu.moolah.model.general.Price;
 
 /**
- * Represents a Statistic's mode in the MooLah.
+ * Represents a TrendStatistic's mode in the MooLah.
  * Guarantees: immutable; is valid as declared in {@link #isValidMode(String)}
  */
 public class Mode {

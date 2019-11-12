@@ -4,7 +4,7 @@
 
 interface Statistics {
 ~getTitle():String
-~setTitle(title: String)
+~setTitle(String)
 ~populateData()
 ~createFactory():StatisticsRegionFactory
 }
@@ -22,10 +22,6 @@ class PieChartStatistics {
 
 +List<String>: getFormattedCategories()
 +List<Double>: getFormattedPercentages()
-+String: toString()
-+Timestamp: getStartDate()
-+Timestamp: getEndDate()
--generatePieChartData()
 -generatePercentages(List<List<Expense>>, List<Double>, List<Integer>, List<String>,String)
 -extractRelevantExpenses(Timestamp,Timestamp)
 -List<Category> collateBudgetCategories(ObservableList<Expense>)
@@ -44,9 +40,8 @@ class TrendStatistics {
 -List<Double>: periodicTotalExpenditures
 -List<Double>: periodicBudgetLimits
 -List<List<Double>>: periodicCategoricalExpenses
--String title
+-String: title
 
--generateTrendLine()
 -findClosestWindowStartDate(Timestamp, Timestamp, BudgetPeriod): Timestamp
 -flatMapAdd(List<Double> categorisedExpenditureAtPeriod)
 -getCategorisedPeriodicExpenses(Timestamp, Timestamp): List<List<Expense>>
@@ -54,12 +49,8 @@ class TrendStatistics {
 -getTotalExpenditure(List<List<Expense>>): double
 -getCategoricalExpenditure(List<List<Expense>>): List<Double>
 +getPeriodicCategoricalExpenses(): List<List<Double>>
--{static} hasInterval (Timestamp, Timestamp, BudgetPeriod): boolean
 +getDates(): List<Timestamp>
 -getPeriodicTotalExpenditure(): List<Double>
-+ getStartDate(): Timestamp
-+getEndDate(): Timestamp
-+toString(): String
 }
 
 class TabularStatistics {
@@ -70,31 +61,22 @@ class TabularStatistics {
 -int: categorySize
 -ObservableList<Expense>: expenses
 -List<FiveElementTableEntry>: unionDifferenceTable
--String title
--generateTableData()
+-String: title
 -createEmptyTableWithoutPercentage(): List<ThreeElementTableEntry>
 -secondMinusFirst(List<ThreeElementTableEntry>, List<ThreeElementTableEntry>): List<ThreeElementTableEntry>
--extractRelevantExpenses(Timestamp startDate, Timestamp endDate): List<List<Expense>>
+-extractRelevantExpenses(Timestamp, Timestamp): List<List<Expense>>
 -convertDataToFigures(List<List<Expense>>,List<ThreeElementTableEntry>)
 -{static} combine(List<ThreeElementTableEntry>, List<ThreeElementTableEntry>): List<FiveElementTableEntry>
-+toString(): String
 +{static} createEmptyTableWithTotal(): List<FiveElementTableEntry>
 -{static} replaceWith(List<FiveElementTableEntry>, List<FiveElementTableEntry>): List<FiveElementTableEntry>
 }
-
-
-
-
-
-
 
 
 Statistics <|-- PieChartStatistics
 Statistics <|-- TabularStatistics
 Statistics <|-- TrendStatistics
 
-
-
 @enduml
+
 
 
