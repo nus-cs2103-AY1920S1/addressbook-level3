@@ -249,7 +249,8 @@ Examples:
 //tag::editreview[]
 ===== Editing a review: `editreview`
 
-Edits an eatery's review. Use the `show` command first to view an eatery's reviews.
+Edits an eatery's review. Use the `editreview` command only when you can see
+an eatery's reviews.
 
 Format: `editreview [index] {\d [description]} {\p [price per person]} {\r [rating]} {\w [date in DD/MM/YYYY format]}`
 
@@ -271,7 +272,7 @@ image::EditReviewCommand.png[width="790"]
 //tag::deletereview[]
 ===== Deleting a review: `deletereview`
 
-Deletes an eatery's review. Use the `show` command first to view an eatery's reviews.
+Deletes an eatery's review. Use the `deletereview` command only when you can see an eatery's reviews.
 
 Format: `deletereview [index]`
 
