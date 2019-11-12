@@ -25,6 +25,7 @@ public class AddFeedCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Feed successfully added: %s";
     public static final String MESSAGE_DUPLICATE_FEED = "This feed already exists!";
+    public static final String MESSAGE_INVALID_FEED = "Feed address is invalid! (Are you connected to the Internet?)";
 
     private final Feed toAdd;
 
@@ -42,6 +43,11 @@ public class AddFeedCommand extends Command {
 
         if (model.hasFeed(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_FEED);
+        }
+
+        String feedData = toAdd.fetchFeedData();
+        if (feedData == null) {
+            throw new CommandException(MESSAGE_INVALID_FEED);
         }
 
         model.addFeed(toAdd);

@@ -31,7 +31,7 @@ public class ReviewCommandParser implements Parser<ReviewCommand> {
 
         if (!arePrefixesPresent(argumentMultimap, PREFIX_DESCRIPTION, PREFIX_COST, PREFIX_RATING,
                 PREFIX_DATE)
-                || !argumentMultimap.getPreamble().isEmpty()) {
+                || argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReviewCommand.MESSAGE_USAGE));
         }
         Index index;

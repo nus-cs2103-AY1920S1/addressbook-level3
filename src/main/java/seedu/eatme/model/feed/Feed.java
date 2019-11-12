@@ -55,7 +55,7 @@ public class Feed {
      *
      * @return String representing the feed data.
      */
-    private String fetchFeedData() {
+    public String fetchFeedData() {
         StringBuilder feedData = new StringBuilder();
         int matchCount = 0;
 

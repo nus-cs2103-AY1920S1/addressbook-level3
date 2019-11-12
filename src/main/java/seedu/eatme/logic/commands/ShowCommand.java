@@ -2,7 +2,6 @@ package seedu.eatme.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collections;
 import java.util.List;
 
 import seedu.eatme.commons.core.Messages;
@@ -44,7 +43,6 @@ public class ShowCommand extends Command {
         Eatery eateryToShow = lastShownList.get(targetIndex.getZeroBased());
 
         List<Review> reviews = eateryToShow.getReviews();
-        Collections.sort(reviews);
         model.updateActiveReviews(reviews);
         model.setActiveEatery(eateryToShow);
 

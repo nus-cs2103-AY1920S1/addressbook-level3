@@ -59,7 +59,10 @@ public class ReopenCommand extends Command {
         model.setEatery(eateryToReopen, reopenedEatery);
         model.updateFilteredEateryList(PREDICATE_SHOW_ALL_EATERIES);
 
-        return new CommandResult(String.format(MESSAGE_REOPENED_EATERY_SUCCESS, reopenedEatery.getName()));
+        model.setActiveEatery(reopenedEatery);
+        model.updateActiveReviews(reopenedEatery.getReviews());
+        return new CommandResult(
+                String.format(MESSAGE_REOPENED_EATERY_SUCCESS, reopenedEatery.getName()), reopenedEatery);
     }
 
     @Override

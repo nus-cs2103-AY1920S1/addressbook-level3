@@ -45,7 +45,9 @@ public class RemoveTagCommandTest {
                 new ModelManager(new EateryList(model.getEateryList()), model.getFeedList(), new UserPrefs());
         expectedModel.setEatery(model.getFilteredEateryList().get(INDEX_FIRST_EATERY.getZeroBased()), editedEatery);
 
-        assertCommandSuccess(removeTagCommand, model, expectedMessage, expectedModel);
+        CommandResult commandResult = new CommandResult(expectedMessage, editedEatery);
+
+        assertCommandSuccess(removeTagCommand, model, commandResult, expectedModel);
     }
 
     @Test

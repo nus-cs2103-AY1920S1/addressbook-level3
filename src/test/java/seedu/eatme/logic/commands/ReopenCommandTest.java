@@ -39,7 +39,9 @@ public class ReopenCommandTest {
         ModelManager expectedModel = new ModelManager(model.getEateryList(), model.getFeedList(), new UserPrefs());
         expectedModel.setEatery(model.getFilteredEateryList().get(INDEX_FIRST_EATERY.getZeroBased()), reopenedEatery);
 
-        assertCommandSuccess(reopenCommand, model, expectedMessage, expectedModel);
+        CommandResult commandResult = new CommandResult(expectedMessage, reopenedEatery);
+
+        assertCommandSuccess(reopenCommand, model, commandResult, expectedModel);
     }
 
     @Test
@@ -64,7 +66,9 @@ public class ReopenCommandTest {
         ModelManager expectedModel = new ModelManager(model.getEateryList(), model.getFeedList(), new UserPrefs());
         expectedModel.setEatery(model.getFilteredEateryList().get(INDEX_FIRST_EATERY.getZeroBased()), reopenedEatery);
 
-        assertCommandSuccess(reopenCommand, model, expectedMessage, expectedModel);
+        CommandResult commandResult = new CommandResult(expectedMessage, reopenedEatery);
+
+        assertCommandSuccess(reopenCommand, model, commandResult, expectedModel);
     }
 
     @Test

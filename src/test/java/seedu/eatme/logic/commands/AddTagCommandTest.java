@@ -45,7 +45,9 @@ public class AddTagCommandTest {
                 new ModelManager(new EateryList(model.getEateryList()), model.getFeedList(), new UserPrefs());
         expectedModel.setEatery(model.getFilteredEateryList().get(INDEX_FIRST_EATERY.getZeroBased()), editedEatery);
 
-        assertCommandSuccess(addTagCommand, model, expectedMessage, expectedModel);
+        CommandResult commandResult = new CommandResult(expectedMessage, editedEatery);
+
+        assertCommandSuccess(addTagCommand, model, commandResult, expectedModel);
     }
 
     @Test

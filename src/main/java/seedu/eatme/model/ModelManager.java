@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.eatme.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -190,6 +191,7 @@ public class ModelManager implements Model {
     @Override
     public void updateActiveReviews(List<Review> reviews) {
         activeReviews.clear();
+        Collections.sort(reviews);
         activeReviews.addAll(reviews);
     }
 
