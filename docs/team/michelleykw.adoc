@@ -4,7 +4,6 @@
 :stylesDir: ../stylesheets
 :icons: font
 
-:stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
 ifdef::env-github[]
