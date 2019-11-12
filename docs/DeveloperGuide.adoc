@@ -539,17 +539,18 @@ successfully normalized to the current period.
 //This makes sure the INDEX is based on the primary budget's currently shown expense list, which includes all expenses
 //within the current budgeting period.
 
-//==== List budgets
-//ListBudgetsCommand shows a list of all budgets stored in MooLah. The command returns a CommandResult with view
-//request to "BudgetListPanel.PANEL_NAME". Subsequently, MainWindow#changePanel(PanelName) will switch the currently
-//shown panel to BudgetListPanel.
-//ListBudgetsCommand has the same effect as "view budget list".
+==== ListBudgetsCommand
+`ListBudgetsCommand` shows a list of all budgets stored in MooLah. The command returns a `CommandResult` with view
+request to `BudgetListPanel.PANEL_NAME`. Subsequently, `MainWindow#changePanel(PanelName)` will switch the currently
+shown panel to `BudgetListPanel`.
+`ListBudgetsCommand` has the same effect as "view budget list".
 
 ==== UI Component of Budget
 There are three classes related to the UI display of budgets:
-(i) `BudgetCard`, which shows the budget name, period, and progress bar -- GUI representation of a `Budget`;
-(ii) `BudgetListPanel`, which displays a list of `BudgetCard` -- called through `ListBudgetsCommand`;
-(iii) `BudgetPanel`, which displays a `BudgetCard` at the top, and a list of current period expenses below -- called through `view primary budget`.
+
+* `BudgetCard`, which shows the budget name, period, and progress bar -- GUI representation of a `Budget`;
+* `BudgetListPanel`, which displays a list of `BudgetCard` -- called through `ListBudgetsCommand` or "view budget list";
+* `BudgetPanel`, which displays a `BudgetCard` at the top, and a list of current period expenses below -- called through `view primary budget`.
 
 The progress bar in `BudgetCard` shows the proportion used against the budget limit. This is calculated by
 `Budget#calculateProportionUsed()`, which divides the *sum of all current period expenses* against the *budget limit*,
