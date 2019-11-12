@@ -137,7 +137,7 @@ The content that is being shown in the `MainWindow` to the user is managed by a 
 ``PanelManager#viewPanel(PanelName)`` +
 ``PanelManager#hasPanel(PanelName)`` +
 ``PanelManager#getPanel(PanelName)`` +
-``PanelManager#setPanel(PanelName, Panel)``
+``PanelManager#setPanel(PanelName, Panel)`` +
 ``PanelManager#getCurrentPanel()`` +
 ``PanelManager#getCurrentPanelName()`` +
 ``PanelManager#removePanel(PanelName)`` +

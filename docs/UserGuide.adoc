@@ -47,9 +47,10 @@ NOTE: Contains key information relevant to the execution of commands in MooLah.
 
 IMPORTANT: Contains important information on feature implementation.
 
-```
+[source]
+----
 {contains sample command-line input}
-```
+----
 
 `TAB` `Enter` : keys on the keyboard of your computer
 
@@ -111,8 +112,8 @@ Format: `help`
 
 Did something wrong? You can undo it.
 
-However, do keep in mind that you can only undo commands that modify the data in MooLah, such as `addexpense`, `deleteexpense-primary`, and so on.
-Head over to <<Command Summary>> for list of commands that are undoable.
+However, do keep in mind that you can only undo commands that modify the data in MooLah, such as `addexpense`,
+`deleteexpense-primary`, and so on. Head over to <<Command Summary>> for list of commands that are undoable.
 
 Do not worry if you forgot what you did a few steps back (it happens!). MooLah will display a short description of what
 particular command it undid to help you confirm that you undid the right thing.
@@ -1069,15 +1070,17 @@ Tips:
 - There is no need to specify all the parameters if the outcomes of the example usage scenarios
 below fit your needs
 
-- If `START_DATE` is specified but `END_DATE` is empty, the end date of analysis is constructed till 34 unit of time after `START_DATE`,
-before the consideration of the earliest available window of the current budget.
+- If `START_DATE` is specified but `END_DATE` is empty, the end date of analysis is constructed till
+34 unit of time after `START_DATE`, before the consideration of the earliest available window of the
+current budget.
 
-- If `START_DATE` is empty but `END_DATE` is specified, the start date of analysis is constructed from 34 unit of time before `END_DATE`,
-before the consideration of the earliest available window of the current budget.
+- If `START_DATE` is empty but `END_DATE` is specified, the start date of analysis is constructed from
+34 unit of time before `END_DATE`, before the consideration of the earliest available window of the
+current budget.
 
-- If both `START_DATE` and `END_DATE` are empty, the start date of analys is constructed from 17 units of time before the start date
-of the current window of the current budget and the end date of analysis is constructed from 17 units after the
-start date of the current window of the current budget.
+- If both `START_DATE` and `END_DATE` are empty, the start date of analys is constructed from 17
+units of time before the start date of the current window of the current budget and the end date
+of analysis is constructed from 17 units after the start date of the current window of the current budget.
 
 
 
@@ -1185,7 +1188,8 @@ e.g. `deletebudget-id 2`
 * *Clear all budgets* : `clearbudget` (_undoable_)
 * *View expenses in a different period* (_undoable_) : `switchperiod t/<DATE>` +
 e.g. `switchperiod t/01-05`
-* *Edit expense inside a budget* (_undoable_) : `editexpense-primary <INDEX> [d/<DESCRIPTION>] [p/<PRICE>] [c/<CATEGORY>] [t/<TIMESTAMP>]` +
+* *Edit expense inside a budget* (_undoable_) :
+`editexpense-primary <INDEX> [d/<DESCRIPTION>] [p/<PRICE>] [c/<CATEGORY>] [t/<TIMESTAMP>]` +
 e.g. `editexpense-primary 1 d/chicken`
 * *Delete expense inside a budget* (_undoable_) : `deleteexpense-primary` <INDEX> +
 e.g. `deleteexpense-primary 2`
@@ -1206,7 +1210,7 @@ e.g. `statstrend sd/11-11-2018 ed/12-12-2018 mode/category`
 *Everything alias:*
 
 * *Add alias* (_undoable_) : `addalias a/<ALIAS_NAME> i/<INPUT>` +
-e.g. `alias a/chicken rice c/ add d/ Chicken Rice p/2.50 c/Food`
+e.g. `addalias a/chicken rice i/ add d/ Chicken Rice p/2.50 c/Food`
 * *See all aliases* : `listalias`
 * *Delete an alias* : `deletealias <DESCRIPTION>`
 
