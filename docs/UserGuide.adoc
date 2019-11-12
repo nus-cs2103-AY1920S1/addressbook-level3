@@ -177,7 +177,7 @@ image::createTrip.png[title=" `create` command generates empty fields, width=500
 
 image::editTrip.png[title=" `edit` command generates fields from your previously saved data, width=500]
 
-*Step 3*: Now that you are on the edit page, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/<value> ...`. There are 8 different prefixes. The 8 prefixes refer to editing each fields as follows:
+*Step 3*: Now that you are on the edit page, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/<value> ...`. There are 6 different prefixes. The 6 prefixes refer to editing each fields as follows:
 
 1. Name :  `n/`
 2. Start Date : `ds/`
@@ -185,8 +185,6 @@ image::editTrip.png[title=" `edit` command generates fields from your previously
 4. Total Budget : `b/`
 5. Destination : `l/`
 6. Photo File Path : `fp/`
-7. Add an inventory item to the Event Inventory List: 'inv/' (This prefix can be called more than once in the edit command)
-8. Deletes an inventory item from the Event Inventory List: 'dinv/' (This prefix can be called more than once in the edit command)
 
 
 NOTE: You can execute `fc/` with `fp/` to open a file dialog to choose an image rather than type in absoulute path of the image.
@@ -222,7 +220,7 @@ image::eventsPage.png[title="Events Page layout", width=500]
 
 image::eventsIndex.png[title="Index used to execute commands", width=500]
 
-Upon execution of either command on the events page, you will be directed to a page where editing the necessary details to create a new event is possible. This page contains a form with 4 necessary fields and 2 optional fields (optional fields are marked with italics).
+Upon execution of either command on the events page, you will be directed to a page where editing the necessary details to create a new event is possible. This page contains a form with 4 necessary fields and 3 optional fields (optional fields are marked with italics).
 
 * Name: Name of the event
 ** *Constraints*: Names should only contain up to 40 alphanumeric characters and spaces, and it should not be blank
@@ -236,8 +234,10 @@ Upon execution of either command on the events page, you will be directed to a p
 ** *Constraints*: Budget can take any positive numerical value with no more than 2 decimal places, and it should not be blank
 * _Description_
 ** *Constraints*: Description can take any values, and can be left blank
+* _Inventory Items Needed_
+** *Constraints*: You can add or delete multiple inventory items (which will be displayed on the list below this field), or you can leave the the field blank
 
-NOTE: The **Total Budget** field is optional and can be left blank
+NOTE: The **Total Budget** and **Inventory Items Needed** field is optional and can be left blank
 
 *Step 2*:
 
@@ -249,7 +249,7 @@ image::createEvent.png[title="Empty event form", width=500]
 
 image::editEvent.png[title="Form with previously saved information", width=500]
 
-*Step 3*: Now on the _edit events page_, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/value> ...`. There are 5 different prefixes, each to edit one of the 6 fields displayed. The 5 prefixes are as follows:
+*Step 3*: Now on the _edit events page_, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/value> ...`. There are 8 different prefixes to edit one of the 7 fields displayed. The 8 prefixes are as follows:
 
 1. Name : `n/`
 2. Start Time : `ds/`
@@ -257,6 +257,10 @@ image::editEvent.png[title="Form with previously saved information", width=500]
 4. Total Budget : `b/`
 5. Destination : `l/`
 6. Description : `d/`
+7. Add an inventory item to the event's inventory list: `<inv/<name of inventory item to add>`
+8. Delete an inventory item from the event's inventory list: `dinv/<index number of item to delete>`
+
+NOTE: To delete an item from the inventory list you can also select the item's row and press backspace
 
 Below is an example of changing the destination of an existing event to "Hotel 89":
 ====
