@@ -121,10 +121,10 @@ able to download the list of items (see Figure 2).
 Format: `export`
 
 .QR code containing the data of the items in the current view list
-image::export.png[width="500"]
+image::export.png[width="790"]
 
 .List of items received when scanning the QR code through a mobile phone
-image::export-phone.PNG[width="200"]
+image::export-phone.PNG[width="250"]
 
 [NOTE]
 ====
@@ -139,19 +139,19 @@ page after scanning the QR code. Follow the steps below to rectify this issue if
 received on the web (see Figure 3).
 
 .Pop-up prompt to suggest to search the content on the web
-image::export-prompt.PNG[width="200"]
+image::export-prompt.PNG[width="250"]
 
 * Instead of immediately accepting the suggestion, press and hold on the prompt to reveal the other
 options available (see Figure 4). Choose "Copy" or any other similar options.
 
 .Additional options to handle the content
-image::export-other-options.PNG[width="200"]
+image::export-other-options.PNG[width="250"]
 
 * Once the content has been copied, you can simply paste and save the content on Notes or any other
 notepad application on your mobile phone (see Figure 5).
 
 .Pasting and saving exported content onto the mobile phone's built-in notepad application
-image::export-save-in-notes.png[width="200"]
+image::export-save-in-notes.PNG[width="250"]
 
 === Searching for item(s) by name and/or tag: `search`
 
@@ -163,7 +163,7 @@ With `search`, you can simply input any words or phrases and Xpire will display 
 Format: `search|<keyword>[|<other keywords>]...`
 
 .Items matching #fruit or chicken shown
-image::search.png[width="500"]
+image::search.png[width="790"]
 
 [NOTE]
 `search` is designed to work only on the current view list. In other words, `search` will only
@@ -176,10 +176,10 @@ by keying `search|red` and then `search|apple`. Suppose there are only 3 items i
  fuji apple` (see Figure 8).
 
 .Item list before searching
-image::search-initial.png[width="500"]
+image::search-initial.png[width="790"]
 
 .Item list after keying `search|red` and then `search|apple`
-image::search-after.png[width="500"]
+image::search-after.png[width="790"]
 
 ****
 * The search is case insensitive. e.g `ham` will match `Ham` and `#fruit` will match `#Fruit`.
@@ -196,12 +196,12 @@ Examples:
 * `search|kebab` will display `Chicken Kebab` and `kebab` (see Figure 9).
 
 .Item list after keying `search|kebab`
-image::search-kebab.png[width="500"]
+image::search-kebab.png[width="790"]
 
 * `search|Chicken Ham` will display `Chicken Ham` (see Figure 10).
 
 .Item list after keying `search|Chicken Ham`
-image::search-chicken-ham.png[width="500"]
+image::search-chicken-ham.png[width="790"]
 
 * `search|milk|tea|#Drink` will display any items with names containing `milk` or `tea`, or with the tag `#Drink`.
 
@@ -224,7 +224,7 @@ This implementation is under `Logic` and `Model` components, and it uses a helpe
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
 
 .Sequence diagram illustrating the export mechanism
-image::SequenceDiagramExport.png[width="500"]
+image::SequenceDiagramExport.png[width="790"]
 
 Example usage scenario:
 
@@ -253,7 +253,7 @@ The following UML activity diagram will further demonstrate the high-level workf
 The selection of parser and the creation of `ExportCommand` object is omitted for brevity.
 
 .Activity diagram illustrating the high-level workflow of search command
-image::ActivityDiagramExportCommand.png[width="500"]
+image::ActivityDiagramExportCommand.png[width="790"]
 
 As illustrated in Figure 12, the `export` functionality also considers the case where the current view list
 is empty and there will be a feedback to the user to inform him/her that the `export` command is not executed
@@ -302,14 +302,14 @@ This implementation is under `Logic` and `Model` components.
 Below are the UML sequence diagrams an example usage scenario.
 
 .Sequence diagram illustrating the search mechanism
-image::SequenceDiagramSearch.png[width="500"]
+image::SequenceDiagramSearch.png[width="790"]
 
 [NOTE]
 Parsing of arguments is omitted from the diagram above to place greater emphasis on the filtering process.
 The diagram below further illustrates the parsing of arguments.
 
 .Sequence diagram illustrating the parsing of arguments
-image::SequenceDiagramSearchParseArgs.png[width="500"]
+image::SequenceDiagramSearchParseArgs.png[width="790"]
 
 To further demonstrate the high-level workflow of the `search` command, the following UML activity diagram is provided:
 
@@ -317,7 +317,7 @@ To further demonstrate the high-level workflow of the `search` command, the foll
 The selection of parser and the creation of `SearchCommand` object is omitted for brevity.
 
 .Activity diagram illustrating the high-level workflow of search command
-image::ActivityDiagramSearchCommand.png[width="500"]
+image::ActivityDiagramSearchCommand.png[width="790"]
 
 As illustrated in Figure 15, the `search` functionality also considers the case where the current view list
 is empty and there will be a feedback to the user to inform him/her that the `search` command is not executed
