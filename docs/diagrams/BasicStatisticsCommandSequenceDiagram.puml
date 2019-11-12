@@ -55,14 +55,14 @@ deactivate MooLahParser
 LogicManager -> StatsCommand : run(model)
 activate StatsCommand
 
-StatsCommand -> StatsCommand: validate
+StatsCommand -> StatsCommand: validate(model)
 activate StatsCommand
 
 
 StatsCommand -> StatsCommand:
 deactivate StatsCommand
 
-StatsCommand -> StatsCommand: execute
+StatsCommand -> StatsCommand: execute(model)
 activate StatsCommand
 
 StatsCommand -> ModelManager : getPrimaryBudget()
