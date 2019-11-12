@@ -63,7 +63,7 @@ public class StatsCommandParser implements Parser<StatsCommand> {
             endDate = ParserUtil.parseTimestamp(endDateString.get());
             statsDescriptor.setStartDate(startDate);
             statsDescriptor.setEndDate(endDate);
-            if (!statsDescriptor.isStartBeforeEnd()) {
+            if (statsDescriptor.isEndBeforeStart()) {
                 throw new ParseException(Messages.MESSAGE_CONSTRAINTS_END_DATE);
             }
         } else if (isStartPresent) {
