@@ -420,7 +420,7 @@ image::AddBudgetCommandClassDiagram.png[width=60%]
 As shown in the figure above, `AddBudgetCommand` has 2 methods:
 (i) `validate(model)`, which checks whether the command is legal (i.e. will not result in duplicate budgets being added
  to MooLah), and throws `CommandException` to notify user of the illegal input if any;
-(ii) `execute(model)`, which runs this command in model and successfully adds a new budget.
+(ii) `execute(model)`, which runs this command in model and successfully adds a new `Budget`.
 
 The following sequence diagram shows how the `add budget` operation works:
 
@@ -454,7 +454,7 @@ MooLah creates a `Default Budget` upon first launching. If no budget is created 
 under this `Default Budget`, which has a huge budget limit (`10^21`) and budgeting period (`100 years`).
 
 The `SwitchBudgetCommand` takes in a budget name and switches primary budget to that budget.
-Given below is an example usage scenario of SwitchBudgetCommand: +
+Given below is an example usage scenario of `SwitchBudgetCommand`: +
 
 *Step 1.* The user launches MooLah for the first time. The default budget will be created and set as the primary budget.
 
@@ -495,7 +495,7 @@ Here is the class diagram of `BudgetWindow`:
 
 image::BudgetWindowClassDiagram.png[width=33%]
 
-As shown in the figure above, `BudgetWindow` has 3 attributes: start date, end date, and period. The start and end
+As shown in the figure above, `BudgetWindow` has 3 attributes: `startDate`, `endDate`, and `period`. The start and end
 dates are modifiable, but the period is fixed. This corresponds to the above-mentioned "sliding window" concept.
 
 A budget keeps a list of all expenses ever been tracked by this budget, including historical ones. Additionally,
@@ -547,9 +547,9 @@ successfully normalized to the current period.
 
 ==== UI Component of Budget
 There are three classes related to the UI display of budgets:
-(i) `BudgetCard`, which shows the budget name, period, and progress bar -- GUI representation of a `Budget`
-(ii) `BudgetListPanel`, which displays a list of `BudgetCard` -- called through `ListBudgetsCommand` or `view budget list`
-(iii) `BudgetPanel`, which displays a `BudgetCard` at the top, and a list of current period expenses below -- called through `view primary budget`
+(i) `BudgetCard`, which shows the budget name, period, and progress bar -- GUI representation of a `Budget`;
+(ii) `BudgetListPanel`, which displays a list of `BudgetCard` -- called through `ListBudgetsCommand`;
+(iii) `BudgetPanel`, which displays a `BudgetCard` at the top, and a list of current period expenses below -- called through `view primary budget`.
 
 The progress bar in `BudgetCard` shows the proportion used against the budget limit. This is calculated by
 `Budget#calculateProportionUsed()`, which divides the *sum of all current period expenses* against the *budget limit*,
@@ -577,12 +577,12 @@ image::BudgetActivityDiagram.png[width=55%]
 ==== Integration with Undo-Redo
 Budgeting-related commands integrate well with Undo-Redo feature, by extending `UndoableCommand`. Undoable commands are
 those modifying data in MooLah, for example, `AddBudgetCommand` and `EditBudgetCommand`. On the other hand, commands that
-only result in GUI changes, such as `ListBudgetsCommand`, is not undoable.
+only result in GUI changes, such as `ListBudgetsCommand`, are not undoable.
 
-A difficulty here is to make every "undo" immediately reflected on GUI. Since undo rollback on models, this dictates that
-every change must result in a new budget object being created and replacing the old one. Otherwise, even though the
-change is reflected backend, it will not show in frontend because the Budgets in two models are still referring to
-the same object. This task is handled by `Budget#deepCopy()`, which is widely called from `UniqueBudgetList`, in every method
+A difficulty here is to make every `undo` (or `redo`) change immediately reflected on GUI. Since `undo` rollbacks models, this dictates that
+every change must result in a new `Budget` object being created and replacing the old one. Otherwise, even though the
+change is effective in the back end, it might not show in the front end because the `Budget` in two models points to
+the same object. This issue is handled by `Budget#deepCopy()`, which is widely called from `UniqueBudgetList`, in every method
 that modifies the existing budgets.
 
 ==== Design Considerations
@@ -590,7 +590,7 @@ that modifies the existing budgets.
 ===== Aspect: Since Budget already keeps a list of Expense, should Expense have a Budget field?
 
 * **Alternative 1:** `Expense` has a `Budget` field
-** Pros: Easier to manage expenses.
+** Pros: Easier to manage expenses, as budget is directly referred to by the expense.
 ** Cons: Causes cyclical dependency, and reduces testability. Also, this will cause infinite loop when creating
 `JsonAdaptedExpense` and `JsonAdaptedBudget`.
 
@@ -602,7 +602,7 @@ that modifies the existing budgets.
 Each `Expense` keeps a `budgetName` field which indicates the name of the `Budget` it is tracked under. Since `UniqueBudgetList`
 disallows duplicate budget names, a name is sufficient to identify a `Budget`. Besides, since `budgetName` is of
 `Description` type instead of `Budget` type, it is easy to convert to `String`, and resolves the problem of infinite loop
-when creating Json files. Also, the resulting `JsonAdaptedExpense` file will not be too long, since the `budgetName` property
+when creating Json files. Also, the resulting `JsonAdaptedExpense` in storage files will not be too long, since the `budgetName` property
 stores only the budget name instead of the full `Budget` object.
 
 ===== Aspect: Can one Expense be tracked under multiple Budget? Or under no Budget at all?
@@ -618,9 +618,9 @@ budgets.
 revolves around budgets.
 
 * **Solution (Current implementation):**
-Adopt Alternative 1. Every Expense must be tracked under one and only one budget. If the expense is added before
-adding any budgets, a default budget with a huge limit and infinite period is created for tracking all expenses without
-a proper user-defined budget. This ensures that the main screen has a budget and shows a budget status bar at all times.
+Adopt Alternative 1. Every `Expense` must be tracked under one and only one `Budget`. If the `Expense` is added before
+adding any `Budget`, a `Default Budget` with a huge limit and period is created for tracking all expenses without
+a proper user-defined `Budget`. This ensures that the main screen shows a budget status bar at all times.
 Besides, it leads to neater statistics.
 
 ===== Aspect: How should JsonAdaptedBudget keep track of the budget's expenses?
@@ -635,7 +635,7 @@ MooLah.
 * **Alternative 2:** `JsonAdaptedBudget` stores a list of `UniqueIdentifier`
 ** Pros: Guards against accidental user modification of Json file.
 ** Cons: More hassle when reconstructing MooLah from storage, since `JsonAdaptedBudget#toModelType` will need to
-refer to MooLah's expense list, identify those expenses by their `UniqueIdentifier`, and add them to the budget.
+refer to MooLah's expense list, identify those expenses by their `UniqueIdentifier`, and add them to the `Budget`.
 
 * **Solution (Current implementation):**
 Adopt Alternative 2. Since every expense has a unique identifier, a list of `UniqueIdentifier`, supplemented with a list

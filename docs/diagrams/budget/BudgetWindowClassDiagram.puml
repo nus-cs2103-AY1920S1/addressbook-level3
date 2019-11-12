@@ -13,7 +13,7 @@ YEAR
 INFINITY
 }
 
-BudgetWindow -right-> "2" Timestamp : start & end dates
-BudgetWindow -up-> "1" BudgetPeriod : fixed period
+BudgetWindow -right-> "2" Timestamp : startDate & endDate
+BudgetWindow -up-> "1" BudgetPeriod : period (fixed)
 
 @enduml

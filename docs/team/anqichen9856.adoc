@@ -26,7 +26,7 @@ creates a seamless user experience. All these solid and well-developed features 
 My main role in the team was to develop the budgeting feature. The following is a summary of my
 contributions to this feature.
 
-* *Major Enhancement*: added *the ability to track expenses under different budgets, and manage multiple budgets*. +
+* *Major Enhancement*: added *the ability to track expenses under different budgets, and flexibly manage multiple budgets*. +
 The budgeting feature is a significant enhancement to MooLah. Users need a tool to help them monitor their expenditure and avoid overspending.
 This is especially relevant to our main target users - university students, most of whom do not have a stable income.
 The budgeting feature enables users to be more controlled with their own expenses, grow healthy saving habits,
@@ -43,14 +43,14 @@ I developed ten budgeting-related commands, added utility classes such as `Perce
 and wrote unit tests for all, achieving 100% lines coverage for my part.
 One highlight is `BudgetWindow#normalize()`, which shifts the budgeting period to another anchored by a specific date.
 While developing this method, it was necessary for me to take into account marginal cases such as February, leap year, and months with 30 days,
-and constantly fix emerging bugs to ensure good functionality.
-Besides, to make sure budgeting integrates well with undo-redo, I must check through every command to make sure all
+and painstakingly fix emerging bugs to ensure good functionality.
+Besides, budgeting integrates well with undo-redo. I made a great effort to check through every command to ensure all
 undo-redo changes are immediately reflected both on GUI and in storage files. Considering that undo revolves
-around `Model`, I need to ensure a deep copy of the budget is made upon every single modification of existing budgets in
+around `Model`, I implemented this in a way that a deep copy of the budget is made upon every single modification of existing budgets in
 the model, which was challenging and time-consuming to debug.
 
 * *Minor Enhancement*: added two commands (`EditExpenseFromBudgetCommand` & `DeleteExpenseFromBudgetCommand`) that allow
-users to *edit or delete expenses directly from the budget panel, without having to switch to general expense list first*.
+users to *conveniently edit or delete expenses directly from the budget panel, without having to switch to general expense list first*.
 
 * *Code Contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=anqichen9856&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=anqichen9856&tabRepo=AY1920S1-CS2103T-T11-1%2Fmain%5Bmaster%5D[link to RepoSense]]
 
