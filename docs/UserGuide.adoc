@@ -916,7 +916,8 @@ is meant to hold expenses not associated to any budgets when starting out, which
 doesn't support editing any of its attributes, especially period. Also, the budget period is set to
 a large interval by design, so the output might not make sense.
 
-- For commands that use `sd/` `ed/` prefixes, `START_DATE` will be checked to be earlier than `END_DATE`
+- For commands that use `[sd/<START_DATE>] [ed/<END_DATE>]` prefixes,
+`END_DATE` will be checked to be not before `START_DATE`.
 ****
 
 ==== Summary Statistics: `statsbasic`
@@ -933,12 +934,10 @@ Format: `statsbasic [sd/<START_DATE>] [ed/<END_DATE>]`
 ****
 *Note*
 
-
-
 - The success message for this command is "Pie Chart calculated!"
 
 - When there are no expenses in the current window of the current budget, a successful `statsbasic`
-can stil be called. However, the same success message "Pie Chart calculated!" is still seen on the result display,
+can still be called. However, the same success message "Pie Chart calculated!" is still seen on the result display,
 but now with a blank screen in the StatsPanel.
 
 - Categories where no tracked expenses fall under will not be reflected in the Statistics Panel.
@@ -975,7 +974,6 @@ the current window of the Budget from start of 18 Oct to the end of 24 Oct. Ther
 image::OutsideSchoolWindow.png[align=center,width="600"]
 
 To generate the pie chart for the expenses for this window.
-
 
 . Type `statsbasic` into the command box and press `Enter` to execute it.
 . The result display will display the message "Pie Chart calculated!".
@@ -1032,6 +1030,14 @@ statscompare sd2/ today sd1/tmr
 statscompare sd2/ 23-09-2019 sd1/1 year ago
 ----
 
+Example with expected output:
+Test case: Create a new budget, one possible way is `addbudget d/school p/3.00 sd/28-10 pr/day`.
+then enter `statscompare sd1/12-12 sd2/ 1 month ago` +
+
+Expected: A success message of "Statistics Comparison Calculated!" appears with the
+the title "Statistics Summary: Comparing 12-12-2019 to 12-12-2019 with 12-10-2019 to 12-10-2019"
+but all entries reflect 0 for frequency and 0.00 for amount.
+
 ==== Growth Statistics : `statstrend`
 
 This command allows you to see the growth
@@ -1061,39 +1067,38 @@ Format: `statstrend [sd/<START_DATE>] [ed/<END_DATE>] mode/MODE`
 
 ****
 *Note*
+- `mode/` takes in only "mode" and "category" and is case-insensitive
 
 - The success message for this command is "Statistics Trend Calculated!"
 
-
 - The categories that do not have any expenses in any of the time intervals will not be reflected
 as trend lines in the Statistics Panel.
-
 
 - The first plotted point that would be observed should be the start date of the window of the current budget
 closest to the start date of analysis. If the two happen to be the same, the start date of the window of the budget
 should be included as a point in the trend line
 
+- Due to the possible differences in amounts, some points may not be plotted.
 
-
+- At any time, only a maximum of 32 points starting from the first valid point will be shown
 ****
 
 Tips:
 
 - There is no need to specify all the parameters if the outcomes of the example usage scenarios
-below fit your needs
+below fit your needs. The analysis comes in the form of interval construction followed by the searching
+of the nearest possible window to be included. The following describes how the interval is constructed
+with different configurations
 
 - If `START_DATE` is specified but `END_DATE` is empty, the end date of analysis is constructed till
-34 unit of time after `START_DATE`, before the consideration of the earliest available window of the
-current budget.
+32 unit of time after `START_DATE`.
 
 - If `START_DATE` is empty but `END_DATE` is specified, the start date of analysis is constructed from
-34 unit of time before `END_DATE`, before the consideration of the earliest available window of the
-current budget.
+32 unit of time before `END_DATE`.
 
-- If both `START_DATE` and `END_DATE` are empty, the start date of analys is constructed from 17
+- If both `START_DATE` and `END_DATE` are empty, the start date of analysis is constructed from 16
 units of time before the start date of the current window of the current budget and the end date
-of analysis is constructed from 17 units after the start date of the current window of the current budget.
-
+of analysis is constructed from 16 units after the start date of the current window of the current budget.
 
 
 Example of configurations:
@@ -1102,6 +1107,17 @@ statstrend mode/category
 statstrend sd/tmr mode/category
 statstrend sd/11-11-2018 ed/12-12-2018 mode/category
 ----
+
+Example with expected output:
+
+Test case: Create a new budget, one possible way is `addbudget d/school p/3.00 sd/28-10 pr/day`.
+Next, add an expense to the empty budget with `addexpense d/ chicken rice p/2.50 c/food t/28-10`
+and type `statstrend mode/category sd/28-10` +
+
+Expected: A success message of "Statistics Trend Calculated!" appears with the
+title "Periodic trendline from 28-10-2019 to 29-11-2019 in the unit of days",
+1 trend line for food is observed, with the first plotted point of the line being the
+highest non-zero point at y-axis = 2.50
 
 
 // end::statsug[]

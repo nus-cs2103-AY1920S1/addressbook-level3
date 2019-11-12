@@ -20,7 +20,7 @@ import seedu.moolah.ui.statistics.StatisticsRegionFactory;
  */
 public class TrendStatistics implements Statistics {
 
-    public static final int INTERVAL_COUNT = 34;
+    public static final int INTERVAL_COUNT = 32;
 
     private Timestamp startDate;
 
@@ -28,7 +28,7 @@ public class TrendStatistics implements Statistics {
 
     private Budget primaryBudget;
 
-    private boolean budgetLimitMode;
+    private boolean isBudgetLimitMode;
 
     private ObservableList<Expense> expenses;
 
@@ -54,8 +54,8 @@ public class TrendStatistics implements Statistics {
         this.startDate = startDate;
         this.endDate = endDate;
         this.primaryBudget = primaryBudget;
-        this.budgetLimitMode = isBudgetMode;
-        if (!budgetLimitMode) {
+        this.isBudgetLimitMode = isBudgetMode;
+        if (!isBudgetLimitMode) {
             for (int i = 0; i < Category.getNumValidCategory(); i++) {
                 periodicCategoricalExpenses.add(new ArrayList<>());
             }
@@ -86,7 +86,7 @@ public class TrendStatistics implements Statistics {
                     getCategorisedPeriodicExpenses(localStartDate, localEndDate);
 
 
-            if (budgetLimitMode) {
+            if (isBudgetLimitMode) {
                 double periodicTotalExpenditure = getTotalExpenditure(categorisedPeriodicExpenses);
                 this.periodicTotalExpenditures.add(periodicTotalExpenditure);
                 periodicBudgetLimits.add(primaryBudget.getAmount().getAsDouble());
@@ -199,7 +199,7 @@ public class TrendStatistics implements Statistics {
 
     @Override
     public StatisticsRegionFactory createFactory() {
-        if (budgetLimitMode) {
+        if (isBudgetLimitMode) {
             return new LineChartBudgetRegionFactory(dates, periodicTotalExpenditures, periodicBudgetLimits, title);
         } else {
             return new LineChartCategoriesRegionFactory(dates, periodicCategoricalExpenses, title);

@@ -774,10 +774,10 @@ split the arguments into its preamble(the start date and end date). This returns
 Step 3. The `StatsCommandParser` object creates a `StatsDescriptor` object `desc` to hold the start date and end date that was specified by the user.
 Depending on the presence of start date and end date, `desc` will be filled in differently.
 
-If the start date and end date is both specified by the user, the start date will be checked to be before the end date.
+If the start date and end date is both specified by the user, the end date will be checked to not be before the start date.
 If the end date happens to be before the start date, a `ParseException` will be thrown
 
-Step 4. The filled `desc` will be returned to the `LogicManager` where a new `StatsCommand` command, `statsCommand` will be created with `desc`
+Step 4. The filled `desc` will be returned to the `LogicManager` where a new `StatsCommand` object, `statsCommand` will be created with `desc`
 
 
 
@@ -790,7 +790,7 @@ Step 7. To construct the time interval required for statistics, information from
 If there are unspecified inputs inside `desc`, the time interval will be constructed with some information from the primary budget.
 
 Step 8. The `PieChartStatistics` object will be created with the constructed interval as well as the expenses the primary budget tracks.
-After which, `StatsCommand` will call `PieChartStatistics` implementation of `populateData()` to fill up its other fields
+After which, `StatsCommand` will call the `PieChartStatistics` implementation of `populateData()` to fill up its other fields
 
 Step 9. `StatsCommand` calls `ModelManager#setStatistics(statistics)` which updates the `Statistics` attribute in `ModelManager`.
 
@@ -1839,29 +1839,38 @@ i.e. `add` on the Expense List panel, should behave as `addexpense`
 
 === Testing statsbasic
 .. Prerequisites: Create a new budget, one possible way is `addbudget d/school p/3.00 sd/28-10 pr/day`.
-.. Test case: `statsbasic` + Expected: A success message of "Pie Chart calculated!" appears with the correct date, amount
-   but no pie chart being shown
-.. Test case: Add an expense to the empty budget `addexpense d/ chicken rice p/2.50 c/food` and type `statsbasic` + Expected:
-   A success message of "Pie Chart calculated!" appears with the correct date, amount but a pie chart being shown with only food
+.. Test case: `statsbasic` +
+Expected: A success message of "Pie Chart calculated!" appears with the title of the statistics
+"Statistics Summary from DATE to DATE", where DATE is the current date, with $0.00 amount
+but no pie chart being shown
+.. Test case: Add an expense to the empty budget `addexpense d/ chicken rice p/2.50 c/food` and type `statsbasic` +
+Expected: A success message of "Pie Chart calculated!" appears with the same title, amount to $2.50 and a pie chart being shown with only food
    category showing 100.00%.
-.. Test case: In any budget, type `statsbasic sd/12-12 ed/11-11` + Expected : Start date must be before end date.
+.. Test case: In any budget, type `statsbasic sd/12-12 ed/11-11` +
+Expected : An error message of "End date cannot be before start date."
 
 === Testing statscompare
 .. Prerequisites: Create a new budget, one possible way is `addbudget d/school p/3.00 sd/28-10 pr/day`.
-.. Test case: `statscompare sd1/12-12 sd2/ 1 month ago` + Expected: A success message of "Statistics Comparison Calculated!" appears with the correct date, amount
-but entries all reflect 0
-.. Test case: Add an expense to the empty budget `addexpense d/ chicken rice p/2.50 c/food t/28-10` and type `statscompare sd1/28-10 sd2/ 29-10`
-+ Expected: A success message of "Statistics Comparison Calculated!" appears with the correct date, with the first entries of difference amount
-pointing to -2.5.
+.. Test case: `statscompare sd1/12-12 sd2/ 1 month ago` +
+Expected: A success message of "Statistics Comparison Calculated!" appears with the
+the title "Statistics Summary: Comparing 12-12-2019 to 12-12-2019 with 12-10-2019 to 12-10-2019"
+but all entries reflect 0 for frequency and 0.00 for amount.
+.. Test case: Add an expense to the empty budget `addexpense d/ chicken rice p/2.50 c/food t/28-10` and type `statscompare sd1/28-10 sd2/ 29-10`+
+Expected: A success message of "Statistics Comparison Calculated!" appears with
+the title "Statistics Summary: Comparing 28-10-2019 to 28-10-2019 with 29-10-2019 to 29-10-2019" with the first entry of `Difference Amount`
+having a value of -2.50 and having the first entry of `Difference Frequency` having a value of -1.
 
 === Testing statstrend
 .. Prerequisites: Create a new budget, one possible way is `addbudget d/school p/3.00 sd/28-10 pr/day`.
-.. Test case: `statstrend mode/category` + Expected: A success message of "Statistics Trend Calculated!" appears with the correct date, unit of time,
-but no trend lines are seen
-.. Test case: Add an expense to the empty budget `addexpense d/ chicken rice p/2.50 c/food t/28-10` and type `statstrend mode/category sd/28-10`
-+ Expected: A success message of "Statistics Trend Calculated!" appears with the correct date, unit of time,
+.. Test case: `statstrend mode/category sd/14-01 ed/31-01` +
+Expected: A success message of "Statistics Trend Calculated!" appears with
+the title "Periodic trendline from 14-01-2019 to 31-01-2019 in the unit of days"
+unit of time equal to the period of the budget, but no trend lines are seen
+.. Test case: Add an expense to the empty budget `addexpense d/ chicken rice p/2.50 c/food t/28-10` and type `statstrend mode/category sd/28-10` +
+Expected: A success message of "Statistics Trend Calculated!" appears with the
+title "Periodic trendline from 28-10-2019 to 29-11-2019 in the unit of days",
 1 trend line for food is observed, with the first plotted point of the line being the highest non-zero point at y-axis = 2.50
 .. Now, add one more expense like `addexpense d/ chicken rice p/3.50 c/food t/29-10` and type `statstrend mode/category sd/28-10` again. +
-Expected: A success message of "Statistics Trend Calculated!" appears with the correct date, unit of time,
+Expected: A success message of "Statistics Trend Calculated!" appears with the same title,
 1 trend line for food is observed, with 2 points observed.
 
