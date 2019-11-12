@@ -866,7 +866,7 @@ the shortcut, (a.k.a ``Alias``), in place of the full or partial command.
 ==== Implementation
 
 .AliasMappings Class Diagram
-image::AliasMappingsClassDiagram.png[AliasMappingsClassDiagram]
+image::AliasMappingsClassDiagram.png[]
 
 These user defined ``Alias``es are saved in an ``AliasMappings`` object within ``UserPref`` as seen in the above diagram.
 Internally, the ``AliasMappings`` object stores an ``Alias`` in a Map<Strings, Alias> object. With the addition of `AliasMappings` object to ``UserPref``,
@@ -887,23 +887,22 @@ to validate that an `Alias` will not cause an infinite loop by chaining multiple
 .AddAliasCommand Class Diagram
 image::AliasCommandClassDiagram.png[]
 
-In order for the user to save an ``Alias``, they first define it using the ``AliasCommand``. The ``AliasCommand`` command extends
+In order for the user to save an ``Alias``, they first define it using the ``AddAliasCommand``. The ``AddAliasCommand`` command extends
 `UndoableCommand` to allow users to undo defining an `Alias`. The following sequence diagram describe in more detail how an ``Alias``
 is added.
 
 ****
 Note: +
-Alias and AliasMapping are in Model and not Core. This change has yet to be reflected in the following sequence diagrams.
+Alias and AliasMapping are in Model and not Core. This change has yet to be reflected in the following 3 sequence diagrams.
 ****
 
 .AddAliasCommand execution Sequence Diagram
 image::HighLevelAddAliasSequenceDiagram.png[]
 
 
-[None]
-. 1. The user enters a command with the following syntax `` alias a/ <name> i/ <input>``.
-. 2. The `UI` passes this command string to the `LogicManager` which passes it onto the `MooLahParser`.
-. 3. The parser extracts the argument string and passes it to an ``AliasCommandParser``.
+. The user enters a command with the following syntax `` addalias a/ <name> i/ <input>``.
+. The `UI` passes this command string to the `LogicManager` which passes it onto the `MooLahParser`.
+. The parser extracts the argument string and passes it to an ``AliasCommandParser``.
 
 ****
 ref : extract arguments create alias
@@ -912,37 +911,34 @@ ref : extract arguments create alias
 image::ParseAliasCommandSequenceDiagram.png[]
 ****
 
-[None]
-. 4. The ``AliasCommandParser`` uses the ``ArgumentTokenizer`` to tokenize the argument string and extract the
+.  The ``AliasCommandParser`` uses the ``ArgumentTokenizer`` to tokenize the argument string and extract the
 ``alias name`` and ``input`` fields into an ``ArgumentMultimap``.
-. 5. The arguments are obtained and to create a new `Alias` using the the `Alias` parser in `ParserUtil`.
-. 6. An `AliasCommand` is created containing this new `Alias` to add to the `UserPref`.
-. 7. This is passed back to the `LogicManager` to call `AliasCommand#run()`.
+. The arguments are obtained and to create a new `Alias` using the the `Alias` parser in `ParserUtil`.
+. An `AddAliasCommand` is created containing this new `Alias` to add to the `UserPref`.
+. This is passed back to the `LogicManager` to call `AddAliasCommand#run()`.
 
 ****
 ref: validate command
 
-.AliasCommand #Validate Sequence Diagram
+.AddAliasCommand #Validate Sequence Diagram
 image::verifyAlias.png[]
 ****
 
-[None]
-. 8. The `AliasCommand` is validated using `AliasCommand#validate()`. The `Alias` is checked to ensure it does not
-[None]
+. The `AddAliasCommand` is validated using `AddAliasCommand#validate()`. The `Alias` is checked to ensure it does not
     ** a. Have a clashing name used by an existing `Command` as a CommandWord.
     ** b. Have an input beginning with a supported `Alias`.
-. If is not valid, handled exception is thrown.
+. If it is not valid, an exception is thrown.
 
 ****
 ref: execute command
 
-.AliasCommand #execute Sequence Diagram
+.AddAliasCommand #execute Sequence Diagram
 image::addAlias.png[]
 ****
 [None]
-. 9. If it was validated that the `Alias` can be added.
-. 10. The `Alias` is then added to the `AliasMappings` object within `UserPref`.
-. 11. The `Alias` is now usable  by the user.
+. If it was validated that the `Alias` can be added.
+. The `Alias` is then added to the `AliasMappings` object within `UserPref`.
+. The `Alias` is now usable  by the user.
 
 
 ===== Usage of aliases in input
@@ -975,7 +971,7 @@ alias data is reset.
 
 * ** Alternative 2:** Anywhere in input
 ** Pros: A wider variety of shortcuts can be defined by the user +
-e.g. `add deckChicken 2.50`, where `deckChicken` maps to `d/ chicken rice c/ food p/`.
+e.g. `addexpense deckChicken 2.50`, where `deckChicken` maps to `d/ chicken rice c/ food p/`.
 ** Cons: Harder to detect recursion due to alias chaining.
 ** Cons: Parsing becomes more complicated and alias words become unusable in other contexts.
 e.g. defining an `Alias` mapping `bus` to `sbs bus` prevents an input such as `smrt bus` from being parsed properly
@@ -991,7 +987,9 @@ Another alternative would have been to have an alias name follow the following c
 clear what is an `Alias` within an input.
 
 The purpose behind this feature was to make CLI input less troublesome, so users do not need to type in the full input string
-to carry out commands they may use frequently. In v2.0 we want to look into using data analysis track users' input habits in
+to carry out commands they may use frequently.
+
+In v2.0 we want to look into using data analysis track users' input habits in
 order to make suggestions on possible shortcuts or Aliases they may find convenient to have.
 
 
@@ -1044,7 +1042,7 @@ as well as to implement some basic realtime input validation. This feature utili
 apply different styles to different regions of the text, and regular expressions to determine how to to highlight user input.
 
 .Activity diagram of depicting the events triggering text to be highlighted
-image::SyntaxHighlightingActivityDiagram.png[width=70%, align=center]
+image::SyntaxHighlightingActivityDiagram.png[]
 
 As it would be quite resource intensive to recalculate the syntax highlighting every time the user types,
 the updated highlighting is only computed after a delay of 300 milliseconds after the user stops typing.
