@@ -29,7 +29,7 @@ public class AddTagCommand extends Command {
             + "by the index number used in the displayed eatery list."
             + "The new tags will be added to the existing tags.\n"
             + "Parameters: [index] (must be a positive integer) "
-            + PREFIX_TAG + " [tag]...\n"
+            + "{" + PREFIX_TAG + " [tag]} ...\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_TAG + " good " + PREFIX_TAG + " elder-friendly";
 
     public static final String ADD_TAG_SUCCESS = "Tags successfully added";

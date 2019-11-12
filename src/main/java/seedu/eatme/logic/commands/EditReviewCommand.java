@@ -6,6 +6,7 @@ import static seedu.eatme.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.eatme.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.eatme.logic.parser.CliSyntax.PREFIX_RATING;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +34,7 @@ public class EditReviewCommand extends Command {
             + "{" + PREFIX_DESCRIPTION + " [description]} "
             + "{" + PREFIX_COST + " [cost]} "
             + "{" + PREFIX_RATING + " [rating]} "
-            + "{" + PREFIX_DATE + " [date] (in dd/mm/yyyy format)}"
+            + "{" + PREFIX_DATE + " [date] (in dd/mm/yyyy format)}\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_COST + " 15";
 
     public static final String MESSAGE_EDITED_REVIEW_SUCCESS = "Review successfully edited";
@@ -71,6 +72,7 @@ public class EditReviewCommand extends Command {
         lastShownList.set(index.getZeroBased(), editedReview);
         activeEatery.setReviews(lastShownList);
 
+        Collections.sort(lastShownList);
         return new CommandResult(MESSAGE_EDITED_REVIEW_SUCCESS, activeEatery);
     }
 

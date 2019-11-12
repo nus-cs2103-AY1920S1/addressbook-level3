@@ -2,7 +2,6 @@ package seedu.eatme.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collections;
 import java.util.List;
 
 import seedu.eatme.commons.core.Messages;

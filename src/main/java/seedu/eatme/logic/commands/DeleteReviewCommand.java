@@ -2,6 +2,7 @@ package seedu.eatme.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collections;
 import java.util.List;
 
 import seedu.eatme.commons.core.Messages;
@@ -44,6 +45,7 @@ public class DeleteReviewCommand extends Command {
         lastShownList.remove(targetIndex.getZeroBased());
         activeEatery.setReviews(lastShownList);
 
+        Collections.sort(lastShownList);
         return new CommandResult(MESSAGE_DELETE_REVIEW_SUCCESS, activeEatery);
     }
 
