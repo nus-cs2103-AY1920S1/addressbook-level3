@@ -106,14 +106,14 @@ are valid inputs.
 
 Format: `help`
 
-// tag::undo[]
 === Undo and Redo
+// tag::undo[]
 ==== Undo the previous command : `undo`
 
 Did something wrong? You can undo it.
 
-However, do keep in mind that you can only undo commands that modify the data in MooLah, such as `addexpense`,
-`deleteexpense-primary`, and so on. Head over to <<Command Summary>> for list of commands that are undoable.
+However, do keep in mind that you can only undo commands that modify the data in MooLah, such as `addexpense`, `deleteexpense-primary`, and so on.
+Head over to https://ay1920s1-cs2103t-t11-1.github.io/main/UserGuide.html#command-summary["Command Summary" section] for list of commands that are undoable.
 
 Do not worry if you forgot what you did a few steps back (it happens!). MooLah will display a short description of what
 particular command it undid to help you confirm that you undid the right thing.
@@ -121,13 +121,23 @@ particular command it undid to help you confirm that you undid the right thing.
 Format: `undo`
 
 Example:
+
+Let's say you just added a new expense...
 ----
-deleteexpense-primary 5
+addexpense d/bowling p/10 c/entertainment
+----
+.The state of MooLah after adding the "bowling" expense
+image::undo1.png[pdfwidth=70%, align=center]
+
+But you added it to the wrong budget! You wish to undo the mistake now...
+----
 undo
 ----
-Result:
-The deletion of expense #5 in the primary budget will be undone, or in other words, re-added back to MooLah.
-MooLah will then display the message `Undid "Delete expense with index 5"`.
+And MooLah will undo it for you and return the data to the way it was before. Also, it will
+display `Undid "Add expense bowling (10.00)"` in the result display for reference. Phew!
+
+.The state of MooLah after undoing the expense addition
+image::undo2.png[pdfwidth=70%, align=center]
 
 // end::undo[]
 
@@ -141,14 +151,13 @@ Similar to undo, MooLah will display a short description of the command it redid
 Format: `redo`
 
 Example:
+Continuing the example in the "undo" section... suppose now you think that the "bowling" expense is in the right place after all, and you wish to do the addition again.
 ----
-deleteexpense-primary 5
-undo
 redo
 ----
 Result:
-At the end, expense #5 in the primary budget will keep being deleted (poor thing!).
-MooLah will also display a message `Redid "Delete expense with index 5"`.
+At the end, the "bowling" expense will be re-added back to MooLah. Yay!
+MooLah will also display a message `Redid "Add expense bowling (10.00)"` for reference.
 
 // end::redo[]
 
@@ -299,13 +308,15 @@ image:entertainment.png[width=70] Entertainment +
 image:others.png[width=70] Others
 ****
 
+// tag::addmenuexpense[]
 ==== Adding an expense from NUS canteens' menu : `addmenuexpense`
 
 This is what makes MooLah special for NUS students.
 Shortcut your way to adding expenses for foods and drinks in NUS!
 
-Currently, MooLah only supports just a handful of menu items, though. Head over to our <<Menu Items List, menu items list>> to see the
-supported menu items. A more comprehensive menu list is on its way in v2.0!
+Currently, MooLah only supports just a handful of menu items, though. Head over to our
+https://ay1920s1-cs2103t-t11-1.github.io/main/UserGuide.html#menu-items-list["Menu Items List" section]
+to see the supported menu items. A more comprehensive menu list is on its way in v2.0!
 
 Format:
 ----
@@ -319,6 +330,7 @@ addmenuexpense m/deck chicken rice
 
 This will add a new expense that corresponds to The Deck's Chicken Rice and MooLah will automatically fill in
 the description, price, and category for you.
+// end::addmenuexpense[]
 
 ==== Listing all expenses : `listexpense`
 
@@ -1173,7 +1185,6 @@ the data of your previous MooLah folder.
 * *Exit the app* : `exit`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Clear MooLah* : `clearmoolah`
 
 ---
 
@@ -1183,6 +1194,9 @@ the data of your previous MooLah folder.
 `addexpense d/<DESCRIPTION> p/<PRICE>  c/<CATEGORY> [t/<TIME>]` +
 e.g. `addexpense d/Chicken Rice p/2.50 t/15-09-2019 1230 c/Food`
 
+* *Add menu-item expense* (_undoable_) : +
+`addmenuexpense m/<MENU_ITEM> [t/<TIME>]` +
+e.g. `addmenuexpense m/deck chicken rice`
 
 * *List all expenses* : +
 `listexpense`
@@ -1256,8 +1270,9 @@ e.g. `statstrend sd/11-11-2018 ed/12-12-2018 mode/category`
 * *Add alias* (_undoable_) : `addalias a/<ALIAS_NAME> i/<INPUT>` +
 e.g. `addalias a/chicken rice i/ add d/ Chicken Rice p/2.50 c/Food`
 * *See all aliases* : `listalias`
-* *Delete an alias* : `deletealias <DESCRIPTION>`
+* *Delete an alias* (_undoable_): `deletealias <DESCRIPTION>`
 
+// tag::menuitemslist[]
 == Menu Items List
 
 This is the list of menu items that are supported by MooLah as of v1.4. More menu items are on its way in v2.0!
@@ -1265,10 +1280,11 @@ This is the list of menu items that are supported by MooLah as of v1.4. More men
 .List of menu items supported
 [width="59%",cols="30%,<25%",options="header",]
 |=======================================================================
-|Menu Item                       |Price
-|Deck Chicken Rice               |2.50
-|Finefood Western Combo Set Meal |7.50
-|YIH Nutella Waffle              |1.50
-|Deck Ice Milo                   |1.50
-|E2 Fried Fish Fillet            |3.50
+^|Menu Item                       ^|Price
+|Deck Chicken Rice               ^.^|2.50
+|Finefood Western Combo Set Meal ^.^|7.50
+|YIH Nutella Waffle              ^.^|1.50
+|Deck Ice Milo                   ^.^|1.50
+|E2 Fried Fish Fillet            ^.^|3.50
 |=======================================================================
+// end::menuitemslist[]

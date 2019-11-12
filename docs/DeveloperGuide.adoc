@@ -265,10 +265,10 @@ To support these capabilities, `ModelChanges` offers these methods as well:
 
 Refer to the class diagram below for comprehensive list of the methods offered and the association of both classes:
 
-image::ModelHistory.png[]
+image::ModelHistory.png[width=70%,pdfwidth=80%,align=center]
 
 [NOTE]
-Typical field accessor and mutator methods are omitted for brevity, except when it returns a different type from the field's type (e.g. `ModelChanges#getMooLah()`)
+Typical field accessor and mutator methods are omitted for brevity, except when it returns a different type from the field's type (e.g. `ModelChanges#getMooLah()`).
 
 `ModelHistory` only stores changes of models that were (or are going to be) executed by model-manipulating - or simply, undoable - commands.
 As some of the commands available are intuitively not undoable (e.g. `help`), every command is configured to extend either `UndoableCommand` or a non-undoable `Command` classes.
@@ -278,34 +278,34 @@ Given below is an example usage scenario and how the undo and redo functionality
 
 Step 1. The user launches the application for the first time. The current `ModelHistory` is now empty.
 
-image::UndoRedoState0.png[]
+image::UndoRedoState0.png[width=35%,pdfwidth=35%,align=center]
 
 Step 2. The user executes `addexpense d/chicken rice p/2.50 c/food` command to add an expense.
 The `addexpense` command, being an `UndoableCommand`, calls `Model#commit(String, Model)`, which saves the state of the model just before the command executes to `pastChanges`, and `futureChanges` is cleared.
 
-image::UndoRedoState1.png[]
+image::UndoRedoState1.png[width=40%,pdfwidth=50%,align=center]
 
 Step 3. The user executes `deleteexpense-primary 1` to delete the first expense on the list. The `deleteexpense-primary` command, also an `UndoableCommand`, calls `Model#commit(String, Model)`, inserting another entry to the `pastChanges` and clearing `futureChanges` again.
 
-image::UndoRedoState2.png[]
+image::UndoRedoState2.png[width=35%,pdfwidth=40%,align=center]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commit(String, Model)`, so the model will not be saved into `ModelHistory`.
 
 Step 4. The user now decides that deleting the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#rollback()`, which will retrieve the immediate previous change in history, adding the reverting change to the future history of the model, and applies the change to the model.
 
-image::UndoRedoState3.png[]
+image::UndoRedoState3.png[width=35%,pdfwidth=40%,align=center]
 
 [NOTE]
 If `pastChanges` is empty, then there are no previous changes to roll back. The `undo` command uses `Model#canRollback()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 Step 5. The user then realizes the expense should be deleted after all, and wishes to redo the deletion by entering the `redo` command. The command will call `Model#migrate()`, which will get the immediate next change in history, adding the reverting change to the past history, and applies the change to the model.
 
-image::UndoRedoState4.png[]
+image::UndoRedoState4.png[width=40%,pdfwidth=50%,align=center]
 
 The following sequence diagram shows how the undo command works:
 
-image::UndoSequenceDiagram.png[]
+image::UndoSequenceDiagram.png[width=70%,pdfwidth=50%,align=center]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -317,7 +317,7 @@ If `futureChanges` is empty, then there are no snapshots to be redone. The `redo
 As explained earlier, additions of entry to `ModelHistory` will only be performed when the command being executed is an instance of `UndoableCommand`.
 The following diagram briefly describes how the execution of undoable commands will do so:
 
-image::UndoableCommandActivityDiagram.png[]
+image::UndoableCommandActivityDiagram.png[width=40%,pdfwidth=40%,align=center]
 
 ==== Design Considerations
 In implementing the undo and redo functionality, some design approaches and trade-offs have to be considered to account
@@ -362,17 +362,17 @@ look up the list of expenses in `Menu` that matches the description, and if ther
 
 See the class diagram below for available methods on `Menu` and `MenuItem`:
 
-image::Menu.png[]
+image::Menu.png[width=30%,align=center]
 
 Given below is an example usage scenario and how the add menu-item expense feature is processed within MooLah:
 
-image::AddMenuExpenseSequenceDiagram.png[]
+image::AddMenuExpenseSequenceDiagram.png[width=100%,align=center]
 
 ==== Design Considerations
 
 ===== Aspect: The command the feature should be under
 * Alternative 1: Modify the general add expense command to accept menu-item expense format and user-defined expense format.
-** Pros: This format is quite natural for end-users.
+** Pros: This approach is quite natural for end-users to use as menu-item expense is essentially a shorthand for user-defined expense.
 ** Cons: MooLah has to support command option groups to enable multiple sets of required prefixes on the same command word.
 * Alternative 2: Create a new command for the adding menu-item expenses
 ** Pros: This approach is easier to implement.
@@ -1624,15 +1624,27 @@ Deleting an expense while all expenses are listed
 .. Other incorrect delete commands to try: `deleteexpense`, `deleteexpense x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-=== Undo and redo
+=== Adding a menu-item expense
+
+Adding an expense from a menu-item instead of manually define the expense data.
 
 .. Prerequisites: None.
-.. Test case: `addexpense d/pasta p/7.0 c/food` continued with `undo` +
-   Expected: The
-.. Test case: `addbudget d/fun p/300 sd/05-09 pr/month` continued with `undo` and then `redo` +
-   Expected: The "fun" budget is still being added to MooLah.
+.. Test case: `addmenuexpense m/deck chicken rice` +
+   Expected: An expense "Deck Chicken Rice" is added to the list. Details of the expense added is shown in the result display.
+.. Test case: `addmenuexpense m/bubble tea` +
+   Expected: No expense is added as the description provided does not match any supported menu items in MooLah.
+
+=== Undo and redo
+
+Undo and redo operations to an undoable command.
+
+.. Prerequisites: None.
 .. Test case: `undo` +
    Expected: MooLah will display an error stating that nothing can be undone.
+.. Test case: `addexpense d/pasta p/7.0 c/food` continued with `undo` +
+   Expected: The addition of the "pasta" expense will be undone. MooLah will display the undo message in the result display.
+.. Test case: `addbudget d/fun p/300 sd/05-09 pr/month` continued with `undo` and then `redo` +
+   Expected: The "fun" budget will continue to be added to MooLah.
 
 === Adding a budget
 

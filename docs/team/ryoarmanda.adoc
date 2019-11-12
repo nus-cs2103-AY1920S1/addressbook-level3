@@ -55,12 +55,12 @@ namely:
 I improved some aspects of the original codebase to better complement my enhancements and to improve
 the quality of the project as a whole. For the improvements, I have:
 
-* Separated command validation from execution https://github.com/AY1920S1-CS2103T-T11-1/main/pull/[#85]
+* Separated command validation from execution https://github.com/AY1920S1-CS2103T-T11-1/main/pull/85[#85]
 
 ==== Community
 As part of a project community with my teammates, I have done the following as contributions to the group discussion:
 
-* Reviewing pull requests (with in-depth comments): https://github.com/AY1920S1-CS2103T-T11-1/main/pull/[#62], https://github.com/AY1920S1-CS2103T-T11-1/main/pull/[#89]
+* Reviewing pull requests (with in-depth comments): https://github.com/AY1920S1-CS2103T-T11-1/main/pull/62[#62], https://github.com/AY1920S1-CS2103T-T11-1/main/pull/89[#89]
 
 ==== Integration Tools
 I have incorporated third-party tools to help automate or manage the development of the project. In summary, I have:
@@ -70,7 +70,6 @@ I have incorporated third-party tools to help automate or manage the development
 
 == Contributions to the User Guide
 
-
 |===
 |_Below are the *major* sections that I contributed to the User Guide. These showcase my ability to write documentation targeting end-users._
 |===
@@ -78,6 +77,8 @@ I have incorporated third-party tools to help automate or manage the development
 include::../UserGuide.adoc[tag=undo]
 
 include::../UserGuide.adoc[tag=redo]
+
+include::../UserGuide.adoc[tag=addmenuexpense]
 
 == Contributions to the Developer Guide
 
