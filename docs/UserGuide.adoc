@@ -106,14 +106,14 @@ are valid inputs.
 
 Format: `help`
 
-// tag::undo[]
 === Undo and Redo
+// tag::undo[]
 ==== Undo the previous command : `undo`
 
 Did something wrong? You can undo it.
 
-However, do keep in mind that you can only undo commands that modify the data in MooLah, such as `addexpense`,
-`deleteexpense-primary`, and so on. Head over to <<Command Summary>> for list of commands that are undoable.
+However, do keep in mind that you can only undo commands that modify the data in MooLah, such as `addexpense`, `deleteexpense-primary`, and so on.
+Head over to https://ay1920s1-cs2103t-t11-1.github.io/main/UserGuide.html#command-summary["Command Summary" section] for list of commands that are undoable.
 
 Do not worry if you forgot what you did a few steps back (it happens!). MooLah will display a short description of what
 particular command it undid to help you confirm that you undid the right thing.
@@ -121,13 +121,23 @@ particular command it undid to help you confirm that you undid the right thing.
 Format: `undo`
 
 Example:
+
+Let's say you just added a new expense...
 ----
-deleteexpense-primary 5
+addexpense d/bowling p/10 c/entertainment
+----
+.The state of MooLah after adding the "bowling" expense
+image::undo1.png[pdfwidth=70%, align=center]
+
+But you added it to the wrong budget! You wish to undo the mistake now...
+----
 undo
 ----
-Result:
-The deletion of expense #5 in the primary budget will be undone, or in other words, re-added back to MooLah.
-MooLah will then display the message `Undid "Delete expense with index 5"`.
+And MooLah will undo it for you and return the data to the way it was before. Also, it will
+display `Undid "Add expense bowling (10.00)"` in the result display for reference. Phew!
+
+.The state of MooLah after undoing the expense addition
+image::undo2.png[pdfwidth=70%, align=center]
 
 // end::undo[]
 
@@ -141,14 +151,13 @@ Similar to undo, MooLah will display a short description of the command it redid
 Format: `redo`
 
 Example:
+Continuing the example in the "undo" section... suppose now you think that the "bowling" expense is in the right place after all, and you wish to do the addition again.
 ----
-deleteexpense-primary 5
-undo
 redo
 ----
 Result:
-At the end, expense #5 in the primary budget will keep being deleted (poor thing!).
-MooLah will also display a message `Redid "Delete expense with index 5"`.
+At the end, the "bowling" expense will be re-added back to MooLah. Yay!
+MooLah will also display a message `Redid "Add expense bowling (10.00)"` for reference.
 
 // end::redo[]
 
@@ -242,9 +251,6 @@ Please refer to http://natty.joestelmach.com/ for documentation and more informa
 Natty naturally parses all datetime formats in the American format (e.g. MM/dd, MM-dd).
 In MooLah however, we have modified the parser such that all formats are parsed in the international format (e.g. dd/MM).
 So, the tryout page on Natty's official website will parse dates differently in this aspect.
-[NOTE]
-The seconds or even nanoseconds you add to your datetime inputs won't be processed by MooLah! (i.e. all seconds and
-nanoseconds are rounded down to 0.)
 
 // end::natty[]
 
@@ -264,7 +270,7 @@ addexpense d/<DESCRIPTION> p/<PRICE> c/<CATEGORY> [t/TIMESTAMP]
 ****
 * If you don't specify the time, your expense will be added with its time being the current system time.
 * You cannot input an expense from the future. There's a better way to do that, see <<Adding an event: `addevent`, here>>!
-* You should only input one of the following into the CATEGORY field: `FOOD`, `TRAVEL`, `TRANSPORT`,
+* You should only input one of the following into the <CATEGORY> field: `FOOD`, `TRAVEL`, `TRANSPORT`,
 `SHOPPING`, `UTILITIES`, `HEALTHCARE`, `ENTERTAINMENT`, `EDUCATION`, `OTHERS`.
 These categories are case-insensitive.
 ****
@@ -295,17 +301,20 @@ image:education.png[width=70] Education +
 image:travel.png[width=70] Travel +
 image:utilities.png[width=70] Utilities +
 image:shopping.png[width=70] Shopping +
+image:healthcare.png[width=70] Healthcare +
 image:entertainment.png[width=70] Entertainment +
 image:others.png[width=70] Others
 ****
 
+// tag::addmenuexpense[]
 ==== Adding an expense from NUS canteens' menu : `addmenuexpense`
 
 This is what makes MooLah special for NUS students.
 Shortcut your way to adding expenses for foods and drinks in NUS!
 
-Currently, MooLah only supports just a handful of menu items, though. Head over to our <<Menu Items List, menu items list>> to see the
-supported menu items. A more comprehensive menu list is on its way in v2.0!
+Currently, MooLah only supports just a handful of menu items, though. Head over to our
+https://ay1920s1-cs2103t-t11-1.github.io/main/UserGuide.html#menu-items-list["Menu Items List" section]
+to see the supported menu items. A more comprehensive menu list is on its way in v2.0!
 
 Format:
 ----
@@ -319,6 +328,7 @@ addmenuexpense m/deck chicken rice
 
 This will add a new expense that corresponds to The Deck's Chicken Rice and MooLah will automatically fill in
 the description, price, and category for you.
+// end::addmenuexpense[]
 
 ==== Listing all expenses : `listexpense`
 
@@ -352,6 +362,7 @@ image::editexpense_after.png[width=500,align=center]
 image::editexpense_during.png[width=350,align=center]
 
 * The index *must be a positive integer* 1, 2, 3, ...
+* You cannot edit an expense to have a future timestamp!
 * You must provide at least one of the optional fields.
 * Existing values will be updated to the input values.
 ****
@@ -418,12 +429,12 @@ Deletes the 1st expense in the results of the `findexpense` command.
 
 === Event-related Commands
 
-Events are pretty similar to expenses, except that they denote potential expenses that they may happen in the future.
+Events are pretty similar to expenses, except that they denote potential expenses that may happen in the future.
 You should use this feature to keep track of future important events in your life that would require you to spend some money
 (e.g. your friends' birthdays).
 
-At launch, MooLah will remind you of your upcoming events. Any transpired events also appear as popups,
-asking you whether you wish to add these events as corresponding expenses.
+At launch, MooLah will remind you of your upcoming events. While using MooLah, any transpired events also appear as popups,
+prompting you whether you wish to add these events as corresponding expenses.
 
 image::TranspiredEventsPopup.png[width="790"]
 
@@ -431,13 +442,13 @@ image::TranspiredEventsPopup.png[width="790"]
 Once an event has transpired, it is permanently deleted from MooLah and you cannot get it back! Undoing MooLah to a state where
 that event was still present would not restore the event.
 [NOTE]
-MooLah updates time every 10 seconds, so you may experience a slight delay of 10 seconds maximum when it comes to
+MooLah checks for transpired events every 2 seconds, so you may experience a very slight delay when it comes to
 event popups! +
 A popup would also not appear if the transpired event has had its corresponding budget deleted.
 
 ==== Adding an event: `addevent`
 
-Events share the same fields as expenses, so you add them the same way.
+Events share the same fields as expenses, so you add them in the same way, albeit with a different command word.
 
 Format:
 ----
@@ -445,8 +456,6 @@ addevent d/<DESCRIPTION> p/<PRICE> c/<CATEGORY> t/<TIMESTAMP>
 ----
 ****
 * Events are potential future expenses, so the `TIMESTAMP` field is compulsory and must contain a future time.
-* Due to how MooLah rounds all seconds to zero, inputting events with very precise timings such as `1 second from now`
-will likely result in errors since MooLah will interpret it as a past datetime input.
 * You should only input one of the following into the `CATEGORY` field:
 `FOOD`, `TRAVEL`, `TRANSPORT`, `SHOPPING`, `UTILITIES`, `HEALTHCARE`, `ENTERTAINMENT`, `EDUCATION`, `OTHERS`.
 These categories are case-insensitive.
@@ -459,7 +468,7 @@ Examples:
 
 ==== Listing all events : `listevent`
 
-You can list every single event you have added into MooLah.
+You can list every single event currently tracked by MooLah.
 
 Format:
 ----
@@ -485,6 +494,8 @@ This will update the price of the 2nd event in the current list to be 300.
 ****
 * Edits the event at the specified `INDEX`. The index refers to the index number shown in the currently displayed list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* Unlike editing expenses, you can edit events to have past timestamps! This is to accommodate cases
+where your event happened earlier than expected.
 * You must provide at least one of the optional fields.
 * Existing values will be updated to the input values.
 ****
@@ -509,7 +520,7 @@ Examples:
 listevent
 delete 2
 ----
-Deletes the 2nd event in the list of events, shown by `listevent`.
+This will delete the 2nd event in the list of events, shown by `listevent`.
 
 // end::events[]
 
@@ -517,10 +528,10 @@ Deletes the 2nd event in the list of events, shown by `listevent`.
 === Let's Do Budgeting
 
 Feel a need to cut your spending? Try MooLah's awesome budgeting feature!
-It can help you cultivate better financial management habits in the following ways:
+It can help you cultivate healthier saving habits and better financial management skills, in these following ways:
 
 * Each budget has a progress bar with a percentage (rounded to the nearest integer), which indicates how much you have
-spent as a proportion to the limit.
+spent as a proportion to the budget limit.
 * The color of the progress bar implies the following 4 status:
 - *GREEN*: `0% - 49%` of the limit.
 - *YELLOW*: `50% - 89%` of the limit (MooLah will notify you're halfway through)
@@ -552,10 +563,12 @@ The year in <START_DATE> is optional, i.e. you can simply input `01-10` and the 
 to the current year. +
 The <START_DATE> can be any time in the past or future, the budget period will *automatically
 normalize to the current period*.
-For example, if today is `23-10-2019`, when you type `sd/01-07 pr/month`, the resulting budget period
+For example, suppose today is `23-10-2019`, when you type `sd/01-07 pr/month`, the resulting budget period
 will be `01-10-2019 to 31-10-2019`, since that's the period anchored by today's date. +
 All budgets are *recurring*. Continuing from the example above, on 1 Nov 2019, you'll see the budget's period refreshed
-to `01-11-2019 to 30-11-2019`, and all past expenses archived, giving you an empty budget panel to start with.
+to `01-11-2019 to 30-11-2019`, and all past expenses archived, giving you an empty budget panel to start with. +
+When you add an expense that's not within the current budgeting period, the budget panel will stay at the current
+period. To see the expense you've just added, switch to that corresponding period first. See <<View Expenses in a Different Period: `switchperiod`>>
 
 ==== Switch Between Budgets : `switchbudget`
 Now that you've successfully added a few different budgets, wonder how to toggle between them? Try this magical command:
@@ -608,7 +621,7 @@ editbudget 2 d/school expenses p/400 sd/05-10
 
 It will change to `school expenses`, capped at `$400`, refreshed on `the 5th of each month`.
 
-NOTE: You can choose to edit any of these 4 attributes of a budget: `DESCRIPTION`, `AMOUNT`, `START_DATE`
+NOTE: You may choose to edit any of these 4 attributes of a budget: `DESCRIPTION`, `AMOUNT`, `START_DATE`
 and `PERIOD`, more than one at a time.
 
 ==== Delete a Budget (by Name) : `deletebudget`
@@ -663,7 +676,8 @@ You'll see all expenses tracked under `school` from `1 May to 31 May` this year.
 
 NOTE: The time machine can only travel *back* in time! That is, you will only be able to switch to periods
 *before or equal to* the current period. If the date you enter is in a future period, you'll need to input again. +
-Only expenses tracked under *the current budget* are shown.
+Only expenses tracked under *the current budget* are shown. +
+To switch back to the current period, type `switchperiod t/now`.
 
 ==== Edit Expenses Inside a Budget: `editexpense-primary`
 When you are staring at the primary budget panel, and suddenly want to modify an expense...
@@ -1188,7 +1202,6 @@ the data of your previous MooLah folder.
 * *Exit the app* : `exit`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Clear MooLah* : `clearmoolah`
 
 ---
 
@@ -1198,11 +1211,14 @@ the data of your previous MooLah folder.
 `addexpense d/<DESCRIPTION> p/<PRICE>  c/<CATEGORY> [t/<TIME>]` +
 e.g. `addexpense d/Chicken Rice p/2.50 t/15-09-2019 1230 c/Food`
 
+* *Add menu-item expense* (_undoable_) : +
+`addmenuexpense m/<MENU_ITEM> [t/<TIME>]` +
+e.g. `addmenuexpense m/deck chicken rice`
 
 * *List all expenses* : +
 `listexpense`
 
-* *Edit an expenses* (_undoable_) : +
+* *Edit an expense* (_undoable_) : +
 `editexpense <INDEX> [d/<DESCRIPTION>] [p/<PRICE>]  [c/<CATEGORY>] [t/<TIME>]` +
 e.g. `editexpense 1 p/2.50 t/15-09-2019 1230 c/Food`
 
@@ -1271,8 +1287,9 @@ e.g. `statstrend sd/11-11-2018 ed/12-12-2018 mode/category`
 * *Add alias* (_undoable_) : `addalias a/<ALIAS_NAME> i/<INPUT>` +
 e.g. `addalias a/chicken rice i/ add d/ Chicken Rice p/2.50 c/Food`
 * *See all aliases* : `listalias`
-* *Delete an alias* : `deletealias <DESCRIPTION>`
+* *Delete an alias* (_undoable_): `deletealias <DESCRIPTION>`
 
+// tag::menuitemslist[]
 == Menu Items List
 
 This is the list of menu items that are supported by MooLah as of v1.4. More menu items are on its way in v2.0!
@@ -1280,10 +1297,11 @@ This is the list of menu items that are supported by MooLah as of v1.4. More men
 .List of menu items supported
 [width="59%",cols="30%,<25%",options="header",]
 |=======================================================================
-|Menu Item                       |Price
-|Deck Chicken Rice               |2.50
-|Finefood Western Combo Set Meal |7.50
-|YIH Nutella Waffle              |1.50
-|Deck Ice Milo                   |1.50
-|E2 Fried Fish Fillet            |3.50
+^|Menu Item                       ^|Price
+|Deck Chicken Rice               ^.^|2.50
+|Finefood Western Combo Set Meal ^.^|7.50
+|YIH Nutella Waffle              ^.^|1.50
+|Deck Ice Milo                   ^.^|1.50
+|E2 Fried Fish Fillet            ^.^|3.50
 |=======================================================================
+// end::menuitemslist[]

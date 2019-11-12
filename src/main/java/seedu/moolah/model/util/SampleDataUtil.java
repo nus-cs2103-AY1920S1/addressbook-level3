@@ -37,16 +37,54 @@ public class SampleDataUtil {
 
     public static Expense[] getSampleExpenses() {
         return new Expense[] {
+
+            new Expense(new Description("Si Chuan cuisine"), new Price("25.70"),
+                    getCategory("food"), Timestamp.createTimestampIfValid("09-11").get(),
+                    NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Li Ji Coffeehouse"), new Price("17.90"),
+                    getCategory("food"), Timestamp.createTimestampIfValid("07-11").get(),
+                    NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Waa Cow"), new Price("33.80"),
+                    getCategory("food"), Timestamp.createTimestampIfValid("02-11").get(),
+                    NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Indian prata"), new Price("3.50"),
+                    getCategory("food"), Timestamp.createTimestampIfValid("12-11").get(),
+                    NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Orange juice"), new Price("2.00"),
+                    getCategory("food"), Timestamp.createTimestampIfValid("10-11").get(),
+                    NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Bread"), new Price("2.30"),
+                    getCategory("food"), Timestamp.createTimestampIfValid("08-11").get(),
+                    NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Egg tart"), new Price("1.50"),
+                    getCategory("food"), Timestamp.createTimestampIfValid("06-11").get(),
+                    NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Macaron"), new Price("4.00"),
+                    getCategory("food"), Timestamp.createTimestampIfValid("04-11").get(),
+                    NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Japanese ramen"), new Price("10.70"),
+                    getCategory("food"), Timestamp.createTimestampIfValid("03-11").get(),
+                    NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+
+            new Expense(new Description("Pasta"), new Price("6.80"),
+                    getCategory("food"), Timestamp.createTimestampIfValid("01-11").get(),
+                    NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
             new Expense(new Description("Chicken Rice"), new Price("4.80"),
                     getCategory("food"), Timestamp.createTimestampIfValid("31-10").get(),
                     NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
             new Expense(new Description("Yong Tau Foo"), new Price("5.20"),
                     getCategory("food"), Timestamp.createTimestampIfValid("29-10").get(),
-                    NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
-
-            new Expense(new Description("Pasta"), new Price("6.80"),
-                    getCategory("food"), Timestamp.createTimestampIfValid("01-11").get(),
                     NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
             new Expense(new Description("Taiwan Ichiban"), new Price("5.00"),
@@ -60,7 +98,6 @@ public class SampleDataUtil {
             new Expense(new Description("Mala Hotpot"), new Price("10.30"),
                     getCategory("food"), Timestamp.createTimestampIfValid("04-10").get(),
                     NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
-
 
             new Expense(new Description("Chicken rice"), new Price("3.50"),
                     getCategory("food"), Timestamp.createTimestampIfValid("28-10").get(),
@@ -87,8 +124,6 @@ public class SampleDataUtil {
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
 
-
-
             new Expense(new Description("Comfort Delgro Taxi"), new Price("20"),
                     getCategory("transport"), Timestamp.createTimestampIfValid("29-10").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
@@ -108,8 +143,6 @@ public class SampleDataUtil {
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
 
-
-
             new Expense(new Description("Levis"), new Price("30"),
                     getCategory("shopping"), Timestamp.createTimestampIfValid("30-10").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
@@ -125,9 +158,6 @@ public class SampleDataUtil {
             new Expense(new Description("Pull and Bears"), new Price("30"),
                     getCategory("shopping"), Timestamp.createTimestampIfValid("05-10").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
-
-
-
 
 
             new Expense(new Description("Giant"), new Price("10.70"),
@@ -148,9 +178,6 @@ public class SampleDataUtil {
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
 
-
-
-
             new Expense(new Description("Panadol"), new Price("20"),
                     getCategory("healthcare"), Timestamp.createTimestampIfValid("01-11").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
@@ -162,8 +189,6 @@ public class SampleDataUtil {
             new Expense(new Description("Lung Cancer operation"), new Price("30000"),
                     getCategory("healthcare"), Timestamp.createTimestampIfValid("28-10-2018").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
-
-
 
 
 
@@ -203,9 +228,6 @@ public class SampleDataUtil {
                     getCategory("entertainment"), Timestamp.createTimestampIfValid("16-10").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
-
-
-
             new Expense(new Description("Debt to Debby"), new Price("100"),
                     getCategory("others"), Timestamp.createTimestampIfValid("03-11").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
@@ -215,28 +237,50 @@ public class SampleDataUtil {
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
 
+            new Expense(new Description("Air ticket to Nanjing"), new Price("537"),
+                    getCategory("transport"), Timestamp.createTimestampIfValid("12-11").get(),
+                    HOLIDAY, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
+            new Expense(new Description("Floating Market"), new Price("248.90"),
+                    getCategory("shopping"), Timestamp.createTimestampIfValid("11-11").get(),
+                    HOLIDAY, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
+            new Expense(new Description("Wat Rong Khun"), new Price("36.10"),
+                    getCategory("travel"), Timestamp.createTimestampIfValid("10-11").get(),
+                    HOLIDAY, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
+            new Expense(new Description("Air Ticket to Chiang Mai"), new Price("153"),
+                    getCategory("transport"), Timestamp.createTimestampIfValid("08-11").get(),
+                    HOLIDAY, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
+            new Expense(new Description("King Power Duty Free Shop"), new Price("397.50"),
+                    getCategory("shopping"), Timestamp.createTimestampIfValid("07-11").get(),
+                    HOLIDAY, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
+            new Expense(new Description("Bangkok National Museum"), new Price("20.30"),
+                    getCategory("travel"), Timestamp.createTimestampIfValid("06-11").get(),
+                    HOLIDAY, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
+            new Expense(new Description("Pattaya Beach"), new Price("79.50"),
+                    getCategory("entertainment"), Timestamp.createTimestampIfValid("05-11").get(),
+                    HOLIDAY, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
+            new Expense(new Description("Bus to Pattaya"), new Price("22.70"),
+                    getCategory("transport"), Timestamp.createTimestampIfValid("04-11").get(),
+                    HOLIDAY, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
-
-
-
-            new Expense(new Description("Air Ticket"), new Price("349.56"),
-                    getCategory("transport"), Timestamp.createTimestampIfValid("01-11").get(),
+            new Expense(new Description("Concert"), new Price("247.26"),
+                    getCategory("entertainment"), Timestamp.createTimestampIfValid("03-11").get(),
                     HOLIDAY, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
             new Expense(new Description("Hotel"), new Price("117.91"),
                     getCategory("travel"), Timestamp.createTimestampIfValid("02-11").get(),
                     HOLIDAY, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
-            new Expense(new Description("Concert"), new Price("247.26"),
-                    getCategory("entertainment"), Timestamp.createTimestampIfValid("03-11").get(),
+            new Expense(new Description("Air Ticket"), new Price("349.56"),
+                    getCategory("transport"), Timestamp.createTimestampIfValid("01-11").get(),
                     HOLIDAY, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
 
             new Expense(new Description("Birthday"), new Price("175"),
                     getCategory("others"), Timestamp.createTimestampIfValid("05-06").get(),

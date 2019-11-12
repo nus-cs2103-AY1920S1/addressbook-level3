@@ -24,49 +24,45 @@ The following is a summary of my contributions to MooLah. I was mainly responsib
 
 * *Major enhancement*: I added *the ability to track events* in MooLah.
 ** What it does: This feature allows the user to add, edit and delete events, which are the user's important future
-activities that will generate corresponding expenses (e.g. a friend's birthday). MooLah reminds the user of upcoming
+activities that they have to spend money on (e.g. a friend's birthday). MooLah reminds the user of upcoming
 events, and on the day of the event, will automate the adding of the corresponding expense from the event.
-** Justification: Many of our users lead busy lives and may sometimes forget to input expenses from important events
-in their schedule, or may forget these events altogether. My feature solves this issue by letting users input a future event; MooLah
+** Justification: Many of our users lead busy lives and may sometimes forget to input expenses from important events that they attend, or may forget these events altogether. My feature solves this issue by letting users input a future event; MooLah
 then automates the reminding and the eventual adding of the expense from the event. Such a 'fire-and-forget' implementation
-greatly improves the quality-of-life of MooLah.
-** Highlights: Automating the reminding and adding of expenses from events required MooLah to keep constant track of
+greatly enhances convenience for the user.
+** Highlights: Automating the reminding and adding of expenses from events requires MooLah to keep constant track of
 system time. I also had to work closely with my teammate who implemented the budgeting feature as every event, and
 its corresponding expense, had to fall under the correct budget.
 
-This feature allows users to add, edit, switch, delete, clear budgets as well as switch the budget window
-to view expenses in a past period. It involves adjustments to the existing model, logic, UI components, and integrates
-well with the current implementation of other core features such as undoredo and statistics.
-
 * *Minor enhancements*: I implemented several time-based features in MooLah.
-** Fully implemented the Timestamp fields into MooLah's expenses and events, hence allowing users to keep track of when
+** Fully implemented the Timestamp field into MooLah's expenses and events, hence allowing users to keep track of when
 exactly their expenses and events happen.
 ** Implemented constant system-time checking in MooLah via the use of a timer that runs on a parallel thread. This allows
-MooLah to accurately refresh budgets and prompt users to add expenses from transpired events.
+MooLah to accurately refresh budgets and enables precise timekeeping of expenses, events and budgets. (https://github.com/AY1920S1-CS2103T-T11-1/main/pull/132[#132])
 ** Integrated, with some modifications, the third-party Natty library into MooLah. This allows MooLah to support
-natural language date-time parsing (e.g. 'tomorrow', '1 week ago').
+natural language date-time parsing. (https://github.com/AY1920S1-CS2103T-T11-1/main/pull/132[#132])
+** Improved the parsing and validity-checking of the Price field. (https://github.com/AY1920S1-CS2103T-T11-1/main/pull/216[#216])
 
 * https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=czkay&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=czkay&tabRepo=AY1920S1-CS2103T-T11-1%2Fmain%5Bmaster%5D[*Code contributed*]
 
 * *Other contributions*:
 
 ** Project management:
-*** Oversaw code quality across the project (i.e. made sure code adhered to good software engineering principles) (https://github.com/AY1920S1-CS2103T-T11-1/main/pull/288[Example])
-*** Managed and assigned issues that arose from the bug-testing session of the Mock Practical Examination
+*** Oversaw code quality across the project. (i.e. made sure code adhered to good software engineering principles) (https://github.com/AY1920S1-CS2103T-T11-1/main/pull/288[Example]).
+*** Managed and assigned issues that arose from the bug-testing session of the Mock Practical Examination.
 ** Testing:
-*** Refactored existing tests to include the newly added datetime field of expenses
+*** Refactored existing tests to include the newly added Timestamp field of expenses.
 ** Documentation:
 *** Wrote the https://ay1920s1-cs2103t-t11-1.github.io/main/UserGuide.html#natural-language-datetime-parsing[DateTime parsing]
-and https://ay1920s1-cs2103t-t11-1.github.io/main/UserGuide.html#basic-event-related-commands[Events] section of the User Guide
-*** Improved the https://ay1920s1-cs2103t-t11-1.github.io/main/UserGuide.html#basic-expense-related-commands[Expenses] section of the User Guide
+and https://ay1920s1-cs2103t-t11-1.github.io/main/UserGuide.html#basic-event-related-commands[Events] section of the User Guide.
+*** Improved the https://ay1920s1-cs2103t-t11-1.github.io/main/UserGuide.html#basic-expense-related-commands[Expenses] section of the User Guide.
 *** Wrote the https://ay1920s1-cs2103t-t11-1.github.io/main/DeveloperGuide.html#non-functional-requirements[Non-functional Requirements],
 https://ay1920s1-cs2103t-t11-1.github.io/main/DeveloperGuide.html#glossary[Glossary],
-and https://ay1920s1-cs2103t-t11-1.github.io/main/DeveloperGuide.html#product-survey[Product Survey] sections of the Developer Guide
-*** Added use cases for events in the https://ay1920s1-cs2103t-t11-1.github.io/main/DeveloperGuide.html#use-cases[Use Cases] section of the Developer Guide
+and https://ay1920s1-cs2103t-t11-1.github.io/main/DeveloperGuide.html#product-survey[Product Survey] sections of the Developer Guide.
+*** Added use cases for events in the https://ay1920s1-cs2103t-t11-1.github.io/main/DeveloperGuide.html#use-cases[Use Cases] section of the Developer Guide.
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T11-1/main/pull/84[#84],
-https://github.com/AY1920S1-CS2103T-T11-1/main/pull/100[#100]
-*** Gave suggestions for other teams in the module (https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/28#pullrequestreview-306302342[Example])
+https://github.com/AY1920S1-CS2103T-T11-1/main/pull/100[#100].
+*** Gave suggestions to other teams in the module (https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/28#pullrequestreview-306302342[Example]).
 
 == Contributions to the User Guide
 
@@ -75,6 +71,7 @@ https://github.com/AY1920S1-CS2103T-T11-1/main/pull/100[#100]
 They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=natty]
 include::../UserGuide.adoc[tag=events]
 
 == Contributions to the Developer Guide

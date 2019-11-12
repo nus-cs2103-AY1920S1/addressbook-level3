@@ -665,6 +665,8 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Creates a popup for warnings related to budget.
+     *
+     * @param message The message to be included in the popup notification.
      */
     public Popup createPopup(String message) {
         Popup popup = new Popup();
@@ -681,6 +683,8 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Handles the showing and disappearing of popup warnings.
+     *
+     * @param message The message to be included in the popup notification.
      */
     public void showPopupMessage(String message) {
         Popup popup = createPopup(message);
@@ -699,6 +703,9 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Determines if there is a need to show warnings, and shows the corresponding warnings.
+     *
+     * @param initialStatus A boolean array consisting of all initial flags of this budget status.
+     * @param finalStatus A boolean array consisting of all final flags of this budget status.
      */
     public void showWarningIfAny(boolean[] initialStatus, boolean[] finalStatus) {
 

@@ -1,9 +1,9 @@
 @startuml
 start
 :MooLah launches;
-if () then (json file found and \nin correct format)
+if () then (Json file found and \nin correct format)
     :add budgets from storage;
-else (json file not found or \nnot in correct format)
+else (Json file not found or \nnot in correct format)
     :create default budget;
     :set default budget to primary;
 endif
