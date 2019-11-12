@@ -61,11 +61,12 @@ public class HopcroftKarp {
         int numInterviewees = graph.getNumInterviewees();
         int numSlots = graph.getNumInterviewSlots();
 
-        intervieweePredecessor = Arrays.asList(new InterviewerSlotVertex[numInterviewees]);
+        intervieweePredecessor = new ArrayList<>(numInterviewees);
         interviewSlotPredecessors = new ArrayList<>(numSlots);
         usedInterviewees = new boolean[numInterviewees];
         usedSlots = new boolean[numSlots];
 
+        IntStream.range(0, numSlots).forEach(i -> intervieweePredecessor.add(null));
         IntStream.range(0, numSlots).forEach(i -> interviewSlotPredecessors.add(new LinkedList<>()));
     }
 

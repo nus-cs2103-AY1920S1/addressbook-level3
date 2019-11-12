@@ -48,8 +48,11 @@ public class ScheduleCommand extends Command {
                 model.resetScheduledResult();
             }
 
-            List<Interviewer> interviewers = new ArrayList<>(model.getUnfilteredInterviewerList());
-            List<Interviewee> interviewees = new ArrayList<>(model.getUnfilteredIntervieweeList());
+            List<Interviewer> interviewers = new ArrayList<>(model.getUnfilteredInterviewerList().size());
+            List<Interviewee> interviewees = new ArrayList<>(model.getFilteredIntervieweeList().size());
+
+            interviewees.addAll(model.getUnfilteredIntervieweeList());
+            interviewers.addAll(model.getFilteredInterviewerList());
 
             BipartiteGraph optimumGraph = findOptimumGraph(model, interviewers, interviewees);
             HopcroftKarp algorithm = new HopcroftKarp(optimumGraph);
