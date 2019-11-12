@@ -896,7 +896,7 @@ Alias and AliasMapping are in Model and not Core. This change has yet to be refl
 ****
 
 .AddAliasCommand execution Sequence Diagram
-image::HighLevelAddAliasSequenceDiagram.png[80]
+image::HighLevelAddAliasSequenceDiagram.png[]
 
 
 . The user enters a command with the following syntax `` addalias a/ <name> i/ <input>``.
