@@ -47,6 +47,7 @@ public class EditExpenseCommand extends UndoableCommand {
     public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense:\n %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in MooLah.";
+    public static final String MESSAGE_FUTURE_EXPENSE = "You cannot edit an expense to have a future timestamp!";
 
     private final Index index;
     private final EditExpenseDescriptor editExpenseDescriptor;
@@ -79,6 +80,11 @@ public class EditExpenseCommand extends UndoableCommand {
 
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
         Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
+
+        if (editedExpense.getTimestamp().isAfter(Timestamp.getCurrentTimestamp())) {
+            throw new CommandException(MESSAGE_FUTURE_EXPENSE);
+        }
+
         if (!expenseToEdit.isSameExpense(editedExpense) && model.hasExpense(editedExpense)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
         }

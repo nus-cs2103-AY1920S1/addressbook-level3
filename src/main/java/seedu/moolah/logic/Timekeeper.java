@@ -69,7 +69,7 @@ public class Timekeeper {
                 .toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime()
-                .withNano(0); // buffer to accommodate for system time only being updated every 0.5 seconds
+                .withNano(0); // to accommodate for system time only being updated every 0.05 seconds
     }
 
     /**

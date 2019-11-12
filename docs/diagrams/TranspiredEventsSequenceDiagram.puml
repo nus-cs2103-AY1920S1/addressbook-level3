@@ -19,34 +19,38 @@ end box
 [-> UiManager : start(primaryStage)
 activate UiManager
 
-loop every 10 seconds
-    UiManager -> Timekeeper : updateTime()
-    activate Timekeeper
+par
+    loop every 0.05 seconds
+        UiManager -> Timekeeper : updateTime()
+        activate Timekeeper
+    end
+    else
+    loop every 2 seconds
+        UiManager -> MainWindow : handleTranspiredEvents()
+        activate MainWindow
 
-    UiManager -> MainWindow : handleTranspiredEvents()
-    activate MainWindow
+        MainWindow -> Timekeeper : getTranspiredEvents()
 
-    MainWindow -> Timekeeper : getTranspiredEvents()
+        Timekeeper -> MainWindow : transpiredEvents
+        deactivate Timekeeper
 
-    Timekeeper -> MainWindow : transpiredEvents
-    deactivate Timekeeper
-
-    activate LogicManager
-    loop events in transpiredEvents
-        MainWindow -> LogicManager : deleteTranspiredEvent
-        create TranspiredEventsWindow
-        MainWindow -> TranspiredEventsWindow : show(event)
-        activate TranspiredEventsWindow
-        alt user presses yes
-        TranspiredEventsWindow -> TranspiredEventsWindow : addExpenseFromEvent()
-        activate TranspiredEventsWindow
-        TranspiredEventsWindow -> LogicManager : addExpenseFromEvent(event)
-        deactivate TranspiredEventsWindow
-        else user presses no
-        TranspiredEventsWindow -> TranspiredEventsWindow : ignore()
+        activate LogicManager
+        loop events in transpiredEvents
+            MainWindow -> LogicManager : deleteTranspiredEvent
+            create TranspiredEventsWindow
+            MainWindow -> TranspiredEventsWindow : show(event)
+            activate TranspiredEventsWindow
+            alt user presses yes
+            TranspiredEventsWindow -> TranspiredEventsWindow : addExpenseFromEvent()
+            activate TranspiredEventsWindow
+            TranspiredEventsWindow -> LogicManager : addExpenseFromEvent(event)
+            deactivate TranspiredEventsWindow
+            else user presses no
+            TranspiredEventsWindow -> TranspiredEventsWindow : ignore()
+            end
+            TranspiredEventsWindow --> MainWindow : void
+            destroy TranspiredEventsWindow
         end
-        TranspiredEventsWindow --> MainWindow : void
-        destroy TranspiredEventsWindow
     end
 end
 @enduml

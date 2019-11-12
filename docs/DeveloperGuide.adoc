@@ -654,7 +654,7 @@ The Events feature allows users to add events that are supposed to occur on a fu
 On launch, MooLah will remind users of upcoming events. While the app is open, MooLah will also notify the user about any events that have transpired,
 and allow them to automatically add these events as expenses.
 
-image::EventClassDiagram.png[width=70%, align=center]
+image::EventClassDiagram.png[align=center]
 
 Like expenses, events hold two Descriptions (one for its details and one for the budget it belongs to), a Price, a Timestamp
 and a Category. The `setBudget` method of Event is used for the Event to remember which budget it was added to. This facilitates
@@ -667,16 +667,16 @@ The Events feature supports the `addevent`, `deleteevent`, `editevent` and `list
 
 As mentioned earlier, MooLah displays reminders of upcoming events during launch. The implementation is shown below:
 
-image::DisplayReminders.png[width = 70%, align=center]
+image::DisplayReminders.png[align=center]
 
-To allow for accurate prompting of transpired events, MooLah tracks system time every 10 seconds using a `Timer` running
-on a parallel thread. An event is then deemed to have transpired if its timestamp has gone past system time.
+To allow for precise timekeeping of expenses and events as well as accurate prompting of transpired events, MooLah tracks system time every 0.05 seconds using a `Timer` running
+on a parallel thread. Using another `Timer`, MooLah then checks for transpired events every 2 seconds; an event is then deemed to have transpired if its timestamp has gone past system time.
 The following sequence diagram shows how MooLah handles transpired events:
 
-image::TranspiredEventsSequenceDiagram.png[]
+image::TranspiredEventsSequenceDiagram.png[align=center]
 
-1. When MooLah launches, the `start` method of `UiManager` is called. Every 10 seconds, `UiManager` calls `updateTime` of
-Timekeeper to update system time, then calls the `handleTranspiredEvents` of `MainWindow`, which fetches all transpired
+1. When MooLah launches, the `start` method of `UiManager` is called. Every 0.05 seconds, `UiManager` calls `updateTime` of
+Timekeeper to update system time. Concurrently, `UiManager` also calls the `handleTranspiredEvents` of `MainWindow` every 2 seconds, which fetches all transpired
 events and notifies the user about them. It does so by first obtaining the transpired events from the `Timekeeper` class.
 
 2. Once the transpired events have been obtained, for each transpired event, a new `TranspiredEventWindow` will be
@@ -1345,24 +1345,6 @@ Use case resumes at step 4.
 +
 Use case resumes at step 4.
 
-
-[discrete]
-=== Use case: Show reminders
-*MSS*
-
-1.  User requests to see reminders.
-2.  MooLah shows a list of reminders.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. There are no reminders.
-+
-Use case ends.
-
-
 [discrete]
 === Use case: Add event
 
@@ -1763,13 +1745,15 @@ Clearing all budgets in MooLah
    Expected: Similar to previous.
 
 === Testing of events
-.. Test case: `addevent d/ test p/ 10 c/ Shopping t/ a week from now` +
+
+.. Prerequisites: None.
+.. Test case: `addevent d/ test p/ 10 c/ Shopping t/ 1 week from now` +
    Expected: A success message will appear.
 .. Now, view the event list using either `listevent` or `view event list`. (Event commands can be inputted on any panel, but this is to facilitate the next step.) +
    Expected: The event with description `test` should be at the bottom of the event list.
-.. Edit the event via the command `editevent <INDEX> t/ now`, where <INDEX> is the index of the event you want to test. +
+.. Edit the `test` event via the command `editevent <INDEX> t/ 10 seconds ago`, where <INDEX> is the index of `test` in the list. +
    Expected: A success message will appear.
-.. Within 10 seconds, a popup will appear to prompt for the automatic addition of an expense corresponding to the event.
+.. Within 2 seconds, a popup will appear to prompt for the automatic addition of an expense corresponding to `test`.
 Pressing 'Yes' will add the expense into whichever primary budget you were on when you added the event. You can then view that budget
 to see that the expense has been added.
 
