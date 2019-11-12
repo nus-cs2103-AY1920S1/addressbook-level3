@@ -1301,11 +1301,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is `MooLah` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Add a budget and switch to it
+=== Use case: Adding a budget and switching to it
 
 *MSS*
 
-1.  User requests to add a budget and specifies budget name, amount, period and start date
+1.  User requests to add a budget and specifies budget name, amount, start date and period
 2.  MooLah shows success in creating new budget
 3.  User requests to switch to this budget by specifying the budget name
 4.  GUI switches to the budget and sets it as current primary budget for displaying and calculating expenses
@@ -1314,7 +1314,7 @@ Use case ends.
 
 *Extensions*
 
-* 1a. User misses any of the necessary parameters: budget name, amount, period or start date
+* 1a. User misses any of the necessary parameters: budget name, amount, start date or period
 +
 [none]
 ** 1a1. MooLah shows an error message and reminds the user to complete the parameters.
@@ -1347,7 +1347,7 @@ Use case resumes at step 4.
 
 
 [discrete]
-=== Use case: Show reminders
+=== Use case: Showing reminders
 *MSS*
 
 1.  User requests to see reminders.
@@ -1364,7 +1364,7 @@ Use case ends.
 
 
 [discrete]
-=== Use case: Add event
+=== Use case: Adding an event
 
 *MSS*
 
@@ -1542,7 +1542,6 @@ A user-defined keyword that represents a specific Expense, acting as a quality-o
 A means of interacting with a computer program where the user issues commands to the program in the form of successive lines of text.
 
 
-
 [appendix]
 == Product Survey
 
@@ -1612,6 +1611,30 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Adding an expense
+
+Adding an expense to MooLah
+
+.. Prerequisites: None.
+.. Test case: `addexpense d/chicken p/3.50 c/food` +
+   Expected: An expense "chicken" with price $3.50 and category "food" is added to MooLah. Details of the expense shown in the result display message.
+.. Test case: `addexpense d/chicken p/3.50` +
+   Expected: No expense is added. Error details shown in the result display message.
+.. Other incorrect addexpense commands to try: `addexpense`, `addexpense d/chicken` +
+   Expected: Similar to previous.
+
+=== Editing an expense
+
+Editing an expense while all expenses are listed
+
+.. Prerequisites: List all expenses using the `listexpense` command. Multiple expenses in the list.
+.. Test case: `editexpense 1 d/abc` +
+   Expected: First expense's description is edited to "abc". Details of the edited expense shown in the result display message.
+.. Test case: `editexpense 1` +
+   Expected: No expense is edited. Error details shown in the result display message.
+.. Other incorrect editexpense commands to try: `editexpense`, `editexpense d/abc`, `editexpense x d/abc` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
 === Deleting an expense
 
 Deleting an expense while all expenses are listed
@@ -1645,7 +1668,7 @@ Adding a budget to MooLah
    Expected: No budget is added. Error details shown in the result display message.
 .. Test case: `addbudget d/default budget` +
    Expected: No budget is added. Error details shown in the result display message.
-.. Other incorrect addbudget commands to try: `addbudget`, `addbudget p/100`, `addbudget p/0`
+.. Other incorrect addbudget commands to try: `addbudget`, `addbudget p/100`, `addbudget d/school p/0`
    Expected: Similar to previous.
 
 === Editing a budget
