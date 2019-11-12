@@ -21,7 +21,7 @@ By: `Team MooLah`      Since: `Aug 2019`      Licence: `MIT`
 
 == What is MooLah?
 
-Welcome to MooLah, your perfect personal financial assistant.
+Welcome to MooLah, your perfect personal finance assistant.
 
 MooLah is a powerful, hassle-free expense tracker, designed to boost your efficiency at managing your daily expenses.
 With MooLah, you can easily monitor expenses under multiple budgets, compare expenses across different periods, set
