@@ -267,7 +267,7 @@ Returns any grocery item which contains any of the word `milo`, `doughnut`, or `
 //tag::reminderfeature[]
 ==== Reminders on expiry dates: `glist rem`
 Display grocery list with all grocery items expiring within n days. +
-Format: `glist rem r/NUMBER_OF_DAYS` +
+Format: `glist rem [r/NUMBER_OF_DAYS]` +
 Display grocery list with all grocery items expiring within default number of days. +
 Format: `glist rem`
 
@@ -788,11 +788,15 @@ are expired and gives you an option to move them to your waste list.
 |Command |Description
 |`glist add n/ITEM_NAME e/EXPIRY_DATE a/AMOUNT [t/TAG]`| Adds a grocery item to the grocery list
 |`glist list`| Shows a list of grocery items in the grocery list
+|`glist remDefault r/NUMBER_OF_DAYS` | Display list with all food expiring within n days
+|`glist rem [r/NUMBER_OF_DAYS]`| Filters and displays all items expiring within the default number of days set by the user
 |`glist delete INDEX` | Deletes the specified grocery item from the grocery list when it is done being used. If the amount of the food item left > 0, the item will be moved to the waste list.
 |`glist use INDEX a/AMOUNT` | Reduces the amount left of a grocery item by the specified amount
 |`glist edit INDEX [n/ITEM_NAME] [e/EXPIRY_DATE] [t/TAG]` | Edits an existing item in the grocery list
 |`glist sort by/TYPE` | Sorts the grocery list based on the type of sorting
 |`glist find KEYWORD [MORE_KEYWORDS]` | Finds items whose name or tag contain any of the given keywords.
+|`glist undo`| Undoes the grocery list command, if possible
+|`glist redo`| Redoes the grocery list command, if possible
 |`wlist list [m/MONTH_OF_YEAR]` | Shows a list of the food items which have been wasted in the specified month
 |`wlist report [sm/START_MONTH] [em/END_MONTH]` | Shows a charted report detailing your food wastage statistics across a time frame
 |`wlist feedback` | Obtain feedback based on current food wastage
@@ -805,6 +809,8 @@ are expired and gives you an option to move them to your waste list.
 |`tlist template edit TEMPLATEINDEX i/ITEMINDEX [n/FOODITEM] [a/AMOUNT]` | Edits a specified item in the specified template TEMPLATENAME
 |`tlist template delete TEMPLATEINDEX i/ITEMINDEX` | Deletes the specified item from the specified template
 |`tlist template list TEMPLATEINDEX` | Shows all entries in the specified template
+|`tlist undo`| Undoes the template list command, if possible
+|`tlist redo`| Redoes the template list command, if possible
 |`slist add n/FOOD_ITEM a/AMOUNT` | Adds a new item to the shopping list
 |`slist addTemp INDEX`| Adds all template items that are not currently found in the grocery list into the shopping list
 |`slist edit INDEX [n/FOODNAME] [a/AMOUNT]` | Edits the name of a specified item in a shopping list
@@ -814,7 +820,8 @@ are expired and gives you an option to move them to your waste list.
 |`slist bought INDEX e/EXPIRYDATE a/AMOUNT` | Marks an item as bought and assigns a bought status to the ShoppingItem and expiry date and amount to corresponding BoughtItem
 |`slist mergebought` | Adds all items marked as ‘bought’ to the grocery list
 |`slist addTemp TEMPLATEINDEX`| Generates a shopping list from all missing grocery items in the template
-|`remDefault r/NUMBER_OF_DAYS` | Display list with all food expiring within n days
+|`slist undo`| Undoes the shopping list command, if possible
+|`slist redo`| Redoes the shopping list command, if possible
 |`exit`| Exits the program
 |`help` | Displays help
 |==========================
