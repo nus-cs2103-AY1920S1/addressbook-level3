@@ -1109,11 +1109,56 @@ MooLah data are saved in the hard disk automatically after any command that chan
 There is no need to save manually.
 
 === Encrypting data files `[coming in v2.0]`
+Hide sensitive data in you data files
 
 === Email notification `[coming in v2.0]`
+Send email notifications to remind you of upcoming events
+
 === Input expenses using speech `[coming in v2.0]`
+Add expenses and execute other commands by talking to MooLah
+
 === Input expenses by scanning a receipt `[coming in v2.0]`
+Add expenses and by taking a picture of your receipt
+
 === Splitting a shared bill `[coming in v2.0]`
+Did you pay a bill for your friends? Let us breakdown for you who pays for who.
+
+=== Budget planner `[coming in v2.0]`
+Plan how to allocate your money.
+
+=== Generate a saving plan `[coming in v2.0]`
+Have something you want to buy? Let us help you generate a good saving plan!
+
+=== Import and export your data `[coming in v2.0]`
+Easy data sharing
+
+=== Calculate your taxes `[coming in v2.0]`
+Calculate how much taxes you need to pay
+
+=== Currency Conversion `[coming in v2.0]`
+Change all your expenses to be displayed in a different currency!
+
+=== Privacy `[coming in v2.0]`
+Hide sensitive information
+
+=== Income tracking `[coming in v2.0]`
+Incorporating you income as well as expenses
+
+=== Predictions `[coming in v2.0]`
+Predict possible expenses and inputs based on your habits
+
+=== Printing expense statements `[coming in v2.0]`
+Pretty printing of your data
+
+=== Even better command-line `[coming in v2.0]`
+Dynamic input validation and highlighting of incorrect arguments
+
+=== Multiple-item expenses `[coming in v2.0]`
+Grouping expenses together
+
+=== Recurring expenses `[coming in v2.0]`
+Set an expense to recur daily, week, monthly, and more!
+
 
 == FAQ
 
