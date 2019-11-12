@@ -24,7 +24,7 @@ public class TabularStatistics implements Statistics {
 
     private Timestamp secondEndDate;
 
-    private int categorySize;
+    private int numOfCategories;
 
     private ObservableList<Expense> expenses;
 
@@ -43,7 +43,7 @@ public class TabularStatistics implements Statistics {
         this.firstEndDate = firstEndDate;
         this.secondStartDate = secondStartDate;
         this.secondEndDate = secondEndDate;
-        this.categorySize = Category.getNumValidCategory();
+        this.numOfCategories = Category.getNumValidCategory();
     }
 
     TabularStatistics(ObservableList<Expense> expenses,
@@ -52,7 +52,7 @@ public class TabularStatistics implements Statistics {
         this.expenses = expenses;
         this.firstStartDate = firstStartDate;
         this.firstEndDate = firstEndDate;
-        this.categorySize = Category.getNumValidCategory();
+        this.numOfCategories = Category.getNumValidCategory();
     }
 
     public List<FiveElementTableEntry> getUnionDifferenceTable() {
@@ -138,14 +138,14 @@ public class TabularStatistics implements Statistics {
      */
     List<List<Expense>> extractRelevantExpenses(Timestamp startDate, Timestamp endDate) {
         List<List<Expense>> data = new ArrayList<>();
-        for (int i = 0; i <= categorySize; i++) {
+        for (int i = 0; i <= numOfCategories; i++) {
             data.add(new ArrayList<>());
         }
 
         for (Expense expense : expenses) {
             Timestamp date = expense.getTimestamp();
             if (date.compareDateTo(startDate) != -1 && date.compareDateTo(endDate) != 1) {
-                data.get(categorySize).add(expense);
+                data.get(numOfCategories).add(expense);
                 int index = Category.indexOfInList(expense.getCategory());
                 data.get(index).add(expense);
             }
@@ -159,10 +159,10 @@ public class TabularStatistics implements Statistics {
     private void convertDataToFigures(List<List<Expense>> data,
                                       List<ThreeElementTableEntry> table) {
 
-        table.set(categorySize, new ThreeElementTableEntry("TOTAL", 0, 0));
-        ThreeElementTableEntry entryForTotal = table.get(categorySize);
+        table.set(numOfCategories, new ThreeElementTableEntry("TOTAL", 0, 0));
+        ThreeElementTableEntry entryForTotal = table.get(numOfCategories);
 
-        for (int i = 0; i < categorySize; i++) {
+        for (int i = 0; i < numOfCategories; i++) {
             List<Expense> categoryStats = data.get(i);
 
             double categoricalTotal = 0;
@@ -176,7 +176,7 @@ public class TabularStatistics implements Statistics {
             table.set(i, changes);
             entryForTotal = entryForTotal.add(changes);
         }
-        table.set(categorySize, entryForTotal);
+        table.set(numOfCategories, entryForTotal);
 
     }
 
