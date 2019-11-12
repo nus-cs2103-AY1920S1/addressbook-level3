@@ -521,7 +521,7 @@ far the start date inputted by the user is from now, it will be normalized to th
 subsequently will correctly be reflected in the budget panel.
 
 Each budget, once added, will recur infinitely. This is achieved by `Budget#refresh()`, along with the `Timekeeper` class.
-Every 10 seconds, `Timekeeper` checks if it is a new day, and call `Budget#refresh()` if necessary. Subsequently,
+Every 0.05 second, `Timekeeper` checks if the system time is at day break, and call `Budget#refresh()` if necessary. Subsequently,
 `BudgetWindow#normalize` is called; the anchor passed in is current time. As a result, the `Budget` is
 successfully normalized to the current period.
 

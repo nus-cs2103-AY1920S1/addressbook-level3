@@ -663,7 +663,8 @@ You'll see all expenses tracked under `school` from `1 May to 31 May` this year.
 
 NOTE: The time machine can only travel *back* in time! That is, you will only be able to switch to periods
 *before or equal to* the current period. If the date you enter is in a future period, you'll need to input again. +
-Only expenses tracked under *the current budget* are shown.
+Only expenses tracked under *the current budget* are shown. +
+To switch back to the current period, type `switchperiod t/now`.
 
 ==== Edit Expenses Inside a Budget: `editexpense-primary`
 When you are staring at the primary budget panel, and suddenly want to modify an expense...
