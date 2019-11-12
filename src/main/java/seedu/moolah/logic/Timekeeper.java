@@ -45,6 +45,12 @@ public class Timekeeper {
         }
     }
 
+    /**
+     * Checks if the system time is at day break by comparing current date and the date just now.
+     *
+     * @param timeNow The current system time.
+     * @return True if the system time is at day break, false otherwise.
+     */
     private boolean isAtDayBreak(Timestamp timeNow) {
         LocalDate dateNow = timeNow.getDate();
         LocalDate dateJustNow = timeNow.getDateJustNow();

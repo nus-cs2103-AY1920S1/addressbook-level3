@@ -115,38 +115,87 @@ public class Timestamp implements Comparable<Timestamp> {
         return parseRawTimestamp(rawTimestamp);
     }
 
+    /**
+     * Returns the full timestamp.
+     *
+     * @return A LocalDateTime object representing the full timestamp.
+     */
     public LocalDateTime getFullTimestamp() {
         return fullTimestamp;
     }
 
+    /**
+     * Returns the timestamp accurate to date.
+     *
+     * @return A LocalDate object representing the date of the timestamp.
+     */
     public LocalDate getDate() {
         return fullTimestamp.toLocalDate();
     }
 
+    /**
+     * Returns the date just now.
+     *
+     * @return A LocalDate object that represents the date 10 seconds ago.
+     */
     public LocalDate getDateJustNow() {
         return fullTimestamp.minusSeconds(10).toLocalDate();
     }
 
+    /**
+     * Moves this timestamp to the start of day.
+     *
+     * @return A Timestamp with same date but 00:00:00 time.
+     */
     public Timestamp toStartOfDay() {
         return new Timestamp(fullTimestamp.toLocalDate().atStartOfDay());
     }
 
+    /**
+     * Moves this timestamp to the end of day.
+     *
+     * @return A Timestamp with same date but 23:59:59 time.
+     */
     public Timestamp toEndOfDay() {
         return new Timestamp(fullTimestamp.toLocalDate().atTime(LocalTime.MAX));
     }
 
+    /**
+     * Checks if this timestamp is before another.
+     *
+     * @param other The other timestamp to compare.
+     * @return True if this timestamp is before the other timestamp, false otherwise.
+     */
     public boolean isBefore(Timestamp other) {
         return this.fullTimestamp.isBefore(other.fullTimestamp);
     }
 
+    /**
+     * Checks if this timestamp is after another.
+     *
+     * @param other The other timestamp to compare.
+     * @return True if this timestamp is after the other timestamp, false otherwise.
+     */
     public boolean isAfter(Timestamp other) {
         return this.fullTimestamp.isAfter(other.fullTimestamp);
     }
 
+    /**
+     * Checks if this timestamp's date is after another timestamp's date.
+     *
+     * @param other The other timestamp to compare.
+     * @return True if this timestamp's date is after the other timestamp's date, false otherwise.
+     */
     public boolean dateIsAfter(Timestamp other) {
         return this.fullTimestamp.toLocalDate().isAfter(other.fullTimestamp.toLocalDate());
     }
 
+    /**
+     * Checks if this timestamp's date is before another timestamp's date.
+     *
+     * @param other The other timestamp to compare.
+     * @return True if this timestamp's date is before the other timestamp's date, false otherwise.
+     */
     public boolean dateIsBefore(Timestamp other) {
         return this.fullTimestamp.toLocalDate().isBefore(other.fullTimestamp.toLocalDate());
     }
@@ -187,34 +236,77 @@ public class Timestamp implements Comparable<Timestamp> {
         return result;
     }
 
+    /**
+     * Gets the current system time.
+     *
+     * @return A Timestamp that represents the current system time.
+     */
     public static Timestamp getCurrentTimestamp() {
         return new Timestamp(LocalDateTime.now());
     }
 
+    /**
+     * Plus a period to this timestamp.
+     *
+     * @param period The specified period to add to this timestamp.
+     * @return A Timestamp that represents this timestamp after the specified period is added to it.
+     */
     public Timestamp plus(Period period) {
         return new Timestamp(fullTimestamp.plus(period));
     }
 
+    /**
+     * Plus a number of days to this timestamp.
+     *
+     * @param numDays The specified number of days to add to this timestamp.
+     * @return A Timestamp that represents this timestamp after the specified number of days is added to it.
+     */
     public Timestamp plusDays(long numDays) {
         return new Timestamp(fullTimestamp.plusDays(numDays));
     }
 
+    /**
+     * Minus a number of days from this timestamp.
+     *
+     * @param numDays The specified number of days to minus from this timestamp.
+     * @return A Timestamp that represents this timestamp after the specified number of days is subtracted from it.
+     */
     public Timestamp minusDays(long numDays) {
         return new Timestamp(fullTimestamp.minusDays(numDays));
     }
 
+    /**
+     * Gets the day of month from this timestamp.
+     *
+     * @return A integer that represents the day of month.
+     */
     public int getDayOfMonth() {
         return fullTimestamp.getDayOfMonth();
     }
 
+    /**
+     * Gets the day of year from this timestamp.
+     *
+     * @return A integer that represents the day of year.
+     */
     public int getDayOfYear() {
         return fullTimestamp.getDayOfYear();
     }
 
+    /**
+     * Gets the month value from this timestamp.
+     *
+     * @return A integer that represents the month.
+     */
     public int getMonthValue() {
         return fullTimestamp.getMonthValue();
     }
 
+    /**
+     * Returns a string representation of this timestamp.
+     *
+     * @return A string that represents this timestamp, including the year.
+     */
     @Override
     public String toString() {
         return fullTimestamp.format(FORMATTER_WITH_YEAR);
