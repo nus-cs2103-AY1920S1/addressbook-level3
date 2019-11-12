@@ -1,0 +1,47 @@
+@startuml
+skinparam backgroundColor white
+skinparam activity {
+  StartColor RoyalBlue
+  EndColor RoyalBlue
+  BackgroundColor RoyalBlue
+  arrowColor Blue
+  activityDiamondBackgroundColor Blue
+  activityBarColor blue
+  BorderColor blue
+  ControlBackgroundColor white
+  FontColor Snow
+  FontName Calibri
+  FontSize 16
+}
+
+skinparam activityDiamond {
+    BackgroundColor Snow
+    BorderColor blue
+    FontSize 24
+}
+
+start
+:User has searched for show in search page;
+:User executes Sync command
+                 "Sync INDEX";
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([INDEX IS VALID])
+if () then ([Show of same name found in watchlist])
+    : Show of INDEX found in search
+    result page is synchronised with
+    the same show in watchlist.;
+    stop
+else ([ELSE])
+    : Error result message displayed:
+    "Show cannot be found in watchlist
+    to be sync-ed";
+    stop
+  endif
+else([INDEX IS INVALID])
+   : Error result message will be displayed
+   to the user;
+stop
+@enduml

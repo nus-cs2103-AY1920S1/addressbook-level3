@@ -6,12 +6,6 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 
-[NOTE]
-====
-This document was originally written for _AddressBook Level 4_ and hence its screenshots refer to `addressbook-level4`.
-For use with _AddressBook Level 3_, wherever `addressbook-level4` is used in the screenshots, you should use *`addressbook-level3`*.
-====
-
 https://www.appveyor.com/[AppVeyor] is a _Continuous Integration_ platform for GitHub projects. It runs its builds on Windows virtual machines.
 
 AppVeyor can run the project's tests automatically whenever new code is pushed to the repo. This ensures that existing functionality and features have not been broken on Windows by the changes.

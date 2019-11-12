@@ -1,0 +1,200 @@
+= Wong Chuan Kai - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:icons: font
+
+== PROJECT: `EzWatchList`
+
+
+== 1. Introduction
+
+The purpose of the Project Portfolio is to document and showcase my contributions to the software project, link:https://ay1920s1-cs2103t-f13-4.github.io/main/index.html[EzWatchList]
+
+Our team was initially tasked with enhancing a basic command line interface(CLI) desktop application
+for our Software Engineering project. We are also allowed to morph it to other application that uses command line interface.
+Thus, we chose to morph it into a movie records management system called EzWatchList. This enhanced
+version provides a unique, clean and simple way of organizing and keeping track of movie or TV show watch list.
+
+=== 1.1 Overview
+
+image::CK_PPP.png[width="500"]
+_Figure 1. The graphical interface for Ezwatchlist._
+
+`EzWatchList` helps users to keep track and organise movie or TV show in a watch list. User can simply
+interact with the application by inputting commands into the interface.
+
+Main features of EzWatchList:
+
+- Keep track of shows that users plan to watch
+- Allows users to edit and mark down shows that they have watched
+- Allows users to search for show online using `search` online function or search within user's watch list.
+- Gives users statistics about their watching habits and recommend shows to them.
+
+The following sections illustrate these enhancements in more detail, as well as the relevant documentation
+I have added to the user and developer guides in relation to these enhancements.
+
+=== Interpreting Symbols
+The table below shows a summary of the symbols used and their respective meanings.
+
+[width="59%",cols="^22%,^50%",options="header",align="centre"]
+|===================================
+|Symbol |Meaning
+
+|`Command` `Component`|Commands and Components of the Project
+
+|icon:lightbulb-o[role="icon-tip", size="2x"]|Tips for the user
+
+|icon:info-circle[role="icon-note", size="2x"] |Additional information
+|===================================
+
+== 2. Summary of contributions
+|===
+|_This section shows a summary of my challenges, coding, documentation, and other helpful contributions to the team project._
+|===
+
+My role was to design and implement the `Add` and `Sync` features. These commands are essential to the application as they are the
+building block of the application. Before I can design these features, I have to understand
+the application requirement first such as functional and non-function requirements. I also have to know who my target audience
+is and study the use-cases properly to plan out and design these features.
+
+=== 2.1 Major enhancement:
+
+==== *Added `add` and synchronise, `sync`, commands.*
+
+*1. Modifying and extension of `add` command*
+
+*What it does*:
+
+There are two separate functions for `Add` command.
+First, it allows the user to add movies or TV shows into the watch list.
+User has to input several information of the show such as name, description, and
+name of actors.
+
+Beside this core function, the add command also allows user to add a movie found in search
+result page after user has used the `search` online feature. Search page displays the search result of the movies the user
+is interested to watch. The `search` feature is implemented by my team mate, Michelle.
+
+*Justification*:
+
+The purpose of this application is to allow user to track movie list. Thus, adding shows into watch list is a
+fundamental and core function that runs the application. If the user wants to know more about a certain movie, he can
+simply use the `search` function to search for it. The `search` function is able to gather information about movies online
+and user can choose to ‘add’ a certain movie from the search list into his own watch list.
+
+*Highlights*:
+
+The addition of `add` command requires some understanding of both the implementation of the application and how to retrieve
+the data from 3rd party API(TMDB).
+
+*Credits*:
+
+Since we are retrieving information on shows online, we have decided to use The Movie Database (TMDB) api.
+
+
+*2. Synchronise, Sync, command*
+
+*What it does*:
+
+User may not have updated information about the show they want to add. They can use the `search` function to check the
+details of the show they are interested to watch. Then, they are able to use the `sync` to synchronise a show found in
+search page to their show which has already been added in watch list.
+
+*Justification*:
+
+User will definitely not know most of the information about a show. Hence, by implementing this `sync` function, users
+will then be able to get updated information about the show.
+
+*Highlights*:
+
+This enhancement requires some understanding of both the implementation of the application and how to retrieve
+the data from 3rd party API(TMDB).
+
+
+*Credits*:
+
+Since we are retrieving information on shows online, we decided to use The Movie Database (TMDB) api.
+
+=== *2.2 Minor enhancement:*
+
+==== Added shortcut keys to move about pages easily.
+
+*What it does*:
+
+Users are able to press a single shortcut key button to move about the panels such as ‘Watchlist’, ‘Watched’, ‘Search’
+and ‘Statistics’ without moving and clicking mouse.
+
+*Justification*:
+
+Our target user is one who prefers to type fast and complete tasks quickly. One of the non-functional requirement is to
+reduce the usage of the mouse as this is mainly a command line application. Adding shortcut keys will reduce the
+usage of the mouse.
+
+*Highlights*:
+
+This addition make it a lot easier for user to navigate through the different pages.
+
+//==== Added multi threading when `search` function is used.
+
+*Code contributed*:
+
+My contributions to EzWatchList can be found in the following link:[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=wongchuankai&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[My Code Contribution]]
+[https://github.com[Test code]]
+
+=== *2.3 Other contributions:*
+
+*Project management*:
+
+*** I am in charged of testing, so my responsibility is to plan, understand and write test codes for this project.
+
+*** My job is to understand the component logic as well so I am analyse the problems faced better.
+
+*Enhancements to existing features* :
+
+*** I have added multi-threading when the user uses `search` command. Since, it might take some time to load the data,
+multi-threading allows the application to process these data in the background. Users will then be able to do other task
+in the application like using `add` command as well.
+
+*** I have added shortcut keys so users are able to navigate the pages easily.
+
+*** Since I am in charged of the unit testing, I have added test cases to improve test coverage.
+
+*Documentation*:
+
+* Improved the structure of the user guide link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/258[#258], link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/279[#279]
+* Updated the developer guide link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/11[#11], link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/258[#258]
+
+
+*Community*:
+
+* Reported bugs and suggestions for other teams in the class (examples: link:https://github.com/wongchuankai/ped/blob/master/files/fceb38f2-23e3-4f5e-a7a7-42afce9258a8.png[1], link:https://github.com/wongchuankai/ped/blob/master/files/f0a21388-54e5-49b2-9cfd-efb47c514667.png[2], link:https://github.com/wongchuankai/ped/blob/master/files/bf312b96-02eb-47e5-a170-7946d1f7f100.png[3])
+
+*Tools*:
+
+*** Integrated a third party library (TMDB) to the project (https://www.themoviedb.org/documentation/api[TMDB Api])
+
+
+== 3. Contributions to the User Guide
+|===
+|_This section is an excerpt from our EzWatchList User Guide, showing additions that I have made for the sync
+features. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=sync]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide, showing additions that I have made for the add and sync
+features. They showcase my ability to write technical documentation
+and the technical depth of my software engineering skills to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=add2]
+include::../DeveloperGuide.adoc[tag=sync]
+
+
+
+---
+

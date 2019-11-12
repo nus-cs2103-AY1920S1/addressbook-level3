@@ -1,0 +1,37 @@
+@startuml
+skinparam backgroundColor white
+skinparam activity {
+  StartColor RoyalBlue
+  EndColor RoyalBlue
+  BackgroundColor RoyalBlue
+  arrowColor Blue
+  activityDiamondBackgroundColor Blue
+  activityBarColor blue
+  BorderColor blue
+  ControlBackgroundColor white
+  FontColor Snow
+  FontName Calibri
+  FontSize 16
+}
+
+skinparam activityDiamond {
+    BackgroundColor Snow
+    BorderColor blue
+    FontSize 24
+}
+start
+:User executes Add command
+         "add n/Joker t/movie";
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([No existing show found in watchlist])
+    : 'Joker' show of type 'movie' is
+    added to watch list;
+    stop
+else([Existing show found in watchlist])
+   : Error result message will be
+   displayed to the user;
+stop
+@enduml

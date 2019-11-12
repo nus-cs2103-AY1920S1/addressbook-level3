@@ -1,36 +1,57 @@
-= Address Book (Level 3)
+= EzWatchList
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+:imagesDir: /docs/images
+https://travis-ci.org/AY1920S1-CS2103T-F13-4/main[image:https://travis-ci.org/AY1920S1-CS2103T-F13-4/main.svg?branch=master[Build Status]]
+https://coveralls.io/github/AY1920S1-CS2103T-F13-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-F13-4/main/badge.svg?branch=master[Coverage Status]]
 
-ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
-endif::[]
+== Introduction
 
-ifndef::env-github[]
-image::images/Ui.png[width="600"]
-endif::[]
+++++
+</p>
+<p align="center">
+<img src="https://github.com/AY1920S1-CS2103T-F13-4/main/raw/master/docs/images/Ui.png" alt="Ui.png" width="900">
+</p>
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+++++
+
+Tired of using multiple sources on the internet to keep track of all your movies and tv shows that you want to watch? EzWatchlist is a solution to your entertainment problems!
+
+EzWatchlist is a desktop application for cinepliles to manage their favourite movies and tv series with a clean and intuitive interface.
+It was built for users who enjoy using a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+=== Features
+
+Spending too much time looking for shows?
+
+* Get recommendations for shows by using our https://ay1920s1-cs2103t-f13-4.github.io/main/UserGuide.html#movie-and-tv-show-recommendations[recommendations feature]
+
+Forgetting the shows you want to watch?
+
+* Keep track of shows with our inbuilt https://ay1920s1-cs2103t-f13-4.github.io/main/UserGuide.html#watchlist-page[watchlist.]
+
+Curious about your watching habits?
+
+* Check out our https://ay1920s1-cs2103t-f13-4.github.io/main/UserGuide.html#statistics-page[statistics page]
+
+More features
+
+* Integrated with an online database of shows, allowing you to search and get information about shows.
+* Will work and function even without internet.
+* No installation required.
+* Auto-saves.
+
+Excited to use it? Head straight to our <<UserGuide#, User Guide>> for a more detailed explanation of our application.
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
-
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* An Adressbook project this application was built upon created by https://se-education.org[SE-EDU initiative]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://www.themoviedb.org/documentation/api[TMDB api], https://github.com/holgerbrandl/themoviedbapi[Java Wrapper of TMDB]
 
 == Licence : link:LICENSE[MIT]

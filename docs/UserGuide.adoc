@@ -1,6 +1,7 @@
-= AddressBook Level 3 - User Guide
+= EzWatchlist - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 3
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -12,166 +13,636 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F13-4/main.git
+:icons: font
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103T-F13-4`      Since: `Sept 2019`      Licence: `MIT`
 
+// tag::intro[]
 == Introduction
+Tired of using multiple sources on the internet to keep track of all your movies and tv shows that you want to watch? EzWatchlist is a solution to your entertainment problems!
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+`EzWatchList` is an application is for cinephiles who *prefer to use a desktop for managing movies and tv shows*. More importantly, `EzWatchList` is *optimized for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI).
+
+.  If you can type fast, `EzWatchList` works faster than traditional GUI apps.
+.  Keep track of movies and tv shows that you plan to watch or have watched.
+.  Access quick information about your favourite shows through our online database.
+.  Discover your personal movie habits, with our statistics page.
+.  Can't find any good shows to watch? We will give you recommendations on what to watch based on your `EzWatchlist` usage.
+
+====
+Already interested? Jump to <<Quick Start>> to quickly get started. Enjoy!
+====
+
+=== What else does EzWatchlist offer you?
+
+* Integration with an online database of shows, allowing you to search and get information about shows.
+
+* Functions and works without internet.
+
+* No installations required.
+
+* Auto-saves all data.
+
+* Dual-purpose interface, command line interface for those who prefer typing and graphical for those who prefer using a mouse.
+
+=== How do I use EzWatchlist?
+
+EzWatchlist was built with ease in mind hence our interface reflects this design philosophy.
+
+.EzWatchlist's graphical interface
+image::Ui.png[width="900"]
+
+==== Navigation
+
+EzWatchlist is split into four different pages:
+
+. <<Watchlist Page, *Watchlist*>>, where shows you want to watch are added.
+. <<Watched List, *Watchedlist*>>, where shows you have watched are located.
+. <<Search Page, *Search*>>, where you search for shows both online and offline.
+. <<Statistics Page, *Statistics*>>, where information about your viewing habits are shown.
+
+This pages are represented by the <<Sidebar, *sidebar panel*>> shown visibly in Figure 1. Navigate between pages by using keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] respectively or
+through a button press on the graphical interface.
+
+==== Interaction
+.EzWatchlist's command line interface.
+image::commandline.png[width="900"]
+
+
+EzWatchlist uses <<UserCommands, Commands>> entered through the command line interface in figure 2 to interact with the application.
+Typing a command into the interface and entering it (by pressing kbd:[Enter] or clicking `_Go!_`) is the main way of interaction in the application.
+The following is an example of adding a movie into your watch list:
+// end::intro[]
+
+===== Steps to quickly add a movie
+
+* **`search`** `n/ip man` : Searched for movie named `ip man` in the offline and online database which will bring you to the search page automatically.
+
+.Search page for "ip man".
+image::searchIpMan.png[width='500']
+
+* **`add`** `2` : Adds "Ip Man" (2008) shown in entry 2 in Figure 3 into your watchlist.
+
+.Watchlist page after adding the entry.
+image::watchlistIpMan.png[width='500']
+
+
+And that's it. Our <<Quick Start, quick start guide>> will guide you to set up our application. If you like to learn more head straight into our <<Features, features guide>> for a run down on our major features, or
+go to our <<UserCommands, commands guide>> to learn more on our commands. Otherwise, if you're a developer and are interested to
+understand how each of our features were implemented, our <<DeveloperGuide#, developer guide>> breaks down each of our major components.
+
+
+What are you waiting for? Start using `EzWatchlist` now!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `ezwatchlist.jar` link:https://github.com/AY1920S1-CS2103T-F13-4/main/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your watchlist.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+.  Interact with `EzWatchlist` with <<UserCommands, commands>> in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`add`**`n/Titanic t/movie` : adds the `movie` named `Titanic` to the Watchlist.
+* **`delete`**`3` : deletes the 3rd movie shown in either watch or watched page.
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<UserCommands>> for details of each command.
 
-[[Features]]
+
 == Features
+// tag::UI[]
+=== User-Interface
+
+The UI consists of three parts: sidebar, command bar and various pages that could appear in the main panel.
+The following sections introduce these UI parts in details.
+
+==== Sidebar
+
+EzWatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the side bar at the left of the main page of the graphical user interface. Moreover, keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] bring you to each page respectively.
+====
+Note: If user has selected the command box, type kbd:[1], kbd:[2], kbd:[3], kbd:[4] and enter to bring you to each page respectively.
+====
+
+==== Command bar
+
+Users input commands in the command bar and any feedback will be displayed below the text area of command bar.
+
+==== Watchlist Page
+
+The watchlist page is the default page that is opened upon start-up of `EzWatchlist`.
+It shows the user’s unwatched movies and television series.
+The user can navigate to this list by clicking the “Watchlist” tab on the side bar or by using the keyboard short-cut `1`.
+
+**Characteristics of the watchlist page:**
+
+* Movie/TV show poster
+* Name of show
+* Genres
+* Actors
+* Description of the show
+* Running Time
+* Last watched episode (For TV series that have been updated using the `watch` command)
+* Checkbox to indicate if the show has been watched
+
+.Main page of the UI: watchlist page
+image::Ui.png[width="790"]
+
+
+==== Watched List Page
+
+The user has the option to view the list of shows that have been marked as watched in the watched list. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `2`.
+
+==== Search Page
+
+The user can navigate to the search page to find a specific movie or television by searching for its name. The user can navigate to this list by clicking the “Search” tab on the side bar or by using the keyboard short-cut `3`.
+[NOTE]
+The search function may require some time to load the data from the API.
+
+.Main page of the UI: search page
+image::search_page.png[width="790"]
+
+
+==== Statistics Page
+
+The user can navigate to the statistics page to find a summary of his watching habits,
+preferences and history according to what is present in his lists.
+Examples include:
+
+* Movies added but might have forgotten to watch
+* Up to 3 most favourite genres
+* Recommendations
+
+The user can navigate to this list by clicking the “Statistics” tab on the side bar or by using the keyboard short-cut `4`.
+[NOTE]
+The statistics function may require some time to load the data from the API the first time you start the application,
+or after you have made changes to your watchlist.
+
+
+
+.Main page of the UI: statistics page
+image::statistics_page.png[width="790"]
+
+
+==== Details Page (Coming in v2.0)
+
+Upon clicking a movie or tv show title, a pop-up window will emerge, with a detailed view of the movie or tv show. This page provides the user with more information about the show, like the year, cast and ratings. The user also has the ability to edit the details here.
+
+// end::UI[]
+
+// tag::advancedfeatures[]
+=== Advanced Features
+
+==== Parsing of Movie and Tv Show Information
+In EzWatchlist, an online database is accessed so that all the information about your favourite Movies and
+Television Shows is updated, informative, and concise. What this means for you is that:
+
+* Posters of your EzWatchlist shows,
+can be displayed in EzWatchlist's sleek dark interface.
+
+* Moreover, your offline shows can be synced with this database allowing the application to fill in
+the minor details for you.
+
+* Unsure of what actors played in your favourite movie? EzWatchlist will find that information for you.
+
+****
+You don't need to do anything other than be connected to the internet. It is that easy!
+****
+
+==== Movie and Tv Show Recommendations
+EzWatchlist has the ability to recommend Movies and TvShows to you based on
+your EzWatchlist usage. EzWatchlist will create your own personalized recommendations for you.
+
+===== How to get your recommendations
+1. First, make sure that you have added at least one  (offline or online) into `EzWatchlist` so that we can use that to generate recommendations for you.
+
+2. Then head to the <<Statistics Page, Statistics Page>> by clicking kbd:[4] or pressing the `Statistics.` button on the
+in the interface.
+
+3. Now your recommendations as seen in Figure 5 will be shown prominently on the bottom of the Statistics Page, with movie recommendations on the left, and Tv Series recommendations on the right.
+
+.Recommendations shown in the Statistics Page.
+image::recommendations.png[width="900]
+
+****
+Excited? Enter your statistics page to get started on your recommendations. You might
+just find your next favourite!
+****
+
+==== Auto-Correct (Coming in v2.0)
+EzWatchlist aims to provide a smooth experience for our typing users. All typing in EzWatchlist will be automatically
+corrected for you when typing in your commands.
+
+****
+Say goodbye to typing errors!
+****
+
+// end::advancedfeatures[]
+[[UserCommands]]
+=== User Commands
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/SHOW_NAME t/SHOW_TYPE`, `SHOW_NAME` and `SHOW_TYPE` are parameters which can be used as `add n/The Angry Birds Movie 2 t/movie`.
+* Items in square brackets are optional e.g `n/SHOW_NAME t/SHOW_TYPE [s/DESCRIPTION]` can be used as `n/The Angry Birds Movie t/movie 2 d/Oscar-worthy` or as `n/The Angry Birds Movie t/movie`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[a/ACTOR]...` can be used as `{nbsp}` (i.e. 0 times), `a/Leonardo Di Carpio`, `a/Leonardo Di Carpio a/Christian Bale` etc.
+* Parameters can be in any order e.g. if the command specifies `n/SHOW_NAME t/SHOW_TYPE`, `t/SHOW_TYPE n/SHOW_NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+==== View help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+// tag::addfirst[]
+==== Add a show: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+User can add a show they are interested to watch in the watchlist by using +
+`add` command.
 
 [TIP]
-A person can have any number of tags (including 0)
+*`add` can only work in **Watchlist page** and **Watched page**.*
+
+Format: `add n/SHOW_NAME t/SHOW_TYPE [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR_NAME]...`
+
+* Only `SHOW_NAME`, `SHOW_TYPE` are compulsory fields. Rest is optional.
+* `SHOW_TYPE` can only be 'movie' or 'tv'
+* `WATCHED` can only be 'true' or 'false'
+* `SHOW_NAME`, `DESCRIPTION` and `ACTOR_NAME` can be any words
+* `DATE_OF_RELEASE` must be in the format dd/MM/yyyy
+* `RUNNING_TIME` can be any number above 0
+* `ACTOR_NAME` can be more than one.
+
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Titanic t/movie`
+* `add n/Friends t/tv`
+* `add n/John Wick t/movie d/24/10/014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
+* `add n/Joker t/movie d/3/10/2019 w/false r/122 s/In Gotham City, mentally-troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him face-to-face with his alter-ego: "The Joker". a/Joaquin Phoenix`
 
-=== Listing all persons : `list`
+// end::addfirst[]
 
-Shows a list of all persons in the address book. +
-Format: `list`
+// tag::addsecond[]
+==== Adding a show from search result page: `add`
 
-=== Editing a person : `edit`
+This is an extension to the `add` feature.
+After user has searched from the show, user can add a show found in the search result page into their watchlist.
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `add INDEX`
+
+INDEX is a positive integer and is limited to the number of shows found in search result page.
+
+[TIP]
+This add command can only be used if user is currently at `search page`, and has already searched for show using the search online command.
+
+Example Usage:
+
+Pre-condition: User has already searched for a show using search online command.
+
+Step 1. User click (or use keyboard `3` key) on search page. User then input `add 1` on command box.
+
+image::add2.png[width="500"]
+
+Step 2. User click (or press keyboard `1` key) on watch list page. User will see `Joker`
+movie added to watch list.
+
+image::add3.png[width="500"]
+
+// end::addsecond[]
+
+==== Clear the WatchList: `clear`
+
+Clear the WatchList +
+Format: `clear`
+
+// tag::watch[]
+==== Mark/Unmark as watched : `watch`
+
+To mark an unwatched show in the watchlist as watched, use the command format listed below. +
+Format: `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
+
+[TIP]
+Before marking TV show's seasons and episodes, you may want to use the <<Synchronise user\'s show data: `sync`, `sync`>>
+command to ensure that the TV show's season and episode details are up to date.
+
+*Example Usage:*
+
+1. You want to mark "The Office" in the watchlist page as watched. Navigate to the watchlist by clicking on the watchlist tab or hitting the keyboard shortcut `1`.
+
+.Viewing an unmarked show
+image::WatchTheOffice.png[width="790"]
+
+[start=2]
+2. Enter `watch 1` into the command box in the watchlist tab.
+
+.Entering the watch command
+image::Watch.png[width="790"]
+
+[start=3]
+3. You may now view the show under the watched tab by clicking the watched tab or hitting the keyboard shortcut kbd:[2].
+
+.Viewing the newly marked show
+image::WatchedTheOffice.png[width="790"]
+
+Alternatively, you may click on the watched checkbox to toggle between whether a show is watched as indicated by the red arrow in the image below.
+
+.Marking a show using the checkbox
+image::TheOfficeWatchCommand.png[width="790"]
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* The `index` refers to the index number shown in the displayed watchlist. The index *must be a positive integer* 1, 2, 3, ...
+* Any number of the optional fields may be provided.
+* Having only the index of the show will mark/unmark the show as watched.
+* Having the index and the episode number of the show will update the cumulative number of episodes of the show that are watched.
+* Having the index and the season number of the show will update the cumulative number of seasons of the show that are watched.
+* Having the index, season number and the episode number of the show will update the last watched episode to be the indicated episode of the indicated season of the show.
+****
+[TIP]
+Using the `watch` command on an already watched show will un-mark the show as watched.
+[TIP]
+`watch` would only work in **Watchlist page** and **Watched page**.
+
+Examples:
+
+* `watch 1` +
+Marks/un-marks the first show of the list as watched.
+* `watch 2 e/20` +
+Marks the first 20 episodes of the second show of the list as watched.
+* `watch 2 s/5` +
+Marks all episodes of the first 5 seasons of the second show as watched.
+* `watch 3 s/5 e/2` +
+Marks all episodes up to and including the second episode of the fifth season of the third show in the list as watched.
+
+// end::watch[]
+==== Edit a show's details : `edit`
+
+Edits an existing show in the list +
+Format: `edit INDEX [n/SHOW_NAME] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR]...`
+
+****
+* Edits the show at the specified `INDEX`. The index refers to the index number shown in the displayed watchlist. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing actors, the existing actors of the show will be removed i.e adding of actors is not cumulative.
+* You can remove all the show's actors by typing `a/` without specifying any actors after it.
 ****
+
+[TIP]
+`edit` would only work in **Watchlist page** and **Watched page**.
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 1 n/Joker a/Joaquin Phoenix` +
+Edits the name and actor name of the 1st show in the list to be `Joker` and `Joaquin Phoenix` respectively.
+* `edit 2 a/` +
+Clears all existing actors of the 2nd show in the list.
 
-=== Locating persons by name: `find`
+//tag::search[]
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+==== Search for a show: `search`
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Searches for shows whose names contain any of the given keywords from the online database, unless specified to be from
+the watchlist or watched list. +
 
+Format:
+
+* by name: +
+`search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`
+
+* by genre: +
+`search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`
+
+* by actor (from watchlist only): +
+`search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`
+
+** `SHOW_NAME`, `GENRE`, `ACTOR_NAME` can be any words, as long as it does not contain `/`.
+** `FROM_ONLINE` and `HAS_WATCHED` can only be `yes`, `true`, `no` or `false`.
+** `SHOW_TYPE` can only be `movie` or `tv`.
+
+====
+[TIP]
+Special commands to take note of: +
+`o/no`: to search from watchlist or watched list +
+`o/no w/no`: to search from watchlist only +
+`o/no w/yes`: to search from watched list only
+====
+====
+[NOTE]
+When searching based on genre online, only movies will be searched. +
+{sp} +
+For `[o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`, if multiple entries are entered, only the last would be considered. e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers t/tv". +
+{sp} +
+Space between prefix and slash is not acceptable. e.g. "n /Avengers" will throw an error. +
+Space after prefix is acceptable. e.g. "n/   Avengers" will be interpreted as "n/Avengers".
+====
+
+====
+[NOTE]
+The search is case insensitive. e.g "avengers" will match "Avengers". +
+The order of the keywords matter. e.g. "Chris Evans" will not match "Evans Chris". +
+Not only full words will be matched. e.g. "Joke" will also match with "Joker".
+====
+{sp} +
+*Example Usage:* +
+You may want to search for movies named "Avengers" and also movies with an actor named "Tom".
+As shown below, assume that your watchlist only has a movie "Avengers: Endgame" that you have watched.
+
+.Current *Watched Page* with a movie watched "Avengers: Endgame"
+image::watchedPageWithAvengerEndgame.png[width="790"]
+{sp} +
+[start=1]
+1. Navigate to the *Search page* by one of the following ways: +
+* clicking on the *search* tab
+* hitting the keyboard shortcut kbd:[3]
+* typing `3` in the command box and pressing kbd:[enter]
+* typing `search` in the command box and pressing kbd:[enter] as shown in the figure below
+
+.Entering of the `search` command
+image::searchCommand.png[width="790"]
+{sp} +
+After you have entered the command, you will be led to the *Search page* as shown below.
+
+.Graphical Interface of the *Search Page*
+image::emptySearchPage.png[width="790"]
+
+[TIP]
+You may skip Step 1 as you will be automatically be navigated to the *Search Page* when you key in any valid `search`
+command, such as the one in Step 2 below.
+
+{sp} +
+[start=2]
+1. Enters `search n/Avengers a/Tom t/movie` into the command box in the *Search Page* as shown below.
+
+.Entering of the `search` command to search for shows
+image::searchAvengerUserInput.png[width="790"]
+
+{sp} +
+Press kbd:[enter] after entering the information shown above and wait for the information to load.
+
+.Loading Screen of the *Search page*
+image::searchPageLoadingScreen.png[width="790"]
+
+The loading page as shown above will appear while EzWatchlist searches for your shows.
+
+[TIP]
+You can go to the other pages in the mean time. Do allow some time for the search to load.
+
+{sp} +
+[start=3]
+1. Search page shows the list of shows based on `search n/Avengers a/Tom t/movie`.
+
+{sp} +
+*Scenario A: You are offline* +
+Only movies from the watchlist or offline database with the movie name "Avengers" or actor name "Tom" will be shown,
+as seen in the figure below.
+
+.*Search Page* showing the search results when offline
+image::searchPageSearchedForAvengersWhenOffline.png[width="790"]
+
+{sp} +
+*Scenario B: You are online* +
+Only movies from the online database with the movie name "Avengers" or actor name "Tom" will be shown, as seen in the
+figure below.
+
+.*Search Page* showing the search results when online
+image::searchPageSearchedForAvengersWhenOnline.png[width="790"]
+{sp} +
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* By name:
+** `search n/Joker o/no` +
+Returns shows with the name "Joker" within the watchlist
+** `search n/Avengers g/Science Fiction t/movie n/Spiderman` +
+(If online) Returns movies from the online database with the name "Avenger" or "Spiderman" and movies with the genre "Science Fiction" +
+(If offline) Returns movies from the internal database, watchlist and watched-list with the name "Avenger" or "Spiderman" and movies with the genre "Science Fiction"
+* By genre:
+** `search g/Action t/movie` +
+(If online) Returns movies from the online database with the genre "Action" +
+(If offline) Returns movies from the internal database, watchlist and watched-list with the genre "Action"
+* By actor: (from watchlist only)
+** `search a/Tom o/no w/no` +
+Returns shows within the watchlist with actor named "Tom"
+
+// end::search[]
+
+// tag::sync[]
+==== Synchronise user\'s show data: `sync`
+
+If user has lack of information about a certain show in their watch list, User can use `sync` command.
+Synchronise, `sync`, command will transfer all the information about a certain show (for example: show A) found in
+search result page with a show (for example: show A') that has the same name as Show A found in watch list.
+
+====
+Note:
+
+1. The show in the watch list must have at least a name and type.
+2. Names are not-case sensitive.
+3. `Sync` will *WRITE OVER* all the information of show with same name found in watchlist.
+====
+
+Format: `sync INDEX`
+
+INDEX is a positive integer and is limited to the number of shows found in search result page.
+
+*Example Usage*
+
+Scenario 1: User has already input 'Titanic' show into watchlist manually.
+
+image::Sync1.png[width="350"]
+
+Step 1. User searches for `Titanic` show in search page.
+
+Step 2. `Titanic` result page will be displayed. User input `sync 2` to synchronise movie at index 2 of the list with a movie
+of same name found in watchlist.
+
+image::Sync5.png[width="500"]
+
+Step 3. Go to watchlist. New information of `Titanic` in watchlist will be displayed.
+
+image::Sync6.png[width="500"]
+
+Scenario 2. User has not input Titanic show into watchlist manually.
+
+image::Sync21.png[width="350"]
+
+Step 1. Similar to scenario 1, user searches for `Titanic` show in search page.
+
+image::Sync4.png[width="500"]
+
+Step 2. `Titanic` result page will be displayed. If user were to sync any index, error message will be displayed
+because there is no show of similar name found in watch list.
+
+image::Sync22.png[width="500"]
+
+Step 3. User can choose to use `add 1` command to add show of index 1 found in search result page.
+
+image::Sync23.png[width="500"]
+
+// end::sync[]
 
 // tag::delete[]
-=== Deleting a person : `delete`
+==== Deleting a show : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the specified show from the watchlist. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the show at the specified `INDEX`.
+* The index refers to the index number shown in the displayed watchlist.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
+[NOTE]
+`delete` would only work in **Watchlist page** and **Watched page**.
+
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+* `delete 2` +
+Deletes the 2nd show in the watchlist.
+* `search Angry` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st show in the results of the `search` command.
 
 // end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
+==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+==== Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+EzWatchlist's data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous EzWatchlist folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* : `add n/SHOW_NAME t/SHOW_TYPE [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR_NAME]` +
+e.g. `add n/John Wick t/movie d/24 OCTOBER 2014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
+* *Add from search result page* : `add INDEX` +
+e.g. `add 1`
+* *Sync* : `sync INDEX` +
+e.g. `sync 2`
 * *Clear* : `clear`
+* *Watch* : `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+* *Edit* : `edit INDEX [n/SHOW_NAME] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR]...` +
+e.g. `edit 2 n/John Wick a/Johnny Depp`
+* *Search*
+** *by name* : `search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/TYPE] [w/IS_WATCH]` +
+e.g. `search n/Joker o/no` searches for shows with the name 'Joker' within the watchlist
+** *by genre* : `search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/TYPE] [w/IS_WATCH]` +
+e.g. `search g/Action t/movie` searches for movies from the online database with the genre 'Action'
+** *by actor from watchlist* : `search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [o/FROM_ONLINE] [t/TYPE] [w/IS_WATCH]` +
+e.g. `search a/Tom` searches from shows within the watchlist with actor named 'Tom'
+
+* *Exit* : `exit`
 * *Help* : `help`

@@ -1,0 +1,80 @@
+= Wu Xia - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: `EzWatchlist`
+
+---
+
+This document is to document my contributions to the desktop application `EzWatchlist`.
+
+== Overview
+
+EzWatchlist is a desktop application where the user can systematically record down what movie/TV series he/she wants to
+watch or has watched. It is developed by a group of 5 NUS Computer Science students for the software engineering course
+based on the Addressbook level 3 codebase provided. One specification is that the user prefers command line interface
+(CLI), hence the CLI in the application. However, we also implemented a graphical user interface (GUI) created with
+JavaFX. The project is written in Java.
+
+== Summary of contributions
+
+=== *Major enhancement*:
+
+Changed the *GUI* to better suit EzWatchlist
+
+* *What it does:*
+** Structures the features into 4 tabs and links them together with the main logic which allows the user to easily
+navigate around the tabs and execute commands.
+** Ensures that each visible component is displayed with an appropriate size, appearance, space and position.
+** Enhances user experience through user-friendly layout and placeholder text and loading signs to keep the user informed.
+** Enhances user experience through a creative theme.
+
+* *Justification:*
+** This feature improves the product significantly because a user would like to use an application that is user friendly
+and has an appealing appearance.
+
+* *Highlights:*
+** This enhancement requires deep understanding of both the implementation of the application itself and also how to use
+javafx flexibly in order to effectively communicate between the user and the application and present the message in a
+desirable manner. It also requires repetitive adjustments and testing of the appearance of the elements to produce a
+final result.
+
+
+=== *Minor enhancement*:
+
+Added a `Statistics` feature that reflects the user's personal preferences.
+
+=== *Code contributed*:
+Code contributed can be found here: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=tswuxia&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=tswuxia&tabRepo=AY1920S1-CS2103T-F13-4%2Fmain%5Bmaster%5D[My Code Contribution]]
+
+=== *Other contributions*:
+
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull request https://github.com/AY1920S1-CS2103T-F13-4/main/pull/123[#123])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/tswuxia/ped/issues/7[1],
+https://github.com/tswuxia/ped/issues/6[2], https://github.com/tswuxia/ped/issues/5[3], https://github.com/tswuxia/ped/issues/4[4],
+https://github.com/tswuxia/ped/issues/3[5], https://github.com/tswuxia/ped/issues/2[6], https://github.com/tswuxia/ped/issues/1[7])
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write user documentation targeting normal
+application users in a clear and understandable manner._
+|===
+
+include::../UserGuide.adoc[tag=UI]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation
+and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=statistics]
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

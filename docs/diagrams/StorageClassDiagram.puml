@@ -6,19 +6,26 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface WatchListStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonWatchListStorage
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager o--> WatchListStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonWatchListStorage .left.|> WatchListStorage
+JsonWatchListStorage .down.> JsonSerializableWatchList
+JsonSerializableWatchList .right.> JsonAdaptedShows
+JsonAdaptedShows .right.> JsonAdaptedMovie
+JsonAdaptedShows .down.> JsonAdaptedTvShow
+JsonAdaptedMovie .down.> JsonAdaptedGenre
+JsonAdaptedTvShow .down.> JsonAdaptedGenre
+JsonAdaptedMovie .down.> JsonAdaptedActor
+JsonAdaptedTvShow .down.> JsonAdaptedActor
+JsonAdaptedTvShow .down.> JsonAdaptedTvSeason
+JsonAdaptedTvSeason .down.> JsonAdaptedEpisode
 @enduml

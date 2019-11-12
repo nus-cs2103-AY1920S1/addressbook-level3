@@ -15,7 +15,7 @@ plugins {
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.address.Main'
+mainClassName = 'seedu.ezwatchlist.Main'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -23,6 +23,10 @@ targetCompatibility = JavaVersion.VERSION_11
 repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven {
+        url  "https://jcenter.bintray.com"
+    }
+    jcenter()
 }
 
 checkstyle {
@@ -57,6 +61,9 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'linux'
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
@@ -64,10 +71,14 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+
+    compile group: 'info.movito', name: 'themoviedbapi', version:'1.10'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.28'
+    compile group: 'ch.qos.logback', name:'logback-core', version: '1.0.9'
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'ezwatchlist.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -133,9 +144,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+        'site-name': 'EzWatchlist',
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-F13-4/main',
     ]
 
     options['template_dirs'].each {

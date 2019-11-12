@@ -1,0 +1,179 @@
+= Caleb Goh - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: `EzWatchlist`
+
+== 1. Introduction
+The following Project Portfolio documents my contributions to the software project, `EzWatchlist`.
+Which was a project my team of software engineering students and I decided to pursue for our Software Engineering project.
+
+Our team were initially tasked with enhancing a basic command line interface (CLI) desktop application that functioned as an Adressbook.
+What this means is that the application focused on typing as the main mode of use, and had an existing rudimentary base of code already functioning.
+
+Ultimately, we made the decision to modify it into a management application for Movies and Tv Shows named `EzWatchlist`.
+
+=== 1.1 Overview
+
+image::Ui.png[width=600]
+Figure 1. The graphical interface for `EzWatchlist`.
+
+`EzWatchlist` is an application that saves movies and television shows the user adds into a watchlist.
+The user interacts with `EzWatchlist` through typing commands or the graphical interface seen in Figure 1.
+This enhanced application boasts the following features:
+
+. Keeps track of the movies and television shows that they planed to watch.
+. Keeps track of the movies and television shows that they have watched.
+. Allows them to update the episodes they are at each television show.
+. Gets information about their watching habits.
+. Gets recommendations for movies and television shows based on their personal taste.
+
+
+[NOTE]
+The following symbols, abbreviations and formatting used in this document:
+
+|===
+| *API - Application Programming Interface* | An interface as a intermediary to use other programs or software.
+| *`Highlighted words`* | Our application related components such as commands, classes, methods, e.t.c.
+| image:keyboard.png[] | Keyboard characters on the desktop.
+| https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests[#number] | Pull request links based on their serial number.
+|===
+
+The following sections illustrate these enhancements in more detail, as well as the relevant documentation
+I have added to the user and developer guides in relation to these enhancements.
+
+== 2. Summary of contributions
+This section shows a summary of my role in the project, my technical ability to code, document, and other beneficial contributions to the
+team project.
+
+=== Role
+
+My main technical role was to design and write the codes for the integration with the application with an online database of movies and tv shows.
+This was highly integral due to the nature and vision of the application where information about movies and tv shows
+should be readily available to the user.
+
+Moreover, I took the supervising role of team lead in this project.
+I made sure that the team was well coordinated and that we were all clear on the overall vision of the application at every point in the development.
+Ensuring clear communication throughout the team, so that we all knew what to do. And that issues that arrived were handled smoothly and cleanly.
+
+=== *Major enhancement*:
+Added the ability for the application to integrate with an *online database of movies and tv shows*.
+
+*What it does*:
+
+. Allows the user to see images in the application.
+. Retrieve information about movies and tv shows.
+. Search for movies and tv shows from a large up-to-date database.
+. Access reviews, ratings, recommendations, collections of movies and tv shows, genre information, and much more.
+
+*Justification*:
+
+This feature improves the product significantly because a user should be encouraged to use the application by providing
+appealing images, comprehensive information and up-to-date data.
+
+*Highlights*:
+
+This feature required a robust knowledge on how to set up third party libraries in a Java application.
+Json conversion (Online data retrieval) is also another key element when considering the API used.
+
+Moreover, I had to integrate this external data with our own internal systems. Meaning my teammates had to use my implementations easily. Hence, data handling and conversion had to be designed in an understandable manner.
+
+*Credits*:
+
+We are using The Movie Database (TMDB) API to retrieve information on movies and tv shows. As well as
+using a java wrapper for the TMDB api implemented by Holger Brandl.
+
+
+=== *Minor enhancement*:
+
+Added ability to *store and retrieve images* in the application.
+
+** Justification: This feature improves the visual interface, and provides movies and tv shows a more potent identity compared to just words.
+** Highlights: A lot of consideration had to
+be placed in the retrieval and presentation of images. I had to integrate the image portrayal with the `JavaFX`-based interface,
+consider how to store images and retrieve them when needed.
+
+=== *Minor enhancement*:
+
+Added ability to get *recommendations* based on the user's personal movies and tv shows.
+
+** Justification: This feature improves the product because a user can gain the added benefit of getting more suggestions for Movies and Tv Shows, which
+makes the application more robust. Moreover, it improves the value of the application encouraging usage of the application.
+** Highlights: This design for this enhancement had considerable thought into the efficiency of this feature due to the large amount of processing required from parsing the user's data. There is also the subjective manner of knowing what to recommend from a large list.
+** Credits: The Movie Database (TMDB) API
+
+
+*Code contributed*:
+
+All of my contributions to the application can  be found in the following link: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=heze8&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[My Code Contribution]]
+
+
+*Other contributions*:
+
+Project management:
+
+*** I am the Project lead, thus my job consisted of making sure the team coordinated, the overall vision of the application was reached, and handling all the issues that arose in the development.
+
+*** Managed releases `v1.1` - `v1.4` (3 releases) on GitHub
+
+*** Managed and assigned the issues, milestones and project board on Github.
+
+Enhancements to existing features:
+
+*** Updated the application's model to integrate seamlessly with the external library's data. This meant that each internal model class had to be error-friendly due to the unpredictable manner of the online database.
+*** Added more internal classes such as `Poster` and `Genre` to be used in the application. (Commits https://github.com/AY1920S1-CS2103T-F13-4/main/commit/f9e7b69e36d8404e79107bc94d04670321d71aa3[Poster] and https://github.com/AY1920S1-CS2103T-F13-4/main/commit/e07c06d1fe2420db5163956c63d92cbf9cfbad5c[Genre])
+*** Wrote additional tests to increase coverage.
+*** Helped to integrate the API code with the rest of the application.
+
+Documentation:
+
+*** Did cosmetic tweaks to our website. https://github.com/AY1920S1-CS2103T-F13-4/main/pull/224[Pull request #224]
+
+Community:
+
+*** Reviewed Pull Request : https://github.com/AY1920S1-CS2103T-F13-4/main/pull/107[#107], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/30[#30], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/73[#73], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/51[#51], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/78[#78]
+*** Reported bugs and suggestions for other teams in the class: https://github.com/AY1920S1-CS2103T-T11-3/main/issues[T11-3 team], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/20[F12-4 team]
+
+Tools:
+
+*** Integrated a third party library (TMDB) to the project (https://www.themoviedb.org/documentation/api[TMDB Api])
+*** Integrated a new Github plugin (Java wrapper) to the team repo.
+*** Added a successfully merged pull request to the Java Wrapper we are using in our application to fix their issue of not supporting recommendations. (https://github.com/holgerbrandl/themoviedbapi/pull/111[Pull request merged])
+
+
+== 3. Contributions to the User Guide
+Our `EzWatchlist` user guide consists of instructions to the user on how to use our application.
+It displays my ability to document in an engaging and  readable format.
+
+I wrote the introduction to ease the user into the main features of the application, breaking it down to navigation and interaction with our program.
+
+|===
+|_The following is an excerpt from our `EzWatchlist` User Guide, showing additions that I have
+made for the Introduction. The full introduction can be found https://ay1920s1-cs2103t-f13-4.github.io/main/UserGuide.html#introduction[here]:_
+
+|===
+include::../UserGuide.adoc[tag=intro]
+
+___
+
+|===
+|_Moreover I wrote the Advanced Features portion of the user guide, available https://ay1920s1-cs2103t-f13-4.github.io/main/UserGuide.html#advanced-features[here]._
+|===
+
+== Contributions to the Developer Guide
+This sections showcases my contribution to the `EzWatchlist` Developer Guide, which serve to document the implementation of our features to technical users. It demonstrates my capability to use diagrams
+and illustrate technical details.
+
+|===
+|_The following are sections for the Api Component I wrote to introduce the design architecture in the application._
+|===
+
+include::../DeveloperGuide.adoc[tag=apicomponent]
+
+|===
+|_Moreover, I also contributed the description of my implementation of the Api Model classes, Image Retrieval, and generation of Recommendations. The following is only an excerpt of my design considerations. The full portion can be found https://ay1920s1-cs2103t-f13-4.github.io/main/DeveloperGuide.html#online-data[here]_
+|===
+
+include::../DeveloperGuide.adoc[tag=apiimpl]
+

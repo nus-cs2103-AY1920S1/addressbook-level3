@@ -1,0 +1,54 @@
+@startuml
+skinparam backgroundColor white
+skinparam activity {
+  StartColor RoyalBlue
+  EndColor RoyalBlue
+  BackgroundColor RoyalBlue
+  arrowColor Blue
+  activityDiamondBackgroundColor Blue
+  activityBarColor blue
+  BorderColor blue
+  ControlBackgroundColor white
+  FontColor Snow
+  FontName Calibri
+  FontSize 16
+}
+
+skinparam activityDiamond {
+    BackgroundColor Snow
+    BorderColor blue
+    FontSize 24
+}
+
+start
+:User executes Watch command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([Fields specified])
+if () then (   [Seasons and
+episodes specified])
+    :Set last watched episode
+         to episode number
+          of season number;
+else ([else])
+    if () then ([Seasons specified])
+        :      Set last watched
+        episode to last episode
+              of season number;
+    else ([Episodes specified])
+        :   Set last watched
+       episode to specified
+           episode number;
+     endif
+endif
+else ([else])
+    :Toggle the watched
+    status of the show;
+endif
+:Show information is updated;
+
+:Appropriate result is shown to the user;
+stop
+@enduml

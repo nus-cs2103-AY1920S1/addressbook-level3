@@ -1,0 +1,75 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":WatchListParser" as WatchListParser LOGIC_COLOR
+participant ":SearchCommandParser" as SearchCommandParser LOGIC_COLOR
+participant "s:SearchCommand" as SearchCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute\n("search n/Avengers o/no",\n mainWindow, "search-list")
+activate LogicManager
+
+LogicManager -> WatchListParser : parseCommand\n("search n/Avengers o/no",\n "search-list")
+activate WatchListParser
+
+create SearchCommandParser
+WatchListParser -> SearchCommandParser
+activate SearchCommandParser
+
+SearchCommandParser --> WatchListParser
+deactivate SearchCommandParser
+
+WatchListParser -> SearchCommandParser : parse\n("n/Avengers o/no",\n "search-list")
+activate SearchCommandParser
+
+create SearchCommand
+SearchCommandParser -> SearchCommand
+activate SearchCommand
+
+SearchCommand --> SearchCommandParser : s
+deactivate SearchCommand
+
+SearchCommandParser --> WatchListParser : s
+deactivate SearchCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SearchCommandParser -[hidden]-> WatchListParser
+destroy SearchCommandParser
+
+WatchListParser --> LogicManager : s
+deactivate WatchListParser
+
+LogicManager -> SearchCommand : execute(model)
+activate SearchCommand
+
+
+SearchCommand -> SearchCommand : searchByName(model)
+activate SearchCommand
+
+SearchCommand -> Model : getShowFromWatchlistIfHasName\n("Avengers", model)
+activate Model
+return
+
+deactivate SearchCommand
+
+deactivate Model
+
+create CommandResult
+SearchCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SearchCommand
+deactivate CommandResult
+
+SearchCommand --> LogicManager : result
+deactivate SearchCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
