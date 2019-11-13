@@ -395,6 +395,9 @@ Upon typing any letters that resemble commands, a popup menu will appear as show
 
 image::autocorrect/autocomplete2.jpg[auto,500,480,pdfwidth=50%,scaledwidth=50%]
 
+Selecting any of these suggestions results sets the text of the text field to the suggestion.
+
+
 Usage:
 
 `SHIFT + Arrow DOWN` and `SHIFT + Arrow UP` Keys to toggle between autocomplete suggestions +
@@ -428,23 +431,21 @@ Usage:
 
 Restores the database to the state before the previous undoable command was executed.
 
-[NOTE] Undoable commands are commands that modify the database's content: `add`, `delete`
+[NOTE]
+Undoable commands are commands that modify the database's content: `add`, `delete`
 `edit`, `clear`, `upload`.
 
 Undo/redo cannot, however, undo actions made during previous activation of Teacher's Notebook. +
 This is to say, once the application is closed, all actions done cannot be undone. +
 
-Usage:
-
-Enter `undo` or `redo` +
+Format: `undo` or `redo` +
 
 Examples:
 
 * `deletestudent 1` + `undo` (reverses the `delete 1` command) +
 `redo` (applies the delete command again) +
 
-* `liststudents` + `undo` (Error message pops up, no )
-
+* `liststudents` + `undo` (Error message displayed as no changes made to database)
 
 
 // end::undoredo[]
@@ -453,25 +454,21 @@ Examples:
 
 Triggers a popup window with a link to the user guide.
 
-Usage:
 
-Enter `help` +
+Format: `help` +
 
 ==== Clear
 
 Clears all data from the notebook. If triggered erroneously, the undo command can be used to reclaim all data.
 
-Usage:
 
-Enter `clear` to clear all data +
+Format: `clear` +
 
 ==== Exit
 
 Exits the application and stops all teacher's notebook processes. +
 
-Usage:
-
-Enter `exit` +
+Format: `exit` +
 
 // end::userfriendly[]
 
