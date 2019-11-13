@@ -241,7 +241,7 @@ and `Model#setPlannerFilePath(Path)` respectively.
 Given below is the sequence diagram of how the `load` operation works:
 
 .Sequence diagram for `load` command
-image::LoadSequenceDiagram.png[]
+image::LoadSequenceDiagram.png[width=90%, scaledwidth=90%]
 NOTE: The lifeline for `LoadCommand` should end at the destroy marker (X) but due to a limitation of PlantUML,
 the lifeline reaches the end of diagram.
 
