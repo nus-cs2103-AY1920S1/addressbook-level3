@@ -85,7 +85,8 @@ The following example usage scenario and the state of `historyManager` at each s
 
 `HistoryManager` is initialized with empty `history` and `redoStack` objects.
 
-image::UndoRedoState0.png[]
+.Initial state of `historyManager`
+image::UndoRedoState0.png[width=200]
 
 **Step 2**: The user executes the command `pat-delete 3`. +
 
@@ -97,7 +98,8 @@ and `stagedAppointmentBook` into `historyManager` through
 `historyManager` uses those objects to create a new `HistoryRecord` object which contains the model state **before** the
 command was executed (here labelled `hr0`) and pushes it into the `history`.
 
-image::UndoRedoState1.png[]
+.`historyManager` after `pat-delete 3` is executed
+image::UndoRedoState1.png[width=300]
 
 **Step 3**: The user executes the command `visit-start`. +
 
@@ -105,7 +107,8 @@ The interaction between `logicManager`, `modelManager` and `historyManager` is t
 
 `historyManager` creates a new `HistoryRecord` object (here labelled `hr1`) and pushes it into the `history`.
 
-image::UndoRedoState2.png[]
+.`historyManager` after `visit-start` is executed
+image::UndoRedoState2.png[width=300]
 
 **Step 4**: The user wants to revert to the first item in the history, so he executes the command `app-undo 1`. +
 
@@ -116,14 +119,16 @@ and including the target record from the history (`hr1` and `hr0` in the previou
 these popped records to create new records of the model state **after** the commands were executed, and places these
 new records (`hr2` and `hr3`) into the `redoStack`.
 
-image::UndoRedoState3.png[]
+.`historyManager` after `app-undo 1` is executed
+image::UndoRedoState3.png[width=300]
 
 Finally, `modelManager` calls `ModelManager#changeBaseTo(PatientBook, AppointmentBook)` using the state objects in the
 target record. This performs the actual reversion of the state. +
 
 The action of the `UndoCommand` is summarised in the sequence diagram below:
 
-image::UndoSequenceDiagram.png[]
+.Sequence diagram for `app-undo`
+image::UndoSequenceDiagram.png[width=630]
 
 **Step 5**: The user wants to redo `pat-delete 3`, so he executes the command `app-redo`. +
 
@@ -134,7 +139,8 @@ passing it the current `stagedPatientBook` and `stagedAppointmentBook`. +
 `PatientBook` and `AppointmentBook` just passed in by the `modelManager`, to create a new `HistoryRecord` (`hr4`)
 describing the model state **before** that command was executed. It then pushes `hr4` into the history.
 
-image::UndoRedoState4.png[]
+.`historyManager` after `app-redo` is executed
+image::UndoRedoState4.png[width=400]
 
 `historyManager#popRedo()` returns the `HistoryRecord` (`hr3`) containing the state after the redo. `modelManager`
 can now call `ModelManager#changeBaseTo()` to change the state to it.
@@ -146,7 +152,8 @@ The action of the `logicManager` and `modelManager` is similar what is described
 `historyManager` sees that the committing command is not an `UndoCommand` or a `RedoCommand` and clears the
 `redoStack` to avoid branching.
 
-image::UndoRedoState5.png[]
+.`historyManager` after `pat-clear` is executed
+image::UndoRedoState5.png[width=300]
 
 ==== Model and Logic Design Considerations
 
@@ -154,73 +161,56 @@ image::UndoRedoState5.png[]
 
 * **Alternative 1 (current choice)**: Save the entire `PatientBook` and `AppointmentBook` objects to
 record each model state.
-** Pros:
-*** Easier to implement.
-** Cons:
-*** Consumes more memory.
+** Pros: Easier to implement.
+** Cons: Consumes more memory.
 
 * Alternative 2: Only save the `MutatorCommand` objects but implement an `undo()`
 method for each `MutatorCommand` which does exactly the reverse of its `execute()` method.
-** Pros:
-*** Consumes much less memory.
-** Cons:
-*** Difficult to implement - doubles the amount of work needed for each command.
+** Pros: Consumes much less memory.
+** Cons: Difficult to implement - doubles the amount of work needed for each command.
 
 ===== Aspect: How to record the PatientBook and AppointmentBook states in the history
 
 * Alternative 1: Simply store references to `PatientBook` and `AppointmentBook`.
-** Pros:
-*** Easier to implement.
-** Cons:
-*** Relies on the assumption that the objects in `PatientBook` and `AppointmentBook`
+** Pros: Easier to implement.
+** Cons: Relies on the assumption that the objects in `PatientBook` and `AppointmentBook`
 are immutable; if they are not truly immutable, changes to the current model's
 `PatientBook` and `AppointmentBook` state may leak and affect the states stored in
 the history.
 
 * **Alternative 2 (current choice):** Defensively store deep copies of the `PatientBook` and `AppointmentBook`.
 
-** Pros:
-*** Prevents improperly coded `Patient` or `Appointment` (or their
-associated classes) from breaking undo/redo/history functionality.
-*** Can reuse JSON serialization code for persistent storage of `PatientBook` and `AppointmentBook`
-to create deep copies by serializing then immediately deserializing them.
+** Pros: Prevents improperly coded `Patient` or `Appointment` (or their
+associated classes) from breaking undo/redo/history functionality. Can reuse JSON serialization code for persistent
+storage of `PatientBook` and `AppointmentBook` to create deep copies by serializing then immediately deserializing them.
 
-** Cons:
-*** Consumes more memory and CPU time.
-*** More difficult to implement - MVC pattern between UI view and models is broken in
-two. This is because each time the current state is swapped with a state in the
-history by `ModelManager`, the `ObservableList` viewed by the UI must also be
-updated by the `ModelManager` instead of the `PatientBook` as the current
-`PatientBook` is completely decoupled and placed into the history.
+** Cons: Consumes more memory and CPU time. More difficult to implement - MVC pattern between UI view and models is
+broken in two. This is because each time the current state is swapped with a state in the  history by `ModelManager`,
+the `ObservableList` viewed by the UI must also be  updated by the `ModelManager` instead of the `PatientBook` as the
+current `PatientBook` is completely decoupled and placed into the history.
 
 ===== Aspect: Which class to place the HistoryManager in
 
 * **Alternative 1 (current choice):** Make `HistoryManager` a field of `ModelManager`.
 
-** Pros:
-*** Ensures atomicity of the records in the history as pushing a transaction
+** Pros: Ensures atomicity of the records in the history as pushing a transaction
 to the `HistoryManager` can only be (and is always) done by `Model#commit()`
 itself - records in the history are guaranteed to be products of complete command
 execution rather than intermediate states.
 
-** Cons:
-*** More difficult to test `ModelManager` as two `ModelManager` objects may have
-the same current state but differing `HistoryManager` objects.
-*** May violate Single Responsibility Principle as `ModelManager` now has to manage
-both its current state and its previous states.
+** Cons: More difficult to test `ModelManager` as two `ModelManager` objects may have
+the same current state but differing `HistoryManager` objects. May violate Single Responsibility Principle as
+`ModelManager` now has to manage both its current state and its previous states.
 
 * Alternative 2: Make `HistoryManager` a field of `LogicManager`.
 
-** Pros:
-*** Higher cohesion as `ModelManager` only represents the model's current state.
-*** Easier to test `ModelManager` as only its current state matters.
+** Pros: Higher cohesion as `ModelManager` only represents the model's current state. Easier to test `ModelManager`
+as only its current state matters.
 
-** Cons:
-*** It is possible for intermediate model states to be pushed to the `HistoryManager` -
-trusts `LogicManager` to push the transaction to history after (and only
-after) calling `Model#commit()`.
-*** Requires `Command#execute()` to accept `HistoryManager` as a parameter just so
-`UndoCommand` and `RedoCommand` can work even though the vast majority of commands do not require it.
+** Cons: It is possible for intermediate model states to be pushed to the `HistoryManager` - trusts `LogicManager` to
+push the transaction to history after (and only after) calling `Model#commit()`. Requires `Command#execute()` to
+accept `HistoryManager` as a parameter just so `UndoCommand` and `RedoCommand` can work even though the vast majority
+of commands do not require it.
 
 ==== UI
 
@@ -235,19 +225,14 @@ returned by `HistoryManager#asUnmodifiableObservableList()`.
 
 * **Alternative 1 (current choice):** Permanently display it in a dedicated panel.
 
-** Pros:
-*** User does not have to execute a 'history' command to view the history,
+** Pros: User does not have to execute a 'history' command to view the history,
 making it much easier to use the multiple undo function.
 
-** Cons:
-*** Takes up more space in the UI.
+** Cons: Takes up more space in the UI.
 
 * Alternative 2: Display it as a tab in the `TabPane`.
 
-** Pros:
-*** Saves space in the UI.
+** Pros: Saves space in the UI.
 
-** Cons:
-*** User has to switch to the history tab to view it.
-*** Less intuitive UX as the other tabs in the `TabPane` all display actual data
-such as `Patient`, `Visit`, and `Appointment` info, whereas history is app metadata.
+** Cons: User has to switch to the history tab to view it. Less intuitive UX as the other tabs in the `TabPane` all
+display actual data such as `Patient`, `Visit`, and `Appointment` info, whereas history is app metadata.

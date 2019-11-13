@@ -5,8 +5,6 @@
 
 == PROJECT: NurseTraverse
 
----
-
 == Overview
 
 NurseTraverse is a desktop application designed to help community nurses manage all the data they may need, including

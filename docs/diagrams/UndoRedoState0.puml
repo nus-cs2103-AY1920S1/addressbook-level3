@@ -3,8 +3,6 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title Initial state
-
 package history {
 
 }

@@ -3,8 +3,6 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "app-redo"
-
 package history {
     object hr4 {
         command = "pat-delete 3"
