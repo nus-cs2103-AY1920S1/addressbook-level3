@@ -160,7 +160,6 @@ public class CalendarDetailPanel extends UiPart<Region> {
      * Adds performance data in the form of a table to {@code CalendarDetailPanel}.
      */
     private void addPerformanceTable(HashMap<Event, List<CalendarCompatibleRecord>> performanceData) {
-        addPerformanceTable(performanceData);
         performanceData.forEach((event, recordList) -> {
             int numRecords = recordList.size();
             if (numRecords > 0) {
