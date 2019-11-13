@@ -1,0 +1,116 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":LoadCommand" as LoadCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":Storage" as Storage STORAGE_COLOR
+end box
+
+[-> LogicManager : execute(commandText)
+activate LogicManager
+
+LogicManager -> LoadCommand : execute(model)
+activate LoadCommand
+
+LoadCommand -> Model : setPlannerFilePath(plannerFilePath)
+activate Model
+
+Model --> LoadCommand
+deactivate Model
+
+LoadCommand -> Model : setItineraryName(name)
+activate Model
+
+Model --> LoadCommand
+deactivate Model
+
+LoadCommand --> LogicManager : commandResult
+deactivate LoadCommand
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+LoadCommand -[hidden]-> LogicManager
+destroy LoadCommand
+
+LogicManager -> Storage : setAccommodationFilePath(accommodationFilePath)
+activate Storage
+
+Storage --> LogicManager
+deactivate Storage
+
+LogicManager -> Storage : setActivityFilePath(activityFilePath)
+activate Storage
+
+Storage --> LogicManager
+deactivate Storage
+
+LogicManager -> Storage : setContactFilePath(contactFilePath)
+activate Storage
+
+Storage --> LogicManager
+deactivate Storage
+
+LogicManager -> Storage : setItineraryFilePath(itineraryFilePath)
+activate Storage
+
+Storage --> LogicManager
+deactivate Storage
+
+LogicManager --> Model : setAccommodations(accommodations)
+activate Model
+
+Model --> LogicManager
+deactivate Model
+
+LogicManager --> Model : setActivities(activities)
+activate Model
+
+Model --> LogicManager
+deactivate Model
+
+LogicManager --> Model : setContacts(contacts)
+activate Model
+
+Model --> LogicManager
+deactivate Model
+
+LogicManager --> Model : setItinerary(itinerary)
+activate Model
+
+Model --> LogicManager
+deactivate Model
+
+LogicManager -> Storage : saveAccommodation(accommodation)
+activate Storage
+
+Storage --> LogicManager
+deactivate Storage
+
+LogicManager -> Storage : saveActivity(activity)
+activate Storage
+
+Storage --> LogicManager
+deactivate Storage
+
+LogicManager -> Storage : saveContact(contact)
+activate Storage
+
+Storage --> LogicManager
+deactivate Storage
+
+LogicManager -> Storage : saveItinerary(itinerary)
+activate Storage
+
+Storage --> LogicManager
+deactivate Storage
+
+[<--LogicManager : commandResult
+deactivate LogicManager
+@enduml

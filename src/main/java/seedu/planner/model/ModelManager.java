@@ -515,6 +515,7 @@ public class ModelManager implements Model {
         userPrefs.setContactFilePath(contactFilePath);
     }
 
+    //@@author ernestyyh
     @Override
     public Path getPlannerFilePath() {
         return userPrefs.getPlannerFilePath();
@@ -526,6 +527,7 @@ public class ModelManager implements Model {
         userPrefs.setPlannerFilePath(plannerFilePath);
     }
 
+    //@@author
     @Override
     public Path getItineraryFilePath() {
         return userPrefs.getItineraryFilePath();

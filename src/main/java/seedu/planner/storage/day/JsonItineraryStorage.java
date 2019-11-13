@@ -31,11 +31,13 @@ public class JsonItineraryStorage implements ItineraryStorage {
         return filePath;
     }
 
+    //@@author ernestyyh
     public void setItineraryFilePath(Path itineraryFilePath) {
         requireNonNull(itineraryFilePath);
         filePath = itineraryFilePath;
     }
 
+    //@@author OneArmyj
     @Override
     public Optional<ReadOnlyItinerary> readItinerary() throws DataConversionException {
         return readItinerary(filePath);

@@ -73,6 +73,7 @@ public class SetCommand extends Command {
                 throw new CommandException(MESSAGE_NAME_IS_TOO_LONG);
             }
 
+            //@@author ernestyyh
             Path newPlannerFilePath = model.getPlannerFilePath().resolveSibling(this.name.name);
             File newPlannerFile = newPlannerFilePath.toFile();
 
@@ -82,6 +83,8 @@ public class SetCommand extends Command {
 
             model.setPlannerFilePath(newPlannerFilePath.getFileName());
             model.setItineraryName(this.name);
+
+            //@@author 1nefootstep
         }
         if (!(startDate == null)) {
             LocalDate oldStartDate = model.getStartDate();

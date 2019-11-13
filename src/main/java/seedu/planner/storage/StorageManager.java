@@ -69,11 +69,13 @@ public class StorageManager implements Storage {
         return accommodationStorage.getAccommodationFilePath();
     }
 
+    //@@author ernestyyh
     @Override
     public void setAccommodationFilePath(Path accommodationFilePath) {
         accommodationStorage.setAccommodationFilePath(accommodationFilePath);
     }
 
+    //@@author OneArmyj
     @Override
     public Optional<ReadOnlyAccommodation> readAccommodation() throws DataConversionException, IOException {
         return readAccommodation(accommodationStorage.getAccommodationFilePath());
@@ -104,11 +106,13 @@ public class StorageManager implements Storage {
         return activityStorage.getActivityFilePath();
     }
 
+    //@@author ernestyyh
     @Override
     public void setActivityFilePath(Path activityFilePath) {
         activityStorage.setActivityFilePath(activityFilePath);
     }
 
+    //@@author OneArmyj
     @Override
     public Optional<ReadOnlyActivity> readActivity() throws DataConversionException, IOException {
         return readActivity(activityStorage.getActivityFilePath());
@@ -139,11 +143,13 @@ public class StorageManager implements Storage {
         return contactStorage.getContactFilePath();
     }
 
+    //@@author ernestyyh
     @Override
     public void setContactFilePath(Path contactFilePath) {
         contactStorage.setContactFilePath(contactFilePath);
     }
 
+    //@@author OneArmyj
     @Override
     public Optional<ReadOnlyContact> readContact() throws DataConversionException, IOException {
         return readContact(contactStorage.getContactFilePath());
@@ -174,11 +180,13 @@ public class StorageManager implements Storage {
         return itineraryStorage.getItineraryFilePath();
     }
 
+    //@@author ernestyyh
     @Override
     public void setItineraryFilePath(Path itineraryFilePath) {
         itineraryStorage.setItineraryFilePath(itineraryFilePath);
     }
 
+    //@@author OneArmyj
     @Override
     public Optional<ReadOnlyItinerary> readItinerary() throws DataConversionException, IOException {
         return readItinerary(itineraryStorage.getItineraryFilePath());
@@ -204,6 +212,7 @@ public class StorageManager implements Storage {
 
     // ================ PlannerFilePath methods ==============================
 
+    //@@author ernestyyh
     @Override
     public void deletePlannerFilePath() {
         getAccommodationFilePath().toFile().delete();

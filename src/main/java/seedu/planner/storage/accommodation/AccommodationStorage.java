@@ -18,11 +18,13 @@ public interface AccommodationStorage {
      */
     Path getAccommodationFilePath();
 
+    //@@author ernestyyh
     /**
      * Sets the file path of the data file.
      */
     void setAccommodationFilePath(Path accommodationFilePath);
 
+    //@@author OneArmyj
     /**
      * Returns Accommodation data as a {@link ReadOnlyAccommodation}.
      * Returns {@code Optional.empty()} if storage file is not found.
