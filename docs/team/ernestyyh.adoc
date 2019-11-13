@@ -72,5 +72,7 @@ include::../UserGuide.adoc[tag=tripmanagement]
 documentation and the technical depth of my contributions to the project._
 |===
 include::../DeveloperGuide.adoc[tag=tripmanagement]
+
+=== Contributions to Instructions for Manual Testing
 include::../DeveloperGuide.adoc[tag=tripmanagementtest]
 
