@@ -43,7 +43,7 @@ Responsibilities: Rule Engine
 === Chen Jiehan
 image::ChenJiehan318.png[width="150", align="left"]
 {empty}[http://github.com/ChenJiehan318[github]]
-{empty}[<<ChenJiehan318#, portfolio>>]
+{empty}[<<chenjiehan318#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Accounts
