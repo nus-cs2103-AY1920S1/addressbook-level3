@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Teacher’s Notebook - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,31 +12,23 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-T14-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+
+By: `CS2103-T14-1`      Since: `October 19`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Teacher’s Notebook is for teachers who prefer to make use of an application to keep track of the deliverables,
+tasks and students’ information. It is optimized for teachers who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a teacher who wants to manage your students and your tasks efficiently, and can type fast, Teacher’s Notebook can get your work done much faster than traditional applications! Jump to Section 2, “Quick Start” to get started! Enjoy!
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Ensure you have Java 11 or above installed in your Computer.
+.  Download the latest teachersnotebook.jar {repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Teacher’s Notebook.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+.  Type in the commands and press enter to execute them. Refer to Section 3: Features for more details on the commands.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -44,134 +36,520 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
-*Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+*Command Format* +
+* Words in UPPER_CASE are the parameters supplied by the user e.g. in `addclass c/CLASS`, CLASS is a parameter which can be used as `addclass c/4C`. +
+* Items in square brackets are optional e.g. `n/NAME [m/MEDICAL_CONDITIONS]` can be used as `n/John Doe m/Sinus` or `n/John Doe`. +
+* Items with … after them can be used multiple times including zero times e.g. `[t/TAGS]...` can be used as (i.e. 0 times), `t/Math REP`, `t/MATH REP t/Bully` etc. +
+* Parameters can be in any order e.g. if the command specifies `n/NAME a/ADDRESS`, `a/ADDRESS, n/NAME` is also acceptable
 ====
 
-=== Viewing help : `help`
+// tag::classes[]
+=== Classrooms
+The user can view his or her classrooms in the middle panel of the GUI of Teacher's Notebook as shown below. +
 
-Format: `help`
+image::class/class2.JPG[class,600,480,pdfwidth=50%,scaledwidth=50%]
 
-=== Adding a person: `add`
+The first classroom in the panel is selected by default.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+[NOTE]
+Classroom names are case sensitive.
 
-[TIP]
-A person can have any number of tags (including 0)
 
-Examples:
+==== Adding Classroom: addclass
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Adds a new classroom to the list of existing classroom.
 
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Format: `addclass c/CLASS_NAME`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `addclass c/4E7`
+* `addclass c/3E8`
 
-=== Locating persons by name: `find`
+[NOTE]
+The name of the new classroom must not be empty,
+and it must be different from all current classroom names.
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+==== Deleting Classroom: deleteclass
+
+Allows a user to delete the selected classroom. +
+
+Format: `deleteclass c/CLASS_NAME`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `deleteclass c/4E7`
+* `deleteclass c/3E8`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+[NOTE]
+Classroom must be in the current list of classrooms, and CLASS_NAME cannot be empty.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+==== Setting Classroom: setclass
+
+Allows a user to select a classroom as the selected classroom.
+Student and Assignment functions will act on the selected classroom.
+The image below illustrates the change in
+the middle GUI panel when setclass is called.
+
+image::class/setclass.JPG[class,600,480,pdfwidth=50%,scaledwidth=50%]
+
+Format: `setclass c/CLASS_NAME` +
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `setclass c/4E7`
+* `setclass c/3E8`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+[NOTE]
+Classroom must be in the current list of classrooms, and classroom name cannot be empty.
+// end::classes[]
 
-Clears all entries from the address book. +
-Format: `clear`
+// tag::lessons[]
+=== Lessons
+The user can view his or her lessons on the left panel of the GUI of the Teacher's Notebook. +
+There are several fields in each lesson as shown below:
 
-=== Exiting the program : `exit`
+* LessonName - Prefix: l/
+** LessonNames should be alphanumerical, and cannot be empty.
+* StartTime - Prefix: st/
+** StartTime should be in the format dd/mm/yyyy hhmm e.g. 12/01/2020 1200
+* EndTime - Prefix: et/
+** EndTime should be in the format dd/mm/yyyy hhmm e.g. 12/01/2020 1300
+* repeat - Prefix: r/
+* Day - Prefix: day/
+** Day should be an integer between 1-7.
 
-Exits the program. +
-Format: `exit`
+==== Adding: addlesson
 
-=== Saving the data
+Adds a lesson to the lesson list of the notebook. +
+Feature to repeat lessons will be implemented in v2.0 +
+Format: `addlesson l/LESSON st/START_TIME et/ET_TIME:dd/MM/yy HHmm`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Examples:
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+* `addlesson l/Math 4E7 st/12/01/2020 1200 et/12/01/2020 1300`
+* `addlesson l/English 3E8 st/06/01/2020 1200 et/06/01/2020 1300`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+[NOTE]
+Once a lesson is added, a reminder will be automatically scheduled and an alert box will pop up when current time matches the time of the lesson.
+
+==== Editing: editlesson
+Edits a lesson at the specific index in the day list of reminder panel. +
+Day index represents day in week, e.g. Monday: 1, Tuesday: 2 +
+Format: `editlesson LESSON_INDEX day/DAY_INDEX [l/LESSON_NAME] [st/START_TIME] [et/END_TIME]`
+
+Examples:
+
+* `editlesson 1 day/3 l/English 4E2`
+* `editlesson 2 day/4 st/05/01/2020 1200 et/05/01/2020 1300`
+
+[NOTE]
+The index and day index provided must be valid and at least one field must be edited.
+
+==== Deleting: deletelesson
+
+Deletes a lesson at the specified index in the day list of reminder panel. +
+Day index represents day in week, e.g. Monday: 1, Tuesday: 2 +
+Format: `deletelesson LESSON_INDEX day/DAY_INDEX`
+
+Examples:
+
+* `deletelesson 1 day/2`
+* `deletelesson 3 day/4`
+
+[NOTE]
+The index and day index provided must be valid and at least one field must be edited.
+
+==== Finding: findlesson
+
+Finds lessons which match the given keyword. +
+Format: `findlesson KEYWORD`
+
+Examples:
+
+* `findlesson Math`
+* `findlesson 12:00`
+
+// end::lessons[]
+
+// tag::students[]
+=== Students
+Students are contained within each classroom. There are several fields in each student as shown below:
+
+* Name - Prefix: n/
+** Names must be alphanumerical, and cannot be empty.
+* Email - Prefix: e/
+** Emails must be in the format alphanumeric@example.com e.g. amanda@example.com, ilovebubbletea@gmail.com
+* Phone - Prefix: p/
+** Phone numbers must be at least 3 digits, and must only contain digits.
+* Address - Prefix: a/
+** Address must be alphanumerical, and cannot be empty.
+* Parent Phone - Prefix: pp/
+** Parent phone numbers must be at least 3 digits, and must only contain digits.
+* Medical Conditions - Prefix: m/
+** Medical conditions must be alphanumerical. This is an optional field.
+* Tags - Prefix: t/
+** Tags must be alphanumerical. This is an optional field that can be used multiple times.
+* DisplayPicture - Prefix: none
+** Display pictures must be in PNG file format. A default display picture is set for each student.
+
+==== Adding Student: addstudent
+
+Adds a student to the student list of the current class. +
+Format: `addstudent n/NAME e/EMAIL p/PHONE a/ADDRESS pp/PARENT_PHONE [m/MEDICAL_CONDITIONS]... [t/TAG]...`
+
+Examples:
+
+* `addstudent n/John Doe e/johndoe@gmail.com p/81930042 a/Jurong East Avenue 3 Blk 639 #12-02 pp/84295512 m/Sinus`
+* `addstudent n/Jane Doe e/janedoe@hotmail.com p/91823051 a/Tampinese Avenue 5 Blk 772 #02-84 pp/99811241 t/PE Rep t/Naughty`
+
+==== Editing Student: editstudent
+
+Edits a student at the specified index in the student list of the current class. +
+Format: `editstudent STUDENT_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pp/PARENT_PHONE] [m/MEDICAL_CONDITIONS], [t/TAG]...`
+
+Examples:
+
+* `editstudent 2 p/98510293 e/jonathan@example.com`
+* `editstudent 4 n/Xavier Lim`
+
+[NOTE]
+The index provided must be valid (is an integer and exists in the student list) and at least one field must be edited. If the list has been filtered through the Finding Student command, the index provided corresponds to the index on the filtered list.
+
+==== Deleting Student: deletestudent
+
+Deletes a student at the specified index in the student list of the current class. +
+Format: `deletestudent STUDENT_INDEX`
+
+Example:
+
+* `deletestudent 5`
+
+[NOTE]
+The index provided must be valid (is an integer and exists in the student list) If the list has been filtered through the Finding Student command, the index provided corresponds to the index on the filtered list.
+
+==== Listing Students: liststudents
+
+Lists all the students in the current classroom.
+Format: `liststudents`
+
+==== Finding Student: findstudent
+
+Find students whose name matches a given keyword in the current classroom. +
+Format: `findstudent STUDENT_NAME`
+
+Examples:
+
+* `findstudent John Doe`
+* `findstudent Jane Doe`
+
+//tag::upload[]
+==== Uploading: upload
+
+Allows a user to upload a PNG/JPG file to set the display picture of the student at the specified index in the student list of the current class. +
+Upon entering the command, a window will popup as shown below:
+
+image::upload/upload_1.JPG[500,480,pdfwidth=50%,scaledwidth=50%]
+
+And the user will be prompted to select a PNG/JPG file from their computer to set as the new display picture of the student. +
+The user may cancel the upload operation by clicking on cancel in the window that pops up. +
+
+Format: `upload STUDENT_INDEX`
+
+Example:
+
+* `upload 3`
+
+[NOTE]
+The index provided must be valid (is an integer and exists in the student list). If the list has been filtered through the Finding Student command, the index provided corresponds to the index on the filtered list.
+The directory of the image uploaded is assumed to not change. If the image is moved or deleted after it is set as the display picture, the display picture will be empty when the user starts up Teacher's Notebook.
+
+==== Resetting display picture
+
+Resets the display picture of the student to the default.
+
+Format: resetdisplaypic
+
+Example:
+
+* `resetdisplaypic`
+
+// end::upload[]
+
+// end::students[]
+
+// tag::assignments[]
+=== Assignments
+
+Assignments are contained within each class. There are two fields in each assignment as shown below:
+
+* Name - Prefix: as/
+** Names must be alphanumerical, and cannot be empty.
+* Deadline - Prefix: d/
+** Deadlines must be in the format dd/MM/yyyy HHmm, and later than the current date and time e.g. 01/12/19 0000, 25/12/19 2359
+
+
+==== Adding Assignment: addassignment
+
+Adds an assignment to the assignment list of the current class. +
+Format: `addassignment as/ASSIGNMENT d/DEADLINE:dd/MM/yyyy HHmm`
+
+Examples:
+
+* `addassignment as/Math Test d/29/11/2020 1400`
+* `addassignment as/English Test 2 d/30/11/2020 1400`
+
+==== Editing Assignment: editassignment
+
+Edits an assignment at the specified index in the student list of the current class. +
+Format: `editassignment ASSIGNMENT_INDEX [as/ASSIGNMENT_NAME] [d/ASSIGNMENT_DEADLINE]`
+
+Examples:
+
+* `editassignment 1 as/English Test d/29/11/2020 1400`
+* `editassignment 1 as/Math Test d/29/11/2020 1600`
+
+[NOTE]
+The index provided must be valid (is an integer and exists in the assignment list) and at least one field must be edited. If the list has been filtered through the Finding Assignment command, the index provided corresponds to the index on the filtered list.
+
+==== Deleting: deleteassignment
+
+Deletes an assignment at the specified index in the assignment list of the current class. +
+Format: `deleteassignment ASSIGNMENT_INDEX`
+
+Example:
+
+* `deleteassignment 1`
+
+[NOTE]
+The index provided must be valid (is an integer and exists in the assignment list). If the list has been filtered through the Finding Assignment command, the index provided corresponds to the index on the filtered list.
+
+==== Listing Assignments: listassignments
+
+Lists all the assignments in the assignment list
+    Format: `listassignments`
+
+==== Finding Assignment: findstudent
+
+Find assignments whose name matches a given keyword in the current classroom. +
+Format: `findassignment ASSIGNMENT_NAME`
+
+Examples:
+
+* `findassignment Math`
+* `findassignment Test`
+
+[NOTE]
+The keyword is not case-sensitive, so as to provide ease of use for the user.
+
+==== Updating Grades: grades
+
+Updates the grades of the assignment identified by the index number of the assignment list of the current classroom +
+This can be done for all students simultaneously or for a particular student. +
+Format (All Students): `as/ASSIGNMENT_INDEX g/GRADE GRADE ... GRADE` +
+Format (One Student): `as/ASSIGNMENT_INDEX s/STUDENT_INDEX g/GRADE` +
+
+Examples:
+
+* `grades as/1 g/10 20 30 40`
+* `grades as/1 s/1 g/10`
+
+[NOTE]
+Grades must be an integer from 0 to 100, and ASSIGNMENT_INDEX must be valid (check above for definition of valid ASSIGNMENT_INDEX). For the All Students variant, the number of grades input must be equal to the total number of students in the classroom. For the One Student variant, the STUDENT_INDEX must be valid. +
+The default grades of all students is "Not Submitted". Once there are no longer any "Not Submitted" grades belonging to the assignment, the assignment is marked as completed +
+When a student is added, each uncompleted assignment will include the new student with the grade "Not Submitted" +
+When a student is added, each completed assignment will include the new student with the grade "Late to the party". This distinguishes the whether the student was added before or after the assignment was marked (completed) by the user, and it would be unfair to expect a new student to submit work that was assigned before he/she joined the classroom.
+
+// tag::get[]
+==== Get Grades: getgrades
+
+Gets all the grades of the chosen student index in the current classroom. +
+The command result will show all the grades of the specified student. +
+Format: `getgrades STUDENT_INDEX`
+
+Example:
+
+* `getgrades 1`
+
+==== Get Unsubmitted Assignments: getunsubmitted
+
+Gets all the unsubmitted assignments in the current classroom. +
+The command result will unsubmitted assignments with the corresponding student names. +
+Format: `getunsubmitted`
+
+// end::get[]
+// end::assignments[]
+
+// tag::userfriendly[]
+=== User-Friendly Features
+
+The features here do not necessarily contribute directly to a teacher's everyday job, but improve the usability
+of Teacher's Notebook and make using the application a more forgiving, painless and seamless experience. +
+
+==== Autocomplete
+
+Allows a user to toggle through suggestions that guess at what command the user wants to type in. +
+Upon typing any letters that resemble commands, a popup menu will appear as shown below:
+
+image::autocorrect/autocomplete2.jpg[auto,500,480,pdfwidth=50%,scaledwidth=50%]
+
+Selecting any of these suggestions results sets the text of the text field to the suggestion.
+
+
+Usage:
+
+`SHIFT + Arrow DOWN` and `SHIFT + Arrow UP` Keys to toggle between autocomplete suggestions +
+`CTRL` Key to choose the first autocomplete suggestion, or turn AutoComplete on if it is turned off. +
+`ESC` Key to close the autocomplete suggestions and turn off AutoComplete. +
+
+[NOTE]
+To facilitate the user learning the long and possibly tedious commands,
+the AutoComplete popup menu does not hide when a user's input greater than 6 characters does not match any command.
+This is why even if the input matches the suggestion, the matching part of the
+suggestion is not highlighted past 6 characters.
+6 characters is an arbitrary value and will be improved upon in future releases, and
+with user feedback.
+
+==== History
+
+Allows a user to toggle through their previously entered commands,
+regardless of whether the command was successful.
+
+[IMPORTANT]
+It is likely that autocomplete and history will clash, as both use the arrow keys.
+We recommend that you turn the autocomplete feature off (`ESC` key) before using the
+history feature.
+
+Usage:
+
+`Arrow UP and DOWN` Key to toggle through previous commands +
+
+// tag::undoredo[]
+==== Undo/Redo: Undo/Redo
+
+Restores the database to the state before the previous undoable command was executed.
+
+[NOTE]
+Undoable commands are commands that modify the database's content: `add`, `delete`
+`edit`, `clear`, `upload`.
+
+Undo/redo cannot, however, undo actions made during previous activation of Teacher's Notebook. +
+This is to say, once the application is closed, all actions done cannot be undone. +
+
+Format: `undo` or `redo` +
+
+Examples:
+
+* `deletestudent 1` + `undo` (reverses the `delete 1` command) +
+`redo` (applies the delete command again) +
+
+* `liststudents` + `undo` (Error message displayed as no changes made to database)
+
+
+// end::undoredo[]
+
+==== Help
+
+Triggers a popup window with a link to the user guide.
+
+
+Format: `help` +
+
+==== Clear
+
+Clears all data from the notebook. If triggered erroneously, the undo command can be used to reclaim all data.
+
+
+Format: `clear` +
+
+==== Exit
+
+Exits the application and stops all teacher's notebook processes. +
+
+Format: `exit` +
+
+// end::userfriendly[]
+
+
+== Additional Features Coming in V2.0
+
+//tag::reminders_for_assignments[]
+
+=== Reminders for Assignments [coming in v2.0]
+
+Assignments can be added to the reminders for the notebook, where users will be alerted when the deadline is up for assignments. +
+Once the deadline is over, the assignments will be removed from the reminder panel, but will remain in the assignment list for future reference. +
+This will give teachers a clearer idea of what they need to do in the reminder panel beyond just lessons.
+
+//end::reminders_for_assignments[]
+
+//tag::statistics[]
+
+=== Statistics for Assignments [coming in v2.0]
+
+Calculates the statistics for the chosen assignment for each classroom - Average, Median, 25th / 75th percentile etc. +
+This will give teachers a clearer idea of how each classroom as a whole is doing. +
+Format: `getstats ASSIGNMENT_INDEX`
+
+//end::statistics[]
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+[qanda]
+How do I transfer my data from the current notebook to another computer?::
+    Copy the teachernotebook.json file from your current computer, and paste it in a /data folder in your other computer's directory where teachernotebook.jar is at.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* Add Class: `addclass c/CLASS_NAME` +
+e.g. `addclass c/4E3`
+* Delete Class: `deleteclass c/CLASS_NAME` +
+e.g. `deleteclass c/4E3`
+* Set Class: `setclass c/CLASS_NAME` +
+e.g. `setclass c/4C3`
+* Add Lesson: `l/LESSON st/START_TIME et/ET_TIME:dd/MM/yy HHmm` +
+e.g. `addlesson l/Math 4E7 st/12/01/2020 1200 et/12/01/2020 1300`
+* Edit Lesson: `editlesson LESSON_INDEX day/DAY_INDEX [l/LESSON_NAME] [st/START_TIME] [et/END_TIME]` +
+e.g `editlesson 2 day/4 st/05/01/2020 1200 et/05/01/2020 1300`
+* Delete Lesson: `deletelesson LESSON_INDEX day/DAY_INDEX` +
+e.g. `deletelesson 1 day/2`
+* Find Lesson: `findlesson KEYWORD` +
+e.g. `findlesson Math`
+* Add Student: `addstudent n/NAME e/EMAIL p/PHONE a/ADDRESS pp/PARENT_PHONE [m/MEDICAL_CONDITIONS]... [t/TAG]...` +
+e.g. `addstudent n/John Doe e/johndoe@gmail.com p/81930042 a/Jurong East Avenue 3 Blk 639 #12-02 pp/84295512 m/Sinus`
+* Edit Student: `editstudent STUDENT_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pp/PARENT_PHONE] [m/MEDICAL_CONDITIONS], [t/TAG]...` +
+e.g. `editstudent 2 p/98510293`
+* Delete Student: `deletestudent STUDENT_INDEX` +
+e.g. `deletestudent 3`
+* Upload: `upload STUDENT_INDEX` +
+e.g. `upload 2`
+* List Students: `liststudents`
+* Find Student: `findstudent STUDENT_NAME` +
+e.g. `findstudent John Doe`
+* Reset Display Picture: `resetdisplaypic`
+* Add Assignment: `addassignment as/ASSIGNMENT d/DEADLINE:dd/MM/yyyy HHmm` +
+e.g. `addassignment as/Math Test d/29/11/2020 1400`
+* Edit Assignment: `editassignment ASSIGNMENT_INDEX [as/ASSIGNMENT_NAME] [d/ASSIGNMENT_DEADLINE]` +
+e.g. `editassignment 1 as/English Test d/29/11/2020 1400`
+* Delete Assignment: `deleteassignment ASSIGNMENT_INDEX` +
+e.g. `deleteassignment 1`
+* List Assignments: `listassignments`
+* Find Assignment: `findassignment ASSIGNMENT_NAME` +
+e.g. `findassignment Math`
+* Update Grades: +
+Format (All Students): `as/ASSIGNMENT_INDEX g/GRADE GRADE ... GRADE` +
+Format (One Student): `as/ASSIGNMENT_INDEX s/STUDENT_INDEX g/GRADE` +
+e.g. `grades as/1 g/10 20 30 40` +
+e.g. `grades as/1 s/1 g/10`
+* Get Grades: `getgrades STUDENT_INDEX` +
+e.g. `getgrades 1`
+* Get Unsubmitted Assignments: `getunsubmitted`
+* Undo Action: `undo`
+* Redo Action: `redo`
+* Clear Data: `clear`
+* Bring up help window: `help`
+* Exit the application: `exit`
+
+

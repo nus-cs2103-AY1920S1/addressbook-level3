@@ -7,8 +7,13 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyNotebook;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classroom.Classroom;
+import seedu.address.model.classroom.ReadOnlyClassroom;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.UniqueLessonList;
+import seedu.address.model.student.Student;
 
 /**
  * API of the Logic component
@@ -23,28 +28,40 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
-    /**
-     * Returns the AddressBook.
-     *
-     * @see seedu.address.model.Model#getAddressBook()
-     */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns a ReadOnlyClassroom view of the current classroom. */
+    ReadOnlyClassroom getClassroom();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns a ReadOnlyNotebook view of the notebook. */
+    ReadOnlyNotebook getNotebook();
 
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
+    /** Returns an unmodifiable view of the filtered list of students. */
+    ObservableList<Student> getFilteredStudentList();
 
-    /**
-     * Returns the user prefs' GUI settings.
-     */
+    /** Returns an unmodifiable view of the filtered list of assignments. */
+    ObservableList<Assignment> getFilteredAssignmentList();
+
+    /** Returns an unmodifiable view of the filtered list of lessons in the day. */
+    ObservableList<Lesson> getFilteredLessonList();
+
+    /** Returns an unmodifiable view of the filtered list of lessons in all days. */
+    ObservableList<UniqueLessonList> getFilteredLessonWeekList();
+
+    /** Returns an unmodifiable view of the classrooms. */
+    ObservableList<Classroom> getClassroomList();
+
+    /** Returns an unmodifiable view of the lessons. */
+    ObservableList<Lesson> getLessonList();
+
+    /** Returns the user prefs' notebook file path. */
+    Path getNotebookFilePath();
+
+    /** Returns the user prefs' GUI settings. */
     GuiSettings getGuiSettings();
 
-    /**
-     * Set the user prefs' GUI settings.
-     */
+    /** Set the user prefs' GUI settings. */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /** Returns true if the current notebook is set to display students. */
+    boolean isDisplayStudents();
+
 }

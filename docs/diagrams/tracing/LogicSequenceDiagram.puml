@@ -2,9 +2,9 @@
 !include ../style.puml
 
 Participant ":LogicManager" as logic LOGIC_COLOR
-Participant ":AddressBookParser" as abp LOGIC_COLOR
-Participant ":EditCommandParser" as ecp LOGIC_COLOR
-Participant "command:EditCommand" as ec LOGIC_COLOR
+Participant ":ClassroomParser" as abp LOGIC_COLOR
+Participant ":EditStudentCommandParser" as ecp LOGIC_COLOR
+Participant "command:EditStudentCommand" as ec LOGIC_COLOR
 
 [-> logic : execute
 activate logic
@@ -13,7 +13,7 @@ create ecp
 abp -> ecp
 abp -> ecp ++: parse(arguments)
 create ec
-ecp -> ec ++: index, editPersonDescriptor
+ecp -> ec ++: index, editStudentDescriptor
 ec --> ecp --
 ecp --> abp --: command
 abp --> logic --: command

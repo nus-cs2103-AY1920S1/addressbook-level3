@@ -1,0 +1,19 @@
+@startuml
+start
+:User executes command;
+:Gets FilteredAssignmentList;
+repeat
+:Gets next assignment;
+:Gets assignment grades for this assignment;
+repeat
+:Gets next key-value mapping;
+
+if () then ([value is "Not submitted."])
+    :Adds the key (student name) to output;
+else ([else])
+endif
+repeat while (More mapping?) is (yes)
+repeat while (More assignments?) is (yes)
+:Return output;
+stop
+@enduml

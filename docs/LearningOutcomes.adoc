@@ -33,7 +33,7 @@ What other user stories do you think AddressBook should support? Add those user 
 === Exercise: Add a 'Rename tag' use case
 
 * Add a use case to the `DeveloperGuide.adoc` to cover the case of _renaming of an existing tag_.
-e.g. rename the tag `friends` to `buddies` (i.e. all persons who had the `friends` tag will now have
+e.g. rename the tag `friends` to `buddies` (i.e. all students who had the `friends` tag will now have
 a `buddies` tag instead)
 Assume that AddressBook confirms the change with the user before carrying out the operation.
 
@@ -59,7 +59,7 @@ Note how the `Command::execute()` method shows polymorphic behavior.
 === Exercise: Add a polymorphic `isMutating` method
 
 * Add a method `boolean isMutating()` to the `Command` class. This method will return `true` for
-command types that mutate the data. e.g. `AddCommand`
+command types that mutate the data. e.g. `AddStudentCommand`
 * Currently, AddressBook data are saved to the file after every command.
 Take advantage of the the new method you added to limit file saving to only for command types that mutate data.
 i.e. `add` command should always save the data while `list` command should never save data to the file.
@@ -108,12 +108,12 @@ image::PrintableInterface.png[width=400]
 String getPrintableString(Printable... printables) {
 ----
 +
-The above method can be used to get a printable string representing a bunch of person details.
+The above method can be used to get a printable string representing a bunch of students details.
 For example, you should be able to call that method like this:
 +
 [source,java]
 ----
-// p is a Person object
+// p is a Student object
 return getPrintableString(p.getPhone(), p.getEmail(), p.getAddress());
 ----
 
@@ -125,7 +125,7 @@ return getPrintableString(p.getPhone(), p.getEmail(), p.getAddress());
 
 === Exercise: Add an exception to an overridden method
 
-* Add a `throws Exception` clause to the `AddCommand::execute` method. Notice how Java compiler will not allow it,
+* Add a `throws Exception` clause to the `AddStudentCommand::execute` method. Notice how Java compiler will not allow it,
 unless you add the same `throws` clause to the parent class method. This is because if a child class throws
 an exception that is not specified by the Parent's contract, the child class is no longer substitutable in place of
 the parent class.

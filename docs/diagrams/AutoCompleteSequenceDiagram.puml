@@ -1,0 +1,17 @@
+@startuml
+!include style.puml
+box UI UI_COLOR_T1
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":AutoCompleteTextField" as AutoCompleteTextField UI_COLOR
+end box
+
+
+[-> CommandBox : user types input
+activate CommandBox
+activate AutoCompleteTextField
+
+
+deactivate AutoCompleteTextField
+[<--CommandBox
+deactivate CommandBox
+@enduml

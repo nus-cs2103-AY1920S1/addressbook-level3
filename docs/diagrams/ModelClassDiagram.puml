@@ -5,52 +5,111 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyNotebook <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class Notebook
+Class ReadOnlyNotebook
+Class Caretaker
+Class Memento
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Person {
-Class Person
+Package Student {
+Class Student
 Class Address
 Class Email
 Class Name
 Class Phone
-Class UniquePersonList
+Class ParentPhone
+Class MedicalCondition
+Class UniqueStudentList
+Class DisplayPicture
+}
+
+Package Classroom {
+Interface ReadOnlyClassroom <<Interface>>
+Class ReadOnlyClassroom
+Class Classroom
+Class UniqueClassroomList
 }
 
 Package Tag {
 Class Tag
+}
+
+Package Assignment {
+Class Assignment
+Class AssignmentGrades
+Class AssignmentName
+Class AssignmentDeadline
+Class UniqueAssignmentList
+}
+
+Package Classroom {
+Class Classroom
+Class ReadOnlyClassroom
+Class UniqueClassroomList
+}
+
+Package Lesson {
+Class Lesson
+Class ClassName
+Class Time
+Class UniqueLessonList
+Class UniqueLessonWeekList
 }
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
-
+Classroom .up.|> ReadOnlyClassroom
+Notebook .up.|> ReadOnlyNotebook
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" Notebook
+ModelManager o--> "1" Caretaker
+Caretaker o--> "*" Memento
+Memento o--> "1" ReadOnlyNotebook
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Notebook *--> "1" UniqueClassroomList
+UniqueClassroomList o--> "*" Classroom
+Notebook *--> "1" UniqueLessonWeekList
+
+Classroom *--> "1" UniqueStudentList
+UniqueStudentList o--> "*" Student
+Student *--> Name
+Student *--> Phone
+Student *--> Email
+Student *--> Address
+Student *--> ParentPhone
+Student *--> MedicalCondition
+Student *--> "*" Tag
+Student *--> DisplayPicture
+
+Classroom *--> "1" UniqueAssignmentList
+UniqueAssignmentList o--> "*" Assignment
+Assignment *--> AssignmentName
+Assignment *--> AssignmentGrades
+Assignment *--> AssignmentDeadline
+
+Notebook o--> "*" UniqueLessonWeekList
+UniqueLessonWeekList o--> "7" UniqueLessonList
+UniqueLessonList o--> "*" Lesson
+Lesson *--> ClassName
+Lesson *--> Time
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
+Email -[hidden]right-> ParentPhone
+ParentPhone -[hidden]right-> MedicalCondition
+MedicalCondition -[hidden]right-> DisplayPicture
 
-ModelManager -->"1" Person : filtered list
+ModelManager -->"1" Notebook : filtered list
 @enduml

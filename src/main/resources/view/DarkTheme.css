@@ -6,7 +6,7 @@
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
+    -fx-text-fill: #666666;
     -fx-opacity: 0.9;
 }
 
@@ -121,9 +121,8 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #FFFAF0;
 }
 
 .cell_small_label {
@@ -328,7 +327,7 @@
     -fx-text-fill: white;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#filterField, #studentListPanel, #studentWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 

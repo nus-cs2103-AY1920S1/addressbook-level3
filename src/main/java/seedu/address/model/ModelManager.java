@@ -11,34 +11,47 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classroom.Classroom;
+import seedu.address.model.classroom.ReadOnlyClassroom;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.UniqueLessonList;
+import seedu.address.model.student.Student;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the notebook data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final Notebook notebook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final Caretaker caretaker;
+    private FilteredList<Student> filteredStudents;
+    private FilteredList<Assignment> filteredAssignments;
+    private FilteredList<Lesson> filteredLessons;
+    private FilteredList<UniqueLessonList> filteredLessonLists;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given notebook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyNotebook notebook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(notebook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
-        this.addressBook = new AddressBook(addressBook);
+        logger.fine("Initializing with notebook: " + notebook + " and user prefs " + userPrefs);
+        this.notebook = new Notebook(notebook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.caretaker = new Caretaker(this.notebook);
+
+        filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
+        filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
+        filteredLessons = new FilteredList<>(this.notebook.getLessonList());
+        filteredLessonLists = new FilteredList<>(this.notebook.getLessonWeekList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new Notebook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,68 +79,289 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getNotebookFilePath() {
+        return userPrefs.getNotebookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setNotebookFilePath(Path notebookFilePath) {
+        requireNonNull(notebookFilePath);
+        userPrefs.setNotebookFilePath(notebookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+
+    //=========== Notebook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public void setNotebook(ReadOnlyNotebook notebook) {
+        this.notebook.resetData(notebook);
+        filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
+        filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
+        filteredLessons = new FilteredList<>(this.notebook.getLessonList());
+        filteredLessonLists = new FilteredList<>(this.notebook.getLessonWeekList());
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public ReadOnlyNotebook getNotebook() {
+        return notebook;
+    }
+
+
+    //=========== Classroom ================================================================================
+
+    @Override
+    public void setClassroom(ReadOnlyClassroom classroom) {
+        notebook.setClassroom(classroom);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public Classroom getCurrentClassroom() {
+        return notebook.getCurrentClassroom();
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
+    public Classroom getClassroom(Classroom classroom) {
+        return notebook.getClassroom(classroom);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public boolean hasClassroom(Classroom classroom) {
+        return notebook.hasClassroom(classroom);
+    }
+
+    @Override
+    public void addClassroom(Classroom classroom) {
+        notebook.addClassroom(classroom);
+    }
+
+    @Override
+    public void setCurrentClassroom(Classroom classroom) {
+        notebook.setCurrentClassroom(classroom);
+        filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
+        filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
+    }
+
+    @Override
+    public void deleteClassroom(Classroom target) {
+        notebook.removeClassroom(target);
+        filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
+        filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
+    }
+
+
+    //=========== Student ================================================================================
+
+    @Override
+    public boolean hasStudent(Student student) {
+        requireNonNull(student);
+        return notebook.hasStudent(student);
+    }
+
+    @Override
+    public void addStudent(Student student) {
+        notebook.addStudent(student);
+        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+    }
+
+    @Override
+    public void deleteStudent(Student target) {
+        notebook.deleteStudent(target);
+    }
+
+    @Override
+    public void setStudent(Student target, Student editedStudent) {
+        requireAllNonNull(target, editedStudent);
+        notebook.setStudent(target, editedStudent);
+    }
+
+    //=========== Assignment ================================================================================
+
+    @Override
+    public boolean hasAssignment(Assignment assignment) {
+        requireNonNull(assignment);
+        return notebook.hasAssignment(assignment);
+    }
+
+    @Override
+    public void deleteAssignment(Assignment target) {
+        notebook.deleteAssignment(target);
+    }
+
+    @Override
+    public void addAssignment(Assignment assignment) {
+        notebook.addAssignment(assignment);
+        updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
+    }
+
+    @Override
+    public void setAssignment(Assignment target, Assignment editedAssignment) {
+        requireAllNonNull(target, editedAssignment);
+        notebook.setAssignment(target, editedAssignment);
+    }
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Updates the assignments in the notebook with the new student's name.
      */
+    public void updateAllAssignmentsWithName(Student oldStudent, Student newStudent) {
+        requireAllNonNull(oldStudent, newStudent);
+        notebook.updateAllAssignmentNamesWithName(oldStudent.getName().toString(), newStudent.getName().toString());
+    }
+
+
+
+    //=========== Display Operations =====================================================================
+
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public boolean isDisplayStudents() {
+        return notebook.isDisplayStudents();
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+    public void displayStudents() {
+        notebook.displayStudents();
     }
+
+    @Override
+    public void displayAssignments() {
+        notebook.displayAssignments();
+    }
+
+    /**
+     * returns a string of lessons.
+     * @return String.
+     */
+    public String displayLessons() {
+        if (filteredLessons.isEmpty()) {
+            return "";
+        } else {
+            final StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < filteredLessons.size(); i++) {
+                builder.append("---------------------------------------");
+                builder.append("\n" + filteredLessons.get(i) + "\n");
+            }
+            return builder.toString();
+        }
+    }
+
+
+    //=========== Lesson ================================================================================
+
+    @Override
+    public void addLesson(Lesson lesson) {
+        notebook.addLesson(lesson);
+        updateFilteredLessonList(PREDICATE_SHOW_ALL_LESSONS);
+    }
+
+    @Override
+    public boolean checkTimingExist(Lesson toCheck) {
+        requireNonNull(toCheck);
+        return notebook.checkTimingExist(toCheck);
+    }
+
+    @Override
+    public boolean hasLesson(Lesson lesson) {
+        requireNonNull(lesson);
+        return notebook.hasLesson(lesson);
+    }
+
+    @Override
+    public void deleteLesson(Lesson target) {
+        notebook.removeLesson(target);
+    }
+
+
+    @Override
+    public void setLesson(Lesson target, Lesson editedLesson) {
+        requireAllNonNull(target, editedLesson);
+        notebook.setLesson(target, editedLesson);
+    }
+
+
+    //=========== Filtered List Accessors =============================================================
+
+    @Override
+    public ObservableList<Student> getFilteredStudentList() {
+        return filteredStudents;
+    }
+
+    @Override
+    public ObservableList<Assignment> getFilteredAssignmentList() {
+        return filteredAssignments;
+    }
+
+    @Override
+    public ObservableList<Lesson> getFilteredLessonList() {
+        return filteredLessons;
+    }
+
+    @Override
+    public ObservableList<UniqueLessonList> getFilteredLessonWeekList() {
+        return filteredLessonLists;
+    }
+
+    @Override
+    public ObservableList<Lesson> getLessonList() {
+        return notebook.getLessonList();
+    }
+    @Override
+    public ObservableList<Classroom> getClassroomList() {
+        return notebook.getClassroomList();
+    }
+
+    @Override
+    public void updateFilteredStudentList(Predicate<Student> predicate) {
+        requireNonNull(predicate);
+        filteredStudents.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
+        requireNonNull(predicate);
+        filteredAssignments.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredLessonList(Predicate<Lesson> predicate) {
+        requireNonNull(predicate);
+        filteredLessons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredLessonWeekList(Predicate<UniqueLessonList> predicate) {
+        requireNonNull(predicate);
+        filteredLessonLists.setPredicate(predicate);
+    }
+
+
+    //=========== Undo and Redo Operations =============================================================
+
+    @Override
+    public ReadOnlyNotebook undo() {
+        return caretaker.undo();
+    }
+
+    @Override
+    public boolean canUndo() {
+        return caretaker.canUndo();
+    }
+
+    @Override
+    public ReadOnlyNotebook redo() {
+        return caretaker.redo();
+    }
+
+    @Override
+    public boolean canRedo() {
+        return caretaker.canRedo();
+    }
+
+    @Override
+    public void saveState() {
+        caretaker.saveState();
+    }
+
+
+    //=========== Utility Operations ===================================================================
 
     @Override
     public boolean equals(Object obj) {
@@ -143,9 +377,16 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        boolean note = notebook.equals(other.notebook);
+        boolean pre = userPrefs.equals(other.userPrefs);
+        boolean stu = filteredStudents.equals(other.filteredStudents);
+        boolean ass = filteredAssignments.equals(other.filteredAssignments);
+        boolean les = filteredLessonLists.equals(other.filteredLessonLists);
+        return notebook.equals(other.notebook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredStudents.equals(other.filteredStudents)
+                && filteredAssignments.equals(other.filteredAssignments)
+                && filteredLessonLists.equals(other.filteredLessonLists);
     }
 
 }

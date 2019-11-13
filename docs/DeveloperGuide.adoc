@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Teacher's Notebook - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T14-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-T14-1`      Since: `October 19`      Licence: `MIT`
 
 == Setting up
 
@@ -66,7 +66,7 @@ image::LogicClassDiagram.png[]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `deletestudent 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -79,7 +79,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `StudentListPanel`, `AssignmentListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -87,6 +87,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Handles the History feature
 
 [[Design-Logic]]
 === Logic component
@@ -98,19 +99,20 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `NotebookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a student).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deletestudent 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `deletestudent 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `DeleteStudentCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+// tag::model[]
 [[Design-Model]]
 === Model component
 
@@ -122,15 +124,18 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Notebook data.
+* saves the state of the Notebook after each change in state for undo redo function.
+* exposes an unmodifiable `ObservableList<Classroom>`, `ObservableList<Student>`, `ObservableList<Assignment>`, and `ObservableList<Lesson>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Classroom`, which `Student` can reference. This would allow `Classroom` to only require one `Tag` object per unique `Tag`, instead of each `Student` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
+// end::model[]
 
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -142,54 +147,135 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Notebook data in json format and read it back.
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+// tag::autocomplete[]
+=== Autocomplete feature
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+==== Current Implementation
+
+The AutoComplete feature is facilitated by 2 classes: the `AutoCompleteTextField`, and the class `Styles`.
+Both are represented in the class diagram below.
+
+image::SebastianDG/AutoCompleteClassDiagram.png[auto_,300,300,pdfwidth=50%,scaledwidth=50%]
+
+The `AutoCompleteTextField` adds a `ChangeListener` to textProperty() that notifies `AutoCompleteTextField`
+whenever the user inputs new text, i.e when the text entered changes.
+
+Step 1.  User triggers the listener when user enters text.
+
+Step 2. From the text entered, `AutoCompleteTextField` attempts suggesting existing commands.
+If input matches any existing commands, it proceeds to step 3. Otherwise, it does nothing and waits for user input.
+
+Step 3. `AutoCompleteTextField` calls `Styles#buildTextFlow`to highlight the portion of each
+command suggestion where the user's input matches the suggestion.
+
+Step 4. `AutoCompleteTextField` then displays a popup menu using the javafx class `ContextMenu`.
+
+Step 5. If the user selects a suggestion, the textfield is set to that suggestion, and the popup menu is
+closed. If the user enters more text, `AutoCompleteTextField` returns to step 1.
+
+Step 6. Otherwise, the popup menu is closed.
+
+This sequence of steps is illustrated below with an activity diagram.
+
+image::SebastianDG/auto_activity.JPG[auto_,500,500,pdfwidth=50%,scaledwidth=50%]
+// end::autocomplete[]
+
+// tag::upload[]
+=== Upload feature
+
+==== Current Implementation
+
+The uploading of a student's picture is facilitated by UploadPictureCommandParser, UploadPictureCommand, ModelManager, FileChooser and DisplayPicture,
+while the displaying of the student's picture is facilitated by MainWindow and StudentCard. +
+`UploadPictureCommandParser` implements `Parser`. `UploadPictureCommand` extends `Command`,
+and represents the logic that will be executed once the user activates the upload command and chooses a file. +
+The `UploadPictureCommand` command communicates with `ModelManager` to replace the old `Student` object with
+a new `Student` object that has its display picture field changed. +
+
+This change is then reflected in the UI when `MainWindow` loads the `StudentCard` for the new student,
+which will load the image and display it in the UI.
+
+The main operation implemented is `UploadPictureCommand#execute`.
+
+Step 1. The user wants to upload a display picture for their student. User identifies the student's index
+number and enters the command `upload INDEX`.
+
+Step 2. `MainWindow` detects the `upload` command word and uses `FileChooser` to open a window for the user to select a picture from their computer.
+`MainWindow` then saves the path of the selected file as a string and adds a prefix "f/" to the input arguments.
+The path of the file is also appended to the end of the input string before the input arguments are passed to `NotebookParser`
+
+Step 3. `NotebookParser` parses the input and detects the `upload` command word, and calls `UploadPictureCommandParser`.
+This in turn checks user's input for errors before calling `UploadPictureCommand`, which checks whether the file
+is a PNG or JPG file.
+
+Step 4. `LogicManager` executes the `UploadPictureCommand`, which checks the validity of the index provided,
+as well as whether the picture selected is different from the picture already displayed.
+A visual representation of the order of checks for the input arguments are displayed in the diagram below.
+
+image::upload/upload_dg_1.JPG[checksdiagram,400,480,pdfwidth=50%,scaledwidth=50%]
+
+Step 5. After these checks, the `createEditedStudent` method in `UploadPictureCommand` is called to create a new `Student` object, editedStudent,
+which has its display filepath changed to the file the user chose.
+
+Step 6. `UploadPictureCommand` calls Model to replace the current student with the editedStudent.
+The command result is then passed back all the way to `MainWindow` which refreshes the GUI,
+and displays the new picture for the chosen student.
+
+The following diagram illustrates the process above.
+
+image::SebastianDG/UploadSequenceDiagram.png[]
+
+// end::upload[]
+
+// tag::undoredo[]
+=== Undo and Redo feature
+==== Implementation
+
+The undo/redo mechanism is facilitated by `Caretaker`, with each notebook state saved as a `Memento`.
+It extends `Notebook` with an undo/redo history, stored internally as an `mementos` and `statePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `Caretaker#saveState()` -- Saves the current notebook state in its history.
+* `Caretaker#undo()` -- Restores the previous notebook state from its history by undoing the previous command.
+* `Caretaker#redo()` -- Restores a previously undone notebook state from its history by redoing the previously undone command.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#saveState()`, `Model#undo()` and `Model#redo()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `Caretaker` will be initialized with the initial notebook state, and the `statePointer` pointing to that single notebook state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `deletestudent 5` command to delete the 5th student in the current classroom. The `deletestudent` command calls `Model#saveState()`, causing the modified state of the notebook after the `deletestudent 5` command executes to be saved in the `mementos`, and the `statePointer` is shifted to the newly inserted notebook state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `addstudent n/David ...` to add a new student. The `addstudent` command also calls `Model#saveState()`, causing another modified notebook state to be saved into the `mementos`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#saveState()`, so the notebook state will not be saved into the `mementos`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the student was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `statePointer` once to the left, pointing it to the previous notebook state, and restores the notebook to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `statePointer` is at index 0, pointing to the initial notebook state, then there are no previous notebook states to restore. The `undo` command uses `Model#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -197,16 +283,17 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redo()`, which shifts the `statePointer` once to the right, pointing to the previously undone state, and restores the notebook to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `statePointer` is at index `mementos.size() - 1`, pointing to the latest notebook state, then there are no undone notebook states to restore. The `redo` command uses `Model#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `liststudents`. Commands that do not modify the classroom, such as `liststudents`, will usually not call `Model#saveState()`, `Model#undo()` or `Model#redo()`. Thus, the `mementos` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#saveState()`. Since the `statePointer` is not pointing at the end of the `mementos`, all notebook states after the `statePointer` will be purged. We designed it this way because it no longer makes sense to redo the `addstudent n/David ...` command. This is the behavior that most modern desktop applications follow.
+
 
 image::UndoRedoState5.png[]
 
@@ -218,30 +305,119 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire notebook.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `deletestudent`, just save the student being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: Need to ensure that the commands are able to be executed at the correct index.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of notebook states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `Caretaker`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::Assignment[]
+=== Assignment feature
+==== Implementation
+The Assignment class works with high similarity to the Student Class implemented.
+A UniqueList of Assignments exist in the Classroom Class alongside the UniqueList of Students, and serve to keep track of assignments for a particular Classroom.
+The commands that work in similar fashion to Student Class are: +
+`AddAssignment`, `DeleteAssignment`, `EditAssignment`, `ListAssignment`
 
-_{Explain here how the data encryption feature will be implemented}_
+Additionally, it implements the following operations:
 
-// end::dataencryption[]
+* `UniqueAssignmentList#addAssignment()` -- Adds a new Assignment object to the UniqueAssignmentList.
+* `UniqueAssigmentList#remove()` -- Removes a Lesson object from the UniqueAssignmentList.
+* `UniqueAssignmentList#setAssignment()` -- Updates the Assignment with user input.
 
+
+The Assignment class keeps track of the grades of all students in the class for a particular assignment. This feature is
+necessary to users to monitor the progress of every student, and to provide assistance to students who might be
+failing their tests.
+Each Assignment contains the following classes: AssignmentName, AssignmentGrade, and AssignmentDeadline.
+
+* The AssignmentName stores the name of the assignment.
+
+* The AssignmentGrade class contains the grades of every student in the class through a LinkedHashMap<String studentName, String marks>.
+
+* The AssignmentDeadline class contains the time when the assignment is due.
+
+Upon creation of a new Assignment, `Assignment#initialiseGrades()` is called, which populates the LinkedHashMap
+with keys (students' names) and the value "Not Submitted". The user can then update the grades of a student individually or
+all of the students simultaneously through the `UpdateGrades` command, which calls the method `Assignment#setGrades()`.
+
+After every command, `Assignment#checkCompletion()` is called to determine the completion status of the assignment,
+which will be "Completed" if none of the grades are "Not Submitted". Upon addition of a new student into the classroom,
+each Assignment present in the classroom will add another entry into the AssignmentGrade. If the Assignment was Not Completed,
+the value "Not Submitted" will be paired with the key through the method `Assignment#addNewStudentGrade`. Should the Assignment have been Completed, the value "Late to the party" will be paired instead through the method `Assignment#addOneStudentGrade`, indicating that the student does not need to submit said assignment any longer, since it has already been graded before he/she joined the classroom.
+
+// end::Assignment[]
+
+// tag::getgrades[]
+=== Get grades feature
+==== Implementation
+
+The current GetStudentGradesCommand will retrieve all the grades of a particular student.
+This is done through iterating through the FilteredAssignmentList, and pulling all the grades of a specified student.
+Additionally, it implements the following operations through Commands:
+
+* `Assignment#getGrades()` -- Retrieves the Map that contains students' names as the key and students' grades as the value.
+
+The following sequence diagram shows how the get grades operation works:
+
+image::GetGradesSequenceDiagram.png[]
+
+After getting the Map from the `getGrades()` method, if the key of the current key-value pair is equals to the name of the student,
+the value, which is the grades of the student, will be added to the output that will be shown in the CommandResult.
+
+// end::getgrades[]
+
+// tag::getunsubmitted[]
+=== Get unsubmitted assignments feature
+==== Implementation
+
+The implementation for getting unsubmitted assignments is similar to the get submitted feature, except that it will search for values of "Not submitted." instead.
+
+The following activity diagram shows how the get unsubmitted operation works:
+
+image::GetUnsubmittedActivityDiagram.png[]
+
+// end::getunsubmitted[]
+
+// tag::Lesson[]
+=== Lesson Feature
+==== Implementation
+
+The Lesson class works with high similarity to the Student Class implemented.
+A UniqueList of Lessons exist in the Notebook alongside the UniqueList of Classrooms, and serve to keep track of lessons for the user.
+Additionally, it implements the following operations through Commands:
+
+* `UniqueLessonList#addLesson()` -- Adds a new Lesson object to the UniqueLessonList.
+* `UniqueLessonList#remove()` -- Removes a Lesson object from the UniqueLessonList.
+* `Lesson#set()` -- Updates the Lesson with user input.
+
+// end::Lesson[]
+
+// tag::Schedule[]
+=== Scheduling Feature
+==== Implementation
+When a new Lesson is added to the UniqueLessonList, a listener attached to the list will be triggered and it will create a scheduler to schedule the lesson.
+Once the timing of lesson is reached, an alert box will be created in the GUI to serve as a reminder.
+
+The following activity and sequence diagram shows how the scheduling operation works:
+
+image::SchedulingActivityDiagram.png[]
+
+image::SchedulingSequenceDiagram.png[]
+
+// end::Schedule[]
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -279,13 +455,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* needs to keep track of vast amount of information on students and homework
+* has many deadlines to keep track of
+* prefer desktop apps over mobile or written
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+* likes being organised
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage students, deadlines, homework in one place.
 
 [appendix]
 == User Stories
@@ -295,35 +473,55 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+|`* * *` |teacher  |keep track of my students’ progress |understand which student to help more
+
+|`* * *` |teacher  |keep track of all my administrative duties |focus on providing the best education I can for my students
+
+|`* * *` |slave-driving teacher |keep track of my students’ submissions |follow up if they have undone assignments
+
+|`* * *` |thoughtful teacher  |keep track of important details of students| establish rapport with them
+
+|`* * *` |responsible teacher |keep track of all the deadlines that I have | set a good example for my students
+
+|`* * *` |concerned teacher  |want to be able to access parents’ contact details |communicate often and openly with them about their child
+
+|`* * *` |caring teacher  |know any health issues students may have | look out for which students I have to take more care of
+
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* *` |teacher |what my next lessons are | avoid being late for lessons.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* *` |teacher |keep track of students’ behaviour in class | so I can chart my students' growth or misbehaviour
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* *` |teacher |record feedback from students | help them with issues that they may have
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |teacher |know what homework the students already have | understand how much homework I can assign to them next
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |teacher |know students' MBTI | cater lessons to their respective learning styles
+
+|`*` |teacher |know their astrological signs|know which students are compatible with each other
+
+|`*` |teacher |monitor my students’ social media |know how they are faring in their personal life
+
+|`*` |teacher |be bilingual and know the pronunciation of their Mother Tongue names | can respect their culture
+
+|`*` |teacher |know their number of demerit points |put them in the first row in class
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Teacher's Notebook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete student
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list students
+2.  Notebook shows a list of students
+3.  User requests to delete a specific student in the list
+4.  Notebook deletes the student
 +
 Use case ends.
 
@@ -337,20 +535,87 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Notebook shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Edit assignment
+
+*MSS*
+
+1.  User requests to list assignments
+2.  Notebook shows a list of assignments
+3.  User requests to edit a specified assignment in the list
+4.  Notebook edits the student
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Notebook shows an error message.
++
+* 3b. There is a similar assignment in the list as the one that user wants to edit to.
++
+[none]
+** 3b1. Notebook shows an error message.
++
+Use case resumes at step 2.
+
+// tag::undoUseCase[]
+[discrete]
+=== Use case: Undo
+
+*MSS*
+
+1.  User requests to do a command.
+2.  Notebook does the action.
+3.  User requests to undo.
+4.  Notebook undoes action 2, action from step 2 is undone.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given command is invalid.
++
+[none]
+** 1a1. Notebook shows an error message.
++
+Use case resumes at step 1.
++
+* 3a. The action cannot be undone as it does not change the state of the notebook.
++
+[none]
+** 3a1. Notebook shows an error message.
++
+Use case resumes at step 1.
+
+// end::undoUseCase[]
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to store and retrieve 5 classes of 30+ students without sluggishness.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be able to display student's photos in 4k resolution.
+.  Application should respond within 3 seconds.
+.  User should enjoy looking at the application.
+.  User should be able to view and undo changes.
+.  Application should run without needing an Internet connection.
+.  Application should be easy to use and understand for first time users.
 
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -359,24 +624,37 @@ _{More to be added}_
 Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+A contact detail that is not meant to be shared with others.
+
+Assignment::
+Any task that is assigned to students that will eventually be submitted and graded by the user.
+
+Lesson::
+Any activity in which the user has to physically attend.
+
 
 [appendix]
 == Product Survey
 
 *Product Name*
+Teacher's Notebook
 
-Author: ...
+Author:
+
+* Loh Wei Kiat weikiat97@github.com
+* Sebastian Lie Hsien Yong SebastianLie@github.com
+* Tay Sheryl sheryltay28@github.com
+* Yoon Jia Jun, Ken Xelyion@github.com
+
 
 Pros:
 
-* ...
-* ...
+* Useful for teachers to consolidate all the information related to their class.
+* Easy to navigate and understand how the application works.
 
 Cons:
 
-* ...
-* ...
+* Unable to pop out reminder when the application is not opened.
 
 [appendix]
 == Instructions for Manual Testing
@@ -391,35 +669,46 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
+.. Run the jar file on the command line by typing `java -jar teachersnotebook.jar`. +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Re-launch the app by typing `java -jar teachersnotebook.jar` in the command line. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a student
 
-=== Deleting a person
+. Deleting a student while all students are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
+.. Prerequisites: List all students using the `liststudents` command. Multiple students in the list.
+.. Test case: `deletestudent 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Test case: `deletestudent 0` +
+   Expected: No student is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `deletestudent`, `deletestudent x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Undo / Redo
+
+. Undoing a command that was previously done, and redoing it after.
+
+.. Prerequisites: A command that changes the state of the notebook should be executed (e.g. add / edit / delete).
+.. Test case (assume a student was added in the previous command execution): `undo` +
+   Expected: The previously added student will now be removed. Command result will show the message 'Undo success!". Student panel will show that the student is no longer in the list.
+.. Test case (assume the only previous command was `listassignments`): `undo` +
+   Expected: There will be undo command executed. Reason is because there is no change in the state of the notebook. Command result will show the message 'There is no action to undo!'.
+.. Test case (assume a student was added in the previous command execution): `undo`, followed by `redo` +
+   Expected: When undo is executed, student will be removed from the list just like in test case 1.
+   When redo is executed, the student that was previously removed will now be added back again. Command result will show the message 'Redo success!'. Student panel will show that the student is now back in the list.
+.. Other incorrect undo / redo commands to try: `undo x`, `redo x`, `undoes`, `redoes`
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. If the data file is missing, the application will simply start from a new notebook that is populated with several data size. User can use the command `clear` to get an empty notebook. +
+   Expected: New notebook with populated data.
+.. If the data file is corrupted, users should delete the notebook.json file and restart from a new notebook. It may be tough to rectify the json file without knowing the internal structure of the application. +
+   Expected: New notebook with populated data.

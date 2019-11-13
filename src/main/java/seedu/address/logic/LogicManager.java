@@ -10,11 +10,18 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.NotebookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+//import seedu.address.model.Notebook;
+import seedu.address.model.ReadOnlyNotebook;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classroom.Classroom;
+import seedu.address.model.classroom.ReadOnlyClassroom;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.UniqueLessonList;
+//import seedu.address.model.lesson.UniqueLessonWeekList;
+import seedu.address.model.student.Student;
 import seedu.address.storage.Storage;
 
 /**
@@ -26,24 +33,24 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final NotebookParser notebookParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        notebookParser = new NotebookParser();
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
+        logger.info("--------------st--[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = notebookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveNotebook(model.getNotebook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,18 +59,48 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyClassroom getClassroom() {
+        return model.getCurrentClassroom();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ReadOnlyNotebook getNotebook() {
+        return this.model.getNotebook();
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public ObservableList<Student> getFilteredStudentList() {
+        return model.getFilteredStudentList();
+    }
+
+    @Override
+    public ObservableList<Lesson> getFilteredLessonList() {
+        return model.getFilteredLessonList();
+    }
+
+    @Override
+    public ObservableList<UniqueLessonList> getFilteredLessonWeekList() {
+        return model.getFilteredLessonWeekList();
+    }
+
+    @Override
+    public ObservableList<Assignment> getFilteredAssignmentList() {
+        return model.getFilteredAssignmentList();
+    }
+
+    @Override
+    public ObservableList<Classroom> getClassroomList() {
+        return model.getClassroomList();
+    }
+
+    @Override
+    public ObservableList<Lesson> getLessonList() {
+        return model.getLessonList();
+    }
+
+    @Override
+    public Path getNotebookFilePath() {
+        return model.getNotebookFilePath();
     }
 
     @Override
@@ -75,4 +112,11 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
+    @Override
+    public boolean isDisplayStudents() {
+        return model.isDisplayStudents();
+    }
+
+
 }

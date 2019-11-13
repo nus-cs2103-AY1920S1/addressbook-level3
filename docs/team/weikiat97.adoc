@@ -1,0 +1,88 @@
+= Loh Wei Kiat - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Teacher's Notebook
+
+---
+
+== Overview
+
+Teacher's Notebook is a desktop application used by teachers to manage their classes and provides them with reminders for lessons.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+Teacher's Notebook serves as a one-stop platform to consolidate all the information that teachers will need, that is information about students, assignments, classes and lessons.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to undo/redo previous commands*
+** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command. The undo redo commands are only usable after a command that changes the state of the notebook is executed.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement affects existing commands and commands to be added in future. There were many considerations when implementing this undo/redo to allow users a better user experience when doing the command. +
+The implementation was very challenging as one command had to be suited for various types of actions that could be executed in our app, and there were different kinds of dependencies that had to be accounted for during the execution of undo/redo command.
+** Credits: Idea was inspired from the Memento Design Pattern, a software design pattern to restore objects to their previous states. The idea became more concrete as I saw the example UML diagram used for undo/redo commands from AB3.
+
+* *Minor enhancement*:
+** Added a getgrades and getunsubmitted command to retrieve students grades and unsubmitted assignments respectively.
+** Refactored the code from AB3 with persons, to students and added in additional fields (MedicalConditions, ParentPhone).
+** Added various CRUD commands - FindAssignmentCommand, DeleteClassroomCommand etc and improved on peers codes.
+
+* *Code contributed*: [https://github.com/AY1920S1-CS2103-T14-1/main/commits?author=weikiat97[Functional Code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=weikiat97&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1 - v1.3` (4 releases) on GitHub
+*** Added Travis, Coveralls and AppVeyor support for the team
+*** Gave comments to peers before merging PRs.
+*** Helped to make overall code base neater with comments and removed unnecessary methods. (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/202[#202])
+*** Helped to merge and fix all merge conflicts among the PRs in the team (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/60[#60])
+** Enhancements to existing features:
+*** Retrieving specific students grades and updating grades individually (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/84/[#84])
+*** Added ability to edit assignments (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/91/[#91])
+*** Proper time parsing for dates and times (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/83[#83])
+*** Wrote additional tests to the current project to increase coverage (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/186[#186] increased coverage by 12.6%).
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide so that they are more coherent: (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/88/[#88])
+*** Made changes to the current puml diagrams from AB3 to suit our current project: (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/185[#185])
+*** Changed the undo redo implementation feature from AB3 to suit the current project's undo redo: (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/67[#67])
+** Community:
+*** PRs reviewed (with non-trivial review comments): (Pull request https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/110[#110], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/37[#37])
+*** Reported bugs and suggestions for other teams in the class during PE dry run (examples:  https://github.com/weikiat97/ped/issues/4[1], https://github.com/weikiat97/ped/issues/1[2], https://github.com/weikiat97/ped/issues/10[3])
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are some of the sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=students]
+
+include::../UserGuide.adoc[tag=get]
+
+include::../UserGuide.adoc[tag=undoredo]
+
+include::../UserGuide.adoc[tag=reminders_for_assignments]
+
+include::../UserGuide.adoc[tag=statistics]
+
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are some of the sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=model]
+
+include::../DeveloperGuide.adoc[tag=storage]
+
+include::../DeveloperGuide.adoc[tag=getgrades]
+
+include::../DeveloperGuide.adoc[tag=getunsubmitted]
+
+

@@ -16,7 +16,7 @@ toc::[]
 
 In this tutorial, we'll walk you through the implementation of a new command -- `remark`.
 
-This command allows users of the AddressBook application to add optional remarks to people in their address book and edit it if required.
+This command allows users of the Classroom application to add optional remarks to people in their address book and edit it if required.
 The command should have the format of `remark INDEX r/REMARK`.
 An example of the command is `remark 2 r/Likes baseball`.
 
@@ -56,7 +56,7 @@ public class RemarkCommand extends Command {
 
 === Hook `RemarkCommand` into the application
 
-Now that we have our `RemarkCommand` ready to be executed, we need to update `AddressBookParser#parseCommand()` to recognize the `remark` keyword.
+Now that we have our `RemarkCommand` ready to be executed, we need to update `ClassroomParser#parseCommand()` to recognize the `remark` keyword.
 Add the new command to the `switch` block by creating a new `case` that returns a new instance of `RemarkCommand`.
 
 You can refer to the changes in this link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/7d04e49e364dad661cd88f462f01923fba972d2c#diff-5338391f3f6fbb4022c44add6590b74f[diff].
@@ -206,10 +206,10 @@ This appears to be what we need to get a String of the remark.
 But what about the Index? Taking a quick peek at existing an `Command`...
 
 [source, java]
-.DeleteCommandParser.java
+.DeleteStudentCommandParser.java
 ----
 Index index = ParserUtil.parseIndex(args);
-return new DeleteCommand(index);
+return new DeleteStudentCommand(index);
 ----
 
 There appears to be another utility class that obtains an `Index` from the input provided by the user.
@@ -238,15 +238,15 @@ public RemarkCommand parse(String args) throws ParseException {
 }
 ----
 
-NOTE: Don't forget to update `AddressBookParser` to use our new `RemarkCommandParser`!
+NOTE: Don't forget to update `ClassroomParser` to use our new `RemarkCommandParser`!
 
 If you are stuck, check out the sample link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/efdcdf0e80cec9489f7b47e3f65824f4688ad8f7#diff-fc19ecee89c3732a62fbc8c840250508[here].
 
 == Add `Remark` to the model
 
 Now that we have all the information that we need, let's lay the groundwork for some _persistent_ changes.
-We achieve that by working with the `Person` model.
-Each field in a Person is implemented as a separate class (e.g. a `Name` object represents the person's name).
+We achieve that by working with the `Student` model.
+Each field in a Student is implemented as a separate class (e.g. a `Name` object represents the person's name).
 That means we should add a `Remark` class so that we can use a `Remark` object to represent a remark given to a person.
 
 === Add a new `Remark` class
@@ -289,44 +289,44 @@ That's it! Fire up the application again and you should see something like this:
 .$remark shows up in each entry
 image::$Remark.png[]
 
-== Modify `Person` to support a `Remark` field
+== Modify `Student` to support a `Remark` field
 
-Since `PersonCard` displays data from a `Person`, we need to update `Person` to get our `Remark` displayed!
+Since `PersonCard` displays data from a `Student`, we need to update `Student` to get our `Remark` displayed!
 
-=== Modify `Person`
+=== Modify `Student`
 
-We change the constructor of `Person` to take a `Remark`.
+We change the constructor of `Student` to take a `Remark`.
 We will also need to define new fields and accessors accordingly to store our new addition.
 
-=== Update other usages of `Person`
+=== Update other usages of `Student`
 
-Unfortunately, a change to `Person` will cause other commands to break, you will have to modify these commands to use the updated `Person`!
+Unfortunately, a change to `Student` will cause other commands to break, you will have to modify these commands to use the updated `Student`!
 
-TIP: Use the `Find Usages` feature in IntelliJ IDEA on the `Person` class to find these commands.
+TIP: Use the `Find Usages` feature in IntelliJ IDEA on the `Student` class to find these commands.
 
 Refer to link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/b241ef8526bd4e8a6ad94b8118b7fc3441ec8fa3#diff-3462fc1118b9872387a01b41157b0402[this commit] and check that you have got everything in order!
 
 == Updating Storage
 
-AddressBook stores data by serializing `JsonAdaptedPerson` into `json` with the help of an external library -- Jackson.
-Let's update `JsonAdaptedPerson` to work with our new `Person`!
+Classroom stores data by serializing `JsonAdaptedPerson` into `json` with the help of an external library -- Jackson.
+Let's update `JsonAdaptedPerson` to work with our new `Student`!
 
 While the changes to code may be minimal, the test data will have to be updated as well.
 
-WARNING: You must delete AddressBook's storage file located at `/data/addressbook.json` before running it!
-Not doing so will cause AddressBook to default to an empty address book!
+WARNING: You must delete Classroom's storage file located at `/data/addressbook.json` before running it!
+Not doing so will cause Classroom to default to an empty address book!
 
 Check out link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/ce4f9b70f524d2395948861d80d57fda9ae6e82e#diff-07708562699e2436c717f3330bafae1e[this commit] to see what the changes entail.
 
 == Finalizing the UI
 
-Now that we have finalized the `Person` class and its dependencies, we can now bind the `Remark` field to the UI.
+Now that we have finalized the `Student` class and its dependencies, we can now bind the `Remark` field to the UI.
 
 Just add link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/56d5cb662c31dd38b02f6a5301ba6ab3c667d6a3#diff-0c6b6abcfac8c205e075294f25e851fe[this one line of code!]
 [source, java]
 .PersonCard.java
 ----
-public PersonCard(Person person, int displayedIndex) {
+public PersonCard(Student person, int displayedIndex) {
     //...
     remark.setText(person.getRemark().value);
 }
@@ -342,26 +342,26 @@ However, this is expected behavior as we have never changed `RemarkCommand` at a
 
 === Update `RemarkCommand` and `RemarkCommandParser`
 
-In this last step, we modify `RemarkCommand#execute()` to change the `Remark` of a `Person`.
-Since all fields in a `Person` are immutable, we create a new instance of a `Person` with the values that we want and save it with `Model#setPerson()`.
+In this last step, we modify `RemarkCommand#execute()` to change the `Remark` of a `Student`.
+Since all fields in a `Student` are immutable, we create a new instance of a `Student` with the values that we want and save it with `Model#setPerson()`.
 
 [source, java]
 .RemarkCommand.java
 ----
 //...
-    public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Person: %1$s";
-    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Person: %1$s";
+    public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Student: %1$s";
+    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Student: %1$s";
 //...
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Student> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
+        Student personToEdit = lastShownList.get(index.getZeroBased());
+        Student editedPerson = new Student(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), remark, personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
@@ -374,7 +374,7 @@ Since all fields in a `Person` are immutable, we create a new instance of a `Per
      * Generates a command execution success message based on whether the remark is added to or removed from
      * {@code personToEdit}.
      */
-    private String generateSuccessMessage(Person personToEdit) {
+    private String generateSuccessMessage(Student personToEdit) {
         String message = !remark.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
         return String.format(message, personToEdit);
     }
@@ -420,6 +420,6 @@ link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/b3307d7a42
 
 == Conclusion
 
-This concludes the tutorial for adding a new `Command` to AddressBook.
+This concludes the tutorial for adding a new `Command` to Classroom.
 
 //Link to more discussions

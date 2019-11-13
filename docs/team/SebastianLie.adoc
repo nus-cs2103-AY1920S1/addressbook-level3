@@ -1,0 +1,104 @@
+= Sebastian Lie - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+
+== PROJECT: Teacher's Notebook
+
+---
+
+== Overview
+
+This project portfolio details my key contributions to Project Teacher's Notebook.
+
+Teacher's Notebook is a desktop application designed by my group mates and I for a software engineering
+module in National University of Singapore (NUS).
+It's target audience is secondary or primary school teachers in Singapore.
+It aims to improve the efficiency of these teachers,
+by being a one-stop platform to consolidate information that teachers would need.
+
+
+The user interacts with Teacher's Notebook using a Command Line Interface (CLI), and it has a Graphical User Interface
+(GUI) created with JavaFX. It is written in Java, and has about 10 kLoC
+
+== Summary of Contributions
+
+- *Major Enhancement*: added the autocomplete feature to the gui
+** What it does: add a popup menu that suggests commands to the user based on text the user has already entered
+** Justification: Many commands in Teacher's Notebook are long and tedious, and have specific prefixes or formats.
+By suggesting commands, users can quickly become familiar with commands, and save time not needing to remember the
+format of commands. It also serves as a shortcut, as users can quickly enter commands without typing
+out the entire command.
+and easily select
+** Highlights: This enhancement allows the user to view up to 10 suggestions in a popup menu.
+The user can scroll through all suggestions and select any suggestion just using their keyboard.
+Commands suggested are already in their required form with prefixes, making it easier for users
+to execute the intended command successfully without referring to the UserGuide.
+
+- *Minor Enhancement*: added the ability to upload a picture of a student, in only a PNG or JPG format.
+- *Minor Enhancement*: added the ability to scroll through previously entered commands with the up and down arrow keys
+- Code Contributed [https://github.com/AY1920S1-CS2103-T14-1/main/commits?author=sebastianlie[Functional Code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=SebastianLie&tabRepo=AY1920S1-CS2103-T14-1%2Fmain%5Bmaster%5D[RepoSense]
+]
+- *Other contributions*:
+
+** Project management:
+*** Fixed issues brought up by peers. (PRs https://github.com/AY1920S1-CS2103-T14-1/main/pull/167[#167], https://github.com/AY1920S1-CS2103-T14-1/main/pull/165[#165], https://github.com/AY1920S1-CS2103-T14-1/main/pull/156[#156])
+** Enhancements to existing features:
+*** Added 2 extra panels to the GUI, and added display picture to the student card (PRs https://github.com/AY1920S1-CS2103-T14-1/main/pull/61[#61], https://github.com/AY1920S1-CS2103-T14-1/main/pull/85[#85])
+*** improved test coverage from 25 to 33 %, PR #189, #190, #191: 46-48% (PRs https://github.com/AY1920S1-CS2103-T14-1/main/pull/191[#191], https://github.com/AY1920S1-CS2103-T14-1/main/pull/190[#190], Pull requests https://github.com/AY1920S1-CS2103-T14-1/main/pull/189[#189])
+** Documentation:
+*** Updated class diagram for model and UI component: (PRs https://github.com/AY1920S1-CS2103-T14-1/main/pull/86[#86])
+** Community:
+*** Reviewed PRs of other team members (PRs https://github.com/AY1920S1-CS2103-T14-1/main/pull/186[#186])
+
+== Contributions to User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=userfriendly]
+
+include::../UserGuide.adoc[tag=classes]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=autocomplete]
+
+include::../DeveloperGuide.adoc[tag=upload]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

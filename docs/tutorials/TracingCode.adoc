@@ -103,14 +103,14 @@ public CommandResult execute(String commandText) throws CommandException, ParseE
 
      CommandResult commandResult;
      //Parse user input from String to a Command
-     Command command = addressBookParser.parseCommand(commandText);
+     Command command = classroomParser.parseCommand(commandText);
      //Executes the Command and stores the result
      commandResult = command.execute(model);
 
      try {
          //We can deduce that the previous line of code modifies model in some way
          // since it's being stored here.
-         storage.saveAddressBook(model.getAddressBook());
+         storage.saveClassroom(model.getClassroom());
      } catch (IOException ioe) {
          throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
      }
@@ -125,7 +125,7 @@ image:StepOver.png[]
 +
 . `Step into` the line where user input in parsed from a String to a Command.
 +
-.AddressBookParser#parseCommand()
+.ClassroomParser#parseCommand()
 [source, java]
 ----
 public Command parseCommand(String userInput) throws ParseException {
@@ -141,15 +141,15 @@ image:Variables.png[]
 . We see that the value of `commandWord` is now `edit` but `arguments` is still not processed in any meaningful way.
 . Stepping into the `switch`, we obviously stop at
 +
-.AddressBookParser#parseCommand()
+.ClassroomParser#parseCommand()
 [source, java]
 ----
 ...
-case EditCommand.COMMAND_WORD:
-    return new EditCommandParser().parse(arguments);
+case EditStudentCommand.COMMAND_WORD:
+    return new EditStudentCommandParser().parse(arguments);
 ...
 ----
-. Let's see what `EditCommandParser#parse()` does by stepping into it.
+. Let's see what `EditStudentCommandParser#parse()` does by stepping into it.
 . Stepping through the method shows that it calls `ArgumentTokenizer#tokenize()` and `ParserUtil#parseIndex()` to
 obtain the arguments and index required.
 +
@@ -173,38 +173,38 @@ image::LogicSequenceDiagram.png[]
 
 . Now let's see what happens when we call `command#execute()`!
 +
-.EditCommand#execute()
+.EditStudentCommand#execute()
 [source, java]
 ----
 @Override
 public CommandResult execute(Model model) throws CommandException {
     ...
-    Person personToEdit = lastShownList.get(index.getZeroBased());
-    Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-    if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-        throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+    Student studentToEdit = lastShownList.get(index.getZeroBased());
+    Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
+    if (!studentToEdit.isSameStudent(editedStudent) && model.hasStudent(editedStudent)) {
+        throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
     }
-    model.setPerson(personToEdit, editedPerson);
-    model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+    model.setStudent(studentToEdit, editedStudent);
+    model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENT);
+    return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent));
 }
 ----
 . As suspected, `command#execute()` does indeed make changes to `model`.
 . We can a closer look at how storage works by repeatedly stepping into the code until we arrive at
-`JsonAddressBook#saveAddressBook()`.
-. Again, it appears that the heavy lifting is delegated. Let's take a look at ``JsonSerializableAddressBook``'s
+`JsonClassroom#saveClassroom()`.
+. Again, it appears that the heavy lifting is delegated. Let's take a look at ``JsonSerializableClassroom``'s
 constructor.
 +
-.JsonSerializableAddressBook#JsonSerializableAddressBook()
+.JsonSerializableClassroom#JsonSerializableClassroom()
 [source, java]
 ----
 /**
- * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+ * Converts a given {@code ReadOnlyClassroom} into this class for Jackson use.
  *
  * @param source future changes to this will not affect the created
- * {@code JsonSerializableAddressBook}.
+ * {@code JsonSerializableClassroom}.
  */
-public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+public JsonSerializableClassroom(ReadOnlyClassroom source) {
     persons.addAll(
         source.getPersonList()
               .stream()
@@ -212,8 +212,8 @@ public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
               .collect(Collectors.toList()));
 }
 ----
-. It appears that a `JsonAdaptedPerson` is created for each `Person` and then added to the
-`JsonSerializableAddressBook`.
+. It appears that a `JsonAdaptedPerson` is created for each `Student` and then added to the
+`JsonSerializableClassroom`.
 . We can continue to step through until we return to `MainWindow#executeCommand()`.
 . Stepping into ``resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());``, we end up in:
 +
@@ -230,7 +230,7 @@ public void setFeedbackToUser(String feedbackToUser) {
 == Conclusion
 
 In this tutorial, we traced a valid edit command from raw user input to the result being displayed to the user. From
-this tutorial, you learned more about the inner workings of AddressBook and how the various components mesh together
+this tutorial, you learned more about the inner workings of Classroom and how the various components mesh together
 to form one cohesive product.
 
 .What's next?
@@ -253,6 +253,6 @@ handled?
 .. Allow `delete` to remove more than one index at a time
 .. Save the address book in the CSV format instead
 .. Add a new command
-.. Add a new field to `Person`
+.. Add a new field to `Student`
 .. Add a new entity to the address book
 ****
