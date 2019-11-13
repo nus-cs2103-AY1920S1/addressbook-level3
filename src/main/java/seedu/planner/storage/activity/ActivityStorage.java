@@ -18,11 +18,13 @@ public interface ActivityStorage {
      */
     Path getActivityFilePath();
 
+    //@@author ernestyyh
     /**
      * Sets the file path of the data file.
      */
     void setActivityFilePath(Path activityFilePath);
 
+    //@@author OneArmyj
     /**
      * Returns Activity data as a {@link ReadOnlyActivity}.
      *   Returns {@code Optional.empty()} if storage file is not found.

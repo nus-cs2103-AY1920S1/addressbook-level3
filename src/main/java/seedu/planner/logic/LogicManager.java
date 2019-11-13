@@ -56,6 +56,7 @@ public class LogicManager implements Logic {
         Command command = plannerParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
+        //@@author ernestyyh
         if (command instanceof SetCommand) {
             storage.deletePlannerFilePath();
         }
@@ -87,6 +88,7 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    //@@author OneArmyj
     @Override
     public ReadOnlyAccommodation getAccommodations() {
         return model.getAccommodations();
@@ -142,6 +144,7 @@ public class LogicManager implements Logic {
         return model.getContactFilePath();
     }
 
+    //@@author ernestyyh
     @Override
     public Path getPlannerFilePath() {
         return model.getPlannerFilePath();
@@ -152,6 +155,7 @@ public class LogicManager implements Logic {
         return model.getItineraryFilePath();
     }
 
+    //@@author OneArmyj
     @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();

@@ -18,11 +18,13 @@ public interface ContactStorage {
      */
     Path getContactFilePath();
 
+    //@@author ernestyyh
     /**
      * Sets the file path of the data file.
      */
     void setContactFilePath(Path contactFilePath);
 
+    //@@author OneArmyj
     /**
      * Returns Contact data as a {@link ReadOnlyContact}.
      *   Returns {@code Optional.empty()} if storage file is not found.

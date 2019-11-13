@@ -207,6 +207,98 @@ Classes used by multiple components are in the `seedu.plannerbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::tripmanagement[]
+=== Trip management
+*_Plan²travel_* allows the user to create new trips, load and rename existing trips, make copies
+of existing trips and also clear existing trip information.
+
+List of commands that helps with trip management:
+
+* `new n/NAME`  -- Creates and loads a new empty trip with desired name
+* `copyto n/NAME`  -- Creates and loads a copy of current trip using desired name
+* `load n/NAME` -- Loads a saved trip with desired name
+* `set n/NAME` -- Renames current trip to desired name
+* `clear` -- Clears all current trip information except for name
+
+==== Current Implementation
+
+A trip (or trip plan) will have a name that is identical to the directory name which it represents.
+The directory will be accessible via the `data/{Directory Name}` directory path of the home folder
+which the `plan2travel.jar` is stored in.
+
+For example, a trip named "Japan Trip" will represent a `Japan Trip` directory. This directory can
+be accessed using the `data/Japan Trip` directory path.
+
+The directory will contain the `accommodation.json`, `activity.json`, `contact.json` and
+`itinerary.json` of the current saved trip.
+
+The trip management mechanism is facilitated by `UserPrefs` where the desired directory path is
+stored internally as `plannerFilePath`.
+
+Operations to access `plannerFilePath` are exposed in the Model interface as `Model#getPlannerFilePath()`
+and `Model#setPlannerFilePath(Path)` respectively.
+
+Given below is the sequence diagram of how the `load` operation works:
+
+.Sequence diagram for `load` command
+image::LoadSequenceDiagram.png[width=90%, scaledwidth=90%]
+NOTE: The lifeline for `LoadCommand` should end at the destroy marker (X) but due to a limitation of PlantUML,
+the lifeline reaches the end of diagram.
+
+The sequence diagram above can be described by the following sequence of events:
+
+1. `LoadCommand` is executed
+2. `LoadCommand` updates the `UserPrefs` `plannerFilePath` and the `Itinerary` `nameProperty`
+3. `LogicManager` updates the respective file paths (that have been updated due to changes in
+`plannerFilePath`) in the `Storage` component
+4. `LogicManger` updates the respective lists in the `Model` component based on the new
+file paths
+5. `LogicManager` saves the respective lists in json format in directory designated by
+`plannerFilePath` through the `Storage` component
+
+The following activity diagram summarizes what happens when a user executes a `copyto` command.
+
+.Activity diagram for `copyto` command
+image::CopyToActivityDiagram.png[]
+
+==== Design Considerations
+Aspect: How the `Logic` component executes `set`
+
+* Current Choice: Deletes current directory before saving new directory containing previous
+json files
+** Pros:
+*** Uses `File#delete()` which is platform-independent and helps in ensuring the stability of the
+application.
+** Cons:
+*** May seem less intuitive. Deletion methods are used instead of renaming methods (which
+may be more appropriate given that `set` helps to rename the current directory).
+*** Likely to be more costly in terms of execution as it involves deleting the previous directory
+and saving a new one.
+
+* Alternative: Rename current directory and avoid saving over the updated directory.
+** Pros:
+*** Likely to be less costly in terms of execution as it does not involve deletion and saving
+of directories.
+** Cons:
+*** Uses `File#renameTo()` which is platform-dependent and may contribute to a less stable application.
+
+Aspect: How the commands execute based on Java API methods
+
+* Current Choice: Uses methods from `File` such as `File#delete()` and `File#exists()`
+** Pros:
+*** Methods used do not throw an `IOException` and may help ensure the stability of the application.
+** Cons:
+*** It may be difficult to diagnose issues that may arise.
+
+* Alternative: Uses methods from `Files` such as `Files#deleteIfExists()` and `Files#list(Path)`
+** Pros:
+*** Methods can throw an `IOException` which can help to diagnose issues.
+** Cons:
+*** However, certain usages of these methods can result in an `AccessDeniedException` which contributes to a
+less stable application.
+
+// end::tripmanagement[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 The `undo` command allows user to undo by one command (if the command is `undoable`).
@@ -991,7 +1083,6 @@ Expected: Similar to previous
 ..  Test case: `list activity`
 ..  Expected: All activities are listed in the information panel.
 
-
 === Set
 * Sets the name or start date of the itinerary
 .. Prerequisites: Arguments are valid. A minimum of either name or start date must be provided.
@@ -1001,6 +1092,56 @@ Expected: Sets the itinerary name to Germany and start date to 25th Dec 2019.
 Expected: Nothing is set. Invalid message shown.
 .. Other incorrect add commands to try: `set sd/12/12/2019` +
 Expected: Similar to previous
+
+/// tag::tripmanagementtest[]
+=== New
+* Creates and loads a new empty trip with desired name
+.. Prerequisites: Arguments are valid and no existing saved trips have the same name.
+A name must be provided.
+.. Test case: `new n/Japan Trip` +
+Expected: Creates a new empty trip named "Japan Trip". The name is reflected as the itinerary name.
+.. Test case: `new` +
+Expected: Planner name not specified
+.. Test case: `new n/Iceland Trip`, `new n/Iceland Trip` +
+Expected: This planner already exists
+
+== Copyto
+* Creates and loads a copy of current trip using desired name
+.. Prerequisites: Arguments are valid and no existing saved trips have the same name.
+A name must be provided.
+.. Prerequisites: Populate a new trip using the following commands:
+... `new n/China v1`
+... `add activity n/Visit QinShiHuang's Tomb a/Xi An du/240 t/history`
+... `add accommodation n/China World Hotel a/Beijing t/5star`
+.. Test case: `copyto n/China v2` +
+Expected: Creates a copy of the current trip named "China v2".
+The name is reflected as the itinerary name and is the only visible difference when compared
+to the original trip.
+.. Test case: `copyto` +
+Expected: Planner name not specified
+.. Test case: `copyto n/China v1` +
+Expected: This planner already exists
+
+== Load
+* Loads a saved trip with desired name
+.. Prerequisites: Arguments are valid and no existing saved trips have the same name.
+A name must be provided.
+.. Prerequisites: Populate 2 new trips using the following commands:
+... `new n/China`
+... `add activity n/Visit QinShiHuang's Tomb a/Xi An du/240 t/history`
+... `add accommodation n/China World Hotel a/Beijing t/5star`
+... `new n/Japan`
+... `add accommodation n/Crowne Hotel a/Tokyo p/8137973142 t/5stars`
+... `add activity n/Visit Aquarium a/Tokyo p/812487941 du/120 c/20.00 pr/3 t/marine`
+.. Test case: `load n/China` +
+Expected: Loads the existing trip that has the name "China".
+The name is reflected as the itinerary name.
+.. Test case: `load` +
+Expected: Planner name not specified
+.. Test case: `load n/China` +
+Expected: This planner has already been loaded
+
+// end::tripmanagementtest[]
 
 === View
 ==== View activity/accommodation/contact

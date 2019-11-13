@@ -36,9 +36,11 @@ public interface Storage extends AccommodationStorage, ActivityStorage, ContactS
     @Override
     Path getAccommodationFilePath();
 
+    //@@author ernestyyh
     @Override
     void setAccommodationFilePath(Path accommodationFilePath);
 
+    //@@author OneArmyj
     @Override
     Optional<ReadOnlyAccommodation> readAccommodation() throws DataConversionException, IOException;
 
@@ -50,9 +52,11 @@ public interface Storage extends AccommodationStorage, ActivityStorage, ContactS
     @Override
     Path getActivityFilePath();
 
+    //@@author ernestyyh
     @Override
     void setActivityFilePath(Path activityFilePath);
 
+    //@@author OneArmyj
     @Override
     Optional<ReadOnlyActivity> readActivity() throws DataConversionException, IOException;
 
@@ -64,9 +68,11 @@ public interface Storage extends AccommodationStorage, ActivityStorage, ContactS
     @Override
     Path getContactFilePath();
 
+    //@@author ernestyyh
     @Override
     void setContactFilePath(Path contactFilePath);
 
+    //@@author OneArmyj
     @Override
     Optional<ReadOnlyContact> readContact() throws DataConversionException, IOException;
 
@@ -78,9 +84,11 @@ public interface Storage extends AccommodationStorage, ActivityStorage, ContactS
     @Override
     Path getItineraryFilePath();
 
+    //@@author ernestyyh
     @Override
     void setItineraryFilePath(Path itineraryFilePath);
 
+    //@@author OneArmyj
     @Override
     Optional<ReadOnlyItinerary> readItinerary() throws DataConversionException, IOException;
 
@@ -89,6 +97,7 @@ public interface Storage extends AccommodationStorage, ActivityStorage, ContactS
 
     // ================ PlannerFilePath methods ==============================
 
+    //@@author ernestyyh
     /**
      * Deletes the user prefs' planner file path.
      */

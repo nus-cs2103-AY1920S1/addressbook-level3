@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 
+//@@author ernestyyh
 /**
  * A ui for the status bar that is displayed at the header of the application.
  */

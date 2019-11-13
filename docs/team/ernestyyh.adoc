@@ -5,66 +5,72 @@
 
 == PROJECT: Plan²travel
 
+This portfolio aims to document the contributions that I have made to the *_Plan²travel_* project.
+
+*_Plan²travel_* Github link: https://ay1920s1-cs2103t-t09-1.github.io/main/
+
 ---
 
-== Overview
+== Introduction
 
-Plan²travel is a desktop travel planning application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface) and it has a GUI created with JavaFX. It is a Java sample application intended for students who students who are infrequent travelers while using Java as the main programming language.
+*Plan²travel* is a desktop travel planning application. The application is targeted at fellow university students who
+travel infrequently and would greatly benefit from an application that helps organize their travelling information when they plan their own itinerary. Plan²travel has the ability to store and display information such as activities, accommodations, contacts and an itinerary which comprises of a list of day. Each day is displayed with a list of activities that is scheduled. +
+
+The user interacts with the application using a Command Line Interface (CLI), and it has Graphical User Interface GUI created with JavaFX.
+
+It is cross-platform and can be compiled for both Windows and Mac OS.
+
+Below is a screenshot of our application:
+
+image::../images/Plan2TravelSS.png[]
 
 == Summary of contributions
+|===
+|Below is a summary of the contributions that I have made to the project.
+|===
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+=== *Major enhancement*: +
+* *Added and modified commands to facilitate trip management*
+** *What it does:* allows the user to create new trips, load and rename existing trips, make copies
+of existing trips and also clear existing trip information.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** *Justification:* This feature improves the product significantly because it allow users to plan for multiple
+trips. This removes the initial limitation of only being able to plan for a single trip at a time.
+Under the initial limitation, users would have had to constantly overwrite their trip plans and lose any previous
+plans that they have made.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Functional Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/226[Update 1] |
+https://github.com/AY1920S1-CS2103T-T09-1/main/pull/270[Update 2] |
+https://github.com/AY1920S1-CS2103T-T09-1/main/pull/274[Update 3] |
+https://github.com/AY1920S1-CS2103T-T09-1/main/pull/278[Final Update]
 
-* *Other contributions*:
-
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+=== *Other Contributions*:
+** UI:
+*** Morphed and improved upon the initial AB3 UI (https://github.com/AY1920S1-CS2103T-T09-1/main/pull/69[#69],
+https://github.com/AY1920S1-CS2103T-T09-1/main/pull/81[#81],
+https://github.com/AY1920S1-CS2103T-T09-1/main/pull/98[#98])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Contributed to the User Guide and Developer Guide for this project. See below for more details.
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Over 10 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?q=is%3Apr+is%3Aclosed+author%3Aernestyyh[Pull Requests] on Github
+*** Over 15 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?utf8=%E2%9C%93&q=is%3Apr+commenter%3Aernestyyh[Reviews] on Github
 
-_{you can add/remove categories in the list above}_
+*Overall Code Contribution https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=ernestyyh[here]*
 
 == Contributions to the User Guide
-
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to Plan²travel User Guide. They showcase my ability to write documentation
+targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=tripmanagement]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project._
 |===
+include::../DeveloperGuide.adoc[tag=tripmanagement]
+include::../DeveloperGuide.adoc[tag=tripmanagementtest]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

@@ -1,0 +1,16 @@
+@startuml
+start
+:User executes command;
+if () then ([invalid arguments])
+    :Throw exception for invalid arguments;
+else ([else])
+    if () then ([trip already exists])
+        :Throw exception for duplicate trip;
+    else ([else])
+        :Updates itinerary name;
+        :Updates directory path for storage;
+        :Saves current trip information to updated directory;
+    endif
+endif
+stop
+@enduml

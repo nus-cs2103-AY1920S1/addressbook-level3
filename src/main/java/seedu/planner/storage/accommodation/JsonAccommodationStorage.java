@@ -31,11 +31,13 @@ public class JsonAccommodationStorage implements AccommodationStorage {
         return filePath;
     }
 
+    //@@author ernestyyh
     public void setAccommodationFilePath(Path accommodationFilePath) {
         requireNonNull(accommodationFilePath);
         filePath = accommodationFilePath;
     }
 
+    //@@author OneArmyj
     @Override
     public Optional<ReadOnlyAccommodation> readAccommodation() throws DataConversionException {
         return readAccommodation(filePath);

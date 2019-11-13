@@ -31,11 +31,13 @@ public class JsonContactStorage implements ContactStorage {
         return filePath;
     }
 
+    //@@author ernestyyh
     public void setContactFilePath(Path contactFilePath) {
         requireNonNull(contactFilePath);
         filePath = contactFilePath;
     }
 
+    //@@author OneArmyj
     @Override
     public Optional<ReadOnlyContact> readContact() throws DataConversionException {
         return readContact(filePath);

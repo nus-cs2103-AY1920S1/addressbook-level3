@@ -74,11 +74,13 @@ public interface Logic {
      */
     Path getContactFilePath();
 
+    //@@author ernestyyh
     /**
      * Returns the user prefs' planner file path.
      */
     Path getPlannerFilePath();
 
+    //@@author OneArmyj
     /**
      * Returns the Itinerary.
      *

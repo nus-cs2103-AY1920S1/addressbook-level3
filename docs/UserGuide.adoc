@@ -549,11 +549,11 @@ The day to be optimised must not be empty.
 
 // end::optimise[]
 
-// tag::new[]
+// tag::tripmanagement[]
 
 === Planning a new trip: `new`
 
-Creates a new, empty trip plan with the desired name and saves it
+Creates and loads a new empty trip with desired name.
 
 Format: `new n/NAME`
 
@@ -561,6 +561,7 @@ Format: `new n/NAME`
 * Name cannot exceed 30 characters.
 * Name can only contain alphanumeric characters and spaces, and cannot be left empty.
 * Name of an existing saved trip cannot be used.
+* Name is reflected as itinerary name.
 
 Examples:
 
@@ -568,19 +569,16 @@ Examples:
 
 Creates a new, empty trip plan that has the name "Iceland Trip" and saves it.
 
-// end::new[]
-
-// tag::load[]
-
 === Review an existing trip: `load`
 
-Loads an existing, saved trip plan with the desired name.
+Loads a saved trip with desired name.
 
 Format: `load n/NAME`
 
 * Compulsory field, name, must be present.
 * Unsaved trip plans cannot be loaded.
-* A saved trip plan that is viewable cannot be reloaded.
+* The current trip plan cannot be reloaded.
+* Name is reflected as itinerary name.
 
 Example:
 
@@ -588,13 +586,9 @@ Example:
 
 Loads an existing, saved trip plan that has the name "Greenland Trip".
 
-// end::load[]
-
-// tag::copyto[]
-
 === Make a copy of an existing trip: `copyto`
 
-Creates a copy of an existing trip using a different name and saves it.
+Creates and loads a copy of current trip using desired name.
 
 Format: `copyto n/NAME`
 
@@ -603,6 +597,7 @@ Format: `copyto n/NAME`
 * Name can only contain alphanumeric characters and spaces, and cannot be left empty.
 * Name of an existing saved trip cannot be used.
 * Name is the only visible difference between the copy and the original trip plan.
+* Name is reflected as itinerary name.
 
 Examples:
 
@@ -611,17 +606,15 @@ Examples:
 Creates a copy of the current viewable, saved trip plan. The trip plan copy will have the
 name "London Trip".
 
-// end::copyto[]
-
-// tag::clear[]
-
 === Clears existing trip: `clear`
 
-Clears all information in existing trip plan, except for trip name and saves the cleared trip plan.
+Clears all current trip information except for name.
+
+* Name is reflected as itinerary name.
 
 Format: `clear`
 
-// end::clear[]
+// end::tripmanagement[]
 
 // tag::undoredocommand[]
 

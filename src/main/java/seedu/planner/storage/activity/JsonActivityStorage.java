@@ -31,11 +31,13 @@ public class JsonActivityStorage implements ActivityStorage {
         return filePath;
     }
 
+    //@@author ernestyyh
     public void setActivityFilePath(Path activityFilePath) {
         requireNonNull(activityFilePath);
         filePath = activityFilePath;
     }
 
+    //@@author OneArmyj
     @Override
     public Optional<ReadOnlyActivity> readActivity() throws DataConversionException {
         return readActivity(filePath);
