@@ -1,0 +1,34 @@
+@startuml
+start
+:User starts CaloFit application;
+
+if () then ([before 10am])
+else ([else])
+    if () then ([before 2pm])
+    :Check for breakfast;
+        if () then ([Missed breakfast])
+            :Notify user;
+        else ([else])
+        endif
+    else ([else])
+        if () then ([before 8pm])
+        :Check for lunch;
+            if () then ([Missed lunch])
+                :Notify user;
+            else ([else])
+            endif
+        else ([else])
+            if () then ([before 12am)
+            :Check for Dinner;
+                if () then ([Missed dinner])
+                    :Notify user;
+                else ([else])
+                endif
+            else ([else])
+            endif
+        endif
+    endif
+endif
+stop
+
+@enduml

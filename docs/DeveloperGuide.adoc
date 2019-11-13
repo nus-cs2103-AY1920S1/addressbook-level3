@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= CaloFit - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,30 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-W11-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CaloFit (AY1920S1-CS2103T-W11-4)`      Since: `Sep 2019`      Licence: `MIT`
+
+== Introduction
+
+*Get Healthy with CaloFit!* +
+
+CaloFit is a calorie tracker application written in Java. It provides a simple, fast, and easily-understood platform for users to manage their meals, find meal suggestions, and track their progress by setting their own calorie budget. +
+
+This guide provides information that will not only help you understand how CaloFit works, but also help you expand or modify its features based on what the user wants to track. +
+
+We are a team of 4 Computer Science students from the National University of Singapore(NUS), and hope that this guide has been helpful for you. In the case of any queries or bugs, feel free to contact us by following the instructions [https://github.com/AY1920S1-CS2103T-W11-4/main/blob/master/docs/ContactUs.adoc[here]].
+
+Here is a list of symbols and formats we will be using in this guide:
+
+[NOTE]
+Important information will be listed here for you.
+
+`report` Text in a grey highlight represents a command that you can enter into CaloFit.
+
+*_Command_* Text that is bold and italicised represents a Class, Interface or Object.
+
+_Model#getMealLog()_ Text that is italicised only represents a method. The method name is listed after the "#" symbol.
 
 == Setting up
 
@@ -23,6 +44,7 @@ Refer to the guide <<SettingUp#, here>>.
 == Design
 
 [[Design-Architecture]]
+
 === Architecture
 
 .Architecture Diagram
@@ -30,33 +52,31 @@ image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
-
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+*_Main_* has two classes called link:{repoURL}/src/main/java/calofit/Main.java[*_Main_*] and link:{repoURL}/src/main/java/calofit/MainApp.java[*_MainApp_*]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+<<Design-Commons,*_Commons_*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* *_LogsCenter_* : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists of four components.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Ui,*_UI_*>>: The UI of the App.
+* <<Design-Logic,*_Logic_*>>: The command executor.
+* <<Design-Model,*_Model_*>>: Holds the data of the App in-memory.
+* <<Design-Storage,*_Storage_*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
 
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+* Defines its _API_ in an *_interface_* with the same name as the Component.
+* Exposes its functionality using a *_{Component Name}Manager_* class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+This architecture system allows for different components of CaloFit to be implemented separately without conflict. Any interaction between the components is done through the *_Model_* interface to avoid exposing unnecessary details of each component.
+
+For example, the *_Logic_* component (see the class diagram given below) defines it's API in the *_Logic.java_* interface and exposes its functionality using the *_LogicManager.java_* class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
@@ -77,16 +97,18 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/calofit/ui/Ui.java[*_Ui.java_*]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The *_UI_* consists of a *_MainWindow_* that is made up of parts e.g.*_CommandBox_*, *_ResultDisplay_*, *_DishListPanel_*, *_StatusBarFooter_* etc. All these parts, including the *_MainWindow_*, inherit from the abstract *_UiPart_* class. +
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The *_UI_* component uses JavaFx UI framework. The layout of these UI parts are defined in matching *.fxml* files that are in the *src/main/resources/view* folder. For example, the layout of the link:{repoURL}/src/main/java/calofit/ui/MainWindow.java[*_MainWindow_*] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[*_MainWindow.fxml_*].
 
-The `UI` component,
+The *_UI_* component,
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Executes user commands using the *_Logic_* component.
+* Listens for changes to *_Model_* data so that the *_UI_* can be updated with the modified data.
+
+This design is similiar to the Architectural design of CaloFit, whereby different *_UiParts_* are encapsulated in the *_MainWindow_* java controller class. This allows the *_Logic_* to minimise interaction with the *_UI_*, since the *_MainWindow_* manages the changes to any *_UiPart_* classes that result from the execution in the *_Logic_* component.
 
 [[Design-Logic]]
 === Logic component
@@ -96,40 +118,46 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/calofit/logic/Logic.java[*_Logic.java_*]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  *_Logic_* uses the *_CommandParser_* class to parse the user command.
+.  This results in a *_Command_* object which is executed by the *_LogicManager_*.
+.  The command execution can affect the *_Model_* (e.g. adding a meal).
+.  The result of the command execution is encapsulated as a *_CommandResult_* object which is passed back to the *_Ui_*.
+.  In addition, the *_CommandResult_* object can also instruct the *_Ui_* to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+This design allows the *_Logic_* component to maintain the Single Responsibility of processing the *_Command_* and returning the *_CommandResult_*. The *_UI_* displays any feedback to the user based on the *_CommnadResult_* object, without the need for the *_Logic_* to invoke any methods in the *_UI_* directly.
+
+Given below is the Sequence Diagram for interactions within the *_Logic_* component for the _Logic#execute("delete 1")_ API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for *_DeleteCommandParser_* should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+// tag::model[]
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/calofit/model/Model.java[*_Model.java_*]
 
-The `Model`,
+The *_Model_*,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a *_UserPref_* object that represents the user's preferences.
+* stores the *_DishDatabase_* data, *_MealLog_* data and *_CalorieBudget_* data.
+* exposes many unmodifiable properties that can be 'observed' by the *_UI_* component
+** List of today meals (*_ObservableList<Meal>_*)
+** List of suggested/filtered dishes (*_ObservableList<Dish>_*)
+** Current calorie budget (*_CalorieBudget_*)
+  The *_UI_* components can be bound to this list, so that the *_UI_* automatically updates when the data in the list changes.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+This design allows many parts of CaloFit to be created without the fear of conflict with other classes. This is due to the *_Model_* interface acting as a Facade class that manages the interactions between the components that makeup CaloFit.
+
+// end::model[]
 
 [[Design-Storage]]
 === Storage component
@@ -137,110 +165,517 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/calofit/storage/Storage.java[*_Storage.java_*]
 
-The `Storage` component,
+The *_Storage_* component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save *_UserPref_* objects in json format and read it back.
+* can save the *_DishDatabase_* data in json format and read it back.
+* can save the *_MealLog_* data in json format and read it back.
+* can save the *_CalorieBudget_* data in json format and read it back.
+
+This design allows the users to save their *_MealLog_*, *_DishDatabase_* and *_CalorieBudget_* in a directory of their choice that is specified by the *_Path_* in the *_UserPrefs_* object.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the *calofit.commons* package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+// tag::mealTracking[]
+=== Meal Tracking Feature
+// tag::add[]
+==== Add feature
+===== Implementation
+====== Addition though flags (e.g add n/Chicken c/200 t/dry)
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The `add` feature is implemented through the *_AddCommand_* class that extends the abstract *_Command_* class.
+It interacts with other objects through the *_Model_* interface to manipulate the meal log and dish database to add meals.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+The addition of meals is done through *_Model#addMeal()_* which would add the meal from the meal log list.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The `add` feature uses the Model to check if the dish is already in the database.
+If the dish is already in the database, the meal will be added to the meal log only through the *_Model#addMeal()_* method.
+If the dish the user wants to add is not in the database,
+then the dish will be added to both the meal log and the dish database through the *_Model#addMeal()_* and
+*_Model#addDish()_* methods respectively.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+There are a few cases to take note:
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+* If the dish name is in the dish database:
+** The user inserts the calorie information that is the same as the one in the dish database
+*** The dish will be added to the meal log only.
 
-image::UndoRedoState0.png[]
+** The user inserts the calorie information different from the calorie in the dish database
+*** This will create a new dish all together as there are differences in the calorie
+*** The new dish will be added to both the meal log as well as the dish database
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+** The user does not insert the calorie information
+*** The program will look through the dish database and get the calorie information from that dish.
 
-image::UndoRedoState1.png[]
+* If the dish name is not in the dish database
+** The user inserts the calorie information
+*** A new dish is created with that name and calorie information
+*** The dish will then be added to both the dish database as well as the meal log.
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+** The user does not insert the calorie information
+*** The program sets the calorie information to 700 by default.
+*** The dish will then be added to both the dish database as well as the meal log
 
-image::UndoRedoState2.png[]
+The following sequence diagram shows how the `add` operation works when calorie information is included:
+
+image::AddSequenceDiagram.png[]
+
+To detect whether the calorie tag is used in the user input, we use an UNKNOWN_CALORIE in the Calorie class.
+This will trigger either search for the dish in the dish database or create a new dish and input it into the dish database.
+
+The input by the user and the dish in the dish database is considered equal only if both the name and the calorie information are the same.
+
+Addition of tags are supported. However, they are not crucial to the implementation of the add
+function as tags are not considered when deciding equality of dishes.
+
+====== Addition though indexes in suggested/find meal list (e.g add 1 2 3)
+The `add` feature also supports the addition of meals through indexes in the suggested meal list.
+This is done to improve the user experience as they do not have to always enter the long commands.
+
+This feature is also implemented through the *_AddCommand_* class that extends the abstract *_Command_* class.
+
+The `add` command in this case takes in a list of numbers pass to it through the *_AddCommandParser_*. The checking of valid
+indexes is done by the *_AddCommandParser_*. Once the list is passed to the *_AddCommand_*, it calls *_Model#getFilteredDishlist()_*
+which returns the filtered dish list. The add command will then loop through
+the list of indexes and get the respective dishes from the filtered dish list.
+
+We cannot add the meal immediately to the meal log as the filtered dish list would change when the calorie count changes. Hence the
+meals are first added to separate a *_toBeAddedMealList_* and once all the indexes are added to that list,
+*_MealLog#addListOfMeals(toBeAddedMealList)_* is called to add all the meals in to the meal log at once.
+
+===== Design Consideration
+====== Aspect: What is considered the same meal
+* **Alternative 1 (Current choice):** Compare name and calorie only
+** Pros: More precise compared to just comparing names.
+** Cons: Complications when adding meals.
+
+* **Alternative 2:** Compare name only
+** Pros: Easy comparison. Reduces complications when adding meals.
+** Cons: High collision.
+
+* **Alternative 3** Compare name, calories and tags
+** Pros: Very precise comparison.
+** Cons: May cause the dish database to get very large just because the tag is different
+
+* **Explanation of choice:** As a calorie counter, the calories is an important
+part of the meal. Hence we need to consider it when comparing meals. Certain meals
+with the same name may not have the same amount of calories. Hence we decided to go
+with alternative 1.
+
+===== Aspect: Data structure when storing in meals in meal log
+* **Alternative 1 (Current choice):** Use array list to store meals in meal log
+** Pros: Able to delete by index.
+** Cons: Interacting with the meal log will be slow.
+
+* **Alternative 2:** Use a hash map to store the meals in meal log
+** Pros: Able quickly retrieve information from the meal log.
+** Cons: Unable to delete through index. Also unable to store duplicates of the same meal.
+
+* **Explanation of choice:** The user may consume the same meal within the day. If we use a hash
+map, we will not be able to store the duplicate meals easily. Hash map does not preserve order.
+Hence, showing on the meal list section would be difficult as well. A user may not have a large
+amount of meals daily. Hence the array list would not be that large. Therefore, despite its limitation,
+an array list is still used.
+
+// end::add[]
+
+==== Edit feature
+===== Implementation
+
+The `edit` feature is implemented through the *_EditCommand_* class that extends the abstract *_Command_* class.
+It interacts with other objects through the *_Model_* interface to manipulate the meal log and edit meals.
+
+The *_edit_* command allows the user to edit any fields in their previous meal entries of the same day with a
+single command. The edit command takes in a *_Index_* which specifies the location of the meal in the meal log
+and a *_EditDishDescriptor_* which contains the information the user wants to edit the meal with.
+
+The edit of meal is done through a 2 step process. The meal is first retrieved from the meal log. Afterwards,
+the meal will be edited with the information in the EditDishDescriptor. Following that, the edited meal is
+inserted using the *_Model#setMeal()_* command. This swaps out the old meal for the new edited meal.
+
+Below is the activity diagram that summarises the scenario when "edit 1 n/Mushroom Soup c/200 tr/shitake" is called by the user.
+
+image::EditActivityDiagram.png[]
+
+===== Design Consideration
+====== Aspect: How editing meal in meal log will change the dish database.
+* **Alternative 1 (Current choice):** No change to dish database
+** Pros: Simple and easy for user to understand
+** Cons: Less accurate data in the dish database
+
+* **Alternative 2:** Edit the corresponding meal that was previously added when adding the meal
+** Pros: Better more accurate data in the dish database
+** Cons: Raises many complications that may get very confusing for the user
+
+* **Explaination of choice:** Interacting with the dish database will cause multiple different edge cases
+that need to be considered. This may cause it to be confusing for the user. For example, if they user intends to
+enters "Mushroom Soup" and get all the information from the dish database. However, the user spelt it wrongly and
+entered "Mushroom Soop" instead. When editing, do we search the dish database for the correct information of
+"Mushroom Soup" or do we just change the name and leave the other information untouched? Hence it is decided to
+allow the user to edit the fields and have no interaction with the dish database for a better user experience.
+
+// tag::delete[]
+==== Delete feature
+===== Implementation
+The `delete` feature is implemented through the *_DeleteCommand_* class that extends the abstract *_Command_* class.
+It interacts with other objects through the *_Model_* interface to manipulate the meal log and remove meals.
+
+The `delete` command allows for removal of multiple dishes with a single command.
+The `delete` command takes in a *_listOfIndex_* passed to it by the *_DeleteCommandParser_*. The checking of valid integers
+is done by the *_DeleteCommandParser_*. Once the listOfIndex is passed to the *_DeleteCommand_*, it sorts the list from largest index
+to smallest index using the *_Collections.sort(listOfIndex, Comparator.reverseOrder())_*. The *_DeleteCommand_* then loops through
+the sorted list and checks if the index is within the size of the meal log. If the index is valid, *_DeleteCommand_* will
+remove the respective meal from the meal log.
+
+The removal of meals is done through the *_Model#removeMeal(meal)_* which would remove the meal from the meal log list.
+
+The following sequence diagram shows how the `delete` operation works when index 1 is deleted:
+
+image::DeleteSequenceDiagram.png[]
+
+Below is the activity diagram that summarises the scenario when "delete 1" is called by the user.
+
+image::DeleteActivityDiagram.png[]
+
+===== Design Consideration
+====== Aspect: How is the meal removed
+
+* **Alternative 1 (Current Choice):** Removed after the listOfIndex is sorted.
+** Pros: Prevent the reordering of the meal log causing the larger indexes to correspond to a different meal or
+out of bounds. (e.g delete 1 2 for a meal log with 2 meals. If we delete 1 first, the meal log will change to having 1 meal.
+The meal previously at index 2 is now at index 1. When doing delete 2, the meal at index 2 is now out of bounds as the meal log
+only has 1 meal.)
+** Cons: The command may take some time when handling large amounts of input. This is due to the sorting required.
+
+* **Alternative 2:** Loop through the indexes in the *_DeleteCommandParser_* and create a new *_DeleteCommand_* for every index.
+** Pros: Simple morphing of previous delete method.
+** Cons: Have to change other parts of the model breaking abstraction.
+
+* ** Explanation of Choice:** The command is for the deletion of meals for that day. A person on average consumes 3 - 4 meals a day.
+Hence on average, the most meals to be deleted is 4. Thus the sorting time would not be too significant.
+// end::delete[]
+// end::mealTracking[]
+
+// tag::budgetbar[]
+=== Budget Bar display
+
+The budget bar display provides a graphic overview of meals consumed on the current day,
+comparing against the total calorie budget set by the user.
+
+==== Implementation
+
+The budget bar feature is implemented via the `BudgetBar` class.
+It is a JavaFx UI component, which wraps around `MealLog` and `CalorieBudget`.
+`MealLog` provides an observable list of meals eaten today,
+while `CalorieBudget` provides the currently set user budget.
+
+Using helper code from `ObservableUtil` and `ObservableListUtil`,
+we compute several derived properties:
+
+* Total calories consumed
+* Percentage of budget consumed
+
+From there, we again construct further observable/reactive values representing:
+
+* Bar info text color
+** Transitions from green to red, when more budget is consumed
+* Bar info text
+** If budget has been set, shows `<Total Consumed> / <Budget>`.
+** If budget has not been set, only shows `<Total Consumed>`.
+* Meal segments
+** Each meal is displayed as a proportionally-sized segment in the whole bar.
+* Position of warning/danger markers
+
+The following object diagram shows the reactive update dependencies.
+
+image::BudgetMealUpdate.png[]
+
+==== Design Consideration
+
+===== Aspect: Base UI component to display meal segments.
+
+* **Alternative 1 (current choice):**
+Use ControlsFx's `SegmentedBar` class to handle display of bar segments.
+** Pros:
+*** No need to reimplement JavaFx `setLayout` logic
+*** Better performance than `GridPane`
+** Cons:
+*** Dependency on external library
+*** Have to create a separate `BufferSegment` class to represent gap.
+* **Alternative 2:**
+Use JavaFx's `GridPane` to lay out bar segments, and `ColumnConstraints` to appropriately set column widths.
+** Pros:
+*** No external library (other than JavaFx) needed
+** Cons:
+*** Poor performance to due `Observable` machinery and `GridPane` layout
+* Explanation of choice:
+Simpler implementation and better performance outweighs the cost of using an external library.
+// end::budgetbar[]
+
+
+// tag::assistance[]
+=== Assistance features
+
+// tag::find[]
+==== Find feature
+
+The find feature displays the result of the searched dish on the right pane to the user.
+
+===== Implementation
+
+The find mechanism is toggled when the user types in the "find" command. Through a *_FindCommand_* that extends from the abstract *_Command_* class. It interacts with the object that implements *_Model_* interface by updating the observable list with a predicate that contains what the user is searching for.
+
+Given below is a Class Diagram that shows how the FindCommand interacts with other components of CaloFit.
+
+image::FindClassDiagram.png[]
+
+Given below is an example usage scenario and how the find mechanism behaves at each step.
+
+Step 1. The user starts up CaloFit for the first time. The *_DishDatabase_* will be loaded with the initial data by calling _MainApp#loadDishDatabase_.
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If the DishDatabase is empty, nothing will be display.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 2. The user enters "find soup" in the Command Line Input to invoke the *_FindCommand_* command which will run _FindCommand#execute()_. _Model#setDishFilterPredicate()_ will be executed to update the observable list with the given predicate.
 
-image::UndoRedoState3.png[]
+Step 3. The number of dishes found will be return, while printing the updated dish list on CaloFit right pane.
+
+===== Design Considerations
+
+===== Aspect: How find executes
+
+* **Alternative 1 (current choice):** Update dish list with the search result
+** Pros: Neater code, easier to maintain and uses lesser memory.
+** Cons: Unable to get history of find list.
+* **Alternative 2:** Create a new list for every *_FindCommand_*.
+** Pros: Easier to understand and customise if require data for method.
+** Cons: Unnecessary memory wastage for list created and not used.
+* **Explanation of Choice:** Since we only need to show what the current user finds, there are no usage for the past find result.
+
+===== Aspect: Data structure to support the find command
+
+* **Alternative 1 (current choice):** Stores the value in a dish list.
+** Pros: Commonly used, thus easier to understand and easier to deal with. It can also be easily updated.
+** Cons: Would constantly require *_Model_* with a responsibility that is not relevant to it's current.
+* **Alternative 2:** Wrap the values in a *_Find_* object
+** Pros: Neater and easier to maintain, since all find-related values are stored in the *_Find_* object.
+** Cons: Additional class to maintain, harder for newcomers to understand code with too many classes.
+// end::find[]
+
+// tag::suggest[]
+==== Suggest feature
+The suggest feature displays the suggested automatically to the user accordingly to the remaining calorie budget.
+
+===== Implementation
+
+The suggest mechanism is toggled when the application starts up. It will always display the suggested meals for the user in the right pane. The feature can be can be toggled back by typing the "suggest" command. Through a *_SuggestCommand_* that extends from the abstract *_Command_* class. It interacts with the object that implements the *_Model_* interface by updating the observable list with dishes that are within the calories budget. The calories budget is obtained from _Model#getRemainingCalories()_.
+
+Additionally, it implements the following operation:
+
+* _Model#getRemainingCalories_ -- gets the current allowed calories budget.
+
+This operation is exposed in the *_Model_* interface as _Model#getRemainingCalories()_.
+
+Given below is an example usage scenario and how the suggest mechanism behaves at each step.
+
+Step 1. The user starts up CaloFit for the first time. The *_DishDatabase_* will be loaded with the initial data by calling _MainApp#loadDishDatabase_.
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the DishDatabase is empty, or the daily calorie budget have exceeded the set amount, or there are no dishes that is within the amount, nothing will be display.
 
-The following sequence diagram shows how the undo operation works:
+Step 2. The user enters "suggest" in the Command Line Input to invoke the *_SuggestCommand_* command which will run _SuggestCommand#execute()_. _Model#getRemainingCalories()_ will be executed to get the remaining calories, which will provide _Model#updateFilteredDishList_ with the calories budget to update the list accordingly.
 
-image::UndoSequenceDiagram.png[]
+Step 3. The success message will be returns, while printing the updated dish list on CaloFit right pane.
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+The following sequence diagram shows how the suggest operation works:
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+image::SuggestCommand.png[]
+
+===== Design Considerations
+
+===== Aspect: How suggest executes
+
+* **Alternative 1 (current choice):** Update dish list with calorie budget
+** Pros: Neater code, easier to maintain and uses less memory.
+** Cons: Unable to get history of suggest list.
+* **Alternative 2:** Create a new list for every *_SuggestCommand_*.
+** Pros: Easier to understand and customise if require data for method.
+** Cons: Unnecessary memory wastage for list created and not used.
+* **Explanation of Choice:** Since we only need to show the user the current meal suggest, there are no usage for the past suggest result.
+
+===== Aspect: Data structure to support the suggest command
+
+* **Alternative 1 (current choice):** Stores the value in a dish list.
+** Pros: Commonly used, thus easier to understand and easier to deal with. It can also be easily updated.
+** Cons: Would constantly require *_Model_* with a responsibility that is not relevant to its current.
+* **Alternative 2:** Wrap the values in a *_Suggest_* object
+** Pros: Neater and easier to maintain, since all suggest-related values are stored in the *_Suggest_* object.
+** Cons: Additional class to maintain, harder for newcomers to understand code with too many classes.
+// end::suggest[]
+
+// tag::notification[]
+==== Notification feature
+The notification feature prompts the user with new window if a meal had been missed.
+
+===== Implementation
+
+The notification feature is automatically activated when the application starts up. On start up, it is implemented through a *_NotificationHelper_* that gets information from _Model#getMealLog().getTodayMeals()_ method to check if there are any meal consumed and if a meal had been consumed. The *_NotificationHelper_* class would the do a check on the timestamp of the latest meals by using various methods in the *_Notification_* class, more details are given below. If a meal had been missed, a notification will be prompted to the user to consume his meal, this prompt will constantly pop up every 10 minutes until a meal had been consumed. If a meal had been consumed within the period then the user can continue using the application without any prompt.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+Notification will be prompted: +
+- After 10am for breakfast +
+- After 2pm for lunch +
+- After 8pm for dinner
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+[NOTE]
+Meals that will be counted: +
+- As breakfast - anytime +
+- As lunch - after 11am +
+- As dinner - after 4pm +
 
-image::UndoRedoState4.png[]
+Additionally, it implements the following operation:
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+* A "timer" object that is in the *_UIManager_* class will ensure that the notifications are executed in 10 minutes interval.
 
-image::UndoRedoState5.png[]
+* _Notification#eatenBreakfast_ -- returns a boolean value to indicate whether the user has eaten their breakfast.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+* _Notification#eatenLunch_ -- returns a boolean value to indicate whether the user has eaten their lunch.
 
-image::CommitActivityDiagram.png[]
+* _Notification#eatenDinner_ -- returns a boolean value to indicate whether the user has eaten their dinner.
+
+Given below is an example usage scenario and how the notification mechanism behaves at each step.
+
+Step 1. The user starts up CaloFit for the first time. The *_DishDatabase_* will be loaded with the initial data by calling _MainApp#loadDishDatabase_ with an empty MealLog.
+
+[NOTE]
+The application will immediately check once, when the application is launched, followed by every 10 minutes interval.
+
+Step 2. The application will then execute *_NotificationHelper_* once to check if any meal have been missed. If there is none then no notification will be prompted. If a meal is missed it will prompt to the user, and notify them every 10 minutes.
+
+Step 3. After 10 minutes, *_UIManager_* will then execute *_NotificationHelper_* and check if the user has keyed in any meals. This process will carry on for every 10 minutes utill the user keys in his meal.
+
+The following sequence diagram shows how the notification operation works:
+
+image::NotificationActivityDiagram.png[]
+
+===== Design Considerations
+
+===== Aspect: How notification executes
+
+* **Alternative 1 (current choice):** Refocus the notification Window.
+** Pros: Ensure that less memory is used, so that buffer overflow is not possible. Furthermore user would not be annoyed by multiple tabs.
+** Cons: Higher chance of notification not showing up due to a single error.
+* **Alternative 2:** Create a new Window for each notification
+** Pros: Less prone to mistake as previous notification will still stay until the user clears it.
+** Cons: Require much more memory as a new window is created, if the user was away for a period of time and the application was left opened, user would be required to clear quite a number of tabs.
+* **Explanation of Choice:** Since this feature serves as an assistance to the user, we should not bring in more hassle and inconvenience to the user. Thus even with a higher risk of notification not showing up due to error. After 10 more minutes the notification will be prompted.
+// end::notification[]
+// end::assistance[]
+
+// tag::report[]
+=== Report feature
+==== Implementation
+
+The Report feature is implemented through a *_ReportCommand_* that extends from the abstract *_Command_* class. +
+It returns a *_CommandResult_* object that has the boolean "isReport" set to True when _ReportCommand#execute(Model)_ is called. +
+The *_MainWindow_* Ui component will check the *_CommandResult_* for the "isReport" boolean and create a new *_ReportWindow_* through the _MainWindow#handleReport()_ method. +
+The *_ReportWindow_* object takes in a *_Statistics_* object that is created by calling _Logic#getStatistics()_ which subsequently calls _Model#getStatistics()_. The *_Model_* then returns the *_Statistics_* object that is created based on the *_CalorieBudget_* and *_MealLog_* in the *_Model_*. +
+Additionally, the following operations are implemented in *_Statistics_*:
+
+* _Statistics#generateStatistics(ObservableList<Meal>, CalorieBudget)_ -- gets the statistics of the current object. Maximum, Minimum and Average calorie intake per day of the current month are calculated internally in this method.
+
+[NOTE]
+While the above method takes in an *_ObservableList<Meal>_* instead of a *_MealLog_*, the list is generated from the *_MealLog_* and passed as the argument to avoid unnecessary interaction between the *_MealLog_* and *_Statistics_* classes. +
+Therefore, even though *_MealLog_* is not taken in as a parameter, *_Statistics_* still depeneds on *_MealLog_* to get the data for generating the report.
+
+* _Statistics#getCalorieExceedCount(CalorieBudget, ObservableList<Meal>)_ -- gets the number of days where calorie intake exceeded the calorie budget for that day.
+* _Statistics#getMostConsumedDishes(ObservableList<Meal>)_ -- gets the list of dishes which are consumed the most in the current month.
+* _Statistics#getFoodChartSeries(ObservableList<Meal>)_ -- gets the series containing the dishes eaten this month and their respective quantities.
+* _Statistics#getCalorieChartSeries(ObservableList<Meal)_ -- gets the series that represents the amount of calories taken by the user over the past month.
+
+Given below is Figure 3.5.1.1 which is a Class Diagram that shows how the *_ReportCommand_* interacts with other components of CaloFit.
+
+image::ReportClassDiagram.png[]
+
+.Figure 3.5.1.1: Class Diagram showing interaction of *_ReportCommand_*.
+{empty} +
+
+Given below is an example usage scenario and how the Report feature behaves at each step.
+
+Step 1. The user starts up CaloFit for the first time. The *_ModelManager_* will contain a *_MealLog_* that has an empty list.
+
+[NOTE]
+If the user enters "report" in the Command Line Input with a *_MealLog_* that has no *_Meal_* entered this month, a *_CommandException_* will be thrown since there are no *_Meal_* to gather statistics pertaining to this month.
+
+Step 2. The user has added a *_Meal_* into the *_MealLog_* through the `add` feature.
+
+Step 3. The user enters "report" in the Command Line Input to generate the report of CaloFit. The *_ReportCommand_* created will return a *_CommandResult_* object with "isReport" set to True. When the *_MainWindow_* checks this boolean, it calls _MainWindow#handleReport()_ that creates the *_ReportWindow_*.
+
+The following activity diagram in Figure 3.5.1.2 summarises the above usage scenario.
+
+image::ReportCommandActivityDiagram.png[]
+
+.Figure 3.5.1.2: Activity Diagram showing execution of "report" as the user input.
+{empty} +
+
+The following sequence diagram in Figure 3.5.1.3 shows how the "report" command works.
+
+image::ReportCommand.png[]
+
+.Figure 3.5.1.3: Sequence diagram of "report" command execution.
+{empty} +
+
+[NOTE]
+The parameters of the constructor of *_CommandResult_* in the above diagram are as follows, from left to right: +
+String message -- the message to be displayed to the user in the GUI. +
+boolean showHelp: indicates if the *_HelpWindow_* should be generated. +
+boolean showReport: indicates if the *_ReportWindow_* should be generated. +
+boolean isExit: indicates if the application should exit along with any other windows that are being shown. +
+Hence, only showReport is set to true to indicate that a *_ReportWindow_* should be created, while the rest of the booleans are set to false.
+
+The following sequence diagram in Figure 3.5.1.4 shows how the *_ReportWindow_* is generated.
+
+image::ReportWindow.png[]
+
+.Figure 3.5.1.4: Sequence Diagram showing the generation of the *_ReportWindow_*.
+{empty} +
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: When the *_Statistics_* object is created.
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 1 (current choice):** Only when a "report" command is entered.
+** Pros: Less processes carried out for each type of command.
+** Cons: At any point in using CaloFit, the statistics are not updated since the object is only created when the "report" command is entered.
+* **Alternative 2:** Every command creates a new updated *_Statistics_* object.
+** Pros: Logging of statistics can be accurate, and statistics are always updated.
+** Cons: Unnecessary as user does not need to see the statistics other than through a "report" command and results in every command having to do more work and interact with the *_Model_* more, possibly creating more bugs.
+* **Explanation of Choice:** Since the user only needs to see the updated statistics when a "report" command is executed, we only need to generate a new *_Statistics_* object with the updated values for that command, hence **Alternative 1** is chosen to avoid adding unnecessary complexity to each command.
 
-===== Aspect: Data structure to support the undo/redo commands
+===== Aspect: Data structure to store the statistics in CaloFit.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+* **Alternative 1 (current choice):** Wrap the values in a *_Statistics_* object.
+** Pros: Neater code and easier to understand, since all statistic-related values are stored in the *_Statistics_* object and are not implemented in the *_Model_*.
+** Cons: Additional class to maintain and test for dependencies.
+* **Alternative 2:** Store the values as a *_List_* in the *_Model_*.
+** Pros: The statistics can be updated easily through the *_Model_* itself by updating the elements in the *_List_*. Accessing the statistics to display is easier as well.
+** Cons: Burdens the *_Model_* with a responsibility that is largely irrelevant to its current ones, which is to keep track of the Objects that make up the CaloFit model.
+* **Explanation of Choice:** To try and enforce Single Responsibility Principle as much as possible and avoid adding irrelavant functionality to *_Model_*.
+// end::report[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
 
-_{Explain here how the data encryption feature will be implemented}_
 
-// end::dataencryption[]
+
+
 
 === Logging
 
@@ -276,90 +711,113 @@ Refer to the guide <<DevOps#, here>>.
 
 [appendix]
 == Product Scope
+=== Target User Profile
+* Health-conscious people watching their diet
+* Prefer desktop applications over mobile apps
+* Comfortable enough to work with text command-based interfaces
 
-*Target user profile*:
-
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
-
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+=== Value Proposition
+The app is able to help the user keep track of their calorie consumption. This way, they can ensure that they keep to their own diet plans.
 
 [appendix]
 == User Stories
 
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
-
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="59%",cols="4*",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|&#11088;&#11088;&#11088;
+|new user
+|see usage instructions
+|refer to instructions when I forget how to use the App.
 
-|`* * *` |user |add a new person |
+|&#11088;&#11088;&#11088;
+|user
+|create a new meal entry
+|keep track of what I ate today.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|&#11088;&#11088;&#11088;
+|user
+|see how many calories I have left in today's budget
+|know what I can eat later, and stay in budget.
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|&#11088;&#11088;&#11088;
+|user
+|be alerted if I missed a meal
+|be reminded to stick to my meal plans.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|&#11088;&#11088;&#11088;
+|user
+|change my daily calorie budget
+|better reflect my new lifestyle requirements.
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|&#11088;&#11088;
+|user
+|modify my previous meal entries
+|fix missing or inaccurate information.
+
+|&#11088;&#11088;
+|user
+|delete my previous meal entries
+|undo mistakenly added meal entries.
+
+|&#11088;&#11088;
+|user
+|generate a summary of meals over the past month
+|review my overall progress in keeping to my meal plan.
+
+|&#11088;&#11088;
+|user
+|view meal suggestions that fit in my remaining budget.
+|figure out what I can eat while keeping to my plan.
+
+|&#11088;
+|user
+|create a new meal entry based of a meal I commonly eat
+|keep track of a meal I eat often.
+
 |=======================================================================
-
 _{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
-
-[discrete]
-=== Use case: Delete person
+// [discrete]
+=== Use Case: Add meal entry
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
+1.	User enters meal information.
+2.	System adds entry into database.
+3.	System shows updated calorie budget for the day.
 Use case ends.
 
 *Extensions*
 
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
+* 1a.	The given meal entry has insufficient information (calories, meal name, etc.)
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1.	CaloFit shows an error message.
 +
-Use case resumes at step 2.
+Use case restarts at step 1.
 
 _{More to be added}_
 
 [appendix]
-== Non Functional Requirements
-
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+== Non-functional Requirements
+.	Should work on any mainstream OS as long as it has Java 11 or above installed.
+.	Should be able to hold up to 1000 meal entries without a noticeable sluggishness in performance for typical usage.
+.	A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 [appendix]
 == Glossary
-
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, macOS
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[meal-entry]] Meal entry::
+An entry representing a eaten meal.
+Contains meal name, calories, and date/time consumed.
+
+[[meal-db]] Meal database::
 
 [appendix]
 == Product Survey
@@ -416,10 +874,110 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Saving data
+// tag::findTesting[]
+=== Testing find feature
 
-. Dealing with missing/corrupted data files
+[NOTE]
+Dish database should contain the dish name that the user is searching, otherwise nothing will be displayed.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Finding a particular dish
+    .. Test case: `find soup`. +
+        Expected: The list of  with "soup" in it.
+. Toggle between suggest and find
+    .. Test case: `suggest` followed by `find soup`. +
+        Expected: CaloFit will display the suggested list of dishes followed by the soup dishes that the user is looking for.
+// end::findTesting[]
 
-_{ more test cases ... }_
+// tag::suggestTesting[]
+=== Testing suggest feature
+
+[NOTE]
+For suggestion to work: +
+Dish database cannot be empty. +
+Dish database have to contain dishes within remaining calorie budget. +
+Otherwise suggest feature will not work.
+
+. Suggesting dishes based on remaining calorie budget.
+    .. Test case: `set 1000` followed by `add n/rice c/600` +
+        Expected: Dishes with 400 calories and below will be displayed.
+. Toggle between find and suggest.
+    .. Test case: `find soup` followed by `suggest`. +
+        Expected: CaloFit will display the soup dishes that the user is looking for followed by the suggested list of dishes.
+// end::suggestTesting[]
+
+// tag::notificationTesting[]
+=== Testing notification feature
+
+[NOTE]
+Changing of system time would be required. +
+Do not launch the application till instructed.
+
+. Notify user when user miss their breakfast.
+    .. Test case: Set system time to anytime after 10am, clean launch the application, and leave it for as long as the user want to test. +
+        Expected: When the application first launch, a notification will be prompted. Followed by every 10 minutes for as long as the application is running.
+
+. Notify user when user miss their lunch.
+    .. Test case: set the system time to 8am, clean launch the application, `add n/cereal c/300`, set the system time to 3pm, leave it for as long as the user wants to test. +
+        Expected: A notification indicating that lunch have been missed would be prompted every 10 minutes.
+
+. Notify user when user miss their dinner.
+    .. Test case: set the system time to 8am, clean launch the application, `add n/cereal c/300`, set the system time to 9pm, leave it for as long as the user wants to test. +
+        Expected: A notification indicating that dinner have been missed would be prompted every 10 minutes.
+// end::notificationTesting[]
+
+// tag::reportTesting[]
+=== Testing the generation of the report
+
+[NOTE]
+All test cases assume an empty meal log prior to the inputs. To ensure this, you can go to the directory where you installed CaloFit, click on the "data" directory, and delete the mealLog.json file before restarting the application.
+
+. Generation of Report.
+
+.. Test case: No meals in input for current month, followed by `report`. +
+   Expected: Report is *NOT* generated. An error message will be shown in the result display box of CaloFit.
+.. Test case: Any number of meals has been entered for current month, followed by `report`. +
+   Expected: Report is generated normally.
+.. Test case: Any number of meals has been entered for current month and system time is changed to a different month or year, followed by `report` +
+   Expected: Report may initially be wrong as stated in the [https://github.com/AY1920S1-CS2103T-W11-4/main/blob/master/docs/UserGuide.adoc[Report Feature of our User Guide]]. The data in CaloFit will be updated in 2 minutes to fit this change in system time, after which the scenario will be similiar to the previous test case.
+
+. Testing validity of number of days where Calorie of the month
+
+.. Test case: `add n/carbonara c/689`, `set 500`, followed by `report`. +
+Expected: Number of days calorie intake exceeded budget will be 1.
+.. Test case: `add n/carbonara c/689`, `set 1000`, followed by `report`. +
+Expected: Number of days calorie intake exceeded budget will be 0.
+
+. Testing validity of list of most consumed dishes.
+
+.. Test case: `add n/carbonara c/689`, `add n/beef stew c/200`, followed by `report`. +
+Expected: Carbonara and Beef Stew will be in list.
+.. Test case: same as previous, with additional `add n/carbonara c/689` before `report`. +
+Expected: Only Carbonara will be in the list.
+
+. Testing validity of Calorie Over Time graph.
+
+.. Test case: `add n/carbonara c/689`, `add n/beef stew c/200`, followed by `report`. +
+Expected: Calorie intake for today's date will be 889.
+.. Test case: same as previous, with additional `add n/beef stew c/200` before `report`. +
+Expected: Calorie intake for today's date will be 1089.
+
+. Testing validity of Quantity of Food Consumed graph.
+
+.. Test case: `add n/carbonara c/689`, followed by `report` +
+Expected: Quantity of carbonara consumed will be 1.
+.. Test case: `add n/carbonara c/689`, `add n/beef stew c/200`, followed by `report`. +
+Expected: Quantity of carbonara consumed will be 1. Quantity of beef stew consumed will be 1.
+
+. Testing validity of Maximum, Minimum, and Average calorie intake of the month.
+
+.. Test Case: `add n/carbonara c/689`, followed by `report`. +
+Expected: Maximum will be 689, Minimum will be 0, and Average will be 22.
+.. Test case: `add n/carbonara c/689`, `add n/beef stew c/200`, followed by `report`. +
+Expected: Maximum will be 889, Minimum will be 0, and Average will be 30(for 30 day months) or 29(for 31 day months).
+.. Test case: same as previous, with additional `add n/beef stew c/200` before `report` on a different day in the same month. +
+Expected: Maximum will be 889, Minimum will be 0, and Average will be 36(for 30 day months) or 35(for 31 day months).
+[NOTE]
+As the above test case requires a change in system time, do allow 2 minutes for CaloFit to be updated, as stated in Point 1(Generation of Report).
+// end::reportTesting[]
+
+

@@ -7,14 +7,21 @@ skinparam classBackgroundColor UI_COLOR
 package UI <<Rectangle>>{
 Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
+Class BudgetBar
 Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class DishListPanel
+Class MealListPanel
+Class DishCard
+Class MealCard
+Class ReportWindow
 Class StatusBarFooter
 Class CommandBox
+class Notification
+class MealSegment
+class BufferSegment
 }
 
 package Model <<Rectangle>> {
@@ -30,31 +37,47 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
+UiManager -> Notification
 MainWindow --> HelpWindow
+MainWindow --> ReportWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
+MainWindow *-down-> DishListPanel
+MainWindow *-down-> MealListPanel
 MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> BudgetBar
 
-PersonListPanel -down-> PersonCard
+
+DishListPanel -down-> DishCard
+MealListPanel -down-> MealCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+DishListPanel --|> UiPart
+MealListPanel --|> UiPart
+DishCard --|> UiPart
+MealCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
+ReportWindow -down-|> UiPart
 
-PersonCard ..> Model
+DishCard ..> Model
+MealCard ..> Model
+BudgetBar ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
+Notification -> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
+DishListPanel -[hidden]left- MealListPanel
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
+HelpWindow -[hidden]right- ReportWindow
+BudgetBar -[hidden]right- MealListPanel
+
+BudgetBar --> "*" MealSegment
+BudgetBar --> "1" BufferSegment
 
 MainWindow -[hidden]-|> UiPart
 @enduml

@@ -1,0 +1,44 @@
+@startuml
+!include style.puml
+
+mainframe **sd** generate ReportWindow
+
+Participant ":Ui" as ui UI_COLOR
+Participant "reportWindow:ReportWindow" as report UI_COLOR
+Participant ":Logic" as logic LOGIC_COLOR
+Participant ":Model" as model MODEL_COLOR
+Participant "statistics:Statistics" as statistics STATISTICS_COLOR
+
+activate ui UI_COLOR
+ui -[UI_COLOR]> ui : handleReport()
+activate ui UI_COLOR_T1
+
+ui -[UI_COLOR_T1]> logic : getStatistics()
+activate logic LOGIC_COLOR
+
+logic -[LOGIC_COLOR]> model : getStatistics()
+activate model MODEL_COLOR
+
+create statistics
+model -[MODEL_COLOR]> statistics : Statistics.generateStatistics(ObservableList<Meal>, CalorieBudget)
+activate statistics STATISTICS_COLOR
+
+statistics -[STATISTICS_COLOR]-> model : statistics
+deactivate statistics
+
+model -[MODEL_COLOR]-> logic : statistics
+deactivate model
+
+logic -[LOGIC_COLOR]-> ui : statistics
+deactivate logic
+
+create report
+ui -[UI_COLOR_T1]> report : ReportWindow(statistics)
+activate report UI_COLOR
+
+report -[UI_COLOR]-> ui : reportWindow
+deactivate report
+
+deactivate ui
+
+@enduml

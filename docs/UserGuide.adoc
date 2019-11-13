@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= CaloFit - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,166 +12,456 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-W11-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103T-W11-4`      Since: `Sep 2019`      Licence: `MIT`
+
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+CaloFit is suitable for those who prefer to track their calories gained from day-to-day meals. CaloFit primarily uses a Command Line Interface(CLI) while still displaying the results through a Graphical User Interface(GUI). You can set your daily calorie target and CaloFit will do its best to help you stay on track.
+
+The CLI is where you can input your command into CaloFit and is a rectangular area near the top of the application, while the GUI is the main screen that you will see upon the startup of CaloFit. +
+Do not worry if the above terms are not clear as our features will have pictures to guide you along!
+
+As of our latest version, v1.4, CaloFit would be able to run on all computers, be it Windows, Mac, Linux and more!
+
+Currently our product is able to let you set a desired calorie budget, track your meals, provide assistance to keep you on track, and last but not least create a monthly report just for you!
+
+== About
+
+This user guide provides the user a simple yet useful utility guide on how CaloFit operates.
+
+There will be very minimal prior technical knowledge that the user would need to have in order to use Calofit.
+
+Here are some symbols that we will be using in this guide to help you along:
+
+[NOTE]
+This icon means that there is important information listed!
+
+`add n/spaghetti c/980` Text in a grey highlight represents a command that you can enter to CaloFit.
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+Here are the steps to download CaloFit and start using it immediately!:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+1. Ensure you have Java 11 or above installed in your Computer.
 
-.  Refer to <<Features>> for details of each command.
+2. Go to our [https://github.com/AY1920S1-CS2103T-W11-4/main/releases[GitHub Releases page]] and find our latest release! An example is shown in the picture below.
++
+image::UserGuideQuickStartReleasesPage.png[]
+{empty} +
+
+3. Download the latest version of CaloFit by clicking on the .jar file.
+
+4. Open Calofit and start using it now!
+
+Refer to <<Features>> for details of each command.
+
+// tag::ui[]
+[[UIOverview]]
+== UI Overview
+
+This section covers the various parts of the CaloFit user interface.
+
+=== Command Box
+
+image::command_bar.png[]
+The command box is the main means of interacting with CaloFit.
+Users can enter commands, as detailed in <<Commands>>, in order to work with the app.
+
+To submit a command, the user can press the `Enter` key.
+The application will parse and evaluate the command.
+Any further feedback from the command will be displayed in the feedback box below.
+
+image::command_bar_err.png[]
+If any error is encountered, the command text will not be cleared, and turn red.
+
+=== Budget Bar
+image::budgetbar_partial.png[]
+
+The budget bar shows a visual overview of the meals the user has consumed today.
+Each meal displayed in the budget bar is proportionately sized to its calories,
+and is labelled by its dish name.
+Additionally, a white buffer segment is shown, representing the remaining amount of calories availablee today.
+
+The [yellow]#yellow# mark indicates the current budget limit,
+while the [red]#red# mark indicates 120% of the current budget limit.
+This gives you a visual overview as to how much more the user can consume for today,
+and give a margin of error even when exceeding the budget.
+
+
+When the total calorie count of meals today exceeds even the 120% mark, the bar will not show a buffer segment.
+Instead, the meals will occupy the entire width of the bar, remaining proportionate to their calorie counts.
+The budget marks will also move to the appropriate positions, still representing 100% and 120% of the budget.
+
+_Coming in v2.0:_
+When a meal's bar segment is too small, its dish name will be hidden.
+Information on the dish still can be viewed as a tooltip, when hovering over the segment.
+
+=== Consumed Meals
+
+image::consumed_pane.png[]
+
+The Consumed Meals pane will display the current meals that were consumed today.
+This pane will automatically updating upon adding, editing or deleting meals.
+
+Each meal displays its name and tags, together with its index in the whole list.
+The `edit`/`delete` commands can be given indexes of meals from this list, to manipulate them further.
+
+=== Suggested Meals
+
+image::suggest_pane.png[]
+
+At the start of the program, the Suggested Meals pane displays all dishes that fit within the remaining calorie budget.
+As more meals are logged as consumed, it will automatically update and filter out dishes that no longer fit.
+Additionally, it will also track dishes from directly-added meals, for future reuse.
+
+It also doubles as the result pane for the `find` command. To toggle it back to suggestion mode, use the `suggest` command.
+
+Each dish displays its name and tags, together with its index in the whole list.
+The `add` command can be given the indexes of dishes from the list, to add them as meals today.
+
+
+// end::ui[]
 
 [[Features]]
 == Features
 
 ====
+
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/<<mealname-syntax, MEAL_NAME>>`, `<<mealname-syntax, MEAL_NAME>>` is a parameter which can be used as `add n/Carbonara`.
+* Items in square brackets are optional e.g `add n/<<mealname-syntax, MEAL_NAME>> [c/<<calories-syntax, CALORIES>>]` can be used as `add n/Carbonara c/430` or as `add n/Carbonara`.
 ====
 
-=== Viewing help : `help`
+// tag::mealTrack[]
+=== Meal Tracking
 
+==== Adding a meal: `add`
+
+Adds a meal that the user consumed. +
+There are 2 formats that can be used: +
+
+Format 1: `add n/<<mealname-syntax, MEAL_NAME>> [c/<<calories-syntax, CALORIES>>] [t/TAGS]` +
+Inputting calories of the meal is optional. +
+If the meal is a dish stored in CaloFit, the calories will be taken from CaloFit. If not, a default value of 700 will be added for you, +
+Tags are completely optional and there is no default tag. You could also have more than 1 tag. +
+
+Format 2: `add NUMBER_IN_SUGGESTED_MEAL_LIST [NUMBER_IN_SUGGESTED_MEAL_LIST] ...` +
+NUMBER_IN_SUGGESTED_MEAL_LIST is the number that corresponds to the meal in suggested list on the right side of the application.
+You can also add multiple meals at one go using the indexes. This can be done by separating the numbers with a space.
+e.g. `add 1 2 3`
+
+[NOTE]
+<<mealname-syntax, MEAL_NAME>> can only be a maximum of 30 characters to ensure it displays correctly for you.
+
+Examples usage: +
+It is lunchtime and you are about to go have some Mushroom Soup.
+You would like to add the meal into CaloFit to record it down. What do you do?
+
+If `format 1` is your preferred choice, you could do the following:
+
+* Type `add n/Mushroom Soup` into the command box and press the `enter` key.
+
+image::AddCommandInitialFormat1.png[]
+
+* If calofit has the information for the meal (Mushroom Soup in this case),
+it will grab the relevant information and update the meal log accordingly.
+The meal that is added will be shown in the result window.
+
+image::AddCommandAddedFormat1.png[]
+
+* If CaloFit does not have the information, and the information is not provided,
+the default calorie information will be 700 calories
+
+If `format 2` is your prefered choice, you could do the following:
+
+* Type `find mushroom soup` into the command box and press the `enter` key.
+
+image::AddCommandFind1Command.png[]
+
+* If the meal exist in our meal database, it will show up under the suggested
+meals header.
+
+image::AddCommandSearchResult.png[]
+
+* Afterwards, enter the command `add 1` to the command box and press the `enter` key.
+
+image::AddCommandAdd1.png[]
+
+* The meal "Mushroom Soup" will then be added to the consumed meals.
+
+image::AddCommandAdd1Success.png[]
+
+Commands below are some other example commands:
+
+* `add n/Spaghetti c/480 t/tasty` - Adds a meal named Spaghetti of 480 calories with the tag "tasty".
+* `add n/Chicken Rice c/500` - Adds a meal named Chicken Rice of 500 calories.
+* `add n/Mushroom Soup` - Adds a meal named Mushroom Soup of 700 calories by default.
+* `add 1` - Adds the first meal shown under the suggested meal section.
+* `add 1 2 3` - Adds the first and second meal shown under the suggested meal section.
+
+==== Editing previous meal entry : `edit`
+
+Edits a meal that the user previously consumed today. +
+Format: `edit MEAL-NUMBER [n/<<mealname-syntax, MEAL-NAME>>] [c/<<calories-syntax, CALORIES>>] [t/TAGS] [tr/TAGS-TO-REMOVE]` +
+The input of at least 1 field (either NAME, <<calories-syntax, CALORIES>> or TAGS) is required.
+A mix of the different fields is possible as well with some restrictions stated below.
+
+[NOTE]
+You cannot add tags and clear all tags at the same time. (i.e. You cannot execute a command that
+contains both "t/" and "t/[TAGS]".)
+
+Example usages: +
+While rushing to type in the meals, you misspelled "Mushroom Soup" as "Mushroom Soop" and
+added 2000 calories instead of the correct 200 calories. What do you do?
+
+* Type "edit 1 n/Mushroom Soup c/200" into the command box and press the `enter` key.
+
+image::EditCommandInitial.png[]
+
+* The name of the meal will be edited to "Mushroom Soup" and the calories will be edited
+to the correct amount of 200 in the calorie bar.
+
+image::EditCommandSuccess.png[]
+
+Commands below are some other example commands:
+
+* `edit 1 n/Wanton Noodle c/1000` - Edits the meal at index 1 to name "Wanton Noodle" with calorie 1000.
+* `edit 2 n/Chicken Rice` - Edits the meal at index 2 to name "Chicken Rice" without changing anything else.
+* `edit 3 c/500` - Edits the meal at index 3 to have a calorie count of 500 without changing the other fields.
+* `edit 4 t/tasty` - Adds the tag "tasty" to the existing list of tags for meal at index 4.
+* `edit 5 tr/tasty` - Removes the tag "tasty" if it exists in the list of tags for meal at index 5.
+* `edit 6 t/` - Clears all tags for meal at index 6.
+
+
+==== Deleting previous meal entry : `delete`
+
+Deletes a meal that the user previously consumed today. +
+The meal will be removed from the consumed meal section +
+and the calorie tracking bar.
+
+Format: `delete MEAL_NUMBER [MEAL_NUMBER] ...`
+
+Example usage: +
+You thought you were going to have Mushroom Soup for lunch when you were queuing.
+So you decided to add Mushroom Soup to the meal log using the add command.
+However, while queuing, your boss called you saying that there is an emergency and
+wants you back in the office immediately. You abandon the queue and go back to the office.
+Since you did not consume the meal, you would want to remove it from the meal log.
+What do you do?
+
+* Type `delete 1` into the command bar and press the `enter` key.
+
+image::DeleteCommandDelete1.png[]
+
+* When the meal is successfully deleted, a message will appear in the
+result box and the meal will be removed.
+
+image::DeleteCommandDelete1Success.png[]
+
+[NOTE]
+"1" can be changed to any number in the consumed meal section. However,
+in this example, Mushroom Soup is located at index 1.
+
+Commands below are some other example commands:
+
+* `delete 1` - deletes the first meal in the consumed meal section.
+* `delete 1 2 3` - bulk deleting of meals 1, 2 and 3 in the consumed meal section.
+// end::mealTrack[]
+
+=== Find meals in the meal database: `find`
+
+Searches for meals that contains the words the user has inputted. +
+The search results will be shown under the "Suggested Meals" section of the application. +
+The find feature will replace the suggest feature when being used, vise versa. Thus, in order to get the suggest feature back, the user would have to type "suggest" into the command box.
+
+Example usage:
+You would like to know the amount of calories in an "Apple Pie" which you know exist in the CaloFit database. However, you
+do not want to scroll through the entire suggested list just to find it.
+
+* Type `find apple pie` into the command box and press the `enter` key.
+
+image::FindCommandFindApplePie.png[]
+
+* The apple pie result will show under the suggested meals section with its
+relevant calorie information.
+
+image::FindCommandFindApplePieSuccess.png[]
+
+Format: `find MEAL_WORD`
+
+// tag::suggest[]
+=== Suggesting Meal options: `suggest`
+
+Suggest possible meals based on user calorie intake budget. +
+The available meals will be shown under the "Suggested Meals" section of the application. +
+The suggest feature is automatically toggled when the application starts, however if you use the find feature which replaces the suggest feature, then the suggest feature can be toggled back by typing "suggest" into the command box. +
+
+Example usage:
+You're tired from work and you don't want to think about what to eat for the day, you just want to have a meal to keep yourself full and stay within the calorie budget that you want set for yourself.
+
+[NOTE]
+Type "suggest" into the command box and press the 'enter' key, if you have previously used the find feature to look for a meal.
+
+image::SuggestCommandToggle.png[]
+
+* The budget was set to a huge budget to show that there are actually a list of food inside as shown in the image below.
+
+image::SuggestCommandBefore.png[]
+
+* The budget was then set to an average male budget of 2200, which then could be seen in the image that only those within the budget was shown.
+
+image::SuggestCommandAfter.png[]
+
+Format: `suggest`
+// end::suggest[]
+
+// tag::notification[]
+=== Notification that a meal is missed
+
+A notification will automatically be prompted when the application starts up or every 10 minutes if a meal is missed. +
+This feature cannot be disabled and will start once the application starts. +
+
+[NOTE]
+The first meal will always be breakfast, hence no matter at which timing, if the first meal is not consumed, it will always notify the user as breakfast missed. +
+If lunch have not been consumed after 8pm, notification will change and notify user that they have not consumed their dinner instead of lunch, as consuming two meals at once is not healthy. +
+Notification of dinner will notify the user till 11.59pm, after which it will be counted as breakfast.
+
+[NOTE]
+Notification will be prompted: +
+- After 10am for breakfast +
+- After 2pm for lunch +
+- After 8pm for dinner
+
+[NOTE]
+Meals that will be counted: +
+- As breakfast - anytime +
+- As lunch - after 11am +
+- As dinner - after 4pm +
+
+* If breakfast is missed this will be how it looks like
+
+image::NotificaitonMissedBreakfast.png[]
+
+* If lunch is missed this will be how it looks like
+
+image::NotificaitonMissedLunch.png[]
+
+* If dinner is missed this will be how it looks like
+
+image::NotificaitonMissedDinner.png[]
+// end::notification[]
+
+// tag::setcmd[]
+=== Setting calorie intake budget: `set`
+
+Set user calorie intake budget for today. +
+This will update the calorie bar to show reflect the new amount of calories remaining.
+If in suggestion mode, the suggest meals will also be refreshed depending on the calories remaining as well.
+
+Format: `set <<calories-syntax, CALORIES>>`
+
+Examples:
+
+* `set 2500`
+Sets the calorie budget to 2500 calories.
+
+// end::setcmd[]
+
+// tag::report[]
+=== Generating a Report: `report`
+
+Want to have your very own report that summarises your calorie intake progress over this month? Here are the steps to create one now!:
+
+1. Type the word "report" in the command box. A picture is shown below highlighting the command box.
++
+image::UserGuideReportStep1.png[]
+{empty} +
+2. Press "Enter" and a separate window which is the report will appear in the center of your screen as highlighted in the picture below.
+
+image::UserGuideReportStep2.png[]
+{empty} +
+
+[NOTE]
+If an error message pops up like the one in the picture below, do not panic! This simply means that you have not entered a meal into CaloFit for this month. To fix this, go ahead and `add` a meal, and you should now be able to generate your report!
+
+image::ReportCommandError.png[]
+{empty} +
+
+Your report will display the following statistical data for you to monitor your own progress!:
+
+1. Your Maximum, Minimum and Average calorie intake per day of the current month.
+[NOTE]
+Average value is rounded. +
+Average value is calculated by totalling your calorie intake in that month so far and dividing it by the total number of days in that month, *NOT* the number of days that have passed in that month so far.
+2. The number of days where calorie intake exceeded calorie budget of the month.
+3. Your list of most consumed dishes of the month.
+4. Your calorie intake per day over the entire month.
+5. The quantity of each type of dish consumed in that month.
+
+Below is a picture of the report showing where each type of information mentioned above can be found, corresponding to their number.
+
+image::UserGuideReportStep3.png[]
+{empty} +
+
+[NOTE]
+Changing your system time at any point while CaloFit is running may affect the report shown! +
+To ensure correct data is displayed to you, allow 2 minutes for CaloFit to update itself before creating your report.
+
+Format: `report`
+// end::report[]
+
+=== Shows an overview of commands usable in CaloFit: `help`
+
+Displays all the commands that are usable in CaloFit, including examples of how to use them. +
 Format: `help`
-
-=== Adding a person: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
+* *Add* `add n/<<mealname-syntax, MEAL_NAME>> [c/<<calories-syntax, CALORIES>>]` +
+e.g. `add n/duck rice c/360`
+* *Add* `add NUMBER_IN_SUGGESTED_MEAL_LIST` +
+e.g. `add 1`
+* *Edit* : `edit MEAL_NUMBER [n/<<mealname-syntax, MEAL_NAME>>] [c/<<calories-syntax, CALORIES>>]` +
+e.g. `edit 1 n/duck noodle c/250`
+* *Delete* : `delete MEAL_NUMBER` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Set* : `set <<calories-syntax, CALORIES>>` +
+e.g. `set 2600`
+* *Find* : `find <<mealname_syntax, MEAL_NAME>>` +
+e.g. `find soup`
+* *Suggest* : `suggest` +
+e.g. `suggest`
+* *Report* : `report` +
+e.g. `report`
+* *Help* : `help` +
+e.g. `help`
+
+
+// tag::syntax[]
+== Command Syntax Notes
+
+* [[calories-syntax]] Calorie values are positive integers from 0 to 2 billion, inclusive.
+* [[mealname-syntax]] Dish names must be alphanumeric (`[A-Z], [a-z],[0-9]`), and at most 30 characters long.
+// end::syntax[]
+
+== Trouble shooting/FAQ
+Q: Do I need to key in the date or time? +
+A: There won't be a need to as CaloFit will automatically update the current system date and time for the user.
+
+Q: Do I have to pay for anything? +
+A: Currently CaloFit is totally free!
+
+Q: Will the dishes that I add be saved for future use? +
+A: The dishes added will be saved for future use! Clearing of outdated dishes will come in v2.0.
+
+Q: What are the dishes stored when I just installed CaloFit? +
+A: Currently we have a sample dish database loaded, however we plan to integrate the database from the Health Promotion Board(HPB) in v2.0 of CaloFit!
+
+== Product Glossary
+CaloFit -> The name of our application! :)
+Java -> A widely used programming language. Typing "java 11 download" into Google should show you page results downloading Java 11.
+Tag(s) -> A description that is entirely up to you, but do note that tags can only be alphanumeric.

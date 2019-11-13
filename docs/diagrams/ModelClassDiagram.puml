@@ -5,52 +5,70 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyDishDatabase <<Interface>>
+Interface ReadOnlyUserPrefs <<Interface>>
+Interface ReadOnlyMealLog <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
 Class Model
 Class ModelManager
 Class UserPrefs
-Class ReadOnlyUserPrefs
+Class CalorieBudget
 
-Package Person {
-Class Person
-Class Address
-Class Email
+Package Dish {
+Class DishDatabase
+Class Dish
+Class Calorie
 Class Name
-Class Phone
-Class UniquePersonList
+Class UniqueDishList
+}
+
+Package Meal {
+Class Meal
+Class MealLog
 }
 
 Package Tag {
 Class Tag
 }
+
+Package Util {
+Class Statistics
+Class TimeStamp
 }
+}
+
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+DishDatabase .up.|> ReadOnlyDishDatabase
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
+ModelManager o--> "1" DishDatabase
+ModelManager o--> "1" MealLog
+ModelManager o-right-> "1" UserPrefs
+ModelManager o-right-> "1" CalorieBudget
+ModelManager o--> "1" Statistics
 UserPrefs .up.|> ReadOnlyUserPrefs
+MealLog .up.|> ReadOnlyMealLog
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+DishDatabase *--> "1" UniqueDishList
+UniqueDishList o--> "*" Dish
+MealLog o--> "*" Meal
+Dish *--> "1" Name
+Dish *--> "1" Calorie
+Dish *--> "*" Tag
+Meal *--> "1" Dish
+Meal *--> "1" TimeStamp
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Name -[hidden]right-> Calorie
+Calorie -[hidden]right-> Tag
+DishDatabase -[hidden]left-> MealLog
+Tag -[hidden]right-> TimeStamp
 
-ModelManager -->"1" Person : filtered list
+ModelManager -->"1" Dish : filtered list
+
+CalorieBudget *--> Calorie
 @enduml

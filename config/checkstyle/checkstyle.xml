@@ -56,10 +56,10 @@
     -->
     <module name="CustomImportOrder">
         <property name="customImportOrderRules"
-            value="STATIC###STANDARD_JAVA_PACKAGE###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE"/>
-        <property name="specialImportsRegExp" value="^org\."/>
-        <property name="thirdPartyPackageRegExp" value="^com\."/>
+            value="STATIC###STANDARD_JAVA_PACKAGE###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE###SAME_PACKAGE(1)"/>
+        <property name="specialImportsRegExp" value="^javafx\."/>
         <property name="sortImportsInGroupAlphabetically" value="true"/>
+        <property name="separateLineBetweenGroups" value="false"/>
     </module>
 
     <!-- Checks for redundant import statements.

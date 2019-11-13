@@ -1,0 +1,47 @@
+{
+  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
+  "dishes": [
+    {
+      "name": "Spaghetti",
+      "calories": "789",
+      "tagged": [
+        "creamys"
+      ]
+    },
+    {
+      "name": "Mushroom Soup",
+      "calories": "200",
+      "tagged": [
+        "shitake",
+        "expensive"
+      ]
+    },
+    {
+      "name": "Chicken Rice",
+      "calories": "562",
+      "tagged": []
+    },
+    {
+      "name": "Nasi Lemak",
+      "calories":"691",
+      "tagged": [
+        "value"
+      ]
+    },
+    {
+      "name": "Cheese Baked Rice",
+      "calories": "943",
+      "tagged": []
+    },
+    {
+      "name": "Apple Pie",
+      "calories": "234",
+      "tagged": []
+    },
+    {
+      "name": "Chendol",
+      "calories": "312",
+      "tagged": []
+    }
+  ]
+}

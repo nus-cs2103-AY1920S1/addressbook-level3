@@ -1,0 +1,49 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+Participant ":Ui" as ui UI_COLOR
+Participant ":Logic" as logic LOGIC_COLOR
+Participant ":CommandParser" as parser PARSER_COLOR
+Participant "reportCommand:Command" as command COMMAND_COLOR
+Participant "result:CommandResult" as result RESULT_COLOR
+
+user -[USER_COLOR]> ui : "report"
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : execute("report")
+activate logic LOGIC_COLOR
+
+logic -[LOGIC_COLOR]> parser : parseCommand("report")
+activate parser PARSER_COLOR
+
+create command
+parser -[PARSER_COLOR]> command : ReportCommand()
+activate command COMMAND_COLOR
+
+command -[COMMAND_COLOR]-> parser : reportCommand
+deactivate command
+
+parser -[PARSER_COLOR]-> logic : reportCommand
+deactivate parser
+
+logic -[LOGIC_COLOR]> command : execute(model)
+activate command COMMAND_COLOR
+
+create result
+command -[COMMAND_COLOR]> result : CommandResult(message, false, true, false)
+activate result RESULT_COLOR
+
+result -[RESULT_COLOR]-> command : result
+deactivate result
+
+command -[COMMAND_COLOR]-> logic : result
+deactivate command
+destroy command
+
+logic -[LOGIC_COLOR]-> ui : result
+deactivate logic
+
+ref over ui: generate ReportWindow.
+
+@enduml

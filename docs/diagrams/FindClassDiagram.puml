@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor COMMAND_COLOR
+skinparam classBackgroundColor COMMAND_COLOR
+
+Package Logic {
+Class FindCommand
+Class CommandResult
+}
+
+Package Model {
+Class Model
+}
+
+Package Ui {
+Class MainWindow
+}
+
+MainWindow .right.> Model : gets updated list >
+
+FindCommand .down.> CommandResult : returns x >
+FindCommand -> Model : provides predicate >
+CommandResult -> MainWindow : updates x >
+
+MainWindow -[hidden]up-> FindCommand
+
+
+@enduml

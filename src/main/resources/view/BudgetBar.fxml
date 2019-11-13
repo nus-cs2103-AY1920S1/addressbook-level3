@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.SegmentedBar?>
+<?import javafx.geometry.Insets?>
+<fx:root xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml"
+         type="javafx.scene.layout.StackPane">
+    <VBox alignment="CENTER" StackPane.alignment="CENTER" fx:id="barParts">
+        <Text fx:id="infoNode" styleClass="budgetbar-info" pickOnBounds="false"/>
+        <SegmentedBar fx:id="mealSegments" maxWidth="Infinity" orientation="HORIZONTAL"/>
+    </VBox>
+    <Pane pickOnBounds="false">
+        <Line fx:id="budgetMark" startY="${mealSegments.boundsInParent.minY + (budgetMark.strokeWidth / 2)}"
+              endY="${mealSegments.boundsInParent.maxY - (budgetMark.strokeWidth / 2)}"/>
+        <Line fx:id="budgetExtraMark" startY="${mealSegments.boundsInParent.minY + (budgetMark.strokeWidth / 2)}"
+              endY="${mealSegments.boundsInParent.maxY - (budgetMark.strokeWidth / 2) }"/>
+    </Pane>
+</fx:root>

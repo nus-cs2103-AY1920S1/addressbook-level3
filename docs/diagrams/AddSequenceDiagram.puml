@@ -1,0 +1,91 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CommandParser" as CommandParser LOGIC_COLOR
+participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant "a:AddCommand" as AddCommand LOGIC_COLOR
+participant "Meal" as Meal LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("add n/dish c/700")
+activate LogicManager
+
+LogicManager -> CommandParser : parseCommand("add n/dish c/700")
+activate CommandParser
+
+create AddCommandParser
+CommandParser -> AddCommandParser
+activate AddCommandParser
+
+AddCommandParser --> CommandParser
+deactivate AddCommandParser
+
+CommandParser -> AddCommandParser : parse("n/dish c/700")
+activate AddCommandParser
+
+create AddCommand
+AddCommandParser -> AddCommand
+activate AddCommand
+
+AddCommand --> AddCommandParser : a
+deactivate AddCommand
+
+AddCommandParser --> CommandParser : a
+deactivate AddCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddCommandParser -[hidden]-> CommandParser
+destroy AddCommandParser
+
+CommandParser --> LogicManager : a
+deactivate CommandParser
+
+LogicManager -> AddCommand : execute()
+activate AddCommand
+
+create Meal
+AddCommand -> Meal: Meal(dish, timestamp)
+activate Meal
+Meal --> AddCommand: meal
+deactivate Meal
+
+
+alt meal in dish database
+AddCommand -> Model : addMeal(meal)
+activate Model
+
+Model --> AddCommand
+deactivate Model
+
+else
+AddCommand -> Model : addMeal(meal)
+activate Model
+
+Model --> AddCommand
+deactivate Model
+AddCommand -> Model : addDish(dish)
+activate Model
+
+Model --> AddCommand
+deactivate Model
+end
+
+create CommandResult
+AddCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddCommand
+deactivate CommandResult
+
+AddCommand --> LogicManager : result
+deactivate AddCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

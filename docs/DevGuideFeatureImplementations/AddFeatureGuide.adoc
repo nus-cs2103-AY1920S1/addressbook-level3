@@ -1,0 +1,44 @@
+=== Add feature
+==== Implementation
+
+The `add` feature uses the Model to check if the dish is already in the database.
+If the dish is already in the database, the meal will be added to the meal log only.
+If the dish the user wants to add is not in the database,
+then the dish will be added to both the meal log and the dish database so that the user
+can conveniently add it the next time.
+
+There are a few cases to take note:
+
+* If the dish is in the dish database:
+** The user inserts the calorie information that is the same as the one in the dish database
+*** The dish will be added to the meal log only.
+
+** The user inserts the calorie information different from the calorie in the dish database
+*** This will create a new dish all together as there are differences in the calorie
+*** The new dish will be added to both the meal log as well as the dish database
+
+** The user does not insert the calorie information
+*** The program will look through the dish database and get the calorie information from that dish.
+
+* If the dish is not in the dish database
+** The user inserts the calorie information
+*** A new dish is created with that name and calorie information
+*** The dish will then be added to both the dish database as well as the meal log.
+
+** The user does not insert the calorie information
+*** The program sets the calorie information to 700 by default.
+*** The dish will then be added to both the dish database as well as the meal log
+
+The following sequence diagram shows how the `add` operation works when calorie information is included:
+
+image::AddSequenceDiagram.png[]
+
+To detect whether the calorie tag is used in the user input, we use an UNKNOWN_CALORIE in the Calorie class.
+This will trigger either search for the dish in the dish database or create a new dish and input it into the dish database.
+
+
+The input by the user and the dish in the dish database is considered equal only if both the name and the calorie information are the same.
+
+Addition of tags are supported. However, they are not crucial to the implementation of the add function as tags are not considered when deciding equality of dishes.
+
+

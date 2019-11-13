@@ -1,0 +1,15 @@
+{
+  "dishes": [
+    {
+      "name": "Alice Pauline",
+      "calories": "1000",
+      "tagged": [
+        "friends"
+      ]
+    },
+    {
+      "name": "Alice Pauline",
+      "calories": "1000"
+    }
+  ]
+}

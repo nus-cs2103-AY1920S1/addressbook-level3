@@ -1,0 +1,16 @@
+@startuml
+start
+:User executes "report" command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([0 meals taken this month])
+    :Error message shown to user;
+else ([else])
+    :Statistics are generated based on data in CaloFit;
+    :Report is shown to user based on the statistics generated;
+endif
+stop
+
+@enduml

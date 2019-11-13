@@ -1,0 +1,51 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+object "budget" as budget
+object "todayMeals:ObservableList<Meal>" as todayMeals
+}
+
+Package BudgetBar <<Rectangle>>{
+
+object totalConsumed
+todayMeals --> totalConsumed
+
+object budgetPercent
+totalConsumed -left-> budgetPercent
+budget --> budgetPercent
+
+object infoText
+totalConsumed --> infoText
+budget --> infoText
+
+object barColor
+budgetPercent --> barColor
+
+object mealBars
+todayMeals --> mealBars
+
+Package UI <<Rectangle>> {
+
+object infoNode
+infoText --> infoNode
+barColor --> infoNode
+
+object mealSegments
+mealBars -down-> mealSegments
+
+object budgetMark
+totalConsumed --> budgetMark
+budget --> budgetMark
+
+object budgetExtraMark
+totalConsumed --> budgetExtraMark
+budget --> budgetExtraMark
+
+}
+
+}
+@enduml

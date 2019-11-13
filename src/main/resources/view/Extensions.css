@@ -18,3 +18,57 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+
+BudgetBar {
+    -fx-pref-height: 30px;
+    -fx-max-height: 30px;
+    -fx-font-size: 20px;
+    -fx-background-color: #383838;
+}
+
+.budgetbar-info {
+    -fx-text-alignment: CENTER;
+}
+
+.budgetbar-meal {
+    -fx-max-width: Infinity;
+    -fx-max-height: Infinity;
+    -fx-border-color: red;
+    -fx-border-width: 2px;
+    -fx-background-color: white;
+    -fx-text-alignment: center;
+}
+
+#budgetMark {
+    -fx-stroke: rgba(255, 165, 0, 0.6);
+    -fx-stroke-width: 10px;
+}
+#budgetExtraMark {
+    -fx-stroke: rgba(255, 0, 0, 0.6);
+    -fx-stroke-width: 10px;
+}
+
+.meal-segment > Label {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-max-width: Infinity;
+    -fx-alignment: center;
+}
+
+.buffer-segment {
+    -fx-background-color: white;
+}
+
+.buffer-segment > Label {
+    -fx-alignment: center;
+}
+
+.listHeader {
+    -fx-font-size: 20px;
+    -fx-fill: white;
+}
+
+.emptyDishText {
+    -fx-font-size: 20px;
+    -fx-fill: white;
+}

@@ -1,0 +1,16 @@
+@startuml
+start
+:User executes "delete 1" command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([1 is a valid meal index])
+    :Meal at index 1 is removed;
+    :Meal log is updated;
+else ([else])
+    :Error message shown to user;
+endif
+stop
+
+@enduml
