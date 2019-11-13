@@ -1,0 +1,71 @@
+= Tee Hao Wei — Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:repoURL: https://github.com/AY1920S1-CS2103T-W13-4/main
+
+== PROJECT: Budget Buddy
+
+== Overview
+
+Budget Buddy is a desktop expense tracker application that allows users to track their expenses. The main method of input by the user is using a command-line interface (CLI), but the application presents information using a graphical interface. It targets users from the School of Computing in the National University of Singapore, who are generally comfortable with command-line interfaces.
+
+Budget Buddy has the usual requisite features of an expense tracker: transactions, accounts, categories, loan tracking and a loan splitter. Because we are targetting computing students, Budget Buddy also has a scripting engine, allowing users to write scripts that perform complex operations and extend the functionality of the application.
+
+Budget Buddy benefits users by allowing them to know what they are spending on, so they can make informed decisions to change their spending behaviour and achieve their financial goals.
+
+Budget Buddy is based on the AddressBook-Level3 application by SE-EDU, and currently consists of about 15 thousand lines of code.
+
+My main contributions are the scripting engine, as well as managing releases and integrating contributions from other team members.
+
+== Summary of contributions
+
+|===
+| This section summarises the contributions I made to Budget Buddy.
+|===
+
+* *Major enhancement*: added a scripting engine and library, as well as script bindings for accounts, transactions and loans
+** What: This feature provides the user the ability to evaluate arbitrary scripts which have full access to the data and user interface of the application, and save these scripts in a library for convenient reuse.
+** Why: This feature allows the user to perform complex operations that may be inconvenient or impossible to do through the CLI, and extend the application with new commands and features on their own, without having to modify the application's source code directly.
+** Highlights: This feature required thought to provide a ergonomic scripting interface to allow scripts to do common operations easily, without restricting scripts from doing more complex operations.
+** Credits: This feature is implemented using the Nashorn JavaScript engine, bundled with Java 11.
+
+* *Minor enhancement*: enhanced the command result mechanism to allow continuations, such as showing a file picker and performing actions after that; see {repoURL}/pull/170[PR #170].
+
+* *Code contributed*: See the link:++https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=thwnus&tabOpen=true&tabType=authorship&tabAuthor=thwnus&tabRepo=AY1920S1-CS2103T-W13-4%2Fmain[master]++[RepoSense report here].
+
+* *Other contributions*:
+** Project management:
+*** Managed releases v1.1 to v1.4 (4 releases) on GitHub
+** Community:
+*** Helped to rebase and merge PRs, many with non-trivial merge conflicts, including PRs {repoURL}/pull/55[#55], {repoURL}/pull/66[#66], {repoURL}/pull/85[#85], {repoURL}/pull/157[#157], and {repoURL}/pull/162[#162]
+** Tools:
+*** Integrated Netlify, Coveralls and Codacy to the team repository
+
+== Contributions to the User Guide
+
+|===
+| This section includes the parts of the user guide that I wrote, to demonstrate my ability to write end-user facing documentation.
+|===
+
+include::../UserGuide.adoc[tag=scripting]
+
+|===
+| The following is part of the Script API guide that I wrote, to demonstrate my ability to write end-user facing documentation for power users. https://ay1920s1-cs2103t-w13-4.github.io/main/UserGuide.html#scripting-api[See here for the full script API guide.]
+|===
+
+include::../UserGuide.adoc[tag=scriptingapi,leveloffset=+1]
+
+include::../UserGuide.adoc[tag=scriptingapi2,leveloffset=+1]
+
+include::../UserGuide.adoc[tag=scriptingapi3,leveloffset=+1]
+
+== Contributions to the Developer Guide
+
+|===
+| This section includes the parts of the developer guide that I wrote, to demonstrate my ability to write technical documentation and the technical depth of my contributions to the project.
+|===
+
+include::../DeveloperGuide.adoc[tag=scripts]
+
+include::../DeveloperGuide.adoc[tag=aliases]

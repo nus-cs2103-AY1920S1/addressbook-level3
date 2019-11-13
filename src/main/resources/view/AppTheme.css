@@ -1,0 +1,305 @@
+.background {
+    -fx-background-color: #e5ddd5;
+    background-color: #e5ddd5; /* Used in the default.html file */
+}
+
+.label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #555555;
+    -fx-opacity: 0.9;
+}
+
+.tab-pane {
+    -fx-padding: 0 0 0 0;
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+}
+
+.tab-pane.floating > .tab-header-area .tab {
+    -fx-background-color: #d5c7ba;
+    -fx-padding: 1;
+}
+
+.tab-pane.floating > .tab-header-area .tab:selected {
+    -fx-background-radius: 5;
+    -fx-background-color: linear-gradient(to left, #52667d, #3f556f);
+}
+
+.tab-pane.floating > .tab-header-area .tab .label {
+    -fx-text-alignment: center;
+    -fx-text-fill: #3f556f;
+    -fx-border-width: 2;
+    -fx-border-color: transparent transparent #3f556f transparent;
+}
+
+.tab-pane.floating > .tab-header-area .tab:selected .label {
+    -fx-text-fill: #e5ddd5;
+    -fx-border-color: transparent;
+}
+
+.split-pane:horizontal .split-pane-divider {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: transparent transparent transparent #4d4d4d;
+}
+
+.split-pane {
+    -fx-border-radius: 1;
+    -fx-border-width: 1;
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.list-view {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: #e5ddd5;
+}
+
+.list-cell {
+    -fx-label-padding: 0 0 0 0;
+    -fx-graphic-text-gap : 0;
+    -fx-padding: 5;
+    -fx-background-color: #e5ddd5;
+}
+
+.list-cell:filled {
+    -fx-background-color: #e5ddd5;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: derive(#62919c, 30%);
+}
+
+.list-cell:filled:selected #cardPane {
+    -fx-border-color: #3e7b91;
+    -fx-border-width: 1;
+}
+
+.list-cell .label {
+    -fx-text-fill: #eee8e3;
+}
+
+#cardPane {
+    -fx-padding: 5;
+    -fx-background-color: #52667d;
+    -fx-background-radius: 5;
+    -fx-border-color: #aa9f94;
+    -fx-border-radius: 5;
+    -fx-border-width: 2;
+}
+
+.account-active {
+    -fx-background-color: #282547 !important;
+}
+
+.cell_big_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: #010504;
+}
+
+.cell_small_label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: #010504;
+}
+
+.stack-pane {
+     -fx-background-color: #e5ddd5;
+}
+
+.pane-with-border {
+     -fx-background-color: #d5c7ba;
+     -fx-border-color: derive(#d5c7ba, 10%);
+     -fx-border-top-width: 1px;
+}
+
+.result-display {
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 11pt;
+    -fx-text-fill: #282547;
+}
+
+.result-display .label {
+    -fx-text-fill: #e5ddd5 !important;
+}
+
+#resultDisplay .content {
+    -fx-background-color: #aa9f94;
+    -fx-background-radius: 0;
+}
+
+.status-bar {
+    -fx-background-color: #7e3934;
+}
+
+.status-bar .label {
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-padding: 4px;
+    -fx-pref-height: 30px;
+}
+
+.context-menu {
+    -fx-background-color: #bc724f;
+}
+
+.context-menu .label {
+    -fx-text-fill: #e5ddd5;
+}
+
+.menu-bar {
+    -fx-background-color: #7e3934;
+}
+
+.menu-bar .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: #e5ddd5;
+    -fx-opacity: 0.9;
+}
+
+.menu-button:hover, .menu-button:showing {
+    -fx-background-color: #bc724f;
+}
+
+.menu-item:focused {
+    -fx-background-color: #7e3934;
+}
+
+
+/*
+ * Metro style Push Button
+ * Author: Pedro Duque Vieira
+ * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
+ */
+.button {
+    -fx-padding: 5 22 5 22;
+    -fx-border-color: #04172d;
+    -fx-border-width: 2;
+    -fx-background-radius: 0;
+    -fx-background-color: #c4d9df;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #d8d8d8;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button:hover {
+    -fx-background-color: #7e3934;
+}
+
+.button:pressed, .button:default:hover:pressed {
+  -fx-background-color: white;
+  -fx-text-fill: #1d1d1d;
+}
+
+.button:focused {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+.button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #c4d9df;
+    -fx-text-fill: white;
+}
+
+.button:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
+.button:default:hover {
+    -fx-background-color: #7e3934;
+}
+
+.scroll-bar {
+    -fx-background-color: #aa9f94;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #52667d;
+    -fx-background-insets: 3;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+}
+
+.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 1 8 1 8;
+}
+
+.scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
+    -fx-padding: 8 1 8 1;
+}
+
+#commandTextField {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-color: white;
+    -fx-border-insets: 0;
+    -fx-border-width: 2;
+    -fx-border-radius: 3;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-text-fill: #3f556f;
+    -fx-prompt-text-fill: #aa9f94;
+}
+
+#predicateFlow, #actionFlow {
+    -fx-hgap: 5;
+    -fx-vgap: 5;
+}
+
+#predOp, #actOp, #predAttr, #predVal, #actVal, #predScript, #actScript {
+    -fx-padding: 1 3 3 3;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+#predOp, #actOp {
+    -fx-text-fill: white;
+    -fx-background-color: #a35a54;
+}
+
+#predAttr, #predVal, #actVal {
+    -fx-text-fill: black;
+    -fx-background-color: #e2cdba;
+}
+
+#predScript, #actScript {
+    -fx-text-fill: white;
+    -fx-background-color: #48426d;
+}
+
+#predSuffix, #actSuffix {
+    -fx-font-size: 9px;
+}
+
+#categories {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#categories .label {
+    -fx-text-fill: white;
+    -fx-background-color: #003D4C;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}

@@ -9,5 +9,6 @@
       "z" : 99
     }
   },
-  "addressBookFilePath" : "addressbook.json"
+  "ruleFilePath": "rules.json",
+  "loansFilePath": "loans.json"
 }

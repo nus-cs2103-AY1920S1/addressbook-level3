@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Budget Buddy - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -11,167 +11,1485 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-W13-4/main
+:jarName: budgetbuddy.jar
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T W13-4`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Budget Buddy is an all-in-one expense tracking application for students from the School of Computing (SoC)
+at the National University of Singapore (NUS) who prefer to use a desktop app to manage their expenses.
+More importantly, Budget Buddy is *optimized for those who prefer to work with a Command
+Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+If you type fast, Budget Buddy can get your expense management tasks done faster than traditional GUI apps.
+Furthermore, Budget Buddy allows users with computing know-how to add their own functions through customized JavaScript files,
+as well as set rules to simplify expense tracking through automation.
+
+This user guide provides in-depth documentation of Budget Buddy's current and upcoming features.
+It also includes the setup process and answers some commonly asked questions.
+For the hands-on person, check out the _Quick Start_ section right below.
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+_Ensure that Java 11 is installed on your system._
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+Download the latest version of Budget Buddy link:{repoURL}/releases[here].
 
-.  Refer to <<Features>> for details of each command.
+Place the _{jarName}_ file in your desired home folder. This folder will contain all data saved into Budget Buddy.
+
+Double click the _{jarName}_ file to launch Budget Buddy.
+
+====
+*Launching for the first time*
+
+* A default account will be created.
+* Type `txn dn/out x/100 d/This is my first transaction!` to add a new spending.
+* To view your accounts, type `account list`
+* To view other available commands, type `help`
+====
+
+If the application does not run, follow the instructions below based on your operating system:
+
+* Mac/Linux:
+** Launch _Terminal_
+** Navigate to the home folder where _{jarName}_ is, using the `cd` command, e.g. `cd ~/Documents/BudgetBuddy`
+** Execute the jar file using `java -jar budgetbuddy.jar`
+
+* Windows:
+** Launch _Cmd_, or Windows' Command Prompt
+** Navigate to the home folder where _{jarName}_ is, using the `cd` command, e.g. `cd Documents\BudgetBuddy`
+** Execute the jar file using `java -jar budgetbuddy.jar`
+
+== Getting Started
+
+Welcome to the Budget Buddy User Guide! You can scroll down to get an in-depth look at each of Budget Buddy's features,
+or jump straight to a specific section from the _Table of Contents_ above.
 
 [[Features]]
 == Features
 
+Budget Buddy comes with many tools to help you manage your expenses better.
+You can create different accounts, record your transactions,
+track money you owe people or that people owe to you,
+and even instantly split a bill between you and your friends!
+
+What's more? Automate processes with rules. Typing the same description for transactions again and again?
+Set the description of a transaction automatically by using a keyword!
+Sort your spendings into different categories automatically! Automate everything!
+
+If you know how to code in JavaScript, there's great news for you too.
+Write and evaluate your own scripts within Budget Buddy.
+Do complicated things in a snap. You can even integrate your scripts into your own custom rules!
+
+Before diving into the commands you can execute in Budget Buddy,
+you should first familiarize yourself with the syntax that will be used throughout this guide.
+
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Commands start with a category, and a command type usually follows, e.g. `rule add`
+* Words written using `<>` brackets are parameters to be supplied by the user.
+* Parameters within `[]` brackets are optional and can be omitted.
+* `|` indicates that a choice must be made between multiple parameters.
+* `...` indicates a variable number (at least 1) of the specified parameter.
 ====
 
-=== Viewing help : `help`
+Budget Buddy also comes with various keyboard shortcuts for a better user experience with the CLI.
+
+|===
+|Shortcut |Purpose
+
+|kbd:[F1]
+|Executes the `help` command, details of which can be found <<help-command,here>>
+
+|kbd:[Ctrl+Shift]
+|Switches focus to the input text box
+
+|kbd:[Ctrl+Tab]
+|Switches the current active tab to the next tab in the list
+
+|kbd:[Ctrl+D]
+|(__ *Loan* tab only __) Switches between the loan list and split list, more details <<loan-split,here>>
+|===
+
+From this point on, each of Budget Buddy's commands will be discussed in detail.
+
+'''
+
+[[help-command]]
+=== Viewing help: `help`
+
+This command opens a window containing a link to this user guide,
+which can be useful should you ever forget how to execute a certain command.
 
 Format: `help`
 
-=== Adding a person: `add`
+'''
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+// tag::transactions[]
+=== Managing transactions: `txn`
 
-[TIP]
-A person can have any number of tags (including 0)
+.Transactions in the transaction tab
+image::txnUG1.png[width=85%,scaledwidth=85%]
+
+Transactions form the core of Budget Buddy. They can be used to track any purchases you make,
+or any money that you receive. Transactions can further be filtered by various criteria,
+if you want to find out how much money you've spent in a certain time period, or in
+a certain category of spending.
+
+==== Add a transaction: `txn out|in`
+
+This command will add a new transaction of the specified amount and with the given description.
+
+Format: `txn dn/out|in x/<amount> d/<description> [a/<account>] [c/<category>] [w/<date>]`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `txn dn/out x/3 d/apples a/food c/fruits w/5/4/2019`
 
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+* `txn dn/in x/50 d/pocket money a/school`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* The account provided has to be created before transactions can be added to it.
+* If the account is not given, the transaction is added to the active account.
+* If the category is not given, the transaction is not categorized.
+* If the date is not given, the date is set to the current date.
+****
+
+==== Edit a transaction: `txn edit`
+
+This command will edit the specified transaction, setting the specified fields. At least one field should be provided for editing.
+
+Format: `txn edit <id> dn/out|in [x/<amount>] [d/<description>] [a/<account>] [c/<category>] [w/<date>]`
+
+Examples:
+
+* `txn edit 1 x/50 d/apple juice c/groceries`
+
+* `txn edit 4 a/personal`
+
+****
+* The new edited transaction should have at least 1 field different from the previous transaction.
+* If another account is provided, that account must exist first.
+* If another account is provided, that account will be set to the new active account.
+****
+
+==== Delete a transaction: `txn delete`
+
+This command will delete the transaction with the specified ID in the displayed list of transactions.
+
+Format: `txn delete <id>`
+
+Examples:
+
+* `txn delete 3`
+
+==== List transaction(s): 'txn list'
+
+This will list the transactions from the currently active account, and you can optionally filter/sort them as well.
+
+Format: `txn list [c/category] [f/from date] [u/until date] [af/from amount] [au/until amount] [d/description]
+[s/aw|dw|ax|dx|ad|dd]`
+
+Examples:
+
+* `txn list c/food u/10/4/2019 af/5 au/10 d/fruits s/ad`
+****
+The explanation of the sorting abbreviations following `s/` are as follows:
+
+* `aw`: Sort the transactions by ascending date.
+* `dw`: Sort the transactions by descending date.
+* `ax`: Sort the transactions by ascending amount.
+* `dx`: Sort the transactions by descending amount.
+* `ad`: Sort the transactions by description, ascending alphabetically.
+* `dd`: Sort the transactions by description, descending alphabetically.
+****
+// end::transactions[]
+
+'''
+
+// tag::accounts[]
+=== Managing accounts: `account`
+
+==== Add an account: `account add`
+
+You can create a new account. Each account has a unique ID and name. You can choose to customise a description to describe the use of the account.
+
+Format: `account add n/<name> [d/<description>]`
+
+Examples:
+
+* `account add n/Japan trip` +
+You have created an account with the name 'Japan trip'.
+* `account add n/Japan trip d/expense spent in Japan` +
+You have created an account with the name 'Japan trip' and description 'expense spent in Japan'.
+
+==== List accounts: `account list`
+
+If you want to see the full list of accounts you currently own, you can enter this command and a list of all accounts will be displayed.
+
+Format: `account list`
+
+==== Edit an account: `account edit`
+
+You can edit the account that you think needs modifiying. You can choose to edit either the name or the description of the account, or both.
+
+Format: `account edit <id> [n/<name>] [d/<description>]`
+
+****
+* Edits the account with the specified index. The index refers to the index number shown in the displayed account list. The index must be a positive integer 1, 2, 3...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `account edit 1 n/food` +
+The name of your first account will be changed to 'food'.
+* `account edit 1 d/money spent on food` +
+The name of your first account will be changed to 'money spent on food'.
+* `account edit 1 n/food d/money spent on food` +
+The name of your first account will be changed to 'food', at the same time the description of the same account will be changed to 'money spent on food'.
 
-=== Locating persons by name: `find`
+==== Delete account: `account delete`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+You can delete the account with the specified ID, as in `account list`.
+Note: you cannot delete an account if there are transactions associated with the account.
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Format: `account delete <id>`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the account with the specified index. The index refers to the index number shown in the displayed account list. The index must be a positive integer 1, 2, 3...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `account delete 2` +
+You have deleted the second account in your account list.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+==== Find account: `account find`
 
-Clears all entries from the address book. +
-Format: `clear`
+If you want to see a specific type of account you have, or find a specific account, you can find the account(s) with a specified keyword.
+A list of account(s) containing the keyword in their names will be displayed.
 
-=== Exiting the program : `exit`
+Format: `account find <keyword>`
 
-Exits the program. +
-Format: `exit`
+Examples:
 
-=== Saving the data
+* `account find trip` +
+You can see a list of accounts with the word 'trip' contained in their names.
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+==== View report of an account: `account report`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+If you want to see the details of a particular account, you can choose to view the report of the specified account.
+The report contains the balance, the total expenses, the total income, and the categories involved in the specified account.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Format: `account report <id>`
+
+****
+* Views the report of the account with the specified index. The index refers to the index number shown in the displayed account list. The index must be a positive integer 1, 2, 3...
+****
+
+Example:
+
+* `account report 2` +
+You can view the report of the first account.
+
+==== Switch the active account: `account switch`
+
+To switch the active account to another in the account list, specify the ID of the new account to switch to.
+
+Format: `account switch <id>`
+
+****
+* Switches the active account to the account with the specified index.
+The index refers to the index number as shown in the displayed account list. The index must be a positive integer 1, 2, 3...
+****
+
+Example:
+
+* `account switch 3` +
+You have switched the active account to the third one in the list.
+The active account will be highlighted in dark blue color.
+
+==== Export the overview of all accounts: `account overview`
+
+If you want to see the overview of all accounts, Budget Buddy allows you to export the overview of all accounts in a HTML file.
+In the overview, you are able to see the balance, the total expenses, the total income, and the categories involved in each account.
+
+Format: `account overview`
+
+Step 1. Type `account overview` in the command textfield input.
+
+Step 2. Successful message displayed, and you can navigate to the `exports` folder in the same directory of the source file.
+
+.Exports folder
+image::AccountOverview_3.png[width=85%,scaledwidth=85%]
+
+Step 3. Open the HTML file in the exports folder to see the overview of all accounts.
+
+.HTML file
+image::accountOverview4.png[width=85%,scaledwidth=85%]
+
+// end::accounts[]
+
+'''
+
+// tag::loans[]
+// tag::kenneth-ppp-loan-intro[]
+=== Managing loans: `loan`
+
+Budget Buddy comes with the ability for you to keep track of who owes you money and exactly how much they owe you.
+Never again allow those small sums you lend out to accumulate into a massive pile of forgotten gold.
+You can also record who you owe money to, saving you the embarrassment of being publicly reminded by your loan shark friends.
+Finally, it can help you calculate who owes who how much
+when you and said friends wake in the morning after an expensive night out.
+
+Your loans can be viewed in the *Loan* tab, as seen in the figure below:
+
+.Loans in the loan tab
+image::LoanUG1.png[width=85%,scaledwidth=85%]
+
+// end::kenneth-ppp-loan-intro[]
+
+==== Add a new loan: `loan out|in`
+
+This command adds a new entry to the loan list in the main display panel.
+The loan will be inserted into an appropriate position based on the list's current sort order.
+For example, if the list is sorted by amount in descending order and the new loan has the largest amount,
+it will appear at the top of the list.
+
+To execute this command, type the details of the loan in the following format.
+
+Format: `loan out|in p/<person> x/<amount> [w/<date>] [d/<description>]`
+
+If a date is not provided, the loan's date is set to the current date.
+
+Examples:
+
+* `loan out p/John Doe x/50 w/23/04/2019` +
+Adds a new loan of $50 out to John Doe on the date 23/04/2019.
+* `loan in p/Jane Doe x/100 d/Lent me some money for booze.` +
+Adds a new loan of $100 in from Jane Doe, with the description "Lent me some money for booze.".
+
+==== List loans: `loan list`
+
+This command displays the list of loans in the main display panel.
+Arguments can be added to sort and filter the list.
+The full command format with all its possible arguments is as follows.
+
+Format: `loan list [out|in|unpaid|paid ...] [p/<person> ...] [x/<amount> ...] [w/<date> ...] [d/<description> ...] [s/w|x|p]`
+
+****
+*Filtering*
+
+* Filter loans using one or two of the `out`, `in`, `unpaid`, `paid` filters.
+If two are used, they should not be duplicates.
+Contrasting filters can be used (e.g. `out in`) but they will be joined with logical `AND`,
+so the resulting list would be empty.
+* Filter loans by persons, amounts, dates and descriptions
+by adding one or more of the `p/<person>`, `x/<amount>`, `w/<date>`, `d/<description>` filters respectively.
+* If more than one filter is used, filters will be joined using logical `AND`.
+For example, `loan list out p/Duke` will result in the filter: loans out `AND` loans involving Duke.
+* Adding a new loan to the list will reset all filters. Other list operations (edit, paid/unpaid, delete) will not.
+
+*Sorting*
+
+* Sort loans by date, amount, or persons' names using `s/w`, `s/x`, or `s/p` respectively.
+* Sorting the list by a property when it is already sorted by that property will reverse the order of sorting
+(e.g. newest date first to oldest date first).
+****
+
+Examples:
+
+* `loan list out unpaid p/John Doe` +
+Lists all unpaid loans out to the person named "John Doe".
+* `loan list s/p` +
+`loan list s/p` +
+Lists all loans sorted by persons in alphabetical order. Then lists all loans again, but sorted by persons in reverse alphabetical order.
+
+==== Edit loan: `loan edit`
+
+This command edits the details of an existing loan in the list.
+Once edited, the loan will be re-sorted into an appropriate position based on its new details and the current sort order.
+For example, if the list is sorted by date with the newest loan first,
+editing the loan at the top of the list to have the oldest date will move it to the bottom of the list.
+
+To execute this command, type the index of the loan (as seen in the main display panel) and the details to be edited
+in the following format.
+
+Format: `loan edit <index> [<p/person>] [x/<amount>] [d/<description>] [w/<date>]`
+
+****
+* The index refers to the index number shown in the currently displayed loan list.
+It must be a positive integer (e.g. 1, 2, 3...).
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `loan list` +
+`loan edit 1 x/500 d/Dude owes me so much money I can't even.` +
+Lists all loans, then edits the amount and description of the first loan in the list to the given values.
+
+// tag::kenneth-ppp-loan-paid[]
+==== Mark loan(s) as paid: `loan paid`
+
+This command marks one or more loans in the list as *paid*.
+A paid loan can be visually distinguished by a large "tick" icon to the left of its index:
+
+.Tick icon for paid loans
+image::LoanUG2.png[width=50%,scaledwidth=50%]
+
+Multiple loans can be marked at once.
+This can be done by specifying several indices or at least one person to target.
+The format of the command is as follows.
+
+Format: `loan paid [<index ...>] [<p/person ...>]`
+
+****
+* If a person's name is specified, all their loans are marked as paid.
+* At least one index or person must be specified.
+* Marking an already paid loan will re-mark the loan as paid (to no visible effect).
+* If multiple indices and/or persons are targeted but an index or person cannot be found in the currently displayed list,
+the indices and/or persons that can be found will still be marked.
+****
+
+Examples:
+
+* `loan list` +
+`loan paid 1 2 3` +
+Lists all loans, then marks the first three loans in the list as *paid*.
+* `loan paid p/John p/Adam` +
+Marks all loans pertaining to John and Adam as *paid*.
+// end::kenneth-ppp-loan-paid[]
+
+==== Mark loan(s) as unpaid: `loan unpaid`
+
+This command marks one or more loans in the list as *unpaid*.
+When a paid loan is marked as unpaid, its tick icon will disappear:
+
+.No icon for unpaid loans
+image::LoanUG3.png[width=50%,scaledwidth=50%]
+
+This command is executed in an identical manner to `loan paid`.
+Its format is as follows.
+
+Format: `loan unpaid [<index ...>] [<p/person ...>]`
+
+==== Delete loan(s): `loan delete`
+
+This command deletes one or more loans from the list.
+Similarly to `loan paid` and `loan unpaid`, multiple loans can be targeted at once.
+Its format is as follows.
+
+Format: `loan delete [<index ...>] [<p/person ...>]`
+
+[[loan-split]]
+// tag::kenneth-ppp-loan-split-1[]
+==== Calculate loans: `loan split`
+
+This command takes a group of persons and a list of amounts each person has paid,
+before calculating which persons need to pay which other persons
+such that the total amount paid is split equally among all the group's members.
+
+For example, let's say you're out for dinner with two friends.
+When the hundred-dollar bill arrives, you pay for the first sixty and one of your two friends pays for the remaining forty.
+The `loan split` command can now help you to calculate how much your two friends owe you,
+such that the hundred-dollar bill is split equally among you three.
+
+This command comes with many optional arguments, all of which are explained below.
+The format of the command is as follows.
+
+Format: `loan split p/<person> x/<amount paid> [max/<limit>] ... [me/<your name> [w/<date>] [d/<description>]]`
+****
+* Each `<person>` corresponds to an `<amount paid>`, representing how much the `person` paid for the group initially. +
+The order of a `person` in the list should match the order of their `amount paid`.
+
+*Limiting a Person's Share*
+
+* The final amount a `person` ends up paying can be restricted to a `<limit>`.
+* The order of all `limits` should match the order of all `persons`
+i.e. the first `<limit>` in the input will correspond to the first `<person>`,
+the second `<limit>` the second `<person>`, and so on.
+As such, persons with limits should be placed at the head of the list.
+This is to allow you to enter limits only for those persons who require them.
+* The sum of all limits should not exceed the total amount paid by all persons.
+
+*Automatically Adding Debts to Your Loan List*
+
+* Adding the optional `me/` will add all debts from the resulting list to your loan list.
++
+`<your name>` must match one of the persons among the other `p/<person>` names.
+* Adding `w/` will set the `<date>` of the loans added to your loan list.
+* Adding `d/` will set the `<description>` of the loans added to your loan list.
+****
+// end::kenneth-ppp-loan-split-1[]
+
+// tag::kenneth-ppp-loan-split-2[]
+To switch between your loan list and split list, press kbd:[Ctrl+D] (or kbd:[Cmd+D] for Mac) while on the Loan tab.
+
+[NOTE]
+The split list will initially be empty,
+but once a list is calculated it will persist in the Loan tab across sessions (until a new calculation is made).
+
+Examples:
+
+* `loan split p/John x/0 p/Mary x/40 p/Peter x/60` +
+Calculates the money owed between `John`, `Mary` and `Peter` for a scenario where (initially) `Mary` paid `40` and `Peter` paid `60`.
+The resulting display should show that `John` owes `Mary` *$6.66* and also owes `Peter` *$26.67*, as seen in the image below.
+
+.End result of calculations
+image::LoanUG4.png[width=85%,scaledwidth=85%]
+
+* `loan split p/John x/0 max/10 p/Mary x/10 p/Peter x/90 me/Mary d/Dinner.` +
+In this scenario, `Mary` paid `10` and `Peter` paid `90`.
+`max/10` restricts the final amount `John` pays/owes to `10`, despite the total amount being `0 + 10 + 90 = 100`.
+Furthermore, `me/Mary` marks `Mary` as the user (you),
+so any debts `Mary` owes/is owed will be added to the normal loan list with the description `Dinner.`.
+The resulting display should show that `John` owes `Peter` *$10* and `You` owe `Peter` *$35*, as seen below.
+
+.End result of more calculations
+image::LoanUG5.png[width=85%,scaledwidth=85%]
+
+The latter debt will also have been added to your loan list,
+which can be checked using the command `loan list` or by pressing the hotkey mentioned above.
+// end::kenneth-ppp-loan-split-2[]
+// end::loans[]
+
+'''
+
+// tag::ruleExtract1[]
+=== Automating with rules: `rule`
+
+*Introducing the _Rule Engine_.*
+A way for you to automate certain actions based on a certain predicate.
+Spend less time typing repetitive commands, and spend more time keeping track of your expenses!
+
+[[Figure]]
+.Rules in the rule tab
+image::RuleUG1.png[width=85%,scaledwidth=85%]
+
+Rules have the following structure: if "predicate" is true, then perform "action". By creating a
+predicate which defines the condition you set, you can perform any action you create whenever a
+transaction is added/edited, if the transaction satisfies that condition.
+
+All rules in the Rule Engine will be executed on a transaction, when:
+
+* It is a new transaction and has been successfully added into an account. *OR*
+* It is an existing transaction and has been successfully edited.
+
+.Transaction after rules were executed on it
+image::RuleUG2.png[width=85%,scaledwidth=85%]
+
+The picture above shows a transaction added with the command: +
+`txn dn/out x/200 d/Treat friends to buffet food!`
+
+As you can see, two of the rules from the _<<Figure, example list of rules above>>_ were applied on the transaction, and added categories to it.
+// end::ruleExtract1[]
+
+WARNING: All rules will be executed from the top of the list downwards.
+Typically, this is the order in which the rules were added.
+Rules with conflicting actions will therefore be allowed.
+
+// tag::ruleExtract2[]
+==== Add a new rule: `rule add`
+
+Adds a new rule to the rule engine.
+Both the predicate and action have to be specified.
+A rule can be formed using either expressions or scripts, or both.
+
+Format: `rule add p/<expression|script name> a/<expression|script name>`
+// end::ruleExtract2[]
+
+NOTE: Note that scripts used in rules are not validated; make sure they are free from error.
+Predicate scripts that do not return a boolean _will be executed_, but will therefore implicitly return false.
+Action scripts will be executed if the predicate returns true, and any return value will be discarded.
+
+// tag::ruleExtract3[]
+****
+*Expression Formatting Guide:*
+
+* **Predicate**: In the order of `<attribute> <predicate operator> <value>`
+** An attribute can be one of the following:
+*** `inamt` : Transaction amount inwards
+*** `outamt` : Transaction amount outwards
+*** `desc` : Transaction description
+*** `date` : Transaction date
+** A predicate operator can be one of the following:
+*** `=` : Equality comparison operator
+*** `<` , `\<=`  , `>=` , `>` : Inequality comparison operators
+*** `contains` : Substring check operator (cannot be used on dates)
+** A value can be a number or a string of length not more than 180 characters.
+It can contain the following special characters: +
+!#$%&'*+=?`+_+/[{|}]~^.-
+// end::ruleExtract3[]
+
+* **Action**: In the order of `<action operator> [<value>]`
+** An action operator can be one of the following:
+*** `set_cat` : Adds a category to the transaction
+*** `remove_cat` : Removes a category from the transaction
+*** `set_desc` : Sets the description of the transaction
+*** `app_desc` : Appends a value to the description
+*** `prep_desc` : Prepends a value to the description
+*** `set_in` : Sets the direction of the transaction to be inwards
+*** `set_out` : Sets the direction of the transaction to be outwards
+*** `switch_direct` : Switches the current direction of the transaction
+** A value is as described in a predicate expression,
+and is not required for `set_in`, `set_out` and `switch_direct`
+
+*Script Usage in Rules:*
+
+* Scripts used in rules have access to two additional arguments:
+** The transaction to test/act upon is stored in `argv[0]`
+** The account that the transaction belongs to is stored in `argv[1]`
+* Refer to the <<Scripting,Scripting section>> for general script usage.
+****
+
+Examples:
+
+* `rule add p/outamt >= 100 a/prep_desc [Large Spending]` +
+Adds a new rule that specifies that if an outward transaction has an amount more
+than or equal to $100, prepend the transaction's description with "[Large Spending]".
+
+* `rule add p/desc contains food a/set_cat Food` +
+Adds a new rule that specifies that if a transaction description contains "food",
+add the category "Food" to that transaction.
+
+* `rule add p/IsMonthlyAllowance a/set_desc Monthly Allowance` +
+Adds a new rule that specifies that if the script named "IsMonthlyAllowance"
+returns true, change the transaction's description to "Monthly Allowance".
+
+==== List rules: `rule list`
+
+Displays the list of all existing rules in the Rule Engine.
+Rules are sorted by the order in which they were added.
+
+Format: `rule list`
+
+==== Edit a rule: `rule edit`
+
+Edits the specified fields in the rule with the specified ID.
+Both the predicate and action can be modified.
+
+Format: `rule edit <rule ID> [p/<expression|script>] [a/<expression|script>]`
+
+Examples:
+
+* `rule edit 1 p/inamt \<= 10` +
+Edits the predicate of the first rule in the list to check if an
+inward transaction has an amount less than or equal to 10.
+
+* `rule edit 4 a/set_in` +
+Edits the action of the 4th rule in the list to set the direction of
+a transaction to be inwards.
+
+==== Delete a rule: `rule delete`
+
+Deletes a rule with the specified rule ID.
+
+Format: `rule delete <rule ID>`
+
+Examples:
+
+* `rule delete 5` +
+Deletes the 5th rule in the list.
+
+// tag::ruleExtract4[]
+==== Swap two rules: `rule swap`
+
+NOTE: Ths will affect the execution order of the rules.
+Rules will be executed from the top of the list downwards.
+
+Swaps the position of two specified rules in the Rule Engine.
+
+Format: `rule swap <rule 1 ID> <rule 2 ID>`
+
+Examples:
+
+* `rule swap 2 4` +
+Swaps the ordering of the 2nd rule and the 4th rule.
+// end::ruleExtract4[]
+
+'''
+
+// tag::scripting[]
+[[Scripting]]
+=== Scripting: `script`
+
+.Scripts in the script tab
+image::scriptpanel.png[width=85%,scaledwidth=85%]
+
+The scripting engine allows you to evaluate arbitrary scripts to perform complex operations on your transaction data,
+as well as extend the application and add commands and features of your own.
+
+The scripting language is JavaScript (specifically, ECMAScript 5.1). For more details on the scripting environment and API, see <<Scripting API,here>>.
+
+WARNING: Scripts have full access to the application's internals, as well as all Java standard library classes and APIs.
+It is possible to corrupt the application state by execution of a malicious or buggy script. There are no guarantees on
+application behaviour if scripts are used.
+
+[#script-eval]
+==== Evaluate a script: `script eval`
+
+Evaluates a script and displays the result, which is the last expression evaluated in the script.
+
+Format: `script eval <script>`
+
+Examples:
+
+* `script eval 1`
++
+Evaluates to: `1`
+
+* `addTxn(1000, 'out', 'Lunch')`
++
+Adds an out-transaction for $10 with description "Lunch".
+
+[#script-add]
+==== Add a stored script: `script add`
+
+Stores a script for future invocation. If a script with the same name already exists, that script is replaced.
+
+Format: `script add <script name> [d/<description>] [p/<file path>|s/<script>]`
+
+****
+* Script names may contain only alphanumeric characters, underscores, and dashes.
+* Script names are case-sensitive.
+* The file path may be absolute or relative. If it is relative, it is relative to the _current working directory_ of Budget Buddy.
+** If you launched Budget Buddy from the command line, the current working directory starts from the directory your shell was in.
+** If you launched Budget Buddy by double-clicking the JAR file, the current working directory is typically the directory the JAR file is in.
+** There is no command that changes the current working directory, but a script may have done that.
+* If neither a file path nor the script code is given, a file picker is opened for you to
+select the script file.
+****
+
+WARNING: The script is not checked for correctness before it is stored. Any syntax errors
+will be reported only when the script is run.
+
+Examples:
+
+* `script add hello-world s/"Hello world!"`
++
+Adds a script named `hello-world` that simply results in "Hello world!" being printed.
+
+* `script add add-transport d/Adds today's transport fare.`
++
+Adds a script named `add-transport` with description "Adds today's transport fare.". A file picker is opened for you to select the script file.
+
+[#script-delete]
+==== Delete a stored script: `script delete`
+
+Deletes a previously-stored script.
+
+Format: `script delete <script name>`
+
+****
+* Script names are case-sensitive.
+****
+
+[#script-run]
+==== Run a stored script: `script run`
+
+Runs a previously-stored script and displays the result, which is the last expression evaluated in the script.
+
+Format: `script run <script name> [<argument>]`
+
+****
+* Script names are case-sensitive.
+* The script is run in the current script environment, which may contain variables from previous scripts that have run.
+* The argument is the rest of the input after the script name, and is passed to the script as a single string.
+****
+
+Examples:
+
+* `script run add-transport`
++
+Runs the script named `add-transport`. `argv` is an empty array.
+
+* `script run echo Hello world!`
++
+Runs the script named `echo`, with `argv[0]` set to `"Hello world!"`.
+
+[#script-list]
+==== List stored scripts: `script list`
+
+Lists stored scripts.
+
+Format: `script list`
+
+[#script-reset]
+==== Reset the scripting environment: `script reset`
+
+Resets the scripting environment. This clears all previously defined variables, and restores all global variables and functions that may have been modified by scripts.
+
+Format: `script reset`
+// end::scripting[]
+
+== Coming in v2.0
+
+Look forward to these features coming up in version 2.0 of Budget Buddy!
+
+// tag::budget[]
+=== Managing budgets *(coming in v2.0)*: `budget`
+
+Budgets allow you to keep track of your spending limits!
+See how much money you still have left for the week, month, or year! With budgets,
+you can plan out your expenses easier than ever.
+
+==== View budgets: `budget list`
+
+Views the list of budgets currently stored.
+All budgets within the specified period will be displayed.
+
+Format: `budget list [f/<from date> t/<to date>|p/<this month|last month|this week|last week|today|yesterday>]`
+
+==== Add budgets: `budget add`
+
+This command adds a new budget of a certain amount, with the specified date range or period.
+
+Format: `budget add x/<amount> [f/<from date> t/<to date>|p/<this month|last month|this week|last week|today|yesterday>]`
+
+==== Remove budgets: `budget delete`
+
+This command removes a budget from the list given the budget ID.
+
+Format: `budget delete <budget ID>`
+// end::budget[]
+
+=== Goal setting *(coming in v2.0)*: `goal`
+
+==== Add a goal: `goal add`
+
+Adds a goal on the specified account to reach the specified amount by the target date or at the end of the specified period.
+
+==== View goals: `goal list`
+
+List all goals.
+
+==== Delete goal(s): `goal delete`
+
+Deletes the goal with the specified goal ID.
+
+=== Managing categories *(coming in v2.0)*: `category`
+
+==== Add a category
+
+Categories do not need to be added; you can simply use the category name and a new category will be created if no such one exists.
+
+==== List categories: `category list`
+
+Lists all categories.
+
+==== Rename a category: `category rename`
+
+Renames the specified category.
+Note that this is the same as setting the category of all transactions of category `old name` to `new name`.
+
+Format: `category rename o/<old name> n/<new name>`
+
+==== Delete a category: `category delete`
+
+Deletes the specified category.
+Note that this is the same as un-categorising all transactions under the specified category.
+
+Format: `category delete n/<name>`
+
+
+=== Viewing reports *(coming in v2.0)*: `report`
+
+Displays a report of every statistic recorded in Budget Buddy.
+
+Format: `report [[f/<from date>] [t/<to date>] | [p/<this month|last month|this week|last week|today|yesterday>]] [total|category]`
+****
+* You can specify either the start and end date range, inclusive, or name a period.
+If no period is specified, it defaults to the current month-to-date.
+* You can see a total report that shows your total income and expenditure and budget information,
+if a budget has been set up,  or a report that breaks your income and expenditure down into categories.
+If the type is omitted, it defaults to a total report.
+* Your goal progress will also be shown in both reports.
+****
+
+// tag::aliases[]
+=== Aliases *(coming in v2.0)*: `alias`
+
+==== Add an alias: `alias add`
+
+Adds an alias.
+
+Format: `alias add <alias name> c/<alias replacement>`
+
+****
+* When executed, the alias name will be replaced by the replacement, and the resulting input executed.
+** For example, suppose you add an alias named `abcd efgh 7890`, with replacement `script run x`.
+** Executing `abcd efgh 7890 abcd` is equivalent to executing `script run x abcd`.
+* The alias name must appear at the start of an input, followed by a space, for it to be recognised.
+* There is no restriction on the characters in the alias name. However, leading and trailing whitespace will be trimmed.
+* Aliases can expand to other aliases.
+****
+
+WARNING: Built-in commands take precedence. If you add an alias with the same name as a built-in command, it will have no effect.
+
+==== Delete an alias: `alias delete`
+
+Deletes an alias.
+
+Format: `alias delete <alias name>`
+// end::aliases[]
+
+// tag::importexport[]
+=== Import and export *(coming in v2.0)*: `import`, `export`
+
+==== Import a file: `import`
+
+Imports transactions from the file at the given path.
+
+Format: `import [f/<format>] [p/<file path>]`
+****
+* The file path can be relative to where you launched Budget Buddy from, or absolute.
+If the path is omitted, a file browser is opened for you to select the file.
+* Format is one of DBS (DBS Bank/POSB), OCBC (OCBC Bank), SC (Standard Chartered), or CSV (generic comma-separated values file).
+If the format is omitted, automatic detection is attempted.
+****
+
+==== Export transactions: `export`
+
+Exports all transactions to the given path.
+
+Format: `export [p/<file path>]`
+****
+* The file path can be relative to where you launched Budget Buddy from, or absolute.
+If the path is omitted, a file browser is opened for you to select where to save the file.
+* The file is a comma-separated values file.
+****
+// end::importexport[]
+
+=== Getting help with specific commands *(coming in v2.0)*: `help`
+
+Displays detailed help for a specific command.
+
+Format: `help <command word>`
+
+// tag::scriptingapi[]
+== Scripting API
+
+The Nashorn scripting engine is used. All features and Java class access of the Nashorn engine are available. See the https://docs.oracle.com/en/java/javase/11/nashorn/nashorn-java-api.html[Nashorn documentation] for more details.
+
+Budget Buddy defines a few global variables and functions to ease script writing. These are documented below.
+
+NOTE: Due to the nature of JavaScript, scripts may modify these variables and functions. To reset the script
+environment, use <<script-reset,the `script reset` command>>.
+
+// end::scriptingapi[]
+
+=== Global variables
+
+The following global variables are predefined in the script environment.
+
+* `bb`: The application's model, of type `ModelManager`.
++
+[WARNING]
+====
+Modifying data through the model directly can result in inconsistent state,
+or corrupted data. Where possible, you are strongly recommended to use the helper functions
+documented below.
+
+To discourage use of `bb`, the API is intentionally left undocumented. You may
+https://github.com/AY1920S1-CS2103T-W13-4/main/blob/master/src/main/java/budgetbuddy/model/ModelManager.java[refer to the Java source code]
+if you wish to use `bb`.
+====
+
+// tag::scriptingapi2[]
+
+=== Functions
+
+The following helper functions are predefined in the script environment.
+
+****
+**Function signatures**
+
+Function signatures specified below are in the following format:
+
+`functionName(parameter1, parameter2, { optionalParameter1, optionalParameter2 }) -> ReturnType`
+
+Optional arguments should be given as a single JavaScript object. For example, for the above signature:
+
+`functionName("argument 1", "argument 2", { optionalParameter1: "optional argument 1" })`
+
+**Types**
+
+* If the type starts with a capital letter e.g. `Account`, it is a Java type.
+* If the type starts with a lowercase letter e.g. `number`, it is a JavaScript primitive.
+* If the type is `[Type]`, it is an array of `Type`.
+* If a function's return type is unspecified, the function does not return a value.
+****
+
+==== Account functions
+
+// end::scriptingapi2[]
+
+* `refreshAccountView()`
++
+Refreshes the account list after accounts have been added, modified or deleted. This does not activate the account tab.
+
+'''
+
+* `getAccounts() -> List<Account>`
++
+Gets the list of all accounts.
+
+'''
+
+* `getShownAccounts() -> List<Account>`
++
+Gets the list of accounts currently shown in the accounts tab. (This depends on the previous execution of the command `account find`.)
+
+'''
+
+* `getActiveAccount() -> Account`
++
+Gets the current active account.
+
+'''
+
+* `setActiveAccount(index) -> Account`
++
+Sets the current active account.
++
+Parameters:
++
+** `index`: the zero-based index of the account, as in `getShownAccounts()`
+
+'''
+
+* `getAccount(nameOrIndex) -> Account`
++
+Gets an account by name or index.
++
+Parameters:
++
+** `nameOrIndex`: the zero-based index of the account, as in `getAccounts()`, or the account's name (case-sensitive) as a `string`
+
+'''
+
+* `getShownAccount(index) -> Account`
++
+Gets an account by index.
++
+Parameters:
++
+** `index`: the zero-based index of the account, as in `getShownAccounts()`
+
+'''
+
+// tag::scriptingapi3[]
+
+* `addAccount(name, description) -> Account`
++
+Adds an account with the given name and description.
++
+Parameters:
++
+** `name`: the name of the account, as a `string`
+** `description`: the description of the account, as a `string`
+
+'''
+
+* `morphAccount(oldAccount, { name, description }) -> Account`
++
+Returns a new `Account` that is the same as `oldAccount` except for the specified properties changed.
++
+Parameters:
++
+** `oldAccount`: the `Account` to morph
+** The remaining parameters are as in `addAccount`.
+** If a parameter is not specified, then the associated property is not changed.
+
+// end::scriptingapi3[]
+
+'''
+
+* `editAccount(nameOrIndex, { name, description }) -> Account`
++
+Edits the specified account, changing the specified properties, and returns the edited account.
++
+Parameters:
++
+** `nameOrIndex`: the zero-based index of the account, as in `getAccounts()`, or the account's name (case-sensitive) as a `string`
+** The remaining parameters are as in `addAccount`.
+** If a parameter is not specified, then the associated property is not changed.
+
+'''
+
+* `deleteAccount(nameOrIndex)`
++
+Deletes the specified account.
++
+Parameters:
++
+** `nameOrIndex`: the zero-based index of the account, as in `getAccounts()`, or the account's name (case-sensitive) as a `string`
+
+'''
+
+* `accountName(account) -> string`
++
+Gets the account's name.
+
+'''
+
+* `accountDescription(account) -> string`
++
+Gets the account's description.
+
+'''
+
+* `accountBalance(account) -> number`
++
+Gets the account's balance, in cents.
+
+'''
+
+* `accountTxns(account) -> List<Transaction>`
++
+Gets the list of transactions of the account.
+
+==== Transaction functions
+
+* `refreshTxnView()`
++
+Refreshes the transaction list after transactions have been added, modified or deleted. This does not activate the transaction tab.
+
+'''
+
+* `addTxn(amount, direction, description, { account, date, categories }) -> Transaction`
++
+Adds a transaction with the given information.
++
+Parameters:
++
+** `amount`: the amount in cents as a `number`
+** `direction`: the direction, either `'IN'` or `'OUT'`
+** `description`: the description as a `string`
+** `account`: the `Account` to add the transaction to; defaults to `getActiveAccount()`
+** `date`: the date of the transaction, either as a `LocalDate` or a `string` parsable by `parseDate`; defaults to today's date
+** `categories`: the categories of the transaction, as an array of `string`; defaults to empty
+
+'''
+
+* `morphTxn(oldTxn, { amount, direction, description, date, categories }) -> Transaction`
++
+Returns a new `Transaction` that is the same as `oldTxn` except for the specified properties changed.
++
+Parameters:
++
+** `oldTxn`: the `Transaction` to morph
+** The remaining parameters are as in `addTxn`.
+** If a parameter is not specified, then the associated property is not changed.
+
+'''
+
+* `editTxn(account, oldTxn, { amount, direction, description, date, categories }) -> Transaction`
++
+Edits the given transaction, changing the specified properties, and returns the edited transaction.
++
+Parameters:
++
+** `account`: the `Account` containing `oldTxn`
+** `oldTxn`: the `Transaction` to edit
+** The remaining parameters are as in `addTxn`.
+** If a parameter is not specified, then the associated property is not changed.
+
+'''
+
+* `deleteTxn(account, txn)`
++
+Deletes the given transaction from the given account.
+
+'''
+
+* `getShownTxn(index) -> Transaction`
++
+Gets a transaction by index.
++
+Parameters:
++
+** `index`: the zero-based index of the transaction, as in `getShownTxns()`
+
+'''
+
+* `editShownTxn(index, { amount, direction, description, date, categories }) -> Transaction`
++
+Edits a transaction, changing the specified properties, and returns the edited transaction.
++
+Parameters:
++
+** `index`: the zero-based index of the transaction, as in `getShownTxns()`
+** The remaining parameters are as in `addTxn`.
+** If a parameter is not specified, then the associated property is not changed.
+
+'''
+
+* `deleteShownTxn(index)`
++
+Deletes a transaction.
++
+Parameters:
++
+** `index`: the zero-based index of the transaction, as in `getShownTxns()`
+
+'''
+
+* `getShownTxns() -> List<Transaction>`
++
+Gets the list of transactions currently shown in the transactions tab. (This depends on the current active account as well as the last time the view was refreshed.)
+
+'''
+
+* `txnAmount(txn) -> number`
++
+Gets the amount of the transaction, in cents.
+
+'''
+
+* `txnDescription(txn) -> string`
++
+Gets the description of the transaction.
+
+'''
+
+* `txnDate(txn) -> LocalDate`
++
+Gets the date of the transaction.
+
+'''
+
+* `txnDirection(txn) -> string ("IN" | "OUT")`
++
+Gets the direction of the transaction.
+
+'''
+
+* `txnCategories(txn) -> [string]`
++
+Gets the categories the transaction is in, as an array of ``string``s.
+
+==== Loan functions
+
+* `addLoan(amount, direction, person, { description, date, paid }) -> Loan`
++
+Adds a loan with the given information.
++
+Parameters:
++
+** `amount`: the amount in cents as a `number`
+** `direction`: the direction, either `'IN'` or `'OUT'`
+** `person`: the name of the other party as a `string`
+** `description`: the description as a `string`; defaults to empty
+** `date`: the date of the loan, either as a `LocalDate` or a `string` parsable by `parseDate`; defaults to today's date
+** `paid`: whether the loan is paid; either `true` or `false`; defaults to `false`
+
+'''
+
+* `morphLoan(loan, { amount, direction, person, description, date, paid }) -> Loan`
++
+Returns a new `Loan` that is the same as `loan` except for the specified properties changed.
++
+Parameters:
++
+** `loan`: the `Loan` to morph
+** The remaining parameters are as in `addLoan`.
+** If a parameter is not specified, then the associated property is not changed.
+
+'''
+
+* `editShownLoan(index, { amount, direction, person, description, date, paid }) -> Loan`
++
+Edits the given loan, changing the specified properties, and returns the edited loan.
++
+Parameters:
++
+** `index`: the zero-based index of the transaction, as in `getShownLoans()`
+** The remaining parameters are as in `addLoan`.
+** If a parameter is not specified, then the associated property is not changed.
+
+'''
+
+* `deleteShownLoan(index)`
++
+Deletes the specified loan.
++
+Parameters:
++
+** `index`: the zero-based index of the transaction, as in `getShownLoans()`
+
+'''
+
+* `getShownLoans() -> List<Loan>`
++
+Gets the loans currently shown in the loans tab. (This depends on the previous execution of the command `loan list`.)
+
+'''
+
+* `getLoans() -> List<Loan>`
++
+Gets all loans.
+
+'''
+
+* `loanAmount(loan) -> number`
++
+Gets the amount in cents of the loan.
+
+'''
+
+* `loanDirection(loan) -> string ("IN" | "OUT")`
++
+Gets the direction of the loan.
+
+'''
+
+* `loanPerson(loan) -> string`
++
+Gets the name of the other party in the loan.
+
+'''
+
+* `loanDate(loan) -> LocalDate`
++
+Gets the date of the loan.
+
+'''
+
+* `loanDescription(loan) -> string`
++
+Gets the loan's description.
+
+'''
+
+* `loanIsPaid(loan) -> boolean`
++
+Returns `true` if the loan is paid; `false` otherwise.
+
+==== Miscellaneous functions
+
+* `parseDate(date) -> LocalDate`
++
+Parses a date.
++
+Parameters:
++
+** `date`: The date, as a `string` in the format `d/M/yyyy`, e.g. `"1/1/2011"`
+
+'''
+
+* `makeDate(year, month, day) -> LocalDate`
++
+Constructs a date from the year, month and day, passed as ``number``s.
+
+'''
+
+* `showAlert(title, message)`
++
+Shows an alert dialog and waits for the user to dismiss the dialog.
+
+'''
+
+* `executeCommand(command) -> CommandResult`
++
+Executes a command.
++
+This may only be executed from the JavaFX application thread. Behaviour is undefined
+if this is called from a background thread.
++
+NOTE: While Budget Buddy does not by itself run commands from background threads,
+scripts are free to create threads.
++
+Parameters:
++
+** `command`: The command, as a `string`.
++
+[WARNING]
+====
+You are recommended not to use this, where possible, and instead use the other helper
+functions documented above.
+
+Use of this function may result in undefined behaviour.
+====
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q:* Which version of Java do I require to run this application?
+
+*A:* Java 11
+
+'''
+
+*Q:* How do I switch between the different tabs without clicking on them?
+
+*A:* Simply execute the `list` command for that category, e.g. `rule list`.
+Executing any command from that category will switch you over as well.
+You can also use the hotkey kbd:[Ctrl+D] to jump between consecutive tabs in the list.
+
+'''
+
+*Q:* How do I reset the application data?
+
+*A:* All data is stored within the same folder as your execution path, under the `data/` folder.
+Deleting that folder will reset the application data upon rebooting the application.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+=== Help
+
+* `help` - Get the link to the user guide
+
+=== Transactions
+
+* `txn out|in` - Add a new transaction
+* `txn list` - List transactions for the active account
+* `txn edit` - Edit a transaction
+* `txn delete` - Delete a transaction
+
+=== Accounts
+
+* `account add` - Add a new account
+* `account list` - List accounts
+* `account switch` - Switch the current active account
+* `account edit` - Edit an account
+* `account find` - Find accounts
+* `account report` - Print a report of an account
+* `account overview` - Export HTML overview of all accounts
+* `account delete` - Delete an account
+
+=== Loans
+
+* `loan out|in` - Add a new loan
+* `loan list` - List loans
+* `loan edit` - Edit a loan
+* `loan paid` - Mark loan(s) as paid
+* `loan unpaid` - Mark loan(s) as unpaid
+* `loan delete` - Delete loan(s)
+* `loan split` - Split a bill
+
+=== Rules
+
+* `rule add` - Add a new rule
+* `rule list` - List rules
+* `rule swap` - Swap rule positions
+* `rule edit` - Edit a rule
+* `rule delete` - Delete a rule
+
+=== Script
+
+* `script eval` - Evaluate a script
+* `script add` - Add a script
+* `script list` - List scripts
+* `script run` - Run an added script
+* `script delete` - Delete a script
+* `script reset` - Reset the scripting environment
+
+

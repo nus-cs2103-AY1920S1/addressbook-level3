@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<VBox alignment="CENTER_LEFT" id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="5" left="15" right="5" top="5" />
+    </padding>
+    <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+    <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
+</VBox>
