@@ -9,6 +9,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DIRECTION;
+import static java.util.Objects.requireNonNull;
 
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.CommandCategory;
@@ -56,7 +57,7 @@ public class TransactionAddCommand extends ScriptCommand {
      * Creates an AddTransactionCommand to add the specified {@code Transaction}
      */
     public TransactionAddCommand(Transaction toAdd, Name toAccountName) {
-        requireAllNonNull(toAdd, toAccountName);
+        requireNonNull(toAdd);
         this.toAdd = toAdd;
         this.toAccountName = toAccountName;
     }

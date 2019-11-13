@@ -37,10 +37,4 @@ public class TransactionEditCommandTest {
         assertThrows(NullPointerException.class, () -> new TransactionAddCommand(null, new Name("Default")));
     }
 
-    @Test
-    public void constructor_nullAccountName_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new TransactionAddCommand(testTransaction, null));
-    }
-
-
 }
