@@ -64,7 +64,7 @@ include::../UserGuide.adoc[tag=assignments]
 write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=assignment]
+include::../DeveloperGuide.adoc[tag=Assignment]
 
 
 == PROJECT: PowerPointLabs
