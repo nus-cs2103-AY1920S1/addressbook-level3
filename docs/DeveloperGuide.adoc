@@ -1093,7 +1093,7 @@ Expected: Nothing is set. Invalid message shown.
 .. Other incorrect add commands to try: `set sd/12/12/2019` +
 Expected: Similar to previous
 
-/// tag::tripmanagementtest[]
+// tag::tripmanagementtest[]
 === New
 * Creates and loads a new empty trip with desired name
 .. Prerequisites: Arguments are valid and no existing saved trips have the same name.
@@ -1105,7 +1105,7 @@ Expected: Planner name not specified
 .. Test case: `new n/Iceland Trip`, `new n/Iceland Trip` +
 Expected: This planner already exists
 
-== Copyto
+=== Copyto
 * Creates and loads a copy of current trip using desired name
 .. Prerequisites: Arguments are valid and no existing saved trips have the same name.
 A name must be provided.
@@ -1122,7 +1122,7 @@ Expected: Planner name not specified
 .. Test case: `copyto n/China v1` +
 Expected: This planner already exists
 
-== Load
+=== Load
 * Loads a saved trip with desired name
 .. Prerequisites: Arguments are valid and no existing saved trips have the same name.
 A name must be provided.
