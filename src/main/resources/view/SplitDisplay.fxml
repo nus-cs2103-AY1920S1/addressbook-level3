@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+
+<SplitPane dividerPositions="0.25" focusTraversable="false" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <items>
+      <TabPane fx:id="infoTabPane" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab text="ACC" fx:id="accommodationTab" />
+            <Tab text="ACT" fx:id="activityTab" />
+            <Tab text="CON" fx:id="contactTab"/>
+        </tabs>
+      </TabPane>
+      <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Info List" fx:id="infoListTab" />
+          <Tab text="Itinerary" fx:id="itineraryTab" />
+        </tabs>
+      </TabPane>
+  </items>
+</SplitPane>

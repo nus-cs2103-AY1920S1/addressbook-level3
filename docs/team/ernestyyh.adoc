@@ -1,0 +1,78 @@
+= Yeo Yik Hwee Ernest - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Plan²travel
+
+This portfolio aims to document the contributions that I have made to the *_Plan²travel_* project.
+
+*_Plan²travel_* Github link: https://ay1920s1-cs2103t-t09-1.github.io/main/
+
+---
+
+== Introduction
+
+*Plan²travel* is a desktop travel planning application. The application is targeted at fellow university students who
+travel infrequently and would greatly benefit from an application that helps organize their travelling information when they plan their own itinerary. Plan²travel has the ability to store and display information such as activities, accommodations, contacts and an itinerary which comprises of a list of day. Each day is displayed with a list of activities that is scheduled. +
+
+The user interacts with the application using a Command Line Interface (CLI), and it has Graphical User Interface GUI created with JavaFX.
+
+It is cross-platform and can be compiled for both Windows and Mac OS.
+
+Below is a screenshot of our application:
+
+image::../images/Plan2TravelSS.png[]
+
+== Summary of contributions
+|===
+|Below is a summary of the contributions that I have made to the project.
+|===
+
+=== *Major enhancement*: +
+* *Added and modified commands to facilitate trip management*
+** *What it does:* allows the user to create new trips, load and rename existing trips, make copies
+of existing trips and also clear existing trip information.
+
+** *Justification:* This feature improves the product significantly because it allow users to plan for multiple
+trips. This removes the initial limitation of only being able to plan for a single trip at a time.
+Under the initial limitation, users would have had to constantly overwrite their trip plans and lose any previous
+plans that they have made.
+
+* *Functional Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/226[Update 1] |
+https://github.com/AY1920S1-CS2103T-T09-1/main/pull/270[Update 2] |
+https://github.com/AY1920S1-CS2103T-T09-1/main/pull/274[Update 3] |
+https://github.com/AY1920S1-CS2103T-T09-1/main/pull/278[Final Update]
+
+=== *Other Contributions*:
+** UI:
+*** Morphed and improved upon the initial AB3 UI (https://github.com/AY1920S1-CS2103T-T09-1/main/pull/69[#69],
+https://github.com/AY1920S1-CS2103T-T09-1/main/pull/81[#81],
+https://github.com/AY1920S1-CS2103T-T09-1/main/pull/98[#98])
+** Documentation:
+*** Contributed to the User Guide and Developer Guide for this project. See below for more details.
+** Community:
+*** Over 10 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?q=is%3Apr+is%3Aclosed+author%3Aernestyyh[Pull Requests] on Github
+*** Over 15 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?utf8=%E2%9C%93&q=is%3Apr+commenter%3Aernestyyh[Reviews] on Github
+
+*Overall Code Contribution https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=ernestyyh[here]*
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to Plan²travel User Guide. They showcase my ability to write documentation
+targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=tripmanagement]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project._
+|===
+include::../DeveloperGuide.adoc[tag=tripmanagement]
+
+=== Contributions to Instructions for Manual Testing
+include::../DeveloperGuide.adoc[tag=tripmanagementtest]
+

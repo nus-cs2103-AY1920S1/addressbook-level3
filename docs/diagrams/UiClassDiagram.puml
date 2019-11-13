@@ -3,18 +3,25 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
+'skinparam linetype ortho
 
 package UI <<Rectangle>>{
 Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
-Class HelpWindow
-Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
-Class StatusBarFooter
+Class CentralDisplay
+Class FeedbackDisplay
 Class CommandBox
+Class AutoCompleteTextField
+Class AgendaManager
+    package Panels {
+        Class XYZListPanel
+    }
+    package Cards {
+        Class XYZCardFull
+        Class XYZCardSmall
+    }
 }
 
 package Model <<Rectangle>> {
@@ -28,33 +35,40 @@ Class HiddenLogic #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
-UiManager .left.|> Ui
+'AgendaManager -[hidden] XYZListPanel
+'XYZListPanel -[hidden] XYZCardSmall
+'XYZCardSmall -[hidden] XYZCardFull
+UiPart -[hidden] UiManager
+
+UiManager .up.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
-MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> FeedbackDisplay
+MainWindow *-down-> CentralDisplay
+CentralDisplay *-down-> AgendaManager
+CentralDisplay *-down-> XYZListPanel
+CommandBox *-down-> AutoCompleteTextField
 
-PersonListPanel -down-> PersonCard
+MainWindow -up-|> UiPart
+FeedbackDisplay -up-|> UiPart
+XYZCardFull -up-|> UiPart
+XYZCardSmall -up-|> UiPart
+XYZListPanel -up----|> UiPart
 
-MainWindow -left-|> UiPart
-
-ResultDisplay --|> UiPart
-CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
-
-PersonCard ..> Model
 UiManager -right-> Logic
-MainWindow -left-> Logic
+MainWindow -right-> Logic
+AutoCompleteTextField -right-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
+XYZCardFull ..> Model
+XYZCardSmall ..>  Model
+XYZListPanel ....>  Model
+AgendaManager .[hidden].>  Model
+AgendaManager ..>  Model
+
+XYZListPanel -->  XYZCardSmall
+XYZListPanel -->  XYZCardFull
+
+CommandBox -[hidden]left- FeedbackDisplay
 
 MainWindow -[hidden]-|> UiPart
 @enduml

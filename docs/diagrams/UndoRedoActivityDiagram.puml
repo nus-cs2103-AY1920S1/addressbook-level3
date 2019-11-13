@@ -1,0 +1,41 @@
+@startuml
+start
+:User executes command;
+if () then ([is UndoableCommand])
+    :Generate event;
+    :Add event to undoEventStack;
+    :Clear redoEventStack;
+    :Execute command;
+else
+    if () then ([is UndoCommand or RedoCommand])
+        if () then ([is UndoCommand])
+            : Execute UndoCommand;
+            if () then ([undoEventStack is empty])
+                :Display error message;
+            else([else])
+                : Pop event from
+                undoEventStack;
+                :Push event to
+                   redo stack;
+                :  Execute undo
+                method of event;
+            endif
+        else([is RedoCommand])
+            : Execute RedoCommand;
+            if () then ([redoEventStack is empty])
+                :Display error message;
+            else([else])
+                :Pop event from
+                redoEventStack;
+                : Push event to
+                undoEventStack;
+                :   Execute undo
+                method of event;
+            endif
+         endif
+     else([else])
+        :Execute command;
+    endif
+endif
+stop
+@enduml

@@ -1,0 +1,65 @@
+@startuml
+!include style.puml
+title Sequence diagram for undo 'delete activity' command
+
+box Logic LOGIC_COLOR_T1
+participant ":UndoCommand" as UndoCommand LOGIC_COLOR
+participant "<<class>>\n:CommandHistory" as CommandHistory LOGIC_COLOR
+participant ":DeleteActivityEvent" as DeleteActivityEvent LOGIC_COLOR
+participant ":AddActivityCommand" as AddActivityCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> UndoCommand : execute(model)
+activate UndoCommand
+
+UndoCommand -> CommandHistory : getUndoEvent()
+activate CommandHistory
+
+CommandHistory --> UndoCommand : event
+deactivate CommandHistory
+
+UndoCommand -> CommandHistory : addToRedoStack(event)
+activate CommandHistory
+
+CommandHistory --> UndoCommand
+deactivate CommandHistory
+
+UndoCommand -> DeleteActivityEvent : undo()
+activate DeleteActivityEvent
+
+DeleteActivityEvent -> AddActivityCommand
+activate AddActivityCommand
+
+AddActivityCommand --> DeleteActivityEvent
+deactivate AddActivityCommand
+
+DeleteActivityEvent --> UndoCommand : command
+deactivate DeleteActivityEvent
+
+UndoCommand -> AddActivityCommand : execute(model)
+activate AddActivityCommand
+
+AddActivityCommand -> ModelManager : addActivityAtIndex(index, activity)
+activate ModelManager
+
+ModelManager --> AddActivityCommand
+deactivate ModelManager
+
+create CommandResult
+AddActivityCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddActivityCommand
+deactivate CommandResult
+
+AddActivityCommand --> UndoCommand : commandResult
+deactivate AddActivityCommand
+
+[<--UndoCommand : commandResult
+deactivate UndoCommand
+@enduml

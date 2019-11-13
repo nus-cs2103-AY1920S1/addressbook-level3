@@ -4,21 +4,75 @@ skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
+Package Storage <<Rectangle>> {
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
-
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonAdaptedTag
 
-StorageManager .left.|> Storage
+Package Accommodation {
+Interface AccommodationStorage <<Interface>>
+Class JsonAccommodationStorage
+Class JsonSerializableAccommodation
+Class JsonAdaptedAccommodation
+}
+
+Package Activity {
+Interface ActivityStorage <<Interface>>
+Class JsonActivityStorage
+Class JsonSerializableActivity
+Class JsonAdaptedActivity
+}
+
+Package Contact {
+Interface ContactStorage <<Interface>>
+Class JsonContactStorage
+Class JsonSerializableContact
+Class JsonAdaptedContact
+}
+
+Package Day {
+Interface ItineraryStorage <<Interface>>
+Class JsonItineraryStorage
+Class JsonSerializableItinerary
+Class JsonAdaptedDay
+Class JsonAdaptedActivityWithTime
+}
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ...>Storage
+
+StorageManager .up.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
-
+StorageManager o--> AccommodationStorage
+StorageManager o----> ActivityStorage
+StorageManager o--> ContactStorage
+StorageManager o-left-> ItineraryStorage
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+
+JsonAccommodationStorage .right.|> AccommodationStorage
+JsonAccommodationStorage .down.> JsonSerializableAccommodation
+JsonSerializableAccommodation -right-> JsonAdaptedAccommodation
+JsonAdaptedAccommodation -down-> JsonAdaptedTag
+JsonAdaptedAccommodation -down-> JsonAdaptedContact
+
+JsonActivityStorage .right.|> ActivityStorage
+JsonActivityStorage .down.> JsonSerializableActivity
+JsonSerializableActivity -right-> JsonAdaptedActivity
+JsonAdaptedActivity -down-> JsonAdaptedTag
+JsonAdaptedActivity -down----> JsonAdaptedContact
+
+JsonContactStorage .right.|> ContactStorage
+JsonContactStorage .down.> JsonSerializableContact
+JsonSerializableContact -right-> JsonAdaptedContact
+JsonAdaptedContact -up-> JsonAdaptedTag
+
+JsonItineraryStorage .left.|> ItineraryStorage
+JsonItineraryStorage .right.> JsonSerializableItinerary
+JsonSerializableItinerary -down-> JsonAdaptedDay
+JsonAdaptedDay -right-> JsonAdaptedActivityWithTime
+JsonAdaptedActivityWithTime -down--> JsonAdaptedActivity
+
 @enduml

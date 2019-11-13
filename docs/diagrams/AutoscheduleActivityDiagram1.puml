@@ -1,0 +1,31 @@
+@startuml
+skinparam activityShape rectangle
+
+start
+:Entered autoschedule command;
+
+:Check if prefixes and parameters are valid;
+
+if() then ([is valid])
+    :check if user specify an address;
+    if() then ([specified])
+    :Get activities with the same address;
+    else ([not specified])
+    :Get all activities;
+    endif
+    :check if activities empty;
+        if() then ([is not empty])
+            :check if user specify days to schedule;
+            if() then (specified])
+            else ([not specified])
+                : autoschedule will schedule for all days;
+            endif
+        else ([is empty])
+        :inform user of no activities with \nthat address found;
+        endif
+
+else ([is invalid])
+    :inform user of invalid input;
+endif
+stop
+@enduml

@@ -1,0 +1,94 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":PlannerParser" as PlannerParser LOGIC_COLOR
+participant ":UnscheduleCommandParser" as UnscheduleCommandParser LOGIC_COLOR
+participant "u:UnscheduleCommand" as UnscheduleCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("unschedule activity 1 d/1")
+activate LogicManager
+
+LogicManager -> PlannerParser : parseCommand("unschedule activity 1 d/1")
+activate PlannerParser
+
+create UnscheduleCommandParser
+PlannerParser -> UnscheduleCommandParser
+activate UnscheduleCommandParser
+
+UnscheduleCommandParser --> PlannerParser
+deactivate UnscheduleCommandParser
+
+PlannerParser -> UnscheduleCommandParser : parse("activity 1 d/1")
+activate UnscheduleCommandParser
+
+UnscheduleCommandParser -> UnscheduleCommandParser : parseUnscheduleActivity("1 d/1")
+activate UnscheduleCommandParser
+
+create UnscheduleCommand
+UnscheduleCommandParser -> UnscheduleCommand
+activate UnscheduleCommand
+
+UnscheduleCommand --> UnscheduleCommandParser : u
+deactivate UnscheduleCommand
+
+UnscheduleCommandParser --> UnscheduleCommandParser : u
+
+deactivate UnscheduleCommandParser
+
+UnscheduleCommandParser --> PlannerParser : u
+deactivate UnscheduleCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+UnscheduleCommandParser -[hidden]-> PlannerParser
+destroy UnscheduleCommandParser
+
+PlannerParser --> LogicManager : u
+deactivate PlannerParser
+
+LogicManager -> UnscheduleCommand : execute()
+activate UnscheduleCommand
+
+UnscheduleCommand -> Model : getFilteredDayList()
+activate Model
+
+Model --> UnscheduleCommand
+deactivate Model
+
+UnscheduleCommand -> Model : getFilteredActivityList()
+activate Model
+
+Model --> UnscheduleCommand
+deactivate Model
+
+UnscheduleCommand -> UnscheduleCommand : createUnscheduledActivityDay(dayToEdit, activityToUnschedule)
+activate UnscheduleCommand
+
+UnscheduleCommand --> UnscheduleCommand : d
+deactivate UnscheduleCommand
+
+UnscheduleCommand -> Model : setDays(editedDays)
+activate Model
+deactivate Model
+'Hidden arrow to make some space between setDays and CommandResult.
+Model -[hidden]-> UnscheduleCommand
+create CommandResult
+UnscheduleCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> UnscheduleCommand
+deactivate CommandResult
+
+UnscheduleCommand --> LogicManager : result
+deactivate UnscheduleCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

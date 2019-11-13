@@ -1,0 +1,76 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":PlannerParser" as PlannerParser LOGIC_COLOR
+participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant ":AddActivityCommand" as AddActivityCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> LogicManager : execute("add activity n/Climb Fuji a/Mount Fuji")
+activate LogicManager
+
+LogicManager -> PlannerParser : parseCommand("add activity n/Climb Fuji a/Mount Fuji")
+activate PlannerParser
+
+create AddCommandParser
+PlannerParser -> AddCommandParser
+activate AddCommandParser
+
+AddCommandParser --> PlannerParser
+deactivate AddCommandParser
+
+PlannerParser -> AddCommandParser : parse("activity n/Climb Fuji a/Mount Fuji")
+activate AddCommandParser
+
+AddCommandParser -> AddCommandParser : parseActivity("n/Climb Fuji a/Mount Fuji")
+activate AddCommandParser
+
+create AddActivityCommand
+AddCommandParser -> AddActivityCommand
+
+activate AddActivityCommand
+AddActivityCommand --> AddCommandParser
+deactivate AddActivityCommand
+
+AddCommandParser -> AddCommandParser
+deactivate AddCommandParser
+
+AddCommandParser --> PlannerParser
+deactivate AddCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddCommandParser -[hidden]-> PlannerParser
+destroy AddCommandParser
+
+PlannerParser --> LogicManager
+deactivate PlannerParser
+
+LogicManager -> AddActivityCommand : execute()
+activate AddActivityCommand
+
+AddActivityCommand -> ModelManager : addActivity()
+activate ModelManager
+
+ModelManager --> AddActivityCommand
+deactivate ModelManager
+
+create CommandResult
+AddActivityCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddActivityCommand
+deactivate CommandResult
+
+AddActivityCommand --> LogicManager : commandResult
+deactivate AddActivityCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

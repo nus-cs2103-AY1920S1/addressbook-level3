@@ -1,0 +1,88 @@
+{
+  "_comment": "Planner save file which contains the same Contact values as in TypicalContacts#getTypicalPlanner()",
+  "contacts" : [ {
+    "name" : "Alice Pauline",
+    "phone" : "94351253",
+    "email" : "alice@example.com",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Benson Meier",
+    "phone" : "98765432",
+    "email" : "johnd@example.com",
+    "address" : "311, Clementi Ave 2, #02-25",
+    "tagged" : [ "owesMoney", "friends" ]
+  }, {
+    "name" : "Carl Kurz",
+    "phone" : "95352563",
+    "email" : "heinz@example.com",
+    "address" : "wall street",
+    "tagged" : [ ]
+  }, {
+    "name" : "Daniel Meier",
+    "phone" : "87652533",
+    "email" : "cornelia@example.com",
+    "address" : "10th street",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Elle Meyer",
+    "phone" : "9482224",
+    "email" : "werner@example.com",
+    "address" : "michegan ave",
+    "tagged" : [ ]
+  }, {
+    "name" : "Fiona Kunz",
+    "phone" : "9482427",
+    "email" : "lydia@example.com",
+    "address" : "little tokyo",
+    "tagged" : [ ]
+  }, {
+    "name" : "George Best",
+    "phone" : "9482442",
+    "email" : "anna@example.com",
+    "address" : "4th street",
+    "tagged" : [ ]
+  }, {
+    "name" : "Sam Smith",
+    "phone" : "92007122",
+    "email" : "sam1997@gmail.com",
+    "address" : "Nantan, Kyoto 601-0776, Japan",
+    "tagged" : ["tourguide"]
+  }, {
+    "name" : "Matsafushi",
+    "phone" : "82337121",
+    "email" : "matsafushi@gmail.com",
+    "address" : "150-2345 Tokyo-to, Shibuya-ku, Hommachi 2 choume, 4-7, Sunny Mansion 203",
+    "tagged" : ["tourguide"]
+  }, {
+    "name" : "Yui",
+    "phone" : "93619823",
+    "email" : "Yui@hotmail.com",
+    "address" : "Akishima, Tokyo 196-0022",
+    "tagged" : []
+  }, {
+    "name" : "Himari",
+    "phone" : "94523656",
+    "email" : "Himari@hotmail.com",
+    "address" : "5 Chome Josai, Nishi Ward, Nagoya, Aichi 451-0031",
+    "tagged" : ["tourguide"]
+  }, {
+    "name" : "kosuke",
+    "phone" : "95255523",
+    "email" : "kosuke@hotmail.com",
+    "address" : "5 Chome Josai, Nishi Ward, Nagoya, Aichi 451-0031",
+    "tagged" : []
+  }, {
+    "name" : "Kakashi",
+    "phone" : "95131415",
+    "email" : "kakashi@yahoo.com",
+    "address" : "Aioi Inuyama, Aichi 484-0081",
+    "tagged" : ["tourguide", "experienced"]
+  }, {
+    "name" : "Maylin",
+    "phone" : "95123444",
+    "email" : "Maylin@yahoo.com",
+    "address" : "Kita Ward, Kyoto, 603-8477",
+    "tagged" : ["Japanfriend"]
+  } ]
+}

@@ -1,0 +1,80 @@
+= Lew Kai Ming - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Plan²travel
+
+---
+
+== Overview
+
+*Plan²travel* is a desktop travel planning application. The application is targeted at fellow university students who
+travel infrequently and would greatly benefit from an application that helps organize their travelling information when they plan their own itinerary. Plan²travel has the ability to store and display information such as activities, accommodations, contacts and an itinerary which comprises of a list of day. Each day is displayed with a list of activities that is scheduled. +
+
+The user interacts with the application using a Command Line Interface (CLI), and it has Graphical User Interface GUI created with JavaFX.
+
+It is cross-platform and can be compiled for both Windows and Mac OS.
+
+Below is a screenshot of our application:
+
+image::../images/Plan2TravelSS.png[]
+
+== Summary of contributions
+
+|===
+|_This section is a summary of the contributions I have made to the team project._
+|===
+
+=== *Major enhancement*: +
+* *Added the ability to manage Accommodations and Activities in the itinerary*
+** *What it does:* allows the user to compile information important to planning an itinerary.
+** *Justification:* This feature improves the product significantly because it allows the user to enter data in a standardised format, making itineraries more readable and manageable.
+** *Highlights:* This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** *Credits:* _The commands were adapted and built upon commands from Address Book 3_
+
+=== *Minor enhancement*: +
+** *Added the ability to optimise a day's schedule*
+*** What it does: allows the user to optimise a day's schedule by looking for the best way to schedule activities such that there are no conflicts and that the schedule is at the lowest cost. If there are multiple possibilities, the one with the most number of activities would be chosen.
+*** Justification: This feature improves the product because it allows users to rid the schedule of conflicts with a single command.
+*** Highlights: This enhancement can be extended to allow the user to optimise the schedule besides cost and number of activities.
+
+** *Link different model components to update one another*
+*** What it does: allows the user to update the contact in an Activity/Accommodation from the contact list, vice versa.
+*** Justification: This feature improves the product as it incorporates different models into the product and polishes the product.
+*** Highlights: This enhancement makes the product a more cohesive ecosystem.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=KxxMxxx[RepoSense Report]]
+
+=== *Other contributions*:
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage https://github.com/AY1920S1-CS2103T-T09-1/main/pull/221[#221], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/268[#268]
+
+** Documentation:
+*** Did tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/248[#248]
+
+** PRs reviewed: https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?q=is%3Apr+reviewed-by%3AKxxMxxx+is%3Aclosed[Reviews]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=addaccommodation]
+include::../UserGuide.adoc[tag=editaccommodation]
+include::../UserGuide.adoc[tag=deleteaccommodation]
+include::../UserGuide.adoc[tag=addactivity]
+include::../UserGuide.adoc[tag=editactivity]
+include::../UserGuide.adoc[tag=deleteactivity]
+include::../UserGuide.adoc[tag=optimise]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=logic]
+include::../DeveloperGuide.adoc[tag=optimise]
+include::../DeveloperGuide.adoc[tag=userstories]

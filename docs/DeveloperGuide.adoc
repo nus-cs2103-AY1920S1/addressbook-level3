@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Plan²travel - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,15 +12,16 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T09-1/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team Plan²travel`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
 
 == Design
+
 
 [[Design-Architecture]]
 === Architecture
@@ -71,15 +72,16 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+// tag::uicomponent[]
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `FeedbackDisplay`, `ContactListPanel`, `ActivityListPanel`, `AccomodationListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -87,6 +89,9 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+// end::uicomponent[]
+
+// tag::logic[]
 
 [[Design-Logic]]
 === Logic component
@@ -98,19 +103,22 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `PlannerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a contact).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("add activity n/Climb Fuji a/Mount Fuji")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `add activity n/Climb Fuji a/Mount Fuji` Command
+image::AddSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `AddCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+// end::logic[]
+
+// tag::model[]
 [[Design-Model]]
 === Model component
 
@@ -122,125 +130,594 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a `ActivityManager`, `AccommodationManager`, `ContactManager` and `Itinerary` that represents the managers for activity, accommodation, contact and day respectively.
+* exposes an unmodifiable `ObservableList<Activity>`, `ObservableList<Accommodation>`, `ObservableList<Contact>` and `ObservableList<Day>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+// end::model[]
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
-
+// tag::storageuml[]
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageUML.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/planner/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* application data is split into 4 different components, `Accommodation`, `Activity`, `Contact`, `Itinerary`.
+
+// end::storageuml[]
+==== Accommodation Storage component
+.Structure of Accommodation Storage component
+image::AccommodationStorageUML.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/planner/storage/accommodation/AccommodationStorage.java[`AccommodationStorage.java`]
+
+The `Accommodation Storage` component,
+
+* can save `Accommodation` objects in json format and read it back.
+* as `Tag is a field in Accommodation`, similarly JsonAdaptedTag is a field within JsonAdaptedAccommodation. Hence
+the association as shown in the diagram above.
+* as `Contact is a field in Accommodation`, similarly JsonAdaptedContact is a field within JsonAdaptedAccommodation. Hence
+the association as shown in the diagram above.
+
+==== Activity Storage component
+.Structure of Activity Storage component
+image::ActivityStorageUML.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/planner/storage/activity/ActivityStorage.java[`ActivityStorage.java`]
+
+* can save `Activity` objects in json format and read it back.
+* as `Tag is a field in Activity`, similarly JsonAdaptedTag is a field within JsonAdaptedActivity. Hence
+the association as shown in the diagram above.
+* as `Contact is a field in Activity`, similarly JsonAdaptedContact is a field within JsonAdaptedActivity. Hence
+the association as shown in the diagram above.
+
+==== Contact Storage component
+.Structure of Contact Storage component
+image::ContactStorageUML.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/planner/storage/contact/ContactStorage.java[`ContactStorage.java`]
+
+* can save `Contact` objects in json format and read it back.
+* as `Tag is a field in Contact`, similarly JsonAdaptedTag is a field within JsonAdaptedContact. Hence
+the association as shown in the diagram above.
+
+==== Itinerary Storage component
+.Structure of Itinerary Storage component
+image::ItineraryStorageUML.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/planner/storage/day/ItineraryStorage.java[`ItineraryStorage.java`]
+
+* can save `Itinerary` objects in json format and read it back.
+* as `ActivityWithTime is a field in Day`, similarly JsonAdaptedActivityWithTime is a field within JsonAdaptedDay. Hence
+the association as shown in the diagram above.
+* as `Activity is a field in ActivityWithTime`, similarly JsonAdaptedActivity is a field within JsonAdaptedActivityWithTime.
+Hence the association as shown in the diagram above.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.plannerbook.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::tripmanagement[]
+=== Trip management
+*_Plan²travel_* allows the user to create new trips, load and rename existing trips, make copies
+of existing trips and also clear existing trip information.
+
+List of commands that helps with trip management:
+
+* `new n/NAME`  -- Creates and loads a new empty trip with desired name
+* `copyto n/NAME`  -- Creates and loads a copy of current trip using desired name
+* `load n/NAME` -- Loads a saved trip with desired name
+* `set n/NAME` -- Renames current trip to desired name
+* `clear` -- Clears all current trip information except for name
+
+==== Current Implementation
+
+A trip (or trip plan) will have a name that is identical to the directory name which it represents.
+The directory will be accessible via the `data/{Directory Name}` directory path of the home folder
+which the `plan2travel.jar` is stored in.
+
+For example, a trip named "Japan Trip" will represent a `Japan Trip` directory. This directory can
+be accessed using the `data/Japan Trip` directory path.
+
+The directory will contain the `accommodation.json`, `activity.json`, `contact.json` and
+`itinerary.json` of the current saved trip.
+
+The trip management mechanism is facilitated by `UserPrefs` where the desired directory path is
+stored internally as `plannerFilePath`.
+
+Operations to access `plannerFilePath` are exposed in the Model interface as `Model#getPlannerFilePath()`
+and `Model#setPlannerFilePath(Path)` respectively.
+
+Given below is the sequence diagram of how the `load` operation works:
+
+.Sequence diagram for `load` command
+image::LoadSequenceDiagram.png[width=90%, scaledwidth=90%]
+NOTE: The lifeline for `LoadCommand` should end at the destroy marker (X) but due to a limitation of PlantUML,
+the lifeline reaches the end of diagram.
+
+The sequence diagram above can be described by the following sequence of events:
+
+1. `LoadCommand` is executed
+2. `LoadCommand` updates the `UserPrefs` `plannerFilePath` and the `Itinerary` `nameProperty`
+3. `LogicManager` updates the respective file paths (that have been updated due to changes in
+`plannerFilePath`) in the `Storage` component
+4. `LogicManger` updates the respective lists in the `Model` component based on the new
+file paths
+5. `LogicManager` saves the respective lists in json format in directory designated by
+`plannerFilePath` through the `Storage` component
+
+The following activity diagram summarizes what happens when a user executes a `copyto` command.
+
+.Activity diagram for `copyto` command
+image::CopyToActivityDiagram.png[]
+
+==== Design Considerations
+Aspect: How the `Logic` component executes `set`
+
+* Current Choice: Deletes current directory before saving new directory containing previous
+json files
+** Pros:
+*** Uses `File#delete()` which is platform-independent and helps in ensuring the stability of the
+application.
+** Cons:
+*** May seem less intuitive. Deletion methods are used instead of renaming methods (which
+may be more appropriate given that `set` helps to rename the current directory).
+*** Likely to be more costly in terms of execution as it involves deleting the previous directory
+and saving a new one.
+
+* Alternative: Rename current directory and avoid saving over the updated directory.
+** Pros:
+*** Likely to be less costly in terms of execution as it does not involve deletion and saving
+of directories.
+** Cons:
+*** Uses `File#renameTo()` which is platform-dependent and may contribute to a less stable application.
+
+Aspect: How the commands execute based on Java API methods
+
+* Current Choice: Uses methods from `File` such as `File#delete()` and `File#exists()`
+** Pros:
+*** Methods used do not throw an `IOException` and may help ensure the stability of the application.
+** Cons:
+*** It may be difficult to diagnose issues that may arise.
+
+* Alternative: Uses methods from `Files` such as `Files#deleteIfExists()` and `Files#list(Path)`
+** Pros:
+*** Methods can throw an `IOException` which can help to diagnose issues.
+** Cons:
+*** However, certain usages of these methods can result in an `AccessDeniedException` which contributes to a
+less stable application.
+
+// end::tripmanagement[]
+
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
+The `undo` command allows user to undo by one command (if the command is `undoable`).
+The redo command allows user to return to the original state before latest undo.
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+==== Implementation
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+The undo/redo feature utilizes various classes to operate, such as `CommandHistory` class and the
+classes within the `events package` in the logic component.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+CommandHistory is a `static` class that contains the undoEventStack and redoEventStack of the application, each containing Events.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+*KEY IDEA:*
+|===
+| *Event* -- Every UndoableCommand can be wrapped into its own unique Event. +
+*undo/redo* -- Every Event has an undo and redo method. +
+*EventFactory* -- An Event object is generated by the EventFactory when executing the UndoableCommand. +
+|===
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+include::UserGuide.adoc[tag=undoredolist]
 
-image::UndoRedoState0.png[]
+*Step 1.* The user executes an `UndoableCommand`.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+*Step 2.* The UndoableCommand is executed, generating an `Event` in the process.
 
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
+*Step 3.* `EventFactory` will parse the `UndoableCommand` to generate an Event. +
+(eg. DeleteActivityCommand will result in DeleteActivityEvent generated)
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+EventFactory is a static class that will parse an UndoableCommand and generate the corresponding Event.
 
-The following sequence diagram shows how the undo operation works:
+*Step 4.* Event is added to `undoEventStack` stored in CommandHistory. The `redoEventStack` in
+CommandHistory is also `cleared` upon generating a new Event.
 
-image::UndoSequenceDiagram.png[]
+*Step 5.* The UndoableCommand has been executed, returning a `CommandResult` to be shown.
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+*Step 6.* To undo the previous UndoableCommand, the user executes `undo` command. An `UndoCommand` is generated.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+*Step 7.* `UndoCommand` is `not` an `UndoableCommand`. Executing the UndoCommand gets the Event from the top of undoEventStack
+and calls the undo method of `Event`.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+Both UndoCommand and RedoCommand are not UndoableCommands, no Events are generated.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+*Step 8.* The `Event` is popped from the undoEventStack and pushed to redoEventStack in CommandHistory. A CommandResult
+is returned and the Event is `undone`.
 
-image::UndoRedoState4.png[]
+*Step 9.* To redo the command that has been undone, the user executes `redo` command. A `RedoCommand` is generated and it
+is `not` an `UndoableCommand`. This execution is similar to steps `6` and `7`, except Event is popped from redo stack instead and pushed to undo stack.
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+The *following two sequence diagrams* shows how the user's input is handled for `'delete activity 1'`.
 
-image::UndoRedoState5.png[]
+The first diagram below shows the execution of `'delete activity 1'` command. It shows how the `Event` is generated and how the
+`undoEventStack and redoEventStack is updated`.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+.Executing delete activity
+image::DeleteActivitySequenceDiagram.png[]
 
-image::CommitActivityDiagram.png[]
+[NOTE]
+When DeleteActivityCommand is executed, it generates the `activityToDelete` by extracting the `Activity` to be deleted from
+the Model's list of activities based on the index specified in user's command input. It then calls the Model's
+`deleteActivity` method.
+
+The second diagram below shows the execution of `undo` command. Executing `UndoCommand` calls undo of the `DeleteActivityEvent`,
+which returns an `AddActivityCommand` with the `Activity (initially deleted)` to be added back at the `correct index`.
+Both Activity and Index were stored in `DeleteActivityEvent`. +
+
+This new `AddActivityCommand` is executed, and the `DeleteActivityCommand` is successfully undone.
+
+.Executing undo for 'delete activity'
+image::UndoDeleteActivitySequenceDiagram.png[]
+
+[NOTE]
+Each Event stores the `necessary data` required by the reverse Command to undo the effects of the initial
+UndoableCommand. +
+(eg. AddActivityEvent stores the `Activity added`, as `DeleteActivityCommand` requires the Activity to undo
+the initial `AddActivityCommand's` changes)
+
+The following *activity diagram* summarizes what happens when a user executes an UndoableCommand, an UndoCommand,
+a RedoCommand, or any other Commands.
+
+image::UndoRedoActivityDiagram.png[]
+
+[NOTE]
+If the user does not execute an UndoableCommand, UndoCommand or RedoCommand, the stack of Events in CommandHistory will *not be affected*. +
+(eg. view, list commands)
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Option 1 :** Wrap every UndoableCommand in an Event class, which has undo and redo methods.
+** Pros:
+*** Uses less memory by storing Event objects rather than storing every state of the Model.
+*** Convenient for future extensions for new Commands added. Just need to ensure for every UndoableCommand, there must be a Command
+that is able to undo its changes.
+*** Command classes obey Single Responsibility Principle, they do not need to know how to undo or redo itself, as it is
+abstracted to their corresponding Event classes.
+** Cons:
+*** Every UndoableCommand requires another Command to undo its changes. Might be difficult to manage if more UndoableCommands
+are added.
+* **Option 2 :** Saves the entire Model data (comprising of accommodations, activities, contacts and days).
+** Pros:
+*** Easy to implement.
+** Cons:
+*** May have performance issues in terms of memory usage. Expensive to store the various objects at every state.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* **Option 1 (current choice):** Use of static class CommandHistory to store a stack of Events to undo, and a stack of Events to redo.
+** Pros:
+*** Easy to implement and understand. Every Event object is generated through EventFactory and stored in CommandHistory.
+** Cons:
+*** Static class is used instead of Singleton implementation. No single instance of CommandHistory is created, cannot be
+passed as a parameter to other methods and treated as a normal object, hence might pose a difficulty during extensions.
+* **Option 2:** Create a HistoryManager class to store a single list of Model objects for undo/redo
+** Pros:
+*** Straightforward and easy implementation, storing a deep copy of Model whenever an UndoableCommand is executed.
+** Cons:
+*** Need to keep track of the Model object obtained from the list to set during Undo/Redo. Difficult to manage the pointer
+in the list.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::optimise[]
 
-_{Explain here how the data encryption feature will be implemented}_
+=== Schedule optimisation
+==== Implementation
 
-// end::dataencryption[]
+Scheduled activities in a day can be modeled as a `Directed Acyclic Graph (DAG)` where the `vertices` are the `activities` and an `edge` from 1 vertex to another means that the activities are `not overlapping`. Just like DAGs, there are `no cycles` within the schedule due to the linearity of time.
+When the command is executed, an `adjacency list` is formed from the existing activities within the schedule. The paths are then traced, with the help of a utility method, from the adjacency list to find `all possible combinations` of activities such that there are no overlaps between activities. The list of paths are then sorted
+by their total cost. If there are `multiple paths` with the `same total cost`, the one with the `most number of activities` is selected. The existing day is then replaced with a day that contains the new schedule made from the path.
+
+* optimise INDEX_OF_DAY -- optimises and de-conflicts the schedule. This operation supports activities with or without
+a cost. Activities without a cost have a default cost of $0.00.
+
+Given below is a sample usage of the feature:
+
+The user calls `optimise` command on an existing day with `overlapping activities` within its schedule. This results in a schedule `without overlaps` such that the `lowest overall cost` and the `most number of activities` if there are `multiple combinations` with the `same total cost`, such that the user's time is maximised.
+
+Shown below is a summary of the execution of the command.
+
+image::OptimiseSequenceDiagram.png[]
+
+==== Design considerations
+Aspect: Algorithm to de-conflict
+
+* Alternative 1 (current): Find all combinations, if the total cost is the same, combination with more activities is selected.
+
+** Pros:
+*** Allow users to maximise time by squeezing more activities into the schedule.
+*** Allow optimisation to cover more criteria such as cost, number of activities, etc.
+
+** Cons:
+*** Costly runtime.
+
+* Alternative 2: Use Single Shortest Path (SSSP) algorithms to find a combination without conflicts.
+
+** Pros:
+*** Fast runtime.
+
+** Cons:
+*** Use of SSSP algorithms like Djikstra or Bellman Ford restricts the criteria of optimisation due to the limits of edge weight (i.e. cost).
+
+Aspect: De-conflict process
+
+* Alternative 1 (current): Model as a DAG and find combination with the lowest overall cost.
+
+** Pros:
+*** Easy for users to use, less hassle for indecisive users.
+
+** Cons:
+*** Less control for the user to choose activity.
+
+* Alternative 2: Allow users to manually de-conflict by selecting individual activities they wish to keep.
+
+** Pros:
+*** Users have more control over activities.
+
+** Cons:
+*** Users have to enter multiple inputs to de-conflict.
+
+// end::optimise[]
+
+// tag::scheduleactivity[]
+=== Schedule feature
+
+*_Plan²travel_* allows user to schedule an activity from the activity list to a specified time of a day.
+This is accomplished by executing the `ScheduleCommand` with `activity index`, `start time` and  `day index`.
+
+Eg. `schedule ACTIVITY_INDEX st/START_TIME d/DAY_INDEX`
+
+==== Current Implementation
+
+The keywords from the command given by user is parsed using `ScheduleCommandParser` which converts the string variable of start time into a LocalDateTime object, while activity index and day index are converted into Index objects.
+These are then passed to the `ScheduleCommand` for execution later on.
+
+Given below is a sequence diagram showing the creation of `ScheduleCommand`:
+
+.Sequence diagram showing how ScheduleCommand is created.
+image::ScheduleCommandCreation.png[]
+
+After the creation of `ScheduleCommand`, `LogicManager` will proceed to call the `execute()` method of `ScheduleCommand`.
+
+Below are the steps taken during the execution of `ScheduleCommand`:
+
+1. `Model` will retrieve the list of days from the `Itinerary` and the list of activities from  `UniqueActivityList`.
+
+2. The `activityIndex` and `dayIndex` will then be used to obtain the targeted `Activity` from activity list
+and targeted `Day` from list of days.
+
+3. `Activity` will be converted to `ActivityWithTime` using the `startDateTime` and `duration` of activity.
+
+4. This `ActivityWithTime` is then added to the list of `ActivityWithTime` in the target `Day`.
+
+5. The list of `ActivityWithTime` is sorted according ActivityWithTime startDateTime.
+
+
+Given below is a sequence diagram showing the execution of `ScheduleCommand`:
+
+.Sequence diagram showing how ScheduleCommand executes.
+image::ScheduleCommandExecution.png[]
+
+==== Design Consideration
+
+===== Aspect: Update activities for that particular day
+
+* **Current Choice:** Directly updates the activity list in the targeted `Day` class.
+** Pros: Seem more intuitive and simple to implement.
+** Cons: Might make it harder to debug error that surface if many other functions/classes also depends on the same `Day` class.
+* **Alternative:** Create a new `Day` class with the new updated activity list to replace the targeted `Day` class.
+** Pros: Easier for developer to test the code.
+** Cons: Might create unnecessary overheads in the code by creating new object every time we schedule an activity.
+
+// end::scheduleactivity[]
+
+// tag::autoschedule[]
+=== Auto Schedule feature
+==== Rationale
+There are times when users are planning for an overseas trip, there are so many activities in their activity list that they want to do but the problems faced are that they are unable to finish all the activities in the list or they are unable to find an optimal schedule plan.
+
+==== Overview
+The `autoschedule` command requires user to specify either the `tag name` or the `activity name` itself in order of the type of activity that they want.
+For example, `t/shopping t/sightseeing t/dining` would means an activity of `shopping` type would be scheduled first followed by `sightseeing` and then `dining`.
+Before using the autoschedule command, users are to fill up their activity list first and ensure that they have input the `duration` for each activity and are recommended to input their `priority` for those activities.
+Afterwards, `autoschedule` would serve to ensure that the activities scheduled do not overlap, are according to what the users prioritised first and that all activities have a chance to be scheduled.
+
+
+=== Implementation
+The keywords from the command given by the user is parsed using `AutoScheduleCommandParser` which converts all the `tag` or `name` prefix's argument with their respective `start time` ,if given, in `NameOrTagWithTime` class and stores them in a list to maintain the same ordering as given by the user.
+
+If `address` is specified, it is wrapped in an `Address` class and if the `day index(es)` to schedule are specified, they stored in a list with each index wrapped in an `Index` class.
+The `list of NameOrTagWithTime`, `address` and `list of day indexes` are then passed to the `AutoScheduleCommand` for execution later on.
+
+Given below is a sequence diagram showing the creation of `AutoScheduleCommand`:
+
+.Sequence diagram showing how `AutoScheduleCommand` is created.
+image::AutoScheduleSequenceDiagram.png[]
+
+Below are the steps taken when executing of the `AutoScheduleCommand`:
+
+*Step 1.* `AutoScheduleCommand` will firstly get the `list of days` and `list of activities` from the `Model` class
+
+*Step 2.* If address is specified, the `list of activities` will be filtered to get all activities that has the same `address`.
+
+*Step 3.* If no `day indexes` to schedule are being specified, `AutoScheduleCommand` will generate a schedule for all `days`.
+
+Below shows the checks taken by `AutoScheduleCommand`:
+
+.Activity diagram showing how `AutoScheduleCommand` checks the requirement given by user:
+image::AutoScheduleActivityDiagram1.png[]
+
+After filtering the activity list, `AutoScheduleCommand` will proceed to begin preparation for the scheduling of the first activity of those specified day(s).
+
+*Step 4.* It will filter the activity list that has been filtered by address to get all the activities with the same tag or activity name as the first activity to schedule.
+
+*Step 5.* After which it will sort the list such that the activity that has not been scheduled will be scheduled first.It will ensure that for cases where both activities has not been scheduled before, the one with the higher priority will be scheduled first.
+
+.Activity diagram showing how `AutoScheduleCommand` handles the preparation for the scheduling of the first activity:
+image::AutoScheduleActivityDiagram2.png[]
+
+*Step 6.* Next, `AutoScheduleCommand` will check if the chosen activity to be scheduled does not overlap with the start time of the next activity if user specify.
+
+*Step 7.* If the chosen activity overlaps, it will traverse the filtered list, picking the next activity with the **next lowest count** in the itinerary and check if it overlaps.
+The process will continue until it finds a suitable activity or it has finished traversing the whole filtered list. If it is planning for the last activity of the day, it will instead check whether the activity chosen overlap til the next day.
+
+.Activity diagram showing how `AutoScheduleCommand` finds an activity to schedule:
+image::AutoScheduleActivityDiagram3.png[]
+
+Step 4 to Step 7 will repeat for the next activity to schedule for that day until it finished scheduling for that day or it could not find a suitable activity to schedule.
+If there other days to schedule, the steps taken will also be the same as Step 4 to Step 7.
+
+==== Design Considerations
+
+===== Aspect: Counting the number of times similar activity of the same name or tag appears in the list
+* **Current Choice:** Count the number of times all the similar activities appear in the itinerary every time we are planning to schedule an activity.
+** Pros: It will ensure that the count number for the similar activities will always be right before they are chosen to be scheduled
+** Cons: Slow down the program as we have to traverse through all the activities for each day everytime we are planning to schedule for an activity.
+* **Alternative:** Have a counter inside the activity itself to keep track
+** Pros: Significantly improve the runtime speed and less complicated to implement
+** Cons: Over time, the count might be inaccurate due to multiple scheduling and unscheduling which alter the count number and we might not have keep track of it at certain point of time.
+
+===== Aspect: Account for travelling time
+* **Current Choice:** Allows user to input the start time of activity
+** Pros: Gives user the flexibility and they are better able to gauge the travelling time of each activity
+** Cons: It restrict the number of possible activities that could be scheduled as we have to consider activity not overlapping with the start time of the next activty.
+* **Alternative:** Fix a break of 30min between every activity to acount for travel time
+** Pros: Activities that user prioritised are more likely to be scheduled as we do not have to consider overlap of the start time of next activity.
+** Cons: Certain activity may require more travelling time. If we fix a longer travelling time, it might not be optimising the schedule plan as certain activity might have shorter travelling time.
+// end::autoschedule[]
+
+// tag::autocomplete[]
+=== Auto Complete feature
+==== Rationale
+There are many commands to learn in our program and some of the commands can be wordy. In order to ease the learning curve and to help the user be productive as quickly as possible, autocomplete was implemented.
+
+==== Implementation
+*KEY IDEA:*
+
+Every command in the planner can be broadly broken down into a few categories, namely:
+
+. Command Word
+. Preamble
+. Required Prefix
+.. That are used once
+.. That are used multiple times
+. Optional Prefix
+.. That are used once
+.. That are used multiple times
+
+AutoCompleteSuggester makes use of this and checks the input for these categories one by one.
+
+* If the input lacks the command word, then the best matching command word will be suggested.
+* If the command word is provided, but the preamble is not (and it is required by the command), then the preamble will be suggested.
+* If the input contains the command word and contains the preamble(when necessary), then the required prefixes and optional prefixes will be suggested. Since there are some prefix that should only be used, the input will be checked to see if these prefixes are present and remove them from the suggestions.
+
+The `AutoCompleteParser` supports the `AutoCompleteSuggester` by parsing the user input into the command word, the preamble and a list of prefixes used in the program.
+
+Given below is a sequence diagram showing the generation of suggestions:
+
+.Sequence diagram showing the generation of suggestions.
+image::AutoCompleteSuggesterSequenceDiagram.png[]
+
+.Sub diagram for getPossibilities
+image::AutoCompleteSuggesterGetPossibilitiesSequenceDiagram.png[]
+
+Below is how the `autocomplete` feature is triggered:
+
+*Step 1.* Modification in the text of `AutoCompleteTextField` is detected.
+
+*Step 2.* If the input is empty, hide the pop-up box which contains the suggestions. If not empty, get entries (suggestions) for the pop-up box.
+
+*Step 3.* If there are entries, populate the pop-up box with it. Else, hide the pop-up box.
+
+*Step 4.* If pop-up box in previous step was populated, then show the pop-up box to the user.
+
+.Activity diagram showing how the pop-up box containing the suggestions appears:
+image::AutoCompleteActivityDiagram1.png[]
+
+Below is how entries for the pop-up box is obtained:
+
+*Step 1.* Check if input contains '<' or '>', as that would indicate that the user has accepted the suggestion of preamble, which has description enclosed with < and > (for e.g. <INDEX>) but has not replaced it with the actual preamble. If it has '<' or '>', then don't give suggestions to user.
+
+*Step 2.* If the input does not contain '<' or '>', parse the command word.
+
+*Step 3.* Next check if command word can be found. If it is not found, suggest command words that partially matches what the user has already inputted. If command word was found, do a check if there is a space at the end of the input.
+
+*Step 3.* Next check if command word can be found. If it is not found, suggest command words that partially matches what the user has already inputted. If command word was found, do a check if there is a space at the end of the input.
+
+*Step 4.* If there is no space, don't give suggestions to the user as it is assumed that the user is still typing. If there is a space, then parse preamble, parse prefix and make suggestions based on the command word, preamble and prefix present in the input.
+
+.Activity diagram showing how entries for the pop-up box is generated:
+image::AutoCompleteActivityDiagram2.png[]
+
+==== Design Considerations
+
+===== Aspect: Underlying data structure to store the command words
+* **Current Choice:** Use an ArrayList
+** Pros: Simple to implement.
+** Cons: Might be slow in providing suggestion for the command word, as in the worse case, it needs to iterate through every command word entry and check with every entry.
+* **Alternative:** Use a Trie
+** Pros: Faster in providing suggestion for command word as it only has to iterate through the length of the input.
+** Cons: More complicated to implement. The Trie also needs to be built during startup.
+
+* **Reason for choice**: Given that the program does not have many commands and unlikely to have a significant number more commands in the future, search times are not an issue.
+
+===== Aspect: Checking if the user has completed typing the command word/preamble/prefix content
+* **Current Choice:** Assumes the user has finished the command word/preamble/prefix content when there is a whitespace at the end of input
+** Pros: Simple to implement. Works in most cases.
+** Cons: Might be wrong when suggesting new prefix as there are some commands like autoschedule that have prefixes that can have 2 arguments (autoschedule t/argument1 argument2 d/argument1 argument2...)
+* **Alternative:** Waits for a specific duration of time before giving user suggestions
+** Pros: More likely to provide suggestions when the user needs it.
+** Cons: There might be a noticeable delay in the suggestions appearing if the specific duration is too long. More complicated to implement.
+// end::autocomplete[]
+
+// tag::timetable[]
+=== Timetable
+
+==== Current Implementation
+
+Internally, Timetable is a List of ActivityWithTime. This gives the Timetable flexibility to accept Activities that start and end at any time instead of fixed intervals (e.g. 30 minute intervals) while allow for conflicting ActivityWithTime.
+
+==== Design considerations
+* Alternative 1: an Array of time slots that stores Activity
+
+** Pros: Simple and intuitive to implement. UI for itinerary is easier to implement too. Very fast access to each Activity in the Timetable.
+
+** Cons: Constrained to fixed intervals. Hence, Activity start times and end times have to be in multiples of the fixed interval.
+
+* Alternative 2: a TreeSet of ActivityWithTime
+
+** Pros: Allows flexible start times and end times. Fast access to Activity in Timetable. Does not allow ActivityWithTime objects to have the same start times.
+
+** Con: UI for itinerary might be difficult to implement as each the size of each block of ActivityWithTime in the UI is not the same. Does not allow for conflicting startDateTime between ActivityWithTime.
+
+* Alternative 3(current choice): a List of ActivityWithTime
+
+** Pros: Allows flexible start times and end times. ActivityWithTime can have the same startDateTime, thus allowing conflicting ActivityWithTime.
+
+** Con: UI for itinerary might be difficult to implement as each the size of each block of ActivityWithTime in the UI is not the same. Slower access time if the size of the List is large.
+// end::timetable[]
 
 === Logging
 
@@ -279,14 +756,18 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* a student who is inexperienced in planning for overseas trips
+* has a need to manage and schedule planner items
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Many students wish to go for overseas trips during their holidays. They may be inexperienced in
+trip planning. These students would benefit from having a template as a way to organise the information they have for
+their trip. Plan²travel can organise information faster than a typical mouse/GUI driven app.
 
+// tag::userstories[]
 [appendix]
 == User Stories
 
@@ -295,88 +776,157 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |traveller |refer to a list of attractions |I can decide on what activities to do for the day
 
-|`* * *` |user |add a new person |
+|`* * *` |traveller |add activities that I want to do |I can plan my trip
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |traveller |save my contact list |I can review/access them again
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |traveller |access a list of accommodations |I can better plan for where to stay at
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |organised traveller |plan my daily planner |I can make better use of my travel time
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |lightweight traveller |save the planner to my phone |I can pack light
+
+|`* * *` |infrequent traveller |add contacts |I can get in touch with the hotel concierge
+
+|`* * *` |new user |view a help guide |I can familiarise myself with the application
+
+|`* *` |traveller |categorise activities by interest |I can prioritise certain activities
+
+|`* *` |solo traveller |keep a list of emergency contacts |I know who to contact in times of emergency
+
+|`* *` |eager traveller |follow an accommodation checklist |I will not miss out on anything
+
+|`* *` |indecisive traveller |plan for multiple trips |I can decide on a later date
+
+|`* *` |messy planner |quickly organise my travel research |I can streamline my planning processes
+
+|`* *` |fast typist |be auto-corrected for my typos |I won't break my train of thought while planning
+
+|`* *` |advanced user |use command shortcuts |I can improve my planning efficiency
+
+|`* *` |advanced user |set where to save my itineraries |I can organise my itineraries
+
+|`* *` |careless user |undo my mistakes |I don't have to retype if I make one
+
+|`*` |traveller |rate activities that I have done |I can make a better recommendation to my friends
+
+|`*` |traveller on a tight budget |estimate my budget for a trip |I can minimise my spendings
+
+|`*` |traveller |organise and record my travel experiences |I can share them online
+
+|`*` |inexperienced planner |receive planning recommendations |I can improve my planner
+
 |=======================================================================
-
-_{More to be added}_
+// end::userstories[]
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Plan²travel` application and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Schedule activity
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to schedule activity
+2.  System shows a list of days and activities
+3.  User requests to add a specific accommodation to a specific day
+4.  System adds accommodation under selected day
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. The list of days is empty.
++
+** Use case ends.
+
+* 2b. The list of activities is empty.
++
+** Use case ends.
+
+* 3a. The day number is invalid.
++
+[none]
+** 3a1. System shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The accommodation index is invalid.
++
+[none]
+** 3b1. System shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Add Contact
+
+*MSS*
+
+1.  User requests to add a new Contact
+2.  System adds the new Contact into the database
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+[none]
+* 1a. The new Contact's syntax is not entered correctly.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. System shows a feedback to the user that the Contact was not entered correctly.
+** Use case ends.
+
+[discrete]
+=== Use case: Undo command
+
+*MSS*
+
+1.  User requests to undo last possible command
+2.  System reverts to state before the last possible command
 +
-Use case resumes at step 2.
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no last possible command.
++
+** Use case ends.
 
 _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
+*Availability*
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1.  Application should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 
-_{More to be added}_
+*Performance*
+
+1.  Application should respond within 2 seconds of client's query.
+
+*Usability*
+
+1.  Application should be easy to use for new user when following the User Guide.
+2.  Application's interface should be intuitive and easy to understand for the user.
+3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
+*Reliability*
+
+1. Application should be able to execute all user's commands without failing.
+
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -392,34 +942,227 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample activities, accommodations, contacts and days filled with activities. The window size may not be optimum.
 
-. Saving window preferences
+=== Adding
+==== Adding activities
+* Add a new activity to the planner
+.. Prerequisites: Arguments are valid and compulsory parameters are provided.
+.. Test case: `add activity n/Swim at the beach a/Glass Beach du/180 p/12345678 pr/1 t/Fun` +
+Expected: Adds an activity named "Swim at the beach", with address "Glass Beach", a duration of 180 minutes, a contact with the phone number 12345678, a priority level of 1 and with the tag "Fun".
+..  Test case: `add activity n/Swim at the beach` +
+Expected: No activity is added. Error details shown in the feedback display.
+.. Other incorrect add commands to try: `add activity a/Glass Beach`, `add activity n/Swimming du/120` +
+Expected: Similar to previous
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+==== Adding accommodations
+* Add a new activity to the planner
+.. Prerequisites: Arguments are valid and compulsory parameters are provided.
+.. Test case: `add accommodation n/Hotel 87 a/Hilton Crescent p/12345678 t/Cozy` +
+Expected: Adds an accommodation named "Hotel 87", with address "Hilton Crescent", a contact with phone number 12345678, and with the tag "Cozy".
+..  Test case: `add accommodation n/Hotel 123` +
+Expected: No accommodation is added. Error details shown in the feedback display.
+.. Other incorrect add commands to try: `add accommodation a/Kappa street`, `add accommodation p/87654321 t/lmao` +
+Expected: Similar to previous
 
-_{ more test cases ... }_
+==== Adding contacts
+* Add a new contact to the planner
+.. Prerequisites: Arguments are valid and compulsory parameters are provided.
+.. Test case: `add contact n/Allan p/12345678 e/example@example.com t/Budz` +
+Expected: Adds a contact named "Allan", with phone number 12345678, an email of "example@example.com" and with the tag "Budz".
+..  Test case: `add contact n/Big Brother` +
+Expected: No contact is added. Error details shown in the feedback display.
+.. Other incorrect add commands to try: `add contact a/Kappa street`, `add contact p/87654321 t/lmao` +
+Expected: Similar to previous
 
-=== Deleting a person
+==== Adding days
+* Add days to the itinerary
+.. Prerequisites: Arguments are valid, and NUMBER_OF_DAYS being added and number of days currently in itinerary do not exceed 15.
+.. Test case: `add days 2` +
+Expected: Adds two days to the itinerary. Else, invalid message will be shown.
+..  Test case: `add days 16` +
+Expected: No days is added. Error details shown in the feedback display.
+.. Other incorrect add commands to try: `add days abc`, `add days -1` +
+Expected: Similar to previous
+=== Editing an activity
 
-. Deleting a person while all persons are listed
+.  Editing an activity's name
+.. Test case: `Edit activity 1 n/Visit Mount Fuji`
+   Expected: The first activity in the activity list has its name being edited to `Visit Mount Fuji`.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.  Editing an activity's address
+.. Test case: `Edit activity 1 a/Tokyo`
+   Expected: The first activity in the activity list has its address being edited to `Tokyo`.
 
-_{ more test cases ... }_
+=== Editing an accommodation
 
-=== Saving data
+.  Editing an accommodation's name
+.. Test case: `Edit accommodation 1 n/Shinjuku hotel`
+   Expected: The first activity in the activity list has its name being edited to `Shinjuku hotel`.
 
-. Dealing with missing/corrupted data files
+.  Editing an accommodation's address
+.. Test case: `Edit accommodation 1 a/Tokyo`
+   Expected: The first accommodation in the accommodation list has its address being edited to `Tokyo`.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Editing a contact
 
-_{ more test cases ... }_
+.  Editing a contact's name
+.. Test case: `Edit contact 1 n/Uncle Bob`
+   Expected: The first contact in the contact list has its name being edited to `Uncle Bob`.
+
+.  Editing a contact's phone number
+.. Test case: `Edit contact 1 a/90001112`
+   Expected: The first contact in the contact list has its phone number being edited to `90001112`.
+
+=== Deleting a contact
+.  Removes a contact from contact list
+.. Test case: `delete contact 2`
+   Expected: Deletes the 2nd contact in the contact list.
+
+=== Deleting an activity
+.  Removes an activity from contact list
+.. Test case: `delete activity 2`
+   Expected: Deletes the 2nd activity in the activity list.
+
+=== Deleting an accommodation
+.  Removes an accommodation from accommodation list
+.. Test case: `delete accommodation 2`
+   Expected: Deletes the 2nd accommodation in the accommodation list.
+
+=== Autoschedule
+.  Generate a schedule for specified day(s) based on the tags or activity name given.
+.. Prerequisites: Ensure the tag or activity name is present in activity list.
+.. Test case: `autoschedule t/sightseeing 1030 t/dining 1200 d/1`
+   Expected: An activity of sightseeing tagged has been scheduled at 1030 followed by another activity of dining tagged scheduled at 1200 on day 1.
+
+=== Scheduling activities
+==== Schedule
+* Schedule an activity to a day at a certain time
+.. Prerequisites: Arguments are valid, and end date time of the activity must not be after the end of the trip. Also, the provided index for both activity and day must be less than or equal to the size of their respective list(activity list, itinerary).
+.. Test case: `schedule 1 d/1 st/1000` +
+Expected: Schedules activity 1 into day 1 at time 10am.
+..  Test case: `schedule 1 d/16 st/1000` +
+Expected: Nothing is scheduled. Invalid message shown.
+.. Other incorrect add commands to try: `schedule d/1 st/1111`, `schedule 1 d/1` +
+Expected: Similar to previous
+=== Undo a delete command
+.   Retrieve the information that has been deleted.
+..  Prerequisites: `Delete activity 1` has been executed.
+..  Test case: `undo`
+..  Expected: The activity initially in the first index of the activity list has been added back to the activity list.
+
+=== Unschedule activity from day
+* Unschedules an activity from a day
+.. Prerequisites: Arguments are valid. Also, the index for the preamble is the index of the activity within the day(as shown from list day). Day DAY_INDEX must exist in the itinerary.
+.. Test case: `unschedule 1 d/1` +
+Expected: Unschedules the first activity in day 1.
+..  Test case: `unschedule d/16 st/1000` +
+Expected: Nothing is unscheduled. Invalid message shown.
+.. Other incorrect add commands to try: `unschedule 1`, `unschedule 1 d/16` +
+Expected: Similar to previous
+=== Undo an add command
+.   Delete the information that has been added.
+..  Prerequisites: `add activity n/Visit Mount Fuji a/Tokyo du/30` has been executed.
+..  Test case: `undo`
+..  Expected: The activity `Visit Mount Fuji` is deleted from the activity list.
+
+=== Undo an edit command
+.   Return back to the original state before it has been edited.
+..  Prerequisites: `edit contact n/Bob` has been executed.
+..  Test case: `undo`
+..  Expected: The contact name of `Bob` is deleted and is replaced by the original name before it has been edited.
+
+===  Optimise a day
+.    Remove all overlapping for the day and generate a schedule with the lowest budget for the day being optimised.
+..   Prerequisites: There are activities scheduled for the specified day to optimise.
+..   Test case: `optimise 1`
+..   Expected: Activities that are non-overlapping and they have the lowest cost in total are chosen for that day.
+
+=== List activity
+.   All activities in activity list are listed
+..  Test case: `list activity`
+..  Expected: All activities are listed in the information panel.
+
+=== Set
+* Sets the name or start date of the itinerary
+.. Prerequisites: Arguments are valid. A minimum of either name or start date must be provided.
+.. Test case: `set n/Germany sd/25-12-2019` +
+Expected: Sets the itinerary name to Germany and start date to 25th Dec 2019.
+..  Test case: `set` +
+Expected: Nothing is set. Invalid message shown.
+.. Other incorrect add commands to try: `set sd/12/12/2019` +
+Expected: Similar to previous
+
+// tag::tripmanagementtest[]
+=== New
+* Creates and loads a new empty trip with desired name
+.. Prerequisites: Arguments are valid and no existing saved trips have the same name.
+A name must be provided.
+.. Test case: `new n/Japan Trip` +
+Expected: Creates a new empty trip named "Japan Trip". The name is reflected as the itinerary name.
+.. Test case: `new` +
+Expected: Planner name not specified
+.. Test case: `new n/Iceland Trip`, `new n/Iceland Trip` +
+Expected: This planner already exists
+
+=== Copyto
+* Creates and loads a copy of current trip using desired name
+.. Prerequisites: Arguments are valid and no existing saved trips have the same name.
+A name must be provided.
+.. Prerequisites: Populate a new trip using the following commands:
+... `new n/China v1`
+... `add activity n/Visit QinShiHuang's Tomb a/Xi An du/240 t/history`
+... `add accommodation n/China World Hotel a/Beijing t/5star`
+.. Test case: `copyto n/China v2` +
+Expected: Creates a copy of the current trip named "China v2".
+The name is reflected as the itinerary name and is the only visible difference when compared
+to the original trip.
+.. Test case: `copyto` +
+Expected: Planner name not specified
+.. Test case: `copyto n/China v1` +
+Expected: This planner already exists
+
+=== Load
+* Loads a saved trip with desired name
+.. Prerequisites: Arguments are valid and no existing saved trips have the same name.
+A name must be provided.
+.. Prerequisites: Populate 2 new trips using the following commands:
+... `new n/China`
+... `add activity n/Visit QinShiHuang's Tomb a/Xi An du/240 t/history`
+... `add accommodation n/China World Hotel a/Beijing t/5star`
+... `new n/Japan`
+... `add accommodation n/Crowne Hotel a/Tokyo p/8137973142 t/5stars`
+... `add activity n/Visit Aquarium a/Tokyo p/812487941 du/120 c/20.00 pr/3 t/marine`
+.. Test case: `load n/China` +
+Expected: Loads the existing trip that has the name "China".
+The name is reflected as the itinerary name.
+.. Test case: `load` +
+Expected: Planner name not specified
+.. Test case: `load n/China` +
+Expected: This planner has already been loaded
+
+// end::tripmanagementtest[]
+
+=== View
+==== View activity/accommodation/contact
+* Views information about an activity/accommodation/contact
+.. Prerequisites: Argument is valid. The provided index for activity must be less than or equal to the size of the activity list.
+.. Test case: `view activity 1`/`view accommodation 1`/`view contact 1` +
+Expected: Views the information about activity/accommodation/contact 1.
+..  Test case: `view activity abc`/`view accommodation abc`/`view contact abc` +
+Expected: No information about activity/accommodation/contact appear. Invalid message shown.
+
+==== View itinerary/info/help
+* Switch tab to itinerary/info/help
+.. Test case: `view itinerary`/`view info`/`view help` +
+Expected: Switches tab to itinerary/info/help.
+
+==== Redo
+* Redo the last undo command.
+.. Prerequisites: Only to be used if undo had been used.
+.. Test case: `redo` +
+Expected: Redo the last undo command.
+
+
+
+

@@ -1,0 +1,82 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":PlannerParser" as PlannerParser LOGIC_COLOR
+participant ":OptimiseCommandParser" as OptimiseCommandParser LOGIC_COLOR
+participant ":OptimiseCommand" as OptimiseCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> LogicManager : execute('optimise 1')
+activate LogicManager
+
+LogicManager -> PlannerParser : parseCommand('optimise 1')
+activate PlannerParser
+
+create OptimiseCommandParser
+PlannerParser -> OptimiseCommandParser
+activate OptimiseCommandParser
+
+OptimiseCommandParser --> PlannerParser
+deactivate OptimiseCommandParser
+
+PlannerParser -> OptimiseCommandParser : parse('1')
+activate OptimiseCommandParser
+
+create OptimiseCommand
+OptimiseCommandParser -> OptimiseCommand
+activate OptimiseCommand
+
+OptimiseCommand --> OptimiseCommandParser
+deactivate OptimiseCommand
+
+OptimiseCommandParser --> PlannerParser
+deactivate OptimiseCommandParser
+
+OptimiseCommandParser -[hidden]-> PlannerParser
+destroy OptimiseCommandParser
+
+PlannerParser --> LogicManager
+deactivate PlannerParser
+
+LogicManager -> OptimiseCommand : execute
+activate OptimiseCommand
+
+OptimiseCommand -> ModelManager : getFilteredItinerary()
+activate ModelManager
+
+ModelManager --> OptimiseCommand
+deactivate ModelManager
+
+OptimiseCommand -> OptimiseCommand
+activate OptimiseCommand
+
+OptimiseCommand --> OptimiseCommand
+deactivate OptimiseCommand
+
+OptimiseCommand -> ModelManager : setDay(oldDay, newDay)
+activate ModelManager
+
+ModelManager --> OptimiseCommand
+deactivate ModelManager
+
+create CommandResult
+OptimiseCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> OptimiseCommand : commandResult
+deactivate CommandResult
+
+OptimiseCommand --> LogicManager : commandResult
+deactivate OptimiseCommand
+
+[<-LogicManager : commandResult
+deactivate LogicManager
+
+@enduml

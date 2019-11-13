@@ -22,3 +22,6 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
+
+after_failure:
+  -cat file:///home/travis/build/AY1920S1-CS2103T-T09-1/main/build/reports/tests/test/index.html

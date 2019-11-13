@@ -1,0 +1,54 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant "**:LogicManager**" as LogicManager LOGIC_COLOR
+participant "**:PlannerParser**" as PlannerParser LOGIC_COLOR
+participant "**:ScheduleCommandParser**" as ScheduleCommandParser LOGIC_COLOR
+participant "**a:ScheduleCommand**" as ScheduleCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : **execute("schedule 2 st/1300 d/1")**
+activate LogicManager
+
+LogicManager -> PlannerParser : **parseCommand("schedule 2 st/1300 d/1")**
+activate PlannerParser
+
+create ScheduleCommandParser
+PlannerParser -> ScheduleCommandParser
+activate ScheduleCommandParser
+
+ScheduleCommandParser --> PlannerParser
+deactivate ScheduleCommandParser
+
+PlannerParser -> ScheduleCommandParser : **parse("2 st/1300 d/1")**
+activate ScheduleCommandParser
+
+create ScheduleCommand
+ScheduleCommandParser -> ScheduleCommand
+activate ScheduleCommand
+
+ScheduleCommand --> ScheduleCommandParser : **a**
+deactivate ScheduleCommand
+
+ScheduleCommandParser --> PlannerParser : **a**
+deactivate ScheduleCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ScheduleCommandParser -[hidden]-> PlannerParser
+destroy ScheduleCommandParser
+
+PlannerParser --> LogicManager : **a**
+deactivate PlannerParser
+
+LogicManager -> ScheduleCommand : **execute()**
+activate ScheduleCommand
+
+ref over ScheduleCommand : **update day**
+
+ScheduleCommand --> LogicManager : **result**
+deactivate ScheduleCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

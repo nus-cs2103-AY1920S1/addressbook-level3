@@ -1,0 +1,58 @@
+@startuml
+!include style.puml
+title Sequence Diagram for Delete Activity command
+
+box Logic LOGIC_COLOR_T1
+participant ":DeleteActivityCommand" as DeleteActivityCommand LOGIC_COLOR
+participant "<<class>>\n:EventFactory" as EventFactory LOGIC_COLOR
+participant "<<class>>\n:CommandHistory" as CommandHistory LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> DeleteActivityCommand : execute(model)
+activate DeleteActivityCommand
+
+DeleteActivityCommand -> DeleteActivityCommand : updateEventStack(command, model)
+activate DeleteActivityCommand
+
+DeleteActivityCommand -> EventFactory : parse(command, model)
+activate EventFactory
+
+EventFactory --> DeleteActivityCommand : newEvent
+deactivate EventFactory
+
+DeleteActivityCommand -> CommandHistory : addToUndoStack(newEvent)
+activate CommandHistory
+
+CommandHistory --> DeleteActivityCommand
+deactivate CommandHistory
+
+DeleteActivityCommand -> CommandHistory : clearRedoStack()
+activate CommandHistory
+
+CommandHistory --> DeleteActivityCommand
+deactivate CommandHistory
+
+DeleteActivityCommand --> DeleteActivityCommand
+deactivate DeleteActivityCommand
+
+DeleteActivityCommand -> ModelManager : deleteActivity(activityToDelete)
+activate ModelManager
+
+ModelManager --> DeleteActivityCommand
+deactivate ModelManager
+
+create CommandResult
+DeleteActivityCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteActivityCommand
+deactivate CommandResult
+
+[<-- DeleteActivityCommand : commandResult
+deactivate DeleteActivityCommand
+@enduml

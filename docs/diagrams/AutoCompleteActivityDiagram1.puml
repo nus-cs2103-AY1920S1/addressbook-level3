@@ -1,0 +1,16 @@
+@startuml
+start
+:Text in CommandBox is modified;
+if () then ([input is empty])
+    :Hide pop-up box;
+else ([input is not empty])
+    :Get entries;
+    if () then ([entries is not empty])
+        :Populate pop-up box;
+        :Show pop-up box;
+    else ([entries is empty])
+        :Hide pop-up box;
+    endif
+endif
+stop
+@enduml

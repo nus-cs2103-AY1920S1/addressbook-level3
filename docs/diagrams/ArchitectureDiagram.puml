@@ -24,8 +24,11 @@ Class "<$documents>" as File UI_COLOR_T1
 
 HiddenUI -up[hidden]-> UI
 HiddenModel -left[hidden]-> Model
-Main -up-> HiddenUI
-Main -left-> HiddenModel
+Main -up-> UI
+Main -right-> Model
+Main -right[hidden]-> Model
+Main -right[hidden]-> Model
+Main -right[hidden]-> Model
 UI -> Logic
 UI -right-> Model
 Logic -> Storage
@@ -38,5 +41,5 @@ Hidden .down.> Commons
 
 Storage .right.>File
 User --> UI
-Main --> Hidden
+Model -[hidden]-> Hidden
 @enduml

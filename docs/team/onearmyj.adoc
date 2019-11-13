@@ -1,0 +1,100 @@
+= Chen Yi Jun - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:sectnums:
+
+[none]
+== PROJECT: Plan²travel
+The purpose of this document is to document the contribution that I have made in the project: *_Plan²travel_* as a student
+undertaking the module CS2103T under NUS School of Computing.
+
+*_Plan²travel_* Github link: https://ay1920s1-cs2103t-t09-1.github.io/main/
+
+---
+
+== Introduction
+
+*Plan²travel* is a desktop travel planning application. The application is targeted at fellow university students who
+travel infrequently and would greatly benefit from an application that helps organize their travelling information when they plan their own itinerary. Plan²travel has the ability to store and display information such as activities, accommodations, contacts and an itinerary which comprises of a list of day. Each day is displayed with a list of activities that is scheduled. +
+
+The user interacts with the application using a Command Line Interface (CLI), and it has Graphical User Interface GUI created with JavaFX.
+
+It is cross-platform and can be compiled for both Windows and Mac OS.
+
+Below is a screenshot of our application:
+
+image::../images/Plan2TravelSS.png[]
+
+== Summary of contributions
+|===
+|Below is a summary of the contributions that I have made to the project.
+|===
+
+=== *Major enhancement*: +
+* *Added the ability to undo/redo previous commands*
+** *What it does:* allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by
+using the redo command.
+[NOTE]
+Only undoable commands can be undone by the 'undo' command.
+
+** *Justification:* This feature improves the product significantly because a user can make mistakes in commands and the
+app should provide a convenient way to rectify them.
+** *Highlights:* This enhancement affects existing commands and commands to be added in future. It required an in-depth
+analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+* *Functional Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/112[Update 1] |
+https://github.com/AY1920S1-CS2103T-T09-1/main/pull/127[Update 2] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/133[Update 3]
+| https://github.com/AY1920S1-CS2103T-T09-1/main/pull/194[Update 4] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/220[Update 5]
+| https://github.com/AY1920S1-CS2103T-T09-1/main/pull/230[Update 6] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/243[Update 7]
+| https://github.com/AY1920S1-CS2103T-T09-1/main/pull/269[Final Update]
+
+* *Test Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/277[Test 1] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/280[Test 2]
+
+
+=== *Minor enhancement*: +
+* *Morph original code base for Model and Storage package*
+** *What I did:* I modified the entire model package from the original code base and added new model class files, such
+as Accommodation, Activity and Contact. I also remove traces of unused codes from the previous code base. Aside
+morphing model, I also morphed the storage package, allowing the application's data to be saved into 4 different json
+data files instead.
+
+** *Justification*: Morphing has to be done to the old code base in order to fit the goals of our application. Once
+the code base is morphed, the team is able to proceed with implementing their individual features of the application.
+
+** *Highlights*: I gained a deeper understanding of how the different components of the code base worked, especially
+for storage component. With the insights gained, I was able to advise my teammates on how they should approach their
+implementations when working with these components.
+
+* *Functional Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/68[Update 1] |
+https://github.com/AY1920S1-CS2103T-T09-1/main/pull/73[Update 2] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/99[Final Update]
+
+* *Test Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/111[Test]
+
+=== *Other Contributions*:
+** Tools:
+*** Set up build tools for maintaining and automation of team repository. https://github.com/AY1920S1-CS2103T-T09-1/main/commit/e8cf534369f9a75038d763c551691965bb9f38bb[travis,]
+https://github.com/AY1920S1-CS2103T-T09-1/main/commit/17cd634867f29dd2ad5a258175cc13541411e7f4[appveyor, coverall]
+** Documentation:
+*** Contributed to the User Guide and Developer Guide for this project. See below for more details.
+** Community:
+*** Over 30 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?q=is%3Apr+author%3AOneArmyj[Pull Requests] on Github
+*** Over 15 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?utf8=%E2%9C%93&q=is%3Apr+commenter%3AOneArmyj[Reviews] on Github
+
+*Overall Code Contribution https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=onearmyj[here]*
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to Plan²travel User Guide. They showcase my ability to write documentation
+targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=undoredocommand]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+include::../DeveloperGuide.adoc[tag=undoredo]
+
