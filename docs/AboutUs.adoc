@@ -30,7 +30,7 @@ Responsibilities: Model, Storage
 
 === Sakshi
 image::sakshipradyumn.png[width="150", align="left"]
-{empty}[https://github.com/SakshiPradyumn[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/SakshiPradyumn[github]] [<<sakshipradyumn#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Testing, Integration
