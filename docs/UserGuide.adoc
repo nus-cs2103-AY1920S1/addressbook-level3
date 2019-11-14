@@ -255,6 +255,7 @@ The *Help* tab contains a quick overview of commands used in Duke Academy, and a
 *Format:* `help`
 
 image::help.png[width="800" align="center"]
+//end::help[]
 
 //tag::dashboard[]
 === Access Dashboard: `dashboard`
