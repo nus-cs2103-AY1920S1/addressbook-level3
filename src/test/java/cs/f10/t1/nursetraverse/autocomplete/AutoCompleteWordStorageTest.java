@@ -8,7 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import cs.f10.t1.nursetraverse.model.HistoryRecord;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
+import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.ObjectWord;
 import cs.f10.t1.nursetraverse.model.patient.Address;
 import cs.f10.t1.nursetraverse.model.patient.Email;
 import cs.f10.t1.nursetraverse.model.patient.Name;
@@ -29,9 +32,10 @@ class AutoCompleteWordStorageTest {
             new FilteredList<>(FXCollections.unmodifiableObservableList(testStagedPatients));
     private FilteredList<Appointment> testFilteredAppointments =
             new FilteredList<>(FXCollections.unmodifiableObservableList(testStagedAppointments));
+    private ObservableList<HistoryRecord> testHistoryList = FXCollections.observableArrayList();
 
     private AutoCompleteWordStorage autoCompleteWordStorage =
-            new AutoCompleteWordStorage(testFilteredPatients, testFilteredAppointments);
+            new AutoCompleteWordStorage(testFilteredPatients, testFilteredAppointments, testHistoryList);
 
     @Test
     public void getOListAllCommandWord() {
@@ -52,9 +56,9 @@ class AutoCompleteWordStorageTest {
     @Test
     public void generateOListAllIndexWord() {
         ObservableList<AutoCompleteWord> patIndexList = autoCompleteWordStorage
-                .generateOListAllIndexWord(new ObjectWord("pat", "test description 1"));
+                .generateOListAllIndexWord(new ObjectWord("pat-", "test description 1"));
         ObservableList<AutoCompleteWord> apptIndexList = autoCompleteWordStorage
-                .generateOListAllIndexWord(new ObjectWord("appt", "test description 1"));
+                .generateOListAllIndexWord(new ObjectWord("appt-", "test description 1"));
 
         assertEquals(patIndexList.size(), testFilteredPatients.size());
         assertEquals(apptIndexList.size(), testFilteredAppointments.size());

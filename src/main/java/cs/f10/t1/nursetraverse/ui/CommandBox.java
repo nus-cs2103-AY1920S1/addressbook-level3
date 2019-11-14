@@ -1,3 +1,5 @@
+//@@author francislow
+
 package cs.f10.t1.nursetraverse.ui;
 
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
 
-    private ArrayList<ObserverUi> observerUis = new ArrayList<>();
+    private ArrayList<UiObserver> uiObservers = new ArrayList<>();
     private DataSender dataSender;
 
     @FXML
@@ -36,6 +38,7 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        setKeyPressListener();
     }
 
     /**
@@ -84,14 +87,14 @@ public class CommandBox extends UiPart<Region> {
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }
 
-    public void setOnButtonPressedListener() {
+    public void setKeyPressListener() {
         commandTextField.setOnKeyPressed(event -> {
             switch (event.getCode()) {
             case UP:
             case DOWN:
                 notifyObserversKeyPressed(event.getCode());
                 try {
-                    String textToPassWhenUpDownKeyPressed = receiveFromSender()[1];
+                    String textToPassWhenUpDownKeyPressed = receiveDataFromSender()[1];
                     notifyObserversToChange(event.getCode(), textToPassWhenUpDownKeyPressed);
                 } catch (NullPointerException e) {
                     logger.info("Suggested word list is empty, thus cannot receive anything from sender.");
@@ -100,7 +103,7 @@ public class CommandBox extends UiPart<Region> {
                 break;
             case SHIFT:
                 try {
-                    String textToDisplay = receiveFromSender()[0];
+                    String textToDisplay = receiveDataFromSender()[0];
                     commandTextField.setText(textToDisplay);
                     // Notify observers to update based on textToBeDisplayed
                     notifyObserversKeyPressed(event.getCode());
@@ -122,8 +125,8 @@ public class CommandBox extends UiPart<Region> {
         });
     }
 
-    public void addObserver(ObserverUi observerUi) {
-        observerUis.add(observerUi);
+    public void addObserver(UiObserver uiObserver) {
+        uiObservers.add(uiObserver);
     }
 
     public void setDataSender(DataSender dataSender) {
@@ -131,18 +134,18 @@ public class CommandBox extends UiPart<Region> {
     }
 
     private void notifyObserversKeyPressed(KeyCode keyCode) {
-        for (ObserverUi observerUi : observerUis) {
-            observerUi.update(keyCode);
+        for (UiObserver uiObserver : uiObservers) {
+            uiObserver.update(keyCode);
         }
     }
 
     private void notifyObserversToChange(KeyCode keyCode, String resultString) {
-        for (ObserverUi observerUi : observerUis) {
-            observerUi.update(keyCode, resultString);
+        for (UiObserver uiObserver : uiObservers) {
+            uiObserver.update(keyCode, resultString);
         }
     }
 
-    private String[] receiveFromSender() {
+    private String[] receiveDataFromSender() {
         return dataSender.sendData();
     }
 }

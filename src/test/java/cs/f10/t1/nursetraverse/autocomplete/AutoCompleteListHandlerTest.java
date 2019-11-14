@@ -1,8 +1,5 @@
 package cs.f10.t1.nursetraverse.autocomplete;
 
-import static cs.f10.t1.nursetraverse.model.util.SampleDataUtil.collateVisits;
-import static cs.f10.t1.nursetraverse.model.util.SampleDataUtil.getTagSet;
-import static cs.f10.t1.nursetraverse.model.util.SampleDataUtil.getVisitTodos;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -10,75 +7,91 @@ import java.util.LinkedList;
 
 import org.junit.jupiter.api.Test;
 
-import cs.f10.t1.nursetraverse.model.appointment.Appointment;
-import cs.f10.t1.nursetraverse.model.patient.Address;
-import cs.f10.t1.nursetraverse.model.patient.Email;
-import cs.f10.t1.nursetraverse.model.patient.Name;
-import cs.f10.t1.nursetraverse.model.patient.Patient;
-import cs.f10.t1.nursetraverse.model.patient.Phone;
-import javafx.collections.FXCollections;
+import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.CommandWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.IndexWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.ObjectWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.PrefixWord;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 
 class AutoCompleteListHandlerTest {
-    private ObservableList<Patient> testStagedPatients = FXCollections.observableArrayList(
-            new Patient(new Name("Joh"), new Phone("12345678"), new Email("joh@johrox.com"),
-                    new Address("address007 lol"), getTagSet("colleagues"),
-                    getVisitTodos("Check wounds"), collateVisits()));
-    private ObservableList<Appointment> testStagedAppointments = FXCollections.observableArrayList();
-
-    private FilteredList<Patient> testFilteredPatients =
-            new FilteredList<>(FXCollections.unmodifiableObservableList(testStagedPatients));
-    private FilteredList<Appointment> testFilteredAppointments =
-            new FilteredList<>(FXCollections.unmodifiableObservableList(testStagedAppointments));
-
-    private AutoCompleteWordStorage autoCompleteWordStorage =
-            new AutoCompleteWordStorage(testFilteredPatients, testFilteredAppointments);
-    private AutoCompleteListHandler autoCompleteListHandler = new AutoCompleteListHandler(autoCompleteWordStorage);
+    private AutoCompleteWordStorage typicalAutoCompleteStorage = new AutoCompleteStorageStub();
+    private AutoCompleteListHandler autoCompleteListHandler = new AutoCompleteListHandler(typicalAutoCompleteStorage);
 
     @Test
-    public void chooseList() {
-        LinkedList<AutoCompleteWord> matchedWordLinkedList = new LinkedList<>();
-        ObservableList<AutoCompleteWord> chosenList = autoCompleteListHandler.chooseList(matchedWordLinkedList);
-        assertEquals(0, matchedWordLinkedList.size());
-        assertTrue(chosenList.get(0) instanceof ObjectWord);
+    public void generateList_emptyString_objectListGenerated() {
+        LinkedList<String> testParsedUserinputList = new LinkedList<>();
+        testParsedUserinputList.add("");
+        ObservableList<AutoCompleteWord> generatedList =
+                autoCompleteListHandler.generateList(new LinkedList<>(), testParsedUserinputList);
 
-        matchedWordLinkedList.add(new ObjectWord("pat", "test description 1"));
-        chosenList = autoCompleteListHandler.chooseList(matchedWordLinkedList);
-        assertEquals(1, matchedWordLinkedList.size());
-        assertTrue(chosenList.get(0) instanceof CommandWord);
-
-        matchedWordLinkedList.add(new CommandWord("pat", "edit",
-                "test description 1", true, true));
-        chosenList = autoCompleteListHandler.chooseList(matchedWordLinkedList);
-        assertEquals(2, matchedWordLinkedList.size());
-        assertTrue(chosenList.get(0) instanceof IndexWord);
-
-        matchedWordLinkedList.add(new IndexWord("1", "test description 1"));
-        chosenList = autoCompleteListHandler.chooseList(matchedWordLinkedList);
-        assertEquals(3, matchedWordLinkedList.size());
-        assertTrue(chosenList.get(0) instanceof PrefixWord);
-
-        matchedWordLinkedList.add(new PrefixWord("pat", "edit",
-                "test/", "test description 1"));
-        chosenList = autoCompleteListHandler.chooseList(matchedWordLinkedList);
-        assertEquals(4, matchedWordLinkedList.size());
-        assertTrue(chosenList.get(0) instanceof PrefixWord);
-    }
-
-    /*@Test
-    public void updateList() {
-        LinkedList<AutoCompleteWord> matchedWordLinkedList = new LinkedList<>();
-        matchedWordLinkedList.add(new ObjectWord("pat"));
-        matchedWordLinkedList.add(new ObjectWord("edit"));
-        autoCompleteListHandler.updateList();
+        assertTrue(generatedList.get(0) instanceof ObjectWord);
     }
 
     @Test
-    public void filterList() {
+    public void generateList_correctFirstWord_commandListGenerated() {
+        LinkedList<String> testParsedUserinputList = new LinkedList<>();
+        testParsedUserinputList.add("pat-");
+
+        LinkedList<AutoCompleteWord> currentMatchedWords = new LinkedList<>();
+        currentMatchedWords.add(new ObjectWord("pat-", null));
+
+        ObservableList<AutoCompleteWord> generatedList =
+                autoCompleteListHandler.generateList(currentMatchedWords, testParsedUserinputList);
+
+        assertTrue(generatedList.get(0) instanceof CommandWord);
     }
 
     @Test
-    public void addDashToObjectWordList() {
-    }*/
+    public void generateList_commandWordNoIndexNoPrefix_noListGenerated() {
+        LinkedList<String> testParsedUserinputList = new LinkedList<>();
+        testParsedUserinputList.add("pat-");
+        testParsedUserinputList.add("list");
+
+        LinkedList<AutoCompleteWord> currentMatchedWords = new LinkedList<>();
+        currentMatchedWords.add(new ObjectWord("pat-", null));
+        currentMatchedWords.add(new CommandWord("pat-", "list",
+                null, false, false));
+
+        ObservableList<AutoCompleteWord> generatedList =
+                autoCompleteListHandler.generateList(currentMatchedWords, testParsedUserinputList);
+
+        assertEquals(0, generatedList.size());
+    }
+
+    @Test
+    public void generateList_commandWordNoIndexHasPrefix_prefixListGenerated() {
+        LinkedList<String> testParsedUserinputList = new LinkedList<>();
+        testParsedUserinputList.add("pat-");
+        testParsedUserinputList.add("add");
+
+        LinkedList<AutoCompleteWord> currentMatchedWords = new LinkedList<>();
+        currentMatchedWords.add(new ObjectWord("pat-", null));
+        currentMatchedWords.add(new CommandWord("pat-", "add",
+                null, false, true));
+
+        ObservableList<AutoCompleteWord> generatedList =
+                autoCompleteListHandler.generateList(currentMatchedWords, testParsedUserinputList);
+
+        assertTrue(generatedList.get(0) instanceof PrefixWord);
+    }
+
+    @Test
+    public void generateList_commandWordHasIndexHasPrefix_prefixListGenerated() {
+        LinkedList<String> testParsedUserinputList = new LinkedList<>();
+        testParsedUserinputList.add("pat-");
+        testParsedUserinputList.add("edit");
+        testParsedUserinputList.add("1");
+
+        LinkedList<AutoCompleteWord> currentMatchedWords = new LinkedList<>();
+        currentMatchedWords.add(new ObjectWord("pat-", null));
+        currentMatchedWords.add(new CommandWord("pat-", "edit",
+                null, false, true));
+        currentMatchedWords.add(new IndexWord("1", null));
+
+        ObservableList<AutoCompleteWord> generatedList =
+                autoCompleteListHandler.generateList(currentMatchedWords, testParsedUserinputList);
+
+        assertTrue(generatedList.get(0) instanceof PrefixWord);
+    }
 }
