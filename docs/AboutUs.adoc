@@ -29,7 +29,7 @@ Responsibilities: Software Architecture + DevOps + Travis Expert
 
 === Ning Sheng Ying
 image::ning-sy210.png[width="150", align="left"]
-{empty}[http://github.com/ning-sy210[github]][<<ningshengying#, portfolio>>]
+{empty}[http://github.com/ning-sy210[github]][<<ning-sy210#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI + Testing + Intellij Expert
