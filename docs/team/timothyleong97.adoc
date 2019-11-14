@@ -24,16 +24,18 @@ Java and JavaScript flash cards that allow users to do Kattis/Codility-like task
 ** Highlights: Benefits students who are learning to code by allowing them to mimick the tests found on online code judges and write their own problems
 ** Credits: Mozilla Rhino for evaluating JavaScript Code.
 
-* *Minor enhancement*: Refactored GUI to follow MVC pattern
+* *Minor enhancement*: Refactored GUI to follow MVC pattern when previously it was a static display board
 - What it does: allow controls such as buttons to influence the Model (delete, create cards etc)
-- Justification: The CLI commands may be slightly less intuitive to use at times compared to using the GUI. Controllers allow the GUI to interface with the app's Logic.
+- Justification: The CLI commands may be initially less intuitive to use compared to using the GUI. Controllers allow the GUI to interface with the app's Logic.
 
 * *Other contributions*:
 
 ** Project management:
 ** Enhancements to existing features:
 *** Wrote tests for all the non-GUI-related classes I created
+*** Added commands for adding Java Card and Javascript Card in the CLI
 ** Community:
+*** Managed release v1.4
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F09-2/main/pull/181[#181]
 ** Tools:
 *** Created a DeepCopy utility class for duplicating team-created Java objects.
@@ -52,7 +54,6 @@ I wrote https://github.com/AY1920S1-CS2103-F09-2/main/blob/master/docs/UserGuide
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-
-== PROJECT: FlashCard Pro
+I wrote https://flashcardpro.netlify.com/developerguide#running-a-code-flashcard[Running a code flashcard]
 
 ---
