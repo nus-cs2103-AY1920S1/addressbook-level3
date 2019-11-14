@@ -69,9 +69,7 @@ Implemented tests for the `showall` command, namely `ShowallCommandFactoryTest` 
 Added a Problem Display Panel to the Questions and Workspace Tab.
 
 
-=== *Code contributed*:
-
-[[Functional code]] [[Test code]]
+=== *Code contributed*:[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=zhangj1an&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Reposense]]
 
 === *Other contributions*:
 
@@ -83,8 +81,7 @@ Added a Problem Display Panel to the Questions and Workspace Tab.
 *** Did cosmetic tweaks to existing contents of the User Guide's quickstart section.
 *** Contributed to Developer Guide and User Guide as shown at the end.
 ** Community:
-*** PRs reviewed: #13, #14, #15, #20, #21, #36, #47, #50, #52, #53, #57, #63, #64, #70, #71, #87, #91, #102, #104, #133, #173
-*** Reported bugs and suggestions for other teams in the class (examples:   Typos in UG, Feature not present: 6 Load commands stated in UG not implemented, Budget command not working with only amount and description entered)
+*** Reported bugs and suggestions for other teams in the class (examples: Typos in UG, Feature not present: 6 Load commands stated in UG not implemented, Budget command not working with only amount and description entered)
 ** Tools:
 *** Integrated 2 third party library (Travis, Codacy) to the project.
 
