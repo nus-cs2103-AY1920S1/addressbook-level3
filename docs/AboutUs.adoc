@@ -9,9 +9,9 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Alex Koh
+=== Alex Koh Nan Yu
 image::alxkohh.png[width="150", align="left"]
-{empty}[http://github.com/alxkohh[github]][<<alexkoh#, portfolio>>]
+{empty}[http://github.com/alxkohh[github]][https://ay1920s1-cs2103t-f14-1.github.io/main/team/alxkohh.html[portfolio]]
 
 Role: Developer +
 Responsibilities: UI + Integration + SceneBuilder Expert
@@ -20,7 +20,7 @@ Responsibilities: UI + Integration + SceneBuilder Expert
 
 === Lim Haw Jia
 image::limhawjia.png[width="150", align="left"]
-{empty}[http://github.com/limhawjia[github]][<<limhawjia#, portfolio>>]
+{empty}[http://github.com/limhawjia[github]][https://ay1920s1-cs2103t-f14-1.github.io/main/team/limhawjia.html[portfolio]]
 
 Role: Developer +
 Responsibilities: Software Architecture + DevOps + Travis Expert
@@ -29,7 +29,7 @@ Responsibilities: Software Architecture + DevOps + Travis Expert
 
 === Ning Sheng Ying
 image::ning-sy210.png[width="150", align="left"]
-{empty}[http://github.com/ning-sy210[github]][<<ningshengying#, portfolio>>]
+{empty}[http://github.com/ning-sy210[github]][https://ay1920s1-cs2103t-f14-1.github.io/main/team/ning-sy210.html[portfolio]]
 
 Role: Developer +
 Responsibilities: UI + Testing + Intellij Expert
@@ -38,7 +38,7 @@ Responsibilities: UI + Testing + Intellij Expert
 
 === Zhang Jian
 image::zhangj1an.png[width="150", align="left"]
-{empty}[http://github.com/zhangj1an[github]][<<zhangjian#, portfolio>>]
+{empty}[http://github.com/zhangj1an[github]][https://ay1920s1-cs2103t-f14-1.github.io/main/team/zhangj1an.html[portfolio]]
 
 Role: Developer +
 Responsibilities: Storage + Documentation + Git Expert
