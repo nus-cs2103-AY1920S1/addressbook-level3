@@ -1,0 +1,18 @@
+@startuml
+start
+:User executes match command;
+:Check parameter specified;
+if () then ([match specific patient])
+    :Match all donors to
+    the specified patient;
+    :Store match results
+    with MatchedDonor;
+else ([match all patients])
+    :Match all donors to
+    all patients;
+    :Store match results
+    with MatchedPatient;
+endif
+:Display match results;
+stop
+@enduml

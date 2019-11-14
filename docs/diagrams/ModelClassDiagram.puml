@@ -17,15 +17,34 @@ Class ReadOnlyUserPrefs
 
 Package Person {
 Class Person
-Class Address
-Class Email
+Class Type
+Class Nric
 Class Name
 Class Phone
 Class UniquePersonList
+
+
+Package Doctor {
+Class Doctor
 }
 
-Package Tag {
-Class Tag
+Package Patient {
+Class Patient
+Class Priority
+Class DoctorInCharge
+Class Age
+Class BloodType
+Class TissueType
+Class Organ
+}
+
+Package Donor{
+Class Donor
+Class Age
+Class BloodType
+Class TissueType
+Class Organ
+Class OrganExpiryDate
 }
 }
 
@@ -39,18 +58,34 @@ Model .right.> ObservableList
 ModelManager o--> "1" AddressBook
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
+Doctor .up.|> Person
+Patient .up.|> Person
+Donor .up.|> Person
 
 AddressBook *--> "1" UniquePersonList
 UniquePersonList o--> "*" Person
 Person *--> Name
 Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Person *--> Type
+Person *--> Nric
+Patient *--> Priority
+Patient *--> DoctorInCharge
+Patient *--> Age
+Patient *--> BloodType
+Patient *--> TissueType
+Patient *--> Organ
+Donor *--> OrganExpiryDate
+Donor *--> Age
+Donor *--> BloodType
+Donor *--> TissueType
+Donor *--> Organ
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Type -[hidden]down-> Nric
+Nric -[hidden]down-> Name
+Name -[hidden]down-> Phone
+Age -[hidden]down-> BloodType
+BloodType -[hidden]down-> TissueType
+TissueType -[hidden]down-> Organ
 
 ModelManager -->"1" Person : filtered list
 @enduml

@@ -1,0 +1,32 @@
+@startuml
+!include ./style.puml
+
+Participant ":FindCommand   " as findCommand LOGIC_COLOR
+Participant ":model  " as model MODEL_COLOR
+Participant ":StringUtil  " as StringUtil STORAGE_COLOR
+
+[-> findCommand : execute
+activate findCommand LOGIC_COLOR
+
+findCommand -> model : getFullPersonList()
+activate model MODEL_COLOR
+
+model --> findCommand
+deactivate model
+
+findCommand -> findCommand : fuzzyMatch(argMultimap, allExceptExactMatches)
+activate findCommand LOGIC_COLOR_T1
+
+findCommand -> StringUtil : calculateLevenshteinDistance(keyword, attribute)
+activate StringUtil STORAGE_COLOR
+
+StringUtil --> findCommand
+deactivate StringUtil
+
+findCommand --> findCommand
+deactivate findCommand
+
+findCommand -> model --: setDisplayedPersonList(finalArrayList)
+activate model MODEL_COLOR
+
+@enduml

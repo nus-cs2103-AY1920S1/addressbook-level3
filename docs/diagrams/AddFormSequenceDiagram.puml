@@ -1,0 +1,135 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant "a:AddCommand" as AddCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box UI UI_COLOR_T1
+participant ":FormUiManager" as FormUiManager UI_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> LogicManager : execute("add t/doctor")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("add t/doctor")
+activate AddressBookParser
+
+create AddCommandParser
+AddressBookParser -> AddCommandParser
+activate AddCommandParser
+
+AddCommandParser --> AddressBookParser
+deactivate AddCommandParser
+
+AddressBookParser -> AddCommandParser : parse("t/doctor")
+activate AddCommandParser
+
+create AddCommand
+AddCommandParser -> AddCommand
+activate AddCommand
+
+AddCommand --> AddCommandParser : a
+deactivate AddCommand
+
+AddCommandParser --> AddressBookParser : a
+deactivate AddCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddCommandParser -[hidden]-> AddressBookParser
+
+AddressBookParser --> LogicManager : a
+deactivate AddressBookParser
+
+LogicManager -> AddCommand : execute()
+activate AddCommand
+
+create CommandResult
+AddCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddCommand : isForm
+deactivate CommandResult
+
+AddCommand --> LogicManager : isForm
+deactivate AddCommand
+
+create FormUiManager
+LogicManager -> FormUiManager
+activate FormUiManager
+
+FormUiManager --> LogicManager
+deactivate FormUiManager
+
+LogicManager -> FormUiManager : getPersonDetails()
+activate FormUiManager
+
+FormUiManager --> LogicManager
+
+LogicManager -> FormUiManager : getName("John Doe")
+LogicManager -> FormUiManager : getNric("S4612296H")
+LogicManager -> FormUiManager : getPhone("91230201")
+
+FormUiManager -> FormUiManager : setPersonDetails()
+
+FormUiManager -> FormUiManager : addDoctorToList()
+
+FormUiManager --> LogicManager : execute("add t/doctor n/John Doe ic/S4612296H p/9123021")
+
+LogicManager -> AddressBookParser : parseCommand("add t/doctor n/John Doe ...")
+activate AddressBookParser
+
+AddressBookParser -> AddCommandParser
+activate AddCommandParser
+
+AddCommandParser --> AddressBookParser
+deactivate AddCommandParser
+
+AddressBookParser -> AddCommandParser : parse("t/doctor n/John Doe ...")
+activate AddCommandParser
+
+create AddCommand
+AddCommandParser -> AddCommand
+activate AddCommand
+
+AddCommand --> AddCommandParser : a
+deactivate AddCommand
+
+AddCommandParser --> AddressBookParser : a
+deactivate AddCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddCommandParser -[hidden]-> AddressBookParser
+destroy AddCommandParser
+
+AddressBookParser --> LogicManager : a
+deactivate AddressBookParser
+
+LogicManager -> AddCommand : execute()
+activate AddCommand
+
+AddCommand -> ModelManager : addPerson(person)
+activate ModelManager
+
+ModelManager --> AddCommand
+deactivate ModelManager
+
+create CommandResult
+AddCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddCommand : result
+deactivate CommandResult
+
+AddCommand --> LogicManager : result
+deactivate AddCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

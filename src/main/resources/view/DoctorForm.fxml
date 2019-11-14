@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="376.0" prefWidth="429.0" style="-fx-background-color: #292929; -fx-border-color: #ff5138; -fx-border-width: 2; -fx-background-radius: 10; -fx-border-insets: 10;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <AnchorPane prefHeight="45.0" prefWidth="500.0">
+      <children>
+        <Label alignment="CENTER" layoutX="-1.0" layoutY="2.0" prefHeight="45.0" prefWidth="582.0" style="-fx-font-size: 25; -fx-font-family: Malgun Gothic; -fx-text-fill: ff5138;" text="Doctor Form" textFill="#ff5138" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <font>
+            <Font name="Malgun Gothic Bold" size="29.0" />
+          </font>
+          <padding>
+            <Insets top="10.0" />
+          </padding>
+        </Label>
+      </children>
+    </AnchorPane>
+    <VBox prefHeight="200.0" prefWidth="500.0">
+      <children>
+        <AnchorPane prefHeight="66.0">
+          <children>
+            <Label fx:id="name" layoutX="75.0" layoutY="23.0" prefHeight="17.0" prefWidth="330.0" style="-fx-font-style: italic; -fx-text-fill: #ff5138;" text="Label" textFill="#ff5138">
+              <font>
+                <Font name="Malgun Gothic" size="14.0" />
+              </font>
+            </Label>
+            <Text fill="#ff5138" layoutX="23.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Name:" wrappingWidth="51.803375244140625">
+              <font>
+                <Font name="Malgun Gothic" size="14.0" />
+              </font>
+            </Text>
+          </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="66.0" prefWidth="500.0">
+          <children>
+            <Text fill="#ff4f38" layoutX="23.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NRIC:" wrappingWidth="51.803375244140625">
+              <font>
+                <Font name="Malgun Gothic Bold" size="14.0" />
+              </font>
+            </Text>
+            <Label fx:id="nric" layoutX="75.0" layoutY="22.0" prefHeight="17.0" prefWidth="330.0" style="-fx-font-style: italic; -fx-text-fill: #ff5138;" text="Label" textFill="#ff5138">
+              <font>
+                <Font name="Malgun Gothic" size="14.0" />
+              </font>
+            </Label>
+          </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="67.0" prefWidth="500.0">
+          <children>
+            <Text fill="#ff5138" layoutX="23.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone:" wrappingWidth="51.803375244140625">
+              <font>
+                <Font name="Malgun Gothic Bold" size="14.0" />
+              </font>
+            </Text>
+            <Label fx:id="phone" layoutX="82.0" layoutY="22.0" prefHeight="20.0" prefWidth="323.0" style="-fx-font-style: italic; -fx-text-fill: #ff5138;" text="Label" textFill="#ff5138">
+              <font>
+                <Font name="Malgun Gothic" size="14.0" />
+              </font>
+            </Label>
+          </children>
+        </AnchorPane>
+      </children>
+    </VBox>
+      <AnchorPane prefHeight="40.0" prefWidth="500.0">
+         <children>
+            <ProgressBar fx:id="progressBar" layoutX="130.0" layoutY="6.0" opacity="0.75" prefHeight="19.0" prefWidth="205.0" progress="0.0" style="-fx-accent: #ff5138;" />
+            <Label fx:id="progressPercentage" layoutX="341.0" layoutY="6.0" style="-fx-font-style: italic; -fx-text-fill: #ff5138;" text="0%" />
+         </children>
+      </AnchorPane>
+  </children>
+</VBox>

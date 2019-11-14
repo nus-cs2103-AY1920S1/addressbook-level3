@@ -1,0 +1,18 @@
+@startuml
+
+start
+:User enters list command;
+if () then ([no parameter])
+    :ORGANice displays all persons;
+else ([has parameter])
+    :ORGANice checks parameter;
+    if () then ([valid Type parameter])
+        :ORGANice displays list of persons
+                of the specified Type;
+    else ([invalid parameter])
+        :    ORGANice displays an
+        "invalid command" message;
+    endif
+endif
+stop
+@enduml
