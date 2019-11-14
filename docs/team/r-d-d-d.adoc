@@ -39,6 +39,10 @@ Below is how a typical project overview look like.
 
 image::RDProjectOverview.png[Overview,320,240]
 
+=== Code contributed: 
+
+Please click the link to see a sample of my code: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=r-d-d-d&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=R-D-D-D&tabRepo=AY1920S1-CS2103T-T17-1%2Fmain%5Bmaster%5D[Functional code]]
+
 === Features added: Finance tracker.
 
 - What it does: It allows user to monitor the budget situation
