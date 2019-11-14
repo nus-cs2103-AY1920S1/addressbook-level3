@@ -5,16 +5,30 @@ skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
 package UI <<Rectangle>>{
+Interface UiPartObserver <<Interface>>
 Interface Ui <<Interface>>
-Class "{abstract}\nUiPart" as UiPart
+Class "           {abstract}            \nUiPart" as UiPart
 Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
+Class DataPanelsTabPaneManager
+Class AutoCompletePanelManager
 Class PersonListPanel
 Class PersonCard
+Class AppointmentListPanel
+Class AppointmentCard
+Class OngoingVisitListPanel
+Class OngoingVisitCard
+Class HistoryPanel
+Class HistoryRecordCard
+Class AutoCompletePanel
+Class AutoCompleteCard
 Class StatusBarFooter
 Class CommandBox
+Class TabPane
+Class Tab
+
 }
 
 package Model <<Rectangle>> {
@@ -34,9 +48,28 @@ MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> PersonListPanel
+MainWindow *-down-> HistoryPanel
+MainWindow *-down-> AppointmentListPanel
+MainWindow *-down-> OngoingVisitListPanel
+MainWindow *-down-> AutoCompletePanel
+MainWindow *-down-> AutoCompletePanelManager
 MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> DataPanelsTabPaneManager
+MainWindow *-down-> Tab
+MainWindow *-down-> TabPane
 
+ResultDisplay .up.> UiPartObserver
+AutoCompletePanelManager .up.> UiPartObserver
+CommandBox -up-> UiPartObserver
+
+DataPanelsTabPaneManager -down-> Tab
+DataPanelsTabPaneManager -down-> TabPane
+AutoCompletePanelManager -down-> AutoCompletePanel
 PersonListPanel -down-> PersonCard
+AppointmentListPanel -down-> AppointmentCard
+OngoingVisitListPanel -down-> OngoingVisitCard
+HistoryPanel -down-> HistoryRecordCard
+AutoCompletePanel -down-> AutoCompleteCard
 
 MainWindow -left-|> UiPart
 
@@ -44,17 +77,31 @@ ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 PersonListPanel --|> UiPart
 PersonCard --|> UiPart
+AppointmentListPanel --|> UiPart
+AppointmentCard --|> UiPart
+OngoingVisitListPanel --|> UiPart
+OngoingVisitCard --|> UiPart
+HistoryPanel --|> UiPart
+HistoryRecordCard --|> UiPart
+AutoCompletePanel --|> UiPart
+AutoCompleteCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
 PersonCard ..> Model
+OngoingVisitCard ..> Model
+AppointmentCard ..> Model
+HistoryRecordCard ..> Model
+AutoCompleteCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
+ResultDisplay -[hidden]left- HelpWindow
+CommandBox -[hidden]left- ResultDisplay
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
+Tab -[hidden]right- StatusBarFooter
+TabPane -[hidden]right- StatusBarFooter
 
 MainWindow -[hidden]-|> UiPart
 @enduml

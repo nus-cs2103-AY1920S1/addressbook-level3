@@ -1,0 +1,67 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AppParser" as AppParser LOGIC_COLOR
+participant ":ExportCommandParser" as ExportCommandParser LOGIC_COLOR
+participant "e:ExportCommand" as ExportCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":PatientBook" as PatientBook MODEL_COLOR
+participant ":UniquePatientList" as UniquePatientList MODEL_COLOR
+end box
+
+box Util
+participant ":CsvUtil" as CsvUtil MODEL_COLOR
+participant ":FileUtil" as FileUtil MODEL_COLOR
+end box
+
+[-> LogicManager : execute(...)
+activate LogicManager
+
+LogicManager -> AppParser : parseCommand(...)
+activate AppParser
+
+create ExportCommandParser
+AppParser -> ExportCommandParser
+activate ExportCommandParser
+
+create ExportCommand
+ExportCommandParser -> ExportCommand
+
+activate ExportCommand
+ExportCommand --> ExportCommandParser : e
+deactivate ExportCommand
+
+ExportCommandParser --> AppParser : e
+deactivate ExportCommandParser
+ExportCommandParser -[hidden]-> AppParser : e
+destroy ExportCommandParser
+
+AppParser --> LogicManager : e
+deactivate AppParser
+
+LogicManager -> ExportCommand : execute()
+activate ExportCommand
+
+ref over ExportCommand, Model, PatientBook, UniquePatientList
+    get patient list
+end
+
+ref over ExportCommand, CsvUtil, FileUtil
+    write patients to csv file
+end
+
+ExportCommand --> LogicManager : result
+deactivate ExportCommand
+ExportCommand -[hidden]-> LogicManager : result
+destroy ExportCommand
+
+[<-- LogicManager
+
+deactivate LogicManager
+
+@enduml

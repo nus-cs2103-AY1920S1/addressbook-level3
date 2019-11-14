@@ -1,0 +1,4 @@
+== Exiting the program : `app-  exit`
+
+You can exit the program using `app-exit`. +
+Format: `app-exit`

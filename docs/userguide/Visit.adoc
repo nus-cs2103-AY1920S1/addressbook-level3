@@ -1,0 +1,94 @@
+// tag::visit[]
+[[Visit]]
+== Visit Management
+====
+*Visit Management*
+
+As a community nurse, you will often make home visits to your patients. When you are visiting a patient, there is often a todo list that you will have to do as well as information that you will have to record. This can now be done using the app. This section describes the features that will allow you to start a visit, keep track of your tasks during a visit, finish a visit and view information recorded during previous visits.
+
+====
+
+=== Starting a Visit `visit-start`
+
+You can begin a visit by using `visit-start`. When you visit a patient and you want to record in the application that you are visiting said patient, you can use this feature to begin the visit for that patient (which will unlock the `visit-now-update` and `visit-now-finish` commands that will be applied to that visit). You can only have one ongoing visit at any point in time. This ongoing visit can be viewed in the "Current Visit" tab.
+
+`visit-start` uses the patient's Visit Todos to populate a checklist of Visit Tasks for you to use (these Visit Tasks are simply referred to as "tasks"). Visit Todos are described in further detail under <<VisitHowTo>>.
+
+Format: `visit-start PATIENT_INDEX`
+
+****
+* Begins a visit for the patient specified at `PATIENT_INDEX`.
+* The index refers to the index number shown in the list of patients displayed by `pat-list` or `pat-find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* There can only be one ongoing visit at any point in time; if there is already an ongoing visit this command does nothing.
+* This command does not bring up the "Current Visit" tab. You will have to manually click the tab.
+* You cannot delete the patient who you are currently visiting.
+* You can update the details of the patient you are currently visiting, but changes to his/her Visit Todos will not affect the ongoing visit's Visit Tasks.
+****
+
+Examples:
+
+* `visit-start 1` +
+Starts a visit for the 1st patient in the patient list.
+
+=== Updating the ongoing Visit `visit-now-update`
+
+Once you have begun a visit using `visit-start`, the application will note that you have an ongoing visit. You can then update the details of this ongoing visit using `visit-now-update`.
+
+
+Format: `visit-now-update [d/TASK_INDEX DETAIL]… [f/TASK_INDEX]… [uf/TASK_INDEX]… [r/REMARK]`
+
+****
+Each argument (e.g. `d/`, `f/`, `uf/`, `r/`) triggers their own change to the visit:
+
+* `d/` Represents "detail". Each task in the visit checklist can be assigned some information if it is useful for you. For example, if task of index 1 is "Check Body Temp", you can use `d/1 37.0degc` to record that detail to that task (`TASK_INDEX` followed by a space followed by the details you want to store).
+* `f/` Represents "finish". Each task begins as unfinished and to mark a task as finished, you can use this prefix. For example, to mark task of index 1 as finished, you can use `f/1` (`TASK_INDEX` of the task you want to mark as finished).
+* `uf/` Represents "un-finish". If you have marked a task as finished prior using `f/` and you want to undo that, you can use `uf/` (e.g. for task index 1 use `uf/1`).
+* `r/` Represents "remark". You can use this to update the remarks section of the visit.
+****
+
+****
+When you are on the "Current Visit" tab, you will see information of the patient you are currently visiting, a checklist of tasks and a remarks section. `TASK_INDEX` refers to the index number of the task (shown in the displayed checklist of tasks).
+
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* `TASK_INDEX` refers to the index number of the task (shown in the displayed checklist of tasks).
+* The index *must be a positive integer* 1, 2, 3, ...
+* Each argument can target different `TASK_INDEX` es. This allows you to use this command to update multiple tasks at once.
+* This command does not bring up the "Current Visit" tab (Feature coming in v2.0)
+****
+
+****
+Other notes:
+
+* If you use both `f/` and `uf/` on the same task in a single `visit-now-update` command, `uf/` will take priority (i.e. the task will be marked as unfinished).
+* A task does not need to be marked as finished in order to finish the visit. It is simply for your reference and to help you keep track of which tasks have / have not been finished.
+* Editing the Visit Todos of a patient while a visit is ongoing for that patient will not update the Visit Tasks of said patient. If you want to update the tasks, cancel the visit first, then start the visit again.
+****
+
+Example for `visit-now-update`:
+
+Assume that you have an ongoing visit and 2 tasks (task 1 is "Check Blood Pressure", task 2 is "Check for bed bugs") in your visit checklist. After you're done, you can update the application using:
+
+* `visit-now-update d/1 140/90mmHg f/1 f/2 r/Patient is healthy`
+
+This sets the details for task 1 in the checklist to "140/90mmHg" and marks tasks 1 and 2 as finished. It also sets the remarks to "Patient is healthy".
+
+Assuming then in the above scenario you discovered bed bugs after checking again before you leave. You decide to help the patient change the bedsheets and you want to update that information. You can run:
+
+* `visit-now-update uf/2 r/Patient must be reminded to wash bedsheets regularly`
+
+This would set task 2 to unfinished and change the remarks. Once you have finished changing the bedsheets, you can then verify there are no bed bugs and use `visit-now-update f/2` to mark task 2 as finished.
+
+=== Cancelling the ongoing Visit `visit-cancel`
+
+Once you have begun a visit using `visit-start`, the application will note that you have an ongoing visit. You can cancel that visit using `visit-cancel`, which will cancel the visit and remove it from the list of visits of the patient. The ongoing visit will also be removed from the Current Visit tab.
+
+Format: `visit-cancel`
+
+=== Finishing the ongoing Visit `visit-end`
+
+Once you have begun a visit using `visit-start`, the application will note that you have an ongoing visit. You can then mark that visit as finished using `visit-end`, which will archive that visit. The ongoing visit will be removed from the Current Visit tab.
+
+Format: `visit-end`
+// end::visit[]

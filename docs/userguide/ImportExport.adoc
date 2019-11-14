@@ -1,0 +1,157 @@
+== Importing and Exporting of Patient Data
+====
+*Importing and Exporting of Patient Data*
+
+As a community nurse, you may be assigned new patients, or some of your patients may be assigned to other community nurses. To facilitate the transferring of patient information from one device to another, you can import and export the data of your patients. This section describes the features that will allow you to import and export patient information.
+====
+
+[IMPORTANT]
+
+=====
+**CSV Compatibility**
+
+You may encounter issues when trying to import a CSV file written by another machine with a different operating system.
+As of v1.4, CSV files written by Windows and Unix machines **are not cross-compatible**.
+This means that the app, running on Windows, can only import CSV files written by a Windows machine.
+The same goes for Unix systems.
+
+This issue can be circumvented by using text file format converters to convert a Windows written CSV to a Unix one, and vice versa.
+The recommended converters are `Dos2Unix` and `Unix2Dos`, both available link:http://dos2unix.sourceforge.net/[here].
+
+=====
+
+=== Importing Patients from a CSV file: `app-import-replace`, `app-import-merge`
+
+You can import patient data from a .csv file into the application using
+`app-import-replace` or `app-import-merge`.
+
+****
+* Only the file format .csv is supported.
+* The application will look for the specified .csv file in the `./imports` folder.
+* Both import commands are undoable.
+****
+
+[IMPORTANT]
+=====
+**CSV files used for importing must adhere to the following format requirements.**
+
+* Provided file name should not be blank, and can contain only alphanumerics, hyphens and underscores.
+* The top row of the file must be exactly the following headers in the order:
+
+	name, phone, email, address, tagged, visitTodos
+
+* Each row in the .csv corresponds to one patient.
+* There may not be duplicate patients in the .csv file.
+* The data in each cell must adhere to the format of the field it belongs in.
+** Cells under `phone` must contain 3 to 8 digit numbers, cells under `name` must contain only alphanumerics and spaces, etc.
+** For the fields `tagged` and `visitTodos` with multiple elements per cell,
+each element is to be separated with a newline.
+* The data row for any patient cannot have empty cells in the following fields:
+
+	`name`, `phone`, `address`, `email`
+
+* The .csv file should adhere to the link:https://tools.ietf.org/html/rfc4180[RFC 2048] standard.
+
+=====
+Examples of valid CSV files can be seen
+link:https://github.com/AY1920S1-CS2103-F10-1/main/tree/master/docs/samplecsvs[here]
+
+==== Import and Replace: `app-import-replace`
+
+Reads patient data from a specified .csv file.
+
+`".csv"` will be auto-appended to the specified `FILENAME`,
+**so there is no need to type in the file extension**.
+
+[WARNING]
+=====
+**All existing patient data will be deleted and replaced with this new data.**
+
+**All existing appointment data will be deleted.**
+=====
+
+****
+* Provided file should not be empty.
+* Cannot be executed when there is an ongoing visit.
+****
+
+
+Format: `app-import-replace n/FILENAME`
+
+Examples:
+
+* `app-import-replace n/my_assigned_patients`
+
+** Patient data will be entirely replaced with new data from `./imports/my_assigned_patients.csv`.
+
+==== Import and Merge: `app-import-merge`
+
+Patient data will be read from a specified .csv file and merged without
+affecting existing data.
+
+`".csv"` will be auto-appended to the specified `FILENAME`,
+**so there is no need to type in the file extension**.
+
+****
+* Provided file should not be empty.
+* The .csv file cannot contain a patient that already exists in the app.
+* Can be executed when there is an ongoing visit.
+****
+
+Format: `app-import-merge n/FILENAME`
+
+Examples:
+
+* `app-import-replace n/my_new_patients`
+
+** Patient data from `./imports/my_new_patients.csv` will be added into the app.
+
+=== Exporting patients into a CSV file: `app-export`
+
+You can export patient data from the application into a .csv file using `app-export`.
+
+A new .csv file will be created and data will be written into it.
+
+Indexes can be provided to selectively export data of specific persons.
+
+`".csv"` will be auto-appended to the specified `FILENAME`,
+**so there is no need to type in the file extension**.
+
+****
+* Only the file format .csv is supported.
+* Creates `FILENAME.csv` in the `./exports` folder
+* **The provided file name must not be already in use.**
+****
+
+Format: `app-export n/FILENAME [i/INDEX...]`
+
+Examples:
+
+* `app-export n/patients`
+** All patient data will be exported to `./exports/patients.csv`.
+* `app-export n/alex i/1`
+** The data of the patient at index 1 will be exported to `./exports/alex.csv`.
+* `app-export n/tomorrow i/2 i/4 i/6`
+** The data of the patients at indexes 2, 4 and 6 will be exported to `./exports/tomorrow.csv`.
+
+[IMPORTANT]
+
+=====
+* **As of version 1.4, the export feature does not support Visits and Appointments.**
+
+* **Patients' visit data will not be exported.** This feature will be implemented in `v2.0`.
+
+* The provided file name cannot be blank, and can contain only alphanumerics, hyphens and underscores.
+=====
+
+=== Exporting Appointments `[coming in v2.0]`
+
+You can export your appointment data into a .csv file using `app-export-appt`.
+A new .csv file will be created and data will be written into it.
+
+Format: `app-export-appt n/FILENAME`
+
+Examples:
+
+* `app-export-appt n/appointments`
+** All appointment data will be exported to `./exports/appointments.csv`.

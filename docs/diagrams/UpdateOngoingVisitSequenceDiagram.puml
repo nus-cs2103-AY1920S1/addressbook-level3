@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":PatientBookParser" as PatientBookParser LOGIC_COLOR
+participant "u:UpdateOngoingVisitCommandParser" as UpdateOngoingVisitCommandParser LOGIC_COLOR
+participant "d:UpdateOngoingVisitDescriptor" as UpdateOngoingVisitDescriptor LOGIC_COLOR
+participant "cmd:UpdateOngoingVisitCommand" as UpdateOngoingVisitCommand LOGIC_COLOR
+participant "cmdResult:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":PatientBook" as PatientBook MODEL_COLOR
+end box
+
+box Util
+participant ":VisitUtil" as VisitUtil MODEL_COLOR
+end box
+
+[-> LogicManager : execute("visit-now-update d/2 details f/2 r/Remarks")
+activate LogicManager
+
+LogicManager -> PatientBookParser : parseCommand("visit-now-update d/2 details f/2 r/Remarks")
+activate PatientBookParser
+
+create UpdateOngoingVisitCommandParser
+PatientBookParser -> UpdateOngoingVisitCommandParser : UpdateOngoingVisitCommandParser()
+activate UpdateOngoingVisitCommandParser
+
+UpdateOngoingVisitCommandParser --> PatientBookParser : u
+PatientBookParser -> UpdateOngoingVisitCommandParser : parse(arguments)
+
+create UpdateOngoingVisitDescriptor
+UpdateOngoingVisitCommandParser -> UpdateOngoingVisitDescriptor : UpdateOngoingVisitDescriptor()
+UpdateOngoingVisitCommandParser <-- UpdateOngoingVisitDescriptor : d
+ref over UpdateOngoingVisitCommandParser, UpdateOngoingVisitDescriptor : Parse args from argMultimap into updateOngoingVisitDescriptor based on each prefix
+create UpdateOngoingVisitCommand
+UpdateOngoingVisitCommandParser -> UpdateOngoingVisitCommand : UpdateOngoingVisitCommand(updateOngoingVisitDescriptor)
+activate UpdateOngoingVisitCommand
+UpdateOngoingVisitCommand --> UpdateOngoingVisitCommandParser : cmd
+deactivate UpdateOngoingVisitCommand
+UpdateOngoingVisitCommandParser --> PatientBookParser : cmd
+deactivate UpdateOngoingVisitCommandParser
+PatientBookParser --> LogicManager : cmd
+deactivate PatientBookParser
+
+LogicManager -> UpdateOngoingVisitCommand : execute(model)
+activate UpdateOngoingVisitCommand
+UpdateOngoingVisitCommand -> UpdateOngoingVisitDescriptor : isAnyFieldUpdated()
+activate UpdateOngoingVisitDescriptor
+UpdateOngoingVisitDescriptor --> UpdateOngoingVisitCommand : isAnyFieldUpdated
+deactivate UpdateOngoingVisitDescriptor
+
+UpdateOngoingVisitCommand -> VisitUtil : getOngoingVisitIfExists(model, MESSAGE_NO_ONGOING_VISIT)
+UpdateOngoingVisitCommand <-- VisitUtil : visitToUpdate
+UpdateOngoingVisitCommand -> UpdateOngoingVisitCommand : createUpdated(visitToUpdate, updateOngoingVisitDescriptor)
+activate UpdateOngoingVisitCommand
+UpdateOngoingVisitCommand <-- UpdateOngoingVisitCommand : updatedVisit
+deactivate UpdateOngoingVisitCommand
+
+UpdateOngoingVisitCommand -> Model : updateOngoingVisit(updatedVisit)
+activate Model
+ref over Model, PatientBook : updateOngoingVisit(updatedVisit) : void
+UpdateOngoingVisitCommand <-- Model
+deactivate Model
+
+create CommandResult
+UpdateOngoingVisitCommand -> CommandResult : CommandResult(successfullyUpdatedVisitMessage)
+activate CommandResult
+UpdateOngoingVisitCommand <-- CommandResult : cmdResult
+deactivate CommandResult
+
+LogicManager <-- UpdateOngoingVisitCommand : cmdResult
+
+deactivate UpdateOngoingVisitCommand
+
+deactivate LogicManager
+
+@enduml

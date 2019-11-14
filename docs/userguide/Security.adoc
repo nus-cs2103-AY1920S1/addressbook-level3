@@ -1,0 +1,64 @@
+== Login System & Security `[coming in v2.0]`
+====
+*Login System & Security*
+
+As a community nurse, you will often be managing your patients' confidential data. A login system will be useful in helping you to ensure the confidentiality and security of your patients' information. This section describes the features that will allow you to manage this security system.
+====
+
+=== Enabling the Login System `login-enable` `[coming in v2.0]`
+
+If you haven't setup a login PIN, you can enable the login system by setting a login pin using `login-enable`.
+
+Format: `login-enable PIN`
+
+****
+ * The PIN is a series of 6 alphanumeric characters (case sensitive).
+****
+
+=== Disabling the Login System `login-disable` `[coming in v2.0]`
+
+If you have setup a login PIN, you can disable the login system using `login-disable`.
+
+Format: `login-disable CURRENT_PIN`
+
+****
+ * CURRENT_PIN refers to the PIN that you use to login.
+ * CURRENT_PIN is a series of 6 alphanumeric characters (case sensitive).
+****
+
+=== Changing the Login Pin `login-changepin` `[coming in v2.0]`
+
+If you have setup a login PIN, you can change the pin using `login-changepin`.
+
+Format: `login-changepin o/OLD_PIN n/NEW_PIN`
+
+****
+ * OLD_PIN refers to the PIN that you use to login.
+ * NEW_PIN refers to the new PIN that you want to use in the future.
+ * OLD_PIN and NEW_PIN are a series of 6 alphanumeric characters (case sensitive).
+****
+
+=== Locking the Application `login-lock` `[coming in v2.0]`
+
+If you have setup a login PIN, you can lock the application using `login-lock`.
+
+Format: `login-lock`
+
+=== Changing Login Lock Timeout `login-timeout` `[coming in v2.0]`
+
+If you have setup a login PIN, you can change the amount of time (in minutes) before the system automatically locks the application using `login-timeout`.
+
+Format: `login-timeout MINUTES`
+
+Example: `login-timeout 3` will configure the system to automatically lock the application after 3 minutes.
+
+=== Logging in / Unlocking the Application `[coming in v2.0]`
+
+On the lock screen you will be prompted to enter your PIN. Once you enter the correct and press kbd:[Enter], the application will unlock.
+
+
+// tag::dataencryption[]
+=== Data Encryption `[coming in v2.0]`
+
+The save files of the application will be automatically encrypted using your PIN.
+// end::dataencryption[]

@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= NurseTraverse - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-F10-1/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103-F10-1`      Since: `Jun 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -30,11 +30,7 @@ image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
-
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/cs/f10/t1/nursetraverse/Main.java[`Main`] and link:{repoURL}/src/main/cs/f10/t1/nursetraverse/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -64,9 +60,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `pat-delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `pat-delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -88,6 +84,10 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+Manager classes like `AutoCompletePanelManager` and `DataPanelsTabPaneManager` handles changes of its respective components.
+
+`UiPartObserver` interface prevents direct communication between 2 UiPart. It is implemented by the result display and autocomplete panel to listen for userinput from the command box and make changes acccordingly.
+
 [[Design-Logic]]
 === Logic component
 
@@ -98,7 +98,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `PatientBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -122,14 +122,11 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the `PatientBook`, `AppointmentBook`, and `HistoryManager` data.
+* exposes unmodifiable `ObservableList<Patient>`, `ObservableList<Appointment>`, and `ObservableList<HistoryRecord>`
+that can be 'observed' i.e. the UI can be bound to these lists so that the UI automatically updates when the data in the
+lists change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -142,105 +139,39 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Patient Book data in json format and read it back.
+* can save the Appointment Book data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `cs.f10.t1.nursetraverse.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo/History
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+include::./devguide/UndoRedoHistory.adoc[]
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== Visits Management
 
-_{Explain here how the data encryption feature will be implemented}_
+include::./devguide/VisitsManagement.adoc[]
 
-// end::dataencryption[]
+=== Appointment Management
+
+include::./devguide/AppointmentManagement.adoc[]
+
+=== Import and Export
+
+include::./devguide/ImportExport.adoc[]
+
+=== Auto-complete
+
+include::./devguide/Autocomplete.adoc[]
 
 === Logging
 
@@ -279,13 +210,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
+* community nurse
+* needs to manage a significant number of homebound patients
+* has a need to manage patients’ profile efficiently
+* has flexibility in scheduling appointments
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Makes managing patients’ data more orderly, efficient and tidy
 
 [appendix]
 == User Stories
@@ -295,35 +226,109 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |see the next-of-kin contact (address, name, phone) associated with each patient |inform them in case of any emergency situations
 
-|`* * *` |user |add a new person |
+|`* * *` |user |track the addresses of my patients |I will not forget them
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |keep track of the dosages of medications of my patients |I know exactly what they need to take
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |see my schedule of appointments for a day |I know when to go where
+
+|`* * *` |user |see all my patients’ medications in a list |I can pack my bags in advance of each trip
+
+|`* * *` |user |see the medical conditions of each patient so that |I know how to care for them
+
+|`* * *` |user |record details (these details can be broken down) about the visit (e.g. environmental conditions, patient’s symptoms, warning signs) |I can better monitor the patient’s situation
+
+|`* * *` |user |save my data automatically after each change |data doesn’t get lost if I forgot or am not able to save after a session
+
+|`* *` |user |take personal notes for each patient |I can take note of their personal quirks and needs
+
+|`* *` |user |use a todo list / checklist to keep track of what I have to do when I visit a patient |I won’t forget or miss out on any important tasks when I visit them
+
+|`* *` |user |I want to keep track of todos I have done |I will have documentations to  fall back on if i need them
+
+|`* *` |user |have a manual for how to do certain tasks (e.g. clean wounds / first aid |I am better prepared in times of emergency
+
+|`* *` |user |have a manual on medical conditions |I am better prepared to advise patients about their medical condition
+
+|`* *` |user |keep a photo of each patient so I can |remember them better
+
+|`* *` |user |alert or send reminders to patients to take any prescribed medication so that |they take their medication on time and regularly
+
+|`* *` |user |set the level of importance to each todo |urgent matters regarding patients is taken priority of and can be taken care of first
+
+|`* *` |user |have a list of emergency contacts |I will be able to find them easily in times of emergency
+
+|`* *` |user |be able to organise patient’s paperwork (appointment letters for checkups) |my patients don’t miss their appointments
+
+|`* *` |user |have a notification system |I will be reminded of important matters to settle
+
+|`* *` |user |be able to import and export my app data patient-by-patient |I can share with other nurses or manager
+
+|`* *` |user |have an undo function |I don’t accidentally make irreversible changes due to my mistakes
+
+|`* *` |user |have a pin login system |my patients’ information will be kept private
+
+|`* *` |user |have my patients’ information encrypted |their information is kept private and secure
+
+|`* *` |user |be able to see all the patient’s information in a structured format |so that messy and complex details are presented to me in an organised manner
+
+|`* *` |user |have an autocomplete function |I can use the application more quickly without memorising all the commands of the application
+
+|`* *` |user |have a help function |I do not need to worry about memorising all the commands of the application
+
+|`* *` |user |assign each patient a priority number |I can keep track of who needs me the most
+
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |user |solve the Travelling CN problem |I can save time when visiting my patients
+
+|`*` |user |sort my patient list by priority |I can keep in mind who to visit
+
+|`*` |user |keep track of each patient’s available times |I know when I can visit them
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `PatientBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add patient
+
+*MSS*
+
+1.  User requests to add a new patient to the list
+2.  Application adds the patient to the list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+
+* 1a. The one or more given parameters are invalid.
++
+[none]
+** 1a1. Application shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete patient profile
 
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+2.  Application shows a list of persons
+3.  User requests to delete a specific patient in the list
+4.  Application delete the specified patient profile
 +
 Use case ends.
 
@@ -334,23 +339,48 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The one or more given parameters are invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Application shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Adding an appointment
+
+*MSS*
+
+1.  User requests to list persons
+2.  Application shows a list of persons
+3.  User picks one patient from the list and add appointment date and time through command line
+4.  Application adds user appointment
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The one or more given parameters are invalid.
++
+[none]
+** 3a1. Application shows an error message.
++
+Use case resumes at step 2.
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should work on any mainstream OS as long as it has Java 11 or above installed
+.  Should be able to hold up to 50 patient profile without any noticeable performance issue
+.  Users should be able to understand how to use the system easily
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse
+.  GUI should be straightforward and clear
 
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -360,23 +390,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -400,26 +413,245 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a patient
 
-=== Deleting a person
+. Deleting a patient while all patients are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
+.. Prerequisites: List all patients using the `pat-list` command. Multiple patients in the list.
+.. Test case: `pat-delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Test case: `pat-delete 0` +
+   Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `pat-delete`, `pat-delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Updating a patient's Visit Todos
 
-=== Saving data
+. Updating a patient's Visit Todos. Note that this will not update the patient's visit tasks in an ongoing visit. For more information of the distinction between visit todos and visit tasks, refer to https://ay1920s1-cs2103-f10-1.github.io/main/UserGuide.html#VisitHowTo[Visit Tutorials] in the User Guide.
 
-. Dealing with missing/corrupted data files
+.. Test case: `pat-edit 1 vt/Check Blood Pressure` +
+   Expected: Patient is updated with the new Visit Todo and this is reflected in the status message.
+.. Test case: `pat-edit 1 vt/` +
+   Expected: Patient is updated with no Visit Todos.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Starting a Visit for a patient
 
-_{ more test cases ... }_
+. Starting a visit for a patient.
+
+.. Prerequisite: There is no ongoing visit.
+.. Test case: `visit-start 1` +
+   Expected: An ongoing visit is begun.
+
+.. Prerequisite: There is an ongoing visit.
+.. Test case: `visit-start 1` +
+   Expected: No visit is begun. An error message will appear in the status message informing user that there is already an ongoing visit.
+
+=== Updating an ongoing visit
+
+. Updating an ongoing visit.
+
+.. Prerequisite: There is an ongoing visit, and this visit has at least one visit task.
+.. Test case: `visit-now-update f/1 r/Patient is healthy. d/1 140/90mmHg` +
+   Expected: Visit is updated. The first visit task is marked as finished with a detail of ""140/90mmHg" and the visit has the remark "Patient is healthy.". This is reflected on the Current Visit tab and in the status message.
+
+.. Prerequisite: There is no ongoing visit.
+.. Test case: `visit-now-update [any argument]` +
+   Expected: No visit is updated. An error message will appear in the status message.
+
+Note: If the format of `visit-now-update` arguments are wrong, the error message will prompt about the format first, before it prompts on whether or not there is an ongoing visit.
+
+=== Cancelling a Visit for a patient
+
+. Cancelling a visit for a patient.
+
+.. Prerequisite: There is an ongoing visit.
+.. Test case: `visit-cancel` +
+   Expected: The ongoing visit is cancelled.
+
+.. Prerequisite: There is no ongoing visit.
+.. Test case: `visit-cancel` +
+   Expected: No visit is cancelled. An error message will appear in the status message.
+
+=== Finishing a Visit for a patient
+
+. Finishing a visit for a patient.
+
+.. Prerequisite: There is an ongoing visit.
+.. Test case: `visit-end` +
+   Expected: The ongoing visit is finished. The end date time should be indicated in the visit if you check it in the patient's list of Visits.
+
+.. Prerequisite: There is no ongoing visit.
+.. Test case: `visit-end` +
+   Expected: No visit is finished. An error message will appear in the status message.
+
+=== Adding an appointment
+
+. Adding an appointment while all appointments are listed
+
+.. Prerequisites:
+... List all appointments using the `appt-list` command. Multiple appointments in the list.
+... Ensure all the suggested date times below don't already exist in the appointment book. If they do, try with start and end date times that don't exist in the appointment list to get the expected results.
+.. Test case: `appt-add p/1 sdt/01-01-2020 1000 edt/01-01-2020 1200` +
+   Expected: Appointment is added to the list (based on its start date and time as the list is sorted by that) with first patient's details from the list of patients and the input start and end date times. Details of the added appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `appt-add p/1 sdt/14-02-2020 2000 edt/14-02-2020 2100 rmon/4` +
+   Expected: Appointment is added to the list with first patient's details from the list of patients, the input start and end date times, and recurring frequency of 4 months. The added appointment will be marked `recurring` as well. Details of the added appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case (two commands): `appt-add p/1 sdt/12-02-2020 2000 edt/12-02-2020 2100 ryr/1` +
+                             Followed by: +
+                             `appt-add p/1 sdt/12-02-2020 2000 edt/12-02-2020 2100 rmon/1` +
+   Expected: No appointment is added. Error details shown in the status message. Status bar remains the same.
+.. Test case (two commands): `appt-add p/1 sdt/10-02-2020 2000 edt/12-02-2020 2100` +
+                             Followed by: +
+                             `appt-add p/1 sdt/10-02-2020 2000 edt/12-02-2020 2100` +
+   Expected: No appointment is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect appointment add commands to try: `appt-add`, `appt-delete p/x` (where x is larger than the patient list size) +
+   Expected: Similar to previous.
+
+=== Editing an appointment
+
+. Editing an appointment while all appointments are listed
+
+.. Prerequisites:
+... List all appointments using the `appt-list` command. Multiple appointments in the list.
+... Ensure all the suggested date times below don't already exist in the appointment book. If they do, try with start and end date times that don't exist in the appointment list to get the expected results.
+.. Test case: `appt-edit 1 p/5 sdt/01-01-2020 1000 edt/01-01-2020 1200` +
+   Expected: First appointment is edited in the list to fifth patient's details from the list of patients and the input start and end date times as mentioned. Details of the edited appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `appt-edit 1 rmon/3` +
+   Expected: First appointment is edited in the list to recur by 3 months. If the appointment was previously not recurring, it will be tagged as `recurring`. Details of the edited appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `appt-edit 3 p/0` +
+   Expected: No appointment is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect appointment edit commands to try: `appt-edit`, `appt-edit x` (where x is larger than the appointment list size) +
+   Expected: Similar to previous.
+
+=== Deleting a non-recurring appointment
+
+. Deleting a non-recurring appointment while all appointments are listed
+
+.. Prerequisites:
+... List all appointments using the `appt-list` command. Multiple appointments in the list.
+... xth appointment in the appointment list should be a non-recurring appointment, where x is a positive integer.
+.. Test case: `appt-delete x` +
+   Expected: xth appointment is deleted from the list. Details of the deleted appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `appt-delete 0` +
+   Expected: No appointment is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect non-recurring appointment delete commands to try: `appt-delete`, `appt-delete x` (where x is larger than the appointment list size) +
+   Expected: Similar to previous.
+
+=== Deleting a recurring appointment
+
+. Deleting a recurring appointment while all appointments are listed
+
+.. Prerequisites:
+... List all appointments using the `appt-list` command. Multiple appointments in the list.
+... xth appointment in the appointment list should be a recurring appointment.
+.. Test case: `appt-delete x` +
+   Expected: xth appointment is deleted from the list and the next appointment from xth appointment being recurred is gotten and added to the list. Details of the deleted appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `appt-delete 0` +
+   Expected: No appointment is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect recurring appointment delete commands to try: `appt-delete`, `appt-delete x` (where x is larger than the appointment list size) +
+   Expected: Similar to previous.
+
+=== Deleting an appointment permanently
+
+. Deleting an appointment permanently while all appointments are listed
+
+.. Prerequisites: List all appointments using the `appt-list` command. Multiple appointments in the list.
+.. Test case: `appt-delete-permanent 1` +
+   Expected: First appointment is deleted from the list. Details of the deleted appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `appt-delete-permanent 0` +
+   Expected: No appointment is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect appointment permanent delete commands to try: `appt-delete-permanent`, `appt-delete-permanent x` (where x is larger than the appointment list size) +
+   Expected: Similar to previous.
+
+=== Changing of autocomplete suggestion list
+
+. Changing list from object list to command list.
+
+.. Test case: Type "pat-" into empty command box +
+   Expected: The suggestion list is changed from object list to command list
+
+. Changing list from command list to prefix list.
+
+.. Test case: Type "pat-add" into empty command box +
+   Expected: The suggestion list is changed from command list to prefix list
+
+. Changing list from command list to index list.
+
+.. Prerequisite: At least 1 patient registered in application
+.. Test case: Type "pat-edit" into empty command box +
+   Expected: The suggestion list is changed from command list to index list
+
+. Changing list from index list to prefix list.
+
+.. Prerequisite: At least 1 patient registered in application
+.. Test case: Type "pat-edit 1" into empty command box +
+   Expected: The suggestion list is changed from index list to prefix list
+
+=== Updating of current autocomplete suggestion list
+. Updating the object list.
+
+.. Test case: Type "ap" into empty command box +
+   Expected: The suggestion list should only contain "appt-" and "app-" now
+
+=== Exporting data
+
+. Export patient data into a CSV file
+
+.. Prerequisite: There are existing patients.
+.. Test case: `app-export n/testcase1` +
+   Expected: All patient data written to `./exports/testcase1.csv`.
+
+.. Prerequisite: There are existing patients at indexes 1 and 3.
+.. Test case: `app-export n/testcase2 i/1 i/3` +
+   Expected: Data of patients at index 1 and 3 written to `./exports/testcase2.csv`.
+
+=== Importing data
+
+. Import patient data from a CSV file
+
+.. Prerequisite: `./imports/testcase3.csv` exists and contains some patient data in the correct format.
+.. Test case: `app-import-replace n/testcase3` +
+   Expected: All patient data is **replaced** with patients from `testcase3.csv`.
+
+.. Prerequisite: `./imports/testcase4.csv` exists and contains **only new** patient data in the correct format.
+.. Test case: `app-import-merge n/testcase3` +
+   Expected: All patients in `testcase4.csv` added into the app.
+
+=== Viewing the command history:
+
+. Viewing the command history.
+
+.. Prerequisite: None.
+... Test case: `pat-list` +
+    Expected: No change to the history panel.
+
+.. Prerequisites: List all patients using the `pat-list` command. At least one patient in the list. No ongoing visit.
+... Test case: `pat-delete 1` +
+    Expected: `pat-delete 1` appears in the history panel at the bottom of the list with the greatest index number.
+
+=== Undoing a command:
+
+. Undoing a command.
+
+.. Prerequisite: There are commands in the history.
+... Test case: `app-undo` +
+    Expected: The previous command in the history is undone.
+... Test case: `app-undo 1` +
+    Expected: All commands in the history are undone.
+
+.. Prerequisite: There are no commands in the history.
+... Test case: `app-undo` +
+    Expected: No command is undone. An error message appears in the status box.
+... Test case: `app-undo 1` +
+    Expected: No command is undone. An error message appears in the status box.
+
+=== Redoing a command:
+
+. Redoing a command.
+
+.. Prerequisite: `app-undo` is the last successful data-modifying command.
+... Test case: `app-redo` +
+    Expected: The undone command is redone.
+
+.. Prerequisite: `app-undo` is **not** the last successful data-modifying command.
+... Test case: `app-redo` +
+    Expected: No command is redone. An error message appears in the status box.

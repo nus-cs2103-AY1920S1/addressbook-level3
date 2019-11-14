@@ -9,6 +9,11 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
+[NOTE]
+====
+This document was originally written for _AddressBook Level 3_ and hence it refers to _Address Book_ and other classes / fields that exist in _Address Book Level 3_ but not in _NurseTraverse_. Since the tutorial can still be used to understand how to remove a field from an entity in the application, it has been left in this repository as a reference.
+====
+
 [quote, Antoine de Saint-Exupery]
 Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
 

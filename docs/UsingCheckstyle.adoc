@@ -8,12 +8,6 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 
-[NOTE]
-====
-This document was originally written for _AddressBook Level 4_ and hence its screenshots refer to `addressbook-level4`.
-For use with _AddressBook Level 3_, wherever `addressbook-level4` is used in the screenshots, you should use *`addressbook-level3`*.
-====
-
 == Configuring Checkstyle-IDEA
 
 . Install the Checkstyle-IDEA plugin by going to `File` > `Settings` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS). +
@@ -22,17 +16,15 @@ Restart the IDE to complete the installation.
 . Click `File` > `Settings...` > `Other Settings` > `Checkstyle`
 . Set `Scan Scope`  to `Only Java sources (including tests)`, so that the plugin will run checkstyle for our test source codes as well
 . Ensure that the `Checkstyle version` is set to `8.1`. This is the same version that we are using inside Gradle, so that you won't get any errors due to version incompatibility
- * If `Checkstyle version` is not set to `8.1`, set it to version `8.1` and click `Apply`
+* If `Checkstyle version` is not set to `8.1`, set it to version `8.1` and click `Apply`
 +
 image::checkstyle-idea-scan-scope.png[width="500"]
 . Click the plus sign under `Configuration File`
-. Enter an arbitrary description e.g. addressbook
+. Enter an arbitrary description e.g. patientbook
 . Select `Use a local Checkstyle file`
 . Use the checkstyle configuration file found at `config/checkstyle/checkstyle.xml`
 . Click `Next` > `Finish`
 . Mark `Active` for the newly imported check configuration
-+
-image::checkstyle-idea-configuration.png[width="700"]
 . Click `OK`
 
 == Troubleshooting Checkstyle-IDEA

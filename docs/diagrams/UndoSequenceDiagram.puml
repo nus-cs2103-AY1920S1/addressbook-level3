@@ -3,44 +3,60 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AppParser" as AppParser LOGIC_COLOR
 participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
+participant ":HistoryManager" as HistoryManager MODEL_COLOR
 end box
-[-> LogicManager : execute(undo)
+
+[-> LogicManager : execute("app-undo 1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(undo)
-activate AddressBookParser
+LogicManager -> AppParser : parseCommand("app-undo 1")
+activate AppParser
 
 create UndoCommand
-AddressBookParser -> UndoCommand
+AppParser -> UndoCommand : UndoCommand(index)
 activate UndoCommand
 
-UndoCommand --> AddressBookParser
+UndoCommand --> AppParser : u
 deactivate UndoCommand
 
-AddressBookParser --> LogicManager : u
-deactivate AddressBookParser
+AppParser --> LogicManager : u
+deactivate AppParser
 
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoAddressBook()
+UndoCommand -> Model : getHistory()
 activate Model
 
-Model -> VersionedAddressBook : undo()
-activate VersionedAddressBook
+Model -> HistoryManager : asUnmodifiableObservableList()
+activate HistoryManager
 
-VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
-VersionedAddressBook --> Model :
-deactivate VersionedAddressBook
+HistoryManager --> Model : history
+deactivate HistoryManager
 
-Model --> UndoCommand
+Model --> UndoCommand : history
+deactivate Model
+
+UndoCommand -> Model : undoTo(targetRecord)
+activate Model
+
+Model -> HistoryManager : popRecordsTo(targetRecord)
+activate HistoryManager
+
+HistoryManager --> Model : poppedRecords
+deactivate HistoryManager
+
+Model -> Model : changeBaseTo(copyOfPatientBook, \ncopyOfAppointmentBook)
+activate Model
+deactivate Model
+
+Model --> UndoCommand : poppedRecords
 deactivate Model
 
 UndoCommand --> LogicManager : result

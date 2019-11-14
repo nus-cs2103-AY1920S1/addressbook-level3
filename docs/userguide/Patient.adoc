@@ -1,0 +1,139 @@
+// tag::patient[]
+== Patient Features
+====
+*Patient Features*
+
+As a community nurse, you will often need to visit various patients at their homes. This section describes the features that will allow you to manage the list of patients and their information in the application. This section covers the management of patients and their data.
+====
+
+=== Listing All Patients: `pat-list`
+You can see a list of all patients in the app by typing `pat-list`.
+
+In the list displayed, each patient will have an *index* number which can then be used for other features that require you to select a patient by *index* e.g. `pat-delete`. Take note that a patient will be given the same *index* regardless of other display commands such as `pat-find`. However, this index may change if the `pat-delete` command is executed.
+
+Format: `pat-list`
+
+=== Finding patients by name: `pat-find`
+
+You can find patients whose names contain any keyword of your choice using `pat-find`.
+
+Format: `pat-find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name of patients is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Patients matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `pat-find John` +
+Returns patients `john` and `John Doe`
+* `pat-find Betsy Tim John` +
+Returns any patient(s) having names `Betsy`, `Tim`, or `John`
+
+=== Adding a Patient: `pat-add`
+
+You can add a patient to the list of all patients by using `pat-add`.
+
+Format: `pat-add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​ [vt/VISIT_TODO]…​`
+
+****
+ * A patient can have any number of tags.
+ * A patient can have any number of visit todos.
+ * The patient cannot have the same **identity** as an existing patient.
+****
+
+TIP: Visit Todos are described in further detail under <<VisitHowTo>>.
+
+Examples:
+
+ * `pat-add n/John Doe p/98765432 e/john@email.com a/John street, block 123, #01-01`
+
+ * `pat-add n/Choong Siew Hwang p/91239876 a/22 College Avenue East; Singapore 138608 e/cho0ng@email.com t/Male vt/Check Blood Pressure`
+
+ * `pat-add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Street p/12345678 t/Female vt/Check fridge for expired food vt/Check for bed sores`
+
+.Patient identity
+[NOTE]
+===============================
+A patient is identified by three things: their name, phone number, and email. +
+
+Two patient entries are said to have the same **identity** (and thus refer to the
+same person) when both of the following conditions are satisfied:
+
+1. They have the same name (case insensitive).
+2. They have the same phone number **or** email.
+
+To prevent duplicates, there cannot be two patients with the same identity in the app at
+the same time.
+===============================
+
+=== Editing a Patient: `pat-edit`
+
+You can edit an existing patient in the app using `pat-edit`.
+
+Format: `pat-edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]… [vt/VISIT_TODO]…`
+
+****
+* Edits the person at the specified `INDEX`.
+* The index refers to the index number shown in the list of patients displayed by `pat-list` or `pat-find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing visit todos, the existing visit todos of the person will be removed i.e adding of visit todos is not cumulative.
+* You can remove all the person's visit todos by typing `vt/` without specifying any visit todos after it.
+* Editing any of the patient's fields will accordingly update all appointments associated with the patient in the list of appointments to accommodate for the changes.
+****
+
+TIP: Refer to <<VisitHowTo>> for more on Visit Todos and <<Appointment>> for more on Appointments.
+
+Examples:
+
+* `pat-list` +
+ `pat-edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person in the entire patient's list to be `91234567` and `johndoe@example.com` respectively.
+
+
+* `pat-edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person in the entire patient's list with `Betsy Crower` and clears all existing tags.
+
+
+// tag::delete[]
+=== Deleting a Patient: `pat-delete`
+
+You can delete a patient by *index* using `pat-delete`.
+
+Format: `pat-delete INDEX`
+
+****
+* Deletes the patient at the specified `INDEX`.
+* The index refers to the index number shown in the list of patients displayed by `pat-list` or `pat-find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* All patients with an index number higher than the deleted patient will have their indexes decremented by 1. E.g. after
+deleting index 3, index 4 will become 3, 5 will become 4 and so on.
+* All appointments associated with the patient at the `INDEX` will also be deleted.
+****
+
+Examples:
+
+* `pat-list` +
+`pat-delete 2` +
+Deletes the 2nd patient in the patient list.
+
+* `pat-delete 1` +
+Deletes the patient which had been assigned the index 1.
+
+Warning:
+If `pat-delete` is successfully executed, the indexes of remaining patients may change. Please verify the index of the patient you are referencing after executing this command.
+// end::patient[]
+
+=== Clear all Patient data: `pat-clear`
+
+You can clear all Patient data in the app using `pat-clear`.
+
+Format: `pat-clear`

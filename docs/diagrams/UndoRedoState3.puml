@@ -3,18 +3,27 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "undo"
+package history {
 
-package States <<rectangle>> {
-    class State1 as "__ab0:AddressBook__"
-    class State2 as "__ab1:AddressBook__"
-    class State3 as "__ab2:AddressBook__"
 }
 
-State1 -[hidden]right-> State2
-State2 -[hidden]right-> State3
+package redoStack {
+    object hr3 {
+        command = "pat-delete 3"
+        patientBook
+        appointmentBook
+    }
+    object hr2 {
+            command = "visit-start 1"
+            patientBook
+            appointmentBook             .
+        }
+}
 
-class Pointer as "Current State" #FFFFF
+history -[hidden]> redoStack
 
-Pointer -up-> State2
+hr2 -[hidden]up-> hr3
+
+show members
+
 @end

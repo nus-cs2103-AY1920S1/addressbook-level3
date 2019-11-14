@@ -1,0 +1,15 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor User
+rectangle NurseTraverse {
+  User -- (Begin Visit)
+  User -- (Update Ongoing Visit)
+  User -- (Cancel Ongoing Visit)
+  User -- (Finish Ongoing Visit)
+  (Verify Ongoing Visit Exists)
+  (Update Ongoing Visit) ..> (Verify Ongoing Visit Exists) : <<include>>
+  (Cancel Ongoing Visit) ..> (Verify Ongoing Visit Exists) : <<include>>
+  (Finish Ongoing Visit) ..> (Verify Ongoing Visit Exists) : <<include>>
+}
+@enduml
