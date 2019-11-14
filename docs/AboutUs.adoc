@@ -9,7 +9,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Alex Koh
+=== Alex Koh Nan Yu
 image::alxkohh.png[width="150", align="left"]
 {empty}[http://github.com/alxkohh[github]][https://ay1920s1-cs2103t-f14-1.github.io/main/team/alxkohh.html[portfolio]]
 
