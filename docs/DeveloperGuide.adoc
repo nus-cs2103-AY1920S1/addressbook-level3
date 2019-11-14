@@ -522,11 +522,6 @@ command is executed the `Booking` in `BookingList` will be updated.
 The following sequence diagram shows the sequence of method call when `DoneEditCommand#execute(model)` is called in
 `LogicManager`.
 
-[[booking_model_ui_class_diagram]]
-image::bookings/developerguide/BookingModelClassDiagram.png[align="left" title=Class diagram showing the model of Booking]
-Model shows the fields available in a Booking, namely, _name_, _contact_ and _budget_.
-
-image::bookings/developerguide/BookingUiClassDiagram.png[align="left" title=Class diagram showing the UI of Booking]
 UI Diagram shows the calling of various other classes (via `FXML` pages) which are linked to creation of Booking.
 
 ===== Edit a Booking
@@ -538,6 +533,7 @@ NOTE: When error is thrown, the user is expected to use a valid index.
 
 
 ===== Delete a Booking
+image::bookings/developerguide/DeleteBookingDiagram.png[align="left" title=Activity diagram showing the `delete` functionality of Booking]
 
 Deletion of booking is similar to the _Delete Trip/Day/Event_ feature (see <<Delete-Trip>>).
 

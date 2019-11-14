@@ -590,6 +590,7 @@ After adding your Bookings, beforehand or on-the-go, Booking Manager looks like 
 
 image::bookings/userguide/Finally.png[title="Overview of the Bookings Manager Screen"]
 
+// end::booking_ppp[]
 '''
 
 === Diary
