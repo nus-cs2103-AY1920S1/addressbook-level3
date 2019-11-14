@@ -1,49 +1,28 @@
+// tag::dgPPP[]
 ==== Implementation Overview
 
 The appointments management feature is facilitated primarily by the `AppointmentBook`, a class that implements the `ReadOnlyAppointmentBook` interface and wraps around all appointments data of the app.
 This is a new book (different from the `PatientBook`) that is now required by the `ModelManager` class for instantiation along with `UserPrefs` and `PatientBook`. The `AppointmentBook` is, therefore, a field in the `ModelManager` class.
 The `AppointmentBook` has `appointments`, which is a `UniqueAppointmentList`, as a private field that holds all appointments currently in the `AppointmentBook` as a unique list. This list is modified from certain method calls in the `ModelManager` class.
 
-The operations of the `ReadOnlyAppointmentBook` interface that the `AppointmentBook` implements:
-
-* `AppointmentBook#getAppointmentList()` - Returns an unmodifiable view of the appointments list in the `AppointmentBook`.
-* `AppointmentBook#deepCopy()` - Returns a deep copy of the `AppointmentBook`.
-
-Apart from the above, the other main operations (both public and private methods) that the `AppointmentBook` implements include:
-
-* `AppointmentBook#setAppointments(List<Appointment> appointments)` -- Replaces the contents of the private `appointments` field with `appointments` passed in as argument.
-* `AppointmentBook#setFinishedAppointments(List<Appointment> appointments)` -- Replaces the contents of the private `finishedAppointments` field with `appointments` passed in as argument (layout for a possible feature <<Displaying Finished Appointments>> in V2.0).
-* `AppointmentBook#resetData(ReadOnlyAppointmentBook newData)` -- Resets the existing data of the `AppointmentBook` with `newData`.
-* `AppointmentBook#hasAppointment(Appointment appointment)` -- Returns true if an appointment with the same identity as the `appointment` argument exists in the `AppointmentBook`.
-* `AppointmentBook#hasClashingAppointment(Appointment appointment)` -- Returns true if an appointment with clashing time as the `appointment` argument exists in the `AppointmentBook`.
-* `AppointmentBook#addAppointment(Appointment a)` -- Adds an appointment `a` to the `AppointmentBook`.
-* `AppointmentBook#setAppointment(Appointment target, Appointment editedAppointment)` -- Replaces the given appointment `target` in the list of the `AppointmentBook` with the `editedAppointment`.
-* `AppointmentBook#editAppointments(Patient patientToEdit, Patient editedPatient)` -- Replaces all appointments with the `patientToEdit` in the list with `editedPatient`.
-* `AppointmentBook#removeAppointment(Appointment key)` -- Removes `key` from the `AppointmentBook`. +
-**Note: If appointment `key` is recurring, the appointment is recurred to get the next start and end date times of this appointment, and this next appointment is added to the the `AppointmentBook`.**
-* `AppointmentBook#removeRecurringAppointment(Appointment key)` -- Removes `key` from the `AppointmentBook` permanently. **Does not** recur the appointment `key`.
-* `AppointmentBook#removeAppointments(Patient patient, Index patientIndex)` -- Removes all appointments with this `patient` from the `AppointmentBook`.
-* `AppointmentBook#getRecurredAppointment(Appointment key)` -- Returns the next (recurred) appointment for `key` based on the recurring frequencies of years, months, etc. of the appointment `key` and its current start and end date and time.
-* `AppointmentBook#addRecurringAppointment(Appointment key)` -- Adds same appointment `key` with the next date time if previous one was deleted and was recurring.
-
 ==== Model
 
-The operations in the `AppointmentBook` are exposed to in the `Model` interface. `Model` implements the methods following operations to accommodate for the inclusion of the `AppointmentBook` and its related methods:
+The main operations in the `AppointmentBook` are exposed to in the `Model` interface. `Model` implements the following operations to accommodate for the inclusion of the `AppointmentBook` and its related methods:
 
-* `Model#setStagedAppointmentBook(ReadOnlyAppointmentBook appointmentBook)`
-* `Model#replaceStagedAppointmentBook(List<Appointment> appointments)`
-* `Model#getStagedAppointmentBook()`
-* `Model#hasAppointment(Appointment appointment)`
-* `Model#hasClashingAppointment(Appointment appointment)`
-* `Model#deleteAppointment(Appointment target)`
-* `Model#deleteRecurringAppointment(Appointment target)`
-* `Model#deleteAppointments(Patient target, Index targetIndex)`
-* `Model#addAppointment(Appointment appointment)`
-* `Model#setAppointment(Appointment target, Appointment editedAppointment)`
-* `Model#setAppointments(Patient patientToEdit, Patient editedPatient)`
-* `Model#ObservableList<Appointment> getStagedAppointmentList()`
-* `Model#FilteredList<Appointment> getFilteredAppointmentList()`
-* `Model#void updateFilteredAppointmentList(Predicate<Appointment> predicate)`
+* `Model#setStagedAppointmentBook(ReadOnlyAppointmentBook appointmentBook)` -- Replaces appointment book in the Model with data from the `ReadOnlyAppointmentBook appointmentBook` passed in as argument.
+* `Model#replaceStagedAppointmentBook(List<Appointment> appointments)` -- Replaces all appointments in appointment book with new appointments from the list.
+* `Model#getStagedAppointmentBook()` -- Returns the current AppointmentBook.
+* `Model#hasAppointment(Appointment appointment)` -- Returns true if an appointment with the same identity as the appointment passed in as argument exists in the appointment list.
+* `Model#hasClashingAppointment(Appointment appointment)` -- Returns true if any appointment in the appointment list has clashing time with the `appointment` passed in as argument.
+* `Model#deleteAppointment(Appointment target)` -- Deletes the given appointment. If the the `target` appointment is recurring, then the appointment is recurred and the next one is added to the appointment list.
+* `Model#deleteRecurringAppointment(Appointment target)` -- Deletes the given recurring or non-recurring appointment permanently.
+* `Model#deleteAppointments(Patient target, Index targetIndex)` -- Deletes all appointments associated with the `target` patient.
+* `Model#addAppointment(Appointment appointment)` -- Adds the given appointment. The appointment passed in as argument must not already exist in the appointment list.
+* `Model#setAppointment(Appointment target, Appointment editedAppointment)` -- Replaces the given appointment `target` with `editedAppointment`. `target` must exist in the appointment list. The appointment identity of `editedAppointment` must not be the same as another existing appointment in the appointment list.
+* `Model#setAppointments(Patient patientToEdit, Patient editedPatient)` -- Replaces all appointments' patients that equal `patientToEdit` with `editedPatient`.
+* `Model#ObservableList<Appointment> getStagedAppointmentList()` -- Returns an unmodifiable view of the entire appointment list.
+* `Model#FilteredList<Appointment> getFilteredAppointmentList()` -- Returns an unmodifiable view of the filtered appointment list.
+* `Model#void updateFilteredAppointmentList(Predicate<Appointment> predicate)` -- Updates the filter of the filtered appointment list to filter by the given `predicate`.
 
 ==== Model Design Considerations
 
@@ -67,6 +46,8 @@ The operations in the `AppointmentBook` are exposed to in the `Model` interface.
 ** Cons:
 *** Principle of separation of concerns may be violated.
 *** Optimization might be compromised, since methods intended to operate only on the specific patient or appointment lists might operate on the whole `AddressBook` unnecessarily.
+
+// end::dgPPP[]
 
 ==== Logic
 
@@ -163,6 +144,8 @@ After the app is closed, all appointments in the `finishedAppointments` list are
 
 The list of `Appointment` s are displayed on a separate tab in the app.
 
+// tag::dgPPP[]
+
 === Use Case
 
 Appointment Management is used when the user wants to schedule an appointment with the patient. There are 6 actions that a user can perform:
@@ -180,3 +163,4 @@ _Figure: Delete Appointment Sequence Diagram_
 image::AppointmentManagementSequenceDiagramRef.png[]
 _Figure: Reference - delete appointment, recur, and add the recurred appointment_
 
+// end::dgPPP[]

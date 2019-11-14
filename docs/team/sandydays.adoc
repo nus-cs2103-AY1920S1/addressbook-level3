@@ -7,7 +7,7 @@
 
 ---
 
-I am Year 2 Computer Science student at the National University of Singapore. I enjoy learning new technologies and software tools as well as helping out in any project that is interesting, challenging, and can have a positive impact in any community. Here you can find my contributions to one of my projects.
+I am a Year 2 Computer Science student at the National University of Singapore. I enjoy learning new technologies and software tools as well as helping out in any project that is interesting, challenging, and can have a positive impact in any community. Here you can find my contributions to one of my projects.
 
 == Overview
 
@@ -63,15 +63,15 @@ https://github.com/AY1920S1-CS2103-F10-1/main/pull/194[#194]
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are some of the sections I contributed to the User Guide for V1.4 of the product. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../userguide/Appointment.adoc[]
+include::../userguide/Appointment.adoc[tag=appointmentV1.4]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are some of the sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../devguide/AppointmentManagement.adoc[]
+include::../devguide/AppointmentManagement.adoc[tag=dgPPP]

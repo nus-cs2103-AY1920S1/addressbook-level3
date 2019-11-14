@@ -1,4 +1,4 @@
-// tag::appointment[]
+// tag::appointmentV1.4[]
 [[Appointment]]
 == Appointments
 ====
@@ -52,7 +52,7 @@ Format: `appt-add p/PATIENT_INDEX sdt/START_DATE_TIME edt/END_DATE_TIME [desc/DE
 
 Examples:
 
-* `appt-add p/1 sdt/24-12-2019 1200 edt/24-12-2019 1400 desc/Medical checkup
+* `appt-add p/1 sdt/24-12-2019 1200 edt/24-12-2019 1400 desc/Medical checkup`
 
 * `appt-add p/2 sdt/09-12-2019 1300 edt/09-12-2019 1330 ryr/1 rmon/3`
 
@@ -82,7 +82,6 @@ Edits the start date time and end date time of the 1st person in the entire appo
 * `appt-edit 2 p/3 ryr/1` +
 Edits the second appointment to be associated with the third patient in the patient list. Also edits the appointment to recur by 1 year.
 
-// tag::delete[]
 === Deleting an Appointment: `appt-delete`
 
 You can delete an appointment by *index* using `appt-delete`.
@@ -107,9 +106,6 @@ Deletes the 2nd appointment in the displayed appointment list.
 Deletes the 1st appointment in the displayed appointment list.
 Recurs the appointment and adds the new appointment with the next start and end date time to the appointment list.
 
-// end::delete[]
-
-// tag::delete-permanent[]
 === Deleting an Appointment permanently: `appt-delete-permanent`
 
 You can delete an appointment permanently by *index* using `appt-delete-permanent`.
@@ -136,7 +132,7 @@ Deletes the 2nd appointment in the displayed appointment list permanently.
 * `appt-delete-permanent 1` +
 Deletes the 1st appointment in the displayed appointment list permanently.
 
-// end::delete-permanent[]
+// end::appointmentV1.4[]
 
 === Deleting Multiple Appointments: `appt-delete` `[coming in V2.0]`
 
@@ -257,3 +253,5 @@ Detecting these clashes from storage and if detected, loading an empty appointme
 * While the system doesn't allow appointments with end date and times before the system's date and time, and recurs appointments (that are recurring) until they are past the system date and time, this happens only when the app is opened. +
 **While the app is running, there is no constant checking of whether the appointments in the list have already finished (i.e. if their end date time is before the system date time).**
 =====
+
+// end::appointmentV2.0[]
