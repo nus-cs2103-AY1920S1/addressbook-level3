@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox maxHeight="500.0" prefHeight="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <ListView fx:id="personListView" HBox.hgrow="ALWAYS" />
+    <ListView fx:id="eventListView" HBox.hgrow="ALWAYS" />
+</HBox>

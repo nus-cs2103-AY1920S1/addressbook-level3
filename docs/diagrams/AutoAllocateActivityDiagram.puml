@@ -1,0 +1,24 @@
+@startuml
+start
+:User executes command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([successful command])
+    :Converts newly-added employees
+    to a list of unique EmployeeId;
+    :Creates new manpower list
+    with updated EmployeeId;
+    :Creates a new event with the
+    new manpower list to replace
+    the old event in the model;
+
+    :Future references to the employees
+    will be via the EmployeeId;
+
+else ([else])
+
+endif
+stop
+@enduml

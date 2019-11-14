@@ -1,7 +1,8 @@
-= AddressBook Level 3 - User Guide
+= AddMin+ - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
+:toclevels: 4
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -12,166 +13,977 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T11-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-T11-3`      Since: `AUG 2019`      Licence: `MIT`
 
-== Introduction
+== Welcome to AddMin+
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+*AddMin+* is an all-in-one administration desktop application, that is specially designed for any events management start-up company with limited manpower and resources.
+These companies would usually only be able to afford to hire one admin staff to handle both the management of events and employees and this can be tough.
+The Admin+ Team understands the struggles that start-ups face daily, and we are here to help!
 
-== Quick Start
+*AddMin+* is specially designed to ease the workload of the admin and allow him/her to effectively handle the administrative tasks of the company by providing the following functions: event creation and deletion, editing of event details after creation, manual and automatic manpower allocation for events and providing an overview of all the data via statistics.
+The purpose of this user guide is to show the user how they can use our app to carry out their administrative tasks efficiently and also answer any questions they may have while using our app.
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+== Getting Started
+
+=== Installation
+
+. Ensure you have Java `11` or above installed in your Computer.
+. Download the latest `AddMin+.jar` link:{repoURL}/releases[here].
+. Copy the file to a *new empty folder* which you want to use as the home folder for AddMin+
+. Double-click the file to start the app.
+The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+
+=== Using AddMin+
+
+AddMin+ is an app that is mainly used through the Command Line Interface (CLI), complemented with a GUI display.
+
+. Click on the specific tab you to navigate across.
+Currently, we have the `Main`, `Schedule`, `Finance` and `Statistics` Tab.
+. Type the command in the command box and press kbd:[Enter] to execute it. +
+* e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+. Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`add_em`**`add_em n/John Doe g/Male p/20 no/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 on/12/12/2012 t/friends` : adds a contact named `John Doe` to the Employee List.
+* **`delete_em`**`3` : deletes the 3rd Employee shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+. Refer to <<Features>> for details of each command.
+
+//tag::DeXun1[]
+=== CLI Usage & Command Formatting
+
+*Command Format*
+
+As a CLI application, most commands are executed by typing your commands on the Command Box.
+We will discuss the exact commands that you may execute under the <<Features>> section, but it is important to first understand the format of the command.
+
+Commands start with a single string (which may include underscores) such as `add_em` or `free`.
+Subsequently, you supply the prefix, for example, `n/` and then the necessary parameter.
+It is alright if there is spacing within your parameter.
+The prefixes and parameters will be stated for each command.
+
+* Words in `UPPER_CASE` are the *compulsory* parameters to be supplied by the user e.g. in `add_em n/NAME`, `NAME` is a parameter which can be used as `add_em n/John Doe`.
+* Items in square brackets are *optional* e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME no/PHONE_NUMBER`, `no/PHONE_NUMBER n/NAME` is also acceptable.
+* Previous commands can be accessed by using the *up/down arrow keys*.
+* Not following the specific format will trigger an _Invalid Command Format_ error message on the result display box.
+
+[[Constraints]]
+*Parameter Constraints*
+
+Our application requires the strict adhering of parameters to certain constraints to prevent feature flaws and functionality bugs.
+Listed below are the category of parameters, the prefixes utilizing them and their constraints.
+
+[cols="20%,20%,60%"]
+|===
+| *Type & Format* | *Utilizing Prefixes* | *Constraints*
+| *Index*
+| _No Prefix_
+a|
+* The index refer to the index number of an *existing* employee/event in the displayed employee/event list, starting from 1.
+* It *must be a positive integer*
+| *Date* +
+`DD/MM/YYYY` +
+`MM/yyyy`
+| `on/` `till/` `for/` +
+`/start` `/end`
+a|
+* It must be a valid calendar date. E.g. `31/02/2019` is not allowed
+* Dates cannot be more than 10 years ago.
+| *Time Period* +
+`HHMM-HHMM`
+| `time/` +
+a|
+* Two different time must be stated to represent a time period
+* The stated first time must be *earlier/lower in value* than the second.
+* Time is in 24HR (HHMM) format. The minimum value is _0000_ and maximum value is _2359_.
+* _2400_ is not an accepted time value.
+| *Name*
+| `n/` +
+a|
+* Names should only contain alphanumeric characters and spaces, and it should not be blank
+| *Gender* +
+`Male` `Female`
+| `g/` +
+a|
+* Gender is either `Male` or `Female` (case-insensitive). No other parameter is accepted.
+| *Email* +
+`email@gmail.com` +
+| `e/` +
+a|
+* Email must be a valid email that adheres to the https://www.ietf.org/rfc/rfc5322.txt[RFC 5322 Standard]
+| *Phone Number* +
+`65162727`
+| `no/` +
+a|
+* Between 7 - 15 digits long
+* Adhere to the https://en.wikipedia.org/wiki/E.164[E.164 ITU-T Recommendation Standard]
+| *Integer*
+| `m/` `n/`
+a|
+* Must be a positive integer. Floating Numbers/Decimals are strictly not accepted
+| *Money*
+| `s/` `p/` +
+a|
+* Must be a postive number. Floating Numbers/Decimals are acceptable.
+* _Special_: Only for EmployeePay used in `p/`, is must be a value between 0 and 100.0
+
+|===
+
+//end::DeXun1[]
 
 [[Features]]
 == Features
 
 ====
-*Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+The features of AddMin+ can be grouped into 4 main categories, General, Entity Management, Finance, Schedule, and Statistics.
+The commands that AddMin+ recognize follows a specific format, however, each category will have their own set of valid commands.
+For new users, do refer to the subsections under Section 3 for the specific command and how to use them.
+For more advanced users, you could refer to <<Command Summary>>.
 ====
 
-=== Viewing help : `help`
+=== General Commands
+
+==== Viewing help : `help`
+
+Opens a help guide, a list of all commands for the user as a reference to.
 
 Format: `help`
 
-=== Adding a person: `add`
+==== Viewing help : `exit`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Exits and shuts down the program
 
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
 Format: `exit`
 
-=== Saving the data
+==== Navigation between Tabs : `main` | `schedule` | `statistics`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Provides a way to jump between the Main, Schedule and Statistics Tab.
+
+[TIP]
+A Schedule-related command executed in the Main Tab will direct you to the Schedule Tab. Meanwhile, a Statistics-related command will not execute on any other tab but the Statistics tab.
+While an Employee-related command executed in the Schedule Tab will not be allowed as the user does not have an employee list to refer to in the Schedule Tab.
+Lastly, all Event-related command is executed based on the current Event list that is being displayed, regardless if the user is in the Main Tab or Schedule Tab.
+
+Main Tab: `main`
+
+Schedule Tab: `schedule`
+
+Statistics Tab: `statistics`
+
+=== Entity Management
+
+AddMin+ contains two main entities - Employees and Events with similar commands, especially in __Create, Read, Update and Delete (CRUD)__ operations.
+
+==== List : `list | list_em | list_ev`
+
+Employee: Shows the list of all employees on the company’s roster.
+Full details are truncated.
+
+Event: Shows the list of all events on the company’s calendar.
+Full details are truncated.
+
+Both Employee and Event: `list`
+
+Employee Format: `list_em`
+
+Event Format: `list_ev`
+
+==== Adding: `add_em | add_ev`
+
+Employee: Adds an employee to the employee list
+
+Employee Format: `add_em n/NAME g/GENDER p/PAY no/PHONE e/EMAIL a/ADDRESS on/JOIN_DATE [t/TAG]...`
+
+****
+* Note the <<Constraints>> for *NAME*, *GENDER*, *PAY*, *PHONE*, *EMAIL* and *JOIN_DATE*.
+* An employee's identity is uniquely identified by his/her name, phone number and email.
+You cannot add an employee whose identity is the same as another employee in the Employee List.
+* The soft limit for total number of Employees is ~100.
+****
+
+Event: Adds an event that the company is organizing or hosting to the company’s calendar.
+
+Event Format: `add_ev n/NAME at/VENUE m/MANPOWER_NEEDED on/START_DATE till/END_DATE[t/TAG]...`
+
+****
+* Note the <<Constraints>> for *NAME*, *MANPOWER_NEEDED*, and *START/END_DATE*.
+* Additionally, take note that the `START_DATE` must be before the `END_DATE`, and that the maximum date range of the event is *90 days*.
+* An events's identity is uniquely identified by its name, start date, and end date.
+You cannot add an event which is identical to another event in the Event List.
+* The soft limit for total number of Events is ~100.
+****
+
+[TIP]
+Both employee and events can have any number of tags (including 0)
+
+Add Employee Examples:
+
+* `add_em n/John Doe g/Male p/10 no/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 on/12/12/2012 t/friends t/owesMoney`
+
+* `add_em n/Betsy Crowe g/Female p/6 no/91909111 e/betsycrowe@example.com a/Newgate Prison on/10/12/2019 t/criminal`
+
+Add Event Examples:
+
+* `add_ev n/Free Coffee at/Utown Starbucks m/5 on/16/03/2019 till/17/03/2019 t/fun t/free`
+
+* `add_ev n/NUS RUN at/NUS Sports Hall m/5 on/19/10/2019 till/20/10/2019 t/running t/sports`
+
+==== Editing details : `edit_em | edit_ev`
+
+Edits a specific entity based on the fields input by the user.
+At least one field must be provided, and existing values will be updated to the input values.
+
+Employee: Edit an existing employee in the employee list.
+
+Employee Format: `edit_em INDEX [n/NAME] [g/GENDER] [p/P] [no/PHONE] [e/EMAIL] [a/ADDRESS] [on/JOIN_DATE] [t/TAG]...`
+
+****
+* Note the <<Constraints>> for *NAME*, *GENDER*, *PAY*, *PHONE*, *EMAIL* and *JOIN_DATE*.
+* An employee's identity is uniquely identified by his/her name, phone number and email.
+You cannot edit an employee whose identity is the same as another employee already inside the Employee List.
+* Any switch of an Employee's gender will result in duo gender tags being displayed if the tags were not cleared.
+****
+
+Event: Edits an existing event in the event list.
+
+Event Format Format: `edit_ev INDEX [n/EVENT_NAME] [at/VENUE] [m/MANPOWER_NEEDED] [on/START_DATE] [till/END_DATE] [t/TAG]...`
+
+****
+* Note the <<Constraints>> for *NAME*, *MANPOWER_NEEDED*, and *START/END_DATE*.
+* Additionally, take note that the `START_DATE` must be before the `END_DATE`, and that the maximum date range of the event is *90 days*.
+* An events's identity is uniquely identified by its name, start date, and end date.
+You cannot edit an event which is identical to another event already inside the Event List.
+* If there is manpower allocated to the `Event`, the `START_DATE` or `END_DATE` of the Event may not be edited. Free all manpower before doing so.
+* The parameters provided will affect the functionality of the `edit_ev` Command.
+If the START_DATE and/or END_DATE is modified, it will flush all the Date-Time mapping of the Event (Refer to <<set_ev_dt>>) that is not within the new range of the event's start-end dates and insert the default timing of 0800-1800 on the start/end dates, if they are not already mapped.
+****
+
+[TIP]
+When editing tags, the existing tags of the entity will be removed i.e adding of tags is not cumulative. +
+You can remove all the entity's tags by typing `t/` without specifying any tags after it.
+
+Employee Edit Examples:
+
+* `edit_em 1 no/91234567 e/johndoe@example.com` +
+Edits the Phone Number and Email address of the 1st employee on the displayed employee list to be `91234567` and `johndoe@example.com` respectively.
+* `edit_em 2 n/Betsy Crower t/` +
+Edits the name of the 2nd employee to be `Betsy Crower` and clears all existing tags.
+
+Event Edit Examples:
+
+* `edit_ev 1 on/16/09/2019` +
+Edits the start date of the 1st event on the displayed event list to be on the 16th September, 2019.
+* `edit_ev 2 n/Concert t/` +
+Edits the name of the 2nd event on the displayed event list to be `Concert` and clears all existing tags.
+
+==== Find: `find_em_name | find_em_tag | find_ev_name | find_ev_tag`
+
+Find entities whose *names* contain any of the given keywords.
+
+Employee Format: `find_em_name KEYWORD [MORE_KEYWORDS]`
+
+Event Format: `find_ev_name KEYWORD [MORE_KEYWORDS]`
+
+Find entities whose *tag* contain any of the given keywords.
+
+Employee Format: `find_em_tag KEYWORD [MORE_KEYWORDS]`
+
+Event Format: `find_ev_tag KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search for both name and tags are case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name or tag of the entity is searched depending on the input command.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Entities matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find_em_name John` +
+Returns `john` and `John Doe`
+* `find_ev_name Concert Musical Play` +
+Returns any event having names `Concert`, `Musical`, or `Play`
+
+* `find_ev_name Party` +
+Returns any event having names `Party` or `party`
+
+* `find_em_tag male fun` +
+Returns all employees that are tagged as `male` and `fun`
+
+* `find_ev_tag free music` +
+Returns all events that are tagged as `free` and `music`
+
+==== Deleting an entity : `delete_em | delete_ev`
+
+Deletes the entity from the employee list/event calendar.
+
+Employee Format: `delete_em INDEX`
+
+Event Format: `delete_ev INDEX`
+
+****
+* `INDEX` refers to the index number shown in the displayed entity list.
+* Note the <<Constraints>> for *INDEX*.
+* Deletion of an Employee will result in its de-allocation from all the Events.
+****
+
+Examples:
+
+* `delete_em 2` +
+Deletes the 2nd employee in the displayed employee list.
+* `delete_ev 1` +
+Deletes the 1st event in the displayed event list shown (Works on both __Main__ and __Schedule__ tab)
+
+=== Employee-Specific Management
+
+==== Fetch Full Details of an Employee: `fetch_em`
+
+Fetches an employee by displaying a pop-up window that shows the full list of every working date of an employee, based on the dates of the events allocated.
+
+Format: `fetch_em EMPLOYEE_INDEX`
+
+****
+* The `EMPLOYEE_INDEX` refers to the index number shown in the displayed employee list.
+* Note the <<Constraints>> for *INDEX*.
+****
+
+Examples:
+
+* `fetch_em 2` +
+Returns the 2rd employee from the displayed employee list.
+
+//tag::calvin[]
+=== Event-Specific Management
+
+==== Fetch Full Details of an Event: `fetch_ev`
+
+Fetches an event by displaying a pop-up window with full details of the event.
+
+[NOTE]
+The *Fetch Event Window* serves as a portable platform for event manpower allocation.
+It can be accessed from the `Main` and `Schedule` Tab.
+
+Format: `fetch_ev EVENT_INDEX`
+
+****
+* The `EVENT_INDEX` refers to the index number shown in the displayed event list.
+* Note the <<Constraints>> for *INDEX*.
+****
+
+Examples:
+
+* `fetch_ev 2` +
+Returns the 2rd event from the event list.
+
+Alternatively, the `fetch_ev` command can be executed from the GUI in just 2 simple steps.
+
+*Step 1*.
+*Double-click the event card* in the list as shown in the figure below:
+
+._Instruction for user to execute fetch event command_
+image::beforefetch.png[width="600"]
+
+*Step 2*: After successfully fetching the event, the following *Fetch Event Window* should show:
+
+._Fetch Event Window_
+image::afterfetch.png[width="600"]
+
+==== Automated allocation of Employees to Events: `allocate`
+
+Automatically allocates a specified number of employees from the complete employee list to an event based on the filter tags specified by the user.
+There is no manual selection of employees.
+*Once an employee is allocated to an event, it is assumed that he will be unavailable from the start date to the end date of the event.*
+
+Format: `allocate EVENT_INDEX [n/NUMBER_OF_EMPLOYEES] [t/TAG_FOR_FILTER]...`
+
+[NOTE]
+Random selection of employees to allocate if supply exceeds demand of event.
+
+****
+* Allocate a `NUMBER_OF_EMPLOYEES` of employees to the event at the specified `EVENT_INDEX` filtered based on `TAG`.
+* The `EVENT_INDEX` refers to the index number shown in the displayed event list.
+* The `NUMBER_OF_EMPLOYEES` refers to the number of employees to be allocated to the event.
+* Note the <<Constraints>> for *INDEX* and *INTEGER* _(for NUMBER_OF_EMPLOYEES)_.
+* `TAG_FOR_FILTER` should be alpha-numerical.
+* If no `NUMBER_OF_EMPLOYEES` is specified, it is assumed to be the current manpower count required by the event.
+
+****
+
+Examples:
+
+* `allocate 1` +
+Allocate available employees to the 1st event shown in the event list.
+* `allocate 2 n/3 t/female` +
+Allocate 3 employees who are tagged as 'female' to the 2nd event shown in the event list.
+
+Alternatively, the `allocate` command can be executed from the GUI in just 1 simple step!
+
+*Step 1*: To perform a `allocate` command without number/filter specification, click the *allocate* button as shown in the *Fetch Event Window* in <<Fetch Full Details of an Event: `fetch_ev`>>.
+
+==== Manual allocation of Employees to Events: `allocatem`
+
+Manually chooses and allocates a single employee to an event.
+
+Format: `allocatem EVENT_INDEX n/EMPLOYEE_INDEX`/ `allocatem EVENT_INDEX id/EMPLOYEE_ID`
+
+****
+* Allocate an employee with `EMPLOYEE_INDEX` or `EMPLOYEE_ID` to the event at the specified `EVENT_INDEX`.
+* The `EVENT_INDEX`/`EMPLOYEE_INDEX` refers to the index shown in the respective displayed list.
+* `EMPLOYEE_ID` must match the exact 3-digit ID shown in the *FetchEventWindow*.
+* Note the <<Constraints>> for *INDEX*.
+****
+
+Examples:
+
+* `allocatem 1 n/2` +
+Allocate the 2nd employee on the employee list to the 1st event on the event list.
+
+* `allocatem 1 id/002` +
+Allocate the employee with id:"002" to the 1st event on the event list.
+
+Alternatively, the `allocatem` command can be executed from the GUI in just 2 simple step!
+
+*Step 1*:
+*Double-click the employee card* on the left list.
+Notice the employee to allocate as shown in the following figure.
+
+._Instruction for user to execute `allocatem` command_
+image::afterfree.png[width="600"]
+
+*Step 2*: Result after the `allocatem` command is shown below:
+
+._Result after `allocatem` command_
+image::afterallocatem.png[width="600"]
+
+==== De-allocation of Employees from Event: `free`
+
+Free employees allocated to the event.
+
+Format: `free EVENT_INDEX [id/EMPLOYEE_ID]`
+
+****
+* The `EVENT_INDEX` refers to the index number shown in the displayed event list.
+* Note the <<Constraints>> for *INDEX*.
+* if `EMPLOYEE_ID` is not specified, all employees allocated to the event will be removed.
+* `EMPLOYEE_ID` must match the exact 3-digit ID shown in the *FetchEventWindow*.
+****
+
+Examples:
+
+* `free 1` +
+Free all employees allocated to the 1st event on the event list.
+* `free 1 id/001` +
+Free an employee with id: "001" allocated to the 1st event on the event list.
+
+Alternatively, the `free` command can be executed from the GUI in just 1 simple step!
+
+*Step 1*: To perform a `free` command without ID specification, click the *free* button as shown in the *Fetch Event Window* in <<Fetch Full Details of an Event: `fetch_ev`>>.
+
+[NOTE]
+To *free* a particular employee to an event, double-click the employee card on the right list as shown in the 2nd figure in <<Manual allocation of Employees to Events: `allocatem`>>
+
+//end::calvin[]
+
+
+//tag::DeXun2[]
+[[set_ev_dt]]
+==== Setting a Date&Time to an Event: `set_ev_dt`
+
+Sets a Date-Time Schedule Mapping for a specific Event.
+
+[NOTE]
+Even though the start date and end dates of each event is stated, the event is not assumed to be held for the entire range.
+Hence, the Date-Time setting feature enables the user to _declare and set_ the schedule of the event.
+Events are initialized without any schedule, other than their stated start and end date with a default time of __0800-1800__.
+
+Format: `set_ev_dt EVENT_INDEX [on/EVENT_DATE] [till/EVENT_DATE] time/EVENT_DAYTIME`
+
+****
+* Note the <<Constraints>> for *INDEX*, *DATE*, and *TIME PERIOD*.
+* If *both* the `on/` and `till/` prefixes are *not used*, then all dates inclusive of the start to end date of the target event will be set with the stated `EVENT_DAYTIME`.
+* If *both* the `on/` and `till/` prefixes are used, then the date range (inclusive) from the start to end date stated will be set with the stated `EVENT_DAYTIME`.
+* If *only* the `on/` prefix is used, it will just set the `EVENT_DAYTIME` for the __single__ stated `EVENT_DATE`.
+* The `till/` prefix must be used with the `on/` prefix, and not by itself.
+* All `EVENT_DATE` *must be within the range of the Target Event's Start and End Date*
+* The `EVENT_DATE` declared by the `on/` prefix cannot be after the `EVENT_DATE` declared by the `till/` prefix
+****
+
+Examples:
+
+* `set_ev_dt 2 on/02/10/2019 time/1000-2000` +
+Sets the 2nd Event from the Event List a time period of 10am-8pm on the 2nd of October 2019.
+
+* `set_ev_dt 3 time/0500-1500` +
+Sets the 3rd Event from the Event List a time period of 5am-3pm on all dates from the start to the end date (inclusive) of the Event.
+
+* `set_ev_dt 1 on/02/10/2019 till/10/10/2019 time/0500-1500` +
+Sets the 1st Event from the Event List a time period of 5am-3pm on all dates from the 2nd of October to the 10th of October (inclusive).
+
+==== Delete a DateTime Mapping from an Event: `delete_ev_dt`
+
+Deletes Date-Time mappings for a specific event by stating a single date or a range of dates.
+
+Format: `delete_ev_dt EVENT_INDEX on/EVENT_DATE [till/EVENT_DATE]`
+
+****
+* Note the <<Constraints>> for *INDEX* and *DATE*.
+* If *both* the `on/` and `till/` prefixes are used, then the Date-Time mapping for the date range (inclusive) from the start to end date stated will be deleted.
+* If *only* the `on/` prefix is used, it will just delete the Date_Time mapping for the __single__ stated `EVENT_DATE`.
+* All `EVENT_DATE` *must be within the range of the Target Event's Start and End Date*
+* The `EVENT_DATE` declared by the `on/` prefix cannot be after the `EVENT_DATE` declared by the `till/` prefix
+****
+
+Example:
+
+* `delete_ev_dt 2 on/18/10/2019` +
+Deletes the Date-Time mapping on 18th October from the 2nd Event on the Event list.
+
+* `delete_ev_dt 2 on/18/10/2019 till/22/10/2019` +
+Deletes all Date-Time mappings that lie in the range of 18th - 22nd of October 2019 from the 2nd Event on the Event list.
+
+==== Clear all DateTime Mappings from an Event: `clear_ev_dt`
+
+Clears all Date-Time mappings for a specific event.
+
+Format: `clear_ev_dt EVENT_INDEX`
+
+****
+* The `EVENT_INDEX` refers to the index number shown in the displayed event list.
+* Note the <<Constraints>> for *INDEX*.
+****
+
+Example:
+
+* `clear_ev_dt 2` +
+Clears all the date-time mapping from the 2nd Event on the Event list.
+//end::DeXun2[]
+
+
+//tag::Cris[]
+=== Finance Management
+
+==== Generate Payment To Employee: `pay`
+
+Generates the payment for an employee
+
+Format: `pay EMPLOYEE_INDEX s/VALUE`
+
+****
+* EMPLOYEE_INDEX is the index of the employee in the displayed list.
+It must be a valid number: a non-negative integer smaller the list size.
+* VALUE is the amount of payment pay for the employee.
+* If the VALUE is larger than the money pending to pay, the payment would not be generated.
+* If the employee who has been paid for a past event has been removed from the allocation of a past event,
+the "Pending To Pay" value may become negative. You will not be able to pay an employee whose current pending pay is negative,
+until the 'undo_pay' command is executed to reset the pending payment value to more than or equal to  0.
+****
+
+Examples:
+
+* `list_em` +
+`pay 3 s/50` +
+Generates the payment of employee with $50.
+
+._User Interface (UI) of Finance_
+image::pay.png[]
+
+==== Undo Payment To Employee: `undo_pay`
+
+Undo the payment for an employee
+
+Format: `undo_pay EMPLOYEE_INDEX s/VALUE`
+
+****
+* EMPLOYEE_INDEX is the number of the employee on the displayed list.
+It must be a valid number.
+* VALUE is the amount of undo payment.
+* If the VALUE is larger than the money paid to the employee, the payment would not be undo.
+****
+
+Examples:
+
+* `list_em` +
+`undo_pay 3 s/50` +
+Undo the payment of employee with $50.
+
+._User Interface (UI) of Finance_
+image::undopay.png[]
+//end::Cris[]
+
+
+
+//tag::Schedule1[]
+=== Schedule Management
+
+Welcome to Schedule!
+Looking for a way to display and see what events you have on a specific Date or Month?
+Want to have an overview of all the dates where you have an event?
+Then you are at the right place!
+
+To get things started, all Schedule-related commands occur in the Schedule Tab as seen from the figure below.
+You can get to the Schedule Tab easily by either clicking on the Schedule Tab on the User Interface or just simply type in any Schedule-related commands and AddMin+ will bring you there.
+
+[NOTE]
+====
+- All Event-Related commands that are done in the Schedule Tab, will be referencing the Event List displayed in the Schedule Tab.
+- All Employee-Related commands are disabled in the Schedule Tab, as there is no Employee List being displayed in the Schedule Tab.
+====
+
+._User Interface (UI) of the Schedule Feature_
+image::ScheduleUiDetailed.png[]
+
+---
+
+==== Display Schedule for a specific date: `display_schedule_date`
+
+Want to check if you have any events on a specific date?
+Instead of looking through the entire list of events you have, you could use the `display_schedule_date` command to do it!
+
+Format: `display_schedule_date on/dd/MM/yyyy`
+
+Examples:
+`display_schedule_date on/02/12/2019`
+
+****
+* Note the <<Constraints>> for *DATE*.
+****
+
+**Example: To display schedule for a specific date (20/11/2019):**
+
+**Step 1**.
+Either type `display_schedule_date on/20/11/2019` into the command box or click on the specific date from the date picker as seen from the figure below.
+
+image::ScheduleUiStep1.png[]
+
+**Step 2**.
+The result box will display a message informing you how many events are being listed.
+In this case, the message displayed is "1 event listed!"
+
+image::ScheduleUiStep2.png[]
+
+**Step 3**.
+In the event list, you will be able to see all the events that are on the specified date.
+In this case, the only event that is on 20/11/2019 is "Talk by DEF Company".
+
+image::ScheduleUiStep3.png[]
+
+[NOTE]
+====
+- The event list will be empty and not display anything if there is no event on the specified date.
+- The command is designed to give an overview of the user's schedule and is based on the event's Start and End date.
+It does not take into account of the event's set date and time.
+(To have a more detailed view of the event, simply double click on that event).
+- As long as the user's specified input date falls between the event's start and end date, the event will be displayed.
+====
+
+//end::Schedule1[]
+
+---
+
+==== Display Schedule for a specific Month and Year: `display_schedule_month`
+
+Now you would want to see all the events you have on a specific month and year.
+Instead of looking through the list of events you have, you could use the `display_schedule_month` command to do it!
+
+Format: `display_schedule_month for/MM/yyyy`
+
+****
+* for/ represents the month and year in MM/yyyy that the user wants to display
+* Note the <<Constraints>> for *DATE*.
+****
+
+**Example: To display schedule for a specific Month and Year (11/2019):**
+
+**Step 1**.
+Either type `display_schedule_month for/11/2019` into the command box or click on the month year picker buttons to navigate to the specific month and year.
+
+image::ScheduleUiMonthStep1.png[]
+
+**Step 2**.
+The result box will display a message informing you how many events are being listed.
+In this case, the message displayed is "2 events listed!"
+
+image::ScheduleUiMonthStep2.png[]
+
+**Step 3**.
+In the event list, you will be able to see all the events that are on the specified month, year.
+In this case, there are 2 events on 11/2019 which are "Talk by DEF Company" and "Birthday Party".
+
+image::ScheduleUiMonthStep3.png[]
+
+[NOTE]
+====
+- The event list will be empty and not display anything if there is no event on the specified month, year.
+- The command is designed to give an overview of the user's schedule and is based on the event's Start and End date.
+It does not take into account of the event's set date and time.
+(To have a more detailed view of the event, simply double click on that event).
+- As long as the user's specified input month, year falls between the event's start and end date, the event will be displayed.
+====
+
+---
+//tag::Schedule2[]
+
+==== Generate Entire Schedule: `generate_schedule`
+
+Looking for a way to have an overview of all the dates that has an event?
+Use the `generate_schedule` command to do so.
+The `generate_schedule` command looks through the entire list of events and generates a new window with a list of all the dates which has an event and also displays all the events that happen on that date.
+
+Format: `generate_schedule`
+
+[NOTE]
+====
+- The `generate_schedule` will only display dates and events that have a set date and time allocated to it.
+- Events with no set date and time, will only be displayed according to it's start and end date.
+- The `generate_schedule` command opens a new window to display the new list of information.
+- The `generate_schedule` command processes and creates the list based on when the command is called.
+- Any changes to the events after the command will not be reflected.
+Users are advised to use the
+`generate_schedule` once all events are confirmed.
+====
+
+**Example: To display the entire schedule:**
+
+**Step 1**.
+Either type `generate_schedule` into the command box or click on the generate schedule button to display the entire schedule.
+
+image::ScheduleUiGenerateStep1.png[]
+
+**Step 2**.
+The result box will display the message "Schedule Generated".
+
+image::ScheduleUiGenerateStep2.png[]
+
+**Step 3**.
+A new window will open, displaying all the dates and events that are happening on those specific dates.
+
+image::ScheduleUiGenerateStep3.png[]
+
+[NOTE]
+The generated list will be empty and not display anything if there is no event in the current event list.
+
+//end::Schedule2[]
+
+---
+
+==== Display Schedule between two specific dates: `display_schedule_between`
+
+Allows you to see all the events between 2 specific dates!
+
+Format: `display_schedule_between start/dd/MM/yyyy end/dd/MM/yyyy`
+
+Examples:
+`display_schedule_between start/02/12/2019 end/31/12/2019`
+
+****
+* start/ represents the date in dd/MM/yyyy that the user wants to start the range to display from.
+* end/ represents the date in dd/MM/yyyy that the user wants to end the range to display from.
+* Note the <<Constraints>> for *INDEX* and *DATE*.
+* Note that specified start date must be before the specified end date, else an error will be displayed.
+****
+
+[NOTE]
+====
+- The event list will be empty and not display anything if there is no event between the specified dates.
+- The command is designed to give an overview of the user's schedule and is based on the event's Start and End date.
+It does not take into account of the event's set date and time.
+(To have a more detailed view of the event, simply double click on that event).
+- As long as the user's specified start and end date range includes a single date that the event's start and end date spans across , the event will be displayed.
+====
+
+//tag::Statistics[]
+=== Statistics
+
+==== Generate Statistics: `generate_stats`
+
+Displays a set of statistics, Number of events, Number of employee etc
+
+Format: `generate_stats`
+
+**Example: To generate list and pie chart statistics on demand.**
+
+**Step 1**.
+Navigate to the statistics tab either using the mouse to click the statistics tab or by typing `statistics` command.
+
+image::StatsUiPart0.png[]
+
+**Step 2**.
+Generate the statistics either by using the mouse to click the generate statistics button or by typing `generate_stats` command.
+
+image::StatsUiPart1.png[]
+
+**Step 3**.
+Statistics will be displayed in 2 different types of views: list and pie chart.
+The list will display the upcoming events that require manpower sorted from the nearest upcoming date to the furthest date.
+The pie charts represent the upcoming events that require manpower and employees tags respectively. This is done this way to help the user identify efficiently if they have sufficient employees with matching tags for the event or if more employees may need to be hired to match the tag of the upcoming event.
+For example, a music event will have a 'music' tag and an employee who plays the guitar will have a 'musician' tag.
+The pie charts will reflect that there is one event under the 'music' tag and one employee under the 'musician' tag.
+
+image::StatsUiPart2.png[]
+
+**Step 4**.
+To allocate an employee to an upcoming event, double-click the event on the list and it will display the allocate function covered earlier in the User Guide.
+The segments on the pie charts can also be clicked to display the number of events or employees associated with that specific tag on the top right corner of each of the pie charts.
+
+image::StatsUiPart3.png[]
+
+**Step 5**.
+Generate statistics manually when any change in data occurs to keep the statistics up to date and relevant.
+
+image::StatsUiPart4.png[]
+
+==== Generate Detailed Statistics: `generate_stats_detail`
+
+Displays a set of statistics, Number of events, Number of employee etc
+
+Format: `generate_stats_detail`
+
+**Example: To generate detailed statistics in plain text format on demand.**
+
+**Step 1**.
+Either type `generate_stats_detail` into the command box or navigate to the statistics tab and click the 'Generate Detailed Statistics' button.
+
+image::StatsUiPart5.png[]
+
+**Step 2**.
+A pop-up window with the header "StatisticsWindow" will appear displaying statistics for both employees and events.
+
+image::StatsUiPart6.png[]
+
+//end::Statistics[]
+
+=== Miscellaneous
+
+==== Clearing all entries : `clear_em` and `clear_ev`
+
+Clears all entries from the employee book/event book.
+
+Format: `clear_em` and `clear_ev`
+
+==== Saving the data
+
+AddMin+ data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
+== Upcoming Features in v2.0
+
+* Allows user to set profile picture of employee using online links +
+** In v2.0, you can use links to profile pictures on your favourite social media as `Avatar` for your contacts
+
+* Allows user to import personal information of employees from *Microsoft Office Apps* +
+** In v2.0, you can import employee information from other applications, so manual input for first-time users is no longer necessary.
+
+* Generate Employee Payslip
+
+* Generate Event Contract
+** Generates a contract that can be handed to the company's client.
+The contract will contains details of the event such as the location, budget, and date.
+
+* Allow importing and exporting of Event Schedule
+** Allows users to import and export all the users event schedule from AddMin+ to their google calendar.
+
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+[cols="3*^"]
+|===
+| *COMMAND* | *FORMAT* | *EXAMPLE*
+| *Add Employee*
+
+| `add_em n/NAME no/PHONE_NUMBER p/PAY e/EMAIL a/ADDRESS [t/TAG]...`
+|`add_em n/John Doe g/Male p/Manager no/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 on/12/12/2012 t/friends`
+
+| *Add Event* |`add_ev n/NAME at/VENUE m/MANPOWER NEEDED on/START DATE till/END DATE[t/TAG]…`
+| `add_ev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
+
+| *Edit Employee*| `edit_em INDEX n/NAME no/PHONE_NUMBER p/PAY e/EMAIL a/ADDRESS [t/TAG]...`
+| `edit_em 1 no/91234567 e/johndoe@example.com`
+| *Edit Event* | `edit_ev INDEX n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...`
+| `edit_ev 2 n/Concert`
+
+| *Find Employee/Event* | `find_em_name KEYWORD [MORE_KEYWORDS]`
+
+`find_em_tag KEYWORD [MORE_KEYWORDS]`
+
+`find_ev_name KEYWORD [MORE_KEYWORDS]`
+
+`find_ev_tag KEYWORD [MORE_KEYWORDS]`
+
+| `find_em_name John`
+
+`find_ev_tag music`
+| *Delete Employee/Event* | `delete_em EMPLOYEE_INDEX`
+
+`delete_ev EVENT_INDEX` |`delete_em 2`
+
+`delete_ev 2`
+| *Fetch Employee/Event* | `fetch_em EMPLOYEE_INDEX`
+
+`fetch_ev EVENT_INDEX`| `fetch_em 2`
+
+`fetch_ev 2`
+
+| *List Employee/Event/Both* | `list_em`
+
+`list_ev`
+
+`list`| `list_em`
+
+`list_ev`
+
+`list`
+
+| *Allocate a specified number of Employees with Filter requirements to an Event*
+| `allocate EVENT_INDEX [n/NUMBER][t/FILTER_TAGS]...`
+| `allocate 1 n/2 t/female`
+| *Allocate one specified Employee to an Event*|
+`allocatem EVENT_INDEX n/EMPLOYEE_INDEX`
+
+`allocatem EVENT_INDEX id/EMPLOYEE_ID`
+| `allocatem 1 n/2`
+
+`allocatem 1 id/002`
+| *De-allocate one/all Employees from an Event* | `free EVENT_INDEX [id/EMPLOYEE_ID]`
+
+| `free 2`
+
+`free 2 id/001`
+
+| *Set DateTime to an Event*| `set_ev_dt EVENT_INDEX [on/EVENT_DATE] [till/EVENT_DATE] time/EVENT_DAYTIME`
+| `set_ev_dt 2 on/18/10/2019 time/1000-2000`
+| *Delete DateTime from an Event*| `delete_ev_dt EVENT_INDEX on/EVENT_DATE [till/EVENT_DATE]`
+| `delete_ev_dt 2 on/18/10/2019 time/1000-2000`
+| *Clear DateTime from an Event*| `clear_ev_dt EVENT_INDEX`
+| `clear_ev_dt 2`
+| *Display Schedule for specific date*| `display_schedule_date on/DDMMYYYY` | `display_schedule_date on/02/12/2019`
+| *Display Schedule for specific month*| `display_schedule_month for/MMYYYY` | `display_schedule_month for/12/2019`
+| *Display Schedule for between 2 dates*| `display_schedule_between start/DDMMYYYY end/DDMMYYYY` | `display_schedule_between start/02/12/2019 end/05/12/2019`
+| *Generate Entire Schedule*| `generate_schedule` | `generate_schedule`
+| *Generate Statistics [coming in v2.0]* | `stats_g` | `stats_g`
+| *Generate Payment To Employee* | `pay EMPLOYEE_INDEX s/PAYMENT` | `pay 1 s/100`
+| *Undo Payment To Employee* | `undo_pay EMPLOYEE_INDEX s/PAYMENT` | `undo_pay 1 s/100`
+| *Navigate between Tabs* | `main, schedule` | `main, schedule`
+| *Clear EmployeeBook/EventBook* | `clear_em`
+
+`clear_ev` | `clear_em`
+
+`clear_ev`
+
+| *Help* | `help`| `help`
+| *Exit* | `exit`| `exit`
+
+|===

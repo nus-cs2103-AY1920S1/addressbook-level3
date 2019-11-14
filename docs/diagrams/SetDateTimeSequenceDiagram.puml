@@ -1,0 +1,99 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddMinParser" as AddMinParser LOGIC_COLOR
+participant ":AssignDateCommandParser" as AssignDateCommandParser LOGIC_COLOR
+participant "a:AssignDateCommand" as AssignDateCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "model:Model" as Model MODEL_COLOR
+participant "newMap:EventDateTimeMap" as EventDateTimeMap MODEL_COLOR
+end box
+
+[-> LogicManager : execute()
+activate LogicManager
+
+
+LogicManager -> AddMinParser : parseCommand()
+activate AddMinParser
+
+AddMinParser -> AssignDateCommandParser
+activate AssignDateCommandParser
+
+create AssignDateCommand
+AssignDateCommandParser -> AssignDateCommand
+activate AssignDateCommand
+
+AssignDateCommand --> AssignDateCommandParser
+deactivate AssignDateCommand
+
+AssignDateCommandParser --> AddMinParser : a
+deactivate AssignDateCommandParser
+
+AddMinParser --> LogicManager : a
+deactivate AddMinParser
+
+LogicManager -> AssignDateCommand : execute()
+activate AssignDateCommand
+
+AssignDateCommand -> Model : getFilteredEventList()
+activate Model
+
+Model -> AssignDateCommand :
+deactivate Model
+
+AssignDateCommand -> AssignDateCommand: getEventToAssign
+
+AssignDateCommand -> EventDateTimeMap ** : createNewMap(oldMap)
+activate EventDateTimeMap
+
+EventDateTimeMap -> AssignDateCommand
+deactivate EventDateTimeMap
+
+    alt Target EventDate Stated
+    AssignDateCommand -> EventDateTimeMap: mapDateTime(targetDate, eventDayTime)
+    activate EventDateTimeMap
+
+    EventDateTimeMap --> AssignDateCommand:
+    deactivate EventDateTimeMap
+
+    else Start and End Date Range Specified
+        loop Start Date of Range till End Date of Range
+        AssignDateCommand -> EventDateTimeMap: mapDateTime(eventDateInRange, eventDayTime)
+        activate EventDateTimeMap
+
+        EventDateTimeMap --> AssignDateCommand:
+        deactivate
+        end
+
+    else No Target EventDate Stated
+        loop Event StartDate till Event EndDate
+        AssignDateCommand -> EventDateTimeMap: mapDateTime(eventDay, eventDayTime)
+        activate EventDateTimeMap
+
+        EventDateTimeMap --> AssignDateCommand:
+        deactivate
+
+        end
+    end
+
+AssignDateCommand -> AssignDateCommand ++ : Create New Event Object
+return newEvent
+
+AssignDateCommand -> Model: setEvent(oldEvent, newEvent)
+activate Model
+
+Model -> AssignDateCommand
+deactivate Model
+
+AssignDateCommand --> LogicManager : result
+deactivate AssignDateCommand
+AssignDateCommand -[hidden]-> LogicManager : result
+destroy AssignDateCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

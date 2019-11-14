@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import java.util.stream.Stream;
+
 /**
  * A prefix that marks the beginning of an argument in an arguments string.
  * E.g. 't/' in 'add James t/ friend'.
@@ -17,6 +19,14 @@ public class Prefix {
 
     public String toString() {
         return getPrefix();
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
     @Override

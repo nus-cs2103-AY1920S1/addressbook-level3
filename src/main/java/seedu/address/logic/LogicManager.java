@@ -14,7 +14,9 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.distinctdate.DistinctDate;
+import seedu.address.model.employee.Employee;
+import seedu.address.model.event.Event;
 import seedu.address.storage.Storage;
 
 /**
@@ -44,10 +46,10 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveAddressBook(model.getAddressBook());
+            storage.saveEventBook(model.getEventBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
-
         return commandResult;
     }
 
@@ -57,8 +59,38 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Employee> getFullEmployeeList() {
+        return model.getFullListEmployees();
+    }
+
+    @Override
+    public ObservableList<Employee> getFilteredEmployeeList() {
+        return model.getFilteredEmployeeList();
+    }
+
+    @Override
+    public ObservableList<Event> getFullEventList() {
+        return model.getFullListEvents();
+    }
+
+    @Override
+    public ObservableList<Event> getFilteredEventList() {
+        return model.getFilteredEventList();
+    }
+
+    @Override
+    public ObservableList<Event> getFilteredScheduledEventList() {
+        return model.getFilteredScheduledEventList();
+    }
+
+    @Override
+    public ObservableList<DistinctDate> getEmployeeDistinctDateList() {
+        return model.getEmployeeDistinctDatesList();
+    }
+
+    @Override
+    public ObservableList<DistinctDate> getEventDistinctDateList() {
+        return model.getEventDistinctDatesList();
     }
 
     @Override

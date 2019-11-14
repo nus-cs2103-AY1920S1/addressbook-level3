@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox HBox.hgrow="ALWAYS">
+               <children>
+                  <AnchorPane>
+                     <children>
+                        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="384.0" minWidth="47.0" prefWidth="321.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.0" minWidth="0.0" prefWidth="90.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="147.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="40.0" prefWidth="195.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="183.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="328.0" minWidth="5.0" prefWidth="211.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.0" minWidth="45.0" prefWidth="213.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="30.0" minHeight="29.0" prefHeight="29.0" />
+                            <RowConstraints maxHeight="31.0" minHeight="30.0" prefHeight="31.0" />
+                              <RowConstraints minHeight="15.0" prefHeight="15.0" />
+                          </rowConstraints>
+                           <children>
+                              <Label fx:id="statisticsListLabel" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="304.0" text="Upcoming Events Requiring Manpower" textAlignment="CENTER" textFill="WHITE" underline="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="22.0" />
+                                 </font></Label>
+                              <Button fx:id="generateButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#generateStatistics" text="Generate Statistics" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <Button fx:id="generateButton1" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#generateDetailedStatistics" text="Generate Detailed Statistics" GridPane.columnIndex="5" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+                  <HBox VBox.vgrow="ALWAYS">
+                     <children>
+                        <ListView fx:id="statisticsListView" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
+                        <PieChart fx:id="eventTagPieChart" labelLineLength="0.0" labelsVisible="false" onMousePressed="#mouseClick" title="Event Tags" />
+                        <Label fx:id="eventLabel" minHeight="-Infinity" minWidth="-Infinity" text="Label" />
+                        <PieChart fx:id="employeeTagPieChart" labelLineLength="0.0" labelsVisible="false" onMousePressed="#mouseClick" title="Employee Tags" />
+                        <Label fx:id="employeeLabel" minHeight="-Infinity" minWidth="-Infinity" text="Label" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

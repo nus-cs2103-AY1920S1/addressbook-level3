@@ -1,0 +1,23 @@
+@startuml
+start
+:User executes command;
+:Parser attempts to parse;
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([Parse Successful])
+    :Instantiate Objects;
+    :Check Objects for Violations;
+    if() then ([No Errors])
+    repeat
+    :Set EventDate-EventDayTime map
+    in EventDateTimeMap;
+    repeat while (Date Range stated & Next Day in Stated Range) is (Yes)
+    : Create new Event Object with New EventDateTimeMap;
+    :Save in EventBookStorage;
+    else([Violation])
+    endif
+else ([Input Format Errors])
+endif
+stop
+@enduml

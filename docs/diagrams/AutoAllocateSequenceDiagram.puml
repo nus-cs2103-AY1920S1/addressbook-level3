@@ -1,0 +1,92 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AutoAllocateCommandParser" as AutoAllocateCommandParser LOGIC_COLOR
+participant "a:AutoAllocateCommand" as AutoAllocateCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "model:Model" as Model MODEL_COLOR
+participant "event:Event" as Event MODEL_COLOR
+end box
+
+[-> LogicManager : execute()
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(commandText)
+activate AddressBookParser
+
+AddressBookParser -> AutoAllocateCommandParser
+activate AutoAllocateCommandParser
+
+create AutoAllocateCommand
+AutoAllocateCommandParser -> AutoAllocateCommand
+activate AutoAllocateCommand
+
+AutoAllocateCommand --> AutoAllocateCommandParser
+deactivate AutoAllocateCommand
+
+AutoAllocateCommandParser --> AddressBookParser : a
+deactivate AutoAllocateCommandParser
+
+AddressBookParser --> LogicManager : a
+deactivate AddressBookParser
+
+LogicManager -> AutoAllocateCommand : execute()
+activate AutoAllocateCommand
+
+AutoAllocateCommand -> AutoAllocateCommand : getManpowerNeededByEvent(event)
+activate AutoAllocateCommand
+
+AutoAllocateCommand -> Event : getManpowerNeeded()
+activate Event
+Event --> AutoAllocateCommand :
+deactivate Event
+
+AutoAllocateCommand -> Event : getCurrentManpowerCount()
+activate Event
+Event --> AutoAllocateCommand :
+deactivate Event
+
+AutoAllocateCommand --> AutoAllocateCommand : result
+deactivate AutoAllocateCommand
+
+AutoAllocateCommand -> AutoAllocateCommand : createAvailableEmployeeList(model, event)
+activate AutoAllocateCommand
+
+AutoAllocateCommand -> Model : getFilteredEventList()
+activate Model
+Model --> AutoAllocateCommand
+deactivate Model
+
+AutoAllocateCommand -> Model : getFilteredEmployeeList()
+activate Model
+Model --> AutoAllocateCommand
+deactivate Model
+
+AutoAllocateCommand -> Event : isAvailableForEvent()
+activate Event
+Event --> AutoAllocateCommand :
+deactivate Event
+
+AutoAllocateCommand --> AutoAllocateCommand : result
+deactivate AutoAllocateCommand
+
+
+
+AutoAllocateCommand -> AutoAllocateCommand : createEventAfterManpowerAllocation()
+activate AutoAllocateCommand
+AutoAllocateCommand --> AutoAllocateCommand : result
+deactivate AutoAllocateCommand
+
+AutoAllocateCommand --> LogicManager : result
+deactivate AutoAllocateCommand
+AutoAllocateCommand -[hidden]-> LogicManager : result
+destroy AutoAllocateCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -1,46 +1,74 @@
 {
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
-  "persons" : [ {
-    "name" : "Alice Pauline",
-    "phone" : "94351253",
-    "email" : "alice@example.com",
-    "address" : "123, Jurong West Ave 6, #08-111",
-    "tagged" : [ "friends" ]
+  "employees" : [ {
+    "name" : "asd",
+    "phone" : "87438807",
+    "email" : "alexyeoh@example.com",
+    "address" : "Blk 30 Geylang Street 29, #06-40",
+    "tagged" : [ "male", "friends" ],
+    "id" : "000",
+    "position" : "aaa",
+    "gender" : "male",
+    "joindate" : "31/10/2019"
   }, {
-    "name" : "Benson Meier",
-    "phone" : "98765432",
-    "email" : "johnd@example.com",
-    "address" : "311, Clementi Ave 2, #02-25",
-    "tagged" : [ "owesMoney", "friends" ]
+    "name" : "Bernice Yu",
+    "phone" : "87438807",
+    "email" : "bbb@example.com",
+    "address" : "Blk 30 BBB Street 29, #06-40",
+    "tagged" : [ "female", "friends" ],
+    "id" : "001",
+    "position" : "Manager",
+    "gender" : "female",
+    "joindate" : "31/10/2019"
   }, {
-    "name" : "Carl Kurz",
-    "phone" : "95352563",
-    "email" : "heinz@example.com",
-    "address" : "wall street",
-    "tagged" : [ ]
+    "name" : "Charlotte Oliveiro",
+    "phone" : "89123407",
+    "email" : "ccc@example.com",
+    "address" : "Blk 30 CCC Street 29, #06-40",
+    "tagged" : [ "female", "friends" ],
+    "id" : "002",
+    "position" : "Manager",
+    "gender" : "female",
+    "joindate" : "31/10/2019"
   }, {
-    "name" : "Daniel Meier",
-    "phone" : "87652533",
-    "email" : "cornelia@example.com",
-    "address" : "10th street",
-    "tagged" : [ "friends" ]
+    "name" : "David Li",
+    "phone" : "87499807",
+    "email" : "ddd@example.com",
+    "address" : "Blk 30 DDD Street 29, #06-40",
+    "tagged" : [ "male", "friends" ],
+    "id" : "003",
+    "position" : "Manager",
+    "gender" : "male",
+    "joindate" : "31/10/2019"
   }, {
-    "name" : "Elle Meyer",
-    "phone" : "9482224",
-    "email" : "werner@example.com",
-    "address" : "michegan ave",
-    "tagged" : [ ]
+    "name" : "Irfan Ibrahim",
+    "phone" : "87438807",
+    "email" : "eee@example.com",
+    "address" : "Blk 30 EEE Street 29, #06-40",
+    "tagged" : [ "male", "friends" ],
+    "id" : "004",
+    "position" : "Manager",
+    "gender" : "male",
+    "joindate" : "31/10/2019"
   }, {
-    "name" : "Fiona Kunz",
-    "phone" : "9482427",
-    "email" : "lydia@example.com",
-    "address" : "little tokyo",
-    "tagged" : [ ]
+    "name" : "Roy Balakrishnan",
+    "phone" : "87438807",
+    "email" : "fff@example.com",
+    "address" : "Blk 30 FFF Street 29, #06-40",
+    "tagged" : [ "male", "friends" ],
+    "id" : "005",
+    "position" : "Manager",
+    "gender" : "male",
+    "joindate" : "31/10/2019"
   }, {
-    "name" : "George Best",
-    "phone" : "9482442",
-    "email" : "anna@example.com",
-    "address" : "4th street",
-    "tagged" : [ ]
+    "name" : "George Michael",
+    "phone" : "87438807",
+    "email" : "ggg@example.com",
+    "address" : "Blk 30 GGG Street 99, #06-40",
+    "tagged" : [ "male", "friends" ],
+    "id" : "006",
+    "position" : "Temp",
+    "gender" : "male",
+    "joindate" : "31/10/2019"
   } ]
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox prefHeight="310.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox style="-fx-background-color: #1d1d1d;">
+         <children>
+            <Region prefHeight="26.0" prefWidth="20.0" stylesheets="@DarkTheme.css" />
+                <Label fx:id="dateLabel" style="-fx-background-color: #1d1d1d;" styleClass="cell_big_label" text="\$date" textFill="#e8e2e2" />
+         </children>
+         <stylesheets>
+            <URL value="@DarkTheme.css" />
+            <URL value="@Extensions.css" />
+         </stylesheets>
+      </HBox>
+      <ListView fx:id="eventListView" />
+   </children>
+   <stylesheets>
+      <URL value="@DarkTheme.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
+</VBox>

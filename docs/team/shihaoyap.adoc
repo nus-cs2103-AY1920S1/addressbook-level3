@@ -1,0 +1,225 @@
+= Yap Shi Hao - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Welcome to AddMin+
+
+== Overview on Project
+
+AddMin+ is a student developed application under the National University of Singapore's __CS2103T Software Engineering Module__.
+The project required students to enhance a basic command-line interface desktop application which is the
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook - Level 3]
+that was developed by the se-edu team. The
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook - Level 3]
+is a desktop address book application that was designed to be used for teaching Software Engineering principles.
+
+== About AddMin+
+
+The AddMin+ Team comprises of 5 Computer science students from AY1920S1-CS2103T-T11-3. The team decided to
+morph and enhance the capabilities of the original application into an all-in-one administration desktop
+application. The application is specially designed for the use of any events management start-up company
+that is faced with limited manpower and resources.
+
+AddMin+ is specially designed to ease the workload of admin staff in these companies and allow them to
+effectively handle the administrative needs of the company by providing the following functions: event creation and
+deletion, editing of event details, manual and automatic manpower allocation for events and providing an
+overview of all the data via statistics while keeping track of the companies schedule to ensure that no event
+will be missed!
+
+To give you a better picture of AddMin+! This is what the application looks like:
+
+._The user interface for AddMin+_
+image::AddMin+Ui.png[]
+
+
+== My Roles and Responsibilities
+My project responsibilities and tasking include being in charge of the group's documentation quality as
+well as ensure that high standards are maintained and delivered on time and in the right format.
+
+While my coding related tasking was to design and write codes for the entire *Schedule* section of the project.
+The following sections will illustrate the enhancements in more detail, as well as provide relevant
+documentation that I have added to the user and developer guides in relation to those enhancements.
+
+== Before we start
+The following symbols and formatting will be used throughout this document:
+
+[TIP]
+*LightBulbs* indicate a _Tip_, something that is helpful to the reader
+
+[NOTE]
+*'i' Icon* indicate a _Note_ that supplements useful information
+
+Text in a link:[`blue font and grey`] background indicates a _hyperlink_
+
+Texts with a `grey background` indicates _Code Logic_ such as class objects, OOP definitions or user-input.
+
+
+== Summary of contributions
+This section will show a summary of all the features, enhancements, documentation, and other useful contributions
+that I have contributed to the team project.
+
+* *Major feature*: added and implemented the entire *Schedule* section of the project which includes major GUI implementations
+and 4 schedule related commands.
+
+** What does it do: The *Schedule* section was implemented to allow users to have an easier way to view and identify
+events that are happening on a specific date or period. Thus, the `display_schedule_date`, `display_schedule_month`
+and `display_schedule_between` commands were implemented. The enhancement was also done to improve the user experience, by providing a clean
+graphical representation of the user's schedule through the use of the `generate_schedule` command, greatly improving the application's user experience.
+
+** Justification: The *Schedule* feature improves the product significantly because it allows users to have a convenient way to view their
+upcoming event schedule and keep track of all the important event dates. The feature will greatly improve the user experience of the application
+by providing a clean user interface to allow the users to have a visual overview of their schedules.
+
+** Highlights: This enhancement requires handling and dealing with the `Event` objects extensively. The implementation of the *Schedule* feature
+required an in-depth analysis of the application's storage and modeling architecture. The *Schedule* feature was also challenging as
+it required the implementation of an additional `DistinctDate` object for the `generate_schedule` command which was also used in the
+`Employee` window. During the designing of the *Schedule* component, deep consideration was needed to ensure that the user interface was clean
+and optimal for the users.
+
+* *Minor features*: Multiple Graphic User Interface improvements were made throughout the application to improve the user experience.
+Implemented the tab recognition feature, which is used to restrict commands on specific tabs to prevent unusual behavior, which can cause users to be confused.
+Other minor features includes the implementation of the `add_ev`, `edit_ev`, `find_em_tag` and `find_ev_tag` commands
+for the AddMin+ App.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=shihaoyap&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shihaoyap&tabRepo=AY1920S1-CS2103T-T11-3%2Fmain%5Bmaster%5D[tp Code Dashboard]]
+
+** *Model*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/model/employee/TagContainsKeywordsPredicate.java[TagContainsKeywords],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/model/event/EventContainsKeyDatePredicate.java[EventContainsKeyDate],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/model/event/EventContainsKeyDateRangePredicate.java[EventContainsKeyDateRange],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/model/event/EventContainsKeyYearMonthPredicate.java[EventContainsKeyYearMonth],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/model/event/EventTagContainsKeywordsPredicate.java[EventTagContainsKeywords],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/model/distinctdate/DistinctDate.java[DistinctDate]]
+
+** *Command*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/commands/event/FindEventByTagCommand.java[FindEventByTag],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/commands/employee/FindByTagCommand.java[FindEmployeeByTag],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/commands/schedule/GenerateScheduleCommand.java[GenerateSchedule],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/commands/schedule/DisplayScheduleBetweenCommand.java[DisplayScheduleBetween],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/commands/schedule/DisplayScheduleForDateCommand.java[DisplayScheduleForDate],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/commands/schedule/DisplayScheduleForYearMonthCommand.java[DisplayScheduleForYearMonth]]
+
+** *Parser*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/parser/schedule/DisplayScheduleBetweenParser.java[DisplayScheduleBetween],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/parser/schedule/DisplayScheduleForDateParser.java[DisplayScheduleForDate],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/parser/schedule/DisplayScheduleForYearMonthParser.java[DisplayScheduleForYearMonth],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/parser/event/FindEventByTagCommandParser.java[FindEventByTag],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/parser/employee/FindByTagCommandParser.java[FindEmployeeByTag]]
+
+** *Others*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/processor/DistinctDatesProcessor.java[DistinctDatesProcessor],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/ui/DateCard.java[DateCard],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/ui/DateWindow.java[DateWindow],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/ui/FetchEmployeeWindow.java[FetchEmployeeWindow],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/ui/ScheduleBox.java[ScheduleBox]]
+
+* *Test Code Contributed*:
+
+** *Model*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/model/event/EventContainsKeyDatePredicateTest.java[EventContainsKeyDate],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/model/event/EventContainsKeyDateRangePredicateTest.java[EventContainsKeyDateRange],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/model/event/EventContainsKeyYearMonthPredicateTest.java[EventContainsKeyYearMonth],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/model/distinctdate/DistinctDateTest.java[DistinctDateTest]]
+
+** *Command*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/logic/commands/schedule/GenerateScheduleCommandTest.java[GenerateSchedule],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/logic/commands/schedule/DisplayScheduleBetweenCommandTest.java[DisplayScheduleBetween],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/logic/commands/schedule/DisplayScheduleForDateCommandTest.java[DisplayScheduleForDate],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/logic/commands/schedule/DisplayScheduleForYearMonthCommandTest.java[DisplayScheduleForYearMonth]]
+
+** *Parser*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/logic/parser/schedule/DisplayScheduleBetweenParserTest.java[DisplayScheduleBetween],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/logic/parser/schedule/DisplayScheduleForDateParserTest.java[DisplayScheduleForDate],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/logic/parser/schedule/DisplayScheduleForYearMonthParserTest.java[DisplayScheduleForYearMonth]]
+
+** *TestUtil*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/testutil/DistinctDateBuilder.java[DistinctDateBuilder],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/testutil/EventBuilder.java[EventBuilder],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/testutil/TypicalDistinctDates.java[TypicalDistinctDates],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/testutil/TypicalEvents.java[TypicalEvents]]
+
+* *Other contributions*:
+
+** Project management:
+*** In-charged of keep track of deadlines, submissions and issue trackers as well as the entire team's documentation quality.
+*** In-charged of Add and Edit event commands for AddMin+
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/76[#76],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/79[#79])
+*** In-charged of Find Employee and Event Tags commands for AddMin+
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/197[#197])
+*** In-charged of the entire *Schedule* feature of AddMin+ which includes 4 schedule related commands
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/102[#102],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/109[#109],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/138[#138],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/139[#139])
+*** In-charged of setting up test cases for all *Schedule* feature - commands, parsers, predicates
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/233[#233],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/249[#249],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/267[#267])
+*** Assisted in morphing the Events class and storage units into AddMin+
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/76[#76],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/79[#79])
+*** Assisted in the refactoring process for person class to employee class and well as
+fixed test cases and checkstyle errors.
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/92[#92])
+*** Assisted in debugging AddMin+ based on User Feedback and Mock Practical Exam Feedback
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/197[#197])
+*** Assisted in setting up the test structure for Events to facilitate easier Events related
+test cases
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/233[#233])
+*** Assisted in implementing AddMin+ tab recognition, to reduce any unusual app behavior.
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/155[#155],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/160[#160],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/265[#265])
+
+** Enhancements to existing features:
+*** Upgraded the GUI display and other GUI enhancements, such as the fetch employee window
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/102[#102],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/143[#143])
+
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide:
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/114[#114],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/143[#143],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/149[#149],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/150[#150],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/197[#197],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/231[#231])
+
+
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/66[#66],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/76[#76],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/83[#83],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/85[#85],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/92[#92],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/137[#137],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/273[#273])
+
+== Contributions to the User Guide
+|===
+|_The original user guide has been updated to document the new capabilities of the AddMin+ functionality.
+The following are excerpts from the AddMin+ User Guide, which will showcase the sections that I have contributed to, in
+particular, the *Schedule* section of the UG. They will showcase my ability to write documentation for end-users._
+|===
+
+include::../UserGuide.adoc[tag=Schedule1]
+
+== Contributions to the Developer Guide
+|===
+|_Given below are sections I contributed to the Developer Guide. The section will cover the design considerations and
+design code structure of the `generate_schedule` command. They showcase my ability to write technical documentation
+and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=generateschedule1]
+include::../DeveloperGuide.adoc[tag=generateschedule2]
+
+== Conclusion:
+The AddMin+ project was created by the AddMin+ Team as part of a university module requirement. Through AddMin+, I was able
+to experience what it was like to be involved in a software development project, where we were able to experience both the technical and
+non-technical aspects of a software development project. We were able to directly apply the key software development concepts taught in CS2103T
+in our project and also experience what it was like dealing with a brown-field project.
+
+Another aspect of software development which I felt is often overlooked is actually the non-technical aspect, such as
+documentation writing. However, through CS2101, we were able to learn the steps of writing quality documentation of our project
+that caters to our target audiences. Finally, even though the AddMin+ project was only 6 weeks long, I was able to pick up many valuable knowledge
+that will be essential in becoming a software developer in the future. If you would like to know more about me or AddMin+, feel free to drop by my https://shihaoyap.github.io/ShihaoResume/index.html[personal website] or
+contact me via https://sg.linkedin.com/in/shi-hao-yap-964724169[LinkedIn].
+
+---
+

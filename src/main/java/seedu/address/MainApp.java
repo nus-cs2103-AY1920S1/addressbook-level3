@@ -16,14 +16,18 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
+import seedu.address.model.EventBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyEventBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.EventBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonEventBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -36,7 +40,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 3, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -57,12 +61,12 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        EventBookStorage eventBookStorage = new JsonEventBookStorage(userPrefs.getEventBookFilePath());
+        storage = new StorageManager(addressBookStorage, eventBookStorage, userPrefsStorage);
 
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
-
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
@@ -73,15 +77,19 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    private ModelManager initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
+        Optional<ReadOnlyEventBook> eventBookOptional;
         ReadOnlyAddressBook initialData;
+        ReadOnlyEventBook initialEventData;
         try {
             addressBookOptional = storage.readAddressBook();
+
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
@@ -90,7 +98,22 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        try {
+            eventBookOptional = storage.readEventBook();
+            if (!eventBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample EventBook");
+            }
+            initialEventData = eventBookOptional.orElseGet(SampleDataUtil::getSampleEventBook);
+
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty EventBook");
+            initialEventData = new EventBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty EventBook");
+            initialEventData = new EventBook();
+        }
+
+        return new ModelManager(initialData, initialEventData, userPrefs);
     }
 
     private void initLogging(Config config) {

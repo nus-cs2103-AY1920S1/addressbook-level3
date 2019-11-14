@@ -1,14 +1,23 @@
 {
-  "persons": [ {
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "alice@example.com",
-    "address": "123, Jurong West Ave 6, #08-111",
-    "tagged": [ "friends" ]
+  "employees" : [ {
+    "name" : "Bernice Yu",
+    "phone" : "87438807",
+    "email" : "bbb@example.com",
+    "address" : "Blk 30 BBB Street 29, #06-40",
+    "tagged" : [ "female", "friends" ],
+    "id" : "000",
+    "position" : "Manager",
+    "gender" : "female",
+    "joindate" : "31/10/2019"
   }, {
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "pauline@example.com",
-    "address": "4th street"
+    "name" : "Bernice Yu",
+    "phone" : "87438807",
+    "email" : "bbb@example.com",
+    "address" : "Blk 30 BBB Street 29, #06-40",
+    "tagged" : [ "female", "friends" ],
+    "id" : "001",
+    "position" : "Manager",
+    "gender" : "female",
+    "joindate" : "31/10/2019"
   } ]
 }
