@@ -1,17 +1,25 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.appstatus.PageStatus;
+import seedu.address.model.appstatus.PageType;
+import seedu.address.model.currency.CustomisedCurrency;
+import seedu.address.model.currency.exceptions.CurrencyNotFoundException;
+import seedu.address.model.currency.exceptions.CurrencyNotRemovableException;
+import seedu.address.model.currency.exceptions.DuplicateCurrencyException;
+import seedu.address.model.trip.Trip;
+import seedu.address.model.trip.exceptions.ClashingTripException;
+import seedu.address.model.trip.exceptions.TripNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -19,26 +27,36 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final TravelPal travelPal;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Trip> filteredTripList;
+    private final FilteredList<CustomisedCurrency> filteredCurrencyList;
+
+    private PageStatus pageStatus;
+
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given travelPal and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTravelPal addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.travelPal = new TravelPal(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.pageStatus = new PageStatus(PageType.TRIP_MANAGER, null, null, null, null,
+                null, null, null, null,
+                null, null, null,
+                null, null, null,
+                null);
+        filteredTripList = new FilteredList<>(this.travelPal.getTripList());
+        filteredCurrencyList = new FilteredList<>(this.travelPal.getCurrencies());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new TravelPal(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,67 +84,96 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getTravelPalFilePath() {
+        return userPrefs.getTravelPalFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setTravelPalFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+        userPrefs.setTravelPalFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== TravelPal ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void setTravelPal(ReadOnlyTravelPal travelPal) {
+        this.travelPal.resetData(travelPal);
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public ReadOnlyTravelPal getTravelPal() {
+        return travelPal;
+    }
+
+    //=========== Filtered Trip List Accessors =============================================================
+
+    @Override
+    public FilteredList<Trip> getFilteredTripList() {
+        return filteredTripList;
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public void addTrip(Trip trip) throws ClashingTripException {
+        requireNonNull(trip);
+        travelPal.addTrip(trip);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void setTrip(Trip target, Trip replacement) throws ClashingTripException, TripNotFoundException {
+        requireAllNonNull(target, replacement);
+        travelPal.setTrip(target, replacement);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
+    public void deleteTrip(Trip target) throws TripNotFoundException {
+        requireNonNull(target);
+        travelPal.deleteTrip(target);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Currency List Accessors =============================================================
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public FilteredList<CustomisedCurrency> getFilteredCurrencyList() {
+        return filteredCurrencyList;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+    public void addCurrency(CustomisedCurrency currency) throws DuplicateCurrencyException {
+        requireNonNull(currency);
+        travelPal.addCurrency(currency);
+    }
+
+    @Override
+    public void setCurrency(CustomisedCurrency target, CustomisedCurrency replacement)
+            throws CurrencyNotFoundException {
+        requireAllNonNull(target, replacement);
+        travelPal.setCurrency(target, replacement);
+    }
+
+    @Override
+    public void deleteCurrency(CustomisedCurrency target) throws CurrencyNotFoundException,
+            CurrencyNotRemovableException {
+        requireNonNull(target);
+        travelPal.deleteCurrency(target);
+    }
+
+    @Override
+    public void selectCurrency(CustomisedCurrency target) throws CurrencyNotFoundException {
+        requireNonNull(target);
+        travelPal.selectCurrency(target);
+    }
+    //=========== PageStatus List Accessors =============================================================
+
+    @Override
+    public void setPageStatus(PageStatus pageStatus) {
+        requireNonNull(pageStatus);
+        this.pageStatus = pageStatus;
+    }
+
+    @Override
+    public PageStatus getPageStatus() {
+        return pageStatus;
     }
 
     @Override
@@ -143,9 +190,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return travelPal.equals(other.travelPal)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredTripList.equals(other.filteredTripList)
+                && pageStatus.equals(other.getPageStatus());
     }
-
 }

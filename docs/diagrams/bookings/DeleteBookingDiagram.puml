@@ -1,0 +1,17 @@
+@startuml
+
+start
+:User executes delete command;
+if () then ([index to delete \n<= \nsize of bookinglist]\n)
+:execute \nremove(bookingToDelete);
+
+    :booking is removed;
+    :refresh current page;
+
+else ([else]\n\n)
+:index out of bound;
+:error thrown since\nbooking not removable;
+endif
+stop
+
+@enduml

@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.LogsCenter;
 
 /**
@@ -15,11 +16,11 @@ import seedu.address.commons.core.LogsCenter;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
+    public static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-t11-4.github.io/main/UserGuide.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
-    private static final String FXML = "HelpWindow.fxml";
+    private static final String FXML = "common/HelpWindow.fxml";
 
     @FXML
     private Button copyButton;

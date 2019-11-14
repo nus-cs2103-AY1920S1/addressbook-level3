@@ -1,0 +1,22 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Class Index
+Class Trip
+Class Diary
+Class DiaryEntryList
+Class DiaryEntry
+Class PhotoList
+
+Trip *-up-> Diary
+Diary *-right-> DiaryEntryList
+DiaryEntryList *--> "*" DiaryEntry
+
+DiaryEntry *--> "1" Index : day number <
+DiaryEntry *--> "1" String : diary text <
+DiaryEntry *--> "1" PhotoList
+
+@enduml

@@ -1,0 +1,98 @@
+= Sakshi Pradyumn -- Project Portfolio for __TravelPal__
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:last-update-label!:
+:nofooter:
+
+== Portfolio Overview
+
+This project portfolio page documents my contribution to the team project __TravelPal__. The page includes an overview
+of the project, summary of the features I have implemented, and contributions to the User Guide and Developer Guide.
+
+== About our Project
+The application _TravelPal_ developed by our team is an all-in-one *Trip Planner* which provides casual travellers and
+leisure travellers a hassle free way to manage their trips before, during and after the trip!
+It comes with a highly customisable, intuitive and integrated trip management system. We aim to ease pre-trip planning
+process with features such as _trip itinerary_, _trip inventory_, _bookings manager_, and _expense manager_, and offer
+a platform for users to record their memorable trip highlights with our _diary_ feature.
+
+_TravelPal_ has the feature of Command Line Interface (CLI) for keyboard input as it is a PC-based application.
+Furthermore, each CLI feature has a Graphical User Interface (GUI) alternative for richer user friendly experience.
+
+In GUI, display includes panes, menus and message boxes. We believe such implementation makes our application more
+user-friendly and easy to use.
+
+In our project, my role was to implement the _Booking Manager_ feature. The following sections will elaborate on the
+enhancements related to Booking.
+
+== Summary of contributions
+
+|===
+|
+This section encompasses an overview of my contribution to the TravelPal application, including the summary of my code
+implementation and how they add value to the application in terms of functionality and user experience.
+|===
+
+==== *Major enhancements*: Implementation of the _Booking Manager_ feature
+
+** *What it does*: The _Booking Manager_ allows users to manage all sorts of bookings, by mentioning the type in the
+name description. User can choose to manually add a new booking. All bookings will be displayed in a sequential order
+** *Justification*: Keeping track of a booking can be a hassle as some are pre-planned while some are scheduled
+on-the-go. _Booking Manager_ intends to mitigate user's troubles by providing a convenient way to keep a track of all
+the bookings. User can also note the expenditure associated with the booking apart from storing the contact details
+(mobile number, address, description, etc.)
+** *Highlights*: Managing the bookings is tricky in the sense that seemingly same looking booking might result in
+confusion, so the `create` feature will warn the user if same booking is being created, apart from convenient listing of
+all the bookings in a bug-free and efficient way.
+** *Credits*: I used the concepts and logic from the existing code of address book provided to us to enhance the
+features.
+
+
+
+==== Other Contributions
+* Code contributed: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=sakshi&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=SakshiPradyumn&tabRepo=AY1920S1-CS2103T-T11-4%2Fmain%5Bmaster%5D[RepoSense Code]][https://github.com/AY1920S1-CS2103T-T11-4/main/pulls?utf8=%E2%9C%93&q=is%3Aclosed+is%3Apr+author%3ASakshiPradyumn+[Github Pull Requests]]
+
+* Idea generation:
+** Contributed main idea of _TravelPal_ and its various sub-features (itinerary, bookings, contacts, etc.), along with
+their working diagrams during project discussion, partly inspired from my tribulations as well.
+(see https://docs.google.com/document/d/1mKmIZghbtYwgSWdDTiRQDLdXjKNhjuys8uSO8Y6McyI/edit[travelpal idea generation google docs])
+** Kept a timeline of the features added to coordinate in a better fashion among the team members.
+
+* Enhancements to existing features:
+** Wrote test cases for _Booking Manager_ and related classes.
+** Helped in testing of all the features, in general.
+** Updated UI, and logic of the code to make it user friendly as well as efficient.
+
+* Project management:
+** Reviewed and approved several PRs of my team members
+** Updated AboutUs page https://github.com/AY1920S1-CS2103T-T11-4/main/pull/18[#18]
+
+
+== Contributions to the User Guide
+
+|===
+|
+This section displays the excerpt of User Guide related to the usage of _Booking Manager_ feature, created by me, and
+later revised along the application development.
+|===
+
+include::../UserGuide.adoc[tag=booking_ppp]
+
+== Contributions to the Developer Guide
+
+|===
+|
+This section displays the excerpt of Developer Guide showing the logic, model and user interface implementation of the
+_Booking manager_, created by me, and later revised along the application development.
+|===
+
+include::../DeveloperGuide.adoc[tag=booking_ppp]
+
+== Achievements and Learnings
+
+Development of __TravelPal__ is one of my first brown-field software engineering projects. During the process, I have
+gained many insights, project work ethics and presentational skills apart from useful programming knowledge. I also
+learned how to work on a large code base while working on my feature.
+
+Knowledge was gained not by the mere end-product but during the collaborated team journey and educational experience.

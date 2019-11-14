@@ -1,0 +1,21 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class PhotoList
+class DiaryPhoto
+class LocalDateTime
+class Path
+class String
+
+Class HiddenOutside #FFFFFF
+DiaryEntry -right-> "1 " PhotoList
+PhotoList *-down-> "*" DiaryPhoto
+
+DiaryPhoto *--> "  1" LocalDateTime : Date Taken <
+DiaryPhoto *---> "          1" Path : Image File Path <
+DiaryPhoto *--> "                                                        1 " String : description <
+
+@enduml

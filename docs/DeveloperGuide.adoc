@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= TravelPal - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T11-4/main/tree/master
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -79,14 +79,35 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`,
+`PersonListPanel`, `Page` etc. All these, including the `MainWindow`,
+inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+Overall, the `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+[[page_api]]
+==== Page API
+The `Page` `UiPart`, as contained by `MainWindow`, is the key component that reflects the differences
+in the data displayed across different pages of the application.
+
+Each class extending `Page` is able to implement its various components and root JavaFX node types
+separately, allowing for much flexibility in terms of the different user interfaces of the pages.
+
+Due to its flexibility, the `Page` abstract class is mainly only responsible for :
+
+1. Providing its child classes with the supporting
+instances of `Model` and `MainWindow` in order to,
+** populate the classes' components with data
+** execute commands from the user interface, outside of the `CommandBox` (e.g. an _add_ button).
+2. Providing a way to execute any callback function (such as one to update display data),
+through use of the abstract method `fillPage`. The `fillPage` method is registered inside
+`MainWindow`, such that it runs after each command execution.
+
 
 [[Design-Logic]]
 === Logic component
@@ -115,34 +136,31 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.png[title="High level structure of the Model Component"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
+* stores _TravelPal's_ trip data.
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a `CurrencyList` object that represents the user's added currencies.
+* exposes several unmodifiable `ObservableLists` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageClassDiagram.png[title="High level structure of the Storage Component"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Travel Pal data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -152,6 +170,381 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::teoha_ppp[]
+[[Edit-Trip]]
+=== [Itinerary] Edit trip/day/event feature
+
+[[edit_logic]]
+==== Aspect: Logic
+Editing of trip/day/event can be accessed from `TripsPage/DaysPage/EventsPage` respectively.
+The execution of commands in the each page is facilitated by `TripManagerParser/DayViewParser/EventViewParser` which extends from the `PageParser`. This class serves as the abstraction for all parsers related to each __Page__.
+
+The operations are exposed to the `Model` interface through the `Model#getPageStatus()`
+method that returns the `PageStatus` containing the all information regarding the current state of application. This includes the _descriptors_ (explained in Step 1 below) which stores all information about the edit.
+
+*Given below is an example usage scenario and how the program behaves at each step.*
+
+*Step 1.* When the user launches the application. The `PageStatus` is initialized under along with other `Model` components. `PageStatus` at launch does not contain any `EditTripDescriptor/EditDayDescriptor/EditEventDescriptor` responsible for storing information for the edit.
+
+image::ItineraryEdit0.png[width=400]
+
+*Step 2.* The user currently on the `TripsPage/DaysPage/EventsPage` is displayed a list of `Trip/Day/Event` respectively. The user executes the edit command `EDIT1` using the `OneBasedIndex` on the list to edit it.This executes the `EnterEditTripFieldCommand/EnterEditDayFieldCommand/EnterEditEventFieldCommand` that initializes a new descriptor within `PageStatus` before switching over to the `EditTripPage/EditDayPage/EditEventPage` containing to perform the editing.
+
+image::ItineraryEdit1.png[width=400]
+
+*Step 3.* The user is now on the edit page displaying a list of fields that the user can edit in the `Trip/Day/Event`. Commands on each page differs based on the fields they contain.
+====
+The following is an example list of commands available in `DaysPage` and the execution of the program when a field is edited in `DaysPage`:
+
+* `edit n/<name> ds/<startDate> de/<endDate> b/<totalBudget> l/<destination> d/<description>` - Edits the relevant fields
+* `done` - Completes the edit and returns to the __Overall View__
+* `cancel` - Discards the edit and returns to the __Overall View__
+====
+When user executes the command `edit n/EditedName` on the `DaysPage`. The command creates a new descriptor from the contents of the original, replacing the fields only if they are edited. The new descriptor is then assigned to `PageStatus` replacing the original `EditDayDescriptor`. The result of the edit is then displayed to the user.
+
+image::ItineraryEdit2.png[width=400]
+
+*Step 4.* The user has completed editing the `Trip/Day/Event` and executes `done`/`cancel` to confirm/discard the edit. The execution of the two cases are as follows:
+
+* The user executes `done` to confirm the edit. This executes the `DoneEditTripCommand/DoneEditDayCommand/DoneEditEventCommand` and a `Trip/Day/Event` is built from the descriptor respective to the type it describes. `DayList#set(target, edited)` proceeds to be executed which accesses the `Day` to edit from the `day` field in `PageStatus` as the target. This method replaces the original day with the newly built day from the descriptor. The descriptor in `PageStatus` is then reset to contain empty fields (See figure below).
+
+image::ItineraryEdit3.png[width=400]
+
+* The User executes `cancel` to discard the edit. This executes the `CancelEditTripCommand/CancelEditDayCommand/CancelEditEventCommand` which resets the descriptor in `PageStatus` to contain all empty fields.
+
+image::ItineraryEdit4.png[width=400]
+
+* Upon completion of the edit, the user is returned to the `TripPage/DaysPage/EventsPage` depending on where the user entered the edit page from.
+
+---
+
+*Below is a sequence diagram illustrating the execution of the command "edit ds/10/10/2019" on _Days Page_:*
+
+image::ItineraryEditSequenceDiagramSimple.png[title="Sequence diagram for execution of `edit ds/10/10/2019`"]
+* When the command is executed, TravelPal uses a series of parsers to parse entire command
+** `TravelPalParser`: Parses the command. In execution above, it is identified that the first word is the command.
+** `EditDayParser`: Parses the type of command. The string "edit" is parsed and correctly identifies `EditDayParser` should be used to continue parsing further tokens
+** `EditDayFieldParser`: Parses the details of the edit. In this execution, the date is parsed by the `DateParserUtil` class and creates a descriptor as mentioned in the section above
+
+After executing the parsers above, the last parser instantiates and recursively returns the command (e.g. `commandEditDayFieldCommand`) up to the `LogicManager`. `LogicManager` then executes the command as the sequence diagram below:
+
+image::ItineraryEditSequenceDiagramSimpleref.png[title="Reference frame for execution of _command_"]
+
+The execution of the command is explained above (refer to <<edit_logic>>).
+
+==== Aspect: User Interface
+The UI for to edit fields are associated with the `EditTripPage/EditDayPage/EditEventPage` respectively.
+
+image::EditTripPageClassDiagram.png[title="Class diagram showing EditTripPage's associations"]
+
+The execution of the edit command involves the `Model`, `Logic` and `Ui` components of the application. Listed here are the packages used in the execution of the `edit` commands that are found in the figure above:
+
+* *ui.itinerary*: This package contains all the Ui classes for the _Itinerary feature_.
+* *ui.components.form*: Contains all the form items
+* *ui.template*: This package contains the `Page` class which all pages extend from
+
+The class at large in the diagram above is the `EditTripPage` of the 3 pages explained. It extends from the `Page` class and is associated with the following:
+
+* Contains `formItems` from the `ui.components.form` generate a form
+** The `FormItems` (e.g. `DateFormItem`) are instantiated by the `EditTripPage#initFormWithModel` method called by the constructor of `EditTripPage` . Each `FormItem` contains an `executeChangeHandler` that executes whenever the `onChange` property is modified by the user. These are initialized as execution of the various edit commands (e.g. EditTripFieldCommand/EditDayFieldCommand/EditEventFieldCommand) using the value in the `FormItem`.
+* Navigable to the `ModelManager` and `LogicManager` for execution of commands using Ui interactions.
+
+The contents of the fields are updated by the execution of the commands above. When the user edits any of the `FormItems`, the commands are executed which will cause the `EditTripPage/EditDayPage/EditEventPage#fillPage()` to execute again. `fillPage` retrieves the updated fields from `PageStatus` and displays them as the values in the `FormItems`.
+
+==== Aspect: Workflow of execution
+The logic of editing a field and committing it to memory is a simple process of validating each field. If any field fails to meet the specifications, the `Trip/Day/Event` will not be created/edited. Below is an example execution of validating the edit:
+
+image::DoneEditActivityDiagram.png[title="Execution of the done command on any edit page"]
+
+==== Aspect: Design considerations
+When designing this feature, there were several challenges involved while working with the existing code base especially to adhere to strict Object Orientated Programming Principles. Below are two such design challenges that and how they were resolved:
+
+
+|===
+|*Challenge* |*Alternative 1* |*Alternative 2* |*Chosen Option*
+
+|Handling Dynamic UI Changes
+|The first alternative was to consider the updating of ui as a state of the program. The `PageStatus` class includes an `ObservableValue<Command>`, `uiChangeCommand` and design each `Page` to implement `ChangeListener`. When a command is executed, if it involves changing the UI but without switching pages, the `Pages` implementing `ChangeListener` would perform checks on the command executed and execute the correct UI change.
+|The second alternative was to let pages that can change by execution of commands (dynamic pages) to extend the class `DynamicUiPart` extending from the provided `UiPart` class that contains an abstract method `uiChange` that handle the ui changes. The identification of what ui change should execute is then placed in the `CommandResult` with new fields `CommandWord` and `doChangeUi`
+|Alternative 2 was chosen due better Object Orientated Programming (OOP) principles. The second method was good practice of the Interface Segregation Principle where classes do not need to depend on methods it did not need. Static pages in the program does not inherit `DynamicUiPart`.
+
+
+However limitations of Java arose as classes cannot inherit more than one class at once. Instead of using the class `DynamicUiPart`, the interface `UiChangeConsumer` was used instead.
+
+|Storing of the user's edit information
+|The first alternative was the straight forward implementation of using the `Logic` interface and its accessors to edit the information in memory directly. This method was however incoherent with out intended design of having forms for users to edit.
+|The second alternative was using `PageStatus` to store the current state of editing by the user (_edit descriptors_). This method creates a separate place in memory to store the information of the edit. Only after the user confirms/cancels the edit, then the information in the _descriptors_ are validated and committed to memory
+| The second alternative was chose mainly due to the coherence to the design of using forms. The descriptors also serve as minor validations (e.g. Only alphanumeric characters, up to 40 characters etc.). Users can be informed earlier of mistakes in filling forms before submitting.
+|===
+
+// end::teoha_ppp[]
+
+[[Delete-Trip]]
+
+=== [Itinerary] Delete Trip/Day/Event
+==== Implementation
+Deletion of `Trip/Day/Event` is facilitated by `PageStatus`. `PageStatus` stores the current state of execution of the user program.
+Upon initial startup of the program `Model` is initialized with `PageStatus` with the `PageType` set to enum `PageType#TRIP_MANAGER`. This indicates the current page displayed to the user. `PageStatus` is initialized with empty references to the `Trip/Day/Event` the user executes an action for.
+
+Step 1. When the user launches the application. `PageStatus` is initialized along with other `Model` components with empty references.
+
+image::ItineraryDelete0.png[width=400]
+
+Step 2. The user enters the `DaysPage/EventsPage` using the goto command. This instantiates a new `PageStatus` object from the the existing `PageStatus` with a modified `Day/Trip`, providing the context for subsequent actions. Below is an example execution of the command:
+
+image::ItineraryDelete1.png[width=400]
+
+Step 3. The user is now on the `TripManager/DaysPage/EventsPage`, the user can execute the `delete` command in accordance to the display ordered index on any of the aforementioned pages.
+
+When the command `delete <index>` is executed, `DeleteTripCommand/DeleteDayCommand/DeleteEventCommand` is executed. This command accesses `Trip/Day` reference in `PageStatus` assigned by the previous step. (Note: deleting `Trips` do not require `PageStatus`, it being directly accessible to `Model` using `TripList` accessors).
+
+The `Day/Trip` reference contains the list of `Events/Days` in memory respectively (`DayList/EventList`). `DayList#remove/EventList#remove` are methods in the respective list classes used to delete the day/event. These are executed, modifying the in memory `TravelPal` and `Trip/Event/Day` is removed.
+
+image::ItineraryDelete2.png[width=400]
+
+
+// tag::expense_ppp[]
+=== [Expense] Expense Manager
+The _Expense Manager_ is one of the main features of TravelPal, it maintains a list of `Expense` stored in an `ExpenseList`.
+_Expense Manager_ is also capable of calculating and displaying budget, sorting expenses and toggling display options.
+[[expense_model]]
+==== Aspect : Model
+
+[[expense_class_diagram]]
+image::expense/developerguide/ExpenseModelClassDiagram.png[title=Class diagram showing the expense model]
+
+===== Expense
+
+`Expense` is an abstract class storing expense model.
+
+It has three compulsory fields, the _name of expense_, the _amount of expense_, and a _day number_. These fields are used to store information related to an expense.
+They are implemented as instance of class `Name` `Budget` and `DayNumber` respectively.
+
+`MiscExpense` and `PlannedExpense` are the child classes extending from `Expense` class, they are
+used to represent the two types of expenses: _miscellaneous expense_ and _planned expense_.
+
+===== ExpenseList
+
+`ExpenseList` is an class that stores the `Expense` models.
+It supports wrapper methods around the underlying `ObservableList` to facilitate the use in the logic components.
+
+[[expense_ui]]
+==== Aspect : UI
+
+image::expense/developerguide/ExpenseUIClassDiagram.png[title=Class diagram showing the user interface of expense]
+
+NOTE: The `ExpensesPage` implements an `UiChangeConsumer` interface to facilitate the toggling between the _Days View_ and
+ _List View_ of _Expense Manager_, which is not shown in the diagram above.
+
+The UI of expense manager mainly consists of two `Page`: `ExpensesPage` and `EditExpensePage`.
+
+`ExpensePage` is the component in charge of displaying expense and budget information. It has a list of `ExpenseCard`, a component
+ that contains individual expense details. `ExpensePage` extends `PageWithSidebar` as it contains navigation bar that helps user to
+ navigate between different features.
+
+In `ExpensePage`, user can toggle between _Days View_ and _List View_. In _Days View_, a list of `DailyExpensesPanel` is used to group
+`ExpenseCard` according to date.
+
+`EditExpensePage` is the main page for creating and editing of expense. Both `ExpensesPage` and `EditExpensePage` have access to `Model` and `Logic`
+of the application, for handling of stored data and parsing commands.
+
+From `ExpensePage`, user can navigate to _Currency_ feature of application through CLI or GUI.
+
+==== Aspect : Logic
+
+===== Create an expense
+
+The creation of a new `Expense` is done in two ways:
+
+1. The creation of a `PlannedExpense` is created when a new `Event` with a `Budget` is created. The execution happens in `DoneEditingEventCommand`.
+
+* When the `Name` or `Budget` field of `Event` is modified, a method call replaces the current `Expense` associated with the `Event` with an updated `Expense`.
+
+2. The creation of a `MiscExpense` is done by calling `EnterCreateExpenseCommand`, which brings user to an _Expense Setup Page_.
+
+===== Edit an expense
+
+Editing of expense can be accessed from `ExpensePage`. The execution of command is handled by `ExpenseManagerParser` and
+the command accesses the model through `Model#getPageStatus()` method. The details of execution is similar to _Edit trip/day/event_ feature (see <<Edit-Trip>>)
+
+Only the _amount of expense_ field of a `PlannedExpense` can be edited with an `edit` command. When `done` command is executed
+after the _amount of expense_ is edited, both the expense in `ExpenseList` and the `Event` will be updated.
+
+The following sequence diagram shows the sequence of method call when `DoneEditCommand#execute(model)` is called in `LogicManager`.
+[[expense_sequence_diagram]]
+image::expense/developerguide/DoneEditExpenseCommandSequenceDiagram.png[align="left" title=Sequence diagram showing the execution of DoneEditCommand]
+
+When `DoneEditCommand#execute(model)` is called, `getPageStatus()` is used to fetch information / update information from `model`. The following
+steps shows the sequence of event happened within the method:
+
+1. The current instance of `EditExpenseDescriptor` and `Expense` in `model` are returned and stored as `editExpenseDescriptor` and `expenseToEdit` in `logic`.
+
+2. A new instance of `Expense`, `expenseToAdd` is created by calling `buildExpense()` in `editExpenseDescriptor`.
+
+3. Through `getPageStatus()`, `set(expenseToEdit, expenseToAdd)` is called on `EventList`, which updates the unedited `expenseToEdit` by replacing it with the edited `expenseToAdd`.
+
+4. The `DayNumber` in `expenseToAdd` is returned so that logic can update the associated `Event` by going to the corresponding `Day` in `DayList`.
+
+5. `updateExpense(expenseToAdd)` is called on `EventList` so that the target `Event` will have its `Expenditure` updated.
+
+6. By calling `setPageStatus()`, the current `EditExpenseDescriptor` and `Expense` will be reset, the current page will be set to _Expense Manager Page_.
+
+7. `CommandResult` is returned to give user feedback and update UI.
+
+===== Delete an Expense
+
+Deletion of expense is similar to the _Delete Trip/Day/Event_ feature (see <<Delete-Trip>>).
+
+The `DeleteExpenseCommand` in logic checks for index of deletion and type of expense. Only `MiscExpense` can be deleted through
+this command. Below is an example execution of deleting an expense:
+[[delete_expense_activity_diagram]]
+image::expense/developerguide/DeleteExpenseDiagram.png[title=Activity diagram showing the execution of deleting an expense]
+
+// end::expense_ppp[]
+
+'''
+
+=== [Currency] Currency
+The _Currency_ maintains a list of `CustomisedCurrency` stored in an `CurrencyList`.
+_Currency_ supports creation, deletion and selection of currency.
+
+==== Aspect : Model
+
+image::expense/developerguide/CurrencyModelClassDiagram.png[align="left" title=Class diagram showing the currency model]
+
+===== CustomisedCurrency
+
+`CustomisedCurrency` is the generic abstraction of a user defined currency.
+
+A `CustomisedCurrency` contains exactly one instance `Name` `Symbol` and `Rate` for each of these three classes, which represents
+ the _name of currency_, _currency symbol_, and _exchange rate of the currency (to Singapore Dollars)_ respectively.
+
+===== CurrencyList
+
+`CurrencyList` is an class that stores the `CustomisedCurrency` instances. It supports wrapper methods around the underlying `ObservableList` for the use of logic components.
+
+[[currency_ui]]
+==== Aspect : UI
+
+image::expense/developerguide/CurrencyUIClassDiagram.png[align="left" title=Class diagram showing the user interface of currency]
+
+The main `Page` for displaying and creating currency is `CurrencyPage`. The page contains a list of `CurrencyCard` for displaying
+individual currency details. Two types of `CurrencyCard`: `SelectedCurrencyCard` and `UnelectedCurrencyCard` are used to indicate
+the currency in use. Upon launching of the application, a default `CustomisedCurrency` -- Singapore Dollars is automatically added to
+the `CurrencyList`, which is not deletable. Thus, there will always be at least one `CurrencyCard` in `CurrencyPage`.
+
+`CurrencyPage` also contains text fields for input of new currency information. It has a `PresetSymbols` instance which contains a group of `ToggleButton` which
+updates the symbol in `MainWindow`. `CurrencyPage` have access to `Model` and `Logic`
+of the application, for handling of stored data and parsing commands.
+
+From `ExpensePage`, user can navigate to _Expense Manager_ feature of application through CLI or GUI.
+
+==== Aspect : Logic
+
+The executions of add / delete of `CustomisedCurrency` is similar to those of `Trip` / `Day` / `Event` / `Expense`. More details can be found in the previous sections:
+<<Edit-Trip>>
+
+====== Select a Currency
+
+Selection of `CustomisedCurrency` is achieved by promoting it to the front of `CurrencyList`, while the first `CustomisedCurrency` in the list
+is to be used to display `Budget` with the selected currency symbol and rate conversion.
+
+All the monetary values in the application is displayed through calling the method from UI: `Budget#getValueStringInCurrency(CustomisedCurrency)`
+
+
+
+'''
+
+// tag::booking_ppp[]
+=== [Booking] Booking Manager
+The _Booking Manager_ is one of the main features of TravelPal. It maintains a list of `Booking` stored in a
+`BookingList`.
+
+_Booking Manager_ displays all the Bookings in one place with Name, Contact details and expenditure in the form of
+Budget.
+
+[[booking_model]]
+==== Aspect : Model
+
+[[booking_class_diagram]]
+image::bookings/developerguide/BookingModelClassDiagram.png[title=Class diagram showing the booking model]
+
+===== Booking
+
+`Booking` is a class storing Booking model.
+
+It has three compulsory fields, the _name of booking_, the _contact details of booking_ and the
+_expenditure of booking_ (in budget). These fields are used to store information related to a booking.
+
+They are implemented as instance of class `Name`, `Contact` and `Budget` respectively.
+
+===== BookingList
+
+`BookingList` is a class that stores the `Booking` models.
+It supports wrapper methods around the underlying `ObservableList` to facilitate the use in the logic components.
+
+[[booking_ui]]
+==== Aspect : UI
+
+image::bookings/developerguide/BookingUiClassDiagram.png[title=Class diagram showing the user interface of booking]
+
+The UI of Booking Manager mainly consists of two `Page`: `BookingsPage` and `EditBookingsPage`.
+
+`BookingsPage` is the component in charge of displaying all the information of the booking: name, contact details and
+associated expenditure.
+
+It has a list of `BookingCard`, a component that contains individual booking details. `BookingsPage` extends
+`PageWithSidebar` as it contains navigation bar that helps user to
+navigate between different main features.
+
+`EditBookingsPage` is the main page for creating and editing of booking. Both `BookingsPage` and `EditBookingsPage`
+have access to `Model` and `Logic` of the application, for handling of stored data and parsing commands.
+
+==== Aspect : Logic
+
+===== Create a booking
+
+The creation of a new `Booking` is done by calling `EnterCreateBookingCommand`, which brings user to a
+_Booking Setup Page_.
+
+===== Edit a booking
+
+Editing of booking can be accessed from `BookingsPage`. The execution of command is handled by `BookingsManagerParser` and
+the command accesses the model through `Model#getPageStatus()` method.
+
+The details of execution is similar to
+_Edit trip/day/event_ feature (see <<Edit-Trip>>)
+
+All the fields, namely _name_, _contact_ and _budget_, of a `Booking` can be edited with an `edit` command. When `done`
+command is executed the `Booking` in `BookingList` will be updated.
+
+The following sequence diagram shows the sequence of method call when `DoneEditCommand#execute(model)` is called in
+`LogicManager`.
+
+UI Diagram shows the calling of various other classes (via `FXML` pages) which are linked to creation of Booking.
+
+===== Edit a Booking
+
+[[edit_booking_activity_diagram]]
+image::bookings/developerguide/EditBookingDiagram.png[align="left" title=Activity diagram showing the `edit` functionality of Booking]
+
+NOTE: When error is thrown, the user is expected to use a valid index.
+
+
+===== Delete a Booking
+image::bookings/developerguide/DeleteBookingDiagram.png[align="left" title=Activity diagram showing the `delete` functionality of Booking]
+
+Deletion of booking is similar to the _Delete Trip/Day/Event_ feature (see <<Delete-Trip>>).
+
+The `DeleteBookingCommand` in logic checks for index of deletion.
+Below is the sequence diagram of deleting an expense:
+[[delete_booking_sequence_diagram]]
+image::bookings/developerguide/BookingDeleteSequenceDiagram.png[title=Activity diagram showing the execution of deleting an expense]
+
+// end::booking_ppp[]
+
+'''
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
@@ -242,6 +635,434 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+//tag::diary_ppp[]
+=== [Diary] Photo Manager
+The photo manager pertains to components for storing, and displaying user specified photos on the disk.
+
+'''
+
+[[photo_model]]
+==== Aspect: Models
+
+[[diary_photo_model_class_diagram]]
+image::diary/DiaryPhotoModelClassDiagram.png[title="Class diagram of a `PhotoList` as contained by a diary entry, and its contained models" align="center"]
+
+===== Photo
+The model for a photo stored in memory is stored in the `DiaryPhoto` class.
+
+It contains three key fields, that is, the `imagePath`, `description`, and `dateTaken` fields which are used to display key information of the image to the user.
+The `imagePath` and `dateTaken` were implemented respectively with the robust java apis of `Path` and `LocalDateTime`, while `description` is simply a `String`.
+
+In addition, a JavaFX `Image` is also stored inside the `DiaryPhoto` (not shown in <<diary_photo_model_class_diagram>> for brevity),
+which holds the `Image` to use for displaying in an `ImageView` inside the user interface. The `Image` is cached this way,
+as on-demand `Image` construction in the user interface involves costly I/O operations.
+
+[NOTE]
+======
+
+Restrictions on fields during `DiaryPhoto` instance construction:
+
+* Several restrictions on the description are enforced by class level `Pattern` matchers, such as the length of the description.
+* While the image file path is parsed and checked using the java `Files` api, it is non-strict in that a path to an invalid image will result in the `Image` field referring to the default class level variable that specifies a placeholder image.
+** However, the original user entered file path is still stored inside the Model, to guard against accidental file deletion.
+
+======
+
+===== PhotoList
+On the other hand, the `DiaryPhoto` models are contained within a `PhotoList`. It stores the photos in a JavaFX `ObservableList`,
+so that changes are registered with the user interface. (see <<photo_manager_ui>>)
+
+It also supports several convenience wrapper methods around the underlying `ObservableList`, tailored for use for the logic components.
+
+
+'''
+
+
+[[photo_manager_ui]]
+==== Aspect: User interface of photo manager
+
+The main `UiPart` component that displays photos is the `DiaryGallery`.
+It abides by the `Page` implementation (see <<page_api>>), and is thus contained within,
+in one of `DiaryPage's` placeholders.
+
+image::diary/DiaryPhotoUiObjectDiagram.png[title="Object diagram of the diary gallery component, as contained by `DiaryPage` (not shown)" align="center"]
+
+The main JavaFX component responsible for displaying the photos is a `ListView<DiaryPhoto>` component.
+The `ListView` obtains its data from the `PhotoList` of
+the `DiaryGallery`, which is automatically observed by the `ListView`.
+
+Hence, changes in the `PhotoList`, such as the addition of a `DiaryPhoto` are immediately communicated
+to the user interface.
+
+The `ListView` uses a simple custom `cell factory`, which sets the `ListCells` of the `ListView` to use `DiaryGalleryCards`
+as its graphic. `DiaryGalleryCards` are in turn generated in the `cell factory` using the `ListCell's` index and a `DiaryPhoto` instance.
+
+`DiaryGalleryCards` display the information as supplied by the `DiaryPhoto` model using a series of `Labels` and one `ImageView`.
+Additionally, the index of the card as ordered in the `DiaryGallery` is also displayed, but not stored in the model.
+
+'''
+
+==== Aspect: Logic of photo manager operations
+The logic for photo manager plays to the same `PageParser` structure of parsing commands, that is,
+`DiaryParser` returns either `AddPhotoParser`, `DeletePhotoParser` when the appropriate command word is parsed, which
+in turn returns instances of `AddPhotoCommand` and `DeletePhotoCommand` respectively.
+
+
+===== Logic aspect 1: Adding photos (through command line file path or os file chooser)
+
+Following `DiaryParser` returning an instance of `AddPhotoParser` that calls `parse()` on the user specified arguments,
+a number of operations happen, as per the UML sequence diagram below (<<addphotoparser_parse_sequence_diagram>>). The specifics of `getFilePath`,
+`parseDescription`, `parseDateTime` are detailed further down below.
+
+[addphotoparser_parse_sequence_diagram]
+image::diary/DiaryAddPhotoParser.png[title="Sequence diagram of the parse method in AddPhotoParser" align="center"]
+
+
+
+====== Parsing the image file path [[adding_photo_diary_step_1]]
+
+* Using `ArgumentMultimap`, the file chooser prefix, `fc/`, is checked for.
+If present, the OS file choosing gui is opened using `ImageChooser` (a simple extension of JavaFX's `FileChooser` enforcing image file extensions), and the data file path prefix is ignored.
+* The `getFilePath` subroutine is then called, detailed in <<diary_getfilepath_activity_diagram>>, which checks for the
+existence and validity of the image as supplied by the `ImageChooser` or the file path in the `fp/` argument.
+* If the `fc/` was unspecified and the parsing process fails any of the checks, `getFilePath` throws a `ParseException`.
+
+[[diary_getfilepath_activity_diagram]]
+image::diary/AddPhotoParserGetFilePathActivityDiagram.png[title="Activity diagram of getFilePath subroutine" align="center" width="95%"]
+
+
+
+====== Parsing the description of the photo
+* If the description prefix is present, `AddPhotoParser` tries to construct the `DiaryPhoto` instance with the specified input.
+If validation of the description, as described in <<photo_model>> fails, then a `ParseException` is thrown during the instance construction.
+* Otherwise, the file name of the validated file from <<adding_photo_diary_step_1>> (truncated to match `DiaryPhoto's` description constraints) is used.
+
+image::diary/AddPhotoParserParseDescriptionActivityDiagram.png[title="Activity diagram of parseDescription subroutine" align="center" width="95%"]
+
+
+
+====== Parsing the date of the photo
+* If the date time prefix is present, `ParserDateUtil` is used to parse the input as per the app level date formats.
+A `ParseException` is thrown in the case of date parsing failure, by `ParserDateUtil`.
+* Otherwise, the last modified date of the validated file from <<adding_photo_diary_step_1>> is used.
+
+
+
+The `DiaryPhoto` instance is then constructed, and passed to `AddPhotoCommand` which simply adds the `DiaryPhoto` to the
+current `PhotoList` of the `DiaryEntry`.
+
+
+===== Logic aspect 2: Deleting photos
+Following `DiaryParser` parsing the 'delphoto' command from the user, an instance of `DeletePhotoParser` is created, which parses the received arguments.
+
+1. The `DeletePhotoParser` simply parses the arguments for a valid integer, failing which a `ParseException` is thrown.
+2. An instance of `DeletePhotoCommand` is then returned, which attempts a delete operation on the current `PhotoList` of the
+`DiaryEntry` with the specified index. A `CommandException` is thrown to alert the user if the index was out of bounds.
+
+'''
+
+==== Design considerations
+[width="100%", options="header" cols="1, 4, 4"]
+|========================================================================================
+|Feature      |Alternative 1 | Alternative 2
+|Validation of image file path
+|The first option is to implement the file path validation directly inside the `DiaryPhoto` model.
+
+This would have enforced a stricter level of validation on the image file path throughout the code, such as
+if an instance of `DiaryPhoto` needed to be instantiated somewhere else other than the `AddPhotoParser` class for future use.
+
+However, since the storage model for `DiaryPhoto` (`JsonAdaptedDiaryPhoto`), initializes the model
+through reading the saved file path, this would have led to needing to a separate constructor for `DiaryPhoto`
+if the file path read on app startup was no longer valid, in order to create a placeholder image.
+
+This secondary constructor would thus defeat the defensive benefit of implementing validation directly in
+the model.
+|The second, chosen option, was to implement the file path validation inside the parser itself.
+
+Although this option limited the validation to only the 'addphoto' command, it allowed for leeway in
+image path validation in other areas such as `JsonAdaptedDiaryPhoto`, where it is possible for deletion of an
+image file by the user, outside of the application, to invalidate the stored file path.
+
+Moreover, Since the function for parsing the image file can and was abstracted into a single utility function,
+any other areas in future development needing this functionality can simply reuse this code.
+
+Overall, this leads to a more robust behaviour of the application, while providing the same level of
+extensibility as the first option.
+
+|========================================================================================
+// end::diary_ppp[]
+=== [Diary] Diary Entry Text Editing
+The diary entry is capable of displaying text with inline images, or lines consisting of only images.
+
+There are two primary facets of input styles to this feature, one being commands that edits
+a part or the whole of the entry through the command line input, and the other being the JavaFX text editor.
+
+[[diary_text_editing_model]]
+==== Aspect: Models
+The main model abstraction holding the data of an entry is the `DiaryEntry` class. +
+
+It stores three key fields, namely: +
+1. An `Index` denoting the day the entry is for +
+2. A `String` written by the user in the domain specific language (see <<diary-entry-parsing>>) required by the user interface. +
+3. A `PhotoList` storing the photos of the entry, as described in <<photo_model>>.
+
+The `DiaryEntry` models are contained within a `DiaryEntryList`, which enforces the uniqueness of the `Index` (denoting the day index)
+of each `DiaryEntry`, and supports common list operations.
+
+image::diary/DiaryModelClassDiagram.png[title="Class diagram of the models used in diary text editing" align="center"]
+
+'''
+
+As one of the desired specifications of our application was to allow the user commands, and edits made directly to the edit box
+to be non final until the `done` command is executed, a separate buffer model, `EditDiaryEntryDescriptor`, was needed to store the edit information.
+
+This buffer model stores the same `PhotoList` and `Index` as the initial `DiaryEntry` it is constructed from,
+but the diary text references a different String, that is, the buffered diary text String.
+
+[[diary-entry-ui]]
+==== Aspect: User interface
+Multiple `UiPart` components come into play in displaying the diary entry.
+However, `Page` implementation (see <<page_api, Page Api>>) is still followed, and all components are thus contained within,
+in one of `DiaryPage's` placeholders.
+
+[[diary-entry-ui-class-diagram]]
+image::diary/DiaryUiClassDiagram.png[title="Class diagram showing the user interface of the main diary entry text display" align="center"]
+
+NOTE: In the diagram above, all parts and subparts of the composition of `DiaryPage` extend from `UiPart`, although not shown.
+
+The `DiaryEntryDisplay` is the component responsible for displaying the content of the `DiaryEntry` model.
+Internally, it uses a JavaFX `ListView<CharSequence>` with a custom cell factory that
+returns `DiaryTextLineCell` (as detailed in <<DiaryTextLineCell_details>>). `DiaryTextLineCells` in turn uses the
+`DiaryLine UiPart` as its graphic.
+
+[[diary-entry-parsing]]
+===== Entry text parsing
+In both facets of input styles, special entry text parsing is required to display the various formats of lines, and
+dynamic text updates that occur when the text in the text editor is changed should propagate to the display immediately.
+
+To accomplish this, the internal `ListView` is set to observe the paragraphs of the `DiaryEditBox`, which is done in the
+constructor of `DiaryEntryDisplay` during the initialisation of `DiaryPage`.
+
+The two facets of inputs dictate _two separate ways the paragraphs can change_.
+
+
+
+====== 1. Changes as a result of edits by the user in the text edit box
+
+In this case, the edits to the `TextArea` input in `DiaryEditBox` are immediately propagated to the observable paragraphs, since the
+`ListView` was set to observe the same list provided by `DiaryEditBox`.
+
+====== 2. Changes as a result of user commands
+[[DiaryPageFillPage]]
+image::diary/DiaryFillPageCallbackTrimmed.png[title = "Sequence diagram of updating of DiaryPage UI post command execution"]
+
+1. The `model` is updated, depending on whether the edit box is currently shown to the user. +
+1.1. The edited but uncommitted text stored in the current `EditDiaryEntryDescriptor` will be updated
+if the edit box is shown. (second branch in the diagram <<DiaryPageFillPage>>) +
+1.2. Otherwise, the current `DiaryEntry` in the `PageStatus` of the `model` is updated immediately.
+(first branch in the diagram <<DiaryPageFillPage>>)
+2. The text in the `DiaryEntryEditBox` is then refreshed with the updated `model` in the `fillPage`
+callback function executed by `MainWindow` (as per the `Page` api), resulting in the changes
+reflecting in the observable paragraphs.
+
+'''
+
+[[DiaryTextLineCell_details]]
+====== Graphic of `ListView` cells in `DiaryEntryDisplay`
+The `ListView` of `DiaryEntryDisplay` uses a custom cell factory and cell implementation, that is, `DiaryTextLineCell`.
+
+Once the data has been updated in the above two ways, the `ListView` receives the notification for which cell(s) to update.
+
+The parsing is done in the inner class `DiaryTextLineCell` based on the text line received, using a
+customised regex pattern. `DiaryTextLineCell` then creates new instances of `DiaryLines`
+based on the parsed input, setting them as the `graphic` for the `ListCell`.
+
+NOTE: For `DiaryLines` with photos, the parsing process uses the photoList as set in the `DiaryPage's`
+`fillPage` method. (see branch 1 in <<DiaryPageFillPage>>)
+
+==== Design considerations
+Numerous design decisions and comprimised had to be made due to the desired specifications of text editing and displaying. +
+Specifically, the following had to be achieved :
+
+* Changes to text in the `DiaryEntryEditBox` must reflect immediately in the `DiaryEntryDisplay` to provide visual cue to the user.
+* While the `DiaryEntryEditBox` is active, commands that edit the entry must behave like they edit the `DiaryEntryEditBox` directly.
+That is, the changes should not be committed immediately.
+* In general, where mentioned below, performance was favoured because of how a singular diary line can present both
+multimedia and text to the user, which puts a considerable strain on the system.
+
+[width="100%", options="header" cols="1, 1, 8"]
+|========================================================================================
+^|Aspect      ^|Option    ^| Implementation
+.3+|Updating of UI
+^|1
+|The first option was to abide by the `fillPage` api of `Page`. The `ListView` would have all its items cleared and updated
+with the new text after each command execution.
+
+However, this implies updating all `DiaryLineTextCell` inside the list view after each command execution, which puts a clear
+burden on the system, and defeats the intended way `ListView` is to be used (as specified in JavaFX documentation).
+
+**Alternative 2** attempts to solve this performance bottleneck.
+^| 2
+|The second option, was to implement the diary text in `DiaryEntry model` (see <<diary_text_editing_model>>) using an `ObservableList` of
+strings. The `ListView` would then be set to observe this list, and when the current entry changed, the `DiaryEntryDisplay's`
+items would be set to observe the new entry's `ObservableList`.
+
+For user commands, this solves the problem posed by **alternative 1**, since user commands can make edits only where needed in
+the `ObservableList`, allowing the `ListView` to only update the relevant `DiaryLineTextCell`.
+
+However, this meant that user edits to the `DiaryEntryEditBox` could not be reflected directly to the `DiaryEntryDisplay`.
+
+Hence, one solution was to add a separate listener to the `ObservableList` of `DiaryEntryEditBox`, executing a UI initiated command that
+edited only a specific line of text inside the `DiaryEntry model`, pertaining to the edited text paragraph. +
+Subsequent iterations of development and testing showed that this erased the performance benefit of implementing the observable list,
+presumably due to the overhead of firing commands whenever the text in the `DiaryEntryEditBox` changed.
+
+^| 3
+| The last option was to set the `ListView` to only observe `ObservableList` of paragraphs already
+provided by the `TextArea` JavaFX component located in `DiaryEntryEditBox`.
+
+Edits to the paragraphs in the `DiaryEntryEditBox` would be directly reflected in the
+`DiaryEntryDisplay`, without the additional overhead of executing commands whenever the text in the edit box changes.
+Instead, the text edit command is only executed when the edit box loses focus.
+
+On the other hand, edits using commands would reflect in the UI through setting the text
+of the `DiaryEntryEditBox`.
+
+A hybrid solution built upon **alternatives 2 and 3** was also considered, in that the
+`DiaryEntryDisplay` s would be alternate between observing the `DiaryEntryEditBox`
+and the `DiaryEntry model`. However, this also proved to be costly, as changes from the edit box cannot be
+communicated on a per paragraph basis to the model when focus is lost, defeating the performance benefit of the `ObservableList`.
+Ultimately, this also required maintaining as many `ObservableList`s` as there were diary entries in memory, presenting
+a significant memory overhead to the application.
+
+Having considered the performance impacts of **alternatives 1 and 2**, and the desired
+specifications of the application, the chosen solution was thus **alternative 3**.
+
+.2+|High level composition of `DiaryEntry` `Display` component
+^| 1
+|
+The first solution to was to make `DiaryEntryDisplay` hold a JavaFX `TextFlow` component, which
+supports displaying images alongside text.
+
+Although it supports various apis to format and position text, displaying multimedia with it required
+complex parsing logic of the `DiaryEntry` text to achieve desired positioning.
+
+Moreover, the parsing would be re run on the entire text of the `DiaryEntry` for any form of user input,
+posing a clear performance downside.
+
+^| 2
+|
+The second solution is to use a wrapper (`DiaryEntryDisplay) around a `ListView` containing `DiaryLine` s. (see <<diary-entry-ui-class-diagram>>)
+
+On one hand, this increases extensibility, as the the graphic of a `ListViewCell` (`DiaryTextLineCell`) is not fixed.
+This allows _building other variants of diary lines easily_, such as a diary line containing a playable audio file.
+
+Secondly, `ListViews` render only the visible cells on the screen. Apart from the reducing the amount of nodes loaded
+in the JavaFX scene graph, it also allows running the parsing logic on only parts (paragraphs) of the text in the `DiaryEntry` model.
+This results in a considerable performance benefit.
+
+
+
+|========================================================================================
+
+// tag::inventory_ppp[]
+=== [Inventory] The Inventory List
+
+In the application, there can be two types of Inventory Lists:
+
+===== 1. Overall Trip Inventory List
+
+An overall trip inventory list is the inventory list of all the items the user needs for the trip.
+
+Each trip only has *one* overall trip inventory list.
+
+===== 2. An Event inventory list
+
+An event inventory list is the inventory list of all the items the user needs for the event.
+
+Each trip can have *mutiple* event inventory lists.
+
+Therefore, in a trip, all the events inventory lists are subsets of one overall trip inventory list.
+
+==== Aspect : Model
+
+image::inventory/InventoryModelClassDiagram.png[title="Class diagram of a 'InventoryList' and an `Event`, and its contained models"]
+===== Inventory
+The model for an inventory item stored in memory is stored in the `Inventory` class.
+
+It contains three attributes: the `name`, `isDone` and `eventOccurances`. The `name` attribute is implemented using a
+custom built `Name` class which ensures that the `name` is valid. `isDone` was implemented using a BooleanProperty and indicates
+whether the inventory item has been packed. While, `eventInstances` is an integer which represents the total number of
+`Event` models that have the same inventory item.
+
+===== Event
+`Inventory` models are contained within an `Event`, if the corresponding inventory items are part of an event. `Event` stores
+the `Inventory` models in an `ArrayList`. Therefore, each `Event` model contains an Event Inventory List (as defined above).
+
+Since, currently, the application does allow the user to alter the 'isDone' toggle of an `Inventory` model contained in an event,
+the `isDone` attribute is never set once it is is initialised (as `false`).
+
+Furthermore, as the `eventInstances` attribute is only relevant to the Overall Trip Inventory List, the `eventInstances`
+attribute is set as `-1`.
+
+===== InventoryList
+All unique (by name) `Inventory` models in any `Event` model is contained within an `InventoryList`. It stores the inventory items in a
+JavaFX `ObservableList`. Therefore, the `InventoryList` contains the Overall Trip Inventory List (as defined above).
+
+An `ObservableList` was chosen as the user interface requires the changes in the inventory list to be displayed instantly. Furthermore,
+`isDone` was implemented using a `BooleanProperty` instead of a simple `boolean` to instantly detect and display changes in any inventory item's `isDone` value.
+
+
+Additionally, an `InventoryList` can also contain miscellaneous inventory items (not contained in any event).
+
+
+==== Aspect : User Interface of Overall Trip Inventory List (with Model `InventoryList`)
+
+The Overall Trip Inventory List (with Model `InventoryList`) is displayed in the `TableView<Inventory>` of the `InventoryPage`, as seen in the object diagram:
+
+image::inventory/InventoryUiObjectDiagram.png[title= "Object diagram of table view component, as contained by `InventoryPage` (not shown)"]
+
+The TableView has 3 columns. The first column numbers the items. The second column displays the item's name. And the thrid column displays whether the item's `isDone` property is true or false (through a checkbox).
+
+Both the first and the second column's `cellValueFactory` were set to `new PropertyValueFactory(STRING)` with String `STRING`. However, the third column was set to `CheckBoxTableCell.forTableColumn(BOOLEAN)` with Boolean `BOOLEAN`.
+
+==== Aspect : User Interface of Event Inventory List (with Model `Event`)
+
+The Event Inventory List (with Model `Event`) is displayed in the `ListView<Inventory>` of the `EventPage`, as seen in the object diagram:
+
+image::inventory/EventInventoryListUiObjectDiagram.png[title= "Object diagram of list view component, as contained by `EventPage` (not shown)"]
+
+The `ListView` uses the CSS styling of `resources/view/Inventory/InventoryListViewTheme.css' by calling `listView.getStylesheets().add(CSS_FILE_PATH)` with the File Path `CSS_FILE_PATH`)
+
+Furthermore, the reason why `ListView` and `ListCell` are in package `Ui.itinerary` is because `EventPage` is in itinerary `Ui.itinerary`. Similarly, `Event` is in package `Model.itinerary`
+
+==== Aspect : Logic of adding item to Overall Trip Inventory List (with Model `InventoryList`)
+
+image::inventory/AddInventorySequenceDiagram.png[title="Sequence diagram for adding an item to the Overall Trip Inventory List"]
+
+From the sequence diagram, it can be observed that only if `InventoryViewParser` and `AddInventoryParser` returns a Command, will
+the Command be executed. This ensures the AddCommand is only executed when intended.
+
+Moreover, as seen from the sequence diagram, whenever the `AddInventoryCommand` is executed, it will always return the `InventoryView` that
+corresponds to the Trip that the user is correctly on - ensuring that there is only one Overall Trip Inventory List.
+
+Furthermore, the `InventoryList` calls its own internal function of `add` to add an item to its list - which loops through the entire
+list to make sure that the item to be added does not already exist - otherwise it does not add it
+. Therefore, this also allows all the items in InventoryList to be unique.
+
+==== Possible Improvement in Future Release
+
+Currently, both the Event Inventory List and the Overall Trip Inventory List utilise a common `Inventory` class to store
+inventory items.
+
+However, an inventory item in the Event Inventory List does not need to keep count of the `eventInstances` attribute. Although, the
+current solution of setting `eventInstances` to -1 allows both classes to share the `Inventory` class, it might not be scalable and
+there may lead to bugs in the future.
+
+Therefore, in a future update, it would be rational to remove make the `Inventory` class an abstract class with just a `Name` attribute.
+And have 2 different classes extend it for the 2 different use cases.
+// end::inventory_ppp[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -277,106 +1098,373 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
-*Target user profile*:
+**Target user profile:**
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+  - Has a need to manage multiple trips
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+  - Prefers using a notebook to other types
+
+  - Frequently uses the computer while overseas
+
+  - Wants to micromanage all parts of their trips
+
+  - Wants to plan all details of the trip before leaving
+
+  - Wants to manage a trip even without an internet connection
+
+**Value proposition:** Able to micromanage a trip and access one’s plans
+more conveniently than traditional forms of trip planning
 
 [appendix]
 == User Stories
 
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+image::us1.PNG[]
+image::us2.PNG[]
+image::us3.PNG[]
+image::us4.PNG[]
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
-|=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
-|=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
+[[UC1]]
+* *Use case: UC1 - Add Trip*
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+** **MSS**
 
-[discrete]
-=== Use case: Delete person
+1.  User requests to **Trip Manager** to list trips
 
-*MSS*
+2.  TravelPal shows a list of **Trips**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
+3.  User requests to add a specific **Trip** to the list
+
+4.  User edits the **Trip** (<<UC2>>)
+
+5.  TravelPal adds the **Trip**
+
+6.  TravelPal shows the list of **Trips**.
+
 Use case ends.
 
-*Extensions*
+** *Extensions*
 
-[none]
-* 2a. The list is empty.
-+
+*** 5a. The trip added clashes with another trip
+
+*** 5a1. TravelPal shows an error message
+
+*** 5a2. TravelPal does not discard information the user has provided
+
+*** 5a3. TravelPal displays the **Edit Trip** page containing the user’s
+previous input
+
+*** 5a4. TravelPal requests the user to change the dates of the **Trip**
+
+*** Steps 5a1-5a2 are repeated until no clashes occur between trips
+
+[[UC2]]
+* *Use case: UC2 – Edit Trip*
+
+** *MSS*
+
+1.  User chooses to edit specific **Trip**
+
+2.  Travelpal shows **Edit Trip Screen** with fields to edit/enter
+
+3.  User edits the information in the specified **Trip**
+
+4.  User submits the details and confirms the edit.
+
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+** *Extensions*
 
-_{More to be added}_
+*** 3a. User enters an invalid field
+
+**** 3a1. TravelPal shows an error message
+
+**** 3a2. TravelPal does not edit invalid field
+
+**** Use case continues at step 2
+
+*** 3b. User requests to list of **Days** in the trip
+
+**** 3b1. TravelPal shows a list of days to the user (can be empty)
+
+**** 3b2. User chooses to add/edit/delete (<<UC4>>, <<UC5>>. <<UC6>>) **Day**
+
+**** Use case continues at step 4
+
+*** 4b. User leaves necessary information empty
+
+**** 4b1. TravelPal shows an error message
+
+**** 4b2. TravelPal does not submit the details and does not confirm the edit
+
+**** 4b3. User enters new data
+
+**** Steps 4a1-4a3 are repeated until the data entered are non empty
+
+**** Use case ends.
+
+[[UC3]]
+* *Use case: UC3 – Delete Trip*
+
+** *MSS*
+
+1.  User requests to **Trip Manager** to list **Trips**
+
+2.  TravelPal shows a list of **Trips**
+
+3.  User requests to delete a specific **Trip** in the list
+
+4.  TravelPal deletes the **Trip**
+
+Use case ends
+
+** *Extensions*
+
+*** 2a. The list is empty
+
+**** Use case ends
+
+*** 3a. The *Name* provided is invalid
+
+*** 3a1. TravelPal shows an error message
+
+*** 3a2. TravelPal does not delete any trips
+
+*** Use case ends
+
+[[UC4]]
+*Use case: UC4 – Add Day*
+
+** *MSS*
+1.  User chooses to add a **Day** to a specified **Trip**
+
+2.  User _edits the day (UC5)_
+
+3.  TravelPal saves the **Day**
+
+** *Extensions*
+
+*** 3a. **Day** added clashes with other days in the **Trip**
+
+**** 3a1. TravelPal shows an error message
+
+**** 3a2. TravelPal does not discard information the user has provided
+
+**** 3a3. TravelPal displays the **Edit Day** page containing the user’s
+input
+
+**** 3a4. TravelPal requests the user to change the date of the **Day**
+
+**** Steps 3a1 – 3a4 are repeated until the user provided non clashing date
+
+[[UC5]]
+* **Use case: UC5 – Edit Day**
+
+** *MSS*
+
+1.  User requests to edit specific **Day**
+
+2.  TravelPal shows the **Edit Day** page with fields to enter
+
+3.  User edits information in the specified **Day**
+
+4.  User submits and confirms the edit
+
+Use case ends
+
+** *Extensions*
+
+*** 3a. User enters an invalid field
+
+**** 3a1. TravelPal shows an error message
+
+**** 3a2. TravelPal does not edit invalid field
+
+**** Use case continues at step 2
+
+*** 3b. User requests to list of **Events** in the trip
+
+**** 3b1. TravelPal shows a list of **Events** to the user (can be empty)
+
+**** 3b2. User chooses to _add/edit/delete (UC 7/8/9) **Event**_
+
+**** Use case continues at step 4
+
+*** 4b. User leaves necessary information empty
+
+**** 4a1. TravelPal shows an error message
+
+**** 4a2. TravelPal does not submit the details and does not confirm the edit
+
+**** 4a3. User enters new data
+
+**** Steps 4a1-4a3 are repeated until the data entered are correct
+
+**** Use case ends.
+
+[[UC6]]
+* *User case: UC6 – Delete Day*
+
+** *MSS*
+
+1.  User requests to delete a specific **Day** in the list
+
+2.  TravelPal deletes the **Day**
+
+Use case ends
+
+** *Extensions*
+
+*** 2a. The list is empty
+
+**** Use case ends
+
+*** 3a. The **Name** provided is invalid
+
+**** 3a1. TravelPal shows an error message
+
+**** 3a2. TravelPal does not delete any **Day**
+
+**** Use case ends
+
+[[UC7]]
+* *User case: UC7 – Add Event*
+
+** *MSS*
+
+1.  User chooses to add a **Event** to a specified **Day**
+
+2.  User _edits the event (UC5)_
+
+3.  TravelPal saves the **Event**
+
+** *Extensions*
+
+*** 3a **Event** added clashes with other **Events** in the **Day**
+
+**** 3a1. TravelPal shows an error message
+
+**** 3a2. TravelPal does not discard information the user has provided
+
+**** 3a3. TravelPal displays the **Edit Event** page containing the user’s
+input
+
+**** 3a4. TravelPal requests the user to change the date of the **Event**
+
+**** Steps 3a1 – 3a4 are repeated until the user provided non clashing date
+
+[[UC8]]
+* **User case UC8 – Edit Event**
+
+** *MSS*
+
+1.  User requests to edit specific **Day**
+
+2.  TravelPal shows the **Edit Day** page with fields to enter
+
+3.  User edits information in the specified **Day**
+
+4.  User submits and confirms the edit
+
+Use case ends
+
+** *Extensions*
+
+*** 3a. User enters an invalid field
+
+**** 3a1. TravelPal shows an error message
+
+**** 3a2. TravelPal does not edit invalid field
+
+**** Use case continues at step 2
+
+*** 3b. User requests to list of **Events** in the **trip**
+
+**** 3b1. TravelPal shows a list of **Events** to the user (can be empty)
+
+**** 3b2. User chooses to _add/edit/delete (UC 7/8/9) **Event**_
+**** Use case continues at step 4
+
+*** 4b. User leaves necessary information empty
+
+**** 4a1. TravelPal shows an error message
+
+**** 4a2. TravelPal does not submit the details and does not confirm the edit
+
+**** 4a3. User enters new data
+
+**** Steps 4a1-4a3 are repeated until the data entered are non empty
+
+**** Use case ends.
+
+[[UC9]]
+* *User case UC9 – Delete Event*
+
+** *MSS*
+
+1.  User requests to delete a specific **Event** in the list
+
+2.  TravelPal deletes the **Event**
+
+Use case ends
+
+** *Extensions*
+
+*** 2a. The list is empty
+
+**** Use case ends
+
+*** 3a. The **Name** provided is invalid
+
+**** 3a1. TravelPal shows an error message
+
+**** 3a2. TravelPal does not delete any **Event**
+
+**** Use case ends
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1.  Should work on any [mainstream OS] as
+    long as it has Java 11 or above installed.
 
-_{More to be added}_
+2.  A user with above average typing speed for regular English text
+    (i.e. not code, not system admin commands) should be able to
+    accomplish most of the tasks faster using commands than using the
+    mouse.
+
+3.  Should be able to hold up to 30 trips without a noticeable
+    sluggishness in performance for typical usage.
+
+4.  A user familiar with travelling should be able to navigate the app
+    easily
+
+5. 	A novice user should be able to navigate without prior experience
+
+6.	Application does not depend on online resources to operate
 
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+**TravelPal** – Our cross-platform desktop application for those who
+love to plan and micromanage their travels
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+**CLI** – Command Line Interface. CLI is a command line program that
+accepts text input to execute operating system functions.
 
-[appendix]
-== Product Survey
+**GUI** – Graphical User Interface. The graphical user interface is a
+form of user interface that allows users to interact
 
-*Product Name*
+**OS** - An operating system, or "OS," is software that communicates
+with the hardware and allows other programs to run
 
-Author: ...
+**Mainstream OS** - Windows, Linux, Unix, OS-X
 
-Pros:
+**Use Cases (UC)** - A description of a set of sequences of actions, including variants, that a system performs to yield an observable result of value to an actor
 
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+**UML Class Diagrams** - UML class diagrams describe the structure (but not the behavior) of an OOP solution.
 
 [appendix]
 == Instructions for Manual Testing
@@ -400,26 +1488,25 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a Trip
 
-=== Deleting a person
+. Delete a trip
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: Navigate to the _Trip Page_. Ensure there are at least one trip in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: The first trip in the list is deleted and all the cards have their index updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No trip is deleted. Error message is displayed.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+   Expected: Similar to previous. Error message shows the error committed.
 
-_{ more test cases ... }_
+. Adding inventory item
 
-=== Saving data
+.. Prerequisites: Navigate to the _Inventory Page_. Start with an empty list.
+.. Test case: `add item` +
+   Expected: A new item with index following the last is added
+.. Test case: `delete 0` +
+   Expected: The first item in the list is deleted and indexes decrease by one to match the change
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous. Error message show sthe error committed.
 
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

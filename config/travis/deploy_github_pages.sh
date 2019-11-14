@@ -23,11 +23,15 @@ git remote add upstream "https://github.com/${TRAVIS_REPO_SLUG}.git"
 
 # Reset to gh-pages branch, or create orphan branch if gh-pages does not exist in remote.
 if git ls-remote --exit-code --heads upstream gh-pages; then
+    echo 'Reset to gh-pages branch'
     git fetch --depth=1 upstream gh-pages
     git reset upstream/gh-pages
 elif [ $? -eq 2 ]; then # exit code of git ls-remote is 2 if branch does not exist
+    echo 'Creating new gh-pages branch'
     git checkout --orphan gh-pages
 else # error occurred
+    echo 'Error occured, ls-remote exit code is'
+    echo $?
     exit $?
 fi
 

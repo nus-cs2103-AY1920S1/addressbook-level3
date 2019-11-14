@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane styleClass="FormItem" stylesheets="@FormItem.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox spacing="3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="formItemLabel" text="Label" textAlignment="CENTER" />
+            <TextField fx:id="pathTextField" onInputMethodTextChanged="#handleChange" />
+            <Button fx:id="fileChooseButton" mnemonicParsing="false" onMouseClicked="#handleChooseFile" prefHeight="25.33333" styleClass="ChooseFileButton" text="Choose file" textAlignment="CENTER" VBox.vgrow="NEVER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

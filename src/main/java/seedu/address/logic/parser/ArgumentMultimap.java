@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Stores mapping of prefixes to their respective arguments.
@@ -17,6 +18,14 @@ public class ArgumentMultimap {
 
     /** Prefixes mapped to their respective arguments**/
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
 
     /**
      * Associates the specified argument value with {@code prefix} key in this map.

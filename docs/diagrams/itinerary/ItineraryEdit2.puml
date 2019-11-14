@@ -1,0 +1,25 @@
+@startuml
+!include ../style.puml
+skinparam ClassFontColor #000000
+skinparam ClassBorderColor #000000
+
+title User edits a field
+
+package States {
+    class PageStatus0 as "p0:PageStatus"
+    class EditTripDescriptor1 as "e1:EditTripDescriptor"
+    class EditTripDescriptor2 as "e2:EditTripDescriptor"
+
+    class PageStatus1 as "p1:PageStatus"
+    PageStatus1 --> EditTripDescriptor1
+    PageStatus1 --> EditTripDescriptor2
+}
+
+
+hide EditTripDescriptor1
+'hide EditTripDescriptor2
+'hide PageStatus1
+
+class Pointer as "Current State" #FFFFF
+Pointer -up-> PageStatus0
+@end

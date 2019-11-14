@@ -1,0 +1,46 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI.booking <<Rectangle>> {
+Class BookingCard
+Class EditBookingsPage
+Class BookingsPage
+}
+
+package UI <<Rectangle>> {
+    Class MainWindow
+}
+
+package Ui.template <<Rectangle>> {
+    Class "{abstract}\nPageWithSidebar" as PageWithSidebar
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+package Logic <<Rectangle>> {
+Class HiddenLogic #FFFFFF
+
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> MainWindow
+MainWindow *--> BookingsPage
+MainWindow *-- EditBookingsPage
+
+BookingsPage <-right-> EditBookingsPage
+
+BookingsPage ---> HiddenModel
+BookingsPage ----> HiddenLogic
+
+EditBookingsPage --> HiddenModel
+EditBookingsPage --> HiddenLogic
+
+BookingsPage *--> "0..*" BookingCard
+
+BookingsPage ----|> PageWithSidebar
+@enduml

@@ -39,11 +39,16 @@ jacocoTestReport {
 
 test {
     useJUnitPlatform()
+    enableAssertions = true
+}
+
+run {
+    enableAssertions = true
 }
 
 dependencies {
     String jUnitVersion = '5.4.0'
-    String javaFxVersion = '11'
+    String javaFxVersion = '11.0.2'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
@@ -67,7 +72,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'travelpal.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -133,9 +138,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+        'site-name': 'TravelPal',
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-T11-4/main'
     ]
 
     options['template_dirs'].each {

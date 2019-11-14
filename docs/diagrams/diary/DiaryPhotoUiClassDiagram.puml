@@ -1,0 +1,28 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+
+
+package UI.diary <<Rectangle>> {
+object ":DiaryGallery" as DiaryGallery
+object ":DiaryGalleryCard" as DiaryGalleryCard
+Class HiddenOutside #FFFFFF
+}
+
+package Model.Diary.Photo <<Rectangle>> {
+object ":PhotoList" as PhotoList
+object ":Photo" as Photo
+}
+
+
+HiddenOutside --> DiaryGallery
+
+DiaryGallery *-down-> "*" DiaryGalleryCard
+DiaryGallery -right-> "1" PhotoList
+PhotoList -down-> "*" Photo
+DiaryGalleryCard -right-> "1" Photo
+
+@enduml

@@ -1,18 +1,20 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.appstatus.PageStatus;
+import seedu.address.model.currency.CustomisedCurrency;
+import seedu.address.model.trip.Trip;
+import seedu.address.model.trip.exceptions.ClashingTripException;
+import seedu.address.model.trip.exceptions.TripNotFoundException;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -37,51 +39,89 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getTravelPalFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setTravelPalFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code travelPal}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setTravelPal(ReadOnlyTravelPal travelPal);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the TravelPal */
+    ReadOnlyTravelPal getTravelPal();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Sets {@link PageStatus} with an edited version.
+     *
+     * @param editedPageStatus Edited version of {@link PageStatus}
      */
-    boolean hasPerson(Person person);
+    void setPageStatus(PageStatus editedPageStatus);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Returns {@link PageStatus} in TravelPal.
+     * @return {@link PageStatus} of TravelPal
      */
-    void deletePerson(Person target);
+    PageStatus getPageStatus();
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds a {@link Trip} to TravelPal.
+     *
+     * @param trip {@link Trip} to be added
+     * @throws ClashingTripException Thrown when {@link Trip} with overlapping duration is added.
      */
-    void addPerson(Person person);
+    void addTrip(Trip trip) throws ClashingTripException;
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces an existing {@link Trip} with another.
+     *
+     * @param target {@link Trip} set for replacement
+     * @param replacement Replacement {@link Trip}
+     * @throws ClashingTripException Thrown when {@link Trip} with overlapping duration is set
+     * @throws TripNotFoundException Thrown when {@code target} cannot be found
      */
-    void setPerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    void setTrip(Trip target, Trip replacement) throws ClashingTripException, TripNotFoundException;
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * Deletes an existing {@link Trip}.
+     * @param target {@link Trip} set for deletion
+     * @throws TripNotFoundException Thrown when {@code target} cannot be found
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void deleteTrip(Trip target) throws TripNotFoundException;
+
+    /** Returns an unmodifiable view of the filtered trip list */
+    FilteredList<Trip> getFilteredTripList();
+
+    /** Returns an unmodifiable view of the filtered currency list */
+    FilteredList<CustomisedCurrency> getFilteredCurrencyList();
+
+    /**
+     * Deletes the given currency.
+     * The currency must exist in the currency list.
+     */
+    void deleteCurrency(CustomisedCurrency target);
+
+    /**
+     * Selects the given currency.
+     * The currency must exist in the currency list.
+     */
+    void selectCurrency(CustomisedCurrency target);
+
+    /**
+     * Adds the given currency.
+     * {@code currency} must not already exist in the currency list.
+     */
+    void addCurrency(CustomisedCurrency currency);
+
+
+    /**
+     * Replaces the given currency {@code target} with {@code editedCurrency}.
+     * {@code target} must exist in the currency list.
+     * The currency identity of {@code editedCurrency} must not be the same as another existing currency
+     * in the currency list.
+     */
+    void setCurrency(CustomisedCurrency target, CustomisedCurrency editedCurrency);
 }

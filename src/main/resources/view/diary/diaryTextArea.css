@@ -1,0 +1,9 @@
+.diary-edit-box {
+    -fx-background-color: transparent;
+    -fx-font-size: 20;
+    -fx-font-family: serif;
+}
+
+.diary-edit-box .content {
+    -fx-background-color: #F9E4C0;
+}

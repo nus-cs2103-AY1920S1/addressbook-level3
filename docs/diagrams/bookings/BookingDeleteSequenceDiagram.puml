@@ -1,0 +1,84 @@
+@startuml
+!include ../style.puml
+
+title Executing "DoneEditBookingCommand.execute(model)" in Logic Manager
+box Logic LOGIC_COLOR_T1
+
+participant "command:\nDoneEditBookingCommand" as DoneEditBookingCommand LOGIC_COLOR
+participant "editBooking\nDescriptor:\nEditBooking\nDescriptor" as EditBookingDescriptor LOGIC_COLOR
+participant "bookingToEdit:\nBookingToEdit" as BookingToEdit LOGIC_COLOR
+participant "bookingToAdd:\nBookingToAdd" as BookingToAdd LOGIC_COLOR
+participant "commandResult:\nCommandResult" as CommandResult LOGIC_COLOR
+
+end box
+box Model MODEL_COLOR_T1
+
+participant "model:\nModel" as Model MODEL_COLOR
+participant ":PageStatus" as PageStatus MODEL_COLOR
+participant ":Trip" as Trip MODEL_COLOR
+participant ":BookingList" as BookingList MODEL_COLOR
+
+end box
+
+[-> DoneEditBookingCommand : execute(model)
+activate DoneEditBookingCommand
+DoneEditBookingCommand -> Model : getPageStatus()
+activate Model
+Model -> PageStatus : getEditBooking\nDescriptor()
+activate PageStatus
+return editBooking\nDescriptor
+deactivate PageStatus
+Model --> DoneEditBookingCommand: editBookingDescriptor
+deactivate Model
+
+create EditBookingDescriptor
+DoneEditBookingCommand -> EditBookingDescriptor
+activate EditBookingDescriptor
+EditBookingDescriptor -> DoneEditBookingCommand
+deactivate EditBookingDescriptor
+
+
+DoneEditBookingCommand -> Model : getPageStatus()
+activate Model
+Model -> PageStatus : getBooking()
+activate PageStatus
+return bookingToEdit
+deactivate PageStatus
+Model --> DoneEditBookingCommand:  bookingToEdit
+deactivate Model
+
+create BookingToEdit
+DoneEditBookingCommand -> BookingToEdit
+activate BookingToEdit
+BookingToEdit -> DoneEditBookingCommand
+deactivate BookingToEdit
+
+
+DoneEditBookingCommand -> EditBookingDescriptor: buildBooking()
+activate EditBookingDescriptor
+return bookingToAdd
+
+create BookingToAdd
+DoneEditBookingCommand -> BookingToAdd
+activate BookingToAdd
+BookingToAdd -> DoneEditBookingCommand
+deactivate BookingToAdd
+
+DoneEditBookingCommand -> Model : getPageStatus
+Model -> PageStatus: getTrip
+PageStatus -> Trip : getBookingList
+Trip -> BookingList : set\n(bookingToEdit,\nbookingToAdd)
+
+
+create CommandResult
+DoneEditBookingCommand -> CommandResult
+activate CommandResult
+CommandResult -> DoneEditBookingCommand
+deactivate CommandResult
+DoneEditBookingCommand -> Model : setPageStatus(...)
+
+[<--DoneEditBookingCommand: commandResult
+deactivate DoneEditBookingCommand
+
+@enduml
+

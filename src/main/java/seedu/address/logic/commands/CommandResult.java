@@ -11,19 +11,53 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
+    /** Whether a page switch operation should be performed. */
+    private final boolean doSwitchPage;
+
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
     /** The application should exit. */
-    private final boolean exit;
+    private final boolean shouldExit;
+
+    /** The application should change the Ui **/
+    private final boolean doChangeUi;
+
+    /** The command word executed **/
+    private final String commandWord;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean shouldExit, boolean doSwitchPage,
+                         boolean doChangeUi, String commandWord) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
-        this.exit = exit;
+        this.shouldExit = shouldExit;
+        this.doSwitchPage = doSwitchPage;
+        this.doChangeUi = doChangeUi;
+        this.commandWord = commandWord;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean shouldExit, boolean doSwitchPage) {
+        this(feedbackToUser, showHelp, shouldExit, doSwitchPage, false, null);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean shouldExit) {
+        this(feedbackToUser, showHelp, shouldExit, false, false, null);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean doChangeUi, String commandWord) {
+        this(feedbackToUser, false, false, false, true, commandWord);
     }
 
     /**
@@ -32,6 +66,15 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * and a page switch {@code Class} extending from {@code MainWindow} using {@code page},
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, boolean doSwitchPage) {
+        this(feedbackToUser, false, false, doSwitchPage, false, null);
     }
 
     public String getFeedbackToUser() {
@@ -43,7 +86,19 @@ public class CommandResult {
     }
 
     public boolean isExit() {
-        return exit;
+        return shouldExit;
+    }
+
+    public boolean doSwitchPage() {
+        return doSwitchPage;
+    }
+
+    public boolean doChangeUi() {
+        return doChangeUi;
+    }
+
+    public String getCommandWord() {
+        return commandWord;
     }
 
     @Override
@@ -60,12 +115,15 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && shouldExit == otherCommandResult.shouldExit
+                && doSwitchPage == otherCommandResult.doSwitchPage
+                && doChangeUi == otherCommandResult.doChangeUi
+                && (Objects.equals(commandWord, otherCommandResult.commandWord));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, shouldExit, doChangeUi, commandWord);
     }
 
 }

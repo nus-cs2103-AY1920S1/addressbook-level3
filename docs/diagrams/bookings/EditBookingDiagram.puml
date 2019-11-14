@@ -1,0 +1,17 @@
+@startuml
+
+start
+:User edits a booking;
+if () then ([valid index]\n\n)
+:User executes edit booking;
+:User edits name or contact
+ or expenditure (in budget) ;
+:User executes done
+ editing the booking;
+:The booking is edited;
+else ([not valid \n   index]\n)
+:error thrown;
+endif
+stop
+
+@enduml

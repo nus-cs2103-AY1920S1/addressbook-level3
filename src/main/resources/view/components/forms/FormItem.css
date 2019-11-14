@@ -1,0 +1,11 @@
+.FormItem {
+    -fx-min-height: 80px;
+    -fx-max-width: 500px;
+}
+
+.FormItem .label {
+    -fx-font-family: "Roboto";
+    -fx-font-size: 15px;
+    -fx-font-weight: normal;
+    -fx-underline: true;
+}
