@@ -18,10 +18,10 @@ import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 
+//@@author cheongsiuhong
 /**
  * Exports Patient data from the PatientBook
  */
-
 public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "app-export";

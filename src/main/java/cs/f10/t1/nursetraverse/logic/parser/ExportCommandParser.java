@@ -12,6 +12,7 @@ import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.logic.commands.ExportCommand;
 import cs.f10.t1.nursetraverse.logic.parser.exceptions.ParseException;
 
+//@@author cheongsiuhong
 /**
  * Parses input arguments and returns a new ExportCommand object.
  */

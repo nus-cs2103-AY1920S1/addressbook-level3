@@ -152,6 +152,7 @@ public class ModelManager implements Model {
         refreshStagedData();
     }
 
+    //@@author cheongsiuhong
     @Override
     public void replaceStagedPatientBook(List<Patient> patients) {
         PatientBook newBook = new PatientBook();
@@ -161,6 +162,7 @@ public class ModelManager implements Model {
         setStagedPatientBook(newBook);
         refreshStagedData();
     }
+    //@@author
 
     @Override
     public ReadOnlyPatientBook getStagedPatientBook() {
@@ -237,11 +239,13 @@ public class ModelManager implements Model {
         return stagedPatientBook.hasPatient(patient);
     }
 
+    //@@author cheongsiuhong
     @Override
     public boolean hasAnyPatientInGivenList(List<Patient> patients) {
         requireNonNull(patients);
         return patients.stream().anyMatch(this::hasPatient);
     }
+    //@@author
 
     @Override
     public void deletePatient(Patient target) {
@@ -276,6 +280,7 @@ public class ModelManager implements Model {
         refreshStagedData();
     }
 
+    //@@author cheongsiuhong
     @Override
     public Patient getPatientByIndex(Index index) {
         requireNonNull(index);
@@ -290,6 +295,7 @@ public class ModelManager implements Model {
 
         return stagedPatientBook.getPatientListByIndexes(indexes);
     }
+    //@@author
 
     // Undo/Redo/History specific methods
     //@@author gabrielchao
