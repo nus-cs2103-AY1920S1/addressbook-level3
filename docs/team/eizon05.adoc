@@ -1,0 +1,88 @@
+= Karan Dev Sapra - Project Portfolio for __TravelPal__
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:last-update-label!:
+:nofooter:
+
+== About Our Project
+
+This project portfolio page documents my contribution to the team project __TravelPal__ which I undertook along with 4 other computer science students. This application , which is an alteration of another pre-existing basic command line interace desktop addressbook application , is an all-in-one holiday planner that enables travellers to meticulously plan their travels including features like expenditure and inventory managing.
+
+Due to our project requirements, TravelPal is primarily for users who prefer to use a Command Line Interface (CLI), rather than the more traditional way of using a mouse. The display of our application, however, encompasses a Graphical User Interface (GUI) for easy readability and navigability.
+
+Moreover, our project specification defines our target user to be students who are travel enthusiasts.
+
+== Summary of contributions
+
+|===
+|
+This section details my contribution to the TravelPal application, as well as a summary of my code
+implementation and the value adddition it has to the project in terms of functionalitiy and usefullness.
+|===
+
+==== *Major enhancements*: Implementation of the _Trip Inventory Manager_ feature
+
+** *What it does*: The _Trip Inventory Manager_ allows users to create a list of inventory items they need on their trip. Users can choose to manually add a new inventory item or add an inventory item inside of an event in the trip itinerary - which will automatically be reflected on the Trip Inventory List. If the item has already been purhcashed or packed by the user, he is able to mark it using a checkbox.
+
+** *Justification*: As it is very common for people to forget things before a trip, this feature prevents them from being forgetful. Moreoever, since the inventory items you store in an event are seen in the Trip Inventory Manager - whenever a user is planning his trip's events - at the same time he can take a note of the items he would need to bring for the event. Furthermore, since the target users are travel enthusiasits, they are more prone to travel their trips more meitulously - and hence this feature would be a good use case for them.
+
+** *Highlights*: This modification requires understanding and interaction of other features such as the event feature since every event stores its own inventory List. Therefore, I had to be mindful to design all my classes with OOP (Object Oriented Programming) principles such as the SOLID principles (mnemonic acronym for five important OOP design principles) to prevent bugs.
+
+** *Credits*: I had read the Developer Guide and code of the address book application to modify and implement my features.
+
+
+==== Second enhancements: Preventing Duplicate Inventory Items.
+
+One of the most important contributions of mine was in preventing the Travel Inventory Manager from showing any duplicate inventory items.
+
+** *What it does*: If the Travel Inventory Manager already contains an inventory with a specific name, the Travel Inventory Manager should not show any duplicates (of the same name).
+
+** *Justification*: Having multiplate duplicate inventory items would make the _Travel Inventory Manager_ difficult to read and would make packing difficult. Therefore, this feature was essential to implement to maintain readibility and organization.
+
+** *Highlights*: As each event stores an inventory list, the same name could appear in different events (since the events are not supposed to cross check amongst each other). Therefore, I had to spend a lot of time thinking of a workable solution to only delete the inventory item name from the Travel Inventory Manager if no more events had an inventory item of that name in them. I finally thought of a solution which involves keeping count of the number of Events that have a particular inventory item name, for all names in the _Travel Inventory Manager_.
+
+
+
+==== Other Contributions
+* Code contributed: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=eizon05&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=eizon05&tabRepo=AY1920S1-CS2103T-T11-4%2Fmain%5Bmaster%5D[RepoSense code]][https://github.com/AY1920S1-CS2103T-T11-4/main/pulls?utf8=%E2%9C%93&q=is%3Aclosed+is%3Apr+author%3Aeizon05+[Github pull requests]]
+
+* Idea generation:
+** Contributing in developing some of the main idea of _TravelPal_ (expenses, currency, inventory, events etc.) during the project's
+inception. (see https://docs.google.com/document/d/1mKmIZghbtYwgSWdDTiRQDLdXjKNhjuys8uSO8Y6McyI/edit[travelpal idea generation google docs])
+
+* Enhancements to existing features:
+** Wrote test cases for _Inventory Manager_
+** Updated the UI to make it more interactive and user friendly https://github.com/AY1920S1-CS2103T-T11-4/main/pull/171[#171]
+
+* Project management:
+** Reviewed Pull Requests: [https://github.com/AY1920S1-CS2103T-T11-4/main/pulls?utf8=%E2%9C%93&q=is%3Apr+reviewed-by%3Aeizon05+[My reviews]]
+** Updated ContactUs page https://github.com/AY1920S1-CS2103T-T11-4/main/pull/16[#16]
+** Created first draft and initial layout and plan of the User Guide https://github.com/AY1920S1-CS2103T-T11-4/main/pull/17[#17]
+
+
+== Contributions to the User Guide
+
+|===
+|
+This section displays the section of User Guide relating to the usage of the _Trip Inventory Manager_ which was created and edited by me.
+|===
+
+include::../UserGuide.adoc[tag=inventory_ppp1]
+
+NOTE: See the https://ay1920s1-cs2103t-t11-4.github.io/main/UserGuide.html[user guide] for usage scenarios which are not mentioned in this project portfolio page.
+
+
+
+== Contributions to the Developer Guide
+
+|===
+|
+This section of the Developer Guide titled _The Inventory List_ (which details the its' Models, User Interface and Logic) was created and edited by me.
+|===
+
+include::../DeveloperGuide.adoc[tag=inventory_ppp]
+
+== Achievements and Learnings
+
+Development __TravelPal__ has been my first time working with and modifying a pre-existing brown-field software engineering projects. During the process, I have gained a lot practice in programming and in maintaining object oriented principles. This was also my first time using Git and working on a software engineering project as a team. I feel I have improved a lot through this experience, both personally and as a team player.

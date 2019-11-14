@@ -39,7 +39,7 @@ Responsibilities: Testing, Integration
 
 === Tianyi
 image::arjunwangty.png[width="150", align="left"]
-{empty}[https://github.com/arjunwangty[github]] [<<wang_tianyi#, portfolio>>]
+{empty}[https://github.com/arjunwangty[github]] [<<arjunwangty#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
@@ -48,7 +48,7 @@ Responsibilities: UI
 
 === Karan
 image::eizon05.png[width="150", align="left"]
-{empty}[https://github.com/eizon05[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/eizon05[github]] [<<eizon05#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Code Quality, Documentation

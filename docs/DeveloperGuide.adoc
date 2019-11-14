@@ -969,6 +969,7 @@ This results in a considerable performance benefit.
 
 |========================================================================================
 
+// tag::inventory_ppp[]
 === [Inventory] The Inventory List
 
 In the application, there can be two types of Inventory Lists:
@@ -1064,7 +1065,7 @@ there may lead to bugs in the future.
 
 Therefore, in a future update, it would be rational to remove make the `Inventory` class an abstract class with just a `Name` attribute.
 And have 2 different classes extend it for the 2 different use cases.
-
+// end::inventory_ppp[]
 
 === Logging
 
