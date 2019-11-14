@@ -1081,6 +1081,7 @@ save the changes you made while the editor was open, and close the editor.
 
 '''
 
+// tag::inventory_ppp1[]
 === Trip Inventory Manager
 
 ==== Introduction
@@ -1118,7 +1119,7 @@ NOTE: The inventory item to delete must exclusively be a non-event-specific inve
 * `check <index of inventory item>`: marks the inventory item as packed
 * `uncheck <index of inventory item>`: marks the inventory item as not yet packed
 
-
+// end::inventory_ppp1[]
 
 === Help
 The help feature gives the user an avenue to find additional help. It consists of only one command `help` with no other fields.
@@ -1133,6 +1134,7 @@ image::help.png[title="The help popup",width=400]
 Exiting the app is a simple task of closing the application safely. Enter the command `exit` into the command bar and press enter to exit _TravelPal_.
 
 _TravelPal's_ window should close without any errors. Thank you for using _TravelPal_
+
 
 == General info
 
