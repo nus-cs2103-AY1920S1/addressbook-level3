@@ -9,7 +9,7 @@
 
 This project portfolio page documents my contribution to the team project __TravelPal__ which I undertook along with 4 other computer science students. This application , which is an alteration of another pre-existing basic command line interace desktop addressbook application , is an all-in-one holiday planner that enables travellers to meticulously plan their travels including features like expenditure and inventory managing.
 
-Due to our project requirements, TravelPal is primarily for users who prefer to use a Command Line Interface (CLI), rather than the more traditional way of using a mouse. The display of our application, however, encompasses a Graphical User Interface (GUI) for easy readability and navigability. 
+Due to our project requirements, TravelPal is primarily for users who prefer to use a Command Line Interface (CLI), rather than the more traditional way of using a mouse. The display of our application, however, encompasses a Graphical User Interface (GUI) for easy readability and navigability.
 
 Moreover, our project specification defines our target user to be students who are travel enthusiasts.
 
@@ -23,7 +23,7 @@ implementation and the value adddition it has to the project in terms of functio
 
 ==== *Major enhancements*: Implementation of the _Trip Inventory Manager_ feature
 
-** *What it does*: The _Trip Inventory Manager_ allows users to create a list of inventory items they need on their trip. Users can choose to manually add a new inventory item or add an inventory item inside of an event in the trip itinerary - which will automatically be reflected on the Trip Inventory List. If the item has already been purhcashed or packed by the user, he is able to mark it using a checkbox. 
+** *What it does*: The _Trip Inventory Manager_ allows users to create a list of inventory items they need on their trip. Users can choose to manually add a new inventory item or add an inventory item inside of an event in the trip itinerary - which will automatically be reflected on the Trip Inventory List. If the item has already been purhcashed or packed by the user, he is able to mark it using a checkbox.
 
 ** *Justification*: As it is very common for people to forget things before a trip, this feature prevents them from being forgetful. Moreoever, since the inventory items you store in an event are seen in the Trip Inventory Manager - whenever a user is planning his trip's events - at the same time he can take a note of the items he would need to bring for the event. Furthermore, since the target users are travel enthusiasits, they are more prone to travel their trips more meitulously - and hence this feature would be a good use case for them.
 
@@ -40,7 +40,8 @@ One of the most important contributions of mine was in preventing the Travel Inv
 
 ** *Justification*: Having multiplate duplicate inventory items would make the _Travel Inventory Manager_ difficult to read and would make packing difficult. Therefore, this feature was essential to implement to maintain readibility and organization.
 
-** *Highlights*: As each event stores an inventory list, the same name could appear in different events (since the events are not supposed to cross check amongst each other). Therefore, I had to spend a lot of time thinking of a workable solution to only delete the inventory item name from the Travel Inventory Manager if no more events had an inventory item of that name in them. I finally thought of a solution which involves keeping count of the number of Events that have a particular inventory item name, for all names in the _Travel Inventory Manager_.  
+** *Highlights*: As each event stores an inventory list, the same name could appear in different events (since the events are not supposed to cross check amongst each other). Therefore, I had to spend a lot of time thinking of a workable solution to only delete the inventory item name from the Travel Inventory Manager if no more events had an inventory item of that name in them. I finally thought of a solution which involves keeping count of the number of Events that have a particular inventory item name, for all names in the _Travel Inventory Manager_.
+
 
 
 ==== Other Contributions
@@ -84,4 +85,4 @@ include::../DeveloperGuide.adoc[tag=inventory_ppp]
 
 == Achievements and Learnings
 
-Development __TravelPal__ has been my first time working with and modifying a pre-existing brown-field software engineering projects. During the process, I have gained a lot practice in programming and in maintaining object oriented principles. This was also my first time using Git and working on a software engineering project as a team. I feel I have improved a lot through this experience, both personally and as a team player. 
+Development __TravelPal__ has been my first time working with and modifying a pre-existing brown-field software engineering projects. During the process, I have gained a lot practice in programming and in maintaining object oriented principles. This was also my first time using Git and working on a software engineering project as a team. I feel I have improved a lot through this experience, both personally and as a team player.
