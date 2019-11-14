@@ -1,0 +1,77 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AlfredParser" as AlfredParser LOGIC_COLOR
+participant ":ScoreCommandParser" as ScoreCommandParser LOGIC_COLOR
+participant "l:AddScoreCommand" as AddScoreCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("score add T-1 40")
+activate LogicManager
+
+
+LogicManager -> AlfredParser : parseCommand("score add T-1 40")
+activate AlfredParser
+
+create ScoreCommandParser
+AlfredParser -> ScoreCommandParser
+activate ScoreCommandParser
+
+ScoreCommandParser --> AlfredParser
+deactivate ScoreCommandParser
+
+AlfredParser -> ScoreCommandParser : parse("add T-1 40")
+activate ScoreCommandParser
+
+create AddScoreCommand
+ScoreCommandParser -> AddScoreCommand
+activate AddScoreCommand
+
+AddScoreCommand --> ScoreCommandParser : l
+deactivate AddScoreCommand
+
+ScoreCommandParser --> AlfredParser : l
+deactivate ScoreCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ScoreCommandParser -[hidden]-> AlfredParser
+destroy ScoreCommandParser
+
+AlfredParser --> LogicManager : l
+deactivate AlfredParser
+
+LogicManager -> AddScoreCommand : execute()
+activate AddScoreCommand
+
+AddScoreCommand -> Model : addTeamScore(teamT-1, 40)
+note over CommandResult: note that "teamT-1" above denotes \n a Team Object with Id T-1 whereas \n "40" is a Score Object with value 40
+activate Model
+
+Model -> Model : updateTeam(teamID, updatedTeam)
+activate Model
+Model -> Model
+deactivate Model
+
+Model --> AddScoreCommand
+deactivate Model
+
+create CommandResult
+AddScoreCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddScoreCommand
+deactivate CommandResult
+
+AddScoreCommand --> LogicManager : result
+deactivate AddScoreCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

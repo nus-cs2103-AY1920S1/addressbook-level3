@@ -1,5 +1,6 @@
 package seedu.address.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -138,6 +139,13 @@ public class StringUtilTest {
     @Test
     public void getDetails_nullGiven_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
+    }
+
+    @Test
+    public void capitalize_validInputs_correctOutputs() {
+        assertEquals(StringUtil.capitalize(""), "");
+        assertEquals(StringUtil.capitalize("HellO WoRLd"), "Hello world");
+        assertEquals(StringUtil.capitalize("AlFreD"), "Alfred");
     }
 
 }

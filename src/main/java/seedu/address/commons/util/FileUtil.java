@@ -1,5 +1,6 @@
 package seedu.address.commons.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
@@ -18,7 +19,7 @@ public class FileUtil {
     }
 
     /**
-     * Returns true if {@code path} can be converted into a {@code Path} via {@link Paths#get(String)},
+     * Returns true if {@code path} can be converted into a {@code Path} via {@link Paths#get(String, String...)},
      * otherwise returns false.
      * @param path A string representing the file path. Cannot be null.
      */
@@ -78,6 +79,18 @@ public class FileUtil {
      */
     public static void writeToFile(Path file, String content) throws IOException {
         Files.write(file, content.getBytes(CHARSET));
+    }
+
+    /**
+     *
+     */
+    public static Path getPath(String filePath, String... more) {
+        if (filePath.startsWith("~" + File.separator)) {
+            filePath = System.getProperty("user.home") + filePath.substring(1);
+        } else if (filePath.equals("~")) {
+            filePath = System.getProperty("user.home");
+        }
+        return Paths.get(filePath, more);
     }
 
 }

@@ -1,0 +1,44 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+
+Class "{Abstract}\nAssignCommand" as AssignCommand
+
+
+Interface Model <<Interface>> MODEL_COLOR
+Interface Parser <<Interface>>
+Interface CommandAllocator <<Interface>>
+
+Abstract Class "{Abstract}\nCommand" as Command
+
+Class AssignParticipantCommand
+Class AssignMentorCommand
+
+Class AssignParticipantCommandParser
+Class AssignMentorCommandParser
+Class AssignCommandAllocator
+
+Class ModelManager MODEL_COLOR
+
+AssignParticipantCommandParser -up-|> Parser
+AssignMentorCommandParser -up-|> Parser
+
+AssignParticipantCommandParser .-> AssignParticipantCommand: parses >
+AssignMentorCommandParser .-> AssignMentorCommand : parses >
+
+AssignParticipantCommand -up-|> AssignCommand
+AssignMentorCommand -up-|> AssignCommand
+AssignCommand -up-|> Command
+
+AssignParticipantCommand .-> ModelManager : updates >
+AssignMentorCommand .-> ModelManager : updates >
+ModelManager ..|> Model
+
+AssignCommandAllocator -up-|> CommandAllocator
+
+ AssignCommandAllocator .right-> AssignParticipantCommand : allocates >
+ AssignCommandAllocator .right-> AssignMentorCommand : allocates >
+@enduml
+

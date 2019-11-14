@@ -1,9 +1,11 @@
-= AddressBook Level 3 - User Guide
+= Alfred - The Hackathon Butler User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 5
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 4
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -12,166 +14,1100 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F11-1/main/tree/master
+:releaseURL: https://github.com/AY1920S1-CS2103T-F11-1/main/releases
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F11-1`
+
+Since: `August 2019`
+
+Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Alfred is a desktop application to help Hackathons' Human Resource Managers organise a Hackathon event.
+Hackathons are difficult to manage manually as they involve different groups of individuals, each
+of whom have a different role to play and agenda to fulfill in the Hackathon. Alfred helps streamline
+this organisation and management process, allowing you to quickly get up to speed with the logistics
+and administrative details of the Hackathon you are organising.
+
+Furthermore, Alfred is *optimized for those who prefer to work with a Command Line Interface (CLI)*, while
+maintaining the benefits of having visual responses in a Graphical User Interface. This means that users mainly
+interact with Alfred by typing on the keyboard, instead of using the mouse to point and click. Point-and-click
+functionality is supported, but is not the main focus of the application.
+
+Interested? Well, head to <<Quick Start>> to get started. We hope Alfred serves you well!
+
+== About
+
+This User Guide introduces you to Alfred's features and how you can use them to enhance your productivity
+when organising a Hackathon. You can use Alfred to add and track participants in your Hackathon, assign mentors
+to participants, keep track of the scores of each team in a leaderboard, undo and redo changes you make, and a
+whole lot more. Note that Alfred was built for you to focus on and organise a single Hackathon event.
+
+Alfred was designed to be as easy to use as possible, and the only assumption we made is that users are
+comfortable typing into a keyboard to interact with Alfred. No other technical knowledge is needed! It's that simple.
+
+Alfred is designed to be cross-platform and is available for the Linux, Windows and Mac OS operating systems.
+
+Some simple conventions are used for this User Guide:
+
+. Commands - You will typically interact with Alfred through what we call "commands". Each command is simply some
+text that you enter into Alfred. The command text that you should enter at the command line is formatted as `user input`
+
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Download the latest `alfred.jar` link:{releaseURL}[here].
+.  Copy the file to the folder you want to use as the home folder for Alfred.
+.  Double-click the file to start the app. Alternatively, if you use a Mac, type the command `java -jar alfred.jar` or replace `alfred.jar` with the name of the jar file downloaded.
+on terminal in the jar file's directory to open and start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+.Layout of the application
+image::UiAnnotated.png[]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Here are some sample commands you can experiment with:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list teams`* : lists teams in the hackathon
+* *`add participant n/Bartholomew Lim p/+6597654321 e/barrytheflash@superheros.com`* : adds a new participant named `Bartholomew Lim` to the Hackathon.
+* *`delete participant P-1`* : removes the participant with ID P-1 from the hackathon.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
+[[ParameterConstraints]]
+== Parameter Constraints and Additional Information
+
+// tag::ParameterConstraints[]
+****
+
+[big]##*Entity Types*##
+
+* *Mentor*
+
+** A mentor has a name, phone number, email address, an organization, and a specialty (i.e. subject name) which must take on values mentioned below under "Parameters."
+** Two mentors are considered as the same mentor if and only if they have the same names along with one of their phone numbers or emails.
+
+* *Participant*
+
+** A participant has a name, phone number, and an email address.
+** Two participants are considered as the same participant if and only if they have the same names along with one of their phone numbers or emails.
+
+* *Team*
+
+** A team has a team name, a subject to focus on, score, its project name, and its location (table number).
+(For now, many teams can be grouped in 1 location. setting of restrictions coming in v2.0).
+** A team may also contain one mentor and 5 participants (setting of restrictions coming in v2.0).
+** Two teams are considered as the same team if and only if they have the same team names or project names.
+
+All entities will also receive a unique ID, which means no two entity will share the same ID.
+That is, entities with same ID will also be considered as a same entity. This is to be considered for specific commands such as the <<CSV File Formatting>> under the <<Bulk Registration: `import fp/PATH_TO_CSV_FILE [fp/PATH_TO_ERROR_FILE]`, Bulk Registration>> command.
+Also, do not that entities are randomly generated and are not necessarily in ascending order.
+
+[big]##*Parameter Constraints*##
+
+`Name`, `Organization`, `ProjectName` - can be any combination of spaces, letters, and these special characters (,.-')
+
+`Phone` - can be any combination of numbers (at least three digits), space, hyphens (-), and periods (.) with or without a country code. Country code of Singapore (`+65`) will be automatically included if it is not added.
+
+`Email` - must include an address and an email domain. It can include special characters (-,.), excluding bracket.
+
+`SubjectName` - the subject a mentor or team will be focusing on in the Hackathon +
+Must be one of the values below:
+
+* Environmental
+* Social
+* Health
+* Education
+* Entertainment
+* Other
+
+`Score` - must be an integer ranging from 0 to 100.
+
+`Location` - must be an integer ranging from 1 to 1000, indicating a table number.
+Restrictions of the number of teams per table will be coming in v2.0.
+
+****
+// end::ParameterConstraints[]
 
 [[Features]]
 == Features
 
 ====
-*Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+*Prelude - Command Format*
+
+* Words in `UPPER_CASE` are the parameters which you need to supply. For example, in `add mentor n/NAME`,
+`NAME` is a parameter which you need to specify as the mentor's name (i.e. `add mentor n/John Doe`).
+* You can input the parameters in any order. For instance, if the command specifies `n/NAME p/PHONE_NUMBER`, you may input `p/PHONE_NUMBER n/NAME` and Alfred will still consider it as an acceptable command.
+* Words in {curly braces} indicate values for the command that you need to select and provide.
+** For example in the case of `add {mentor/participant/list}`, you can choose to type `add mentor`, `add participant` or `add team`
+* Words in [brackets] indicate values that are optional for the command.
+** For example, in the case of `export [CSV_FILE_PATH]`, you can choose to leave out the file path.
+* Whenever you need to specify an ID, the ID will be prefixed with an alphabet indicating the type of the Entity (e.g. M for Mentors, P for Participants, T for Teams).
+* Type your commands in the textbox displayed on the Alfred UI. After you are done typing the command, press kbd:[Enter] on your keyboard to execute the command.
+
+Also, please refer to <<Parameter Constraints and Additional Information>> for more information on the different restrictions for each parameter.
+
 ====
+
+=== Saving the data:
+
+Data in Alfred is saved to the hard disk automatically after any command that changes the data.
+There is no need for you to save the data manually.
+
+Should any tampering of the data in storage result in an invalid state for the data, the data will be re-initialised and the old data will be lost.
+Hence, please avoid directly altering the storage files as any minor errors could result in permanent
+loss of critical information.
 
 === Viewing help : `help`
 
+If at anytime you don't understand how to do a certain thing on Alfred, use this command to display a
+help page in a separate pop-up window.
+
+****
+* Should you require further information, the pop-up window also includes links to further references and documentation.
+****
+
+To close the window, run any non-`help` command.
+
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding an Entity: `add {participant/mentor/team}`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Use this command to add a new entity for Alfred to keep track of. +
 
-[TIP]
-A person can have any number of tags (including 0)
+****
+* Creates an Entity as specified by you. Each Entity object will have a unique ID automatically assigned to it.
+* As of version 1.1, you must provide all the fields. There are no optional fields.
+* Note that the Specialisation and Subject fields can only take on the values specified in `SubjectName` in <<Parameter Constraints and Additional Information>>:
+****
+
+==== Adding a Participant: `add participant PARAMETERS`
+
+Use this command to add a new Participant to Alfred to keep track of for your hackathon.
+
+****
+* Participants have the fields "Name", "Phone number" and "Email address" which you must provide.
+* For now, to cater to an international audience, we do not check for validity of phone numbers.
+****
+
+Format: `add participant n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add participant n/John Doe p/98765432 e/johnd@example.com`
 
-=== Listing all persons : `list`
+* `add participant n/Betsy Crowe e/betsycrowe@example.com p/1234567`
 
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+==== Adding a Mentor: `add mentor PARAMETERS`
+Use this command to add a new Mentor to Alfred to keep track of for your Hackathon.
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* Mentors have the fields "Name", "Phone number" and "Email address."
+* Mentors also have a field called "Organization", which refers to the organization for which they work.
+* Mentors also have a field called "Specialisation", which refers to the field of work they specialise in. The Specialisation can only take on the values specified in `SubjectName` in <<Parameter Constraints and Additional Information>>.
+* All of these fields must be specified in order to successfully add a mentor.
+****
+
+Format: `add mentor  n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS o/ORGANIZATION s/SPECIALISATION`
+
+Examples:
+
+* `add mentor n/Professor Superman p/91236549 e/clarkkent@gmail.com o/Daily Planet s/Social`
+
+* `add mentor n/Doctor Batman p/91236549 e/bruce@gmail.com o/Google s/Environmental`
+
+==== Adding a Team: `add team PARAMETERS`
+
+Use this command to add a new Team to Alfred to keep track of for your Hackathon.
+****
+* Teams have the fields "Name", "Project name" and "Table Number" which you must provide.
+* Teams also have a field called "Subject", which refers the area the team's project focuses on, and must be chosen from the predetermined list of subjects described in `SubjectName` in <<Parameter Constraints and Additional Information>>.
+****
+
+Format: `add team n/NAME s/SUBJECT pn/PROJECT_NAME l/TABLE_NUMBER`
+
+Examples:
+
+* `add team n/Team01 s/Social pn/EmotionTrain l/12`
+
+* `add team n/HackathonWinners4Sure s/Environmental pn/Path-ify l/3`
+
+=== Updating an Entity: `edit {mentor/participant/team} ENTITY_ID [PARAMETERS]`
+
+Edits an entity based on the parameter values you supply. Use this command in case you want to make changes to an entity you have already created within Alfred.
+
+****
+* Updates the fields of the Entity with the `ENTITY_ID` you specified to the new fields you type in as the parameter. The ID is the unique identifier for the particular Entity you wish to edit.
+* You must provide at least one of the optional fields.
+* The fields you provide must pertain to the specified entity in order for the edit to be successful. For instance, you cannot add a field "pn/NewProjectName" for a participant as a participant doesn't have a project name.
+* Existing values will be updated to the input values you provide.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit mentor M-1 n/NewMentorName`
 
-=== Locating persons by name: `find`
+* `edit team T-1 n/NewTeamName pn/New Project Name`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+* `edit participant P-1 n/NewParticipantNAme`
+
+=== Listing all Entities : `list {mentors/participants/teams}`
+
+Shows a list of all the entities corresponding to the entity you specified that Alfred keeps track of.
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The fields of the Entity will be displayed on Alfred's Graphical User Interface.
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `list mentors` will list all mentors stored within Alfred.
 
-// tag::delete[]
-=== Deleting a person : `delete`
+* `list participants` will list all hackathon participants stored within Alfred.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+* `list teams` will list all hackathon teams stored within Alfred.
+
+=== Viewing a Specific Entity: `view {mentor/participant/team} ID`
+
+Shows a single entity with given ID.
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The fields of the Entity will be displayed on Alfred's Graphical User Interface.
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `view mentor M-1` will show the mentor with ID M-1 stored within Alfred.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+* `view participant P-1` will show the hackathon participant with ID P-1 stored within Alfred.
 
-Clears all entries from the address book. +
-Format: `clear`
+* `view team T-1` will show the hackathon team with ID T-1 stored within Alfred.
 
-=== Exiting the program : `exit`
+=== Deleting an Entity: `delete {mentor/participant/team} ID`
+Deletes an Entity, so that Alfred will no longer keep track of that Entity.
 
-Exits the program. +
-Format: `exit`
+****
+* Deletes the Entity with the ID that you specify.
+* Note that when you delete a Team, it does not delete the participants or mentors associated with the teams.
+****
 
-=== Saving the data
+Examples:
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+* `delete mentor M-1` will delete the mentor with ID M-1 from Alfred.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+* `delete participant P-1` will delete the participant with ID P-1 from Alfred.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+* `delete team T-1` will delete the team with ID T-1 from Alfred.
+
+=== Finding a Specific Entity: `find {mentor/team/participant} n/NAME ...`
+
+Searches for Entities by selected fields, instead of their ID, in case you find that the ID is difficult to keep track of. +
+
+****
+* Take note that the `find` command only searches
+and matches the fields whose strings are a substring of the given value. It also does an intersection
+search in the event where one or more fields are provided, that is, the entities found would have the selected values
+for each of the fields you key in. This search is case insensitive.
+****
+
+Examples:
+
+* `find mentor n/Joshua Wong` will display a list of all mentors in the Hackathon who are named "Joshua Wong",
+or have "Joshua Wong" in their name.
+
+* `find participant n/John Doe` will display a list of all participants in the Hackathon who are named "John Doe",
+or have "John Doe" in their name.
+
+* `find team n/FutureHackathonWinner` will display a list of all teams in the Hackathon that are named "FutureHackathonWinner",
+or have "FutureHackathonWinner" in their name.
+
+Each entity will have different fields available to find.
+
+For participant, `n/NAME e/EMAIL p/PHONE` are all options to search for.
+
+For team, `n/TEAMNAME pn/PROJECTNAME` are also all options to search for.
+
+For mentor, `n/NAME, e/EMAIL, p/PHONE o/ORGANIZATION` are all available.
+
+Example for multiple fields:
+
+* `find participant n/Damith e/damith.com` finds all participants
+whose name contains the string "Damith" and whose email contains "damith.com"
+
+=== Advanced Finding of a Specific Entity by Union or Negative: `find [AND/OR] {mentor/team/participant} n/NAME ... [EXCLUDE] ...`
+
+The default `find` command for single and multiple fields works via a find by intersection. That is, entities
+must be true for all the predicates for it to be displayed. However, Alfred also supports finding by union.
+
+As above, all find commands are case insensitive.
+
+The commands for this is as such:
+
+* `find participant OR n/Damith e/nus` will do a search for all Participants whose name contains "Damith" or whose
+email contains "nus" in it.
+
+Also do note that for this command, the OR key must be placed before all the arguments to the command. Also,
+the OR key can be replaced by the AND key to do a search by intersection. If none are provided, then a search by
+intersection is done by default. The AND/OR keyword must be in caps.
+
+Next, Alfred also supports negative searches, if you wish to do it. Simply run
+
+* `find mentor n/Boss EXCLUDE e/boss.com` will return all mentors whose name has a "boss"
+and whose email does not contain "boss.com"
+
+Also, you can do negative searches by union as well.
+
+* `find mentor OR n/boss EXCLUDE e/boss.com` will now return all mentors whose
+name has a "boss" in it or whose email does not contain "boss.com"
+
+However, there are also some caveats when it comes to using `find`.
+
+1. The `AND/OR` keyword must be placed at the front before all parameters and the `EXCLUDE` keyword
+2. Anything after the `EXCLUDE` keyword will be processed using negative find.
+3. No `AND/OR` keywords are allowed after the `EXCLUDE` keyword.
+4. You can only search by `AND` or `OR`. You cannot do a search by both `AND` and `OR`
+
+****
+Some notes on the logic used in find.
+
+* The logic used in find obeys normal boolean, probabilistic logic.
+* Hence commands like `find participant n/Ki EXCLUDE n/Ki` will return an empty list.
+* Likewise, commands like `find participant OR n/Ki EXCLUDE n/Ki` will return the full list.
+****
+
+Other examples of valid commands are also provided here for your reference:
+
+1. `find team OR EXCLUDE n/ArsenalFC pn/Football` will do a search of all teams whose name does not
+contain "ArsenalFC" or whose project name does not contain "Football".
+2. `find participant AND n/Abramov EXCLUDE e/react` will do a search where participant names contain "Abramov"
+and whose email does not contain "react". In this case, the `AND` keyword could have been omitted because
+the default find does a search by intersection.
+
+//tag::assign[]
+=== Assigning a Entity to a Team: `assign {mentor/participant} ID TEAM_ID ...`
+
+Assigns Mentor or Participant Entity by their ID to a team identified by TEAM_ID. It is possible to assign a participant or mentor to multiple teams.
+
+****
+* Take note that the `assign` command can only be used to assign Participants and Mentors to a Team.
+* An error will be shown if the Team already has a Mentor.
+* An error will be shown if the Team already has said Participant.
+* An error will be shown if the Team has reach the maximum capacity of five members.
+****
+
+Examples:
+
+* `assign mentor M-18 T-2` will assign a Mentor with ID M-18 to Team with ID T-2. Running the command will show you the following output in the 'Team' section of the GUI:
+
+image::AssignCommandExample1.png[height="200", width="550"]
+
+* `assign participant P-100 T-2` will assign Participant with ID P-100 to Team with ID T-2. Running the command will show you the following output in the 'Team' section of the GUI:
+
+image::AssignCommandExample2.png[height="200", width="550"]
+//end::assign[]
+
+//tag::remove[]
+=== Removing an Entity from a Team: `remove {mentor/participant} ID TEAM_ID ...`
+
+Removes Mentor or Participant Entity by their ID from a team identified by TEAM_ID. +
+
+****
+* Take note that the `remove` command can only be used to remove Participant or Mentor from a Team.
+* An error will be shown if the Participant or Mentor is not in the specific Team.
+* Deleting a Participant or Mentor will also delete all their connections with all the teams it belongs to.
+****
+
+Examples:
+
+* `remove mentor M-18 T-8` will remove Mentor with ID M-18 to Team with ID T-8. Running the command will show you the text 'Mentor not assigned' in the respective team. The following will be shown in the 'Team' section of the GUI:
+
+image::RemoveCommandExample1.png[height="200", width="550"]
+
+* `remove participant P-100 T-2` will remove Participant with ID P-100 from Team with ID T-2.Running the command will show you the following output in the 'Team' section of the GUI
+
+image::RemoveCommandExample2.png[height="200", width="550"]
+//end::remove[]
+
+// tag::history1[]
+=== Show Command History: `history`
+Shows you up to the last 50 commands that you executed.
+
+[[history_diagram]]
+.History Section of UI
+image::UndoRedoExplanation.png[width="790"]
+
+// end::history1[]
+
+****
+* This command is to facilitate the undo/redo commands, as it becomes easier for you to track what changes were made before, and which
+commands can be undone/redone. This is especially useful when many commands have been executed and it is difficult to remember the sequence of
+execution of the commands.
+* Executing the command will bring you to the "History" section of Alfred, which displays all the previously-executed
+commands as panels. There are 3 main delimiters. Each delimiter is just a visual representation of the limits for the undo/redo commands.
+* You cannot redo any command beyond the "redo" delimiter.
+* You cannot undo any command beyond the "undo" delimiter.
+* The "current" delimiter tells you where you are at relative to the rest of the commands you have executed. It represents the
+current state of the data.
+* Note that only commands that change the state of the data in Alfred will be displayed in the "History" section and are undo/redo-able.
+For instance, `list participants` will not be undo/redo-able, as it simply shows you the participants in Alfred and does not change any information in Alfred.
+On the other hand, invoking `add participant` with the suitable parameters will be undo/redo-able and will be shown in the "History" section by the `history` command.
+* In total, only 50 states will be stored, so this serves as a limit for the number of commands you can undo/redo to.
+****
+
+// tag::history2[]
+
+[NOTE]
+The following commands are not undo/redo-able: `help`, `list`, `find`, `history`, `leaderboard`, `getTop`, `export`, `help`, `home`, `undo`, `redo`.
+All other commands are undo/redo-able.
+
+Example:
+
+After running the following commands: +
+
+1. `list participants` +
+
+2. `add participant n/SuperHero1 p/+6591111111 e/superhero1@gmail.com` +
+
+3. `add participant n/SuperHero2 p/+6592222222 e/superhero2@gmail.com` +
+
+4. `add participant n/SuperHero3 p/+6593333333 e/superhero3@gmail.com` +
+
+5. `edit participant P-4 n/The Flash` +
+
+Running `history` will show you the following output in the "History" section of the Graphical User Interface:
+
+.Output from History Command
+image::HistoryCommandExampleOutput.png[width="790"]
+
+//Add annotations to image when the UI is finalised.
+The topmost panel is the "redo" delimiter. The second panel from the top is the "current" delimiter. The bottommost panel shows you the "undo" delimiter.
+
+In this example, the output of the `history` command shows you can invoke the `undo` command four times.
+
+Notice that the `list participants` command is not shown in the "History" section as it does not change data.
+
+Also note that the undo-able commands are numbered, with the 1st undo-able command being the most recently executed command (the EditParticipantCommand),
+and the 4th undo-able command being the oldest executed command. In this case, the maximum number of commands you can undo at once is 4.
+
+Also note that in this case, no commands are redo-able, that's why there are no panels between the "redo" and "current" delimiters. Hence, executing `redo` command will result in an error.
+
+//end::history2[]
+
+=== Undo Previous Commands: `undo [NUM_COMMANDS_TO_UNDO]`
+Undoes previously executed commands.
+
+There are 2 ways for you to use this commands:
+
+1. `undo`: This implicitly executes `undo 1` and undoes 1 command only.
+2. `undo [NUM_COMMANDS_TO_UNDO]`: This undoes `NUM_COMMANDS_TO_UNDO` commands, subject to the number of available commands that you can
+undo, as per the output of the `history` command.
+
+****
+* This command undoes the effects of previously executed commands, and will return Alfred to the previous state
+(as though you had never executed the `NUM_COMMANDS_TO_UNDO` previous commands)
+* All commands that can be undone can be found in the output of the `history` command. Use this to see the total number of commands and which commands you can undo.
+* To be certain which command you are actually undo-ing, first run the `history` command and examine the output.
+* Only the commands that actually change the data in Alfred will be undo-able. Commands that perform read operations
+(such as `find` and `list`) will not be found in the output of the `history` command. See <<Show Command History: `history`>> for a full list of commands that are not undo-able.
+* Note that `NUM_COMMANDS_TO_UNDO` must be an integer, and must be a number between 1 and 49 (because only a maximum of 50 states are stored).
+If `NUM_COMMANDS_TO_UNDO` exceeds the number of commands that can be undone, Alfred will indicate
+that the undo command cannot be executed.
+****
+
+Format: `undo [NUM_COMMANDS_TO_UNDO]`
+
+=== Redo Previous Commands: `redo [NUM_COMMANDS_TO_REDO]`
+Redoes previously executed commands.
+
+There are 2 ways for you to use this commands:
+
+1. `redo`: This implicitly executes `redo 1` and redoes 1 command only.
+2. `redo [NUM_COMMANDS_TO_REDO]`: This redoes `NUM_COMMANDS_TO_REDO` commands, subject to the number of available commands that you can
+redo, as per the output of the `history` command.
+
+****
+* This command undoes the effects of previously executed commands, and will return Alfred to the previous state
+(as though you re-executed the `NUM_COMMANDS_TO_REDO` previous commands)
+* All commands that can be redone can be found in the output of the `history` command. Use this to see the total number of commands and which commands you can redo.
+* To be certain which command you are actually redo-ing, first run the `history` command and examine the output.
+* Only the commands that actually change the data in Alfred will be redo-able.
+Commands that perform read operations (such as `find` and `list`) will not be found in the output of the `history` command. See <<Show Command History: `history`>> for a full list of commands that are not redo-able.
+* Note that `NUM_COMMANDS_TO_REDO` must be an integer, and must be a number between 1 and 49 (because only a maximum of 50 states are stored).
+If `NUM_COMMANDS_TO_REDO` exceeds the number of commands that can be redone, Alfred will indicate
+that the redo command cannot be executed.
+****
+
+Format: `redo [NUM_COMMANDS_TO_REDO]`
+
+// tag::commandhistorynavigation[]
+
+=== Command History Navigation
+Navigate to previous commands by pressing the alt key kbd:[Alt], together with the up kbd:[&uparrow;] or down kbd:[&downarrow;] arrow keys.
+For Mac users, press the option key kbd:[Opt] in place of the alt key kbd:[Alt] instead. Should you have re-mapped/re-purposed the
+alt key kbd:[Alt], press the remapped key on your keyboard instead.
+
+****
+* Every time you execute a command *_successfully_*, the command is saved in Alfred, so you can navigate to a previous command without re-typing the whole thing.
+There is only 1 exception to this rule: the `import` command can be navigated to even if there are errors raised during execution.
+This is because the `import` command will do its best to import as many Entities into Alfred as possible, before finally notifying the user of any incorrect entries (so there is partial successin the command's execution).
+* Press kbd:[Alt] + up kbd:[&uparrow;] to navigate to the previous command.
+* Press kbd:[Alt] + down kbd:[&downarrow;] to navigate to the next command.
+* Unlike most of the other features in Alfred, this is not a command you type into Alfred's command input box. This is a keyboard shortcut that is mainly for your convenience as it allows you to quickly re-use previously executed commands.
+* Note that Alfred's command input box must be in focus (the cursor is active in the command input box) for the keyboard shortcuts for this feature to work
+* This feature only allows you to navigate up to the previous 50 successfully executed commands.
+****
+
+// end::commandhistorynavigation[]
+
+// tag::score[]
+
+=== Scoring: `score`
+
+The `score` command allows you to change a particular team's score. It allows you to:
+
+* Add points to a team's score
+* Subtract points from a team's score
+* Set a team's score to a certain number of points
+* Reset a team's score
+
+The usage of the above commands are explained in the following subsections.
+
+==== Add points: `score add TEAM_ID POINTS`
+
+Adds the value of POINTS to the current score of the team with ID TEAM_ID.
+
+****
+* Use this command when you want to award a particular team a certain amount of points.
+* If you try to award more than the maximum amount of points (which is set to 100 points as default), Alfred will not allow it and will display an error message.
+* If the addition of points makes the team's total exceed the maximum, the score will simply be set to the maximum score.
+****
+
+Format: `score add TEAM_ID POINTS`
+
+Example:
+
+* `score add T-1 20` will add 20 points to the score of the team with ID T-1.
+
+* `score add T-5 60` will add 60 points to the score of the team with ID T-5.
+
+==== Subtract points: `score sub TEAM_ID NEW_POINTS`
+
+Deducts the value of POINTS from the current score of the team with ID TEAM_ID.
+
+****
+* Use this command when you want to take away a certain amount of points from a particular team.
+* If you try to subtract more than the maximum amount of points (which is set to 100 as default), Alfred will not allow it and will display an error message. If the subtraction of points makes the team's total go below the minimum (which is set to 0 points), the score will simply be set to 0.
+****
+
+Format: `score sub TEAM_ID POINTS`
+
+Example:
+
+* `score sub T-1 15` will subtract 15 points from the score of the team with ID T-1.
+
+* `score sub T-5 10` will subtract 10 points from the score of the team with ID T-5.
+
+==== Set points: `score set TEAM_ID NEW_POINTS`
+Sets the score of the team with ID TEAM_ID to a new score NEW_POINTS, regardless of the team's current score.
+
+****
+* Use this command when you want to set a team's score to an exact score, rather than adding or subtracting points from their current score.
+* If you try to set more than the maximum amount of points (which is set to 100 as default), Alfred will not allow it and will display an error message.
+* If you try to set less than the minimum amount of points (which is set to 0 as default), Alfred will not allow it and will display an error message.
+****
+
+Format: `score set TEAM_ID POINTS`
+
+Example:
+
+* `score set T-1 15` will set the score of the team with ID T-1 as 15.
+
+* `score set T-5 10` will set the score of the team with ID T-5 as 10.
+
+// end::score[]
+
+==== Reset points: `score reset TEAM_ID`
+Resets the score of the team with ID TEAM_ID to the minimum amount of points allowed, which is set to 0 as default.
+
+****
+* Use this command when you want to set a team's score to directly to the minimum, rather than subtracting points from their current score until you get the desired result.
+****
+
+Format: `score reset TEAM_ID`
+
+Example:
+
+* `score reset T-1` will reset the score of the team with ID T-1.
+
+* `score reset T-5` will reset the score of the team with ID T-5.
+
+// tag::rankings[]
+
+=== Team Rankings: `leaderboard` and `getTop k`
+
+In addition to assigning scores to teams, Alfred also facilitates viewing the leaderboard and fetching the top teams in the hackathon with ease. The following subsections explain how to do so within Alfred.
+
+==== View Leaderboard: `leaderboard`
+Displays the ranking of all the teams in the hackathon in descending order of their points.
+
+****
+* Once you run this command, Alfred's UI will display a list of all the teams stored within Alfred sorted in descending order of their points.
+* By default Alfred sorts teams with equal points in the order they were added into Alfred, based on their ID.
+****
+
+Format: `leaderboard`
+
+Running `leaderboard` will show the following on the GUI:
+
+.GUI Display for Command "leaderboard"
+image::LeaderboardExample.png[width=600,height=420]
+
+==== Get the top k teams: `getTop K`
+Lists the top k teams in the leaderboard, where k is a valid positive integer which you specify.
+
+****
+* This command will show you a cropped version of the leaderboard.
+* Alfred's UI will display a list of top "k" teams based on their current score.
+* Do note that this command does not discriminate between teams of the same score - Teams with equal scores will be
+counted as one. Due to this, the command "getTop 1" (for example) may show more than 1 team if there are more than 1 teams with the
+same high score.
+* If you input `K` as a number more than the number of teams in the hackathon, Alfred will simply display all the teams in the Hackathon, in descending order of their points.
+****
+
+Format: `getTop K`
+
+Example:
+
+* `getTop 2` will display the top 2 teams with the highest points in the hackathon as shown below:
+
+.GUI Display for Command "getTop 2"
+image::TopTeamExample.png[width=600,height=420]
+
+* `getTop 4` will display the top 4 teams with the highest points in the hackathon as shown below:
+
+.GUI Display for Command "getTop 4"
+image::GetTop4.png[width=600,height=420]
+
+Note that due to the tie between the fourth and fifth teams, more than 4 teams are shown.
+
+==== Extensions to `leaderboard` and `getTop K` Command
+
+To provide additional functionalities to the `leaderboard` and `getTop k` commands, there are few extensions that can be added to these two commands to allow you to customize them to your needs. These extensions are explored below.
+
+===== Tie-Break
+
+By default Alfred `leaderboard` and `getTop k` commands fetch and display teams in descending order of their score, and by the order they were added into Alfred in case of tied scores.
+
+Alfred's tiebreak feature provides an extension to the `leaderboard` and `getTop k` commands allowing you to choose how you want to break the tie between the teams when calling these commands. To break a tie, follow the following format:
+
+* `leaderboard tb/METHOD_1 METHOD_2 METHOD_3` in the case of a `leaderboard` command
+* `getTop NUMBER tb/METHOD_1 METHOD_2 METHOD_3` in the case of a `getTop NUMBER` command
+
+where `METHOD_N` is one of the following currently available tie-break methods:
+
+* `moreParticipants`: teams with more participants are win the tie.
+* `lessParticipants`: teams with lesser participants are win the tie.
+* `higherId`: teams registered more recently (hence the highest ID) win the tie.
+* `lowerId`: teams registered earlier (hence the lowest ID) win the tie.
+* `random`: in case all methods used yield no distinct winner, `random` can be used as a method of last resort to break a tie in favour of a randomly chosen team.
+
+****
+* You may choose one or more methods from the above list to break the tie. You need to precede the tie-break methods with the prefix `tb/` and separate each method with a single space for Alfred to properly understand them.
+* Use the prefix "tb/" with discretion as Alfred will only select tiebreak methods followed by the last "tb/" prefix if more than one such prefix is specfied in the command.
+* Do note that the tie-break methods will be applied in the order in which you state them. That is, first METHOD_1 will be applied to break the ties, and only then will METHOD_2 be applied to break any remaining ties, if the command `leaderboard tb/METHOD_1 METHOD_2` is called.
+* The `getTop NUMBER` command may still display teams more than the value of `NUMBER` if Alfred was still unsuccessful in breaking certain ties despite applying the tie-break methods you stated.
+* When using the `random` method, it must be the last stated tie-break method if it is being used alongside other tie-break methods.
+****
+
+Example:
+
+* `leaderboard tb/moreParticipants lowerId` will display the leaderboard on the UI with Alfred breaking the tie between teams with equals scores based on which team has more participants, and if the number of participants is equal then by which team has the lower ID.
+
+.GUI Display for Command "leaderboard tb/moreParticipants lowerId"
+image::LeaderboardSimple.png[width=600,height=420]
+
+Note that in the above team "BroBro" comes above team "Bro" despite having the same number of points as "BroBro" has more participants. Secondly, "Amazon Warriors" comes first before "Teen Titans" despite having the same score and number of participants, since "Amazon Warriors" has a lower ID.
+
+* `getTop 3 tb/lessParticipants random` will display the top 3 teams on the UI with Alfred breaking the tie between teams with equals scores based on which team has fewer participants, and if the number of participants is equal then Alfred will randomly pick the winners for the tie.
+
+.GUI Display for Command "getTop 3 tb/lessParticipants random"
+image::RandomGetTop.png[width=600,height=420]
+
+Note that in the above "Amazon Warriors" comes first before "Teen Titans" despite having the same score and number of participants, due to the random tiebreak. Repeating the above command would change the outcome due to the random nature of the tiebreak.
+
+// end::rankings[]
+
+===== Filter by Subject
+
+By default, when running either the `leaderboard` or `getTop k` command, Alfred will show all the appropriate teams irrespective of their subject. However, Alfred's filter by subject feature provides the ability to view the leaderboard or top teams for a specific subject, by following the below format:
+
+* `leaderboard s/SUBJECT_NAME` in the case of a `leaderboard` command
+* `getTop k s/SUBJECT_NAME` in the case of a `getTop k` command
+
+****
+* You must precede the subject you want to filter by with the prefix `s/` for Alfred to understand your request. You can specify only one subject to filter the leaderboard or top teams by.
+* This extension can be used in addition to tiebreak methods in which case the tiebreak methods will be used to split ties between any teams with the same subject.
+****
+
+Example:
+
+* `leaderboard s/Health` will display the leaderboard consisting only of teams with the subject "Health" as shown below:
+
+.GUI Display for Command "leaderboard s/Health"
+image::HealthLeaderboard.png[width=600,height=420]
+
+* `getTop 3 tb/moreParticipants s/Health` will display the top 3 teams within the hackathon, all of which will consist of only of those with subject "Health". Additionally, any ties between these teams will be broken using the tiebreak method "moreParticipants" - the team with more participants wins the tie.
+
+.GUI Display for Command "getTop 3 tb/moreParticipants s/Health"
+image::HealthMoreP.png[width=600,height=420]
+
+Note that in the above team "BroBro" goes above team "Bro" as it has more participants, despite both teams having equal scores.
+
+=== Bulk Registration: `import fp/PATH_TO_CSV_FILE [fp/PATH_TO_ERROR_FILE]`
+
+// tag::ImportExportA[]
+You may import multiple entities at once into Alfred through the specification of a CSV file. +
+If the PATH_TO_ERROR_FILE is specified, Alfred will create a new CSV file with all of the lines that were not able to be loaded.
+
+Example:
+
+* `import fp/C:/User/Hackathon2019/participant.csv` will import data from the participant.csv file into Alfred.
+* `import fp/Hackathon2019/participant.csv` will look for the CSV file in your current directory (or the folder where alfred.jar is downloaded).
+
+TIP: First, locate the desired file in your respective file manager. +
+On Windows, hold down `shift`, click the file, then click `Copy as path` to copy its file path. +
+On Mac, right-click the file, hold down `OPTION` key, then click `Copy (item name) as Pathname` to copy its file path.
+
+// end::ImportExportA[]
+
+Example usage of error file is shown <<ErrorFileExample, below>>.
+
+==== CSV File Formatting
+
+In order for the contents of the CSV file to be correctly loaded into Alfred, the file has to be in the correct format, which will be discussed below. For most platforms, there will be a default editor for a CSV file. If the editor is anything other than text editor, please ensure that the default separator is set as one comma (,). There may be whitespaces surrounding a comma if it is easier for you to edit.
+
+****
+`EntityType` - single capital letter representing the entity type
+
+* *Mentor:* M
+* *Participant:* P
+* *Team:* T
+
+`[ID]` - the ID of the entity (optional)
+
+* *Mentor:* M-d, where d can be any positive integer
+* *Participant:* P-d, where d can be any positive integer
+* *Team:* T-d, where d can be any positive integer
+** You can also express `ID` as only a positive integer.
+
+
+For the rest of the parameters, please refer to <<ParameterConstraints>>.
+
+****
+
+===== Mentor Data
+Header: `EntityType,ID,Name,Phone,Email,Organization,SubjectName`
+
+Example:
+
+* M,M-1,Alfred the Mentor,12345678,alfred@batcave.com,Batcave Corp.,Education
+* M,1,Alfred the Mentor,+6512345678,alfred@batcave.com,Batcave Corp.,EDUCATION
+* M,,Alfred the Mentor,+65 12345678,alfred@batcave.com,Batcave Corp.,Education
+
+===== Participant Data
+Header: `EntityType,ID,Name,Phone,Email`
+
+Example:
+
+* P,P-1,Bruce Wayne,23456789,wbruce@wayne.ent
+* P,1,Bruce Wayne,+6523456789,wbruce@wayne.ent
+* P,,Bruce Wayne,+65 23456789,wbruce@wayne.ent
+
+===== Team Data
+Header: `EntityType,ID,Name,Participants,Mentor,SubjectName,Score,ProjectName,Location`
+
+****
+`[Participants]` - A list of participant IDs in the team. +
+This field is optional, but if it is included, participants with given ID must exist in Alfred.
+
+`[Mentor]` - An ID of the mentor associated with the team. +
+This field is also optional, but if it is included, mentor with given ID must exist in Alfred.
+
+If you are importing multiple entity data at once, don't worry! Alfred will make sure Participant and Mentor data are loaded before Team data to ensure that all of them are present in Alfred before checking whether they exist or not.
+
+See example usage down below.
+****
+
+Example:
+
+* T,T-1,Justice League,,,Social,100,Save the Earth,1
+* T,1,Justice League,[P-1|P-2|P-3],M-1,Social,100,Save the Earth,1
+* T,,Justice League,[P-1|P-2|P-3],1,Social,100,Save the Earth,1
+
+'''
+
+
+Alfred will recognize each of the entity headers and will not count it as an error. Example CSV file may look like this:
+
+----
+
+    Alfred.csv
+
+    EntityType,ID,Name,Participants,Mentor,SubjectName,Score,ProjectName,Location
+    T,,Justice League,[P-1|P-2],M-1,Social,100,Save the Earth,1
+    T,,Amazon Warriors,[P-3|P-4],,Environmental,100,Save the Amazon,2
+    EntityType,ID,Name,Phone,Email,Organization,SubjectName
+    M,1,Alfred the Mentor,+6512345678,alfred@batcave.com,Batcave Corp.,EDUCATION
+    M,,Joker,,is this my email??
+    EntityType,ID,Name,Phone,Email
+    P,1,Bruce Wayne,+65 23456789,wbruce@wayne.ent
+    P,2,Superman,+6519231486,ckent@dailyplanet.org
+    P,3,Diana,+6547234328,diana@amazon.com
+    P,3,Lois Lane,+6598765432,loislane@dailyplanet.org
+
+----
+
+You can also download a sample CSV file https://drive.google.com/uc?export=download&id=1zvGJMoJgVO9PSTx7xY0qMtng1eUw7xLh[here] to try it out for yourself. +
+
+Assuming Alfred has no data, we can see that lines 3, 6, and 11 will fail.
+
+* Line 3: No participant with ID P-4 exist (Missing entity)
+* Line 6: Phone number is missing and email is invalid (Invalid format)
+* Line 11: Another participant with ID P-3 exists (Duplicate entity)
+
+[[ErrorFileExample]]
+If you give the following command to Alfred,
+
+    import fp/Alfred.csv fp/Alfred_Errors.csv
+
+then the following CSV file will be created where Alfred.csv is located at.
+
+----
+
+    Alfred_Errors.csv
+
+    T,,Amazon Warriors,[P-3|P-4],,Environmental,100,Save the Amazon,2
+    M,,Joker,,is this my email??
+    P,3,Lois Lane,+6598765432,loislane@dailyplanet.org
+
+----
+
+
+'''
+
+=== Export Data: `export [{mentor/participant/team}] [fp/DESIRED_CSV_FILE_PATH]`
+// tag::ImportExportB[]
+You may export Alfred data to an external CSV file. If the entity type is specified, Alfred will export all the data corresponding to that entity type only. If the desired CSV file path is left empty, Alfred will create a CSV file at the default location (`./AlfredData/Alfred_Data.csv`).
+
+Example:
+
+* `export` will export all entities' data in Alfred to the default file path: `/AlfredData/Alfred_Data.csv`.
+* `export mentor fp/data/Alfred.csv` will export all mentor data in Alfred to `/data/Alfred.csv`. If the any folders do not happen to exist, Alfred will create them for you.
+// end::ImportExportB[]
+
+=== Help command
+
+The help command will list all the commands you need to use this
+application properly!
+
+Simply run `help`.
+
+If you want the help window to close, simply run another command that is not `help` and the window
+will close by itself.
+
+//tag::home[]
+=== Home command: `home`
+This command allows you to navigate to the homepage where the system statistics are updated in real time. The homepage statistics are also available when you start-up the application.
+
+Example:
+Suppose you want to check the distribution of teams by subjects, in order to gauge the demand for mentors for each subject.
+
+Instead of manually sieving through all the teams by the subject that their project is on, you can easily view the distribution of teams and mentors by subject via the home command.
+
+To navigate to home:
+
+1.	Type home into the command box, and press ```Enter``` to execute it.
+
+2.	The result box will display the message “Showing homepage” in the result box. You can see the statistics and the ‘Home’ section of sidebar being highlighted.
+    Below is the layout of  the homepage:
+
+.Output of `home` command
+image::HomeCommandExample.png[height="200", width="600"]
+
+//end::home[]
+
+//tag::suggestions[]
+=== Command Suggestion Prompt
+As you type, there will be a popup box predicting the type of commands you are going to type. You can navigate through these suggestions and choose the template that suits you.
+
+****
+* Take note that the command suggestion for a command will not show if the command is fully entered by the user, excluding parameters.
+****
+
+
+
+Example:
+
+Let us suppose that you want to type the command `add mentor` and you forgot the fields that are required in the command.
+
+
+
+Instead of going through the user guide to look for the command, a popup box will appear as you type. The content in this box will change as you type, such that the commands suggested will start with the words or letters that you have already entered.
+
+As you type: +
+
+1.	Type ‘add’ into the command box, and `add participant`, `add mentor` and `add team`  commands will be suggested to you. The grey text are meant as guides and blue text are meant as usage instructions . These text will not appear when you choose the command of choice.
+
+.Step 1 of command suggestion box
+image::CommandSuggestionStep1.png[width="600", height="10"]
+
+2.	Press the kbd:[up arrow] or kbd:[down arrow] arrow keys to navigate up and down the popup box.
+
+.Step 2 of command suggestion box
+image::CommandSuggestionStep2.png[width="600", height="10"]
+
+3.	Press kbd:[Enter] to choose the command of your choice. The command will then appear on the user input box.
+
+.Step 3 of command suggestion box
+image::CommandSuggestionStep3.png[width="600", height="10"]
+
+4.	Press kbd:[left arrow] or kbd:[right arrow] keys to navigate the cursor and fill in the respective fields. Press kbd:[Enter] to execute the command.
+
+.Step 4 of command suggestion box
+image::CommandSuggestionStep4.png[width="600", height="10"]
+
+//end::suggestions[]
+
+=== Seating: `locate {PARTICIPANT/TEAM}` (Coming in v2.0)
+Find where a particular participant or team is seated.
+
+Examples:
+
+* `locate n/Brian` will tell you where the participant Brian is seated.
+
+* `locate n/GenericTeamName` will tell you where the team GenericTeamName is seated.
+
+
+=== Swag (Coming in v2.0)
+==== Add Swag: `add swag DESCRIPTION QUANTITY`
+Add swag to inventory
+Examples: `add swag Android Plushie 5`
+
+==== Track inventory of available swags: `list swag`
+List the currently available swag
+
+=== Schedule (Coming in v2.0)
+==== Add schedule: `addSchedule TIME TEAM_ID MENTOR_ID`
+Add a schedule for a team
+
+==== Update schedule: `updateSchedule SCHEDULE_ID TIME TEAM_ID MENTOR_ID`
+Update a schedule for a team
+
+==== Delete schedule: `deleteSchedule SCHEDULE_ID`
+Delete a Schedule for a Team
+
+=== Food (Coming in v2.0)
+==== Add Food Company and Inventory: `addFoodCompany COMPANY_NAME INVENTORY QUANTITY`
+Add a Food Company and it associated food item inventory
+
+==== Mark Food as Received: `receiveFood COMPANY_NAME INVENTORY QUANTITY`
+Mark the inventory as received
+
+==== List Food Inventory: `list food`
+List the food inventory and its current status (e.g. delivering, received)
+
+=== Waitlist (Coming in v2.0)
+==== Add to waitlist: `addToWaitList PARTICIPANT_ID`
+Add a participant to a waitlist when the number of participants exceeds a stipulated capacity.
+
+==== Remove from waitlist: `removeFromWaitList PARTICIPANT_ID`
+Remove a participant from the waitlist.
+
+==== List by Registration Time: `listWaitList`
+Go through the waitlist and list the participants in the waitlist in ascending orger of registration time.
+****
+* This helps fulfill a first-come-first-serve policy.
+****
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: How do I transfer my data to another computer? +
+*A*: First, download `alfred.jar` in your other computer. Then, transfer the `data` folder at where `alfred.jar` is downloaded in your old computer over to your new computer. In your new computer, transfer the `data` folder over to where `alfred.jar` is downloaded.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+
+[width="100%",cols="2%,<50%,<50%,<90%",options="header",]
+|=======================================================================
+|Command |Function |Format|Example
+|Add an Entity|Add an Entity for Alfred to keep track |`add {mentor/participant/team} PARAMETERS`| *Participant:* `add participant n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS` +
+*Team:* `add team n/NAME s/SUBJECT pn/PROJECT_NAME l/TABLE_NUMBER` +
+*Mentor:* `add mentor n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS o/ORGANIZATION s/SUBJECT`
+
+|Update an Entity|Edits an entity based on the supplied parameter values |`edit {mentor/participant/team} ID [PARAMETERS]` | *Participant:* `edit participant P-1 n/NewParticipantName` +
+*Team:* `edit team T-1 n/NewTeamName pn/New Project Name` +
+*Mentor:* `edit participant P-1 n/NewMentorName`
+
+|List all Entities |Shows a list of all the entities corresponding to the entity type |`list {mentors/teams/participants}`| *Participant:* `list participants` +
+*Team:* `list teams` +
+*Mentor:* `list mentors`
+
+|Deleting an Entity |Deletes an Entity, so that Alfred will no longer keep track of that Entity | `delete {participant/mentor/team} ID` | *Participant:* `delete participant P-1` +
+*Team:* `delete team T-1` +
+*Mentor:* `delete mentor M-1`
+
+|Finding an Entity |Searches for Entities by their name|`find {mentor/team/participant} NAME` | *Participant:* `find participant n/John Doe` +
+*Team:* `find team n/FutureHackathonWinner` +
+*Mentor:* `find mentor n/Joshua Wong`
+
+|List Undo/Redo-able Commands |Displays the Undo/Redo-able Commands in the "History" section of the GUI |`history` | `history`
+
+|Undo Previous Command | Undoes the previously executed command. Look at output of `history` to see which command can be re-done. | `undo` | `undo`
+
+|Redo Next Command | Redoes the next command. Look at output of `history` to see which command can be re-done. | `redo` | `redo`
+
+|List Team Rankings|Displays the ranking of the teams in the Hackathon in descending order of their points |`leaderboard`| *Team:* `leaderboard`
+
+|List Team Rankings with Tie Break | Displays the ranking of the teams in the Hackathon in descending order of their points with specified tiebreak methods used to break ties |`leaderboard tb/METHOD_1 METHOD_2...`| *Team:* `leaderboard tb/moreParticipants random`
+
+|Get the top k teams |List the top k teams in the leaderboard, where k is a number (NUMBER) which you specify |`getTop NUMBER` | *Team:* `getTop 5`
+
+|Get the top k teams with Tie Break |List the top k teams in the leaderboard with specified tiebreak methods used to break ties, where k is a number (NUMBER) which you specify |`getTop NUMBER tb/METHOD_1 METHOD_2...` | *Team:* `getTop 5 tb/moreParticipants random`
+
+|Add points to a Team |Adds the value of POINTS to the current score of the team with TEAM_ID|`score add TEAM_ID POINTS` | *Team:* `score add T-1 20`
+
+|Subtracts points from a Team |Deducts the value of POINTS from the current score of the team with TEAM_ID |`score sub TEAM_ID NEW_POINTS`| *Team:* `score sub T-1 15`
+
+|Sets points of a Team |Sets the score of the team with TEAM_ID to a new score NEW_POINT |`score sub TEAM_ID NEW_POINTS` | *Team:* `score set T-1 15`
+
+|Bulk Registration|Adds multiple participants at once into Alfred through the specification of a .csv file | `import fp/CSV_FILE_PATH fp/[ERROR_FILE_PATH]`| `import fp/C:\User\Hackathon2019\participants.csv` will import data from `participants.csv` into Alfred
+
+|Export Data|Exports all data in Alfred to an external CSV file|`export [{mentor/participant/team}] fp/[CSV_FILE_PATH]`|*All:* `export fp/data/alfred.csv` +
+*Participant:* `export participant` +
+*Team:* `export team` +
+*Mentor:* `export mentor`
+
+|Add a schedule for a Team (Coming in v2.0)|Adds a time slot where the Team of TEAM_ID meets with Mentor of MENTOR_ID |`addSchedule TIME TEAM_ID MENTOR_ID` | `addSchedule 1/2/2019 1400 T-1 M-1` the specified Mentor will meet with Team on 1st February 2019 2pm
+
+|Update schedule of a Team (Coming in v2.0)|Updates the existing schedule of SCHEDULE_ID of a Team of  TEAM_ID. New schedule will be added if the Team does not have an existing schedule of SCHEDULE_ID | `updateSchedule SCHEDULE_ID TIME TEAM_ID MENTOR_ID` | `updateSchedule S01 1/2/2019 1400 T-1 M-1` Schedule S01 of T-1 will be updated to meet with Mentor M-1 at 1st February 2pm
+
+|Delete a schedule for a Team (Coming in v2.0)|Deletes a time slot where the of SCHEDULE_ID |`deleteSchedule SCHEDULE_ID` | `deleteSchedule S-1`
+
+|Add addFoodCompany and Inventory (Coming in v2.0)|Adds a Food with COMPANY_NAME, INVENTORY_QUANTITY and CATERING_TIME|`addFoodCompany cn/COMPANY_NAME pax/INVENTORY QUANTITY t/CATERING_TIME`| `addFood cn/Neo's Garden pax/100 t/1/2/2019 1400`
+
+|Marked Food as received (Coming in v2.0)|Marks a Food with COMPANY_NAME and CATERING_TIME as received| `receivedFood cn/COMPANY_NAME pax/INVENTORY_QUANTITY` | `receiveFood cn/Neo's Garden pax/100`
+
+|List all Food (Coming in v2.0)|Lists the inventory of Food |`list food`| `list food`
+
+|Add User to WaitList (Coming in v2.0)|Adds a prospective Participant by USER_ID to Waitlist | `addToWaitList USER_ID` | `addToWaitList U-1`
+
+|Remove a User from WaitList (Coming in v2.0)|Removes a prospective Participant by USER_ID from Waitlist | `removeFromWaitList USER_ID` | `removeFromWaitList U-1`
+
+|List all User in WaitList (Coming in v2.0)|Lists all prospective Participant in Waitlist | `listWaitList` | `listWaitList`
+
+

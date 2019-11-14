@@ -1,0 +1,21 @@
+{
+  "participants" : [ {
+    "name" : "p123#$ on%^&eINVALID NAME",
+    "phone" : "+65 91231233",
+    "email" : "p1@gmail.com",
+    "prefixTypeStr" : "P",
+    "idNum" : "123"
+  }, {
+    "name" : "p two",
+    "phone" : "+65 92222222",
+    "email" : "p2@gmail.com",
+    "prefixTypeStr" : "P",
+    "idNum" : 2
+  }, {
+    "name" : "p three",
+    "phone" : "+65 93333333",
+    "email" : "p3@gmail.com",
+    "prefixTypeStr" : "P",
+    "idNum" : 3
+  } ]
+}

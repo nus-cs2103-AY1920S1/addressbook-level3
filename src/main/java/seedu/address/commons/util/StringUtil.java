@@ -1,6 +1,7 @@
 package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
@@ -57,7 +58,6 @@ public class StringUtil {
      */
     public static boolean isNonZeroUnsignedInteger(String s) {
         requireNonNull(s);
-
         try {
             int value = Integer.parseInt(s);
             return value > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
@@ -65,4 +65,24 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Capitalizes given string and returns it.
+     * The first letter is capitalized while the rest are lower-cased. <br>
+     * e.g.
+     * <ul>
+     *     <li>capitalize("") -> ""
+     *     <li>capitalize("alfred") -> "Alfred"
+     *     <li>capitalize("aLFRed") -> "Alfred"
+     * </ul>
+     * @param s String to be capitalized.
+     * @return Capitalized string.
+     */
+    public static String capitalize(String s) {
+        if (s.isEmpty()) {
+            return s;
+        }
+        return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
+    }
+
 }

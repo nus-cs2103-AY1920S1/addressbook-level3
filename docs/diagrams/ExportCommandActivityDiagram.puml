@@ -1,0 +1,33 @@
+@startuml
+
+skinparam defaultTextAlignment center
+
+start
+
+:Parser parses argument\ninto an ExportCommand;
+:ExportCommand is executed;
+
+if () then ([file path is given])
+    if () then ([file path is valid])
+        :Create file at\ngiven file path;
+    else ([else])
+        :Create file at\ndefault file path;
+    endif
+else ([file path is not given])
+    :Create file at\ndefault file path;
+endif
+
+:ExportCommand passes created\nfile and Model to CsvUtil;
+
+:CsvUtil gets each\nReadOnlyEntityList from Model;
+
+while () is (Entities are left)
+    :Get next Entity;
+    :Convert into corresponding
+     CSV String;
+    :Write into file;
+endwhile (All Entities written)
+
+stop
+
+@enduml

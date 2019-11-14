@@ -1,0 +1,19 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+
+Package ModelManager {
+    class ModelManager
+    class FilteredList
+    class EntityList
+    class UserPrefs
+
+    ModelManager -down-> "3" FilteredList
+    ModelManager -down-> "1" UserPrefs
+    ModelManager -down-> "3" EntityList
+}
+
+@enduml

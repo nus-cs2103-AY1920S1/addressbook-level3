@@ -1,60 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.stage.*?>
 
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
-  <icons>
-    <Image url="@/images/address_book_32.png" />
-  </icons>
-  <scene>
-    <Scene>
-      <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-      </stylesheets>
+<fx:root minHeight="700" minWidth="700" onCloseRequest="#handleExit" title="Alfred - The Hackathon Butler" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/alfred_icon.png" />
+    </icons>
+    <scene>
+        <Scene fill="#292734">
+            <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1200.0" prefWidth="1200.0" style="-fx-background-color: transparent;" stylesheets="@MenuBar.css">
+                <children>
+                    <BorderPane prefHeight="700.0" prefWidth="700.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <left>
+                            <AnchorPane id="sideBar" prefHeight="555.0" prefWidth="160.0" style="-fx-background-color: #3B394A; -fx-background-radius: 0 0 10 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="CENTER">
+                                <children>
+                                    <AnchorPane id="iconBar" layoutY="-2.0" prefHeight="700.0" prefWidth="35.0" style="-fx-background-color: #3B394A;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    </AnchorPane>
+                                    <JFXButton id="homeButton" fx:id="homeButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="3.0" layoutY="8.0" onAction="#displayStatistics" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #3B394A;" text="Home" textFill="WHITE">
+                                        <graphic>
+                                            <FontAwesomeIconView fill="WHITE" glyphName="HOME" size="17" style="-fx-font-size: 22px; -fx-font-family: FontAwesome;" text="" />
+                                        </graphic>
+                                        <font>
+                                            <Font name="Arial" size="16.0" />
+                                        </font>
+                                    </JFXButton>
+                                    <JFXButton id="participantsButton" fx:id="participantsButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="3.0" layoutY="68.0" onAction="#displayParticipantList" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #3B394A;" text="Participants" textFill="WHITE">
+                                        <graphic>
+                                            <FontAwesomeIconView fill="WHITE" glyphName="USER" size="17" style="-fx-font-family: FontAwesome; -fx-font-size: 22px;" />
+                                        </graphic>
+                                        <font>
+                                            <Font name="Arial" size="16.0" />
+                                        </font>
+                                    </JFXButton>
+                                    <JFXButton id="teamsButton" fx:id="teamsButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="3.0" layoutY="128.0" onAction="#displayTeamList" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: transparent;" text="Teams" textFill="WHITE">
+                                        <graphic>
+                                            <FontAwesomeIconView fill="WHITE" glyphName="USERS" size="17" style="-fx-font-family: FontAwesome; -fx-font-size: 22px;" textAlignment="JUSTIFY" />
+                                        </graphic>
+                                        <font>
+                                            <Font name="Arial" size="16.0" />
+                                        </font>
+                                    </JFXButton>
+                                    <JFXButton id="mentorsButton" fx:id="mentorsButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="3.0" layoutY="188.0" onAction="#displayMentorList" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: transparent; -fx-focus-traversable: true;" text="Mentors" textFill="#fffefe">
+                                        <graphic>
+                                            <FontAwesomeIconView fill="#fffdfd" glyphName="USER_SECRET" size="17" style="-fx-font-family: FontAwesome; -fx-font-size: 22px;" />
+                                        </graphic>
+                                        <font>
+                                            <Font name="Arial" size="16.0" />
+                                        </font>
+                                    </JFXButton>
+                                    <JFXButton id="leaderboardButton" fx:id="leaderboardButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="3.0" layoutY="248.0" onAction="#displayLeaderboard" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: transparent;" text="Leaderboard" textFill="#fffbfb">
 
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
+                                        <graphic>
+                                            <FontAwesomeIconView fill="WHITE" glyphName="TROPHY" size="17" style="-fx-font-family: FontAwesome; -fx-font-size: 22px;" text="" />
+                                        </graphic>
+                                        <font>
+                                            <Font name="Arial" size="16.0" />
+                                        </font>
+                                    </JFXButton>
+                                    <JFXButton id="historyButton" fx:id="historyButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="3.0" layoutY="308.0" onAction="#displayHistory" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: transparent;" text="History" textFill="WHITE">
+                                        <graphic>
+                                            <FontAwesomeIconView fill="WHITE" glyphName="CLONE" size="17" style="-fx-font-family: FontAwesome; -fx-font-size: 22px;" />
+                                        </graphic>
+                                        <font>
+                                            <Font name="Arial" size="16.0" />
+                                        </font>
+                                    </JFXButton>
+                                </children>
+                                <opaqueInsets>
+                                    <Insets />
+                                </opaqueInsets>
+                            </AnchorPane>
+                        </left>
+                        <center>
+                            <AnchorPane prefHeight="555.0" prefWidth="520.0" style="-fx-background-color: #292734;" BorderPane.alignment="CENTER">
+                                <StackPane fx:id="listPanelPlaceholder" style="-fx-background-color: #292734;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS" />
+                            </AnchorPane>
+                        </center>
+                        <bottom>
+                            <VBox prefHeight="120.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+                                <children>
+                                    <StackPane fx:id="commandBoxPlaceholder" prefHeight="50.0" style="-fx-background-color: #292734;" styleClass="pane-with-border" stylesheets="@AutoCompleTextField.css" VBox.vgrow="NEVER">
+                                        <padding>
+                                            <Insets bottom="5" left="10" right="10" top="5" />
+                                        </padding>
+                                    </StackPane>
+                                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" style="-fx-background-color: #292734;" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                                        <padding>
+                                            <Insets bottom="5" left="10" right="10" top="5" />
+                                        </padding>
+                                    </StackPane>
+                                    <StackPane fx:id="statusbarPlaceholder" style="-fx-background-color: #000000;" VBox.vgrow="NEVER" />
+                                </children>
+                            </VBox>
+                        </bottom>
+                        <top>
+                            <MenuBar fx:id="menuBar" minHeight="25.0" style="-fx-background-color: #3B394A;" stylesheets="@MenuBar.css">
+                                <Menu mnemonicParsing="false" style="-fx-font-size: 16px; " text="Exit">
+                                    <MenuItem mnemonicParsing="false" onAction="#handleExit" style="-fx-text-fill: #ffffff;" text="Exit" />
+                                </Menu>
+                                <Menu mnemonicParsing="false" style="-fx-font-size: 16px;" text="Help">
+                                    <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" style="-fx-text-fill: #ffffff;" text="Help" />
+                                </Menu>
+                                <opaqueInsets>
+                                    <Insets />
+                                </opaqueInsets>
+                            </MenuBar>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-      </VBox>
-    </Scene>
-  </scene>
+                        </top>
+                    </BorderPane>
+                </children>
+            </AnchorPane>
+        </Scene>
+    </scene>
 </fx:root>

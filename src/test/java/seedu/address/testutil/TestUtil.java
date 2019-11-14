@@ -5,10 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.model.Model;
-import seedu.address.model.person.Person;
-
 /**
  * A utility class for test cases.
  */
@@ -18,6 +14,7 @@ public class TestUtil {
      * Folder used for temp files created during testing. Ignored by Git.
      */
     private static final Path SANDBOX_FOLDER = Paths.get("src", "test", "data", "sandbox");
+    private static final Path CSV_UTIL_TEST_FOLDER = Paths.get("src", "test", "data", "CsvUtilTest");
 
     /**
      * Appends {@code fileName} to the sandbox folder path and returns the resulting path.
@@ -33,23 +30,15 @@ public class TestUtil {
     }
 
     /**
-     * Returns the middle index of the person in the {@code model}'s person list.
+     * Appends {@code fileName} to the CsvUtilTest folder path and returns the resulting path.
+     * Creates the CsvUtilTest folder if it doesn't exist.
      */
-    public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
-    }
-
-    /**
-     * Returns the last index of the person in the {@code model}'s person list.
-     */
-    public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size());
-    }
-
-    /**
-     * Returns the person in the {@code model}'s person list at {@code index}.
-     */
-    public static Person getPerson(Model model, Index index) {
-        return model.getFilteredPersonList().get(index.getZeroBased());
+    public static Path getFilePathInCsvUtilTestFolder(String fileName) {
+        try {
+            Files.createDirectories(CSV_UTIL_TEST_FOLDER);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return CSV_UTIL_TEST_FOLDER.resolve(fileName);
     }
 }

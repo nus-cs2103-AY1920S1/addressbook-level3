@@ -1,0 +1,85 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AlfredParser" as AlfredParser LOGIC_COLOR
+participant ":DeleteCommandAllocator" as DeleteCommandAllocator LOGIC_COLOR
+participant ":DeleteParticipantCommandParser" as DeleteParticipantCommandParser LOGIC_COLOR
+participant "d:DeleteParticipantCommand" as DeleteParticipantCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("delete participant P-1")
+activate LogicManager
+
+LogicManager -> AlfredParser : parseCommand("delete participant P-1")
+activate AlfredParser
+
+create DeleteCommandAllocator
+AlfredParser -> DeleteCommandAllocator
+activate DeleteCommandAllocator
+
+DeleteCommandAllocator --> AlfredParser
+deactivate DeleteCommandAllocator
+
+AlfredParser -> DeleteCommandAllocator : allocate("participant P-1")
+activate DeleteCommandAllocator
+
+create DeleteParticipantCommandParser
+DeleteCommandAllocator -> DeleteParticipantCommandParser
+activate DeleteParticipantCommandParser
+
+DeleteParticipantCommandParser --> DeleteCommandAllocator
+deactivate DeleteParticipantCommandParser
+
+DeleteCommandAllocator -> DeleteParticipantCommandParser : parse("P-1")
+activate DeleteParticipantCommandParser
+
+create DeleteParticipantCommand
+DeleteParticipantCommandParser -> DeleteParticipantCommand
+activate DeleteParticipantCommand
+
+DeleteParticipantCommand --> DeleteParticipantCommandParser : d
+deactivate DeleteParticipantCommand
+
+DeleteParticipantCommandParser --> DeleteCommandAllocator : d
+deactivate DeleteParticipantCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteParticipantCommandParser -[hidden]-> DeleteCommandAllocator
+destroy DeleteParticipantCommandParser
+
+DeleteCommandAllocator --> AlfredParser : d
+deactivate DeleteCommandAllocator
+DeleteCommandAllocator -[hidden]-> DeleteParticipantCommandParser
+destroy DeleteCommandAllocator
+
+AlfredParser --> LogicManager : d
+deactivate AlfredParser
+
+LogicManager -> DeleteParticipantCommand : execute()
+activate DeleteParticipantCommand
+
+DeleteParticipantCommand -> Model : deleteParticipant(P-1)
+activate Model
+
+Model --> DeleteParticipantCommand
+deactivate Model
+
+create CommandResult
+DeleteParticipantCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteParticipantCommand
+deactivate CommandResult
+
+DeleteParticipantCommand --> LogicManager : result
+deactivate DeleteParticipantCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.entity.CommandType;
+
 /**
  * Represents the result of a command execution.
  */
@@ -11,11 +13,20 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    /** Help information should be shown to the user. */
+    /**
+     * Help information should be shown to the user.
+     */
     private final boolean showHelp;
 
-    /** The application should exit. */
+    /**
+     * The application should exit.
+     */
     private final boolean exit;
+
+    /**
+     * Prefix to indicate the CommandType of Entity the command directly affects.
+     */
+    private final CommandType commandType;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -24,6 +35,17 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.commandType = null;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, CommandType commandType) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.commandType = commandType;
     }
 
     /**
@@ -32,6 +54,14 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and {@code PrefixType},
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, CommandType commandType) {
+        this(feedbackToUser, false, false, commandType);
     }
 
     public String getFeedbackToUser() {
@@ -44,6 +74,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public CommandType getCommandType() {
+        return this.commandType;
     }
 
     @Override

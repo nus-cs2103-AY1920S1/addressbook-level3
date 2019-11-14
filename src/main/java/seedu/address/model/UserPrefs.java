@@ -15,6 +15,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path teamListFilePath = Paths.get("data" , "teamlist.json");
+    private Path participantListFilePath = Paths.get("data" , "participantlist.json");
+    private Path issueListFilePath = Paths.get("data" , "issuelist.json");
+    private Path mentorListFilePath = Paths.get("data" , "mentorlist.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -47,10 +51,48 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
+    //TODO: Remove this method after integration
     public Path getAddressBookFilePath() {
         return addressBookFilePath;
     }
 
+    public Path getTeamListFilePath() {
+        return teamListFilePath;
+    }
+
+    public Path getParticipantListFilePath() {
+        return participantListFilePath;
+    }
+
+    public Path getMentorListFilePath() {
+        return mentorListFilePath;
+    }
+
+    public Path getIssueListFilePath() {
+        return issueListFilePath;
+    }
+
+    public void setTeamListFilePath(Path teamListFilePath) {
+        requireNonNull(teamListFilePath);
+        this.teamListFilePath = teamListFilePath;
+    }
+
+    public void setParticipantListFilePath(Path participantListFilePath) {
+        requireNonNull(participantListFilePath);
+        this.participantListFilePath = participantListFilePath;
+    }
+
+    public void setMentorListFilePath(Path mentorListFilePath) {
+        requireNonNull(mentorListFilePath);
+        this.mentorListFilePath = mentorListFilePath;
+    }
+
+    public void setIssueListFilePath(Path issueListFilePath) {
+        requireNonNull(issueListFilePath);
+        this.issueListFilePath = issueListFilePath;
+    }
+
+    //TODO: Remove this method after integration
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;

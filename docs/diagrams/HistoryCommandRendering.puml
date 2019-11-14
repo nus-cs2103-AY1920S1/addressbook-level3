@@ -1,0 +1,140 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":Logic" as Logic LOGIC_COLOR
+participant ":AlfredParser" as AlfredParser LOGIC_COLOR
+participant ":HistoryCommandParser" as HistoryCommandParser LOGIC_COLOR
+participant "h:HistoryCommand" as HistoryCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":ModelHistory" as ModelHistory MODEL_COLOR
+end box
+
+[-> MainWindow : executeCommand("history")
+activate MainWindow
+
+MainWindow -> Logic : execute("history")
+activate Logic
+
+Logic -> AlfredParser : parseCommand("history")
+activate AlfredParser
+
+create HistoryCommandParser
+AlfredParser -> HistoryCommandParser
+activate HistoryCommandParser
+
+HistoryCommandParser --> AlfredParser
+deactivate HistoryCommandParser
+
+AlfredParser -> HistoryCommandParser : parse("")
+activate HistoryCommandParser
+
+create HistoryCommand
+HistoryCommandParser -> HistoryCommand
+activate HistoryCommand
+
+HistoryCommand --> HistoryCommandParser
+deactivate HistoryCommand
+
+HistoryCommandParser --> AlfredParser : h
+deactivate HistoryCommandParser
+HistoryCommandParser -[hidden]-> AlfredParser
+destroy HistoryCommandParser
+
+
+AlfredParser --> HistoryCommand : setCommandInputString("history")
+activate HistoryCommand
+
+HistoryCommand --> AlfredParser
+deactivate HistoryCommand
+
+AlfredParser --> Logic : h
+deactivate AlfredParser
+
+Logic -> HistoryCommand : execute(model)
+activate HistoryCommand
+
+HistoryCommand -> Model : updateHistory(this)
+activate Model
+
+Model --> HistoryCommand
+deactivate Model
+
+HistoryCommand -> Model : recordCommandExecution("history")
+activate Model
+
+Model --> HistoryCommand
+deactivate Model
+
+create CommandResult
+HistoryCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> HistoryCommand
+deactivate CommandResult
+
+HistoryCommand --> Logic : r
+deactivate HistoryCommand
+
+Logic --> MainWindow : r
+deactivate Logic
+
+MainWindow -> MainWindow : fireButton(historyButton)
+activate MainWindow
+
+MainWindow -->  MainWindow
+deactivate MainWindow
+
+MainWindow -> MainWindow : displayHistory()
+activate MainWindow
+
+MainWindow -> Logic : getCommandHistory()
+activate Logic
+
+Logic -> Model : getCommandHistory
+activate Model
+
+Model -> ModelHistory : getCommandHistory()
+activate ModelHistory
+
+note right of ModelHistory
+An ArrayList of CommandRecords, is generated.
+The ArrayList contains the following types of CommandRecords:
+1. Redo Delimiter
+2. CommandRecords of Redo-able Commands
+3. Current Delimiter
+4. CommandRecords of Undo-able Commands
+5. Undo Delimiter
+end note
+
+ModelHistory --> Model : commandHistory
+deactivate ModelHistory
+
+Model --> Logic : commandHistory
+deactivate Model
+
+Logic --> MainWindow : commandHistory
+deactivate Logic
+
+note right of MainWindow
+Each of the CommandRecords in
+the ArrayList of CommandRecords
+in `commandHistory` is then used to
+populate the panels in the "History"
+section of the Graphical User Interface
+end note
+
+MainWindow --> MainWindow
+deactivate MainWindow
+
+[<--MainWindow
+deactivate MainWindow
+@enduml

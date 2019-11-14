@@ -7,10 +7,12 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.net.URL;
 import java.nio.file.Path;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import javafx.fxml.FXML;
+
 import seedu.address.MainApp;
 
 public class UiPartTest {
@@ -50,6 +52,7 @@ public class UiPartTest {
         assertEquals(VALID_FILE_ROOT, new TestUiPart<TestFxmlObject>(validFileUrl).getRoot());
     }
 
+    @Disabled
     @Test
     public void constructor_validFileWithFxRootUrl_loadsFile() {
         URL validFileUrl = getTestFileUrl(VALID_FILE_WITH_FX_ROOT_PATH);

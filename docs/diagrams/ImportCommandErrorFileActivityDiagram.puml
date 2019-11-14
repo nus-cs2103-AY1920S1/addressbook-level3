@@ -1,0 +1,17 @@
+@startuml
+
+skinparam defaultTextAlignment center
+
+(A)
+
+if () then ([no lines\nwith errors])
+else if () then ([else])
+    :Convert ErrorTracker into a\nString to display to user;
+else ([error file path provided])
+    :Create a new CSV file at\nerror file path provided;
+    :Write each line with error\ninto the new CSV file;
+endif
+
+:Notify user of result;
+
+@enduml

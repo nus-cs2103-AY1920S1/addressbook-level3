@@ -1,0 +1,77 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AlfredParser" as AlfredParser LOGIC_COLOR
+participant ":TopTeamsCommandParser" as TopTeamsCommandParser LOGIC_COLOR
+participant "l:SimpleTopTeamsCommand" as SimpleTopTeamsCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("getTop 3 tb/moreParticipants")
+activate LogicManager
+
+
+LogicManager -> AlfredParser : parseCommand("getTop 3 tb/moreParticipants")
+activate AlfredParser
+
+create TopTeamsCommandParser
+AlfredParser -> TopTeamsCommandParser
+activate TopTeamsCommandParser
+
+TopTeamsCommandParser --> AlfredParser
+deactivate TopTeamsCommandParser
+
+AlfredParser -> TopTeamsCommandParser : parse(" 3 tb/moreParticipants")
+activate TopTeamsCommandParser
+
+create SimpleTopTeamsCommand
+TopTeamsCommandParser -> SimpleTopTeamsCommand
+activate SimpleTopTeamsCommand
+
+SimpleTopTeamsCommand --> TopTeamsCommandParser : l
+deactivate SimpleTopTeamsCommand
+
+TopTeamsCommandParser --> AlfredParser : l
+deactivate TopTeamsCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+TopTeamsCommandParser -[hidden]-> AlfredParser
+destroy TopTeamsCommandParser
+
+AlfredParser --> LogicManager : l
+deactivate AlfredParser
+
+LogicManager -> SimpleTopTeamsCommand : execute()
+activate SimpleTopTeamsCommand
+
+SimpleTopTeamsCommand -> Model : setTopK(3, comparators, subjectName)
+activate Model
+
+Model -> Model : setSimpleLeaderboard(comparators, subjectName)
+activate Model
+
+Model --> Model
+deactivate Model
+
+Model --> SimpleTopTeamsCommand
+deactivate Model
+
+create CommandResult
+SimpleTopTeamsCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SimpleTopTeamsCommand
+deactivate CommandResult
+
+SimpleTopTeamsCommand --> LogicManager : result
+deactivate SimpleTopTeamsCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

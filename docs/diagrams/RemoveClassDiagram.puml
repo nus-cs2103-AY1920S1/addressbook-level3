@@ -1,0 +1,46 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+
+Class "{Abstract}\nRemoveCommand" as RemoveCommand
+
+
+Interface Model <<Interface>> MODEL_COLOR
+Interface Parser <<Interface>>
+Interface CommandAllocator <<Interface>>
+
+Abstract Class "{Abstract}\nCommand" as Command
+
+
+
+Class RemoveParticipantCommand
+Class RemoveMentorCommand
+
+Class RemoveParticipantCommandParser
+Class RemoveMentorCommandParser
+Class RemoveCommandAllocator
+
+Class ModelManager MODEL_COLOR
+
+RemoveParticipantCommandParser -up-|> Parser
+RemoveMentorCommandParser -up-|> Parser
+
+RemoveParticipantCommandParser .-> RemoveParticipantCommand: parses >
+RemoveMentorCommandParser .-> RemoveMentorCommand : parses >
+
+RemoveParticipantCommand -up-|> RemoveCommand
+RemoveMentorCommand -up-|> RemoveCommand
+RemoveCommand -up-|> Command
+
+RemoveParticipantCommand .-> ModelManager : updates >
+RemoveMentorCommand .-> ModelManager : updates >
+ModelManager ..|> Model
+
+RemoveCommandAllocator -up-|> CommandAllocator
+
+ RemoveCommandAllocator .right-> RemoveParticipantCommand : allocates >
+ RemoveCommandAllocator .right-> RemoveMentorCommand : allocates >
+@enduml
+

@@ -1,0 +1,114 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":CsvUtil" as CsvUtil LOGIC_COLOR
+end box
+
+box Util UTIL_COLOR_T1
+participant ":PrefixUtil" as PrefixUtil UTIL_COLOR
+end box
+
+box Entity MODEL_COLOR_T1
+participant "id:Id" as Id MODEL_COLOR
+participant "name:Name" as Name MODEL_COLOR
+participant "phone:Phone" as Phone MODEL_COLOR
+participant "email:Email" as Email MODEL_COLOR
+participant "p:Participant" as Participant MODEL_COLOR
+end box
+
+[->CsvUtil : parseToEntity("P,1,Bruce Wayne,12345678,wbruce@wayne.ent", model)
+activate CsvUtil
+CsvUtil -> CsvUtil ++ : parseToParticipant()
+    CsvUtil -> PrefixUtil ++ : <<static>>\nretrieveId("1", PrefixType.P)
+        PrefixUtil -> Id ++ : <<static>>\ntoId("P-1")
+            Id -> Id ++ : <<create>>
+            deactivate Id
+            return id
+        return id
+
+    create Name
+    CsvUtil -> Name ++ : <<create>> with "Bruce Wayne"
+        Name -> Name ++ : isValidName("Bruce Wayne")
+        return true
+    return name
+
+    create Phone
+    CsvUtil -> Phone ++ : <<create>> with "12345678"
+        Phone -> Phone ++ : isValidPhone("+65 12345678")
+        return true
+    return phone
+
+    create Email
+    CsvUtil -> Email ++ : <<create>> with "wbruce@wayne.ent"
+        Email -> Email ++ : isValidEmail("wbruce@wayne.ent")
+        return true
+    return email
+
+    create Participant
+    CsvUtil -> Participant ++ : <<create>> with id, name, phone, email
+    return p
+
+return p
+
+[<--CsvUtil : p
+deactivate CsvUtil
+
+@enduml
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":CsvUtil" as CsvUtil LOGIC_COLOR
+end box
+
+box Util UTIL_COLOR_T1
+participant ":PrefixUtil" as PrefixUtil UTIL_COLOR
+end box
+
+box Entity MODEL_COLOR_T1
+participant "id:Id" as Id MODEL_COLOR
+participant "name:Name" as Name MODEL_COLOR
+participant "phone:Phone" as Phone MODEL_COLOR
+participant "email:Email" as Email MODEL_COLOR
+participant "p:Participant" as Participant MODEL_COLOR
+end box
+
+[->CsvUtil : parseToEntity("P,1,Bruce Wayne,12345678,wbruce@wayne.ent", model)
+activate CsvUtil
+CsvUtil -> CsvUtil ++ : parseToParticipant()
+    CsvUtil -> PrefixUtil ++ : <<static>>\nretrieveId("1", PrefixType.P)
+        PrefixUtil -> Id ++ : <<static>>\ntoId("P-1")
+            Id -> Id ++ : <<create>>
+            deactivate Id
+            return id
+        return id
+
+    create Name
+    CsvUtil -> Name ++ : <<create>> with "Bruce Wayne"
+        Name -> Name ++ : isValidName("Bruce Wayne")
+        return true
+    return name
+
+    create Phone
+    CsvUtil -> Phone ++ : <<create>> with "12345678"
+        Phone -> Phone ++ : isValidPhone("+65 12345678")
+        return true
+    return phone
+
+    create Email
+    CsvUtil -> Email ++ : <<create>> with "wbruce@wayne.ent"
+        Email -> Email ++ : isValidEmail("wbruce@wayne.ent")
+        return true
+    return email
+
+    create Participant
+    CsvUtil -> Participant ++ : <<create>> with id, name, phone, email
+    return p
+
+return p
+
+[<--CsvUtil : p
+deactivate CsvUtil
+
+@enduml

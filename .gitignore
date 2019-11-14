@@ -14,8 +14,27 @@ src/main/resources/docs/
 /preferences.json
 /*.log.*
 
+# Build files
+bin/
+
+# Local Intellij settings
+.settings
+.classpath
+.project
+
 # Test sandbox files
 src/test/data/sandbox/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
+
+# More IDEA files
+.classpath
+.project
+.settings
+
+# Binaries
+bin/
+
+# Export files
+AlfredData/

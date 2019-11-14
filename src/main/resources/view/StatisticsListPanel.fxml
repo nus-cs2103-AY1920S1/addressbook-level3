@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="555.0" prefWidth="520.0" stylesheets="@BarChart.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <GridPane prefHeight="545.0" prefWidth="637.0" style="-fx-background-color: #292734;">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <HBox prefHeight="134.0" prefWidth="520.0" GridPane.columnSpan="2">
+                    <children>
+                        <VBox prefHeight="175.0" prefWidth="165.0" style="-fx-background-color: #3F3D48;">
+                            <children>
+                                <Label alignment="TOP_CENTER" prefHeight="36.0" prefWidth="172.0" text="Total" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Arial" size="24.0" />
+                                    </font>
+                                </Label>
+                                <Label alignment="TOP_CENTER" prefHeight="36.0" prefWidth="172.0" text="Teams" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Arial" size="24.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="totalTeamsLabel" alignment="CENTER" prefHeight="116.0" prefWidth="172.0" text="Label" textFill="WHITE">
+                                    <font>
+                                        <Font size="36.0" />
+                                    </font>
+                           <padding>
+                              <Insets bottom="5.0" right="5.0" top="5.0" />
+                           </padding>
+                                </Label>
+                            </children>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                        </VBox>
+                        <VBox prefHeight="172.0" prefWidth="446.0" style="-fx-background-color: #3F3D48;">
+                            <children>
+                                <BarChart fx:id="teamBarChart" prefHeight="172.0" prefWidth="377.0" title="Team Distribution(By Subject)">
+                                    <xAxis>
+                                        <CategoryAxis fx:id="subjectAxis" side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis fx:id="teamYAxis" side="LEFT" />
+                                    </yAxis>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                                </BarChart>
+                            </children>
+                     <HBox.margin>
+                        <Insets bottom="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                        </VBox>
+                    </children>
+                </HBox>
+                <HBox prefHeight="134.0" prefWidth="520.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                    <children>
+                        <VBox prefHeight="175.0" prefWidth="165.0" style="-fx-background-color: #3F3D48;">
+                            <children>
+                                <Label alignment="TOP_CENTER" prefHeight="36.0" prefWidth="172.0" text="Total" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Arial" size="24.0" />
+                                    </font>
+                                </Label>
+                                <Label alignment="TOP_CENTER" prefHeight="36.0" prefWidth="172.0" text="Mentors" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Arial" size="24.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="totalMentorsLabel" alignment="CENTER" prefHeight="115.0" prefWidth="172.0" text="Label" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font size="36.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                        </VBox>
+                        <VBox prefHeight="172.0" prefWidth="446.0" style="-fx-background-color: #3F3D48;">
+                            <children>
+                                <BarChart fx:id="mentorBarChart" prefHeight="167.0" prefWidth="399.0" style="-fx-background-color: #3F3D48;" title="Mentor Distribution(By Specialisation)">
+                                    <xAxis>
+                                        <CategoryAxis fx:id="specialisationAxis" side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis fx:id="mentorYAxis" side="LEFT" />
+                                    </yAxis>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" />
+                           </VBox.margin>
+                                </BarChart>
+                            </children>
+                     <HBox.margin>
+                        <Insets bottom="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                        </VBox>
+                    </children>
+                </HBox>
+                <HBox prefHeight="134.0" prefWidth="520.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
+                    <children>
+                        <VBox prefHeight="175.0" prefWidth="165.0" style="-fx-background-color: #3F3D48;">
+                            <children>
+                                <Label alignment="TOP_CENTER" prefHeight="36.0" prefWidth="172.0" text="Total" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Arial" size="24.0" />
+                                    </font>
+                                </Label>
+                                <Label alignment="TOP_CENTER" prefHeight="36.0" prefWidth="172.0" text="Participants" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Arial" size="24.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="totalParticipantsLabel" alignment="CENTER" prefHeight="109.0" prefWidth="172.0" text="Label" textFill="WHITE">
+                                    <font>
+                                        <Font name="Arial" size="36.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                        </VBox>
+                        <VBox prefHeight="185.0" prefWidth="172.0" />
+                    </children>
+                </HBox>
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>

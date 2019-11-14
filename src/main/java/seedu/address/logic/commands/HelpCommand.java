@@ -16,6 +16,14 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
+        // Print out all the add command message.
+        CommandUtils.ALL_COMMANDS_IN_HELP.stream().forEach(tuple -> {
+            System.out.println(tuple.getZero());
+            System.out.println(tuple.getOne());
+        });
+
+        model.updateHistory(this);
+        model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
     }
 }
