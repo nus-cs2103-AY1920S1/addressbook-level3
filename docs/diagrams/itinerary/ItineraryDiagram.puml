@@ -1,0 +1,54 @@
+@startuml
+!include <office/Concepts/globe_internet>
+!include <office/Concepts/documents>
+!include <office/Users/user>
+!include <office/Users/administrator>
+!include style.puml
+
+Package " "<<Rectangle>>{
+    Class GUI UI_COLOR
+    Class TextUI UI_COLOR
+    Class "Logic" as Logic LOGIC_COLOR_T2
+    Class "Logic Manager" as LM LOGIC_COLOR
+    Class Storage STORAGE_COLOR
+    Class "Storage Manager" as SM STORAGE_COLOR_T2
+    Class Model MODEL_COLOR
+    Class Itinerary MODEL_COLOR_T1
+    Class Commons LOGIC_COLOR_T2
+    Class "Log Center" as Logs UI_COLOR_T1
+    Class "Test Driver\nJunit Test" as Test MODEL_COLOR_T4
+}
+
+Class "<$user>\nUser" as User MODEL_COLOR_T2
+Class "<$administrator>\nDeveloper" as Developer MODEL_COLOR_T2
+Class "<$documents>\nJson File" as File UI_COLOR_T1
+
+GUI -> Logic
+
+Logic -right-> Storage
+Logic -down-> Model
+
+TextUI -up-> GUI
+TextUI .up.> Commons
+
+Logic -up-> LM
+Storage -up-> SM
+
+LM .up.> Commons
+SM .up.> Commons
+
+
+Logs -right- Commons
+Storage .right.>File
+User -right-> GUI
+User <--> TextUI
+Test -up[hidden]-> TextUI
+Test -up[hidden]-> Model
+Test -[hidden]> Itinerary
+Developer <-right-> Test
+Test -> Logic
+
+Model -down-> Itinerary
+Model -up-> GUI
+
+@enduml

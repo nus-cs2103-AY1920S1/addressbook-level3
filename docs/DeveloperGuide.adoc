@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= TravEzy - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T17-2/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T17-2`      Since: `Aug 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -22,17 +22,32 @@ Refer to the guide <<SettingUp#, here>>.
 
 == Design
 
+This section then entire design structure of _TravEzy_.
+
 [[Design-Architecture]]
-=== Architecture
+=== TravEzy Architecture
 
-.Architecture Diagram
-image::ArchitectureDiagram.png[]
+_TravEzy_ boasts a plethora of features which includes:
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+. Calender
+. Itinerary
+. Financial Tracker
+. Diary
+. Address Book
+
+Due to the numerous features that _TravEzy_ flaunts, the integration of these features requires multiple classes to
+be implemented.
+
+Here is the *_Architecture Diagram_* which explains the high-level design of the App.
+
+.Travezy Architecture Diagram
+image::TravezyArchitectureDiagram.png[]
 
 [TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
+TravEzy is mainly a Common Line Interface (CLI) desktop application. Hence, users will just need to interact with the text UI to trigger responses from Travezy.
+
+As shown in _Figure 1._, _TravEzy_ is a desktop application catered only for a single user. Below is a breakdown on how each
+component work together to make _TravEzy_ possible.
 
 `Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -44,9 +59,10 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+Each of the main feature in _TravEzy_ implements their own ``Page``, ``Logic``, ``Model`` and ``Storage`` class.
+These are represented by the respective ``XYZ`` classes for each component.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Ui,*`Page`*>>: The interface shown for each feature in _TravEzy_.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
@@ -56,20 +72,10 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
+In order to ensure that _TravEzy_ is presented as one integrated app, these individual models are mend by their respective
+``Manager``.
+
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
-
-[discrete]
-==== How the architecture components interact with each other
-
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
-
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
-
-The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
@@ -83,8 +89,11 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+In addition, the `UI` component,
 
+* Facilitate the changing of scenes between different user interface for the different features
+* Gets the requested page
+* Changes the scene on the primary stage upon request
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
@@ -93,13 +102,14 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::BetterLogicClassDiagram.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
+.  `Logic` gets the `AddressBookLogic`
+.  `AddressBookLogic` uses the `AddressBookParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `AddressLogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
@@ -115,21 +125,23 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::BetterModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the different model used for different packages inside Travezy
+* stores a `UserPrefModel` object used to get and set user preferences
+* stores a `AddressBookModel` object used to get data from the address book
+* supply a `StatisticsModel` which is only evaluated upon request
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[]
+image:BetterAddressBookModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -147,102 +159,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
-
-== Implementation
-
-This section describes some noteworthy details on how certain features are implemented.
-
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
-=== Logging
+==== Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
@@ -258,34 +175,524 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
-=== Configuration
+==== Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-== Documentation
+== Features
 
-Refer to the guide <<Documentation#, here>>.
+[[Features-Calendar]]
 
-== Testing
+TravEzy has several features which are listed below.
+Each of these features have their own design and implementation logic.
+// tag::calendar[]
+=== Calendar
 
-Refer to the guide <<Testing#, here>>.
+The calendar feature in _TravEzy_ allows users to easily plan when to travel. In this section, we will discuss how the calendar is designed and how the _add an event_ feature is implemented.
 
-== Dev Ops
+==== Calendar Model
 
-Refer to the guide <<DevOps#, here>>.
+This section discusses some design details of the calendar model.
+
+The following diagram illustrates the class diagram of the most important part of the calendar model. Specifically, it focuses on the https://github.com/AY1920S1-CS2103T-T17-2/main/tree/master/src/main/java/seedu/address/calendar/model/event[``Event`` component].
+
+.Calendar model class diagram
+image::CalendarClassDiagram.png[Calendar model class diagram]
+
+As shown above, the ``Calendar`` instance interacts with the ``EventManager`` by querying it. With the help of ``EventManger``, the ``Calendar`` instance does not need to deal with "lower-level" concerns (for instance, how ``Event``s are managed internally). 
+
+Every ``EventManager`` can access ``Event``s that have been added. These ``Event``s can be ``Commitment``, ``Trip``, ``SchoolBreak`` or ``Holiday`` instances. If other instances need a read-only access to ``EventManager``, they can obtain it using the observer ``EventViewer`` which is implemented by ``EventManager``. 
+
+In addition, every ``EventManager`` depends on ``EventQuery`` to perform queries. 
+
+More information about this package is provided below.
+
+*What is an ``Event``?*
+
+* represents the event specified by the user: it is made up of the relevant ``Name``, ``EventType`` and ``Date`` (which is found in the ``Date`` package) instances
+
+*What is an ``EventQuery``?*
+
+* similar to an ``Event`` but is only made up of ``Date``
+* is used to query the ``IntervalSearchTree`` (from the ``Util`` package) to obtain events that are relevant to the user's request more efficiently.
+
+*How do classes in ``Util`` interact with those from ``Event``?*
+
+* ``Util`` contains important classes and interfaces like ``DateUtil``, ``IntervalSearchTree`` and ``Interval``
+* ``DateUtil`` helps ``EventManager`` to deal with manipulation of ``Date``-related operations
+* ``IntervalSearchTree`` makes certain user-requested operations more efficient computationally. However, to facilitate the use of ``IntervalSearchTree``, ``Event`` and ``EventType`` need to inherit from ``Interval``. 
+
+To find out how ``Calendar``, ``EventManager`` and ``IntervalSearchTree`` described above interact, consider the following sequence diagram. It describes how these classes work together when the user tries to add a holiday, which is represented by ``event`` (a ``Holiday`` instance) in the diagram below. 
+
+.Calendar model sequence diagram
+image::CalendarSequenceDiagram.png[Calendar model sequence diagram]
+
+
+WARNING: To simplify the sequence diagram, the process of validating that ``event`` is in fact a ``Holiday`` instance has been left out.
+
+==== Add An Event Feature
+
+This section provides some details about how the _add an event_ feature is implemented.
+
+The following diagram illustrates the course of action(s) that is(are) possibly taken when a user tries to add a new trip to his/her calendar.
+
+.Calendar activity diagram
+image::CalendarActivityDiagram.png[Calendar activity diagram]
+
+From the diagram, it can be seen that there are three major reasons that can interrupt the user request:
+
+* the user entered an invalid input (for instance, by typing an invalid date)
+* the user tried to add a duplicate event 
+* the user tried to add an event that may result in conflicts in his/her schedule
+
+==== Design Considerations
+
+This section details a few design considerations I made before deciding how I would like to implement the functionalities of this calendar.
+
+.Design considerations for calendar
+[grid="rows", frame="none"]
+|===
+| Aspect | Alternative 1 | Alternative 2
+
+| Data structure to support ``suggest`` and ``check`` commands
+a|The calendar simply stores all events in a list.
+
+* Pros: Easy to implement
+* Cons: Possibly slower performance, especially when users have many events in their calendars
+a|The calendar stores the events in an interval search tree.
+
+* Pros: On average, ``suggest`` and ``check`` commands can be performed more quickly, especially when there are many events in the calendar. In turn, this can improve user experience.
+* Cons: Implementation of interval search tree is tedious.
+* I chose this option because performance efficiency is essential if TravEzy is to scale. Furthermore, I can use the interval search tree to implement enhancements for ``add`` and ``delete`` commands more easily. 
+
+| Required date format for user input
+a|The usual date format like dd/mm/yyyy (for example, 12/05/2019 to specify 12 May 2019).
+
+* Pros: Easy to implement. It can be intuitive for users since this date format is common.
+* Cons: Very restrictive and not everyone uses the above format (for instance, in some countries, people specify date using the mm/dd/yyyy format).
+
+a|Allow users to specify day, month and year in whichever order they want.
+
+* Pros: More flexible and less restrictive for users.
+* Cons: If caution is not taken, bugs can arise quite easily.
+* I chose this implementation because it allows users to specify dates in the format which they are most familiar with.
+
+|===
+// end::calendar[]
+
+=== Itinerary
+
+The itinerary feature in TravEzy allows users to organize their events and view these events in one convenient _Event List_.
+
+Current, the itinerary feature supports the basic commands of add, delete, edit and marking your events as done.
+In addition, it also includes other more advanced commands such as search and sort to better organize your events.
+With these implementations, _TravEzy_ aims to be at the frontier of convenience.
+
+The itinerary feature implements the aforementioned feature based on the use cases below:
+
+.Use Case Diagram of the Itinerary feature
+image::ItineraryUseCaseDiagram.png[]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/itinerary/logic/ItineraryLogic.java[`ItineraryLogic.java`]
+
+Due to the numerous features supported by the itinerary, it requires a complex structure to ensure that each input
+by the user are cautiously parsed before giving the appropriate command result.
+
+.Architecture Diagram of the Itinerary feature
+image::ItineraryDiagram.png[]
+
+The *_Architecture Diagram_* given above explains the high-level design of the itinerary feature.
+Inputs given by the user are channeled from the text UI and parsed in the logic package before different commands
+are formed which generates the model and updates the itinerary object which contains the event list.
+
+The `text UI`, `logic manager` and `storage manager` all stem from the common package of the main TravEzy application.
+However, in the `parser` package of itinerary, it contains various parser objects for the different command.
+This is to ensure that each command in the itinerary have only one parser validating the command.
+
+==== Model Component
+
+The implementation of the model class in TravEzy is to be a generic. Hence, the model object being instantiated
+could be any of the following 5 features, `Calendar`, `Itinerary`, `Financial Tracker`, `Travel Diary`
+and `Achievements`. Below is the model class diagram for the itinerary feature:
+
+.Model Diagram of the Itinerary feature
+image::ItineraryModelDiagram.png[]
+
+The Model, is the crux of the itinerary feature which serves several functions this include:
+
+* stores the Itinerary data which includes the event list which keeps track of all the events that are
+included by the user and stores it into the storage in a JSON file.
+
+* exposes an unmodifiable ObservableList<Event> that can be 'observed' e.g. the UI can be bound to this list so that
+the UI automatically updates when the data in the list change.
+
+* does not depend on any of the other three components, UI, logic and storage which are common through all the features
+throughout TravEzy.
+
+[IMPORTANT]
+A plausible extension to the itinerary model is to have the location field dictated by a dropdown bar, similar to the
+Priority Dropdown Bar.
+
+Alternative implementation to the proposed extension:
+
+* Use javaFX drop down menu to select the location of the event: +
++
+PROS: Can use location as a search condition and easier for storage / maintenance purposes. +
+Standardize the UI layout with _TravEzy_ Financial Tracker which also has a Dropdown bar for location.
+
++
+CONS: Limiting the users to only a certain set of locations.
+
+* Allow user to type in location during the add command template: +
+
+    add title/[title] date/[date] time/[time] l/[location] d/[description]
++
+PROS: Allows the user to put in any location they want to allow for more variety. Search function is still
+applicable for location but users would need to know the specific location they used for that particular event. +
++
+CONS: Harder to maintain the individual locations in the storage since there could be a lot of locations that
+are being defined by the user.
+
+==== Itinerary search command
+
+The search command for specified events in the event list is facilitated by the `Itinerary` class which contains
+an event list and keep track of the events that the user has inputted into TravEzy. There are several search conditions
+available for the users to search from based on the different class attributes that form the `Event` class:
+
+* search title/[title]
+* search date/[date]
+* search time/[time]
+* search l/[location]
+* search d/[description]
+
+Given below is the _sequence diagram_ of how the Itinerary feature interacts with TravEzy when the search command is
+being called.
+
+.Sequence Diagram of the Search Command
+image::ItinerarySearchCommand.png[]
+
+[NOTE]
+The lifeline for SearchCommandParser and SearchEventDescriptor should end at the destroy marker (X) but due to a
+limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The search command is implement as follows, upon giving the command by the user in the text UI, the command
+will be channeled to the `Logic` class where it identifies it as a itinerary command and passes it to the `ItineraryParser`
+class.
+
+The `Itinerary Parser` passes through the command into a switch case block and identifies this as a `SearchCommand`.
+This will create a new `SearchCommandParser` which will then accept the arguments from the user's input and parse the
+arguments of the command.
+
+Once the arguments are parsed and considered as valid, the `SearchCommandParser` will generate a new `SearchCommand`.
+The `SearchCommand` will in turn create a "pseudo-event" known as the `SearchEventDescriptor` which is an event
+which only contains attributes with the search condition while the rest of it's attribute will be placed as null.
+
+This `SearchEventDescriptor` will in turn be returned and used in the `Predicate` field as the event in comparison.
+The `filterEvents(e)` method will be called with `e` being the `SearchEventDescriptor` that is being generated. Events
+that are currently in the event list will be filtered accordingly based on whether it matches the attributes in the
+`SearchEventDescriptor`. Finally, the `filteredList` will be generated and returned.
+
+The aforementioned steps could be easily summarized using an activity diagram when the user executes a
+search command in the itinerary:
+
+.Activity Diagram of the Search Command
+image::ItinerarySearchActivityDiagram.png[]
+
+The following search command is implemented in the series of steps as described in the activity diagram as shown above
+is to ensure that validation of the arguments given in the user command first before the SearchCommand is generated.
+
+Once the arguments from the user input has been verified, the "pseudo-event" created can help to proof-read whether
+users have given any conditions for the search. It will return false if all the attributes in the `SearchEventDescriptor`.
+Running through all the events in the event list will ensure that all the events are being considered in the filtering process.
+
+This sequential approach in implementing the `SearchCommand` will ensure that all the current events are being looked through
+based on the specific search condition and only the filtered list will be given as a result.
+
+// tag::financialtracker[]
+=== Financial Tracker
+The _Financial Tracker_ feature in _TravEzy_ allows users to keep track of their financial expenses with appropriate categorized expenditure by different countries.
+
+*Architecture:*
+
+The Architecture Diagram given below explains the high-level design of the _Financial Tracker_ feature.
+
+image::FinancialTrackerDiagram.png[width=600]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/financialtracker/logic/FinancialTrackerLogic.java[`FinancialTrackerLogic.java`]
+
+
+Inputs given by the user are channeled from the `textUI` and handled by `Logic` before different commands are formed which execute on
+the `Model`. The `Model` will then update the `FinancialTracker` object which contains the expense list.
+
+The `textUI` and `Log Centre` stem from the common package of the main _TravEzy_ application while ``Logic``, ``Model,`` and ``Storage`` all have similar architecture design with the other features (Calendar, Itinerary, etc.).
+
+*Financial Tracker Class Diagram:*
+
+image::FinancialTrackerClassDiagram.png[width=800]
+The `Model` stores the `FinancialTracker` data which includes several `ExpenseList` each associated with a country that keeps track of all the expenses.
+
+``Financial Tracker`` exposes an unmodifiable `ObservableMap<String, ExpenseList>` that can be observed. The UI is bound to the `Model` whereby the `Model` returns an expense list associated with the current ``Country`` of the `Financial Tracker` and updates when the querying `Country` changed.
+
+[NOTE]
+Each time a new `Country` is selected from the _Countries dropdown box_, the respective expense list will be returned for that specific country, this implementation is to ease categorising and sorting.
+
+*Sequence Diagram example:*
+
+The sequence diagram below shows the sequence of events that will take place when a user calls `Summary` command.
+
+image::FinancialTrackerSummaryCommandDiagram.png[width=800]
+
+The sequence of events are very likely to those of the other commands in _Financial Tracker_ feature.
+
+*Activity Diagram example:*
+
+The activity diagram below shows how `edits` command works.
+
+image::FinancialTrackerActivityDiagram.png[width=800]
+
+
+
+// end::financialtracker[]
+
+=== Diary
+
+==== Architecture of Diary
+
+.Architecture Diagram for Diary Feature
+image::DiaryArchitectureDiagram.png[]
+
+The *_Architecture Diagram_* above explains the high -level design of the _Diary_ within _TravEzy_. Below, there is a brief explanation of each component.
+The actual _Diary_ is represented as a ``DiaryModel`` in the diagram. This ``DiaryModel`` has the basic functionalities of a real _Diary_.
+It can store multiple entries which can then be manipulated by the user. The exact functionalities are described in more detail in the *_Model_* section below.
+
+`GUI` represents the Graphical User Interface through which users input their commands.
+
+`DiaryLogic` is the main executor of Diary. It is composed of the ``Logic``, `DiaryParser` and `DiaryCommand`. After receiving input from the ``GUI``, logic triggers
+the `DiaryParser` to `Parse` the input and output the matching `Command`
+
+``DiaryModel``. As mentioned above, this encapsulates a _Diary_ and hence, the `Command` from `DiaryCommand` is implemented on this ``DiaryModel``
+
+``Storage``. After the `Command`  has been executed, logic then stores the updated `DiaryModel`in `Storage`. Data is written to and read from the hard drive using `Storage` .
+
+``Commons``. `DiaryParser` and `GUI` are derived from classes in ``Commons``. Diary Feature also utilises the `Log Center`
+
+
+``JUnit Test`` contains the testing classes for the _Diary_.
+
+
+==== Structure of Diary Model
+
+.Class Diagram for the Diary Model
+image::DiaryLogicClassDiagram.png[]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/diaryfeature/logic/DiaryBookLogic.java[`DiaryBookLogic.java`]
+
+The above diagram is a Class Diagram of the ``DiaryModel``
+
+
+``DiaryModel`` Encapsulates the _Diary_ and prevents users from tampering with the underlying structure of the _Diary_.
+It contains the `DiaryBook`, which is the actual implementation of _Diary_.
+
+`DiaryBook` is the actual implementation of the _Diary_.
+
+It contains:
+
+* ``DiaryList``, which is a collection of all the `DiaryEntries` in a list form
+* ``Observable List`` , which exposes an unmodifiable `ObservableList<DiaryEntry>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates upon any changes.
+* ``Details``, which is a component of the _Diary_ to keep `DiaryEntries` private using username and password protection
+
+This `DiaryBook` has the relevant methods to allow users to add, delete, find general and specific `DiaryEntries`, private and unprivate their `DiaryEntries` and also password protect their `DiaryEntries`.
+
+
+`DiaryEntries`: This is the base component of the _Diary_, and encapsulates a single entry into a diary.
+
+It contains:
+
+* ``Title``, which refers to the title of the ``DiaryEntry``
+* ``Date``, which refers to the date and time of the ``DiaryEntry``
+* ``Place``, which refers to the place of the ``DiaryEntry``
+* ``Memory``, which refers to the memory of the ``DiaryEntry``
+
+
+==== Sequence of Find Command
+.Sequence Diagram for the Find Command
+
+
+image::DiaryFindCommandSequenceDiagram.png[]
+
+
+Above, we have the sequence diagram for the ``FindCommand`` in the _Diary_. In this case, we have taken the scenario of finding any `DiaryEntries` which contain the word "temp".
+
+Process:
+
+. Upon receiving the instruction from ``Logic`` to parse the input `find temp`, the ``DiaryBookParser`` begins parsing the input to match it (based on the _Command Word_) to the appropriate _Parser_
+
+. In this case, given that the the _Command Word_ is ``find`` the appropriate _Parser_ is the ``FindCommandParser``, which is created and then begins to ``parse("temp")``
+
+. This in turn creates a new ``FindPredicate``, based on the input ``temp``. This ``FindPredicate`` will be used to filter through the ``DiaryModel`` to get the matching ``DiaryEntries``
+
+. With the ``FindPredicate``, a new ``FindCommand`` is created which is returned to logic and executed
+
+. This execution leads to the ``find(temp)`` command being executed on the ``DiaryModel``, which returns the updated ``DiaryModel`` with the matching ``DiaryEntries``
+
+. This model is then returned to the user in the form of the ``Command Result``, and is visible on the GUI in the form of a list of the matching `DiaryEntries`.
+
+
+NOTE: The lifeline for FindCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+
+==== Logic of Unprivate and Unlock  Commands
+
+
+Given the similar function of the 2 commands, ``unprivate`` and ``unlock``, there is a more detailed explanation of the differences between the commands below.
+
+
+.Activity Diagram for the Unprivate Command
+
+image::DiaryUnPrivateActivityDiagram.png[]
+
+
+Above, is the logical flow for the Unprivate Command. In brief, it allows a user to unprivate any private entry *IF* there are no ``Details`` set. As a result, the command can be input like this:
+
+``unprivate 1``
+
+NOTE: `1` is the index of the Diary Entry which is to be unprivated
+
+.Activity Diagram for the UnLock Command
+
+image::DiaryUnLockActivityDiagram.png[]
+
+Above, is the logical flow for the Unlock Command. In brief, it allows a user to unlock any private entry *IF* there are ``Details`` and the ``Details`` input by the user match the original ``Details`` set by the user.As a result, the command can be input like this:
+
+``unlock 1 user/username password/password``
+
+NOTE: `1` is the index of the Diary Entry which is to be unlocked and ``user/username`` and ``password/password`` are the relevant Details.
+
+
+In summary, the ``unlock`` command is only to be used when the user has already set ``Details``. Otherwise, the user has to use the ``unprivate`` command to see private ``DiaryEntries``
+
+//tag::addressdg[]
+
+=== Address Book
+
+==== Logic Component
+
+[[fig-LogicClassDiagram]]
+.Structure of the Logic Component
+image::AddressLogicClassDiagram.png[]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/address/logic/AddressBookLogic.java[`AddressBookLogic.java`]
+
+.  `AddressBookLogicManager` uses the `AddressBookParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `AddressBookLogicManager`.
+.  The command execution can affect the `AddressBookModel` (e.g. adding a person).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `CommandResult` object can also instruct the `AddressBookPage` to perform certain actions, such as displaying help to the user.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
+image::DeleteSequenceDiagram.png[]
+
+NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+[[Design-Model]]
+==== Model component
+
+.Structure of the Model Component
+image::AddressModelClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/address/model/AddressBookModel.java[`AddressBookModel.java`]
+
+The `Model`,
+
+* stores the `ReadOnlyAddressBook` data and `ReadOnlyUserPrefs`.
+* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other three components.
+
+[NOTE]
+As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+ +
+image:BetterAddressBookModelClassDiagram.png[]
+
+//end::addressdg[]
+
+//tag::achievementsdg[]
+
+=== Achievements
+
+==== Logic Component
+.AchievementsLogic Diagram of the Achievements feature
+image::AchievementsLogicClassDiagram.png[]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/achievements/logic/AchievementsLogic.java[`AchievementsLogic.java`]
+
+The `AchievementsLogic` is responsible for generating statistics for the different components in Travezy
+
+.  `AchievementsLogicManager` uses the `Supplier<StatisticsModel>` to supply the `StatisticsModel`.
+. Getting the `StatisticsModel` from the `Supplier<StatisticsModel>` constructs a new `StatisticsModel` that gets the statistics data from a Model from another feature e.g. `AddressBookModel` that is visible within `ModelManager`
+. `AchievementsLogicManager` returns the resultant data from the `StatisticsModel` that is lazily created.
+
+The `AchievementsLogic` parses `Command` as well to enable navigation to other `Page` within Travezy.
+
+.  `AchievementsLogicManager` uses the `AchievementsParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `AchievementsLogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a person).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+Given below is the sequence diagram for generating the `StatisticsModel` lazily:
+
+.Sequence Diagram of the Statistics Model
+image::AchievementsPage.png[]
+
+[NOTE]
+The `StatisticsModel` is lazily created. Hence, the statistics will only be retrieved from each model only when it is evaluated when loading the `AchievementsPage` scene.
+
+==== Model Component
+
+.StatisticsModel Diagram of the Achievements feature
+image::AchievementsModelClassDiagram.png[]
+
+The `StatisticsModel`,
+
+* is constructed from the statistics data from a model of another feature e.g. `AddressBookModel` during instantiation
+* contains the statistics data that is generated from a model from another feature e.g. `AddressBookModel`
+* does not depend on any of the models from other features / packages e.g. `AddressBookModel`
+
+//end::achievementsdg[]
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* loves to travel frequently
+* travels to many different countries
+* has a need to manage a significant number of contacts from different countries
+* has a need to keep track of travelling expenses
+* lends and pay money to different contacts regularly
+* loves to plan in advance
+* has a need to keep track of different commitments in school
+* love to record his travel itinerary
+* achievements driven
+* has a need to know his/her current progress in completing the achievement
+* motivated to finish his/her accomplishments
+* loves to keep a memory of his/her travels
+* has a need to write down a diary of his/her travel experiences
+* track statistics on inputs (Finances / event and diary entries)
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+* hates cluttering phone with multiple apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: All-in-one travel manager for planning, scheduling, tracking for a user that loves typing commands.
 
 [appendix]
 == User Stories
@@ -295,53 +702,222 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` | traveller | record down all my travelling stories. |  my sweet memories stored
 
-|`* * *` |user |add a new person |
+|`* * *` | student who likes travelling | record all my spendings on my trip | keep track of my budgets
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` | NUS student with unusually high workload | have a calendar planner | plan ahead
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` | student who needs friends and likes to travel desperately |manage my travel itineraries |keep track of my travel schedule during travels
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` | undisciplined individual | keep track of my expenses | limit the accumulation of credit card debts
+
+|`* * *` | competitive individual|keep track of my own progress towards different achievements | challenge myself
+
+|`* *` | student with many friends abroad |have an Address Book | contact my friends who are living in that area
+
+|`* *` | student who needs friends and likes to travel desperately | have an Address Book | keep my friends’ contact categorized with different countries
+
+|`* *` | NUS student with unusually high workload | detect conflicts in my calendar schedule | know when I'm free to travel around the world
+
+|`* *` | undisciplined individual | keep track of my expenses | limit the accumulation of credit card debts
+
+|`* *` | user | hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`*` |monolingual individual|have a language translator|communicate with others easily
+
+|`*` |user|change my application into different themes|make my application interface look better
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `TravEzy` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case:  Itinerary
 
-*MSS*
+----
+Software System : TravEzy Travelling Diary
+Use Case: UCI01 - Add an event into itinerary page
+Actor: User
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
-Use case ends.
+Guarantees:
+    . A new event will be added to the itinerary page upon successful command
 
-*Extensions*
+MSS:
+    1. User requests to list events
+    2. TravEzy shows a list of events in the itinerary page
+    3. User type in the event to be added to the itinerary
+    4. TravEzy add the event in sequential order
 
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
+Extensions
+    2a. The list is empty.
+    Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+    3a. No event name is given.
+        3a1. TravEzy shows an error message.
+        Use case resumes at step 2.
+----
 
-_{More to be added}_
+{empty} +
+
+----
+Software System : TravEzy Travelling Diary
+Use Case: UCI02 - Delete an event into itinerary page
+Actor: User
+
+Guarantees:
+    . Specified event will be deleted in the itinerary page upon successful command
+    . Event will not be delete if an invalid index is given
+
+MSS:
+    1. User requests to list events
+    2. TravEzy shows a list of events in the itinerary page
+    3. User type in the event to be added to the itinerary
+    4. TravEzy add the event in sequential order
+
+Extensions
+    2a. The list is empty.
+    Use case ends.
+
+    3a. The given index is invalid
+        3a1. TravEzy shows an error message.
+        Use case resumes at step 2.
+----
+
+{empty} +
+
+----
+Software System : TravEzy Travelling Diary
+Use Case: UCI03 - Accessing an event
+Actor: User
+
+Precondition: Specified event is contain in the list
+
+Guarantees:
+    . Highlights the specific event to be edited
+
+MSS:
+    1. User requests to list events
+    2. TravEzy shows a list of events in the itinerary page
+    3. User type in the event to be accessed
+    4. TravEzy highlights the specified event to be edited
+
+Extensions
+    2a. The list is empty.
+    Use case ends.
+
+    3a. The given index is invalid
+        3a1. TravEzy shows an error message.
+        Use case resumes at step 2.
+
+----
+
+
+{empty} +
+
+----
+Software System : TravEzy Travelling Diary
+Use Case: UCI04 - Add details to event
+Actor: User
+
+Precondition: User must access to an event (UCI03)
+
+Guarantees:
+    . Update highlighted event with the details
+
+MSS:
+    1. User requests to edit location / time / description for highlighted event
+    2. TravEzy prompt for the location / timing / description to be added
+    3. User inserts the necessary description
+    4. TravEzy display the changes for that event
+
+Extensions
+    3a. The given location / timing / description is invalid
+        3a1. TravEzy shows an error message.
+        Use case resumes at step 2.
+
+    *a. At any time, User chooses to cancel adding details to the event and exit
+        *a1. TravEzy requests to confirm the exit of event
+        *a2. User confirms the exit
+        *a3. TravEzy un-highlights the event selected
+
+----
+
+{empty} +
+
+----
+Software System : TravEzy Travelling Diary
+Use Case: UCI05 - Searching for an event
+Actor: User
+
+Precondition: User must add some event into the itinerary (UCI01). So that these events can be searched based on the condition given.
+
+Guarantees:
+    . A new event list with the events that met the search conditions.
+
+MSS:
+    1. User requests to search for event.
+    2. TravEzy display the events which matchese the search description.
+
+Extensions
+    1a. The given search command did not indicate any condition (Title / Date / Time / Location / Description).
+        1a1. TravEzy shows an error message prompting with the correct format.
+
+----
+
+[discrete]
+=== Use case: Financial Tracker
+----
+Software System : TravEzy Travelling Financial Tracker
+Use Case: UCFT01 - Add an expense into financial tracker page
+Actor: User
+
+Guarantees:
+    . A new expense will be added to the financial tracker page upon successful command
+
+MSS:
+    1. User type in the expense to be added to the financial tracker
+    2. TravEzy add the expense in order by date and time
+
+Extensions
+    1a. Command format is incorrect.
+        1a1. TravEzy shows an error message, prompt user with proper command format.
+        Use case resumes at step 1.
+----
+
+[discrete]
+=== Use case: Calendar
+
+----
+Software System : TravEzy Travelling Calendar
+Use Case: UCC01 - Add a commitment into the Calendar
+Actor: User
+
+Guarantees:
+    . A new commitment will be added to the calendar page upon successful command
+
+MSS:
+    1. User type in the commitment to be added to the calendar
+    2. TravEzy add the commitment and visually indicate the commitment on the calendar
+
+Extensions
+    1a. Command format is incorrect.
+        1a1. TravEzy shows an error message, prompt user with proper command format.
+        Use case resumes at step 1.
+    1b. The time frame of the commitment clashes with another event that is already in the calendar
+        1a1. TravEzy will prompt the user whether they would like to proceed with the addition of the event
+
+    2a. When the user typed "Yes"
+        Use case resumes at step 2.
+    2b. When the user typed "No"
+        Use case resumes at step 1.
+
+----
 
 [appendix]
 == Non Functional Requirements
@@ -349,11 +925,17 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  The system should work on both 32-bit and 64-bit environments.
+.  The product is not required to produce any file format (Excel, PDF, html) other than JSON file.
 
 [appendix]
 == Glossary
+
+Command Line Interface::
+An interface where the user interact with the application through the _command box_.
+
+Graphical User Interface::
+A visual display on
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
@@ -361,65 +943,5 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
-== Instructions for Manual Testing
-
-Given below are instructions to test the app manually.
-
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
-
-=== Launch and Shutdown
-
-. Initial launch
-
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+JavaScript Object Notation file::
+More commonly as JSON file is text-based and lightweight which is easily readable and writable.

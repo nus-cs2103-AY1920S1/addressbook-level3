@@ -4,18 +4,58 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniquePersonList
-AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniquePersonList
-UniqueTagList -[hidden]down- UniquePersonList
+class HiddenOutside #FFFFFF
 
-UniqueTagList *-right-> "*" Tag
-UniquePersonList o-right-> Person
+namespace Model {
+Interface Model <<Interface>>{
+}
+Class ModelManager
+Interface UserPrefsModel <<Interface>>
+Class UserPrefsModelManager
+Class ReadOnlyUserPrefs
+Class UserPrefs
+}
 
-Person o-up-> "*" Tag
+namespace XYZ {
+namespace Model {
+Class Model
+}
+}
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+HiddenOutside ..> Model.Model
+
+Interface ObservableList <<Interface>>
+
+''''''''''MODEL''''''''''
+
+
+''''''''''Model
+Model.ModelManager .up.|> Model.Model
+
+''''''''''Model Interface
+Model.Model .down.> Address.Model.AddressBookModel :gets >
+Model.Model .down.> Model.UserPrefsModel :gets >
+Model.UserPrefsModel ..> Model.ReadOnlyUserPrefs
+
+''''''''''ModelManager Constructor
+Model.ModelManager o-- "1" Address.Model.AddressBookModel
+Model.ModelManager o-- "1" Model.UserPrefsModel
+
+''''''''''UserPrefsModelManager
+Model.UserPrefsModelManager .up.|> Model.UserPrefsModel
+Model.UserPrefsModelManager .left.> Model.ReadOnlyUserPrefs
+Model.UserPrefsModelManager o-- "1" Model.UserPrefs
+
+''''''''''UserPrefs
+Model.UserPrefs .up.|> Model.ReadOnlyUserPrefs
+
+''''''''''''''''''''
+
+''''''''''ADDRESS''''''''''
+Address.Model.AddressBookModel .right.> ObservableList
+
+''''''''''LAYOUT''''''''''
+Model.ModelManager -[hidden]down-> Model.UserPrefsModel
+Model.UserPrefsModelManager -[hidden]down->XYZ
+''''''''''''''''''''''''''
 @enduml

@@ -1,0 +1,18 @@
+@startuml
+start
+:User tries to add a trip to calendar;
+
+if () then ([user input is valid])
+    :Calendar looks for suitable slot(s);
+    if () then ([free slot(s) found])
+        :Calendar ranks slots;
+        :User selects one of the slots;
+    else ([else])
+        :Calendar informs user that no slot is found;
+    endif
+
+else ([user input is invalid])
+    :Informs user of error;
+endif
+stop
+@enduml

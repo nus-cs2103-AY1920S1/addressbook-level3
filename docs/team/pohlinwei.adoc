@@ -1,0 +1,267 @@
+= Poh Lin Wei's Project Portfolio
+
+This portfolio highlights my contributions to the development of _TravEzy_, an all-in-one application which helps student 
+travellers to easily plan their trips, manage their expenses and record their favourite moments.
+
+== Introduction
+
+This section explains how _TravEzy_ came to life and highlights the main features that it offers.
+
+=== About the Project _TravEzy_
+
+_TravEzy_ is an application developed by my team of five during our software engineering module (CS2103T), 
+and is morphed from  https://github.com/nus-cs2103-AY1920S1/addressbook-level3[this address book application]. 
+
+.To fulfil the requirements of the module, we had to ensure that _TravEzy_ ...
+- uses https://www.defit.org/?s=desktop+application[command line interface (CLI)] as the primary mode of input 
+(this means that users of the application should be able to use most functionalities by typing in commands)
+- is a https://www.pcmag.com/encyclopedia/term/41158/desktop-application[desktop application] (this implies 
+that users should be able to use this application on their computers, even without a web browser)
+
+We chose to develop _TravEzy_ because we discovered that several avid student travellers at our university 
+(National University of Singapore) would love to have an application that brings together the functionalities 
+of their favourite travel-related applications. This would give them easy access to the features that they enjoy most.
+
+So how did my team and I achieve the above goal with _TravEzy_?
+
+=== _TravEzy_'s Main Features
+
+_TravEzy_ brings together essential features of popular travel-related applications: it is a one-stop solution 
+that makes it easier for travellers to *plan their trips*, *manage their expenses* and *record their memorable moments*. 
+
+The main features of our application are the *calendar*, *itinerary*, *address book*, *financial tracker* and *diary*.
+
+== Reading This Document
+
+This section describes the symbols and formats that are used in this document.
+
+.Font and Format
+[grid="rows", frame="none"]
+|===
+| Font and Format | What it indicates
+
+| _italics_
+| Italicised text indicates that the text has a definition that is specific to the application. Its definition will be provided along the way.
+
+| ``command``
+| A grey highlight means that the user can use the given text to perform certain actions (e.g. adding an event to the calendar).
+
+| https://github.com/AY1920S1-CS2103T-T17-2/main/blob/master/docs/DeveloperGuide.adoc[``Class``]
+| A grey highlight with blue text implies that the word refers to a component, class or object in the diagram shown.
+
+|===
+
+
+== Summary of Contributions
+
+This section provides an overview of my contributions to this project. As I was primarily responsible for implementing the calendar feature, this section will mainly focus on my contributions to this feature.
+
+=== Major Highlights of the Calendar
+
+==== Design
+
+To enable users to better visualise their schedule for the month and plan their trips accordingly, I designed the calendar user interface as follows:
+
+.Calendar interface
+image::../images/calendarScreenshots/calendarInterface.png[Calendar interface,width=700]
+
+{empty}
+
+Whenever users add a new type of event (a _commitment_, _trip_, _school break_ or _holiday_) to a particular day, it will be reflected on the calendar as a new _label_. These _labels_ are also colour coded (as shown in figure 2) so that users can easily identify the types of event they have for the day.
+
+==== Suggestion Functionality 
+
+Finding a suitable time to travel can be especially difficult for NUS (National University of Singapore) students who have a packed schedule. Thus, I decided to implement a suggestion functionality that recommends the users suitable periods to travel. This is done by comparing their _school break_ and _holiday_ schedule with their _commitments_ and _trips_ schedule.
+
+With this feature, users no longer have to manually look for free blocks. Instead, they just need to use the command ``suggest``.
+
+==== Check Availability Functionality
+
+Determining whether it is possible to travel at a specific period of time can be a hassle for users. Hence, I chose to implement a check availability functionality that makes this task simpler. 
+
+Instead of having to switch to the relevant month view to determine their availability, users simply need to use the command ``check``. This can be especially helpful when users are interested in multiple trips but are unsure of whether they will be available to go for them. 
+
+=== Other Highlights
+
+In addition to the above, I enhanced a few basic functionalities as follows:
+
+.Summary of enhancements 
+image::../images/calendarScreenshots/otherContributions.png[Other functionalities and their enhancements,width=700]
+
+{empty}
+
+To view my code in more detail, please click https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#sort=totalCommits%20dsc&groupSelect=groupByAuthors&search=&sortWithin=title&since=2019-09-06&until=2019-10-13&timeframe=commit&mergegroup=false&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=pohlinwei&tabRepo=AY1920S1-CS2103T-T17-2%2Fmain%5Bmaster%5D[here].
+
+=== Other contributions
+
+.In addition to the above, I also...
+-	implemented the common command ``goto``. This enables the user to easily navigate from one feature to another without having to open multiple windows. (Pull requests https://github.com/AY1920S1-CS2103T-T17-2/main/pull/32[#32], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/37[#37])
+-	reviewed pull request and provided suggestions for improvements (Pull request https://github.com/AY1920S1-CS2103T-T17-2/main/pull/39[#39], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/180[#180])
+-	managed the release of _TravEzy_ version 1.1 and 1.2 
+-	made the user guide more reader-friendly (Pull requests https://github.com/AY1920S1-CS2103T-T17-2/main/pull/104[#104], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/108[#108], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/193[#193])
+
+== Contributions to User Guide 
+
+This section provides a sample of the contributions I have made to the user guide. Specifically, the instructions for using ``check`` and ``suggest``.
+
+=== Checking your availability for a trip: ``check``
+
+Do you need to find out whether you are available to go for a trip? You can get _TravEzy_ to find that out for you (i.e. when you happen to have a _school break_/_holiday_ *and* do not have any _commitment_/_trip_).
+
+Let's find out how!
+
+*Format:* +
+``check d/START DAY [m/START MONTH] [y/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
+
+*Examples:*
+****
+* To check whether you are available on 9 December 2019,
+
+    check d/9 m/Dec y/2019
+
+* To check whether you are available from 9 to 20 December 2019,
+
+    check d/9 m/Dec y/2019 D/20 M/Dec Y/2019
+
+****
+
+*Step by step:*
+
+Step 1. Type ``check d/9 m/Dec y/2019`` in the _command box_ and press _Enter_. +
+
+image::../images/calendarScreenshots/check1.png[Check command,width=600]
+
+Step 2. The _month and year panel_ and _month view panel_ will change to show you your schedule for this December.
+
+Step 3. The _result box_ will display a message to indicate whether you are available to travel during the specified time. If you happen to be free (like in this case), you may start booking your trip! 😀 +
+
+image::../images/calendarScreenshots/check2.png[Check result,width=600]
+
+
+=== Suggesting a suitable time for a trip: ``suggest``
+
+The end of the semester is near. It is time to look for some cheap flights🛫! However, before deciding which flight to book, you need to find out when you can travel. Need some help with that? No worries! _TravEzy_ has got you covered. 😊
+
+How so? Just ask _TravEzy_ to suggest a suitable time!
+
+*Format:* +
+``suggest d/START DAY [m/START MONTH] [y/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR] [p/PERIOD]``
+
+*Examples:*
+****
+* To find out when you can travel between 9 and 20 December 2019,
+
+    suggest d/9 m/Dec y/2019 D/20 M/Dec Y/2019
+
+* To find out when you can travel for at least 5 days between 9 and 20 December 2019,
+
+    suggest d/9 m/Dec y/2019 D/20 M/Dec Y/2019 p/5
+
+****
+
+*Step by step:*
+
+Step 1. Type ``suggest d/9 m/Dec y/2019 D/20 M/Dec Y/2019`` in the _command box_ and press _Enter_. +
+
+image::../images/calendarScreenshots/suggest1.png[Suggest command,width=600]
+
+Step 2. The _month and year panel_ and _month view panel_ will change to show you your schedule for this December.
+
+Step 3. The _result box_ will display a message to indicate when you are able to travel during the specified time. +
+
+image::../images/calendarScreenshots/suggest2.png[Suggest result,width=600]
+
+To view all my contributions to the user guide, please click https://github.com/AY1920S1-CS2103T-T17-2/main/blob/master/docs/UserGuide.adoc#calendar[here].
+
+
+== Contributions to the Developer Guide
+
+This section provides the contributions I have made to the developer guide.
+
+=== Calendar
+
+The calendar feature in _TravEzy_ allows users to easily plan when to travel. In this section, we will discuss how the calendar is designed and how the _add an event_ feature is implemented.
+
+==== Calendar Model
+
+This section discusses some design details of the calendar model.
+
+The following diagram illustrates the class diagram of the most important part of the calendar model. Specifically, it focuses on the https://github.com/AY1920S1-CS2103T-T17-2/main/tree/master/src/main/java/seedu/address/calendar/model/event[``Event`` component].
+
+image::../images/CalendarClassDiagram.png[Calendar model class diagram]
+
+As shown above, the ``Calendar`` instance interacts with the ``EventManager`` by querying it. With the help of ``EventManger``, the ``Calendar`` instance does not need to deal with "lower-level" concerns (for instance, how ``Event``s are managed internally). 
+
+Every ``EventManager`` can access ``Event``s that have been added. These ``Event``s can be ``Commitment``, ``Trip``, ``SchoolBreak`` or ``Holiday`` instances. If other instances need a read-only access to ``EventManager``, they can obtain it using the observer ``EventViewer`` which is implemented by ``EventManager``. 
+
+In addition, every ``EventManager`` depends on ``EventQuery`` to perform queries. 
+
+More information about this package is provided below.
+
+*What is an ``Event``?*
+
+* represents the event specified by the user: it is made up of the relevant ``Name``, ``EventType`` and ``Date`` (which is found in the ``Date`` package) instances
+
+*What is an ``EventQuery``?*
+
+* similar to an ``Event`` but is only made up of ``Date``
+* is used to query the ``IntervalSearchTree`` (from the ``Util`` package) to obtain events that are relevant to the user's request more efficiently.
+
+*How do classes in ``Util`` interact with those from ``Event``?*
+
+* ``Util`` contains important classes and interfaces like ``DateUtil``, ``IntervalSearchTree`` and ``Interval``
+* ``DateUtil`` helps ``EventManager`` to deal with manipulation of ``Date``-related operations
+* ``IntervalSearchTree`` makes certain user-requested operations more efficient computationally. However, to facilitate the use of ``IntervalSearchTree``, ``Event`` and ``EventType`` need to inherit from ``Interval``. 
+
+To find out how ``Calendar``, ``EventManager`` and ``IntervalSearchTree`` described above interact, consider the following sequence diagram. It describes how these classes work together when the user tries to add a holiday, which is represented by ``event`` (a ``Holiday`` instance) in the diagram below. 
+
+image::../images/CalendarSequenceDiagram.png[Calendar model sequence diagram]
+
+==== Add An Event Feature
+
+This section provides some details about how the _add an event_ feature is implemented.
+
+The following diagram illustrates the course of action(s) that is(are) possibly taken when a user tries to add a new trip to his/her calendar.
+
+image::../images/CalendarActivityDiagram.png[Calendar activity diagram]
+
+From the diagram, it can be seen that there are three major reasons that can interrupt the user request:
+
+* the user entered an invalid input (for instance, by typing an invalid date)
+* the user tried to add a duplicate event 
+* the user tried to add an event that may result in conflicts in his/her schedule
+
+==== Design Considerations
+
+This section details a few design considerations I made before deciding how I would like to implement the functionalities of this calendar.
+
+.Design considerations for calendar
+[grid="rows", frame="none"]
+|===
+| Aspect | Alternative 1 | Alternative 2
+
+| Data structure to support ``suggest`` and ``check`` commands
+a|The calendar simply stores all events in a list.
+
+* Pros: Easy to implement
+* Cons: Possibly slower performance, especially when users have many events in their calendars
+a|The calendar stores the events in an interval search tree.
+
+* Pros: On average, ``suggest`` and ``check`` commands can be performed more quickly, especially when there are many events in the calendar. In turn, this can improve user experience.
+* Cons: Implementation of interval search tree is tedious.
+* I chose this option because performance efficiency is essential if TravEzy is to scale. Furthermore, I can use the interval search tree to implement enhancements for ``add`` and ``delete`` commands more easily. 
+
+
+| Required date format for user input
+a|The usual date format like dd/mm/yyyy (for example, 12/05/2019 to specify 12 May 2019).
+
+* Pros: Easy to implement. It can be intuitive for users since this date format is common.
+* Cons: Very restrictive and not everyone uses the above format (for instance, in some countries, people specify date using the mm/dd/yyyy format).
+
+a|Allow users to specify day, month and year in whichever order they want.
+
+* Pros: More flexible and less restrictive for users.
+* Cons: If caution is not taken, bugs can arise quite easily.
+* I chose this implementation because it allows users to specify dates in the format which they are most familiar with.
+
+|===

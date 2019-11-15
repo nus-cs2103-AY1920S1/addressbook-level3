@@ -4,18 +4,28 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
-Interface Model <<Interface>>
-Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
-Class Model
-Class ModelManager
-Class UserPrefs
-Class ReadOnlyUserPrefs
+class HiddenOutside #FFFFFF
 
-Package Person {
+namespace Model {
+Interface Model <<Interface>>{
+}
+Class ModelManager
+Interface UserPrefsModel <<Interface>>
+Class UserPrefsModelManager
+Class ReadOnlyUserPrefs
+Class UserPrefs
+}
+
+namespace Achievements {
+namespace Model {
+Interface StatisticsModel <<Interface>>
+Class StatisticsModelManager
+}
+}
+
+namespace Address {
+namespace Model {
+namespace Person {
 Class Person
 Class Address
 Class Email
@@ -23,34 +33,117 @@ Class Name
 Class Phone
 Class UniquePersonList
 }
-
-Package Tag {
+namespace Tag {
 Class Tag
 }
+namespace Country {
+Class Country
+}
+Interface AddressBookModel <<Interface>>
+Class AddressBookModelManager
+Interface ReadOnlyAddressBook <<Interface>>
+Class AddressBook
+}
 }
 
-Class HiddenOutside #FFFFFF
-HiddenOutside ..> Model
+namespace Calendar {
+namespace Model {
+}
+}
 
-AddressBook .up.|> ReadOnlyAddressBook
+namespace diaryFeature {
+namespace diaryModel {
+}
+}
 
-ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
+namespace FinancialTracker {
+namespace Model {
+}
+}
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+namespace Itinerary {
+namespace Model {
+}
+}
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Interface ObservableList <<Interface>>
+Interface Supplier <<Interface>>
+HiddenOutside ..> Model.Model
 
-ModelManager -->"1" Person : filtered list
+''''''''''MODEL''''''''''
+
+''''''''''Model
+Model.ModelManager .up.|> Model.Model
+Model.Model .left.>Supplier
+
+''''''''''Model Interface
+Model.Model .down.> Address.Model.AddressBookModel :gets >
+Model.Model .down.> Achievements.Model.StatisticsModel :suppliers >
+Model.Model .down.> Model.UserPrefsModel :gets >
+
+''''''''''ModelManager Constructor
+''' composition or aggregation?
+Model.ModelManager o--> "1" Address.Model.AddressBookModel
+Model.ModelManager o--> "1" Model.UserPrefsModel
+Model.ModelManager ..> Achievements.Model.StatisticsModel
+
+
+''''''''''UserPrefsModelManager
+Model.UserPrefsModelManager .up.|> Model.UserPrefsModel
+
+''''''''''UserPrefs
+Model.UserPrefs .up.|> Model.ReadOnlyUserPrefs
+
+''''''''''
+
+''''''''''LAYOUT''''''''''
+Model.ModelManager -[hidden]down-> Model.UserPrefsModel
+Achievements -[hidden]right->Calendar
+Achievements -[hidden]right->diaryFeature
+Achievements -[hidden]right->FinancialTracker
+Achievements -[hidden]right->Itinerary
+Model.UserPrefsModelManager -[hidden]down->Address
+Model.UserPrefsModelManager -[hidden]down->Achievements
+Model.UserPrefsModelManager -[hidden]down->Calendar
+Model.UserPrefsModelManager -[hidden]down->diaryFeature
+Model.UserPrefsModelManager -[hidden]down->FinancialTracker
+Model.UserPrefsModelManager -[hidden]down->Itinerary
+Address -down[hidden]-> Achievements
+''''''''''''''''''''''''''
+
+''''''''''ADDRESS''''''''''
+''''''''''AddressBookModel Interface
+Address.Model.AddressBookModel .right.> ObservableList
+Address.Model.AddressBookModelManager .up.|> Address.Model.AddressBookModel
+''''''''''AddressBookModelManager Constructor
+Address.Model.AddressBookModelManager ..> Address.Model.ReadOnlyAddressBook
+Address.Model.AddressBookModelManager .up.> Model.ReadOnlyUserPrefs
+Address.Model.AddressBookModelManager -->"1" Address.Model.Person.Person : filtered list
+
+''''''''''ReadOnlyAddressBook
+Address.Model.ReadOnlyAddressBook ..> Address.Model.AddressBook
+
+''''''''''AddressBook
+Address.Model.AddressBook *-- "1" Address.Model.Person.UniquePersonList
+
+''''''''''Person
+Address.Model.Person.UniquePersonList o--> "*" Address.Model.Person.Person
+Address.Model.Person.Person *--> Address.Model.Person.Name
+Address.Model.Person.Person *--> Address.Model.Person.Phone
+Address.Model.Person.Person *--> Address.Model.Person.Email
+Address.Model.Person.Person *--> Address.Model.Person.Address
+Address.Model.Person.Person *--> Address.Model.Person.Remark
+Address.Model.Person.Person *--> Address.Model.Country.Country
+Address.Model.Person.Person *--> "*" Address.Model.Tag.Tag
+
+'''''''''''''''''''''''''''
+
+''''''''''ACHIEVEMENTS''''''''''
+''''''''''StatisticsModel Interface
+Achievements.Model.StatisticsModelManager .up.|> Achievements.Model.StatisticsModel
+''''''''''StatisticsModel Manager
+Achievements.Model.StatisticsModelManager ..> ObservableList
+Achievements.Model.StatisticsModelManager --> "*" Address.Model.Person.Person
+''''''''''''''''''''''''''''''''
+
 @enduml

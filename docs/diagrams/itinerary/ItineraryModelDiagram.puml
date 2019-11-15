@@ -1,0 +1,41 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+
+Package Model <<Rectangle>>{
+Class Model
+Class EventList
+Class "Observable Event List" as OEL
+Class "Action List" as AL
+
+Package Event {
+Class Event
+Class Title
+Class Date
+Class Time
+Class Location
+Class Description
+Class Tag
+}
+
+Model -down-> Itinerary
+
+Itinerary .left-> OEL
+Itinerary ->"1" AL
+
+Itinerary -left-> "1" EventList
+EventList -left->"1" OEL
+EventList --> "*" Event :> Contains
+Event *-->"1" Title
+Event *-->"1" Date
+Event *-->"1" Time
+Event *-->"1" Location
+Event *-->"1" Description
+Event *-->"1" Tag
+
+@enduml

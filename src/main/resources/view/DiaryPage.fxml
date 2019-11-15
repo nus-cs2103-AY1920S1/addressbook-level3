@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="diaryPane" stylesheets="@Diary.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <MenuBar fx:id="menuBar">
+        <Menu mnemonicParsing="false" text="File">
+            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="Code">
+            <MenuItem fx:id="codeMenuItem" mnemonicParsing="false" onAction="#handleCode" text="Git Code" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+        </Menu>
+    </MenuBar>
+   <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="3.0" VBox.vgrow="NEVER" />
+    <HBox id="header" alignment="CENTER" VBox.vgrow="NEVER">
+        <children>
+            <VBox alignment="CENTER">
+                <children>
+                    <Label />
+                    <Label text="Travel Diary" />
+                    <Label text="-------------" />
+                </children>
+            </VBox>
+        </children>
+    </HBox>
+   <HBox minHeight="5.0" prefHeight="5.0" style="-fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9)linear-gradient(to right, #f64f59, #c471ed, #12c2e9) linear-gradient(to right, #f64f59, #c471ed, #12c2e9)linear-gradient(to right, #f64f59, #c471ed, #12c2e9);" VBox.vgrow="NEVER" />
+   <HBox VBox.vgrow="ALWAYS">
+      <children>
+            <StackPane id="scroll bar" fx:id="diaryListPanelPlaceholder" HBox.hgrow="ALWAYS" />
+      </children>
+   </HBox>
+   <HBox layoutX="10.0" layoutY="142.0" minHeight="5.0" prefHeight="5.0" style="-fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9)linear-gradient(to right, #f64f59, #c471ed, #12c2e9) linear-gradient(to right, #f64f59, #c471ed, #12c2e9)linear-gradient(to right, #f64f59, #c471ed, #12c2e9);" />
+   <HBox maxHeight="100.0" minHeight="100.0" prefWidth="100.0" VBox.vgrow="NEVER">
+      <children>
+            <StackPane fx:id="resultDisplayPlaceholder" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+                <padding>
+                    <Insets bottom="5" left="10" right="10" top="5" />
+                </padding>
+            </StackPane>
+      </children>
+   </HBox>
+   <HBox VBox.vgrow="NEVER">
+      <children>
+
+            <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+                <padding>
+                    <Insets bottom="5" left="10" right="10" top="5" />
+                </padding>
+            </StackPane>
+      </children>
+   </HBox>
+    <VBox.margin>
+        <Insets bottom="-5.0" left="-5.0" right="-5.0" top="2.0" />
+    </VBox.margin>
+</VBox>

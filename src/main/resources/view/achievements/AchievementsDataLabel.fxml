@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox fx:id="titleLabel" alignment="CENTER_LEFT" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+      <VBox alignment="CENTER_LEFT" minWidth="160.0" HBox.hgrow="ALWAYS">
+         <children>
+          <Label fx:id="dataTitle" wrapText="true" />
+         </children>
+      </VBox>
+      <VBox alignment="CENTER_RIGHT" minWidth="160.0" HBox.hgrow="ALWAYS">
+         <children>
+            <Label fx:id="dataValue" text="Label" />
+         </children>
+      </VBox>
+  </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</HBox>

@@ -1,0 +1,153 @@
+.label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #555555;
+    -fx-opacity: 0.9;
+}
+
+.label-bright {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #000000;
+    -fx-opacity: 1;
+}
+
+.label-header {
+    -fx-font-size: 32pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.text-field {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+/* Menu Bar Styling */
+.menu-bar {
+    -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
+    -fx-selection-bar: #c471ed; /* style color of menubar when menu bar item is selected */
+}
+
+.menu-bar .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+.menu:default:hover,
+.menu:hover {
+    -fx-background-color: #c471ed !important;
+}
+
+/* Menu Bar Items */
+.context-menu {
+    -fx-background-color: derive(#AA076B, 30%);
+}
+
+.context-menu .label {
+    -fx-text-fill: white;
+}
+
+/* Card Styling */
+#cardPane {
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: darkorchid;
+}
+
+#country {
+    -fx-text-fill: white;
+    -fx-background-color: transparent, #7b1fa2;
+    -fx-label-padding: 5, 2, 5, 2;
+    -fx-border-radius: 2;
+    -fx-background-radius: 0, 2;
+    -fx-font-size: 11;
+    -fx-background-insets: 2;
+}
+
+/* Combo Selection Box styling */
+.combo-box .list-cell {
+    -fx-background: white;
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-padding: 3 0 2 7;
+    -fx-cell-size: 1.66667em;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: white, white;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 8, 0, 0, 0);
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-padding: 4 0 4 5;
+
+    /* No alternate highlighting */
+    -fx-background-color: white;
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected,
+.combo-box-popup .list-view .list-cell:filled:selected:hover {
+    -fx-background: -fx-accent;
+    -fx-background-color: -fx-selection-bar;
+    -fx-text-fill: -fx-selection-bar-text;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover {
+    -fx-background-color: white;
+    -fx-text-fill: -fx-text-inner-color;
+}
+
+.combo-box-base {
+    -fx-background-color: white, white, white, white;
+    -fx-background-radius: 5, 5, 4, 3;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-padding: 0;
+}
+
+.combo-box-base:hover {
+    -fx-color: -fx-hover-base;
+}
+
+.combo-box-base:showing {
+    -fx-color: -fx-pressed-base;
+}
+
+.combo-box-base:focused {
+    -fx-background-color: -fx-focus-color, -fx-outer-border, -fx-inner-border,
+    -fx-body-color;
+    -fx-background-radius: 6.4, 4, 5, 3;
+    -fx-background-insets: -1.4, 0, 1, 2;
+}
+
+.combo-box-base:disabled {
+    -fx-opacity: 0.4;
+}
+
+/* Header Styling */
+#header {
+    -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
+}
+
+/* Font styling */
+#financialTracker {
+    -fx-font-family: "Times new Roman";
+    -fx-text-fill: white;
+    -fx-font-size: 30pt;
+}
+
+/* The divider */
+#dottedLine {
+    -fx-font-family: "Times new Roman";
+    -fx-text-fill: white;
+    -fx-font-size: 15pt;
+}
+
+/* border between header and body */
+#border {
+    -fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
+}
