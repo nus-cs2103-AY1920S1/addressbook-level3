@@ -11,7 +11,7 @@
 
 Craving for a nice bowl of Mala but can’t seem to save up enough for it? guiltTrip() is the perfect platform for those
 *aspiring to be able to afford their Mala*, finally!
-
+nk
 == Summary of contributions
 
 * *Major enhancement 1*: added *AutoSuggestion for any command input*
@@ -49,7 +49,7 @@ Craving for a nice bowl of Mala but can’t seem to save up enough for it? guilt
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=swampertx&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]
 
 * *Other contributions*:
 
