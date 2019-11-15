@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103-F09-2/main
+:repoURL: https://github.com/AY1920S1-CS2103-F09-2/main/blob/master
 
 By: `Team F09-2`      Since: `Aug 2019`      Licence: `MIT`
 
@@ -179,6 +179,7 @@ The `FileReadWrite` component,
 * interface for user to provide their custom root directory
 * writes file and creates path directories if none
 
+// end::storage[]
 // tag::parsejson[]
 ==== Implementation
 The parsing is done by `JsonParser`.
@@ -205,6 +206,7 @@ If all parsing types fail, there must be an error with the string input, thus a 
 The JsonParser is designed to be a utility class with a pure function without any mutation of state.
 Thus it should be self contained within a single function call.
 
+// end::parsejson[]
 [[Design-Util]]
 === Code Component
 .Structure of the Code component within Utilities
@@ -244,6 +246,7 @@ from the input. Following the previous example, parsing the input will create an
 The first arraylist contains one element `"asd"` and the second arraylist contains one element `"dsa"`;
 parallel to the arguments of the input.
 
+// end::regexutil[]
 
 [[Design-Commons]]
 === Common classes
