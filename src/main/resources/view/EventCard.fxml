@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox id="cardPane" fx:id="cardPane" stylesheets="@Itinerary.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <VBox id="indexBox">
+      <children>
+     <Label id="index" fx:id="id" alignment="CENTER" prefHeight="86.0" prefWidth="108.0">
+       <minWidth>
+         <!-- Ensures that the label text is never truncated -->
+         <Region fx:constant="USE_PREF_SIZE" />
+       </minWidth>
+            <font>
+               <Font name="Impact" size="50.0" />
+            </font>
+     </Label>
+      </children>
+   </VBox>
+   <VBox prefWidth="1.0" style="-fx-background-color: darkorchid;" />
+   <BorderPane HBox.hgrow="ALWAYS">
+      <top>
+      <HBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
+        <ImageView fx:id="checkBox" fitHeight="23.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </ImageView>
+            <Label id="tag" fx:id="tag" text="\\$tag">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Label>
+        <Label fx:id="title" lineSpacing="2.0" text="\\\$title" underline="true" wrapText="true">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <BorderPane.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </BorderPane.margin>
+      </HBox>
+      </top>
+      <center>
+         <HBox BorderPane.alignment="CENTER">
+            <children>
+               <VBox id="timeBox">
+                  <children>
+                     <HBox>
+                        <children>
+                           <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../images/calendar_emoji.png" />
+                              </image>
+                              <HBox.margin>
+                                 <Insets right="5.0" />
+                              </HBox.margin>
+                           </ImageView>
+                           <Label id="detailsHeader" text="Date: ">
+                              <font>
+                                 <Font name="Chalkboard" size="13.0" />
+                              </font>
+                           </Label>
+                           <Label id="details" fx:id="date" text="\\\$date" />
+                        </children>
+                        <VBox.margin>
+                           <Insets bottom="5.0" />
+                        </VBox.margin>
+                     </HBox>
+                     <HBox>
+                        <children>
+                           <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../images/alarm.png" />
+                              </image>
+                              <HBox.margin>
+                                 <Insets right="5.0" />
+                              </HBox.margin>
+                           </ImageView>
+                           <Label id="detailsHeader" text="Time: ">
+                              <font>
+                                 <Font name="Chalkboard" />
+                              </font>
+                           </Label>
+                        <Label id="details" fx:id="time" text="\\\$time" />
+                        </children>
+                     </HBox>
+                  </children>
+                  <HBox.margin>
+                     <Insets right="30.0" />
+                  </HBox.margin>
+               </VBox>
+               <VBox id="detailBox">
+                  <children>
+                     <HBox>
+                        <children>
+                           <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../images/location.png" />
+                              </image>
+                              <HBox.margin>
+                                 <Insets right="5.0" />
+                              </HBox.margin>
+                           </ImageView>
+                           <Label id="detailsHeader" text="Location: ">
+                              <font>
+                                 <Font name="Chalkboard" size="10.0" />
+                              </font>
+                           </Label>
+                        <Label id="details" fx:id="loc" text="\\\$loc" />
+                        </children>
+                        <VBox.margin>
+                           <Insets bottom="5.0" />
+                        </VBox.margin>
+                     </HBox>
+                     <HBox>
+                        <children>
+                           <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../images/description.png" />
+                              </image>
+                              <HBox.margin>
+                                 <Insets right="5.0" />
+                              </HBox.margin>
+                           </ImageView>
+                           <Label id="detailsHeader" text="Description: ">
+                              <font>
+                                 <Font name="Chalkboard SE Light" size="10.0" />
+                              </font>
+                           </Label>
+                        <Label id="details" fx:id="desc" text="\\\$desc" wrapText="true" />
+                        </children>
+                     </HBox>
+                  </children>
+               </VBox>
+            </children>
+            <BorderPane.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" />
+            </BorderPane.margin>
+         </HBox>
+      </center>
+   </BorderPane>
+   <VBox prefWidth="10.0" style="-fx-background-color: deeppink;" />
+</HBox>

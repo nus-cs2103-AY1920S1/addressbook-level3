@@ -1,0 +1,87 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+namespace Logic {
+Interface GuiSettingsLogic <<Interface>>
+Interface Logic <<Interface>>
+Interface MainLogic <<Interface>>
+class MainLogicManager
+Class LogicManager
+namespace Commands {
+Class CommandResult
+Class "{abstract}\nCommand" as Command
+Class XYZCommand
+}
+namespace Parser {
+Interface Parser <<Interface>>
+Class ArgumentMultimap
+Class ArgumentTokenizer
+Class ParserUtil
+Class Prefix
+Class XYZCommandParser
+}
+}
+
+namespace Storage {
+}
+
+namespace Model {
+}
+
+
+namespace XYZ {
+namespace Logic {
+class XYZLogic
+}
+}
+
+Class HiddenOutside #FFFFFF
+
+''''''''''LOGIC''''''''''
+HiddenOutside .down.> Logic.Logic
+
+''''''''''Logic
+Logic.Logic --up-|> Logic.GuiSettingsLogic
+Logic.Logic .left.> Storage
+Logic.Logic .down.> XYZ.Logic.XYZLogic :gets >
+
+''''''''''LogicManager
+Logic.LogicManager .up.|> Logic.Logic
+Logic.LogicManager o-right- "1" Storage
+Logic.LogicManager o-left- "1" Model
+Logic.LogicManager o-down- "1" Logic.MainLogic
+Logic.LogicManager o-down- "1" XYZ.Logic.XYZLogic
+
+Logic.MainLogicManager .up.|> Logic.MainLogic
+
+''''''''''Command
+Logic.Commands.Command .up.> Logic.Commands.CommandResult
+
+''''''''''XYZ Command
+Logic.Commands.XYZCommand -up-|> Logic.Commands.Command
+
+''''''''''Parser
+Logic.Parser.XYZCommandParser .up.|> Logic.Parser.Parser
+
+''''''''''ParserUtil
+Logic.Parser.ParserUtil .down.>Logic.Parser.Prefix
+
+''''''''''ArgumentTokenizer
+Logic.Parser.ArgumentTokenizer .left.> Logic.Parser.ArgumentMultimap
+Logic.Parser.ArgumentTokenizer .down.> Logic.Parser.Prefix
+
+''''''''''''''''''''
+
+
+''''''''''LAYOUT''''''''''
+Logic .[hidden]up.> HiddenOutside
+Logic.LogicManager .[hidden]right.> Storage
+Logic.LogicManager .[hidden]down.> Logic.Commands
+Logic.Commands .[hidden]left.> Logic.Parser
+Logic.Parser .[hidden]left.> Logic.MainLogic
+Logic.Commands .[hidden]down.> Logic.Logic
+''''''''''''''''''''''''''
+@enduml

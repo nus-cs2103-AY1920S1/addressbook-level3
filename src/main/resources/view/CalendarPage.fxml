@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+    <VBox prefHeight="450" prefWidth="552" stylesheets="@CalendarPage.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+        <children>
+            <VBox prefHeight="41.0" prefWidth="552.0">
+                <children>
+                    <MenuBar prefHeight="33.0" prefWidth="251.0" stylesheets="@Itinerary.css">
+                        <menus>
+                            <Menu mnemonicParsing="false" text="File">
+                                <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                                </items>
+                            </Menu>
+                            <Menu mnemonicParsing="false" text="Code">
+                                <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#handleCode" text="Git code" />
+                                </items>
+                            </Menu>
+                            <Menu mnemonicParsing="false" text="Help">
+                                <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                                </items>
+                            </Menu>
+                        </menus>
+                    </MenuBar>
+                    <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="3.0" prefWidth="100.0" style="-fx-background-color: fff;" />
+                    <VBox prefHeight="5.0" prefWidth="552.0" style="-fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);" />
+                </children>
+            </VBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: red;" VBox.vgrow="ALWAYS">
+                <children>
+                    <VBox id="headerPanel" fx:id="headerPanel" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="238.0">
+                        <children>
+                            <VBox id="header" fx:id="header" alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+                                <children>
+                                    <GridPane alignment="TOP_CENTER" prefHeight="198.0" prefWidth="180.0">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints maxHeight="141.0" minHeight="10.0" prefHeight="114.0" vgrow="SOMETIMES" />
+                                            <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                            <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                                        </rowConstraints>
+                                        <children>
+                                            <StackPane fx:id="monthHeaderPlaceholder" prefHeight="200.0" prefWidth="200.0" />
+                                            <StackPane fx:id="yearHeaderPlaceholder" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="2" />
+                                            <StackPane id="separator" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                                <children>
+                                                    <Separator prefHeight="14.0" prefWidth="115.0" />
+                                                </children>
+                                            </StackPane>
+                                        </children>
+                                    </GridPane>
+                                </children>
+                            </VBox>
+                        </children>
+                    </VBox>
+                    <GridPane id="monthPanel" fx:id="monthPanel" HBox.hgrow="ALWAYS">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints maxHeight="41.0" minHeight="10.0" percentHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="202.0" minHeight="10.0" percentHeight="90.0" prefHeight="192.0" vgrow="SOMETIMES" />
+                        </rowConstraints>
+                        <children>
+                            <GridPane id="week-header" fx:id="weekHeader" alignment="CENTER">
+                                <columnConstraints>
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                    <Label styleClass="week" text="Mon" GridPane.columnIndex="1" />
+                                    <Label styleClass="week" text="Tue" GridPane.columnIndex="2" />
+                                    <Label styleClass="week" text="Wed" GridPane.columnIndex="3" />
+                                    <Label styleClass="week" text="Thu" GridPane.columnIndex="4" />
+                                    <Label styleClass="week" text="Fri" GridPane.columnIndex="5" />
+                                    <Label styleClass="week" text="Sat" GridPane.columnIndex="6" />
+                                    <Label styleClass="week" text="Sun" />
+                                </children>
+                            </GridPane>
+                            <StackPane fx:id="monthViewPlaceholder" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                        </children>
+                    </GridPane>
+                </children>
+            </HBox>
+            <VBox prefHeight="5.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);" />
+            <VBox fx:id="resultDisplayPlaceholder" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="100.0" prefWidth="552.0" style="-fx-padding: 5 10;" />
+            <StackPane fx:id="commandBoxPlaceholder" prefHeight="42.0" prefWidth="552.0" style="-fx-padding: 5 10;" />
+        </children></VBox>

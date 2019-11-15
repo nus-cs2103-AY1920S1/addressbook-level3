@@ -4,57 +4,82 @@ skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
-package UI <<Rectangle>>{
+namespace UI <<Rectangle>>{
 Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
-Class StatusBarFooter
 Class CommandBox
+class PageManager
+class PageType <<enumeration>>
+class Page
+Class ListElementPointer
+Class MainPage
 }
 
-package Model <<Rectangle>> {
-Class HiddenModel #FFFFFF
+namespace XYZ {
+namespace UI {
+Class XYZPage
 }
+namespace Logic {
+}
+}
+
 
 package Logic <<Rectangle>> {
 Class HiddenLogic #FFFFFF
 }
 
+Interface List <<Interface>>
+
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Ui
+HiddenOutside ..> UI.Ui
 
-UiManager .left.|> Ui
-UiManager -down-> MainWindow
-MainWindow --> HelpWindow
-MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
-MainWindow *-down-> StatusBarFooter
+UI.UiManager .left.|> UI.Ui
+UI.UiManager -down-> UI.MainWindow
+UI.MainWindow .down.> UI.PageManager
+UI.MainWindow o-down- "1" XYZ.UI.XYZPage
 
-PersonListPanel -down-> PersonCard
+UI.PageManager .left.> List
+UI.PageManager o-right-> "*" UI.Page
 
-MainWindow -left-|> UiPart
+UI.Page .> UI.PageType
 
-ResultDisplay --|> UiPart
-CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+XYZ.UI.XYZPage .up.|> UI.Page
+XYZ.UI.XYZPage -up-|> UI.UiPart
+XYZ.UI.XYZPage *-up-> UI.CommandBox
+XYZ.UI.XYZPage *-up-> UI.ResultDisplay
+XYZ.UI.XYZPage *-up-> UI.HelpWindow
+XYZ.UI.XYZPage *-up-> UI.CodeWindow
+XYZ.UI.XYZPage -left-> XYZ.Logic
 
-PersonCard ..> Model
-UiManager -right-> Logic
-MainWindow -left-> Logic
+UI.MainPage .up.|> UI.Page
+UI.MainPage -up-|> UI.UiPart
+UI.MainPage *--> UI.CommandBox
+UI.MainPage *--> UI.ResultDisplay
+UI.MainPage *--> UI.HelpWindow
+UI.MainPage *--> UI.CodeWindow
+UI.MainPage --> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
+UI.MainWindow -left-|> UI.UiPart
 
-MainWindow -[hidden]-|> UiPart
+UI.ResultDisplay --|> UI.UiPart
+UI.CommandBox --|> UI.UiPart
+UI.HelpWindow -down-|> UI.UiPart
+UI.CodeWindow -down-|> UI.UiPart
+
+UI.UiManager -right-> Logic
+UI.MainWindow -left-> Logic
+
+UI.HelpWindow -[hidden]left- UI.CommandBox
+UI.CommandBox -[hidden]left- UI.ResultDisplay
+
+UI.MainWindow -[hidden]-|> UI.UiPart
+UI.UiPart -[hidden]down-> UI.Page
+UI.PageManager -[hidden]down-> UI.PageType
+
+UI.CommandBox --> UI.ListElementPointer
+UI.ListElementPointer  ..> List
 @enduml

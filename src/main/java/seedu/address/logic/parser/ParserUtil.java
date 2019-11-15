@@ -6,14 +6,16 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.address.model.country.Country;
+import seedu.address.address.model.person.Address;
+import seedu.address.address.model.person.Email;
+import seedu.address.address.model.person.Name;
+import seedu.address.address.model.person.Phone;
+import seedu.address.address.model.tag.Tag;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.ui.PageType;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -111,6 +113,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String country} into a {@code Country}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code country} is invalid.
+     */
+    public static Country parseCountry(String country) throws ParseException {
+        requireNonNull(country);
+        String trimmedCountry = country.trim();
+        if (!Country.isValidCountry(trimmedCountry)) {
+            throw new ParseException(Country.MESSAGE_CONSTRAINTS);
+        }
+        return new Country(trimmedCountry);
+    }
+
+    /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
@@ -120,5 +137,22 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code String pageType} into a {@code PageType}.
+     * @param pageType
+     * @return a {@code PageType} object.
+     * @throws ParseException if the given {@code pageType} is invalid.
+     */
+    public static PageType parsePageType(String pageType) throws ParseException {
+        requireNonNull(pageType);
+        String trimmedPageType = pageType.trim();
+        try {
+            PageType requestedPage = PageType.valueOf(trimmedPageType.toUpperCase());
+            return requestedPage;
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(PageType.MESSAGE_CONSTRAINTS);
+        }
     }
 }
