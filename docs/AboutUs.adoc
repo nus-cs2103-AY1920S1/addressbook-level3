@@ -41,7 +41,7 @@ Responsibilities: Diary
 
 === Muhammad Khairul Azman
 image::khairulazman1997.png[width="150", align="left"]
-{empty}[http://github.com/khairulazman1997[github]] [<<khairulzaman1997#, portfolio>>]
+{empty}[http://github.com/khairulazman1997[github]] [<<khairulazman1997#, portfolio>>]
 
 Role: Integration +
 Responsibilities: Exercise Tracker
