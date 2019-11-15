@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= CS2103/T Revision Tool - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,117 +12,211 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-F10-3/main
+:javaFxBugURL: https://github.com/javafxports/openjdk-jfx/pull/271
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F10-3`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+This CS2103/T Revision Tool (RT) is for those who *prefer to use a desktop app for storing their personally
+customised question banks*. More importantly, RT is *optimized for those who prefer to work with a Command Line
+Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, RT can get your revision done faster than traditional quiz
+GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+[NOTE]
+RT is initially designed with the intention to help CS2103/T students who do not like to use Luminus quizzes
+for their revision. However, it can also be used for other modules or other revision purposes, for students who
+generally prefer a CLI and GUI that is different from what Luminus or other existing quiz apps have to offer.
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Ensure that you have the latest version of JavaFX installed in your Computer. (Previous versions of JavaFX may cause
+bugs related to displaying pop ups. more info about this bug can be found at this link:{javaFxBugURL}/link[link])
+.  Download the latest RT link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your `*question bank*`.
+.  Double-click the file to start the app. The GUI should appear in a few seconds. The image below shows the app in configuration mode.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
+.  Some example commands you can try in configuration mode:
+
+* *`list`* : lists questions of all categories and difficulties for the user to view.
+* **`add `**`type/mcq q/According to the textbook, which kind of project is more difficult? x/Greenfield x/Brownfield y/None
+of the above x/Padifield diff/1 cat/Introduction` : adds an mcq question with x/ (as in a cross for "wrong") marking the wrong answers and
+y/ (as in "yes") marking the correct answers. Difficulty: 1, Category: Introduction.
+* **`delete`**`3` : deletes the 3rd question shown in the current list.
+* *`exit`* : exits the app.
+
+.  Refer to <<ConfigurationMode>> for details of each command.
+
+. To enter Quiz Mode, type `start mode/normal` other modes such as arcade and custom are also available and are elaborated on
+in <<Quiz Mode>> .
++
+image::Ui2.png[width="790"]
++
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
-
-[[Features]]
-== Features
+[[ConfigurationMode]]
+== Configuration Mode
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add type/TYPE q/QUESTION`, 'TYPE' and `QUESTION` are parameters
+which can be used as `add type/mcq q/What the recommended user story format?`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[x/WRONG_ANSWER]...` can be used as `{nbsp}` (i.e. 0 times), `x/Greenfield`, `x/Brownfield` etc.
+* Parameters can be in any order e.g. if the command specifies `q/QUESTION cat/CATEGORY`, `cat/CATEGORY q/QUESTION` is also acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+//tag::wilfred[]
+//tag::wilfred-start[]
+=== Starting the quiz: `start`.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+User can start by choosing the mode of the quiz. (normal / arcade / custom). See <<Quiz Mode>> for in-quiz commands.
+
+Format: `start mode/MODE`
 
 [TIP]
-A person can have any number of tags (including 0)
+To start all questions in the question bank, use command +
+start mode/normal
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `start mode/normal`
+* `start mode/custom cat/uml diff/1 timer/20`
+//end::wilfred-start[]
 
-=== Listing all persons : `list`
+//tag::khiangleon[]
+//tag::khiangleon-stats[]
+=== Check your progress: `stats`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+image::stats.png[width="790"]
 
-=== Editing a person : `edit`
+Displays the percentage of questions answered correctly by difficulty, for all
+quiz attempts. Indicates to user which difficulty level he or she is weakest in.
+This feature only records results for the normal mode of quizzes.
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `stats`
+
+Example:
+
+*Total*: 68.42%
+
+* Difficulty 1: 100.00%
+* Difficulty 2: 100.00%
+* Difficulty 3: 14.29%
+* Please prioritise this type of questions: Difficulty 3
+
+//end::khiangleon-stats[]
+
+//tag::shaun[]
+//tag::shaun-autocomplete[]
+=== AutoComplete Function
+
+Helps you complete your command when you type.
+
+Users will be able to see a list of auto complete options while they are typing. Once the auto complete context menu is
+shown, users can use the arrow keys to choose the options they want and upon pressing the "ENTER" button, they would be able to
+select the option.
+
+Examples:
+
+* `User wants to type the "start" command in the command box`
+* `He will be able to see a list of dropdown options as shown:`
+* `First "ENTER" button will select the option`
+* `Second "ENTER" button will execute the option`
++
+image::Autocomplete2.png[width="790"]
+//end::shaun-autocomplete[]
+
+//tag::wilfred-add[]
+=== Adding MCQ/TrueFalse question: `add`
+
+Adds a MCQ or TrueFalse question to the question bank
+
+Format: `add type/TYPE q/QUESTION cat/CATEGORY diff/DIFFICULTY y/CORRECT_ANSWER x/WRONG_ANSWER... `
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+[%hardbreaks]
+The following are the valid answer formats for each question type:
+*MCQ*: 1 Correct answer and 3 Wrong answers.
+*True & False*: 1 Correct answer (i.e. True / False) wrong answers omitted.
+****
+
+Examples:
+
+* `add type/mcq q/According to the textbook, which kind of project is more difficult? cat/Week 2 diff/1
+x/Greenfield x/Brownfield y/None of the others x/Padifield`
+* `add type/tf q/OODMs are Class Diagrams cat/uml diff/2 y/true`
+//end::wilfred-add[]
+
+//tag::sihao-add[]
+=== Adding SAQ: `add`
+
+Adds a SAQ to the question bank
+
+Format: `add type/saq q/QUESTION cat/CATEGORY diff/DIFFICULTY y/CORRECT_ANSWER ... `
+
+****
+[%hardbreaks]
+The following are the valid answer formats for SAQ:
+*SAQ*: Multiple correct answers, no wrong answers.
+****
+
+Examples:
+
+* `add type/saq q/What does UML stands for? cat/cs2103 diff/1 y/unified modeling language`
+
+****
+[%hardbreaks]
+*NOTE*:
+Answer to the SAQ cannot be "exit".
+Answer cannot appear in the question
+(eg. q/What is UML diagram? y/UML Diagram).
+****
+//end::sihao-add[]
+
+//end::wilfred-add[]
+
+//tag::wilfred-edit[]
+=== Editing a question : `edit`
+
+Edits an existing question in the question bank.
+
+Format: `edit INDEX [q/QUESTION] [cat/CATEGORY] [diff/DIFFICULTY] [x/WRONG_ANSWER]... [y/CORRECT_ANSWER]...`
+
+****
+* Edits the question at the specified `INDEX`. The index refers to the index number shown in the displayed question list.
+The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing category and/or difficulty, the existing category and/or difficulty of the question will be removed
+i.e adding of category and/or difficulty is not cumulative.
+* Question type cannot be edited.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 1 q/According the the textbook, is greenfield or brownfield tougher?` +
+Edits the the first question to "According the the textbook, is greenfield or brownfield tougher?"
+//end::wilfred-edit[]
 
-=== Locating persons by name: `find`
+=== Deleting a question : `delete`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes the specified questions from the question bank. +
+Format: `delete INDEX [MORE_INDICES]`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Delete the question(s) at the specified `INDEX`s.
+* The index refers to the index number shown in the displayed question list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -130,48 +224,224 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 2nd question in the question bank list.
+* `find Greenfield` +
+`delete 1 3 5` +
+Deletes the 1st, 3rd and 5th question in the question bank list.
 
-// end::delete[]
+//tag::junxian-list[]
+=== Listing all questions : `list`
+
+Shows a list of all questions in the test back. If appended with a category and/or difficulty, `list` will show all questions
+matching the chosen category and/or difficulty.
+
+Format: `list [cat/CATEGORY] [diff/DIFFICULTY]`
+
+[TIP]
+If no category or difficulty is stated (i.e. `list`), program will list the entire question bank.
+
+Examples:
+
+* `list cat/requirements`
+* `list cat/requirements diff/2`
+
+//end::junxian-list[]
+
+//tag::junxian-find[]
+=== Locating questions: `find`
+
+Finds questions whose descriptions contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `brownfield` will match `Brownfield`
+* The order of the keywords does not matter. e.g. `green field` will match `field green`
+* Only the question name is searched.
+* Only full words will be matched e.g. `Requirement` will not match `Requirements`
+* Descriptions matching at least one keyword will be returned (i.e. `OR` search). e.g. `User story` will return `User Survery`, `User Input`
+****
+
+Examples:
+
+* `find User` +
+Returns `How do you gather user requirements?` and `What is the recommended user story format?`
+* `find User, Brownfield, Greenfield` +
+Returns any question containing descriptions `User`, `Brownfield`, or `Greenfield`
+//end::junxian-find[]
+
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all questions from the question bank. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+//tag::shaun-restore[]
+=== Restoring all entries : `restore`
 
-Exits the program. +
-Format: `exit`
+Clears all current questions from the question bank and restores the default questions that were in the original app. +
+Users will be prompted if they really want to restore their current question bank as the command is non-reversible.
+Format: `restore`
+//end::shaun-restore[]
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Question bank data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Exiting the application: `exit`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Exits the application. +
+Format: `exit`
+
+//tag::khiangleon[]
+//tag::khiangleon-history[]
+=== More data analytics `[coming in v2.0]`
+
+==== More statistics `stats`
+Users will be able to view average scores across all attempts of quizzes.
+They will also be able to view statistics not just for difficulty levels, but also for individual categories.
+This will help them to prioritise and know exactly which type of questions they are weaker at.
+This feature will also indicate to users further that overall across all quiz attempts which type of questions
+needs to be prioritised. In addition, with all these in mind, users can then make use of the custom quiz mode in
+`section 4.3` to get more practise on specific types of questions.
+
+==== Graphs `history`
+Currently, as of `v1.4`, this command only shows a raw full history of scores and their breakdown
+by difficulty levels for all past quiz attempts. The number of quizzes attempted by the user in total is also shown
+in the results display. By `v2.0`, users will be able to view line graphs of their history of quiz attempts' results
+by categories and difficulty levels. This will show them how much they are progressing in their quiz results for
+each different type of questions.
+
+//end::khiangleon-history[]
+
+// tag::import/export[]
+=== Importing / Exporting question banks `[coming in v2.0]`
+
+User can export can import json files containing the question bank into the application.
+// end::import/export[]
+
+//tag::wilfred-quiz[]
+== Quiz Mode
+//tag::junxian-timer[]
+For all quiz modes, the current question will be skipped when the timer reaches zero. The question will be marked as wrong,
+and the next question will be shown with the updated timer.
+//end::junxian-timer[]
+
+=== Normal Mode
+Levels are separated by difficulty. At the end of each level, user has the choice to move on to the next level or exit the quiz.
+The user is given 30 seconds to answer each question.
+
+image::normal-mode.png[]
+
+=== Arcade Mode
+Levels are separated by difficulty. If the user enters a wrong answer before finishing the quiz. The quiz will end and display the results.
+The user is given 30 seconds to answer each question in level 1. Subsequent level timers are 5 seconds faster than the previous level with
+level 3 giving the user 20 seconds to answer each question.
+
+image::arcade-mode.png[]
+
+//tag::junxian-custom-mode[]
+=== Custom Mode
+Category, Difficulty and Timer (must be above 1 second) can be customised by the user. Decimal values will be truncated, i.e.
+`start mode/custom timer/5.34` will start the quiz with a time limit of 5 seconds for each question.
+Levels are also sorted according to
+difficulty. The prefixes are optional, and if no prefixes are provided, custom mode will begin a quiz with normal mode settings.
+//end::junxian-custom-mode[]
+
+=== Answering Questions
+|======
+|MCQ |TrueFalse |SAQ
+|Answers can only be A, B, C, or D (Case insensitive) |Answers can only be True (T) / False (F) (Case insensitive)|Answers are open ended. Revision tool uses NLP to parse answers and determine whether they are correct.
+|======
+//end::wilfred-quiz[]
+
+=== Exiting the quiz
+
+User can end the quiz and go back into Configuration Mode (see <<ConfigurationMode>>) to perform commands such as `add`, `list`, and `stats`
+.
+
+Format: `exit`
+
+//tag::junxian-proposed-features[]
+=== Mark question as starred during quiz `[coming in v2.0]`
+
+User will be able to star questions during the quiz by entering `star` for the current question they are on. The question will be updated as "starred", so that the user will remember that they
+had problems with that particular question during the quiz.
+
+=== Enter short code during quiz sessions`[coming in v2.0]`
+
+User will be able to type in code during the quiz, and the app will provide a syntax checker which will not allow the user to submit his code if there are syntax errors.
+//end::junxian-proposed-features[]
+
+=== Pictures/Diagrams `[coming in v2.0]`
+
+User will be able to upload pictures and diagrams as part of the questions when adding questions to the test bank.
+
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the
+data of your previous question bank folder.
 
+*Q*: Why am I not able to click on the options to select the answers for MCQs and T/F questions? +
+*A*: The options are there as a way to show the users the options available. As this is a CLI application, the main
+input will be through keyboard inputs.
+
+*Q*: Can I use this application for another module? +
+*A*: Yes you can. This application is designed to store any types of MCQs, T/F and SAQs.
+
+*Q*: I want to challenge my friends using this application, how can I do it? +
+*A*: There is no online support for the application right now. One way you can chanllenge your friend is to prepare the
+same json files and load it up to your individual computers and do the quiz together.
+
+//tag::wilfred-summary[]
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
 * *Help* : `help`
+
+* *Start* `start mode/MODE` +
+e.g. `start mode/normal`
+
+* *Exit* `exit`
+
+* *Stats* : `stats`
+
+* *Add* `add type/TYPE q/QUESTION cat/CATEGORY diff/DIFFICULTY y/CORRECT_ANSWER x/WRONG_ANSWER...` +
+e.g. `add type/mcq q/According to the textbook, which kind of project is more difficult? cat/Week 2 diff/1
+x/Greenfield x/Brownfield y/None of the others of the above x/Padifield`
+
+* *Edit* : `edit INDEX [q/QUESTION] [cat/CATEGORY] [diff/DIFFICULTY] [x/WRONG_ANSWER]... [y/CORRECT_ANSWER]...` +
+e.g. `edit 1 q/According the the textbook, is greenfield or brownfield tougher?`
+
+* *Delete* : `delete INDEX [MORE_INDICES]` +
+e.g. `delete 1 3 5`
+
+* *List* : `list [cat/CATEGORY] [diff/DIFFICULTY]`
+e.g. `list cat/requiments diff/2`
+
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find user story`
+
+* *Clear* : `clear`
+
+* *Restore* : `restore`
+
+* *History* : `history`
+//end::wilfred-summary[]
+//end::wilfred[]
+
+//tag::shaun-AcTip[]
+[TIP]
+*AutoComplete*: Suggested commands will be shown as you type. Navigate through the dropdown list using the up and down
+arrow keys and hit kbd:[Enter] to complete the command.
+
+//end::shaun-AcTip[]
+//end::shaun[]
+
+//tag::khiangleon-StatsTip[]
+[TIP]
+*Stats/History*: Hitting kbd:[Enter] again after executing a `stats` or `history` command will return you
+back to configuration mode displaying the question bank.
+
+//end::khiangleon-StatsTip[]
+//end::khiangleon[]

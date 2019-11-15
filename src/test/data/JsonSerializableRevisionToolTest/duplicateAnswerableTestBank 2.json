@@ -1,0 +1,15 @@
+{
+  "answerables": [ {
+    "question": "Alice Pauline",
+    "correctAnswerSet": [ "CORRECT" ],
+    "wrongAnswerSet": [ "WRONG" ],
+    "difficulty": "1",
+    "categories": [ "friends" ]
+  }, {
+    "question": "Alice Pauline",
+    "correctAnswerSet": [ "CORRECT" ],
+    "wrongAnswerSet": [ "WRONG" ],
+    "difficulty": "1",
+    "categories": [ "friends" ]
+  } ]
+}

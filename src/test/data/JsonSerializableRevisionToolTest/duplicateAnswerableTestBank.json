@@ -1,0 +1,17 @@
+{
+  "answerables": [ {
+	"questionType": "mcq",
+    "question": "Alice Pauline",
+    "correctAnswerSet": [ "CORRECT" ],
+    "wrongAnswerSet": [ "WRONG1", "WRONG2", "WRONG3", "WRONG4" ],
+    "difficulty": "1",
+    "categories": [ "friends" ]
+  }, {
+    "questionType": "mcq",
+    "question": "Alice Pauline",
+    "correctAnswerSet": [ "CORRECT" ],
+    "wrongAnswerSet": [ "WRONG1", "WRONG2", "WRONG3", "WRONG4" ],
+    "difficulty": "1",
+    "categories": [ "friends" ]
+  } ]
+}

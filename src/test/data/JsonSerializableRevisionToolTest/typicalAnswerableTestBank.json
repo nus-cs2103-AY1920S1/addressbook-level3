@@ -1,0 +1,39 @@
+{
+  "_comment": "Revision Tool save file which contains the same Answerable values as in TypicalAnswerables#getTypicalAddressBook()",
+  "answerables" : [ {
+	"questionType": "mcq",
+    "question" : "What type of project is AB3?",
+    "correctAnswerSet": [ "Brownfield" ],
+    "wrongAnswerSet": [ "Greenfield", "Blackfield", "Whitefield" ],
+    "difficulty" : "1",
+    "categories" : [ "LSP", "SOLID", "Week 9" ]
+  }, {
+  	"questionType": "mcq",
+    "question" : "Brownfield or Greenfield?",
+    "correctAnswerSet": [ "Brownfield" ],
+    "wrongAnswerSet": [ "Greenfield", "Blackfield", "Whitefield" ],
+    "difficulty" : "1",
+    "categories" : [ "field", "introduction" ]
+  }, {
+  	"questionType": "mcq",
+    "question" : "Carl Kurz",
+    "correctAnswerSet": [ "Brownfield" ],
+    "wrongAnswerSet": [ "Greenfield", "Blackfield", "Whitefield" ],
+    "difficulty" : "1",
+    "categories" : [ "CATEGORY" ]
+  }, {
+  	"questionType": "mcq",
+    "question" : "Elle Meyer",
+    "correctAnswerSet": [ "Brownfield" ],
+    "wrongAnswerSet": [ "Greenfield", "Blackfield", "Whitefield" ],
+    "difficulty" : "1",
+    "categories" : [ "CATEGORY" ]
+  }, {
+  	"questionType": "mcq",
+    "question" : "Fiona Kunz",
+    "correctAnswerSet": [ "Brownfield" ],
+    "wrongAnswerSet": [ "Greenfield", "Blackfield", "Whitefield" ],
+    "difficulty" : "1",
+    "categories" : [ "CATEGORY" ]
+  } ]
+}

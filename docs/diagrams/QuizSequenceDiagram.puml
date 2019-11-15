@@ -1,0 +1,88 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T2
+participant ":LogicManager" as LogicManager LOGIC_COLOR_T1
+participant ":QuizCommandParser" as QuizCommandParser LOGIC_COLOR_T1
+participant ":McqInputCommandParser" as McqInputCommandParser LOGIC_COLOR_T1
+participant "m:McqInputCommand" as McqInputCommand LOGIC_COLOR_T1
+participant ":Answerable" as Answerable LOGIC_COLOR_T1
+participant "builder:CommandResultBuilder" as CommandResultBuilder LOGIC_COLOR_T1
+participant "commandResult:CommandResult" as CommandResult LOGIC_COLOR_T1
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("c", answerable)
+activate LogicManager
+
+LogicManager -> QuizCommandParser : parseCommand("c", answerable)
+activate QuizCommandParser
+
+create McqInputCommandParser
+QuizCommandParser -> McqInputCommandParser
+activate McqInputCommandParser
+
+McqInputCommandParser --> QuizCommandParser
+deactivate McqInputCommandParser
+
+QuizCommandParser -> McqInputCommandParser : parse("c", answerable)
+activate McqInputCommandParser
+
+create McqInputCommand
+McqInputCommandParser -> McqInputCommand : McqInputCommand("c", answerable)
+activate McqInputCommand
+
+McqInputCommand --> McqInputCommandParser : m
+deactivate McqInputCommand
+
+McqInputCommandParser --> QuizCommandParser : m
+deactivate McqInputCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+McqInputCommandParser -[hidden]-> QuizCommandParser
+destroy McqInputCommandParser
+
+QuizCommandParser --> LogicManager : m
+deactivate QuizCommandParser
+
+LogicManager -> McqInputCommand : execute(model)
+activate McqInputCommand
+
+McqInputCommand -> Answerable : isCorrect(answer)
+activate Answerable
+
+Answerable --> McqInputCommand : result
+deactivate Answerable
+
+create CommandResultBuilder
+McqInputCommand -> CommandResultBuilder : CommandResultBuilder()
+activate CommandResultBuilder
+deactivate CommandResultBuilder
+
+CommandResultBuilder -> CommandResultBuilder : withCorrect(result)
+
+CommandResultBuilder -> CommandResultBuilder : build()
+
+activate CommandResultBuilder
+
+create CommandResult
+CommandResultBuilder -> CommandResult : CommandResult(builder)
+activate CommandResult
+CommandResult --> CommandResultBuilder : commandResult
+deactivate CommandResult
+
+deactivate CommandResultBuilder
+
+CommandResultBuilder --> McqInputCommand : commandResult
+deactivate CommandResultBuilder
+
+McqInputCommand --> LogicManager : commandResult
+deactivate McqInputCommand
+
+ref over LogicManager, Model : updateStatistics(answerable)
+
+[<--LogicManager: commandResult
+deactivate LogicManager
+@enduml

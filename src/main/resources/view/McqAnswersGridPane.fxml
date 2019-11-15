@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.Label?>
+
+<GridPane fx:id="cardPane"
+          xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+          alignment="CENTER_LEFT" >
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="50.0"/>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="50.0"/>
+    </columnConstraints>
+
+    <rowConstraints>
+        <RowConstraints vgrow="ALWAYS" minHeight="10.0" percentHeight="50.0"/>
+        <RowConstraints vgrow="ALWAYS" minHeight="10.0" percentHeight="50.0"/>
+    </rowConstraints>
+
+    <children>
+        <Label styleClass="option-label" fx:id="option1" text="\$option1" wrapText="true"
+               GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <effect>
+                <DropShadow/>
+            </effect>
+        </Label>
+
+        <Label styleClass="option-label" fx:id="option2" text="\$option2" wrapText="true"
+               GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <effect>
+                <DropShadow/>
+            </effect>
+        </Label>
+
+        <Label styleClass="option-label" fx:id="option3" text="\$option3" wrapText="true"
+               GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <effect>
+                <DropShadow/>
+            </effect>
+        </Label>
+        <Label styleClass="option-label" fx:id="option4" text="\$option4" wrapText="true"
+               GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <effect>
+                <DropShadow/>
+            </effect>
+        </Label>
+    </children>
+
+
+</GridPane>

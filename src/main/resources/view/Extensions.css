@@ -1,11 +1,10 @@
-
 .error {
     -fx-text-fill: #d06651 !important; /* The error class should always override the default text-fill style */
 }
 
 .list-cell:empty {
     /* Empty cells will not have alternating colours */
-    -fx-background: #383838;
+    -fx-background: #ffa45c;
 }
 
 .tag-selector {
@@ -17,4 +16,39 @@
 
 .tooltip-text {
     -fx-text-fill: white;
+}
+
+.option-label {
+    -fx-max-height: Infinity;
+    -fx-max-width: Infinity;
+    -fx-text-fill: white;
+    -fx-font-family: "Lucida Bright",  "Times New Roman";
+    -fx-font-style: normal;
+    -fx-font-size: 15;
+    -fx-background-color: #ffba5a;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #fbf3f3;
+    -fx-border-width: 3;
+}
+
+#option1 {
+    -fx-background-color: #b9b9b2;
+}
+
+#option2 {
+    -fx-background-color: #b9b9b2;
+}
+
+#option3 {
+    -fx-background-color: #b9b9b2;
+}
+
+#option4 {
+    -fx-background-color: #b9b9b2;
+}
+
+.progress-bar {
+    -fx-accent: #ff6464;
 }

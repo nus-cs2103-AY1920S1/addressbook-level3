@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="UTF-8"?><?asciidoc-toc?><?asciidoc-numbered?><article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>Shaun Ng - Project Portfolio for CS2103 - Revision Tool</title>
+<date>2019-11-11</date>
+</info>
+<simpara>By: <literal>Team F10-3</literal>      Since: <literal>Aug 2019</literal>      Licence: <literal>MIT</literal></simpara>
+<simpara><?asciidoc-hr?></simpara>
+<section xml:id="_overview">
+<title>Overview</title>
+<simpara>RevisionTool is a Desktop application used as a personal tool for revisions and self-quizzes.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java and
+has about 14 kLoC.</simpara>
+</section>
+<section xml:id="_summary_of_contributions">
+<title>Summary of contributions</title>
+<itemizedlist>
+<listitem>
+<simpara><emphasis role="strong">Major enhancement</emphasis>: added <emphasis role="strong">the Restore Command function</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara>What it does: allows the user to restore their current Question Bank to the default question bank.</simpara>
+</listitem>
+<listitem>
+<simpara>Justification: This feature improves the product rather significantly as users tend to over-add questions and this would allow them to revert their Question Bank to the default bank
+as a form of "Restart", as most of our default questions are taken from the weekly lecture quiz questions, and hence deemed as important by the professor.</simpara>
+</listitem>
+<listitem>
+<simpara>Highlights: This enhancement required changes to the existing models and command classes as a warning alert would pop up to seek confirmation from the users before performing the restore command. Hence the implementation was challenging as it required UI, and model changes.</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Major enhancement</emphasis>: added <emphasis role="strong">the Auto Complete function</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara>What it does: shows the user a list of possible AutoComplete commands while they are typing, in which they can select, in order to simplify the user’s journey.</simpara>
+</listitem>
+<listitem>
+<simpara>Justification: This feature improves the product significantly because for a CLI, users have to do a lot of typing and this greatly eases the amount of work they have to do, and hence allow them to reap the maximum benefits from the application.</simpara>
+</listitem>
+<listitem>
+<simpara>Highlights: This enhancement required in-depth analysis of design alternatives as the implementation required changes to the commandBox which was used in almost every file which had a textBox in it. A significant amount of thought was placed into the implementation as well as I had to formulate what sort of AutoComplete would be most intuitive and value-add to users.</simpara>
+</listitem>
+<listitem>
+<simpara>Credits: <emphasis>Took references and suggestions from 2 different sources:</emphasis>
+[<link xl:href="https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/logic/commands/main/RestoreCommand.java">JavaFX AutoComplete</link>]
+[<link xl:href="https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions">Stackoverflow JavaFX Auto-Suggestions</link>]</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Minor enhancement</emphasis>:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Created the initial UI interface for the startCommand that users use to start the quiz. The different modes such as "start mode/normal", "start mode/arcade", "start mode/custom" were built upon this.</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Code contributed</emphasis>:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><link xl:href="https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/logic/commands/main/RestoreCommand.java/">Restore Command</link></simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/ui/AutoComplete.java/">Auto Complete</link></simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="{contributedCodeUtl}/">Tp Dashboard</link></simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Other contributions</emphasis>:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Enhancements to existing features:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Name refactoring from AB3 to Revision Tool (Pull requests <link xl:href="https://github.com/AY1920S1-CS2103-F10-3/main/pull/154">#154</link>)</simpara>
+</listitem>
+<listitem>
+<simpara>Wrote additional tests for existing features. (Pull requests <link xl:href="https://github.com/AY1920S1-CS2103-F10-3/main/pull/154">#154</link>)</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara>Documentation:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Did minor changes in diagrams and content for User Guide: <link xl:href="https://github.com/AY1920S1-CS2103-F10-3/main/pull/4">#4</link>, <link xl:href="https://github.com/AY1920S1-CS2103-F10-3/main/pull/165">#165</link></simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara>Community:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>PRs reviewed (with non-trivial review comments): <link xl:href="https://github.com/AY1920S1-CS2103-F10-3/main/pull/99">#99</link>, <link xl:href="https://github.com/AY1920S1-CS2103-F10-3/main/pull/101">#101</link>,<link xl:href="https://github.com/AY1920S1-CS2103-F10-3/main/pull/149">#149</link>, <link xl:href="https://github.com/AY1920S1-CS2103-F10-3/main/pull/153">#153</link>,<link xl:href="https://github.com/AY1920S1-CS2103-F10-3/main/pull/155">#155</link>,<link xl:href="https://github.com/AY1920S1-CS2103-F10-3/main/pull/158">#158</link>, <link xl:href="https://github.com/AY1920S1-CS2103-F10-3/main/pull/163">#163</link></simpara>
+</listitem>
+<listitem>
+<simpara>Provided suggestions and comments for other teams in the class as seen from this <link xl:href="https://github.com/nus-cs2103-AY1920S1/forum/issues/52">feedback</link>.</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_contributions_to_the_user_guide">
+<title>Contributions to the User Guide</title>
+<informaltable colsep="1" frame="all" rowsep="1">
+<tgroup cols="1">
+<colspec colname="col_1" colwidth="100*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</emphasis></simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<section xml:id="_autocomplete_function">
+<title>AutoComplete Function</title>
+<simpara>Helps you complete your command when you type.</simpara>
+<simpara>Users will be able to see a list of auto complete options while they are typing. Once the auto complete context menu is
+shown, users can use the arrow keys to choose the options they want and upon pressing the "ENTER" button, they would be able to
+select the option.</simpara>
+<simpara>Examples:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><literal>User wants to type the "start" command in the command box</literal></simpara>
+</listitem>
+<listitem>
+<simpara><literal>He will be able to see a list of dropdown options as shown:</literal></simpara>
+</listitem>
+<listitem>
+<simpara><literal>First "ENTER" button will select the option</literal></simpara>
+</listitem>
+<listitem>
+<simpara><literal>Second "ENTER" button will execute the option</literal></simpara>
+<informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata contentwidth="790" fileref="../images/Autocomplete2.png"/>
+</imageobject>
+<textobject><phrase>Autocomplete2</phrase></textobject>
+</mediaobject>
+</informalfigure>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_restoring_all_entries_restore">
+<title>Restoring all entries : <literal>restore</literal></title>
+<simpara>Clears all current questions from the question bank and restores the default questions that were in the original app.<?asciidoc-br?>
+Users will be prompted if they really want to restore their current question bank as the command is non-reversible.
+Format: <literal>restore</literal></simpara>
+<tip>
+<simpara><emphasis role="strong">AutoComplete</emphasis>: Suggested commands will be shown as you type. Navigate through the dropdown list using the up and down
+arrow keys and hit <keycap>Enter</keycap> to complete the command.</simpara>
+</tip>
+</section>
+</section>
+<section xml:id="_contributions_to_the_developer_guide">
+<title>Contributions to the Developer Guide</title>
+<informaltable colsep="1" frame="all" rowsep="1">
+<tgroup cols="1">
+<colspec colname="col_1" colwidth="100*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</emphasis></simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<section xml:id="_overview_of_logic_component">
+<title>Overview of Logic Component</title>
+<figure xml:id="fig-LogicClassDiagram">
+<title>Structure of the Logic Component</title>
+<mediaobject>
+<imageobject>
+<imagedata align="center" fileref="../images/LogicClassDiagram2.png"/>
+</imageobject>
+<textobject><phrase>LogicClassDiagram2</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara><emphasis role="strong">API</emphasis> :
+<link xl:href="{repoURL}/src/main/java/seedu/address/logic/Logic.java"><literal>Logic.java</literal></link></simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara><literal>Logic</literal> uses the <literal>ParserManager</literal> class to parse the user command.</simpara>
+</listitem>
+<listitem>
+<simpara>This results in a <literal>Command</literal> object which is executed by the <literal>LogicManager</literal>.</simpara>
+</listitem>
+<listitem>
+<simpara>The command execution can affect the <literal>Model</literal> (e.g. adding a question).</simpara>
+</listitem>
+<listitem>
+<simpara>The result of the command execution is encapsulated as a <literal>CommandResult</literal> object which is passed back to the <literal>Ui</literal>.</simpara>
+</listitem>
+<listitem>
+<simpara>In addition, the <literal>CommandResult</literal> object can also instruct the <literal>Ui</literal> to perform certain actions, such as displaying help to the user.</simpara>
+</listitem>
+<listitem>
+<simpara>In quiz mode, the <literal>CommandResult</literal> object is also used to determine whether the user’s answer is correct.</simpara>
+</listitem>
+</orderedlist>
+</section>
+<section xml:id="Design-Model">
+<title>Model component</title>
+<figure>
+<title>Structure of the Model Component</title>
+<mediaobject>
+<imageobject>
+<imagedata align="center" fileref="../images/ModelClassDiagram2.png"/>
+</imageobject>
+<textobject><phrase>ModelClassDiagram2</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara><emphasis role="strong">API</emphasis> : <link xl:href="{repoURL}/src/main/java/seedu/address/model/Model.java"><literal>Model.java</literal></link></simpara>
+<simpara>The <literal>Model</literal>,</simpara>
+<itemizedlist>
+<listitem>
+<simpara>stores a <literal>QuestionBank</literal> object that represents the Question Bank.</simpara>
+</listitem>
+<listitem>
+<simpara>stores the Question Bank data.</simpara>
+</listitem>
+<listitem>
+<simpara>exposes an unmodifiable <literal>ObservableList&lt;Answerable&gt;</literal> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</simpara>
+</listitem>
+<listitem>
+<simpara>does not depend on any of the other three components.</simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="Design-Storage">
+<title>Storage component</title>
+<figure>
+<title>Structure of the Storage Component</title>
+<mediaobject>
+<imageobject>
+<imagedata align="center" fileref="../images/StorageClassDiagram2.png"/>
+</imageobject>
+<textobject><phrase>StorageClassDiagram2</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara><emphasis role="strong">API</emphasis> : <link xl:href="{repoURL}/src/main/java/seedu/address/storage/Storage.java"><literal>Storage.java</literal></link></simpara>
+<simpara>The <literal>Storage</literal> component,</simpara>
+<itemizedlist>
+<listitem>
+<simpara>can save <literal>Question Bank</literal> objects in json format and read it back.</simpara>
+</listitem>
+<listitem>
+<simpara>can save the Test Bank data in json format and read it back.</simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_add_questions_feature">
+<title>Add questions feature</title>
+<section xml:id="_implementation">
+<title>Implementation</title>
+<simpara>The add questions mechanism is facilitated by <literal>AddCommand</literal>.
+It extends <literal>Command</literal> that will read a user command and execute the command result.
+Additionally, it implements the following operations:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><literal>AddCommand#addMcq()</literal> — Adds a mcq question to the question bank.</simpara>
+</listitem>
+<listitem>
+<simpara><literal>AddCommand#addShortAns()</literal> — Adds a short answer question to the question bank.</simpara>
+</listitem>
+<listitem>
+<simpara><literal>AddCommand#addTf()</literal> — Adds a True False answer question to the question bank.</simpara>
+</listitem>
+</itemizedlist>
+<simpara>These operations are exposed in the <literal>Model</literal> interface as <literal>Model#addMcqCommand()</literal>, <literal>Model#addTfCommand()</literal> and <literal>Model#addShortAnsCommand()</literal> respectively.</simpara>
+<simpara>Given below is an example usage scenario and how the add questions mechanism behaves at each step.</simpara>
+<simpara>Step 1. The user types <literal>add type/mcq q/"string of question" x/option1 x/option2 y/option3 x/option4 cat/[UML] diff/[easy]</literal>, this command adds a easy difficulty mcq question about UML with 4 options and option3 being the correct answer.</simpara>
+<informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../images/InitialState.png"/>
+</imageobject>
+<textobject><phrase>InitialState</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<simpara>Step 2. The command is being parse into the parser and the AddCommand object of type Command will be created.</simpara>
+<informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../images/FirstState.png"/>
+</imageobject>
+<textobject><phrase>FirstState</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<simpara>Step 3. The AddCommand object will call its <literal>addMcq()</literal> method, this method will read the command and store the question with the answers into the <literal>test bank</literal> accordingly.</simpara>
+<informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../images/SecondState.png"/>
+</imageobject>
+<textobject><phrase>SecondState</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<note>
+<simpara>If a command fails its execution, it will not save the question into the <literal>revision tool</literal>. It will however throw an invalid command exception.</simpara>
+</note>
+</section>
+</section>
+<section xml:id="_restore_feature">
+<title>Restore feature</title>
+<section xml:id="_implementation_2">
+<title>Implementation</title>
+<simpara>The restore mechanism is facilitated by <literal>RestoreCommand</literal>.
+It extends <literal>Command</literal> that will read a user command and execute the command result.
+Additionally, it implements the following operations:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><literal>#handleRestore()</literal> — Prompts the user with an alert box if he really wishes to execute the restore function.</simpara>
+</listitem>
+<listitem>
+<simpara><literal>#setRevisionTool()</literal> — Clears the current question bank and reset it with our own default questions.</simpara>
+</listitem>
+</itemizedlist>
+<simpara>These operations are exposed in the <literal>Model</literal> interface as <literal>Model#setRevisionTool()</literal> and from <literal>MainWindow</literal> as <literal>#handleRestore()</literal> respectively.</simpara>
+</section>
+<section xml:id="_design_considerations">
+<title>Design Considerations</title>
+<itemizedlist>
+<listitem>
+<simpara>When implementing the restore feature, we didn’t want users to face a problem if they entered the command accidentally hence the alert popup was implemented, to prompt users if they really want to carry out the command before executing it.</simpara>
+</listitem>
+<listitem>
+<simpara>With this popup, users will now be more cautious when trying to restore and only do so when they really want to reset their revision tool.</simpara>
+</listitem>
+<listitem>
+<simpara>Furthermore, the questions that we included in the default revision tool question bank are questions taken from the lecture quiz and weekly quiz which are most probably deemed important by the professor himself.</simpara>
+</listitem>
+</itemizedlist>
+<section xml:id="_aspect_how_restore_executes">
+<title>Aspect: How Restore executes</title>
+<itemizedlist>
+<listitem>
+<simpara>User enters the command "restore".</simpara>
+</listitem>
+<listitem>
+<simpara>Command is taken in and a popup is shown to reconfirm if the user would like to carry out the restore command.</simpara>
+</listitem>
+<listitem>
+<simpara>Upon clicking yes, restore command will be handled.</simpara>
+</listitem>
+<listitem>
+<simpara>Current questions will be deleted and default questions will reset to the revision tool.</simpara>
+</listitem>
+</itemizedlist>
+</section>
+</section>
+</section>
+<section xml:id="_autocomplete_feature">
+<title>AutoComplete feature</title>
+<section xml:id="_implementation_3">
+<title>Implementation</title>
+<itemizedlist>
+<listitem>
+<simpara>A set of commands and auto completed text are saved in a set.</simpara>
+</listitem>
+<listitem>
+<simpara>When users type a command on the text box, method <literal>#populatePopup</literal> will be called where the user’s command will be matched against our SortedSet.</simpara>
+</listitem>
+<listitem>
+<simpara>If there is a match, a contextMenu showing all possible auto complete text will show up.</simpara>
+</listitem>
+<listitem>
+<simpara>This method is implemented such that the results in the contextMenu will change and show as the user is typing and this would make it more intuitive for users.</simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_design_considerations_2">
+<title>Design Considerations</title>
+<itemizedlist>
+<listitem>
+<simpara>The main design consideration here would be to have value added auto complete list to pop up.</simpara>
+</listitem>
+<listitem>
+<simpara>How we managed that is to show:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>The basic command</simpara>
+</listitem>
+<listitem>
+<simpara>Basic command + possible parse commands where they can easily fill in.</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+<informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../images/AutoComplete2.png"/>
+</imageobject>
+<textobject><phrase>AutoComplete2</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<section xml:id="_aspect_how_autocomplete_works">
+<title>Aspect: How AutoComplete works</title>
+<itemizedlist>
+<listitem>
+<simpara>Users wishes to enter an "Add" command <literal>add type/mcq q/What is 1 + 1 y/2 x/1 x/3 x/4 cat/easy diff/1</literal></simpara>
+</listitem>
+<listitem>
+<simpara>Upon typing either "a", "ad" or even "add", the auto complete context menu will pop up showing possible auto complete list, mainly:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>add</simpara>
+</listitem>
+<listitem>
+<simpara>add type/ q/ y/ x/ cat/ diff/</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara>Upon seeing that, users will be able to select those options or use those as a guideline to complete his commands more intuitively.</simpara>
+</listitem>
+</itemizedlist>
+</section>
+</section>
+</section>
+</section>
+<appendix xml:id="_non_functional_requirements">
+<title>Non Functional Requirements</title>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>RevisionTool should work on any <link linkend="mainstream-os">mainstream OS</link> as long as it has Java <literal>11</literal> or above installed.</simpara>
+</listitem>
+<listitem>
+<simpara>RevisionTool be able to hold up to 1000 questions without any significant reduction in performance for typical usage.</simpara>
+</listitem>
+<listitem>
+<simpara>A user with above slow typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.</simpara>
+</listitem>
+<listitem>
+<simpara>RevisionTool should be able to run without any internet connectivity.</simpara>
+</listitem>
+<listitem>
+<simpara>RevisionTool does not require any further installation upon downloading the jar file.</simpara>
+</listitem>
+</orderedlist>
+</appendix>
+<appendix xml:id="_glossary">
+<title>Glossary</title>
+<variablelist>
+<varlistentry>
+<term><anchor xml:id="mainstream-os" xreflabel="[mainstream-os]"/> Mainstream OS</term>
+<listitem>
+<simpara>Windows, Linux, Unix, OS-X</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor xml:id="Answerables" xreflabel="[Answerables]"/> Answerables</term>
+<listitem>
+<simpara>A set of question answers, which includes :</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Type: MCQ, True False, Short Answered Question</simpara>
+</listitem>
+<listitem>
+<simpara>Question</simpara>
+</listitem>
+<listitem>
+<simpara>Correct Answers (Can contain multiple answers)</simpara>
+</listitem>
+<listitem>
+<simpara>Wrong Answers (Can contain multiple answers)</simpara>
+</listitem>
+<listitem>
+<simpara>Category</simpara>
+</listitem>
+<listitem>
+<simpara>Difficulty</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+</variablelist>
+</appendix>
+<appendix xml:id="_instructions_for_manual_testing">
+<title>Instructions for Manual Testing</title>
+<simpara>Given below are instructions to test the app manually.</simpara>
+<note>
+<simpara>These instructions only provide a starting point for testers to work on; testers are expected to do more <emphasis>exploratory</emphasis> testing.</simpara>
+</note>
+<section xml:id="_launch_and_shutdown">
+<title>Launch and Shutdown</title>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Initial launch</simpara>
+<orderedlist numeration="loweralpha">
+<listitem>
+<simpara>Download the jar file and copy into an empty folder</simpara>
+</listitem>
+<listitem>
+<simpara>Double-click the jar file<?asciidoc-br?>
+Expected: Shows the GUI with a set of sample answerables. The window size may not be optimum.</simpara>
+</listitem>
+</orderedlist>
+</listitem>
+<listitem>
+<simpara>Saving window preferences</simpara>
+<orderedlist numeration="loweralpha">
+<listitem>
+<simpara>Resize the window to an optimum size. Move the window to a different location. Close the window by using the <literal>x</literal> button at the top right hand corner or by using the command <literal>exit</literal>.</simpara>
+</listitem>
+<listitem>
+<simpara>Re-launch the app by double clicking the jar file.<?asciidoc-br?>
+Expected: The most recent window size and location is retained.</simpara>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+</section>
+<section xml:id="_adding_an_answerable">
+<title>Adding an answerable</title>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Adding a MCQ to the current list</simpara>
+<orderedlist numeration="loweralpha">
+<listitem>
+<simpara>Test case: <literal>add type/mcq q/What is 1 + 1 y/2 x/1 x/3 x/4 cat/easy diff/1</literal><?asciidoc-br?>
+Expected: new MCQ answerable will be created and appended at the bottom of the list. Details of the the added answerable will be shown at the bottom of the list, and the correct answer will be highlighted in green.</simpara>
+</listitem>
+</orderedlist>
+</listitem>
+<listitem>
+<simpara>Adding a True False to the current list</simpara>
+<orderedlist numeration="loweralpha">
+<listitem>
+<simpara>Test case: <literal>add type/tf q/What is 1 + 1 = 2 y/true cat/easy diff/1</literal><?asciidoc-br?>
+Expected: new True False answerable will be created and appended at the bottom of the list. Details of the added answerable will be shown at the bottom of the list, and only the correct answer will be shown and highlighted in green.</simpara>
+</listitem>
+</orderedlist>
+</listitem>
+<listitem>
+<simpara>Adding a Short Answer Question (SAQ) to the current list</simpara>
+<orderedlist numeration="loweralpha">
+<listitem>
+<simpara>Test case: <literal>add type/saq q/What is smaller than 10 but bigger than 7? y/8 y/9 cat/easy diff/1</literal><?asciidoc-br?>
+Expected: new SAQ answerable will be created and appended at the bottom of the list. Details of the added answerable will be shown at the bottom of the list and all the correct answers state will be highlighted in green.</simpara>
+</listitem>
+</orderedlist>
+</listitem>
+<listitem>
+<simpara>Adding an Answerable that already exist in the Revision Tool</simpara>
+<orderedlist numeration="loweralpha">
+<listitem>
+<simpara>Test case: <literal>add type/mcq q/What is 1 + 1 y/2 x/1 x/3 x/4 cat/easy diff/1</literal><?asciidoc-br?>
+Expected: No new answerable will be added as the question already exist in the Revision Tool. An error message will be thrown, informing users that the answerable already exist in the Revision Tool.</simpara>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+</section>
+<section xml:id="_deleting_an_answerable">
+<title>Deleting an answerable</title>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Deleting an answerable while all answerables are listed</simpara>
+<orderedlist numeration="loweralpha">
+<listitem>
+<simpara>Prerequisites: List all answerables using the <literal>list</literal> command. Multiple answerables in the list.</simpara>
+</listitem>
+<listitem>
+<simpara>Test case: <literal>delete 1</literal><?asciidoc-br?>
+Expected: First answerable is deleted from the list. Details of the deleted answerable shown in the status message. Timestamp in the status bar is updated.</simpara>
+</listitem>
+<listitem>
+<simpara>Test case: <literal>delete 0</literal><?asciidoc-br?>
+Expected: No answerable is deleted. Error details shown in the status message. Status bar remains the same.</simpara>
+</listitem>
+<listitem>
+<simpara>Other incorrect delete commands to try: <literal>delete</literal>, <literal>delete x</literal> (where x is larger than the list size) <emphasis>{give more}</emphasis><?asciidoc-br?>
+Expected: Similar to previous.</simpara>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+</section>
+<section xml:id="_starting_quiz">
+<title>Starting quiz</title>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Starting a quiz</simpara>
+<orderedlist numeration="loweralpha">
+<listitem>
+<simpara>Test case: <literal>start mode/normal</literal><?asciidoc-br?>
+Expected: Start quiz window will pop up with a question showing under the command box and the answers in the result box further below. Answer the questions using the CLI accordingly to see the progress bar move till quiz completion. Users will be prompted if he wishes to proceed to level 2.</simpara>
+</listitem>
+<listitem>
+<simpara>Test case: <literal>start mode/arcade</literal><?asciidoc-br?>
+Expected: Start quiz window will pop up similar to previous test case. The only difference would be that once the quiz proceeds and an incorrect answer is input, the quiz ends and the score will be shown. This is the "hard mode" of our quiz mode.</simpara>
+</listitem>
+<listitem>
+<simpara>Test case <literal>start mode/custom timer/3</literal><?asciidoc-br?>
+Expected: Start quiz window will pop up similar to previous test case. The difference here will be the timer. Instead of the 30 seconds timer per question, the new timer (seen at the bottom right beside the status progress bar) will be at 3 seconds as set by the user.</simpara>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+</section>
+<section xml:id="_saving_data">
+<title>Saving data</title>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Dealing with missing/corrupted data files</simpara>
+<orderedlist numeration="loweralpha">
+<listitem>
+<simpara>If there is a missing answerables data file, the RevisionTool will automatically create a default data file with all the default answerables inside.</simpara>
+</listitem>
+<listitem>
+<simpara>If there is a corrupted answerable data file, the RevisionTool will automatically start with a list of empty file. Users will then be able to use the <literal>#restoreCommand</literal> here to get a list of default answerables or alternatively, create a new set of answerables manually.</simpara>
+</listitem>
+</orderedlist>
+</listitem>
+<listitem>
+<simpara>To identify missing/corrupted data files:</simpara>
+<orderedlist numeration="loweralpha">
+<listitem>
+<simpara><literal>.\data\revisiontool.json</literal></simpara>
+</listitem>
+<listitem>
+<simpara><literal>.\data\history.json</literal></simpara>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+</section>
+</appendix>
+</article>
