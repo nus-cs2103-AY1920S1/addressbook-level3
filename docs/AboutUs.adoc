@@ -29,7 +29,7 @@ Responsibilities: Develop main driver for quiz, integration of features, UI / UX
 
 === Neo Si Hao
 image::neoshh.png[width="150", align="left"]
-{empty}[http://github.com/neoshh[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/neoshh[github]] [<<neoshh#, portfolio>>]
 
 Role: Scheduling and Tracking +
 Responsibilities: UI
@@ -56,7 +56,7 @@ Responsibilities: Storage
 
 === Keng Jun Xian
 image::jxofficial.png[width="150", align="left"]
-{empty}[http://github.com/jxofficial[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/jxofficial[github]] [<<jxofficial#, portfolio>>]
 
 Role: InCharge of Model Component +
 Responsibilities: Model
