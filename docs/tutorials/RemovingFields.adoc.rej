@@ -1,0 +1,10 @@
+diff a/docs/tutorials/RemovingFields.adoc b/docs/tutorials/RemovingFields.adoc	(rejected hunks)
+@@ -106,7 +106,7 @@
+ [source, json]
+ ```
+ {
+-  "persons": [ {
++  "recipes": [ {
+     "name": "Person with invalid name field: Ha!ns Mu@ster",
+     "phone": "9482424",
+     "email": "hans@example.com",

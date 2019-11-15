@@ -1,0 +1,67 @@
+{
+  "_comment": "MealPlanBook save file which contains the same MealPlan values as in TypicalMealPlans#getTypicalMealPlanBook()",
+  "mealPlans" : [ {
+    "name" : "Milo Plan",
+    "day1" : [ "Milo" ],
+    "day2" : [ "Milo" ],
+    "day3" : [ "Milo" ],
+    "day4" : [ "Milo" ],
+    "day5" : [ "Milo" ],
+    "day6" : [ "Milo" ],
+    "day7" : [ "Milo" ]
+  }, {
+    "name" : "Cheese Omelette Plan",
+    "day1" : [ "Cheese Omelette" ],
+    "day2" : [ "Cheese Omelette" ],
+    "day3" : [ "Cheese Omelette" ],
+    "day4" : [ "Cheese Omelette" ],
+    "day5" : [ "Cheese Omelette" ],
+    "day6" : [ "Cheese Omelette" ],
+    "day7" : [ "Cheese Omelette" ]
+  }, {
+    "name" : "Tuna Sandwich Plan",
+    "day1" : [ "Tuna Sandwich" ],
+    "day2" : [ "Tuna Sandwich" ],
+    "day3" : [ "Tuna Sandwich" ],
+    "day4" : [ "Tuna Sandwich" ],
+    "day5" : [ "Tuna Sandwich" ],
+    "day6" : [ "Tuna Sandwich" ],
+    "day7" : [ "Tuna Sandwich" ]
+  }, {
+    "name" : "Chicken Maggi Plan",
+    "day1" : [ "Chicken Maggi" ],
+    "day2" : [ "Chicken Maggi" ],
+    "day3" : [ "Chicken Maggi" ],
+    "day4" : [ "Chicken Maggi" ],
+    "day5" : [ "Chicken Maggi" ],
+    "day6" : [ "Chicken Maggi" ],
+    "day7" : [ "Chicken Maggi" ]
+  }, {
+    "name" : "Fried Chicken Plan",
+    "day1" : [ "Fried Chicken" ],
+    "day2" : [ "Fried Chicken" ],
+    "day3" : [ "Fried Chicken" ],
+    "day4" : [ "Fried Chicken" ],
+    "day5" : [ "Fried Chicken" ],
+    "day6" : [ "Fried Chicken" ],
+    "day7" : [ "Fried Chicken" ]
+  }, {
+    "name" : "Tea Plan",
+    "day1" : [ "Tea" ],
+    "day2" : [ "Tea" ],
+    "day3" : [ "Tea" ],
+    "day4" : [ "Tea" ],
+    "day5" : [ "Tea" ],
+    "day6" : [ "Tea" ],
+    "day7" : [ "Tea" ]
+  }, {
+    "name" : "French Fries Plan",
+    "day1" : [ "French Fries" ],
+    "day2" : [ "French Fries" ],
+    "day3" : [ "French Fries" ],
+    "day4" : [ "French Fries" ],
+    "day5" : [ "French Fries" ],
+    "day6" : [ "French Fries" ],
+    "day7" : [ "French Fries" ]
+  } ]
+}

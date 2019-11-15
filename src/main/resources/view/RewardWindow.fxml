@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.Scene?>
+<?import javafx.stage.Stage?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<fx:root resizable="false" title="CONGRATULATIONS" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/man_cook.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <VBox alignment="CENTER">
+                <children>
+                    <Label fx:id="rewardMessage" text="Label">
+                        <HBox.margin>
+                            <Insets right="5.0" />
+                        </HBox.margin>
+                    </Label>
+                    <ImageView fx:id="imageView">
+                        <HBox.margin>
+                            <Insets left="5.0"/>
+                        </HBox.margin>
+                    </ImageView>
+                </children>
+            </VBox>
+        </Scene>
+    </scene>
+</fx:root>

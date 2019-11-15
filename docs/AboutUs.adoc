@@ -3,54 +3,56 @@
 :relfileprefix: team/
 :imagesDir: images
 :stylesDir: stylesheets
+:stylesheet: asciidoctor.css
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+DukeCooks is a healthy lifestyle app developed by our team.
+
+DukeCooks is proudly developed by a group of second-year students from the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore]. +
+The https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook3] (AB3), was used and referenced to make DukeCooks. As such, this is a brownfield project which entails morphing AB3 into a new application which in this case, DukeCooks.
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Chua Hua Lun
+image::hua-lun.png[width="150", align="left"]
+{empty}[https://github.com/hua-lun[github]] [<<hua-lun#, portfolio>>]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: Scheduling and Tracking +
+Responsibilities: Dashboard
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Lee Wah
+image::bakwxh.png[width="150", align="left"]
+{empty}[http://github.com/bakwxh[github]] [<<bakwxh#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Testing +
+Responsibilities: Recipe Book, Meal Plan Book
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Liew Jun Wei
+image::bigjunnn.png[width="150", align="left"]
+{empty}[http://github.com/bigjunnn[github]] [<<bigjunnn#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Documentation +
+Responsibilities: Diary
+
+'''
+
+=== Muhammad Khairul Azman
+image::khairulazman1997.png[width="150", align="left"]
+{empty}[http://github.com/khairulazman1997[github]] [<<khairulazman1997#, portfolio>>]
+
+Role: Integration +
+Responsibilities: Exercise Tracker
+
+'''
+
+=== Yeo Yuan Xin
+image::yyuanxin.png[width="150", align="left"]
+{empty}[http://github.com/yyuanxin[github]] [<<yyuanxin#, portfolio>>]
+
+Role: UI Design +
+Responsibilities: Health Records
 
 '''

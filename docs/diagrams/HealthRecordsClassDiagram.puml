@@ -1,0 +1,55 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+class Record {
+    -type: Type
+    -timestamp: TimeStamp
+    -value: Value
+
+    +getType()
+    +getTimestamp()
+    +getValue()
+}
+
+class TimeStamp {
+    -time: Date
+    -date: Time
+
+    +isValidDateTime(String)
+
+}
+
+class Type <<enumeration>> {
+    Glucose
+    Weight
+    Height
+    Calories
+    Carbs
+    Fats
+    Protein
+}
+
+class Value {
+    -value: double
+
+    +isValidNumber(String)
+}
+
+class Remark {
+    +remarkName: String
+
+    +isValidRemarkName(String)
+}
+
+Record *-down-> "1" TimeStamp : has unique >
+Record *-down-> "1" Type : has unique >
+Record *-down-> "1" Value
+Record *-right-> "*" Remark
+
+show members
+skinparam classAttributeFontColor #FFFFFF
+skinparam classAttributeIconSize 0
+@enduml

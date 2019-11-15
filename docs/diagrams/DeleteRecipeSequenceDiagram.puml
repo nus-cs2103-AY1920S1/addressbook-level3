@@ -1,0 +1,93 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":DukeCooksParser" as DukeCooksParser LOGIC_COLOR
+participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
+participant ":DeleteRecipeCommandParser" as DeleteRecipeCommandParser LOGIC_COLOR
+participant "d:DeleteRecipeCommand" as DeleteRecipeCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("delete recipe 1")
+activate LogicManager
+
+LogicManager -> DukeCooksParser : parseCommand("delete recipe 1")
+activate DukeCooksParser
+
+create DeleteCommandParser
+DukeCooksParser -> DeleteCommandParser
+activate DeleteCommandParser
+
+DeleteCommandParser --> DukeCooksParser
+deactivate DeleteCommandParser
+
+DukeCooksParser -> DeleteCommandParser : parse("recipe 1")
+activate DeleteCommandParser
+
+create DeleteRecipeCommandParser
+DeleteCommandParser -> DeleteRecipeCommandParser
+activate DeleteRecipeCommandParser
+
+DeleteRecipeCommandParser -> DeleteCommandParser
+deactivate DeleteRecipeCommandParser
+
+DeleteCommandParser -> DeleteRecipeCommandParser : parse("1")
+activate DeleteRecipeCommandParser
+
+create DeleteRecipeCommand
+DeleteRecipeCommandParser -> DeleteRecipeCommand
+activate DeleteRecipeCommand
+
+DeleteRecipeCommand --> DeleteRecipeCommandParser : d
+deactivate DeleteRecipeCommand
+
+DeleteRecipeCommandParser --> DeleteCommandParser : d
+deactivate DeleteRecipeCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommandParser -[hidden]-> DukeCooksParser
+destroy DeleteRecipeCommandParser
+
+DeleteCommandParser --> DukeCooksParser : d
+deactivate DeleteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommandParser -[hidden]-> DukeCooksParser
+destroy DeleteCommandParser
+
+DukeCooksParser --> LogicManager : d
+deactivate DukeCooksParser
+
+LogicManager -> DeleteRecipeCommand : execute()
+activate DeleteRecipeCommand
+
+DeleteRecipeCommand -> Model : removeRecipe(recipeToDelete)
+activate Model
+
+Model --> DeleteRecipeCommand
+deactivate Model
+
+DeleteRecipeCommand -> Model : deleteRecipe(recipeToDelete)
+activate Model
+
+Model --> DeleteRecipeCommand
+deactivate Model
+
+create CommandResult
+DeleteRecipeCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteRecipeCommand
+deactivate CommandResult
+
+DeleteRecipeCommand --> LogicManager : result
+deactivate DeleteRecipeCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

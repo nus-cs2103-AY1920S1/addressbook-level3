@@ -1,5 +1,12 @@
 ﻿Some code adapted from http://code.makery.ch/library/javafx-8-tutorial/ by Marco Jakob
 
+Code to check for valid date is adapted from https://www.mkyong.com/java/how-to-check-if-date-is-valid-in-java/ by mkyong
+
+Kitty Icon made by freepik [https://www.flaticon.com/authors/freepik] from www.flaticon.com
+- kittysleeping.png
+- kittyworking.png
+- kittyhappy.png
+
 Copyright by Susumu Yoshida - http://www.mcdodesign.com/
 - address_book_32.png
 - AddressApp.ico
@@ -7,3 +14,5 @@ Copyright by Susumu Yoshida - http://www.mcdodesign.com/
 Copyright by Jan Jan Kovařík - http://glyphicons.com/
 - calendar.png
 - edit.png
+
+

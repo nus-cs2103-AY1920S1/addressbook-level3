@@ -1,0 +1,28 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+package Command {
+Class CommandResult
+Class XYZCommand
+Class XYZCommandVariant
+Class "{abstract}\nCommand" as Command
+}
+
+package Parser {
+Class XYZCommandParser
+Class DukeCooksParser
+}
+
+Class HiddenOutside #FFFFF
+
+XYZCommandVariant -right-> XYZCommand
+XYZCommand -right-> Command
+Command -right-> CommandResult
+XYZCommandParser ..> XYZCommandVariant : creates >
+DukeCooksParser .left.> XYZCommandParser: creates >
+HiddenOutside --> DukeCooksParser
+
+@enduml

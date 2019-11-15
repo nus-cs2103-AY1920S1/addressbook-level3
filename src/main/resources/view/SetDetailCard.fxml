@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox>
+         <children>
+            <Label fx:id="id" />
+            <Label fx:id="reps" />
+            <Label fx:id="time" />
+            <Label fx:id="weight" />
+            <Label fx:id="distance" />
+         </children>
+      </HBox>
+      <Label fx:id="restTime" />
+      <Label fx:id="isDoneLabel" />
+   </children>
+</VBox>

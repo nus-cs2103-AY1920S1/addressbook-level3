@@ -1,0 +1,58 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+skinparam classAttributeIconSize 0
+skinparam classAttributeFontColor #FFFFFF
+
+
+Class Diary {
+ - diaryName : DiaryName
+ - pages : Page
+ + getDiaryName()
+ + getPages()
+}
+
+Class DiaryName {
+ - fullName : String
+ + isValidDiaryName()
+}
+
+Class Page {
+ - title : Title
+ + getTitle()
+}
+
+Class Title {
+ - fullTitle : String
+ + isValidTitle()
+}
+
+Class PageType {
+ - pageType : String
+ + isValidPageType()
+}
+
+Class PageDescription {
+ - pageDescription : String
+ + isValidPageDescription()
+}
+
+Class Image {
+ - imagePath : String
+ + isValidImage()
+}
+
+
+Diary *-down-> "1" DiaryName : has unique >
+Diary *-left-> "*" Page : can contain many >
+
+Page *-left-> "1" Title : has unique
+Page *-down-> "1" PageType
+Page *-down-> "1" PageDescription
+Page *-down-> "1" Image
+
+show members
+@enduml
+

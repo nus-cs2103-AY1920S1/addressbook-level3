@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox fx:id="pageCardPane" fillHeight="false" maxWidth="1.7976931348623157E308" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="610.0" HBox.hgrow="ALWAYS">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.vgrow="NEVER">
+               <children>
+                  <Label fx:id="pageTitle" maxWidth="1.7976931348623157E308" prefHeight="63.0" prefWidth="659.0" text="Page Title">
+                     <padding>
+                        <Insets left="35.0" />
+                     </padding>
+                  </Label>
+                  <HBox fillHeight="false" maxWidth="1.7976931348623157E308" VBox.vgrow="NEVER">
+                     <children>
+                        <ImageView fx:id="pageImage" fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="25.0" top="25.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/man_cook.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="pageDescription" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" prefHeight="236.0" prefWidth="366.0" stylesheets="@DarkTheme.css" text="Display for the label" wrapText="true" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="35.0" right="35.0" top="35.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </GridPane>
+   </children>
+</HBox>

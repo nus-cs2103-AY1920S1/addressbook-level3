@@ -1,0 +1,86 @@
+= Yeo Yuan Xin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: DukeCooks image:DukeCooks_Logo.png[align="center", width="50"]
+
+== What is DukeCooks?
+
+DukeCooks is an all-in-one lifestyle desktop application designed specially for health-conscious individuals. With the hectic schedules that we have as college students, we can definitely relate to the problems that is faced daily in trying to lead a healthy lifestyle . With that in mind, We have put together this application, called DukeCooks.  We believe that DukeCooks could be a remedy to some of the problems faced by everyone.
+
+In DukeCooks, managing your meals preparation and workouts has never been made easier! Everything that you can only imagine to be done in more than one application, can now simply be done in DukeCooks alone! DukeCooks saves you the time and effort to switch between application!
+
+Furthermore, DukeCooks runs on a command-line interface (CLI). This means that everything that DukeCooks is capable for doing, can be executed within a single line.
+
+== Who is behind DukeCooks?
+
+DukeCooks is developed by a group of 5 second-year students from School of Computing, National University of Singapore
+
+== My Contributions to DukeCooks
+
+=== Building the Health Records feature
+
+The health records feature was developed with the main purpose of providing user’s with the ability to track their health progress. The health record feature is adapted from the existing Address Book 3 (AB3). Commands like `edit`, `add`, `delete` are referenced and modified accordingly.
+
+=== Building the Profile feature
+
+The profile feature is designed to let users personalise their profile within the application. The profile feature is adapted from the existing Address Book 3 (AB3). Commands like `edit`, `add`, `delete` are referenced and modified accordingly.
+
+=== Major Enhancements
+==== Enhancement 1: Creating different modes of `ListHealthCommand`
+
+In health records feature, two dynamic views were included to present the records differently. Users can easily view their recorded data in two modes: summary and records type view. With summary being the main screen when routing over from other features, records are filtered to show only the latest records for quick referencing whereas record type view mode provides graph representation of the data for better illustration on health progress.
+
+==== Enhancement 3: Integrating Graphical User Interface (GUI) for all features
+
+In order for the GUI to show panels dynamically based on user’s selection, I have built and structured the skeleton code to link all the features in the application. This means that the application will switch to the relevant feature panel based on the user’s input.
+
+=== Minor Enhancements
+==== Enhancement: Add styling to the Health Records pages
+
+I have made styling changes to the health records view such that it is more appealing for users to use.
+
+==== Code contributed:
+Visit this https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=yyuanxin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[link] to check out my code contributions to DukeCooks.
+
+=== Other contributions:
+
+|===
+| |What I did
+
+|Project management
+|Managed issue trackers on GitHub
+
+|Enhancement to existing feature
+| Update GUI color scheme and other cosmetic changes +
+(PR https://github.com/AY1920S1-CS2103T-T10-2/main/pull/99[#99], https://github.com/AY1920S1-CS2103T-T10-2/main/pull/155[#155])
+
+|Reported bugs
+|Reported bugs and suggestions for other teams in the class +
+(https://github.com/yyuanxin/ped/issues/1[1],
+https://github.com/yyuanxin/ped/issues/2[2],
+https://github.com/yyuanxin/ped/issues/3[3],
+https://github.com/yyuanxin/ped/issues/4[4],
+https://github.com/yyuanxin/ped/issues/5[5])
+
+|===
+
+== Getting Started with DukeCooks
+
+|===
+|The following information are my *contributions* to the +
+*User Guide* for the feature, Dashboard.
+|To view the full *User Guide* of DukeCooks, please visit this https://ay1920s1-cs2103t-t10-2.github.io/main/UserGuide.html[link].
+|===
+
+include::../UserGuide.adoc[tag=healthRecords]
+
+== Making DukeCooks
+
+|===
+|The following information provides my *contributions* to the *Developer Guide*. An explanation of how the feature (Dashboard), that I am in-charged of, is made.
+|To view the full *Developer Guide* of DukeCooks, please visit this https://ay1920s1-cs2103t-t10-2.github.io/main/DeveloperGuide.html[link].
+|===
+
+include::../DeveloperGuide.adoc[tag=healthRecords]

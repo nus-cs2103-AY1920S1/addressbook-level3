@@ -1,0 +1,64 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+skinparam classAttributeIconSize 0
+skinparam classAttributeFontColor #FFFFFF
+
+
+Class Recipe {
+ - name : RecipeName
+ - ingredients : Set<Ingredient>
+ - calories : Calories
+ - carbs : Carbs
+ - fats : Fats
+ - protein : Protein
+ + getName()
+ + getIngredients()
+ + getCalories()
+ + getCarbs()
+ + getFats()
+ + getProtein()
+}
+
+Class RecipeName {
+ - fullName : String
+ + isValidName()
+}
+
+Class Ingredient {
+ - ingredientName : String
+ + isValidIngredientName()
+}
+
+Class Calories {
+ - value : String
+ + isValidCalories()
+}
+
+Class Carbs {
+ - value : String
+ + isValidCarbs()
+}
+
+Class Fats {
+ - value : String
+ + isValidFats()
+}
+
+Class Protein {
+ - value : String
+ + isValidProtein()
+}
+
+Recipe *-left-> "1" RecipeName
+Recipe *-right-> "1..*" Ingredient
+Recipe *-down-> "1" Calories
+Recipe *-down-> "1" Carbs
+Recipe *-down-> "1" Fats
+Recipe *-down-> "1" Protein
+
+show members
+@enduml
+

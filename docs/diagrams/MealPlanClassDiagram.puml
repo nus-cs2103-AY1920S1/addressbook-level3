@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+skinparam classAttributeIconSize 0
+skinparam classAttributeFontColor #FFFFFF
+
+
+Class MealPlan {
+ - name : MealPlanName
+ - day1 : List<RecipeName>
+ - day2 : List<RecipeName>
+ - day3 : List<RecipeName>
+ - day4 : List<RecipeName>
+ - day5 : List<RecipeName>
+ - day6 : List<RecipeName>
+ - day7 : List<RecipeName>
+}
+
+Class MealPlanName {
+ - fullName : String
+ + isValidName()
+}
+
+Class RecipeName {
+ - fullName : String
+ + isValidName()
+}
+
+MealPlan *-right-> "1" MealPlanName
+MealPlan *-down-> "0..*" RecipeName
+
+show members
+@enduml
+

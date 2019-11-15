@@ -3,9 +3,10 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":DukeCooksParser" as DukeCooksParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":DeleteRecipeCommandParser" as DeleteRecipeCommandParser LOGIC_COLOR
+participant "d:DeleteRecipeCommand" as DeleteRecipeCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -13,56 +14,73 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete 1")
+[-> LogicManager : execute("delete recipe 1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
-activate AddressBookParser
+LogicManager -> DukeCooksParser : parseCommand("delete recipe 1")
+activate DukeCooksParser
 
 create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
+DukeCooksParser -> DeleteCommandParser
 activate DeleteCommandParser
 
-DeleteCommandParser --> AddressBookParser
+DeleteCommandParser --> DukeCooksParser
 deactivate DeleteCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
+DukeCooksParser -> DeleteCommandParser : parse("recipe 1")
 activate DeleteCommandParser
 
-create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
+create DeleteRecipeCommandParser
+DeleteCommandParser -> DeleteRecipeCommandParser
+activate DeleteRecipeCommandParser
 
-DeleteCommand --> DeleteCommandParser : d
-deactivate DeleteCommand
+DeleteRecipeCommandParser -> DeleteCommandParser
+deactivate DeleteRecipeCommandParser
 
-DeleteCommandParser --> AddressBookParser : d
+DeleteCommandParser -> DeleteRecipeCommandParser : parse("1")
+activate DeleteRecipeCommandParser
+
+create DeleteRecipeCommand
+DeleteRecipeCommandParser -> DeleteRecipeCommand
+activate DeleteRecipeCommand
+
+DeleteRecipeCommand --> DeleteRecipeCommandParser : d
+deactivate DeleteRecipeCommand
+
+DeleteRecipeCommandParser --> DeleteCommandParser : d
+deactivate DeleteRecipeCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommandParser -[hidden]-> DukeCooksParser
+destroy DeleteRecipeCommandParser
+
+DeleteCommandParser --> DukeCooksParser : d
 deactivate DeleteCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
+DeleteCommandParser -[hidden]-> DukeCooksParser
 destroy DeleteCommandParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+DukeCooksParser --> LogicManager : d
+deactivate DukeCooksParser
 
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
+LogicManager -> DeleteRecipeCommand : execute()
+activate DeleteRecipeCommand
 
-DeleteCommand -> Model : deletePerson(1)
+DeleteRecipeCommand -> Model : deleteRecipe(recipeToDelete)
 activate Model
 
-Model --> DeleteCommand
+Model --> DeleteRecipeCommand
 deactivate Model
 
 create CommandResult
-DeleteCommand -> CommandResult
+DeleteRecipeCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteCommand
+CommandResult --> DeleteRecipeCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
-deactivate DeleteCommand
+DeleteRecipeCommand --> LogicManager : result
+deactivate DeleteRecipeCommand
 
 [<--LogicManager
 deactivate LogicManager

@@ -1,0 +1,13 @@
+{
+  "healthrecords" : [ {
+    "type" : "Weight",
+    "value" : "67.0",
+    "timestamp" : "26/10/2019 12:00",
+    "remarks" : [ ]
+  }, {
+    "type" : "Glucose@",
+    "value" : "30.0",
+    "timestamp" : "26/10/2019 12:00",
+    "remarks" : [ ]
+  } ]
+}

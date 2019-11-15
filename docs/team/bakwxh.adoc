@@ -1,0 +1,293 @@
+= Lee Wah - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: DukeCooks image:DukeCooks_Logo.png[align="center", width="50"]
+
+== What exactly is DukeCooks?
+
+DukeCooks is a one-stop healthy lifestyle Desktop application designed for health-conscious students.
+As busy student project developers for DukeCooks, we understand that it can be daunting to keep track of various
+tasks and yet, manage a healthy lifestyle at the same time.
+
+DukeCooks aims to simplify this by allowing you to manage various aspects of your lifestyle, all within a single application.
+In DukeCooks, you will be able to manage tasks, store recipes, plan workouts, monitor health and write diaries, all in the same application.
+
+DukeCooks is equipped with a command-line interface (CLI). With CLI all you have to do is key in what you want to do
+with an array of predefined commands.
+
+== Who is behind DukeCooks?
+
+DukeCooks is proudly developed by a group of second-year students from the National University of Singapore.
+This application was made to fit the team project requirements for a software engineering module.
+An application, AddressBook 3 (AB3), was assigned as a base for our project.
+Thus, this is a brownfield project which entails morphing AB3 into a new application which in this case, DukeCooks.
+
+== What is in this document?
+
+This document is a collection of my contributions made to DukeCooks. These contributions can be categorized
+in the following 3 main areas: the overall project, the user guide, and the developer guide.
+
+== My Contributions to DukeCooks
+
+=== Building the Recipe Book
+
+The Recipe Book in DukeCooks allows the user to create and store his own personal recipes. This allows the user to keep
+track of each recipe's ingredients and nutritional value, to aid them in monitoring the food they eat, and their
+nutritional intake.
+
+Initial works for the Recipe Book include referencing the AB3 codebase. The add / delete / edit / list / find functions
+from AB3 were adapted and are made available in Recipe Book.
+
+=== Enhancement 1: Upgrading the Graphic User Interface (GUI)
+
+Using AB3’s GUI as a backbone, the Recipe Book was created. The GUI layout was adapted to have an sidebar index view of
+every `Recipe` saved within DukeCooks, as well as a separate panel that display all of the saved `Recipe` as Recipe Cards
+for the user's ease of view.
+
+=== Enhancement 2: Optimizing the `Tag` and `Edit` components
+
+The `Tag` component from AB3 was refactored to function as `Ingredient`. However, with AB3's implementation of tags,
+and edits to a `Recipe` to update its ingredients would follow the behaviour of AB3's `Tag`, meaning it would clear all
+of the `Ingredient` present in that `Recipe` and give that `Recipe` the `Ingredient` specified by the user. To allow for
+a better user experience, these components have been modified such that the user is able to solely add and remove `Ingredient`
+components from a `Recipe`, as opposed to having to retype all of the `Ingredient` a `Recipe` should have every edit.
+
+=== Enhancement 3: Dynamic updates between Recipe Book and Meal Plan Book
+
+Given that the Recipe Book and Meal Plan Book are two closely related components, optimizations were made to the Recipe
+Book methods such that any modifications made by the user to the `Recipe` stored within the Recipe Book would be reflected
+within the `MealPlan` in the MealPlan book automatically, without the user having to prompt for an update to ensure Meal Plans
+are up to date with the Recipe Book's latest information.
+
+=== Building the Meal Plan Book
+
+The Meal Plan Book in DukeCooks allows the user to create and organize his own meal plans. This allows the user to add
+recipes that he has saved into the DukeCooks recipe book, allowing him to plan his weekly intake of food and nutritional
+value. The Meal Plan Book will calculate and display the weekly nutritional value to the user upon the user's request.
+
+Initial works for the Meal Plan Book include referencing the AB3 codebase. The add / delete / edit / list / find functions
+from AB3 were adapted and are made available in Meal Plan Book.
+
+=== Enhancement 1: Upgrading the Graphic User Interface (GUI)
+
+Using AB3’s GUI as a backbone, the Meal Plan Book was created. The GUI layout was adapted to have an sidebar index view of
+every `Meal Plan` saved within DukeCooks, as well as a separate panel that display all of the saved `Meal Plan` as Meal Plan Cards
+for the user's ease of view.
+
+=== Enhancement 2: Creating the `view` command
+
+To give the user ease in processing the nutritional value of an entire meal plan, as well as to better view the `Recipe`
+present in each `MealPlan`, the `view` command was created. The `view` command takes advantage of the revamped GUI and removes
+the Meal Plan Card view to bring up a new GUI that displays all of the `Recipe` of each day of the viewed `MealPlan`, including
+the `RecipeName`, `Ingredient`, and various nutritional value of each recipe, as well as the nutritional value of the entire
+`MealPlan`.
+
+=== Enhancement 3: Additional `find` functionality with `findMealPlanWith`
+The 'find' function adapted from AB3. In the DukeCooks Meal Plan, it serves to find all `MealPlan` whose `MealPlanName`
+contains the user specified keyword(s). This is then adapted to create a `findMealPlanWith` command, which instead searches
+through all the `RecipeName` stored within the `MealPlan` to allow the user to search for any `MealPlan` containing a
+`RecipeName` of a `Recipe` the user wishes to look for.
+
+=== Code contributed:
+Visit this https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=bakwxh&sort=totalCommits%20dsc&sortWithin=totalCommits%20dsc&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom[link] to check out my code contributions to DukeCooks.
+
+
+=== Other contributions:
+
+|===
+| |What I did
+
+|Project management
+|Managed releases `v1.3.1` (1 release) on GitHub
+
+|Reviewed PRs
+|PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T10-2/main/pull/43[#43]
+
+|Reported bugs
+|Reported bugs and suggestions for other teams in the class +
+(https://github.com/bakwxh/ped/issues/1[1],
+https://github.com/bakwxh/ped/issues/2[2],
+https://github.com/bakwxh/ped/issues/3[3],
+https://github.com/bakwxh/ped/issues/4[4],
+https://github.com/bakwxh/ped/issues/5[5],
+https://github.com/bakwxh/ped/issues/6[6],
+https://github.com/bakwxh/ped/issues/7[7],
+https://github.com/bakwxh/ped/issues/8[8])
+
+|===
+
+== Contributions to the DukeCooks User Guide
+
+|===
+|The following extract is my *contribution* to the *User Guide* documentation of my Duke Cooks feature, the Meal Plan Book. Other contributions include
+the *User Guide* documentation of the my other DukeCooks feature, the Recipe Book.
+|To view the full *User Guide* of DukeCooks, please visit this https://ay1920s1-cs2103t-t10-2.github.io/main/UserGuide.html[link].
+|===
+
+=== Meal Plans
+
+Want a way to plan out your meals for an entire week? Using meal plans is a great way do that. Use the following meal plan commands to plan your weekly consumption!
+
+==== Getting your way around meal plans
+Using Meal Plans, you will be able to take all the recipes you have in DukeCooks and use them to plan your meal plans for the week.
+
+Look at the diagram for a better understanding of how Meal Plans are laid out!
+
+.Overview of the Meal Plans
+image::ug_mealplan.png[]
+
+==== Getting to your Meal Plans
+Here's a quick way to check out your meal plans!
+
+Command: `goto mealplan`
+
+==== Adding a meal plan
+Adds a new meal plan into the meal plan book. +
+Command: `add mealplan`
+Format: `add mealplan n/<name> day1/[name]... day2/[name]... day3/[name]... day4/[name]... day5/[name]... day6/[name]... day7/[name]...`
+
+[NOTE]
+====
+All meal plan names must be alphanumeric, up to 40 characters
+
+You are only able to add recipes that you have within your recipe book.
+
+Edits to recipes within your recipe book will be reflected in the affected meal plans.
+
+Deletion of recipes will also delete them from any meal plan containing them.
+====
+
+Examples:
+
+* `add mealplan n/Empty` +
+Creates an empty meal plan with the name "Empty".
+
+* `add mealplan n/Keto day1/KFC day2/4 Fingers day3/Texas Chicken day4/Arnolds day5/Popeyes day6/Nene day7/Wing Stop` +
+Creates a meal plan with the name "Keto" and the listed meals under each indicated day.
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Adding a meal plan
+image::ug_mealplan_addMealPlan1.png[]
++
+. If the command succeeds, you should see the following message in the result display
+and a new meal plan named "One Recipe" will be added.
++
+.Successfully added meal plan
+image::ug_mealplan_addMealPlan2.png[]
+
+==== Finding a meal plan containing a certain recipe
+Finds meal plans with a specified recipe name. +
+Command: `find mealplanwith` +
+Format: `find mealplanwith <recipe name keyword>`
+
+[IMPORTANT]
+====
+You can only search for one recipe at a time. The recipe's name must be entered exactly as it is in the recipe book.
+====
+
+Examples:
+
+* `find mealplanwith Chicken Rice` +
+Lists all meal plans containing "Chicken Rice" in any of the meal plan days.
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Finding a meal plan with recipe
+image::ug_mealplan_findWithMealPlan1.png[]
++
+. If the command succeeds, only the found meal plans would be displayed as shown below. In this case,
+all meal plans with the recipe "Chilli Crab" in any of its days would be found.
++
+.Successfully found meal plan with recipe
+image::ug_mealplan_findWithMealPlan2.png[]
+
+//END OF USER GUIDE
+
+== Making the DukeCooks Recipe Book and Meal Plans
+
+|===
+|The following extract provides my *contribution* to the *Developer Guide* documentation of my feature, the Recipe Book.
+Other contributions include the *Developer Guide* documentation of the my other DukeCooks feature, the Meal Plan Book.
+|To view the full *Developer Guide* of DukeCooks, please visit this https://ay1920s1-cs2103t-t10-2.github.io/main/DeveloperGuide.html[link].
+|===
+
+=== Recipe Book feature
+The current implementation of Recipe Book consists of the following:
+
+* Each `Recipe` consists of a unique `RecipeName`
+* Each `Recipe` contains an Set of `Ingredient`
+* Each `Recipe` consists of a unique `Calories`
+* Each `Recipe` consists of a unique `Carbohydrates`
+* Each `Recipe` consists of a unique `Fats`
+* Each `Recipe` consists of a unique `Protein`
+* Each class has their respective getter methods
+
+The class diagram below gives an overview of the `Recipe` class.
+
+.Recipe Class Diagram
+image::RecipeClassDiagram.png[]
+
+==== Implementation of recipe book commands
+
+`Recipe` class supports multiple commands. It includes:
+
+* `AddRecipeCommand` - Adds a `Recipe` into `DukeCooks`
+* `DeleteRecipeCommand` - Deletes a `Recipe` from `DukeCooks`
+* `EditRecipeCommand` - Edits the specified `Recipe`
+* `FindRecipeCommand` - Finds all `Recipe` whose `RecipeName` contains user-specified keywords
+
+All the above recipe commands behave similarly. The commands will be parsed in `DukeCooksParser` and based on their
+types (i.e Add, Delete, Edit etc), the corresponding variant parsers will be invoked (i.e `AddRecipeCommandParser`,
+`DeleteRecipeCommandParser` etc). After which, the corresponding command will be executed (i.e `AddRecipeCommand`,
+`DeleteRecipeCommand` etc).
+
+The figure below describes the execution of an `DeleteRecipeCommand`.
+The input provided is `delete recipe 1`.
+
+.DeleteRecipeCommand Sequence Diagram
+image::DeleteRecipeSequenceDiagram.png[]
+
+After a successful execution, the recipe with the specified index will be deleted from the recipe book.
+
+The DeleteRecipeCommand will also delete the recipe from all meal plans that by filtering through all saved meal plans,
+checking for the existence of the recipe it is about to delete, and replace that meal plan with a new one. This is done
+using MealPlan#removeRecipe.
+
+==== Design Considerations
+[cols="20%,40%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
+
+|Updating of recipe components in meal plans upon recipe modifications
+| Dynamic updates upon recipe modification
+
+*Pros* +
+Allows for a better user experience, less reliance on the user to ensure that all displayed information is updated.
+
+*Cons* +
+Harder to implement, requires for checks on meal plans upon every recipe modification, reducing performance of modification operations.
+
+*Our Choice* +
+We chose to have the updating of the recipes within meal plans to be done whenever a relevant recipe operation occurs,
+namely recipe deletion and edition. This provides a better user experience as the user will never need to remember that
+they have to run an update every single time they modify their recipes. This is favourable as we wish for DukeCooks to
+be as easy to use as possible.
+
+
+| Manual updates at any point in time
+
+*Pros* +
+Simplest implementation and most novice programmers are familiar with it.
+
+*Cons* +
+Relies on user to remember they need to update the meal plans upon recipe modification. Could result in confusion on the
+user's end. Also unintuitive from the user's standpoint, and makes recipe modification a hassle.
+|===
+
+//END OF DG

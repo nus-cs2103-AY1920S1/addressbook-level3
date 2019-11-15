@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
+
+<?import javafx.scene.image.Image?>
+<Stage height="400.0" width="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/man_cook.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0">
+            <children>
+               <VBox>
+                  <children>
+                     <Label fx:id="workoutName" styleClass="cell_big_label" text="\\$workoutName" />
+                     <ProgressBar fx:id="workoutProgress" prefWidth="300.0" progress="0.0" />
+                     <StackPane fx:id="setDetailsPlaceHolder" prefHeight="300.0" />
+                     <StackPane fx:id="commandBoxPlaceHolder" maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" styleClass="pane-with-border" />
+                  </children>
+               </VBox>
+            </children></AnchorPane>
+        </Scene>
+    </scene>
+</Stage>

@@ -1,0 +1,10 @@
+{
+  "recipes": [ {
+    "name": "Tamago Maki",
+    "ingredients" : [ "Eggs", "Rice", "Nori" ],
+    "calories" : "Invalid Calories",
+    "carbs" : "22",
+    "fats" : "15",
+    "protein" : "20"
+  } ]
+}

@@ -1,0 +1,71 @@
+@startuml
+!include style.puml
+skinparam backgroundColor #EEEBDC
+skinparam arrowThickness 1.5
+skinparam arrowColor MediumSpringGreen
+skinparam classBackgroundColor MediumAquaMarine
+skinparam classAttributeIconSize 0
+skinparam classAttributeFontColor DarkSlateBlue
+
+skinparam Class {
+    FontColor MidnightBlue
+    BorderThickness 1
+    BorderColor MidnightBlue
+    StereotypeFontColor #FFFFFF
+    FontName Impact
+}
+
+Class Exercise {
+ - exerciseName : ExerciseName
+ - musclesTrained : MusclesTrained
+ - intensity : Intensity
+ - exerciseDetails : ExerciseDetails
+ - history : ExerciseHistory
+ + updateHistory(ExerciseRun run)
+}
+
+Class ExerciseName {
+ - exerciseName : String
+ + isValidExerciseName()
+}
+
+Class MusclesTrained {
+ - primaryMuscles : MuscleType
+ - secondaryMuscles : ArrayList<MuscleType>
+}
+
+Class MuscleType {
+ - muscleType : String
+ + isValidMuscleType()
+}
+
+Class ExerciseDetails {
+ - magnitude : T
+ + isValidExerciseDetail()
+}
+
+Class ExerciseHistory {
+ - noTimesRan : Integer
+ - averageRunTime : Duration
+ - previousRuns : ArrayList<ExerciseRun>
+ + addRun(ExerciseRun runToAdd)
+}
+
+
+Enum Intensity {
+ HIGH
+ MEDIUM
+ LOW
+}
+
+
+Exercise *-down-> "1" ExerciseName
+Exercise *-right-> "1" MusclesTrained
+Exercise *-left-> "1" ExerciseHistory
+Exercise *-down-> "1" Intensity
+Exercise *-down-> "0..*" ExerciseDetails
+
+MusclesTrained *-down-> "1..*" MuscleType
+
+show members
+@enduml

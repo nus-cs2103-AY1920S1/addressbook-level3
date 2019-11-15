@@ -1,0 +1,12 @@
+{
+  "mealPlans": [ {
+    "name": "Tamago Maki",
+    "day1" : [ "Tamago Maki" ],
+    "day2" : [ "Inv@lid D@y 2!" ],
+    "day3" : [ "Tamago Maki" ],
+    "day4" : [ "Tamago Maki" ],
+    "day5" : [ "Tamago Maki" ],
+    "day6" : [ "Tamago Maki" ],
+    "day7" : [ "Tamago Maki" ]
+  } ]
+}

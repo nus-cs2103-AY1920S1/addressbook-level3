@@ -1,0 +1,51 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":AddRecordCommand" as AddRecordCommand LOGIC_COLOR
+participant ":LinkProfile" as LinkProfile LOGIC_COLOR
+participant ":EditProfileCommand" as EditProfileCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> AddRecordCommand : execute(model)
+activate AddRecordCommand
+
+AddRecordCommand -> Model : addRecord(r)
+activate Model
+
+Model --> AddRecordCommand
+deactivate Model
+
+AddRecordCommand -> LinkProfile : updateProfile(model, r.getType())
+activate LinkProfile
+
+LinkProfile -> EditProfileCommand : updateProfile(model)
+activate EditProfileCommand
+
+EditProfileCommand -> Model : setPerson
+activate Model
+
+Model --> EditProfileCommand
+deactivate Model
+
+EditProfileCommand --> LinkProfile
+deactivate EditProfileCommand
+
+LinkProfile --> AddRecordCommand
+deactivate LinkProfile
+
+create CommandResult
+AddRecordCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddRecordCommand
+deactivate CommandResult
+
+[<--AddRecordCommand
+deactivate AddRecordCommand
+@enduml

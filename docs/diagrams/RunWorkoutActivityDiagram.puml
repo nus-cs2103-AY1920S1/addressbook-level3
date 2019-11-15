@@ -1,0 +1,11 @@
+@startuml
+start
+:User runs Workout;
+while (all exercises not completed?)
+    :load new exercise;
+    while (exercise not completed?)
+        :Run Exercise Set;
+    endwhile
+endwhile
+stop
+@enduml

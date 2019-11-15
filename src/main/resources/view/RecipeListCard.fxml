@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane minHeight="150.0" minWidth="200.0" style="-fx-background-color: lightblue; -fx-background-radius: 8 8 8 8;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <VBox fx:id="recipeListCard" alignment="CENTER_LEFT" GridPane.columnIndex="0">
+         <padding>
+            <Insets bottom="5" left="15" right="5" top="5" />
+         </padding>
+         <children>
+            <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" spacing="5" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label fx:id="id" styleClass="cell_big_label" wrapText="true">
+                     <minWidth>
+                        <Region fx:constant="USE_PREF_SIZE" />
+                     </minWidth>
+                  </Label>
+                  <Label fx:id="name" styleClass="cell_big_label" text="\$first" wrapText="true" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </HBox>
+            <Label styleClass="cell_small_label" text="Ingredients:" wrapText="true" />
+            <VBox fx:id="ingredients">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </VBox>
+            <Label fx:id="calories" styleClass="cell_small_label" text="\$calories" />
+            <Label fx:id="carbs" styleClass="cell_small_label" text="\$carbs" />
+            <Label fx:id="fats" styleClass="cell_small_label" text="\$fats" />
+            <Label fx:id="protein" styleClass="cell_small_label" text="\$protein" />
+         </children>
+      </VBox>
+   </children>
+</GridPane>

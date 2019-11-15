@@ -1,0 +1,17 @@
+{
+  "recipes": [ {
+    "name": "Kappa Maki",
+    "ingredients" : [ "Cucumber", "Rice", "Nori" ],
+    "calories" : "130",
+    "carbs" : "35",
+    "fats" : "0",
+    "protein" : "0"
+  }, {
+    "name": "Kappa Maki",
+    "ingredients" : [ "Cucumber", "Rice", "Nori" ],
+    "calories" : "130",
+    "carbs" : "35",
+    "fats" : "10",
+    "protein" : "10"
+  } ]
+}

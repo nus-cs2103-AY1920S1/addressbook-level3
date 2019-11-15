@@ -1,0 +1,16 @@
+@startuml
+start
+:User adds page image;
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then (  [Valid Image])
+    if () then ([Predefined Image])
+    :Load image from resource folder;
+    else (  [Local Image])
+    :Copy to data directory;
+    endif
+else (   [Invalid Image, throw errors])
+endif
+stop
+@enduml

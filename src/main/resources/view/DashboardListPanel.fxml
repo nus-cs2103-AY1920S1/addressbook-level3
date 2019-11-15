@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="441.0" prefWidth="863.0" style="-fx-background-color: snow;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="title" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="42.0" prefHeight="54.0" prefWidth="181.0" stylesheets="@DarkTheme.css" text="Dashboard" VBox.vgrow="NEVER">
+         <font>
+            <Font name="Devanagari Sangam MN" size="37.0" />
+         </font>
+         <padding>
+            <Insets left="5.0" top="5.0" />
+         </padding>
+      </Label>
+      <HBox maxHeight="-Infinity" prefHeight="70.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
+         <children>
+            <VBox prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <Label text="Your Progress">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ProgressBar fx:id="progressBar" prefHeight="20.0" prefWidth="201.0" progress="0.0" />
+               </children>
+            </VBox>
+            <Region prefHeight="65.0" prefWidth="40.0" />
+            <VBox prefHeight="65.0" prefWidth="145.0">
+               <children>
+                  <Label text="Today's Date" />
+                  <Label fx:id="todayDate" ellipsisString="" prefHeight="40.0" prefWidth="197.0" styleClass="dashboardCell_big_label" text="\$todayDate" wrapText="true">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <Region prefHeight="65.0" prefWidth="90.0" />
+            <VBox prefHeight="200.0" prefWidth="150.0">
+               <children>
+                  <Label text="Calendar">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <DatePicker prefHeight="27.0" prefWidth="239.0" />
+               </children>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <ListView fx:id="dashboardListView" prefHeight="322.0" prefWidth="377.0" VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>

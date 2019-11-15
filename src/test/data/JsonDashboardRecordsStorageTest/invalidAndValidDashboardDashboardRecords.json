@@ -1,0 +1,7 @@
+{
+  "dashboards": [ {
+    "name": "Valid name"
+  }, {
+    "name": "Task With invalid n@me"
+  } ]
+}

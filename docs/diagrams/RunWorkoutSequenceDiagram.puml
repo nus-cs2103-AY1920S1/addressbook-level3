@@ -1,0 +1,45 @@
+@startuml
+!include style.puml
+skinparam backgroundColor #EEEBDC
+
+skinparam sequence {
+	ArrowColor Olive
+	LifeLineBorderColor DarkSlateGray
+	LifeLineBackgroundColor DarkSeaGreen
+
+	ParticipantBackgroundColor Green
+	ParticipantFontName Impact
+	ParticipantFontSize 17
+	ParticipantFontColor DarkSeaGreen
+
+
+}
+box Logic
+participant ":RunWorkoutCommandParser" as A
+participant ":RunWorkoutCommand" as B
+participant ":CommandResult" as D
+end box
+box Model MODEL_COLOR_T1
+participant ":UniqueWorkoutList" as C
+end box
+
+ -> A: parse(run workout 1)
+activate A
+
+A -> B: RunWorkoutCommand(1)
+activate B
+
+B -> C: get(1)
+activate C
+C --> B:
+destroy C
+
+B -> D: new CommandResult(MESSAGE, WorkoutToRun)
+activate D
+destroy B
+
+ <- D: feedbackToUser
+
+destroy A
+
+@enduml

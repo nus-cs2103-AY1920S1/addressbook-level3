@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= DukeCooks - Developer Guide image:DukeCooks_Logo.png[align="center", width="50"]
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -6,19 +6,118 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:stylesheet: asciidoctor.css
 :xrefstyle: full
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T10-2/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team DukeCooks`      Since: `Oct 2019`      Licence: `MIT`
+
+== Introduction
+
+DukeCooks is a revolutionary lifestyle application, specially designed for health-conscious students. Targeting busy
+students that are long-time users of the Command-Line Interface (CLI), DukeCooks offers such users a CLI healthy
+lifestyle application. This means, expert-CLI student users will be able to execute different commands, all within a single line.
+They will be able to manage various aspects of their lifestyle, from their diet, to exercises and health records.
+
+They can use DukeCooks to manage all their lifestyle needs, all within one single app.
+
+With DukeCooks, being healthy has never been easier!
+
+=== Purpose
+
+This developer guide aims to provide you with both the technical and non-technical aspects of DukeCooks. It also provides
+insight into the future direction of DukeCooks. After reading this document, you should be able to understand the design,
+architecture and goals of DukeCooks.
+
+=== Understanding the document
+
+TIP: Pro tips which you may find useful.
+
+NOTE: Information that you should take note of.
+
+WARNING: Information that you should be careful with.
+
+[horizontal]
+
+`Model`:: Text with orange highlight (also known as mark-up) indicates a class / package name.
+
+`__Model.java__`:: Italic text with mark-up indicates a file name / github link.
 
 == Setting up
 
-Refer to the guide <<SettingUp#, here>>.
+=== Prerequisites
+
+. *JDK `11`* or above
+. *IntelliJ* IDE
++
+[NOTE]
+IntelliJ by default has Gradle and JavaFx plugins installed. +
+Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+=== Setting up the project in your computer
+
+. Fork this repo, and clone the fork to your computer
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
+. Set up the correct JDK version for Gradle
+.. Click `Configure` > `Project Defaults` > `Project Structure`
+.. Click `New...` and find the directory of the JDK
+. Click `Import Project`
+. Locate the `build.gradle` file and select it. Click `OK`
+. Click `Open as Project`
+. Click `OK` to accept the default settings.
+
+=== Verifying the setup
+
+. Run the `dukecooks.Main` and try a few commands
+. <<Testing#,Run the tests>> to ensure they all pass.
+
+=== Configurations to do before writing code
+
+==== Configuring the coding style
+
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+
+. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
+. Select `Editor` > `Code Style` > `Java`
+. Click on the `Imports` tab to set the order
+
+* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
+* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
+
+Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
+
+==== Updating documentation to match your fork
+
+After forking the repo, the documentation will still have the DukeCooks branding and refer to the `AY1920S1-CS2103T-T10-2/main` repo.
+
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `AY1920S1-CS2103T-T10-2/main`), you should do the following:
+
+. Configure the <<Documentation#Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
+
+. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
+
+==== Setting up CI
+
+Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
+
+After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
+
+[NOTE]
+Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
+
+Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
+
+[NOTE]
+Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based while AppVeyor is Windows-based)
+
+==== Getting started with coding
+
+When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, DukeCooks's architecture>>.
 
 == Design
 
@@ -34,7 +133,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/dukecooks/Main.java[`_Main_`] and link:{repoURL}/src/main/java/dukecooks/MainApp.java[`_MainApp_`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -54,19 +153,21 @@ The rest of the App consists of four components.
 Each of the four components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+* Exposes its functionality using a `{Component Name} Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
 
+
 [discrete]
-==== How the architecture components interact with each other
+==== Interaction of architecture components
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete recipe 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete recipe 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -77,11 +178,24 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/dukecooks/ui/Ui.java[`_Ui.java_`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `XYZListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+[NOTE]
+====
+XYZListPanel refers to the 6 different individual components in our application.
+The 6 different components are:
+
+* Dashboard
+* Recipe Book
+* Meal Plan
+* Exercise
+* Health
+* Diary
+====
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/dukecooks/ui/MainWindow.java[`_MainWindow_`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`_MainWindow.fxml_`]
 
 The `UI` component,
 
@@ -92,21 +206,22 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
+
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/dukecooks/logic/Logic.java[`_Logic.java_`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `DukeCooksParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a recipe).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for simplified interactions within the `Logic` component for the `execute("delete recipe 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Simplified Interactions Inside the Logic Component for the `delete recipe 1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -117,19 +232,27 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/dukecooks/model/Model.java[`_Model.java_`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Duke Cooks data.
+* exposes an unmodifiable `ObservableList<XYZ>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+* BlackBox refers to the model diagram of the individual components of DukeCooks.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+====
+XYZ refers to the 5 different individual components in our application.
+The 5 different components are:
+
+* Dashboard
+* Recipe Book
+* Exercise
+* Health
+* Diary
+====
 
 [[Design-Storage]]
 === Storage component
@@ -137,110 +260,755 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/dukecooks/storage/Storage.java[`_Storage.java_`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the DukeCooks data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `dukecooks.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Commands and Parser
+All command variants (i.e `AddRecipeCommand`, `AddExerciseCommand`) extends from `AddCommand`,
+instead of the abstract `Command` class.
+This applies to other type of commands as well, such as `DeleteCommand` and `EditCommand`.
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The diagram below shows a simplified class diagram for Commands and Parser.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+.Structure of Commands and Parser
+image::CommandImplementation.png[]
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+==== Design Considerations
+[cols="20%,40%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+|Implementing commands and parser
+|Command variants (i.e `AddRecipeCommand`, `AddExerciseCommand`) extend from `AddCommand`.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+*Pros* +
+Easier scalability as subsequent variants of `AddCommand` can simply extend from it.
 
-image::UndoRedoState0.png[]
+*Cons* +
+Complex implementation and increases the amount of code within repository as for each command variant added, a
+corresponding variant parser needs to be added.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+*Our Choice* +
+This choice was chosen for DukeCooks which comprises of different components with the same variants of commands (i.e Add, Edit, Delete etc.)
+This reduces the amount of switch cases within `DukeCooksParser` and makes testing more manageable.
 
-image::UndoRedoState1.png[]
+|Command variants extend from `Command` class
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+*Pros* +
+Relatively easier to implement.
 
-image::UndoRedoState2.png[]
+*Cons* +
+Greatly increase number of switch cases within `DukeCooksParser` and this could increase the difficulty of debugging as it becomes
+harder to locate bugs. Furthermore, this implementation exposes all underlying command variants to `DukeCooksParser`.
+|===
+
+// tag::dashboard[]
+=== Dashboard feature
+
+In DukeCooks, a `Dashboard` object represents an event a user needs to attend to, a task. A `Dashboard` is made up of
+a `DashboardName`, `TaskDate` and `TaskStatus`. Below is a class diagram (Figure 10) that illustrates how `Dashboard` interacts with other classes.
+
+.Dashboard Class Diagram
+image::DashboardClassDiagram.png[width="500"]
+
+==== Implementation
+The functions add/delete/edit/find/list/done task, are found under the Dashboard. +
+The Dashboard in `DukeCooks` serves as a homepage which displays a list of tasks set out
+by the user. The tasks are sorted accordingly by earliest date; using a custom sorting algorithm.
+Here, a task is represented by a Dashboard object.
+
+The operations are as followed:
+
+* `add task` -- Adds and saves the task into `DukeCooks`.
+* `delete task` -- Removes the specified task from `DukeCooks`.
+* `edit task` -- Edits the specified with a new task name and/or date.
+* `done task` -- Marks a task as complete.
+* `find task` -- Finds a list of task with a given keyword.
+* `list taskincomlete` -- Lists all the incomplete tasks.
+* `list taskcomlete` -- Lists all the completed tasks.
+* `goto dashboard` -- Directs user to the dashboard window.
+
+These operations are exposed in the Model interface as `addDashboard()`,
+`deleteDashboard()`, `setDashboard()`, `Model#hasDashboard()` , `doneDashboard` and
+`getDashboardRecords()`.
+
+Given below is an example usage scenario and how the add/delete/edit/find/done/dashboard
+mechanism behaves at each step.
+
+Step 1. The user is currently at a another part of DukeCooks and wants to go to the Dashboard. The
+user executes the `goto dashboard` command. The `goto dashboard` command calls `getDashboardRecords()`,
+which returns the `ReadOnlyDashboard` that returns the `UniqueDashboardList`, iterating over all the task and displaying it on the
+homepage.
+
+Step 2. The user executes `add task tn/bake a cake td/12/12/2019` command to add a new
+task into DukeCooks. The `add` command calls `addDashboard()`, causing the task to
+be added into `UniqueDashboardList`. In `UniqueDashboardList`, it calls`add()` which will call `sortDashboard()`.
+At this stage, the list of task is sorted by date. After which, the `add` command also calls `saveDashboard()` to be
+saved the `goto dashboard` into the `UniqueDashboardList`.
+
+Step 3. The user executes `delete task 3` command to delete the 3rd task in the
+dashboard. The `delete` command calls `deleteDashboard()` causing the specified task
+to be removed from `UniqueDashboardList`. In `UniqueDashboardList`, it calls
+`remove()` which will call `sortDashboard()`. At this
+stage, the list of task is sorted by date. Also, it calls `saveDashboard()`,
+after the `delete task 3` command executes
+to be saved in the `UniqueDashboardList`.
+
+Step 4. The user executes `edit task...` command to edit a field in a task. The `edit`
+command calls `setDashboard()` causing the edited task to be updated in
+`UniqueDashboardList`. In `UniqueDashboardList`, it calls `setDashboard()`
+which will call `sortDashboard()`. At this stage, the list of task is
+sorted by date. Also, it calls `saveDashboard()`, after the `edit task...` command executes to be saved into the `UniqueDashboardList`
+
+Step 5. The user executes `find task...` command to find a list of task given a keyword.
+The `find` command calls `hasDashboard()`, which searches through the
+`UniqueDashboardList` for tasks containing the particular keyword.
+
+Step 6. The user executes `done task 1` command to mark the first task in the list as complete. The `done task`
+command calls `doneDashboard()`, which will cause the task to be marked as complete in the
+`UniqueDashboardList`. In `UniqueDashboardList`, it calls `done()`, which adds
+the newly created `Dashboard` object and adds it into the list. After which, `sortDashboard()`
+is called to sort the list by date and reflect the newly made changes.
+
+The following sequence diagram (Figure 11) shows how the done operation works:
+
+.Done task Sequence Diagram
+[caption="Figure 11: "]
+image::DoneTaskSequenceDiagram.png[width="600"]
+
+==== Making Decisions
+
+[cols="20%,40%,40%""]
+[width="100%"]
+|===
+|*Aspect* |*Option 1 (Chosen)*|*Option 2*
+
+|Storing a task's status
+|A custom class, `TaskStatus`, is created to keep track of the task's status.
+
+*Pros* +
+Additional statuses can be introduced in easily in the future. +
+
+*Cons* +
+Because a `String` is used to create a `TaskStatus`, typos could be made when adding test cases. +
+
+*Our Choice* +
+This choice was chosen as it does not limit us to only having tasks marked as "COMPLETED" or "NOT COMPLETE".
+Since choice 1 was used, additional status, "RECENTLY COMPLETED" could be added with ease.
+
+|Use a boolean to check if a task is complete.
+
+*Pros* +
+Easy to implement.
+
+*Cons* +
+ Limits expansion since a task can only be marked as "COMPLETED" or "NOT COMPLETE".
+
+|Sorting tasks by date
+
+|Every time the `add`, `delete`, `edit` task command is called, a `sort` is executed.
+
+*Pros* +
+ Easy to implement. Because `sort` is implemented regardless if the list is in-order or not,
+there is lesser chance for errors.
+
+*Cons* +
+ Because `sort` is executed every time, this might slow down the performance.
+
+*Our Choice* +
+This choice was chosen as it reduces the chance of errors making it a safer option.
+
+|Keep an instance of the earliest and latest date. If dates fall out of range from the two dates, sorting does not happen.
+
+*Pros* +
+Faster runtime.
+
+*Cons* +
+Additional lines of code needed to check if the date falls out of range. Higher chance of making mistakes during implementation.
+|===
+// end::dashboard[]
+
+=== Recipe Book feature
+The current implementation of Recipe Book consists of the following:
+
+* Each `Recipe` consists of a unique `RecipeName`
+* Each `Recipe` contains an Set of `Ingredient`
+* Each `Recipe` consists of a unique `Calories`
+* Each `Recipe` consists of a unique `Carbohydrates`
+* Each `Recipe` consists of a unique `Fats`
+* Each `Recipe` consists of a unique `Protein`
+* Each class has their respective getter methods
+
+The class diagram below gives an overview of the `Recipe` class.
+
+.Recipe Class Diagram
+image::RecipeClassDiagram.png[]
+
+==== Implementation of recipe book commands
+
+`Recipe` class supports multiple commands. It includes:
+
+* `AddRecipeCommand` - Adds a `Recipe` into `DukeCooks`
+* `DeleteRecipeCommand` - Deletes a `Recipe` from `DukeCooks`
+* `EditRecipeCommand` - Edits the specified `Recipe`
+* `FindRecipeCommand` - Finds all `Recipe` whose `RecipeName` contains user-specified keywords
+
+All the above recipe commands behave similarly. The commands will be parsed in `DukeCooksParser` and based on their
+types (i.e Add, Delete, Edit etc), the corresponding variant parsers will be invoked (i.e `AddRecipeCommandParser`,
+`DeleteRecipeCommandParser` etc). After which, the corresponding command will be executed (i.e `AddRecipeCommand`,
+`DeleteRecipeCommand` etc).
+
+The figure below describes the execution of an `DeleteRecipeCommand`.
+The input provided is `delete recipe 1`.
+
+.DeleteRecipeCommand Sequence Diagram
+image::DeleteRecipeSequenceDiagram.png[]
+
+After a successful execution, the recipe with the specified index will be deleted from the recipe book.
+
+The DeleteRecipeCommand will also delete the recipe from all meal plans that by filtering through all saved meal plans,
+checking for the existence of the recipe it is about to delete, and replace that meal plan with a new one. This is done
+using MealPlan#removeRecipe.
+
+==== Design Considerations
+[cols="20%,40%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
+
+|Updating of recipe components in meal plans upon recipe modifications
+| Dynamic updates upon recipe modification
+
+*Pros* +
+Allows for a better user experience, less reliance on the user to ensure that all displayed information is updated.
+
+*Cons* +
+Harder to implement, requires for checks on meal plans upon every recipe modification, reducing performance of modification operations.
+
+*Our Choice* +
+We chose to have the updating of the recipes within meal plans to be done whenever a relevant recipe operation occurs,
+namely recipe deletion and edition. This provides a better user experience as the user will never need to remember that
+they have to run an update every single time they modify their recipes. This is favourable as we wish for DukeCooks to
+be as easy to use as possible.
+
+
+| Manual updates at any point in time
+
+*Pros* +
+Simplest implementation and most novice programmers are familiar with it.
+
+*Cons* +
+Relies on user to remember they need to update the meal plans upon recipe modification. Could result in confusion on the
+user's end. Also unintuitive from the user's standpoint, and makes recipe modification a hassle.
+|===
+
+=== Meal Plan feature
+The current implementation of Meal Plan consists of the following:
+
+* Each `Meal Plan` consists of a unique `MealPlanName`
+* Each `Meal Plan` contains 7 Lists of `RecipeName`
+* Each class has their respective getter methods
+
+The class diagram below gives an overview of the `Meal Plan` class.
+
+.Meal Plan Class Diagram
+image::MealPlanClassDiagram.png[]
+
+==== Implementation of meal plan commands
+
+`MealPlan` class supports multiple commands. It includes:
+
+* `AddMealPlanCommand` - Adds a `MealPlan` into `DukeCooks`
+* `DeleteMealPlanCommand` - Deletes a `MealPlan` from `DukeCooks`
+* `EditMealPlanCommand` - Edits the specified `MealPlan`
+* `FindMealPlanCommand` - Finds all `MealPlan` whose `MealPlanName` contains user-specified keywords
+* `FindMealPlanWithCommand` Finds all `MealPlan` whose days contain user-specified `RecipeName`.
+
+All the above meal plan commands behave similarly. The commands will be parsed in `DukeCooksParser` and based on their
+types (i.e Add, Delete, Edit etc), the corresponding variant parsers will be invoked (i.e `AddMealPlanCommandParser`,
+`DeleteMealPlanCommandParser` etc). After which, the corresponding command will be executed (i.e `AddMealPlanCommand`,
+`DeleteMealPlanCommand` etc).
+
+The figure below describes the execution of an `DeleteMealPlanCommand`.
+The input provided is `delete mealplan 1`.
+
+.DeleteRecipeCommand Sequence Diagram
+image::DeleteMealPlanSequenceDiagram.png[]
+
+After a successful execution, the meal plan with the specified index will be deleted from the meal plan book.
+
+==== Design Considerations
+[cols="20%,40%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
+
+|Amount of recipe information to be saved in a meal plan
+| Saving only the recipe name
+
+*Pros* +
+Less memory required to save meal plan as it only keeps track of recipe names. Easier to maintain dynamic updates upon recipe
+modification.
+
+*Cons* +
+Requires that meal plans make a query to obtain the rest of a recipe's information using that recipe's name whenever the user
+views that meal plan.
+
+*Our Choice* +
+We decided to only capture recipe name information within the meal plan, as we concluded that the meal plan need not know
+of a recipe's nutritional value, difficulty, preparation time, or image location until the meal plan is viewed by the user.
+This allows for smaller storage of meal plans as each meal plan does not need to hold that much information about the recipes
+that it contains. Only when the meal plan is viewed will it use the recipe name data it has to query for the rest of that
+recipe's information. Additionally, only storing the recipe name makes the implementation of dynamic updating between meal
+plans and recipes much easier.
+
+
+| Saving the entire recipe
+
+*Pros* +
+Easier to implement view command as the meal plan does not need to query for the recipe's other information whenever it needs to.
+
+*Cons* +
+Requires more memory to save each meal plan as recipe ingredients can be very extensive. Also requires more checks to be done
+upon recipe modification to allow for dynamic updates, which is harder to implement.
+|===
+
+=== Workout Planner feature
+
+The workout feature allows users to create their own custom workouts with `add Workout` command and adding their own
+custom exercises to it with `push exercise`. With these custom workouts, they can then choose to run them through
+`run workout` and monitor their progress and workout history with `view workout`.
+
+==== Implementation
+
+{nbsp} +
+*Workout Management*
+
+Every workout comprises of the following information:
+
+* `WorkoutName` representing the name of the workout
+* `Average Intensity` representing the average demands of the exercises in the workout
+* A set of `MuscleType` which represents all the muscles trained by the workout
+* An ArrayList of `ExerciseName` of exercises that would be carried out in the workout
+* `WorkoutHistory` containing information on all the previous runs of the workout as well as some statistics
+
+The Workout Class also contains the function `updateHistory(WorkoutRun run)` which adds the `WorkoutRun` into the
+WorkoutHistory and updates all the relevant fields accordingly, returning a new Workout instance with updated `WorkoutHistory`.
+The class also utilises `pushExercise(Exercise exercise, Set<ExerciseDetail> details)` function to add new `Exercise` and
+return a new Workout with update fields. There is also an option to push an exercise without the details with the overloaded
+method which instead opts to use the pre-built Set of `ExerciseDetails` in the `Exercise` itself.
+
+The Workout Class is represented by the class diagram below.
+
+.Workout Class Diagram
+image::WorkoutClassDiagram.png[]
+
+The Workout Class is managed by the following commands:
+
+* `AddWorkoutCommand` - Adds a new empty `Workout` into `WorkoutPlanner`
+* `DeleteWorkoutCommand` - Deletes a `Workout` specified by an `Index` from `WorkoutPlanner`
+* `PushExerciseCommand` - Pushes an `Exercise` specified by an `Index` into an existing `Workout`
+
+
+{nbsp} +
+*Exercise Management*
+
+In order to run a `Workout`, users will have to add `Exercises` into the `Workout` as an empty workout cannot be ran.
+Users can use existing exercises or create their own custom exercises. Every exercise contains the following information:
+
+* `ExerciseName` representing the name of the exercise
+* `MusclesTrained` comprising of the primary `MuscleType` as well as an ArrayList of secondary `MuscleType` trained
+* `Intensity` or how demanding the exercise is
+* A set of `ExerciseDetails` which are optional additional information of the exercise such as `ExerciseWeight`,
+`Distance`, `Sets` and `Repetitions`
+* `ExerciseHistory` containing information on all the previous `ExerciseRun` of the exercise
+
+Like `Workout`, `Exercise` also has the method `updateHistory` which returns an updated Exercise with a new
+`ExerciseRun` accounted for.
+
+The Exercise class is represented by the following class diagram below.
+
+.Exercise Class Diagram
+image::ExerciseClassDiagram.png[]
+
+The `Exercise` class is managed by the following commands :
+
+* `AddExerciseCommand` - Adds a new `Exercise` into `WorkoutPlanner`
+* `ClearExerciseCommand` - Clears all the `Exercise` objects in `WorkoutPlanner`
+* `DeleteExerciseCommand` - Deletes an `Exercise` specified by an `Index` from `WorkoutPlanner`
+* `EditExerciseCommand` - Edits the specified `Exercise` with newly specified information
+* `FindExerciseByIntensityCommand` - Lists all `Exercise` objects with the `Intensity` specified
+* `FindExerciseByMuscleCommand` - Lists all `Exercise` objects which trains the `MuscleType` specified
+* 'FindExerciseCommand' - Lists all `Exercise` objects with `ExerciseName` that contains the string specified
+* 'ListExercise' - Lists all 'Exercise' objects in `WorkoutPlanner`
+
+All the exercise and workout commands above are parsed in `DukeCooksParser`, invoking the respective Command Parsers
+(Add, Delete, Edit etc.). The `Exercise`/`Workout` variant of the parser will then be instantiated
+(i.e `AddExerciseCommandParser`,`DeleteWorkoutCommandParser` etc) to create the actual command objects
+(i.e AddExerciseCommand, DeleteWorkoutCommand etc). These Command Objects will then execute the necessary steps
+to fulfill their functionality.
+
+{nbsp} +
+*Running of Workouts*
+
+The core functionality of the WorkoutPlanner is to run a `Workout` and have it automatically tracking your progress
+by making records in its history. This is done through the `Run Workout Command`. The following sequence diagrams show
+what happens when the command is invoked.
+
+.Sequence Diagram of RunWorkoutCommand
+image::RunWorkoutSequenceDiagram.png[]
+
+As seen in the diagram above, when the command is invoked, the `RunWorkoutParser` is initialised to parse the argument String
+to initialise `RunWorkoutCommand`. The Command object will then run its execute method, which calls upon get method of
+UniqueWorkoutList to obtain the target `Workout`. The target workout and message will then be passed back to the Ui through
+the CommandResult object. The Ui will then boot a new `RunWorkoutWindow` with the targeted workout.
+
+.Activity Diagram of RunWorkoutWindow
+image::RunWorkoutActivityDiagram.png[]
+
+The user will then run each set of each exercise until the workout is complete. The full loop is demonstrated in the
+activity diagram in Figure 17.
+
+.Sequence Diagram of UpdateWorkoutCommand
+image::RunWorkoutSequenceDiagram1.png[]
+
+Upon completion of the workout, the Ui will immediately generate a new `UpdateWorkoutCommand` containing the `Workout`
+that has been ran and a newly instantiated `WorkoutRun` with the details of the run. `UpdateWorkoutCommand` will then
+be executed and the following will occur:
+
+. New Workout will be generated. +
+Using Workout's `updateHistory` method, a new updated `Workout` will be created.
+. The outdated Workout will be replaced by the new Workout. +
+Using `UniqueWorkoutList` 's `setWorkout` method, the old workout will be removed and the updated one will be placed in
+its stead
+. CommandResult is generated and passed back to Ui. +
+A new CommandResult will be returned containing a congratulatory message to the Ui signalling the successful completion
+of the workout.
+
+*Design Considerations*
+
+[cols="20%,40%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
+
+|Storing an Exercise/Workout's intensity
+|Intensity was stored as an Enumeration instead of a class
+
+*Pros* +
+Intensity can be limited only a specific amount of values
+
+*Cons* +
+Intensity will only be an estimate instead of a specific value given the value limits +
+
+*Our Choice* +
+This option was chosen in the end to simplify the classification of exercise so that users can more easily filter by
+intensity. Furthermore, this allows for more Ui diversification by having different images for each intensity.
+
+|Setting Intensity as a Class
+
+*Pros* +
+Easy to implement.
+
+*Cons* +
+Makes filtering by intensity a more tedious affair for both developers and users.
+
+|Storing MuscleTypes
+
+|Have MuscleType be a class on its own
+
+*Pros* +
+Muscles are referred to by various names and allowing the user to set their own muscle names allow for more
+familiarity
+
+*Cons* +
+MuscleType class will require stricter validation to ensure that users do not mess up the programme with unintended
+inputs.
+
+*Our Choice* +
+This option was chosen to allow for greater flexibility of naming for the muscle types but at the same time still limited
+to prevent the users from going wild.
+
+|Store MuscleType as an enumeration
+
+*Pros* +
+There are limited muscles in the body, allowing for a proper limit +
+
+*Cons* +
+Muscles may have multiple names that are not accounted for by the enum.
+
+|Storage of Exercises in Workout
+|Workouts only store a list of ExerciseName and not the full exercise
+
+*Pros* +
+Exercises only have to be edited once upon execution of edit command - more cost effective. It also avoids
+unnecessarily large storage files.
+
+*Cons* +
+Each time an exercise of workout has to be referenced, the entire storage of exercise has to be scoured
+
+*Our Choice*
+In the end we decided to choose this option as we foresee that the edit command will be utilised more often than calling
+an exercise from a workout. Furthermore, to improve timing, we kept a sorted storage for exercise to allow for the quicker
+binary search.
+
+| Workouts store whole Exercises
+
+*Pros* +
+Exercises can be extracted quickly
+
+*Cons* +
+Huge storage space is required. Also complicates editing of exercises.
+|===
+
+// tag::healthRecords[]
+[[HealthRecordsTag]]
+=== Health Records feature
+The Health Records feature allows user to track their health progress using the commands
+`add health`, as well as making changes to their records with `edit health`, `delete health` and `clear health`.
+
+Additionally, users can create and personalize their own profile with the commands `add profile`,
+`edit profile` and `delete profile`.
+
+In a nut shell, the Health Records feature supports the following operations:
+
+* Storing of the health data recorded by the user
+* Present the data with graph representation that shows the health progress of the user
+* Personalizing user profile
+
+==== Implementation
+
+A `Record` consist of four key components: `Type`, `Timestamp`, `Value`, `Remark`.
+Refer to the diagram below to understand the structure of `Record`.
+
+.Structure of the Record Component
+image::HealthRecordsClassDiagram.png[]
+
+==== Implementation of Health Records commands
+
+`Record` class supports multiple commands. It includes:
+
+* `AddRecordCommand` - Adds a `Record` into DukeCooks
+* `DeleteRecordCommand` - Deletes a `Record` from DukeCooks
+* `EditRecordCommand` - Edits the specified `Record` with a new changes made
+* `ListHealthCommand` - Lists all available records to user
+* `ListHealthByTypeCommand` - Lists all available records of the corresponding record type to user
+* `ClearHealthCommand` - Clears all available records
+
+`Person` class supports multiple commands. It includes:
+
+* `AddProfileCommand` - Adds a new `Person` into DukeCooks
+* `DeleteProfileCommand` - Deletes the `Person` into DukeCooks
+* `EditProfileCommand` - Edits various fields of the specified `Person`
+
+[IMPORTANT]
+====
+User Profile consist of one `person` object.
+Dukecooks will only allow one user profile to exist.
+====
+
+==== Execution of AddRecordCommand
+
+The sequence diagram below illustrates the execution of an `AddRecordCommand`.
+
+.AddHealthCommand Sequence Diagram
+image::AddHealthSequenceDiagram.png[]
+
+The command will first be parsed in 'DukeCooksParser' and be handled to its corresponding parsers (i.e. `AddRecordCommandParser`) based on its variant word
+(i.e. `Add`).
+
+After the parsing has been executed successfully, the string argument will be converted to `Type`, `Value`, `Timestamp`,
+`Remark` attributes. These attributes will then be passed into the `Model` component for its underlying validity checks.
+
+Once all checks have passed successfully, a new `Record` will be created according to those attributes
+and added to health records with the command `Model#addRecord`.
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+====
+The illustration of the above execution only applies to all record types except for **Weight** and **Height**.
+Refer to the next section for more details.
+====
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+==== Syncing record data with profile
 
-image::UndoRedoState3.png[]
+To illustrate why the simple model of `AddRecordCommand` will not suffice for *Weight* and *Height* record types,
+below depicts the class diagram of the `Person` class
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+.Structure of the Person Component
+image::PersonClassDiagram.png[]
 
-The following sequence diagram shows how the undo operation works:
+It can be observed that `Person` share similar attributes to `Record`, both *Weight* and *Height*.
+However, the implementation of the two types are distinctly different among `Record` and `Person`. `Record` have
+structured *Weight* and *Height* to be attributes of its `Type` enum class while `Person` has defined
+them separately to be classes of their own.
 
-image::UndoSequenceDiagram.png[]
+The Sequence diagram below illustrates the execution of `AddRecordCommand` with additional component introduced to
+help sync data between the `Record` and `Person`.
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+.Reconstructed AddRecordCommand
+image::LinkHealthToProfileSequenceDiagram.png[]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+Once `Model#addRecord` has been executed, `AddRecordCommand` will check the type of
+the newly added record. If it is a *Weight* or *Height* record, `LinkProfile#updateProfile`
+will be called. The `LinkProfile` helps `AddRecordCommand` to invoke `EditProfileCommand` by
+calling for changes to be made for profile.
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+A simplified activity diagram of the problem can be shown below.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+.Activity Diagram of adding a new Weight record
+image::LinkProfileActivityDiagram.png[]
 
-image::UndoRedoState4.png[]
+Once profile have been successfully updated, person's weight/ height is expected to be
+in sync with health records.
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+// end::healthRecords[]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+[cols="20%,40%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+|Data Structure used to store Record Type
+|`Enum` class is used to store record types.
 
-===== Aspect: Data structure to support the undo/redo commands
+*Pros* +
+Type safe and more static control over the record types.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+*Cons* +
+Limiting health record types as no dynamic additions can be made.
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+This choice was chosen as it is easier to maintain for our model. Additionally, the extension of having user defined health
+types would mean more validity checks and maintenance needed.
 
-_{Explain here how the data encryption feature will be implemented}_
+|A `HashMap` is used to store record types.
 
-// end::dataencryption[]
+*Pros* +
+Increase flexibility and have the possible extension of allowing user defined health types.
+
+*Cons* +
+More error prone compared to enums.
+
+|===
+
+// tag::diary[]
+[[DiaryTag]]
+=== Diary feature
+==== Implementation
+The current implementation of Diary consists of the following:
+
+* Each `Diary` consists of a unique `DiaryName`
+* Each `Diary` contains an array list of `Page`
+* Each `Page` is identified by a unique `Title`, `PageType`, `Page Description` and `Page Image`
+* Each class has their respective getter methods
+
+The class diagram below gives an overview of the `Diary` class.
+
+.Diary Class Diagram
+image::DiaryClassDiagram.png[]
+
+==== Implementation of diary commands
+
+`Diary` class supports multiple commands. It includes:
+
+* `AddDiaryCommand` - Adds a `Diary` into DukeCooks
+* `DeleteDiaryCommand` - Deletes a `Diary` from DukeCooks
+* `EditDiaryCommand` - Edits the specified `Diary` with a new `DiaryName`
+* `ViewDiaryCommand` - Views the specified `Diary` using the provided index
+* `FindDiaryCommand` - Finds the specified `Diary` using the provided keyword
+* `ListDiaryCommand` - Lists all available diaries to user
+* `AddPageCommand` - Adds a new `Page` to the specified `Diary`
+* `DeletePageCommand` - Deletes the `Page` in the specified `Diary`
+* `EditPageCommand` - Edits various fields of the specified `Page`
+
+All the above commands behave similarly. The commands will be parsed in `DukeCooksParser` first and based on their
+types (i.e Add, Delete, Edit etc), the corresponding variant parsers will be invoked (i.e `AddDiaryCommandParser`,
+`DeleteDiaryCommandParser` etc). After which, the corresponding command will be executed (i.e `AddDiaryCommand`,
+`DeleteDiaryCommand` etc).
+
+The figure below describes the execution of an `DeleteDiaryCommand`.
+
+.Sequence Diagram of DeleteDiaryCommand
+image::DeleteDiarySequenceDiagram.png[]
+
+{nbsp} +
+After a successful execution, the specified diary will be removed.
+
+==== Implementation of Images
+
+All images used in DukeCooks are copied into an internal data folder and all subsequent loading of images is done from
+within this internal folder. The following activity diagram explains how an image is created in DukeCooks:
+
+.Activity diagram of adding images
+image::ImageActivityDiagram.png[]
+
+==== Design Considerations
+[cols="20%,40%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
+
+|Data structures used to store `Page`
+| `Page` objects are stored using an ArrayList
+
+*Pros* +
+Simplest implementation and most novice programmers are familiar with it.
+
+*Cons* +
+List operations tend to run slower as compared to other data structures such as sets.
+
+*Our Choice* +
+This choice was chosen as we require the `Page` objects to be ordered, which is a functionality only provided in lists.
+In addition, the ordered `Page` objects greatly simplify the implementation of other commands such as `DeletePageCommand`
+as an page index can simply be provided to execute the command.
+
+
+| `Page` objects are stored using Sets
+
+*Pros* +
+Faster runtime.
+
+*Cons* +
+Sets do not provide an order to the `Page` objects.
+
+| Loading of images
+
+| Defensively copies images into our internal data folder and all subsequent loading of images is done from this folder.
+
+*Pros* +
+Less prone to user errors when loading images. (i.e when user deletes image from their local directory)
+
+*Cons* +
+ Increased memory usage as each image needs to be saved internally.
+
+*Our Choice* +
+This choice was chosen as it is less-prone to user errors and is safer.
+
+| Load images directly from user's directory
+
+*Pros* +
+Easy to implement.
+
+*Cons* +
+ May lead to unexpected errors when loading images. (i.e when user deletes image from their local directory)
+|===
+
+// end::diary[]
 
 === Logging
 
@@ -264,28 +1032,185 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 == Documentation
 
-Refer to the guide <<Documentation#, here>>.
+We use asciidoc for writing documentation.
+
+[NOTE]
+We chose asciidoc over Markdown because asciidoc provides greater flexibility in formatting.
+
+=== Editing Documentation
+
+You may refer to <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> and learn how to render `.adoc` files locally to preview the end result of your edits.
+Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
+
+=== Editing Diagrams
+
+You may refer to <<UsingPlantUml#, UsingPlantUml.adoc>> and learn how to create and update UML diagrams in the Developer Guide.
+
+=== Publishing Documentation
+
+You may refer to <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> and learn how to deploy GitHub Pages using Travis.
+
+=== Converting Documentation to PDF format
+
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+
+Here are the steps to convert the project documentation files to PDF format.
+
+.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
+.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+.  Within Chrome, click on the `Print` option in Chrome's menu.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
+
+.Saving documentation as PDF files in Chrome
+image::chrome_save_as_pdf.png[width="300"]
+
+[[Docs-SiteWideDocSettings]]
+=== Site-wide Documentation Settings
+
+The link:{repoURL}/build.gradle[`_build.gradle_`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+
+[TIP]
+Attributes left unset in the `build.gradle` file will use their *default value*, if any.
+
+[cols="1,2a,1", options="header"]
+.List of site-wide attributes
+|===
+|Attribute name |Description |Default value
+
+|`site-name`
+|The name of the website.
+If set, the name will be displayed near the top of the page.
+|_not set_
+
+|`site-githuburl`
+|URL to the site's repository on https://github.com[GitHub].
+Setting this will add a "View on GitHub" link in the navigation bar.
+|_not set_
+|===
+
+[[Docs-PerFileDocSettings]]
+=== Per-file Documentation Settings
+
+Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+
+Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
+
+[TIP]
+Attributes left unset in `.adoc` files will use their *default value*, if any.
+
+[cols="1,2a,1", options="header"]
+.List of per-file attributes, excluding Asciidoctor's built-in attributes
+|===
+|Attribute name |Description |Default value
+
+|`site-section`
+|Site section that the document belongs to.
+This will cause the associated item in the navigation bar to be highlighted.
+One of: `UserGuide`, `DeveloperGuide`, ``LearningOutcomes``{asterisk}, `AboutUs`, `ContactUs`
+
+_{asterisk} Official SE-EDU projects only_
+|_not set_
+
+|`no-site-header`
+|Set this attribute to remove the site navigation bar.
+|_not set_
+
+|===
+
+=== Site Template
+
+The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+You can modify them to change some properties of the site's design.
+
+The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
+These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
+
+[WARNING]
+====
+Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
+You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
+====
 
 == Testing
 
-Refer to the guide <<Testing#, here>>.
+=== Running Tests
+
+There are two ways to run tests.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean test` (Mac/Linux: `./gradlew clean test`)
+
+[NOTE]
+You may refer to <<UsingGradle#, UsingGradle.adoc>> for more information on how to run tests using Gradle.
+
+=== Types of tests
+
+We have three types of tests:
+
+.  _Unit tests_ targeting the lowest level methods/classes. +
+e.g. `dukecooks.StringUtilTest`
+.  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
+e.g. `dukecooks.storage.StorageManagerTest`
+.  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+e.g. `dukecooks.LogicManagerTest`
 
 == Dev Ops
 
-Refer to the guide <<DevOps#, here>>.
+=== Build Automation
+
+You may refer to <<UsingGradle#, UsingGradle.adoc>> and learn how to use Gradle for build automation.
+
+=== Continuous Integration
+
+We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. Refer to <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+
+=== Coverage Reporting
+
+We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. Refer to <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
+
+=== Documentation Previews
+
+When a pull request make changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. Refer to <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+
+=== Making a Release
+
+Here are the steps to create a new release.
+
+.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`_MainApp.java_`].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v0.1`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+
+=== Managing Dependencies
+
+A project often depends on third-party libraries. For example, DukeCooks depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+
+. Include third-party libraries in the repository (This bloats the repository size)
+. Require developers to download third-party libraries manually (Requires extra work from developers)
+
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* health conscious individuals
+* prefers to have a complete health monitoring all in one app
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: +
+DukeCooks monitors all aspects of the user's lifestyle in one single application. This provides the user with the added
+benefit of having to only manage a single application, instead of managing different applications. This is particularly
+useful for busy individuals who do not have time to manage different applications.
 
 [appendix]
 == User Stories
@@ -295,35 +1220,77 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |Home Cook |store all my recipes |easily list out all the ingredients I have to buy for a weekly meal plan
 
-|`* * *` |user |add a new person |
+|`* * *` |Unorganised student|sort my task list by date |see which task to prioritise
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Unmotivated student |receive motivational messages upon completing tasks| gain motivation
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |Health conscious person |track my health progress |manage my diet
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |Fitness enthusiast |track my exercises |keep a history of my fitness progress
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |Food Blogger |consolidate my food and exercise plan |share them with other interested individuals
+
+|`* *` |Foodie |find new places to eat |try out new places and share the experience with others
+
+|`*` |Fun Seeker |keep track of my health in a game like way |have fun and be healthy at the same time
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+The following is a Use Case diagram (Figure 29) for the Dashboard.
+
+.Dashboard Use Case Diagram
+image::DashboardUseCase.png[width="200"]
+
+(For all use cases below, the *System* is `DukeCooks` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: UC01 - Mark as complete
+
+A use case for marking a task as complete.
+....
+Software System: DukeCooks
+UseCase: UC01 - Mark as complete
+Actors: User
+MSS:
+1. User completes a task and wants to marked it as complete.
+2. User selects a task according to it's index number to mark as
+complete.
+3. User enters the command `done task` followed by the index
+number in the command box.
+4. DukeCooks finds the inputted index number and corresponding
+task and marks it as complete.
+5. DukeCooks updates the Dashboard to reflect the changes made.
+6. DukeCooks returns a message: Task is marked as complete, for
+the user.
+
+Extensions:
+1a. User is not currently at the Dashboard.
+    1a1. User enters `goto dashboard`.
+    1a2. DukeCooks displays the Dashboard to the user.
+Use case resumes from step 2.
+
+3a. DukeCooks detects an error in the entered data.
+    3a1. DukeCooks displays an error message.
+    3a2. User enters new data.
+
+Steps 3a1. and 3a2. are repeated until the data entered are correct.
+Use case resumes from step 4.
+....
+
+[discrete]
+=== Use case: UC02 - Adding recipes
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list recipes
+2.  DukeCooks shows a list of recipes
+3.  User requests to add a recipe to the list
+4.  DukeCooks adds the recipe to the list
 +
 Use case ends.
 
@@ -337,20 +1304,93 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. DukeCooks shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+
+=== Use case: UC03 - Adding Glucose Record
+
+*MSS*
+
+1.  User requests to add glucose record
+2.  A new glucose record is added to Health Records
+3.  DukeCooks filters the records to only glucose related records
+4.  DukeCooks directs user to health record's record type page.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. DukeCooks detects error in parsing user input
++
+[none]
+** 1a1. DukeCooks displays error message
+** 1a2. User enters new input
++
+Steps 1a1. and 1a2. are repeated until the data entered are correct.
+Use case resumes from step 2.
+
+[discrete]
+=== Use case: UC04 - Creating Workouts
+
+*MSS*
+
+1.  User requests to list <<exercise>>
+2.  DukeCooks shows a list of <<exercise>>
+3.  User requests to add an exercise into their <<workout>>
+4.  DukeCooks adds the exercise into the <<workout>>
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The exercise list is empty
++
+[none]
+** 2a1. DukeCooks updates the list with pre-made exercises.
++
+Use case resumes at step 2.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. DukeCooks shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: UC05 Adding a new diary
+
+*MSS*
+
+1.  User requests to add a new diary
+2.  A new diary is added with the specified name
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Diary name already exists.
++
+[none]
+** 1a1. DukeCooks displays an error message.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  DukeCooks should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  DukeCooks should be able to hold up to 1000 recipes without a significant reduction in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  DukeCooks should be able to run with or without internet connection.
+.  DukeCooks should not require the user to do any installation.
 
 [appendix]
 == Glossary
@@ -358,25 +1398,11 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[workout]] Workout::
+A list of <<exercise>> planned to be done in one session.
 
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[exercise]] Exercise::
+An activity that works a specific or multiple muscles, usually a repetition of an action.
 
 [appendix]
 == Instructions for Manual Testing
@@ -392,34 +1418,206 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample data. The window size will be automatically set to full-screen.
 
-. Saving window preferences
+=== Adding a recipe
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+. Adding a recipe while all recipes are listed
 
-_{ more test cases ... }_
+.. Prerequisites: List all recipes using the `list` command. Multiple recipes should be shown in the list. Ensure no
+recipe in the Recipe Book is named "Chicken Rice".
+.. Test case: `add recipe n/Chicken Rice i/Chicken i/Rice cal/666 carb/55 fats/44 prot/30` +
+   Expected: A new recipe named "Chicken Rice" is added to the Recipe Book. Details of the added recipe are shown in the result display,
+notably the name and the ingredients of the added recipe.
+.. Test case: `add recipe n/Chicken Rice i/Chicken i/Rice cal/666 carb/55 fats/44 prot/30` (A repeat of the previous test case) +
+   Expected: No recipe is added. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect add commands to try: `add recipe`, `add recipe n/<name>` (where <name> is the only specified parameter) +
+Expected: Similar error messages to previous.
 
-=== Deleting a person
+=== Deleting a recipe
 
-. Deleting a person while all persons are listed
+. Deleting a recipe while all recipes are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Prerequisites: List all recipes using the `list` command. Multiple recipes should be shown in the list.
+.. Test case: `delete recipe 1` +
+   Expected: First recipe is deleted from the list. Details of the deleted recipe are shown in the result display.
+Any meal plan containing the first recipe should also have the recipe removed from the meal plan.
+.. Test case: `delete recipe 0` +
+   Expected: No recipe is deleted. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete recipe`, `delete recipe x` (where x is larger than the list size) +
+   Expected: Similar error messages to previous.
 
-_{ more test cases ... }_
+=== Editing a recipe
+
+. Editing a recipe while all recipes are listed
+
+.. Prerequisites: List all recipes using the `list` command. Multiple recipes should be shown in the list. Ensure no
+recipe in the Recipe Book is named "Chicken Rice".
+.. Test case: `edit recipe 1 n/Chicken Rice` +
+   Expected: First recipe from the list is edited. Details of the edited recipe are shown in the result display, notably the
+name and ingredients of the edited recipe. Any meal plan containing the first recipe should also have the recipe removed
+from the meal plan.
+.. Test case: `edit recipe 0` +
+   Expected: No recipe is edited. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect edit commands to try: `edit recipe`, `edit recipe x` (where x is larger than the list size) +
+   Expected: Similar error messages to previous.
+
+=== Adding a meal plan
+
+. Adding a meal plan while all meal plans are listed
+
+.. Prerequisites: List all meal plans using the `list` command. Multiple meal plans should be shown in the list. Ensure no
+meal plan in the Meal Plan Book is named "Vegetarian Plan".
+.. Test case: `add mealplan n/Vegetarian Plan` +
+   Expected: A new meal plan named "Vegetarian Plan" is added to the Meal Plan Book. Details of the added meal plan are shown in the result display,
+notably the name and the recipes of the added meal plan.
+.. Test case: `add mealplan n/Vegetarian Plan` (A repeat of the previous test case) +
+   Expected: No meal plan is added. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect add commands to try: `add mealplan`, `add mealplan n/<name>` (where <name> is non-alphanumeric, or longer than 40 characters) +
+Expected: Similar error messages to previous.
+
+=== Deleting a meal plan
+
+. Deleting a meal plan while all meal plans are listed
+
+.. Prerequisites: List all meal plans using the `list` command. Multiple meal plans should be shown in the list.
+.. Test case: `delete mealplan 1` +
+   Expected: First meal plan is deleted from the list. Details of the deleted meal plan are shown in the result display.
+.. Test case: `delete mealplan 0` +
+   Expected: No meal plan is deleted. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete mealplan`, `delete mealplan x` (where x is larger than the list size) +
+   Expected: Similar error messages to previous.
+
+=== Editing a meal plan
+
+. Editing a meal plan while all meal plans are listed
+
+.. Prerequisites: List all meal plans using the `list` command. Multiple meal plans should be shown in the list. Ensure no
+meal plan in the Meal Plan Book is named "Vegetarian Plan".
+.. Test case: `edit mealplan 1 n/Vegetarian Plan` +
+   Expected: First meal plan from the list is edited. Details of the edited meal plan are shown in the result display, notably the
+name and recipes of the edited meal plan.
+.. Test case: `edit mealplan 0` +
+   Expected: No meal plan is edited. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect edit commands to try: `edit mealplan`, `edit mealplan x` (where x is larger than the list size) +
+   Expected: Similar error messages to previous.
+
+=== Adding a task
+
+. Adding a task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `goto dashboard` command. Multiple tasks are in the list.
+.. Test case: `add task tn/ Project meeting at COM1 td/ 12/12/2019` +
+   Expected: A new task named "Project meeting at COM1" is added to the list. Details of the added task is shown in the result display.
+.. Test case: `add task tn/ Project meeting at COM1 td/ 12/12/2019` (A repeat of the previous test case) +
+   Expected: No task is added. Error message is shown in the result display. Status bar remains the same.
+
+=== Deleting a task
+
+. Deleting a task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `goto dashboard` command. Multiple tasks are in the list.
+.. Test case: `delete task 1` +
+   Expected: First task is deleted from the list. Details of the deleted task is shown in the result display.
+.. Test case: `delete task 0` +
+   Expected: No task is deleted. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect delete command to try: `delete diary x` (where x is larger than the list size) +
+   Expected: Similar error messages to previous.
+
+=== Editing a task
+
+. Editing a task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `goto dashboard` command. Multiple tasks are in the list.
+.. Test case: `edit task 1 tn/Lunch meeting` +
+   Expected: First task is edited to the new task name. Details of the edited task is shown in the result display.
+.. Test case: `edit task 1 tn/Lunch meeting!` +
+   Expected: No task is edited. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect edit command to try: `edit task 1 tn/ y` (where y contains more than 35 characters) +
+   Expected: Similar error messages to previous.
+.. Test case: `edit task 1 td/31/11/2019 +
+   Expected: No task is edited. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect edit command to try: `edit task 1 tn/ 29/2/2019` (2019 is not a leap year; February only has 28 days) +
+   Expected: Similar error messages to previous.
+
+=== Adding a diary
+
+. Adding a diary while all diaries are listed
+
+.. Prerequisites: List all diaries using the `list` command. Multiple diaries are in the list.
+.. Test case: `add diary n/ Yummy Food` +
+   Expected: A new diary named "Yummy Food" is added to the list. Details of the added diary is shown in the result display.
+.. Test case: `add diary n/ Yummy Food` (A repeat of the previous test case) +
+   Expected: No diary is added. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect add commands to try: `add diary n/ <name>` (where <name> already exists in the diary list) +
+Expected: Similar error messages to previous.
+
+=== Deleting a diary
+
+. Deleting a diary while all diaries are listed
+
+.. Prerequisites: List all diaries using the `list` command. Multiple diaries are in the list.
+.. Test case: `delete diary 1` +
+   Expected: First diary is deleted from the list. Details of the deleted diary is shown in the result display.
+.. Test case: `delete diary 0` +
+   Expected: No diary is deleted. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete diary`, `delete diary x` (where x is larger than the list size) +
+   Expected: Similar error messages to previous.
+
+=== Editing a diary
+
+. Editing a diary while all diaries are listed
+
+.. Prerequisites: List all diaries using the `list` command. Multiple diaries should be shown in the list. Ensure no
+diary in the diary list is named "Asian Food".
+.. Test case: `edit diary 1 n/ Asian Food` +
+   Expected: First diary from the list is edited. Details of the edited diary are shown in the result display, notably the
+name of the edited diary.
+.. Test case: `edit diary 0` +
+   Expected: No diary is edited. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect edit commands to try: `edit diary`, `edit diary x` (where x is larger than the list size) +
+   Expected: Similar error messages to previous.
+
+=== Deleting a page
+
+. Deleting a page from a specified diary
+
+.. Prerequisites: List all diaries using the `list` command. "Yummy Food" exists in the diary list and has at least one page.
+.. Test case: `delete page 1 n/ Yummy Food` +
+   Expected: Page 1 of the diary named "Yummy Food" will be deleted. Details of the deleted page is shown in the result display.
+.. Test case: `delete page 0 n/ Yummy Food` +
+   Expected: No page is deleted. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete page`, `delete page 1 n/ <name>` (where <name> does not exists in the diary list) +
+Expected: Similar error messages to previous.
+
+=== Deleting an exercise
+
+. Deleting an exercise from the exercise list
+
+.. Prerequisites: List all exercises using the `list` command. "Pushups" exists in the exercise list.
+.. Test case: `delete exercise 1` +
+   Expected: Exercise "Pushups" is deleted. Details of the deleted exercise is shown in the result display.
+.. Test case: `delete exercise 0` +
+   Expected: No exercise is deleted. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete exercise`, `delete exercise <index>` (where <index> does not exists in the list) +
+Expected: Similar error messages to previous.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Identify the file that is causing the error. +
+It should be one of the following:
+- `.\data\dashboard.json`
+- `.\data\diary.json`
+- `.\data\exercises.json`
+- `.\data\healthrecords.json`
+- `.\data\mealplans.json`
+- `.\data\recipes.json`
+- `.\data\userprofile.json`
+- `.\data\workouts.json` +
 
-_{ more test cases ... }_
+After identifying the file that causes the error, delete that particular data file.
+
+By deleting the data file, a new data file will be generated from the `SampleUtil` corresponding
+to the file that was deleted.

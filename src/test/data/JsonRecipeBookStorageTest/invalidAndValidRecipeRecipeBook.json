@@ -1,0 +1,17 @@
+{
+  "recipes": [ {
+    "name": "Valid Recipe",
+    "ingredients" : [ "Valid Ingredient" ],
+    "calories" : "0",
+    "carbs" : "0",
+    "fats" : "0",
+    "protein" : "0"
+  }, {
+    "name": "Recipe With invalid n@me",
+    "ingredients" : [ "Valid Ingredient" ],
+    "calories" : "0",
+    "carbs" : "0",
+    "fats" : "0",
+    "protein" : "0"
+  } ]
+}

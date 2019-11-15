@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= DukeCooks - User Guide image:DukeCooks_Logo.png[icon, 50, 50]
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -6,172 +6,1755 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:stylesheet: asciidoctor.css
 :xrefstyle: full
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T10-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `DukeCooks`      Since: `Sep 2019`      Licence: `MIT`
 
-== Introduction
+== Welcome to DukeCooks
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+=== Who are we?
+
+DukeCooks is a revolutionary lifestyle application, specially designed for health-conscious students. Targeting busy
+students that are long-time users of the Command-Line Interface (CLI), DukeCooks offers such users a CLI healthy
+lifestyle application. This means, expert-CLI student users will be able to execute different commands, all within a single line.
+You will be able to manage various aspects of your lifestyle, from your diet, to exercises and health records.
+
+You can use DukeCooks to manage all your lifestyle needs, all within one single app.
+
+With DukeCooks, being healthy has never been easier!
+
+
+=== Using the User Guide
+
+Everything about DukeCooks can be found in this User Guide.
+
+Want quick navigation? You can jump to different sections by clicking on the links located in the table of contents.
+
+Having trouble understanding this guide? You may refer to the following table for the different symbols and formatting
+used throughout the guide.
+
+[width="70%",cols="^15%,85%"]
+|===
+a| <item> | Items in angle brackets are *compulsory* parameters
+a| {blank}[item] | Items in square brackets are *optional* parameters
+|===
+
+[NOTE]
+Extra information that would be good to know!
+
+[TIP]
+Additional tricks and tips!
+
+[WARNING]
+Be extra careful! +
+
+Want a quick summary of all the available commands? You can find them at our <<Command Summary, Command Summary>>
+section.
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `DukeCooks`.
+.  Copy the file to the folder you want to use as the home folder for DukeCooks.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+
+.Start-up screen for DukeCooks
 image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+.  Refer to <<Commands, Commands>> for details of each command.
 
-.  Refer to <<Features>> for details of each command.
+=== Quick Look at DukeCooks
 
-[[Features]]
-== Features
+Welcome to DukeCooks! The only planner you will ever need for a healthier lifestyle! +
+When you first start up DukeCooks, you will be greeted with the Dashboard. To switch between the awesome features the DukeCooks
+has to offer, click on the icons found in the side panel or use the command box to go to another wonderful feature. +
+Below is a screenshot of DukeCooks' overview (Figure 2) and the accompanied features labeled on the left.
 
+.An Overview of DukeCooks
+image::DukeCooksOverview.png[width="790"]
+
+
+=== Understanding DukeCooks
+
+DukeCooks consists of 5 main features.
+You may click on the following features below to find out more about the feature and their available commands.
+
+* Dashboard - Start making a task list for the things you plan to do and never have to forget to do something ever again!
+* Recipe Book - Keep a record of all your homemade recipes!
+* Meal Plan - Plan what you want to eat for the week!
+* Workout Planner - Create custom workouts and track your progress!
+* Health - Start tracking your health progress!
+* Diary - Create diary posts to share with your friends and family!
+
+== Commands
+=== General
+Before we begin, let's look at some common commands that will be used through DukeCooks.
+
+==== Goto commands: `goto`
+Be the most efficient person in the room! Use the `goto` command to bring you to the awesome features that make up DukeCooks.
+
+==== Add commands: `add`
+Have you just created a new dish, or tried a new exercise?
+Then you may want to save your new discoveries to DukeCooks with the Add command!
+Add commands will be used whenever you want to create new things, be it exercises, tasks, recipes, health records or diaries.
+
+==== Edit commands: `edit`
+Edit commands will be used to edit whatever entries you have made to any part of DukeCooks.
+
+==== List commands: `list`
+List commands will show you all your saved entries. They are also useful to navigate to different parts of DukeCooks.
+
+==== Find commands: `find`
+Find commands will enable you to search through all of your data to find entries matching your keywords.
+
+==== View commands: `view`
+View commands will be used to open up a one specific entry within DukeCooks.
+
+==== Delete commands: `delete`
+Delete commands will be used to delete a specific entry within DukeCooks.
+
+==== Clear commands: `clear`
+Clear commands will be used to clear all saved data.
+
+==== Help command: `help`
+Find yourself lost and not knowing what to do? Help command will bring you to this informative User Guide and you can
+learn how to use DukeCooks.
+
+==== Exit command: `exit`
+Exit command will be used to stop DukeCooks.
+
+=== Dashboard
+
+==== Breaking down the Dashboard
+Although DukeCooks is developed for expert CLI users, beginners fret not as DukeCooks' interface is very easy to pick up.
+For first time users of the CLI, we acknowledge that working with it can be a daunting task. So, let's first start off by understanding what makes up the Dashboard!
+
+In the image below (Figure 3), accompanied with text on the right, provides a brief explanation of the key components found in the Dashboard.
+
+.DukeCooks's Dashboard
+image::overviewdashboard.png[width="900"]
+
+[NOTE]
 ====
-*Command Format*
+Here in the Dashboard, the prefix: /tn for name and td/ for date, are used to indicate the fields you are entering.
+====
+Alright, now you are ready to use DukeCooks! The following are the instructions on all the commands available in the Dashboard.
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+==== Going to the Dashboard
+
+A quick way to get to the Dashboard and start getting work done!
+
+Command: `goto dashboard`
+
+==== Adding a task
+
+Let's start by using the `add` command to add some tasks into DukeCooks!
+
+Command: `add task` +
+Format: `add task tn/<insert task here> td/<insert date here>`
+
+[NOTE]
+====
+Task name entered should not exceed 35 characters.
+When entering the date for a task, please follow the given format: day/month/year.
 ====
 
-=== Viewing help : `help`
+Example usage (Figure 4 & 5): `add task tn/Bake CupCakes td/11/11/2019`
 
-Format: `help`
+Step 1. Enter the task you want to add into the command box and hit enter.
 
-=== Adding a person: `add`
+.Adding a task
+image::addtask1.png[width="500"]
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Step 2. If you have correctly inputted the information for adding a task, DukeCooks will
+tell you that the task is successfully added in the message box. +
+Step 3. You can view the newly added task under the Dashboard.
+
+.Adding a task success
+image::addtask2.png[width="500"]
 
 [TIP]
-A person can have any number of tags (including 0)
+====
+Did you know? You are able to enter Dashboard commands even if you are on another feature. Talk about
+double the productivity!
+====
+
+==== Editing a task's details
+
+Made some typos when adding a task? +
+Fret not! You are able to make changes to them.
+
+Command: `edit task` +
+Format: `edit task <index number> tn/ <insert new name> td/ <insert new date>`
+
+[NOTE]
+====
+When editing a task, you can choose to change just 1 field or edit both fields.
+====
+
+Example usage (Figure 6 & 7): `edit task 1 tn/Bake cupcakes td/21/10/2019`
+
+Step 1. Look at the index number corresponding to the task you want to edit. +
+Step 2. Enter the task information you want to edit into the command box and hit enter.
+
+.Editing a task
+image::edittask1.png[width="500"]
+
+Step 3. If you have correctly inputted the information for editing a task, DukeCooks will
+tell you that the task is successfully edited in the message box. +
+Step 4. You can view the newly edited task under the Dashboard.
+
+.Editing a task success
+image::edittask2.png[width="500"]
+
+==== Removing a task
+
+Decided that this task is not needed? +
+Well you can delete them off from DukeCooks.
+
+Command: `delete task` +
+Format: `delete task <index number>`
+
+[NOTE]
+====
+Tasks that are marked as "RECENTLY COMPLETED" or "COMPLETED", cannot be deleted.
+====
+
+Example usage (Figure 8 & 9): `delete task 1`
+
+Step 1. Look at the index number corresponding to the task you want to delete. +
+Step 2. Enter the task index number you want to delete into the command box and hit enter.
+
+.Deleting a task
+image::deletetask1.png[width="500"]
+
+Step 3. If you have correctly inputted the information for deleting a task, DukeCooks will
+tell you that the task is successfully removed from DukeCooks in the message box. +
+
+.Deleting a task success
+image::deletetask2.png[width="500"]
+
+==== Marking a task as complete
+
+Finished with a task? +
+Check it off the list!
+
+Command: `done task` +
+Format: `done task <index number>`
+
+Example usage (Figure 10 & 11): `done 1`
+
+Step 1. Look at the index number corresponding to the task you want to mark as complete. +
+Step 2. Enter the task index number you want to mark as complete into the command box and hit enter.
+
+.Marking a task complete
+image::donetask1.png[width="500"]
+
+Step 3. If you have correctly inputted the information for marking a task as complete, DukeCooks will
+tell you that the task is successfully marked in the message box. +
+Step 4. You can view the newly marked task under the Dashboard.
+
+.Marking a task complete success
+image::donetask2.png[width="500"]
+
+[NOTE]
+====
+Hard at work? Marking 5 new tasks done will give a surprise! +
+A pop up window with an encouraging message will be displayed for extra motivation.
+====
+==== Finding tasks
+
+For those who want to know what are the tasks relevant given a keyword.
+
+Command: `find task` +
+Format: `find task <keyword>`
+
+Example usage (Figure 12 & 13): `find task project`
+
+Step 1. Enter the a keyword for that tasks you to find into the command box and hit enter.
+
+.Finding tasks with a keyword
+image::findtask1.png[width="500"]
+
+Step 3. If you have correctly inputted the information for finding a task, DukeCooks will
+tell you that the number of tasks relating to the keyword found in the message box. +
+Step 4. You can view the task relating to the keyword under the Dashboard.
+
+.Finding tasks with a keyword success
+image::findtask2.png[width="500"]
+
+==== Viewing completed/incomplete tasks
+
+Look at all those tasks!
+
+To view completed tasks: +
+Command: `list taskcomplete`
+
+For incomplete tasks: +
+Command: `list taskincomplete`
+
+==== Postponing a task's date `Coming in v2.0`
+
+Think you need a little bit more time to complete a task?
+
+Command: `postpone task` +
+Format: `postpone task <index number> by <number of days>`
+
+Example usage: `postpone task 1 by 5` +
+The above example will postpone the date of task 1 by 5 days.
+
+==== Viewing your progress `Coming in v2.0`
+
+Want to know how many tasks you have done over the week? +
+DukeCooks will show you how many tasks you did each day for the past week. +
+Look at your progress and perhaps learn something about yourself!
+
+Command: `progress task`
+
+
+==== Motivation booster `Coming in v2.0`
+
+DukeCooks knows you are hard at work. But for the times where you need an extra push, DukeCooks
+is here for you! +
+DukeCooks has a specially curated gif list that is sure to put a smile on your face!
+
+Command: `humour me`
+
+==== Changing to calendar view `Coming in v2.0`
+
+A picture paints a thousand words. Same can be said with a calendar. Change to calendar view
+for a clearer view of all tasks due on a certain date!
+
+Command: `calendar`
+
+=== Recipe Book
+
+Need to organise your large collection of recipes? Look no further! You will be able to perform the various recipe-related commands listed in this section.
+
+==== Understanding the Recipe Book
+The recipe book allows you to look at all the recipes you have stored within DukeCooks!
+
+Look at the diagram for a better understanding of how the Recipe Book is laid out!
+
+.Overview of the Recipe Book
+image::ug_recipe.png[]
+
+==== Getting to the Recipe Book
+Here's a quick way to pop into the recipe book!
+
+Command: `goto recipe`
+
+==== Adding a recipe
+Adds a recipe into the recipe book. +
+Command: `add recipe` +
+Format: `add recipe n/<name> i/<ingredients>... cal/<calories> carb/<carbs> fats/<fats> prot/<protein>`
+[NOTE]
+====
+All recipe and ingredient names must be alphanumeric, up to 40 characters for recipe names, 20 characters for ingredient names.
+
+All nutritional value information should be entered according to their amount in grams.
+====
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add recipe n/Chicken Rice i/Chicken i/Rice cal/666 carb/55 fats/44 prot/30` +
+Creates a recipe with name "Chicken Rice", ingredients "Chicken" and "Rice", with nutritional information of
+666kcal, 55g carbs, 44g fats, and 30g protein.
 
-=== Listing all persons : `list`
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Adding a recipe
+image::ug_recipe_addRecipe1.png[]
++
+. If the command succeeds, you should see the following message in the result display
+and a new recipe named "Chicken Rice" will be added.
++
+.Successfully adding a recipe
+image::ug_recipe_addRecipe2.png[]
 
-Shows a list of all persons in the address book. +
-Format: `list`
+==== Editing a recipe
+Edit a recipe according to a specified index. +
+Command: `edit recipe` +
+Format: `edit recipe <index> [parameters]`
 
-=== Editing a person : `edit`
+The possible parameters are:
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+* `n/<name>` : edits name
+* `i/<ingredient>` : adds an ingredient
+* `i-/<ingredient>` : removes an ingredient only if it exists in the recipe
+* `cal/<calories>` : edits calories
+* `carb/<carbs>` : edits carbs
+* `fats/<fats>` : edits fats
+* `prot/<protein>` : edits protein
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `edit recipe 1 n/Chicken Noodle cal/500` +
+Updates the first listed recipe to have the name "Chicken Noodle" and edit it to contain 500 calories.
 
-// tag::delete[]
-=== Deleting a person : `delete`
+* `edit recipe 2 i/Noodle i-/Rice` +
+Removes the ingredient "Rice" from the first listed recipe, and adds the ingredient "Noodle".
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Editing a recipe
+image::ug_recipe_editRecipe1.png[]
++
+. If the command succeeds, the following result will be displayed and the recipe will be edited as shown below.
++
+.Successfully edited recipe
+image::ug_recipe_editRecipe2.png[]
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+==== Listing your recipes
+Lists all recipes. +
+Command: `list recipe` +
+Format: `list recipe`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `list recipe` +
+Lists all recipes saved in the recipe book.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Listing recipes
+image::ug_recipe_listRecipe1.png[]
++
+. If the command succeeds, all of the recipes within DukeCooks would be listed as shown below.
++
+.Successfully listed recipes
+image::ug_recipe_listRecipe2.png[]
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Finding a recipe
+Finds recipes with names containing a specified keyword. +
+Command: `find recipe` +
+Format: `find recipe <keyword>`
 
-=== Exiting the program : `exit`
+Examples:
 
-Exits the program. +
-Format: `exit`
+* `find recipe Chicken` +
+Lists all recipes containing "Chicken" in their name.
 
-=== Saving the data
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Finding a recipe
+image::ug_recipe_listRecipe1.png[]
++
+. If the command succeeds, only the found recipes would be displayed as shown below. In this case,
+all recipes with the keyword "Chicken" in its name would be found.
++
+.Successfully found recipes
+image::ug_recipe_listRecipe2.png[]
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+==== Deleting a recipe
+Deletes recipe according to a specified index. +
+Command: `delete recipe` +
+Format: `delete recipe <index>`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Examples:
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+* `delete recipe 1` +
+Deletes the first recipe listed within the recipe book.
 
-== FAQ
+==== Clearing the recipe book
+Clears all recipes stored in the recipe book. +
+Command: `clear recipe` +
+Format: `clear recipe`
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+[IMPORTANT]
+====
+This action cannot be undone
+====
+
+Examples:
+* `clear recipe` +
+Deletes all recipes within the recipe book.
+
+====  Viewing a recipe: `[coming in v2.0]`
+Brings up an in depth view of a recipe according to a specified index.
+
+Here you will be able to see the recipe's total nutritional value, image, difficulty and preparation time.+
+Command `view recipe` +
+Format: `view recipe <index>`
+
+Examples:
+
+* `view recipe 1` +
+Views the first recipe listed within the recipe book.
+
+==== Giving a recipe an image: `[coming in v2.0]`
+Give images to your recipes according to its index +
+Command: `image recipe` +
+Format: `image recipe <index> <filepath>`
+
+[NOTE]
+====
+If the file path is not specified, the image for this recipe, if present, will be removed instead.
+====
+
+Examples:
+
+* `image recipe 1 /images/food.png` +
+Gives the image "food.png" to the first indexed recipe.
+
+==== Giving a recipe a difficulty level: `[coming in v2.0]`
+Tag your recipes difficulty level. +
+Command: `diff recipe` +
+Format: `diff recipe <index> <difficulty>`
+
+[NOTE]
+====
+The available difficulties are "Easy", "Medium", and "Hard". Only these 3 difficulties may be used within the <difficulty> parameter.
+
+You can filter these recipes using `list recipe`. For example, `list recipe Easy`.
+====
+
+Examples:
+
+* `diff recipe 3 Hard` +
+Sets the third recipe in the recipe book to have a "Hard" difficulty.
+
+==== Giving a recipe preparation timing: `[coming in v2.0]`
+Give your recipes a preparation time +
+Command: `prep recipe` +
+Format: `prep recipe <index> <time>`
+
+[NOTE]
+====
+Duration of preparation should be entered in minutes.
+
+You can filter these recipes using `list recipe`. For example, `list recipe shorter 5` shows all recipes with preparation time under 5 minutes.
+`list recipe longer 5` lists those that take longer than 5 minutes.
+====
+
+Examples:
+
+* `prep recipe 2 7` +
+Sets the second recipe in the recipe book to have a preparation time of 7 minutes.
+
+==== Generating shopping lists for recipes: `[coming in v2.0]`
+Generates a shopping list based on the input indexes of recipes +
+Command: `shoppinglist recipe` +
+Format: `shoppinglist recipe <index>...`
+
+[NOTE]
+====
+A minimum of 1 index should be entered in order to generate a shopping list.
+====
+
+Examples:
+
+* `shoppinglist recipe 1 3 5 8` +
+Generates a shopping list consisting ingredients for the first, third, fifth and eighth recipe in the recipe book.
+
+=== Meal Plans
+
+Want a way to plan out your meals for an entire week? Using meal plans is a great way do that. Use the following meal plan commands to plan your weekly consumption!
+
+==== Getting your way around meal plans
+Using Meal Plans, you will be able to take all the recipes you have in DukeCooks and use them to plan your meal plans for the week.
+
+Look at the diagram for a better understanding of how Meal Plans are laid out!
+
+.Overview of the Meal Plans
+image::ug_mealplan.png[]
+
+==== Getting to your Meal Plans
+Here's a quick way to check out your meal plans!
+
+Command: `goto mealplan`
+
+==== Adding a meal plan
+Adds a new meal plan into the meal plan book. +
+Command: `add mealplan`
+Format: `add mealplan n/<name> day1/[name]... day2/[name]... day3/[name]... day4/[name]... day5/[name]... day6/[name]... day7/[name]...`
+
+[NOTE]
+====
+All meal plan names must be alphanumeric, up to 40 characters
+
+You are only able to add recipes that you have within your recipe book.
+
+Edits to recipes within your recipe book will be reflected in the affected meal plans.
+
+Deletion of recipes will also delete them from any meal plan containing them.
+====
+
+Examples:
+
+* `add mealplan n/Empty` +
+Creates an empty meal plan with the name "Empty".
+
+* `add mealplan n/Keto day1/KFC day2/4 Fingers day3/Texas Chicken day4/Arnolds day5/Popeyes day6/Nene day7/Wing Stop` +
+Creates a meal plan with the name "Keto" and the listed meals under each indicated day.
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Adding a meal plan
+image::ug_mealplan_addMealPlan1.png[]
++
+. If the command succeeds, you should see the following message in the result display
+and a new meal plan named "One Recipe" will be added.
++
+.Successfully added meal plan
+image::ug_mealplan_addMealPlan2.png[]
+
+==== Editing a meal plan
+Edit a meal plan according to a specified index. +
+Command `edit mealplan` +
+Format: `edit mealplan <index> [parameters]`
+
+The possible parameters are:
+
+* `n/<name>` : edits name
+* `day1/<recipe>` : adds a recipe to this day
+* `day1-/<recipe>` : removes a recipe only if it exists in this day
+* `day2/<recipe>` : adds a recipe to this day
+* `day2-/<recipe>` : removes a recipe only if it exists in this day
+* `day3/<recipe>` : adds a recipe to this day
+* `day3-/<recipe>` : removes a recipe only if it exists in this day
+* `day4/<recipe>` : adds a recipe to this day
+* `day4-/<recipe>` : removes a recipe only if it exists in this day
+* `day5/<recipe>` : adds a recipe to this day
+* `day5-/<recipe>` : removes a recipe only if it exists in this day
+* `day6/<recipe>` : adds a recipe to this day
+* `day6-/<recipe>` : removes a recipe only if it exists in this day
+* `day7/<recipe>` : adds a recipe to this day
+* `day7-/<recipe>` : removes a recipe only if it exists in this day
+
+Examples:
+
+* `edit mealplan 1 n/Bulking day-1/Salad day4/Mashed Potatoes` +
+Updates the first listed meal plan to remove the recipe "Salad" from Day 1 and add the recipe "Mashed Potatoes" to Day 4.
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Editing a meal plan
+image::ug_mealplan_editMealPlan1.png[]
++
+. If the command succeeds, the following result will be displayed and the meal plan will be edited as shown below.
++
+.Successfully edited a meal plan
+image::ug_mealplan_editMealPlan2.png[]
+
+==== Listing your meal plans
+Lists all meal plans. +
+Command: `list mealplan` +
+Format: `list mealplan`
+
+Examples:
+
+* `list mealplan` +
+Lists all meal plans saved in the meal plan book.
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Listing meal plans
+image::ug_mealplan_listMealPlan1.png[]
++
+. If the command succeeds, all of the meal plans within DukeCooks would be listed as shown below.
++
+.Successfully listed all meal plans
+image::ug_mealplan_listMealPlan2.png[]
+
+==== Finding a meal plan
+Finds meal plans with names containing a specified keyword. +
+Command: `find mealplan` +
+Format: `find mealplan <keyword>`
+
+Examples:
+
+* `find mealplan Chicken` +
+Lists all meal plans containing "Chicken" in their name.
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Finding a meal plan
+image::ug_mealplan_findMealPlan1.png[]
++
+. If the command succeeds, only the found meal plans would be displayed as shown below. In this case,
+all meal plans with the keyword "Week" in its name would be found.
++
+.Successfully found a meal plan
+image::ug_mealplan_findMealPlan2.png[]
+
+==== Finding a meal plan containing a certain recipe
+Finds meal plans with a specified recipe name. +
+Command: `find mealplanwith` +
+Format: `find mealplanwith <recipe name keyword>`
+
+[IMPORTANT]
+====
+You can only search for one recipe at a time. The recipe's name must be entered exactly as it is in the recipe book.
+====
+
+Examples:
+
+* `find mealplanwith Chicken Rice` +
+Lists all meal plans containing "Chicken Rice" in any of the meal plan days.
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Finding a meal plan with recipe
+image::ug_mealplan_findWithMealPlan1.png[]
++
+. If the command succeeds, only the found meal plans would be displayed as shown below. In this case,
+all meal plans with the recipe "Chilli Crab" in any of its days would be found.
++
+.Successfully found meal plan with recipe
+image::ug_mealplan_findWithMealPlan2.png[]
+
+====  Viewing a meal plan:
+Brings up an in depth view of the meal plan according to a specified index.
+
+Here you will be able to see the meal plan's total nutritional value, as well as the recipe details for each day.+
+Command `view mealplan` +
+Format: `view mealplan <index>`
+
+Examples:
+
+* `view mealplan 1` +
+Views the first meal plan listed within the meal plan book.
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Viewing a meal plan
+image::ug_mealplan_viewMealPlan1.png[]
++
+. If the command succeeds, a different display showing all the details of the specified meal plan, in this case, the first indexed meal plan, will be brought up.
++
+.Successfully viewed a meal plan
+image::ug_mealplan_viewMealPlan2.png[]
+
+==== Delete a meal plan
+Deletes meal plan according to a specified index. +
+Command: `delete mealplan` +
+Format: `delete mealplan <index>`
+
+Examples:
+
+* `delete mealplan 1` +
+Deletes the first meal plan listed within the meal plan book.
+
+==== Clearing the meal plan book
+Clears all meal plans stored in the meal plan book. +
+Command: `clear mealplan` +
+Format: `clear mealplan`
+
+[IMPORTANT]
+====
+This action cannot be undone
+====
+
+Examples:
+
+* `clear mealplan` +
+Deletes all meal plans within the meal plan book.
+
+==== Generating shopping lists for mealplans: `[coming in v2.0]`
+Generates a shopping list based on the input index of a meal plan +
+Command: `shoppinglist mealplan` +
+Format: `shoppinglist mealplan <index>`
+
+[NOTE]
+====
+Only 1 index should be entered in order to generate a shopping list.
+====
+
+Examples:
+
+* `shoppinglist recipe 4` +
+Generates a shopping list consisting ingredients for all recipes present within the fourth meal plan in the meal plan book.
+
+// tag::healthRecords[]
+[[HealthRecordsTag]]
+=== Health Records
+
+Going for a health checkup soon? You can use the commands in this section to manage your
+health records, all within DukeCooks!
+
+==== Understanding the Health Records
+
+Before you get overwhelmed by what's in Health Records,
+here's everything you need to know to get you started! Keep scrolling!
+
+Refer to the following diagrams for a better understanding.
+
+.Health Records's Overview
+image::health_overview.png[width="900"]
+
+Looking for just a specific record type? DukeCooks got you covered! Refer to diagram below!
+
+.Health Records's Details Page
+image::health_details.png[width="900"]
+
+[NOTE]
+====
+DukeCooks will only show health records of the past 1 month in the graph illustrated above.
+====
+
+The following record types are supported by DukeCooks:
+|===
+| Record Type | Unit
+
+| Weight
+| kg
+
+| Height
+| cm
+
+| Glucose
+| mmol/L
+
+| Calories
+| kcal
+
+| Protein, Fats, Carbs
+| g
+
+|===
+
+[IMPORTANT]
+====
+Shared data across! _Weight_ and _Height_ records will be **synchronized** to profile
+====
+
+
+==== Getting to Health Records
+
+Here's a quick way to get to the Health Records!
+
+Command: `goto health`
+
+==== Adding a profile
+Want to have a personalized profile of your own? This is just the perfect command you're looking for!
+
+[NOTE]
+====
+This action only works once! DukeCooks only allows storing of one user profile.
+====
+
+Command: `add profile` +
+Format: `add profile n/_<name>_ d/_<date of birth>_ g/_<gender>_ bt/_<blood type>_ w/_<weight>_ h/_<height>_ [m/_<medical history>_]`
+
+Example usage: `add profile n/Alex Yeoh d/23/02/1995 g/female bt/a+ w/57.8 h/173.2 m/Stroke m/Diabetes`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Adding a profile
+image::health_addProfile_before.png[]
++
+. If the command succeeds, you will see the following message in the result display and your created profile!
++
+.Successfully added a profile
+image::health_addProfile_after.png[]
+
+[NOTE]
+====
+Say no to bad data! DukeCooks helps to sync your data inputs with your health records! _(As shown in **Step 2**)_
+====
+
+==== Editing a profile
+Need to make amendments to your profile? Simply follow the format below!
+
+[NOTE]
+====
+This action is only applicable if there is an existing profile already.
+====
+
+Command: `edit profile` +
+Format: `edit profile n/_<name>_ d/_<date of birth>_ g/_<gender>_ bt/_<blood type>_ w/_<weight>_ h/_<height>_ [m/_<medical history>_] [m-/_<medical history>_]`
+
+[NOTE]
+====
+To remove existing medical history, include this prefix to your command: `**m-/** _<existing history>_**`
+====
+
+Example usage: `edit profile g/male bt/a- w/57.5 h/173 m-/Stroke m/High Blood Pressure`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Editing the profile
+image::health_editProfile_before.png[]
++
+. If the command succeeds, you will see the following message in the result display and your updated profile!
++
+.Successfully edited the profile
+image::health_editProfile_after.png[]
+
+[NOTE]
+====
+Say no to bad data! DukeCooks helps to sync your data inputs with your health records! _(As shown in **Step 2**)_
+====
+
+// end::healthRecords[]
+
+==== Deleting a profile
+Want to get rid of your profile? This command helps to remove your existing profile.
+
+[IMPORTANT]
+====
+This action is not reversible. Use only when necessary!
+====
+
+Format: `delete profile`
+
+Example usage: `delete profile`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Deleting a profile
+image::health_deleteProfile_before.png[]
++
+. If the command succeeds, you will see the following message in the result display and your profile has been cleared!
++
+.Successfully deleted a profile
+image::health_deleteProfile_after.png[]
+
+[NOTE]
+====
+Keeping your records safe! This action will have no effect to your records!
+====
+
+
+==== Viewing a specific record type
+Looking for just a specific record type? This command directs you to the details page with
+beautiful visual illustrations of your records!
+
+Command: `list health` +
+Format: `list health t/_<type>_`
+
+Example usage: `list health t/weight`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Viewing a specific health record
+image::health_listRecord_before.png[]
++
+. If the command succeeds, you will see the following message in the result display and you
+will be directed to the details page.
++
+.Successfully view a specific health record
+image::health_listRecord_after.png[]
+
+****
+Based on the record type, DukeCooks will generate the appropriate graph illustration
+
+. Line Graph - Records are shown in a daily max manner
+. Bar Graph - Records should shown in a daily sum manner
+
+****
+
+Unsure of what record types are available? Refer to the list below!
+|===
+| Record Type | Unit | Graph Type
+
+| Weight
+| kg
+| Line Graph
+
+| Height
+| cm
+| Line Graph
+
+| Glucose
+| mmol/L
+| Line Graph
+
+| Calories
+| kcal
+| Bar Graph
+
+| Protein, Fats, Carbs
+| g
+| Bar Graph
+
+|===
+
+==== Adding a health record
+Adding a new health record? Easy! Just follow the given format below!
+
+Command: `add health` +
+Format: `add health t/_<type>_ val/_<value>_ dt/_<date time>_ [remark/_<remark>_]`
+
+Example usage: `add health t/weight val/60 dt/10/11/2019 12:00 remark/after meal`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Adding a health record
+image::health_addRecord_before.png[]
++
+
+[NOTE]
+====
+Worried of mistyping? Frat not! DukeCooks ensures that your inputs are within a valid range!
+====
+
+
+. If the command succeeds, you will see the following message in the result display and your
+new record shown in the details page!
++
+.Successfully added a health record
+image::health_addRecord_after.png[]
+
+[NOTE]
+====
+Say no to bad data! DukeCooks helps to sync your data inputs with your profile! _(As shown in **Step 2**)_
+====
+
+==== Editing a existing record
+Made some mistakes and need to update your record? Simply fire away the edit command below to start editing!
+
+Command: `edit health` +
+Format: `add health _<index>_ val/_<value>_ dt/_<date time>_ [remark/_<remark>_] [remark-/_<remark>_]`
+
+[NOTE]
+====
+To remove existing remark, include this prefix to your command: `**remark-/** _<existing remark>_**`
+====
+
+Example usage: `edit health 1 val/62 dt/10/11/2019 10:30 remark-/after meal remark/before meal`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Editing a health record
+image::health_editRecord_before.png[]
++
+. If the command succeeds, you will see the following message in the result display and your edited record in the details page!
++
+.Successfully edited a health record
+image::health_editRecord_after.png[]
+
+[NOTE]
+====
+Say no to bad data! DukeCooks will ensure your profile is in-sync to your records!
+====
+
+==== Deleting a existing record
+Deleting a duplicate health record? DukeCooks can help with that!
+
+Command: `delete health` +
+Format: `delete health _<index>_`
+
+Example usage: `delete health 1`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Deleting a health record
+image::health_deleteRecord_before.png[]
++
+. If the command succeeds, you will see the following message in the result display and the deleted record deleted in your records!
++
+.Successfully deleting a health record
+image::health_deleteRecord_after.png[]
+
+[NOTE]
+====
+Say no to bad data! DukeCooks will update your profile with the most recent available record found!
+====
+
+==== Clearing all records
+Want to start afresh with your health records? DukeCooks can help you restart to a clean state!
+
+[IMPORTANT]
+====
+This action is not reversible. Use only when necessary!
+====
+
+Format: `clear health`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Clearing health records
+image::health_clearRecord_before.png[]
++
+. If the command succeeds, you will see the following message in the result display with all records cleared!
++
+.Successfully cleared health records
+image::health_clearRecord_after.png[]
+
+[NOTE]
+====
+Keeping your profile safe! This action will have no effect to your profile!
+====
+
+==== Link Recipes: `[Coming in v2.0]`
+A feature to track user's food consumption based on existing recipes. +
+
+Adds relevant records based on the recipe's nutritional information +
+Format: `link recipe n/_<recipename>_ /to health dt/_<date time>_ [remarks/_<remarks>_]`
+
+* Recipe should already exist
+
+[NOTE]
+====
+Deleting recipes will not delete the linked recipes in Health Records!
+====
+
+Examples:
+
+* `link recipe Caesar Salad /to health dt/12/10/2019 12:00 remark/ diet` +
+ Creates 4 corresponding records (namely Calories, Protein, Fats, Carbs) about “Caesar Salad”
+and adds it to health records with timestamp of "12/10/2019 12:00” and a remark of "diet" made.
+
+==== Smart Recommendations: `[Coming in v2.0]`
+Based on user's profile data and existing health records, DukeCooks will generate some recommendations.
+
+Example:
+
+* If user has a medical history of "High Blood Sugar", DukeCooks will monitor the user's glucose level records (prompt alert when hit unhealthy range) and provide
+appropriate food suggestions and activities.
+
+* If Weight and Height records are found, DukeCooks will compute the user's BMI and determine if it is in the recommended range.
+
+==== Print Health Records to PDF `[coming in v2.0]`
+Generates a PDF copy of health records. +
+Format: `print health t/_<type>_ [MORE_TYPES] period/_<time period>_`
+
+* If more than one type of data to print, the data will be displayed in the order of input (refer to example).
+
+Examples:
+
+* `print health t/glucose period/ 01/01/2019 - 01/02/2019` +
+Generates a PDF copy of all the blood sugar records from 1st Jan 2019 to 1st Feb 2019.
+* `print health t/glucose t/weight period/ 01/01/2019 - 31/08/2019` +
+Generates a PDF copy of all the blood sugar and weight records respectively from 1st Jan 2019 to 31st Aug 2019.
+
+
+=== Workout Tracker
+
+So you've decided to put your gym membership to use and want to plan your next workout regime. Head down to the
+workout planner tab to create your custom workouts and track your progress!
+
+But wait! I have no idea how to begin with this, you may be thinking. Fret not, read further to see a breakdown of the
+workout planner screen and what you can do with it!
+
+==== Workout Planner Screen
+
+Alright, I'm now at the workout screen! What's next?
+
+.Workout Screen
+image::workoutScreen1.png[]
+
+As seen in the screenshot above, the Workout Planner screen is similar to the other screens, with the main
+difference being the list of Exercise cards and Workout Cards. Not too sure about what to work on or need suggestions?
+Workout Planner begins with prebuilt Exercises and Workouts installed to get you started.
+
+Over on the left, is the list of Exercise Cards. Each card informs you of the name, primary muscle as well as the
+intensity of the exercise. To get more information of the exercise, you can use the view command which will be covered
+in section 3.7.3 of the User Guide.
+
+Similarly on the right we have the list of Workout Cards. The Workout Cards shows the Workout name, the number of
+Exercises in the workout as well as the last time the workout was ran. You can also tell the intensity of the
+workout from the image of the card.
+
+.Low Intensity Card
+image::workoutLowIntensity.png[]
+
+.Medium Intensity Card
+image::workoutMediumIntensity.png[]
+
+.High Intensity Card
+image::workoutHighIntensity.png[]
+
+Similarly, to find more information on the workout, you can use the view command which is covered in a later
+section of this User Guide.
+
+
+==== Adding an exercise: `add exercise`
+"I now know the components of the Workout Planner! So what can I do with it?"
+
+Well I'm glad you asked kind person! To start off, we have the add exercise command which creates new
+exercises for your workouts. To add an exercise, you must first specify its name, primary muscle trained as well
+as its intensity. You can also add optional fields such as secondary muscles and exercise details like sets and reps.
+The following shows all the possible fields that can be added: +
+* Name +
+* Primary Muscle +
+* Intensity +
+* Secondary Muscles (optional) +
+* Number of sets (optional) +
+* Number of repetitions (optional) +
+* Timing (optional)  +
+* Distance (optional) +
+* Exercise Weight (optional) +
+To add the exercise, simply input the fields in the Command Box in the following format: +
+Format: `add exercise n/EXERCISE_NAME p/PRIMARY_MUSCLE sm/SECONDARY_MUSCLE i/INTENSITY
+s/SETS r/REPETITIONS d/ DISTANCE w/WEIGHT t/TIMING`
+
+Examples:
+
+The following images show an example of the command being inputted and its corresponding
+outputs.
+
+.Example input
+image::addExerciseInputExample.png[]
+
+.Example output
+image::addExerciseOutput.png[]
+
+==== View Exercise: `view exercise`
+
+Ok, now that you've added your exercise, you probably want to know all of its details. Simply
+input the command `view exercise` followed by the index of the exercise you want
+to view as shown below.
+
+.Example Input
+image::viewExerciseInput.png[]
+
+The screen should now show the full details of the exercise in question. Let's get you up to
+speed with what's what.
+
+.Exercise Details Screen
+image::viewExerciseOutput.png[]
+
+1. Basic Details +
+The first segment comprises of the basic details of the exercise. This includes the Exercise
+Name, Intensity, Primary and Secondary Muscles, Number of times the exercise has been executed,
+Average Run Time of the Exercise as well as some of its details.
+
+2. Previous Attempts +
+Next up we have a history of all the previous attempts of the exercise. This includes the workout
+that the exercise is done in, the time it was done as well as the time it took. It also specifies
+the number of sets attempted and completed.
+
+The details on this page is automatically updated with each workout run. To return back to
+the exercise page, simply invoke the `goto exercise` command.
+
+More statistics as well as graph view will be implemented in version 2.0.
+
+==== Find Exercise:
+
+Now that you have a sizable amount of Exercises, you realise that you cannot easily find them
+amongst the sea of cards. To tackle this problem of seamless navigation, we implemented the
+find command.
+
+Find Exercise works in 3 ways:
+
+* By Name
+* By Muscles Trained (inclusive of both primary and secondary muscles)
+* By Intensity
+
+To use the following command, simply type `find` in the command box followed by the variant
+you wish to utilise and the predicate.
+
+* To find by name, the variant word is `exercise`
+* To find by muscles trained, the variant word is `exerciseMuscle`
+* To find by intensity, the variant word is `exerciseIntensity`
+
+.Find by Exercise Name
+image::findExercise.png[]
+
+.Find by Muscles Trained
+image::findExerciseMuscle.png[]
+
+.Find by Intensity
+image::findExerciseIntensity.png[]
+
+The filtered lists will then be shown as follows:
+
+.Find Output
+image::findExerciseOutput.png[]
+
+To show every exercise again, simply invoke the `list exercise` command.
+
+==== Add Workout: `add workout`
+
+Now that you've created all your exercise, you're ready to create a workout plan! To create
+a workout, input `add workout n/NAME` into the command box, replacing `NAME` with the name
+of your workout. This will initialise your Workout with no exercises in it.
+
+.Add Workout Input
+image::addWorkoutInput.png[]
+
+==== Push Exercise `push exercise`
+
+Once you have initialised your workout, you are now ready to add your exercise into your
+workouts! To do so simply locate the index of the exercise you want to push and the workout
+you want to push your exercise into. Then input the command in the following format `push
+ exercise wi/WORKOUT_INDEX ei/EXERCISE_INDEX`.
+
+.Pushing Bench Press into Chest Day
+image::pushExerciseInput.png[]
+
+For example, if you want to add Bench Press exercise into Chest Day workout, type in
+`push exercise wi/4 ei/8` in the command box as seen above. You will get the following input.
+
+.Push Exercise Results
+image::pushExerciseOutput.png[]
+
+Now that you know you know how to push exercises, you can go ahead and add in all the exercises
+needed for your ULITMATE workout regime!
+
+==== View Workout: `view workout`
+You've created your workout regime, but you're unsure of the details and your progress. With
+the `view workout` feature, you can check all the details of your workout as well as its
+history!
+
+Similar to `view exercise`, type in `view workout` followed by the index of the workout you're
+interested in. So if you want to view 'Chest Day' you can follow the image below.
+
+.Viewing Chest Day Workout
+image::viewWorkoutInput.png[]
+
+The following screen will now appear. To orientate you, here are the components of the screen:
+
+. Basic Details +
+This component shows the Name, Intensity, Number of times completed, Average Run Time and
+Muscles Trained by the workout.
+
+. Exercises +
+The exercises segment show a list of all exercises contained in the workout as well as its
+exercise details
+
+. Workout History +
+The workout history compiles a list of all the times you have ran and completed this workout
+
+.Chest Day Screen
+image::viewWorkoutOutput.png[]
+
+Similarly to `view Exercise` command, this page will be automatically updated after each run
+of the workout. You can also return to the workout planner page with `goto exercise`.
+
+==== Run Workout: `run workout`
+
+You've created all your exercises and added it into your ultimate workout. Now you're ready
+to run it! To run the workout, invoke the `run workout` command with the index of your
+ultimate workout.
+
+.Run Workout Window
+image::runWorkoutWindow1.png[]
+
+The window above will pop up upon inputting the command. The window can be broken down into 5
+major segments which are :
+
+. Workout Name +
+Name of the workout you are running.
+. Progress Bar +
+Shows your workout progress/ how far you are from completing the workout.
+. Exercise Name +
+The name of the current exercise you're doing
+. Set Details +
+The details of a set of the exercise you're currently doing.
+. Command Box +
+Where you input your commands
+
+When you have completed a set, you can input `done` into the command box and it will indicate
+the set as completed as shown below.
+
+.Marking a set as Done
+image::runWorkoutWindow2.png[]
+
+After completing all the sets in all exercises, you will be brought back to the main page
+where a congratulatory message will greet you!
+
+.Congratulations!
+image::runworkoutWindow3.png[]
+
+==== Other Commands
+
+With that, you have sufficient knowledge to create and run your workout...
+if you're perfect that is. To make your life easier, we've also
+included some commands to manage your exercises and workout in case you made errors!
+
+. List Exercise: `list exercise` +
+List exercises which matches optional parameters specified eg. muscle type/intensity. +
+Format: `list exercise m/MUSCLEGROUP
+
+. Clear Exercise `clear exercise` +
+Removes all exercises in the list. +
+Format: 'clear exercise'
+
+. Delete exercise: `delete exercise` +
+Deletes exercise of specified index. +
+Format: `delete exercise <index>`
+
+. Edit exercise: `edit exercise` +
+Edits exercise with new details +
+Format: `edit exercise n/EXERCISE_NAME p/PRIMARY_MUSCLE sm/SECONDARY_MUSCLE i/INTENSITY
+s/SETS r/REPETITIONS d/ DISTANCE w/WEIGHT t/TIMING`
+
+. Add calorie: `[coming in v2.0] +`
+Tracks calorie burned per rep/set of the exercise in kcal. +
+Format: `calorie <index> <calories>`
+
+. Delete workout: `delete workout` [coming in v1.4] +
+Deletes workout of specified index. +
+Format: `delete workout <index>`
+
+. Show graph: `[coming in v2.0]`
+Creates a graph showing all your past workouts and exercises.
+
+. Schedule Workout: `[coming in v2.0]`
+Create a workout to be added in to your schedule that will show up in your dashboard.
+
+Now you know all there is to the workout planner! What are you waiting for? Go out there and put your
+gym membership to use!
+
+// tag::diary[]
+=== Diary
+
+Want to share great recipes and workout tips with your friends? Look through the available commands in this section and
+start sharing!
+
+==== A Closer Look at Diary Feature
+
+In the diary feature, you will be able to look through all your available diaries and pages at one quick glance!
+Not only that, you can also enter different commands within the command box.
+
+Still confused? The following diagram explains where you can find the available diaries, their corresponding pages and
+also highlights the command box, where different commands can be executed.
+
+.Overview of Diary Feature
+image::diaryOverview.png[]
+
+==== Getting to Diary
+
+Here's a simple way to get into the diary feature!
+
+Command: `goto diary`
+
+==== Adding a diary
+
+Let's get started by adding a diary using the `add diary` command!
+
+Command: `add diary` +
+Format: `add diary n/ <diary name>`
+
+Example usage: `add diary n/ Desserts Galore`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key. You are now adding a diary named "Dessert Galore" into
+DukeCooks.
++
+.Adding a diary
+image::addDiary_before.png[]
++
+. If the command succeeds, you should see the following message in the result display
+and a new diary named "Dessert Galore" will be added.
++
+.Successfully added a diary
+image::addDiary_after.png[]
+
+[WARNING]
+Diary names are only limited to 25 characters.
+
+
+==== Deleting a diary
+
+Accidentally created an unwanted diary? No worries! You can remove it with our `delete diary` command.
+
+Command: `delete diary` +
+Format: `delete diary <diary index>`
+
+Example usage: `delete diary 8`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key. In this case, you are deleting the diary at index 8,
+which is "Dessert Galore".
++
+.Deleting a diary
+image::deleteDiary_before.png[]
++
+. If the command succeeds, you will see the following message in the result display and the diary "Dessert Galore"
+will be removed.
++
+.Successfully deleted a diary
+image::deleteDiary_after.png[]
+
+// end::diary[]
+
+==== Editing a diary
+
+Made a minor mistake and would like to correct it? You can do so with our `edit diary` command!
+
+Command: `edit diary` +
+Format: `edit diary <diary index> n/ <new diary name>`
+
+Example usage: `edit diary 1 n/ Asian Cuisines`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key. In this case, we are changing the name of diary 1 from
+"Asian Food" to "Asian Cuisines".
++
+.Editing a diary
+image::editDiary_before.png[]
++
+. If the command succeeds, the following result will be displayed and the diary will be edited as shown below.
++
+.Successfully edited a diary
+image::editDiary_after.png[]
+
+==== Viewing a diary
+
+Want to take a look into another diary? Use the `view diary` command!
+
+Command: `view diary` +
+Format: `view diary <diary index>`
+
+Example usage: `view diary 2`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key. You are trying to view diary 2, which is
+titled "Healthy Living".
++
+.Viewing a diary
+image::viewDiary_before.png[]
++
+. If the command succeeds, the following result will be displayed and both the diary view and page view will switch.
+In this case, the diary will be switched to "Healthy Living" and its corresponding pages will be displayed as shown below.
++
+.Successfully view a diary
+image::viewDiary_after.png[]
+
+==== Finding a diary
+
+Having difficulty with locating a particular diary? You can use the `find diary` command to quickly find your desired diary.
+
+Command: `find diary` +
+Format: `find diary <keywords>`
+
+Example usage: `find diary singapore`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key. You are looking for all diaries that contain
+the keyword "singapore".
++
+.Finding a diary
+image::findDiary_before.png[]
++
+. If the command succeeds, only the found diaries would be displayed as shown below. In this case, all diaries with the
+keyword "singapore" would be found.
++
+.Successfully found a diary
+image::findDiary_after.png[]
+
+==== Listing all diaries
+
+Want to see all the available diaries? You can use our `list diary` command to list all available diaries!
+
+Command: `list diary` +
+Format: `list diary`
+
+Example usage: `list diary`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key. You are trying to list all available diaries here.
++
+.Listing diaries
+image::listDiary_before.png[]
++
+. If the command succeeds, all the available diaries would be listed as shown below.
++
+.Successfully listed all diaries
+image::listDiary_after.png[]
+
+==== Adding a page
+
+Looking to customise your diary further? You can do so by adding pages with our `add page` command.
+
+Command: `add page` +
+Command format: `add page`
+
+Example usage: `add page`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+.Adding a page
+image::addPage_before.png[]
++
+. You will then be taken to the Page Input Form to provide details of the page.
+In this case, we will be adding a page to the specified diary "Asian Cuisines". You may choose to use your own images
+or you could use our images from <<Appendix, here>>.
++
+.Page Input Form
+image::addPage_mid.png[]
++
+. If the command succeeds, the page will be added to the specified diary as shown below.
++
+.Successfully added a page
+image::addPage_after.png[]
+
+[WARNING]
+Page titles are limited to 40 characters.
+
+[WARNING]
+Page types are currently only limited to food, exercise and health.
+
+[TIP]
+If you made some mistake when filling up the Page Input Form, you can use the kbd:[F2] key to quickly return focus to
+the top of the Page Input Form.
+
+==== Deleting a page
+
+Want to remove a page? We've got that covered with our `delete page` command.
+
+Command: `delete page` +
+Format: `delete page <page index> n/ <diary name>`
+
+Example usage: `delete page 4 n/ Asian Cuisines`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key. In this case, we are deleting page 4 from the diary
+"Asian Cuisines".
++
+.Deleting a page
+image::deletePage_before.png[]
++
+. If the command is successful, the page will be removed and you will see the following in the result display.
++
+.Successfully deleted a page
+image::deletePage_after.png[]
+
+==== Editing a page
+
+Making minor changes to a page? You can do so with the `edit page` command!
+
+Command: `edit page` +
+Format: `edit page <page index> n/ <diary name> t/ [new title] tp/ [new type] desc/ [new description] i/ [new image]`
+
+Example usage: `edit page 1 n/ Asian Cuisines t/ Beef Pho`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key. In this case, we are editing page 1 from the diary
+"Asian Cuisines", looking to change it's title to "Beef Pho".
++
+.Editing a page
+image::editPage_before.png[]
++
+. If the command is successful, the page will be edited and you will see the following in the result display.
++
+.Successfully edited a page
+image::editPage_after.png[]
+
+[NOTE]
+You are able to edit all different fields within a page. You can make changes to the page title, page type, page description
+or even the page image!
+
+==== Linking Recipes / Exercises / Health Records : `[Coming in v2.0]`
+
+Find it too troublesome to add a new page from scratch?
+DukeCooks will simply link existing recipes / exercises / health records and create the page on your behalf!
+
+Command: `link`
+
+
+// end:: otherDiary[]
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+*Recipe Book*
+
+* *Going to recipes*: `goto recipe`
+* *Adding recipes* : `add recipe n/<name> i/<ingredients>... cal/<calories> carb/<carbs> fats/<fats> prot/<protein>`
+* *Deleting recipe* : `delete recipe <index>`
+* *Editing recipes* : `edit recipe <index> [parameters]`
+* *Listing recipes* : `list recipe`
+* *Finding recipes* : `find recipe <keyword>`
+* *Clearing recipes* : `clear recipe`
+
+*Meal Plan*
+
+* *Going to meal plans*: `goto mealplan`
+* *Adding meal plans* : `add mealplan n/<name> day1/[name]…​ day2/[name]…​ day3/[name]…​ day4/[name]…​ day5/[name]…​ day6/[name]…​ day7/[name]…​`
+* *Deleting meal plans* : `edit mealplan <index> [parameters]`
+* *Listing meal plans* : `list mealplan`
+* *Finding meal plans* : `find mealplan <keyword>`
+* *Finding recipe in meal plans* : `find mealplanwith <recipe name keyword>`
+* *Viewing meal plans* : `view mealplan <index>`
+* *Deleting meal plans* : `delete mealplan <index>`
+* *Clearing meal plans* : `clear mealplan`
+
+*Dashboard*
+
+* *Going to the Dashboard:* `goto dashboard`
+* *Adding a task:* `add task tn/<taskname> td/<taskdate>`
+* *Editing a task* : `edit task <index> tn/<taskname> td/<taskdate>`
+* *Deleting a task* : `delete task <index>`
+* *Marking a task as complete* : `done task <index>`
+* *Finding a task* : `find task <keyword>`
+* *Viewing completed tasks* : `list taskcomplete`
+* *Viewing incomplete tasks* : `list taskcomplete`
+
+*Health Records*
+
+* *Going to the Health Records:* `goto health`
+* *Add profile* : `add profile n/ <name> d/ <date of birth> g/ <gender> bt/ <blood type> w/ <weight> h/ <height> [m/ <medical history>]` +
+* *Delete existing profile* : `delete profile`
+* *Edit existing profile* : `edit profile n/ <name> d/ <date of birth> g/ <gender> bt/ <blood type> w/ <weight> h/ <height> [m/ <medical history>] [m-/ <medical history>]`
+
+* *Listing health by record type* : `list health t/ <type>`
+* *Adding health data* : `add health t/ <type> val/ <value> dt/ <date time> [remark/ <remark>]`
+* *Deleting existing health data* : `delete health <index>`
+* *Editing existing health data* : `edit health <index> val/ <value> dt/ <date time> [remark/ <remark>]`
+* *Clearing all records* : `clear health`
+
+*Workout Tracker*
+
+* *Going to exercise*: `goto exercise`
+* *Adding an exercise* : `add exercise <exerciseName>` +
+* *Listing exercise* : `list exercise [MUSCLEGROUP] [INTENSITY]`
+* *Deleting exercise* : `delete exercise <index>`
+* *Viewing exercise* : `view exercise<index>`
+* *Creating workout* : `workout <exerciseName>`
+* *Listing workout* : `list exercise [MUSCLEGROUP] [INTENSITY] [TOTALTIME]`
+* *Deleting workout* : `delete workout <index>`
+* *Running workout* : `run <index>`
+
+*Diary*
+
+* *Going to diary* : `goto diary`
+* *Adding diary* : `add diary n/ <diary name>`
+* *Deleting diary* : `delete diary <index>`
+* *Editing diary* : `edit diary <index> n/ <diary name>`
+* *Viewing diary* : `view diary <index>`
+* *Finding diary* : `find diary <keyword>`
+* *Listing diary* : `list diary`
+* *Adding pages* : `add page`
+* *Deleting pages* : `delete page <index> n/ <diary name>`
+* *Editing pages* : `edit page <page index> n/ <diary name> t/ [new title] tp/ [new type] desc/ [new description] i/ [new image]`
+
+== Appendix
+
+Here are some pre-defined images that you can use.
+
+*Pho Image* +
+Image URL: /images/pho.jpg +
+
+image::pho.jpg[width="500"]
+
+*Planks Image* +
+Image URL: /images/planks.jpg +
+
+image::planks.jpg[width="500"]
+
+*Low Sugar Foods Image* +
+Image URL: /images/lowsugar.jpg +
+
+image::lowsugar.jpg[width="500"]

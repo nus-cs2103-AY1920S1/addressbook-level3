@@ -1,0 +1,28 @@
+{
+  "_comment": "DukeCooks save file which contains the same Dashboard values as in TypicalDashboards#getTypicalDashboardRecords()",
+  "dashboards" : [ {
+    "name" : "Meat Lovers",
+    "taskDate" : "12/12/2019",
+    "isDone" : "NOT COMPLETE"
+  }, {
+    "name" : "Brunches",
+    "taskDate" : "12/12/2019",
+    "isDone" : "NOT COMPLETE"
+  }, {
+    "name" : "Carbs For Life",
+    "taskDate" : "12/12/2019",
+    "isDone" : "NOT COMPLETE"
+  }, {
+    "name" : "Drinks All Day",
+    "taskDate" : "12/12/2019",
+    "isDone" : "NOT COMPLETE"
+  }, {
+    "name" : "High Energy Foods",
+    "taskDate" : "12/12/2019",
+    "isDone" : "NOT COMPLETE"
+  }, {
+    "name" : "Fun Foods",
+    "taskDate" : "12/12/2019",
+    "isDone" : "NOT COMPLETE"
+  } ]
+}

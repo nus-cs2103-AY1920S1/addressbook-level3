@@ -1,0 +1,13 @@
+{
+  "healthrecords" : [ {
+    "type" : "Height",
+    "value" : "67.0",
+    "timestamp" : "26/10/2019 12:00",
+    "remarks" : [ ]
+  }, {
+    "type" : "Height",
+    "value" : "65.0",
+    "timestamp" : "26/10/2019 12:00",
+    "remarks" : [ ]
+  } ]
+}
