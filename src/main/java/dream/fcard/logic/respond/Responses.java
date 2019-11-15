@@ -557,6 +557,7 @@ public enum Responses {
                         try {
                             StatsHolder.getDeckStats().deleteDeck(deckName);
                             State s = StateHolder.getState();
+                            StorageManager.deleteDeck(s.getDeck(deckName));
                             s.removeDeck(deckName);
 
                             Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Deleted deck " + deckName);
