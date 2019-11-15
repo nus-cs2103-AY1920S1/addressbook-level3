@@ -1,0 +1,15 @@
+@startuml
+(*)  --> "GuiltTrip Startup"
+if "Needs update?"
+-left-> [Yes] "Generate Expenses"
+--> (*)
+else
+--> [No] if "new AutoExpense" then
+--> [Yes] "Generate Expenses"
+        else
+        --> [No] (*)
+     endif
+endif
+
+
+@enduml

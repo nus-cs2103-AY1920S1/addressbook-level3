@@ -4,53 +4,44 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+guiltTrip() is developed by the https://github.com/AY1920S1-CS2103-T16-4[AY1920S1-CS2103-T16-4 team]. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Ong Ming Chung
+image::dandford.png[width="150", align="left"]
+{empty}[https://github.com/Dandford[github]] [<<dandford#, portfolio>>]
 
-Role: Project Advisor
+Role: Team Leader +
+Responsibilities: Deliverables & deadlines, Data Representation
 
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Jessica Phua Shu Xin
+image::jessicax941.png[width="150", align="left"]
+{empty}[https://github.com/jessicax941[github]] [<<jessicax941#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Documentation, UI
 
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Chan Jing Rong
+image::rongrongrr.png[width="150", align="left"]
+{empty}[http://github.com/rongrongrr[github]] [<<rongrongrr#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Integration, Scheduling & tracking, History
 
-'''
-
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Tan Yee Jian
+image::swampertx.png[width="150", align="left"]
+{empty}[https://github.com/SwampertX[github]] [<<swampertx#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Testing, Data organisation
 
-'''
+=== Tay Yu Hong
+image::yuhongtay.png[width="150", align="left"]
+{empty}[https://github.com/yuhongtay[github]] [http://localhost:63342/Group%20Project/Group_Project/build/docs/html5/team/yuhongtay.html?_ijt=8knnqjm52asvlcuj89bdqjpqd9[portfolio]]
+
+Role: Developer +
+Responsibilities: Code quality, Reminders
+
+

@@ -1,0 +1,69 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":guiltTripParser" as guiltTripParser LOGIC_COLOR
+participant ":SortExpenseCommandParser" as SortExpenseCommandParser LOGIC_COLOR
+participant "s:SortExpenseCommand" as SortExpenseCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("sortExpense typ/amount s/ascending")
+activate LogicManager
+
+LogicManager -> guiltTripParser : parseCommand("sortExpense typ/amount s/ascending")
+activate guiltTripParser
+
+create SortExpenseCommandParser
+guiltTripParser -> SortExpenseCommandParser
+activate SortExpenseCommandParser
+
+SortExpenseCommandParser --> guiltTripParser
+deactivate SortExpenseCommandParser
+
+guiltTripParser -> SortExpenseCommandParser : parse("typ/amount s/ascending")
+activate SortExpenseCommandParser
+
+create SortExpenseCommand
+SortExpenseCommandParser -> SortExpenseCommand
+activate SortExpenseCommand
+
+SortExpenseCommand --> SortExpenseCommandParser : s
+deactivate SortExpenseCommand
+
+SortExpenseCommandParser --> guiltTripParser : s
+deactivate SortExpenseCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SortExpenseCommandParser -[hidden]-> guiltTripParser
+destroy SortExpenseCommandParser
+
+guiltTripParser --> LogicManager : s
+deactivate guiltTripParser
+
+LogicManager -> SortExpenseCommand : execute()
+activate SortExpenseCommand
+
+SortExpenseCommand -> Model : sortFilteredExpenseList(amount,ascending)
+activate Model
+
+Model --> SortExpenseCommand
+deactivate Model
+
+create CommandResult
+SortExpenseCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SortExpenseCommand
+deactivate CommandResult
+
+SortExpenseCommand --> LogicManager : result
+deactivate SortExpenseCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

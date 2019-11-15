@@ -1,0 +1,79 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":guiltTripParser" as guiltTripParser LOGIC_COLOR
+participant "HistoryCommandParser:" as HistoryCommandParser LOGIC_COLOR
+participant "h: StatisticsCommand:" as StatisticsCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+box Statistics STATS_COLOR
+participant ":Statistics" as Statistics STATS_COLOR
+end box
+
+[-> LogicManager : execute("viewHistory typ/Expense")
+activate LogicManager
+
+LogicManager -> guiltTripParser : parseCommand("viewHistory typ/Expense")
+activate guiltTripParser
+
+create HistoryCommandParser
+guiltTripParser -> HistoryCommandParser
+activate HistoryCommandParser
+
+HistoryCommandParser --> guiltTripParser
+deactivate HistoryCommandParser
+
+guiltTripParser -> HistoryCommandParser : parse("typ/Expense")
+activate HistoryCommandParser
+
+create StatisticsCommand
+HistoryCommandParser -> StatisticsCommand
+activate StatisticsCommand
+
+StatisticsCommand --> HistoryCommandParser : h
+deactivate StatisticsCommand
+
+HistoryCommandParser --> guiltTripParser : h
+deactivate HistoryCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+HistoryCommandParser -[hidden]-> guiltTripParser
+destroy HistoryCommandParser
+
+guiltTripParser --> LogicManager : h
+deactivate guiltTripParser
+
+LogicManager -> StatisticsCommand : execute()
+activate StatisticsCommand
+
+StatisticsCommand -> Model : generateHistory(Expense)
+activate Model
+
+Model --> Statistics: generateHistory(Expense)
+activate Statistics
+
+Statistics --> Model: historyResult
+deactivate Statistics
+
+Model --> StatisticsCommand: historyResult
+deactivate Model
+
+create CommandResult
+StatisticsCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> StatisticsCommand
+deactivate CommandResult
+
+StatisticsCommand --> LogicManager : result
+deactivate StatisticsCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

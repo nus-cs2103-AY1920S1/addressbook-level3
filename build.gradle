@@ -1,3 +1,4 @@
+//test
 // Gradle Configuration File
 // For more details take a look at the Java Quickstart chapter in the Gradle
 // user guide available at http://gradle.org/docs/5.2.1/userguide/tutorial_java_projects.html
@@ -15,7 +16,7 @@ plugins {
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.address.Main'
+mainClassName = 'seedu.guilttrip.Main'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -42,6 +43,7 @@ test {
 }
 
 dependencies {
+    String testFxVersion = '4.0.15-alpha'
     String jUnitVersion = '5.4.0'
     String javaFxVersion = '11'
 
@@ -57,17 +59,23 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'linux'
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
+    testImplementation group: 'org.testfx', name: 'testfx-core', version: testFxVersion
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
+    testImplementation group: 'com.github.javafaker', name: 'javafaker', version: '1.0.1'
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+    testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-11+26'
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'guilttrip().jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -97,7 +105,22 @@ tasks.coveralls {
     onlyIf { System.env.'CI' }
 }
 
+task(guiTests)
+task(nonGuiTests)
+
+// Run `test` task if `guiTests` or `nonGuiTests` is specified
+guiTests.dependsOn test
+nonGuiTests.dependsOn test
+
+task(allTests)
+
+// `allTests` implies both `guiTests` and `nonGuiTests`
+allTests.dependsOn guiTests
+allTests.dependsOn nonGuiTests
+
 test {
+    systemProperty 'testfx.setup.timeout', '60000'
+
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
 
@@ -112,7 +135,47 @@ test {
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
     }
+
+    doFirst {
+        boolean runGuiTests = gradle.taskGraph.hasTask(guiTests)
+        boolean runNonGuiTests = gradle.taskGraph.hasTask(nonGuiTests)
+
+        if (!runGuiTests && !runNonGuiTests) {
+            runGuiTests = true
+            runNonGuiTests = true
+        }
+
+        if (runNonGuiTests) {
+            test.include 'seedu/guilttrip/**'
+        }
+
+        if (runGuiTests) {
+            test.include 'systemtests/**'
+            test.include 'seedu/guilttrip/ui/**'
+        }
+
+        if (!runGuiTests) {
+            test.exclude 'seedu/address/ui/**'
+        }
+    }
 }
+
+task headless {
+    doLast {
+        println 'Setting headless mode properties.'
+        test {
+            systemProperties = [
+                    'testfx.robot': 'glass',
+                    'testfx.headless': 'true',
+                    'prism.order': 'sw',
+                    'prism.text': 't2k',
+            ]
+        }
+    }
+}
+
+// Makes sure that headless properties are set before running tests
+test.mustRunAfter headless
 
 asciidoctor {
     backends 'html5'
@@ -133,8 +196,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
+        'site-name': 'guitTrip()',
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103-T16-4/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
@@ -152,4 +215,4 @@ task copyStylesheets(type: Copy) {
 }
 asciidoctor.dependsOn copyStylesheets
 
-defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'
+defaultTasks 'clean', 'headless', 'allTests', 'coverage', 'asciidoctor'

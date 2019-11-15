@@ -1,0 +1,96 @@
+    @startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":GuiltTripParser" as GuiltTripParser LOGIC_COLOR
+participant ":TogglePanelCommandParser" as TogglePanelCommandParser LOGIC_COLOR
+participant "t:TogglePanelCommand" as TogglePanelCommand LOGIC_COLOR
+participant "commandResult:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+[-> MainWindow :executeCommand("toggle wishlist")
+activate MainWindow
+
+MainWindow -> LogicManager : execute("toggle wishlist")
+activate LogicManager
+
+LogicManager -> GuiltTripParser : parseCommand("toggle wishlist")
+activate GuiltTripParser
+
+create TogglePanelCommandParser
+GuiltTripParser -> TogglePanelCommandParser
+activate TogglePanelCommandParser
+
+TogglePanelCommandParser --> GuiltTripParser
+deactivate TogglePanelCommandParser
+
+GuiltTripParser -> TogglePanelCommandParser : parse("toggle wishlist")
+activate TogglePanelCommandParser
+
+create TogglePanelCommand
+TogglePanelCommandParser -> TogglePanelCommand
+activate TogglePanelCommand
+
+TogglePanelCommand --> TogglePanelCommandParser : t
+deactivate TogglePanelCommand
+
+TogglePanelCommandParser --> GuiltTripParser : t
+deactivate TogglePanelCommandParser
+destroy TogglePanelCommandParser
+
+GuiltTripParser --> LogicManager : t
+deactivate GuiltTripParser
+
+LogicManager -> TogglePanelCommand : execute()
+activate TogglePanelCommand
+
+create CommandResult
+TogglePanelCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> TogglePanelCommand
+deactivate CommandResult
+
+TogglePanelCommand --> LogicManager : commandResult
+deactivate TogglePanelCommand
+destroy TogglePanelCommand
+
+LogicManager --> MainWindow : commandResult
+deactivate LogicManager
+
+alt isTogglePanel
+
+MainWindow -> CommandResult : getPanelName()
+activate CommandResult
+
+CommandResult --> MainWindow : WISH
+deactivate CommandResult
+
+MainWindow -[#Gray]> MainWindow : handleTogglePanel(panelName)
+activate MainWindow #Gray
+
+MainWindow -[#DarkSalmon]> MainWindow : togglePanel(WISH)
+activate MainWindow #DarkSalmon
+
+deactivate MainWindow
+
+MainWindow -[#DarkBlue]> MainWindow : toggleEntireSidePanelIfNecessary()
+activate MainWindow #Blue
+
+deactivate MainWindow
+
+MainWindow -[hidden]> MainWindow
+deactivate MainWindow
+
+end
+
+MainWindow ->[ : commandResult
+deactivate MainWindow
+
+@enduml

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox alignment="CENTER" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets top="40.0" right="10"/>
+    </padding>
+    <SplitPane fx:id="pieChartPanelHolder" style="-fx-background-color: transparent" dividerPositions="0.29797979797979796">
+        <AnchorPane fx:id="pieChartPanelHolderLeft" />
+        <AnchorPane fx:id="pieChartPanelHolderRight"/>
+    </SplitPane>
+</HBox>

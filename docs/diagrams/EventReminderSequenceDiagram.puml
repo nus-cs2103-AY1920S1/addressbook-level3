@@ -1,0 +1,73 @@
+@startuml
+!include style.puml
+
+box COMMONS
+participant ":TimeUtil" as TimeUtil MODEL_COLOR
+end box
+box MODEL MODEL_COLOR_T1
+
+participant ":LocalDate" as LocalDate MODEL_COLOR
+participant "TimeUtil:ObservableSupport" as TU_ObservableSupport MODEL_COLOR
+participant ":EntryReminder" as EntryReminder MODEL_COLOR
+participant "EntryReminder:ObservableSupport" as ER_ObservableSupport MODEL_COLOR
+participant "EntryReminder:ER_ListenerSupport" as ER_ListenerSupport MODEL_COLOR
+participant ":ReminderList" as ReminderList MODEL_COLOR
+participant "ReminderList:ObservableSupport" as RL_ObservableSupport MODEL_COLOR
+participant ":ObservableList<Notification>" as ObservableList_Notification MODEL_COLOR
+participant ":NotificationPanel" as NotificationPanel MODEL_COLOR
+end box
+
+[-> TimeUtil : getCurrDate()
+activate TimeUtil
+
+TimeUtil -> LocalDate : now()
+activate LocalDate
+return
+
+TimeUtil -> TU_ObservableSupport : firePropertyChange(currDate)
+activate TU_ObservableSupport
+
+TU_ObservableSupport -> EntryReminder : propertyChange(evt)
+activate EntryReminder
+
+EntryReminder -> ER_ObservableSupport : firePropertyChange(statusChange)
+activate ER_ObservableSupport
+
+loop each statusChange listener
+    ER_ObservableSupport -> ER_ListenerSupport : propertyChange(evt)
+    activate ER_ListenerSupport
+
+    ER_ListenerSupport -> ReminderList : propertyChange(evt)
+    activate ReminderList
+
+    ReminderList -> RL_ObservableSupport : firePropertyChange(newReminderMessage)
+    activate RL_ObservableSupport
+    note left
+    Skip handlers for clarity
+    end note
+    return
+
+    ReminderList -> ObservableList_Notification : add(notification)
+    activate ObservableList_Notification
+    note left
+    Skip handlers for clarity
+    end note
+
+    ObservableList_Notification -> NotificationPanel : updateItem()
+    activate NotificationPanel
+    note right
+    Updates notifications in UI
+    end note
+    return
+
+    return
+    return
+    return
+    return
+    return
+    return
+
+end
+
+deactivate TimeUtil
+@enduml

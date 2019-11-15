@@ -11,10 +11,23 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class ExpenseListPanel
+Class IncomeListPanel
+Class XYZPanel
+Class ExpenseCard
+Class IncomeCard
+Class XYZCard
 Class StatusBarFooter
 Class CommandBox
+Class FontName
+Class FontManager
+Class Theme
+Class StatisticsWindow
+Class StatisticsPieChartPanel
+Class StatisticsTable
+Class StatisticsPieChart
+Class StatisticsTablePanel
+Class StatisticsBarChart
 }
 
 package Model <<Rectangle>> {
@@ -29,32 +42,75 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
-UiManager -down-> MainWindow
+UiManager --> MainWindow
 MainWindow --> HelpWindow
-MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
-MainWindow *-down-> StatusBarFooter
+MainWindow *--> CommandBox
+MainWindow *--> ResultDisplay
+MainWindow *--> ExpenseListPanel
+MainWindow *--> IncomeListPanel
+MainWindow --> XYZPanel
+MainWindow *--> StatisticsWindow
+MainWindow *--> StatusBarFooter
+MainWindow *--> FontName
+MainWindow *--> Theme
+MainWindow *--> StatisticsBarChart
 
-PersonListPanel -down-> PersonCard
+ExpenseListPanel --> ExpenseCard
+IncomeListPanel --> IncomeCard
+XYZPanel --> XYZCard
 
-MainWindow -left-|> UiPart
+StatisticsWindow *-->"1" StatisticsPieChartPanel
+StatisticsPieChartPanel *-->"0..2" StatisticsPieChart
+StatisticsWindow *-->"1" StatisticsTablePanel
+StatisticsTablePanel *-->"0..2" StatisticsTable
 
+MainWindow --|> UiPart
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
-StatusBarFooter --|> UiPart
+ExpenseListPanel --|> UiPart
+IncomeListPanel --|> UiPart
+XYZPanel --|> UiPart
+XYZCard --|> UiPart
+ExpenseCard --|> UiPart
+IncomeCard --|> UiPart
+StatisticsBarChart --|> UiPart
+StatisticsWindow --|> UiPart
+StatisticsBarChart --|> UiPart
+StatisticsTable --|> UiPart
+StatisticsPieChart --|> UiPart
+StatisticsPieChartPanel --|> UiPart
+StatisticsTablePanel --|> UiPart
+
+StatusBarFooter -down-|> UiPart
 HelpWindow -down-|> UiPart
 
-PersonCard ..> Model
+ExpenseCard .down.> Model
+IncomeCard .down.> Model
+XYZCard .down.> Model
+
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+/'HelpWindow -[hidden]right- ExpenseListPanel
+ExpenseListPanel -[hidden]right- IncomeListPanel
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
+StatusBarFooter -[hidden]left- FontName
+FontName -[hidden]left- Theme'/
 
-MainWindow -[hidden]-|> UiPart
+/'MainWindow -[hidden]-|> UiPart'/
+
+note right of XYZPanel: XYZPanel refers to\n\
+BudgetPanel,\n\
+WishListPanel,\n\
+AutoExpensesPanel,\n\
+ReminderPanel\n\
+
+note right of XYZCard: XYZCard refers to\n\
+BudgetCard,\n\
+WishListCard,\n\
+AutoExpensesCard\n\
+ReminderCard\n\
+
 @enduml

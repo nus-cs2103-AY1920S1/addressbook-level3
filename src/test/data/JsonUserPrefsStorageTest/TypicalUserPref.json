@@ -5,7 +5,9 @@
     "windowCoordinates" : {
       "x" : 300,
       "y" : 100
-    }
+    },
+    "font": "segoe UI",
+    "theme": "DARK"
   },
-  "addressBookFilePath" : "addressbook.json"
+  "addressBookFilePath": "data\\guiltTrip.json"
 }

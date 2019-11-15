@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= GuiltTrip - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,22 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-T16-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T16-04`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Craving for a nice bowl of Mala but can’t seem to save up enough for it? guiltTrip() is the perfect platform for those
+*aspiring to be able to afford their Mala*, finally! More importantly, guiltTrip() is optimized for those who prefer to
+work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can
+type fast, guiltTrip() can get your finance tracker tasks done faster than traditional GUI apps.
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `guiltTrip().jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your guiltTrip.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,10 +36,12 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* `list` : lists all expenses and income
+* `addAutoExp f/monthly n/drinks amt/11.99 cat/Food` : adds a recurring expense that will generate every day.
+* `addExpense cat/Food n/Mala amt/5.50 d/2019 09 09 tg/food tg/indulgence` : adds the specified expense to your
+list of expenses
+* `toggle wishlist` : toggles the wishlist panel
+* `exit` : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,132 +51,1092 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `<>` are the parameters to be supplied by the user e.g. in `addExpense [n/<description>]`, `<description>` is
+a parameter which can be used as `n/mala at deck`.
+* Items in square brackets are optional e.g `n/NAME [tg/TAG]` can be used as `n/mala at deck tg/mala` or as `n/mala at deck`.
+* If multiple Prefixes of the same type were specified, guiltTrip usually accepts only the latest prefix, for example `n/mala tg/drinks n/llama meat`
+, guiltTrip will only accept llama meat as the description.
 ====
 
-=== Viewing help : `help`
 
-Format: `help`
+// tag::autosuggestion[]
 
-=== Adding a person: `add`
+=== AutoSuggestion
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+The first thing you will notice once you start typing in the command box, is AutoSuggest.
+This is an intelligent bot that helps you navigate through your finance journey with GuiltTrip()!
 
-[TIP]
-A person can have any number of tags (including 0)
+Simply key in anything you like to start!!
 
-Examples:
+image::autosuggest_startup.png[]
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+For example, you are new and would like to get some help! But your __shaky__ hands made you
+type `hlp` instead! Don't worry, we have a Edit-Distance-based algorithm that can predict your
+command. Isn't that cool?
 
-=== Listing all persons : `list`
+image::autosuggest_hlp.png[]
 
-Shows a list of all persons in the address book. +
+Ahh okay! Seems that we can just kick start right away! How about recording that mala we ate at The Deck
+this afternoon!
+
+image::autosuggest_addExpense.png[]
+
+Now since `addExpense` is a valid command, your friendly AutoSuggester is showing you how to use this command!
+Isn't this COOL?
+
+// end::autosuggestion[]
+
+=== Categories
+Ever feel like your list of expenses are extremely messy? This is where categories come in handy! Every entry belongs to one category, which makes it easier for you to organize your data! Categories can be either grouped under Expense or Income.
+GuiltTrip comes with a default set of Categories as listed below. All entries must have a category.
+
+* Income: `Business, Salary, Gifts, Loans`
+* Expense: `Food, Travel, Family, Bills, Entertainment, Transport, Shopping, HealthCare, Groceries, Rent`
+
+Categories for Expense, Budget and Wish all belong under the Expense Category. Categories for Income belong under the Income Category.
+An example would be when creating a new Budget, the category that the budget was created must belong to one of the existing categories in Expense.
+
+==== Adding Category : `addCategory`
+If the default set of categories does not cover your needs, you can add more by calling addCategory.
+
+Adds a new Category for either Income or Expense. The category added must not currently exist in the application.
+Category names are case-insensitive.
+
+Format: `addCategory cat/<category type> n/<category name>`
+
+* `<category type>`: The type of Category that the new addition is under.
+* `<category name>`: The name of the new Category.
+
+Example Usage:
+[start = 1]
+. If you want to add a new category *CodingServices* under Income, enter the command `addCategory cat/Income n/CodingServices`
++
+image::addingCategory1.png[]
+
+. The new category will thus be added to guiltTrip. You can verify it using `listCategories`.
++
+image::addingCategory-2.png[]
+
+Other Examples:
+
+* `addCategory cat/Expense n/Transport`
+* `addCategory cat/Income n/Lottery`
+
+===== Editing Category : `editCategory`
+Edits a current category's description. The category to be edited must exist in the current list of Categories
+whether it be in the Expense CategoryList or the Income CategoryList. The new name for the category must not be a
+duplicate of existing categories.
+
+Format: `editCategory cat/<category type> o/<old category name> n/<new category name>`
+
+* `<category type>`: The type of Category that the edited Category is under.
+* `<old category name>`: The original name of this Category.
+* `<new category name>`: The new name of this Category.
+
+Example Usage:
+[start = 1]
+. If you would like to edit an existing Category *Business* to *Bursary* under Income, enter the command `editCategory cat/Income o/Business n/Bursary`.
++
+image::editingCategory-1.png[]
+
+. The old category will thus be edited in guiltTrip. All existing entries will also be renamed as shown below.
++
+image::editingCategory-2.png[]
+
+Other Examples:
+
+* `editCategory cat/Income o/Business n/HotelManagement`
+* `editCategory cat/Expense o/Family n/Pets`
+
+==== Listing Categories : `listCategories`
+
+Lists all the current categories the user has.
+
+Format: `listCategories`
+
+Example: `listCategories`
+
+==== Deleting Category : `deleteCategory`
+Deletes a category from guiltTrip. The category that is deleted should not have any entries under it. It must also already exist in guiltTrip.
+
+Format: `deleteCategory cat/<category type> n/<category name>`
+
+* `<category type>`: The type of Category that the deleted Category is under.
+* `<category name>`: The name of the deleted Category.
+
+Example Usage:
+[start = 1]
+. If you would like to remove an existing Category *Rent* under Expense, type `deleteCategory cat/Expense n/Rent`
++
+image::deletingCategory-1.png[]
+
+. The old category will thus be deleted from guiltTrip. You can verify that it is removed using `listCategories`.
++
+image::deletingCategory-2.png[]
+
+Other Examples:
+
+* `deleteCategory cat/Income n/Business`
+* `deleteCategory cat/Expense n/Food`
+
+=== Expenses
+Want to feel guiltTripped by your one Mala and Bubble Tea per day? GulitTrip's main function is thus used to record your sinful expenses and income.
+
+==== Adding Expense: `addExpense`
+Adds a new expenditure to your total spending. Some things to take note:
+
+* Inputs can be arranged in a different order.
+* Tag may be omitted from the command.
+* Category must already exist in the list of expense categories. (type `listCategories`)
+* Amount must be larger than 0 and less than 10 million.
+
+Format: `addExpense cat/<category> n/<description> amt/<amount> d/<date> [tg/<tag>]`
+
+* `<category name>`: The `category` that the expense falls under to.
+* `<description>`: The name of this expense.
+* `<amount>`: The amount spent for this expense. It can contain at most 2 decimal points.
+* `<date>`: The date of this expense.
+* `<tag>`: Optional tags for this expense. The tag must not have spaces and can only be alphanumeric.
+
+Example Usage:
+[start = 1]
+. If you would like to add a record of a recent splurging on mala, key in the command  `addExpense cat/Food n/Mala amt/5.50 d/2019 11 09 tg/food tg/indulgence` .
++
+image::addingExpense-1.png[]
+
+. You should see the new expense being added into in the list of entries as displayed below.
++
+image::addingExpense-2.png[]
+
+Other examples:
+
+* `addExpense cat/Gifts n/Rubber Duck for Yee Jian amt/55 d/2019 11 09 tg/sanity check`
+* `addExpense cat/Travel n/Travel To Alaska amt/550000 d/2019 09 09`
+
+==== Listing Expenses: `list`
+Lists the expenses (as well as incomes) in the main panel.
+
 Format: `list`
 
-=== Editing a person : `edit`
+==== Editing a Expense: `editExpense`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits a current entry with the given index number. You may edit one or more fields, but the category must already exist in the list of categories, whether it is Income Category or Expense Category.
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Format: `editExpense <index> [cat/<category>] [n/<description>] [d/<date>] [amt/<amount>] [tg/<tag>]`
+
+* `<index>`: The `index` of the entry in the entry panel. Additionally the index must be greater than zero and positive.
+* You can update any of the fields of the entry. But you must at least edit one field.
+
+Example Usage:
+
+[start = 1]
+. If you would like to edit a recent Expense's tag, whereby the expense is located at index 2 as shown below,
+key in the command  `editExpense 2 amt/999.99 tg/irreversiblecatastrophicdestructiontomykidneysandhealth`.
++
+image::editingExpense-1.png[]
+
+. You should see the new expense being edited in the list of entries as displayed below.
++
+image::editingExpense-2.png[]
+
+Other Examples:
+
+* `editExpense 1 cat/Food n/deck mala with friends`
+* `editExpense 3 cat/Business n/Selling Coding Services amt/0.01`
+* `editExpense 5 tg/helpmykidneys`
+
+==== Deleting a Expense: `deleteExpense`
+
+Deletes the recorded expenditure with the given index number.
+
+Format: `deleteExpense <index>`
+
+* `<index>`: The `index` of the entry in the entry panel. Additionally the index must be greater than zero and positive.
+
+Example Usage:
+
+[start = 1]
+. If you would like to delete an expense, whereby the expense is located at index 6 as shown below,
+key in the command  `deleteExpense 6`.
++
+image::deleteExpense-1.png[]
+
+. You should see the expense being deleted in the list of entries as displayed below.
++
+image::deleteExpense-2.png[]
+
+Other Examples:
+
+* `deleteExpense 2`
+* `deleteExpense 4`
+
+// tag::autoexpense[]
+=== AutoExpense
+
+==== Adding AutoExpense : `addAutoExp`
+
+Adds an automatically recurring expense every day/week/month (frequency) with the given description and amount.
+
+Format: `addAutoExp f/<frequency> n/<description> amt/<expenditure> cat/<category>
+ [tg/<tag1> tg/<tag2> d/<starting date>]`
+
+To list all categories, you can type `listCategories`.
+
+For frequency, we accept `month/day/year/week` and also `monthly/daily/weekly/fortnightly/yearly/anually`. Type away
+and be pleased by the flexibility!
+
+For dates, only dates within 2000 and 2100 are allowed. When you put a date before the current time,
+past records will be automatically generated. At your own risk! GuiltTrip can't trip you for too far back.
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `addAutoExp f/monthly n/spotify amt/11.99 cat/Entertainment`
+* `addAutoExp f/week n/whampoa beancurd amt/1.80 cat/Food tg/indulgence d/10/10`
+* `addAutoExp f/every day n/mixed rice @ finefood amt/3.80 cat/Food` yes we have that too!
 
-=== Locating persons by name: `find`
+View after the commands above is executed:
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+image::autoexpense_add.png[]
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+==== Editing AutoExpense : `editAutoExp`
 
-Examples:
+Edits an automatically recurring expense every day/week/month (frequency) with the given description and amount.
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+Format: `editAutoExp <index> [f/<frequency> n/<description> amt/<expenditure> cat/<category>
+ tg/<tag1> tg/<tag2> d/<starting date>]`
 
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Note that only future `Expenses` generated will have the new properties you set in the current
+AutoExpense object. Well, you can't rewrite history! If you made a mistake creating an `AutoExpense`
+entry, try out the `undo` command, and then recreate it again. Use the `history` command to copy-paste-edit!
 
 Examples:
 
-* `list` +
+* `editAutoExp 1 amt/5.99 n/spotify student`
+* `editAutoExp 3 amt/3.30 n/mixed rice @ foodclique`
+
+View after the commands above is executed:
+
+image::autoexpense_edit.png[]
+
+==== Deleting AutoExpense : `deleteAutoExp`
+
+Deletes a current automatically recurring expenditure at the given index.
+
+Format: `deleteAutoExp <index>`
+
+This command only deletes the AutoExpense and stops future generation of such Expenses.
+A `--recursive` flag will be shipped in `v2.0`.
+
+Examples:
+
+* `deleteAutoExp 1`
+if you stopped your Spotify subscription.
+
+View after the command above is executed:
+
+image::autoexpense_delete.png[]
+
+// end::autoexpense[]
+
+=== Income
+==== Adding Income : `addIncome`
+Adds a new Income to your total income. Some things to note:
+
+* Inputs can be arranged in a different order.
+* Tag may be omitted from the command.
+* Category must already exist in the list of income categories. (type `listCategories`)
+* Amount must be larger than 0 and less than 10 million.
+
+Format: `addIncome cat/<category name> n/<description> amt/<income> d/<date> [tg/<tag>]`
+
+* `<category name>`: The `category` that the entry belongs to.
+* `<description>`: The name of this entry.
+* `<amount>`: The amount spent for this income. It can contain at most 2 decimal points.
+* `<date>`: The date of this income.
+* `<tag>`: Optional tags for this income. The tag must not have spaces and must only be alphanumeric.
+
+Example Usage:
+[start = 1]
+. If you would like to add a recent Income, key in the command  `addIncome cat/Gifts n/monthly allowance amt/2000 d/2019 11 09 tg/fromsugardaddy` .
++
+image::AddIncomeBefore.png[]
+. You should see the new income being added into in the list of incomes as displayed below.
++
+image::AddIncomeAfter.png[]
+
+Other examples:
+
+* `add cat/Gifts n/Durian amt/200.00 d/2019 09 09 tg/food`
+* `add cat/Business n/business Trip To Mars amt/20000.00 d/2019 09 09`
+
+==== Listing Incomes: `list`
+
+Lists the incomes (as well as expenses) in the main panel.
+
+Format: `list`
+
+==== Editing Income: `editIncome`
+Edits an existing Income at the given index. Some things to note:
+
+* Inputs can be arranged in a different order.
+* If you are editing the category of an Income, it must already exist in the list of income categories. (type `listCategories`)
+* If you are editing the amount of an Income, it must be larger than 0 and less than 10 million.
+
+Format: `editIncome cat/<category name> n/<description> amt/<income> d/<date> [tg/<tag>]`
+
+* `<category name>`: The `category` that the income belongs to.
+* `<description>`: The name of this income.
+* `<amount>`: The amount spent for this income. It can contain at most 2 decimal points.
+* `<date>`: The date of this income.
+* `<tag>`: Tags for this income. The tag must not have spaces and must only be alphanumeric.
+
+Example Usage:
+[start = 1]
+. If you would like to edit an existing Income, key in the command  `editIncome 2 n/selling my soul` .
++
+image::EditIncomeBefore.png[]
+
+. You should see that the second Income's description has successfully changed from `side business` to `selling my soul`.
++
+image:EditIncomeAfter.png[]
+
+Other examples:
+
+* `editIncome 1 amt/200`
+* `editIncome 3 tg/wheresmypayraise`
+
+==== Deleting Income: `deleteIncome`
+Deletes an existing Income from the list at the given index.
+
+Format: `deleteIncome <index>`
+
+* `<index>`: The `index` of the Income in the Income list panel. It must be greater than zero and positive.
+
+Example Usage:
+[start = 1]
+. If you would like to delete the Income at index 2, key in the command `deleteIncome 2`.
++
+image::DeleteIncomeBefore.png[]
+. You would see that the Income is no longer in the list and the result display box shows the details of the Income that you have just deleted.
++
+image::DeleteIncomeAfter.png[]
+
+Other examples:
+
+* `add cat/Gifts n/Durian amt/200.00 d/2019 09 09 tg/food`
+* `add cat/Business n/business Trip To Mars amt/20000.00 d/2019 09 09`
+
+=== Budget
+==== Adding Budget : `addBudget`
+
+Adds a new budget for expenditure. Inputs can be arranged in a different order. Tag may be omitted from the budget record. Category must already exist in the list of categories. Amount must be larger than 0 and positive. Amount should also not be larger than 9999999.99.
+
+Format: `addBudget cat/<category name> n/<description> amt/<budget amount> d/<start date> p/<period> [tg/<tag>]` +
+
+Note: format for inputting period is <number><d/m/y> where d/m/y stands for days / months / years respectively
+e.g. for a period input of 10 days, use 10d
+
+<category name>: The category that this budget belongs to.
+
+<description>: The name of this budget.
+
+<budget amount>: The amount set for this budget. It can contain at most 2 decimal points.
+
+<start date>: The starting date of this budget.
+
+<period>: The time period for which the budget is valid for. It can be in the form of either days, months, or years. Refer to example given in format.
+
+<tag>: Optional tags for this expense. The tag must not have spaces and most only be alphanumeric.
+
+Example Usage:
+[start = 1]
+. If you would like to add a budget to keep track of the amount you spent on your nightlife, key in the command `addBudget cat/Entertainment n/Clubbing Fund amt/10 d/2019 12 01 tg/indulgence tg/fun`.
++
+image::addingBudget-1.png[]
+
+. You should see the new budget being added into in the list of budget as displayed below.
++
+image::addingBudget-2.png[]
+
+Other examples:
+
+* `addBudget cat/Entertainment n/Nov Budget amt/500.00 d/2019 11 01 p/1m tg/fun`
+* `addBudget cat/Food n/Mala Budget amt/100.00 d/2019 09 10 p/50d`
+
+==== Listing Budget : `listBudget`
+
+Lists all the current budgets the user has.
+
+Format: `listBudget`
+
+Example Usage:
+[start = 1]
+. If you would like to display the list of budgets in the main panel, key in the command `listBudget`.
++
+image::listingBudget-1.png[]
+
+. You should see that the income and expense lists in the main panel are now replaced with the list of budgets, and that the side budget panel has been toggled away.
++
+image::listingBudget-2.png[]
+
+. If you would like to return the panel display to its original state, key in the command `list`.
++
+image::listingBudget-3.png[]
+
+. You should see that the income, expense, and budget panels are now back to their original positions.
++
+image::listingBudget-4.png[]
+
+==== Editing Budget : `editBudget`
+
+Edits a current budget with the given index number. You may edit one or more fields, but the category must already exist in the list of categories in the Expense Category.
+
+Format: `editBudget <index> [cat/<category name>] [n/<description>] [d/<start date>] [amt/<budget amount>] [p/<period>] [tg/<tag>]`
+
+* `<index>`: The `index` of the budget in the budget panel. Additionally the index must be greater than zero and positive.
+* You can update any of the fields of the budget. But you must at least edit one field.
+
+Example Usage:
+
+[start = 1]
+. If you would like to edit a recent Budget's tags and budget amount, whereby the budget is located at index 3 as shown below,
+key in the command  `editBudget 3 amt/50 tg/noMoneyAlready tg/eatGrass`.
++
+image::editingBudget-1.png[]
+
+. You should see the new budget being edited in the list of budgets as displayed below.
++
+image::editingBudget-2.png[]
+
+Other Examples:
+
+* `editBudget 1 cat/Food n/fooooood budget`
+* `editBudget 2 n/lunch budget amt/150`
+* `editBudget 2 tg/fun`
+
+==== Deleting Budget : `deleteBudget`
+
+Deletes the budget at the given index number.
+
+Format: `deleteBudget <index>`
+
+* `<index>`: The `index` of the budget in the budget panel. Additionally the index must be greater than zero and positive.
+
+Example Usage:
+
+[start = 1]
+. If you would like to delete a budget, whereby the budget is located at index 1 as shown below,
+key in the command  `deleteBudget 1`.
++
+image::deletingBudget-1.png[]
+
+. You should see the budget being deleted in the list of budgets as displayed below.
++
+image::deletingBudget-2.png[]
+
+Other Examples:
+
+* `deleteBudget 2`
+* `deleteBudget 4`
+
+// tag::wishlist[]
+=== WishList
+
+==== Add Wish : `addWishlist`
+Adds a new item to your current wishlist
+
+Format: `addWish n/<Description> cat/<Category> amt/<Price> d/<Date>`
+
+Examples:
+
+* `add typ/Wish n/deck mala cat/food amt/5.60 d/2019 10 28`
+* `add typ/Wish n/deck mala cat/food amt/5.60 d/01/01/2020`
+
+==== List Wish : `listWish`
+Lists all the wishes on the main panel.
+
+Format: `listWish`
+
+==== Edit Wish : `editWish`
+edit the description, date, or tags of your wishes.
+
+Format: `editWishlist <index> [n/<Description>] [cat/<Category>] [amt/<Price>] [d/<Date>] [tag/<Tag>]`
+
+Examples:
+
+* `editWishlist 1 n/1 try the chinatown ri ri hong mala!`
+* `editWishlist 1 amt/20 tag/mala tag/expensive`
+
+==== Delete Wish : `deleteWish`
+Deletes the item at the stated index from your current wishlist
+
+Format: `deleteWish <index>`
+
+Examples:
+
+* `deleteWishlist 3`
+// end::wishlist[]
+
+=== Loan [coming in v2.0]
+==== Adding a Loan : `addLoan` [coming in v2.0]
+Adds a new loan with the given description, amount and interest (in percentage) and calculates the total outstanding amount based on the interest.
+
+Format: `addLoan  n/<description> amt/<loan amount> i/<interest>`
+
+Example:
+
+* `addLoan n/student loan amt/30000 i/4.5`
+
+==== Listing a loan : `listLoan` [coming in v2.0]
+Lists all the loans that the user has.
+
+Format: `listLoan`
+
+Example: `listLoan`
+
+==== Editing a loan : `editLoan` [coming in v2.0]
+Edits a current loan's description, loan amount, or both.
+
+Format: `editLoan <index> [n/<description>] [amt/<loan amount>] [i/<interest>]`
+
+Example:
+
+* `editLoan 1 n/nus tuition loan T.T`
+* `editLoan 1 amt/25000 i/4.45%`
+
+==== Deleting a loan : `deleteLoan` [coming in v2.0]
+
+Deletes a current loan at the given index.
+
+Format: `deleteLoan <index>`
+
+Example: `deleteLoan 1`
+
+==== Paying a loan : `payLoan` [coming in v2.0]
+
+Reduces the loan amount for the loan at the given index after user pays for part of the loan.
+
+Format: `payLoan <index> amt/<amountPaid>`
+
+Example: `payLoan 1 amt/4000`
+
+=== Statistics
+
+==== Switching to Statistics Table View : `viewTable`
+Switches to the statistics table view. By default, `viewTable` will show the current month statistics.
+Typing only the month in format *[yyyy-mm]* will show the breakdown of statistics by the specified month.
+Carrying out any other Adding, Editing, Or Deleting Expense or Income command in the Statistics Table
+screen will reset the Table to show the month of statistics that reflects the command carried out.
+
+Format: `viewTable [p/<RangeOfMonths>]`
+
+* `<RangeOfMonths>`: The dates that you would like to display the statistics by. If you are interested in a range of months, you have to make sure that the *startMonth* and *endMonth* is separated by a comma, `,`. If you're only interested in one month, specify the month in the format `yyyy/MM`
+
+Example Usage:
+
+[start = 1]
+. Let's say you want to view the Statistics in table form for period *2018/01* to *2019/12*. You then type in the command `viewTable p/2018-01,2019-12`.
++
+image::viewTable-1.png[]
+
+. GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
++
+
+image::viewTable-2.PNG[]
+
+Other Examples:
+
+* `viewTable p/2018-09`
+* `viewTable`
+
+==== Switching to Statistics Pie Chart View : `viewPie`
+Switches to the statistics table view. By default, `viewPie` will show the current month statistics.
+Typing only the month in format *[yyyy-mm]* will show the breakdown of statistics by the specified month.
+Carrying out any other Adding, Editing, Or Deleting Expense or Income command in the Statistics Table
+screen will reset the Table to show the month of statistics that reflects the command carried out.
+The statistics by percentage will be rounded to the nearest 1 decimal place so as not to clutter the UI.
+
+Format: `viewPie [p/<RangeOfMonths>]`
+
+* `<RangeOfMonths>`: The dates that you would like to display the statistics by. If you are interested in a range of months, you have to make sure that the *startMonth* and *endMonth* is separated by a comma, `,`.
+
+Example Usage:
+[start = 1]
+. Let's say you want to view the Statistics in pie chart form for period *2018/01* to *2019/12*. You then type in the command `viewPie p/2018-01,2019-12`.
++
+image::ViewPie-1.png[]
+
+. GuiltTrip will display to you the statistics for this period of time broken down in pie chart form as shown below.
++
+
+image::viewPie-2.PNG[]
+
+[NOTE]
+If the data category percentage is too small, it could be rounded off to 0.0% and
+there is a likelihood that it'll be hard to see the portion of that category in the pie chart.
+
+Other Examples:
+
+* `viewPie p/2018-09`
+* `viewPie`
+
+==== Switching to Statistics Bar Chart View : `viewBar`
+Switches to the statistics table view. By default, `viewBar` will show the current month statistics.
+Typing only the month in format *[yyyy-mm]* will show the breakdown of statistics by day by the specified month.
+Carrying out any other command in the Statistics Bar Chart screen will reset the Bar Chart to show the current month
+statistics for convenience of the user.
+
+[NOTE]
+As the bar chart is auto scaling to reflect the accuracy of the y-axis , if there is too large an expense for one day, it will be hard to see
+the amounts for other days.
+
+Format: `viewBar [p/<SpecifiedMonth>]`
+
+* `<SpecifiedMonth>`: The month and year in which you want to display the data by. It must be in the format `[yyyy mm]` with no dates and does not allow a range of months.
+
+Example Usage:
+
+[start = 1]
+. Let's say you want to view the Statistics in bar chart form for period *2019/10*. You then type in the command `viewBar p/2019-10`.
++
+image::viewBar-1.png[]
+
+. GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
++
+
+image::viewBar-2.PNG[]
+
+Other Examples:
+
+* `viewBar p/2018-09`
+* `viewBar`
+
+==== Switching to Entry View : `viewEntry`
+Switches back to the default view which contains the list of entries.
+
+Format: `viewEntry`
+
+Example Usage:
+
+* `viewEntry`
+
+=== Sorting : `sortExpense`, `sortIncome`, `sortBudget`, `sortWish`, `sortAutoExp`
+Sorts the aforementioned list currently displayed according to sort type which can be `amount`, `time`, `description`,
+`tags` and `category`, and sort sequence which can be in `ascending`, `descending` order.
+
+[NOTE]
+Sorting of Budget by Amount refers to the original Budget Total Amount.
+
+Format: `sortExpense typ/<sort type> s/<sort sequence>`
+
+* `<sort type>`: The type to sort the entries by. The default order or sorting is by `time`, followed by `amount`, `description`, `category` and finally `tags`.
+* `<sort sequence>`: The type of sequence to sort the entries by.
+
+Example Usage:
+
+[start = 1]
+. Let's say you want to view the entries sorted by Category in ascending order. You then type `sortExpense typ/Category s/ascending`
++
+image::Sort-1.png[]
+
+. GuiltTrip will display to you the entries sorted by Category in the proper order as shown below.
++
+image::sort-2.png[]
+
+Other Examples:
+
+* `sortExpense typ/amount s/ascending`
+* `sortExpense typ/category s/descending`
+* `sortIncome typ/category s/ascending`
+
+=== Find : `findExpense`, `findIncome`, `findWish`, `findBudget`, `findAutoExp`
+
+Find income/expenditure by Category, Description, Amount, Date or Tags. There must be at least one find parameter.
+
+[NOTE]
+Finding by `Amount` will show the entries that are above a certain amount. Budget's Amount refers to the total amount allocated for the Budget.
+
+[NOTE]
+Finding by `Description` will show all entries which have some parts of the description keyword in them. For example,
+finding `mala food` will show entries with either mala or food or both in their Description.
+
+[NOTE]
+Finding by `Tag` will show all entries with all the tags in them. For example, finding by `tg/eat tg/entertainment` will show entries with only
+both tags. The reason for this is that tags should be more specific that entry Description.
+
+Format: `findExpense [cat/<category>] [n/<description>] [amt/<amount>] [d/<date>] [tg/<tag>]`
+
+[start = 1]
+. Let's say you want to find all the expenses with Category name food. You then type `findExpense cat/Food`
++
+image::find-1.png[]
+
+. GuiltTrip will display to you the expenses with the Category Name as shown below.
++
+image::find-2.png[]
+
+Other Examples:
+
+* `findExpense cat/food n/mala`: lists each entry in expenditure and income with title containing keyword “mala” and category of Food.
+* `findIncome cat/business d/2019-09-09`: lists each entry in expenditure and income with date of "2019-09-09" and category of business.
+* `findWish d/2019-09-09 tg/a tg/b`: lists each entry in expenditure and income with date of "2019-09-09" and tags of a and b.
+
+// tag::reminders[]
+=== Reminders
+==== Add Reminder: `addReminder`
+
+Adds new GeneralReminder.
+Format: `addReminder n/<Message> [typ/<EntryType>] [l.b/<LowerBound>] [u.b/<UpperBound>] [start/<Start Date>] [end/<End Date>] [tg/<tags>]`
+
+Examples:
+
+* `addReminder n/Don't be broke. l.b/10 u.b/20 start/2019/01/01 end/2019/12/30'
+
+==== Set Reminder: `setReminder`
+
+Sets new EntryReminder for selected Entry specified by the type and index in the corresponding list.
+Format: `setReminder <Reminder Index> n/<Message> p/<Period> f/<frequency>
+
+Examples:
+
+* ` setReminder 1 typ/expense n/Mala p/1d f/daily '
+
+
+==== List all active Reminders (reminders currently set to display) : `listReminders`
+
+image::listReminderspage.png[]
+
+Shows reminder panel.
+
+Format: `listReminders`
+
+
+==== Select Reminders : `selectReminder`
+
+image::selectReminder.png[]
+
+select reminder to edit.
+
+Format: `selectReminder <Reminder Index>`
+
+Example:
+
+* `selectReminder 1`
+
+
+==== Edit Reminder : `editReminder`
+Edits conditions of a GeneralReminder or period/ frequency of an EntryReminder selected.
+
+User must first select a reminder to modify before he can edit said reminder.
+
+Note that the entry type of the General reminder is not edited as the developers feel
+the user is more likely to create a new reminder instead of completely modifying the nature of the reminder.
+
+Format: `editReminder [n/<Message>] [l.b/<LowerBound>] [u.b/<UpperBound>] [start/<Start Date>] [end/<End Date>] [tg/<tags>]`
+        `editReminder [n/<Message>] [p/<period>] [f/<frequency>]`
+
+Example:
+
+* `editReminder n/Don't be broke.`
+* `editReminder l.b/5 u.b/10 `
+* `editReminder f/monthly`
+
+==== Remove Condition from Reminder : 'removeCondition`
+Removes condition from GeneralReminder.
+
+User must first select a reminder to modify before he can edit said reminder.
+Note that the entry type of the General reminder cannot be removed.
+
+Format: `removeCondition <Reminder Index>`
+
+Example:
+
+* `removeCondition 1`
+
+==== Delete Reminder : `deleteReminder`
+Deletes the selected Reminder.
+
+Format: `deleteReminder`
+// end::reminders[]
+=== Undo/Redo
+==== Undo previous command : `undo`
+Restores the finance tracker to the state before the previous undoable command was executed or
+before the specified number of undoable commands were executed.
+
+Format: `undo` `undo <step>`
+
+* `<step>`: The number of commands to undo. Additionally the step must be greater than zero and positive.
+* `undo <step>` is only executed if the number of undoable commands is more than or equal to `<step>`.
+* [NOTE] `undo 1` has the same function as `undo`.
+
+Example Usage:
+[start = 1]
+. If you would like to delete a budget, whereby the budget is located at index 1 as shown below,
+key in the command  `deleteBudget 1`.
++
+image::undo-1.png[]
+
+. You should see the budget being deleted in the list of budgets as displayed below.
++
+image::undo-2.png[]
+
+. If you would like to undo your deletion, key in the command `undo`.
++
+image::undo-3.png[]
+
+. You should see the previously deleted budget back in the list of budgets as displayed below.
++
+image::undo-4.png[]
+
+Other examples:
+
+* `delete 1` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+`undo 2` (reverses the `delete 2` and `delete 1` commands)
 
-// end::delete[]
-=== Clearing all entries : `clear`
+==== Redo previously undone command : `redo`
+Reverses the most recent undone command or the specified number of most recent undone commands.
 
-Clears all entries from the address book. +
-Format: `clear`
+Format: `redo` `redo <step>`
 
-=== Exiting the program : `exit`
+* `<step>`: The number of undone commands to redo. Additionally the step must be greater than zero and positive.
+* `redo <step>` is only executed if the number of redoable commands is more than or equal to `<step>`.
+* [NOTE] `redo 1` has the same function as `redo`.
 
-Exits the program. +
-Format: `exit`
+Example Usage:
+[start = 1]
+. If you would like to delete a budget, whereby the budget is located at index 1 as shown below,
+key in the command  `deleteBudget 1`.
++
+image::undo-1.png[]
 
-=== Saving the data
+. You should see the budget being deleted in the list of budgets as displayed below.
++
+image::undo-2.png[]
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+. If you would like to undo your deletion, key in the command `undo`.
++
+image::undo-3.png[]
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+. You should see the previously deleted budget back in the list of budgets as displayed below.
++
+image::undo-4.png[]
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+. If you would like to redo your undone command, key in the command `redo'.
++
+image::redo-1.png[]
+
+. You should see that the deleted budget that you previously have undone is now deleted again.
++
+image::redo-2.png[]
+
+Other examples:
+
+* `delete 1` +
+`delete 2` +
+`undo` (reverses the `delete 2` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reverses the latest `undo` command) +
+`redo` (reverse the latest `undo` command)
+
+* `delete 1` +
+`delete 2` +
+`undo` (reverses the `delete 2` command) +
+`undo` (reverses the `delete 1` command) +
+`redo 2` (reverses the 2 latest `undo` commands)
+
+==== View the history of commands entered : `history`
+Displays the list of commands entered, from most recent to earliest.
+
+Format: `history`
+
+* [NOTE] `history` can only be executed if there were commands already entered before trying to use `history`.
+
+Example Usage:
+[start = 1]
+. If you would like to display the list of commands entered, key in the command `history`.
++
+image::history-1.png[]
+
+. You should see that the income and expense lists in the main panel are now replaced with the history panel.
++
+image::history-2.png[]
+
+. If you would like to return the panel display to its original state, key in the command `list`.
++
+image::history-3.png[]
+
+. You should see that the income and expense panels are now back to their original positions.
++
+image::history-4.png[]
+
+// tag::uifeature[]
+
+=== UI features
+
+==== Toggle Panel : `toggle`
+Toggles visibility of the specified panel on the GUI. Only the following inputs are accepted:
+
+* for wishlist panel: `wishlist`/`wishes`/`wish`/`w`
+* for budget panel: `budgets`/`budget`/`b`
+* for reminders panel: `reminders`/`reminder`/`r`
+* for auto expenses panel: `autoexpenses`/`autoexpense`/`autoexp`/`ae`
+
+Format: `toggle <panel name>`
+
+Examples:
+
+* `toggle wishlist`
+* `toggle ae``
+
+Example usage:
+
+Step 1. If user does not want to view the wishlist panel all the time, he could choose to execute the `toggle wishlist` command as shown below.
+
+.. He could refer to the panel names in the result display box above when typing in the input panel name.
+
+image::ToggleBefore.png[]
+
+Step 2. After the command is executed, the `wishlist` panel is toggled off and no longer in the side panel.
+
+image::ToggleAfter.png[]
+
+==== Change Font : `changeFont`
+Changes the font used in application to the specified font. The input is case-sensitive. Only the following font names are accepted:
+"arial", "calibri", "cambria", "candara", "garamond", "georgia", "rockwell", "segoe UI", "serif", "verdana". The available fonts to change to will be shown in the result display box for the user to refer to easily. The change in font will be saved.
+
+Format: `changeFont <font name>`
+
+Examples:
+
+* `changeFont rockwell`
+* `changeFont segoe UI`
+
+Example usage:
+
+. User changes the font by executing the `changeFont rockwell` command as shown below.
+
+.. He is also able to refer to the available font names in the result display box above.
+
++
+image::ChangeFontBefore.png[]
+
+. The font is successfully changed to `ROCKWELL` as seen in the result display box and the application.
++
+image:ChangeFontAfter.png[]
+
+==== Change to dark theme : `setDarkTheme`
+Changes the theme from light to dark. The change in theme will be saved.
+
+Format: `setDarkTheme`
+
+Example usage:
+
+. User executes the command `setDarkTheme` as shown below:
++
+image::SetDarkThemeBefore.png[]
+
+. After command is executed, the theme is changed to the dark theme and the result display box notifies user that the command is executed successfully.
++
+image::SetDarkThemeAfter.png[]
+
+==== Change to light theme : `setLightTheme`
+Changes the theme from dark to light. The change in theme will be saved.
+
+Format: `setLightTheme`
+
+. User executes the command `setLightTheme` as shown below:
++
+image::SetLightThemeBefore.png[]
+
+. After command is executed, the theme is changed to the light theme and the result display box notifies user that the command is executed successfully.
++
+image::SetLightThemeAfter.png[]
+
+// end::uifeature[]
 
 == FAQ
+
+*Q*: When will the record of my expenditure be until? +
+*A*: It can be as long as you want it to be until! If you want to delete a certain month’s expenditure, you can just call a command to
+do so.
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+. Expenses, Income, Budget, Category:
+.. `addExpense / addExp cat/<category> n/<description> amt/<expenditure> d/<date> [tg/<tag>]`
+.. `editExpense <index> [cat/<category>] [n/<description>] [d/<date>] [amt/<expenditure>] [tg/<tag>]`
+.. `deleteExpense <index>`
+.. `addIncome cat/<category> n/<description> amt/<amount> d/<date> [tg/<tag>]`
+.. `editIncome <index> [cat/<category>] [n/<description>] [d/<date>] [amt/<expenditure>] [tg/<tag>]`
+.. `deleteIncome <index>`
+.. `list`
+.. `addAutoExp f/<frequency> n/<description> amt/<expenditure> cat/<category> [tg<tag1> tg/<tag2> d/<starting date>]`
+.. `editAutoExp <index> [f/<frequency> n/<description> amt/<expenditure> cat/<category> tg/<tag1> tg/<tag2> d/<starting date>]`
+.. `deleteAutoExp <index>`
+.. `addBudget cat/<category> n/<description> amt/<budget amount> d/<start date> p/<period> [tg/<tag>]``
+.. `listBudget`
+.. `editBudget <index> [n/<description>] [amt/<budget>] [tg/<tag>]`
+.. `deleteBudget <index>`
+.. `addCategory cat/<category> n/<category name>`
+.. `editCategory typ/<category type> cat/<old category name> n/<new category name>`
+.. `listCategories`
+.. `deleteCategory cat/<category type> n/<category name>`
+
+. Statistics:
+.. `viewTable [p/<RangeOfMonths>]`
+.. `viewPie [p/<RangeOfMonths>]`
+.. `viewBar [p/<SpecifiedMonth>]`
+.. `viewEntry`
+.. `sortExpense typ/<sort type> s/<sort sequence>`
+.. `sortIncome typ/<sort type> s/<sort sequence>`
+.. `sortBudget typ/<sort type> s/<sort sequence>`
+.. `sortWish typ/<sort type> s/<sort sequence>`
+.. `findExpense [cat/<category>] [n/<description>] [amt/<amount>] [d/<date>] [t/<tag>]`
+.. `findIncome [cat/<category>] [n/<description>] amt/<amount>] [d/<date>] [tg/<tag>]`
+.. `findBudget [cat/<category>] [n/<description>] [d/<date>] [tg/<tag>]`
+.. `findWish [cat/<category>] [n/<description>] [amt/<amount>] [d/<date>] [tg/<tag>]`
+
+. Reminders:
+.. `addReminder n/<Message> i/<Condition Index> [tkr/<Tracker Type>] [a/<Quota>]`
+.. `listActiveReminders`
+.. `listAllReminders`
+.. `editReminder <Reminder Index> [n/<Message>] [i/<Condition Index>] [tkr/<Tracker Type>] [a/<Quota>]`
+.. `deleteReminder <index>`
+.. `addToReminder <Reminder Index>, <Condition Index>`
+.. `removeFromReminder <Reminder Index>, <Condition Index>`
+.. `addClassCondition <entryType>`
+.. `addDateCondition <Start Date>, <End Date>`
+.. `addHasKeyWord <keywords>`
+.. `addQuotaCondition <Quota>`
+.. `addHasTagsConditions <Tags>`
+.. `deleteCondition <Index>`
+.. `replaceCondtion <Index of Condition being Replaced>, <Index of Replacing Condition>`
+.. `listConditions`
+
+. Wishlist:
+.. `addWish n/<Description> cat/<Category> amt/<Price> d/<Date>`
+.. `deleteWish <index>`
+.. `editWishlist <index> [n/<Description>] [cat/<Category>] [amt/<Price>] [d/<Date>] [tg/<Tag>]`
+.. `sortWishlistTime <ascending/ descending>`
+.. `sortWishlistPrice <ascending/ descending>`
+.. `sortWishlistName <ascending/descending>`
+.. `sortWishlistPriority <ascending/descending>`
+.. `findWish [cat/<category>] [n/<description>] [amt/<amount>] [d/<date>] [tg/<tag>]`
+.. `purchase <index>`
+
+. Undo and Redo:
+.. `undo`
+.. `undo <step>`
+.. `redo`
+.. `redo <step>`
+.. `history`
+
+. UI features:
+.. `toggle <panel name>`
+.. `changeFont <font name>`
+.. `setLightTheme`
+.. `setDarkTheme`

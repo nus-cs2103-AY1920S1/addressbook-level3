@@ -1,0 +1,27 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Class ModelManager
+Class VersionedAddressBook
+
+Package Reminders <<Rectangle>>{
+Class Reminder
+Class ReminderList
+Class Condition<<abstract>>
+Class ConditionList
+}
+}
+
+Class HiddenOutside #FFFFFF
+ModelManager ..left.|> HiddenOutside
+ModelManager o-right-> "1" VersionedAddressBook
+VersionedAddressBook *--> "1" ConditionList: filtered list
+ConditionList o--> "*"Condition
+VersionedAddressBook *--> "1" ReminderList: filtered list
+ReminderList o--> "*"Reminder
+Reminder -->"*" Condition
+@enduml

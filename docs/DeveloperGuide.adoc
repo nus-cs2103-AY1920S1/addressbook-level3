@@ -1,4 +1,5 @@
-= AddressBook Level 3 - Developer Guide
+
+= guiltTrip() - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -7,14 +8,14 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
-:warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T16-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T16-04`      Since: `Aug 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -30,11 +31,8 @@ image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/guilttrip/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/guilttrip/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -50,6 +48,7 @@ The rest of the App consists of four components.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Storage,*`Statistics`*>>: Holds the statistics calculations of App.
 
 Each of the four components
 
@@ -71,34 +70,43 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+// tag::uicomponent[]
+
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+.Structure of UI component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* :
+link:{repoURL}/src/main/java/seedu/guilttrip/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+* The UI consists of a `MainWindow` that is made up of parts e.g. `CommandBox`, `ResultDisplay`, `ExpenseListPanel`,
+`StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+* The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
+are in the `src/main/resources/view` folder. For example, the layout of the
+link:{repoURL}/src/main/java/seedu/guilttrip/ui/MainWindow.java[`MainWindow`] is specified in
+link:{repoURL}src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+The `UI` component
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+* Listens for changes to `Model` data so that the `UI` can be updated with the modified data.
+
+// end::uicomponent[]
 
 [[Design-Logic]]
 === Logic component
 
-[[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/guilttrip/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `guiltTripParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -107,9 +115,8 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+image::DeleteSequenceDiagram.png[]
 
 [[Design-Model]]
 === Model component
@@ -117,19 +124,14 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/guilttrip/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model`
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Guilt Trip data.
+* exposes an unmodifiable `ObservableList<Entry>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -137,59 +139,547 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/guilttrip/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage`
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
-
-[[Design-Commons]]
-=== Common classes
-
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+* can save the GuiltTrip data in json format and read it back.
+* This includes instances of Entry subclasses (Expense, Income, Wish, AutoExpenses, Budget, etc.)
 
 == Implementation
+This section describes some details on how certain features are implemented.
 
-This section describes some noteworthy details on how certain features are implemented.
+// tag::Categories[]
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Data Presentation: Categories
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+.Class Diagram for Categories
+
+image::CategoryListClassDiagram.png[]
+
+For all entries in guiltTrip, the entries should always belong to one category.
+Creation of categories are also helpful for breakdown of statistics to be complete.
+The implementation of `Category` and `CategoryList` are largely similar to `UniqueEntryList` in
+the original AddressBook. However, the slight difference lies in that `Category` is a field of
+`Entry` instead of being a child of `Entry` itself. A `Category` can only belong under Expense or Income, which
+is defined by the Enum `CategoryType.EXPENSE` or `CategoryType.INCOME`.
+When the user launches the application for the first time or if there are errors with `data/guiltTrip.json`,
+the application will load the default set of `Category` by `SampleDataUtil#getSampleCategories()`.
+
+There are 3 main checks to be carried out when interacting with `Category`.
+
+* When adding a Category, there is a need to check that the new Category added does not
+exist in the existing guiltTrip, hence the need for `CategoryList#contains(Category)`.
+* When editing a `Category`, there is a need to check that the new Category added does not
+exist in the existing guiltTrip, hence the need for `CategoryList#contains(Category)` as well as a need to check
+if there are existing entries of the original `Category` to carry out modifications on them.
+* When deleting a `Category`, there is a need to check if there are any entries that have the `Category` as a field.
+
+// tag::EditingCategories[]
+Given below is an example of an activity diagram for editing a category to illustrate the point above.
+
+.Activity Diagram for Editing Category
+image::EditingCategory.png[width=80%]
+// end::EditingCategories[]
+As the rest of the implementation is similar to AB3's CRUD, it won't be covered.
+
+==== Design Considerations
+*Aspect: Deciding whether to allow addition of Categories*
+
+* *Alternative 1*: Having a fixed set of Categories in the `CategoryList`, users are unable to add delete or edit the existing set of Categories.
+    ** Pros: Easy to implement.
+    ** Cons: Results in less flexibility for the user.
+* *Alternative 2*: Users are allowed to have any category names for their entries. There is no `CategoryList` to carry out validation checks on.
+    ** Pros: Intuitive and convenient for the user.
+    ** Cons: Calculation of Statistics would be messy if the user adds many different categories for their entries on a whim, the breakdown of statistics by category could be huge.
+* *Alternative 3(Current)*: There is a fixed set of categories, with users able to add delete or edit the existing set of Categories, but a command must be consciously called by the user to modify the categories in the `CategoryList`.
+    ** Pros: Allows the flexibility for addition of additional categories as well as solving the many different categories problem if alternative 2 was taken as users have to make the conscious effort to create a new category.
+    ** Cons: Slightly more complicated to implement.
+// end::Categories[]
+
+// tag::Sort[]
+=== Data Presentation: Sort Command
+
+==== Implementation
+
+The sort command extends the `Command` class. It works on the `ObservableList` by wrapping the `ObservableList` on a
+`SortedList` and adding a `EntryComparator` to the List.
+By default, the `Entry` in GuiltTrip are sorted by `Date`, followed by `Amount`,
+`Description`, `Category`, and finally `Tags`.
+In addition, after every CRUD command, the list is sorted by default for the user's convenience.
+
+A Sort Command contains:
+
+* `SortType` : `Date`, `Amount`, `Description`, `Category`, and `Tags`.
+* `SortSequence`: Ascending, Descending
+
+An Example of Sorting the Expense List is shown below
+
+.  The user executes the command `sortExpense typ/Amount s/ascending`
+.  `Logic` uses the `guiltTripParser` class to parse the user command
+.  This results in a `SortExpenseCommand` object which is executed by the `LogicManager`
+.  The `SortExpenseCommand` calls the `Model#sortFilteredExpenseList` to sort the list of expenses
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
+.  `Logic` returns the `CommandResult` object
+
+[NOTE]
+The `Model#sortFilteredExpenseList` creates an `EntryComparator` which takes in `SortType` and `SortSequence` to sort the list.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("sortExpense typ/Amount s/ascending")` API call.
+
+.Interactions Inside the Logic Component for the `sortExpense typ/Amount s/ascending` Command
+image::SortSequence.png[]
+// end::Sort[]
+
+// tag::Find[]
+=== Data Presentation: Find Command
+Finding is similar to the implementation of AB3, hence it will not be covered in detail.
+However, the find command is expanded to include finding by multiple predicates at once.
+For Example, the user can find by both `Amount` and `Description`. These are the relevant predicates:
+
+* `EntryContainsAmountPredicate`: Will filter the list to include those with equal or higher amounts than the amount specified.
+* `EntryContainsCategoryPredicate`: Will filter the list to include the category specified.
+* `EntryContainsDatePredicate`: Will filter the list to include the Date specified. Currently only supports searching within the month.
+* `EntryContainsTagsPredicate`: Will filter the list to include those with all the specified tags.
+* `EntryContainsDescriptionPredicate`: Will filter the list to include only those with descriptions that contain the keywords.
+// end::Find[]
+
+// tag::Statistics[]
+=== Data Presentation: Statistics
+
+.Class Diagram for Statistics Component.
+
+image::StatisticsClassDiagram.png[width=50%]
+
+The Statistics class diagram is shown above. Many of the operations are handled by StatisticsManager.
+The two main operations for calculation of Statistics are:
+
+* `StatisticsManager#updateListOfStats(rangeOfDates)`: Calculates the statistics for categories according to the range of dates specified.
+Calls on `MonthList#updateListOfStats(Category)` to calculate the list of Stats across Categories in that `MonthList`, thus updating the list of `Category Statistics`.
+* `StatisticsManager#updateBarChart(monthToCalculate)`: Calculates the daily statistics according to the month specified.
+Calls on `MonthList#CalculateStatisticsForBarChart()` which will call on `DailyList#CalculateStatisticsForBarChart()` to update the
+list of `DailyStatistics`.
+
+==== Implementation: (Statistics) - ViewPieChart/ViewTable Command
+
+The ViewPie and ViewTable commands are a unique case as they both depend on `CategoryStatistics`. StatisticsManager has two `ObservableList` of `CategoryStatistics`, one for `Expense`, *listOfStatsForExpense*
+and one for `Income`, *listOfStatsForIncome*.
+The `StatisticsPieChart` and `StatisticsTable` in guiltTrip listens to these two `ObservableList`, and will update accordingly. Hence all operations
+which involve calculation of category statistics needs to update this `ObservableList` by replacing its entries so as to
+update the relevant Pie Chart and Table in the Ui.
+
+.Activity Diagram when user wants to view the statistics in Pie Chart form.
+image::ViewPieActivityDiagram.png[]
+
+The overview of this process can be found in the Activity Diagram above.
+
+The details of the process is as below:
+
+. The user executes the command `viewPie p/2019-09,2019-11`
+.  `LogicManager` uses the `guiltTripParser` class to parse the user command.
+.  This results in a `viewPieChartCommand` object which is executed by the `LogicManager`.
+.  The `viewPieChartCommand` calls the `Model#updateListOfStats(RangeOfDates)` 's method which then calls `StatisticsManager#updateListOfStats(RangeOfDates)` method to calculate the statistics for that type.
+.  `StatisticsManager#updateListOfStats(RangeOfDates)` detects that the size of the list is 2 and calls `#getListOfMonths(RangeOfDates)` to retrieve the list of `MonthList` *MonthListToCalculate* from start Date to End Date from `yearlyRecord`, the `ObservableMap` inside `StatisticsManager`.
+.  `StatisticsManager#updateListOfStats(RangeOfDates)` then calls `StatisticsManager#countStats(MonthListToCalculate, listOfStatistics)`, which will calculate the list of statistics for
+expense and income categories and create many new `CategoryStatistics` objects to save the data of the calculated Statistics for each Category.
+.  `StatisticsManager#countStats(MonthListToCalculate, listOfStatistics)` will replace the all the `CategoryStatistics` objects in the `ObservableList` of `CategoryStatistics` with the newly calculated `CategoryStatistics` objects.
+.  As the `ObservableList` is updated, the PieChart and Table which uses this `ObservableList` is also updated, leading to them being updated.
+.  Finally, `StatisticsManager#countStats(MonthListToCalculate, listOfStatistics)` will set the new TotalExpense and TotalIncome values to the new values calculated, which will also update the `Ui` for Stats which displays the total expense and total income.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
+.  `Logic` returns the `CommandResult` object.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("viewPie p/2019-09,2019-11")` API call.
+
+.Interactions Inside the Logic Component for the `viewPie p/2019-09,2019-11` Command
+image::ViewPieChartSequenceDiagram.png[]
+
+==== Implementation: (Statistics) - ViewBarChartCommand
+Similar to `ViewPie` and `ViewTable`, the `StatisticsBarChart` class listens to the `ObservableList` of `DailyStatistics` and will update
+according to changes in it. Hence all operations which involve calculation of daily statistics needs to update this `ObservableList` by replacing its entries so as to
+update the relevant Bar Chart in `Ui`.
+
+The details of the process is as below:
+
+. The user executes the command `viewBar p/2019-09`
+.  `LogicManager` uses the `guiltTripParser` class to parse the user command.
+.  This results in a `ViewBarChartCommand` object which is executed by the `LogicManager`
+.  The `ViewBarChartCommand` calls the `Model#updateBarChart(MonthToShow)` 's method which then calls `StatisticsManager#updateBarChart(monthToShow)` method to calculate the statistics for that period.
+.  `StatisticsManager#updateBarChart(MonthToShow)` retrieves the relavant MonthList from `ObservableMap`, yearlyRecord and calls `MonthList#calculateStatisticsForBarChart`.
+.  The called `MonthList` will then loop through all the DailyList in it and calls `DailyList#calculateStatisticsForBarChart`, retrieving the result and
+returning it to `StatisticsManager`.
+.  `StatisticsManager#updateBarChart(MonthToShow)` will replace the all the `DailyStatistics` objects in the `ObservableList` of `DailyStatistics` with the newly calculated `DailyStatistics` objects.
+.  As the `ObservableList` is updated, the BarChart which uses this `ObservableList` is also updated, leading to them being updated.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
+.  `Logic` returns the `CommandResult` object.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("viewBar p/2019-09")` API call.
+
+.Interactions Inside the Logic Component for the `viewBar p/2019-09` Command
+image::ViewBarChartSequenceDiagram.png[]
+
+==== Design Considerations: Statistics
+*Aspect: Calculation of Income and Expenses*
+
+* *Alternative 1*: Set a predicate on the filteredlist of income and filteredlist of expense to filter out the number of income and expenses which are within the time period of the statistics query.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of runtime, as if multiple queries are carried out in a row which are the same, recalculation needs to be done every single time.
+* *Alternative 2(current choice)*: Have MonthList and DailyList classes which store the specific filteredlist of expenses for that month. This is a new filteredlist which observes the changes in the original list of expenses and is updated if a new expense is added which corresponds to the month.
+** Pros: Will be faster as initiating the expenses in the MonthList is only done at the start of the application. Any queries after that just refers to the already constructed MonthList. It is also structured as calculations of expenses now involve going to the related MonthList to carry out the calculations.
+** Cons: More complicated to implement.
+[NOTE]
+There isn’t a need to use YearList as most users will usually want to see their statistics breakdown over a period of a month rather than over a period of years.
+
+*Aspect: Updating of charts whenever add delete edit commands is called*
+
+* *Alternative 1*: Disallow non-stats commands in the stats window.
+** Pros: Easy to implement.
+** Cons: May not be intuitive for the user and creates hassle.
+* *Alternative 2(current choice)*: Adds a Listener to the list of filtered expenses. The listener will update the relevant charts whenever it detects that there is a change in the expenses or incomes.
+** Pros: Intuitive for the user.
+** Cons: Takes a toll on the time complexity if large bulks of data was added through AutoExpense.
+
+==== Proposed Extension
+* Currently Statistics Breakdown doesn't show details like trends across months. A future implementation could involve
+showing the user what category of spending increases across the months. For example, it could reflect that spending for
+category Entertainment increased the most in the past months.
+* Bar Chart can be further improved to show analysis of breakdown of category by day and observe trends for the user.
+For example, it could notice that the user has been spending a lot every Tuesday and alert the user about it.
+// end::Statistics[]
+
+// tag::uifeature[]
+=== Toggle Panel Command
+
+==== Implementation
+
+.Partial class diagram showing only the classes in `UI` involved in the Toggle Panel Command.
+image::PartialUiClassDiagramForToggle.png[]
+
+The `toggle` command extends from the `Command` class. `MainWindow` checks using the `CommandResult` obtained from `Logic`
+if the user wants to toggle a specified panel. If so, it toggles the `isVisible` and `isManaged` properties of the place
+holder for that panel.
+
+The following sequence diagram shows how an example usage scenario `toggle wishlist` would work:
+
+.Interactions inside the Logic and UI components for the `toggle wishlist` command
+image::ToggleSequenceDiagram.png[]
+
+The sequence diagram is as explained below:
+
+. The user launches the application and executes the `toggle wishlist` command to toggle the `wishlist` panel.
+. `commandResult` is obtained in `MainWindow` after the command is parsed and executed.
+. `MainWindow` checks if the `togglePanel` attribute in `commandResult` is true.
+. Since it is true, it retrieves the `PanelName` `WISH` from `commandResult` and calls on its own method `handleTogglePanel`.
+. This method then calls on another method `togglePanel()` that toggles the panel and takes in the `PanelName` `WISH` as a parameter.
+.. (Not shown in sequence diagram to reduce its complexity) It also checks if the wishlist is already shown in the main panel.
+.. If it is, then a `CommandException` is thrown to prevent the user from toggling the wishlist side panel when the wishlist is already shown in the main panel.
+
+The following activity diagram summarizes what happens when a user executes a `toggle` command:
+
+.Activity diagram showing what happens when user executes a `toggle` command
+image::ToggleActivityDiagram.png[width="400"]
+
+==== Design Considerations
+
+* *Alternative 1 (current method):* Toggle the panels from within `MainWindow`.
+
+** Pros: Easy to implement.
+
+** Cons: Might not be as OOP as other designs.
+
+* *Alternative 2:* `MainWindow` has a `PanelManager` class that manages all the side panels (toggling them on and off).
+
+** Pros: More OOP, reduces number of methods and lines of code in `MainWindow`.
+
+** Cons: May introduce cyclic dependency between `PanelManager` and `MainWindow`.
+
+=== Change Font Command
+
+==== Implementation
+
+The `changeFont` command extends from the `Command` class. `MainWindow` checks using the
+`CommandResult` obtained from `Logic` if the user wants to change the application font.
+If so, it immediately changes the font without requiring the user to exit and launch the application again.
+
+[NOTE]
+This change in font is also saved in `UserPrefs`.
+
+The following sequence diagram shows how an example usage scenario `changeFont rockwell` would work:
+
+.Interactions inside Logic and UI components for the `changeFont rockwell` command
+image::ChangeFontSequenceDiagram.png[]
+
+The sequence diagram is as explained below:
+
+. The user launches the application and executes the `changeFont rockwell` command to change the current application font to _rockwell_.
+. `commandResult` is obtained in `MainWindow` after the command is parsed and executed.
+. `MainWindow` checks if the `changeFont` attribute in `commandResult` is true.
+. Since it is true, it retrieves the `FontName` `ROCKWELL` from `commandResult` and calls on its own method `handleChangeFont`.
+. This method then converts the `FontName` `ROCKWELL` to a `String "rockwell"` and sets the `font-family` attribute of `window`, that contains all the child nodes, to `rockwell`.
+
+The following activity diagram summarizes what happens when a user executes a `changeFont` command:
+
+.Activity diagram showing what happens when user executes a `changeFont` command
+image::ChangeFontActivityDiagram.png[]
+
+==== Design Considerations
+
+* *Alternative 1 (current choice):* Change the application font from within `MainWindow`.
+
+** Pros: Easy to implement.
+
+** Cons: May not be as OOP as other methods.
+
+* *Alternative 2:* Use a separate class to control the theme, such as `ThemeManager`.
+
+** Pros: More OOP, reduces amount of code in `MainWindow`.
+
+** Cons: As the implementation is not very complicated, introducing a new class just to change the theme may not be worth the increase in dependency (introduces dependency between `Theme` and `ThemeManager` and between `ThemeManager` and `MainWindow`).
+
+=== Set Light/Dark Theme Command
+
+==== Implementation
+
+The `setLightTheme`/`setDarkTheme` command extends from the `Command` class. `MainWindow` checks using the `CommandResult` obtained from `Logic` if the user wants to change the theme of the application.
+If so, it immediately changes the theme without requiring the user to exit and launch the application again.
+
+[NOTE]
+This change in the application theme is also saved in `UserPrefs`.
+
+The following sequence diagram shows how an example usage scenario `setLightTheme` would work:
+
+.Interactions inside Logic and UI components for `setLightTheme` command
+image::SetLightThemeSequenceDiagram.png[]
+
+The sequence diagram is as explained:
+
+. The user launches the application and executes the `setLightTheme` command to change the current theme to _light_.
+. `commandResult` is obtained in `MainWindow` after the command is parsed and executed.
+. `MainWindow` checks if the `changeTheme` attribute in `commandResult` is true.
+. Since it is true, it retrieves the `newTheme` from `commandResult`, `LIGHT`, and calls on its own method `switchThemeTo(LIGHT)`.
+.. (Following details were trivial and thus omitted from the diagram) This method retrieves the URLs for the light theme and corresponding extensions css files and adds it to the stylesheets for the scene.
+This is done after removing the stylesheets for the previous theme.
+. This implementation is essentially the same for `setDarkTheme` command, with the `newTheme` as `DARK` instead.
+
+The following activity diagram summarizes what happens when a user executes a `setLightTheme` command:
+
+.Activity diagram showing what happens when user executes a `setLightTheme` command
+image::SetLightThemeActivityDiagram.png[]
+
+==== Design Considerations
+
+* *Alternative 1 (current choice):* Change the theme from within `MainWindow`.
+
+** Pros: Easy to implement.
+
+** Cons: May not be as OOP as it could be, increases number of lines of code in `MainWindow`.
+
+* *Alternative 2:* Use a separate class to control the theme, such as `ThemeManager`.
+
+** Pros: Abstracts out the methods regarding changing of theme to be contained in `ThemeManager` and reduces the number of lines of code in `MainWindow`.
+
+** Cons: Harder to implement; may introduce cyclic dependency.
+It may also be redundant or excessive as implementing the `changeFont` command is not very complicated.
+
+// end::uifeature[]
+
+// tag::qol[]
+
+=== Quality of Life features
+
+==== AutoSuggester
+===== Implementation
+AutoSuggester is one of the most visible and widely used UX feature in the GuiltTrip application.
+It grabs users' input from the command box using a listener,
+and returns suggetions using a `CommandSuggester` 's `suggest()` method, displayed in the `ResultDisplay` panel.
+
+image::AutoSuggestClassDiagram.png[]
+Figure: Class Diagram for AutoSuggest.
+
+[NOTE]
+Terminology: `AutoSuggest` refers to the feature as a whole.
+`AutoSuggestion` is the term users see in GuiltTrip application.
+`CommandSuggester` is the functional interface in the source code.
+`GuiltTripCommandSuggester` is the class that gives suggestions based on user input.
+
+Currently AutoSuggester carries out two functions:
+
+1. suggesting full commands when halfway typing any command
+1. displaying help messages when a complete command is detected.
+
+While a user is typing out commands, AutoSuggester will provide recommendation to the
+nearest valid command. For example, typing out `add` will suggest `addIncome`, `addExpense`,
+`help` etc, based on the matching algorithm used. Currently, an edit distance metric based
+on `edit, delete and inserting letters` is used, as implemented by the `EditDistanceComparator` class.
+
+Upon typing out any valid command in full, AutoSuggester fetches the usage of the current
+command and show it in the `ResultDisplay`. This usage message is distinguished from error messages
+by prepending a line prefixed `[Autosuggestion]` above the usage message displayed.
+
+===== Design considerations
+.Aspect: How to select the closest match to commands
+We notice this is the well researched
+http://www.dcc.uchile.cl/~gnavarro/ps/deb01.pdf[Approximate String Matching] problem
+and has complicated ways to implement.
+
+* *Alternative 1*: Use the algorithm implemented in
+https://github.com/junegunn/fzf[FZF], the fuzzy file finder.
+
+** Pros: Very user friendly. especially for longer commands.
+    Suitable for history searching when paired with
+    Mozilla's https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Places/Frecency_algorithm[Frecency algorithm].
+** Cons: Needs time to understand and implement.
+
+* *Alternative 2: (currently implemented)*
+Simple edit distance using a memoized dynamic programming approach.
+
+** Pros: Easier to implement. Merely 10 lines with memoization.
+** Cons: Takes `O(nm)` time to compare two strings, which means approximately `O(n^2)`
+    time to create a priority queue of nearest commands.
+
+.To be implemented in `v2.0`: parsing the command in real time and suggest possible choices
+for each for every argument.
+
+* *Possible implementation*: Initialize prefix objects with a list of possible `String` of values
+    given that prefix, which can be displayed in autosuggestion.
+
+==== AutoExpenses
+===== Implementation
+AutoExpenses will create expenses automatically once created. This update is done during
+every startup, when model manager is being initialized.
+
+image::AutoExpenseSequenceDiagram.png[]
+
+`AutoExpense` extends the Entry class, but has special attributes of its own:
+
+. `lastTime` which keeps track of the date of last Expense generated
+. Uses `Date` attribute to keep track the creation date of this object
+. `Frequency` enum which keeps track of the frequency of the `AutoExpense`.
+
+The only state-changing, outfacing method is `generateNewExpenses()`, which will
+not only return a `List` of `Expenses` since `lastTime`, but also update the `lastTime`
+attribute to match the latest `Expense` in the list returned.
+
+The following activity diagram summarizes what happens when user creates a new AutoExpense:
+
+image::AutoExpenseActivityDiagram.png[]
+
+===== Design Considerations
+.Aspect: How to encode the recurring nature of AutoExpense
+* *Alternative 1*: Embrace the good practice of immutable objects and
+    create a new AutoExpense object every time a new Expense is generated
+
+** Pros: Easier to prevent duplicate Expense generation since state is not changed.
+** Cons: Space intensive, also not necessary to recreate as only one field change (`lastTime`)
+
+* *Alternative 2: (currently implemented)*
+    Keep track of the state using an attribute `lastTime`, and change the state of the
+    `AutoExpense` object every update.
+
+** Pros: Easier to implement, and more space-friendly.
+** Cons: State changes are not saved or recorded in anyway.
+
+.Aspect: How to update AutoExpenses to generate new Expense objects
+* *Alternative 1:*: Use a thread to check every now and then, preferable every minute
+    for consistent updates.
+** Pros: Reliable and more orthodox way of checking for updates.
+** Cons: Hard to implement. Not sure how to debug.
+
+* *Alternative 2: (currently implemented)*
+    Update at every startup only.
+** Pros: Resource efficient. We take advantage of the assumption that
+***         Users will usually open the app for no longer than a day.
+***         The highest frequency an AutoExpense can be is currently *daily*.
+** Cons: Above assumptions have to be true.
+
+// end::qol[]
+
+// tag::reminders[]
+=== Reminders
+
+==== Implementation
+The reminders implementation is facilitated by the reminder class, and heavily makes use of the observable pattern to keep track with property changes in the GuilTrip model to display messages in a timely fashion.
+
+image::ReminderClassDiagram.png[]
+
+====== The class diagram above shows the relation between the classes that help to implement the reminder feature.
+
+===== There are 2 types of reminders. General and entry reminders.
+
+General reminders are not tied to any specific entry, and sent the user notifications whenever an entry matching the user specified conditions is entered in the app. These specified conditions include entry type, a lower and upper quota for the entry amount, a specified time period in which an entry takes place, or a list of tags which the entry must have.
+
+image::GeneralReminderSequenceDiagram.png[GRS, 1000, 600]
+
+====== The sequence diagram above illustrates what happens when an entry fulfils all conditions in an entry.
+
+STEP 1)  When an expense is logged in to GuiltTrip.java, in addition to being stored in the Expense List, the expense is also passed into the Condition Manager, which iterates through its list of conditions to see which conditions are met by the entry.
+
+STEP 2)  Each condition makes use of a self-implemented ObservableSupport class that enables it to function as an Observable object, with the reminders being its listeners.
+
+STEP 3)  When a condition is met, it notifies the reminder it belongs to. The reminders keep track of the number of conditions met, and only when all conditions are met does it make use of ObservableSupport to notify the reminderlist about a change in its status.
+
+STEP 4)  The reminder list generates a notification corresponding to the reminder and adds it to an observable list which is displayed by the Ui.
+
+STEP 5)  The number of conditions met is reset a the end of the process so the reminders may continue to produce notifications when subsequent entries meeting the requirements are keyed into the system.
+
+An entry reminder targets a specific expense/ income or wish. It is set to send notifications at a specified period at specified intervals before the date of the event.
+
+image::EntryReminderSequenceDiagram.png[ERS, 1000, 400]
+
+====== The sequence diagram above illustrates what happens when an it is time for an entry reminder to send a notification.
+
+STEP 1) This is made possible with TimeUtil, which is a singleton class with a single instance checking the local date at periodic intervals and updating its listeners (Using the ObservableSupport) of the current date.
+
+STEP 2) All entry reminders are listeners of TimeUtil. When the updated current date equals the date to send a notification, it notifies the reminder list which generates a corresponding notification and sets the next date to notify the user.
+
+STEP 3) Once the date of the event itself has passed, the reminder is deactivated and not saved the next time GuiltTrip is closed.
+
+=== Design Considerations:
+* **Alternative 1** (current method): Users must first select a reminder before they can edit or remove reminders.*
+** Pros: Easier to implement. By automatically toggling the reminder list view on when selecting a reminder, the user also will see what    reminder they have selected before they proceed to make any changes. (As opposed to selecting and modifying the reminder in a single    command).
+** Cons: Involves one more step. Not as efficient.
+
+* **Alternative 2** Users commands require an index argument to indicate the reminder to modify.
+** Pros: Faster as it involves one less step. May be more convenient for users who frequently forget to first select reminder to modify.
+** Cons: Aforementioned benefits are mitigated as reminders are hidden in default GUI settings, and most users will have to open up the    reminderList to know which reminder to modify anyway.
+// end::reminders[]
+=== Undo/ Redo
+
+==== Implementation
+The undo/redo mechanism is facilitated by `VersionedGuiltTrip`.
+It extends `GuiltTrip` with an undo/redo history, stored internally as an `guiltTripStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedGuiltTrip#commit()` -- Saves the current finance tracker state in its history.
+* `VersionedGuiltTrip#undo()` -- Restores the previous finance trackerk state from its history.
+* `VersionedGuiltTrip#redo()` -- Restores a previously undone finance tracker state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitGuiltTrip()`, `Model#undoGuiltTrip()` and `Model#redoGuiltTrip()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedGuiltTrip` will be initialized with the initial finance tracker state, and the `currentStatePointer` pointing to that single finance tracker state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th entry in the finance tracker. The `delete` command calls `Model#commitGuiltTrip()`, causing the modified state of the finance tracker after the `delete 5` command executes to be saved in the `guiltTripStateList`, and the `currentStatePointer` is shifted to the newly inserted finance tracker state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add typ/Expense...` to add a new expense. The `add` command also calls `Model#commitGuiltTrip()`, causing another modified finance tracker state to be saved into the `guiltTripStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitGuiltTrip()`, so the finance tracker state will not be saved into the `guiltTripStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoGuiltTrip()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous finance tracker state, and restores the finance tracker to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial finance tracker state, then there are no previous finance tracker states to restore. The `undo` command uses `Model#canUndoGuiltTrip()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -197,16 +687,16 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoGuiltTrip()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the finance tracker to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `guiltTripStateList.size() - 1`, pointing to the latest finance tracker state, then there are no undone finance tracker states to restore. The `redo` command uses `Model#canRedoGuiltTrip()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the finance tracker, such as `list`, will usually not call `Model#commitGuiltTrip()`, `Model#undoGuiltTrip()` or `Model#redoGuiltTrip()`. Thus, the `guiltTripStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitGuiltTrip()`. Since the `currentStatePointer` is not pointing at the end of the `guiltTripStateList`, all finance tracker states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add typ/Expense ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -218,7 +708,7 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire GuiltTrip.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -227,40 +717,12 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 1 (current choice):** Use a list to store the history of finance tracker states.
+** Pros: Easy to understand and implement.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedGuiltTrip`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
-=== Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
-
-[[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
@@ -276,150 +738,604 @@ Refer to the guide <<DevOps#, here>>.
 
 [appendix]
 == Product Scope
+=== Target User Profile
 
-*Target user profile*:
+Youths and young adults in Singapore in the age range of 20-30 who are interested in keeping track of their spending.
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+=== Value Proposition
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+A convenient financial tracker targeted at users who prefer typing over other inputs.
 
 [appendix]
 == User Stories
 
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+|===
+|+++<u>+++Priority+++</u>+++|+++<u>+++As a...+++</u>+++|+++<u>+++I want to…+++</u>+++|+++<u>+++So that I can…+++</u>+++
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
-|=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
-|=======================================================================
-
-_{More to be added}_
+|High|As a forgetful user|I would want to ability to list all my expenses|So I can see all my expenses in one glance.
+|High|As a thrifty user|I would like to be able to add items to my wishlist and see the progress made for each of the wishlisted items|So that I can see how much I've saved to each goal.
+|High|As a student with limited income|I need a convenient way to keep track of my spending and my daily expenditure|So that I can better review my finances.
+|High|As a student with almost regular spending habits|I want to record basic, recurring expenses (lunch, shopping, transport etc) easily|So that it is convenient for me to review and reflect on my expenditure.
+|High|As a user|I would like a search function|So that it is convenient for me to find a previous record.
+|High|As a user|I would like a manual to refer to when I need help using the app|So that I can still use the app when I forget the commands.
+|High|As a new user|I want to be informed when I submit invalid commands|So that I can input the correct command.
+|High|As a new user|I want to know what commands are available|So that I can use the application on the fly.
+|High|As a careless user|I might want to undo/modify/delete the fields of a specific expense|so that I can easily amend any mistakes I made.
+|High|As a detailed and careful user|I need to be able to add the details of the records into specific categories|So that I can stay organised.
+|Medium|As a user with limited allowance|I want to be able to set budgets for how much I want to spend in a week/month, according to different categories|So that I can closely keep track of my spending.
+|Medium|As someone who may wish to restart on a clean slate|I wish to be able to clear all of my data|So I can start afresh.
+|Medium|As a user  |I would like to see my expenses and transactions separated according to different time periods (e.g. week, month, year)|so that I can have a clearer overview of my expenditure.
+|Medium|As a user|I want to be able to customise how the UI looks (color, font, font size, set background feature etc.)|so that it looks more customised towards the user.
+|Medium|As an expert user|I want to be able to set the time(s) that I would receive reminders to record my spending|so that I can do so at convenient times.
+|Medium|As a student trying to improve my spending habits|I want to be able to be able to see the daily break down of my spending|so that I can see the trend of my spending across the months.
+|Medium|As a college student with monthly spending on entertainment sites such as Netflix and Spotify|I want to have these expenses recorded automatically|so that I do not have to record a recurring expense every month.
+|Medium|As a user|I want to differentiate my spendings and wish list items based on whether they are a need or a want|so that I can better plan my finances around what I should buy.
+|Medium|As a forgetful user|I want to have a tooltip to pop up to remind me what inputs I should type in|so that in the event that I forget the commands, I can still use them when the application reminds me.
+|Medium|As a lazy student|I want my finances to be planned automatically rather than having to customize them myself|so I don’t need to spend much time during the first setup and lose interest. I should be able to edit it whenever I want to.
+|Medium|As an expert user|I want to be able to define/customise my own categories for expenses|so that I can customize the software for myself.
+|Medium|As a lazy and expert user|I want to be able to define my own shortcuts to certain functionality myself (eg. spend mala ytd lunch 10.50), and extend/customize them from time to time|so that I can complete commands with convenience and ease.
+|Medium|As a student with limited income|I need a visualizer to show my urgent wishlist|so I can see how much I have saved to each goal.
+|Medium|As a student with limited income|I need a visualizer|so I can see my expenses in proportion to my income at a glance.
+|Medium|As a student who has difficulty planning his finances |I want the app to show me the break down of my spending for me |so I can know which areas that I have overspent.
+|Medium|As a user who do not have the habit of tracking my expenses|I want to receive some incentive/motivation when I track my expenses|so that I would continue tracking it in the long run.
+|Medium|As a forgetful user|I need to have the ability to add notes to my wishlist detailing where I want to buy the product, link to buy the product etc|so that I can easily refer to the wishlist whenever I forget about the details.
+|Medium|As a student facing problems with student debt|I need an app to help me plan my spending with respect to my loan|so that I can work on paying off my loan eventually.
+|Medium|As a student trying to guilttrip his/her spending habits|I need an app that reminds me if I am spending too much|so that I can work on reducing my spending and improve my habits.
+|Low|As a user|I would like to be able to import details for my wishlist using external files |so that I do not need to key each item in individually.
+|Low|As a student who’s easily influenced|I want the app to provide me with reminders|So that I do not overindulge in things I do not need.
+|Low|As a lazy/busy student|I do not want to be required to write a description for my expense or income records every single time |so that I can save time and record many expenses quickly.
+|===
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+For all use cases:
 
-[discrete]
-=== Use case: Delete person
+* System: guiltTrip()
+* Actor: User
 
-*MSS*
+=== Use Case 01: View History
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
+==== MSS
+
+. User requests to view history of expenses for the past month.
+. guiltTrip() shows the history of expenses for the past month.
+. User requests to edit a specific expense in the list.
+. guiltTrip() edits the expense.
 Use case ends.
 
-*Extensions*
+==== Extensions
 
-[none]
-* 2a. The list is empty.
-+
+. 2a. The history is empty.
+Use case ends.
+. 3a. The given index is invalid.
+.. 3a1. guiltTrip() shows an error message.
+Use case resumes at step 2
+
+=== Use Case 02: Add Expense
+
+==== MSS
+
+Use Case: user adds an expense
+
+. User adds an expense.
+. GuiltTrip creates an expense entry.
+. GuiltTrip informs user that the expense have been created.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+Use case resumes from step 2.
+
+=== Use Case 03: Change the details of an existing Expense
+
+==== MSS
+
+. Guilt Trip displays list of expenses.
+. User decides to edit the category/date/description/ tag/ amount of an expense.
+. GuiltTrip makes the requested modifications to expenditure entry.
+. GuiltTrip informs user that changes have been made.
+
+==== Extensions
+2a. GuiltTrip detects errors in the entered details.
+
+2a1. GuiltTrip informs the user about the error.
+
+2a2. User keys in new data.
+
+Steps 2a1-2a2 are repeated until the data entered are correct.
+Use case resumes from step 3.
+
+=== Use Case 04: Deletes an Expense
+
+. User keys in command deleteExpense, followed by the index of the expense in the list
+. GuiltTrip deletes the specified expense from the list.
+. GuiltTrip informs user that the expense has been deleted.
+
+==== Extensions
+1a. GuiltTrip detects errors in the entered details.
+
+1a1. GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+Use case resumes from step 2.
+
+=== Use Case 05: Adds a Wish
+
+. User adds a Wish.
+. GuiltTrip creates a Wish.
+. GuiltTrip informs user that the wish have been created.
+
+=== Use Case 06: Converts Wish to Expenditure
+
+. User keys in command purchaseWish, followed by the index of the expens wish in the list
+. GuiltTrip deletes the specified wish from the list.
+. GuiltTrip adds the corresponding expenditure to the expense list.
+. GuiltTrip informs user that the wish has been converted.
+
+=== Use Case 07: Add a recurring expenditure
+
+. User keys in command `addAutoExp`, followed by the frequency he would want the expenditure to be, the description and amount of the expenditure.
+. GuiltTrip creates an auto-expense entry.
+. GuiltTrip informs user that the auto-expense have been created.
+
+=== Use Case 08: List recurring expenditures
+
+. The user types `toggle autoexpense`.
+. GuiltTrip toggles the panel that lists all the current automatically recurring expenditures.
+
+=== Use Case 09: Add GeneralReminder
+
+==== MSS
+
+. 1. User adds a GeneralReminder, indicates the reminder header, entry type/ lower bound/ upper bound/ start date/ end date/ and tags that a entry must have to trigger a notification.
+. 2. guiltTrip() notifies user that Reminder has been added.
+
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+==== Extensions
 
-_{More to be added}_
+. 1a. User does not indicate any parameters.
+.. 1a1. GuiltTrip requests for correct parameters.
+. 1b. LowerBound above UpperBound.
+.. 1b1. GuiltTrip requests for suitable bound values.
+. 1b. End before Start.
+.. 1b1. GuiltTrip requests for suitabledate.
 
+=== Use Case 10: Set EntryReminder
+
+==== MSS
+
+. 1. User adds an EntryReminder indicating the index of the entry in the list the reminder header, type of entry, period before the entry date to activate reminder and frequency of notifications.
+. 2. GuiltTrip notifies user that Reminder has been added.
+
+Use case ends.
+
+==== Extensions
+
+. 1a. Entry Date before Current Date.
+  . 1a1. GuiltTrip notifies user that reminder can only be created for events after today.
+. 1b. Interval between notificaitons larger than period.
+  . 1b1. GuiltTrip notifies user that frequency must be smaller than period.
+ . 1c. Index out of bounds.
+  . 1c1. GuiltTrip requests for suitable index.
+ === Use Case 11: Edit Reminder
+
+==== MSS
+
+. 1. User selects a reminder by the selectReminder() commmand.
+. 2. GuiltTrip notifies user that Reminder has been selected.
+. 3. User Edits Header/ Conditions/ Period/ Frequency of Reminder.
+. 4. GuiltTrip notifies user that Reminder has been edited.
+
+Use case ends.
+
+
+==== Extensions
+
+. 1a. index out of bounds.
+  . 1a1. GuiltTrip requests for suitable index.
+. 3a. User tries to set frequency/ period for a General Reminder
+  . 3a1. GuiltTrip notifies user that reminder can only be created for events after today.
+. 3b. Ineterval between notificaitons larger than period.
+  . 3b1. GuiltTrip notifies user that frequency must be smaller than period.
+
+=== Use Case 11: Add Category
+
+==== MSS
+
+Use Case: user adds an category
+
+. User adds an category.
+. GuiltTrip creates an category entry.
+. GuiltTrip informs user that the expense have been created.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+Use case resumes from step 2.
+
+1b GuiltTrip detects that the new category is a duplicate.
+
+1b1 GuiltTrip informs user that the category is a duplicate.
+
+1b2. User keys in new data.
+Steps 1b1-1b2 are repeated until the data entered are correct.
+Use case resumes from step 2
+
+=== Use Case 12: Change the details of an existing Category
+
+==== MSS
+
+. User decides to edit the category Name of a category.
+. GuiltTrip makes the requested modifications to category entry.
+. GuiltTrip informs user that changes have been made.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+Use case resumes from step 2.
+
+1b GuiltTrip detects that the new edited category is a duplicate.
+
+1b1 GuiltTrip informs user that the edited category is a duplicate.
+
+1b2. User keys in new data.
+
+Steps 1b1-1b2 are repeated until the data entered are correct.
+Use case resumes from step 2.
+
+=== Use Case 13: Deleting an existing Category
+
+==== MSS
+
+. User decides to delete an existing category.
+. GuiltTrip deletes the specified category from the list.
+. GuiltTrip informs user that the category has been deleted.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+
+Use case resumes from step 2.
+
+1b GuiltTrip detects that the to be deleted category has existing entries with the category.
+
+1b1 GuiltTrip informs the user about the error.
+
+Use case ends.
+
+=== Use Case 14: View Bar Chart
+
+. The user types in the command to view bar chart.
+. GuiltTrip shows the user the relevant bar chart.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+
+Use case resumes from step 2.
+
+=== Use Case 14: View Pie Chart
+
+. The user types in the command to view pie chart.
+. GuiltTrip shows the user the relevant pie chart.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+
+Use case resumes from step 2.
+
+=== Use Case 14: View Pie Chart
+
+. The user types in the command to view pie chart.
+. GuiltTrip shows the user the relevant pie chart.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+
+Use case resumes from step 2.
+
+=== Use Case 15: View Table
+
+. The user types in the command to view table.
+. GuiltTrip shows the user the relevant table.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+
+Use case resumes from step 2.
+
+=== Use Case 16: Find Expense/Budget/Wish/Income
+
+. The user types in the command to find the relevant entry.
+. GuiltTrip shows the user the relevant entries after filtering according to the users's input.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+
+Use case resumes from step 2.
+
+=== Use Case 16: Sort Expense/Budget/Wish/Income
+
+. The user types in the command to sort the list according to his liking.
+. GuiltTrip shows the user the relevant entries after sorting according to the users's input.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+
+Use case resumes from step 2.
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+. Brownfield
+** The final product should be a result of evolving/enhancing/morphing the given code base.
+. Typing Preferred
+** The product should be targeting users who can type fast and prefer typing over other means of input.
+. Single User
+** The product should be for a single user i.e. (not a multi-user product).
+. Incremental
+** The product needs to be developed incrementally over the project duration.
+. Human Editable File & no DBMS
+** The software should not have a database management system and the data should be stored locally and should be in a human editable text file.
+. Object Oriented
+** The software should follow the Object-oriented paradigm primarily.
+. Java Version
+** Should work on any https://se-education.org/addressbook-level3/DeveloperGuide.html#mainstream-os[mainstream OS] as long as it has Java 11 or above installed.
+. Portable
+** The software should work without requiring an installer.
+. No Remote Server
+** The software should not depend on your own remote server.
+. External Software
+** The use of third-party frameworks/libraries is allowed but only if they are free, open-source, and have permissive license terms, do not require any installation by the user of your software, do not violate other constraints.
+. Quality Requirements
+** The software should be able to be used by a user who has never used an expenditure tracking app before
+** The software should be able to work on different computers if distributed
 
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+* Category - Income, Expense, Wishlist, Budget +
+* Entry - any item in a category +
+* Tag - label(s) attached to an entry
 
 [appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+=== Adding a Expense
 
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+. Test Case: addExpense cat/Food n/Mala amt/5.50 d/2019-09-09 tg/food
+.. Expected: A new Expense is added into guiltTrip. Details of the expense added is showed in the CommandResult.
 
-=== Launch and Shutdown
+. Test Case: addExpense cat/Food n/Mala amt/5.50 tg/food
+.. Expected: GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that the d/DATE field is missing. The expense is not added.
 
-. Initial launch
+. Test Case: addExpense cat/Food n/Mala amt/5.503 d/2019-09-09 tg/food
+.. Expected: GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that the amt/AMOUNT field has more than the required d.p. The expense is not added.
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-. Saving window preferences
+=== Adding a Category
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+. Test Case: addCategory cat/Expense n/Exercise
+.. Expected: A new Category is added into guiltTrip. Details of the Category added is showed in the CommandResult.
 
-_{ more test cases ... }_
+. Test Case: addCategory cat/Budget n/Exercise
+.. Expected: GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that the cat/CATEGORY TYPE must either be expense or income. The Category is not added.
 
-=== Deleting a person
+. Test Case: addCategory n/Exercise
+.. Expected: GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that the cat/CATEGORY NAME. The Category is not added.
 
-. Deleting a person while all persons are listed
+=== Editing a Category
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. Test Case: editCategory cat/Expense o/Food n/Fitness
+.. Expected: The original Category is replaced by the new Category. Details of the Category edited is showed in the CommandResult.
 
-_{ more test cases ... }_
+. Test Case: editCategory cat/Expense o/Anime n/Fitness
+.. Explanation: Anime is a category that doesn't exists.
+.. Expected: GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that the Expense Category List does not have an existing Category named anime. The Category is not edited.
 
-=== Saving data
+. Test Case: editCategory cat/Expense o/Food n/Food
+.. Expected: GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that the category already exists in GuiltTrip as nothing was changed. The Category is not edited.
 
-. Dealing with missing/corrupted data files
+. Test Case: editCategory cat/Expense o/Food
+.. Expected: GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that there is a missing field n/CATEGORY NEW NAME. The Category is not edited.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
+=== Deleting a Category
+
+. Test Case: deleteCategory cat/Expense n/Food
+.. Explanation: In this case, Food does not have any entries with it as a Category.
+.. Expected: Food Category is deleted from guiltTrip. Details of the Category deleted is showed in the CommandResult.
+
+. Test Case: deleteCategory cat/Budget n/Food
+.. Expected: GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that the cat/CATEGORY TYPE must either be expense or income. The Category is not deleted.
+
+. Test Case: deleteCategory cat/Expense n/Food
+.. Explanation: In this case, Food has entries with it as a Category.
+.. Expected: Food Category is not deleted from guiltTrip.GuiltTrip throws an exception in the form of an error message in CommandResult, specifying that the Category to be deleted has existing entries.
+
+=== Viewing Statistics in Table Form
+
+. Test Case: viewTable
+.. Expected: The Table showing expense and income details of the current month is shown.
+
+. Test Case: viewTable p/2019-09
+.. Expected: The Table showing expense and income details of September 2019 is shown.
+
+. Test Case: viewTable p/2019-09, 2019-11
+.. Expected: The Table showing expense and income details of September 2019 to November 2019 is shown.
+
+. Test Case: viewTable p/2019-09-01
+.. Expected: GuiltTrip throws an exception stating that it should only be shown in Month Form.
+
+=== Viewing Statistics in Pie Form
+
+. Test Case: viewPie
+.. Expected: The Pie Chart showing expense and income details of the current month is shown.
+
+. Test Case: viewPie p/2019-09
+.. Expected: The Pie Chart showing expense and income details of September 2019 is shown.
+
+. Test Case: viewPie p/2019-09, 2019-11
+.. Expected: The Pie Chart showing expense and income details of September 2019 to November 2019 is shown.
+
+. Test Case: viewPie p/2019-09-01
+.. Expected: GuiltTrip throws an exception stating that it should only be shown in Month Form.
+
+=== Viewing Statistics in Bar Form
+
+. Test Case: viewBar
+.. Expected: The Bar Chart showing expense and income details of the current month is shown.
+
+. Test Case: viewBar p/2019-09
+.. Expected: The Bar Chart showing expense and income details of September 2019 is shown.
+
+=== Sorting Expense/Income/Wish/Budget/AutoExp
+
+. Test Case: sortExpense typ/Amount s/ascending
+.. Expected: The Expense list should be sorted by amount in ascending order.
+
+. Test Case: sortIncome typ/Time s/ascending
+.. Expected: The Income list should be sorted by time in ascending order.
+
+. Test Case: sortBudget typ/Time s/asdasdsada
+.. Expected: An Exception should be thrown, with GulitTrip displaying in the CommandResult that sequence can only be ascending or descending.
+
+. Test Case: sortWish typ/Time s/ascending
+.. Expected: The Wish list should be sorted by time in ascending order.
+
+. Test Case: sortAutoExp typ/Time s/ascending
+.. Expected: The AutoExpense list should be sorted by time in ascending order.
+
+=== Finding Expense/Income/Wish/Budget/AutoExp
+
+. Test Case: findExpense n/mala
+.. Expected: All Expenses with name mala in their description should be filtered to show in the Expense List.
+
+. Test Case: findIncome n/mala amt/1900
+.. Expected: All Income with name mala in their description and with amount larger than 1900 should show in the Income List.
+
+. Test Case: findBudget cat/Food
+.. Expected: All Budget with category Food should show in the BudgetList
+
+. Test Case: findWish cat/Food
+.. Expected: All Wishes with category Food should show in the WishList
+
+. Test Case: findAutoExp cat/Food
+.. Expected: All AutoExpense with category Food should show in the AutoExpenseList
+
+=== Customising the GUI
+
+==== Change theme
+
+. Changing the theme of the application
+
+.. Prerequisites: Application is in dark theme.
+
+.. Test case: `setLightTheme` +
+Expected: Theme changes to the light theme. Result display shows the message that command is executed successfully.
+
+.. Prerequisites: Application is in light theme.
+
+.. Test case: `setDarkTheme` +
+Expected: Theme changes to the dark theme. Result display shows the message that command is executed successfully.
+
+. Saving theme preferences
+
+.. Change the theme to a different one (see examples above). Close the window.
+
+.. Relaunch the application. +
+Expected: The change in theme is saved and application is in the most recent theme.
+
+==== Change font
+
+. Changing the font of the application
+
+.. Prerequisites: none
+
+... Test case: `changeFont rockwell` +
+Expected: Font changes to _rockwell_.
+
+... Test case: `changeFont segoe UI` +
+Expected: Font changes to _segoe UI_.
+
+. Saving font preferences
+
+... Change the font to a different one (see examples above). Close the window.
+
+... Relaunch the appication. +
+Expected: The change in font is saved and the application is in the most recent font.
+
+==== Toggle panel
+
+. Toggling a specified panel on or off
+
+.. Prerequisites: panel to toggle does not have its contents already shown in main panel
+
+... Test case: `toggle budget` +
+Expected: If panel was not previously shown, Budget panel will be toggled on. Otherwise, it will be toggled off.
+
+... Test case: `toggle ae` +
+Expected: If panel was not previously shown, AutoExpenses panel will be toggled on. Otherwise, it will be toggled off.
+
+.. Prerequisites: panel to toggle already has its contents shown in the main panel, such as by doing `listBudget`
+
+... Test case: `toggle budget` +
+Expected: Budget panel is not toggled on. Error message is shown in the result display.

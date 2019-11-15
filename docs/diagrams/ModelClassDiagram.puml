@@ -5,52 +5,126 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyGuiltTrip <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class GuiltTrip
+Class ReadOnlyGuiltTrip
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class VersionedGuiltTrip
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Package Entry {
+Class Entry
+Class Description
+Class Date
+Class Amount
+Class BudgetAmount
+Class Period
+Class ExpenseList
+Class Expense
+Class IncomeList
+Class Income
+Class WishList
+Class Wish
+Class BudgetList
+Class Budget
+Class AutoExpense
+Class AutoExpenseList
+}
+
+Package Util {
+Class Frequency
+enum CategoryType {
+EXPENSE
+INCOME
+}
+}
+
+Package Category {
+Class CategoryList
+Class Category
 }
 
 Package Tag {
 Class Tag
 }
+
+package Statistics {
+Interface ObservableMap <<Interface>>
+Interface Statistics <<Interface>>
+Class StatisticsManager
+Class MonthList
+Class DailyList
+Class DailyStatistics
+Class CategoryStatistics
+}
+
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+GuiltTrip .up.|> ReadOnlyGuiltTrip
+VersionedGuiltTrip .up.|> GuiltTrip
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" VersionedGuiltTrip
+ModelManager o--> "1" Statistics
+
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+VersionedGuiltTrip *--> "1" CategoryList
+CategoryList o--> "*" Category
+Category *--> CategoryType
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+VersionedGuiltTrip *--> "1" ExpenseList
+VersionedGuiltTrip *--> "1" IncomeList
+VersionedGuiltTrip *--> "1" WishList
+VersionedGuiltTrip *--> "1" BudgetList
+VersionedGuiltTrip *--> "1" AutoExpenseList
 
-ModelManager -->"1" Person : filtered list
+ExpenseList o--> "*" Expense
+IncomeList o--> "*" Income
+BudgetList o--> "*" Budget
+WishList o--> "*" Wish
+AutoExpenseList o--> "*" AutoExpense
+
+Expense ---|> Entry
+Income ---|> Entry
+Budget ---|> Entry
+Wish ---|> Entry
+AutoExpense ---|> Entry
+
+Entry *-->"1" Description
+Entry *-->"1" Date
+Entry *-->"1" Amount
+Entry *--> "*" Tag
+Entry *-->"1" Category
+
+
+Budget --> "1" BudgetAmount
+Budget --> "1" Period
+AutoExpense --> "1" Frequency
+
+StatisticsManager .up.|> Statistics
+StatisticsManager *--> "1..*" CategoryStatistics
+StatisticsManager ..> ObservableList
+StatisticsManager ..> ObservableMap
+StatisticsManager *--> "1..*" MonthList
+
+MonthList *--> "28..31" DailyList
+MonthList *--> "28..31" DailyStatistics
+MonthList ..> ObservableList
+MonthList ..> ObservableMap
+
+Description -[hidden]right-> Date
+Date -[hidden]right-> Amount
+
+show CategoryType fields
 @enduml
+© 2019 GitHub, Inc.

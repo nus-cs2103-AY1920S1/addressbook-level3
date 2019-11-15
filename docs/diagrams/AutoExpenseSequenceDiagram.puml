@@ -1,0 +1,48 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":AddAutoExpenseCommand" as AddAutoExpenseCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR_T1
+participant ":GuiltTrip" as GuiltTrip MODEL_COLOR_T2
+participant ":ExpenseList" as ExpenseList MODEL_COLOR_T2
+participant ":AutoExpenseList" as AutoExpenseList MODEL_COLOR
+end box
+
+[-> AddAutoExpenseCommand : execute()
+activate AddAutoExpenseCommand
+
+AddAutoExpenseCommand -> Model : addAutoExpense(entry)
+activate Model
+
+Model -> "GuiltTrip": addAutoExpense(entry)
+activate "GuiltTrip"
+
+"GuiltTrip" -> "AutoExpenseList": addAutoExpense(entry)
+activate "AutoExpenseList"
+"AutoExpenseList" --> "GuiltTrip"
+deactivate "AutoExpenseList"
+"GuiltTrip" --> Model
+deactivate GuiltTrip
+
+
+Model -> GuiltTrip: createExpensesFromAutoExpenses()
+activate GuiltTrip
+loop until autoExpense.lastTime = now()
+    GuiltTrip -> ExpenseList: createExpense()
+    activate ExpenseList
+    ExpenseList --> GuiltTrip
+    deactivate ExpenseList
+end
+GuiltTrip --> Model
+deactivate GuiltTrip
+Model --> AddAutoExpenseCommand
+deactivate Model
+
+[<--AddAutoExpenseCommand: result
+deactivate AddAutoExpenseCommand
+
+@enduml
