@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefWidth="600.0" styleClass="main-content-window" stylesheets="@../defaultStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dream.fcard.gui.controllers.jsjava.JsEditorController">
+   <children>
+      <Label styleClass="window-title" text="JavaScript Editor" />
+      <Label styleClass="window-subtitle" text="Your input" />
+        <TextArea fx:id="textEditor" prefHeight="200.0" styleClass="code" />
+      <Label styleClass="window-subtitle" text="Output" />
+        <TextArea fx:id="consoleOutput" editable="false" prefHeight="100.0" styleClass="code" />
+        <ButtonBar prefHeight="33.0" prefWidth="611.0">
+            <buttons>
+                <Button fx:id="runCodeButton" mnemonicParsing="false" onAction="#runCode" text="Run" />
+            </buttons>
+        </ButtonBar>
+   </children>
+</VBox>

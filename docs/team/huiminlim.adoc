@@ -1,0 +1,95 @@
+= Lim Hui Min - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FlashCard Pro
+
+== Overview
+
+FlashCard Pro is an application designed for students of all fields who prefer to use a desktop app for managing flashcards, as well as teachers who would like to provide resources (in the form of custom flashcard decks) to support their students’ learning.
+
+It has a GUI but most of the user interactions happen using a CLI (Command Line Interface). The GUI is to support the user if he/she prefers using the GUI to interact with FlashCard Pro.
+
+== Summary of contributions
+
+* *Major enhancement*: expanded the *functionality and type of FlashCards*.
+
+** Worked on parsing and validation of inputs for `create`, `add` (Front and Back flash card and Multiple Choice flash card), `edit` (Front and Back flash card and Multiple Choice flash card), `delete` CLI functionality.
+
+** Allows the user to assign priorities to each flash card.
+
+** Allows the creation of a random set of flash cards for the `test` function. The set of flash cards created for the test will have a proportion of high priority and low priority cards.
+
+** Expanded the cards to support Multiple Choice cards on top of ordinary Front and Back flash cards.
+
+** Added support for shuffling choices of Multiple Choice cards when displaying the Multiple Choice cards in `test` mode.
+
+** Wrote JUnit tests for MultipleChoiceCard and FrontBackCard.
+
+* Justification:
+
+** This feature allows the user to explore multiple modes of learning using flash cards.
+
+** The priorities also allow the user to customize his/her own test deck set, so that he/she can vary the difficulty of the test.
+
+** The creation of test subset also allows the user to take the test with a different set of cards each time, allowing the user to learn more from each test.
+
+** The shuffling allows the user to take the test of Multiple Choice Cards with greater learning value since the options are changed.
+
+* Highlights:
+
+** This enhancement allowed the user to have more flexibility in exploring various types of flash cards to support the usage of the `test` function.
+
+** In addition, this feature is challenging because it requires in-depth analysis and design of the Regex parser to determine which card type (Front and Back card or Multiple Choice card) is created.
+
+** Also, this feature is tightly related to other components, such as:
+
+*** In test mode, the cards need to be designed such that the display and logic for test is coherent with the designs of multiple flash cards.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=huiminlim&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]][https://github.com/AY1920S1-CS2103-F09-2/main/tree/master/src/test/java/dream/fcard/model[Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub [https://github.com/AY1920S1-CS2103-F09-2/main/releases[Releases on Github]]
+
+** Testing:
+*** Did product testing to ensure that the command parsing were accurate, and various system integration tests.
+*** Debugged certain command related bugs: https://github.com/AY1920S1-CS2103-F09-2/main/pull/294[#294], https://github.com/AY1920S1-CS2103-F09-2/main/pull/333[#333], https://github.com/AY1920S1-CS2103-F09-2/main/pull/318[#318], https://github.com/AY1920S1-CS2103-F09-2/main/pull/355[#355], https://github.com/AY1920S1-CS2103-F09-2/main/pull/358[#358]
+*** Alerted team about bugs found in issue tracker: https://github.com/AY1920S1-CS2103-F09-2/main/issues/146[#146], https://github.com/AY1920S1-CS2103-F09-2/main/issues/99[#99], https://github.com/AY1920S1-CS2103-F09-2/main/issues/109[#109]
+
+** Enhancements to existing features:
+*** Wrote the regular expression parsing, user input validation, and command execution for:
+**** `add` Front and Back, Multiple Choice Card addition.
+**** `edit` Front and Back Card, Multiple Choice Card.
+**** `delete` Flash card and deck.
+
+** Documentation:
+*** Did documentation for the CLI commands in the User Guide. (See <<Contributions to the User Guide>> below)
+*** Did documentation in Developer Guide. (See <<Contributions to the Developer Guide>> below)
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F13-2/main/pull/205[#205], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/91[#91]
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/137[#137])
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=create_deck]
+
+include::../UserGuide.adoc[tag=add_front_MCQ]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=cards]
+
+include::../DeveloperGuide.adoc[tag=use_case]

@@ -1,0 +1,59 @@
+= Leong Jia Hao, Timothy - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: AddressBook - Level 3
+
+---
+
+== Overview
+
+FlashCardPro is a program to manage flash cards each with three properties; front, back and evaluation. The simplest form of a flash card is a FrontBackCard where the front and back are texts and evaluation is checking that the user’s input is the same as back.
+
+The app also has a review mode where users can test themselves with the cards they have created.
+
+Cards can also easily be shared via a json file per deck of cards.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to write and run JavaScript and Java Code* both in a playground and in flashcards
+** What it does: Allows user to play with JavaScript and Java code in popup playgrounds where users can compile and run JavaScript or Java code as much as they want. Also allows the user to make
+Java and JavaScript flash cards that allow users to do Kattis/Codility-like tasks in flashcards
+** Justification: Current type of flash cards only suit very basic memorisation skills even though the medium of flashcards is easily extensible. As more students are learning programming nowadays, practicising writing code fast is a good way to train programming skills.
+** Highlights: Benefits students who are learning to code by allowing them to mimick the tests found on online code judges and write their own problems
+** Credits: Mozilla Rhino for evaluating JavaScript Code.
+
+* *Minor enhancement*: Refactored GUI to follow MVC pattern when previously it was a static display board
+- What it does: allow controls such as buttons to influence the Model (delete, create cards etc)
+- Justification: The CLI commands may be initially less intuitive to use compared to using the GUI. Controllers allow the GUI to interface with the app's Logic.
+
+* *Other contributions*:
+
+** Project management:
+** Enhancements to existing features:
+*** Wrote tests for all the non-GUI-related classes I created
+*** Added commands for adding Java Card and Javascript Card in the CLI
+** Community:
+*** Managed release v1.4
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F09-2/main/pull/181[#181]
+** Tools:
+*** Created a DeepCopy utility class for duplicating team-created Java objects.
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+I wrote https://github.com/AY1920S1-CS2103-F09-2/main/blob/master/docs/UserGuide.adoc#add-new-javascript-card-or-java-card[Add new Javascript card or Java Card]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+I wrote https://flashcardpro.netlify.com/developerguide#running-a-code-flashcard[Running a code flashcard]
+
+---

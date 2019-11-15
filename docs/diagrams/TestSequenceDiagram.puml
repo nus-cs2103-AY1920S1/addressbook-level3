@@ -1,0 +1,35 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+Participant ":ExamRunner" as ui UI_COLOR
+Participant ":StandardExam" as logic LOGIC_COLOR
+Participant ":Result" as model MODEL_COLOR
+
+user -[USER_COLOR]> ui :
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : createExam()
+activate logic LOGIC_COLOR
+
+create model MODEL_COLOR
+logic -[LOGIC_COLOR]> model : createExam()
+
+
+logic -[LOGIC_COLOR]> model : getResult()
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]-> logic
+deactivate model
+
+ui -[UI_COLOR]> logic : getCurrentExam()
+logic -[LOGIC_COLOR]-> ui
+
+ui -[UI_COLOR]> logic : clearExam()
+deactivate logic
+
+destroy logic
+
+ui--[UI_COLOR]> user
+deactivate ui
+@enduml

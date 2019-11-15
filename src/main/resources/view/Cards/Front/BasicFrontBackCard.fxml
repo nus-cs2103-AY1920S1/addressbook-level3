@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root id="cardholder" alignment="BOTTOM_CENTER" prefHeight="350.0" prefWidth="300.0" spacing="10.0" styleClass="light-background" stylesheets="@../../defaultStyles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="questionLabel" alignment="CENTER" maxWidth="280.0" text="Question goes here" textAlignment="CENTER" wrapText="true" />
+        <Button fx:id="seeBackButton" mnemonicParsing="false" text="Flip to back" />
+    </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</fx:root>

@@ -1,0 +1,86 @@
+= Abdul Haliq - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:repoURL: https://github.com/AY1920S1-CS2103-F09-2/main/blob/master
+
+
+== PROJECT: FlashCard Pro
+
+=== Overview
+
+FlashCardPro is a program to manage flash cards each with three properties; front, back and evaluation.
+The simplest form of a flash card is a `FrontBackCard` where the front and back are texts and evaluation
+is checking that the user's input is the same as back.
+
+The app also has a review mode where users can test themselves with the cards they have created.
+
+Cards can also easily be shared via a json file per deck of cards.
+
+This project is implemented from scratch while learning the ropes of design patterns and software architecture.
+
+=== Code Contribution
+
+==== Major Contribution
+
+* Came up with initial structure for the model of abstract flash cards
+https://github.com/AY1920S1-CS2103-F09-2/main/pull/52[#52]
+
+* Came up with high level design for feedback loop of processing input and gui interaction
+https://github.com/AY1920S1-CS2103-F09-2/main/pull/52[#52]
+link:{repoURL}/src/main/java/dream/fcard/logic/respond/Responder.java[Responder]
+link:{repoURL}/src/main/java/dream/fcard/logic/respond/Responses.java[Responses]
+link:{repoURL}/src/main/java/dream/fcard/logic/respond/ResponseFunc.java[ResponseFunc]
+link:{repoURL}/src/main/java/dream/fcard/model/State.java[State]
+
+* Implemented `FileReadWrite` library used by the team to store and read files in a centralized location.
+https://github.com/AY1920S1-CS2103-F09-2/main/pull/63[#63]
+link:{repoURL}/src/main/java/dream/fcard/util/FileReadWrite.java[FileReadWrite]
+
+* Implemented JSON parsing algorithm from scratch that takes a string input and creates `JsonValue` objects that can be interpreted in java to reconstruct objects that it represents.
+https://github.com/AY1920S1-CS2103-F09-2/main/pull/63[#63]
+link:{repoURL}/src/main/java/dream/fcard/util/json[All JSON Parsing]
+
+* Implemented a cli that reads keystrokes and based on that action determines how to edit and present text
+for the user. It is to emulate a terminal window. It also has multiline editing capabilities (a mini text editor), all implemented using purely javafx `KeyEvent` and timer.
+https://github.com/AY1920S1-CS2103-F09-2/main/pull/277[#277]
+https://github.com/AY1920S1-CS2103-F09-2/main/pull/279[#279]
+https://github.com/AY1920S1-CS2103-F09-2/main/pull/284[#284]
+https://github.com/AY1920S1-CS2103-F09-2/main/pull/336[#336]
+https://github.com/AY1920S1-CS2103-F09-2/main/pull/361[#361]
+https://github.com/AY1920S1-CS2103-F09-2/main/pull/372[#372]
+
+==== Minor Contribution
+
+* Utils for string formatting
+link:{repoURL}/src/main/java/dream/fcard/util/Printer.java[Printer]
+
+* Algorithms for Regex generation and data extraction.
+link:{repoURL}/src/main/java/dream/fcard/util/RegexUtil.java[RegexUtil]
+
+* Contributed to storage for stats objects i.e. `Sessions`.
+https://github.com/AY1920S1-CS2103-F09-2/main/pull/258[#258]
+
+* JUnit tests for StorageManager, FileReadWrite, Printer and all the JSON classes tests
+
+* Various refactoring and debugging.
+
+=== Documentation Contribution
+
+==== Miscellaneous Documentation
+
+Wrote a https://gist.github.com/AHaliq/cf948272854c75267d4bf3a7af757eca[tutorial] for the team to understand `Responses` at its most basic form
+
+==== Developer Guide
+
+include::../DeveloperGuide.adoc[tag=storage]
+
+include::../DeveloperGuide.adoc[tag=parsejson]
+
+include::../DeveloperGuide.adoc[tag=regexutil]
+
+==== User Guide
+
+include::../UserGuide.adoc[tag=cli]
+
+

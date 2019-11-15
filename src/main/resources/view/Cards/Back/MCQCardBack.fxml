@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root id="cardholder" alignment="BOTTOM_CENTER" prefHeight="350.0" prefWidth="300.0" spacing="10.0" styleClass="light-background" stylesheets="@../../defaultStyles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+      <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
+         <children>
+              <Label fx:id="correctOrWrongLabel" alignment="CENTER" text="Correct!" textAlignment="CENTER" textFill="#dc0b0b" />
+         </children>
+      </VBox>
+        <Button fx:id="seeFrontButton" layoutX="87.0" layoutY="281.0" mnemonicParsing="false" text="Flip to front" />
+        <Label fx:id="correctAnswerLabel" alignment="CENTER" layoutY="142.0" text="Option 1 is the correct answer." />
+    </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</fx:root>

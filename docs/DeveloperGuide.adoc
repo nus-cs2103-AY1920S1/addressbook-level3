@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= FlashCard Pro - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-F09-2/main/blob/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F09-2`      Since: `Aug 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -25,20 +25,6 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
-image::ArchitectureDiagram.png[]
-
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
-
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
-
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
-
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
@@ -46,202 +32,228 @@ The following class plays an important role at the architecture level:
 
 The rest of the App consists of four components.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-gui,*`GUI`*>>: The GUI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Util,*`Utilities`*>>: Shared resources of the App.
 
-Each of the four components
-
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
 
 [discrete]
-==== How the architecture components interact with each other
-
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
-
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
-[[Design-Ui]]
-=== UI component
+[[Design-GUI]]
+=== GUI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassDiagram_FlashCardPro.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
-
-The `UI` component,
-
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
-
+// tag::Logic[]
 [[Design-Logic]]
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
-image::LogicClassDiagram.png[]
+.Structure of the Logic Package
+image::Logic_Class_Diagram.PNG[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/dream/fcard/logic [`Logic Package`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+The Logic package manages the internal logic of the application. +
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+When the User passes in their commands from the Command Line, it is passed to the `Responder` class via the method `takeInput()`.
+This then passes the input String to the Responses enumerations which will parse the String into the appropriate command.
+While parsing, `Responses` will consider 2 criteria:
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+. Only the `Responses` that exist in the `ResponseGroup` matching the `State.currState` `StateEnum` will be considered.
+. Only `Responses` with a regex that matches the input String will be considered. +
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+As such, depending on the `StateEnum` (a.k.a. the current 'mode' of the application), only some `Responses` will be
+considered. For simplicity's sake, the `Responses` that exist for each application 'mode' can be said to exist in a
+specific bucket (when the application is in `TEST` mode, the `Responses` that exist in the Test bucket are `TEST_NEXT`,
+`TEST_PREV` and `TEST_EXIT`). +
+
+When the right command is found, the specific `Responses` enumeration will execute its own `ResponseFunc`, which is the
+implementation of the specific command (eg a `help` command will print out the appropriate help message for the user). +
+
+To assist with the running of certain commands, the `HelpCommand` and `CreateCommand` classes are used to abstract the logic
+further.
+
+// end::Logic[]
 
 [[Design-Model]]
+
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram_FlashCardPro.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/dream/fcard/model[`Model`]
 
-The `Model`,
+// tag::cards[]
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+`FlashCard`:
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+* There are 3 types of cards used by our App, the `JavascriptCard`, `FrontBackCard` and `MultipleChoiceCard`.
+
+image::cards_class_diagram.png[]
+
+* `JavascriptCard` and `FrontBackCard` implements from `FlashCard`, an interface class.
+* `MultipleChoiceCard` inherits from `FrontBackCard`.
+* The interface class `FlashCard` also implements `JsonInterface` class to allow loading and saving to Json format.
+
+Refer to the activity diagram below to see the process of creating a `MultipleChoiceCard`:
+
+image::MultipleChoiceCardCreation.png[]
+
+For the `MultipleChoiceCard`, the choices provided by the user must be unique, i.e. there cannot be any duplicate in the choices provided.
+If a duplicate choice is detected, then the creation of the `MultipleChoiceCard` will not be successful.
+
+.FlashCard Priority
+Each FlashCard has an associated priority level, which the user can indicate his/her value of the importance of the card.
+
+The priority levels are described below:
+
+[width="59%",cols="22%,<23%,<25%",options="header",]
+|=======================================================================
+| Priority| Value| Intended Action
+
+| HIGH_PRIORITY| 10| Valued as important by user, should be tested more often
+
+| LOW_PRIORITY| 1| Valued, but less important by user, should be tested less often
+
+|=======================================================================
+
+The sequence diagram below shows how the `ExamRunner` component can use the `createSubsetForTest()` method in the `Deck` and make use of the priorities associated with the `FlashCards` to create a test that emphasises the `FlashCards` that the user deems as important.
+
+image::PriorityFlashCardTestSetSequenceDiagram.png[]
+
+* Step 1: Constructor of `ExamRunner` is called.
+* Step 2: In the constructor of `ExamRunner`, a method call is made to `Deck` to create a subset of cards for test.
+* Step 3: If there are less than 10 cards in `Deck`, return all the cards.
+* Step 4 - 10: Return a set of cards with both `HIGH_PRIORITY` and `LOW_PRIORITY` cards, which the proportion is weighted at 60% to 40% ratio respectively.
+* Step 11: `Deck` returns the test set to `ExamRunner`.
+
+=== Design Considerations
+
+==== Aspect: how to store and select the `HIGH_PRIORITY` and `LOW_PRIORITY` cards
+* **Alternative 1:** Use a priority queue to store the cards
+** Pros: Allows the user to test the cards according to `HIGH_PRIORITY` cards first, effectively choosing only `HIGH_PRIORITY` cards first, then `LOW_PRIORITY` cards.
+** Cons: Certain `LOW_PRIORITY` cards may not be tested if the test set size is smaller than the number of `HIGH_PRIORITY` cards
+** Cons: FlashCard Pro cannot have the flexibility of letting the user select the number of `LOW_PRIORITY` cards in the test set.
+
+* **Alternative 2: (Current Choice)** Maintain two lists of cards, `HIGH_PRIORITY` and `LOW_PRIORITY` cards
+** Pros: Can control the ratio of `HIGH_PRIORITY` and `LOW_PRIORITY` cards in the test set created
+** Pros: Have the flexibility to randomize the card order and choose a random set each time
+** Cons: FlashCard Pro cannot have the flexibility of letting users assign more than 2 priority levels
+
+// end::cards[]
 
 [[Design-Storage]]
+// tag::storage[]
 === Storage component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/dream/fcard/logic/storage/StorageManager.java[`StorageManager.java`]
+*API* : link:{repoURL}/src/main/java/dream/fcard/util/json/JsonParser.java[`JsonParser.java`]
+*API* : link:{repoURL}/src/main/java/dream/fcard/util/FileReadWrite.java[`FileReadWrite.java`]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* interface to save deck by calling `FileReadWrite`
+* interface to load deck by calling `FileReadWrite`, send string to `JsonParser` and creating deck objects from `JsonValue`
+
+The `JsonParser` component,
+
+* takes any string of JSON format and returns a `JsonValue`
+
+The `FileReadWrite` component,
+
+* resolves root directory for app save data
+* interface for user to provide their custom root directory
+* writes file and creates path directories if none
+
+// end::storage[]
+// tag::parsejson[]
+==== Implementation
+The parsing is done by `JsonParser`.
+It takes a string and attempts to read it as one of a `JsonValueTypes` and create its corresponding object wrapped in `JsonValue`.
+Since Objects and Arrays can recursively contain a json value, their contents are also read, created and wrapped.
+
+* `JsonParser#parseJsonInput()` -- constructs the `JsonValue` object from a string input
+
+Given below is the overview activity diagram of parsing a json string input.
+
+image::jsonParserProcessDynamicValue.png[]
+
+It will first be tested to see if its an integer and if it fails it will be tested for a double.
+Consequently, boolean, string, json object, json array.
+
+Json object values are themselves json values thus the activity diagram is called recursively
+Likewise for json array values.
+
+[NOTE]
+If all parsing types fail, there must be an error with the string input, thus a JsonFormatException is thrown.
+
+==== Design Considerations
+
+The JsonParser is designed to be a utility class with a pure function without any mutation of state.
+Thus it should be self contained within a single function call.
+
+// end::parsejson[]
+[[Design-Util]]
+=== Code Component
+.Structure of the Code component within Utilities
+image::CodeClassDiagram.png[]
+
+The `Code` component supports code-running flashcards in Java and Javascript. Cards will take in user input
+via the JavaScript card (Java card to be implemented soon) and
+
+the `JavascriptRunner` class
+
+* can evaluate JS code from a file using the `FileImporter` class
+* can evaluate JS code as an input string
+
+the `JavaRunner` class
+
+* Read/write to the `Solution.java` file during runtime after user has typed
+Java code into the file
+* Compile and run `Solution.java`
+* the Java code written in each card is stored in the card itself, but this `Solution.java` will be overwritten
+and used to run the code in each card.
+
+To be implemented: An in-app Flashcard Pro compiler and debugger for JS and Java as a playground for the user
+
+=== Regex Component
+// tag::regexutil[]
+Having that we are using the regex approach to parsing, some common parsing and regex creation methods
+are stored in the following class:
+
+*API* : link:{repoURL}/src/main/java/dream/fcard/util/RegexUtil.java[`RegexUtil.java`]
+
+RegexUtil#commandFormatRegex` creates a regex that starts with the `command` argument and lookaheads
+for the elements of `args`. Thus a regex for the input `create front/asd back/dsa` can be created with
+`commandFormatRegex("create", new String[]{"front/", "back/"});`.
+
+`RegexUtil#parseCommandFormat` is an algorithm that parses user input and returns the resulting values
+from the input. Following the previous example, parsing the input will create an arraylist of two arraylists.
+The first arraylist contains one element `"asd"` and the second arraylist contains one element `"dsa"`;
+parallel to the arguments of the input.
+
+// end::regexutil[]
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `dream.fcard.datastructures` package and root of `dream.fcard.util`
 
 == Implementation
-
-This section describes some noteworthy details on how certain features are implemented.
-
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -262,6 +274,290 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== UI
+The GUI of the application is started up by the `UiManager` class, when the application is initialised.
+The `GUI` class handles operations on the GUI, such as rendering nodes to the application window,
+and passing user command input to the `Responder` class.
+
+// tag::test[]
+
+=== Test
+==== Implementation
+
+The timed/un-timed test is a exam mechanism whereby users can enter a test mode that allows users to test themselves using the various flashcards. Users will then be notified of their results at the end of the test and will also have the chance to review their answers and reattempt questions.
+
+The overall test architecture is depicted in the class diagram below.
+
+image::TestClassDiagram.png[]
+
+Tests are driven by the main `ExamRunner` class which ensures that only a single `Exam` object exists at any point in time.
+
+`Exam` objects are where the bulk of the test logic resides. `Exam` objects are used to control what card the user is currently attempting via the `getCurrentCard()` method, used to control the AnchorPanes that show up on the GUI and also to keep track of score through the `Result` object within.
+
+`Exam` objects have a *composition* relationship with `Result` objects, whereby a `Result` object cannot exist without an `Exam` object.
+
+The sequence diagram of the three classes is as follows:
+
+image::TestSequenceDiagram.png[]
+
+When a user first chooses to start the test, he will call on the `createExam()` within `ExamRunner`, which will create an Exam object with the duration specified by the user.
+
+Creating an `Exam` object automatically creates a `Result` object in the constructor. The `Exam` object is then able to interact with it via the `getResult()` method.
+
+Responses and Controllers will then be able to get the current instance of `Exam` via the `getCurrentExam()` method in `ExamRunner`
+
+Given below is an example usage scenario and how the timed/untimed mechanism behaves at each step. The activity diagrams for Timed and Untimed Tests are also as follows:
+
+image::UntimedTestActivityDiagram.png[]
+image::TimedTestActivityDiagram.png[]
+
+=====
+Step 1. User keys in the command `test deck/DECK_NAME duration/DURATION_IN_SECONDS` (Eg. test deck/german duration/0)
+
+Step 2. If `DURATION_IN_SECONDS` is 0, untimed test will be initiated. Else, a timed test will be initiated.
+
+Step 3. A question will be loaded and user answers the question.
+
+Step 4. Answer will be evaluated and if it is correct, score will be updated.
+
+Step 5. For untimed test, repeat steps 3 and 4 until the end of deck is reached. For timed test, repeat steps 3 and 4 until either end of deck is reached or time runs out.
+
+Step 6. If end of deck is reached, a popup will be triggered with the user's final score.
+
+Step 7. Upon closing that popup, users will be able to review their mistakes and reattempt all questions (but it will not contribute to their score).
+
+Step 8. When the user is done reviewing, he can type `exit` or click `Exit Session` to exit test mode and go back to the main Deck Display screen. Users can also use this command prematurely to exit test mode mid-test.
+=====
+
+==== Managing the CLI and GUI
+
+
+CLI is largely driven by the `Responses` class which can be found above. However, the test mechanism differs slightly as it relies on a greater amount of `States` in order to control which commands can be used at what time.
+
+For example, a `correct` command cannot be used on a MCQCard.
+
+Commands are checked if they belong to a certain `ResponseGroup` for a `State`. Only commands that are registered within that state's `ResponseGroup` will be executed.
+
+GUI is also controlled by `States` but does not go through the `ResponseGroup` class. Instead, it relies on EventHandlers triggered by button clicks. Ideally, one should make GUI go through `Responses` as well to streamline both the GUI and CLI together.
+
+This design choice is reflected on further below.
+
+
+==== Design Considerations
+===== Aspect: Controlling the number of `Exam` instances.
+
+* **Alternative 1:** Just create `Exam` whenever a user calls for a new test.
+** Pros: Lesser code to write
+** Cons:
+*** Limited control on number of instances of an exam object
+*** Potentially may lead to bugs if not well managed
+*** Hard to simulate a test truly "ending" if an object can persist
+
+* **Alternative 2: (Current Choice)** Use a singleton static class that ensures only one instance of `Exam` exists at each point in time.
+** Pros:
+*** Extensive control over the `Exam` object by ensuring that only one instance exists
+*** Exam can be "terminated" to ensure once a test ends, users are unable to re-access it.
+** Cons:
+*** More complex design architecture that requires higher understanding of MVC pattern as well as Consumer Functional Interface
+
+===== Aspect: Management of StandardExam Object
+
+* **Alternative 1:** StandardExam class exists standalone
+** Pros:
+*** Lesser code to write
+*** Lesser complexity in terms of polymorphism
+** Cons:
+*** Not open for extension.
+
+* **Alternative 2: (Current Choice)** Use an `Exam` interface despite only one class inheriting from it
+** Pros:
+*** Allows the project to be open for extension. Developers may potentially develop other kinds of Exam modes (eg. speed round whereby there's a limited time *per card*)
+** Cons:
+*** Relatively redundant at the current version (`v1.4`)
+
+===== Aspect: Streamlining of GUI and CLI
+
+* **Alternative 1:** Have both GUI and CLI managed by the `Response` class
+** Pros:
+*** More streamlined
+*** Lesser chance of performance glitches since both interfaces rely on the same logic.
+** Cons:
+*** Limited customization if different behaviours want to be implemented in the GUI and CLI (though unlikely).
+
+* **Alternative 2: (Current Choice)** Individual logics for both GUI and CLI:
+** Pros:
+*** Greater customization.
+** Cons:
+*** Slightly more "spaghetti code"
+*** Limited expansion as having many different types of cards will result in many different `ResponseGroups`
+
+* While FlashCard Pro went with the "inferior" design choice for `v1.4`, there is definitely room for expansion by using an external state controller like Redux (see below).
+
+==== Future Extensions
+===== Relationship between GUI and CLI
+* Currently GUI and CLI are not implemented ideally because CLI is dependent on the `Responses` class while GUI relies on button handlers.
+
+* Ideally, GUI and CLI should both rely on the `Responses` class which will streamline the back-end logic.
+
+* However, due to time constraints and the late discovery of the bug, `v1.4` was made with the GUI and CLI not streamlined.
+
+* Future enhancements could either streamline the GUI and CLI both rely on `Responses` class or port over to an external state manager like Redux for better performance.
+
+===== Exam Interface
+* The Exam interface exists such that the project remains open for extension with various different test modes.
+
+* One example would be a speed round (whereby specific time limits are set for *each card*).
+
+// end::test[]
+
+
+
+=== Running a code flashcard
+.Activity diagram for creating a code flashcard
+image::JSCardActivityDiagram.png[]
+
+==== Proposed Implementation
+The code flashcard is a card that allows users to answer coding questions by running code directly.
+The  following use case illustrates how the card works.
+
+* System: FlashCard Pro
+* Actor: User
+* Use case: Create a code flashcard
+
+MSS:
+
+. The user initialises the card for the appropriate language (i.e. Java or JS)
+
+. The user enters starter code if necessary (e.g boilerplate code, helper methods)
+
+. The user enters test cases (specifying inputs and corresponding expected outputs).
+. FlashCard Pro saves the newly created card.
+
+Use case ends.
+
+*Extensions:
+[start=3]
+. a) The user enters 0 test cases.
+    .. 1) FlashCard Pro prompts for at least 1 test case.
+    .. 2) The user enters a test case.
+
+Use case resumes from step 4.
+
+// tag::UndoRedo[]
+
+=== Undo/Redo Commands
+
+Undo and Redo are commands meant to reverse any alterations to the `ArrayList` of Decks in State. As such, any mistake
+can be easily recovered from. +
+
+Please refer to the following Use case for an example of the uses of Undo/Redo.
+
+==== Use case for Undo/Redo
+
+* System: FlashCard Pro
+* Actor: User
+* Use case: Accidentally deleting the wrong deck and recovering it.
+
+MSS:
+
+. The user creates 2 decks: Deck1 and Deck2.
+
+. The user wishes to delete Deck1, but accidentally deletes Deck2.
+
+. In order to recover Deck2, the user types in the command `undo` into the CLI.
+
+. Deck2 is recovered.
+
+Use case ends.
+
+*Extensions:
+[start=4]
+
+. a) The user decides that they prefer Deck2 to be deleted.
+    .. ) The user types 'redo' into the CLI.
+    .. ) Deck2 is deleted again.
+
+Use case ends.
+
+==== General Activity Diagram of Undo/Redo
+
+===== *Before an Undo/Redo command is called:*
+.Activity diagram for deck altering commands
+image::DeckAlteringCommandsActivityDiagram.PNG[]
+Whenever the `State`'s `decks` are altered, `State.addCurrDecksToDeckHistory()` is called. This adds a deep copy of the
+current `State.decks` to `State.deckHistory`. Also, `State.resetUndoHistory()` which re-initialises `State.undoHistory`.
+Then, the changes to State are carried out.
+
+===== *When an Undo/Redo command is called:*
+.Activity diagram for Undo/Redo
+image::UndoRedoActivityDiagram.PNG[]
+
+NOTE: The Undo and Redo commands are implemented in similar ways. As such, I will be explaining both commands simultaneously.
+
+When an Undo/Redo command is parsed by Responder and Responses, it calls the appropriate method in `State` (for undo:
+`State.undoDeckChanges()`, for redo: `State.redoDeckChanges()`). This then sets `State.deck` to the topmost ArrayList
+of Decks from the appropriate Stack (for undo: `State.deckHistory`, for redo: `State.undoHistory`). +
+// end::UndoRedo[]
+
+
+// tag::configure_difficulty[]
+=== [Proposed] Configure difficulty of test set in `test` mode
+
+Currently, the user is restricted to a test set of 60% `HIGH_PRIORITY` and 40% `LOW_PRIORITY` cards in the test set.
+
+In V2.0, the user should be able to configure the proportion of `HIGH_PRIORITY` and `LOW_PRIORITY` cards in the test set to pitch the level of difficulty of the test.
+
+image::ConfigurePriorityFlashCardTestSetSequenceDiagram.png[]
+
+The ExamRunner will be expanded to allow the user to take in the ratio of `HIGH_PRIORITY`.
+
+Then, the computation of the number of `HIGH_PRIORITY` and `LOW_PRIORITY` cards will be done according to the ratio provided by the user.
+
+// end::configure_difficulty[]
+
+// tag::statistics[]
+=== Saving and viewing user statistics
+
+* The Statistics feature revolves around the storage and interpretation of the user's *sessions*, be it _login_ sessions or _test_ sessions.
+* Therefore, the `Session` class is the main building block of all Statistics-related classes. They are stored in `SessionList` objects.
+* Due to design considerations, the `UserStats` and `DeckStats` objects are intended to be singletons, created upon application startup and modified, but never duplicated or deleted.
+** Thus, they are accessible via the static methods `getUserStats()` and `getDeckStats()` accessible via the `StatsHolder` class.
+** This method of implementation is similar to what my teammates have used to store `State`.
+** Initially, the `UserStats` and `DeckStats` objects were intended to be stored within `State` as well. However, the addition of undo/redo functionality complicated matters. Thus, the statistics objects have been decoupled from `State`.
+
+The structure of Statistics-related classes is depicted in the class diagram below.
+
+image::nattanyz/class diagram.png[]
+
+Or, simplified:
+
+image::nattanyz/class diagram simplified.png[]
+
+The following sequence diagram depicts the starting, ending and saving of the user's `Session` when they open and close the app.
+
+image::nattanyz/sequence diagram.png[]
+
+==== Challenges in implementation
+* Because of the custom `StorageManager` class used to load and save JSON objects, the implementation of loading and saving statistics is somewhat tightly coupled with `StorageManager`.
+** It is insufficient to simply override the `toJson()` method to ensure that the statistics objects would be stored correctly. Instead, the underlying structure of the statistics objects must be known and exposed during the implementation of e.g. the `loadDeckStats()` and `saveDeckStats()` methods in `StorageManager`.
+** Perhaps in v2.0, refactoring of `StorageManager` could allow for a higher level of abstraction of storage-related methods and reduced coupling between `StorageManager` and the unrelated Statistics classes.
+* As our application is quite significantly different than AB3, we used an MSS-focused approach to development: i.e. we focused on making sure that the user's "happy path" could be completed via the GUI, before linking up the app's behaviour with the CLI commands. This resulted in insufficient clarity and tight coupling of the `Responses` class with other classes.
+** The logic of parsing CLI input, handling incorrect commands, determining if the application is in an appropriate `State` etc., along with the actual handling of the command, is all bundled within `Responses` at present.
+** In v2.0, we could focus on removing duplicated code between the CLI and GUI implementations.
+** In v2.0, we could also work towards abstracting out the app's desired response to a command in `Command` classes, allowing for a `Parser` to handle CLI calls and a `Dispatcher` to handle all `Command` s, whether they originate from the CLI or GUI.
+** By abstracting out the handling of each command into separate classes, each team member can check the logic of how each `Command` interacts with their component with ease and avoid duplicated code. e.g. A `startTestSessionCommand` could initialise the `ExamRunner`, update `Statistics`, and so on.
+** Because of the current less-than-ideal implementation of the app's behaviour, in order to support creating/renaming/deleting decks along with undo/redo, code pertaining to `DeckStats` needed to be inserted at many disparate places in the code, e.g. within a button action in the `EditDeckDisplay` controller and in `Responses`.
+
+==== Proposed extension: Statistics for individual cards in a deck
+
+* Statistics for specific cards in a deck could be stored within the `Session` object representing the user's test session on a deck.
+** In this way, summary statistics e.g. how many times the card was reviewed in the past week or whether the user attempted the card correctly on average, can be generated with ease.
+** There is no need to store duplicated data about when each card is accessed.
+* One challenge for the implementation of card-specific statistics is the tight coupling of `Responses` with other classes, as mentioned above.
+** Because individual cards are prone to change, e.g. when the user edits the front or back of the card, not to mention the decks themselves can also be renamed or deleted, it is important that the implementation of `DeckStats` is fully cleaned up before work on `CardStats` can begin.
+
+// end::statistics[]
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
@@ -275,19 +571,26 @@ Refer to the guide <<Testing#, here>>.
 Refer to the guide <<DevOps#, here>>.
 
 [appendix]
+
+// tag::productscope[]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* wishes to learn new materials by retrieval learning and self-testing
+* is an independent learner
+* contents of learning are largely textual
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: allow effective reinforcement learning of textual content by answering using CLI input to a question prompt from a GUI
+// end::productscope[]
 
 [appendix]
+
+// tag::user_stories[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -295,53 +598,293 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` | user| add a new deck| create a new topic collection of flash cards to test myself
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` | user| add a new card to a deck| include a new question into the topic of the deck to test myself
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` | user| save my deck of flash cards into my local drive| I can share it with my friends
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` | user| load my deck of flash cards into the app| I can reuse the deck of cards created
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user that takes flash card tests |select an option out of four that best matches the front of a flash card |I can check that I have understood the concept the flash card aims to impart
+
+|`* * *` |learner who wants to track his/her progress |view the questions I have not done well in| improve my understanding on these concepts tested
+
+|`* * *` |learner who wants to prioritise some test questions over others |set which questions are more important | be exposed to these important questions more in the tests
+
+|`* * *` |beginner user |access a help page |i can learn about the features at a glance
+
+|`* *` |student with subjects of different language mediums |add flashcards of differing languages  |I can customise my flashcards to the subject I am interested to do
+
+|`* *` |user creating flash cards |save collections of thematically similar flash cards | I can share my cards easily to other users
+
+| `* * *`| user| view the list of flashcards in a deck| remember the material at the back of the flashcard
+
+| `* * *`| user| edit the front and/or back of the flashcard in a deck|
+
+| `* * *`| user| delete a flashcard from a deck|
+
+| `* * *`| user| view the decks of flashcards in my library| I know what are the decks available for my usage
+
+| `* * *`| intermediate learner| vary the amount of difficult questions in a test| expose myself to a test with varying difficult each time I test myself
+
+| `* * *`| expert learner with MCQ flashcard test| remove the choices given by the MCQ choices and enter the answers via CLI| test my understanding of the concept without a MCQ choice prompt
+
+| `* * *`| learner attempting MCQ questions| have randomised choices each time I try the test| I will not copy the choice from the previous test
+
+| `* * *`| user| restore my library state of my previous session| continue using FlashCard Pro without much time wasted
+
+| `* * *`| user attempting a test| view my score after the test|
+
+| `* * *`| user who attempted a test| track my progress across mutliple test| monitor my attempts and correctness
+
+
+
 |=======================================================================
+
+// end::user_stories[]
 
 _{More to be added}_
 
 [appendix]
+
+
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `FlashCard Pro` and the *Actor* is the `learner`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
-
+=== Use case: Create a deck of cards
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. Learner creates a new empty deck and specifies the name of the deck of cards.
+2. Learner adds individual cards to the deck and specifies the content of the front and back of the cards.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. FlashCard Pro detects deck name provided by learner is identical to an existing deck of cards in the library.
+** 1a1. FlashCard Pro informs the learner that deck creation is unsuccessful.
+** 1a2. Learner creates a new deck with another unique deck name.
+** Steps 1a1-1a2 are repeated until the data entered are correct.
+** Use case resumes from step 2.
+
+* 2a. FlashCard Pro detects no front and/or back content specified by the learner.
+** 2a1. FlashCard Pro informs the learner that card creation is unsuccessful.
+** 2a2. Learner creates a new card with the correct front and/or back content.
+** Steps 2a1-2a2 are repeated until the format of the command entered is correct.
++
+(Was wondering if FlashCard Pro should create the deck, but with a numbering like untitled_1, untitled_2 etc)
+
+
+[discrete]
+=== Use case: Start a untimed test
+*MSS*
+
+1. Learner starts untimed test with a deck of cards by specifying deck name.
+2. FlashCard Pro begins test.
+3. FlashCard Pro flashes text on the front of a flash card to learner.
+4. FlashCard Pro waits for learner's answer.
+5. Learner enters answer.
+6. FlashCard Pro matches answer with text on back of flash card.
+7. FlashCard Pro informs learner about correctness of the learner's answer.
+8. FlashCard Pro displays the correct answer, the text on the back of the flash card.
++
+Steps 3-8 are repeated until all the flash cards in the deck are completed.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+[discrete]
+=== Use case: Import an existing deck of cards from a JSON file
+*MSS*
 
-_{More to be added}_
+1. Learner specifies the filepath of the deck of cards to import, in a JSON file format.
+2. FlashCard Pro loads the file in the filepath.
+3. FlashCard Pro parses the fields in the JSON file.
+4. FlashCard Pro constructs the deck of cards.
+5. FlashCard Pro stores the deck of cards in the library.
++
+Use case ends.
+
+
+*Extensions*
+
+* 2a. FlashCard Pro detects filepath is invalid.
+** 2a1. FlashCard Pro informs the learner that import of deck of cards is unsuccessful.
++
+Use case ends.
+
+[none]
+* 2b. FlashCard Pro detects that filepath does not lead to a JSON file.
+** 2b1. FlashCard Pro informs the learner that import of deck of cards is unsuccessful.
++
+Use case ends.
+
+[discrete]
+=== Use case: Running a test using Front Back Cards
+*MSS*
+
+1. User enters command to start test with a deck of card and supplies deck name.
+2. System obtains the deck of cards.
+3. System starts test session.
+4. System shows front of card to user, waits for answer.
+5. User enters the answer.
+6. System evaluates the answer.
+7. System reports the correctness of the answer.
+8. System moves to next card.
++
+Step 4-8 repeated until there are no cards in the deck remaining.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. System does not find a deck with the deck name specified by the user
+** 1a1. System tells user that there is no deck with specified name.
+** 1a2. System exits test creation.
++
+Use case ends.
+
+[none]
+* 1b. System has no decks in library.
+** 1b1. System tells user that there are no decks in the library.
+** 1b2. System exits test creation.
++
+Use case ends.
+
+
+=== Use case: Creating a deck of cards
+*MSS*
+
+1. User enters command to create a deck.
+2. System creates a new deck.
+3. User enters command to create a new card in the deck.
+4. System creates a card.
+5. System stores the card in the deck.
++
+Steps 2-5 repeats as long as the user wants to add a card.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Untimed Test with a deck of Multiple Choice Cards
+*MSS*
+
+1. User enters command to start test on a deck.
+(System creates a test subset)
+2. System gets the deck the user wants to test on.
+3. System starts test session.
+4. System randomises the choice ordering.
+5. System displays the front of card and choices.
+6. User enters the choice of correct answer.
+7. System evaluates the answer.
+8. System shows the correctness of the answer.
+9. System moves to next card.
++
+Steps 4-9 are repeated until there are no more cards in the test set.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. System does not find a deck with the deck name specified by the user
+** 1a1. System tells user that there is no deck with specified name.
+** 1a2. System exits test creation.
++
+Use case ends.
+
+[none]
+* 1b. System has no decks in library.
+** 1b1. System tells user that there are no decks in the library.
+** 1b2. System exits test creation.
++
+Use case ends.
+
+[none]
+* 6a. User enters an invalid choice.
+** 6a1. System checks if choice is valid.
+** 6a2. System tells User that choice entered is invalid.
+** 6a3. System requests User to enter another choice.
++
+Steps 6a1-6a3 repeats until the User enters a valid choice.
+
+// tag::use_case[]
+[discrete]
+=== Use case: Timed Test with a deck of Multiple Choice Cards
+*MSS*
+
+1. User enters command to start test on a deck.
++
+(System creates a test subset)
++
+2. System gets the deck the user wants to test on.
+3. System starts test session.
+4. System randomises the choice ordering.
+5. System displays the front of card and choices.
+6. User enters the choice of correct answer.
+7. System evaluates the answer.
+8. System shows the correctness of the answer.
+9. System moves to next card.
++
+Steps 4-9 are repeated until there are no more cards in the test set.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. System does not find a deck with the deck name specified by the user
+** 1a1. System tells user that there is no deck with specified name.
+** 1a2. System exits test creation.
++
+Use case ends.
+
+[none]
+* 1b. System has no decks in library.
+** 1b1. System tells user that there are no decks in the library.
+** 1b2. System exits test creation.
++
+Use case ends.
+
+[none]
+* 6a. User enters an invalid choice.
+** 6a1. System checks if choice is valid.
+** 6a2. System tells User that choice entered is invalid.
++
+Steps 6a1-6a3 repeats 3 times.
++
+** 6a4. User enters invalid choice for 4th time.
+** 6a5. System receives invalid choice for 4th time.
+** 6a6. System terminates test.
+** 6a7. System tells User that test has terminated due to incorrect inputs.
++
+Use case ends.
+
+[discrete]
+=== Use case: Creating a Multiple Choice Card
+*MSS*
+
+1. User enters command to create a MCQ Card to a deck.
+2. System starts MCQ Card creation.
+3. System stores MCQ card in deck.
++
+Use case ends.
+
+*Extension*
+
+* 1a. User enters duplicated choices.
+** 1a1. System detects duplicated choices in choices provided by user.
+** 1a2. System tells User that there are duplicates in choices provided.
+** 1a3. System ends card creation.
++
+Use case ends.
+
+
+// end::use_case[]
+
 
 [appendix]
 == Non Functional Requirements
@@ -349,6 +892,7 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should handle text input of english alphabets.
 
 _{More to be added}_
 
@@ -358,68 +902,40 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
 
+To create an empty deck with name `German`:
+
+* `create deck/German`
+
+To add a Front Back card with default priority level of `low` to the deck `German`:
+
+* `add deck/German front/hello back/moin moin`
+
+To add a Front and Back card with priority level of `high` to the deck `German`:
+
+* `add deck/German priority/high front/Good morning back/guten morgen`
+
+To edit a Front and Back card's front text, with the card as the only card in the `German` deck:
+
+* `edit deck/German index/1 front/Good bye`
+
+To add an Multiple Choice card with priority level of `high` 3 options and the second option is the correct answer:
+
+* `add deck/German priority/high front/Good morning back/2 choice/klair choice/guten morgen choice/moin`
+
+To delete the first card from the `German` deck:
+
+* `delete deck/German index/1`
+
+To delete the deck `German`:
+
+* `delete deck/German`
+
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
-
-. Initial launch
-
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

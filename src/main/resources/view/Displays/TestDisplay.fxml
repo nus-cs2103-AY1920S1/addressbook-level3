@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root minHeight="-Infinity" minWidth="-Infinity" styleClass="main-content-window" stylesheets="@../defaultStyles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+      <Label styleClass="window-subtitle" text="Untimed test" />
+        <VBox fx:id="cardDisplay" prefHeight="350" prefWidth="300" />
+      <HBox alignment="CENTER" spacing="10.0">
+         <children>
+                <Button fx:id="prevButton" mnemonicParsing="false" text="Prev" />
+                <Button fx:id="endSessionButton" mnemonicParsing="false" text="End Session" />
+                <Button fx:id="nextButton" alignment="CENTER" mnemonicParsing="false" text="Next" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER">
+         <children>
+            <Label fx:id="scoreLabel" alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" text="Current score: 0" />
+         </children>
+      </HBox>
+    </children>
+</fx:root>

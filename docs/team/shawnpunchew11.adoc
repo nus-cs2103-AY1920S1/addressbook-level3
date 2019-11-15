@@ -1,0 +1,73 @@
+= Shawn Chew - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FlashCard Pro
+
+== Overview
+
+FlashCard Pro is a flashcard software created primarily with students in mind. FlashCard Pro takes after traditional flashcard apps in which users are given decks of cards that they can test themselves on or simply use as reference while studying.
+
+Taking after reputable flashcard applications like Anki, FlashCard Pro provides a Command Line Interface (CLI) driven application where users can control the app via typing various commands.
+
+== Summary of contributions
+
+* *Major enhancement*: created a *test function* that users can use to test themselves using flashcards.
+
+** Allows the user to create tests with or without a time limit.
+
+** Supports the testing of all 4 types of cards, namely `Front-Back Cards`, `MultipleChoice Cards`, `Javascript Cards` and `Java Cards`
+
+** Allow users to test the cards in any order where they can skip to later questions and come back to skipped ones later on.
+
+** Allows users to review cards at the end of the test and even repeat them to get the correct answer (though it will not contribute to their score).
+
+** Results will be shown to the user at the end of the test.
+
+* Justification: This feature improves the product significantly by adding to its functionality because it makes FlashCard Pro more than just a database for FlashCards by having some interactivity with the user. Users will be able to do self-learning with this added functionality.
+
+* Highlights:
+
+** This enhancement provides the user with greater functionality to improve his flashcard learning experience. Instead of having a database to access cards, the user is now able to test him/herself.
+** The user is also able to obtain a full-feedback loop with regards to his learning. This begins with testing him/herself with questions, followed by getting a feedback score and lastly being able to review the mistakes made and re-attempt cards for further practice.
+** In addition, this feature is challenging because it requires in-depth analysis and design of the overall application architecture. It involved some complex design decisions such as making ExamRunner a singleton class as well as overall understanding in FXML, Regex and Logic code to tie the implementations of GUI and CLI together.
+** Significant changes were made from the initial design when we changed our program structure to suit a MVC design pattern. This required thorough understanding of good software architecture as well as the Consumer functional interface.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=shawnp&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByAuthors&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shawnpunchew11&tabRepo=AY1920S1-CS2103-F09-2%2Fmain%5Bmaster%5D[Functional code]][https://github.com/AY1920S1-CS2103-F09-2/main/tree/master/src/test/java/dream/fcard/logic/exam[Test code]]
+
+* *Other contributions*:
+
+** Testing:
+*** Alerted team about bugs found in issue tracker: https://github.com/AY1920S1-CS2103-F09-2/main/issues/326[#326]
+*** Did product testing to ensure that the test mechanism was bug-free, along with other features and GUI, and various system integration tests.
+*** Spent a great deal of time trying to fix our CI environment because our project suddenly failed Travis
+
+** Enhancements to existing features:
+*** Wrote additional tests (Please refer to [test code] link above.)
+
+** Documentation:
+*** Did documentation in Developer Guide. (See <<Contributions to the Developer Guide>> below)
+*** Maintained the Command List Summary (See Section 7 of <<Contributions to the User Guide>> below)
+
+** Community:
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/167[#167])
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=test]
+
+include::../UserGuide.adoc[tag=summary]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=test]

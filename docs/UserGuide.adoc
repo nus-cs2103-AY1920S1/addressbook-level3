@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= FlashCard Pro - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,166 +12,652 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-F09-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F09-02`      Since: `Aug 2019`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+FlashCard Pro is an application designed for students who *prefer to use a desktop app for managing flashcards*. It is also useful for teachers who would like to provide resources, in the form of custom flashcard decks, to support their students’ learning.
 
+FlashCard Pro is optimised for users who are *comfortable with Command Line Interface-based interaction*, allowing them to work more efficiently than with traditional Graphical User Interface (GUI)-based flashcard apps, while still being able to use their flashcards in a familiar GUI format.
+
+// end::introduction[]
+// tag::whatis[]
+== What is a flashcard?
+
+*Flashcards* are containers for information. Each card has a “front” and a “back”. One recommended use case is such: the user stores a question on the “front” of the card, and the answer on the “back”.
+
+// end::whatis[]
+// tag::interacting[]
+== Interacting with flashcards
+
+After sets of flashcards (known as *“decks”*) have been created, the user can interact with the flashcards in various ways. For example, they may test themselves on the content of the decks via *timed and untimed tests*. For ordinary cards with a front and back, the user can gauge their own understanding of the material by pressing either the "I got it right!" or "I got it wrong :(" buttons on the back of the flashcard.
+
+Other types of flashcards support more advanced interactions. Cards with *multiple choices* for their answers will prompt the user to select an answer, and the app will automatically determine if the answer is correct.
+
+At the end of each test, FlashCard Pro will provide the user with a score. Comprehensive *statistics on the user's test sessions and login sessions* are recorded, which can be accessed via the Statistics menu in FlashCard Pro. The user may use these statistics to assess the frequency of their usage and their performance over time. Statistics are also provided on each card in a deck, so that the user can identify specific cards they may have problems with [coming in v2.0].
+
+As with physical flashcards, the flashcards in FlashCard Pro can be shuffled, used in reverse, mixed between decks, etc [coming in v2.0]. Unlike physical flashcards, flashcards in FlashCard Pro are dynamic, offering a range of possibilities from traditional memorisation-type uses, to support for learning programming.
+
+With FlashCard Pro's *Java and JavaScript cards*, teachers can define basic coding problems for their students. Based on the test cases provided by the teachers, FlashCard Pro will evaluate the output of the student’s solution, allowing students to gauge their own coding knowledge, and teachers to evaluate their students’ progress. Test decks can be passed easily from student to teacher, as they are stored in convenient, lightweight JSON files which can be *imported or exported* natively in FlashCard Pro.
+
+// end::interacting[]
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `FlashCardPro.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
 
+Note:
+
+** GUI deck displays work ideally for decks with 10 or less cards. Better GUI support will be included for display of decks in V2.0.
+** Some windows are not yet optimised for perfect viewing. [Coming in V2.0]
+
+In such cases, please use scroll bar to view the windows properly.
+
+//@@author huiminlim
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.
+* Items in square brackets are optional.
+* Items with `…` after them can be used multiple times including zero times.
+* Commands are case-sensitive.
 ====
+//@author
 
-=== Viewing help : `help`
+// tag::cli[]
+====
+*Command History*
 
-Format: `help`
+* After keying in a command, press up and down arrow keys to navigate your command history.
+* If in multiline editing mode, press (Ctrl+d) to submit the multiline text
+* In single line mode use (Ctrl+c) to clear the line
+* Press (Ctrl+v) to paste clipboard content. If in multiline mode it will paste as per normal. In singleline mode each line will be evaluated.
+====
+// end::cli[]
 
-=== Adding a person: `add`
+// tag::help[]
+=== Show help page for commands available : `help`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Shows the help page and guides you through the available commands for FlashCard Pro. You can also choose a specific command to look up how to use it
+
+Format: `help [command/COMMAND_NAME]`
+
+****
+* If user does not supply parameter for command: shows all the available commands and syntax in FlashCard Pro
+* If user supply a parameter in command: shows the specific command syntax.
+** All commands that are available, except for help, can be queried.
+** Other non-valid commands will give a `command not found` message.
+****
+
+Examples:
+
+* `help` +
+
+Displays the User Guide for reference in FlashCard Pro.
+
+* `help command/view` +
+
+Displays the syntax to use command `view`.
+
+// end::help[]
+
+// tag::import[]
+=== Importing flashcards from disk : `import`
+
+Adds a deck of flashcards from a JSON file path to FlashCard Pro's library
+
+Format: `import filepath/FILE_NAME`
 
 [TIP]
-A person can have any number of tags (including 0)
+You are advised to save your FlashCard Pro decks of flashcards in a folder that is separate from your files. +
+
+FlashCard Pro recommends createing a folder in desktop named `flashcardpro`.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `import filepath/C:\Users\user\Desktop\flashcardpro\german.json` +
 
-=== Listing all persons : `list`
+Importing the JSON file `german.json` file from a Windows OS file path.
 
-Shows a list of all persons in the address book. +
-Format: `list`
+// end::import[]
 
-=== Editing a person : `edit`
+// tag::export[]
+=== Exporting flashcards to disk: `export`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Saves the deck of flashcards to a JSON file in the specified file path
+
+Format: `export deck/DECK_NAME`
+
+Examples:
+
+* `export deck/german` +
+
+Exports a deck named `german` in FlashCard Pro library to a JSON file named `german.json`
+
+[TIP]
+You can share the deck of cards in the JSON file saved to another user to use in FlashCard Pro via the `import` function.+
+Refer to <<Importing flashcards from disk : `import`>> for steps.
+
+[TIP]
+You are advised to save your FlashCard Pro decks of flashcards in a folder that is separate from your files. +
+FlashCard Pro recommends createing a folder in desktop named `flashcardpro`.
+
+// end::export[]
+
+// tag::view[]
+=== Viewing flashcards in library: `view`
+
+View the individual flashcards in a specific deck
+
+Format: `view deck/DECK_NAME`
+
+Example:
+
+* `view deck/science_deck` +
+
+Displays all the cards in the deck of cards, `science_deck`
+
+// end::view[]
+
+
+// tag::create_deck[]
+=== Create new empty deck: `create`
+
+Creates an empty deck in FlashCard Pro library.
+
+Format: `create deck/DECK_NAME.
+
+Note :
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* The `DECK_NAME` must be unique and no deck that exist in FlashCard Pro library should have the same name of `DECK_NAME`.
+
+* If there is another deck with the same name `DECK_NAME`, there will be an error message and the empty deck will not be created.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `create deck/german` +
 
-=== Locating persons by name: `find`
+Creates a new empty deck named `german`.
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+// end::create_deck[]
+
+
+// tag::add_front_MCQ[]
+=== Add new Front Back card or Multiple Choice Card to deck: `add`
+
+Adds a Front Back card or Multiple Choice Card in a deck of FlashCard Pro library.
+
+Format: `add deck/DECK_NAME [priority/PRIORITY_LEVEL] front/FRONT_TEXT back/BACK_TEXT [choice/CHOICE_TEXT]...`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The `DECK_NAME` must be a name of an existing deck in FlashCard Pro.
+
+** If there is not deck with the name of `DECK_NAME`, there will be an error message and the card will not be created.
+
+* When entering the `PRIORITY_LEVEL`, there are only 2 valid choices `HIGH` and `LOW`. Refer to the table below to know how to use the `PRIORITY_LEVEL`:
+
+[width="59%",options="header",]
+|=======================================================================
+| Priority | Value | Input for PRIORITY_LEVEL
+
+| High | You find the card important and want it to be tested more often | `HIGH`
+
+| Low | You find the card less important and want it to be tested less often | `LOW`
+|=======================================================================
+
+** If no `priority/` parameter is entered, then the default priority level is `LOW`.
+
+** If you enter any input other than `HIGH` or `LOW`, there will be an error message and the card will not be created.
+
+* `FRONT_TEXT` is the question that you wish to see in the flashcard.
+
+* To create a Front Back card,
+
+** `BACK_TEXT` is the answer of the Front Back flashcard.
+
+** No choice should be entered under `choice/`.
+
+* To create a Multiple Choice card,
+
+** the `BACK_TEXT` parameter should correspond to choice entered by the user, using the order of choice entered and should be a integer value from 1, 2, ...., Number of choices entered.
+
+** To create a Multiple Choice card, there should be at least 2 `choice/` parameters entered.
+
+** If there are only 1 `choice/` parameters entered, there will be an error message and the card will not be created.
+
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `add deck/german  front/hello back/moin moin` +
+
+Creates a new Front Back card in deck `german`.
+
+* `add deck/german  front/hello back/1 choice/hello choice/bye choice/zzz` +
+
+Creates a new Multiple Choice card in deck `german`, with the answer as the first `choice/` parameter, hello.
+
+// end::add_front_MCQ[]
+
+=== Add new Javascript card or Java Card
+
+****
+In our app, you can make a flash card that asks you to write code and test it against test cases that you have supplied during card creation. Two languages are available for use: Java and JavaScript.
+
+
+To begin creating either card via the GUI:
+
+- Click on an existing deck.
+- In the deck display window click on `Change name/Add question` to add a new card.
+- In the card creation window, select either `Java` or `JavaScript`.
+
+To continue making a Java card via the GUI:
+
+- Enter a question that tells you what code to write. An example question would be:
+
+    Write a program to read in strings and print out each string with all alphabetical characters in uppercase.
+
+- Test cases for Java cards are as follows:
+** Enter input that you want to be fed into your program into the box that says `Enter input...`. +
+
+Example (for the question above):
+
+     helloWorld
+     12345myName
+     letters&&Numbers
+
+** Then, in the box to the right that says `Enter expected output`, type what your program should print out "to the console". +
+
+Example (for the question above):
+
+      HELLOWORLD
+      12345MYNAME
+      LETTERS&&NUMBERS
+
+
+* Do not put whitespace behind or in front of each line of your input or output if the whitespace is not intended. The Java card's output comparison checker is sensitive to any differences between your program's output and expected output.
+* You cannot enter empty outputs but an empty input is ok.
+* To enter another test case, click on `Add` and a new row of input and output boxes will appear.
+* To delete a test case row, click `Delete`.
+* Once your test cases are all typed in, click on `Add Card` and your deck will have your brand new Java card.
+
+To make a Java card via the CLI
+
+* The command is as follows : Suppose I have a deck named `myDeck`, and the question `Read in lines from the console and uppercase them`, type
+
+        add deck/myDeck front/Read in lines from the console and uppercase them java/
+
+* In the above command, the keyword `java/` tells the command line that you want to enter some test cases. The multiline CLI will then tell you:
+
+        Enter your inputs/outputs below.
+
+* Type your test cases as such: input/[your inputs on the next line], then a newline, then output/[your expected output]. Do not modify the message `Enter your inputs/outputs below.`
+* Once you have keyed in your inputs and outputs, type `CTRL+D` to escape multiline mode. You should see your new Java card in your deck.
+* Example:
+
+    Enter your inputs/outputs below.
+    input/
+    hello
+    ALREADYUPPERCASE
+    output/
+    HELLO
+    ALREADYUPPERCASE
+
+* if you want to put a blank input, just type input/ with nothing after it to make it explicit to FlashCard Pro that you want a blank input.
+* Outputs still cannot be blank.
+
+To continue making a JavaScript card via the GUI
+
+- Enter a question that tells you what code to write. +
+
+
+  Task: Write a function called addExclam(str) that takes in a string and adds a "!". Input: A string. Output: The string with a "!" at the back.
+
+- Test cases for JavaScript cards are as follows:
+** JavaScript cards use an `assert` function to check if your function is correct. The first argument to the assert is a call to your function. The second argument to the assert is the output you expect your function to give.
+** Enter your asserts like so: +
+
+    assert(addExclam("Hello"), "Hello!");
+    assert(addExclam("123"), "123!");
+    assert(addExclam("I love you!"), "I love you!!");
+
+What `assert(addExclam("Hello"), "Hello!")` does is to compare the result of `addExclam("Hello")` against your expected output `"Hello!"` to see if they are exactly equal.
+
+* If your assert calls the wrong function like `addexclam` instead of `addExclam`, your asserts will fail.
+* If your asserts have the wrong expected output in the first place such as `assert(addExclam("I love you!"), "I love you!");` where the expected output is missing an additional exclamation mark, your asserts will fail even if you have the correct function.
+* Advanced use case: You can technically write multiple functions in the same JavaScript card program. Then just put in asserts that call each function: +
+
+    assert(addExclam("Hello"), "Hello!");
+    assert(addFive(123), 128);
+    assert(addExclam("I love you!"), "I love you!!");
+
+and if you write both the correct `addExclam` and `addFive` functions, the card can test both functions for you. +
+
+       Example program:
+
+       const addExclam = str => str + "!";
+       const addFive = i => i + 5;
+
+** The card expects you to write asserts as shown and nothing else. If you write checks like `addOne(1) == 2`, the `JavaCard`'s assert` function cannot be used to check how many test cases you have, and how many you passed.
+** Once your test cases are all typed in, click on `Add Card` and your deck will have your brand new JavaScript card.
+** Once you have clicked `Add Card`, click on `Done` to finish your card creating session. You are now ready to test yourself.
+
+How to create a JavaScript card via the CLI
+
+* The command is as follows : Suppose I have a deck named `myDeck`, and the question `Make a function that adds 5 to a number`, type
+
+        add deck/myDeck front/Make a function that adds 5 to a number js/
+
+* In the above command, the keyword `js/` tells the command line that you want to enter some asserts. The multiline CLI will then tell you:
+
+        Enter your asserts below.
+
+* Type your asserts as described previously starting on the next line. Do not modify the message `Enter your asserts below.`
+* Once you have keyed in your asserts, type `CTRL+D` to escape multiline mode. You should see your new JavaScript card in your deck.
+****
+
+
+// tag::edit[]
+=== Editing the card of an existing deck of flashcards : `edit`
+
+The edit command allows the user to edit flashcards in any existing deck. This command applies for Front and Back cards and Multiple Choice Cards only.
+
+Format: `edit deck/DECK_NAME index/CARD_INDEX [front/FRONT_TEXT] [back/BACK_TEXT] [choiceIndex/CHOICE_INDEX] [choice/CHOICE_TEXT]`
+
+Note: Editing of Java and Javascript cards will be implemented in v2.0.
+
+****
+
+* The `DECK_NAME` must be an existing deck in the FlashCard Pro library.
+
+** If no deck with `DECK_NAME` exist in the FlashCard Pro library, there will be an error message and no card will be edited.
+
+* The `CARD_INDEX` refers to the index of a card in the deck.
+
+** `CARD_INDEX` must be a valid integer from 1, 2, ..., Number of cards in deck.
+
+** If the `CARD_INDEX` is invalid, there will be an error message and no card will be edited.
+
+* If you want to edit the front of the card, `FRONT_TEXT` should be supplied.
+
+* If you want to edit the back of the card, `BACK_TEXT` should be supplied.
+
+* If you want to edit a choice of an Multiple Choice card, `CHOICE_INDEX` and `CHOICE_TEXT` should be supplied.
+
+** If the `CHOICE_TEXT` entered by the user exists as one of the choices in the Multiple Choice card, an error message will be shown and the edit will not be made.
+
+[TIP]
+If you edit `CHOICE_TEXT`, do remember that the back of the Multiple Choice card will still determine the correct choice of the Multiple Choice card.
+FlashCard Pro will not be responsible if the editing of an answer choice lead to the choice to be incorrect.
+
+****
+
+Examples:
+
+* `edit deck/science_deck index/1 front/what is a cell back/a cell is a building block` +
+
+Edits the first flashcard of the deck `science_deck`
+
+* `edit deck/science_deck index/1 choiceIndex/3 choice/Hello` +
+
+Edits the first Multiple Choice flashcard of the deck `science_deck`, edit 3rd choice to hello.
+
+// end::edit[]
+
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Delete the card of an existing deck of flashcards : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes a card from an existing deck in FlashCard Pro.
+
+Format: `delete deck/DECK_NAME index/INDEX`
+
+Example:
+
+* `delete deck/german index/1` +
+
+Deletes the first card of the deck `german`.
+
+// end::delete[]
+
+// tag::undo[]
+=== Undo the last alteration to a deck : `undo`
+
+This allows you to undo any changed you may have made to any deck. This includes the creation of a new deck, the addition/edit of any cards and the deletion of cards or decks.
+
+Format: `undo`
+
+Example:
+
+* `undo`
+
+// end::undo[]
+
+// tag::redo[]
+=== Redoes the last undo : `redo`
+
+This allows you to redo any undo that you had previously done. Please note that any alteration of a recovered deck from an Undo command will also reset the Redo history.
+
+Format: `redo`
+
+Example:
+
+* `redo`
+
+// end::redo[]
+
+// tag::test[]
+=== Start test with flashcards : `test`
+
+image::StartTestCommand.png[width="650", align="center"]
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Starts a test with a deck of flashcards, with the choice of a timed or un-timed test mode, with the duration specified by the user.
+
+Format: `test deck/DECK_NAME duration/DURATION_IN_SECONDS`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `test deck/science_deck duration/0`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+Starts a untimed test with the deck of cards, `science_deck`
 
-Clears all entries from the address book. +
-Format: `clear`
+* `test deck/science_deck duration/100` +
 
-=== Exiting the program : `exit`
+Starts a timed test of 100 seconds with the deck of cards, `science_deck`
 
-Exits the program. +
-Format: `exit`
+Do note that only the results of the *first attempt* of each question will be counted in each test. Repeat attempts are allowed for a better learning experience, but will not contribute towards score.
+****
 
-=== Saving the data
+[TIP]
+Note that test creates the test deck by taking a few questions from the entire deck! So don't expect the entire deck to be inside test mode :)
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+==== Get next card: `next`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Gets the next card in the test deck.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+If there are no more cards, will trigger a popup with test results.
 
+==== Get previous card: `prev`
+
+Gets the previous card in the test deck.
+
+==== Quit test: `exit`
+
+image::ExitCommand.png[width="650", align="center"]
+
+Exits test mode.
+
+Triggers a popup with the results of the test.
+
+Popup will also automatically be triggered upon reaching the end of the deck.
+
+However, upon reaching the end of the deck, the user will be able to review and reattempt questions (though it will not count towards the user's score)
+
+[TIP]
+Do note that premature ending of a test will still count towards your User Statistics.
+
+==== Front-Back Cards: `front`, `back`, `correct`, `wrong`
+
+image::FrontBack.png[]
+
+====
+* Users should look at the question on the front of the card and think of their answer.
+
+* Once they have their answer, they can type `back` to view the answer on the back on the card.
+
+* Once on the card back, one can type `correct` or `wrong` to count their results, which will automatically take them to the next question.
+
+* They can type `front` when they are on the card back to relook at the question.
+====
+
+==== Multiple Choice Cards: `<INDEX_OF_CORRECT_ANSWER>`, `front`
+
+image::MCQCard.png[]
+
+====
+* Upon loading the card, users will be presented with the question and several choices.
+
+* Users will be able to key in their choice into the command bar, with the top most option as 1 and increasing downwards. Do note only numbers are accepted.
+
+* Keying in the answer will automatically flip the card and evaluate the answer. Users can then use `front` to relook at the question or `next` to go to the next question.
+====
+
+==== Java/Javascript Cards: `code`
+image::JsJavaCard.png[]
+
+====
+* Upon loading the card, users will be presented with a coding question.
+
+* They can then type `code` to launch the appropriate Java/Javascript coding playground to code their programs.
+
+* Upon running their programs, if they pass all test cases, their results will automatically be counted.
+
+* Users can then type `next` to go to the next question.
+====
+//end::test[]
+
+// tag::stats[]
+=== Viewing user statistics : `stats`
+
+Opens a new window to shows your *usage statistics*, such as time spent and list of login sessions over time. A *quick summary of the decks*, showing the number of cards, number of test sessions and average score, is also provided for reference.
+
+[TIP]
+You can also open the statistics window by clicking `Statistics > View my statistics` in the menu bar of the app.
+
+[TIP]
+Upon your first login, you will see that the list of login sessions is blank and the number of login sessions is 0. :) A login session refers to the duration between when you launch the app and when you close it. Try opening and closing the app several times!
+
+*Statistics on specific decks*, such as the list of test sessions involving the deck and their results, can be accessed via `stats deck/deck_NAME`, or by double-clicking on the row representing the deck in the table titled "My statistics by deck".
+
+*Statistics on specific cards* within a deck, which will allow you to review your understanding of individual concepts, are coming in v2.0.
+
+Format: `stats [deck/DECK_NAME]`
+
+Examples:
+
+* `stats` +
+// todo: add screenshot
+Displays an overview of your statistics, grouped by your login sessions and statistics specific to each deck.
+
+* `stats deck/science_deck` +
+// todo: add screenshot
+Displays the overview of time spent reviewing the deck `science_deck`, as well as the list of test sessions involving the deck and their results.
+
+// end::stats[]
+
+
+// tag::quit[]
+=== Quit FlashCard Pro : `quit`
+
+Leaves FlashCard Pro application.
+
+Format: `quit`
+
+Example:
+
+* `quit`
+
+// end::quit[]
+
+// tag::FAQ[]
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: How do I transfer my data to another computer? +
+*A*: Install the app in the other computer. Copy the JSON files of any decks you would like to transfer into the `data` folder of the app.
 
+// tag::FAQ_Undo[]
+*Q*: I accidentally deleted a deck! What can I do now? +
+*A*: You can just use the Undo command to recover the lost deck!
+
+*Q*: How many times can I use the Undo command sequentially? +
+*A*: The Undo command can be used to undo all deck alterations for this session. However, if you quit out of the app and reopen it, you will erase your history of Undos!
+
+*Q*: If I use Undo and make changes to an old version of a deck, will redo recover my original deck before the Undo command? +
+*A*: Unfortunately, the original deck before the Undo is unrecoverable. As such, please be mindful of making any changes to a recovered deck as this will erase any version of decks before the Undo!
+
+*Q*: Will I be able to review my mistakes after a test? +
+*A*: Yes! Test mode allows you to review all the questions in the test and even re-attempt them without changing your initial test score.
+// end::FAQ_Undo[]
+
+
+// end::FAQ[]
+
+// tag::summary[]
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *help* `help [command/COMMAND_NAME]` +
+e.g. `help`
+e.g. `help command/view`
+* *import* : `import filepath/FILE_NAME`
+* *export* : `export deck/DECK_NAME FILE_NAME`
+* *view* : `view [deck/DECK_NAME]` +
+e.g. `view deck/science_deck`
+* *create* : `create deck/DECK_NAME`
+* *add* - only applicable for Front-Back Cards and Multiple Choice Cards
+====
+** *add FrontBack:* `add deck/DECK_NAME front/CARD_FRONT back/CARD_BACK [priority/HIGH_OR_LOW]` +
+** *add MCQ:* `add deck/DECK_NAME front/CARD_FRONT back/INDEX_OF_CORRECT_OPTION choice/CHOICE_A choice/CHOICE_B [priority/HIGH_OR_LOW]`
+====
+* *edit* - only applicable for Front-Back Cards and Multiple Choice Cards
+* `edit deck/DECK_NAME index/CARD_INDEX [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT] [choiceIndex/CHOICE_INDEX] [choice/CHOICE_TEXT]` +
+* e.g. `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block`
+* *undo* : `undo`
+* *redo* : `redo`
+* *test* : `test deck/DECK_NAME duration/DURATION_IN_SECONDS` +
+e.g. `test deck/science_deck duration/0` +
+e.g. `test deck/science_deck duration/100`
+====
+** *While in TEST_MODE:*
+*** *next card*: `next`
+*** *previous card*: `prev`
+*** *exit test mode*: `exit`
+** *TEST_MODE: Front Back Cards:*
+**** see back of card: `back`
+**** correct answer: `correct`
+**** wrong answer: `wrong`
+**** see question: `front`
+** *TEST_MODE: Multiple Choice Cards:*
+*** indicate choice: `<INDEX_OF_CORRECT_ANSWER>` which must be a positive integer between 1 and the total number of choices
+*** see question: `front`
+** *TEST_MODE: Java/Javascript Cards:*
+*** open coding playground: `code`
+====
+* *stats* : `stats [deck/DECK_NAME]` +
+e.g. `stats deck/science_deck`
+* *quit* : `quit`
+// end::summary[]

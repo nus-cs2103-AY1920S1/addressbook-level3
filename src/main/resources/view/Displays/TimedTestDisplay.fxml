@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root minHeight="-Infinity" minWidth="-Infinity" styleClass="main-content-window" stylesheets="@../defaultStyles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+      <Label styleClass="window-subtitle" text="Timed test" />
+      <HBox spacing="20.0">
+         <children>
+            <VBox spacing="10.0">
+               <children>
+                  <Label fx:id="timerLabel1" alignment="CENTER" minWidth="-Infinity" styleClass="window-label" text="Timer" textAlignment="CENTER" />
+                  <Label fx:id="timerLabel" alignment="CENTER" minWidth="-Infinity" prefHeight="26.0" prefWidth="35.0" textAlignment="CENTER" textFill="#ff5858">
+                     <font>
+                        <Font name="Ebrima" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+              <VBox fx:id="cardDisplay" prefHeight="334.0" prefWidth="274.0" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER" spacing="10.0">
+         <children>
+                <Button fx:id="prevButton" mnemonicParsing="false" text="Prev" />
+                <Button fx:id="endSessionButton" mnemonicParsing="false" text="End Session" />
+                <Button fx:id="nextButton" alignment="CENTER" mnemonicParsing="false" text="Next" />
+         </children>
+      </HBox>
+      <VBox alignment="CENTER">
+         <children>
+              <Label fx:id="scoreLabel" alignment="CENTER" minWidth="-Infinity" prefHeight="18.0" text="Current score: 0" textAlignment="CENTER" />
+         </children>
+      </VBox>
+    </children>
+</fx:root>

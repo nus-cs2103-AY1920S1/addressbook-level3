@@ -1,0 +1,11 @@
+@startuml
+(*) --> "Initialization"
+
+if "User provides starter code" then
+  -->[true] "Type starter code"
+  -right-> "Enter test cases and expected output"
+else
+  ->[false] "Enter test cases and expected output"
+endif
+-->[Ending process] (*)
+@enduml
