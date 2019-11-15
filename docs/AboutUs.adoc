@@ -23,7 +23,7 @@ Responsibilities: Dashboard
 
 === Lee Wah
 image::bakwxh.png[width="150", align="left"]
-{empty}[http://github.com/bakwxh[github]] [<<leewah#, portfolio>>]
+{empty}[http://github.com/bakwxh[github]] [<<bakwxh#, portfolio>>]
 
 Role: Testing +
 Responsibilities: Recipe Book, Meal Plan Book
@@ -32,7 +32,7 @@ Responsibilities: Recipe Book, Meal Plan Book
 
 === Liew Jun Wei
 image::bigjunnn.png[width="150", align="left"]
-{empty}[http://github.com/bigjunnn[github]] [<<liewjunwei#, portfolio>>]
+{empty}[http://github.com/bigjunnn[github]] [<<bigjunnn#, portfolio>>]
 
 Role: Documentation +
 Responsibilities: Diary
@@ -41,7 +41,7 @@ Responsibilities: Diary
 
 === Muhammad Khairul Azman
 image::khairulazman1997.png[width="150", align="left"]
-{empty}[http://github.com/khairulazman1997[github]] [<<muhammadkhairulazman#, portfolio>>]
+{empty}[http://github.com/khairulazman1997[github]] [<<khairulzaman1997#, portfolio>>]
 
 Role: Integration +
 Responsibilities: Exercise Tracker
@@ -50,7 +50,7 @@ Responsibilities: Exercise Tracker
 
 === Yeo Yuan Xin
 image::yyuanxin.png[width="150", align="left"]
-{empty}[http://github.com/yyuanxin[github]] [<<yeoyuanxin#, portfolio>>]
+{empty}[http://github.com/yyuanxin[github]] [<<yyuanxin#, portfolio>>]
 
 Role: UI Design +
 Responsibilities: Health Records
