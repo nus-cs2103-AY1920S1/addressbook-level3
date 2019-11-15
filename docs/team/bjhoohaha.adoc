@@ -6,8 +6,6 @@
 :toc-placement: preamble
 :icons: font
 
-*Contents*
-
 == PROJECT: TravEzy
 
 === Introduction
@@ -15,9 +13,8 @@ _TravEzy_ is a desktop application that allows travellers to plan their trips, m
 their favourite moments. The application aims to revolutionize your travelling experience by simplyifying your travel
 planning process.
 
-image:MainInterface.png[width=800]
+=== Reading the document
 
-==== Reading the document
 [%header, width=66%, cols="2,10"]
 |===
 ^| Formatting | What it means
@@ -50,15 +47,6 @@ image:bjhoohahaTravezy.png[width=600]
 | *Itinerary* |  An itinerary to plan and organize your events.
 |===
 
-
-****
-test
-****
-====
-test
-====
-
-
 == Summary of contributions
 
 Out of the 6 different components of the _TravEzy_ application, I was responsible for the development of the
@@ -85,7 +73,7 @@ image::bjhoohahaAchievementChanges.png[width=800]
 [NOTE]
 Any recent changes in the other pre-existing feature of _Travezy_ namely: address book, calendar, diary,
 financial tracker and itinerary will update the  Statistics inside the Achievements Page.To find out more what statistics are generated for each feature, you can look
-https://ay1920s1-cs2103t-t17-2.github.io/main/UserGuide.html#statistics[here]. +
+https://ay1920s1-cs2103t-t17-2.github.io/main/UserGuide.html#achievements[here]. +
 
 ====
 By looking at your overall progress, this feature aims to:
@@ -98,7 +86,7 @@ By looking at your overall progress, this feature aims to:
 ==== Highlights
 The *Achievements* feature is live and up to date to reflect the latest statistics for each feature. To find out
 more what statistics are generated for each feature, you can look
-https://ay1920s1-cs2103t-t17-2.github.io/main/UserGuide.html#statistics[here]
+https://ay1920s1-cs2103t-t17-2.github.io/main/UserGuide.html#achievements[here]
 
 === Minor enhancement: +
 In the address book component, I added a country field to the person in address book.  +
@@ -120,6 +108,9 @@ and fade out transitions when navgiating between user interface of different fea
 //== Code contributed: [https://github.com[Functional code]] [https://github.com[Test code]]
 //_{give links to collated code files}_
 
+=== Code contributions
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=bjhoohaha&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[See my code contributions here.]
+
 === Other contributions
 
 ** Project management:
@@ -136,11 +127,6 @@ and fade out transitions when navgiating between user interface of different fea
 *** Fix Ui resizing issues for Diary Book (Pull Request https://github.com/AY1920S1-CS2103T-T17-2/main/pull/172[#172])
 ** Documentation:
 *** Updated UML diagrams for _TravEzy_ in the Developer Guide: (Pull Request https://github.com/AY1920S1-CS2103T-T17-2/main/pull/73[#73])
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 
 _{you can add/remove categories in the list above}_
 
@@ -151,9 +137,47 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=address]
+== Achievements
 
-include::../UserGuide.adoc[tag=achievements]
+
+You dream to become a top traveller travelling far and wide.. You have used _TravEzy_ extensively and would want to keep
+track of your travel progress. From each of the different features inside _Travezy_, you are curious to find out the
+progress of the goals you have set for yourself. This will allow you to gain insights about your travelling and spending
+habits to motivate yourself to travel more, spend less and record all your favourite moments!
+
+_TravEzy_ application consist of 5 different features: Address Book, Calendar, Diary, Financial Tracker and
+Itinerary. For each of the different feature, _TravEzy_ gives you a walkthrough of what statistics you can see for
+each feature when you are at the achievements page itself.
+
+=== Interface
+
+Navigating around the achievements interface:
+
+image::AchievementsInterface.png[width=800]
+
+[NOTE]
+The statistics for each feature is generated and displayed on the _scroll pane_ upon arriving at the achievements page
+
+=== Statistics
+
+The _scroll pane_ contains the statistics for:
+
+* Address Book Statistiscs
+* Calendar Statistics
+* Diary Book Statistics
+* Financial Tracker Statistics
+* Itinerary Statistics
+
+==== Address Book Statistics
+
+In the _scroll pane_ you will be able to see the statistics of the address book feature comprising of the following
+components:
+
+image::AchievementsAddressBook.png[width = 800]
+
+[WARNING]
+If the number of contacts in the address book has past the target goal of 200, the _progress bar_ will show 100% instead
+of the actual percentage.
 
 == Contributions to the Developer Guide
 
@@ -161,7 +185,40 @@ include::../UserGuide.adoc[tag=achievements]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=addressdg]
 
-include::../DeveloperGuide.adoc[tag=achievementsdg]
+=== Achievements
+
+==== Logic Component
+.AchievementsLogic Diagram of the Achievements feature
+image::AchievementsLogicClassDiagram.png[]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/achievements/logic/AchievementsLogic.java[`AchievementsLogic.java`]
+
+The `AchievementsLogic` is responsible for generating statistics for the different components in Travezy
+
+.  `AchievementsLogicManager` uses the `Supplier<StatisticsModel>` to supply the `StatisticsModel`.
+. Getting the `StatisticsModel` from the `Supplier<StatisticsModel>` constructs a new `StatisticsModel` that gets the statistics data from a Model from another feature e.g. `AddressBookModel` that is visible within `ModelManager`
+. `AchievementsLogicManager` returns the resultant data from the `StatisticsModel` that is lazily created.
+
+The `AchievementsLogic` parses `Command` as well to enable navigation to other `Page` within Travezy.
+
+.  `AchievementsLogicManager` uses the `AchievementsParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `AchievementsLogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a person).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+[NOTE]
+The `StatisticsModel` does not allow mutations and is immutable. Passing the `StatisticsModel` into `AchievementsLogic` does not mutate the original `StatisticsModel`
+
+[TIP]
+Generate a new `StatisticsModel` to reflect the newly updated data from each logic by supplying a new `StatisticsModeL` from the
+`StatisticsModelSupplier` in `AchievementsLogic`
+
+Given below is the sequence diagram for generating the `StatisticsModel` lazily:
+
+.Sequence Diagram of the Statistics Model
+image::AchievementsPage.png[]
+
 
