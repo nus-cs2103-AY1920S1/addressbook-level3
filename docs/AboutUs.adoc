@@ -14,7 +14,7 @@ The https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook3] (AB3
 
 === Chua Hua Lun
 image::hua-lun.png[width="150", align="left"]
-{empty}[https://github.com/hua-lun[github]] [<<chuahualun#, portfolio>>]
+{empty}[https://github.com/hua-lun[github]] [<<hua-lun#, portfolio>>]
 
 Role: Scheduling and Tracking +
 Responsibilities: Dashboard
