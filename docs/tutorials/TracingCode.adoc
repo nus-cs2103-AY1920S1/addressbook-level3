@@ -49,7 +49,7 @@ However, the execution path through a GUI is often somewhat obscure due to vario
 used by GUI frameworks, which happens to be the case here too. Therefore, let us put the breakpoint where the UI transfers
 control to the Logic component. According to the sequence diagram, the UI component yields control to the Logic component
 through a method named `execute`. Searching through the code base for `execute()` yields a promising candidate in
-`seedu.address.ui.CommandBox.CommandExecutor`.
+`seedu.pluswork.ui.CommandBox.CommandExecutor`.
 
 .Using the `Search for target by name` feature. `Navigate` > `Symbol`.
 image::Execute.png[]
@@ -179,14 +179,14 @@ image::LogicSequenceDiagram.png[]
 @Override
 public CommandResult execute(Model model) throws CommandException {
     ...
-    Person personToEdit = lastShownList.get(index.getZeroBased());
-    Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-    if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+    Person taskToEdit = lastShownList.get(index.getZeroBased());
+    Person editedTask = createEditedPerson(taskToEdit, editTaskDescriptor);
+    if (!taskToEdit.isSamePerson(editedTask) && model.hasPerson(editedTask)) {
         throw new CommandException(MESSAGE_DUPLICATE_PERSON);
     }
-    model.setPerson(personToEdit, editedPerson);
+    model.setPerson(taskToEdit, editedTask);
     model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+    return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedTask));
 }
 ----
 . As suspected, `command#execute()` does indeed make changes to `model`.
@@ -205,7 +205,7 @@ constructor.
  * {@code JsonSerializableAddressBook}.
  */
 public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-    persons.addAll(
+    tasks.addAll(
         source.getPersonList()
               .stream()
               .map(JsonAdaptedPerson::new)

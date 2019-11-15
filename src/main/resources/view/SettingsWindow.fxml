@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<VBox fx:id="vBox" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/11.0.1">
+    <AnchorPane fx:id="themeSetting" styleClass="setting-pane" prefHeight="200.0"
+                xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+        <children>
+            <Label text="THEME" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0"/>
+            <Label fx:id="themeLabelLight" AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="250.0"
+                   AnchorPane.topAnchor="100.0"/>
+            <Label fx:id="themeLabelDark" AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="100.0"
+                   AnchorPane.topAnchor="100.0"/>
+        </children>
+    </AnchorPane>
+    <Separator styleClass="separator"/>
+    <AnchorPane fx:id="clockSetting" styleClass="setting-pane" prefHeight="200.0"
+                xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+        <children>
+            <Label text="CLOCK" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0"/>
+            <Label fx:id="clockLabelTwelve" AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="250.0"
+                   AnchorPane.topAnchor="100.0"/>
+            <Label fx:id="clockLabelTwentyFour" AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="100.0"
+                   AnchorPane.topAnchor="100.0"/>
+        </children>
+    </AnchorPane>
+</VBox>

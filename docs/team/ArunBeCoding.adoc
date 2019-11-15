@@ -1,0 +1,88 @@
+= Ravi Arun Kumarr - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:experimental:
+
+== Introduction
+TThis project portfolio details my contributions for a Software Engineering group project taken in National University of Singapore.
+My team of 4 software engineering students and I built a command line interface (CLI) desktop application, +Work targeted at NUS student leaders.
+
+=== About the Project
+We were tasked with enhancing a basic command line interface desktop addressbook application for our Software Engineering project. We chose to morph it into a project management tool called +Work.
+This enhanced application enables NUS student project leaders to manage team members, meeting times, task allocations as well as equipment purchased.
+
+=== Important Symbols
+Shown below are a few symbols that will appear in this document, along with their significance.
+
+[NOTE]
+Information listed here should be noted by users to help them improve their experience.
+
+[IMPORTANT]
+Information listed here is essential to users. They need to understand this in order for +Work to work optimally.
+
+* `add-inv`
+
+** A grey highlight (called a mark-up) indicates that this is a command that   can be inputted into the command line and executed by the application.
+
+* [i/NAME] (p/PRICE)
+
+** Command attributes in square brackets,’[ ]’ mean it is required.
+  Meanwhile, attributes in round brackets, ‘( )’ mean it is optional.
+
+== Summary of Contributions
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
+
+=== Enhancements
+* *Enhancement one* : I added the ability to manage inventories.
+
+** What it does: Commands to manage inventory allow user to add, delete, edit and print PDF reports of inventories.
+
+** Justification: +Work is designed for university-level students’ projects which usually require inventories.
+   Rather than keeping a separate log of inventories in an excel spreadsheet, +Work allows them to manage it together with project tasks at the same place for extra convenience.
+
+** Highlights: An in-depth analysis of design alternatives was necessary to design the PDF-report feature of inventory management.
+   The decision to create reports in a PDF format rather than other formats was made to increase efficiency and to simplify programming.
+
+** Credits: Code from AddressBook-3 provided was adapted to create the inventory features.
+   iText library was used to create PDF reports for inventory.
+
+* *Enhancement two*: I added the ability to handle multiline commands.
+
+** What it does: Multiline commands ask users questions based on their input, allowing them to add extra attributes.
+
+** Justification: If an user wants to add a task and set deadline or member to it or wants to save a task as inventory after it is done, he/ she has to do it in multiple steps. Multiline commands help to remove this issue by interacting with the user and adding whatever is necessary.
+
+** Highlights: Multiline commands will work with existing as well as future commands. The implementation was challenging since the original code was not designed to ask for user inputs based on previous user inputs. In addition to solving this issue, the multiline features were also created without causing much disruption to the existing code.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ArunBeCoding&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ArunBeCoding&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Test code]]
+
+=== Other Contributions
+
+** Project Management:
+*** Added additional tests to the repository to bump coverage up from 40% to 42% (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/170[#170])
+** Enhancements to existing features:
+*** Updated the storage to accommodate inventory and members(Pull requests https://github.com/AY1920S1-CS2103T-T12-1/main/pull/29[#29], https://github.com/AY1920S1-CS2103T-T12-1/main/pull/61[#61])
+** Documentation:
+*** Made improvements to the existing User Guide and Developer Guide to make it more reader friendly (Pull Request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/161[#161], https://github.com/AY1920S1-CS2103T-T12-1/main/pull/165[#165] )
+** Community:
+*** Reviewed Pull Requests (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T12-1/main/pull/12[#12], https://github.com/AY1920S1-CS2103T-T12-1/main/pull/17[#17], https://github.com/AY1920S1-CS2103T-T12-1/main/pull/63[#63]
+** Tools:
+*** Integrated a third party library (iText) to the project (Pull Request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/71[#71])
+
+== Contributions to the User Guide
+
+We had to update the original addressbook User Guide with instructions for the enhancements that we had added.
+The following is an excerpt from our +Work User Guide, showing additions that I have made for the inventory and multiline features.
+
+include::../UserGuide.adoc[tag=Inventory]
+include::../UserGuide.adoc[tag=Multiline]
+
+== Contributions to the Developer Guide
+
+The following is an excerpt taken from the Developer Guide of +Work, showing additions I have made to explain the technical
+aspects of the storage and inventory features.
+
+include::../DeveloperGuide.adoc[tag=Storage]
+
+include::../DeveloperGuide.adoc[tag=Inventory]

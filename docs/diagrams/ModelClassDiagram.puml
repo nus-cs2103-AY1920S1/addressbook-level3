@@ -5,23 +5,43 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyProjectDashboard <<Interface>>
+Interface ReadOnlyUserPrefs <<Interface>>
+Interface ReadOnlyUserSettings <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class ProjectDashboard
+Class ReadOnlyProjectDashboard
 Class Model
 Class ModelManager
 Class UserPrefs
+Class UserSettings
 Class ReadOnlyUserPrefs
 
-Package Person {
-Class Person
-Class Address
-Class Email
+Package Task {
+Class Task
 Class Name
-Class Phone
-Class UniquePersonList
+Class TaskStatus
+Class UniqueTaskList
+}
+
+Package Member {
+Class Member
+Class MemberId
+Class MemberName
+Class UniqueMemberList
+}
+
+Package Inventory {
+Class Inventory
+Class InvName
+Class Price
+Class UniqueInventoryList
+}
+
+Package Mapping {
+Class Mapping
+Class UniqueMappingList
 }
 
 Package Tag {
@@ -32,25 +52,39 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+ProjectDashboard .up.|> ReadOnlyProjectDashboard
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" ProjectDashboard
 ModelManager o-left-> "1" UserPrefs
+ModelManager o-left-> "1" UserSettings
 UserPrefs .up.|> ReadOnlyUserPrefs
+UserSettings .up.|> ReadOnlyUserSettings
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+ProjectDashboard *--> "1" UniqueTaskList
+UniqueTaskList o--> "*" Task
+Task *--> Name
+Task *--> TaskStatus
+Task *--> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
 
-ModelManager -->"1" Person : filtered list
+ProjectDashboard *--> "1" UniqueMemberList
+UniqueMemberList o--> "*" Member
+Member *--> MemberId
+Member *--> MemberName
+Member *--> "*" Tag
+
+ProjectDashboard *--> "1" UniqueInventoryList
+UniqueInventoryList o--> "*" Inventory
+Inventory *--> InvName
+Inventory *--> Price
+
+ProjectDashboard *--> "1" UniqueMappingList
+UniqueMappingList o--> "*" Mapping
+
+ModelManager -->"1" Task : filtered list
+ModelManager -->"1" Member : filtered list
+ModelManager -->"1" Inventory : filtered list
+ModelManager -->"1" Mapping : filtered list
 @enduml

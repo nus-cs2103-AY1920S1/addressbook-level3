@@ -1,0 +1,78 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ProjectDashboardParser" as ProjectDashboardParser LOGIC_COLOR
+participant ":SetImageCommandParser" as SetImageCommandParser LOGIC_COLOR
+participant " setImageCommand:SetImageCommand" as SetImageCommand LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "editedMember:Member" as Member MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute(args)
+activate LogicManager
+
+LogicManager -> ProjectDashboardParser : parseCommand(args)
+activate ProjectDashboardParser
+
+ProjectDashboardParser -> SetImageCommandParser : parse(args)
+activate SetImageCommandParser
+
+SetImageCommandParser -> ParserUtil : parserMemberId(args..)
+activate ParserUtil
+ParserUtil --> SetImageCommandParser : memberId
+
+SetImageCommandParser -> ParserUtil : parserMemberImage(args...)
+ParserUtil --> SetImageCommandParser : memberImagePath
+deactivate ParserUtil
+
+create SetImageCommand
+SetImageCommandParser -> SetImageCommand : SetImageCommand(memberId. memberImagePath)
+activate SetImageCommand
+
+SetImageCommand --> SetImageCommandParser : setImageCommand
+deactivate SetImageCommand
+
+SetImageCommandParser --> ProjectDashboardParser : setImageCommand
+deactivate SetImageCommandParser
+
+ProjectDashboardParser --> LogicManager : setImageCommand
+deactivate ProjectDashboardParser
+
+LogicManager -> SetImageCommand : execute(model)
+activate SetImageCommand
+
+create Member
+SetImageCommand -> Member
+activate Member
+
+Member -> SetImageCommand : editedMember
+
+SetImageCommand -> Model : setMember(editedMember)
+activate Model
+
+Model --> SetImageCommand
+deactivate Model
+
+create CommandResult
+SetImageCommand -> CommandResult : CommandResult(MESSAGE_SUCCESS, editedMember)
+activate CommandResult
+
+CommandResult --> SetImageCommand : result
+deactivate CommandResult
+
+SetImageCommand --> LogicManager : result
+deactivate SetImageCommand
+
+SetImageCommand -[hidden]-> LogicManager : result
+destroy SetImageCommand
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml

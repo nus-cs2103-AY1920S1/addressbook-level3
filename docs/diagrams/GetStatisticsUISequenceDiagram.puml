@@ -1,0 +1,89 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":UserViewNavigator" as UserViewNavigator UI_COLOR
+participant ":UserViewController" as UserViewController UI_COLOR
+participant "taskStatsView : TaskStatisticsView" as TaskStatisticsView UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":Logic" as Logic LOGIC_COLOR
+participant ":ProjectDashboard" as ProjectDashboard LOGIC_COLOR
+end box
+
+
+box Fxml FXML_COLOR_T1
+participant ":ListView<Task>" as ListView FXML_COLOR
+participant ":Piechart" as Piechart FXML_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Statistics" as Statistics MODEL_COLOR
+end box
+
+
+[-> MainWindow : executeCommand(task-stats)
+activate MainWindow
+
+ref over MainWindow: UI process from MainWindow to UserView Update,\nUser View Main, then UserViewNavigator
+
+MainWindow -> UserViewNavigator : loadTaskStats(logic)
+activate UserViewNavigator
+
+UserViewNavigator -> Logic : getStatistics()
+activate Logic
+Logic --> UserViewNavigator : statistics
+
+UserViewNavigator -> Logic : getProjectDashboard()
+
+Logic -> ProjectDashboard : getTaskList()
+activate ProjectDashboard
+
+ProjectDashboard --> Logic : taskList
+deactivate ProjectDashboard
+
+Logic  --> UserViewNavigator : taskList
+deactivate Logic
+
+create TaskStatisticsView
+UserViewNavigator -> TaskStatisticsView : TaskStatisticsView(statistics, taskList)
+activate TaskStatisticsView
+
+TaskStatisticsView -> ListView : setItems(taskList)
+activate ListView
+ListView --> TaskStatisticsView
+
+TaskStatisticsView -> ListView : setCellFactory(taskList)
+ListView --> TaskStatisticsView
+deactivate ListView
+
+TaskStatisticsView -> Statistics : getPieChartDataForTasksByStatus()
+activate Statistics
+
+Statistics --> TaskStatisticsView : tasksByStatusData
+deactivate Statistics
+
+
+TaskStatisticsView -> Piechart : setData(tasksByStatusData)
+activate Piechart
+
+Piechart --> TaskStatisticsView
+deactivate Piechart
+
+TaskStatisticsView --> UserViewNavigator : taskStatsView
+deactivate TaskStatisticsView
+
+UserViewNavigator -> UserViewController : setUserView(taskStatsView)
+activate UserViewController
+
+UserViewController --> UserViewNavigator
+deactivate UserViewController
+
+UserViewNavigator --> MainWindow
+deactivate UserViewNavigator
+
+[<--MainWindow
+deactivate MainWindow
+@enduml

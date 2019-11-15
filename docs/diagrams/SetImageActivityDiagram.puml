@@ -1,0 +1,23 @@
+@startuml
+start
+:User executes command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([Member ID does not exist])
+    :Throw Command Exception:
+         "Member ID is invalid";
+    stop
+else ([else])
+    if () then ([File Path does not exist])
+        :Throw Command Exception:
+                  "Invalid file path";
+
+    stop
+    else ([else])
+
+:       Create edited member with
+inputted image file path as attribute;
+stop
+@enduml

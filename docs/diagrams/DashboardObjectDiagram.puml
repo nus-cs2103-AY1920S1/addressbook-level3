@@ -1,0 +1,57 @@
+@startuml
+!include style.puml
+skinparam ClassFontColor #000000
+skinparam ClassBorderColor #000000
+scale 750 width
+
+title Snapshot of dashboard data
+
+package Logic {
+    object "logicManager:Logic " as Logic
+}
+
+package Model {
+    object "modelManager:Model " as Model
+    object "filteredTasks:FilteredList" as filteredTasks
+    object "filteredTasksNotStarted:FilteredList" as filteredTasksNotStarted
+    object "filteredTasksDoing:FilteredList" as filteredTasksDoing
+    object "filteredTasksDone:FilteredList" as filteredTasksDone
+    object "filteredTasksByDeadline:FilteredList" as filteredTasksByDeadline
+    object "filteredMeetings:FilteredList" as filteredMeetings
+}
+
+package ProjectDashboard {
+    object "projectDashboard:ProjectDashboard   " as ProjectDashboard
+    object "tasks:UniqueTaskList " as tasksList
+    object "tasksNotStarted:UniqueTaskList " as tasksListNotStarted
+    object "tasksDoing:UniqueTaskList " as tasksListDoing
+    object "tasksDone:UniqueTaskList " as tasksListDone
+    object "tasksByDeadline:UniqueTaskList " as tasksListByDeadline
+    object "meetings:UniqueMeetingList " as meetings
+}
+
+Logic -down-> Model
+Model -down-> ProjectDashboard
+
+Model --> filteredTasks
+Model --> filteredTasksNotStarted
+Model --> filteredTasksDoing
+Model --> filteredTasksDone
+Model --> filteredTasksByDeadline
+Model --> filteredMeetings
+
+ProjectDashboard -up-> tasksList
+ProjectDashboard --> tasksListNotStarted
+ProjectDashboard --> tasksListDoing
+ProjectDashboard --> tasksListDone
+ProjectDashboard --> tasksListByDeadline
+ProjectDashboard --> meetings
+
+filteredTasks --> tasksList
+filteredTasksNotStarted --> tasksListNotStarted
+filteredTasksDoing --> tasksListDoing
+filteredTasksDone --> tasksListDone
+filteredTasksByDeadline --> tasksListByDeadline
+filteredMeetings --> meetings
+
+@enduml

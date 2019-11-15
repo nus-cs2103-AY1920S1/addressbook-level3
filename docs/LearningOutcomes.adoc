@@ -33,7 +33,7 @@ What other user stories do you think AddressBook should support? Add those user 
 === Exercise: Add a 'Rename tag' use case
 
 * Add a use case to the `DeveloperGuide.adoc` to cover the case of _renaming of an existing tag_.
-e.g. rename the tag `friends` to `buddies` (i.e. all persons who had the `friends` tag will now have
+e.g. rename the tag `friends` to `buddies` (i.e. all tasks who had the `friends` tag will now have
 a `buddies` tag instead)
 Assume that AddressBook confirms the change with the user before carrying out the operation.
 
@@ -108,7 +108,7 @@ image::PrintableInterface.png[width=400]
 String getPrintableString(Printable... printables) {
 ----
 +
-The above method can be used to get a printable string representing a bunch of person details.
+The above method can be used to get a printable string representing a bunch of task details.
 For example, you should be able to call that method like this:
 +
 [source,java]

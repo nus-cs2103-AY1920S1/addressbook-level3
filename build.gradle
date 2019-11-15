@@ -12,13 +12,17 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '4.0.4'
     id 'org.asciidoctor.convert' version '1.5.6'
     id 'application'
+    id 'eclipse'    //NEWSTUFF
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.address.Main'
+mainClassName = 'seedu.pluswork.Main'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
+
+archivesBaseName = 'ITEXT'      //NEWSTUFF
+version = '1'                   //NEWSTUFF
 
 repositories {
     mavenCentral()
@@ -61,13 +65,37 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
+
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+
+
+    compile 'com.itextpdf:itextpdf:5.5.13'       //NEWSTUFF
+    compile 'com.itextpdf:itextpdf:5.5.4'       //NEWSTUFF
+
+    // --------------------------------- Additional Dependencies for Calendar Functionality
+
+    // https://mvnrepository.com/artifact/org.mnode.ical4j/ical4j
+    implementation group: 'org.mnode.ical4j', name: 'ical4j', version: '2.2.0'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.28'
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.4'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
+    implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+    // https://mvnrepository.com/artifact/javax.cache/cache-api
+    implementation group: 'javax.cache', name: 'cache-api', version: '1.0.0'
+    // https://mvnrepository.com/artifact/commons-logging/commons-logging
+    implementation group: 'commons-logging', name: 'commons-logging', version: '1.2'
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'pluswork.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -133,8 +161,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
+        'site-name': 'PlusWork',
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-T12-1/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 

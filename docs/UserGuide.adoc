@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= +Work - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -8,170 +8,1080 @@
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
-ifdef::env-github[]
+ifdef::env-github[width="500"]
 :tip-caption: :bulb:
 :note-caption: :information_source:
-endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+endif::
+:repoURL: https://github.com/AY1920S1-CS2103T-T12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-T12-1`      Since: `Sept 2019`      Licence: `MIT`
 
+<<<
+// tag::introduction[]
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
++Work is a project management tool that allows students to successfully achieve your objectives for their project.
+It is aimed at NUS project leaders who are in charge of a small project group of less than 20 people.
++Work is a one-stop application to help you manage your members, meeting times, task allocations as well as equipment purchased.
+Take full advantage of our Command Line Interface (CLI) while still having the all the benefits of a Graphical User Interface (GUI).
+Happy working!
+// end::introduction[]
+
+// tag::quickstart[]
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `pluswork.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your +Work.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui.png[]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Here are some commands you can try to get you started:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
+* **`add-member mn/Adam Smith mi/AS`** : Adds a member with name "Adam Smith" to the project.
+* **`add-task tn/Finish up milestone setting`** : Adds a task with name "Finish up milestone" to the project.
+* **`assign ti/1 mi/JD`** : Assigns the project member "John Doe" (with member id "JD"), to the task "Finish up milestone setting".
+* **`doing-task ti/1`** : Changes status of task "Finish up milestone setting"  to `doing`:
+// end::quickstart[]
 
 [[Features]]
 == Features
-
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* The command begins with the type of command to be executed
+
+** Example: in `remove-member mi/MEMBER_ID`, remove member is the type of command
+
+* The words in UPPER_CASE corresponds to the parameters given by the user
+
+** Example: In `add-member mn/MEMBER_NAME`, MEMBER_NAME is the input specified by the user, such as: `add-member mn/Gabriel Seow`
+
+* You can specify the type of parameter given through a prefix. The list of allowed prefixes can be found in the table below:
+
+** Example: In `add-task tn/TASK_NAME s/TASK_STATUS`, the user inputs the name of the task after `tn/` and inputs the status of the task after `s/` , such as: `add task t/Finish Project Draft s/undone`
+
+.List of Prefixes
+|===
+|Command Type |Prefix | Description +
+(Parameters can be given in any order)
+
+1.1+h|Calendars
+|fp/|File path
+
+1.4+h|Inventories
+|i/|Inventory name
+|p/|Price
+|ii/|Inventory tag
+|ty/|PDF type
+
+1.4+h|Meetings
+|meeting/|Meeting index
+|start/|Start period
+|end/|End period
+|hours/|Duration of meeting
+
+1.4+h|Members
+|mn/|Member name
+|mi/|Member ID (set by you)
+|mt/|Member tag
+|im/|Image path
+
+1.5+h|Tasks
+|tn/|Task name
+|ti/|Task index
+|at/|Task deadline
+|s/|Task status
+|tt/|Task tag
+
+|===
 ====
 
-=== Viewing help : `help`
+====
+* *Tags*
+** Tags are the only non-compulsory parameter mentioned in commands (unless otherwise stated).
+** When tags are mentioned as a parameter, it is taken for granted that you can input multiple tags
+using the format `mt/... mt/... mt/...`
 
+====
+
+'''
+// tag::UniversalCommands[]
+=== Universal Commands
+
+==== Accessing the project dashboard page: `home` +
+This command brings you to the project dashboard page, where tasks are displayed. +
+
+Format: `home` +
+
+Calling the `home` command will bring you to the following page:
+
+image::Ui.png[width=790]
+
+
+==== Accessing the time management page: `calendar` +
+This command brings you to the time management page where calendar and meeting times are displayed +
+
+Format: `calendar` +
+
+Calling the `calendar` command will bring you to the following page:
+
+==== Accessing the settings page: `settings` +
+This command brings you to the settings page  +
+
+Format: `settings` +
+
+Entering the `settings` command will bring you to the following page:
+
+image::Settings.png[width="500"]
+
+[NOTE]
+You can refer to section 3.7 on specific settings-related commands to apply.
+
+
+==== Viewing help: `help` +
+
+Displays a list of possible commands for the user +
+You can toggle through the command list (either through up down keys or mouse) and it will paste the correct syntax into the command line. +
 Format: `help`
 
-=== Adding a person: `add`
+image::Help.png[width="500"]
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+==== Undo a command: `undo`
+
+You can undo your recent commands by using the `undo` command
+
+Format: `undo`
+
+Example:
+
+* Suppose you accidentally deleted task **#6** using the `delete-task` command
+
+image::before-undo.PNG[width="500"]
+
+* Entering the `undo` command will bring back the deleted task
+
+image::after-undo.PNG[width="500"]
+
+[WARNING]
+Once you restart +Work, you won't be able to `undo` commands from the previous session!
+
+==== Redo a command: `redo`
+
+You can redo a previously `undone` command by typing `redo`.
+
+Format: `redo`
+
+Example:
+
+* Let's say you deleted a task and you `undo` the command. You can simply use the `redo` command to delete the task again
+
+'''
+// end::UniversalCommands[]
+
+// tag::MemberCommandsPart1[]
+// tag::MemberCommands[]
+
+=== Member Commands
+
+==== Adding a member: `add-member` +
+To add a member to the list of team members in +Work, use the command `add-member` following the format below.
+
+Format: `add-member mn/MEMBER_NAME mi/MEMBER_ID mt/TAGS`
+
+Example: `add-member mn/New Member mi/NM mt/UG` can be executed as follows:
+
+*Step 1:* +Work initially contains a list of 6 project members, as shown below.
+
+image::BeforeAdd.png[width="500"]
+
+*Step 2:* To add a new project member into +Work, you enter the command `add-member mn/New Member mi/NM mt/UG` into the
+command prompt box.
+
+image::DuringAdd.png[width="500"]
+
+*Step 3:* After you hit kbd:[Enter], the  result box will display the message "New member added", and a new member with name 'New Member', member ID 'NM' and tag 'UG' is added to +Work.
+
+image::DoneAdd.png[width="500"]
+
+The addition of a new member can also be seen from the list of members as shown below:
+
+image::ListAdd.png[width="500"]
+
+[IMPORTANT]
+Member ID is an alphanumeric ID set by you, and cannot be changed once the member is created.
+
+[NOTE]
+====
+- Adding a member tag is optional in the adding of a new member.
+- It is possible to add a member with multiple tags following this format: +
+`add-member mn/New Member mi/NM mt/UG mt/DG mt/...`
+====
+
+
+
+==== Set image for member: `set-image` +
+To set a profile picture for a member in +Work, use the command `set-image` following the format below.
+
+Format: `set-image mi/MEMBER_ID im/IMAGE_PATH` +
+
+Example: `set-image mi/NM im/C:\Desktop\NewUserImage.png` can be executed as follows:
+
+*Step 1:* +Work initially contains a list of project members with default profile pictures, as shown below.
+
+image::BeforeSet.png[width="500"]
+
+*Step 2:* To update the profile picture of the project member with member ID 'NM' in +Work to a specified image, you
+enter the command `set-image mi/NM im/C:\Desktop\NewUserImage.png` into the command prompt box.
+
+*Step 3:* After you kbd:[Enter] the command, the member 'New Member' with member ID 'NM' has a new profile
+picture, specified by the image path you entered.
+
+image::SetImage.png[width="500"]
+
+
+[NOTE]
+Image Path refers to the folder path of the image stored in your computer, and should end with .png
+
+[IMPORTANT]
+If you shift the image's location in your computer, +Work will be unable to find the image to display.
+A warning message will be displayed, before displaying the default profile picture.
+It is recommended that you store all the images in a central folder to prevent this from happening.
+
+
+// end::MemberCommandsPart1[]
+
+==== Editing a member : `edit-member`
+To edit a member in +Work, using the command `edit-member` following the format below.
+
+Format: `edit-member mi/MEMBER_ID mn/MEMBER_NAME mt/MEMBER_TAG`
+
+****
+* Edits the member at the specified `mi/MEMBER_ID`.
+* In this command, all the fields apart from `mi/MEMBER_ID` are optional. However, at least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the member will be removed i.e adding of tags is not cumulative.
+****
+
+Example: `edit-member mi/NM mn/No Longer New mt/edited` can be executed as follows:
+
+*Step 1:* +Work initially contains a list of 7 project members, as shown below.
+
+image::BeforeEdit.png[width="500"]
+
+*Step 2:* To edit the member name and tag of 'New Member' with member ID 'NM', you enter the command
+`edit-member mi/NM mn/No Longer New mt/edited` into the command prompt box.
+
+*Step 3:* After you kbd:[Enter] the command, the member with member ID 'NM' and tag 'UG' is edited,
+with a new member name 'No Longer New' and new tag 'edited'.
+
+image::AfterEdit.png[width="500"]
+
+==== List existing members: `list-members` +
+To get a list of all members added to +Work, used the command `list-members` following the format below. +
+Format: `list-members` +
+
+Example: Entering `list-members` into the command prompt will result in the following:
+
+image::ListMembers.png[width="500"]
+
+As seen from the above, all existing project members in +Work will be listed.
+
+==== Removing a member: `remove-member` +
+To remove a member from the project, and subsequently remove him from associated tasks, use the `remove-member` command in the format below. +
+Format: `remove-member [mi/MEMBER_ID]`
+
+Example: `remove-member mi/GS` can be executed as follows:
+
+*Step 1:* +Work now contains a list of 7 project members, as shown below.
+
+image::BeforeRemove.png[width="500"]
+
+*Step 2:* To remove project member 'No Longer New', with member ID 'NM' from +Work, you enter the command
+`remove-member mi/NM` into the command prompt box.
+
+*Step 3:* After you kbd:[Enter] the command, the member 'No Longer New' is no longer a project member in +Work, as
+seen from the list of members below.
+
+image::AfterRemove.png[width="500"]
+
+
+==== Assign a task to a member: `assign` +
+To assign a task to a specific team member, use the `assign` command in the format below. +
+
+Format: `assign ti/TASK_ID mi/MEMBER_ID` +
+
+Example: `assign ti/1 mi/GS` can be executed as follows:
+
+*Step 1:* From the list of tasks shown below, you decide to assign the task 'Review Budget' to project member
+'Gabriel Seow' with member ID 'GS'. The task 'Review Budget' has task ID 1, prompting you to enter the command
+`assign ti/1 mi/GS`.
+
+image::BeforeAssign.png[width="500"]
+
+*Step 2:* After you kbd:[Enter] the command, the task 'Review Budget' with task ID '1' is added under member
+'Gabriel Seow' with member id 'GS', as seen from the image below.
+
+image::AfterAssign.png[width="500"]
+
+==== Removing a task from a member: `fire` +
+To remove a task from a specific team member, use the `fire` command in the format below. +
+
+Format: `fire ti/TASK_ID mi/MEMBER_ID` +
+
+Example: `fire ti/1 mi/GS` can be executed as follows:
+
+*Step 1:* From the list of tasks shown below, you decide to remove project member 'Gabriel Seow' with member ID 'GS'
+from being assigned to task 'Review Budget'. The task 'Review Budget' has task ID 1, prompting you to enter the command
+`fire ti/1 mi/GS`.
+
+image::BeforeFire.png[width="500"]
+
+*Step 2:* After you kbd:[Enter] the command, the task 'Review Budget' with  task id 1 is removed from member
+'Gabriel Seow' with member id 'GS'  as seen from the image below.
+
+image::AfterFireMember.png[width="500"]
+
+'''
+// end::MemberCommands[]
+
+// tag::task[]
+=== Task Commands
+
+The following commands will help you manage the tasks in your project.
+
+==== Adding a task: `add-task`
+
+To add a task to the project, use the `add-task` command in the format below. +
+Format: `add-task [tn/TASK_NAME]` +
+Optional parameters: `[s/STATUS]` `[tt/TAG]`
+
+[NOTE]
+If a status is not given for the task, +Work will assign it as `unbegun` or "Not Started" by default.
+
+Example:
+
+* Suppose you want to add a task called "Finish up milestones settings" to your project. First type `add-task tn/Finish up milestone settings`
+as show below.
+
+image::add-task-preview.png[width="500"]
+
+* Hit the kbd:[Enter] key and you will see that the task is added to your project! +
+[IMPORTANT]
+The prompt displayed as a result of performing `add-task` is further explained in <<Multiline Commands>>.
+
+image::add-task-res-list.png[width="500"]
+
+==== Deleting a task: `delete-task`
+
+To delete a task from your project, use the `delete-task` command in the format below. +
+Format: `delete-task [ti/TASK_ID]`
+
+Example:
+
+* Suppose you want to remove the second task in your list. First type `delete-task ti/2` into the command
+box as shown below.
+
+image::delete-task-preview.png[width="500"]
+
+* Hit the kbd:[Enter] key and you will see that the task is removed from your project!
+
+image::delete-task-res-list.png[width="500"]
+
+==== Editing a task: `edit-task`
+
+To edit a task currently in your project, use the `edit-task` command in the format below. +
+Format: `edit-task [ti/TASK_ID] [FIELD(S)_TO_EDIT]` +
+Optional parameters: `[tn/TASK_NAME]` `[s/STATUS]` `[tt/TAG]` `[at/dd-mm-yyyy hh:mm]`
+
+[IMPORTANT]
+At least one of the optional parameters must be provided in the command for a task to be edited successfully.
+
+Example:
+
+* Suppose you wanted to update the task name of the fourth task in the diagram below to become "Update event website". +
+Type `edit-task ti/4 tn/Update event website` into the command box as shown below.
+
+image::edit-task-preview.png[width="500"]
+
+* Hit the kbd:[Enter] key and you will see that the task name has been edited!
+
+image::edit-task-res-list.png[width="500"]
+
+==== Listing all existing tasks: `list-tasks`
+
+To list all the tasks created for the project, use the `list-tasks` command in the format below from any view you are in. +
+Format: `list-tasks`
+
+Example:
+
+* Type `list-tasks` in the command box as shown below.
+
+image::list-tasks-preview.png[width="500"]
+
+* Hit the kbd:[Enter] key and you will see all your tasks! You should see a window similar to the one below.
+
+image::list-tasks.png[width="500"]
+
+
+==== Setting a task's status to `done`: `done-task`
+
+To update the task status to `done`, use the `done-task` command in the format below. +
+Format: `done-task [ti/TASK_ID]`
+
+Example:
+
+* After finishing the task "Shirts for Freshman Open Day" shown below, you would want to mark it as completed. To do so, first navigate to task list view using `list-tasks`.
+
+image::list-tasks-preview.png[width="500"]
+
+* Type `done-task ti/5` into the command box as shown below.
+
+image::done-task-preview-list.png[width="500"]
+
+* Hit the kbd:[Enter] key and the task will been marked as `done`! You should see a window similar to the one below when you navigate back to `home`.
+Notice that "Shirts for freshman open day" has been moved to `done`.
+
+image::done-task-result-dashboard.png[width="500"]
+
+[NOTE]
+If a task previously had a deadline, it will be removed once it is marked as `done`
+
+
+==== Setting a task's status to `doing`: `doing-task`
+
+To update the task status to `doing`, use the `doing-task` command in the format below. +
+Format: `doing-task [ti/TASK_ID]`
+
+Example:
+
+* `doing-task ti/3` +
+This sets the status of the third task to `doing`.
 
 [TIP]
-A person can have any number of tags (including 0)
+Usage of this command is very similar to setting a task status to `doing` as explained above.
+
+
+==== Setting a deadline for a task: `set-deadline`
+
+This sets a deadline for an existing task in your project.
+
+Format: `set-deadline [ti/TASK_ID] [at/DEADLINE] [at/dd-mm-yyyy hh:mm]`
+
+Example:
+
+* To set a deadline for the task "Shirts for Freshman Open Day" shown below, first navigate to the task list view using `list-tasks`.
+
+image::list-tasks-preview.png[width="500"]
+
+* Suppose the deadline for your task is on the 20th of November 2019 at 6pm, enter +
+`set-deadline ti/5 at/20-11-2019 18:00` into the command box as shown below.
+
+image::set-deadline-list-preview.png[width="500"]
+
+* Hit the kbd:[Enter] key and you will see that a deadline has been set!.
+
+image::set-deadline-res-list.png[width="500"]
+
+Now, navigate to the dashboard by entering `home`. Hit the kbd:[Enter] key and you will see that the deadline can be seen! You should see a window similar to the one below.
+
+image::set-deadline-res-dashboard.png[width="500"]
+
+[TIP]
+The "Upcoming deadlines" sidebar (right side of above picture) helps you keep track of tasks which are due in *two weeks* or less.
+// end::task[]
+
+'''
+
+=== Calendar Commands
+
+This section contains the commands for managing your team member's calendars and for scheduling a project meeting time.
+
+
+****
+**Before you start using +Work's calendar commands, make sure**
+
+====
+
+1. Your team members have exported their calendars as an `.ics` file
+[TIP]
+Not sure how to export a calendar? Refer to the short guide below for instructions
+
+2. You have collected the calendar files from your team members
+
+3. You take note of the file path where the files are stored, it will be used in the commands
+
+====
+
+****
+
+****
+
+**How to export a calendars as an `.ics` file?**
+
+====
+
+1. On the NUSmods page, click on the kbd:[Download] icon and select download as an iCalendar File(`.ics`)
+
+2. If you wish to include other commitments, simply open 'Google Calendar', click on kbd:[Settings], select kbd:[Import & Export] and import the file from Step 1
+
+3. Add any additional commitments through 'Google Calendar'
+
+4. Export the calendar again by clicking kbd:[Settings], followed by kbd:[Import & Export] and lastly kbd:[Export]
+
+5. The `.ics` file will be downloaded, containing your timetable from NUSmods and 'Google Calendar'
+
+****
+
+==== Adding a team member's calendar: `add-calendar`
+
+You can add a calendar by inputting the file path of the team member's calendar as well as the name of the team member.
+
+Format: `add-calendar [mn/MEMBER_NAME] [fp/PATH_TO_ICS_FILE]`
+
+Example:
+
+Adding __John Doe's__ calendar to +Work
+
+* `add-calendar mn/John Doe fp/C:\Users\gabriel\TeamCalendars\john_calendar.ics` +
+
+==== Removing a team member's calendar: `delete-calendar`
+
+You can also remove a calendar by specifying the team member's name.
+
+Format: `delete-calendar [mn/MEMBER_NAME]`
+
+Example:
+
+Removing __John Doe's__ calendar from +Work
+
+* `delete-calendar mn/John Doe` +
+
+==== Find possible meeting times: `find-meeting-time`
+
+You can schedule a meeting by specifying the **duration** of the meeting in hour(s) and the **time period** to search for.
+
++Work will show a list of  suitable meeting time between `START_DATE` and `END_DATE`.
+
+Format: `find-meeting-time [start/START_DATE] [end/END_DATE] [hours/DURATION]`
+
+[NOTE]
++Work recognises date and time in the format 'dd-mm-yyyy hh:mm`
+
+[TIP]
++Work shows you the meeting times where the **most** number of people are available
+
+Example:
+
+* Let's say you want to schedule a __2__ hour meeting in the upcoming week, between __11th Nov 8 a.m__ and __15th Nov 5 p.m__. After entering the details in the correct format, as such
+
+image::find-meeting-time-entry.PNG[width="500"]
+
+* Hit kbd:[Enter] and +Work will display a list of suitable timings as well as the team members that are available for that timing
+
+image::find-meeting-time-timings.PNG[width="500"]
+
+[NOTE]
+If there are no suitable timings, +Work will notify you as well
+[IMPORTANT]
+Because showing *ALL* possible meeting timings may not be appropriate, +Work helps by restricting the meeting timings to be between 8 a.m and 10 p.m
+
+==== Schedule a team meeting: `add-meeting`
+After using the command `find-meeting-time`, you can schedule a meeting from the list of possible timings by referring to the `INDEX` of the meeting in the list.
+
+Format: `add-meeting [meeting/INDEX]`
+
+Example:
+
+* Suppose you are looking to schedule a __2__ hour meeting between __11th Nov 8 a.m__ and __15th Nov 5 p.m__.
+
+* After using the `find-meeting-time` command, you are given the following timings
+
+image::possible-meeting-timings.PNG[width="500"]
+
+* After looking through the suitable timings, you choose meeting **#5** as your preferred timing
+
+image::preferred-meeting-time.PNG[width="500"]
+
+* Using the index of meeting **#5**, enter the command `add-meeting meeting/5`
+
+* You can then view the recently added meeting at the `home` page
+
+image::updated-meeting-time.PNG[width="500"]
+
+==== Remove a team meeting: `delete-meeting`
+
+You can remove a meeting by simply referring to the `INDEX` of the meeting in the 'Upcoming Meetings' list.
+
+[TIP]
+You can view your list of meetings by going to the `home` page
+
+Format: `delete-meeting [meeting/INDEX]`
+
+Example:
+
+* To remove meeting **#3**, simply enter the command `delete-meeting meeting/3` and the meeting will be removed
+
+'''
+// tag::Inventory[]
+=== Inventory Commands
+
+==== Adding an inventory: `add-inv`
+
+This command allows you to add an inventory bought or retrieved for a specific task by a specific member.
+
+Format: `add-inv [i/ITEM_NAME] [p/PRICE(optional)] [ti/TASK_ID] [mi/MEMBER_ID]`
+
+[IMPORTANT]
+The item name, task id and member id are compulsory inputs. An input without any price value will automatically set the price to $0.
+Ensure that an existing task id and member id (as displayed by `list-tasks` and `list-members` respectively) is being typed into the command box.
+
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add-inv i/scissors ti/4 mi/GS` +
+When you enter this command, it adds the inventory “scissors” to the inventory list. The item is tagged to task with id as 4 (id is shown by `list-tasks`) and is provided by member with the member id “GS” for a price of $0.
 
-=== Listing all persons : `list`
+* `add-inv i/eggs p/2.40 ti/2 mi/AR` +
+When you enter this command, it adds the item “eggs” for $2.40 to the inventory list. This item is tagged to task tagged to task with id as 2 (id is shown by `list-tasks`) and was paid for by the member with member id “AR”. The following pictures show how this command is to be executed.
 
-Shows a list of all persons in the address book. +
-Format: `list`
+** First, type `add-inv i/eggs p/2.40 ti/2 mi/AR` into the command box as shown below.
 
-=== Editing a person : `edit`
+image::Add-inv_1.PNG[width="500"]
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+** Then, hit the kbd:[Enter] key and you will see that the inventory has been added! You should see a window like the one below.
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+image::Add-inv_2.PNG[width="500"]
 
-Examples:
+==== Deleting an inventory: `delete-inv`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+This command allows you to delete an inventory.
 
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Format: `delete-inv [ii/ITEM_ID]`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `delete-inv ii/3` +
+This command deletes the third item from the inventory list. The following pictures show how this command is to be executed
 
-// tag::delete[]
-=== Deleting a person : `delete`
+** First, find the index of inventory that you want to delete, by navigating to inventory list view using `list-inv`.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+image::Delete-inv_1.PNG[width="500"]
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+** Then, type `delete-inv ii/6` into the command box as shown below.
 
-Examples:
+image::Delete-inv_2.PNG[width="500"]
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+** Hit the kbd:[Enter] key and you will see that the inventory has been deleted! You should see a window like the one below.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+image::Delete-inv_3.PNG[width="500"]
 
-Clears all entries from the address book. +
-Format: `clear`
+==== List existing inventories: `list-inv` +
+To get a list of all inventories added to +Work, used the command `list-inv` following the format below. +
+Format: `list-inv` +
 
-=== Exiting the program : `exit`
+Example: Entering `list-inv` into the command prompt will result in the following:
 
-Exits the program. +
-Format: `exit`
+image::list-inv.PNG[width="500"]
 
-=== Saving the data
+==== Editing a inventory: `edit-inv`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+This command allows you to edit the details of an existing inventory.
+
+Format: `edit-inv [ii/ITEM_ID] (i/ITEM_NAME) (p/PRICE) (ti/TASK_ID) (mi/MEMBER_ID)`
+
+[NOTE]
+Multiple attributes can be changed at the same time, but at least one of the inventory attributes must be changed.
+Therefore, this command is invalid: `edit-inv ii/4`
+However, this command is valid: `edit-inv ii/4 i/toys ti/4 mi/AR`
+
+Example:
+
+* `edit-inv ii/4 i/toys ti/4 mi/AR` +
+This command edits the 4th inventory from the inventory list as shown by `list-inv`. It changes the inventory name to toys, the task attached to 4, and the member attached to the member with member ID “AR”. The following pictures show how this command is to be executed.
+
+** First, type `edit-inv ii/4 i/toys ti/4 mi/AR` into the command box as shown below.
+
+image::Edit-inv_1.PNG[width="500"]
+
+** Hit the kbd:[Enter] key and you will see that the 4th inventory has been edited! The name has been changed to toys, task has been changed to the task with index 4, and finally member has been changed to member with index “AR”. You should see a window like the one below.
+
+image::Edit-inv_2.PNG[width="500"]
+
+
+
+==== Creating a report of inventories: `pdf`
+
+This command allows you to create a PDF report of the existing inventories classified either by the member attached or by the task attached.
+
+Format: `pdf [ty/TYPE]`
+
+[IMPORTANT]
+The only two attributes for TYPE are `members` and `tasks`. Other inputs will not work.
+If a PDF created and is currently open, it has to be closed before another PDF can be created.
+
+Example:
+
+* `pdf ty/members` +
+This command creates and opens a pdf file of inventories that is classified according to the member attached. The following pictures show how this command is to be executed.
+
+** First, type `pdf ty/members` into the command box as shown below.
+
+image::pdf-inv_1.PNG[width="500"]
+
+** Hit the kbd:[Enter] key and you will see that the default PDF viewer will open to show the PDF report. You should see a report like the one below.
+
+image::pdf-inv_2.PNG[width="500"]
+// end::Inventory[]
+
+'''
+
+
+// tag::Statistics[]
+=== Statistics Commands
+
+==== Getting statistics of members: `member-stats` +
+To get statistics relating to the members in +Work, use the statistics command following the format below. +
+
+Format: `member-stats` +
+
+Calling the `member-stats` command will result in the statistics being displayed as follows:
+
+image::MemberStats.png[width="500"]
+
+[NOTE]
+The resultant statistics displayed shows the proportion and number of tasks and inventory items allocated to each
+project member in +Work.
+// end::Statistics[]
+
+==== Getting statistics of tasks: `task-stats` +
+To get statistics relating to the tasks in +Work, use the statistics command following the format below. +
+Format: `task-stats` +
+
+Calling the `task-stats` command will result in the statistics being displayed as follows:
+
+image::TaskStats.png[width="500"]
+
+[NOTE]
+The resultant statistics displayed shows the proportion of tasks that are undone, in progress and completed,
+as well as the time taken for each task inputted into +Work.
+
+[NOTE]
+The time spent on each task can only be calculated if the task involved has been marked as `DOING`, and then `DONE`.
+If you immediately mark an `UNBEGUN` task as `DONE`, the task will be marked as 'done from time of input'.
+
+'''
+
+
+// tag::Multiline[]
+=== Multiline Commands
+
+==== Adding a task: `add-task`
+As mentioned in the earlier part of user guide, to add a task to the project, use the `add-task` command in the format below. This will result in a series of questions that allow you to add deadline and a member to the task. The following flowchart shows this series of feedbacks from the application and user inputs.
+
+image::ml-task_1.PNG[width="500"]
+
+Format (to add task): `add-task [t/TASK_NAME]` +
+Format (for yes): `yes` +
+Format (for no): `no` +
+Format (to add deadline and member): `add-d [at/DEADLINE] [mi/MEMBER_ID]`
+
+[NOTE]
+`add-d` command does not work unless it is typed after `add-task` and `yes`. +
+Either deadline or member or both can be added using the `add-d` command. However at least one attribute must be present. +
+Remember to input deadline using the 24 hour time format of dd-mm-yyyy hh:mm
+
+Example:
+
+* `add-task tn/Finish Portfolio s/unbegun tt/Education`  +
+A new task will be added to the project dashboard, which prompts a sequence of questions, as shown in the following pictures
+
+** First, type the `add-task` command
+
+image::ml-task_2_1.PNG[width="500"]
+
+** This prompts the feedback asking for your choice to add deadline and member
+
+image::ml-task_2_2.PNG[width="500"]
+
+** Type `yes` to add deadline or member
+
+image::ml-task_2_3.PNG[width="500"]
+
+** This prompts to add the details
+
+image::ml-task_2_4.PNG[width="500"]
+
+** Type `add-d at/10-12-2019 18:00 mi/AR` to set deadline at 10-10-2019 18:00 and assign the member with member id “AR” to the task.
+
+image::ml-task_2_5.PNG[width="500"]
+
+** This sets the deadline and assigns the member successfully! You should see a window like this.
+
+image::ml-task_2_6.PNG[width="500"]
+
+==== Changing a task status to done: `done-task` +
+[IMPORTANT]
+only for tasks that are tagged “Inventory”
+
+As mentioned in the earlier part of user guide, to change the task status to “done”, use the `done-task` command in the format below. If the task is tagged as "Inventory", this will result in a series of questions that allow you to add the task as an inventory. The following flowchart shows this series of feedbacks from the application and user inputs.
+
+image::ml-task_3.PNG[width="500"]
+
+Format (for done task): `done-task [ti/TASK_ID]` +
+Format (for yes): `yes` +
+Format (for no): `no` +
+Format (to add price and member): `add-i [p/PRICE] [mi/MEMBER_ID]`
+
+[NOTE]
+`add-i` command does not work unless it is typed after `done-task` and `yes`. +
+Unlike `add-task`, in this case both attributes price and member id are required.
+
+Example:
+
+* `done-task ti/8` +
+The task with index 8 will have its task status changed to done. Since the task is tagged as “Inventory”, this will prompt a series of questions, as shown in the pictures below.
+
+** First, type `done-task ti/8`
+
+image::ml-task_4_1.PNG[width="500"]
+
+** This prompts the feedback asking for your choice to add it as an inventory.
+
+image::ml-task_4_2.PNG[width="500"]
+
+** After typing `yes` as the user input, feedback will prompt you to add the details.
+
+image::ml-task_4_3.PNG[width="500"]
+
+** Type `add-i p/5.50 mi/AB` to set the price at $5.50 and to assign the member with member id “AB” to the inventory
+
+image::ml-task_4_4.PNG[width="500"]
+
+** This sets the price and assigns the member successfully! You should see a window like this.
+
+image::ml-task_4_5.PNG[width="500"]
+// end::Multiline[]
+
+
+'''
+// tag::autocomplete[]
+=== Command Line Autocomplete
+
++Work will automatically prompt you on the various possible commands based on input and help you paste the correct command format into the command line if chosen. +
+For example, when you type `add-mem` into the command-line, +Work will prompt you to select `add-member` from the drop down menu.
+
+image::AutoCompletePre.png[width="500"]
+
+After selecting `add-member`, +Work will paste `add-member mn/ mi/ mt/` into your command-line automatically!
+
+image::AutoCompletePost.png[width="500"]
+
+
+[TIP]
+You can use kbd:[right arrow] to navigate along the various prefixes.
+
+//end::autocomplete[]
+
+'''
+
+// tag::settings[]
+=== Settings Commands
+
++Work helps you view your current settings by highlighting your current option! To see your current settings navigate
+to the settings panel by entering `settings` as described in section 3.1.3.
+
+==== Switching the theme of +Work: `theme`
+
+This command helps you toggle the theme of +Work between `light` and `dark` to suit your viewing preferences.
+
+[TIP]
+By default, the theme is set to `dark`.
+
+Format: `theme light`
+
+Example:
+
+* Type `theme light` into the command box as shown below.
+
+image::theme-light-preview.png[width="500"]
+
+* Hit the kbd:[Enter] key and +Work switches to the `light` theme! As seen below, your choice of `light` is highlighted as well.
+
+image::theme-light-res.png[width="500"]
+
+* Similarly, `theme dark` switches to the `dark` theme.
+
+==== Switching the time format of +Work: `clock`
+
+This command helps you toggle the time format of +Work between 24 hour and 12 hour clock. +
+
+[TIP]
+The time format is set to 24 hour by default.
+
+[NOTE]
+This does not affect the input format of deadlines for tasks, you still need to be enter them in the 24 hour format!
+
+Format: `clock twenty_four`
+
+Example:
+
+* Type `clock twelve` into the command box as shown below.
+
+image::clock-twelve-preview.png[width="500"]
+
+* Hit the kbd:[Enter] key and +Work switches the time format to the 12 hour clock! As seen below, the new format is highlighted as well.
+
+image::clock-twelve-res-settings.png[width="500"]
+
+* Now when you navigate to any view which has time sensitive data, you will see that the format has been switched. For example, if you were to switch
+back to the dashboard by entering `home` you should see a window similar the one shown below.
+
+image::clock-twelve-res-dashboard.png[width="500"]
+
+* Similarly, `clock twenty_four` switches to the 24 hour clock.
+
+// end::settings[width="500"]
+'''
+
+=== Saving Data
+
+Project data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: Can I use file formats other than ics for the calendar feature? +
+*A*: No, the file format has to be in ics folder, downloaded either from https://nusmods.com[NUSmods] or https://calendar.google.com/calendar[Google Calendar].
 
+*Q*: Can I export the claims report as a word document? +
+*A*: No, the application only supports exporting of files in PDF format.
+
+*Q*: What if +Work cannot find a timing where everyone is free? +
+*A*: +Work cannot guarantee to find a meeting time that can suit every team member, but it will provide a list of the best possible timings when the *most* number of members are available.
+
+*Q*: What if the calendar cannot find a timing where everyone is free? +
+*A*: There will be a list showing the number of available members for the time period you specified, so it will be easier for the user to choose the best possible your meeting.
+
+
+*Q*: My project has a budget, does the application help me keep track of the projects financial status? +
+*A*: Using /inventory the application can keep track of current expenses for each task and the member who purchased it, however, there are currently no accounting services available.
+
+*Q*: Some of the tasks for my project require sub tasks to be completed, is there a way to add them? +
+*A*: Ideally since the user is the project leader, they should only see the main tasks to be accomplished for the project. This would help facilitate their managerial role within the project. Hence, the application does not support subtasks.
+
+*Q*: How can I add multiple members to the same task? +
+*A*: You can use the `assign` command detailed in in <<Member Commands>>.
+
+*Q*: What happens when a task has been completed? +
+*A*: You can mark the task as `done`, which will move the task to the `done` portion of the dashboard. In the case where you do not want to keep the task in the list, using ‘Remove Task’ will delete it.
+
+// tag::commandsummary[]
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+The following is a summary of all the commands +Work offers arranged in alphabetical order.
+
+* `add-calendar [mn/MEMBER_NAME] [fp/PATH_TO_ICS]`:  *Imports a calendar*
+
+* `add-inv [i/NAME] [p/PRICE] [ti/TASKID] [mi/MEMBER_ID]`: *Adds an inventory*
+
+* `add-meeting [meeting/index]`: *Adds a meeting from the generated meeting time list from `find-meeting-time`*
+
+* `add-member [mn/MEMBER_NAME] [mi/MEMBER_ID] [mt/MEMBER_TAG]`: *Adds a member*
+
+* `add-task [tn/TASK_NAME] [s/TASK_STATUS] [tt/TASK_TAG]`: *Adds a task*
+
+* `assign [ti/TASK_ID] [mi/MEMBER_ID]`: *Adds a task to a member*
+
+* `clear`: *Clears all data from dashboard*
+
+* `clock twelve`: *Switches deadline display to the 12 hour clock format*
+
+* `clock twenty_four`: *Switches deadline display to the 24 hour clock format*
+
+* `set-deadline [ti/TASK_ID] [at/dd-mm-yyyy hh:mm]`: *Assigns a deadline to a task*
+
+* `delete-calendar [mn/MEMBER_NAME]`: Deletes calendar of member
+
+* `delete-inv [ii/ITEM_ID]`: *Deletes an inventory*
+
+* `delete-meeting [meeting/MEETING_INDEX]`: *Deletes a meeting*
+
+* `delete-task [ti/TASK_INDEX]`: *Deletes a task*
+
+* `doing-task [ti/TASK_ID]`: *Marks a task as `doing`*
+
+* `done-task [ti/TASK_ID]`: *Marks a task as `done`*
+
+* `edit-inv [ii/ITEM_ID] [i/ITEM_NAME] [p/PRICE] [ti/TASK_ID] [mi/MEMBER_ID]`: *Edits an inventory*
+
+* `edit-member [mi/MEMBER_ID] [mn/MEMBER_NAME] [mt/MEMBER_TAG]`: *Edits a member*
+
+* `edit-task [ti/TASk_ID] [FIELDS_TO_EDIT]`: *Edits a task*
+
+* `exit`: *Exits +Work*
+
+* `fire [ti/TASK_ID] [mi/MEMBER_ID]`: *Removes a task from a member*
+
+* `find-meeting-time [start/dd-mm-yyyy hh:mm] [end/dd-mm-yyyy hh:mm] [hours/HOURS]`: *Generates free times among members*
+
+* `home`: *Switches to the project dashboard*
+
+* `help`: *Navigates to help page*
+
+* `list-members`: *Lists all members*
+
+* `list-tasks`: *Lists all tasks*
+
+* `list-inv`: *Lists all inventories*
+
+* `member-stats`: *Displays member statistics*
+
+* `pdf [ty/TYPE]`: *Creates a PDF document of inventory list*
+
+* `redo`: *Redoes last known command*
+
+* `remove-member [mi/MEMBER_ID]`: *Removes a member*
+
+* `set-image[mi/MEMBER_ID] [im/IMAGE_FILEPPATH]`: *Switches to the settings configuration page*
+
+* `settings`: *Switches to the settings configuration page*
+
+* `task-stats`: *Displays task statistics*
+
+* `theme dark`: *Switches to the dark theme*
+
+* `theme light`: *Switches to the light theme*
+
+* `undo`: *Undoes last known command*
+
+// end::commandsummary[]
+
+== Upcoming Features
+
+Our team is currently working hard on the following exciting features! Make sure to follow our application for any
+updates in the future.
+
+// tag::version-2.0[]
+
+=== Cloud Integration `[coming in v2.0]`
+
+Collaborate online with your teammates, and store your project details such as members calendars in the cloud.
+
+=== Customisable User Profiles `[coming in v2.0]`
+
+Create more detailed profiles for members and choose who has authority to change details of the project.
+
+=== AutoComplete Support for prefixes `[coming in v2.0]`
+
+AutoComplete to support users in prompting existing entities. For example, member ID and task tags to be prompted to users when prefix is input.
+
+=== Instant Messaging `[coming in v2.0]`
+
+Communicate with teammates on one central application, instead of using multiple messaging applications.
+// end::version-2.0[]

@@ -7,8 +7,8 @@
 
 'T1 through T4 are shades of the original color from lightest to darkest
 
-!define UI_COLOR #1D8900
-!define UI_COLOR_T1 #83E769
+!define UI_COLOR #F9C521
+!define UI_COLOR_T1 #F9E4A0
 !define UI_COLOR_T2 #3FC71B
 !define UI_COLOR_T3 #166800
 !define UI_COLOR_T4 #0E4100
@@ -32,6 +32,9 @@
 !define STORAGE_COLOR_T2 #544400
 
 !define USER_COLOR #000000
+
+!define FXML_COLOR_T1 #E8E8EA
+!define FXML_COLOR #C5C6C9
 
 skinparam BackgroundColor #FFFFFFF
 

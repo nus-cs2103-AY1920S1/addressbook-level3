@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<ScrollPane styleClass="scroll-pane" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308"
+            maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <content>
+        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <children>
+                <HBox fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                      HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                    <children>
+                        <VBox id="taskBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                              minWidth="350.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Label id="notStartedLabel" contentDisplay="CENTER" styleClass="label-dashboard"
+                                       text="Not Started"/>
+                                <ListView fx:id="taskListViewNotStarted" minHeight="500.0" minWidth="-Infinity">
+                                    <padding>
+                                        <Insets top="20.0"/>
+                                    </padding>
+                                </ListView>
+                            </children>
+                            <padding>
+                                <Insets right="10.0"/>
+                            </padding>
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                        </VBox>
+                        <VBox id="taskBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                              minWidth="350.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Label id="doingLabel" alignment="CENTER" styleClass="label-dashboard" text="Doing"/>
+                                <ListView fx:id="taskListViewDoing" minHeight="500.0" minWidth="-Infinity">
+                                    <padding>
+                                        <Insets top="20.0"/>
+                                    </padding>
+                                </ListView>
+                            </children>
+                            <padding>
+                                <Insets right="10.0"/>
+                            </padding>
+                        </VBox>
+                        <VBox id="taskBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                              minHeight="600.0" minWidth="350.0" prefWidth="320.0" HBox.hgrow="ALWAYS"
+                              VBox.vgrow="ALWAYS">
+                            <children>
+                                <Label id="doneLabel" alignment="CENTER" styleClass="label-dashboard" text="Done"/>
+                                <ListView fx:id="taskListViewDone" minHeight="500.0" minWidth="-Infinity">
+                                    <padding>
+                                        <Insets top="20.0"/>
+                                    </padding>
+                                </ListView>
+                            </children>
+                            <HBox.margin>
+                                <Insets/>
+                            </HBox.margin>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets top="50.0"/>
+                    </padding>
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                </HBox>
+                <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="350.0"
+                      HBox.hgrow="ALWAYS">
+                    <children>
+                        <VBox id="taskBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                              prefHeight="250.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label styleClass="label-dashboard" text="Upcoming Deadlines"/>
+                                <ListView fx:id="taskListViewUpcomingDeadlines"/>
+                            </children>
+                            <padding>
+                                <Insets top="60.0"/>
+                            </padding>
+                        </VBox>
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="250.0"
+                              HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label styleClass="label-dashboard" text="Upcoming Meetings"/>
+                                <ListView fx:id="meetingListView"/>
+                            </children>
+                            <padding>
+                                <Insets top="50.0"/>
+                            </padding>
+                        </VBox>
+                    </children>
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                    <padding>
+                        <Insets left="10.0" right="10.0"/>
+                    </padding>
+                </VBox>
+            </children>
+        </HBox>
+    </content>
+</ScrollPane>

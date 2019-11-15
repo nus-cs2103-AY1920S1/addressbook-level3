@@ -1,0 +1,52 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ProjectDashboardParser" as ProjectDashboardParser LOGIC_COLOR
+participant "t:ThemeCommand" as ThemeCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":UserSettings" as UserSettings MODEL_COLOR
+end box
+[-> LogicManager : execute(theme dark)
+activate LogicManager
+
+LogicManager -> ProjectDashboardParser : parseCommand(theme dark)
+activate ProjectDashboardParser
+
+create ThemeCommand
+ProjectDashboardParser -> ThemeCommand
+activate ThemeCommand
+
+ThemeCommand --> ProjectDashboardParser
+deactivate ThemeCommand
+
+ProjectDashboardParser --> LogicManager : t
+deactivate ProjectDashboardParser
+
+LogicManager -> ThemeCommand : execute()
+activate ThemeCommand
+
+ThemeCommand -> Model : setCurrentTheme(Theme.DARK)
+activate Model
+
+Model -> UserSettings : setTheme(Theme.DARK)
+activate UserSettings
+
+UserSettings --> Model :
+deactivate UserSettings
+
+Model --> ThemeCommand
+deactivate Model
+
+ThemeCommand --> LogicManager : result
+deactivate ThemeCommand
+ThemeCommand -[hidden]-> LogicManager : result
+destroy ThemeCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
