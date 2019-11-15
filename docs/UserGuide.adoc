@@ -82,8 +82,10 @@ In such cases, please use scroll bar to view the windows properly.
 
 * After keying in a command, press up and down arrow keys to navigate your command history.
 * If in multiline editing mode, press (Ctrl+d) to submit the multiline text
+* In single line mode use (Ctrl+c) to clear the line
+* Press (Ctrl+v) to paste clipboard content. If in multiline mode it will paste as per normal. In singleline mode each line will be evaluated.
 ====
-//end::cli[]
+// end::cli[]
 
 // tag::help[]
 === Show help page for commands available : `help`
