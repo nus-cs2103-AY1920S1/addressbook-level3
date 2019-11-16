@@ -1,0 +1,108 @@
+= Manas Vegi - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Project: iFridge
+
+== Overview
+
+iFridge is a desktop grocery management application to encourage home cooks to manage their food waste. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 20kLoC.
+
+== Summary of Contributions
+
+* *Major Enhancement*: add the ability to merge bought items into the grocery list.
+
+** *What it does*: This feature represents moving all bought items into the fridge (grocery list).
+
+** *Justification*: This feature is crucial to the product and user experience; it is a single command solution to merge all the bought shopping items into the grocery list without having to manually add them with multiple `glist add` commands.
+
+** *Highlights*:
+1. The feature is able to account for the fact that the fridge (grocery list) may already have items that share the name and expiry date as the bought items.
+*** Amount of grocery item is just updated if bought item and grocery item have same name and expiry.
+*** Bought item is added to the grocery list otherwise.
+2. The feature is able to account for the fact that users do not have to buy exactly as much as they stated in the shopping list.
+*** If the user buys more than or equal to the amount stated in the shopping list, the shopping item is removed.
+*** Else, the shopping item's amount is just reduced by the amount bought and bought tag of the shopping item is removed (no bought items left to move to fridge).
+3. The feature is able to account for different units when adding the quantity of the bought item to the quantity of the grocery item.
+*** Grocery item's amount is given preference, i.e., the bought item's amount's unit is converted to match the unit of the grocery item's amount.
+
+* *Minor Enhancement*: add the ability to mark shopping items as urgent.
+
+** *What it does*: This feature adds a red-colored tag 'Urgent!' and moves it to the top of the shopping list.
+
+** *Justification*: This feature significantly adds to the user experience. All prioritized items are shown at the top of the shopping list to grab the user's attention.
+
+** *Highlights*:
+1. Since a user would not consider an item urgent once they buy their requirements, an item loses its urgent tag once it is completely bought.
+2. Shopping list is sorted by urgent status first and then alphabetical order.
+
+* *Major Enhancement*: display bought status of the amount of shopping item bought along with the shopping item in the UI and move around shopping items in the list according to the amount of each item bought.
+
+** *What it does*: This feature deals with user's flexibility of buying any amount of items. This feature also deals with edited amounts of shopping items. The following are the changes that will take place according to a shopping item's bought status:
+*** If an item is completely bought, the shopping item will get a tag `Fully Bought! (<amount bought>)` and is *moved to the bottom of the list*.
+*** If an item is partially bought, the shopping item will get a tag `Partially Bought. (<amount bought>)`
+
+** *Justification*: This feature makes the user experience much more convenient. Since the fully bought items are moved to the bottom of the list and urgent to top, the user will save time by looking at urgent and not bought items at the top of the list.
+
+** *Highlights*
+*** For each shopping item the bought list is checked to deduce and display the bought status and bought amount of the shopping item.
+*** Fully bought items are moved to the bottom of the list.
+*** If an urgent item is completely bought, it loses its urgent tag, gets a `Fully Bought` tag and is moved to the bottom of the shopping list.
+
+* *Major Enhancement*: edit shopping items
+
+** *What it does*: This feature allows the user to edit a shopping item's name and amount. This feature is able to deal with several special cases involving units, bought status and urgent status.
+
+** *Justification*: This feature significantly improves the user experience by dealing with editing wrongly entered items in the ideal way.
+
+** *Highlights*
+*** If the name of a shopping item that is partially/fully bought is changed, the names of all the corresponding bought items are changed in order to maintain consistency for the user.
+*** If a fully bought shopping item's amount is edited to an amount greater than the bought amount, the item's tag changes to 'Partially Bought.' and is accordingly moved up the shopping list. +
+Similarly, if a partially bought shopping item's amount is edited to an amount smaller than or equal to bought amount, the item will be marked as 'Fully Bought!' and lose 'Urgent!' tag if it has one and moves to bottom of the list. +
+This ensures that the user is not afraid of minor mistakes or changing requirements causing inconsistencies in iFridge.
+
+* *Code contributed*: The samples of my functional and test code can be found https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=manasvegi&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[here]
+
+* *Other contributions*:
+
+** Project Management
+//*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Created and managed issues for the Shopping related tasks of iFridge
+*** Managed and resolved issues from bug reports
+** Enhancements to existing features:
+*** Added and modified equality checks in classes to assist in easier testing
+//*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests (with and without Stubs) for many existing features to increase coverage
+
+** Documentation:
+*** Updated README to include marketing jargon for iFridge: https://github.com/AY1920S1-CS2103-F10-2/main/pull/15[#1]
+** Community:
+*** Reported bugs and suggestions to other teams in the class (examples: https://github.com/ManasVegi/ped/issues/2[#2], https://github.com/ManasVegi/ped/issues/8[#3], https://github.com/ManasVegi/ped/issues/11[#4]  )
+
+== Contributions to User Guide
+
+|===
+|_Below are some notable sections I contributed to our User Guide, which showcase my ability to write documentation that is beneficial to our target end-users. Please refer to section 3.7 for all shopping list features._
+|===
+
+include::../UserGuide.adoc[tag=shoppinglistfeatures1]
+include::../UserGuide.adoc[tag=shoppinglistfeatures2]
+
+
+== Contributions to Developer's Guide
+
+|===
+|_Below are some notable sections that I contributed to the Developer's Guide that showcase my ability to write technical documentation and the technical depth, completeness, and difficulty of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=mergeBoughtFeature]
+
+|===
+|_Please refer to section 3.13.2 of DG for design considerations of mergebought feature_
+|===
+include::../DeveloperGuide.adoc[tag=shoppinglistmanualtesting]
+
+|===
+|_Please refer to section 2.5 of the developer's guide to see my Design Architecture for Storage_

@@ -1,0 +1,57 @@
+@startuml
+!include style.puml
+
+skinparam maxMessageSize 200
+
+group sd fda
+
+box Logic LOGIC_COLOR_T1
+participant "rwc:ReportWasteCommand" as ReportWasteCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "data:HashMap" as HashMap MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant "wastelist:WasteList" as WasteList MODEL_COLOR
+participant "ws:WasteStatistic" as WasteStatistic MODEL_COLOR
+end box
+
+
+create HashMap
+ReportWasteCommand -> HashMap
+activate HashMap
+
+HashMap --> ReportWasteCommand: data
+deactivate HashMap
+
+loop month before ending month
+
+    ReportWasteCommand -> Model: getWasteListByMonth(month)
+    activate Model
+
+    Model --> ReportWasteCommand: wastelist
+    deactivate Model
+
+    ReportWasteCommand -> WasteList: getWasteStatistic()
+    activate WasteList
+
+    create WasteStatistic
+    WasteList -> WasteStatistic
+    activate WasteStatistic
+
+    WasteStatistic --> WasteList: ws
+    deactivate WasteStatistic
+
+    WasteList --> ReportWasteCommand: ws
+    deactivate WasteList
+
+    ReportWasteCommand -> HashMap: put(month, ws)
+    activate HashMap
+
+    HashMap --> ReportWasteCommand
+    deactivate HashMap
+
+end
+
+end
+@enduml

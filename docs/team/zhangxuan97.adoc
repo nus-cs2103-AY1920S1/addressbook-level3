@@ -1,0 +1,86 @@
+= Zhang Xuan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: iFridge
+
+---
+
+== Overview
+
+iFridge is a desktop grocery management application to encourage home cooks to manage their food waste.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+
+My role in the project was to implement the feature for users to keep track of their statistical food waste,
+so that they can see how they are performing in food waste management and seek efficient ways to reduce their food waste.
+Apart from writing code, I maintained the User Guide, Developer Guide and project GitHub repository.
+
+
+== Summary of contributions
+
+* *Major enhancement*: added the ability for the user to keep track of his or her *food wastage statistics*
+
+** What it does: This feature allows the user to keep track of all previous food waste up to the current point.
+Some notable extensions include generating a food waste report which showcases a historical trend of food waste by
+specifying a time frame, as well as predicting the user's estimated food waste for the current month.
+
+** Justification: This feature improves our product significantly by allowing the user to monitor his or her
+food waste, which aligns with our application's aim to encourage users to find effective ways to reduce food waste.
+
+** Highlights: The enhancement required an in-depth planning on how to store the past food waste. This is because there is a need to keep track of the temporal aspects of the
+food waste (in particular, when the food was wasted). To facilitate the implementation of this feature, the architecture of some components have to be newly designed from scratch,
+and the multiple options to do so had to be carefully considered and assessed. When implementing the waste-related classes, there is a need to acquire a deep and broad understanding of how the different components
+worked together.
+
+* *Minor enhancements*:
+** Added support for the user to view his or her waste list for a specific month. This feature is implemented with the intention of
+allowing users to see which types of foods they tend to waste more often by checking their past waste lists.
+** Added support for flexible parsing of months when the user chooses to specify the starting and ending months to generate a waste report.
+
+* *Code contributed*: The samples of my functional and test code can be viewed https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=zhangxuan97[here].
+
+* *Other contributions*:
+
+** Project management:
+*** Managed milestone `v1.3` on Github
+*** Refactored package names: https://github.com/AY1920S1-CS2103-F10-2/main/pull/141[#141]
+
+** Documentation:
+*** Populated the command summary for user guide: https://github.com/AY1920S1-CS2103-F10-2/main/pull/156[#156]
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103-F10-2/main/pull/30[#30]
+*** Updated the Model class diagram: https://github.com/AY1920S1-CS2103-F10-2/main/pull/238[#238]
+
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/zhangxuan97/ped/issues/3[1], https://github.com/zhangxuan97/ped/issues/13[2], https://github.com/zhangxuan97/ped/issues/6[3])
+
+** Tools:
+*** Integrated third party libraries: Natty (https://github.com/AY1920S1-CS2103-F10-2/main/pull/92/commits/4158271b466907502b8387f1d5b5a07dcd5c12cc[#92])
+and JFreeChart (https://github.com/AY1920S1-CS2103-F10-2/main/pull/124/files[#124])  to the project
+
+
+== Contributions to the User Guide
+
+
+|===
+|_As we morphed the product, we kept the user guide up to date with the features we implemented. Below is an excerpt of my notable contributions._
+|===
+
+include::../UserGuide.adoc[tag=wastelistfeatures]
+
+//include::../UserGuide.adoc[tag=commandsummary]
+
+//include::../UserGuide.adoc[tag=wastelistfuture]
+
+== Contributions to the Developer Guide
+
+|===
+|_We also kept the Developer Guide updated so that potential developers and enthusiast users could better understand the design and implementation of our app. To illustrate my contributions to the Developers' Guide, I have once again only included the more notable excerpts._
+|===
+
+include::../DeveloperGuide.adoc[tag=modelcomponent]
+
+include::../DeveloperGuide.adoc[tag=reportwastefeature]
+
+include::../DeveloperGuide.adoc[tag=wastelistmanualtesting]
+

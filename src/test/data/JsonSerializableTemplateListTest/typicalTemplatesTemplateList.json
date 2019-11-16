@@ -1,0 +1,30 @@
+{
+  "templateList" : [ {
+    "name" : "Birthday Party",
+    "template" : [ {
+      "name" : "Minced Beef",
+      "amount" : "300g"
+    }, {
+      "name" : "FullFat Milk",
+      "amount" : "1L"
+    }]
+  }, {
+    "name" : "Diet Plan",
+    "template" : [ {
+      "name" : "Tomato",
+      "amount" : "2units"
+    }, {
+      "name" : "Minced Chicken",
+      "amount" : "300g"
+    }]
+  }, {
+    "name" : "Weekly Necessities",
+    "template" : [ {
+      "name" : "Red Wine",
+      "amount" : "1L"
+    }, {
+      "name" : "Minced Beef",
+      "amount" : "300g"
+    }]
+  } ]
+}

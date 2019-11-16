@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+
+skinparam maxMessageSize 120
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":IFridgeParser" as IFridgeParser LOGIC_COLOR
+participant ":GroceryListParser" as GroceryListParser LOGIC_COLOR
+participant ":UseGroceryCommandParser" as UseGroceryCommandParser LOGIC_COLOR
+participant "u:UseGroceryCommand" as UseGroceryCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("glist use 1 a/100g")
+activate LogicManager
+
+LogicManager -> IFridgeParser : parseCommand("glist use 1 a/100g")
+activate IFridgeParser
+
+IFridgeParser -> GroceryListParser : parseCommand("use 1 a/100g")
+activate GroceryListParser
+
+create UseGroceryCommandParser
+GroceryListParser -> UseGroceryCommandParser
+activate UseGroceryCommandParser
+
+UseGroceryCommandParser --> GroceryListParser
+deactivate UseGroceryCommandParser
+
+GroceryListParser -> UseGroceryCommandParser: parse("1 a/100g")
+activate UseGroceryCommandParser
+
+create UseGroceryCommand
+UseGroceryCommandParser -> UseGroceryCommand
+activate UseGroceryCommand
+
+UseGroceryCommand --> UseGroceryCommandParser: u
+deactivate UseGroceryCommand
+
+UseGroceryCommandParser --> GroceryListParser: u
+deactivate UseGroceryCommandParser
+UseGroceryCommandParser -[hidden]-> GroceryListParser
+destroy UseGroceryCommandParser
+
+GroceryListParser --> IFridgeParser: u
+deactivate GroceryListParser
+GroceryListParser -[hidden]-> IFridgeParser
+destroy GroceryListParser
+
+IFridgeParser --> LogicManager: u
+deactivate IFridgeParser
+
+LogicManager -> UseGroceryCommand: execute()
+activate UseGroceryCommand
+
+ref over UseGroceryCommand: create deducted grocery item
+
+UseGroceryCommand -> Model: setGroceryItem(toUse, used)
+activate Model
+
+Model --> UseGroceryCommand
+deactivate Model
+
+create CommandResult
+UseGroceryCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> UseGroceryCommand
+deactivate CommandResult
+
+UseGroceryCommand --> LogicManager: result
+deactivate UseGroceryCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

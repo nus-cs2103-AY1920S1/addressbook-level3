@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+
+start
+:User executes mergeShoppingCommand;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+while (Check boughtList?) is (boughtItem(s) left to consider)
+while (Check groceryList?) is (groceryItem(s) left to consider)
+    if () then ([boughtItem and groceryItem share same name and expiryDate])
+        :Execute addition of groceryItemAmount;
+    endif
+endwhile (all groceryItems considered)
+
+while (Check shoppingList?) is (shoppingItem(s) left to consider)
+    if () then ([boughtItem and shoppingItem share same name])
+        if () then ([boughtItemAmount < shoppingItemAmount])
+            :Execute reduction of shoppingItemAmount;
+        else ([else])
+            :Delete shoppingItem from shoppingList;
+        endif
+    endif
+endwhile
+endwhile (all boughtItems considered)
+:Clear boughtList;
+:Sort shoppingList;
+stop
+@enduml

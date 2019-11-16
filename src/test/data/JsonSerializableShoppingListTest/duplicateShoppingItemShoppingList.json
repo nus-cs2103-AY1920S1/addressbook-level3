@@ -1,0 +1,9 @@
+{
+  "shoppingItems": [{
+    "name": "Vegan Cheese",
+    "amount": "3kg"
+  }, {
+    "name": "Vegan Cheese",
+    "amount": "5kg"
+  }]
+}

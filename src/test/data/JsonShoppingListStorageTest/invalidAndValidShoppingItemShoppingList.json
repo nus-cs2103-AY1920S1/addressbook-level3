@@ -1,0 +1,13 @@
+{
+  "shoppingItems": [{
+    "name": "Invalid name: or@nge",
+    "amount": "1units",
+    "bought": false,
+    "urgent": false
+  }, {
+    "name": "Valid name",
+    "amount": "2kg",
+    "bought": false,
+    "urgent": false
+  }]
+}

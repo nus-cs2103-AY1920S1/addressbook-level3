@@ -1,0 +1,83 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":IFridgeParser" as IFridgeParser LOGIC_COLOR
+participant ":GroceryListParser" as GroceryListParser LOGIC_COLOR
+participant ":ReminderDefaultCommandParser" as ReminderDefaultCommandParser LOGIC_COLOR
+participant "d:ReminderDefaultCommand" as ReminderDefaultCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":UserPrefs" as UserPrefs MODEL_COLOR
+end box
+
+[-> LogicManager : execute("glist remDefault r/3")
+activate LogicManager
+
+LogicManager -> IFridgeParser : parseCommand("glist remDefault r/3")
+activate IFridgeParser
+
+IFridgeParser -> GroceryListParser : parseCommand("remDefault r/3")
+activate GroceryListParser
+
+create ReminderDefaultCommandParser
+GroceryListParser -> ReminderDefaultCommandParser
+activate ReminderDefaultCommandParser
+
+ReminderDefaultCommandParser --> GroceryListParser
+deactivate ReminderDefaultCommandParser
+
+GroceryListParser -> ReminderDefaultCommandParser : parse("3")
+activate ReminderDefaultCommandParser
+
+create ReminderDefaultCommand
+ReminderDefaultCommandParser -> ReminderDefaultCommand
+activate ReminderDefaultCommand
+
+ReminderDefaultCommand --> ReminderDefaultCommandParser : d
+deactivate ReminderDefaultCommand
+
+ReminderDefaultCommandParser --> GroceryListParser : d
+deactivate ReminderDefaultCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ReminderDefaultCommandParser -[hidden]-> GroceryListParser
+destroy ReminderDefaultCommandParser
+
+GroceryListParser --> IFridgeParser : d
+deactivate GroceryListParser
+
+IFridgeParser --> LogicManager : d
+deactivate IFridgeParser
+
+LogicManager -> ReminderDefaultCommand : execute()
+activate ReminderDefaultCommand
+
+ReminderDefaultCommand -> Model : setIFridgeSettings(iFridgeSettings)
+activate Model
+
+Model -> UserPrefs : setIFridgeSettings(iFridgeSettings)
+activate UserPrefs
+
+UserPrefs --> Model
+deactivate UserPrefs
+
+Model --> ReminderDefaultCommand
+deactivate Model
+
+create CommandResult
+ReminderDefaultCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ReminderDefaultCommand
+deactivate CommandResult
+
+ReminderDefaultCommand --> LogicManager : result
+deactivate ReminderDefaultCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

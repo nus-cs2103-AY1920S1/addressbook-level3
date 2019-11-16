@@ -1,0 +1,109 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":iFridgeParser" as iFridgeParser LOGIC_COLOR
+participant ":ShoppingListParser" as ShoppingListParser LOGIC_COLOR
+participant "m:MergeShoppingCommand" as MergeShoppingCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "gl:GroceryList" as GroceryList MODEL_COLOR
+participant ":ShoppingComparator" as ShoppingComparator MODEL_COLOR
+end box
+
+[-> LogicManager : execute(args1)
+activate LogicManager
+
+LogicManager -> iFridgeParser : parseCommand(args1)
+activate iFridgeParser
+
+create ShoppingListParser
+iFridgeParser -> ShoppingListParser
+activate ShoppingListParser
+
+ShoppingListParser --> iFridgeParser
+deactivate ShoppingListParser
+
+iFridgeParser -> ShoppingListParser : parseCommand(args2)
+activate ShoppingListParser
+
+create MergeShoppingCommand
+ShoppingListParser -> MergeShoppingCommand
+activate MergeShoppingCommand
+
+MergeShoppingCommand --> ShoppingListParser: m
+deactivate MergeShoppingCommand
+
+ShoppingListParser --> iFridgeParser : m
+deactivate ShoppingListParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ShoppingListParser -[hidden]-> iFridgeParser
+destroy ShoppingListParser
+
+iFridgeParser --> LogicManager : m
+deactivate iFridgeParser
+
+LogicManager -> MergeShoppingCommand : execute()
+activate MergeShoppingCommand
+
+MergeShoppingCommand -> Model: getFilteredBoughtList()
+activate Model
+Model --> MergeShoppingCommand : lastShownBoughtList
+deactivate Model
+
+loop for each boughtItem in lastShownBoughtList
+MergeShoppingCommand -> MergeShoppingCommand: modifyGroceryListAccordingToBoughtItem(boughtItem)
+activate MergeShoppingCommand
+MergeShoppingCommand --> MergeShoppingCommand
+deactivate MergeShoppingCommand
+MergeShoppingCommand -> MergeShoppingCommand: modifyShoppingListAccordingToBoughtItem(boughtItem)
+activate MergeShoppingCommand
+MergeShoppingCommand --> MergeShoppingCommand
+deactivate MergeShoppingCommand
+end
+
+create GroceryList
+MergeShoppingCommand -> GroceryList: GroceryList()
+activate GroceryList
+GroceryList --> MergeShoppingCommand: gl
+deactivate GroceryList
+
+MergeShoppingCommand -> Model: setBoughtList(gl)
+activate Model
+
+Model --> MergeShoppingCommand
+deactivate Model
+
+MergeShoppingCommand -> Model: sortShoppingItems()
+activate Model
+create ShoppingComparator
+Model -> ShoppingComparator : ShoppingComparator()
+activate ShoppingComparator
+ShoppingComparator --> Model
+deactivate ShoppingComparator
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ShoppingComparator -[hidden]-> Model
+destroy ShoppingComparator
+
+
+
+Model --> MergeShoppingCommand
+deactivate Model
+
+create CommandResult
+MergeShoppingCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> MergeShoppingCommand
+deactivate CommandResult
+
+MergeShoppingCommand --> LogicManager : result
+deactivate MergeShoppingCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

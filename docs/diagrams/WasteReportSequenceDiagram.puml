@@ -1,0 +1,93 @@
+@startuml
+!include style.puml
+
+skinparam maxMessageSize 130
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":iFridgeParser" as iFridgeParser LOGIC_COLOR
+participant ":WasteListParser" as WasteListParser LOGIC_COLOR
+participant ":ReportWasteCommandParser" as ReportWasteCommandParser LOGIC_COLOR
+participant "rwc:ReportWasteCommand" as ReportWasteCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "wr:WasteReport" as WasteReport MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("wlist report sm/Jan 2019 em/Oct 2019")
+activate LogicManager
+
+LogicManager -> iFridgeParser : parseCommand("wlist report sm/Jan 2019 em/Oct 2019")
+activate iFridgeParser
+
+create WasteListParser
+iFridgeParser -> WasteListParser
+activate WasteListParser
+
+WasteListParser --> iFridgeParser
+deactivate WasteListParser
+
+iFridgeParser -> WasteListParser : parseCommand("report sm/Jan 2019 em/Oct 2019")
+activate WasteListParser
+
+create ReportWasteCommandParser
+WasteListParser -> ReportWasteCommandParser
+activate ReportWasteCommandParser
+
+ReportWasteCommandParser --> WasteListParser
+deactivate ReportWasteCommandParser
+
+WasteListParser -> ReportWasteCommandParser: parse(" sm/Jan 2019 em/Oct 2019")
+activate ReportWasteCommandParser
+
+create ReportWasteCommand
+ReportWasteCommandParser -> ReportWasteCommand
+activate ReportWasteCommand
+
+ReportWasteCommand --> ReportWasteCommandParser: rwc
+deactivate ReportWasteCommand
+
+ReportWasteCommandParser --> WasteListParser: rwc
+deactivate ReportWasteCommandParser
+
+WasteListParser --> iFridgeParser: rwc
+deactivate WasteListParser
+
+iFridgeParser --> LogicManager: rwc
+deactivate iFridgeParser
+
+LogicManager -> ReportWasteCommand: execute()
+activate ReportWasteCommand
+
+ref over ReportWasteCommand: Generating Waste Report
+
+create WasteReport
+ReportWasteCommand -> WasteReport
+activate WasteReport
+
+WasteReport --> ReportWasteCommand: wr
+deactivate WasteReport
+
+ReportWasteCommand -> Model: setWasteReport(wr)
+activate Model
+
+Model --> ReportWasteCommand
+deactivate Model
+
+create CommandResult
+ReportWasteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ReportWasteCommand: result
+deactivate CommandResult
+
+ReportWasteCommand --> LogicManager: result
+deactivate ReportWasteCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

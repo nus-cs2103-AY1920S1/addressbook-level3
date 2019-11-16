@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= iFridge - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-F10-2/main/tree/master
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -34,7 +34,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/ifridge/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/ifridge/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -56,37 +56,43 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
+//tag::logicClassDiagram[]
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
 
+//end::logicClassDiagram[]
+
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `glist delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `glist delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+//tag::uicomponent[]
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/ifridge/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `GroceryListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/ifridge/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+//end::uicomponent[]
 
 [[Design-Logic]]
 === Logic component
@@ -96,9 +102,9 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/ifridge/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `iFridgeParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -106,44 +112,58 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `tlist add n/Tomato Soup` Command
+image::AddTemplateListSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+* args1: tlist add n/Tomato Soup
+* args2: add n/Tomato Soup
+* args3: n/Tomato Soup
 
+NOTE: The lifeline for `AddTemplateListCommandParser`, `TemplateListParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+
+//tag::modelcomponent[]
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+.Structure of the Model Component (Higher definition picture https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=ModelClassDiagram.drawio#R7V1bd6NGEv41ftlzRgf6Co9zy2zOZjY5mWQnkzckIZtEEhokz9j59dtINIKiubq7wZL94GMQbhBVX3XVV9XVN%2Fjt5uFDEuzuPsbLcH2DnOXDDX53g5DnUvE7PfF4OkEccjpxm0TL0yn3fOJT9E%2BYnXSys%2FfRMtyXLjzE8foQ7conF%2FF2Gy4OpXNBksTfy5et4nX5rrvgNqyc%2BLQI1tWzn6Pl4S77WtQ5n%2F93GN3eyTu7TvbJJpAXZyf2d8Ey%2Fl44hd%2Ff4LdJHB9Of20e3obr9N3J93L6vx9qPs0fLAm3hy7%2F8Pnjf359%2B%2BGfV58ePnz9PXhEX4mzeZWN8i1Y32dfOHvYw6N8A0l8v12G6SDODX7z%2FS46hJ92wSL99LsQuTh3d9isxZEr%2FlxF6%2FXbeB0n4ngbb8VFb%2FaHJP47f3koPyMvu0F47lFC09Gr30k%2BYJgcwofCqew7fgjjTXhIHsUlD1LBTv%2FxKPUoO%2F5%2Blp4vleuuIDmPZyeDTGNu86HPL1X8kb3XHu8YKd4xW4vbvpmLP24Px%2B99OrGKxfcuvn329T6WH7zaH9HxWlzg0t3D%2BUM5Sga%2B01DiUU%2Bjle8gThfuCkQtXvGhLM%2ByqDKJKoQcrKPbrThcCMGF4vybVGCRgNHr7INNtFymt1EqUFnFdCgBZ2UtcKtaQBRKgEzpAKnVAQ0i%2FxhshRlKaiX%2FFEBX0VuUvsDuMgi91UKFarbwwvlKk0AZLQkUo6pAXRWssSmJUs2Ws%2FlFl2xp4R17aI4Z0%2FOOadlyUk%2Fxij3VK%2FZMvWNmy3J%2BDvaH8MVyFkEktcAf2XJyQ5bzKPJfw12cHEYynDT0lsQ0qHlZnIyObTe9drsZbpevU9ddHC2jYBNvl%2BVXGy6Fi55dLsR3F9%2FG22D9%2Fnz2jRjhhyh9rqOkqqIQ7zN5%2FCP7%2BHjwJT2YcSqP3z0UP333mA8VJAf5cIt1sN9HC3k6u%2BPxCR%2Biw3H4GaLZ4Rc5nvj7PHh6IMfurx%2Fia2YRk9sI%2F318nyzCdpCJb3EbHtrdmFQAjcpX0C6qUC55LgnXwSH6Vg61VBqX3eGXODpCvtbVB0p7%2Bt7ZfxVDIzAQcsoj%2BT4Y6PRiKgMdAZB%2F7eGY8E3auJ%2Bi%2FVgWzoprCE0cdXnFxPk2LZw0p9rF%2BSGJF2HyeOkCJc7UBKpiSXQI9LdwsxMW8OIhSjFvlajrUJsirSdlnibST3fxbhdtby9dpMxrB2nOvdkRKW73LC1E5D7jONDkvCNcZj1UITlzVbgxFpK7HXiPPv57uJ7H3%2Fu47r098OEOeDuQgAN%2B%2FDLiQIbwpUhjlscWX%2BQzNgQatdrT6stnzuQz8%2BVdxyupOmMDfXkC3EECg4IaX16oVPBYuGyXXrCvf2CCwX1g%2BgVcTwGxQkjz9dALAteLP05PrDUQcftF55kN1Bqad8S3EawOsBnDcSpdkIkAEE7oxCMDAcjUwNANQN4TgHXPZRZQqtD%2BBVBmAOVMClAcMulD2Sni2wEUIVR5n77PZRRQ8rtfPaAY7wyp9OCXMInEu08zTE%2BFmTspmBEKYqTBMIMToCGYUZ8r72MWNqb4jt%2B30df7cGSiOXSXNOTGo3GQIGco07wi5YEVmm6M8kAqykOfVEfnm%2B3IFQPHkPmjy7UfyTJfx4u%2F9b9aOA%2BK6S2bnkDuMecyFBnVtoSq2kWUDI5uF1G%2Bx1ZyRCJrKpMcIAO4RwdOcsCGcQwGMpzpRPUlPTos1vgJFTsmi2LcPhURbNNkmarTKQv2x0O42V%2B0ZN2yO6ucjIhvU7IqTvAkgP0u2A6XbKWW74c4Xqqr7fJzpzteehEedUBMM3YRHjJVoeJ2xfLFyBZB1sSrJk6RIqVnTLZYxai8yHYQbhmZ0YlJ11TtyvVJlztTk60pUgddnWwJzM6OLtsO1SytdRZ5AK92cO2VUnRjGyZXStGZLsjco4mwBRhposRhMJKjxBJbgFXL5sYGAaNkXBgosjkjQENNkHXAiuvcjIgNQqCLlnMnvbk0kC%2Bl1DI6dJTiXewUwSgqIsGZ%2BX4rF50e6UuUSq6zHRHTyqhiUK3NyECAMAdijXbMqWqDiFm6efxibzukJPM7ZMis0s1YRTePbfuQNxXj18sJ0FsegjtbPTQpq0d9HzoGMDfW2W2uDEUhEAzbPWKKGTgWenwUV95d8qJpuAieq9JrVldNE1OVHkeBfjoI5OyFHbkmoXqKzkCWhWqqK8z1cbOUV6y3QrxWGTyiCs9epDtEunkpZr44qGqP7crWVFxxfbKF%2BVBVrtuubE1VslyfbGHGjPGxZVtfy%2FI02f432NT3j7oABgBWpPhu1QKrgjNzvlO%2FhVV2CACPFOnPV87MwbgPDdC%2F5U8jDXCD%2B1bi6qMBZATaXmk7LRqAEyE1UtL13Ir15QE4aFBkmwWg%2FTBy1vBm%2ByNsm1TBo041rubPseH4bgEbbis0mtNc%2FVS7P8xK0D8bjwr0czTm%2F5Qd%2B09CT%2Bd%2BXNMCD1iR6zqwDUVX5HhwoI7I6bsWC9xHLtk0uhRLrja5GFRqZHMmosdQLYZmiCuUkwsGMqTGlFhQY1OFhe8fdpGw3UFDQ9YLcKgR8wBh5TlVl9qzmVNjyJBEX2%2BEgC47QQo8PVV4xJFNWZqilrM1oek6nEsWKOYgBqCKDJBjVaKm6OTi0qpLFiklHFhcrqAa7fasY6Z4ZLCU6vKEyRGcPhXcolVGipnijWWV0aUDlLvA5o4PTx3NyrXXHzsyRJMkI5F1R9dWa4S68iSyFHMi8eVF1RpxFZ%2Bhw%2B796%2BryZRXeYeR0GTcV47%2BIVlFBa1e0poL96xMt5aB17dhZbq4K%2Fsd2W8ZdGDLcx5BMykRcB0LpTPIOT81PErBOsMJzm%2FYcTFEa12eDKqIkY9sgU8zG9cmW%2BpDr4GPXP3JTXMf1SZezqcl2iqQHeWJl1QWRHlI%2F2kkPPi3PBdcoem%2B3BQ5kuYchn2Lp4WTWXVvqP8C6Un94WtQfbBrA%2BVAUwIHgKm3DKPBU3NC4KCiWMp0RoR8FKd3%2B1%2F1mV1P6d2Tjm8qvhmu9rF%2BfiDIzB6ZUvaEVf9SDQ%2FmGNu5R3AlbKPvzJtjQ6eLxIkuaJoIXyihUPTIQLwyUFppCS%2BU%2BWWWTWaxMj8C0ObcUvCnUy50aCWRdOz9NjUoFvL0%2FlEelYHmqB306XRv0gC7wcgW7WSz26zKl2HCnz3Y6ciuDIgydAgzHDnQaEPa0FR9sWmEK9Sue3dANGRVDWe4C5fcLVUyrsKWZZKAKF1uonfaYymcfSbrZa6HGujYTmtjUojEwUgxlucDHR1OCjy1HbLQZoF3Xp8XrMreioP7goKYyFIyPTOu6qT5L19f8AVM464%2Bc2PJf2i1pS0nTOg5tPOm%2BtFvSJV0Gm32MLtsOKenFffLt%2BBIyj6PH%2Bmn3prp%2BeoDroPTvebOHUqR6nJz7Kee47bnbpKMHIl%2F%2FRDwQF2xqR%2FlA%2FwMxvzQQM7QFLNxxEntO83PBrWlJy%2FWw8QizQBT5HdLi0wHpDBVg2rzdpObGOJOCDuFAs5y81qx3Qhos32LS39INHriBFmsGAwZfkXoWwOA6HTinCaHBY6SIhyd25xHDPZupbFq8K5Fki1RuuONK99pu2MTKDBph5wNpUGpDfDbC1JSv1H8WaCwzXN0dSF7KFToteDMPrYlVXlGwbIJA5657%2FSGAlmsIWmCiwxk5VdtuDk6MtBmKHkjtU2oFiq0tOBc5Ns6hOPbFz2pVjc4FzMR0IXCLnHWPXTimEatDm1GLyR59hShUmmrs7ilAZix2z3tgNdleje0KMjFVzOySzRnV1KnAA9SmdClLL1lBkGCYBNL4luuX6mrepfm34LaAsjm87uZaNmn2OORAbW7T%2FPOfX%2F1bgn%2F7yz18fj1%2Fjz5%2B%2B3v3ytRy7bLILTYeWa1WaLHoAOeK2BTCrZekByZ0Us1UyE6buvuOKOXYwVsdtVS0xSftL8Sa%2Bre83q2Q7B1e%2Fqb0Rltd4CagdSxLGMvjxbL8ta5woDu1U9O9QH9WVvm6TSVln%2BVqw6eZOlqzasRCakcpWq2Vvh3KS7qspXJoOQR3nGYyzPSKqjKb5s4clFvJPmRaPY%2FdbhNHC9rT7Vp9z89%2FStrLfDpz%2FGE2LW0HKLdxkbESTVv4O%2BcfbNXKvSSwdVk5AvXEYkcWpWhVzRCmSj86M58Uk2PimHqN9q9gq3xa8tlS5p%2BzNmNVl0sYaqx0pgf4qNYP5n2HZ%2Bc8h89gjxC43sFUSqCFh2QwQYdargdvhSG9vKUSwaYaXvwvTPaRMKLLP778mW4jvB8n0F4GobdSxmhs4YXzlR67zJkLKJPc5NrYSVgpWB3dLhr3WtDsnZYsc684vIOMe%2FmlQ%2FJNWqLvzrujjGm7MbC2FC7Q7L66rDxQJSWsy2yDzCzCtOW5%2Bpl5SCIQzekmpaqoapI07f9%2BeBctDsJ0B6kWXJXNVnjTdm22MqWkQ6xylKhwItikgllXj6I01lml4pOny%2F9STp8kikRJfptfw2D583b9eBVOAC0HZ1jpAvhVdYINTvSpU7%2F1gXKFkuZXuwz2d8UAsLj2qW7S7dJ5qvh%2FndbNDpup1WlJVJ2qGxA92lwNIhbXGVpBDIsTXcfcWlf1i0RT1%2BWxVXJUPhN2%2B6OySVvveB6oLGbcrp71a2czqs3EvLSywpUEv27DaZq0km7PxK1p3tJM6jgequMeKuu4ZzftKOv6noOOO7Qcjc98vwvvmpVre6yg5Clp67L%2Bmv6U%2FFIH7fefh%2FJ7QPnJUOUHleDYcs7dVaWjXoixLsSYj7wyFh2ndb7RN3U08SDTpsw4d2cePv8A2oHQmcsKP0MTv5TPisPwMsywU7qL3EtBN9kGch6yXLT2ocHWym2Lnggk5zQvs1CbDFM933vRMj%2Fqo2U%2BxstwfclcDGGwhtUleYqxtO2aIltujo9RJdsm6ncNpGNGCX0VSe8GHI9GxlB%2FBnZfpYjNKDrX5YAxu1p%2BzvnM9UlNMRHmZOa55w87Ll%2FVZjxb18U8M%2BP583wfJt%2BC%2BTr8qcfCnOdoRRnDnWyoVU67X5P6DlVGWq1obilz1717mfeQTmAaXWlX0aerAdGj1Q4BjxEPLf6GA7kdu5vqMoyoX3ZmmCavvEWoXqMw92iaqe6oyTNDNRETVzbullvpDk2fMLktodQ1Wil4M61tyNA0%2FLuYDX9JwtVF53Yx0AOk6PnmOjZLBZCptSNjuVWyVOAq9MkFHa%2BV5YJUoU%2BwbaQ%2BfVLlBF6q9IcIlwPHAlnc%2BUwt22dGeT%2BhFa5uyhuNVQsqRTR9ZpuLsNCjp99gliSk9Kncl2AIs10YxQWrm7BT%2BpSYYbYJLCNt6VX3LJht1GEBzzQYyZ5Lpodkzwyjt8GNGwu%2BrscATU5kM6HeBWIOgutw8qd8cogjDpM49SrOl4u5%2B%2B6UxsDv%2Fw8%3D[here])
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+Notes regarding the class diagram:
+
+* XYZ refers to the different lists used in our model - waste list, grocery list, template list and shopping list.
+* The curved arrows emanating from the `ModelManager` class all refer to filtered lists.
+
+*API* : link:{repoURL}/src/main/java/seedu/ifridge/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* stores the data for the different lists: WasteList, GroceryList, TemplateList, ShoppingList.
+* exposes unmodifiable `ObservableList` for all the different lists so that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+To enhance the OOP-design of our architecture, we abstracted out a separate food class to cater to the different requirements of separate lists.
+For instance, shopping lists require its food items to have additional attributes which indicates the `urgent` and `bought` status.
 
+//end::modelcomponent[]
+
+//tag::storagecomponent[]
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/ifridge/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
+//end::storagecomponent[]
 [[Design-Commons]]
 === Common classes
 
@@ -153,94 +173,470 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+//tag::reminderdefaultfeature[]
+=== Reminder Default Feature
+
+==== Implementation
+
+Color coding for grocery list is based on the default number of days set in the iFridge settings in the user prefs.
+Changing the default reminder number of days will update the color coding in the grocery list accordingly. It will also
+be saved when the app is closed and used again when the app is relaunched.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("remDefault r/3")` API call.
+
+.Interactions Inside the Logic Component for the `remDefault r/3` Command
+image::RemDefault.png[]
+NOTE: The lifeline for `ReminderDefaultCommandParser` should end at the destroy marker (X)
+but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+//end::reminderdefaultfeature[]
+
+//tag::generalundoredofeature[]
+=== General Undo/Redo Feature
+
+==== Implementation
+
+There are 3 types of undo/redo feature, glist undo/redo for grocery list, slist undo/redo for shopping list,
+and tlist undo/redo for template list.
+
+==== Design Considerations
+Aspect: How undo/redo is implemented
+
+**Alternative 1 (current choice)**: Create undo/redo separately for different lists.
+
+* Pros: More flexibility for user in choosing which list to undo.
+* Cons: Does not support commands which connects between the different lists which has an undo/redo feature of its own
+(eg. mergebought command which links shopping list and grocery list cannot be undone, as both shopping list and grocery list
+have their own undo/redo feature and complications may occur due to the interdependency between the different lists)
+
+**Alternative 2**: Implement undo/redo universally so undo/redo will undo/redo any type of the last command executed.
+
+* Pros: Supports undoing/redoing commands which connects between different lists as there will be no complications arising
+from the interdependency of the list.
+* Cons: Less flexibility to choose which list to undo.
+
+//end::generalundoredofeature[]
+
+//tag::groceryundoredofeature[]
+=== Grocery Undo/Redo Feature
+
+==== Implementation
+
+Versioned Grocery List extends Grocery List and contains different states of grocery list.
+Versioned Waste List extends Waste List and contains different states of waste list.
+It supports any kinds of grocery command which modifies the content of the grocery list. Since the delete
+grocery command modifies both grocery list and waste list, each grocery command will call
+`Model#commitGroceryList` and `Model#commitWasteList` so that undoing/redoing a grocery delete command will update both
+grocery list and waste list, while the other commands will only modify the grocery list.
+
+Given below is an example usage scenario and how the grocery list
+undo/redo mechanism behaves at each step.
+
+image::UndoRedoState0.png[]
+image::UndoRedoState1.png[]
+image::UndoRedoState2.png[]
+image::UndoRedoState3.png[]
+image::UndoRedoState4.png[]
+image::UndoRedoState5.png[]
+
+//end::groceryundoredofeature[]
+
+//tag::shoppingundoredofeature[]
+=== Shopping Undo/Redo Feature
+
+==== Implementation
+
+Versioned Shopping List extends Shopping List and contains different states of shopping list.
+Versioned Bought List extends Grocery List and contains different states of bought list.
+It supports any kinds of shopping command which modifies the content of the shopping list except for mergebought command.
+Since the bought shopping command modifies both shopping list and bought list, each shopping command excluding mergebought command
+will call `Model#commitShoppingList` and `Model#commitBoughtList` so that undoing/redoing a bought shopping command will update both
+shopping list and bought list, while the other commands will only modify the shopping list.
+
+//end::shoppingundoredofeature[]
+
+//tag::templateundoredofeature[]
+=== Template Undo/Redo Feature
+
+==== Implementation
+
+Versioned Template List extends Template List and contains different states of template list, previous templates, new templates, and index list.
+It supports template list command undo/redo, and template item command undo/redo. Each template command will call `Model#commitTemplateList`
+which updates the corresponding lists in the versioned template list.
+
+.The following activity diagram shows what happens when the user enters an undo template command
+image::UndoTemplateActivityDiagram.png[]
+
+When a template list command is undone/redone, the user interface will update the template list panel and clear the template item panel.
+When a template item command is undone/redone, the user interface will update the template item panel with the corresponding updated template
+from the prevTemplate/newTemplate list respectively.
+The index list is used to determine whether a template list command or a template item command is being undone/redone.
+If the current index is -1, the current state pointer is pointing to a template list command, else, it is pointing to a template item command.
+
+==== Design Considerations
+Aspect: How template undo/redo is implemented
+
+**Alternative 1 (current choice)**: Template undo/redo feature covers both template list command and template item command
+
+* Pros: Prevents issues surfacing from interdependency between template list and template item command
+* Cons: Less flexibility for users in choosing to undo/redo which list
+
+**Alternative 2**: Create undo/redo separately for template list command and template item command
+
+* Pros: More flexibility as users can choose which list to undo/redo
+* Cons: Harder to implement as we need to check for interdependency between the two list and how it affects the other list' state
+before performing the corresponding undo/redo
+
+//end::templateundoredofeature[]
+
+//tag::reportwastefeature[]
+=== Waste Report Feature
+
+==== Implementation
+
+The `wlist report` feature allows users to generate a graphical report of their food wastage performance.
+We illustrate below our method of implementation.
+
+**Support for flexibility of months**
+
+By allowing the user to specify a start and an end month, thorough checks are implemented in the
+`WasteReportCommand#execute` method to identify the best suited time frame:
+
+1. After the `WasteReportCommandParser#parse` successfully provides the user-specified start and end months in `WasteMonth` objects, the following checks are performed:
+** starting month cannot be later than ending month
+** starting month cannot be after current month (latest record in waste archive)
+** ending month cannot be before earliest waste record
+
+2. Upon passing the checks, the we proceed to refine the actual start and end months as follows:
+** Starting month will be the later of the specified month and the earliest record found in the waste archive. This is achieved with the use of the `WasteMonth#earlier` method.
+** Ending month will be the earlier of the specified end month and the current month (latest record in waste archive). This is achieved with the user of the `WasteMonth#later` method.
+
+This completes the first part on checking for a valid range of months.
+
+**Generating the report**
+
+Under `WasteReportCommand#execute`, when iterating through the months from the starting month to
+the ending month:
+
+* We first retrieve the relevant `WasteList` for the month using `Model#getWasteListByMonth(WasteMonth)`
+* Thereafter, we obtain a `WasteStatistic` object, which contains the weight, volume and quantity of food wasted
+for the given month by calling `WasteList#getWasteStatistic`.
+** Note that the `WasteList#getWasteStatistic` method is a wrapper method to calculate the waste statistics. The actual computation of
+the statistics for the given waste list is done in the `WasteStatistic#getWasteStatistic` static method, which takes in a `UniqueWasteList` and calculates the statistics by iterating through the list.
+* Collect the data by storing it in a `HashMap` indexed by the month (a `WasteMonth` object) with the corresponding
+`WasteStatistic` as the value.
+* The data collected in the `HashMap` is used to initiate a `WasteReport` object, which will then be passed back to the model, along with the respective `CommandResult` object.
+
+You may find the following activity and sequence diagrams helpful.
+
+.The activity diagram showing how the waste report feature is implemented
+image::WasteReportImplementationActivityDiagram.png[align="center"]
+
+.The sequence diagram to show how the waste report feature works:
+image::WasteReportSequenceDiagram.png[align="center"]
+
+.The sequence diagram for the reference frame to show the process of generating a waste report.
+image::WasteReportSequenceDiagramRef.png[align="center"]
+
+In summary, the activity diagram below illustrates what happens when a command to generate a waste report is entered.
+
+.The activity diagram showing what happens when the user enters a command to generate a waste report.
+image::WasteReportActivityDiagram.png[align="centre", width="400"]
+
+Refer to our
+https://ay1920s1-cs2103-f10-2.github.io/main/UserGuide.html#displaying-food-wastage-statistics-code-wlist-report-code[user guide] to see what constitutes a valid time frame.
+
+To complete the big picture, we have included a class diagram to illustrate the key components pertaining to
+implementing statistical waste list features.
+
+.The class diagram which captures some of the architectural elements for key waste-related classes.
+image::WasteClassDiagram.png[align="center"]
+
+[NOTE]
+Our waste archive is stored as a static member of the `WasteList` class, in the form of a `TreeMap`.
+
+==== Possible Alternative Implementations
+* **Alternative 1 (Chosen implementation)**
++
+Go through the waste archive to retrieve the grocery items in the waste list for the past months and calculate the waste
+statistic for each month.
+
+** Pros: This is a fail-proof way of ensuring the waste statistics are accurately computed every time.
+** Cons: The runtime is linear in terms of the total number of grocery items found across all waste lists in the waste archive.
+With a growing waste archive, it will take longer to generate the report.
+
+* **Alternative 2**
++
+Since the waste statistics for the previous months are unlikely to change, they can be stored externally and loaded
+upon launch of the application, instead of calculating every time the waste report command is executed.
+
+** Pros: Will improve the runtime of the application.
+** Cons: Will take up more storage space. Additionally, this does not guard against the event that the user modifies the
+external storage files which may cause the waste archive and the statistics to be synced incorrectly.
+
+//end::reportwastefeature[]
+
+
+//tag::usegroceryfeature[]
+=== Use Grocery Feature
+
+==== Implementations
+The `glist use` feature in the grocery list allows user to use their food items based on the `AMOUNT` inputted. +
+
+This implementation of this feature is highly dependent on the `Amount` class as deduction of values is done by the `Amount` class itself.
+
+The sequence diagram for interactions between the Logic and Model components when a user executes the `glist use` command is shown below.
+The subsequent sequence diagram shows a lower level picture of how a grocery item is used.
+
+.The sequence diagram to show how use grocery command is parsed and executed.
+image::UseGrocerySequenceDiagram.png[align="center", width="900"]
+
+.The sequence diagram for the reference frame to show the process of how a grocery item is used.
+image::UseGrocerySequenceDiagramRef.png[align="center", width="800"]
+
+The current implementation for using a grocery item is by overwriting the existing grocery item with a new grocery item object with its amount field deducted, as shown in the diagram above. The rest of the fields are copied over without any other modifications.
+
+The `glist use` command is also able to support unit conversion. Currently, the implementation of the unit conversion are calculated manually inside the `Amount` class. No external library is used.
+
+The following activity diagram summarises how the unit conversion is done.
+
+image::UseGroceryActivityDiagram.png[align="center", width="300"]
+
+The conversions of units are done in the `Amount` class. Unit type is necessary in the implementation to allow for keeping track of different unit groups across different lists in the application. For example, `kg`, `g`, `lbs`, and `oz` are all categorised under the unit type `Weight`.
+(Refer to the <<UserGuide.adoc#amount-parameter, User Guide>> for more info about the `Amount` parameter.
+
+==== Design Considerations
+===== Aspect: Storing of the value and unit
+
+.Design considerations for storing value and unit in `Amount` class
+[cols="50,50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2 |Alternative 3
+
+a|Storing the value and unit as a combined string.
+
+* Pros:
+** Maintains consistency with other fields (name, expiry date).
+
+* Cons:
+** Difficult to parse and manipulate.
+
+a|Storing the value and unit as a float and a string
+
+* Pros:
+** Parsing would be easier.
+
+* Cons:
+** Consistency is compromised.
+
+a|Storing the value and unit as two classes of itw own (i.e. Value class and Unit class)
+
+* Pros:
+** More OOP.
+** More scalable and maintainable.
+
+* Cons:
+** Consistency is compromised.
+** Harder to implement.
+** Implementation might be overkill/redundant.
+|===
+
+===== Aspect: Deducting the `Amount`
+
+.Design considerations of the `glist use` command
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|Create a new grocery item and replace it with the old one.
+
+* Pros:
+** This method is easier to implement and would be less prone to bugs.
+
+* Cons:
+** Less efficient in terms of runtime.
+
+a|Modify the `Amount` in the grocery item.
+
+* Pros:
+** Will be more efficient and use less memory.
+
+* Cons:
+** Mutable `Amount` field may result in unforeseen changes, hence more prone to bugs.
+|===
+
+===== Aspect: Keeping track of unit type
+
+.Design considerations for the unit conversion in `glist use`
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|Keeping the original unit of the item.
+
+* Pros:
+** Easy to maintain.
+
+* Cons:
+** May not be very intuitive for the user.
+
+a|Changing the original unit of item to the one input by user.
+
+* Pros:
+** Will be more intuitive to the user. e.g. After using `650ml` of a `1L` milk, it might be more intuitive to show `350ml` instead of `0.35L`.
+
+* Cons:
+** Difficult to implement and maintain, due to its subjectiveness.
+** Consistency may be compromised.
+|===
+
+//end::usegroceryfeature[]
+//tag::addTemplateListfeature[]
+
+=== Add Template Feature
+The add template mechanism is facilitated by `UniqueTemplateItems`, `TemplateList`.
+
+The `TemplateList` is an observable list of `UniqueTemplateItems` while the UniqueTemplateItems contains an observable list
+of template items.
+
+To add a template into the `TemplateList`, a new `UniqueTemplateItems` object is created with the entered name.
+The model is updated with the new `TemplateList` containing the new `UniqueTemplateItems` object. The `TemplateToBeShown`, which is an instance of the object `UniqueTemplateItems` containing
+the details of the template being edited or viewed will not be updated. Only a `TemplateItemCommand` will involve an update of the `TemplateToBeShown`.
+
+NOTE: Due to multiple lists in the iFridge app, the template list will only be usable to the user when executing a TemplateList or
+a TemplateItem Command. For example, an AddTemplateListCommand or a AddTemplateItemCommand.
+
+The following activity diagram summarizes what happens when a user executes a new template list command related to the managing of templates and illustrates
+some differences in the UI as compared to when a template item command is executed:
+
+image::TemplateListCommandUIActivityDiagram.png[]
+
+The following sequence diagram shows how the edit template item operation works for the logic component:
+
+image::AddTemplateListSequenceDiagram.png[]
+
+Due to lack of space, please refer to the below list for args1, args2, args3 shown in the diagram above.
+
+* args1: "tlist add n/Tomato Soup"
+* args2: "add n/Tomato Soup"
+* args3: "n/Tomato Soup"
+
+NOTE: The lifeline for `TemplateListParser`, `AddTemplateListCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+==== Design Considerations
+Aspect: How add command is parsed
+
+Refer to the above class diagram about the logic component that shows the relationship between the TemplateListParser and the TemplateItemParser.
+
+* Alternative 1 (current choice): Create a separate parser for template list management and template item management
+    ** Pros: Easy to implement. Parser structure follows the same structure as the model. More OOP.
+    ** Cons: May be confusing to differentiate between TemplateItemParser and TemplateListParser.
+* Alternative 2: The TemplateListParser is able to distinguish between template and template item management and call the respective XYZCommandParsers
+    ** Pros: Less confusing as there is only one parser toggling between the different command parsers to managing the template list.
+    ** Cons: Implementation of the parser becomes less OOP.
+* Alternative 3: The TemplateItemParser is at the same hierarchy as the TemplateListParser instead of inside.
+    ** Pros: The user command can be shorter. E.g. "template edit ..." instead of "tlist template edit ..."
+    ** Cons: Not as obvious to the user that both commands involve the same template list.
+
+//end::addTemplateListfeature[]
+
+//tag::mergeBoughtFeature[]
+=== MergeBought Feature
+==== Implementations
+The user is able to merge all the bought shopping items into the grocery list. This can be done with the use of the `slist mergebought' command.
+
+The current implementation to merge bought items is as follows:
+
+** For each boughtItem in boughtList:
+*** For each groceryItem in GroceryList
+**** If there is an existing groceryItem in GroceryList with same name and expiry date as the boughtItem, the quantity of that groceryItem will be updated according to the amount bought.
+**** If there is no existing groceryItem with same Name and ExpiryDate, the boughtItem will be added to the GroceryList.
+*** For each shoppingItem in ShoppingList find the bought shoppingItem with same name as the boughtItem:
+**** If the boughtItem has greater Amount than its corresponding shoppingItem, the shoppingItem is deleted from the ShoppingList.
+**** If the boughtItem has lesser Amount than its corresponding shoppingItem, the shoppingItem's quantity is just reduced. The shopping item loses its bought tag since there are no bought items that have not been moved to the grocery list.
+
+The Merge Bought mechanism is facilitated by `ShoppingList`, `GroceryList`, and `ShoppingComparator`.
+The `ShoppingList` is an observable list of `ShoppingItem` and `GroceryList` is an observable list of `GroceryItem`.
+
+Merging needs to use the BoughtList to modify the ShoppingList and GroceryList. Hence, the command retrieves the 3 lists.
+
+When a `GroceryItem` 's amount is be added, the GroceryItem at that index is overwritten by a new GroceryItem with the updated amount. If a new boughtItem (`Groceryitem`) is to be added to the `GroceryList`, it is appended to the `GroceryList`
+
+Similarly, when a `ShoppingItem` 's amount is reduced, the ShoppingItem at that index is overwritten by a new ShoppingItem with the updated amount. If a `ShoppingItem` is to be deleted from the `ShoppingList`, it is deleted and the `ShoppingList` is sorted using a `ShoppingComparator`.
+
+The creation of new objects to replace the existing ones is necessary since all the objects are immutable.
+
+* Model#getFilteredBoughtList -- Gets `ObservableList` with the elements of the `Model` 's boughtList (stored in a `GroceryList`)
+* Model#getFilteredGroceryList -- Gets `ObservableList` with the elements of the `Model` 's `GroceryList`
+* Model#getFilteredShoppingList -- Gets `ObservableList` with the elements of the `Model` 's `ShoppingList`
+* Model#setBoughtList -- Sets the boughtList as the specified `GroceryList`
+* Model#sortShoppingItems -- Sorts the `ShoppingList` by urgent status first, and then by alphabetical order.
+* MergeShoppingCommand#modifyGroceryListAccordingToBoughtItem -- Updates `GroceryList` according to a boughtItem
+* MergeShoppingCommand#modifyShoppingListAccordingToBoughtItem -- Updates `ShoppingList` according to a boughtItem
+
+These operations are exposed in the `Model` interface as `Model#getFilteredBoughtList`
+
+The sequence diagrams for interactions between Logic and Model components when a user executes `slist mergebought` command is shown below.
+
+image::MergeBoughtSequenceDiagram.png[]
+
+
+The following activity diagram summarises how `slist mergebought` is carried out.
+
+image::MergeBoughtActivityDiagram1.png[]
+The mergebought command supports unit conversion. The boughtAmount's unit will be converted to match the groceryAmount.
+The following activity diagram delineates how the unit conversion takes place.
+
+image::MergeBoughtActivityDiagram2.png[]
+The conversions of units are done by `Amount` class. Unit type is necessary in the implementation to allow for keeping track of different unit groups. For example, `kg`, `g`, `lbs`, and `oz` are all categorised under the unit type `Weight`.
+
+//end::mergeBoughtFeature[]
+==== Design Considerations
+===== Aspect: Storing BoughtItems
+.Design considerations for the storage of boughtItems
+[cols="34,34,34"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2 | Alternative 3
+
+a|Use `GroceryItem` to indicate boughtItems and have separate JsonStorage Classes for BoughtItems
+
+* Pros:
+** `ShoppingItem` objects can be immutable with final attributes
+** Easy to maintain due to consistent functionality.
+
+* Cons:
+** Extra Storage and maintenance.
+
+a|Use `ShoppingItem` as boughtItem with non-final *ExpiryDate* and a *boughtAmount* attribute
+
+* Pros
+** No extra storage needed.
+
+* Cons
+** `ShoppingItem` is not immutable due to non-final attribute, i.e., vulnerable to alterations.
+** Consistency of `ShoppingItem` will be compromised: some will have an ExpiryDate, some will not.
+** Extra field *boughtAmount* required, and it needs to be maintained (not intuitive for a `ShoppingItem` to have 2 different `Amount` fields)
+
+a|Use child class of `ShoppingItem` for boughtItem: `BoughtShoppingItem` with *ExpiryDate* and *boughtAmount* attributes.
+
+* Pros
+** More Intuitive
+** Immutability maintained
+
+* Cons
+** Extra Storage
+** Extra Class ,i.e., extra code
+** Extra steps for conversion from `BoughtShoppingItem` to `GroceryItem` while merging boughtItems to `GroceryList`.
+
+
+|===
 
 === Logging
 
@@ -262,6 +658,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
@@ -279,13 +676,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* has a need to manage a significant number of groceries
+* has a tendency to forget to keep track of expiring items
+* interested in reducing their own food waste
+* wants an hassle-free way to shop for groceries
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage food inventory in order to reduce food waste
 
 [appendix]
 == User Stories
@@ -295,35 +694,139 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |organized user |add items to shopping list |decide the grocery items that I need to purchase later
 
-|`* * *` |user |add a new person |
+|`* * *` |organized user |mark grocery items as bought and add their corresponding expiry and amount details|keep track of bought groceries
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |lazy user |add all bought items to grocery list |update grocery to contain all the bought items
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |meticulous user |display shopping list |view the items in shopping list (items yet to be bought before bought items)
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |organized user |tag items (not yet bought) in shopping list as urgent |view the urgent items first when I display shopping list
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |careless user |edit and delete items in shopping list |change details of or remove grocery items
+
+|`*` |user |create pdf of shopping list |refer to the pdf while shopping
+
+|`* * *` |user |add <<template,templates>> of grocery items |to keep track of what I want to have in my fridge
+
+|`* * *` |user |edit templates of grocery items |edit items and volumes based on my current needs and preferences
+
+|`* * *` |user |delete templates |maintain a short list of templates I regularly use
+
+|`* * *` |user |add multiple templates |use different templates depending on the occasion
+
+|`* * *` |user |generate a shopping list using my templates |save time on checking what is missing from my fridge
+
+|`* * *` |environmentally-conscious user |compare my <<food-waste,food wastage>> statistics |better manage my food waste
+
+|`* * *` |environmentally-conscious user |get feedback on how I am performing on my food waste management |improve my food waste management
+
+|`* *` |environmentally-conscious user |see which kinds of food I most commonly waste |cut down on unnecessary food waste
+
+|`* * *` |forgetful user |see a list of my expired food items |retrieve and dispose of them
+
+|`* * *` |user |add groceries |keep track of all the groceries bought
+
+|`* * *` |user |see the expiry dates of my groceries |manage my usage accordingly.
+
+|`* * *` |user |update my grocery list |keep track of the amount of groceries I have
+
+|`* *` |user |find a specific grocery |be more efficient in finding a specific item
+
+|`* * *` |user |view all groceries |know what to buy more of
+
+|`* * *` |user |remove a grocery |maintain only usable items in the fridge
+
+|`*` |user with many grocery items in the grocery list |sort grocery items by expiry date|locate an expired grocery item easily
+
+|`* * *` |forgetful user |get reminders on expiring food items |prevent food wastage
+
+|`* * *` |user |set default reminder settings |get reminders of expiring food within the specified number of days every time I launch the app
+
+|`* * *` |organised user |sort food items |view grocery list with the specified sorting method
+
+|`* * *` |user |set default sort settings |view grocery list with the specified sorting method every time I display the grocery list
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `iFridge` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Edit grocery item
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list grocery items
+2.  iFridge shows the list of grocery items
+3.  User requests to edit a specific grocery item's name/expiry date/tag
+4.  iFridge performs the specified edit on the specified grocery item
++
+Use case ends.
+
+[discrete]
+=== Use case: Add food item
+
+*MSS*
+
+1.  User requests to list all food items
+2.  iFridge shows a list of food items
+3.  User requests to add an item to the list
+4.  iFridge appends the item to the list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The given input is invalid
++
+[none]
+** 3a1. iFridge shows an error message.
++
+Use case ends.
++
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The given input is invalid
++
+[none]
+** 3a1. iFridge shows an error message.
++
+Use case resumes at step 2.
++
+Use case resumes at step 2.
+
+* 3b. The given amount is negative.
++
+[none]
+** 3b1. iFridge shows an error message.
++
+Use case resumes at step 2.
+
+* 3c. The given expiry date is of invalid format
++
+[none]
+** 3c1. iFridge shows an error message.
+
+[discrete]
+=== Use case: Removing a tag
+
+*MSS*
+
+1.  User requests to list all food items
+2.  iFridge shows a list of food items
+3.  User requests to remove a tag from a specific food item in the list
+4.  iFridge removes the tag
 +
 Use case ends.
 
@@ -337,29 +840,94 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. iFridge shows an error message.
+[none]
+** Use case resumes at step 2.
++
+* 3b. The tag specified is non-existent.
+[none]
+** 3b1. iFridge shows an error message.
+[none]
+** Use case resumes at step 2.
+
+[discrete]
+=== Use case: Using food item
+
+*MSS*
+
+1.  User requests to list all food items
+2.  iFridge shows a list of food items
+3.  User requests to use a certain amount of a specific food item
+4.  iFridge reduces the amount of the specific food item
++
+Use case ends.
+
+* 3a. The given amount is more than the amount of food registered in the list.
++
+** 3a1. iFridge shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+* 3b. The given amount is exactly the same as amount of food registered in the list.
+[none]
+** 3b1. iFridge removes the food item from the list.
++
+Use case ends.
+[none]
+** 3a1. iFridge shows an error message.
+
+[discrete]
+=== Use case: Delete grocery item
+
+*MSS*
+
+1.  User requests to list grocery items
+2.  GroceryList shows a list of grocery items
+3.  User requests to delete a specific grocery item in the list
+4.  GroceryList deletes the grocery item
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. GroceryList shows an error message.
++
+Use case resumes at step 2.
 
 [appendix]
 == Non Functional Requirements
-
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Application should be used by a single user.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  A user must be able to work with command-line interface.
+.  Should be able to hold up to 1000 food items without a noticeable sluggishness in performance for typical usage.
+.  Storage comprises of human editable file.
+.  No database management systems used.
+.  Application has object-oriented design.
+.  Application is platform independent, portable and does not use a remote server or external software.
+.  Application has easy to test features.
 
 [appendix]
 == Glossary
 
+[[grocery]] Grocery: Food items found in the fridge.
+
+[[food-waste]] Food Waste: Groceries that have expired and have not been fully consumed.
+
+[[template]] Template: A list of food items that the user regularly wants to keep in their fridge.
+
+[[shopping]] Shopping: Grocery items to be bought.
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
@@ -387,12 +955,12 @@ Given below are instructions to test the app manually.
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
 === Launch and Shutdown
-
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Double-click the jar file (for Mac users, navigate to the folder in terminal and run it using the command `java -jar iFridge.jar`) +
+   Expected: Shows the GUI with a set of sample grocery list, template list, waste list and shopping list items.
+   The window size may not be optimum.
 
 . Saving window preferences
 
@@ -400,26 +968,309 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+//tag::grocerylistmanualtesting[]
+=== Grocery List Manual Testing
 
-=== Deleting a person
+. Adding a grocery item while all items are listed
 
-. Deleting a person while all persons are listed
+.. Prerequisites: List all grocery items in the grocery list using the `glist list` command. The grocery list can be empty or contain some items.
+.. Test case: `glist add n/Coffee a/200ml e/19/11/2019 t/caffeine` +
+Expected: If the grocery list is empty, a grocery item would be added to the grocery list. Details of the added grocery item would also be shown in the status message.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. Deleting a grocery item while all items are listed
 
-_{ more test cases ... }_
+.. Prerequisites: List all grocery items in the grocery list using the `glist list` command. Multiple grocery items exist in the grocery list.
+.. Test case: `glist delete 1` +
+Expected: First grocery item is deleted from the grocery list. Details of the deleted grocery item is shown in the status message.
+.. Test case: `glist delete 0` +
+Expected: No grocery item is deleted. Error details is shown in the status message.
+.. Other incorrect delete commands to try: `glist delete`, `glist delete x` (where x is larger than the list size).
+Expected: Similar to previous.
+
+. Editing a grocery item in the grocery list
+
+.. Prerequisites: List all grocery items in the grocery list using the `glist list` command. Multiple grocery items exist in the grocery list. Item to be edited must not same name and expiry date as any other item in the list.
+.. Test case: `glist edit 1 n/Papaya` +
+Expected: If the first grocery item has unique name and expiry date in the grocery list, the grocery item's name is edited to Papaya. Other fields remain the same. Details of the edited grocery item is shown in the status message. +
+If the first grocery item does not have unique name and expiry date in the grocery list, the grocery item's name is not edited. Error details is shown in the status message.
+.. Test case: `glist edit 2 a/500ml` +
+Expected: Error details is shown in the status message as amount field cannot be edited.
+
+. Using a grocery item in the grocery list
+
+.. Prerequisites: List all grocery items in the grocery list using the `glist list` command. Multiple grocery items exist in the grocery list.
+Item to be used has the same unit type and is not used up completely. Amount left exceeds amount to be used.
+.. Test case: `glist use 1 a/50ml` +
+Expected: The amount of the first grocery item is deducted by 50ml. Other fields remain the same. Details of the used grocery item is shown in the status message.
+.. Other invalid use commands to try: `glist use 2 a/400g` (where the item has unit of L), `glist use 2 a/30lbs` (where the amount of the item is less than 30lbs).
+
+
+. Sorting the grocery list
+
+.. Prerequisites: List all grocery items in the grocery list using the `glist list` command. Multiple grocery items exist in the grocery list.
+.. Test case: `glist sort by/expiry` +
+Expected: The displayed grocery list would be sorted based on the grocery item's expiry date in ascending order (from earliest to most recent).
+.. Test case: `glist sort by/alphabetical` +
+Expected: The displayed grocery list would be sorted based on the grocery item's name in ascending alphabetical order.
+
+. Finding items based on name or tag
+
+.. Prerequisites: List all grocery items in the grocery list using the `glist list` command. Multiple grocery items exist in the grocery list.
+Name or tag to be found may exist or not exist in any of the grocery items.
+.. Test case: `glist find apple snack` +
+Expected: The displayed grocery list would now contain items that has `apple` and `snack` as either their name or tag. If no items match, the displayed list would be empty.
+
+//end::grocerylistmanualtesting[]
+
+//tag::wastelistmanualtesting[]
+=== Waste List Manual Testing
+
+. Moving an item into the waste list
+
+.. Prerequisites: List all grocery items in the grocery list using the `glist list` command. The item must exist in the grocery list, and has not been fully consumed (i.e. amount = 0).
+.. Test case: `glist delete 1` +
+   Expected: First grocery item is deleted from the list. Details of the removed grocery item shown in the status message.
+   If item has been fully consumed, it will be permanently removed from iFridge.
+
+. Listing out the waste list for a particular month
+
+.. Prerequisites: Waste list must exist in waste archive.
+.. Test case: `wlist list` +
+   Expected: The tab for the waste list is shown and is updated to reflect all waste items for the current month.
+.. Test case: `wlist list m/sep 2019` +
+   Expected: The tab for the waste list is shown and is updated to reflect all waste items for the month of September 2019, if such a waste list exists in
+   the waste archive.
+.. Test case: `wlist list m/last month` +
+   Expected: The tab for the waste list is shown and is updated to reflect all waste items for the last month, if such a waste list exists in
+   the waste archive.
+.. Test case: `wlist list m/invalid` +
+   Expected: Error message for invalid command displayed.
+.. Other invalid test cases: `wlist list m/Decemer 2019`. More details on valid or invalid date formats can be found in our user guide.
+
+. Obtaining predicted food wastage for the current month
+
+.. Test case: `wlist feedback` +
+   Expected: Message box displays the current and predicted food wastage.
+.. You are free to modify the json file `wastearchive.json` to see how our feedback feature performs differently.
+The estimated food wastage is predicted by taking the weighted average of waste statistics using (at most) the four most recent waste lists.
+
+. Generating a waste report
+.. Test case: `wlist report` +
+   Expected: iFridge will display a window with 3 charts detailing food wastage statistics. It will attempt to generate a waste report
+   from one year ago till the current month (e.g. if the current month is Nov 2019, it will attempt to generate a report from Nov 2018 to Nov 2019)
+   with sufficient data. If there is insufficient data, it will only display the records starting from the earliest month found in iFridge's waste archive.
+.. Test case: `wlist report sm/5 months ago` +
+   Expected: iFridge will attempt to generate a report using data from 5 months ago to the current month. +
+   We have a detailed section in our https://ay1920s1-cs2103-f10-2.github.io/main/UserGuide.html#displaying-food-wastage-statistics-code-wlist-report-code[User Guide]
+   on the specifications of the starting and ending months along with their expected behaviour
+.. Test case: `wlist report sm/next month` +
+   Expected: Error message displayed suggesting that the start month cannot be later than the current month.
+.. Test case: `wlist report em/Sep 1990` +
+   Expected: Assuming we have no data for the month of Sep 1990, an error message will be displayed suggesting that there is no valid data in the time frame.
+   It also indicates to the user what the earliest record in the waste archive is.
+.. Other invalid test cases: `wlist report sm/Oct 2019 em/Jul 2019`, `wlist report sm/in 12 weeks`
+
+//end::wastelistmanualtesting[]
+
+//tag::shoppinglistmanualtesting[]
+=== Shopping List Manual Testing
+. List all items in shopping list
+.. Test case: `slist list` +
+Expected: The shopping list is displayed, with 3 sections (urgent, not urgent and not fully bought, fully bought). Within each of the three sections  of the shopping items, items are sorted alphabetically.
+
+. Adding an item to the shopping list
+.. Test case: `slist add n/Grapes a/500g` +
+Expected: Shopping item with name `Grapes` and amount `500g` is created and added to the shopping list. The details of the added shopping item are displayed. The new shopping item appears after urgent items and before fully bought items in the shopping list.
+.. Test case: `slist add n/Grapes a/invalidAmount` +
+Expected: Error message displayed indicating invalid amount entered.
+.. Test case: `slist add n/Grapes` +
+Expected: Error message displayed that indicates that the command format is wrong. The correct format for the add shopping command is also displayed.
+.. Test case: `slist add a/5g` +
+Expected: Error message displayed that indicates that the command format is wrong. The correct format for the add shopping command is also displayed.
+.. Test case: `slist add` +
+Expected: Error message displayed that indicates that the command format is wrong. The correct format for the add shopping command is also displayed.
+
+. Editing an item in the shopping list
+.. Test case: `slist edit 1 n/Oranges` +
+Expected: First shopping item's name is edited to 'Oranges'. Details of the edited shopping item are displayed. If some or all of the item was bought, the name of the corresponding bought item is also changed in storage to avoid inconsistencies.
+.. Test case: `slist edit 1 a/50g` +
+Expected: First shopping item's amount is edited to 50g. Details of the edited shopping item are displayed.
+.. Test case: `slist edit 1` +
+Expected: Error message displayed indicating that at least one field to be edited must be provided.
+
+. Deleting an item in the shopping list
+.. Test case: `slist delete 1` +
+Expected: First shopping item is deleted from the shopping list. Details of the removed shopping item are displayed.
+
+. Marking a shopping item as urgent
+.. Test case: `slist urgent 1` +
+Expected: Marks the first shopping item as urgent. Details of the shopping item marked as urgent are displayed. The shopping item gets an `Urgent!` tag and moves towards the upper section of the shopping list (with other urgent items).
+.. Test case: `slist urgent` +
+Expected: Error message displayed indicating wrong command format. The correct format of an urgent shopping command is also displayed.
+
+. Buying a shopping item (Marking a shopping item as Bought)
+.. Test case: `slist bought 1 a/50g e/24/11/2019` +
+Expected: First shopping item is marked as bought. A bought item is created with the name of the shopping item and with the amount and expiry date provided in the command. It gets a `Partially Bought` tag if the amount bought is less than the amount of the shopping item, and it gets a `Fully Bought` tag if the bought amount is greater than or equal to the amount of the shopping item. In either case, the tag also displays the amount of shopping item bought. *If an item is fully bought, it moves to the bottom of the shopping list (regardless of whether it is urgent or not)*. Details of the shopping item marked as bought are also shown.
+.. Test case: `slist bought 2 a/0g e/24/11/2019` +
+Expected: Error message displayed indicating that the amount specified cannot be 0 or negligible. The guidelines of how to use amount are also specified.
+.. Test case: `slist bought 1 a/50g` +
+Expected: Error message displayed indicating that the command format is wrong. The correct format for a bought shopping command is also displayed.
+.. Test case: `slist bought 1 e/23/04/2019` +
+Expected: Error message displayed indicating that the command format is wrong. The correct format for a bought shopping command is also displayed.
+
+. Merging bought items into the grocery list (moving bought items into fridge)
+
+.. Prerequisites +
+Some of the items in the shopping list must be bought for changes in the lists to take place.
+
+.. Test case: `slist mergebought` +
+Expected: All bought items are added to the grocery list according to the following conditions: If a bought item does not have a corresponding grocery item (same name and expiry date) in the grocery list, a new grocery item with the bought item's details is added to the grocery list. If a bought item has a corresponding grocery item in the grocery list, the grocery item's amount is added instead of creating a new grocery item. +
+If a shopping item was fully bought, it is removed from the shopping list while merging. If the item is only partially bought, the quantity that is bought is subtracted from the shopping item's quantity and the bought tag will be removed.
+//end::shoppinglistmanualtesting[]
+
+//tag::manualTestingTemplate[]
+
+=== Template List Manual Testing
+. Adding a template
+.. Prerequisites: Template list must contain a template with the name 'Birthday Party'.
+.. Test case: `tlist add n/x` (where x is a template name that does not currently exist in the template list)
+Expected: Template added into the list. The templates in the list are sorted by alphabetical order.
+.. Test case: 'tlist add n/Birthday Party' +
+   Expected: No template added to the template list. Error details shown in the status message.
+.. Other incorrect add commands to try: `add`, `tlist add`, `tlit add`
+
+.  Deleting a template
+.. Prerequisites: There must be at least one template in the template list.
+.. Test case: `tlist delete 1`
+Expected: Template deleted from the list.
+.. Test case: `tlist delete x` (where x is larger than the template list size)
+Expected: No template deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `tlist delete`, `tlist 0`
+
+.  Editing a template
+.. Prerequisites: There must be at least one template in the template list with no templates named `Monthly Necessities`.
+.. Test case: `tlist edit 1 n/Monthly Necessities`
+Expected: Template edited with the name `Monthly Necessities`.
+.. Test case: `tlist edit 0 n/Monthly Necessities`
+Expected: No template edited. Error details shown in the status message.
+
+.  Adding a template item
+.. Prerequisites: Template list must contain at least one template.
+.. Test case: `tlist template add 1 n/x a/y` (where x is a item name that does not currently exist in the first template and y is a valid amount for the item).
+Expected: Template item added into the list.
+.. Test case: `tlist template add 0 n/x a/y` (where x is a item name that does not currently exist in the first template and y is a valid amount for the item).
+Expected: Template item not added into the list. Error details shown in status message.
+.. Other incorrect add template item commands to try:
+... `tlist template add 1 n/x a/y` (where x is an item name that already exists in the template)
+... `tlist template add 1 n/x a/y` (where x is an item name that already exists in another template or list, and y is an invalid amount with a unit type that conflicts that of the other item entry)
+
+.  Editing a template item
+.. Prerequisites: Template list must contain at least one template, which contains at least one item.
+.. Test case: `tlist template edit 1 i/1 n/x` (where x is an item name that does not already exist in the template).
+Expected: Template item added into the template.
+.. Test case: `tlist template edit 1 n/x` (where x is an item name that does not exist in the template).
+Expected: Template item not added into the list. Error details shown in the status message.
+.. Other incorrect edit template item commands to try:
+... `tlist template edit 1 i/1 n/x` (where x is an item name that does not exist in the template).
+... `tlist template edit 1 i/1 n/x a/y` (where x is an item name that already exists in another template or list, and y is an invalid amount with a unit type that conflicts that of the other item entry)
+... `tlist template edit z i/1 n/x a/y` (where x and y are valid name and amounts and z is greater than the template size.
+
+.  Deleting a template
+.. Prerequisites: Template list must contain at least one template, which contains at least one item.
+.. Test case: `tlist template delete 1 i/1`
+Expected: Template item deleted from the template.
+.. Test case: `tlist template delete 1 i/0`
+Expected: Template item not deleted. Error details shown in the status message.
+.. Other incorrect delete template item commands to try: `tlist template delete x i/1` where x is greater the the template list size, `tlist template 1 i/x` where x is greater than the template size.
+
+.  Adding a template to the shopping list
+.. Prerequisites: Template must contain at least one template with one item with name 'FullFat Milk' and amount '300ml.
+Grocerylist should have several entries of FullFat Milk with slight variations in name and amount. For e.g.:
+... For name: fullfat milk, Fullfat Milk, FULLFAT MILK
+... For amount: 300ml, 400ml, 1L, 0.3L
+.. Test case: `slist addTemp 1`
+Expected: All items in the template that are either not found in the grocery list or are already expired will be added into the shopping list.
+The amount of the item that is added to the shopping list is the result after subtracting all non-expired grocery item amounts
+from the amount stated in the template item entry. In the case that the sum in the grocerylist exceeds the required amount, the item will
+not be added to the shopping list and message will be shown stating all items are in stock.
+In the case that the shopping list already has FullFat Milk,
+the result is added to original amount recorded.
+.. Test case: `slist addTemp 0`
+Expected: No items added into the shopping list. Error details shown in the status message.
+.. Other incorrect commands to try: `slist addTemp x` where x is greater than the template list size.
+
+//end::manualTestingTemplate[]
+
+//tag::undoredomanualtesting[]
+
+=== Undo Redo Manual Testing
+
+. Undo a grocery list command
+
+.. Prerequisites: At least one grocery command have been done which modifies the content of the grocery list.
+.. Test case: `glist delete 1` + `glist undo` +
+   Expected: The tab for waste list is shown if another tab is currently opened
+and the grocery item which has been removed from grocery list and added to waste list
+is now removed from waste list and added back to grocery list.
+.. Test case: `glist add n/potato a/10g e/10/10/2020` + `glist undo` +
+   Expected: The tab for the waste list is not shown if another tab is currently opened
+and the grocery item which has just been added to the grocery list is now removed.
+.. Test case: `glist list` + `glist undo` +
+   Expected: Error message displayed suggesting not able to undo as `glist list` command
+does not modify the grocery list.
+
+. Undo a template list command
+
+.. Prerequisites: At least one template command (template list or template item command)
+have been done which modifies the content of the template list or template item respectively.
+.. Test case: `tlist delete 1` + `tlist undo` +
+   Expected: The tab for template list is shown while template item is cleared
+and the template which has been removed from template list is added back to template list.
+.. Test case: `tlist template add 1 n/potato a/10g` + `glist undo` +
+   Expected: The tab for template list is shown along with the specified template being updated
+and the template item which has been added to the specified template is removed from the template.
+
+. Undo a shopping list command
+
+.. Prerequisites: At least one shopping command have been done which modifies the content of the shopping list.
+.. Test case: `slist add n/Milk a/1L` + `slist undo` +
+   Expected: The tab for shopping list is shown
+
+. Redo grocery, template, or shopping list command
+
+.. Prerequisites: At least 1 undo has been done for the corresponding list.
+
+//end::undoredomanualtesting[]
+
+//tag::remindermanualtesting[]
+=== Reminder Manual Testing
+
+. Set default reminder settings to determine which food are expiring "soon"
+
+.. Prerequisites: Have at least 1 grocery item in grocery list which has not expired
+(has an expiry date of at least the current date or after) to see visible results.
+.. Test case: `glist remDefault r/10`
+Expected: Grocery items (in grocery list and waste list)
+with expiry dates within 10 days from current date will be color coded as orange
+while grocery items which are not expiring within 10 days will be color coded green.
+Expired grocery items will still remain red. The color coding will be retained when the app is closed and relaunched.
+
+. Get reminder on food expiring soon
+
+.. Prerequisites: Have at least 1 grocery item in grocery list which has not expired
+to see visible results.
+.. Test case: `glist rem r/0`
+   Expected: Displays all grocery items expiring on the same date as today in grocery list.
+.. Test case: `glist rem`
+   Expected: Displays all grocery items in grocery list which are expiring within the specified number of days
+in the default reminder settings. If default reminder settings is not specified yet, number of  days in
+default reminder settings is set to 3 days.
+
+//end::remindermanualtesting[]
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Dealing with missing/corrupted json files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. In the event that no json file is found in the data folder for a specific list, our app will initialise with some sample data for that particular list.
+.. If a corrupted file is found in the data folder for a specific list, a new file will be created.

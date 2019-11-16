@@ -1,0 +1,24 @@
+@startuml
+start
+:User executes undo template command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([can undo])
+    :Retrieve current template index from versioned template list;
+    if () then ([current template index == -1])
+    else ([else])
+        :Retrieve specified previous template from versioned template list;
+    endif
+    :Undo template list to the previous state;
+    if () then ([current template index == -1])
+        :Update template list to be shown in the user interface;
+    else ([else])
+        :Update template to be shown in the user interface;
+    endif
+
+else ([else])
+endif
+stop
+@enduml

@@ -1,0 +1,39 @@
+{
+  "_comment": "GroceryList save file which contains the same GroceryItem values as in TypicalGroceryItems#getTypicalGroceryList()",
+  "grocerylist" : [ {
+    "name" : "Banana",
+    "amount" : "8units",
+    "expiryDate" : "10/11/2019",
+    "tagged" : [ "potassium", "fruits" ]
+  }, {
+    "name" : "Spaghetti",
+    "amount" : "3units",
+    "expiryDate" : "18/10/2020",
+    "tagged" : [ "italian", "dinner" ]
+  }, {
+    "name" : "Olive oil",
+    "amount" : "1L",
+    "expiryDate" : "20/10/2015",
+    "tagged" : [ "healthy" ]
+  }, {
+    "name" : "Broccoli",
+    "amount" : "1lbs",
+    "expiryDate" : "03/11/2019",
+    "tagged" : [ "healthy", "greens" ]
+  }, {
+    "name" : "Apples",
+    "amount" : "10units",
+    "expiryDate" : "02/12/2019",
+    "tagged" : [ "fruits", "healthy" ]
+  }, {
+    "name" : "Green tea latte",
+    "amount" : "5units",
+    "expiryDate" : "05/11/2019",
+    "tagged" : [ "boba", "drink" ]
+  }, {
+    "name" : "Eggs",
+    "amount" : "12units",
+    "expiryDate" : "03/12/2019",
+    "tagged" : [ ]
+  } ]
+}

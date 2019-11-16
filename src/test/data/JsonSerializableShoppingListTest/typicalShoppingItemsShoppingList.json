@@ -1,0 +1,25 @@
+{
+  "shoppingItems": [{
+    "name": "Apple",
+    "amount": "3units"
+  }, {
+    "name": "Banana",
+    "amount": "5g"
+  }, {
+    "name": "Cake",
+    "amount": "10g"
+  }, {
+    "name": "Dates",
+    "amount": "11g"
+  }, {
+    "name": "Eggs",
+    "amount": "12units"
+  }, {
+    "name": "Fries",
+    "amount": "20g"
+  }, {
+    "name": "Grapes",
+    "amount": "25g"
+  }
+  ]
+}
