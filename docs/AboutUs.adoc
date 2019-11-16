@@ -47,7 +47,7 @@ Responsibilities: In charge of Storage
 
 === Manas Vegi
 image::manasvegi.png[width="150", align="left"]
-{empty}[https://github.com/ManasVegi[github]] [<<ManasVegi#, portfolio>>]
+{empty}[https://github.com/manasvegi[github]] [<<ManasVegi#, portfolio>>]
 
 Role: Testing +
 Responsibilities: In charge of Logic
