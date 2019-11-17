@@ -30,6 +30,10 @@ public class DeleteAnnotationClearAllCommand extends DeleteAnnotationCommand {
                 oldBkmark.getUrl(), oldBkmark.getRemark(), oldBkmark.getFolder(),
                 oldBkmark.getTags(), oldBkmark.getCachedCopies());
 
+        if (newBkmark.getCachedCopies().size() == 0) {
+            throw new CommandException(MESSAGE_NO_CACHE_AVAILABLE);
+        }
+
         newBkmark.resetCachedCopy();
         saveState(model, oldBkmark, newBkmark, getRequiredDoc(newBkmark), MESSAGE_SUCCESS);
 
