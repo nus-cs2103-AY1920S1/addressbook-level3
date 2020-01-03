@@ -1,13 +1,13 @@
-== TSAI, HSIAO-HAN - Project Portfolio
+= TSAI, HSIAO-HAN - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-=== PROJECT: Mark
+== PROJECT: Mark
 
 ---
 :sectnums:
-=== Introduction
+== Introduction
 This document will introduce my role and contribution in Mark.
 Mark is a 6 weeks group project for the module CS2103T Software Engineering.
 Our team composed of 5 NUS Computer Science year 2 students.
@@ -40,7 +40,7 @@ NOTE: Represents the things you need to notice.
 ****
 * TAG : Represents the constraints of the command.
 ****
-=== Summary of contributions
+== Summary of contributions
 
 * *Major enhancement*: +
 added *the ability to add, edit, delete and goto reminders.*
@@ -59,10 +59,6 @@ gives me the idea of how to implement a reminder notification.
 
 * *Code contributed*: +
 Please click this link to see a sample of my code. [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=tsai-hsiao-han&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Here]]
-* *Minor enhancement*: +
-Improved current `edit` command so that when bookmarks changes the reminder will also change it's url.
-+
-Improved current `delete` command so that when a bookmark been deleted it's reminder will also deleted.
 
 * *Other contributions*:
 
@@ -80,7 +76,7 @@ Improved current `delete` command so that when a bookmark been deleted it's remi
 ** Tools:
 *** Integrated a third party library (ControlsFX) to the project (Pull requests https://github.com/AY1920S1-CS2103T-T13-4/main/pull/42[#42])
 
-=== Contributions to the User Guide
+== Contributions to the User Guide
 This part is about the sections I contributed to the User Guide.
 The section extracted from the User Guide below showcase my ability to write a formal document to our target users.
 
@@ -90,7 +86,7 @@ include::../UserGuide.adoc[tag=ReminderCommand]
 
 _------------- This is the end of the excerpt -------------_
 
-=== Contributions to the Developer Guide
+== Contributions to the Developer Guide
 This part is about the sections I contributed to the Developer Guide.
 The section extracted from the Developer Guide below showcase my ability to write a technical documentation to a developer and show technique depth of my contribution.
 
