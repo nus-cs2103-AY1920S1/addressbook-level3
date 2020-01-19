@@ -1,0 +1,23 @@
+{
+  "bookmarks": [ {
+    "name": "Duplicate Name",
+    "url": "https://www.example1.com",
+    "remark": "Duplicate bookmark",
+    "tagged": [ "duplicate" ],
+    "folder" : "ROOT"
+  }, {
+    "name": "Duplicate Name",
+    "url": "https://www.example2.com",
+    "remark": "Duplicate bookmark",
+    "folder" : "ROOT"
+  } ],
+  "folderStructure": {
+    "name": "ROOT",
+    "subfolders": []
+  },
+  "reminders" : [{
+    "note" : "Read news",
+    "time" : "12/12/2020 1800",
+    "url" : "https://www.example1.com"
+  }]
+}

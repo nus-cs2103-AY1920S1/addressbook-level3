@@ -1,0 +1,20 @@
+{
+  "bookmarks": [ {
+    "name": "Valid Bookmark",
+    "url": "https://www.example.com",
+    "remark": "This is a valid bookmark"
+  }, {
+    "name": "Bookmark With Invalid Url Field",
+    "url": "invalid@url!asd",
+    "remark": "This is an invalid bookmark"
+  } ],
+  "folderStructure": {
+    "name": "ROOT",
+    "subfolders": []
+  },
+  "reminders" : [{
+    "note" : "Read news",
+    "time" : "12/12/2020 1800",
+    "url" : "https://www.example.com"
+  }]
+}

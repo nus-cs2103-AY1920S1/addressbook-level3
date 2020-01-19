@@ -1,0 +1,115 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+'participant ":LogicManager" as LogicManager LOGIC_COLOR
+'participant ":MarkParser" as MarkParser LOGIC_COLOR
+participant "a:AutotagCommand" as AutotagCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "model:Model" as Model MODEL_COLOR
+'participant ":VersionedMark" as VersionedMark MODEL_COLOR
+end box
+
+'box Autotag MODEL_COLOR_T2
+'participant ":AutotagController" as AutotagController MODEL_COLOR
+'participant ":SelectiveBookmarkTagger" as SelectiveBookmarkTagger MODEL_COLOR
+'end box
+
+'[-> LogicManager : execute(autotag)
+'activate LogicManager
+'
+'LogicManager -> MarkParser : parseCommand(autotag)
+'activate MarkParser
+'
+'MarkParser -> AutotagCommand : new AutotagCommand(tagger)
+'activate AutotagCommand
+'
+'AutotagCommand --> MarkParser : a
+'deactivate AutotagCommand
+'
+'MarkParser --> LogicManager : a
+'deactivate MarkParser
+
+[-> AutotagCommand : execute(model, storage)
+activate AutotagCommand
+
+AutotagCommand -> Model : hasTagger()
+activate Model
+Model --> AutotagCommand : false
+deactivate Model
+
+AutotagCommand -> Model : addTagger(tagger)
+activate Model
+ref over Model : Add tagger to Model
+'Model -> VersionedMark : addTagger(tagger)
+'activate VersionedMark
+'VersionedMark -> AutotagController : addTagger(tagger)
+'activate AutotagController
+'AutotagController --> VersionedMark
+'deactivate AutotagController
+'VersionedMark --> Model
+'deactivate VersionedMark
+Model --> AutotagCommand
+deactivate Model
+
+AutotagCommand -> Model : applyAllTaggers()
+activate Model
+ref over Model : Apply all taggers in Model
+'Model -> VersionedMark : applyAllTaggers()
+'activate VersionedMark
+'
+'VersionedMark -> VersionedMark : getBookmarkList()
+'activate VersionedMark
+'VersionedMark --> VersionedMark : list
+'deactivate VersionedMark
+'
+'VersionedMark -> AutotagController : applyTaggersToList(list)
+'activate AutotagController
+'
+'loop bookmarks b in list
+'    AutotagController -> AutotagController : applyTaggers(b)
+'    activate AutotagController
+'    loop taggers in AutotagController
+'        AutotagController -> SelectiveBookmarkTagger : applyTagSelectively(currentB)
+'        activate SelectiveBookmarkTagger
+'        SelectiveBookmarkTagger --> AutotagController : taggedB
+'        deactivate SelectiveBookmarkTagger
+'    end
+'    AutotagController --> AutotagController : taggedB
+'    deactivate AutotagController
+'end
+'
+'AutotagController --> VersionedMark : taggedList
+'deactivate AutotagController
+'
+'VersionedMark -> VersionedMark : setBookmarks(taggedList)
+'activate VersionedMark
+'VersionedMark --> VersionedMark
+'deactivate VersionedMark
+
+'VersionedMark --> Model
+'deactivate VersionedMark
+Model --> AutotagCommand
+deactivate Model
+
+AutotagCommand -> Model : saveMark(message)
+activate Model
+ref over Model : Save Mark
+'Model -> VersionedMark : save()
+'activate VersionedMark
+'
+'VersionedMark --> Model
+'deactivate VersionedMark
+Model --> AutotagCommand
+deactivate Model
+
+[<-- AutotagCommand : result
+'deactivate AutotagCommand
+'AutotagCommand -[hidden]-> LogicManager : result
+'destroy AutotagCommand
+'
+'[<--LogicManager
+'deactivate LogicManager
+@enduml

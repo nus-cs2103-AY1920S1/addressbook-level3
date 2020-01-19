@@ -7,3 +7,6 @@ Copyright by Susumu Yoshida - http://www.mcdodesign.com/
 Copyright by Jan Jan Kovařík - http://glyphicons.com/
 - calendar.png
 - edit.png
+
+Icon made by Smashicons - https://www.flaticon.com/authors/smashicons from www.flaticon.com
+- bookmark_icon.png

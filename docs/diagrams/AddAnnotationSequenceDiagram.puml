@@ -1,0 +1,49 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant "a:AddAnnotationCommand" as AddAnnotationCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "b:Bookmark" as Bookmark MODEL_COLOR
+participant "doc:OfflineDocument" as OfflineDocument MODEL_COLOR
+participant "p:TrueParagraph" as Paragraph MODEL_COLOR
+participant "an:Annotation" as Annotation MODEL_COLOR
+end box
+
+group sd respective annotation command execution
+
+AddAnnotationCommand -> AddAnnotationCommand : getRequiredDocCopy(b)
+activate AddAnnotationCommand
+
+AddAnnotationCommand -> Bookmark : getDoc()
+activate Bookmark
+
+Bookmark --> AddAnnotationCommand : doc
+deactivate Bookmark
+
+AddAnnotationCommand --> AddAnnotationCommand : doc
+deactivate AddAnnotationCommand
+create Annotation
+AddAnnotationCommand -> Annotation : Annotation(highlight, note)
+activate Annotation
+
+Annotation --> AddAnnotationCommand : an
+deactivate Annotation
+
+AddAnnotationCommand -> OfflineDocument : addAnnotation(pid, an)
+activate OfflineDocument
+
+OfflineDocument -> Paragraph : addAnnotation(an)
+activate Paragraph
+
+Paragraph --> OfflineDocument
+deactivate Paragraph
+
+OfflineDocument --> AddAnnotationCommand
+deactivate OfflineDocument
+
+end group
+
+@enduml

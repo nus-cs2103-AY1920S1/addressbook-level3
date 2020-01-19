@@ -1,0 +1,172 @@
+{
+  "_comment": "Mark save file which contains the same Bookmark values as in TypicalBookmarks#getTypicalMark()",
+  "bookmarks" : [ {
+    "name" : "Alice Pauline",
+    "url" : "https://alice@example.com",
+    "remark" : "123, Jurong West Ave 6, #08-111",
+    "folder" : "contacts",
+    "tagged" : [ "friends" ],
+    "cachedCopies" : [ ]
+  }, {
+    "name" : "Benson Meier",
+    "url" : "https://johnd@example.com",
+    "remark" : "311, Clementi Ave 2, #02-25",
+    "folder" : "contacts",
+    "tagged" : [ "owesMoney", "friends" ],
+    "cachedCopies" : [ {
+      "html" : "<div id=\"readability-page-1\" class=\"page\">\n <div> \n  <div> \n   <div> \n    <div> \n     <div> \n      <div> \n       <div> \n        <section>  \n         <div> \n          <p> \n           <figure> \n            <amp-img srcset=\"https://bobcat.grahamdigital.com/image/upload/view?width=320&amp;height=180&amp;method=fit&amp;url=https://sharedmedia.grahamdigital.com/photo/2016/02/01/US-class-structure-jpg_2014379_ver1.0.jpg 400w, https://bobcat.grahamdigital.com/image/upload/view?width=420&amp;height=236&amp;method=fit&amp;url=https://sharedmedia.grahamdigital.com/photo/2016/02/01/US-class-structure-jpg_2014379_ver1.0.jpg 600w, https://bobcat.grahamdigital.com/image/upload/view?width=630&amp;height=353&amp;method=fit&amp;url=https://sharedmedia.grahamdigital.com/photo/2016/02/01/US-class-structure-jpg_2014379_ver1.0.jpg 768w, https://bobcat.grahamdigital.com/image/upload/view?width=420&amp;height=236&amp;method=fit&amp;url=https://sharedmedia.grahamdigital.com/photo/2016/02/01/US-class-structure-jpg_2014379_ver1.0.jpg 992w, https://bobcat.grahamdigital.com/image/upload/view?width=630&amp;height=353&amp;method=fit&amp;url=https://sharedmedia.grahamdigital.com/photo/2016/02/01/US-class-structure-jpg_2014379_ver1.0.jpg 1200w, https://bobcat.grahamdigital.com/image/upload/view?width=760&amp;height=428&amp;method=fit&amp;url=https://sharedmedia.grahamdigital.com/photo/2016/02/01/US-class-structure-jpg_2014379_ver1.0.jpg 1201w\" src=\"https://bobcat.grahamdigital.com/image/upload/view?width=320&amp;height=180&amp;method=fit&amp;url=https://sharedmedia.grahamdigital.com/photo/2016/02/01/US-class-structure-jpg_2014379_ver1.0.jpg\" on=\"tap:lightbox1\" role=\"button\" tabindex=\"0\" title=\"\" layout=\"responsive\" width=\"1280\" height=\"720\" alt=\"\"> \n            </amp-img> \n            <small>Copyright 2016 Cable News Network/Turner Broadcasting System, Inc. All rights reserved. This material may not be published, broadcast, rewritten, or redistributed.</small> \n            <amp-image-lightbox id=\"lightbox1\" layout=\"nodisplay\"></amp-image-lightbox> \n           </figure></p>    \n          <div itemprop=\"articleBody\">   \n           <p>The U.S. has long been heralded as a land of opportunity -- a place where anyone can succeed regardless of the economic class they were born into. </p>\n           <p>But a new report released Monday by Stanford University's Center on Poverty and Inequality calls that into question. </p>\n           <p>The report assessed poverty levels, income and wealth inequality, economic mobility and unemployment levels among 10 wealthy countries with social welfare programs. </p>\n           <p>Among its key findings: the class you're born into matters much more in the U.S. than many of the other countries. </p>\n           <p>As the report states: \"[T]he birth lottery matters more in the U.S. than in most well-off countries.\" </p>\n           <p>But this wasn't the only finding that suggests the U.S. isn't quite living up to its reputation as a country where everyone has an equal chance to get ahead through sheer will and hard work. </p>\n           <p>The report also suggested the U.S. might not be the \"jobs machine\" it thinks it is, when compared to other countries. </p>\n           <p>It ranked near the bottom of the pack based on the levels of unemployment among men and women of prime working age. The study determined this by taking the ratio of employed men and women between the ages of 25 and 54 compared to the total population of each country. </p>\n           <p>The overall rankings of the countries were as follows: 1. Finland 2. Norway 3. Australia 4. Canada 5. Germany 6. France 7. United Kingdom 8. Italy 9. Spain 10. United States </p>\n           <p>The low ranking the U.S. received was due to its extreme levels of wealth and income inequality and the ineffectiveness of its \"safety net\" -- social programs aimed at reducing poverty. </p>\n           <p>The report concluded that the American safety net was ineffective because it provides only half the financial help people need. Additionally, the levels of assistance in the U.S. are generally lower than in other countries. </p>\n           <p>Copyright 2016 Cable News Network/Turner Broadcasting System, Inc. All rights reserved. This material may not be published, broadcast, rewritten, or redistributed.</p> \n          </div>  \n         </div>\n        </section> \n       </div> \n      </div>  \n     </div> \n    </div> \n   </div> \n  </div> \n </div>\n</div>",
+      "offlineDoc" : {
+        "numStray" : 0,
+        "paragraphs" : [ {
+          "pid" : "P1",
+          "content" : "",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P4",
+          "content" : "But a new report released Monday by Stanford University's Center on Poverty and Inequality calls that into question.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P5",
+          "content" : "The report assessed poverty levels, income and wealth inequality, economic mobility and unemployment levels among 10 wealthy countries with social welfare programs.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P2",
+          "content" : "",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P3",
+          "content" : "The U.S. has long been heralded as a land of opportunity -- a place where anyone can succeed regardless of the economic class they were born into.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P14",
+          "content" : "Copyright 2016 Cable News Network/Turner Broadcasting System, Inc. All rights reserved. This material may not be published, broadcast, rewritten, or redistributed.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P8",
+          "content" : "But this wasn't the only finding that suggests the U.S. isn't quite living up to its reputation as a country where everyone has an equal chance to get ahead through sheer will and hard work.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P9",
+          "content" : "The report also suggested the U.S. might not be the \"jobs machine\" it thinks it is, when compared to other countries.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P6",
+          "content" : "Among its key findings: the class you're born into matters much more in the U.S. than many of the other countries.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P7",
+          "content" : "As the report states: \"[T]he birth lottery matters more in the U.S. than in most well-off countries.\"",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P12",
+          "content" : "The low ranking the U.S. received was due to its extreme levels of wealth and income inequality and the ineffectiveness of its \"safety net\" -- social programs aimed at reducing poverty.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P13",
+          "content" : "The report concluded that the American safety net was ineffective because it provides only half the financial help people need. Additionally, the levels of assistance in the U.S. are generally lower than in other countries.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P10",
+          "content" : "It ranked near the bottom of the pack based on the levels of unemployment among men and women of prime working age. The study determined this by taking the ratio of employed men and women between the ages of 25 and 54 compared to the total population of each country.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P11",
+          "content" : "The overall rankings of the countries were as follows: 1. Finland 2. Norway 3. Australia 4. Canada 5. Germany 6. France 7. United Kingdom 8. Italy 9. Spain 10. United States",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        } ]
+      }
+    } ]
+  }, {
+    "name" : "Carl Kurz",
+    "url" : "https://heinz@example.com",
+    "remark" : "wall street",
+    "folder" : "family",
+    "tagged" : [ ],
+    "cachedCopies" : [ ]
+  }, {
+    "name" : "Daniel Meier",
+    "url" : "https://cornelia@example.com",
+    "remark" : "10th street",
+    "folder" : "ROOT",
+    "tagged" : [ "friends" ],
+    "cachedCopies" : [ ]
+  }, {
+    "name" : "Elle Meyer",
+    "url" : "https://werner@example.com",
+    "remark" : "michegan ave",
+    "folder" : "family",
+    "tagged" : [ ],
+    "cachedCopies" : [ ]
+  }, {
+    "name" : "Fiona Kunz",
+    "url" : "https://lydia@example.com",
+    "remark" : "little tokyo",
+    "folder" : "ROOT",
+    "tagged" : [ ],
+    "cachedCopies" : [ ]
+  }, {
+    "name" : "George Best",
+    "url" : "https://anna@example.com",
+    "remark" : "4th street",
+    "folder" : "ROOT",
+    "tagged" : [ ],
+    "cachedCopies" : [ ]
+  } ],
+  "folderStructure": {
+    "name": "ROOT",
+    "subfolders": [ {
+      "name": "contacts",
+      "subfolders": [ {
+        "name": "family",
+        "subfolders": []
+      } ]
+    } ]
+  },
+  "reminders" : [{
+    "note" : "Read news",
+    "time" : "12/12/2020 1800",
+    "url" : "https://anna@example.com"
+  }]
+}

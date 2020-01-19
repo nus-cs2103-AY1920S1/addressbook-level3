@@ -1,0 +1,39 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Annotation {
+Class "{abstract}\nParagraph" as Paragraph
+Class Annotation
+Class AnnotationNote
+Class Highlight
+Class OfflineDocument
+Class Paragraph
+Class ParagraphContent
+Class ParagraphIdentifier
+Class PhantomParagraph
+Class TrueParagraph
+}
+
+Class CachedCopy
+CachedCopy -down-> "1" OfflineDocument
+
+OfflineDocument *--> "*" Paragraph
+TrueParagraph -up-|> Paragraph
+PhantomParagraph -up-|> Paragraph
+
+TrueParagraph -[hidden]right-> PhantomParagraph
+
+PhantomParagraph *--> "1" ParagraphIdentifier
+PhantomParagraph --> "1" Annotation
+
+TrueParagraph *--> "1" ParagraphIdentifier
+TrueParagraph *--> "1" ParagraphContent
+TrueParagraph --> "0..1" Annotation
+
+Annotation *--> "1" AnnotationNote
+Annotation *--> "1" Highlight
+
+@enduml

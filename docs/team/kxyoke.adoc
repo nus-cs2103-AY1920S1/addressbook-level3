@@ -1,0 +1,128 @@
+= Yoke Kai Xin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+//:toc:
+//:toclevels: 1
+
+== PROJECT: Mark
+:sectnums:
+
+== Overview
+
+This project portfolio showcases my contributions to my team's group Software Engineering project, Mark. My team consisting 5 NUS Year 2 Computer Science students were tasked
+with enhancing a basic desktop application, https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AB-3], to solve a problem for a specific target group.
+
+Given 8 weeks to conceptualise and implement the project in Java, we chose to morph AB-3 into a bookmark manager application we call *Mark*.
+Mark aims to improve computing students' productivity by helping them organise their web browsing and note-taking activities.
+
+Mark has a visually appealing graphical user interface (GUI) to visually guide the users around the application. This is what Mark looks like when you open the application:
+//TODO: replace gui pic with well populated data
+
+.Dashboard tab view of Mark.
+image::dashboardMark.png[450,450]
+
+
+My role was to design and implement the _annotation_ feature so users can conveniently make notes on
+important web pages instantly while reading them. This feature uses commands that begin with `annotate` and works on the offline version
+of the web pages converted by Mark.
+
+The following sections illustrate my contributions in more detail.
+
+== Summary of contributions
+This section gives a summary of the features I implemented, documentation I did and other parts I contributed to my team project.
+
+=== Major enhancement: Added the annotation feature
+
+I added the ability to annotate the offline copy of the web page referred to by a bookmark. Users can not only read their web pages offline,
+but they can also make notes on them directly.
+
+* What it does: Adds, deletes and edits annotations.
+
+* Justification: Users can take notes directly on the web page. This makes it convenient for users to review their notes.
+
+* Highlights: This enhancement works with `undo` and redo` commands to provide a sense of security when annotating. The implementation was rather challenging
+because to support annotations, the offline document has to take into account different kinds of paragraphs, each having a unique set of restrictions. Nevertheless,
+the completed annotation feature works well and is aesthetically pleasing on the application.
+* Credits: I used the https://jsoup.org/[JSoup library] to extract the paragraph contents of the web pages. Colours of the highlight are provided by the javafx css extension.
+
+=== Major enhancement: Added the web browsing feature
+I added the ability to browse web pages on the application.
+
+* What it does: Allows users to search the web and browse web pages.
+
+* Justification: Users no longer need to open a separate web browser window to view their bookmarks, which improves navigability within the application.
+
+* Highlights: This enhancement allows users to browse directly on the application and more conveniently bookmark the tab they are viewing on Mark.
+
+* Credits: I referred to the web view embedded in https://github.com/nus-cs2103-AY1819S2/addressbook-level4[AB-4], which was lacking a navigation bar.
+
+=== Minor enhancement: Added tab view
+I created tabs and added the ability to switch views from tab to tab.
+
+* What it does: Organises the GUI and allow users to switch between tabs to view the various components with ease.
+
+* Justification: An organised interface will help users get familiarised fast and improve their quality of use of the application. Hence, tabs are necessary to declutter the GUI so each component has sufficient space for users to view them in comfort.
+
+* Highlights: This enhancement leaves much room for customization and personalization for future work.
+
+
+=== Code contributed
+To view the code I wrote, please click on the following links:
+https://github.com/kxyoke/main/tree/master/src/main/java/seedu/mark[Functional code]
+https://github.com/kxyoke/main/tree/master/src/test/java/seedu/mark[Test code]
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kxyoke&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=kxyoke&tabRepo=AY1920S1-CS2103T-T13-4%2Fmain%5Bmaster%5D[Reposense overview]
+
+
+=== Other contributions
+
+** Project management: managed release `v1.2` on GitHub
+** Enhancements to existing features: created layout of the GUI (Pull requests https://github.com/AY1920S1-CS2103T-T13-4/main/pull/63[#63], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/74[#74])
+and designed the GUI color scheme to make it more attractive (Pull request https://github.com/AY1920S1-CS2103T-T13-4/main/pull/246[#246])
+//** Documentation:
+//*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community: reviewed Pull Requests (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T13-4/main/pull/64[#64], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/96[#96], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/128[#128], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/[#129]
+//*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+and provided suggestions for https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/47[another team].
+//, https://github.com[2], https://github.com[3])
+//*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+//** Tools:
+//*** Integrated a third party library (JSoup) to the project (https://github.com/AY1920S1-CS2103T-T13-4/main/pull/122[#122])
+//*** Integrated a new Github plugin (CircleCI) to the team repo
+
+//_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+|===
+|_Given below is one of the sections that I contributed to our User Guide for Mark. It showcases my ability to write documentation targeting end-users._
+|===
+
+_Start of extract from Mark User Guide_
+
+include::../UserGuide.adoc[tag=annCmd]
+
+//include::../UserGuide.adoc[tag=offlinecommand]
+
+_End of extract from Mark User Guide_
+
+== Contributions to the Developer Guide
+_This section will refer to this class diagram drawn by Dorcas:_
+
+include::../DeveloperGuide.adoc[tag=annPkg]
+
+|===
+|_Given below are sections I contributed to our Developer Guide for Mark. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+_Start of extract from Mark Developer Guide_
+
+include::../DeveloperGuide.adoc[tag=addAnn]
+
+
+_End of extract from Mark Developer Guide_
+
+
+---
+
+
+//_{Optionally, you may include other projects in your portfolio.}_

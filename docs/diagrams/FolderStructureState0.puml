@@ -1,0 +1,18 @@
+@startuml
+!include style.puml
+skinparam ClassFontColor #000000
+skinparam ClassBorderColor #000000
+
+title Initial FolderStructure Hierarchy
+
+class Root as "__root:FolderStructure__" #FFFFFF
+class Work as "__work:FolderStructure__"
+class Fun as "__fun:FolderStructure__"
+class CS2101 as "__cs2101:FolderStructure__"
+class CS2103T as "__cs2103t:FolderStructure__"
+
+Fun -up-> Root
+Work -up-> Root
+CS2101 -up-> Work
+CS2103T -up-> Work
+@end

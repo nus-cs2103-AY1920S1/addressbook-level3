@@ -1,0 +1,53 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI <<Rectangle>>{
+Interface Ui <<Interface>>
+Class "{abstract}\nUiPart" as UiPart
+Class UiManager
+Class MainWindow
+package TabView <<Rectangle>>{
+Class OfflinePanel
+Class BrowserPanel
+Class DashboardPanel
+Class FolderStructureTreeView
+Class AnnotationListPanel
+Class AnnotationParagraphCard
+}
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Ui
+
+UiManager .left.|> Ui
+UiManager -down-> MainWindow
+MainWindow *-down-> DashboardPanel
+MainWindow *-down-> BrowserPanel
+MainWindow *-down-> OfflinePanel
+
+DashboardPanel *-down-> FolderStructureTreeView
+OfflinePanel *-down-> AnnotationListPanel
+
+AnnotationListPanel -down-> AnnotationParagraphCard
+
+MainWindow --|> UiPart
+
+FolderStructureTreeView --|> UiPart
+AnnotationListPanel --|> UiPart
+AnnotationParagraphCard --|> UiPart
+DashboardPanel --|> UiPart
+OfflinePanel --|> UiPart
+BrowserPanel --|> UiPart
+
+AnnotationParagraphCard ..> Model
+
+MainWindow -[hidden]-|> UiPart
+@enduml

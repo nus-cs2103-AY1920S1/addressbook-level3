@@ -1,0 +1,45 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Bookmark {
+Class Bookmark
+Class Name
+Class Url
+Class Remark
+Class Folder
+Class UniqueBookmarkList
+Class CachedCopy
+}
+
+Package Tag {
+Class Tag
+}
+
+Package Annotation {
+}
+
+
+Mark *--> "1" UniqueBookmarkList
+ModelManager --> "*" Bookmark : filtered list of >
+
+Mark -[hidden]right-> ModelManager
+
+UniqueBookmarkList o--> "*" Bookmark
+Bookmark *--> "1" Name
+Bookmark *--> "1" Url
+Bookmark *--> "1" Remark
+Bookmark *--> "1" Folder
+Bookmark *--> "*" Tag
+Bookmark *--> "0..1" CachedCopy
+
+Name -[hidden]right-> Url
+Url -[hidden]right-> Remark
+Remark -[hidden]right-> Folder
+Folder -[hidden]right-> CachedCopy
+
+CachedCopy --> Annotation
+
+@enduml

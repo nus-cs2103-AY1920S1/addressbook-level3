@@ -1,0 +1,39 @@
+@startuml
+!include style.puml
+skinparam ClassFontColor #000000
+skinparam ClassBorderColor #000000
+
+'title After command \n "add n/JavaFX new scene u/https://stackoverflow.com/questions/29080759/"
+
+show object fields
+package Bookmarks <<rectangle>> {
+'    object "<u>b1:Bookmark" as Bookmark1 {
+'        name : CS2103T Website
+'        url : https://nus-cs2103-ay1920s1.github.io/website/
+'        tags : School
+'    }
+    object "<u>b2:Bookmark" as Bookmark2 {
+        name : PlantUML mix different elements
+        url : https://stackoverflow.com/questions/54020731
+        tags : Help
+    }
+    object "<u>b3:Bookmark" as Bookmark3 {
+        name : JavaFX new scene
+        url : https://stackoverflow.com/questions/29080759/
+        tags : Help
+    }
+}
+
+package AutotagController {
+    object "<u>t1:SelectiveBookmarkTagger" as Tagger1 {
+         predicate : url contains "stackoverflow.com/questions"
+         tag : Help
+    }
+}
+
+Bookmarks -[hidden]right> AutotagController
+
+'Bookmark1 -[hidden]down-> Bookmark2
+Bookmark2 -[hidden]down-> Bookmark3
+
+@end

@@ -6,19 +6,29 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface MarkStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonMarkStorage
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager o--> MarkStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonMarkStorage .up.|> MarkStorage
+JsonMarkStorage .down.> JsonSerializableMark
+JsonSerializableMark .> JsonAdaptedBookmark
+JsonSerializableMark .left.> JsonAdaptedFolderStructure
+JsonSerializableMark .down.> JsonAdaptedReminder
+JsonAdaptedBookmark .up.> JsonAdaptedTag
+JsonAdaptedBookmark .> JsonAdaptedCachedCopy
+JsonAdaptedCachedCopy .up.> JsonAdaptedOfflineDocument
+JsonAdaptedOfflineDocument .up.> JsonAdaptedParagraph
+JsonAdaptedParagraph .left.> JsonAdaptedAnnotation
+
+JsonSerializableMark .down.> JsonAdaptedAutotagController
+JsonAdaptedAutotagController .down.> JsonAdaptedSelectiveBookmarkTagger
+JsonAdaptedSelectiveBookmarkTagger .right.> JsonAdaptedBookmarkPredicate
 @enduml

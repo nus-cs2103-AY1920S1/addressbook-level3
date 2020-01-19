@@ -8,7 +8,7 @@ package Logic {
 
 package Parser {
 Interface Parser <<Interface>>
-Class AddressBookParser
+Class MarkParser
 Class XYZCommandParser
 Class CliSyntax
 Class ParserUtil
@@ -19,8 +19,12 @@ Class Prefix
 
 package Command {
 Class XYZCommand
-Class CommandResult
 Class "{abstract}\nCommand" as Command
+
+package Result {
+Class CommandResult
+Class JKLCommandResult
+}
 }
 
 Interface Logic <<Interface>>
@@ -31,32 +35,40 @@ package Model{
 Class HiddenModel #FFFFFF
 }
 
+package Storage{
+Class HiddenStorage #FFFFFF
+}
+
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager -->"1" MarkParser
+MarkParser .left.> XYZCommandParser: creates >
 
 XYZCommandParser ..> XYZCommand : creates >
-XYZCommandParser ..|> Parser
+XYZCommandParser .left.|> Parser
 XYZCommandParser ..> ArgumentMultimap
 XYZCommandParser ..> ArgumentTokenizer
-ArgumentTokenizer .left.> ArgumentMultimap
+ArgumentTokenizer .right.> ArgumentMultimap
 XYZCommandParser ..> CliSyntax
 CliSyntax ..> Prefix
 XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
-ArgumentTokenizer .down.> Prefix
+ParserUtil ..> Prefix
+ArgumentTokenizer ..> Prefix
 XYZCommand -up-|> Command
 LogicManager .left.> Command : executes >
 
-LogicManager --> Model
+LogicManager -up-> Model
+LogicManager -> Storage
 Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+Command ..> Storage
+note bottom of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
 
 Logic ..> CommandResult
-LogicManager .down.> CommandResult
+JKLCommandResult --|> CommandResult
+LogicManager ..> CommandResult
 Command .up.> CommandResult
 CommandResult -[hidden]-> Parser
+note bottom of JKLCommandResult: JKLCommandResult = HelpCommandResult, \nExitCommandResult, TabCommandResult, etc
 @enduml

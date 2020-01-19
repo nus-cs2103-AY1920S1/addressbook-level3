@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Mark - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,15 +12,27 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T13-4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103T-T13-4`      Since: `Sept 2019`      Licence: `MIT`
+
+== Introduction
+
+Welcome to Mark. This developer guide aims to introduce potential developers to the structure and implementation of Mark,
+so that you can contribute too!
+
+The guide first covers the high-level design of Mark, and then discusses the implementation of key features and the
+rationale behind certain design decisions. Next, it provides links to guides for the tools used in Documentation, Testing,
+and DevOps. Finally, the appendices of this guide specify the product scope, requirements, a glossary, and instructions for
+manual testing.
 
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
 
 == Design
+
+This section shows the design of Mark.
 
 [[Design-Architecture]]
 === Architecture
@@ -32,24 +44,21 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/mark/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/mark/MainApp.java[`MainApp`]. It is responsible for,
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* Initializes the components in the correct sequence, and connects them up with each other.
+* Shuts down the components and invokes cleanup method where necessary.
 
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
-The following class plays an important role at the architecture level:
+For example, `LogsCenter` plays an important role at the architecture level as it is used by many classes to write log messages to the App's log file.
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+The rest of the App consists of the following four components:
 
-The rest of the App consists of four components.
-
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+. <<Design-Ui,*`UI`*>>: The UI of the App.
+. <<Design-Logic,*`Logic`*>>: The command executor.
+. <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+. <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
 
@@ -73,174 +82,740 @@ The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
+The following diagram illustrates the structure of the UI component:
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/mark/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `BookmarkListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow` and 'TabView' components (not shown in the above figure), inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The structure of the `TabView` is depicted here:
 
-The `UI` component,
+.Structure of the TabView Component, which is a part of the UI component
+image::UiTabViewClassDiagram.png[]
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/mark/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
+
+The `UI` component does the following:
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+// tag::logic[]
 [[Design-Logic]]
 === Logic component
+The following class diagram illustrates the structure of the `Logic` component:
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/mark/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+`Logic` uses the `MarkParser` class to parse the user command.
+This results in a `Command` object which is executed by the `LogicManager`.
+The command execution can affect the `Model` (e.g. adding a bookmark) and/or `Storage` (e.g. import bookmarks).
+The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions,
+such as displaying help to the user, switching the tab view, or exiting the application.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+As an example of how the `Logic` component works, the following sequence diagram shows the interactions
+within the `Logic` component for the `execute("delete 1")` API call:
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+The `Logic` component does the following:
+
+* Parses and executes user commands
+* Modifies `Model` and/or `Storage` according to user commands
+* Instructs `Ui` through `CommandResult` objects
+// end::logic[]
+
 [[Design-Model]]
 === Model component
 
+The following class diagram illustrates the structure of the `Model` component:
+
+[[model-class-diagram]]
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.png[Model Class Diagram, 700]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/mark/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model` component manages the storage of data in Mark. Hence, it does not depend on any of
+the other three components.
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+As seen in the diagram above, the `Model` consists of the following:
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+1. `VersionedMark` - contains Mark data
+2. `UserPrefs` - represents the user's preferences
+
+The `Model` also exposes several `Observable` properties so that the UI can 'observe' them and update
+automatically when `Model` data are changed. For simplicity's sake, some of these dependencies
+have been omitted from the Model class diagram. The observable properties are:
+
+[start=3]
+. An unmodifiable filtered `ObservableList` of bookmarks - represents the bookmarks that are
+currently being displayed in the bookmark list.
+. A second filtered `ObservableList` of bookmarks - represents the bookmarks that are currently
+being displayed in the favorites panel on the **Dashboard**.
+. A `SimpleObjectProperty` of a `Url` - contains the URL of the current web page that can be
+seen on the **Online** tab.
+. A `SimpleObjectProperty` of a `Bookmark` - represents the Bookmark whose `Offline Copy` is currently
+being viewed in the **Offline** tab.
+
+As seen in <<model-class-diagram>>, `VersionedMark` contains a list of `ReadOnlyMark` objects
+that represent past or future states of Mark. The class `Mark` implements `ReadOnlyMark`.
+Each of the `Mark` objects in `VersionedMark` comprises a `UniqueBookmarkList`
+from the `Bookmark` package, a `ReminderAssociation` object from the `Reminder` package, an
+`AutotagController` from the `Autotag` package, and a `FolderStructure` from the `FolderStructure` package.
+
+The structure of each package will now be explained in more detail.
+
+.Structure of the Bookmark Package
+image::BookmarkPackageClassDiagram.png[Bookmark Package Class Diagram, 600]
+
+The `Bookmark` package contains classes relating to Bookmarks and their attributes, as shown above. The external
+class `Mark` contains a `UniqueBookmarkList`, which has one or more `Bookmarks`. As mentioned earlier, the
+`Bookmark` class is also accessed by `ModelManager`.
+
+Each `Bookmark` has a `Name`, a `Url`, a
+`Remark`, a `Folder`, zero or one `CachedCopy`, and one or more `Tags`. Each `CachedCopy` has its own
+set of annotations (in the `Annotation` package).
+
+NOTE: Each Bookmark has a different `Tag` object and a different `Folder` object, even if bookmarks have the same
+tag or folder name. More details regarding the implementation of Folders can be found in <<Folders feature>>.
+
+// tag::annPkg[]
+[[annotation-cd]]
+.Structure of the Annotation Package
+image::AnnotationPackageClassDiagram.png[Annotation Package Class Diagram, 300]
+// end::annPkg[]
+
+The above diagram shows the structure of the Annotation package, which is accessed by `ModelManager` via `OfflineDocument`.
+An `OfflineDocument` consists of zero or more `Paragraph` objects, which are each identified by a `ParagraphIdentifier`.
+A `Paragraph` can either be a `TrueParagraph`, which has a `ParagraphContent` and zero or one `Annotation`,
+or a `PhantomParagraph`, which has no `ParagraphContent` but must have an `Annotation` with an `AnnotationNote`.
+In general, an `Annotation` consists of a `Highlight` and an `AnnotationNote`.
+
+NOTE: More details regarding the implementation of Annotations can be found in <<Annotation feature>>.
+
+.Structure of the Autotag and Predicates Packages
+image::AutotagPackageClassDiagram.png[Autotag Package Class Diagram, 500]
+
+The Autotag package consists of a main `AutotagController` class, which controls one or more `SelectiveBookmarkTaggers`.
+The `SelectiveBookmarkTagger` class contains a `BookmarkPredicate` and a `Tag` (inherited from its parent class
+`BookmarkTagger`). Each `BookmarkPredicate`, in turn, makes use of a combination of predicates like
+`NameContainsKeywordsPredicate`, `UrlContainsKeywordsPredicate`, and `FolderContainsKeywordsPredicate` to test
+bookmarks.
+
+NOTE: More details regarding the implementation of Autotags can be found in <<Autotag feature>>.
+
+.Structure of the Reminder Package
+image::ReminderPackageClassDiagram.png[Reminder Package Class Diagram, 350]
+
+The Reminder package is managed by the `ReminderAssociation` class. It handles the association between a set of
+`Reminders` and a set of `Bookmarks`, making sure that the two sets remain synchronised. Each `Reminder` consists
+of a `Note` that describes the task to be done and the `Url` of the `Bookmark` it is associated with.
+
+NOTE: More details regarding the implementation of Reminders can be found in <<Reminder feature>>.
 
 [[Design-Storage]]
 === Storage component
+The following diagram illustrates the structure of the Storage component:
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/mark/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component does the following:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* Saves `UserPref` objects in json format and reads them back.
+* Saves the Mark data in json format and reads it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.mark.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
+The Undo and Redo feature is crucial to give users the flexibility of reverting wrongly executed commands.
+This section explains the implementation of the undo/redo mechanism as well as some design considerations
+when implementing this feature.
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+==== Implementation
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+The undo/redo mechanism is facilitated by `VersionedMark`.
+It extends `Mark` with an undo/redo history, stored internally as a list of `markStateRecord` and `currentPointer`.
+The class diagram for `MarkStateRecord` and its relationship with `ReadonlyMark`, `Mark` and `VersionedMark` is shown below:
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+image::MarkStateRecordClassDiagram.png[]
+
+As shown in the class diagram, `VersionedMark` implements the following operations:
+
+* `VersionedMark#save(String record)` -- Saves the current Mark state and the corresponding record to its history.
+* `VersionedMark#undo(int step)` -- Undoes the given number of actions and returns the record which
+consists of the list of actions being undone.
+* `VersionedMark#redo(int step)` -- Redoes the given number actions and returns the record which
+consists of the list of actions being undone.
+
+These operations are exposed in the `Model` interface as `Model#saveMark(String record)`, `Model#undoMark(int step)` and `Model#redoMark(int step)`
+respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedMark` will be initialized with the initial
+Mark state and an empty record, and the `currentPointer` pointing to that single state record.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th bookmark in the Mark. The `delete` command calls
+`Model#saveMark(String record)`, causing the modified state of the Mark and the record of the command after command execution
+to be saved in the `markStateRecords`, and the `currentPointer` is shifted to the newly inserted state record.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add u/www.google.com ...` to add a new bookmark. The `add` command also calls
+`Model#saveMark(String record)`,
+causing another modified Mark state and the record to be saved into the `markStateRecords`, and the `currentPointer` is
+again shifted to the newly inserted state record..
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#saveMark(String record)`, so the Mark state will not be saved into the
+`markStateRecords`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the bookmark was a mistake, and decides to undo that action by executing the
+`undo` command. The `undo` command will call `Model#undoMark(1)` since by default the number of steps
+to undo is 1 if not specified. This command shifts the `currentPointer` once to the left,
+pointing it to the previous state record, and restores the Mark to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentPointer` is at index 0, pointing to the initial Mark state, then there are no previous Mark states to
+restore.
+The `undo` command uses `Model#canUndoMark(1)` to check the if there are enough commands to undo.
+In this case, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoSequenceDiagram.png[]
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML,
+the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoMark(int step)`, which shifts the `currentPointer` to the right by the given number of steps,
+and restores the Mark to the state corresponding to the `currentPointer`.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentPointer` is at index `markStateRecords.size() - 1`, pointing to the latest Mark state, then there
+are no undone Mark states to restore. The `redo` command uses `Model#canRedoMark(1)` to check the if there are enough commands to redo.
+In this case, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the Mark, such as `find`, will
+usually not call `Model#saveMark(String record)`, `Model#undoMark(int step)` or `Model#redoMark(int step)`. Thus, the `markStateRecords` remains
+unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#saveMark(String record)`. Since the `currentPointer` is not pointing at the end
+of the `markStateRecords`, all state records after the `currentPointer` will be purged.
+We designed it this way because it no longer makes sense to redo the `add u/www.google.com ...` command. This is the
+behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[]
+image::SaveMarkActivityDiagram.png[]
 
 ==== Design Considerations
 
+This section explains some of the design considerations we had when implementing this feature.
+
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire Mark state.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Pros: Will use less memory (e.g. for `delete`, just save the bookmark being deleted).
+** Cons: Must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* **Alternative 1 (current choice):** Use a list to store the history of Mark state records.
+** Pros: Undo/redo multiple commands can be achieved in O(1) time by just shifting the current pointer.
+** Cons: Clear state records after the current pointer can take O(n) time.
+* **Alternative 2:** Use two stacks, an undo stack and a redo stack to store the history of Mark state records.
+** Pros: Clear state records after the current pointer can be achieved in O(1) time by clearing the redo stack.
+** Cons: Undo/redo multiple commands can take O(n) time as each undo/redo action requires popping a state record from the
+undo stack and pushing it into the redo stack. There is no way to pop multiple state records efficiently at one time.
+
+===== Aspect: Commands to include for undo/redo
+* **Alternative 1 (current choice):** Include only commands that modify the state of Mark data.
+** Pros: Only meaningful app data is stored, less memory is consumed
+** Cons: Unable to retrieve commands that do not alter the state of Mark, such as `find`, `list`
+* **Alternative 2:** Include all commands
+** Pros: All commands can be undone and redone
+** Cons: More data to be stored and these data might not be meaningful to the users. More data related to
+Command class also needs to be stored and VersionedMark might need to depend on Logic which breaks the layered architecture of the existing application
+
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::autotag[]
+=== Autotag feature
+==== Implementation
 
-_{Explain here how the data encryption feature will be implemented}_
+Autotags, autotag names, and autotag conditions are represented as `SelectiveBookmarkTaggers`,
+`Tags` and `BookmarkPredicates` in the `Model` respectively. The class diagram for the Autotag package illustrates the
+structure of these classes:
 
-// end::dataencryption[]
+.Class diagram for the Autotag package
+image::AutotagPackageClassDiagram.png[300, 300]
+
+//An unusual aspect of this design is the fact that `SelectiveBookmarkTagger` inherits from `BookmarkTagger`,
+//rather than containing a `Tag` directly. The rationale for this will be explained in the following section:
+//<<autotag-design-considerations>>.
+
+The `BookmarkPredicate` class keeps track of multiple types of autotag conditions.
+To do so, it maintains _separate sets of keywords_ for each condition category; for instance, name keywords are stored
+separately from not-URL keywords.
+It also contains a single _predicate_ to test whether a bookmark matches the given conditions.
+Other classes in the Predicates package (those with names `XYZContainsKeywordsPredicate`)
+are used to generate this predicate from the keyword sets.
+
+TIP: You can refer to the link:UserGuide.adoc/#Autotag-Command[Autotags] section
+of the User Guide for details of autotag conditions.
+
+'''
+
+The autotag mechanism itself is facilitated by the main class `AutotagController`, which stores and manages the list of
+`SelectiveBookmarkTaggers`.
+The `AutotagController` implements several operations to _add_, _remove_, and _apply_ taggers, as well as to _check_
+whether a given tagger exists. Four of these operations can be accessed via the `Model` interface:
+`hasTagger(SelectiveBookmarkTagger)`, `addTagger(SelectiveBookmarkTagger)`, `removeTagger(String)`,
+and `applyAllTaggers()`. These `Model` operations allow autotags to be added, edited, or removed by commands
+in the `Logic` component.
+
+'''
+
+Given below is an example usage scenario that shows the autotag mechanism at each step.
+
+[options="breakable"]
+****
+**Step 1**. The user opens the application with an existing list of bookmarks and no autotags.
+
+.The initial state of Mark
+image::AutotagState0.png[400, 350]
+
+**Step 2**. The user executes the command `**autotag** Help u/stackoverflow.com/questions` to add an autotag that tags all
+bookmarks from **stackoverflow.com/questions** with the tag **Help**.
+
+* A `SelectiveBookmarkTagger` is created with a `BookmarkPredicate` and a `Tag` named **Help**.
+The predicate's URL keyword is **stackoverflow.com/questions**.
+Bookmark `b2`, which matches the predicate's conditions, is replaced by a copy of itself
+(`b3`) that contains the additional tag **Help**.
+
+.The state of Mark after adding an autotag
+image::AutotagState1.png[450, 400]
+
+**Step 3**. The user then executes the command `**add** n/JavaFX new scene u/https://stackoverflow.com/questions/29080759/`
+to bookmark a question on StackOverflow.
+
+* A new bookmark with the name `JavaFX new scene` is created. This bookmark matches the conditions for the
+autotag **Help**, so it is tagged **Help**.
+
+.The state of Mark after adding and automatically tagging a new bookmark
+image::AutotagState2.png[450, 400]
+
+****
+
+The next three diagrams show how the `*autotag*` command works in more detail.
+
+An `*autotag*` command is parsed using an `AutotagCommandParser` in a similar fashion as
+other commands, resulting in an `AutotagCommand` that contains the `SelectiveBookmarkTagger` to be added.
+The following diagram illustrates the sequence of operations that occur when
+a valid autotag command is executed:
+
+.Sequence diagram showing the general execution of an `AutotagCommand`
+image::AutotagSequenceDiagram.png[300, 300]
+
+The `AutotagCommand` first checks whether the given `model` contains the `tagger` to be added.
+Since it does not (the autotag command is valid), the `tagger` is added and all taggers are applied to
+the bookmarks in `model`.
+The current state of Mark is then saved.
+
+The next sequence diagram provides details of how taggers are applied to bookmarks in Mark.
+
+.Sequence diagram showing the execution of `Model#applyAllTaggers()`
+image::ApplyAllTaggersSequenceDiagram.png[500, 500]
+
+NOTE: The **sd** frame should cover the whole diagram, but it does not due to a limitation of PlantUML.
+
+As seen above, the `Model` calls `VersionedMark`, which obtains its `list` of bookmarks
+and passes the list to `AutotagController`.
+`AutotagController` then iterates through the bookmarks and taggers, applying tags to bookmarks by using
+`SelectiveBookmarkTagger#applyTagSelectively(Bookmark)`. A new list of bookmarks is returned, which is set as the new
+bookmark list.
+
+The activity diagram below summarizes what happens when a valid autotag is added.
+The mechanism for tagging bookmarks when a bookmark is added or modified is similar.
+
+[[autotag-activity-diagram]]
+.Activity diagram showing how an autotag is added
+image::AutotagActivityDiagram.png[300, 300]
+
+[[autotag-design-considerations]]
+==== Design Considerations
+
+This section explains the key reasons why certain implementations were selected
+over others when designing the autotag mechanism.
+
+[[autotag-representation]]
+===== Aspect: How to tag bookmarks based on specific conditions
+
+* **Alternative 1:** Implement all the logic in a single class, which first checks
+whether a bookmark matches its conditions, then tags the bookmark if it does.
+** Pros: Simpler to implement.
+** Cons: Violates the Single Responsiblity Principle.
+* **Alternative 2 (current choice):** Separate the checking and tagging mechanisms into two classes. One
+class implements the tagging, while the second class inherits that functionality and implements an additional check
+before tagging.
+** Pros: Allows the 'tagger' class to be re-used elsewhere.
+** Cons: Increases coupling between the two classes.
+
+// Note: removed so that PPP can fit into 10 pages
+//===== Aspect: How autotags are applied
+//
+//* **Alternative 1 (current choice):** Iterate through each autotag and bookmark, then apply tags to all bookmarks that match.
+//** Pros: Easy to implement.
+//** Cons: May have performance issues in terms of runtime, as bookmarks can be checked multiple times.
+//* **Alternative 2:** Check for changes in the bookmark list then edit tags accordingly.
+//** Pros: Will be faster if most bookmarks are unchanged.
+//** Cons: More complicated to implement.
+
+===== Aspect: How to apply taggers to a bookmark list in Mark
+
+* **Alternative 1 (current choice):** Replace the whole bookmark list with a new list of bookmarks, some of which have been tagged.
+** Pros: Simple to implement, maintains immutability of bookmarks.
+** Cons: Inefficient to construct a new list each time a single bookmark is tagged.
+* **Alternative 2:** Modify individual bookmarks when adding tags.
+** Pros: Eliminates the need to reset Mark's bookmark list whenever taggers are applied.
+** Cons: Can cause unanticipated changes in other parts of the Model as bookmarks are modified.
+* **Alternative 3:** Replace only those bookmarks that were tagged.
+** Pros: Minimises performance issues from creating a new bookmark list.
+** Cons: More complicated to implement.
+// end::autotag[]
+
+// tag::addAnn[]
+=== Annotation feature
+==== Implementation
+The annotation feature builds upon the structure of an offline document used to represent a _Readability4J-derived cache_.
+Such an offline document is represented by `OfflineDocument`, which contains at least one `Paragraph`. Each annotation is attached to an entire `Paragraph`. The annotation will be internally stored as an instance of `Annotation`.
+You can view the class structure of the annotation feature <<annotation-cd, here>>.
+
+The annotation feature supports adding, deleting and editing annotations. Command words
+`annotate`, `annotate-delete` and `annotate-edit` activate the respective functionality.
+These command words make up the _family of annotation commands_.
+When activated, each calls the respective command parser to create the corresponding `AnnotationCommand`.
+Subsequently, when necessary the appropriate `Paragraph` is retrieved, and the annotation is handled according to the command.
+You can study the hierarchy of the _family of annotation commands_ here:
+
+.Structure of the _family of annotation commands_.
+image::AnnotationCommandStructure.png[400, 400]
+
+The following sequence diagram illustrates how a command of the _family of annotation commands_ operates:
+
+[[sd-annotation-general]]
+.Sequence diagram showing how annotation commands generally work. `cmdStr` is the string representing the command input by the user. `arguments` is `cmdStr` without the command word.
+image::AnnotationSequenceDiagram.png[400,450]
+
+NOTE: The lifeline for `AddAnnotationCommandParser` and `AddAnnotationCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+
+In the <<sd-annotation-general, figure above>>, the specifics of how `Parser#parse` and `AnnotationCommand#execute` are abstracted out because each command is handled differently.
+//This is because each of the annotation commands have different input criteria. Hence each command is parsed and handled differently.
+The reference frame may refer to the following sequence diagrams for <<addsd,adding>>, <<deletesd,deleting>> and <<editsd,editing>> annotations respectively:
+
+//The sub-sections below will show you some examples illustrating how each command works.
+[[addsd]]
+.Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate 1 p/p2 n/example note h/orange`. `ARGS` include `pid`, `highlight` and `note`.
+image::AddAnnotationSequenceDiagram.png[350,350]
+
+The above example adds an annotation to a `:TrueParagraph`. Alternatively, if the user chooses to add a general note instead,
+`OfflineDocument#addPhantom` is called instead, creating an annotated `:PhantomParagraph`.
+
+NOTE: A `:TrueParagraph`, whose content is from the `cache`, must be highlighted in order to have a note attached. A `:PhantomParagraph` is a temporary holding place for a general note and has no content.
+
+[[deletesd]]
+.Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate-delete 1 p/p2 n/true`. `ARGS` include `pid`.
+image::DeleteAnnotationSequenceDiagram.png[350,350]
+
+The above example deletes only the highlight from a `:TrueParagraph` which has a note, and then creates a `:PhantomParagraph` to keep a reference to the note.
+
+NOTE: For other `annotate-delete` functions, instances of other derived classes of `DeleteAnnotationCommand` is used instead of `:DeleteAnnotationHighlightCommand`.
+
+If the user requests to remove the entire annotation instead, `DeleteAnnotationAllCommand` is used and the `an:Annotation` is simply dereferenced.
+If the user requests to remove only the annotation note, `DeleteAnnotationNoteCommand` is used and the `AnnotationNote` of `Annotation` is dereferenced.
+Alternatively, if the user requests to remove annotations from all paragraphs, `DeleteAnnotationClearAllCommand` is used and the entire `:OfflineDocument` is dereferenced and a new, unannotated copy is created.
+
+[[editsd]]
+.Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate-edit 1 p/g1 to/p1 h/green`. `ARGS` include `origPid`, `targetPid` and `newHighlight` and `newNote`.
+image::EditAnnotationSequenceDiagram.png[350,350]
+
+The above example moves general note `G1` to paragraph `P1` and highlights `P1` green. As per the specifications, users are not allowed to move any annotation to `:PhantomParagraph` using `annotate-edit`, so `targetP` must either be `null` or a `:TrueParagraph`.
+However, `origP` can be anything as long as it is an instance of a derived class of `Paragraph`.
+
+NOTE: The reason why we do not allow users to use this command to make notes general is because there is not much value in doing so given we only support highlights and notes as annotations.
+If you want, you can easily extend the edit function to be able to allow moving annotations to the general section.
+
+You will see why the sequence diagram for the `annotate-edit` command is much longer than that of `annotate-delete` in the <<edit-consideration, Design Considerations>> section.
+
+===== Summmary
+
+The following activity diagram summarizes what happens when a user attempts to annotate their offline document:
+
+.Activity diagram for an annotation request.
+image::AnnotationActivityDiagram.png[350,350]
+
+==== Design Considerations
+The following are a few design considerations made in deciding how to implement the annotation feature:
+
+===== Aspect: How to structure the offline components to store annotations
+An offline document is composed of multiple paragraphs, each having at most 1 annotation.
+A cached copy has the original cache of the website.
+There are hence a few alternatives in which we can combine these elements and store them:
+
+* **Alternative 1 (current choice):** Let each `CachedCopy` have an `OfflineDocument` that consists of paragraphs with content parsed from the original cache. Each paragraph contains a annotation, if any.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage and overheads from layers of abstraction.
+
+* **Alternative 2:** Let each cache keep only the original cache of the website. Use another class to store the annotations with the respective paragraph identifiers.
+** Pros: Will use less memory since the content of the website is not duplicated.
+** Cons: Not straightforward to implement. Stray notes will need a different implementation to order and store them. Objects not well abstracted.
+
+I decided to proceed with Alternative 1 as it is easier to implement and more feasible to implement in light of time constraints. This alternative offers accessibility to
+model components that are highly related in functionality.
+
+===== Aspect: How to implement command to delete annotations
+An `annotate-delete` command deletes a part or whole of an annotation. In particular, deleting
+only the highlight of a paragraph with a note will have a side effect where the note becomes general.
+Considering these variations, there are a few alternatives that we can consider to implement the delete function:
+
+* **Alternative 1:** Use a single `DeleteAnnotationCommand` object to execute the entire delete functionality
+** Pros: Makes it clear as all related functionality are packaged in the same class.
+** Cons: Does not follow the Single Responsibility Principle and Open-close Principle. All checks will have to be performed in the same class, which makes it messy as well.
+
+* **Alternative 2 (current choice):** Use a different subtype of `DeleteAnnotationCommand` to represent and execute each use case.
+** Pros: Easier to implement since delete functionality is rather discrete and each function is mutually exclusive. Less checks will be required for each class implemented. Also easier to extend functionality in future.
+** Cons: Need to write multiple lines of code due to multiple layers of abstraction.
+
+I decided to proceed with Alternative 2 as it is easy and feasible to implement in light of time constraints. Since the individual functions of `annotate-delete` do not overlap,
+this alternative makes it less cumbersome to modify if there needed to be a change in delete functionality.
+
+[[edit-consideration]]
+===== Aspect: How to implement command to edit annotations
+An `annotate-edit` command can edit existing
+annotations and/or moving annotations from paragraph to paragraph.
+As the functionality can be mixed, there are a few options we can take to implement the edit functionality:
+
+* **Alternative 1 (current choice):** Use a single `EditAnnotationCommand` object to execute the entire edit functionality
+** Pros: Easier to implement and also makes it clear as all related functionality are packaged in the same class.
+** Cons: Does not abide by the Single Responsibility Principle. All checks will have to be performed in the same class.
+
+* **Alternative 2:** Use a different subtype of `EditAnnotationCommand` to represent and execute each use case.
+** Pros: Easier to extend. Also, less checks on conditions can be performed for each class implemented.
+** Cons: Not straightforward to implement. The functions can overlap, which makes it difficult to segregate into separate responsibilities.
+
+I decided to proceed with Alternative 1 as it is easier to implement. The overlaps in use cases of the `annotate-edit` command
+makes it difficult to separate the responsibility. Hence the first alternative is more feasible to implement.
+
+// end::addAnn[]
+
+// tag::folders[]
+=== Folders feature
+
+This section aims to explore the implementation of Mark's folders and some design considerations.
+
+==== Implementation
+
+The following two sections will explain in more detail how the backend and frontend of this feature works.
+
+===== Model implementation of folders
+
+A bookmark can be in a folder, and a folder can be nested within other folders for traditional directory organization.
+
+This mechanism is facilitated mainly by `Folder` and `FolderStructure`.
+
+`Folder` is simply another field in `Bookmark`, just like `Url` or `Name`, and has a single `String` property that contains the folder in which the bookmark is located.
+
+`FolderStructure` represents the hierarchy of folders, containing the folder it represents and its subfolders
+
+.Class Diagram of the Folders component
+image::FolderStructureClassDiagram.png[]
+
+
+Given below is an example usage scenario and how the folder structure behaves at each step.
+
+Step 1. The user launches the application for the first time. The root `FolderStructure` will be initialized with the initial hierarchy in the stored data.
+
+image::FolderStructureState0.png[]
+
+Step 2. The user enters a `folder GER1000 p/Work` command to create a new `FolderStructure` in the subfolders of `work`. Starting from the `root`, a depth first search will be performed to locate `work`. When found, `ger1000` will be added to its subfolders.
+
+image::FolderStructureState1.png[]
+
+[NOTE]
+If the parent folder is not provided, the parent folder will default to `root`.
+
+The following sequence diagram shows in more detail how the execution of `folder GER1000 p/Work` works:
+
+image::FolderSequenceDiagram.png[]
+
+NOTE: The lifeline for `AddFolderCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Finally, the user sees his folder added successfully in the folder hierarchy.
+
+===== UI implementation of the expand command
+
+Mark displays the folders and their bookmarks in a JavaFX `TreeView`, and listens for any updates to the bookmarks
+or the folder structure via `Observable` s so that the UI can also be updated accordingly.
+
+As Mark is mainly a CLI-based application, the `expand` command is provided to allow users to "click" on all unexpanded folders.
+
+As the underlying folder structure is not altered, `Oberservable` s cannot help us and so the command must send a signal to the UI that
+an `expand` command needs to be performed.
+
+Then, the following method is called to perform the expansion:
+
+.Code snippet from `seedu.mark.ui.FolderStructureTreeView`
+```java
+ private void expand(TreeItem<String> node, int levels) {
+    if (levels <= 0) {
+        return;
+    }
+    if (node.isExpanded()) {
+        node.getChildren().forEach(child -> expand(child, levels));
+    } else {
+        node.expandedProperty().set(true); // we expand it
+        // make sure all children are not expanded
+        node.getChildren().forEach(child -> child.setExpanded(false));
+        expand(node, levels - 1);
+    }
+}
+```
+
+The method expands a folder if it is not already expanded, and then recursively calls itself on all of that folder's subfolders until the desired level of expansion is achieved.
+
+==== Design considerations
+
+The following are a few design considerations made in deciding how to implement the folders feature.
+
+===== Aspect: How the folder hierarchy is saved into storage
+
+The following were two alternatives considered when implementing the model for the folders feature.
+
+* **Alternative 1 (current choice):** Saves bookmark folder as its own field, and the hierarchy as a separate data structure.
+** Pros: Easy to implement. Adding another field to a bookmark is simple, and storing the folder structure
+on its own makes it more modular and easy to test as well.
+** Cons: Easy for model to get into invalid state. For example, when renaming folders, the bookmarks containing the old folder names needs to be updated separately.
+This leads to tight coupling and potential future maintenance issues.
+* **Alternative 2:** Change the bookmarks from being stored in a list to being stored in a tree structure.
+** Pros: Single source of truth, a bookmark's folder is simply which part of the tree it resides in. When a folder is renamed,
+the bookmarks in that folder will still be in the same folder, so there is no extra step needed to update the bookmarks. This reduces coupling between the bookmarks and folders too.
+** Cons: The whole `BookmarkList` abstraction will have to be rewritten. It is also significantly harder (in terms of ease of implementation) to filter, edit, and add bookmarks due to having to use
+more advanced tree traversal algorithms as compared to naive list or array operations.
+
+===== Aspect: What the expand/collapse command does
+
+In designing the expand and collapse command, the below two alternatives were considered.
+Only the expand command shall be elaborated upon, since the collapse command is simply the opposite of the expand command.
+
+* **Alternative 1 (current choice):** Expand *to* a certain level of folders. +
+For example, when `expand 2` is executed, the folder hierarchy will
+*always* display folders until two levels deep, regardless of its state before the command.
+** Pros: State is more easily managed. Mark can keep track of which level to expand until, and the UI can listen to changes to this via an `Observable` instead, leading to better separation of concerns.
+** Cons: Not intuitive for the user to understand. Since the folder hierarchy can be interacted with via the mouse also, the user may decide to expand the folders
+with his mouse and then execute `expand 2`, resulting in the folders expanding to two levels deep. This may result in the user thinking the folders were collapsed instead, if he had expanded his folders all the way before the command.
+This leads to confusion for the user.
+* **Alternative 2:** Go through all folders and check if they have been expanded. If a folder is not expanded, expand it. Repeat for the desired nmber of levels.
+** Pros: Easier for the user to understand. No matter what commands the user types or what he clicks, the expand command will always "expand" to a deeper level than what he originally saw (unless it was already expanded all the way).
+
+** Cons: An extra coupling is needed to tie the UI and the expand command together, since it cannot simply listen to changes from the model. This decreases extensibility and increases maintenance costs.
+
+// end::folders[]
+
+// tag::reminder[]
+=== Reminder feature
+==== Implementation
+A bookmark can attach a reminder, and a reminder can be used to open the bookmark and send notifications to the user.
+This mechanism is facilitated by `Reminder` and `ReminderAssociation`.
+
+`Reminder` contains a reminding time, the `Url` of the `Bookmark` and a `Note`.
+
+`ReminderAssociation` represents the association between `Reminder` and `Bookmark`, containing
+ the relation from `Reminder` to `Bookmark` and `Reminder` to `Bookmark`.
+
+.Class diagram of the Reminder component
+image::ReminderAssociationDiagram.png[600, 400]
+
+There are four parts of the reminder feature:
+
+* Add a reminder to a specific bookmark (executed by `AddReminderCommand#execute()`)
+* Edit a reminder (executed by `EditReminderCommand#execute()`)
+* Delete a reminder (executed by `DeleteReminderCommand#execute()`)
+* Goto the bookmark of a specific reminder (executed by `GotoReminderCommand#execute()`)
+
+These command are triggered by `reminder` command line entered into the command box,
+which will calls the respective command parser to create the command.
+The bookmark of the reminder will be retrieved and handled according to the command.
+
+The following sequence diagram illustrates how the adding reminder operation works:
+
+image::AddReminderSequenceDiagram.png[]
+
+NOTE: The lifeline for `AddReminderCommandParser` and `AddReminderCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+In the `reminder-delete` command, instead of calling `addReminder(bookmark, reminder)` in Model,
+it will call `removeReminder(reminder)`.
+
+In the `reminder-edit` command, instead of calling `addReminder(bookmark, reminder)` in Model,
+EditReminderCommand will create a edited copy of the target reminder and call `editReminder(target, editedReminder)` in Model.
+
+In the `reminder-goto` command, it will retrieved the bookmark of the reminder and generate a GotoCommandResult.
+It works the same as `goto` command of the bookmark.
+
+The following activity diagram summarizes what happens when a user attempts to use a reminder command:
+
+image::ReminderActivityDiagram.png[600, 500]
+
+==== Design Considerations
+===== Aspect: How to represent the relationship between reminder and bookmark
+* **Alternative 1 (current choice):** Use two hashmaps to store both the relationship from reminder to bookmark and bookmark to reminder.
+** Pros: More OOP and can easily find the relationship.
+** Cons: More complex when doing any operation to a reminder. Need to check two hashmaps.
+
+* **Alternative 2:** Reminder is a field of bookmark.
+** Pros: Easier to implement.
+//TODO: Change this description
+** Cons: Reminder is a field of bookmark, so using a reminder to open the bookmark violate the relationship.
+// end::reminder[]
+
 
 === Logging
 
@@ -277,53 +852,228 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
-*Target user profile*:
+The following characteristics describe our *target user*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Needs to manage a significant number of bookmarks
+* Needs to make notes on webpage content quite frequently
+* Needs reminders to submit forms or visit websites
+* Prefers desktop apps over other types
+* Types quickly and prefers typing over mouse input
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+This is our *value proposition* – how Mark can streamline current
+web browsing-related activities:
+
+* Manage bookmarks faster than a typical mouse/ GUI driven app
+* Allow webpage content to be accessed and annotated without an Internet connection
+* Remind users about websites they need to visit at specific times
+* Eliminate the need for manual categorizing of bookmarks
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="80%",cols="17%,<17%,<31%,<35%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new user |see usage instructions |learn how to use the app quickly
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new bookmark |keep track of websites that I want to visit later
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |bookmark the current website being viewed |save the page without having to copy-and-paste the URL
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |delete a bookmark |remove bookmarks that I no longer need
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |find a bookmark by name, URL or tag |locate details of bookmarks without having to scroll through the entire list
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |edit a bookmark | make changes in case I type something wrongly or change my mind
+
+|`* * *` |user |undo the previous undoable command | reverse wrongly entered commands
+
+|`* * *` |user |redo the previous 'undo' command | reverse wrongly entered 'undo' command
+
+|`* * *` |user |add multiple tags to a bookmark | see what type of bookmark it is at a glance
+
+|`* * *` |user |automatically tag a bookmark based on certain conditions (such as its domain) |save time by avoiding the repeated tagging of bookmarks from the same domain
+
+|`* * *` |user with many bookmarks |organise all the bookmarks in a hierarchical folder structure |find my bookmarks more easily
+
+|`* * *` |user |move a bookmark to a different folder |re-organize my bookmarks when my needs change
+
+|`* * *` |user |open a bookmark within the App |easily visit a website without switching to other windows
+
+|`* * *` |user |view an offline copy of the content of a bookmark |still access the bookmarked page when there is no internet access
+
+|`* * *` |user |update the offline copy of bookmarks manually or automatically |keep offline copies updated
+
+|`* * *` |user |keep old offline copies |can refer to them in case information gets removed from the webpage
+
+|`* * *` |user |remove an specific offline copy |free up storage space by removing <<cache,cached>> copies that I no longer need
+
+|`* * *` |user |highlight and annotate specific paragraphs in a bookmark |refer to the original content when reading my notes
+
+|`* * *` |user |edit highlighting and annotations |update my notes as I learn more about the content
+
+|`* * *` |user |remove highlighting and annotations |remove notes about content that is no longer important to me
+
+|`* * *` |user |add reminders for a bookmark |remember to submit online forms, to prepare for upcoming deadlines, etc.
+
+|`* * *` |user |edit a reminder |adjust my reminders when deadlines change
+
+|`* * *` |user |delete a reminder |remove reminders if I make a mistake when entering them
+
+|`* * *` |user |export and import all the bookmark data |easily migrate to another computer
+
+|`* *` |user |export and import bookmarks |share bookmarks with my friends
+
+|`* *` |user |favorite a bookmark |access it more easily in future
+
+|`* *` |user |mark a bookmark as 'read later' |know which bookmarks I have not read yet
+
+|`* *` |user |check my view history |see what websites I have visited
+
+|`* *` |user |automatically clean up old or outdated bookmarks |keep my bookmark list up to date without having to look through it regularly
+
+|`*` |user |export and import autotags |share my custom-made autotags with friends
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Mark` and the *Actor* is the `user`, unless otherwise specified.)
 
+[[UC01]]
 [discrete]
-=== Use case: Delete person
+=== Use case: UC01 - List bookmarks
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list bookmarks.
+2.  Mark shows a list of bookmarks.
++
+Use case ends.
+
+[[UC02]]
+[discrete]
+=== Use case: UC02 - Add a bookmark
+
+*MSS*
+
+1.  User requests to add a bookmark.
+2.  User provides all the details of the bookmark to be added.
+3.  Mark deletes the bookmark.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Not all compulsory fields are provided.
++
+[none]
+** 2a1. Mark shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+* 2b. The given URL is invalid.
++
+[none]
+** 2b1. Mark shows an error message.
++
+Use case resumes at step 2.
+
+[[UC03]]
+[discrete]
+=== Use case: UC03 - Delete a bookmark
+
+*MSS*
+
+1.  User <<UC01, lists bookmarks (UC01)>>.
+2.  User requests to delete a specific bookmark in the list.
+3.  Mark deletes the bookmark.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Mark shows an error message.
++
+Use case resumes at step 2.
+
+[[UC04]]
+[discrete]
+=== Use case: UC04 - Edit bookmark
+
+*MSS*
+
+1.  User <<UC01, lists bookmarks (UC01)>>.
+2.  User requests to edit a specific bookmark in the list.
+3.  Mark edits the bookmark.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. Mark shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+* 2b. No fields to edit are provided.
++
+[none]
+** 2b1. Mark shows an error message.
++
+Use case resumes at step 2.
+
+[[UC05]]
+[discrete]
+=== Use case: UC05 - Open bookmark
+
+*MSS*
+
+1.  User <<UC01, lists bookmarks (UC01)>>.
+2.  User requests to open a specific bookmark in the list.
+3.  Mark opens the bookmark.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. Mark shows an error message.
++
+Use case resumes at step 2.
+
+[[UC06]]
+[discrete]
+=== Use case: UC06 - Export bookmarks
+
+*MSS*
+
+1.  User <<UC01, [.underline]#lists bookmarks (UC01)#>>.
+2.  User requests to export all the bookmarks in this list.
+3.  Mark creates a file containing the bookmarks on the hard disk.
 +
 Use case ends.
 
@@ -334,23 +1084,304 @@ Use case ends.
 +
 Use case ends.
 
+* 3a. User does not specify a file name to be written to.
++
+[none]
+** 3a1. Mark shows an error message.
++
+Use case resumes at step 4.
+
+[[UC07]]
+[discrete]
+=== Use case: UC07 - Import bookmarks
+
+*MSS*
+
+1.  User requests to import bookmarks from a given file.
+2.  Mark imports bookmarks from the specified file and displays the final list of bookmarks.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No file with the specified file name is found.
++
+[none]
+** 1a1. Mark shows an error message.
++
+Use case resumes at step 1.
+
+* 1b. The file format is invalid.
++
+[none]
+** 1b1. Mark shows an error message.
++
+Use case ends.
+
+[[UC08]]
+[discrete]
+=== Use case: UC08 - Make a bookmark available offline
+
+*MSS*
+
+1.  User requests to make a bookmark available offline.
+2.  Mark downloads the bookmark and converts it with Readability.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The bookmark's URL is not available.
++
+Mark shows an error message.
++
+Use case resumes at step 1.
+
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Mark shows an error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 1.
 
-_{More to be added}_
+[[UC09]]
+[discrete]
+=== Use case: UC09 - Undo previous <<undoable-commands,undoable commands>>
+// tag::use-case-undo[]
+*MSS*
+
+1. User requests to undo the previous undoable command.
+2. Marks restores the list to the state before the previous
+undoable command was executed.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no command to undo.
++
+Mark shows an error message.
++
+Use case ends.
+// end::use-case-undo[]
+
+[[UC10]]
+[discrete]
+=== Use case: UC10 - Redo previously undone commands
+// tag::use-case-redo[]
+*MSS*
+
+1. User requests to redo the previously undone command.
+2. Marks reverses the most recent ‘undo’ command.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no previous `undo` command to redo.
++
+Mark shows an error message.
++
+Use case ends.
+// end::use-case-redo[]
+
+[[UC11]]
+[discrete]
+=== Use case: UC11 - Browse the web
+
+*MSS*
+
+1. User requests to browse the web.
+2. Mark provides in-built web browser.
+3. User browses the web.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. Mark does not have internet access or url input is invalid.
+[none]
+** 1a1. Mark tells user that to check that there is internet access and the url given is correct.
+
++
+Use case ends.
+
+[[UC12]]
+[discrete]
+=== Use case: UC12 - Add bookmarks from web browser
+
+*MSS*
+
+1. User <<UC11,[.underline]#browses the web (UC11)#>>.
+2. User requests to bookmark the currently showing webpage.
+3. Mark uses current website's URL and <<UC02,[.underline]#adds bookmark (UC02)#>>.
++
+Use case ends.
+
+[[UC13]]
+[discrete]
+=== Use case: UC13 - Annotate offline documents
+
+*MSS*
+
+1. User chooses bookmark document to annotate.
+2. Mark shows the annotated document.
+3. User annotates the document.
+4. Mark shows document with new annotations.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. Mark detects invalid bookmark index or non-existent document of bookmark.
+[none]
+** 1a1. Mark gives warning and requests for correct index.
+** 1a2. User enters revised data.
+Steps 1a1-1a2 are repeated until the data entered are correct.
++
+Use case resumes from step 2.
+
+[none]
+* 3a. Mark detects invalid paragraph index.
+[none]
+** 3a1. Mark gives warning and requests for correct paragraph index.
+** 3a2. User enters new data.
+Steps 3a1-3a2 are repeated until the data entered are correct.
++
+Use case resumes from step 4.
+
+[none]
+* 3b. Mark detects invalid highlight colour.
+[none]
+** 3b1. Mark gives warning and sets highlight colour to default colour.
++
+Use case resumes from step 4.
+
+//tag::use-case-reminder[]
+[[UC14]]
+[discrete]
+=== Use case: UC14 - Add a reminder
+
+*MSS*
+
+1. User <<UC01, lists bookmarks (UC01)>>.
+2. User requests to add a reminder for a specific bookmark in the list.
+3. Mark shows the new reminder in the reminder list.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+[none]
+* 2a. Mark detects invalid index.
+[none]
+** 2a1. Mark shows an error message.
++
+Use case resumes at step 1.
+[none]
+* 2b. Mark detects the specified bookmark already has a reminder.
+[none]
+** 2b1. Mark shows an error message.
++
+Use case resumes from step 1.
+[none]
+* 2c. Mark detects the time format is wrong.
+[none]
+** 2c1. Mark shows an error message.
++
+Use case resumes from step 1.
+
+[[UC15]]
+[discrete]
+=== Use case: UC15 - Edit a reminder
+
+*MSS*
+
+1. Mark shows a list of reminders.
+2. User requests to edit a specified reminder in the list.
+3. Mark shows the edited reminder in the reminder list.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+[none]
+* 2a. Mark detects invalid index.
+[none]
+** 2a1. Mark shows an error message.
++
+Use case resumes at step 1.
+[none]
+* 2b. Mark detects the time format is wrong.
+[none]
+** 2b1. Mark shows an error message.
++
+Use case resumes from step 1.
+
+[[UC16]]
+[discrete]
+=== Use case: UC16 - Delete a reminder
+
+*MSS*
+
+1. Mark shows a list of reminders.
+2. User requests to delete a specified reminder in the list.
+3. Mark shows the edited reminder list.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+[none]
+* 2a. Mark detects invalid index.
+[none]
+** 2a1. Mark shows an error message.
++
+Use case resumes at step 1.
+
+[[UC17]]
+[discrete]
+=== Use case: UC17 - Open reminder
+
+*MSS*
+
+1.  User requests to open a specific reminder in the reminder list.
+2.  Mark opens the reminder.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given index is invalid.
++
+[none]
+** 1a1. Mark shows an error message.
++
+Use case resumes at step 1.
+//end::use-case-reminder[]
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  The product should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  The product should be able to hold up to 500 bookmarks without a noticeable sluggishness in performance for typical usage.
+.  The product's major features should not depend on Internet access.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  The project is expected to adhere to a schedule that delivers features in increments every two weeks.
 
 [appendix]
 == Glossary
@@ -358,25 +1389,12 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[cache]] Cache::
+The collection of offline copies of a specific bookmark
 
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[undoable-commands]] Undoable commands::
+Commands that modify the bookmark list, reminders, folders or annotations, which include `add`, `edit`, `delete`, `clear`, `reminder`,
+`reminder-edit`, `reminder-delete`, `folder`, `folder-edit`, `folder-delete`, `autotag`, `autotag-delete`, `annotate`, `annotate-delete`, `annotate-edit`, etc
 
 [appendix]
 == Instructions for Manual Testing
@@ -386,40 +1404,412 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+//==== Launch and Shutdown
+//
+//. Initial launch
+//
+//.. Download the jar file and copy into an empty folder
+//.. Double-click the jar file +
+//   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+//
+//. Saving window preferences
+//
+//.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+//.. Re-launch the app by double-clicking the jar file. +
+//   Expected: The most recent window size and location is retained.
 
-. Initial launch
+=== Testing of general features
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+==== Changing tabs
 
-. Saving window preferences
+. Changing from one tab to another
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+.. Test case 1: `tab 1` +
+   Expected: View switches to Dashboard tab.
+.. Test case 2: `tab on` +
+   Expected: View switches to Online tab.
+.. Test case 3: `tab off` +
+   Expected: View switches to Offline tab.
 
-_{ more test cases ... }_
+==== Opening a bookmark
 
-=== Deleting a person
+. Opening a bookmark while all bookmarks are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `goto 1` +
+   Expected: Tab view is switched to the online tab if the current view is not online tab.
+First bookmark is opened in the online tab.
+Details of the opened bookmark shown in the status message.
+.. Test case: `goto 0` +
+   Expected: No bookmark is opened. Error details shown in the status message.
+.. Other incorrect `goto` commands to try: `goto`, `goto x` (where x is larger than the list size)  +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+==== Adding a bookmark to favorites
 
-=== Saving data
+. Adding a Favorite tag to a bookmark while all bookmarks are listed
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+The first bookmark does not contain `Favorite` tag.
+.. Test case: `favorite 1` or `fav 1` +
+   Expected: A `Favorite` tag is added to the first bookmark and the bookmark also appears in the list
+of favorite bookmarks in the top right corner of the dashboard tab.
+Details of the bookmark shown in the status message.
+.. Test case: `fav 0` +
+   Expected: No bookmark is tagged `Favorite`. Error details shown in the status message.
+.. Other incorrect `favorite` commands to try: `favorite`, `favorite x` (where x is larger than the list size)  +
+   Expected: Similar to previous.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+==== Undoing previous commands
 
-_{ more test cases ... }_
+. Undoing the most recent undoable command
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `delete 1` followed by `undo` +
+   Expected: The deleted bookmark after the first command re-appears in the bookmark list.
+Details of the `delete` action shown in the status message.
+
+. Undoing multiple previous undoable commands
+
+.. Prerequisites: List all bookmarks using the `list` command. More than two bookmarks in the list.
+.. Test case: `delete 1` followed by `delete 1` and then `undo 2` +
+   Expected: The deleted bookmarks after the first two command re-appear in the bookmark list.
+Details of the two reverted `delete` actions shown in the status message.
+.. Test case: `undo 0` +
+   Expected: No action is undone. Error details shown in the status message.
+.. Other incorrect `undo` commands to try: `undo`, `undo x` (where x is larger than the maximum number of undoable actions)  +
+   Expected: Similar to previous.
+
+==== Redoing previous undo commands
+
+. Redoing the most recent undo command
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `delete 1` followed by `undo` and `redo` +
+   Expected: The deleted bookmark after the first command re-appears in the bookmark list.
+After the `redo` command, the deleted bookmark disappears from the bookmark list again.
+Details of the restored `delete` action shown in the status message.
+
+. Redoing multiple previous undo commands
+
+.. Prerequisites: List all bookmarks using the `list` command. More than two bookmarks in the list.
+.. Test case: `delete 1` followed by `delete 1` and `undo 2`, then `redo 2` +
+   Expected: The two deleted bookmarks after the first two command re-appear in the bookmark list after the `undo 2` command.
+After the `redo 2` commands, the two bookmarks get deleted again.
+Details of the two restored `delete` actions shown in the status message.
+.. Test case: `redo 0` +
+   Expected: No action is redone. Error details shown in the status message.
+.. Other incorrect `redo` commands to try: `redo`, `redo x` (where x is larger than the maximum number of actions to redo)  +
+   Expected: Similar to previous.
+
+==== Exporting Mark data
+
+. Exporting data to a valid file
+.. Prerequisites: None. However, the expected outcome is written with the assumption that `mark.jar` is opened
+from a folder named [applicationHome] (replace this with the name of the folder that `mark.jar` is in).
+(Also, note that if a file named `myBookmarks.json` already exists in the folder `[applicationHome]/data/bookmarks/`,
+it will be overwritten.)
+.. Test case 1 (success): `export myBookmarks` +
+Expected outcome: A file named `myBookmark.json` is created in the folder `[applicationHome]/data/bookmarks/`.
+(You will have to use your File Explorer/ bash (Windows)/ Finder/ terminal (Mac) to confirm this.)
+The file is identical to the `mark.json` file in the folder `[applicationHome]/data/`. This can be checked by
+using the `diff` utility on your laptop's command line, or copying-and-pasting both files into
+https://www.diffchecker.com/ to compare them.
+
+. Other test cases you can copy-and-paste
+.. Test case 2 (error): `export myBookmarks.json` +
+Expected outcome: The application shows an error message indicating that the provided file name should not include
+the `.json` file extension.
+
+==== Importing bookmarks
+
+You may have to manipulate data in Mark or in the exported `.json` files to observe different results when
+importing bookmarks.
+
+. Attempting to import bookmarks from a file that does not contain new bookmarks
+.. Prerequisites: Test case 1 from the manual instructions for <<Exporting data, exporting data>> has been
+successfully completed. No changes to bookmarks have been made.
+.. Test case 1 (success): `import myBookmarks` +
+Expected outcome: The application shows a message indicating that no new bookmarks have been imported. A list of
+duplicate bookmarks is also provided.
+
+. Importing bookmarks from a file that contains some new bookmarks
+.. Prerequisites: A valid data file `myBookmarks.json` exists in the folder `[applicationHome]/data/bookmarks`.
+Some bookmarks have been deleted since `export myBookmarks` was executed (e.g. `delete 4`, `delete 5`, `delete 6`).
+.. Test case 2 (success): `import myBookmarks` +
+Expected outcome: The deleted bookmarks have been added to the bottom of the bookmark list, and they are in the
+correct folders. A folder named `ImportedBookmarks` has also been created.
+
+. Importing bookmarks into an empty Mark
+.. Prerequisites: Mark is empty. You can do this by executing the `clear` command. (Don't worry, as long as you
+do not exit the application, you will be able to recover your data later using `undo`.) Also, a valid data file named
+`myBookmarks.json` should exist in the folder `[applicationHome]/data/bookmarks`.
+.. Test case 3 (success): `import myBookmarks` +
+Expected outcome: All the bookmarks have been imported to the folder `ImportedBookmarks`.
+
+=== Testing of folders
+
+TIP: The `ROOT` folder is the top-level folder where all other folders are descendents of. It cannot be added, deleted, edited, or be renamed to. +
+
+Do use `ROOT` as a folder name in folder commands in testing.
+
+==== Expanding the folder hierarchy
+
+. Expanding the folder hierarchy all the way
+
+.. Prerequisites: There is at least one folder not expanded.
+.. Test case: `expand 9999` (assuming you have less than 9999 levels of folders) +
+Expected: The folder hierarchy should show all folders expanded.
+
+. Expanding the folder hierarchy while there is nothing left to expand
+
+.. Prerequisites: Expand the folder hierarchy all the way, using `expand 9999` as in the previous test case.
+.. Test case: `expand` / `expand 10` / `expand 9999` +
+Expected: The folder hierarchy should not change.
+
+
+==== Collapsing the folder hierarchy
+
+. Collapsing the folder hierarchy all the way
+
+.. Prerequisites: There is at least one folder expanded.
+.. Test case: `collapse 9999` (assuming you have less than 9999 levels of folders) +
+Expected: The folder hierarchy should show all folders collapsed.
+
+. Collapsing the folder hierarchy while there is nothing left to collapse
+
+.. Prerequisites: Collapse the folder hierarchy all the way, using `collapse 9999` as in the previous test case.
+.. Test case: `collapse` / `collapse 10` / `collapse 9999` +
+Expected: The folder hierarchy should not change.
+
+==== Adding folders
+
+. Adding an existing folder
+
+.. Prerequisites: At least one folder exists in Mark. Let the name of the folder be `X`.
+.. Test case: `folder X` / `folder X p/ROOT` +
+Expected: An error occurs, saying `X` already exists.
+
+. Adding a folder without specifiying its parent
+.. Prerequisites: A folder named `X` that does not exist in Mark.
+.. Test case: `folder X` +
+Expected: Folder `X` is added successfully to the `ROOT` folder.
+
+==== Editing folders
+
+. Editing a non-existing folder
+
+.. Prerequisites: A folder named `X` that does not exist in Mark.
+.. Test case: `folder-edit X t/anything` +
+Expected: An error occurs, saying `X` does not exist.
+
+. Renaming an existing folder to another existing folder
+.. Prerequisites: Two different folders named `X` and `Y` that exist in Mark.
+.. Test case: `folder-edit X t/Y` / `folder-edit Y t/X` +
+Expected: An error occurs, saying that `X` (or `Y`) already exists.
+
+==== Deleting folders
+
+. Deleting a folder containing other bookmarks and/or folders
+
+.. Prerequisites: A folder named `X` that contains other subfolders.
+.. Test case: `folder-delete X` +
+Expected: An error occurs, saying that there are still bookmarks/folders in `X` and so cannot be deleted.
+
+=== Testing of cache
+
+// TODO
+// including `offline`
+
+=== Testing of annotations
+
+. Adding an annotation to a paragraph of web page
+
+.. Prerequisites: Bookmark must have an offline copy available. You can check the bookmark list to see if an offline copy is available.
+The offline copy should also have content to annotate.
+.. Test case: `annotate 1 p/p1 n/added a note h/orange` +
+Expected: Offline copy of the first bookmark is annotated. The first paragraph is highlighted orange and a note "adding a note" is added on the right of the paragraph. Details of the
+annotation added can be found in the status message.
+.. Test case: `annotate 0 p/p1` +
+Expected: No annotation is made. Error details are shown in the status message.
+.. Test case: `annotate 1 p/incorrectIdentifier eg. 1` +
+Expected: No annotation is made. Error details are shown in the status message.
+
+. Adding a general note to the offline copy of a bookmark
+
+.. Prerequisites: Bookmark must have an offline copy available.
+.. Test case: `annotate 1 p/null n/added a general note` +
+Expected: Offline copy of the first bookmark is annotated. A general note "added a general note" is added to the bottom of the document.
+.. Test case: `annotate 1 p/null` +
+Expected: No annotation is made. Error details are shown in the status message.
+
+. Deleting all annotations of an offline copy
+
+.. Prerequisites: Bookmark must have an offline copy available.
+.. Test case: `annotate-delete 1 p/all` +
+Expected: Offline copy of the first bookmark is clear of any annotations.
+.. Test case: `annotate-delete 1 p/all n/anything` +
+Expected: Offline copy of the first bookmark is clear of any annotations.
+
+. Deleting only the highlight of a paragraph of an offline copy
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph chosen must be annotated.
+.. Test case: `annotate-delete 1 p/p1 n/true` +
+Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 is no longer annotated.
+If paragraph 1 had a note, it is now found at the bottom of the page.
+
+. Deleting only the note of a paragraph of an offline copy
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph chosen must have a note.
+.. Test case: `annotate-delete 1 p/p1 h/true` +
+Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 no longer has a note.
+
+. Deleting the annotation of a paragraph of an offline copy (in other cases)
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph chosen must be annotated.
+.. Test case: `annotate-delete 1 p/p1` +
+Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 is no longer annotated.
+.. Test case: `annotate-delete 1 p/p1 n/true h/true` +
+Expected: No annotation is deleted. Error details are shown in the status message.
+
+. Moving an annotation from paragraph to paragraph of an offline copy
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph to move annotation from must be annotated. Target paragraph must also exist and its id must not start with `G`.
+.. Test case: `annotate-edit 1 p/p1 to/p2` +
+Expected: Annotation on the offline copy of the first bookmark is affected. The annotation of paragraph 1 is moved to paragraph 2.
+.. Test case: `annotate-edit 1 p/p1 to p/g1` +
+Expected: No annotation is edited. Error details are shown in the status message.
+
+. Editing the content of an annotation of an offline document
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph chosen must be annotated.
+.. Test case: `annotate-edit 1 p/p1 n/modify note h/green` +
+Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 is now highlighted green and the content of its note is now "modify note".
+
+=== Testing of autotags
+
+==== Creating an autotag
+
+General prerequisites: Sample Mark data are being used. Specific requirements for each test case are
+elaborated below.
+
+. Adding autotags that do not immediately tag any bookmarks.
+.. Prerequisites: `find t/Hidden` shows 0 bookmarks. There is no autotag named `Hidden`.
+.. Test case 1 (success): `autotag Hidden f/Secret` +
+Expected outcomes: The autotag `Hidden` can be seen in the autotag panel on the **Dashboard**.
+Searching `find t/Hidden` results in 0 bookmarks being listed. Creating a folder named `Secret` (e.g. `folder Secret`)
+and adding a bookmark to the folder (e.g. `add n/Nope u/https://testingSecret.com f/Secret`) results in the new
+bookmark being tagged with `Hidden`.
+
+. Adding autotags that immediately tag bookmarks.
+.. Prerequisites: `find t/readLater` shows 0 bookmarks. There are 3 bookmarks with URLs containing
+`blog` or `medium`.
+.. Test case 2 (success): `autotag readLater u/blog u/medium nf/School` +
+Expected outcome: The autotag `readLater` is added. `find t/readLater` shows 3 bookmarks, all of which have
+been tagged `readLater`. Adding a bookmark using `add n/Added Autotag1 u/https://blogger.org` results in the new
+bookmark being tagged, but the bookmark created by inputting `add n/Added Autotag2 u/https://blogspot.com f/School`
+is not tagged.
+
+. Trying to add autotags that already exist. Error messages will be shown.
+.. Prerequisite: An autotag named `NUS` already exists.
+.. Test case 3 (error): `autotag NUS u/nus.edu.sg n/School f/School` +
+Expected outcome: The application shows an error message indicating that an autotag with the given name already exists.
+
+. Other test cases that you can copy-and-paste:
+.. Test case 4 (success): `autotag Bouncy n/Ball u/tennis nf/Dance`
+.. Test case 5 (success): `autotag Quiz f/NUS f/Module nu/github nu/stackoverflow`
+.. Test case 6 (success): `autotag LumiNUS u/luminus.nus.edu.sg nf/Miscellaneous`
+.. Test case 7 (error): `autotag asdfjkl; n/Help` +
+Expected outcome: The applications shows an error message indicating that tag names must be alphanumeric.
+.. Test case 8 (error): `autotag noConditions` +
+Expected outcome: The applications shows an error message indicating that at least one condition must be specified.
+
+==== Editing an autotag
+
+. Editing an autotag's name
+.. Prerequisite: An autotag named `Video` already exists, but no autotag named `Videos` exists. The
+autotag `Video` tags bookmarks with URLs containing `youtube.com`.
+.. Test case 1 (success): `autotag-edit Video t/Videos` +
+Expected outcome: The autotag's name has been changed from `Video` to `Videos`. Bookmarks that match the original
+autotag conditions (i.e. URLs contain `youtube.com`) have been tagged `Videos`. None of the original tags were
+removed.
+
+. Editing an autotag's conditions
+.. Prerequisite: An autotag named `NUS` already exists.
+.. Test case 2 (success): `autotag-edit NUS n/School n/Uni n/NUS` +
+Expected outcome: One autotag named `NUS` is shown on the Dashboard. The autotag conditions specify that
+bookmarks with names containing `School`, `Uni`, or `NUS` will be tagged.
+
+
+==== Deleting an autotag
+
+. Deleting an autotag that already exists
+.. Prerequisite: An autotag named `Videos` already exists. (For example, if you followed test case 1 in the
+testing instructions for `*autotag-edit*`.)
+.. Test case 1 (success): `autotag-delete Videos` +
+Expected outcome: The autotag `Videos` has been deleted and is no longer visible on the **Dashboard**. However,
+no bookmarks have been changed (you can verify this using `find t/Videos`).
+
+. Trying to delete an autotag that does not exist
+.. Prerequisite: No autotag named `KittyKat` exists.
+.. Test case 2 (error): `autotag-delete KittyKat` +
+Expected outcome: The application shows an error message indicating that no autotag with the given tag name was found.
+
+. Other test cases that you can copy-and-paste:
+.. Test case 3 (error): `autotag-delete Videos some random stuff`
+.. Test case 4 (error): `autotag-delete Videos t/HopingToRenameIt`
+
+
+=== Testing of reminders
+
+//tag::test-reminder[]
+==== Adding a reminder
+
+. Adding a reminder while all bookmarks are listed
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `reminder 1 t/12/12/2030 1200` +
+    Expected: The reminder of the first bookmark is added into reminder list.
+.. Test case: `reminder 0 t/12/12/2030 1200` +
+Expected: No reminder is added into the reminder list. Error details shown in the status message. Status bar remains the same.
+.. Test case: `reminder 1 t/30/02/2030 1200` +
+Expected: No reminder is added into the reminder list. Error details shown in the status message. Status bar remains the same.
+
+==== Editing a reminder
+
+. Editing a reminder
+.. Prerequisites: The reminder list has 5 reminder.
+
+.. Test case: `reminder-edit 1 n/Read` +
+Expected: The note of the first reminder changes to "Read".
+.. Test case: `reminder-edit 0 n/Read` +
+Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
+.. Test case: `reminder-edit 6 n/Read` +
+Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
+
+==== Deleting a reminder
+
+. Deleting a reminder
+
+.. Prerequisites: The reminder list has 5 reminder.
+
+.. Test case: `reminder-delete 1` +
+Expected: The first reminder in the list is deleted.
+.. Test case: `reminder-delete 0` +
+Expected: No reminder is deleted in the reminder list. Error details shown in the status message. Status bar remains the same.
+.. Test case: `reminder-delete 6` +
+Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
+
+==== Opening the bookmark associated with a reminder
+
+. Opening a bookmark using a reminder
+
+.. Prerequisites: The reminder list has 5 reminder.
+
+.. Test case: `reminder-goto 1` +
+Expected: The first reminder in the list is opened.
+.. Test case: `reminder-goto 0` +
+Expected: No website will show. Error details shown in the status message. Status bar remains the same.
+.. Test case: `reminder-goto 6` +
+Expected: No website will show. Error details shown in the status message. Status bar remains the same.
+
+//end::test-reminder[]

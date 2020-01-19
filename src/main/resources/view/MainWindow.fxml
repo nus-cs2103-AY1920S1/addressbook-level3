@@ -8,13 +8,18 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.ToggleButton?>
 
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+<fx:root minHeight="600" minWidth="1100" onCloseRequest="#handleExit" title="Mark - Your Personal Bookmark Manager"
+         type="javafx.stage.Stage" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/bookmark_icon.png" />
   </icons>
   <scene>
     <Scene>
@@ -33,25 +38,56 @@
           </Menu>
         </MenuBar>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
+        <HBox VBox.vgrow="NEVER">
+          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="80" minHeight="80" prefHeight="80"
+                     styleClass="pane-with-border" VBox.vgrow="NEVER" HBox.hgrow="ALWAYS">
+            <padding>
+              <Insets bottom="5" left="10" right="10" top="5" />
+            </padding>
+          </StackPane>
 
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
+          <BorderPane maxWidth="300.0" minWidth="300.0" prefWidth="300.0" HBox.hgrow="NEVER" styleClass="pane-with-border">
+            <padding>
+              <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+            <bottom>
+              <HBox>
+                <fx:define>
+                  <ToggleGroup fx:id="group" />
+                </fx:define>
+                <ToggleButton fx:id="dashboardButton" mnemonicParsing="false" onAction="#handleSwitchToDashboard"
+                        prefHeight="40" prefWidth="100" text="Dashboard" toggleGroup="$group" selected="true"/>
+                <ToggleButton fx:id="onlineButton" mnemonicParsing="false" onAction="#handleSwitchToOnline"
+                              prefHeight="40" prefWidth="100" text="Online" toggleGroup="$group"/>
+                <ToggleButton fx:id="offlineButton" mnemonicParsing="false" onAction="#handleSwitchToOffline"
+                        prefHeight="40" prefWidth="100" text="Offline" toggleGroup="$group"/>
+              </HBox>
+            </bottom>
+          </BorderPane>
+        </HBox>
+
+
+        <SplitPane fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+          <VBox fx:id="bookmarkList" maxWidth="340" minWidth="340" prefWidth="340"
+                styleClass="pane-with-border" VBox.vgrow="NEVER">
+            <padding>
+              <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+            <StackPane fx:id="bookmarkListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+          </VBox>
+
+          <StackPane fx:id="mainViewAreaPlaceholder">
+            <padding>
+              <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+          </StackPane>
+        </SplitPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

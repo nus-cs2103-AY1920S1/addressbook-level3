@@ -1,0 +1,24 @@
+@startuml
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+start
+:User enters an autotag command;
+
+if () then ([no existing autotag with same tag name])
+    :Add autotag to the Model;
+    :Iterate through bookmarks;
+    while () is ([has bookmark])
+        :Check all autotags;
+        if () then ([bookmark matches an autotag condition])
+            :Tag bookmark;
+        else ([else])
+        endif
+    endwhile ([no more bookmarks])
+    :Save Mark;
+else ([else])
+    :Show error message;
+endif
+stop
+
+@enduml

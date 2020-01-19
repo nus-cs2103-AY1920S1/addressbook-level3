@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="dashboardPanel">
+    <HBox maxHeight="200">
+        <HBox HBox.hgrow="ALWAYS">
+            <StackPane fx:id="reminderListPlaceholder" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <HBox VBox.vgrow="ALWAYS" maxWidth="200">
+            <StackPane fx:id="favoriteListPlaceholder"/>
+        </HBox>
+    </HBox>
+    <HBox VBox.vgrow="ALWAYS">
+        <HBox HBox.hgrow="ALWAYS">
+            <StackPane fx:id="folderStructurePlaceholder" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <HBox maxWidth="400">
+            <StackPane fx:id="autotagDisplayPlaceholder"/>
+        </HBox>
+    </HBox>
+</VBox>
