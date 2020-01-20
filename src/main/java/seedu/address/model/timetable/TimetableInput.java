@@ -89,8 +89,14 @@ public class TimetableInput {
      */
     private List<TimeRange> getTimeRangeFromEntry(JsonNode moduleNode, String group, String lessonType, int sem, String moduleCode) throws IllegalValueException, JsonProcessingException {
         List<JsonNode> targets = new ArrayList<>();
+        int semIndex;
+        if(moduleNode.path("semesterData").path(0).path("semester").asInt() == 1) {
+            semIndex = sem - 1;
+        } else {
+            semIndex = sem - 2;
+        }
         moduleNode.path("semesterData")
-                .path(sem - 1) // Sem 1
+                .path(semIndex) // Sem 1
                 .path("timetable")
                 .forEach(node -> {
                     if (node.path("classNo").asText().equals(group) && node.path("lessonType").asText().equals(lessonType)) {
