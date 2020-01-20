@@ -1,0 +1,27 @@
+@startuml
+start
+: User wants to broadcast message to members;
+:User executes command;
+
+if () then ([not checked out])
+: Throw CommandException
+          not checked out;
+
+else ([Checked out])
+
+
+if () then ([is signed in])
+:Obtain current list of members;
+:Obtain ownerAccount for
+user's email and password;
+:sends email with given Subject and
+           message Body by user;
+:Display success message;
+else ([not signed in])
+:Throw CommandException
+            not signed in;
+endif
+endif
+
+stop
+@enduml

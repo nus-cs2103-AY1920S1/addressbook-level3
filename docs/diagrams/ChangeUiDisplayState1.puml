@@ -1,0 +1,17 @@
+@startuml
+!include style.puml
+skinparam ClassFontColor #000000
+skinparam ClassBorderColor #000000
+
+package After_Checkout_Command {
+    class State1 as "__e0:PROJECT_LIST__"
+    class State2 as "__e1:PROJECT_OVERVIEW__"
+    class State3 as "__e2:PROJECT_FINANCE__"
+}
+State1 -[hidden]right-> State2
+State2 -[hidden]right-> State3
+hide State3
+
+class Pointer as "Current State" #FFFFF
+Pointer -up-> State2
+@end

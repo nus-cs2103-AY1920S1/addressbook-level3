@@ -1,21 +1,14 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import seedu.address.logic.commands.*;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.commands.LogOutCommand;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 /**
  * Parses user input.
@@ -44,17 +37,59 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
+        case AddProjectCommand.COMMAND_WORD:
+            return new AddProjectCommandParser().parse(arguments);
+
+        case AddProjectMeetingCommand.COMMAND_WORD:
+            return new AddProjectMeetingCommandParser().parse(arguments);
+
+        case AddProfilePictureCommand.COMMAND_WORD:
+            return new AddProfilePictureCommandParser().parse(arguments);
+
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
+
+        case AddMemberCommand.COMMAND_WORD:
+            return new AddMemberCommandParser().parse(arguments);
+
+        case AddFromContactsCommand.COMMAND_WORD:
+            return new AddFromContactsCommandParser().parse(arguments);
+
+        case AddBudgetCommand.COMMAND_WORD:
+            return new AddBudgetCommandParser().parse(arguments);
+
+        case AddSpendingCommand.COMMAND_WORD:
+            return new AddSpendingCommandParser().parse(arguments);
+
+        case AssignTaskCommand.COMMAND_WORD:
+            return new AssignTaskCommandParser().parse(arguments);
+
+        case UnassignTaskCommand.COMMAND_WORD:
+            return new UnassignTaskCommandParser().parse(arguments);
+
+        case BackCommand.COMMAND_WORD:
+            return new BackCommand();
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
+        case EditTaskCommand.COMMAND_WORD:
+            return new EditTaskParser().parse(arguments);
+
+        case MarkAttendanceCommand.COMMAND_WORD:
+            return new MarkAttendanceCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        case RemoveMemberCommand.COMMAND_WORD:
+            return new RemoveMemberCommandParser().parse(arguments);
+
+        case DeleteTaskCommand.COMMAND_WORD:
+            return new DeleteTaskCommandParser().parse(arguments);
+
+        case DeleteBudgetCommand.COMMAND_WORD:
+            return new DeleteBudgetCommandParser().parse(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
@@ -62,11 +97,56 @@ public class AddressBookParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
+        case ListBudgetCommand.COMMAND_WORD:
+            return new ListBudgetCommand();
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddTaskCommand.COMMAND_WORD:
+            return new AddTaskCommandParser().parse(arguments);
+
+        case CheckoutCommand.COMMAND_WORD:
+            return new CheckoutCommandParser().parse(arguments);
+
+        case GenerateSlotCommand.COMMAND_WORD:
+            return new GenerateSlotCommandParser().parse(arguments);
+
+        case SendMailCommand.COMMAND_WORD:
+            return new SendMailCommandParser().parse(arguments);
+
+        case BroadcastMailCommand.COMMAND_WORD:
+            return new BroadcastMailCommandParser().parse(arguments);
+
+        case SendReminderCommand.COMMAND_WORD:
+            return new SendReminderCommandParser().parse(arguments);
+
+        case SignInCommand.COMMAND_WORD:
+            return new SignInCommandParser().parse(arguments);
+
+        case LogOutCommand.COMMAND_WORD:
+            return new LogOutCommandParser().parse(arguments);
+
+        case SortTaskCommand.COMMAND_WORD:
+            return new SortTaskParser().parse(arguments);
+
+        case SortSpendingCommand.COMMAND_WORD:
+            return new SortSpendingParser().parse(arguments);
+
+        case SortMeetingCommand.COMMAND_WORD:
+            return new SortMeetingParser().parse(arguments);
+            
+        case SetTimetableCommand.COMMAND_WORD:
+            return new SetTimetableCommandParser().parse(arguments);
+
+        case DeleteProjectMeetingCommand.COMMAND_WORD:
+            return new DeleteProjectMeetingCommandParser().parse(arguments);
+
+        case ShowPerformanceOverviewCommand.COMMAND_WORD:
+            return new ShowPerformanceOverviewCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -1,0 +1,86 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":SetTimetableCommandParser" as SetTimetableCommandParser LOGIC_COLOR
+participant "a:SetTimetableCommand" as SetTimetableCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":TimetableVisualization" as TimetableVisualization LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("setTimetable 1 n/NUSMODS_URL")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("setTimetable 1 n/NUSMODS_URL")
+activate AddressBookParser
+
+create SetTimetableCommandParser
+AddressBookParser -> SetTimetableCommandParser
+activate SetTimetableCommandParser
+
+SetTimetableCommandParser --> AddressBookParser
+deactivate SetTimetableCommandParser
+
+AddressBookParser -> SetTimetableCommandParser : parse("1 n/NUSMODS_URL")
+activate SetTimetableCommandParser
+
+create SetTimetableCommand
+SetTimetableCommandParser -> SetTimetableCommand
+activate SetTimetableCommand
+
+SetTimetableCommand --> SetTimetableCommandParser : a
+deactivate SetTimetableCommand
+
+SetTimetableCommandParser --> AddressBookParser : a
+deactivate SetTimetableCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SetTimetableCommandParser -[hidden]-> AddressBookParser
+destroy SetTimetableCommandParser
+
+AddressBookParser --> LogicManager : a
+deactivate AddressBookParser
+
+LogicManager -> SetTimetableCommand : execute()
+activate SetTimetableCommand
+
+create TimetableVisualization
+SetTimetableCommand -> TimetableVisualization
+activate TimetableVisualization
+
+TimetableVisualization --> SetTimetableCommand
+deactivate TimetableVisualization
+
+SetTimetableCommand -> TimetableVisualization : visualize()
+activate TimetableVisualization
+
+TimetableVisualization --> SetTimetableCommand
+deactivate TimetableVisualization
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SetTimetableCommandParser -[hidden]-> AddressBookParser
+destroy TimetableVisualization
+
+SetTimetableCommand -> Model : setPerson()
+activate Model
+
+Model --> SetTimetableCommand
+deactivate Model
+
+create CommandResult
+SetTimetableCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SetTimetableCommand : result
+deactivate CommandResult
+
+SetTimetableCommand --> LogicManager : result
+deactivate SetTimetableCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

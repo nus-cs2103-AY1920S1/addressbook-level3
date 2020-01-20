@@ -1,0 +1,44 @@
+@startuml
+start
+: User wants to send reminder of meetings and
+tasks due in specific number of day to members;
+:User executes command;
+
+if () then ([valid input])
+
+if () then ([not checked out])
+: Throw CommandException
+          not checked out;
+
+else ([Checked out])
+
+
+if () then ([not signed in])
+:Throw CommandException
+            not signed in;
+else ([is signed in])
+:   Obtain current list of
+ tasks and and meetings;
+:    Check for meetings and tasks which
+are due within the specific number of days;
+:Obtain current list of members;
+:Obtain ownerAccount for
+user's email and password;
+:Send the list of meetings and
+tasks to members via email;
+:Display success message;
+endif
+endif
+
+else ([invalid input])
+: Checks for type of invalid input;
+if () then ([Empty Input])
+: Throw ParseException
+      for empty input;
+else ([Non-numeric input or negative integer])
+: Throw ParseException
+      for invalid input;
+endif
+endif
+stop
+@enduml

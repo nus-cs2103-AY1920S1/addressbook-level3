@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.logging.Logger;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -9,13 +7,20 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.UiEvent;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
+
+import java.util.Optional;
+import java.util.logging.Logger;
+
+import static seedu.address.logic.commands.CheckoutCommand.MESSAGE_CHECKOUT_SUCCESS;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -30,10 +35,17 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
+    private State currentState = State.PROJECT_LIST;
+
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private BudgetListPanel budgetListPanel;
+    private ProjectListPanel projectListPanel;
+    private ProjectOverview projectOverview;
+    private PerformanceOverviewCard performanceOverviewCard;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ShowTimetablePanel timetablePanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,10 +54,25 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private VBox projectList;
+
+    @FXML
+    private VBox budgetList;
+
+    @FXML
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane budgetListPanelPlaceholder;
+
+    @FXML
+    private StackPane showTimetablePanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane projectListPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -63,6 +90,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        logic.addUiEvent(new UiEvent(State.PROJECT_LIST, Optional.empty()));
     }
 
     public Stage getPrimaryStage() {
@@ -75,6 +104,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -107,8 +137,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        projectListPanel = new ProjectListPanel(logic.getFilteredProjectList());
+        projectListPanelPlaceholder.getChildren().add(projectListPanel.getRoot());
+
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -160,8 +192,37 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    /**
+     * Display the previous Ui.
+     */
+    private void handleBack() throws CommandException, IllegalValueException {
+        State temp = currentState;
+        if (currentState == State.PROJECT_LIST) {
+            throw new CommandException("Oops can't go back any further!");
+        }
+        UiEvent event = logic.getPreviousEvent();
+        logger.severe("previous state: " + event.getState());
+        if (!event.getProjectIndex().isEmpty()) {
+            logic.setWorkingProject(logic.getFilteredProjectList().get(event.getProjectIndex().get()));
+        }
+        changeUiDisplay(event.getState());
+        switch (event.getState()) {
+        case PROJECT_LIST:
+            if (!logic.getWorkingProject().isEmpty()) {
+                logic.removeWorkingProject();
+            }
+            if (temp != State.ADDRESS_BOOK) {
+                resultDisplay.setFeedbackToUser("You've checked out of the project!");
+            }
+            break;
+
+        case PROJECT_OVERVIEW:
+            resultDisplay.setFeedbackToUser(String.format(MESSAGE_CHECKOUT_SUCCESS, logic.getFilteredProjectList().get(event.getProjectIndex().get()).toString()));
+            break;
+
+        default:
+            assert false : "Unrecognised previous state";
+        }
     }
 
     /**
@@ -169,10 +230,11 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException, IllegalValueException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
+            String commandWord = commandResult.getCommandWord();
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
@@ -183,11 +245,156 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isBack()) {
+                handleBack();
+            }
+
+            // Only change Ui if certain command demands it
+            if (commandResult.changeNeeded()) {
+                State nextState = stateOf(commandWord);
+                if (logic.getWorkingProject().isEmpty()) {
+                    if (!nextState.equals(currentState)) {
+                        logic.addUiEvent(new UiEvent(nextState, Optional.empty()));
+                    }
+                } else {
+                    int projectIndex = logic.getFilteredProjectList().indexOf(logic.getWorkingProject().get());
+                    if (!nextState.equals(currentState)) {
+                        logic.addUiEvent(new UiEvent(nextState, Optional.of(projectIndex)));
+                    }
+                }
+                changeUiDisplay(nextState);
+            } else {
+                // if not needed refresh current page unless is back command
+                if (!commandWord.equals("back")) {
+                    changeUiDisplay(currentState);
+                }
+            }
+
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | IllegalValueException e) {
             logger.info("Invalid command: " + commandText);
+            logger.info(e.getMessage());
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void changeUiDisplay(State nextState) {
+        switch (nextState) {
+        case ADDRESS_BOOK:
+            projectListPanelPlaceholder.getChildren().setAll(personListPanel.getRoot());
+            currentState = nextState;
+            break;
+
+        case PROJECT_LIST:
+            projectListPanelPlaceholder.getChildren().setAll(projectListPanel.getRoot());
+            logic.removeWorkingProject();
+            currentState = nextState;
+            break;
+
+        case PROJECT_OVERVIEW:
+            projectOverview = new ProjectOverview(logic.getFilteredProjectList(), logic.getWorkingProject().get());
+            projectListPanelPlaceholder.getChildren().setAll(projectOverview.getRoot());
+            currentState = nextState;
+            break;
+
+        case PROJECT_FINANCE:
+            budgetListPanel = new BudgetListPanel(logic.getWorkingProject().get().getFinance().getBudgetObservableList());
+            projectListPanelPlaceholder.getChildren().setAll(budgetListPanel.getRoot());
+            currentState = nextState;
+            break;
+
+        case PERFORMANCE_OVERVIEW:
+            performanceOverviewCard = new PerformanceOverviewCard(logic.getPerformanceOverview());
+            projectListPanelPlaceholder.getChildren().setAll(performanceOverviewCard.getRoot());
+            break;
+
+        case SHOW_TIMETABLE:
+            timetablePanel = new ShowTimetablePanel(logic.getWorkingProject().get().getGeneratedTimetable());
+            projectListPanelPlaceholder.getChildren().setAll(timetablePanel.getRoot());
+            currentState = nextState;
+            break;
+
+        default:
+            assert false : "Unrecognised state";
+        }
+    }
+
+    private State stateOf(String commandWord) {
+        State state = State.PROJECT_LIST;
+        switch (commandWord) {
+        case AddProjectCommand.COMMAND_WORD:
+            state = State.PROJECT_LIST;
+            break;
+
+        case AddBudgetCommand.COMMAND_WORD:
+
+        case AddFromContactsCommand.COMMAND_WORD:
+
+        case AddMemberCommand.COMMAND_WORD:
+
+        case AddProjectMeetingCommand.COMMAND_WORD:
+
+        case AddTaskCommand.COMMAND_WORD:
+
+        case AssignTaskCommand.COMMAND_WORD:
+
+        case DeleteProjectMeetingCommand.COMMAND_WORD:
+
+        case DeleteTaskCommand.COMMAND_WORD:
+
+        case EditTaskCommand.COMMAND_WORD:
+
+        case MarkAttendanceCommand.COMMAND_WORD:
+
+        case RemoveMemberCommand.COMMAND_WORD:
+
+        case SortMeetingCommand.COMMAND_WORD:
+
+        case SortTaskCommand.COMMAND_WORD:
+
+        case UnassignTaskCommand.COMMAND_WORD:
+
+        case CheckoutCommand.COMMAND_WORD:
+            state = State.PROJECT_OVERVIEW;
+            break;
+
+        case AddSpendingCommand.COMMAND_WORD:
+
+        case SortSpendingCommand.COMMAND_WORD:
+
+        case DeleteBudgetCommand.COMMAND_WORD:
+
+        case ListBudgetCommand.COMMAND_WORD:
+            state = State.PROJECT_FINANCE;
+            break;
+
+        case AddCommand.COMMAND_WORD:
+
+        case AddProfilePictureCommand.COMMAND_WORD:
+
+        case DeleteCommand.COMMAND_WORD:
+
+        case EditCommand.COMMAND_WORD:
+
+        case FindCommand.COMMAND_WORD:
+
+        case ListCommand.COMMAND_WORD:
+            state = State.ADDRESS_BOOK;
+            break;
+
+        case ShowPerformanceOverviewCommand.COMMAND_WORD:
+            state = State.PERFORMANCE_OVERVIEW;
+            break;
+
+        case GenerateSlotCommand.COMMAND_WORD:
+            state = State.SHOW_TIMETABLE;
+            break;
+
+        default:
+            assert false : "Unrecognised Command";
+        }
+
+        return state;
     }
 }

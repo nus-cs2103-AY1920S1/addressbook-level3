@@ -1,0 +1,19 @@
+@startuml
+start
+:User wants to sort tasks to a specific ordering;
+:User executes command;
+
+if () then ([valid input])
+:Obtain current list of tasks and \n sort according to specifications given;
+:Updates the current sorting type in SortingOrder class;
+:Display sorted task list;
+else ([invalid input])
+: Checks for type of invalid input;
+if () then ([Index not linked to any ordering])
+: Display incorrect index error message;
+else ([Current sort type same as input])
+: Display same sort type error message;
+endif
+endif
+stop
+@enduml

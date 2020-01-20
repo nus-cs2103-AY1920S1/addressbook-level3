@@ -1,17 +1,26 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.nio.file.Path;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.finance.Budget;
+import seedu.address.model.performanceoverview.PerformanceOverview;
 import seedu.address.model.person.Person;
+import seedu.address.model.project.Meeting;
+import seedu.address.model.project.Project;
+import seedu.address.model.project.Task;
+import seedu.address.model.util.SortingOrder;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,11 +31,17 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final ProjectList projectList;
+    private final FilteredList<Project> filteredProjects;
+    private Optional<PerformanceOverview> performanceOverview;
+
+    // this is the current branch
+    private Optional<Project> workingProject = Optional.empty();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyProjectList projectList) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -34,13 +49,90 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.projectList = new ProjectList(projectList);
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonList().sorted(SortingOrder.getCurrentSortingOrderForPerson()));
+        filteredProjects = new FilteredList<>(this.projectList.getProjectList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new ProjectList());
     }
 
+    /**
+     * Mimic a git checkout action. What it does is simply assign the project as the working
+     * project.
+     * @param project
+     */
+    @Override
+    public void setWorkingProject(Project project) {
+        this.workingProject = Optional.of(project);
+    }
+
+    @Override
+    public void removeWorkingProject() {
+        this.workingProject = Optional.empty();
+    }
+
+    /**
+     * @return An Optional object containing the working project.
+     */
+    @Override
+    public Optional<Project> getWorkingProject() {
+        if (workingProject.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return workingProject;
+        }
+    }
+
+    @Override
+    public void deleteBudget(Budget target) {
+
+    }
+
+    /**
+     * @return If the user checkout to a project.
+     */
+    @Override
+    public boolean isCheckedOut() {
+        return workingProject.isPresent();
+    }
+
+    @Override
+    public boolean hasBudget(Budget budget) {
+        Project project = getWorkingProject().get();
+        for (Budget b : project.getFinance().getBudgets()) {
+            if (budget.isSameBudget(b)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public List<Person> getMembers() {
+        List<Person> members = new ArrayList<>();
+        if (getWorkingProject().isEmpty()) {
+            return members;
+        }
+        Project workingProject = getWorkingProject().get();
+        addressBook.getPersonList().forEach(person -> {
+            if (workingProject.hasMember(person)) {
+                members.add(person);
+            }
+        });
+        return members;
+    }
+
+    @Override
+    public void setPerformanceOverview(PerformanceOverview overview) {
+        this.performanceOverview = Optional.of(overview);
+    }
+
+    @Override
+    public PerformanceOverview getPerformanceOverview() {
+        return performanceOverview.get();
+    }
     //=========== UserPrefs ==================================================================================
 
     @Override
@@ -65,6 +157,8 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    //=========== AddressBook ================================================================================
+
     @Override
     public Path getAddressBookFilePath() {
         return userPrefs.getAddressBookFilePath();
@@ -75,8 +169,6 @@ public class ModelManager implements Model {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
-
-    //=========== AddressBook ================================================================================
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
@@ -112,6 +204,29 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public void editTaskInAllPersons(Task task, Task editedTask, Project currWorkingProject) {
+        addressBook.editTaskInAllPersons(task, editedTask, currWorkingProject);
+    }
+
+    @Override
+    public void deleteTaskInAllPersons(Task task, Project currWorkingProject) {
+        addressBook.deleteTaskInAllPersons(task, currWorkingProject);
+    }
+
+    @Override
+    public void deleteMeetingInAllPersons(Meeting meeting, Project currWorkingProject) {
+        addressBook.deleteMeetingInAllPersons(meeting, currWorkingProject);
+    }
+
+    @Override
+    public List<Person> getMembersOf(Project project) {
+        return addressBook.getMembersOf(project);
+    }
+
+
+
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -127,6 +242,110 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== ProjectList ================================================================================
+
+    @Override
+    public Path getProjectListFilePath() {
+        return userPrefs.getProjectListFilePath();
+    }
+
+    @Override
+    public void setProjectListFilePath(Path projectListFilePath) {
+        requireNonNull(projectListFilePath);
+        userPrefs.setProjectListFilePath(projectListFilePath);
+    }
+
+    @Override
+    public void setProjectList(ReadOnlyProjectList projectList) {
+        this.projectList.resetData(projectList);
+    }
+
+    @Override
+    public ReadOnlyProjectList getProjectList() {
+        return projectList;
+    }
+
+    @Override
+    public boolean hasProject(Project project) {
+        requireNonNull(project);
+        return projectList.hasProject(project);
+    }
+
+    @Override
+    public void deleteProject(Project target) {
+        projectList.removeProject(target);
+    }
+
+    @Override
+    public void addProject(Project project) {
+        projectList.addProject(project);
+        updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
+    }
+
+    @Override
+    public void setProject(Project target, Project editedProject) {
+        requireAllNonNull(target, editedProject);
+
+        projectList.setProject(target, editedProject);
+        setWorkingProject(editedProject);
+        updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
+    }
+
+    @Override
+    public void deleteMember(String name) {
+        projectList.deleteMember(name);
+        updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
+    }
+
+    @Override
+    public void editInAllProjects(Person personToEdit, Person editedPerson) {
+        projectList.editInAllProjects(personToEdit, editedPerson);
+    }
+
+
+    //=========== Email Account for Owner of application ======================================================
+
+    private OwnerAccount ownerAccount;
+    private boolean isSignedIn = false;
+
+    public void signIn(OwnerAccount ownerAccount) throws Exception {
+        String account = ownerAccount.getEmail().value;
+        String pass = ownerAccount.getPassword();
+        Mailer.sendEmail(account, pass, "cs2103t17@gmail.com", "SignInCheck", "Email Exists and can sign in");
+        this.ownerAccount = ownerAccount;
+        this.isSignedIn = true;
+    }
+
+    public boolean isSignedIn() {
+        return this.isSignedIn;
+    }
+
+    public OwnerAccount getOwnerAccount() {
+        return this.ownerAccount;
+    }
+
+    public void logOut() {
+        this.ownerAccount = null;
+        this.isSignedIn = false;
+    }
+
+    //=========== Filtered Project List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedProjectList}
+     */
+    @Override
+    public ObservableList<Project> getFilteredProjectList() {
+        return filteredProjects;
+    }
+
+    @Override
+    public void updateFilteredProjectList(Predicate<Project> predicate) {
+        requireNonNull(predicate);
+        filteredProjects.setPredicate(predicate);
     }
 
     @Override
@@ -145,7 +364,9 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && projectList.equals(other.projectList)
+                && filteredProjects.equals(other.filteredProjects);
     }
 
 }

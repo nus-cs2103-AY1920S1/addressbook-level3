@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.PieChart?>
+
+<HBox id="cardPane" fx:id="cardPane" prefHeight="320" prefWidth="320" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+       <VBox fx:id="wrapper">
+          <children>
+             <PieChart id="pieChart" fx:id="pieChart" legendSide="LEFT"/>
+          </children>
+       </VBox>
+   </children>
+</HBox>

@@ -1,0 +1,82 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant "p:ShowPerformanceOverviewCommand" as  ShowPerformanceOverviewCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":PerformanceOverview" as PerformanceOverview MODEL_COLOR
+end box
+
+[-> LogicManager : execute("showPerformanceOverview")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("showPerformanceOverview")
+activate AddressBookParser
+
+create ShowPerformanceOverviewCommand
+AddressBookParser -> ShowPerformanceOverviewCommand
+activate ShowPerformanceOverviewCommand
+
+ShowPerformanceOverviewCommand --> AddressBookParser : p
+deactivate ShowPerformanceOverviewCommand
+
+
+AddressBookParser --> LogicManager : p
+deactivate AddressBookParser
+
+LogicManager -> ShowPerformanceOverviewCommand : execute(model)
+activate ShowPerformanceOverviewCommand
+
+ShowPerformanceOverviewCommand -> Model : getWorkingProject()
+activate Model
+
+Model --> ShowPerformanceOverviewCommand : currWorkingProject
+deactivate Model
+
+ShowPerformanceOverviewCommand -> Model : getMembersOf(currWorkingProject)
+activate Model
+
+Model --> ShowPerformanceOverviewCommand : memberList
+deactivate Model
+
+create PerformanceOverview
+ShowPerformanceOverviewCommand -> PerformanceOverview : new PerformanceOverview(currWorkingProject, memberList)
+activate PerformanceOverview
+
+PerformanceOverview -> PerformanceOverview : makeAttendanceMap()
+
+PerformanceOverview -> PerformanceOverview : makeAttendanceRateMap()
+
+PerformanceOverview -> PerformanceOverview : makeTaskDoneMap()
+
+PerformanceOverview -> PerformanceOverview : makeCompletionRateMap()
+
+PerformanceOverview --> ShowPerformanceOverviewCommand : overview
+deactivate PerformanceOverview
+
+ShowPerformanceOverviewCommand -> Model : setPerformanceOverview(overview)
+activate Model
+
+Model --> ShowPerformanceOverviewCommand
+deactivate Model
+
+
+create CommandResult
+ShowPerformanceOverviewCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ShowPerformanceOverviewCommand : result
+deactivate CommandResult
+
+ShowPerformanceOverviewCommand --> LogicManager : result
+deactivate ShowPerformanceOverviewCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+Package Project <<Rectangle>> {
+Class Project
+Class Finance {
+}
+Class Budget {
+-name: String
+}
+Class Spending {
+-description: String
+}
+Class Money {
+-amount: BigDecimal
+}
+Class Time {
++time: String
++date: Date
+}
+}
+
+Finance *--> "*" Budget
+Project *--> "1" Finance
+Budget *--> "*" Spending
+Budget *--> "2" Money
+Spending *--> "1" Time
+Spending *--> "1" Money
+@enduml

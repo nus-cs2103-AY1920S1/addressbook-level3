@@ -1,0 +1,69 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":CheckoutCommandParser" as CheckoutCommandParser LOGIC_COLOR
+participant "c:CheckoutCommand" as CheckoutCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("checkout 1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("checkout 1")
+activate AddressBookParser
+
+create CheckoutCommandParser
+AddressBookParser -> CheckoutCommandParser
+activate CheckoutCommandParser
+
+CheckoutCommandParser --> AddressBookParser
+deactivate CheckoutCommandParser
+
+AddressBookParser -> CheckoutCommandParser : parse("1")
+activate CheckoutCommandParser
+
+create CheckoutCommand
+CheckoutCommandParser -> CheckoutCommand
+activate CheckoutCommand
+
+CheckoutCommand --> CheckoutCommandParser : c
+deactivate CheckoutCommand
+
+CheckoutCommandParser --> AddressBookParser : c
+deactivate CheckoutCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CheckoutCommandParser -[hidden]-> AddressBookParser
+destroy CheckoutCommandParser
+
+AddressBookParser --> LogicManager : c
+deactivate AddressBookParser
+
+LogicManager -> CheckoutCommand : execute()
+activate CheckoutCommand
+
+CheckoutCommand -> Model : setWorkingProject(1)
+activate Model
+
+Model --> CheckoutCommand
+deactivate Model
+
+create CommandResult
+CheckoutCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> CheckoutCommand
+deactivate CommandResult
+
+CheckoutCommand --> LogicManager : result
+deactivate CheckoutCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

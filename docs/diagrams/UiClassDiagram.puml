@@ -15,6 +15,16 @@ Class PersonListPanel
 Class PersonCard
 Class StatusBarFooter
 Class CommandBox
+Class ProjectListPanel
+Class ProjectCard
+Class BudgetListPanel
+Class ProjectOverview
+class State <<enumeration>> {
+ADDRESS_BOOK
+PROJECT_LIST
+PROJECT_OVERVIEW
+PROJECT_FINANCE
+}
 }
 
 package Model <<Rectangle>> {
@@ -34,19 +44,29 @@ MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> PersonListPanel
+MainWindow *--down-> ProjectListPanel
 MainWindow *-down-> StatusBarFooter
+MainWindow *---down-> BudgetListPanel
+MainWindow *-left-> ProjectOverview
+MainWindow *-left-> State
 
 PersonListPanel -down-> PersonCard
+ProjectListPanel -down-> ProjectCard
 
-MainWindow -left-|> UiPart
+MainWindow -down-|> UiPart
 
+ProjectOverview --|> UiPart
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 PersonListPanel --|> UiPart
+BudgetListPanel --|> UiPart
+ProjectListPanel --|> UiPart
 PersonCard --|> UiPart
+ProjectCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
+ProjectCard ..> Model
 PersonCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
