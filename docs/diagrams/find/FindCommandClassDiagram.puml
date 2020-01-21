@@ -1,0 +1,40 @@
+@startuml
+!include ../style.puml
+show interface members
+skinparam arrowThickness 1.1
+skinparam classBackgroundColor MODEL_COLOR
+
+abstract class Command
+
+interface Predicate {
+	+ boolean test(Problem problem)
+	+ boolean equals(Object other)
+}
+
+interface Parser {
+	T parse(String userInput)
+}
+
+class FindCommand
+
+class FindProblemDescriptor
+
+class FindCommandParser
+
+Command <|.. FindCommand
+
+Parser <|-- FindCommandParser
+
+FindProblemDescriptor *--> XXXPredicate
+FindProblemDescriptor <.. FindCommand
+FindProblemDescriptor <.. FindCommandParser
+
+Predicate <|.. XXXPredicate
+
+note bottom of XXXPredicate
+This includes
+<b>NameContainsKeywordsPredicate</b>
+and all similarly named predicates.
+end note
+
+@enduml

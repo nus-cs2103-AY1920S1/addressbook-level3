@@ -1,0 +1,49 @@
+@startuml
+!include ../style.puml
+box "Logic" LOGIC_COLOR_T1
+
+participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
+participant ":FindProblemDescriptor" as FindProblemDescriptor LOGIC_COLOR
+participant ":NameContainsKeywordsPredicate" as NameContainsKeywordsPredicate LOGIC_COLOR
+participant ":FindCommand" as FindCommand LOGIC_COLOR
+
+[-> FindCommandParser: parse(arguments)
+activate FindCommandParser
+    ref over FindCommandParser: Tokenizes user input.
+    create FindProblemDescriptor
+    FindCommandParser -> FindProblemDescriptor
+    activate FindProblemDescriptor
+        FindProblemDescriptor --> FindCommandParser
+    deactivate FindProblemDescriptor
+    opt argument for name is present
+        ref over FindCommandParser: get argument value as a list
+        create NameContainsKeywordsPredicate
+        FindCommandParser -> NameContainsKeywordsPredicate
+        activate NameContainsKeywordsPredicate
+            NameContainsKeywordsPredicate --> FindCommandParser
+        deactivate NameContainsKeywordsPredicate
+        FindCommandParser -> FindProblemDescriptor : setNamePredicate(...)
+    end
+    ref over FindCommandParser: check if other fields are present, add to the descriptor
+    create FindCommand
+    FindCommandParser -> FindCommand : FindCommand(descriptor)
+    activate FindCommand
+        FindCommand --> FindCommandParser
+    deactivate FindCommand
+    [<-- FindCommandParser : FindCommand
+deactivate FindCommandParser
+end box
+
+box "Model" MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+[-> FindCommand : executed by LogicManager
+activate FindCommand
+FindCommand -> Model : update
+activate Model
+Model --> FindCommand
+deactivate Model
+ref over FindCommand: Create CommandResult
+[<-- FindCommand : CommandResult
+deactivate FindCommand
+end box
+@enduml

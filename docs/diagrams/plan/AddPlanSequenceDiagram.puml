@@ -1,0 +1,58 @@
+@startuml
+
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AlgoBaseParser" as AlgoBaseParser LOGIC_COLOR
+participant "addPlanCommand: AddPlanCommand" as AddPlanCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":AlgoBase" as AlgoBase MODEL_COLOR
+participant ":PlanList" as PlanList MODEL_COLOR
+end box
+
+[-> LogicManager : execute(addPlan)
+activate LogicManager
+    LogicManager -> AlgoBaseParser : parseCommand(addPlan)
+
+    activate AlgoBaseParser
+        create AddPlanCommand
+        AlgoBaseParser -> AddPlanCommand
+
+            activate AddPlanCommand
+                AddPlanCommand --> AlgoBaseParser
+            deactivate AddPlanCommand
+
+        AlgoBaseParser --> LogicManager : addPlanCommand
+    deactivate AlgoBaseParser
+
+    LogicManager -> AddPlanCommand : execute()
+
+    activate AddPlanCommand
+        AddPlanCommand -> Model : addPlan(Plan)
+
+        activate Model
+            Model -> AlgoBase : addPlan(Plan)
+                activate AlgoBase
+                    activate PlanList
+                        AlgoBase -> PlanList : add(Plan)
+                        PlanList --> AlgoBase
+                    deactivate PlanList
+                    AlgoBase --> Model :
+                deactivate AlgoBase
+            Model -> Model : updateFilteredPlanList()
+            Model --> AddPlanCommand
+        deactivate Model
+
+        AddPlanCommand --> LogicManager : result
+    deactivate AddPlanCommand
+
+    AddPlanCommand -[hidden]-> LogicManager : result
+    destroy AddPlanCommand
+
+    [<--LogicManager
+deactivate LogicManager
+@enduml

@@ -1,0 +1,90 @@
+= Lu Wenqi - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: AlgoBase
+
+---
+
+== Overview
+AlgoBase is a desktop algorithmic problem manager.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 20 kLoC.
+
+.Layout of AlgoBase
+
+image::gui/AlgoBaseLayout.png[]
+
+== About this portfolio
+
+This project portfolio details my individual contributions to the *AlgoBase* project. It includes a summary of the enhancements and other contributions I made throughout the duration  of the project. Additionally, portions of my contribution to the User Guide and Developer Guide have also been included.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to tag problems*
+** What it does: allows the user to manage tag about problems and tasks.
+** Justification: This feature improves the product significantly because users need to categorise problems by themselves.
+** Highlights: This enhancement creates the new features about tag and. It required to make . The implementation too was challenging as it required changes to existing commands.
+
+** Relevant pull requests:
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/67[#67]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/93[#93]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/108[#108]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/145[#145]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/165[#165]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/201[#201]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/214[#214]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/216[#216]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/241[#241]
+* *Minor enhancement*: added a tag feature called tag color that allows the user to change the tag color displayed in UI.
+
+* *Code contributed*:
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=luwenq[code contributed]
+
+* *Other contributions*:
+** Refactors the AddressBook project:
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/24[#24]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/47[#47]
+** Enhancements to existing features:
+*** Updated the GUI tag display style (Pull requests
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/214[#214],
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/241[#241])
+*** Wrote integration tests for some existing features to increase coverage from 40% to 52% ( Pull requests
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/207[#207],
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/214[#214])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-W11-1/main/pull/117[#117]
+
+*** Reported bugs and suggestions for other teams in the class:
+**** https://github.com/luwenq/ped[Reported 11 bugs in PED]
+**** Reported bugs and suggestions for other teams in the class (examples
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/43[#43])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=tag]
+
+* Tags
+** *New Tag* : `addtag t/NAME [c/COLOR]` +
+e.g. `addtag t/sssp c/BLUE`
+** *List Tags* : `listtag`
+** *Delete Tag* : `deletetag INDEX` +
+e.g. `deletetag 3`
+** *Edit tag* : `edittag INDEX [t/TAGNAME] [c/COLOR]` +
+e.g. `edittag 1 t/sort c/BLUE`
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=tag]
+
+include::../DeveloperGuide.adoc[tag=tag_test]

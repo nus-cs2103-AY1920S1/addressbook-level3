@@ -1,0 +1,25 @@
+@startuml
+!include ../../style.puml
+left to right direction
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+show <<enumeration>> fields
+
+Package Plan {
+    Class Plan
+    Class PlanDescription
+    Class PlanList
+    Class PlanName
+}
+
+'Plan
+Plan *-up-> "1" PlanName
+Plan *-up-> "1" PlanDescription
+Plan *-up-> "1" LocalDate : startDate
+Plan *-up-> "1" LocalDate : endDate
+Plan *--> "*" Task
+PlanList o--> "*" Plan
+
+@enduml

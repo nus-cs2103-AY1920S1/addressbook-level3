@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Scene?>
+<?import javafx.stage.Stage?>
+<fx:root resizable="false" title="Confirm Delete" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+  <scene>
+    <Scene>
+         <VBox alignment="CENTER_LEFT">
+           <padding>
+             <Insets top="20" right="20" bottom="20" left="20" />
+           </padding>
+            <children>
+               <Label fx:id="warningMessage" text="Label">
+                  <HBox.margin>
+                     <Insets right="5.0" />
+                  </HBox.margin>
+               </Label>
+              <HBox>
+                <padding>
+                  <Insets top="15" right="5" bottom="5" left="5" />
+                </padding>
+                <CheckBox fx:id="checkbox" />
+              </HBox>
+              <HBox alignment="BOTTOM_RIGHT">
+                <padding>
+                  <Insets top="15" right="5" bottom="5" left="5" />
+                </padding>
+                 <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirm" text="Confirm">
+                    <HBox.margin>
+                       <Insets left="5.0" />
+                    </HBox.margin>
+                 </Button>
+                <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Cancel">
+                  <HBox.margin>
+                    <Insets left="5.0" />
+                  </HBox.margin>
+                </Button>
+              </HBox>
+            </children>
+            <opaqueInsets>
+               <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+            </opaqueInsets>
+            <padding>
+               <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+            </padding>
+         </VBox>
+    </Scene>
+  </scene>
+</fx:root>

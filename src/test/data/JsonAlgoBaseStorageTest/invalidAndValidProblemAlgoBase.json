@@ -1,0 +1,13 @@
+{
+  "problems": [ {
+    "name": "Valid Problem",
+    "author": "9482424",
+    "weblink": "hans@example.com",
+    "description": "4th street"
+  }, {
+    "name": "Problem With Invalid Author Field",
+    "author": "948asdf2424",
+    "weblink": "hans@example.com",
+    "description": "4th street"
+  } ]
+}

@@ -1,0 +1,110 @@
+= Tiu Wee Han - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:source-highlighter: rouge
+
+== PROJECT: AlgoBase
+
+---
+
+== Overview
+
+AlgoBase is a desktop algorithmic problem manager.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 20 kLoC.
+
+== Summary of contributions
+
+* *Code contributed*:
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=tiuweehan[Code contributed]
+* *Major enhancement*: Implemented *features for the Graphical User Interface*
+
+** What it does: allows the user to open problems & plans in their own separate tabs,
+where they can edit and delete said items in the GUI in a user-friendly manner.
+
+** Justifications: As our target users are Computer Science students preparing for technical interviews, they would likely want to manage multiple plans and problems concurrently. We decided to introduce tabbing to address this need, as it is a convenient, intuitive and user-friendly solution. Furthermore, while the command line is fast for typing short commands, it might not be ideal in certain cases. For example, it would be extremely tedious and time consuming to edit large amounts of text from the command line. Hence, I implemented the ability to edit a problem or plan from within the tabs. Not having to deal with cumbersome details tremendously improves the overall user experience our user – it reduces their frustration and maximises the time they spend practicing for their interviews
+
+** Highlights:
+*** This enhancement introduces a new high level component `UiLogic`, which handle events, or `UiActions`, triggered by the user in the GUI.
+It was challenging as logic of the Command line is primarily synchronous while the GUI is event-driven. Integrating the 2 architectural styles cleanly required an in-depth evaluation of design alternatives.
+*** Furthermore, this feature transcends across all 5 components of AlgoBase: `UI`, `Logic`, `UiLogic`, `Model` and `Storage`, making it a full-stack development consisting of more than 4000 lines of functional code and more than 1500 lines of tests.
+
+** Relevant pull requests:
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/37[#37]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/85[#85]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/215[#215]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/200[#200]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/224[#224]
+
+* *Minor enhancement*: Command Line Tab management.
+
+** What it does: allows the user to manage (i.e. switch, open and close) tabs from the Command Line.
+
+** Justification: While a GUI would make sense for tedious actions like editing, the command line is arguably faster for simpler actions like switching tabs.
+Furthermore, our target users are Computer Science students who are used to command line window / tab management (through vim and emacs).
+Hence, I decided to implement a command line version for tab management to optimize for these users, which will help improve their user experience.
+
+** Relevant pull requests:
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/66[#66]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/106[#106]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/147[#147]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2` - `v1.2.1` (2 releases) on GitHub
+** Enhancements to existing features:
+
+*** Enhanced GUI color scheme: Pull request
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/85[#85]
+
+*** Wrote additional tests for existing features to increase coverage from 33% to 40%: Pull request
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/200[#200]
+
+** Documentation:
+*** Added images to the User Guide that serves as visual aids.
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/200[#200]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/224[#224]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/24[#24]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/34[#34]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/90[#90]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/116[#116]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/117[#117]
+
+*** Contributed to forum discussions:
+**** Guide on image and caption formatting in asciidoc: https://github.com/nus-cs2103-AY1920S1/forum/issues/168[#168]
+
+*** Reported bugs and suggestions for other teams in the class:
+https://github.com/tiuweehan/ped[Reported 18 bugs in PED]
+
+** Tools:
+*** Integrated a new Github plugin (Travis-CI) to the team repo
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=overview]
+include::../UserGuide.adoc[tag=gui]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=uilogic]
+include::../DeveloperGuide.adoc[tag=gui]
+
+=== More contributions to the User and Developer Guide
+
+https://ay1920s1-cs2103t-w11-1.github.io/main/UserGuide.html#introduction[UG - Introduction and Overview] +
+https://ay1920s1-cs2103t-w11-1.github.io/main/UserGuide.html#switching-tabs-code-switchtab-code[UG - Command line Tab Management] +
+https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#command-line-tab-management[DG - Command Line Tab Management] +
+https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#switching-tabs[DG - Tabs and GUI] +

@@ -1,0 +1,111 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<AnchorPane>
+  <ScrollPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" xmlns:fx="http://javafx.com/fxml/1" styleClass="edge-to-edge"
+              fitToWidth="true">
+      <VBox alignment="CENTER_LEFT">
+          <padding>
+            <Insets top="10" right="10" bottom="5" left="10"/>
+          </padding>
+
+          <!-- Name-->
+          <StackPane alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+              <padding>
+                  <Insets top="10" bottom="10"/>
+              </padding>
+              <Label text="Name" styleClass="scroll-pane-text"/>
+          </StackPane>
+          <StackPane>
+              <TextField fx:id="name" />
+          </StackPane>
+
+          <!-- Author-->
+          <StackPane alignment="CENTER_LEFT">
+              <padding>
+                  <Insets top="10" bottom="10" />
+              </padding>
+              <Label text="Author" styleClass="scroll-pane-text" />
+          </StackPane>
+          <StackPane>
+              <TextField fx:id="author" />
+          </StackPane>
+
+          <!-- Weblink-->
+          <StackPane alignment="CENTER_LEFT">
+              <padding>
+                  <Insets top="10" bottom="10" />
+              </padding>
+              <Label text="Weblink" styleClass="scroll-pane-text" />
+          </StackPane>
+          <StackPane>
+              <TextField fx:id="weblink" />
+          </StackPane>
+
+          <!-- Difficulty-->
+          <StackPane alignment="CENTER_LEFT">
+              <padding>
+                  <Insets top="10" bottom="10" />
+              </padding>
+              <Label text="Difficulty" styleClass="scroll-pane-text" />
+          </StackPane>
+          <StackPane>
+              <TextField fx:id="difficulty" />
+          </StackPane>
+
+          <!-- Remark-->
+          <StackPane alignment="CENTER_LEFT">
+              <padding>
+                  <Insets top="10" bottom="10" />
+              </padding>
+              <Label text="Remark" styleClass="scroll-pane-text" />
+          </StackPane>
+          <StackPane>
+              <TextField fx:id="remark" />
+          </StackPane>
+
+          <!-- Source-->
+          <StackPane alignment="CENTER_LEFT">
+              <padding>
+                  <Insets top="10" bottom="10" />
+              </padding>
+              <Label text="Source" styleClass="scroll-pane-text" />
+          </StackPane>
+          <StackPane>
+              <TextField fx:id="source" />
+          </StackPane>
+
+          <!-- Description-->
+          <StackPane alignment="CENTER_LEFT">
+              <padding>
+                  <Insets top="10" bottom="10" />
+              </padding>
+            <Label text="Description" styleClass="scroll-pane-text" />
+          </StackPane>
+          <StackPane>
+              <TextArea fx:id="description" wrapText="true" />
+          </StackPane>
+
+
+        <HBox alignment="BOTTOM_RIGHT" spacing="5">
+          <padding>
+            <Insets top="10" bottom="10" />
+          </padding>
+
+          <!-- Edit Button -->
+          <Button fx:id="editButton" onMouseClicked="#handleEditProblem" styleClass="edit_button" text="Edit Problem" />
+
+          <!-- Delete Button -->
+          <Button fx:id="deleteButton" onMouseClicked="#handleDeleteProblem" styleClass="delete_button" text="Delete Problem" />
+        </HBox>
+      </VBox>
+  </ScrollPane>
+</AnchorPane>

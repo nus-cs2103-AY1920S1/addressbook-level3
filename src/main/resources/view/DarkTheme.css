@@ -29,14 +29,36 @@
     -fx-font-family: "Segoe UI Semibold";
 }
 
-.tab-pane {
-    -fx-padding: 0 0 0 1;
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
 }
 
-.tab-pane .tab-header-area {
-    -fx-padding: 0 0 0 0;
-    -fx-min-height: 0;
-    -fx-max-height: 0;
+.tab-pane {
+    -fx-tab-min-width: 90px;
+}
+
+.tab {
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #e6e6e6;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #3c3c3c;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #828282;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #96b946;
 }
 
 .table-view {
@@ -116,20 +138,53 @@
     -fx-border-width: 1;
 }
 
-.list-cell .label {
-    -fx-text-fill: white;
+.cell_big_label_white {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: #FFFFFF;
 }
 
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: white;
 }
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: white;
+}
+
+.cell_small_label_prefix {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #B0E0E6;
+}
+
+.edit_button {
+    -fx-padding: 5 22 5 22;
+    -fx-border-width: 2;
+     -fx-border-color: #105f9f;
+    -fx-background-radius: 0;
+    -fx-background-color: #105f9f;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #d8d8d8;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.delete_button {
+    -fx-padding: 5 22 5 22;
+    -fx-border-width: 2;
+    -fx-border-color: #871f1f;
+    -fx-background-radius: 0;
+    -fx-background-color: #871f1f;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #d8d8d8;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
 .stack-pane {
@@ -213,15 +268,6 @@
  * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
  */
 .button {
-    -fx-padding: 5 22 5 22;
-    -fx-border-color: #e2e2e2;
-    -fx-border-width: 2;
-    -fx-background-radius: 0;
-    -fx-background-color: #1d1d1d;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-font-size: 11pt;
-    -fx-text-fill: #d8d8d8;
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
 .button:hover {
@@ -307,6 +353,15 @@
     -fx-padding: 8 1 8 1;
 }
 
+.scroll-pane > .viewport {
+    -fx-background-color: #383838;
+    -fx-control-inner-background: #383838;
+}
+
+.scroll-pane-text {
+    -fx-text-fill: #e9e9e9;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -328,7 +383,7 @@
     -fx-text-fill: white;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#filterField, #problemListPanel, #problemWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
@@ -350,3 +405,35 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#tagName {
+    -fx-text-fill: white;
+    -fx-background-color: #3e7b91;
+    -fx-padding: 2 6 2 6;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+    -fx-font-size: 16;
+}
+
+#status {
+    -fx-text-fill: white;
+    -fx-background-color: #ff6973;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 16;
+}
+
+.default-color0.chart-pie { -fx-pie-color: #96b946; }
+.default-color1.chart-pie { -fx-pie-color: #ff6973; }
+
+.chart-pie-label-line {
+    -fx-stroke: #FFFFFF;
+    -fx-fill: #FFFFFF;
+}
+
+.chart-pie-label {
+    -fx-fill: #FFFFFF;
+    -fx-font-size: 1em;
+}
+

@@ -1,0 +1,32 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam classBackgroundColor MODEL_COLOR
+
+abstract class Command
+
+interface Parser {
+	T parse(String userInput)
+}
+
+
+class Name
+class FindProblemDescriptor
+class AddFindRuleCommand
+class ProblemSearchRule extends FindProblemDescriptor
+class AddFindRuleCommandParser
+
+Command <|.. AddFindRuleCommand
+Parser <|-- AddFindRuleCommandParser
+FindProblemDescriptor *--> "6" XXXPredicate
+ProblemSearchRule *--> "1" Name
+
+AddFindRuleCommand *--> "1" ProblemSearchRule
+
+note bottom of XXXPredicate
+This includes
+<b>NameContainsKeywordsPredicate</b>
+and other similarly named predicates.
+end note
+
+@enduml

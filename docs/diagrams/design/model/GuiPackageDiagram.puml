@@ -1,0 +1,25 @@
+@startuml
+!include ../../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+show <<enumeration>> fields
+
+Package Gui {
+    Class GuiState
+    Class TabData
+    Class TabManager
+    enum TabType <<enumeration>> {
+        DISPLAY,
+        DETAILS
+    }
+}
+
+GuiState *--> "1" TabManager
+TabData *--> "1" ModelType
+TabData *--> "1" Index : modelIndex
+TabManager *--> "1" IntegerProperty : displayTabPaneIndex
+TabManager *--> "1" IntegerProperty : detailsTabPaneIndex
+TabManager *--> "*" TabData : tabs
+
+@enduml

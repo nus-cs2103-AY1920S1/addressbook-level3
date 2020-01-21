@@ -4,59 +4,57 @@ skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
 
-package Logic {
-
-package Parser {
-Interface Parser <<Interface>>
-Class AddressBookParser
-Class XYZCommandParser
-Class CliSyntax
-Class ParserUtil
-Class ArgumentMultimap
-Class ArgumentTokenizer
-Class Prefix
-}
-
-package Command {
-Class XYZCommand
-Class CommandResult
-Class "{abstract}\nCommand" as Command
-}
-
-Interface Logic <<Interface>>
-Class LogicManager
-}
-
 package Model{
 Class HiddenModel #FFFFFF
 }
 
+package Logic {
+
+    Class XYZCommand
+    Class SimpleCommand
+    Class CommandResult
+    Class "{abstract}\nCommand" as Command
+
+    Interface Parser <<Interface>>
+    Class AlgoBaseParser
+    Class XYZCommandParser
+    Class CliSyntax
+    Class ParserUtil
+    Class ArgumentMultimap
+    Class ArgumentTokenizer
+    Class Prefix
+
+    Interface Logic <<Interface>>
+    Class LogicManager
+}
+
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Logic
+HiddenOutside .down.> Logic
 
-LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
-
+LogicManager .right.|> Logic
+LogicManager -down->"1" AlgoBaseParser
+AlgoBaseParser ..> XYZCommandParser: creates >
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
 XYZCommandParser ..> ArgumentMultimap
 XYZCommandParser ..> ArgumentTokenizer
-ArgumentTokenizer .left.> ArgumentMultimap
+ArgumentTokenizer ..> ArgumentMultimap
 XYZCommandParser ..> CliSyntax
 CliSyntax ..> Prefix
 XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
-ArgumentTokenizer .down.> Prefix
-XYZCommand -up-|> Command
-LogicManager .left.> Command : executes >
+ParserUtil ..> Prefix
+ArgumentTokenizer ..> Prefix
+XYZCommand --|> Command
+AlgoBaseParser ..> SimpleCommand
+SimpleCommand --|> Command
+LogicManager ..> Command : executes >
 
 LogicManager --> Model
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
-
+Command ..> Model
+note left of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+note left of SimpleCommand: SimpleCommand = ClearCommand, ExitCommand, \nListCommand, ListPlanCommand, ListTagCommand.
 Logic ..> CommandResult
-LogicManager .down.> CommandResult
-Command .up.> CommandResult
+LogicManager ..> CommandResult
+Command ..> CommandResult
 CommandResult -[hidden]-> Parser
 @enduml

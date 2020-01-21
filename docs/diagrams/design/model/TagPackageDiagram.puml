@@ -1,0 +1,18 @@
+@startuml
+!include ../../style.puml
+left to right direction
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+show <<enumeration>> fields
+
+Package Tag {
+    Class Tag
+    Class UniqueTagList
+}
+
+'Tag
+UniqueTagList o--> "*" Tag
+
+@enduml

@@ -1,0 +1,46 @@
+{
+  "_comment": "AlgoBase save file which contains the same Problem values as in TypicalProblems#getTypicalAlgoBase()",
+  "problems" : [ {
+    "name" : "Alice Pauline",
+    "author" : "94351253",
+    "weblink" : "alice@example.com",
+    "description" : "123, Jurong West Ave 6, #08-111",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Benson Meier",
+    "author" : "98765432",
+    "weblink" : "johnd@example.com",
+    "description" : "311, Clementi Ave 2, #02-25",
+    "tagged" : [ "owesMoney", "friends" ]
+  }, {
+    "name" : "Carl Kurz",
+    "author" : "95352563",
+    "weblink" : "heinz@example.com",
+    "description" : "wall street",
+    "tagged" : [ ]
+  }, {
+    "name" : "Daniel Meier",
+    "author" : "87652533",
+    "weblink" : "cornelia@example.com",
+    "description" : "10th street",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Elle Meyer",
+    "author" : "9482224",
+    "weblink" : "werner@example.com",
+    "description" : "michegan ave",
+    "tagged" : [ ]
+  }, {
+    "name" : "Fiona Kunz",
+    "author" : "9482427",
+    "weblink" : "lydia@example.com",
+    "description" : "little tokyo",
+    "tagged" : [ ]
+  }, {
+    "name" : "George Best",
+    "author" : "9482442",
+    "weblink" : "anna@example.com",
+    "description" : "4th street",
+    "tagged" : [ ]
+  } ]
+}

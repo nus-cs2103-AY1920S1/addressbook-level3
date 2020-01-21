@@ -1,0 +1,24 @@
+@startuml
+
+start
+
+:User executes a addfindrule command;
+
+if () then ([command is valid])
+	:Instantiate a AddFindRuleCommand with a corresponding predicate;
+	:Execute AddFindRuleCommand;
+	if() then ([added find rule already exists in AlgoBase])
+	    :Throw an exception;
+	    :Update UI to notify the user;
+	else ([else])
+	    :Add the find rule into AlgoBase;
+	    :Update the UI with updated find rule list;
+	endif
+else ([else])
+	:Throw an exception;
+	:Update UI to notify the user;
+endif
+
+stop
+
+@enduml

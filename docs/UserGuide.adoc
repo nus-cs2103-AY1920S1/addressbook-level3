@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= AlgoBase - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,31 +12,74 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-W11-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103T-W11-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+AlgoBase (AB) is a one-stop management platform for Computer Science students preparing for technical interviews.
+**With AlgoBase, say goodbye to tough interview days!**
+
+Tired of having to manually track your progress across multiple websites like Kattis, HackerRank and LeetCode?
+AlgoBase allows you to pull practice questions from these online repositories (and more!)
+and consolidates them into a single application.
+
+Do you have to prepare for mutliple interviews, and want to customize your preparations for each of them?
+We got you covered! AlgoBase also allows you to create highly flexible training plans to tailor to your individual needs.
+
+Are you a guru that has completed many problems, and want a powerful way to filter through your problems? No worries!
+AlgoBase comes equipped with a comprehensive tag system and a flexible filtering mechanism for your needs.
+
+Are you used to the speed of Command Line tools and find that Graphical User Interface (GUI) applications are too slow?
+Not a problem! AlgoBase is designed for those who prefer to use a desktop app for managing algorithm problems,
+equipped with a robust Command Line Interface (CLI) while still maintaining the benefits of a GUI.
+
+Interested? Jump to the Section 2 to get an "Overview" of the AlgoBase, or Section 3 “Quick Start” to get started with AlgoBase!
+
+// tag::overview[]
+== Overview
+
+AlgoBase is primarily a problem management application, where users can add different algorithm problems from all kinds of sources.
+Within the application, users can create training plans consisting of tasks, where each task is a problem that the user has to complete.
+Upon completing a task, users can mark it as done, which contributes to the progress of their plan.
+
+The figure below illustrates the layout of the AlgoBase application:
+
+.Layout of AlgoBase
+image::gui/AlgoBaseLayout.png[scaledwidth=18cm]
+
+AlgoBase is split into following 3 panes:
+
+** _Display Tabs_ – displays a list of items (problems, tags, plans or find rules)
+** _Details Tabs_  – displays details of a specific item
+** _Task Management Pane_ – displays details of the current plan
+// end::overview[]
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `algobase.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your AlgoBase application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+.UI of AlgoBase
+image::Ui.png[scaledwidth=18cm]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* and pressing kbd:[Enter] will list all possible commands in the result window and open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* *`listprob`* : lists all problems
+* *`addprob n/factorial d/define a function factorial that takes in a number and n and returns the factorial of the number t/recursion a/Halim`* :
+adds a problem called 'factorial' tagged with 'recursion' and authored by 'Halim'
+* *`editprob 1 src/LeetCode`* : edits the first problem displayed and sets its source to 'LeetCode'
+* *`switchtab tt/display i/2`* : switches to tag tab
+* *`switchtab tt/display i/3`* : switches to plan tab
+* *`findplan n/CS2040`* : finds plans that with name 'CS2040'
+* *`donetask plan/1 task/1`* : marks the first task in the first training plan as done
+* *`clear`* : resets AlgoBase
+* *`exit`* : exits AlgoBase
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,132 +89,718 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addprob n/NAME`, `NAME` is a parameter which can be used as `addprob n/Two Sequences`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/factorial t/recursion` or as `n/factorial`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/recursion`, `t/recursion t/dynamic-programming` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
+* If there are duplicate parameters, and the command format doesn't expect multiple parameters of the same name (i.e. having `...` in its format), *AlgoBase* will only consider the last parameter and ignore previous parameters (with the same parameter name). e.g. `addprob n/nameA n/nameB` will add a problem with name `nameB`.
 ====
 
-=== Viewing help : `help`
+=== Problems
 
-Format: `help`
+==== Adding a problem: `addprob`
 
-=== Adding a person: `add`
+Generates a new problem. +
+Format: `addprob n/NAME [a/AUTHOR] [w/WEBLINK] [d/DESCRIPTION] [diff/DIFFICULTY] [src/SOURCE] [t/TAG]...`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+* `DIFFICULTY` should be an integer or decimal in the range of (0, 5] (If no difficulty is provided, *AlgoBase* will internally store the difficulty as 0)
+
+[NOTE]
+Don't provide extreme values like `5.00000...01` as difficulty as computers can't store decimals exactly and some round-off error is unavoidable.
 
 [TIP]
-A person can have any number of tags (including 0)
+A problem can have any number of tags (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addprob n/Sequences a/Tung Kam Chuen w/https://open.kattis.com/problems/sequences d/Find the sum of the number of inversions of the 2k sequences, modulo 1000000007 (109+7). diff/3.0 src/Kattis t/recursion`
 
-=== Listing all persons : `list`
+==== Deleting a problem : `deleteprob`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Deletes an existing problem. +
+Format: `deleteprob INDEX [f/]`
 
-=== Editing a person : `edit`
+* Deletes the problem with the specified `INDEX`.
+* The index refers to the index number shown in the displayed problem list.
+* The index *must be a positive integer* 1, 2, 3, ...
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+[NOTE]
+The command will fail if the problem identified by `INDEX` is used in some task(s) in existing plans.
+Add `f/` to force AlgoBase to delete all tasks associated with the problem.
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+Examples:
+
+* `listprob` +
+`deleteprob 2` +
+Deletes the second problem in the displayed list.
+* `findprob n/factorial` +
+`deleteprob 1` +
+Deletes the first problem in the results of the `findprob` command.
+
+==== Editing a problem : `editprob`
+
+Edits an existing problem. +
+Format: `editprob INDEX [n/NAME] [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...`
+
+* Edits the problem at the specified `INDEX`. The index refers to the index number shown in the displayed problem list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+* When editing tags, the existing tags of the problem will be removed i.e adding of tags is not cumulative.
+* You can remove all the problem's tags by typing `t/` without specifying any tags after it.
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `editprob 1 a/John Doe` +
+Edits the author of the first problem to be `John Doe` respectively.
+* `editprob 2 n/permutations t/` +
+Edits the name of the second problem to be `permutations` and clears all existing tags.
 
-=== Locating persons by name: `find`
+==== Listing all problems : `listprob`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Displays a list of all existing problems. +
+Format: `listprob`
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+// tag::sort[]
+==== Sorting problems: `sortprob`
+
+Sorts the current list of **problems** by a specified method and order. +
+Format: `sortprob m/METHOD [ord/ORDER]`
+
+* `METHOD` can be `name`, `author`, `weblink`, `difficulty` or `source`.
+* `ORDER` can be `ascend` or `descend` representing ascending and descending order. The default is in ascending order.
+* String-based values (i.e. `name`, `author`, etc.) are sorted alphabetically.
+
+[NOTE]
+If sorted by ascending order (i.e. the default order), empty fields will have the highest priority, which means if you execute `sortprob m/weblink`, the first few results would be (if any) without web links.
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `sortprob m/name`
+Sorts the current list of problems in ascending order of names.
+* `sortprob m/author ord/descend`
+Sorts the current list of problems in descending order of author names.
+* `sortprob m/difficulty ord/ascend`
+Sorts the current list of problems from lowest to highest difficulty.
+// end::sort[]
 
-// tag::delete[]
-=== Deleting a person : `delete`
+=== Searching Problems
+// tag::find[]
+==== Locating problems: `findprob`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Finds problems fulfilling all provided constraints. +
+Format: `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG_KEYWORDS]`
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+.The result of `findprob` is shown in the problems list
+image::findprob_1.png[width="70%", scaledwidth=18cm]
+
+[NOTE]
+When providing the search restrictions, you should ensure that keywords are non-blank and difficulty range is valid (as specified in `addprob` command). Also at least one search restriction should be provided.
+
+* Name
+** is case-insensitive. e.g. `henz` will match `Henz`
+** is considered a match as long as one word matches. (e.g. `Henz Ben` matches both `Martin Henz` and `Ben Leong`)
+** is matched word by word. e.g. `hello` will match `hello world` but not `helloworld`
+* Author requires an exact match.
+* Description
+** is case-insensitive
+** is matched word by word
+** is considered as a match only when the problem's description includes all words in the constraint. e.g. `wordA wordB` matches `wordC wordB wordA` not `wordD wordA`
+
+[NOTE]
+Words are separated by empty spaces. Thus if we have a sentence "Hello, world!", we have two words `Hello,` and `world!`.
+
+* Source requires an exact match.
+* Tag
+** Constraints are separated by spaces. (e.g. `findprob t/Recursion Brute-Force` will display all problems with both tag `Recursion` and `Brute-Force`)
+** Constraint tag set is a subset of matching problems. (e.g. `findprob t/Recursion Brute-Force` will match problem with tags `Recursion`+`Brute-Force`+`Playful` but not `Recursion`+`Adhoc`)
+** Two tags are considered equal only when their tag strings are exactly matched.
+* Difficulty
+** matches problems with `LOWER_BOUND \<= difficulty \<= UPPER_BOUND`
+
+[TIP]
+If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-1.5`. +
+If you want to match problems with with difficulty no lower than `1.5`, please use `diff/1.5-5.0` because `5.0` is the upper limit of difficulty.
+
+[NOTE]
+Note that negative difficulty is not allowed, as mentioned before. Otherwise the command may be considered invalid.
+
+Examples:
+
+* `findprob n/Sequences` +
+Returns any problem with word `Sequences` (case-insensitive) in its name.
+* `findprob t/algorithm diff/2.0-4.0` +
+Returns any problem with `algorithm` as one of its tags **AND** with a difficulty between 2.0 and 4.0 (inclusive).
+* `findprob a/Hentin Marz src/Kattis` +
+Returns any problem from `Kattis` that's authored by `Hentin Marz`.
+// end::find[]
+
+// tag::findrule[]
+==== Storing a problem-finding rule: `addfindrule`
+
+Saves a problem-finding rule from provided constraints. +
+Format: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG_KEYWORDS]` +
+Alias: `afr`
+
+.Information related to find rules is displayed in the "Find Rules" panel
+image::find_rule_1.png[width="70%", scaledwidth=12cm]
+
+[TIP]
+If you want to "keep a list of problems" that fulfills certain conditions, say "graph theory questions from Kattis", you may store these rules using `addfindrule` and `apply` them later. +
+Unlike plans, as you add new questions to AlgoBase, so long as the new questions fulfill the search rule, they will show up if you `apply` that rule.
+
+[NOTE]
+The rules for constraints are the same as those described in `findprob` command. Note that keywords in a find rule may be less restrictive than the fields (e.g. name, source, etc.).
+
+Examples:
+
+* `addfindrule MediumDiffAlgo t/algorithm diff/2.0-4.0` +
+Adds a new find rule named `MediumDiffAlgo` that when applied, returns any problem with `algorithm` as one of its tags AND with a difficulty between 2.0 and 4.0 (inclusive).
+* `addfindrule Kattis src/Kattis` or `afr Kattis src/Kattis` +
+Adds a new find rule named `Kattis` that when applied, returns any problem from `Kattis`.
+
+==== Applying a problem-finding rule: `apply`
+
+Applies a problem-finding rule. +
+Format: `apply INDEX`
+
+* Applies the find rule at the specified `INDEX`.
+* The index refers to the index number shown in the displayed find rule list.
 * The index *must be a positive integer* 1, 2, 3, ...
-****
+
+[TIP]
+You can find problem-finding rules that you can `apply` with in the "Find Rules" panel by clicking on the "Find Rules" tab.
+
+[NOTE]
+`apply` a problem-finding rule is essentially the same as executing a pre-filled `findprob` command.
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+* `apply 2` +
+Applies the second find rule in the displayed list.
+
+==== Deleting a problem-finding rule: `deletefindrule`
+
+Deletes a problem-finding rule. +
+Format: `deletefindrule INDEX` +
+Alias: `dfr`
+
+* Deletes the find rule at the specified `INDEX`.
+* The index refers to the index number shown in the displayed find rule list.
+* The index *must be a positive integer* 1, 2, 3, ...
+
+Examples:
+
+* `deletefindrule 2` or `dfr 2` +
+Deletes the second find rule in the displayed list.
+// end::findrule[]
+
+// tag::tag[]
+=== Tags
+
+==== Creating new tags: `addtag`
+
+Generates a new tag. +
+Format: `addtag t/NAME [c/COLOR]`
+
+Examples:
+
+* `addtag t/graph`
+* `addtag t/sssp c/BLUE`
+
+[NOTE]
+Tag color can only be "RED" "ORANGE" "YELLOW" "GREEN" "BLUE" "PURPLE" "TEAL" "BLACK" or "DEFAULT".
+
+==== Listing tags: `listtag`
+
+Displays a list of all existing tags. +
+Format: `listtag`
+
+==== Deleting current tags: `deletetag`
+
+Deletes an existing tag. +
+Format: `deletetag INDEX`
+
+Examples:
+
+* `deletetag 1`
+
+==== Editing tags: `edittag`
+
+Edits an existing tag. +
+Format: `edittag INDEX [t/NAME] [c/COLOR]`
+
+Examples:
+
+* `edittag 1 t/difficult c/BLUE`
+// end::tag[]
+
+// tag::plan[]
+=== Training Plans
+
+Training plans consist of wrapped-up problems which we call `task` s.
+
+==== Adding a plan: `addplan`
+
+Generates a new plan. +
+Format: `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]`
+
+* Plans cannot have duplicate names.
+* `START_DATE` and `END_DATE` should be in the format of `yyyy-MM-dd`
+* `START_DATE` should be before or equal to `END_DATE`.
+* `START_DATE` will be set to `LocalDate#now()` if not specified, and `END_DATE` will be one month from `START_DATE` if not specified.
+
+Examples:
+
+* `addplan n/CS2040 d/past year questions in practical exams start/2019-01-01 end/3019-12-12`
+
+==== Deleting a plan : `deleteplan`
+
+Deletes an existing plan. +
+Format: `deleteplan INDEX`
+
+* Deletes the plan at the specified `INDEX`.
+* The index refers to the index number shown in the displayed plan list.
+* The index *must be a positive integer* 1, 2, 3, ...
+
+Examples:
+
+* `listplan` +
+`deleteplan 2` +
+Deletes the second plan in the displayed list.
+* `findplan n/CS2040` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the first plan in the results of the `findplan` command (will be introduced in the next section).
 
-// end::delete[]
-=== Clearing all entries : `clear`
+==== Editing a plan : `editplan`
 
-Clears all entries from the address book. +
+Edits an existing plan. +
+Format: `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE] [f/]`
+
+* Edits the plan at the specified `INDEX`. The index refers to the index number shown in the displayed plan list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* `START_DATE` should be before or equal to `END_DATE`.
+* The time range of the edited plan should cover due dates of its tasks. However, adding `f/` will force inconsistent due dates to change to the plan's end date.
+
+Examples:
+
+* `editplan 1 d/past year questions of sit-in labs` +
+Edits the description of the first plan to be `past year questions of sit-in labs` respectively.
+* `editplan 2 start/2019-08-13 f/` +
+Edits the starting date of the second plan to be `2019-08-13` and any task with due date before `2019-08-13` to the plan's end date.
+
+==== Listing all plans : `listplan`
+
+Displays a list of all existing plans. +
+Format: `listplan`
+
+==== Locating plans: `findplan`
+
+Finds plans fulfilling all provided constraints. +
+Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END] [task/TASK_NAME]`
+
+* Name
+** is case-insensitive.
+** is considered a match as long as one word matches.
+** is matched word by word.
+* Description
+** is case-insensitive
+** is matched word by word
+** is considered as a match only when the problem's description includes all words in the constraint.
+* Start and end range
+** is considered a match when there exist overlaps in time. (e.g. a plan with start date of `2019-01-01` and end date of `2019-03-03` matches a plan with start date of `2019-02-02` and end date of `2019-04-04`)
+** both `RANGE_START` and `RANGE_END` should be specified.
+** `RANGE_START` should be before or equal to `RANGE_END`.
+* Task name
+** is case-sensitive.
+** is matched word by word.
+** is considered a match only when there is a task whose name is exactly the same as the given task name.
+
+Examples:
+
+* `findplan start/2019-08-05 end/2019-12-07` +
+Finds plans whose duration overlaps with NUS AY 19/20 Semester 1.
+* `findplan task/Sequences` +
+Finds plans that contain a task named 'Sequences'.
+// end::plan[]
+
+// tag::task[]
+=== Task Management
+
+==== Adding new tasks: `addtask`
+
+Adds a task to a specified plan. +
+Format: `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX [due/DUE_DATE]`
+
+* The target plan should not contain tasks with the same problem as the one identified by `PROBLEM_INDEX`.
+* `DUE_DATE` should be in the format of `yyyy-MM-dd`
+* `DUE_DATE` should be in between plan's start date and end date (inclusive).
+
+[NOTE]
+`DUE_DATE` will be set to the end date of the plan to be added into, if unspecified.
+
+Examples:
+
+* `addtask plan/1 prob/1 due/2019-12-12` +
+Creates a new task with the first problem in the displayed problem list and due date on 12 December 2019,
+and adds it the first plan in the displayed plan list.
+
+==== Copying tasks between plans: `copytask`
+
+Copies a specified task from one plan to another. +
+Format: `copytask task/TASK_INDEX from/PLAN_FROM_INDEX to/PLAN_TO_INDEX`
+
+* Task identified by `TASK_INDEX` should have a due date in between the start date and end date of the plan identified by `PLAN_TO_INDEX` (inclusive).
+* Plan identified by `PLAN_TO_INDEX` should not contain tasks that consist of the same problem as the task identified by `TASK_INDEX`.
+
+Examples:
+
+* `copytask task/1 from/1 to/2` +
+Copies the first task in the first plan to the second plan in the displayed plan list.
+
+==== Deleting tasks: `deletetask`
+
+Deletes a specified task from a specified plan. +
+Format: `deletetask plan/PLAN_INDEX task/TASK_INDEX`
+
+Examples:
+
+* `deletetask plan/1 task/1` +
+Deletes the first task in the first plan to the second plan in the displayed plan list.
+
+==== Marking tasks as done: `donetask`
+
+Marks a specified task in a specified plan as done. +
+Format: `donetask plan/PLAN_INDEX task/TASK_INDEX`
+
+* The task to be marked as done should have a current status of `undone`.
+
+Examples:
+
+* `donetask plan/1 task/1` +
+Marks the first task in the first plan as done.
+
+==== Editing due date of tasks: `edittask`
+
+Edits the due date of a specified task from a specified plan. +
+Format: `edittask plan/PLAN_INDEX task/TASK_INDEX due/DUE_DATE`
+
+* `DUE_DATE` should be in the format of `yyyy-MM-dd`
+* `DUE_DATE` should be in between plan's start date and end date (inclusive).
+
+Examples:
+
+* `edittask plan/1 task/1 due/2019-12-12` +
+Changes the due date of the first task in the first plan to 12 December 2019.
+
+==== Moving tasks between plans: `movetask`
+
+Moves a specified task from a specified plan to another. +
+Format: `movetask task/TASK_INDEX from/PLAN_FROM_INDEX to/PLAN_TO_INDEX`
+
+* Task identified by `TASK_INDEX` should have a due date in between the start date and end date of the plan identified by `PLAN_TO_INDEX` (inclusive).
+* Plan identified by `PLAN_TO_INDEX` should not contain tasks that consist of the same problem as the task identified by `TASK_INDEX`.
+
+Examples:
+
+* `movetask task/1 from/1 to/2` +
+Removes the first task from the first plan and adds it to the second plan in the displayed plan list.
+
+==== Setting current plan: `setplan`
+
+Sets a specified plan as the current plan in main display. +
+Format: `setplan PLAN_INDEX`
+
+Examples:
+
+* `setplan 10` +
+Sets plan with index 10 as the current plan.
+
+==== Marking tasks as undone: `undonetask`
+
+Marks a specified task in a specified plan as undone. +
+Format: `undonetask plan/PLAN_INDEX task/TASK_INDEX`
+
+* The task to be marked as undone should have a current status of `done`.
+
+Examples:
+
+* `undonetask plan/1 task/1` +
+Marks the first task in the first plan as undone.
+// end::task[]
+
+// tag::gui[]
+=== Graphical User Interface (GUI) Enhancements
+
+AlgoBase currently supports several GUI features with an intuitive layout, including the following:
+
+* Opening, Closing and Switching between Tabs
+* Editing a Problem or Plan
+* Deleting a Problem or Plan
+
+==== Managing Tabs
+
+There are 3 types of tabs in AlgoBase, 2 of which (Display and Details) are shown in the figure below.
+
+.Types of tabs and their usage
+image::gui/TabsOverview1.png[width=70%, scaledwidth=12cm]
+
+* **Display tabs** give a high level overview of the contents of a list of items
+* **Details tabs** give a more detailed description of an item in a display tab.
+
+Much like tabs you see in other applications, tabs in AlgoBase work the same way.
+
+* To Switch Tabs – Click on a tab to switch tabs
+* To Open a Tab – Double click on an item in the Display tab to open it in the Details tab
+* To Close a Tab – Click on the `x` button next to a Details tab to close it.
+
+[NOTE]
+Display Tabs cannot be closed.
+
+==== Editing a Problem or Plan
+
+The following steps show how a user can edit problems or plans from the GUI.
+
+**Step 1:** Select the problem or plan you want to delete by double clicking on it.
+// end::gui[]
+.Plan with name "Data Structures" is opened.
+image::gui/EditPlanUiAction0Annotated.png[width=70%, scaledwidth=12cm]
+// tag::gui[]
+**Step 2:** Make changes to the problem or plan by editing the fields directly.
+
+.The name and start date of the plan are modified.
+image::gui/EditPlanUiAction1Annotated.png[width=70%, scaledwidth=12cm]
+
+**Step 3:** Save changes to the problem or plan by clicking on the _Edit Problem_ or _Edit Plan_ button.
+
+.The plan is successfully edited.
+image::gui/EditPlanUiAction2Annotated.png[width=70%, scaledwidth=12cm]
+
+[NOTE]
+The _Edit Plan_ Button cannot be clicked if there are no changes made to the plan.
+
+==== Deleting a Problem or Plan
+
+The following steps show how a user can delete problems or plans from the GUI.
+
+**Step 1:** Select the problem or plan you want to delete by double clicking on it.
+// end::gui[]
+.Problem with name "Sequences" is opened.
+image::gui/DeleteProblemUiAction0Annotated.png[width=70%, scaledwidth=12cm]
+// tag::gui[]
+**Step 2:** Click on the red _Delete Problem_ or _Delete Plan_ button at the bottom right.
+To prevent accidental deletion, a warning dialog will appear to confirm if you would like to delete the item.
+Click on the _"confirm"_ button.
+
+.Warning Dialog to confirm problem being deleted.
+image::gui/DeleteProblemUiAction1Annotated.png[width=70%, scaledwidth=12cm]
+
+**Step 3:** Click on _Confirm_.
+
+.The problem is successfully deleted.
+image::gui/DeleteProblemUiAction2Annotated.png[width=70%, scaledwidth=12cm]
+// end::gui[]
+// tag::tab[]
+==== Switching Tabs: `switchtab`
+
+.Demonstration of the `SwitchTab` command
+image::gui/SwitchTabCommand.png[width="70%", scaledwidth=12cm]
+
+Switches between tabs in the GUI +
+Format: `switchtab tt/TAB_TYPE i/TAB_INDEX` +
+Format: `st tt/TAB_TYPE i/TAB_INDEX`
+
+* Tab Type
+** can be **display** or **details**
+** Alternatively, **display** and **details** can be replaced by **1** and **2** respectively
+
+Examples:
+
+* `switchtab tt/display i/3` – Switches to the third **display** tab (i.e. _plans_ tab).
+* `st tt/1 i/3` – Same effects as the previous command but in a shorter format.
+* `switchtab tt/details i/3` – Switches to the third **details** tab
+* `st tt/2 i/3` – Same effects as the previous command but in a shorter format.
+
+==== Opening Tabs: `opentab`
+
+.Demonstration of the `OpenTab` command
+image::gui/OpenTabCommand.png[width="70%", scaledwidth=12cm]
+
+Opens a new **Details** tab in the GUI +
+Format: `opentab m/MODEL_TYPE i/MODEL_INDEX` +
+Format: `ot m/MODEL_TYPE i/MODEL_INDEX`
+
+* Model Type
+** can be _problem_, _tag_, _plan_ and _findrule_
+** Alternatively, _problem_, _tag_, _plan_ and _findrule_ can be replaced by _1_, _2_, _3_ and _4_ respectively
+
+Examples:
+
+* `opentab m/problem i/2` – Opens the 2nd problem in the list of problems.
+* `ot m/1 i/2` – Same effects as the previous command but in a shorter format.
+* `opentab m/plan i/3` – Opens the 3nd plan in the list of plans.
+* `ot m/3 i/3` – Same effects as the previous command but in a shorter format.
+
+==== Closing Tabs: `closetab`
+Closes a **details** tab in the GUI +
+Format: `closetab i/DETAILS_TAB_INDEX` +
+Format: `ct i/DETAILS_TAB_INDEX`
+
+Examples:
+
+* `closetab i/3` – Closes the third **details** tab
+* `ct i/1` – Same effects as the previous command but in a shorter format.
+// end::tab[]
+
+// tag::data[]
+=== Data Management
+
+==== Importing data: `import`
+
+Imports external data in `JSON` format into local storage. +
+Format: `import format/FORMAT path/FILE_PATH`
+
+* Format can only be `JSON`.
+* File path refers to the relative path of the input file.
+
+Examples:
+
+* `import format/json path/./steven_halim_secret.json`
+
+==== Exporting data: `export`
+
+Exports data into `JSON` format. +
+Format: `export format/FORMAT path/DIRECTORY_PATH`
+
+* Format can only be `JSON`.
+* Directory path refers to the relative path of the directory to store the output file.
+
+Examples:
+
+* `export format/json path/.`
+// end::data[]
+
+=== Miscellaneous
+
+// tag::help[]
+==== Viewing help : `help`
+
+Lists all possible commands or shows the command usage of a command word. +
+Format: `help [COMMAND_WORD]`
+
+.All possible (full) command words will be listed using `help` command
+image::help.png[width="70%", scaledwidth=18cm]
+
+* `help`
+Shows all possible commands.
+* `help addprob`
+Shows command usage for `addprob` command.
+
+[NOTE]
+`help` command only searches commands' full command word. (i.e. aliases is not supported by `help`)
+// end::help[]
+
+==== Clearing all entries : `clear`
+
+Clears all entries from AlgoBase. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+==== Navigating the command history
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+You can press kbd:[↑] to navigate back or kbd:[↓] to navigate forward in the command history.
+
+==== Saving the data
+
+AlgoBase data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Encryption
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+==== Encrypting data files `[coming in v2.0]`
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AlgoBase folder.
 
 == Command Summary
+* Problems
+** *Add Problem* : `addprob n/NAME [a/AUTHOR] [w/WEBLINK] [d/DESCRIPTION] [diff/DIFFICULTY] [src/SOURCE] [t/TAG]...` +
+e.g. `addprob  n/factorial d/define a function factorial that takes in a number n and returns the factorial of the number t/recursion a/Wee Han`
+** *List Problems* : `listprob` +
+** *Edit Problems* : `editprob INDEX [n/NAME] [a/AUTHOR] [w/WEBLINK] [d/DESCRIPTION] [diff/DIFFICULTY] [src/SOURCE] [t/TAG]...` +
+e.g. `editprob 2 n/permutations t/`
+** *Delete Problem* : `deleteprob INDEX [f/]` +
+e.g. `deleteprob 3 f/`
+** *Sort Problems* : `sortprob m/METHOD [ord/ORDER]` +
+e.g. `sortprob m/difficulty ord/ascend`
+** *Find Problems* : `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG_KEYWORDS]` +
+e.g. `findprob t/algorithm diff/2.0-4.0`
+** *Add Find Rule*: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG_KEYWORDS]` +
+e.g. `addfindrule MediumDiffAlgo t/algorithm diff/2.0-4.0`
+** *Apply Find Rule*: `apply INDEX` +
+e.g. `apply 2`
+** *Delete Find Rule*: `deletefindrule INDEX` +
+e.g. `deletefindrule 2`
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* Tags
+** *New Tag* : `addtag t/NAME [c/COLOR]` +
+e.g. `addtag t/sssp c/BLUE`
+** *List Tags* : `listtag`
+** *Delete Tag* : `deletetag INDEX` +
+e.g. `deletetag 3`
+** *Edit tag* : `edittag INDEX [t/TAGNAME] [c/COLOR]` +
+e.g. `edittag 1 t/sort c/BLUE`
+
+* Plans
+** *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
+e.g. `addplan n/CS2040`
+** *Edit Training Plan* : `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE] [f/]` +
+e.g. `editplan 1 n/training start/2020-02-02 f/`
+** *Find Training Plans* : `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END] [task/TASK_NAME]` +
+e.g. `findplan n/CS2040 start/2019-03-01 end/2019-03-31`
+** *List Training Plans* : `listplan`
+** *Delete Training Plan* : `deleteplan INDEX` +
+e.g. `deleteplan 2`
+
+* Tasks
+** *Add Task to Training Plan* : `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX` +
+e.g. `addtask plan/1 prob/2`
+** *Copy Task between Plans* : `copytask task/TASK_INDEX from/PLAN_FROM_INDEX to/PLAN_TO_TASK` +
+e.g. `copytask task/1 from/1 to/2`
+** *Delete Task from Training Plan* : `deletetask plan/PLAN_INDEX task/TASK_INDEX` +
+e.g. `deletetask plan/1 task/2`
+** *Edit Due Date of Task* : `edittask plan/PLAN_INDEX task/TASK_INDEX due/DUE_DATE` +
+e.g. `edittask plan/1 task/2 due/2019-12-12`
+** *Mark Task as Done* : `donetask plan/PLAN_INDEX task/TASK_INDEX` +
+e.g. `donetask plan/1 task/2`
+** *Mark Task as Undone* : `undonetask plan/PLAN_INDEX task/TASK_INDEX` +
+e.g. `undonetask plan/1 task/2`
+** *Move Task between Plans* : `movetask task/TASK_INDEX from/PLAN_FROM_INDEX to/PLAN_TO_TASK` +
+e.g. `movetask task/1 from/1 to/2`
+** *Set Current Plan* : `setplan PLAN_TASK` +
+e.g. `setplan 10`
+
+* Tabs
+** *Switch Tab* : `switchtab tt/TAB_TYPE i/TAB_INDEX` +
+e.g. `switchtab tt/display i/3`
+** *Open Tab* : `opentab m/MODEL_TYPE i/TAB_INDEX` +
+e.g. `opentab m/problem i/2`
+** *Close Tab* : `closetab i/DETAILS_TAB_INDEX` +
+e.g. `closetab i/3`
+
+* Storage
+** *Exporting data* : `export format/FORMAT path/DIRECTORY_PATH` +
+e.g. `export format/json path/.`
+** *Importing data* : `import format/FORMAT path/FILE_PATH` +
+e.g. `import format/json path/./steven_halim_secret.json`
+
+* Miscellaneous
+** *Help* : `help [COMMAND_WORD]`
+** *Clear* : `clear`
+** *Exit* : `exit`

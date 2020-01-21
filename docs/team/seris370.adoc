@@ -1,0 +1,67 @@
+= Yu Chenghui - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: AlgoBase
+
+== Overview
+
+AlgoBase is primarily a problem management application, where users can add different algorithm problems from all kinds of sources. Within the application, users can create training plans consisting of tasks, where each task is a problem that the user has to complete. Upon completing a task, users can mark it as done, which contributes to the progress of their plan. Users interact with AlgoBase using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoC.
+
+The figure below illustrates the layout of the AlgoBase application:
+
+.Layout of AlgoBase
+
+image::gui/AlgoBaseLayout.png[]
+
+My role was to design and write the codes for the training plan feature. The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user guide and developer guide.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the training plan feature*
+** What it does: Allows users to create customized training plans with specific starting date and end date and that consist of selected problems in AlgoBase. Each problem is wrapped up as a task in the plan. Users can record their progress by marking problems in plans as done or undone, and they can edit, delete or search for plans.
+** Justification: This feature improves the product significantly because it would be inconvenient for a hard-working user to manage a large number of problems without a higher-level component that categorize selected problems.
+** Highlights: This feature enables users to set specific duration for a training plan, which provides the possibility of various potential enhancements in the future, such as alarming for deadlines, and thus will make AlgoBase more attractive to users.
+
+* *Minor enhancement to existing project*: refactored part of *command and parsers*
+
+* *Code contributed*:
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=seris370[Code contributed]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed release `v1.3` on GitHub
+** Enhancements to project prototype:
+*** Design plan logic (Pull requests https://github.com/AY1920S1-CS2103T-W11-1/main/pull/65[#65], https://github.com/AY1920S1-CS2103T-W11-1/main/pull/117[#117], https://github.com/AY1920S1-CS2103T-W11-1/main/pull/148[#148])
+*** Build Ui prototype for plans (Pull requests https://github.com/AY1920S1-CS2103T-W11-1/main/pull/72[#72])
+*** Write tests for plans (Pull requests https://github.com/AY1920S1-CS2103T-W11-1/main/pull/212[#212])
+** Community:
+*** PRs reviewed:
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/105[#105]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/108[#108]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/125[#125]
+*** Reported bugs and suggestions for other teams in the class:
+https://github.com/Seris370/ped[PE Dry Run]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+include::../UserGuide.adoc[tag=plan]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+https://github.com/AY1920S1-CS2103T-W11-1/main/blob/master/docs/DeveloperGuide.adoc#training-plan-feature[Design - Plan]
+
+include::../DeveloperGuide.adoc[tag=plan]
+
+https://github.com/AY1920S1-CS2103T-W11-1/main/blob/master/docs/DeveloperGuide.adoc#plan[Manual Testing - Plan]
+
+include::../DeveloperGuide.adoc[tag=plan_test]

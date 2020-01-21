@@ -1,0 +1,125 @@
+= Tan Yuanhong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:experimental:
+
+== PROJECT: AlgoBase
+
+== Overview
+
+AlgoBase is a desktop algorithmic problem manager.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 20 kLoC.
+
+== About this portfolio
+
+This project portfolio details my individual contributions to the *AlgoBase* project. It includes a summary of the enhancements and other contributions I made throughout the duration  of the project. Additionally, portions of my contribution to the User Guide and Developer Guide have also been included.
+
+== Summary of contributions
+
+* *Code contributed*:
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=le0tan[Code contributed]
+
+* *Major enhancement*: Implemented the problem searching and sorting feature.
+
+** What it does: allows the user to filter problems by combining search constraints on most fields (e.g. problem names, sources, descriptions, difficulty, etc.), allows user to save and reuse some typical search rules and allows user to sort the search result.
+
+** Justification: To organize algorithmic questions, the first step is to find a proper subset of AlgoBase to either add to a training plan or solve the problems directly. Searching and sorting feature should be one of the most frequently used features in *AlgoBase*. Plus, by enabling the user to save certain frequently used find rules (e.g. medium difficulty), we essentially made it possible to create a problem list that's dynamically updated according to certain rules - the user no longer needs to manually add tags or create plans for problems with certain properties, they can just use the saved find rules to locate them.
+
+** Highlights:
+*** This is a full-stack feature involving all the components of *AlgoBase* from `Logic` to `Model` to `Storage` to `UI`, consisting of roughly 3000 lines of functional code and more than 2000 lines of testing code.
+*** `findprob` can search on almost all fields of a problem while `sortprob` provides 10 combinations of sorting order.
+*** It requires an in-depth analysis of the overall architecture of *AlgoBase* because
+**** The original implementation of `findprob` in AddressBook accepts only one search constraint (i.e. the name), but in *AlgoBase* we need to support combination of arbitrary (non-zero) number of search constraints.
+**** The design of AB3 only considers "filtering" problems, thus it used `FilteredList` to support `findprob` command. However, *AlgoBase* needs to support both `findprob` and `sortprob`. We need to redesign the way AB3 exposes the processed observable list to the UI so that the list accepts both a predicate and a comparator.
+
+** Relevant pull requests:
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/49[#49]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/61[#61]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/64[#64]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/90[#90]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/94[#94]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/107[#107]
+
+* *Minor enhancement*: Implemented the command history feature.
+
+** What it does: allows the user to navigate to previous commands using `Up` and `Down` keyboard shortcut.
+
+** Justification: This feature makes `addfindrule` more useful - the user can first check if their problem find rule is working as expected by executing it using `findprob` command, then press `Up` to restore the command text, change the command word to `addfindrule` and assign a name to the added find rule.
+
+** Relevant pull request
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/105[#105]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/137[#137] (Adapted some code from AB4)
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3`, `v1.3.4`, `v1.4` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Re-implement the `help` command:
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/81[#81]
+** Documentation:
+*** Explains how reserved words should work in *AlgoBase* (used as a reference in the development) https://github.com/AY1920S1-CS2103T-W11-1/main/pull/35[#35]
+** Community:
+*** As shown below, I participated in the review of most (significant) PRs in *AlgoBase* and provided some in-depth comments to make sure that the code quality of this project is consistent.
+*** PRs reviewed (with non-trivial review comments):
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/24[#24]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/37[#37]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/65[#65]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/66[#66]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/67[#67]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/70[#70]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/80[#80]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/85[#85]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/116[#116]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/145[#145]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/147[#147]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/201[#201]
+*** Contributed to forum discussions
+**** Fixed the forum issue template https://github.com/nus-cs2103-AY1920S1/forum/pull/126[#126]
+**** Reported module website's inaccurate information on PPP https://github.com/nus-cs2103-AY1920S1/forum/issues/149[#149]
+
+*** Reported bugs and suggestions for other teams in the class:
+**** https://github.com/le0tan/ped[Reported 19 bugs in PED]
+**** Reported bugs and suggestions for other teams in the class (examples
+https://github.com/AY1920S1-CS2103-T16-1/main/issues/199[#199]
+https://github.com/AY1920S1-CS2103-T16-1/main/issues/200[#200]
+https://github.com/AY1920S1-CS2103-T16-1/main/issues/201[#201]
+https://github.com/AY1920S1-CS2103-T16-1/main/issues/202[#202]
+https://github.com/AY1920S1-CS2103-T16-1/main/issues/203[#203])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=sort]
+
+include::../UserGuide.adoc[tag=findrule]
+
+include::../UserGuide.adoc[tag=help]
+
+=== More contributions to the User Guide
+
+https://ay1920s1-cs2103t-w11-1.github.io/main/UserGuide.html#locating-problems-code-findprob-code[Locating problems]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=savefindrule]
+
+include::../DeveloperGuide.adoc[tag=model_part]
+
+Remaining part: https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#Design-Model[Design - Model]
+
+=== More contributions to the Developer Guide
+
+https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#find-problem-feature[Implementation - Find Feature] +
+https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#use-cases[Use cases for find and sort] +
+https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#non-functional-requirements[Non-functional requirements]

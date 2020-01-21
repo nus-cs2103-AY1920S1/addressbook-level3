@@ -1,0 +1,48 @@
+@startuml
+!include ../style.puml
+
+box UI UI_COLOR_T1
+participant ":ProblemDetails" as ProblemDetails UI_COLOR
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":ResultDisplay" as ResultDisplay UI_COLOR
+end box
+
+box UiLogic UI_LOGIC_COLOR_T1
+participant ":UiActionDetails" as UiActionDetails UI_LOGIC_COLOR
+participant ":UiLogicManager" as UiLogicManager UI_LOGIC_COLOR
+end box
+
+[-> ProblemDetails : User edits problem in the GUI
+activate ProblemDetails
+
+create UiActionDetails
+ProblemDetails -> UiActionDetails : UiActionDetails(UiActionType.EditProblem)
+activate UiActionDetails
+
+UiActionDetails --> ProblemDetails : uiAction
+deactivate UiActionDetails
+
+ProblemDetails -> MainWindow : executeUiAction(uiAction)
+activate MainWindow
+
+MainWindow --> UiLogicManager: execute(uiAction)
+activate UiLogicManager
+
+UiLogicManager --> MainWindow : uiActionResult
+deactivate UiLogicManager
+
+opt There is feedback for user
+
+    MainWindow -> ResultDisplay : sendFeedbackToUser
+    activate ResultDisplay
+
+    ResultDisplay --> MainWindow
+    deactivate ResultDisplay
+end
+
+MainWindow --> ProblemDetails
+deactivate MainWindow
+
+[<--ProblemDetails
+deactivate ProblemDetails
+@enduml

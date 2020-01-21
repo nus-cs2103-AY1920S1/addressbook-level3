@@ -1,0 +1,48 @@
+@startuml
+
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class Tag {
+    + {final} id: Id
+    + {final} tagName: String
+    - color: String
+    + getId(): Id
+    + getName(): String
+    + getColor(): String
+    + setColor()
+    + {static} isValidName(String test): boolean
+    + {static} isValidTagColor(String test): boolean
+    + equals(Object other): boolean
+    + hashCode(): int
+    + toString(): String
+    + isSameTag(Tag otherTag): boolean
+}
+
+
+class UniqueTagList {
+    + contains(): boolean
+    + add(Tag toAdd)
+    + setTag(Tag target, Tag editTag)
+    + remove(Tag toRemove)
+    + setTags(UniqueTagList replacement)
+    + setTags(List<Tag> tags)
+    + asUnmodifiableObservableList(): ObservableList<Tag>
+    + iterator(): Iterator<Tag>
+    + equals(Object other): boolean
+    + hashCode(): int
+    + toString(): String
+}
+
+class Tag
+class Id
+
+Tag -->"1" Id
+Tag -->"1" String: TagName
+Tag -->"1" String: TagColor
+
+UniqueTagList *-->"*" Tag
+
+@enduml

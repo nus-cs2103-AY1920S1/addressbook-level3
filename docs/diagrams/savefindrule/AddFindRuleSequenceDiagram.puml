@@ -1,0 +1,38 @@
+@startuml
+!include ../style.puml
+box "Logic" LOGIC_COLOR_T1
+
+participant ":AddFindRuleCommandParser" as AddFindRuleCommandParser LOGIC_COLOR
+participant ":ProblemSearchRule" as ProblemSearchRule LOGIC_COLOR
+participant ":AddFindRuleCommand" as AddFindRuleCommand LOGIC_COLOR
+
+[-> AddFindRuleCommandParser: parse(arguments)
+activate AddFindRuleCommandParser
+    ref over AddFindRuleCommandParser: Tokenizes user input.
+    create ProblemSearchRule
+    AddFindRuleCommandParser -> ProblemSearchRule
+    activate ProblemSearchRule
+        ProblemSearchRule --> AddFindRuleCommandParser
+    deactivate ProblemSearchRule
+    create AddFindRuleCommand
+    AddFindRuleCommandParser -> AddFindRuleCommand : AddFindRuleCommand(findRule)
+    activate AddFindRuleCommand
+        AddFindRuleCommand --> AddFindRuleCommandParser
+    deactivate AddFindRuleCommand
+    [<-- AddFindRuleCommandParser : AddFindRuleCommand
+deactivate AddFindRuleCommandParser
+end box
+
+box "Model" MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+[-> AddFindRuleCommand : executed by LogicManager
+activate AddFindRuleCommand
+AddFindRuleCommand -> Model : addFindRule
+activate Model
+Model --> AddFindRuleCommand
+deactivate Model
+ref over AddFindRuleCommand: Create CommandResult
+[<-- AddFindRuleCommand : CommandResult
+deactivate AddFindRuleCommand
+end box
+@enduml

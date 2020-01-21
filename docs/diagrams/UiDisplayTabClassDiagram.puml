@@ -1,0 +1,50 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI <<Rectangle>>{
+Class "{abstract}\nUiPart" as UiPart
+Class DisplayTabPane
+Class FindRuleListPanel
+Class FindRuleCard
+Class ProblemListPanel
+Class ProblemCard
+Class PlanListPanel
+Class PlanCard
+Class TagListPanel
+Class TagCard
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+
+DisplayTabPane *-down-> FindRuleListPanel
+DisplayTabPane *-down-> ProblemListPanel
+DisplayTabPane *-down-> PlanListPanel
+DisplayTabPane *-down-> TagListPanel
+
+FindRuleListPanel -down-> FindRuleCard
+ProblemListPanel -down-> ProblemCard
+PlanListPanel -down-> PlanCard
+TagListPanel -down-> TagCard
+
+DisplayTabPane --|> UiPart
+FindRuleListPanel --|> UiPart
+FindRuleCard --|> UiPart
+ProblemListPanel --|> UiPart
+ProblemCard --|> UiPart
+PlanListPanel --|> UiPart
+PlanCard --|> UiPart
+TagListPanel --|> UiPart
+TagCard --|> UiPart
+
+FindRuleCard ..> Model
+ProblemCard ..> Model
+PlanCard ..> Model
+TagCard ..> Model
+@enduml

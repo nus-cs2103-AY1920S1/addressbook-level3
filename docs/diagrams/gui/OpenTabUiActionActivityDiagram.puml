@@ -1,0 +1,39 @@
+@startuml
+
+start
+
+:User double clicks on an item in the Display tab;
+
+:Instantiates a UiActionDetails object of type OpenDetailsTab;
+
+:Construct an OpenDetailsTabUiAction and executes it;
+
+if () then ([Details tab with item does not exist])
+	:TabManager adds a new TabData;
+    fork
+        :Listener in Details Tab Pane observes the change;
+        :New UI tab is added to the Details Tab Pane;
+    fork again
+        :The state of the application
+        and GUI is saved to Storage;
+        :The UiActionResult is returned;
+    end fork
+
+else ([else])
+
+	:TabManager switches the Details Tab Index
+	to the one containing the item;
+	fork
+    	:Listener in Details Tab Pane observes the change;
+    	:The Details Tab Pane switches
+    	to the UI tab at the given index;
+    fork again
+        :The state of the application
+        and GUI is saved to Storage;
+        :The UiActionResult is returned;
+	end fork
+endif
+
+stop
+
+@enduml
