@@ -13,7 +13,14 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
+        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, false);
     }
-
+    @Override
+    public boolean isUndoable() {
+        return false;
+    }
+    @Override
+    public String toString() {
+        return "Exit Command";
+    }
 }

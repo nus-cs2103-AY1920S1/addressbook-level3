@@ -32,11 +32,18 @@ public class FindCommand extends Command {
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
-
+    @Override
+    public boolean isUndoable() {
+        return false;
+    }
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
                 && predicate.equals(((FindCommand) other).predicate)); // state check
+    }
+    @Override
+    public String toString() {
+        return "Find Command";
     }
 }

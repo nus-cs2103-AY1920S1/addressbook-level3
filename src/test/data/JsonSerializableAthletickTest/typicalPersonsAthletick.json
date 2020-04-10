@@ -1,0 +1,60 @@
+{
+  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
+  "persons" : [ {
+    "name" : "Alice Pauline",
+    "phone" : "94351253",
+    "email" : "alice@example.com",
+    "gender": "Female",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "tagged" : [ "colleagues" ],
+    "photo" : "alice.png"
+  }, {
+    "name" : "Benson Meier",
+    "phone" : "98765432",
+    "email" : "johnd@example.com",
+    "gender": "Male",
+    "address" : "311, Clementi Ave 2, #02-25",
+    "tagged" : [ "owesMoney", "friends" ],
+    "photo" : "default.png"
+  }, {
+    "name" : "Carl Kurz",
+    "phone" : "95352563",
+    "email" : "heinz@example.com",
+    "gender": "Male",
+    "address" : "wall street",
+    "tagged" : [ ],
+    "photo" : "carl.png"
+  }, {
+    "name" : "Daniel Meier",
+    "phone" : "87652533",
+    "email" : "cornelia@example.com",
+    "gender": "Male",
+    "address" : "10th street",
+    "tagged" : [ "friends" ],
+    "photo" : "daniel.png"
+  }, {
+    "name" : "Elle Meyer",
+    "phone" : "9482224",
+    "email" : "werner@example.com",
+    "gender": "Others",
+    "address" : "michegan ave",
+    "tagged" : [ ],
+    "photo" : "default.png"
+  }, {
+    "name" : "Fiona Kunz",
+    "phone" : "9482427",
+    "email" : "lydia@example.com",
+    "gender": "Female",
+    "address" : "little tokyo",
+    "tagged" : [ ],
+    "photo" : "default.png"
+  }, {
+    "name" : "George Best",
+    "phone" : "9482442",
+    "email" : "anna@example.com",
+    "gender": "Male",
+    "address" : "4th street",
+    "tagged" : [ ],
+    "photo" : "default.png"
+  } ]
+}

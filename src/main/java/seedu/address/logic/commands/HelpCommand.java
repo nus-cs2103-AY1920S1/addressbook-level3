@@ -16,6 +16,14 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+        return new CommandResult(SHOWING_HELP_MESSAGE, true, false, false);
+    }
+    @Override
+    public boolean isUndoable() {
+        return false;
+    }
+    @Override
+    public String toString() {
+        return "Help Command";
     }
 }

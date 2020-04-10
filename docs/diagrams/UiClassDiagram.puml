@@ -15,6 +15,7 @@ Class PersonListPanel
 Class PersonCard
 Class StatusBarFooter
 Class CommandBox
+Class InformationDisplay
 }
 
 package Model <<Rectangle>> {
@@ -35,6 +36,7 @@ MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> PersonListPanel
 MainWindow *-down-> StatusBarFooter
+MainWindow *-right-> InformationDisplay
 
 PersonListPanel -down-> PersonCard
 
@@ -46,8 +48,10 @@ PersonListPanel --|> UiPart
 PersonCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
+InformationDisplay --|> UiPart
 
 PersonCard ..> Model
+InformationDisplay ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 

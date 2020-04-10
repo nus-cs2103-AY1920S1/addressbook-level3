@@ -6,11 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.Comparators.NAME_COMPARATOR;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -160,6 +162,16 @@ public class UniquePersonListTest {
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Person> listWithDuplicatePersons = Arrays.asList(ALICE, ALICE);
         assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPersons(listWithDuplicatePersons));
+    }
+
+    @Test
+    public void sortByName_unorderedList_returnsTrue() {
+        uniquePersonList.add(BOB);
+        uniquePersonList.add(ALICE);
+        uniquePersonList.sortByName(NAME_COMPARATOR);
+        Iterator<Person> iterator = uniquePersonList.iterator();
+        assertTrue(ALICE.isSamePerson(iterator.next()));
+        assertTrue(BOB.isSamePerson(iterator.next()));
     }
 
     @Test

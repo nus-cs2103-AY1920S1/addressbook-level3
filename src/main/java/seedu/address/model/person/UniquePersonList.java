@@ -79,6 +79,11 @@ public class UniquePersonList implements Iterable<Person> {
         }
     }
 
+    public Person getPerson(Person person) {
+        requireNonNull(person);
+        return internalList.get(1);
+    }
+
     public void setPersons(UniquePersonList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -95,6 +100,14 @@ public class UniquePersonList implements Iterable<Person> {
         }
 
         internalList.setAll(persons);
+    }
+
+    /**
+     * Sorts contents of this list in alphabetical order using {@code personComparator}.
+     * @param personNameComparator Compares one person to another using name. Case is ignored.
+     */
+    public void sortByName(PersonNameComparator personNameComparator) {
+        internalList.sort(personNameComparator);
     }
 
     /**

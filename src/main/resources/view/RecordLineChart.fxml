@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+
+<LineChart fx:id="lineChart" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <xAxis>
+    <CategoryAxis side="BOTTOM" style="-fx-background-color: ffffff;" fx:id="xAxis" />
+  </xAxis>
+  <yAxis>
+    <NumberAxis fx:id="yAxis" forceZeroInRange="false" side="LEFT" style="-fx-background-color: ffffff;" />
+  </yAxis>
+   <padding>
+      <Insets bottom="16.0" left="32.0" right="16.0" top="16.0" />
+   </padding>
+</LineChart>

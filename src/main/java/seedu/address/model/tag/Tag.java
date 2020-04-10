@@ -3,6 +3,9 @@ package seedu.address.model.tag;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a Tag in the address book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
@@ -11,6 +14,8 @@ public class Tag {
 
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+
+    private static List<String> tags = new ArrayList<>();
 
     public final String tagName;
 
@@ -23,6 +28,7 @@ public class Tag {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
+        tags.add(tagName);
     }
 
     /**
@@ -30,6 +36,13 @@ public class Tag {
      */
     public static boolean isValidTagName(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Retrieves a list of all the tags of all the people entries.
+     */
+    public static List<String> getAllTags() {
+        return tags;
     }
 
     @Override

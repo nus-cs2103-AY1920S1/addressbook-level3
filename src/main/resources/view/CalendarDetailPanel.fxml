@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" styleClass="edge-to-edge" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff;">
+         <children>
+            <Label maxWidth="1.7976931348623157E308" style="-fx-background-color: #30336B;" text="Attendance" textFill="#badc58">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="4.0" left="32.0" top="4.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <VBox fx:id="attendanceBox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" style="-fx-background-color: #ffffff;">
+               <padding>
+                  <Insets bottom="16.0" left="32.0" right="32.0" top="16.0" />
+               </padding>
+            </VBox>
+            <Label maxWidth="1.7976931348623157E308" style="-fx-background-color: #30336B;" text="Performance" textFill="#e056fd">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="4.0" left="32.0" top="4.0" />
+               </padding>
+            </Label>
+            <VBox fx:id="performanceBox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" style="-fx-background-color: #ffffff;">
+               <padding>
+                  <Insets bottom="16.0" left="32.0" right="32.0" top="16.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>

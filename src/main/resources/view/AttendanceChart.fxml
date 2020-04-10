@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="chartTitle" style="-fx-background-color: #ffffff;" text="Team Attendance Percentage" HBox.hgrow="ALWAYS">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <PieChart fx:id="pieChart" animated="false" labelLineLength="10.0" legendVisible="false" maxHeight="100.0" maxWidth="250.0" minHeight="100.0" minWidth="250.0" prefHeight="100.0" prefWidth="250.0" startAngle="90.0" style="-fx-padding: 0; -fx-background-color: #ffffff;" titleSide="LEFT" HBox.hgrow="NEVER">
+         <styleClass>
+            <String fx:value="chart-content" />
+            <String fx:value="default-color0.chart-pie" />
+            <String fx:value="default-color1.chart-pie" />
+            <String fx:value="chart-pie-label-line" />
+            <String fx:value="chart-pie-label" />
+         </styleClass>
+      </PieChart>
+   </children>
+</HBox>

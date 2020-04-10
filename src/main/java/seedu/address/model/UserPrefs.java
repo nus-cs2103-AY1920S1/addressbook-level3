@@ -14,7 +14,10 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path athletickFilePath = Paths.get("data" , "athletick.json");
+    private Path performanceFilePath = Paths.get("data", "events.json");
+    private Path attendanceFilePath = Paths.get("data", "attendance.json");
+    private Path imageFilePath = Paths.get("images", "text.txt");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -35,7 +38,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setAthletickFilePath(newUserPrefs.getAthletickFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,13 +50,35 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    public Path getAthletickFilePath() {
+        return athletickFilePath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+    public void setAthletickFilePath(Path athletickFilePath) {
+        requireNonNull(athletickFilePath);
+        this.athletickFilePath = athletickFilePath;
+    }
+
+    public Path getPerformanceFilePath() {
+        return performanceFilePath;
+    }
+
+    public void setPerformanceFilePath(Path performanceFilePath) { // for tests, not implemented yet
+        requireNonNull(performanceFilePath);
+        this.performanceFilePath = performanceFilePath;
+    }
+
+    public Path getAttendanceFilePath() {
+        return attendanceFilePath;
+    }
+
+    public Path getImageFilePath() {
+        return imageFilePath;
+    }
+
+    public void setAttendanceFilePath(Path attendanceFilePath) {
+        requireNonNull(attendanceFilePath);
+        this.attendanceFilePath = attendanceFilePath;
     }
 
     @Override
@@ -68,19 +93,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && athletickFilePath.equals(o.athletickFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, athletickFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + athletickFilePath);
         return sb.toString();
     }
 
