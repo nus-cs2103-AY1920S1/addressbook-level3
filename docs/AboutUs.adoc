@@ -51,7 +51,7 @@ Responsibilities: Code quality, Documentation, *Storage Component*
 
 === Shawn Lee
 image::shawnlsj97.png[width="150", align="left"]
-{empty}[https://shawnlsj.github.io/[personal website]] [https://github.com/shawnlsj97[github]] [<<shawnlsj97#, portfolio>>]
+{empty}[https://shawnlsj97.github.io/[personal website]] [https://github.com/shawnlsj97[github]] [<<shawnlsj97#, portfolio>>]
 
 Role: Integration Developer, UI/UX Designer +
 Responsibilities: Git expert, *Ui Component*
