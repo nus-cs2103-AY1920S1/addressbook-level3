@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= FinSec - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,13 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-W12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
-
-== Setting up
-
-Refer to the guide <<SettingUp#, here>>.
+By: `AY1920S1-CS2103T-W12-1`      Since: `Aug 2019`      Licence: `MIT`
 
 == Design
 
@@ -29,10 +25,6 @@ Refer to the guide <<SettingUp#, here>>.
 image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
 `Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -98,7 +90,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `FinSecParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -122,7 +114,7 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the FinSec data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -142,150 +134,1005 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the FinSec data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some important details on how the features are implemented
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Help feature
+The `help` command allows for users to generate a `**HelpCommand**` object in FinSec. It then provides one of various
+types of help dependant on the request of the user.
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The format for the `help` command is as follows:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+ help cmd/<COMMAND> type/<TYPE>
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+==== Overview
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+The `help` mechanism is facilitated by `**HelpCommand**` and `**HelpCommandParser**`, taking in the following inputs from the
+user: `SecondaryCommand` and `Type`.
+After the parameters have been parsed, the relevant `**CommandResult**` object will be instantiated based on the input `Type` and pertaining to the input `SecondaryCommand`.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+==== Current Implementation
 
-image::UndoRedoState0.png[]
+The activity diagram below shows how it would look like from a user's point of view during the creation of a `**HelpCommand**` object.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+<<helpActDiagram>> describes the workflow of FinSec when the `help` command
+command is entered.
+[[helpActDiagram]]
+[reftext="Figure 2.1.2.1"]
+[caption="Figure 2.1.2.1: "]
+.Activity diagram of the `help` command
+image::DG-HelpActivityDiagram.PNG[width="800"]
 
-image::UndoRedoState1.png[]
+The series of steps below explain the process and current implementation of the `help` command.
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+*Step 1 :* The user requests for help.
 
-image::UndoRedoState2.png[]
+*Step 2 :* The `**HelpParser**` then calls the execute function of the `**HelpCommand**`.
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+*Step 3 :* The `**HelpCommand**` then returns a `**CommandResult**` based on what parameters the user enters.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+* If no parameters are entered, the `**HelpCommand**` class returns with a `**CommandResult**` requesting to show a basic `helpWindow`
+* If the incorrect parameters are entered, an error message will be sent as feedback to the user in the `**CommandResult**`
 
-image::UndoRedoState3.png[]
+*Step 4 :* If the correct parameters are entered, the appropriate type of help is given.
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+* If the user chooses `brief`, a brief description will be returned as feedback to the user in the `**CommandResult**`
+* If the user chooses `guide`, the `**HelpCommand**` class accesses the `**WebLinks**` class to get the String value of the respective command. It then utilises your default web browser to open up the FinSec User Guide and centers on the requested command.
+* If the user chooses `api`, the `**HelpCommand**` class accesses the `**ApiLinks**` class to get the String value of the respective command. It then generates an API.html file of the requested command on the local system and accesses it.
 
-The following sequence diagram shows how the undo operation works:
+*Step 5 :* The `help` command resolves
 
-image::UndoSequenceDiagram.png[]
+==== Why was it implemented this way?
+With regards to help, the current implementation was sorely lacking. The only way the user could get useful help was to access the User Guide which requires an internet connection.
+This meant that there was basically no offline help available with regards to command lists or what commands do.
+With the multi-faceted approach, the user can control the depth of help and have more options available to them in general.
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+==== Alternatives Considered
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+We have considered between two differing help philosophies.
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+.Help philosophies
+[options="header,footer"]
+|=======================
+| Methods of Help 				|	Pros and Cons
+| Simplistic Help		  		|	*Pros* : Use as-is. No additional coding required.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+                                        	 	*Cons* : Requires an online connection to be able to get help.
 
-image::UndoRedoState4.png[]
+| Multi-faceted help				|	*Pros* : Provides multiple types of help .
+							*Cons* : There is a risk of over-complicating the `help` function, which would prompt the user to be confused on how to even use the help command.
+|=======================
+We have settled on adopting the multi-faceted help philosophy as the current implementation of help simply does not cut it. Measures have been taken such as allowing the user to type in `help` with no additional
+parameters to display the command list and explain the deeper features of the help command; thus retaining its simplicity.
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+// tag::addClaim_feature[]
+=== Claim feature
 
-image::UndoRedoState5.png[]
+`Claim` is meant to model a claim made by a person. It has the following fields: `Id`, `Description`, `Amount`,
+`Date`, `Name` and `Tags`.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+==== Adding a Claim
 
-image::CommitActivityDiagram.png[]
+===== Overview
+
+The `add_claim` command allows for admins to register `Claims` into `FinSec`.
+
+The format for the `add_claim` command is as follows:
+
+ add_claim n/<NAME> d/<DESCRIPTION> c/<CASH AMOUNT> date/<DATE> [t/<TAG>]
+
+The add claim `add_claim` mechanism is facilitated by `AddClaimCommand` and `AddClaimCommandParser`, taking in the
+following input from the user: `Description`, `Amount`, `Date`, `Name` and optionally `Tags`, which will construct
+`Claim` objects.
+
+===== Implementation
+
+Figure 9 is an activity diagram that models the workflow of the addition of a claim.
+
+.Add Claim Command Activity Diagram
+image::AddClaimActivityDiagram.png[]
+
+Figure 10 and 11 shows the sequence diagrams in executing the `AddClaimCommand`.
+
+.Add Claim Command Sequence Diagram
+image::AddClaimSequenceDiagram.png[]
+
+.Add Claim Command Sequence Diagram (extension)
+image::AddClaimSequenceDiagram_Model.png[]
+
+* Upon calling for the command, the `AddClaimCommandParser#parse()` will be executed:
+
+** This operation takes in a String input from the user that will create `Claim` objects based on the prefixes 'd/',
+'c/', 'date/', 'n/' and 't/'. The String value after the individual prefixes will create the respective object:
+d/`description`, c/`amount`, date/`date`,  n/`name` and t/`tags`. A regex validation check will be imposed upon the
+creation of each argument. Any checks that fails the validation would prompt the user on the failed component.
+
+** Each of the parameters will be checked whether they are valid:
+
+*** `amount` uses `ParserUtil#parseAmount()` to ensure that cash amount would only contain numbers and a maximum of
+2 decimal places.
+*** `date` uses `Date#isValidDate()` to ensure that the date entered is in the correct format of DD-MM-YYYY. The
+date also has to be a valid date _(29-02-2019 is invalid but 29-09-2016 is valid)_. An example of validation in code is
+shown below.
+
+[source, java]
+
+public static final String VALIDATION_REGEX = "(31[\\-.](0[13578]|1[02])[\\-.](18|19|20)[0-9]{2})|((29|30)[\\-.](01|0[3-9]|1[1-2])[\\-.](18|19|20)[0-9]{2})|((0[1-9]|1[0-9]|2[0-8])[\\-.](0[1-9]|1[0-2])[\\-.](18|19|20)[0-9]{2})|(29[\\-.](02)[\\-.](((18|19|20)(04|08|[2468][048]|[13579][26]))|2000))";
+public static boolean isValidDate(String test) {
+	return test.matches(VALIDATION_REGEX);
+}
+
+
+** After the validation checks are completed successfully, a `Claim` object will be constructed with `Id`, `Description`,
+`Amount`, `Date`, `Name` and `Tags` as the parameters.
+
+** `AddClaimCommandParser` will then return an `AddClaimCommand` object with `Claim` as its attribute.
+
+** `AddClaimCommand#execute` will check against all existing contacts against the input `name` to make sure
+the contact exists:
+
+[source, java]
+@Override
+public CommandResult execute(Model model) throws CommandException {
+	requireNonNull(model);
+	if (model.hasClaim(toAdd)) {
+		throw new CommandException(MESSAGE_DUPLICATE_CLAIM);
+	}
+	if (!model.hasContactFor(toAdd)) {
+		throw new CommandException(MESSAGE_CONTACT_NOT_FOUND);
+	}
+	model.addClaim(toAdd);
+	return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+}
+
+
+
+*Example*
+
+Given below is an example usage scenario of how `add_claim` mechanism behaves at each step.
+
+*Step 1:* The user executes:
+....
+add_claim n/Melissa d/Logistics for Sports Day c/150.60 date/21-12-2019
+....
+This is intended to add a `Claim` of $150.60 for Logistics for Sports Day by Melissa.
+
+*Step 2:* `LogicManager` uses `FinSecParser#parse()` to parse input from the user.
+
+*Step 3:* `FinSecParser` determines which command is being used and creates the respective parser. In this case,
+`AddClaimCommandParser` is being created and the user's input will be passed in as a parameter.
+
+*Step 4:* `AddClaimCommandParser` will do a validation check on the user's input before creating and returning a
+`AddClaimCommand` object with `Claim` as its attribute.
+
+*Step 5:* `LogicManager` will execute `AddClaimCommand#execute()`, checking whether there is an existing Claim and also
+whether there is an existing contact for the claim, then adding the `PendingClaim` into the `Model` which is handled by the
+`ModelManager`.
+
+*Step 6:* During the addition of claim into the `UniqueClaimsList` in `FinSec`, `FinSec#addClaimIntoContact` will also
+be called, adding the `Id` of the claim to the associated contact's `claims`.
+
+*Step 7:* `AddClaimCommand` will return a `CommandResult` to the `LogicManager` which will then be returned back to
+the user.
+
+During the design of our `add_claim` function, specifically its association with `Contacts`, we considered other
+alternatives as well.
+
+.add_claim alternatives
+[options="header,footer"]
+|=======================
+| Design Consideration | Pros and Cons
+| Adding the claim into contact by its Id |
+*Pros* : Since each claim has an unique Id, it can easily be retrieved from `UniqueClaimsList` _(returned from
+`FinSec#getClaimList()`)_. This reduces coupling when the claim is to be changed _(eg. gets approved)_.
+
+*Cons* : Every time we retrieve a claim using its `Id`, we have to search through the whole `UniqueClaimsList` to find
+the associated claim. As the list gets bigger and the more claims we have to search for an individual contact, this
+may take more time.
+
+| Adding the claim into contact by its object |
+*Pros* : This allows the claim to be stored inside the contact itself, thus is easily accessible.
+
+*Cons* : It is more difficult ensuring that both the same claim in the contact and in the `UniqueClaimsList` remains
+exactly the same to each other when one of them is changed.
+
+|=======================
+
+We have decided to opt for the first option primarily because it reduces the number of potential bugs and the
+complexities involved. Moreover, as we are trying to push a Minimum Viable Product, the implementation is still fast
+enough for small-scale organisations to pick up our app and use it, minimising the cons.
+
+==== Approving a Claim
+
+This feature allows the user to approve a `PendingClaim` from the `UniqueClaimList` through its index.
+
+The approve claim feature is facilitated by the `ApproveClaimCommandParser` and the `ApproveClaimCommand`.
+
+The `ApproveClaimCommand` is part of the logic component of our application. It interacts with the model and storage
+components of our application.
+
+==== Rejecting a Claim
+
+This feature allows the user to reject a `PendingClaim` from the `UniqueClaimList` through its index.
+
+The approve claim feature is facilitated by the `RejectClaimCommandParser` and the `RejectClaimCommand`.
+
+The `RejectClaimCommand` is part of the logic component of our application. It interacts with the model and storage
+components of our application.
+
+
+// end::addClaim_feature[]
+=== Income feature
+
+The `add_income` command allows for users to register new `Income` objects into FinSec.
+
+The format for the `add_income` command is as follows:
+
+....
+`add_income d/<description> c/<cash amount> date/<date> n/<name> p/<phone number>`
+....
+
+==== Adding an Income
+
+*Overview*
+
+The add income `add_income` mechanism is facilitated by `AddIncomeCommand` and `AddIncomeCommandParser`. It takes in the following input from the user:
+`description`, `cash amount`, `name` and `phone number`, which will construct individual objects that construct an `Income` object.
+
+The `AddIncomeCommandParser` implements `Parser` with the following operation:
+
+
+* `AddIncomeCommandParser#parse()` - This operation will take in a `String` input from the user that will create individual objects based on the prefixes 'd/', 'c/', 'date/', 'n/' and 'p/'. The `String` value after the individual prefixes will create
+the respective object: d/ `description`, c/ `cash amount`, date/`date`,  n/ `name` and p/ `phone`. A validation check will be imposed upon the creation of each object. Any checks that fails the validation would prompt the user on the failed component.
+For example:
+
+** `cash amount` would use `ParserUtil#parseAmount()` to ensure that cash amount would only contain numbers and a maximum of 2 decimal places.
+
+** `phone` would use `ParserUtil#parsePhone()` to ensure that the phone number entered would only contain numbers that are at least 3 numbers long.
+
+** `date` would use `ParseUtil#parseDate()` to ensure that the date entered is in the correct format of DD-MM-YYYY.
+
+* After validation checks are completed with no errors, an `Income` object is then constructed with `description`, `cash`, `date`, `name` and `phone` as the parameters.
+
+* `AddIncomeCommandParser` would then return a `AddIncomeCommand` object with `Income` as the parameter.
+
+*Example*
+
+Given below is an example usage scenario of how `add_income` mechanism behaves at each step.
+
+*Step 1:* The user executes `add_income d/shirt sales c/100.05 date/11-11-2019 n/John Doe p/91111111` to add an income of $100.05 of shirt sales received from John Doe who is contactable at 91111111.
+
+*Step 2:* `LogicManager` would use `FinSecParser#parse()` to parse input from the user.
+
+*Step 3:* `FinSecParser` would determine which command is being used and creates the respective parser. In this case, `AddIncomeCommandParser` is being created and the user's input would be passed in as a parameter.
+
+*Step 4:* `AddIncomeCommandParser` would do a validation check on the user's input before creating and returning a `AddIncomeCommand` object with `Income` as the parameter.
+
+*Step 5:* `LogicManager` would use `AddIncomeCommand#execute()` to add the `Income` into the `Model` which is handled by the `ModelManager`.
+
+*Step 6:* `AddIncomeCommand` would return a `CommandResult` to the `LogicManager` which would then be returned back to the user.
+
+.Add Income Command Sequence Diagram
+image::AddIncomeSequenceDiagram.png[]
+
+==== Deleting an Income
+
+This feature allows the user to delete an income entry from the Unique Incomes List through its index.
+
+The delete income feature is facilitated by the `DeleteIncomeCommandParser` and the `DeleteIncomeCommand`.
+
+The delete income command is part of the logic component of our application. It interacts with the model and storage components of our application.
+
+*Overview*
+
+The `DeleteIncomeCommandParser` implements `Parser` with the following operation:
+
+* `DeleteIncomeCommandParser#parse()` - This operation will take in a `int` input from the user which will delete the income entry at the index which has entered.
+Any invalid format of the command will be prompted by the command parser.
+
+*Current Implementation*
+
+The delete income feature is executed by the `DeleteIncomeCommand`. Currently, the deletion of any income entry is done based on the `INDEX` of the income entry.
+
+During the design of our delete function, we considered between two alternatives.
+
+.Delete function alternatives
+[options="header,footer"]
+|=======================
+| Design Consideration | Pros and Cons
+| Deletion by Index (Current Choice)   | *Pros* : Since each income has a unique index, any deletion by the index is less prone to bugs and easier to implement.
+
+                                        *Cons* : User will have to scroll the income list for the income entry and look for its index which can be inconvenient.
+
+| Deletion by Income description     | *Pros* : It may be more intuitive for users to delete an income through the description of the income.
+
+                                        *Cons* : Incomes of different entries can have similar description. The user would eventually still have to look through the income list.
+|=======================
+
+We have decided to opt for the first option primarily because it reduces the number of potential bugs and the complexities involved when taking into account the different cases and scenarios upon using deletion by income description.
+
+
+==== Editing an Income
+
+This feature allows the user to edit any attribute of the income entries. There are a total of five attributes for each entry, the description of the income, the amount of money received, the date it was received, the name of the person / organisation the user
+received the money from and the contact number. The user can edit at least one and up to all attributes.
+
+The edit income feature is facilitated by the `EditIncomeCommandParser` and the `EditIncomeCommand`.
+
+The edit command is part of the logic component of our application. It interacts with the model component of our software architecture.
+
+*Overview*
+
+The `EditIncomeCommandParser` implements `Parser` with the following operation:
+
+* `EditIncomeCommandParser#parse()` - This operation will take in an `int` input and one to five `String` input(s) from the user that will alter the attributes of current income entries based on the prefixes 'd/', 'c/', 'date/', 'n/', 'p'. The `String`
+value after the individual prefixes will alter the respective attribute it corresponds to: 'd/' for `Description`, 'c/' for `Amount`, 'date/' for `Date`, 'n/' for `Name` and 'p/' for `Phone`. A validation check will be imposed upon editing of each object. Any checks that fails
+the validation would prompt the user on the failed component.
+
+*Current Implementation*
+
+Here is an example of a step-by-step process on how the edit command alters an attribute of the income entry. For each step, you may follow the activity diagram at the end of this section to better understand the flow of events within FinSec when an edit_income command is entered.
+
+*Step 1 :* The user launches the application and navigates to the income page. There is a list of existing income entries in FinSec.
+
+*Step 2 :* The user then wishes to alter the income description of the second entry in the income list to "Fundraising". He then types `edit_income 2 d/Fundraising` into the Command Line Interface(CLI) and executes it.
+
+*Step 3 :* The FinSecParser (refer to logic) then reads in these attributes that have been entered and proceeds to alter the attributes of the income entry in the given index. Each attribute will be validated.
+
+*Step 4 :* The FinSecParser then creates a new EditIncomeCommand based on the input of the user. When the EditIncomeCommand is executed, it interacts with the Model architecture by calling the setIncome method. The setIncome method replaces the current income entry with the new income entry containing all the desired attributes. The income entry is now updated.
+
+//enter activity diagram for edit income
+
+// tag::shortcutfeature[]
+=== Shortcut feature
+
+This feature gives the user an option to create a shortcut when an unknown command is entered into FinSec.
+
+*Overview*
+
+To enable an easy implementation of this feature, we have created a TreeMap to store the default commands and shortcuts in the `FinSecParser`. Each command and shortcut have their Command Word stored as they key value (so as to ensure there are no duplicates) and Command task as the values.
+
+All default commands and shortcuts are also initialised as `CommandItem` objects which would be handled by the `Model Manager` class whenever we add or delete a shortcut. Command classes such as `ShortCutRequestCommand`, `CreateShortcutCommand` and `NoShortCutCommand` are created to facilitate the
+implementation of the shortcut feature.
+
+When a user enters a command, `FinSecParser` would parse the input and check if the first word of the input is in the TreeMap key set. If the command word is not in the key set, FinSec would create a `ShortCutRequestCommand` and return the `ShortCutRequestCommand` object with `CommandWord` as the parameter.
+
+*Example*
+
+Given below is an example usage scenario of how the shortcut feature mechanism behaves at each step.
+
+*Step 1 :* The user launches FinSec for the first time. The `FinSecParser` will be initialised. All the default commands will be added to the TreeMap using `FinSecParser#initialiseDefaultCommands()`. Previously created shortcuts would be added to the TreeMap from the constructor of the `FinSecParser`, where the ObservableList<CommandItem> will be the parameter.
+
+*Step 2 :* The user enters an unknown command that is not recognised by FinSec. FinSec then returns a `ShortCutRequestCommand`.
+
+*Step 3 :* `ShortCutRequestCommand` is executed in `LogicManager` and LogicManager would save the command word in a Stack. A `CommandResult` with a new Boolean value of "createShortCut" is then returned to `MainWindow` to display the result of the entry. The `CommandResult#isCreateShortCut()` sets the `MainWindow#unknownEntry` to true.
+
+*Step 4 :* Since now the boolean value of `MainWindow#unknownEntry` is true, the next input would use a different execute command. Instead of the usual method `LogicManager#execute(String command)`, the next input would be executed by `LogicManager#executeUnknownInput(String command)`. Hence, if the subsequent input by the user is `n`, a `NoShortCutCommand` would be executed
+and it would return a `CommandResult` with a false value of `createShortCut` which would reinstate back the normal state of FinSec.
+
+*Step 5 :* If the user enters a value other than `n`, the `LogicManager#executeUnknownInput(String command)` would call `FinSecParser#checkCommand(String currentInput, String prevInput)` to check if the command is existing or not. If the command is existing, it would return another `ShortCutRequestCommand` object with the same input. However, if a valid default command is entered, a new `CreateShortCutCommand` object is returned (go back to *Step 3*).
+
+* The code snippet below shows the `FinSecParser#checkCommand(String currentInput, String prevInput)` method +
+
+[source, java]
+
+XYSeries public Command checkCommand(String currentInput, String prevInput) {
+        if (FinSecParser.commandList.containsValue(currentInput)) {
+            FinSecParser.commandList.put(prevInput, FinSecParser.commandList.get(currentInput));
+            return new CreateShortCutCommand(FinSecParser.commandList.get(currentInput), prevInput);
+        } else {
+            return new ShortCutRequestCommand(currentInput);
+        }
+    }
+
+*Step 6 :* When a `CreateShortCutCommand` object is returned, it is executed in `LogicManager` and `LogicManager` would use `CreateShortCutCommand#execute()` to add the `CommandItem` into the `Model` which is handled by the `ModelManager`.
+
+*Step 7 :* `CreateShortCutCommmand` would then return a `CommandResult` to the `LogicManager` which would then be returned back to the user.
+
+The following diagrams summarises what happens when a user executes an unknown command:
+
+<<ShortcutDiagram>> is the activity diagram when a user inputs an unknown command
+[[ShortcutDiagram]]
+[reftext="Figure 2.4.1"]
+[caption="Figure 2.4.1: "]
+.ActivityDiagram when a user inputs an unknown command
+image::ShortcutActivityDiagram.png[width="600"]
+
+<<CreateShortCutDiagram>> shows the UML diagram of the flow of logic when a user creates a shortcut to a valid command
+[[CreateShortCutDiagram]]
+[reftext="Figure 2.4.2"]
+[caption="Figure 2.4.2: "]
+.UML diagram when a user creates a shortcut
+image::CreateShortCutDiagram.png[width="700"]
+
+
+
+==== Why was it implemented this way?
+
+In order for us to create new Command Words that gives the same functionality of a default command, it was imperative for us to create a CommandItem class that creates an object for every command with the String attributes of `CommandWord` and `CommandTask`. This way, it was possible to
+create more commands as the user uses the application.
+
+Now with creation of new commands being made possible, we have to decide how we were going to store the list of commands for frequent reference to ensure a bug-free implementation of this feature.
+
+We considered between two alternatives.
+
+.Data structure to store commandWord and commandTask alternatives
+[options="header,footer"]
+|=======================
+| Data Structure Consideration | Pros and Cons
+| TreeMap (Current Choice)   | *Pros* : Since each commandWord has 2 attributes, `commandWord` and `commandTask`, this data structure was perfect for storing commands and newly created shortcuts.
+                                        Furthermore, since we have to look up this TreeMap frequently, a TreeMap would improve the performance of the application since the retrieval speed of a TreeMap is extremely fast.
+
+                                        *Cons* : A TreeMap is not as intuitive to implement compared to an ArrayList or List.
+
+| ArrayList     | *Pros* : It may be more intuitive to implement an ArrayList.
+
+*Cons* : Since we have to look up the list of commands frequently, the use of an ArrayList would significantly lower the performance of FinSec. This might negatively affect user experience.
+|=======================
+
+We have decided to opt for the first option primarily because it significantly improves the performance of the application.
+
+// end::shortcutfeature[]
+
+=== Autocorrect feature
+
+This feature gives the user a dropdown list of suggestions when he is typing his entry.
+
+*Overview*
+
+In order for an easy implementation of this feature, we have created a new class `AutocorrectTextField` that extends `TextField` that would be loaded into the MainWindow when the user starts the application.
+
+The `AutocorrectTextField` has 2 attributes, `suggestionCommands` and `addSuggestions` which are Sets of String values to be displayed to the user upon entering their commands. `suggestionCommands` would give the list of suggestions and `addSuggestions` would give the list of additional suggestions such as `n/John Doe` for ease of use for the users.
+
+The list of commands can be easily retrieved using the method `FinSecParser#getCommandList().keySet()` while the list of additional suggestions can be retrieved from `SuggestionsStorage#getSuggestions()`.
+
+Currently, when the user adds a `Contact`, a new `AutocorrectSuggestion` would be created and added to the `Model` by the `ModelManager`. The `AutocorrectSuggestion` that would be created will be in the `String` "add_claim n/<Contact.fullname()>". This would ease the addition of claims into FinSec since that a user is not able to add a claim if the contact does not exist.
+
+*Example*
+
+Given below is an example usage scenario of how the AutoCorrect feature mechanism behaves at each step.
+
+*Step 1 :* The user starts typing add_contact into FinSec. Since that add_contact is a default command, it would already be in the Set of Strings in `AutocorrectTextField#suggestionCommands` and it would trigger the method `AutocorrectTextField#changed()` and the suggestions would be loaded into the UI in the `MainWindow`.
+
+*Step 2 :* The user adds a contact into FinSec and the method `AddContactCommand#execute()` is executed.
+
+* The code snippet below shows the `AddContactCommand#execute()` method +
+
+[source, java]
+
+XYSeries  public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+        if (model.hasContact(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+        model.addContact(toAdd);
+        //adding the contact's name into the suggestion list.
+        AutocorrectSuggestion addName = new AutocorrectSuggestion("add_claim n/" + toAdd.getName().fullName);
+        model.addAutocorrectSuggestion(addName);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+
+*Step 3 :* An `AutocorrectSuggestion` object is created with the parameter "add_claim n/contact.getName().fullName".
+
+*Step 4 :* The newly created `AutocorrectSuggestion` object is added into `Model` and handled by the `ModelManager`.
+
+*Step 5 :* As the `AutocorrectTextField` is refreshed, the newly updated list of suggestions would be loaded by the methods `FinSecParser#getCommandList().keySet()` and `SuggestionsStorage#getSuggestions()` and ready to display for the next user input.
+
+
+=== Budget feature
+
+The `budget` command allows for users to Generate a `**Budget**` object in FinSec. It also creates a `**BudgetGraph**`
+object and displays it via the User Interface.
+
+==== Overview
+The `**Budget**` feature relies primarily on the `**Claim**` and `**Income**` features, and serves as an extension to
+calculate their difference.
+The `**Budget**` object calculates the cash amount values of all existing `**Income**` objects and all cash amount
+values of `**Claims**` that have a status of 'approved'.
+It then returns the difference in values as the budget value and creates a graph detailing the statistics for the month.
+
+==== Current Implementation
+<<budgetSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `budget`
+command is entered.
+[[budgetSeqDiagram]]
+[reftext="Figure 2.6.2.1"]
+[caption="Figure 2.6.2.1: "]
+.Execution sequence of the `budget` command
+image::BudgetSequenceDiagram.png[width="800"]
+
+*Step 1 :* The `budget` command is passed on to the `**LogicManager**` as commandText +
+
+*Step 2 :* The `**LogicManager::execute**` method then calls `**FinSecParser::parseCommand**` which receives the user
+input (`budget`) as a parameter. +
+
+*Step 3 :* FinSecParser then references the various command words and identifies the command to be a `budget` command
+. It then calls the `**BudgetCommand**` class.
+
+*Step 4 :* This newly created `**BudgetCommand**` object is returned to the `**LogicManager**` class, which then calls the
+`**BudgetCommand::execute**` method.
+
+*Step 5 :* The `**BudgetCommand**` then interacts with the model component of our software architecture to create a
+filteredList of all `**Income**` and `**Claim**` objects using the `**model.getFilteredClaimList()**` and `**model
+.getFilteredIncomeList()**` methods.
+
+*Step 6 :* It instantiates a `**Budget**` object which contains methods such as `**calculateTotalExpenses()**` and
+`**calculateBudget()**` to calculate the amount values of all the `**Claims**`, `**Incomes**` and thus use them to find
+the budget amount. +
+A `**BudgetGraph**` object is also created in parallel (Details expanded upon below)
+
+*Step 7:* The `**BudgetCommand::execute**` finally completes by constructing a message string containing all these
+values and returning a new `**CommandResult**` with the specific message string to its calling method which is
+`**LogicManager::execute**`.
+
+*Step 8 :* `**LogicManager::execute**` method returns a `**CommandResult**` to the calling method which is
+`**MainWindow::executeCommand**`.
+
+*Step 9 :* The specific feedback is then retrieved through `**CommandResult::getFeedbackToUser**` and set in the result
+display of the MainWindow. +
+
+While creating the `**Budget**` object, a `**BudgetGraph**` object is also created in parallel. The activity diagram
+below
+shows how it would look like from a user's point of view.
+
+<<budgetActDiagram>> describes the workflow of FinSec when the `budget` command is entered.
+[[budgetActDiagram]]
+[reftext="Figure 2.6.2.2"]
+[caption="Figure 2.6.2.2: "]
+.Activity diagram of the `budget` command
+image::DG-BudgetActivityDiagram.PNG[width="800"]
+
+The series of steps below demonstrates what the `**BudgetGraph**` object does in parallel to Step 6 above.
+
+*Step 6a :* At the same time the `**Budget**` object is created, the `**BudgetGraph**` object is also instantiated,
+which is
+basically an XY-graph.
+
+*Step 6b :* The `**BudgetGraph**` object creates a dataset by taking in the list of `**Claims**` and `**Incomes**` and
+parsing
+them to the `**ClaimPlotter**`, `**IncomePlotter**` and `**BudgetPlotter**` classes.
+
+*Step 6c :* The 3 plotter classes then filter their respective lists to create new lists for the current month and start adding the points to the series.
+
+The code snippet below shows the `**ClaimPlotter::plotClaims**` method +
+
+[source, java]
+
+   XYSeries plotClaims() {
+        Double amountToAdd;
+        findClaimValueAtStartOfMonth();
+        claimSeries.add(1, startingExpenses);
+        double currentExpenses = startingExpenses;
+        List<Claim> approvedClaimsInCurrentMonthList = findApprovedClaimsInCurrentMonth();
+        for (int day = 2; day <= 30; day++) {
+            for (Claim claim : approvedClaimsInCurrentMonthList) {
+                if (claim.getDate().date.getDayOfMonth() == day) {
+                    amountToAdd = Double.parseDouble(claim.getAmount().value);
+                    assert amountToAdd >= 0 : "A negative claim value managed to get into the claim list";
+                    currentExpenses += amountToAdd;
+                    currentExpenses = Math.round(currentExpenses * 100) / 100.0;
+                }
+            }
+            claimSeries.add(day, currentExpenses);
+        }
+        return claimSeries;
+    }
+
+*Step 6d :* Once the 3 series have been returned, the plotter classes then return the completed dataset to the
+`**BudgetGraph**` class which then renders the image.
+
+*Step 6e :* The `**BudgetCommand::execute**` method then calls the `**BudgetGraph::displayBudgetGraph**` method to
+display the graph image.
+
+
+
+==== Why was it implemented this way?
+With so many claims and incomes, all having differing dates, it can be hard to keep track of how much money one should have on hand at any one time.
+
+* We felt that while knowing how much our prospective budget would be is good, knowing it over a range of time (such as a month in the case of `**BudgetGraph**`) would help with better planning
+
+* We also wanted to keep track of the history of said `**Claims**` and `**Incomes**` and doing it over a 1 month period
+ensures there will not be too visual data cluttering the screen.
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+We have considered between two differing graph designs.
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+.Graph Designs
+[options="header,footer"]
+|=======================
+| Graph Design Considerations 			|	Pros and Cons
+| Single Graph (Current Choice)  		|	*Pros* : Clean and clutter-free display.
 
-===== Aspect: Data structure to support the undo/redo commands
+                                        	 	*Cons* : It does not display as much data
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+| Separate Graphs based on Organisation Tags    |	*Pros* : Displays all relevant data that the user can possibly ask for
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+							*Cons* : Opening a multitude of graphs will visually clutter the screen with data unless more parsing is done to sort out which graphs are required
+|=======================
+We have settled on adopting a single-graph approach as having multiple graphs open can lead to the user being overwhelmed by unnecessary data, and the code needed to achieve this result satisfactorily would be too convoluted.
 
-_{Explain here how the data encryption feature will be implemented}_
+// tag::gotofeature[]
+=== Goto feature
+This section describes the different Views that Goto can bring a user to. It includes an overview of the goto details and how users can interact
+with goto based on commands implemented with the revamp of the original list feature.
+It also provides some design considerations to give users an insight of how the current solutions are worked out.
 
-// end::dataencryption[]
+==== Overview
+There are various message attributes in goto command: `MESSAGE_SUCCESS_CONTACTS`, `MESSAGE_SUCCESS_CLAIMS`, `MESSAGE_SUCCESS_INCOMES`, `MESSAGE FAILURE`,
+`MESSAGE_USAGE` that informs the user if the changing of View is successful. The attribute `View` is also stored as an attribute
+of the command. It is taken in as the parameter and the index of this View determines the list that will be shown in the MainWindow.
 
-=== Logging
+==== Current Implementation
+Figure 2.4.2.1 is a sequence of steps that illustrates the interaction between various classes when the `goto` command is entered.
+`goto claims`
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+<<gotoSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `goto contacts`
+command is entered.
+[[gotoSeqDiagram]]
+[reftext="Figure 2.4.2.1"]
+[caption="Figure 2.4.2.1: "]
+.Execution sequence of the `goto contacts` command
+image::GotoSequenceDiagram.png[width="800"]
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+1) The only parameter after the goto command in the user input is passed into the LogicManager::execute method of the LogicManager instance. +
 
-*Logging Levels*
+2) The LogicManager::execute method calls FinSecParser::parseCommand which receives the user input as a parameter. +
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* This user input which is in `String` format is then formatted, the first word before the space is taken as the command word
+and the rest of the String is grouped together as the argument that will be used later by the GotoCommandParser.
+* With the command word determined, the FinSecParser instance identifies the command as a `goto` command and constructs an
+instance of the GotoCommandParser.
 
-[[Implementation-Configuration]]
-=== Configuration
+3) FinSecParser calls the GotoCommandParser::parse method. This instance of GotoCommandParser then takes in the rest of the string,
+in this case: `claims` +
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+* A `View` instance is then created when the ParserUtil:parseView method is called. This method takes in the argument from the GotoCommandParser::parse method parameter
+and returns a GotoCommand with the View instance. This View forms the gotoView attribute of this specific GotoCommand instance.
 
-== Documentation
+* When the argument for the GotoCommandParser::parse method is not recognised or present, a `ParseException` will be thrown with an error
+message that asks for the proper usage of the goto Command.
 
-Refer to the guide <<Documentation#, here>>.
+4) This newly created GotoCommand object is returned to the LogicManager instance through the GotoCommandParser and FinSecParser objects.
 
-== Testing
+5) In the LogicManager object, it then calls the `GotoCommand::execute` method
 
-Refer to the guide <<Testing#, here>>.
+* The method takes in a `Model` object to access the application’s data context, the general storage of data for the application
 
-== Dev Ops
+* The activity diagram below shows the `GotoCommand::execute` method +
 
-Refer to the guide <<DevOps#, here>>.
+<<gotoActDiagram>> is the activity diagram of the goto command
+[[gotoActDiagram]]
+[reftext="Figure 2.5.2.2"]
+[caption="Figure 2.5.2.2: "]
+.ActivityDiagram
+image::GotoActivityDiagram.png[width="800"]
+
+
+* The model parameter passed into the `GotoCommand::execute` method is checked to be not null is made before the rest of the method continues.
+
+* The `View::getIndex` method is then called to determine the gotoView for this current `GotoCommand` instance. There are 3 alternatives for
+this command. They are `1, 2, 3`. These indexes refer to `contacts`, `claims` and `incomes` respectively.
+
+6) Depending on which alternative is chosen based on the index of the gotoView, the `model` instance will then be updated with the correct list
+of items.
+
+* If the user wants to go to contacts, the `Model::updateFilteredContactList` method is called with a true predicate as the argument
+
+* If the user wants to go to claims, the `Model::updateFilteredClaimList` method is called with a true predicate as the argument
+
+* If the user wants to go to incomes, the `Model::updateFilteredIncomeList` method is called with a true predicate as the argument
+
+* If the index that was retrieved through the `Model::getIndex` method is invalid or not within these 3 numbers, then a `CommandException` will
+be thrown with the `MESSAGE_FAILURE` static attribute.
+
+7) This `GotoCommand::execute` method completes by returning a new `CommandResult` with the specific success message to its calling method
+which is `LogicManager::execute`.
+
+8) `LogicManager::execute` method returns a `CommandResult` to the calling method which is `MainWindow::executeCommand`
+
+* The specific feedback is then retrieved through `CommandResult::getFeedbackToUser` and set in the result display of the MainWindow.
+
+==== Why was it implemented this way?
+Our application allows for adding of claims and incomes, which are the extra features in comparison to the original AddressBook. Therefore, instead
+of placing all of them into the same list
+
+* We found the need to split them into 3 separate lists instead of placing them in the same window where a user sees 3 lists cluttered together.
+
+* We want the user to have a clear command to know that he/she is no longer on the contacts list and has moved on to another list.
+
+* In addition, with these new Views created, upon successful invocation of the `add_contacts`, `add_claim` or `add_income` methods by the user, the UI will
+change automatically to either the contact, claims or incomes page. This gives the user a clear indication if the specific entry he/she has added
+is successful.
+
+==== Design Considerations
+
+* Change the current list to another, overtaking the same area
+** *Advantage*: Cleaner user interface
+** *Disadvantage*: Performance issues may arise when the lists get too long and this constant reloading may cause lags
+** I decided to proceed with this option because the change in tabs
+would allow users to be clear that they are changing a page to the specific list that they want.
+
+* Display 3 lists in the same main page
+** Pros: Can see everything in a glance
+** Cons: Main page may have performance issues too as the lists all have to be loaded at the same time
+
+
+
+// end::gotofeature[]
+
+// tag::checkfeature[]
+=== Check feature
+This feature is an extended feature of the goto feature because this feature can only be run when
+the user is in the claims or contacts page. This command is called when the user wants to check each contact or claim individually.
+
+==== Overview
+Just like the Goto Command, there are various message attributes: `MESSAGE_SUCCESS_CONTACT`, `MESSAGE_SUCCESS_CLAIM`, `MESSAGE_FAILURE`,
+`MESSAGE_USAGE` that informs the user if the `check` command was successfully executed and if so which individual pop-up is showing. The 2 lists
+that will benefit from these are the contacts and claims list. It is to allow the user to see a clear and concise understanding of the
+individual claim or contact. It comes in the form of a pop-up that shows the most important attributes that belong to the claim or contact.
+
+==== Current Implementation
+The check command takes in a single parameter that is the `Index`.
+
+Figure 2.5.2.1 is a sequence of steps that illustrates the interaction between various classes when the `check` command is entered.
+
+<<checkSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `check 1`
+command is entered.
+[[checkSeqDiagram]]
+[reftext="Figure 2.5.2.1"]
+[caption="Figure 2.5.2.1: "]
+.Execution sequence of the `check 1` command
+image::CheckSequenceDiagram.png[width="400"]
+
+1) The only parameter after the `check` command in the user input is passed into the LogicManager::execute method of the LogicManager instance. +
+
+2) The LogicManager::execute method calls FinSecParser::parseCommand which receives the user input as a parameter. +
+
+* This user input which is in `String` format is then formatted, the first word before the space is taken as the command word
+and the rest of the String is grouped together as the argument that will be used later by the CheckCommandParser.
+* With the command word determined, the FinSecParser instance identifies the command as a `check` command and constructs an
+instance of the CheckCommandParser.
+
+3) FinSecParser calls the CheckCommandParser::parse method. This instance of CheckCommandParser then takes in the rest of the string,
+in this case: `1` +
+
+* An `Index` instance is then created when the ParserUtil:parseIndex method is called. This method takes in the argument from the CheckCommandParser::parse method parameter
+and returns a CheckCommand with the Index instance. This Index forms the index attribute of this specific CheckCommand instance.
+
+* When the argument for the CheckCommandParser::parse method is not recognised or present, a `ParseException` will be thrown with an error
+message that asks for the proper usage of the check Command.
+
+4) This newly created CheckCommand object is returned to the LogicManager instance through the CheckCommandParser and FinSecParser objects.
+
+5) In the LogicManager object, it then calls the `CheckCommand::execute` method
+
+* The method takes in a `Model` object to access the application’s data context, the general storage of data for the application
+
+* The Activity Diagram below shows the `CheckCommand::execute` method +
+
+Figure 2.5.2.2 is the activity diagram of the check command
+
+<<checkActDiagram>> is the activity diagram of the check command
+[[checkActDiagram]]
+[reftext="Figure 2.5.2.2"]
+[caption="Figure 2.5.2.2: "]
+.ActivityDiagram
+image::CheckActivityDiagram.png[width="400"]
+
+* The model parameter in the `CheckCommand::execute` method is checked to be not null is made before the rest of the method continues.
+
+* The method `UiManager::getState` is called to ensure the state of the current `View` is one of the 2, namely `contacts` or `claims`.
+
+6) Depending on which alternative is chosen based on the index of the gotoView, the `model` instance will then be updated with the correct list
+of items.
+
+* If the user is in the claims list, the method `Model::getFilteredClaimList` is called to get the latest list of claims
+
+* The specific `claimToShow` is then retrieved through the `get` method from the list
+
+* An instance of `CommandResult` is then returned with the specific success message, the boolean for showClaim in the `CommandResult` constructor
+to be set to true and this `claimToShow` is passed into the constructor as a parameter.
+
+* If the index that was retrieved through the `Model::getIndex` method is invalid or larger than the size of the list, then a `CommandException` will
+be thrown with the `MESSAGE_FAILURE` static attribute.
+
+7) This `GotoCommand::execute` method completes by returning a new `CommandResult` with the specific success message to its calling method
+which is `LogicManager::execute`.
+
+8) `LogicManager::execute` method returns a `commandResult` instance to the calling method which is `MainWindow::executeCommand`
+
+* The specific feedback is then retrieved through `CommandResult::getFeedbackToUser` and set in the result display of the MainWindow.
+
+9) The methods `CommandResult::isClaim` or `CommandResult::isContact` are then invoked to check if this `commandResult` instance is a `claim` or a `contact`
+then the methods `CommandResult::giveClaim` or `CommandResult::giveContact` are called to give the specific objects respectively. Either of these objects
+will then be passed as parameter to the `ModelManager::handleClaim` or `Model::handleContact` methods.
+
+10) The code snippet below shows the `Model::handleClaim` method +
+
+[source, java]
+
+@FXML
+    public static void handleClaim(Claim claim) {
+        IndividualClaimWindow individualClaimWindow = new IndividualClaimWindow(claim);
+        if (!individualClaimWindow.isShowing()) {
+            individualClaimWindow.show();
+        } else {
+            individualClaimWindow.focus();
+        }
+    }
+
+* This method creates a new `IndividualClaimWindow` with the claim object that was passed as a parameter. If the window is not showing, the
+`IndividualClaimWindow::show` method is called else it will call the `IndividualClaimWindow::focus` method to focus on the current claim.
+
+==== Why was it implemented this way?
+The pop-up method seems to be the best way to attract the attention of the user and make sure that the user can see clearly what he wants to
+check at that point in time. A pop-up is also easy because it allows the user to return immediately to the lists of claims or contacts and he/she
+can continue to work on his tasks immediately.
+
+==== Design Considerations
+
+* Show a pop-up of the individual card
+** *Advantage*: Clearly shows the user what he/she is checking
+** *Disadvantage*: Inconvenient for people with dual screens as the pop-up may appear on another screen
+** I decided to proceed with this option because it is the best way of making the individual window clear to the user.
+
+* Remove the whole list from view and isolates the desired claim
+or contact needed
+** *Advantage*: Does not require the pop-up, another window to be shown
+** *Disadvantage*: Might not catch the attention of the user
+
+
+// end::checkfeature[]
+
+// tag::sortfeature[]
+=== Sort Feature
+This section describes the ways that a user can sort the various lists. An overview is also included on how these sorts
+work.
+It also provides some design considerations to give users an insight of how the current solutions are worked out.
+
+==== Overview
+There are 2 ways that a user can sort the lists by. It gives the user flexibility in how he wants to see the lists. In
+addition, after sorting, the user can then employ the check method once again to see each individual object.
+
+==== Current Implementation
+The sort command takes in a 1 parameter that is the `Filter`. This `Filter` can either be `name` or `date`.
+`name` filter works in all 3 lists. However, in contacts and incomes list, the `name` filter refers to the name of
+the contact and in claims list, `name` refers to the description of the claim.
+`date` filter works in claims and incomes list and not in contacts list because contacts are not created
+with a date.
+
+1) The 2 parameters after the `sort` command in the user input are `name` and `date`
+
+2) This command is then parsed in the same way as the rest of the commands
+
+3) The Activity Diagram below shows the `SortCommand::execute` method +
+
+<<sortActDiagram>> is the activity diagram of the check command
+[[sortActDiagram]]
+[reftext="Figure 2.7.2.1"]
+[caption="Figure 2.7.2.1: "]
+.SortActivityDiagram
+image::SortActivityDiagram.png[width="400"]
+
+4) To elaborate, once the sort command is called, `UiManager::getState` method is called to determine the current view
+the application is on then implements the correct type of sort on the list.
+
+5) The comparators shown below are examples of the various lists are sorted.
+
+* `sortFilteredClaimListByName` is implemented with the help of a comparator that compares the descriptions of each claim
+with `claim.getDescription()` method. The code snippet below illustrates the comparator.
+
+[source, java]
+class ClaimNameComparator implements Comparator<Claim> {
+    @Override
+    public int compare(Claim claim1, Claim claim2) {
+        return claim1.getDescription().toString().toUpperCase()
+                .compareTo(claim2.getDescription().toString().toUpperCase());
+    }
+}
+
+* `sortFilteredIncomeListByDate` is implemented with the help of a comparator that compares the dates of each income
+with `income.getDate().getLocalDate()` method. The code snippet below illustrates the comparator.
+
+[source, java]
+class IncomeDateComparator implements Comparator<Income> {
+    @Override
+    public int compare(Income income1, Income income2) {
+        return income1.getDate().getLocalDate()
+                .compareTo(income2.getDate().getLocalDate());
+    }
+}
+
+* `sortFilteredClaimListByStatus` is implemented with the help of a comparator that compares the statuses of each claim.
+The order is as such: Pending, Approved, Rejected. There are 9 cases of comparison between 2 claims.
+The code snippet below illustrates the comparator.
+
+[source, java]
+class ClaimStatusComparator implements Comparator<Claim> {
+    @Override
+    public int compare(Claim claim1, Claim claim2) {
+        if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.APPROVED)) {
+            return -1;
+        } else if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.PENDING)) {
+            return 0;
+        } else if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.REJECTED)) {
+            return -1;
+        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.REJECTED)) {
+            return -1;
+        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.APPROVED)) {
+            return 0;
+        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.PENDING)) {
+            return 1;
+        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.PENDING)) {
+            return 1;
+        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.REJECTED)) {
+            return 0;
+        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.APPROVED)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+}
+
+==== Why was it implemented this way?
+The major implementation difference for claims list sorted by `name`, it is sorted based on the description of each
+claim. This was implemented like this because of the check feature. The check feature in the contacts list allows
+the user to see what claims are under the user. When a user is in the claims page, he/she will only need to sort based
+on descriptions to prevent redundant information through different commands.
+
+The 2 different filters allow the user to be able to look through the lists based on what is important to him/her. `date`
+filter is especially important so the user can check what are the latest or oldest claims. `name` filter helps the user
+find the various contacts/claims/incomes. It doubles up as a find or filter function to let the user find the specific
+object he/she is finding.
+
+==== Design Considerations
+* Sorting of the claims list based on description
+** *Advantage*: Easily find the claim you are looking for
+** *Disadvantage*: Might be difficult to remember the names of each claim
+
+* Sorting of the claims list based on contact's name instead
+** *Advantage*: Easy to know as the person's name is probably easier to remember than the claim's description
+** *Disadvantage*: Already done in check contact, where you can filter the claims of a certain contact through the
+`check` feature
+
+// end::sortfeature[]
+
+// tag::reversefeature[]
+=== Reverse feature
+This feature is exactly identical in the implementation as compared to the above sort feature. This feature sorts the various
+lists based on the same filters in the reverse of natural ordering. It shows the lists in reverse lexicographical order if
+`name` is used as filter and shows the newest entry at the top and the oldest at the bottom of the list.
+// end::reversefeature[]
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of contacts, claim and income
+* has to keep track of the budget for an organisation
 * prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
+* can type fast and prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+* has secretarial or finance management duties
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* Simplify the tasks of the finance secretary by providing intuitive commands to commonly done tasks (check net balance, show surplus, show deficit)
+* Makes said task more cohesive by integrating 3 types of tracking (claims, budget and income) into a single application
+* Provides convenience by making it easier to manage documents and accountability for money (Cash on-hand)
+* Reduces the probability of mistakes made by the Finance Secretary by providing accurate tracking details of the various claims and accounts
+
 
 [appendix]
 == User Stories
@@ -295,35 +1142,134 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |ensure the contacts list to look like an address book still |easily access people I had dealt with before
+|`* * *` |busy user |ensure the contacts list to have a filter/search bar |easily find people in my contacts list
+|`* * *` |user |ensure the app can create Groups and Events such as Sports, Marketing, FOP etc |manage them easier
+|`* * *` |user |ensure the app can categorise the people to the Groups and Events |manage them easier.
+|`* * *` |user |ensure the app can help me record the amount of money I have on hand |manage it easier.
+|`* * *` |busy user |ensure the app can help me record the amount of money I am supposed to have |manage it easier.
+|`* * *` |user |ensure the app can help me calculate the difference of money I have vs the amount of money I am supposed to have |manage it easier.
+|`* * *` |user |ensure the app can give me a warning when the difference of money I have on hand vs the amount of money I am supposed to have is not 0 |be notified if something like that does happen.
+|`* * *` |user |ensure the app can show me the transactions I had with people in the past, even after the transaction is done |keep a history of them.
+|`* * *` |user |ensure the app can show me a list of DONE people |manage them easier.
+|`* * *` |user |ensure the app can show me a list of NOT DONE people |manage them easier.
+|`* * *` |user |ensure the app can show me the date stamp of the transaction done |keep a history of them.
+|`* * *` |user |ensure the app can sort the value of claims in ascending/descending order |manage them easier.
+|`* * *` |user |ensure the app can be able to freely manipulate accessible data (add, delete, change name, change amount etc.) |manage them easier.
+|`* * *` |clumsy user |ensure the app can app could detect any anomalies such as duplicate claims |make less mistakes.
+|`* *` |user |ensure the app can be colorful and vibrant but not that painful to the eye |look at it without straining my eyes.
+|`* *` |user |ensure the app can send notifications to my email for any major deadlines |manage them easier.
+|`* *` |user |ensure the app can warn me when the particular group is going to exceed their budget at a certain threshold, like let’s say ($500 left) |be notified if something like that does happen.
+|`* *` |user |ensure the app can show me the transaction sorted by month |manage it easier.
+|`* *` |user |ensure the app can show a checklist of to-dos as a Finance Secretary |manage them easier.
+|`* *` |fellow director of the organisation |ensure the app can transform into a to-do list for any other departments |manage them easier.
+|`* *` |user |ensure the app can have graphical representation of data such as pie charts |look at it without straining my eyes.
+|`* *` |lazy user |ensure the app can generate a pseudo report based on the claims |not have to do it myself.
+|`* *` |clumsy user |ensure the app can perform periodic backups  |revert the data in the event that I mess up horribly.
+|`* *` |superior of the finance secretary |have reading access to the information related to the budget, claims and deposits| check on the user's work.
+|`*` |user |ensure the app can have some form of security |ensure no one can see the transactions I have done before
+|`*` |lazy user |ensure the app can email the offending parties if there is a discrepancy or fault with the claims |not have to do it myself
+|`*` |cautious finance secretary |ensure the app can check which secretary changed what details |hold them accountable for any foul play.
+|`*` |cautious finance secretary |ensure the app can have an automated checking system |prevent embezzlement of funds.
+|`*` |user |ensure the app can check for the petty cash holdings |keep track of all money including petty cash.
+|`*` |user |ensure the app can have notifications when claims are left untouched for too long |be notified if something like that does happen.
+|`*` |user |ensure the app can be customised to my needs |make the app suit me.
 
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
-_{More to be added}_
+
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is _FinSec_ and the *Actor* is the _user_, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Requesting help from FinSec
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests for help in FinSec
+2. FinSec dispenses the appropriate type of help as requested by the user
++
+Use case ends.
+
+*Extensions*
+
+
+* 1a. The user does not type in any parameters.
+** 1a1. FinSec displays a help window showing a list of commands as well as the usage parameters of the help command
+
++
+Use case resumes at step 1
++
+* 1b. The given parameters are incorrect.
+** 1b1. FinSec shows an error message
+** 1b2. FinSec displays a help window showing a list of commands
+
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Adding a contact
+
+*MSS*
+
+1. User requests to add a contact
+2. FinSec adds a contact
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The contact details are existing.
+
+[none]
+** 1a1. FinSec shows an error message.
++
+Use case resumes at step 1
+
+
+
+[discrete]
+=== Use case: Editing a contact
+
+*MSS*
+
+1. User requests to view list of contacts
+2. FinSec shows a list of contacts
+3. User requests which contact to edit and the details to change
+4. FinSec edits the contact
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list of contacts is empty.
+
+User case ends
+
+[none]
+* 3a. The contact is not on the list.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Delete contact
+
+*MSS*
+
+1.  User requests to list contacts
+2.  FinSec shows a list of contacts
+3.  User requests to delete a specific contact in the list
+4.  FinSec deletes the contact
 +
 Use case ends.
 
@@ -337,46 +1283,362 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. FinSec shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+
+[discrete]
+=== Use case: Goto view
+
+*MSS*
+
+1. User requests to change view (Contacts, Claims, Income)
+2. FinSec brings user to that view
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The view is invalid.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Check details of person (Only available within Claims/Contacts lists)
+
+*MSS*
+
+1. User requests to view list of people
+2. FinSec shows a list of people
+3. User requests which person to check by index
+4. FinSec displays person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The person list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The index entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Add Claim
+
+*MSS*
+
+1. User requests to add claim
+2. FinSec adds claim
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The details of claim is invalid.
++
+[none]
+** 2a1. FinSec shows an error.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit Claim
+
+*MSS*
+
+1. User requests to view list of claims
+2. FinSec shows a list of claims
+3. User requests which claim to edit
+4. FinSec edits claim
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The claim list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The entered claim is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Add Income
+
+*MSS*
+
+1. User requests to add income
+2. FinSec adds income
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The details of income is invalid.
++
+[none]
+** 2a1. FinSec shows an error.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit Income
+
+*MSS*
+
+1. User requests to view list of income
+2. FinSec shows a list of income
+3. User requests which income to edit
+4. FinSec edits income
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The income list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The income entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+
+
+[discrete]
+=== Use case: Check details of contact
+
+*MSS*
+
+1. User requests to view list of contacts
+2. FinSec shows a list of contacts
+3. User requests which contact to check by index
+4. FinSec displays contact and details
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The contacts list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The index entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Check status of claims of person
+
+*MSS*
+
+1. User requests to change view to Claims
+2. FinSec changes view to claims
+3. FinSec shows a list of claims
+4. User requests which claim to check by index
+5. FinSec displays details of particular claim
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The claims list is empty.
++
+Use case ends.
+
+[none]
+* 4a. The index entered is invalid.
++
+[none]
+** 4a1. FinSec shows an error message.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Filter using keyword
+
+*MSS*
+
+1. User requests to view list of income, claims or contacts
+2. FinSec shows the list
+3. User requests to filter the list based on keyword
+4. FinSec returns a list of filtered results
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The incomes, claims or contacts list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The keyword entered is yielded no result.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: See budget
+
+*MSS*
+
+1. User requests to view current budget
+2. FinSec shows current budget and displays budget graph
+
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Sort claims in chronological order
+
+*MSS*
+
+1. User requests to change view to claims
+2. FinSec shows the claim view
+3. User requests to sort the claims
+4. FinSec shows sorted claims
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The claims list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Resolving claims
+
+*MSS*
+
+1. User requests to change view to claims
+2. FinSec shows the claim view
+3. User requests to resolve claim from index
+4. FinSec resolves claim
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The claims list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The index entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++ Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Adding tags
+
+*MSS*
+
+1. User requests to view list of contacts
+2. FinSec shows a list of contacts
+3. User requests to add tags to contact
+4. FinSec adds tags to the contact
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The contact list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The contact index is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++ Use case resumes at step 2.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 persons or claims without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  The system should work on both 32-bit and 64-bit environments.
+.  The system should respond within two seconds.
+.  The system should be intuitive and usable by anyone who can use excel.
 
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+[[budget]]Budget::
+The total available budget of the organisation available for expenditure
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[income]]Income::
+An income made by a contact that contributes to the income
+
+[[claim]]Claim::
+A claim made by a contact that deducts from the income
+
+[[contact]]Contact::
+A contact who may be claiming from or contributing income to the budget
 
 [appendix]
 == Product Survey
 
-*Product Name*
+*Microsoft Excel*
 
-Author: ...
+Author: Microsoft
 
 Pros:
 
-* ...
-* ...
+* Very common application that can be found in any computer with Microsoft Office
+* Able to customise formulas for calculation
 
 Cons:
 
-* ...
-* ...
+* Very bare-bones UI
+* Multiple spreadsheets with multiple tabs can get very confusing
 
 [appendix]
 == Instructions for Manual Testing
@@ -400,26 +1662,257 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Goto a different view
+. Going to claims page
+.. Prerequisites: User to be in any view of the application other than claims
+.. Test case: `goto claims` +
+	Expected: Claims list should show up on the Main Window.
 
-=== Deleting a person
+. Going to incomes page
+.. Prerequisites: User to be in any view of the application other than incomes
+.. Test case: `goto incomes` +
+	Expected: Incomes list should show up on the Main Window.
 
-. Deleting a person while all persons are listed
+. Going to claims page
+.. Prerequisites: User to be in any view of the application other than contacts
+.. Test case: `goto contacts` +
+	Expected: Contacts list should show up on the Main Window.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+=== Viewing Help
+
+. Requesting help from FinSec
+
+.. Prerequisites: None
+.. Test case: `help` +
+   Expected: A help window pops up displaying the list of all FinSec commands and advanced help usage
+.. Test case: `help cmd/add_claim type/brief` +
+   Expected: FinSec displays a brief description of the `add_claim` command, as well as usage instructions
+.. Test case: `help cmd/edit_income_claim type/guide` +
+   Expected: FinSec opens up your default web browser and brings you to the `edit_income` section of our User Guide
+.. Test case: `help cmd/help type/api` +
+   Expected: FinSec generates an API.html file containing the `help` command and opens it up.
+.. Test case: `help cmd/randomstuff type/lalala` +
+   Expected: FinSec displays an error message and usage instructions for help
+
+=== Deleting a contact
+
+. Deleting a contact while all contacts are listed
+
+.. Prerequisites: List all contacts using the `goto contacts` command. Multiple contacts in the list.
+.. Test case: `delete_contact 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
+.. Test case: `delete_contact 0` +
+   Expected: No contact is deleted. Error details shown in the status message.
+.. Other incorrect delete contact commands to try: `delete_contact`, `delete_contact x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Adding a claim
+. Adding a claim.
 
-=== Saving data
+.. Prerequisites: List all claims using the `goto claims` command. All the claims will be listed.
+.. Test case: `add_claim n/John Doe d/Logistics for Event c/304.5 date/15-11-2019` +
+	Expected: _(if a contact with the name of "John Doe" exists)_ A claim will be added to the claim list. Details of
+ 	the	added claim shown in the status message window. +
+	Expected: _(if a contact with the name of "John Doe" does [.underline]#not# exist)_ Claim will not be added, and
+	an error message stating the contact cannot be found will be shown in the status message window.
+.. Test case: `add_claim` +
+	Expected: No claim will be added, and error details would be shown in the status message window.
+.. Other incorrect `add_claim` commands to try: the valid command but with incorrect parameters. +
+	For example: `add_claim n/John Doe d/Logistics for Event c/304.5 date/29-11-2019` or
+	`add_claim n/John Doe d/Logistics for Event c/304.586 date/15-11-2019` +
+	Expected: An error message specifying the incorrect parameter will be shown in the status message window.
 
-. Dealing with missing/corrupted data files
+=== Approving or rejecting a claim
+. Approving or rejecting a claim.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: List all claims using the `goto claims` command. All the claims will be listed. There should be
+some claims listed already.
 
-_{ more test cases ... }_
+.. Test case: `approve 1` or `reject 1`
+	Expected: _(if the first claim is pending)_ The claim status of the first claim will be changed to approved or
+	rejected, depending on the command. Successful message will be shown in the status message window. +
+	Expected: _(if the first claim is not pending)_ The claim status of the first claim will not be changed. Error
+	message will be shown in the status message window.
+.. Test case: `approve 0` or `reject 10000000` _(or any number larger than the size of the claim list)_ +
+	Expected: Error message will be shown in the status message window.
+
+=== Adding an income
+
+. Adding an income while all incomes are listed
+
+.. Prerequisites: List all incomes using the `goto incomes` command. Multiple incomes in the list.
+.. Test case: `add_income d/Shirt sales c/307 date/11-11-2019 n/John Doe p/98765432` +
+   Expected: An income is added to the incomes list. Details of the added income shown in the status message.
+
+.. Test case: `add_income` +
+   Expected: No income is added. Error details shown in the status message.
+.. Other incorrect add income commands to try: `add_income d/Shirtsales`, `add_income x` (where x is a random string) +
+   Expected: Similar to previous.
+
+=== Deleting an income
+
+. Deleting an income while all incomes are listed
+
+.. Prerequisites: List all incomes using the `goto incomes` command. Multiple incomes in the list.
+.. Test case: `delete_income 1` +
+   Expected: First income is deleted from the list. Details of the deleted income shown in the status message.
+.. Test case: `delete_income 0` +
+   Expected: No income is deleted. Error details shown in the status message.
+.. Other incorrect delete income commands to try: `delete_income`, `delete_income x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Editing an income
+
+. Editing an income while all incomes are listed
+
+.. Prerequisites: List all incomes using the `goto_incomes` command. At least 1 income in the list.
+.. Test case: `edit_income 1 d/This is a test` +
+   Expected: The first income on the list description field is edited. Details of the edited income shown in the status message.
+.. Test case: `edit_income 1` +
+   Expected: The first income on the list is not edited. Error details shown in the status message.
+.. Other incorrect delete income commands to try: `edit_income 1 q/`, `edit_income 1 x/` (where x is an unknown field) +
+   Expected: Similar to previous.
+
+
+=== Entering an unknown command word / Creating a shortcut
+. Entering a command that is not in FinSec
+
+.. Prerequisites: None.
+.. Test case (part 1): `thisisatest` +
+   Expected: FinSec does not recognise the command. FinSec will ask whether a shortcut is to be created or not in the status message. +
+   Test case (part 2): `n` +
+   Expected: FinSec does not create a shortcut. FinSec will continue. Details will be shown in the status message.
+
+.. Test case (part 1): `ac` +
+   Expected: FinSec does not recognise the command. FinSec will ask whether a shortcut is to be created or not in the status message. +
+   Test case (part 2): `add_contact` +
+   Expected: FinSec creates a shortcut. Details will be shown in the status message.
+.. Other incorrect add shortcut commands to try: ` ` (empty string) +
+   Expected: Similar to previous.
+
+
+=== Delete a shortcut
+. Deleting a shortcut previously created.
+
+.. Prerequisites: Create a shortcut `ai` to any default command and ensure there is no shortcut `test`
+.. Test case: `delete_shortcut ai` +
+   Expected: Shortcut `ai` is deleted. Details of the deleted shortcut shown in the status message.
+.. Test case: `delete_shortcut test` +
+   Expected: No shortcut is deleted. Error details shown in the status message.
+.. Other incorrect delete shortcut commands to try: `delete_shortcut x` (where x is a shortcut that has not been created) +
+   Expected: Similar to previous.
+
+=== Viewing added autocorrect suggestion
+. See autocorrect suggestion list
+
+.. Prerequisites: Add a new shortcut `addI` that is an alias to `add_income` and that is the only shortcut created.
+.. Test case: Type `ad` into the command bar without entering +
+   Expected: FinSec will show a dropdown list containing `addI`.
+
+.. Test case: Type `test` into the command bar without entering +
+   Expected: The dropdown list will not contain the word `test`.
+
+.. Other incorrect commands to type into the command bar: `x` (where x is a random string).
+
+
+=== Displaying budget values
+
+. Display budget values without any incomes or claims present
+.. Prerequisites: No claims or incomes are present
+.. Test case: `budget` +
+   Expected: Budget displayed should be $0.00. Graph should reflect the same result
+
+. Display budget values without any approved claims present
+.. Prerequisites: No claims have been approved
+.. Test case: `budget` +
+   Expected: Budget displayed should be the same as the income value. The red line in the graph representing claim
+amounts should remain at 0.
+
+. Display budget values with an assortment of varied approved claims and incomes
+.. Prerequisites: All claims and incomes have been set to varying dates that predate and postdate the current date.
+.. Test case: `budget` +
+   Expected: Budget displayed should be the total income value minus total approved claim value. Budget Graph
+should reflect accurate statistics for the current month.
+.. Test case: `budget 99` +
+   Expected: An error pops up stating that `budget` is a standalone command and does not require additional parameters
+
+=== Sorting the various lists
+. Sorting contacts list by name in natural ordering +
+.. Prerequisites: 3 contacts with different names added into claims list
+.. Test case: `sort name` +
+	Expected: Contacts list would be sorted in lexicographical order based on the contacts' names.
+
+. Sorting claims list by name
+.. Prerequisites: 3 claims with different descriptions added into claims list
+.. Test case: `sort name` in natural ordering +
+	Expected: Claims list would be sorted in lexicographical order based on the claims' descriptions.
+
+. Sorting claims list by date
+.. Prerequisites: 3 claims with different dates added into claims list
+.. Test case: `sort date` in natural ordering +
+	Expected: Claims list would be sorted in order based on the claims' dates with oldest entry at the top of the list.
+
+. Sorting claims list by status
+.. Prerequisites: 3 claims with different status added into claims list
+.. Test case: `sort status` in natural ordering +
+	Expected: Claims list would be sorted in order based on the claims' statuses with Pending at the top of the list,
+	followed by Approved then rejected.
+
+. Sorting incomes list by name
+.. Prerequisites: 3 incomes with different descriptions added into incomes list
+.. Test case: `sort name` in natural ordering +
+	Expected: Incomes list would be sorted in lexicographical order based on the contacts' names in each individual
+	income.
+
+. Sorting incomes list by date
+.. Prerequisites: 3 incomes with different dates added into incomes list
+.. Test case: `sort date` in natural ordering +
+	Expected: Incomes list would be sorted in order based on the incomes' dates with oldest entry at the top of the
+	list.
+
+=== Sorting the various lists in reverse order
+. Sorting contacts list by name in reverse order +
+.. Prerequisites: 3 contacts with different names added into claims list
+.. Test case: `reverse name` +
+	Expected: Contacts list would be sorted in reverse lexicographical order based on the contacts' names.
+
+. Sorting claims list by name in reverse order +
+.. Prerequisites: 3 claims with different descriptions added into claims list
+.. Test case: `reverse name` +
+	Expected: Claims list would be sorted in reverse lexicographical order based on the claims' descriptions.
+
+. Sorting claims list by date in reverse order
+.. Prerequisites: 3 claims with different dates added into claims list
+.. Test case: `reverse date` +
+	Expected: Claims list would be sorted in order based on the claims' dates with newest entry at the top of the list.
+
+. Sorting claims list by status in reverse order
+.. Prerequisites: 3 claims with different status added into claims list
+.. Test case: `reverse status` +
+	Expected: Claims list would be sorted in order based on the claims' statuses with Rejected at the top of the list,
+followed by Approved then Pending.
+
+. Sorting incomes list by name in reverse order
+.. Prerequisites: 3 incomes with different descriptions added into incomes list
+.. Test case: `reverse name` +
+	Expected: Incomes list would be sorted in reverse lexicographical order based on the contacts' names in each
+	individual income.
+
+. Sorting incomes list by date in reverse order
+.. Prerequisites: 3 incomes with different dates added into incomes list
+.. Test case: `reverse date` +
+	Expected: Incomes list would be sorted in order based on the incomes' dates with newest entry at the top of the
+list.
+
+=== Checking each Individual Contact or Claim
+. Checking a contact
+.. Prerequisites: 1 contact added into the contacts list
+.. Test case: `check 1` +
+	Expected: The first contact in the contacts list would be shown in a pop-up, displaying the claims that belong
+	to this contact, empty list if it doesn't have any claims.
+
+. Checking a claim
+.. Prerequisites: 1 claim added into the claims list
+.. Test case: `check CLAIMID`, refer to ClaimID number on this claim in the claims list +
+	Expected: This claim will be shown in a pop-up, displaying the important information like date, amount and description
+	that belong to this claim.

@@ -1,0 +1,132 @@
+= Lawnce Goh - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FinSec
+
+== Overview
+
+image::lawncegoh.png[width="100", align="left"]
+{empty}[https://github.com/lawncegoh[github]]
+
+Hi! My name is Lawnce. I am a second year student in School of Computing. This page aims to document the contributions I have made in a project that my team and I completed for the module CS2103T.
+
+My team was tasked to enhance the existing Command Line Interface application the module provided us with. We decided to morph the application into a Financial Tracker for Finance Secretaries in organisations. This new application, FinSec, allows for these Finance Secretaries to easily store their claims requests, income inflows and keep track of budget accurately. On top of these, the secretary can store the contacts of all the people who have made transactions with him so that it ensures easier tracking in the future.
+
+== Role
+My primary role in the project was to implement the Goto, Sort, Check features. I also enhanced the existing Clear Feature. Lastly, I was in charge of the scheduling and tracking throughout the project, ensuring that deadlines were met.
+
+This is the Main Window of our project:
+[[fig-PPP-ui]]
+.Ui of the Project
+image::PPP-ui.png[width="400"]
+
+== Summary of contributions
+
+This section is a summary of my contributions to the project. I have 3 major enhancements and 1 minor enhancement in total. They are as follows:
+
+* *Major enhancement 1*: I added *ability to `goto` a different view, through the different lists*
+** *What it does*: This `goto` feature allows the user to get to the different lists, namely: contacts,
+claims and incomes, changing the state at which the
+user is currently at
+** *Justification*: This feature is the backbone of my next 2 features because the changing of state is the underlying flag or checker
+that ensures that these 3 features will work correctly in the 3 different lists.
+** *Highlights*: This enhancement works well with the current UI design as I created 3 tabs to fit with the current
+File and Help tabs. These tabs are added functions to allow the user to click to `goto` other lists if he/she wants to.
+The tabs become an extra option for the user to do the same thing. The implementation was also challenging because AB3
+only recognised 1 list and that was contacts list. Therefore I not only needed to ensure that the app runs with more than 1 list, but also to
+ensure that this list is able to update to another list when the correct command is entered.
+Also, after implementing the changing of lists, I had to also implement a state in each of these lists to make sure that the state
+changes when a certain view is input as parameter into this `goto` feature.
+
+* *Major enhancement 2*: I added *ability to `sort` and `reverse` the 3 various lists*
+
+** *What it does*: The user is able to sort the lists according to name, date and status.
+`reverse` on the other hand sorts the lists in the reverse order. This is where the states of the various lists will allow this sort feature to work
+differently. An example will be in the state of claims. Only the `sort status` and `reverse status` will work as status belongs only to claim.
+** *Justification*: The user can now sort the claims based on the most critical ones which are the pending claims. The `reverse`
+feature also gives the user the flexibility to see the claims based on what he already approved. As for the `date` and `name`
+parameters, they help the user filter through the specific date or name that he/she wants to find.
+** *Highlights*: This enhancement is extremely useful in comparison to the usual paper-filed version of claims or incomes
+stored in a physical file for a Financial Secretary. The user can now search through the lists for his pending, approved or rejected
+claims with much more ease now they are filed automatically with just 1 command. He can even find the oldest claim or income inflow
+that he had with just another command. The implementation was also challenging because I had to come up with different comparators for the
+different parameters as well as for `reverse` too which sorts the list in the reverse order of whatever parameter is typed. I had to consider
+what was most important for the user. An example is that I chose to sort the claims list by the description of the claims when the user inputs
+`sort name`. A Financial Secretary would be more likely to need the description of the claims when he wants to check through his claims.
+
+* *Major enhancement 3*: I added *the ability to `check` each individual claim or contact*
+** *What it does*: The `check` feature allows the user to see the claims and details that are linked to the this current contact in the contacts page. In the
+claims page, the check feature allows the user to view a single claim with the most important details on this
+card. Both are shown through a pop-up to show the individual contact or claim. This feature once again makes use of the change of state in the goto
+feature to ensure that the check works differently in both contacts or claims list.
+** *Justification*: Once you have gone to the list of your choice and sorted it, this feature will retrieve the exact claim or contact
+that is of interest to the user in a pop-up that cancels out all interference from the other items. The check in the contacts list will allow the
+user to see the specific claims that are linked to this contact and see the details that tag along with it.
+** *Highlights*: This feature works extremely well with the above 2 features as well as for future implementations. Further implementations can include
+directly going to the specific from the list of claims that pops up during the checking of contact in the contacts' list. Another implementation can be
+the ability to pop up the claims that are of a certain date or status. If the sorting system in the feature is not enough for the user. This example of
+`check November/2019` or `check Pending` in the claims list will give a user-friendly pop up of the filtered claims and display it clearly to the user.
+
+* *Minor enhancement 1*: I tweaked the `clear` feature in the existing AB3 to ensure that before the user is able to clear the list, the application prompts the
+user one more time to ensure that the command was not by accident.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=lawncegoh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lawncegoh&tabRepo=AY1920S1-CS2103T-W12-1%2Fmain%5Bmaster%5D[Code]]
+
+* *Other contributions*:
+
+** Project management:
+*** There were a total of 5 releases, from version 1.0 to 1.4. I managed releases versions 1.1 https://github.com/AY1920S1-CS2103T-W12-1/main/releases/tag/v1.1[v1.1] and 1.2.1 https://github.com/AY1920S1-CS2103T-W12-1/main/releases/tag/v1.2.1[v1.2.1]
+
+*** Fixed a few bugs found during PE. https://github.com/AY1920S1-CS2103T-W12-1/main/issues/269[269], https://github.com/AY1920S1-CS2103T-W12-1/main/issues/270[270],
+https://github.com/AY1920S1-CS2103T-W12-1/main/issues/262[262]
+
+** Enhancements to existing features:
+*** Updated the mock up for UI of product (Commit https://github.com/AY1920S1-CS2103T-W12-1/main/commit/560d7bdc3c9e4ea835285441bc7cc013f6f90ab2[560d7bdc3c9e4ea835285441bc7cc013f6f90ab2])
+*** Updated the UI of the whole application to suit our general theme of a more pastel-coloured application to allow the user to feel comfortable using it
+*** Wrote additional tests for existing features to increase coverage from 49% to 53%. https://coveralls.io/jobs/55463719[529] and from 57% to 60%. https://coveralls.io/builds/26886555[561]
+
+** Documentation:
+*** Fixed the formatting of the developer guide and made major changes to my own section: https://github.com/AY1920S1-CS2103T-W12-1/main/pull/143[143]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-W12-1/main/pull/74[74],
+https://github.com/AY1920S1-CS2103T-W12-1/main/pull/58[58], https://github.com/AY1920S1-CS2103T-W12-1/main/pull/40[40]
+*** Reported bugs and suggestions for other teams in the class https://github.com/nus-cs2103-AY1920S1/forum/issues/139[139],
+https://github.com/nus-cs2103-AY1920S1/forum/issues/45[2]
+
+** Tool:
+*** Integrated coveralls to the project
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. The following is an excerpt from our FinSec User Guide, showing additions that I have
+made for `goto` , `sort` and `check` features. There is also a section on the 2 features I am proposing to implement in v2.0_
+|===
+
+include::../UserGuide.adoc[tag=introduction]
+
+include::../UserGuide.adoc[tag=gotofeature]
+
+include::../UserGuide.adoc[tag=sortfeature]
+
+include::../UserGuide.adoc[tag=checkfeature]
+
+include::../UserGuide.adoc[tag=checkDatefeature]
+
+include::../UserGuide.adoc[tag=statsfeature]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. The following is an except from our FinSec Developer guide, showing additions that
+I have made for `sort` and `check` features._
+|===
+
+include::../DeveloperGuide.adoc[tag=sortfeature]
+
+include::../DeveloperGuide.adoc[tag=checkfeature]
+---
+

@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= FinSec - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,30 +12,41 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-W12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S1-CS2103T-W12-1`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+FinSec is a Financial Planner that helps the finance secretaries of any department in National University of Singapore,
+preferably from the School of Computing so that they would be more likely to like the idea of having a Command Line Interface (CLI) app.
+The app focuses on the tracking of claims that will help the While FinSec has a Graphical User Interface (GUI), its main form of input is CLI based,
+thus favoring people who can type fast. +
+
+We are the solution to all of your organisation's financial needs.
+
+What are you waiting for? Download the app now and enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `finsec.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+<<Ui>> shows the UI of the application upon booting up.
+[[Ui]]
+[reftext="Figure 2.1"]
+[caption="Figure 2.1: "]
+.Finsec's UI when you open up the application
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`add_contact`**`n/John Doe p/98765432 e/john@example.com` : adds a contact named John Doe to FinSec.
+* **`delete_contact`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,7 +57,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add_claim n/NAME d/DESCRIPTION c/CASH AMOUNT date/DATE(dd-MM-yyyy)`,
+ `NAME`, `DESCRIPTION`, `CASH AMOUNT`, `DATE`, `PHONE NUMBER` are parameters that the user has to type in.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -54,92 +66,831 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
-Format: `help`
+The `help` feature Provides 3 different types of help for all commands in FinSec. To request for help, use the command syntax given below.
 
-=== Adding a person: `add`
+Keyword: `help`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format:
+`help cmd/COMMAND type/TYPE`
 
-[TIP]
-A person can have any number of tags (including 0)
+Refer to <<Command Summary>> for all available commands
+
+Types include: +
+`brief` (gives a brief description) +
+`guide` (opens a web browser and bring you to our user guide) +
+`api` (for advanced users who want to know the inner workings of the command)
+
+
+====
+--
+image::tip.png[width = "80", float = "left"]
+--
+Cant remember all of FinSec's commands or the command format for `help`? No worries! Even if you mistakenly
+type `help` without the other parameters or get the parameters confused, a default help window such as the one below
+will appear and display a command list with similar instructions to this page!
+
+====
+
+[[UG-HelpWindow]]
+[reftext="Figure 3.1.1"]
+[caption="Figure 3.1.1: "]
+.The help window that appears when the user asks for the default form of `help`
+image::UG-HelpWindow.png[width="500"]
+
+
+====
+--
+image::tip.png[width = "80", float = "left"]
+--
+Instead of typing in `help`, you can also access help by clicking on the `help` button +
+on the top left of the FinSec application GUI or just press kbd:[F1] on your keyboard +
+as shown below!
+
+====
+
+
+
+[[UG-HelpLocation]]
+[reftext="Figure 3.1.2"]
+[caption="Figure 3.1.2: "]
+.The location of the help button on FinSec's GUI
+image::UG-HelpLocation.PNG[width="300"]
+
+
+Example commands: +
+....
+help cmd/add_contact type/brief
+....
+This shows you a brief description of what the `add_contact` command does and how to use it
+....
+help cmd/goto type/api
+....
+This generates an 'API.html' file containing our API for the `goto` command, and opens it up
+....
+help cmd/help type/guide
+....
+This opens up a page in your browser and brings you right here to this section!
+
+<<UG-HelpExample>> shows what you can expect to see when typing in the first example: `help cmd/add_contact type/brief`.
+[[UG-HelpExample]]
+[reftext="Figure 3.1.3"]
+[caption="Figure 3.1.3: "]
+.FinSec giving a brief description of the `add_contact` command
+image::UG-HelpExample.PNG[width="800"]
+
+=== Adding a person `add_contact`
+
+Adds a contact to the contacts list list +
+
+Format:
+`add_contact n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+....
+add_contact n/John Doe p/98765432 e/johnd@example.com
+....
 
-=== Listing all persons : `list`
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
 
-Shows a list of all persons in the address book. +
-Format: `list`
+* There should not be duplicate `NAMES`. +
+* Only valid Singapore `PHONE` numbers (8 digits) are allowed.
+* Only valid `EMAIL` addresses are accepted.
 
-=== Editing a person : `edit`
+====
+=== Editing a contact : `edit_contact`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing contact +
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Keyword: `edit_contact`
 
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Format:
+`edit_contact INDEX n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+....
+edit_contact 2 n/john lim p/92222223 e/johnlim@gmail.com
+....
 
-// tag::delete[]
-=== Deleting a person : `delete`
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+* Parameter warnings as per add_claim above.
+
+====
+
+// tag::claimfeature[]
+
+=== Adding a claim : `add_claim`
+
+To add a claim to the claim list. +
+
+Keyword: `add_claim`
+
+Format: `add_claim n/NAME d/DESCRIPTION_OF_CLAIM c/AMOUNT date/DATE [t/TAG]`
+
+Example:
+
+....
+add_claim n/Lee Wei Gen d/Sports Equipment c/115.2 date/29-12-2019 t/Sports t/Equipment
+....
+
+<<UG-AddClaimExample>> and <<UG-AddClaimResult>> shows what you can expect to see after adding a claim.
+[[UG-AddClaimExample]]
+[reftext="Figure 3.4.1"]
+[caption="Figure 3.4.1: "]
+.Type in the command to add claim.
+image::UG-beforeAddClaim.png[width="800"]
+[[UG-AddClaimResult]]
+[reftext="Figure 3.4.2"]
+[caption="Figure 3.4.2: "]
+.Result after addition of claim.
+image::UG-afterAddClaim.png[width="800"]
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* `AMOUNT` should be up to 2 decimal places only. +
+* `DATE` should be a valid date in the form of "dd-MM-yyyy"_(eg. 29-02-2019 not valid)_. +
+* A contact must already exist with the inputted `NAME` _(if not who is claiming it?)_
+
+====
+
+=== Approving a claim : `approve`
+
+To approve a claim at the specified `INDEX`. +
+
+Keyword: `approve`
+
+Format: `approve INDEX`
+
+Example:
+
+....
+approve 1
+....
+
+The above example approves the first claim in the claim list.
+
+<<UG-ApproveExample>> and <<UG-ApproveResult>> shows what you can expect to see after approving a claim.
+[[UG-ApproveExample]]
+[reftext="Figure 3.5.1"]
+[caption="Figure 3.5.1: "]
+.Type in the command to approve claim.
+image::UG-beforeApprove.png[width="800"]
+[[UG-ApproveResult]]
+[reftext="Figure 3.5.2"]
+[caption="Figure 3.5.2: "]
+.Result after approving the claim.
+image::UG-afterApprove.png[width="800"]
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* The claim list must be currently displayed.
+* Claim at the specified `INDEX` must be a [.underline]#pending# claim.
+* `INDEX` refers to the index number shown in the displayed claim list.
+* `INDEX` *must be a positive integer* 1, 2, 3, ..., and cannot be larger than the maximum index of the displayed
+claim list.
+
+====
+
+=== Rejecting a claim : `reject`
+
+To reject a claim at the specified `INDEX`. +
+
+Keyword: `reject`
+
+Format: `reject INDEX`
+
+Example:
+
+....
+reject 1
+....
+
+The above example rejects the first claim in the claim list.
+
+<<UG-RejectExample>> and <<UG-RejectResult>> shows what you can expect to see after rejecting a claim.
+[[UG-RejectExample]]
+[reftext="Figure 3.6.1"]
+[caption="Figure 3.6.1: "]
+.Type in the command to reject claim.
+image::UG-beforeReject.png[width="800"]
+[[UG-RejectResult]]
+[reftext="Figure 3.6.2"]
+[caption="Figure 3.6.2: "]
+.Result after rejecting the claim.
+image::UG-afterReject.png[width="800"]
+
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* Warning as per *Approve* command!
+====
+
+
+//=== Editing a claim : `edit_claim`
+//
+//Edits an existing claim +
+//
+//Keyword: `edit_claim`
+//
+//Format: `edit_claim INDEX d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]`
+//
+//Examples:
+//
+//* `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
+
+// end::claimfeature[]
+
+=== Adding an income : `add_income`
+
+You can add an income to the incomes list by using the add income command by entering the keyword `add_income` followed by the required fields of an income.
+
+Keyword: `add_income`
+
+Format: `add_income d/DESCRIPTION_OF_INCOME a/AMOUNT date/DATE n/PERSON_NAME p/PHONE_NUMBER [t/TAG]`
+
+Example:
+
+....
+add_income d/Shirt Sales c/307.5 date/11-11-2019 n/Lee Wei Gen p/96777777 t/Marketing
+....
+
+Result:
+
+This command will then add an income to the incomes list.
+
+<<UG-AddIncomeExample>> and <<UG-AddIncomeResult>> shows what you can expect to see after typing in the example: `add_income d/Shirt Sales c/307.5 date/11-11-2019 n/Lee Wei Gen p/96777777 t/Marketing`.
+[[UG-AddIncomeExample]]
+[reftext="Figure 3.8.1"]
+[caption="Figure 3.8.1: "]
+.Type in the add_income command in an empty incomes list.
+image::UG-Add_income1.png[width="800"]
+[[UG-AddIncomeResult]]
+[reftext="Figure 3.8.2"]
+[caption="Figure 3.8.2: "]
+.The result after entering the command
+image::UG-Add_income2.png[width="800"]
+
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* `add_income` parameter warnings as per `add_claim`.
+
+====
+
+
+=== Editing an income : `edit_income`
+
+If you accidentally entered the wrong details of the income or you want to make changes to a entered income, you can edit an income by using the edit income command by entering the keyword `edit_income`
+followed by the position of the income in the incomes list, and the fields that you want to change.
+
+Keyword: `edit_income`
+
+Format: `edit_income INDEX d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]`
+
+Example:
+
+....
+edit_income 1 c/1150.50 p/96777495
+....
+
+Result:
+
+This command will edit the description and amount fields in the second income in the list to the newly specified description and amount.
+
+<<UG-AddIncomeExample>> and <<UG-AddIncomeResult>> shows what you can expect to see after typing in the example: `edit_income 1 c/1150.50 p/96777495`.
+[[UG-EditIncomeExample]]
+[reftext="Figure 3.9.1"]
+[caption="Figure 3.9.1: "]
+.Type in the edit_income command.
+image::UG-Edit_income1.png[width="800"]
+[[UG-AddIncomeResult]]
+[reftext="Figure 3.9.2"]
+[caption="Figure 3.9.2: "]
+.The result after entering the command. The first income is now edited to the newly specified fields.
+image::UG-Edit_income2.png[width="800"]
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* `add_income` parameter warnings as per `add_claim`.
+
+====
+
+=== Deleting an Income : `delete_income`
+
+You can delete an income off the incomes list by using the delete income command by entering the keyword `delete_income` followed by the position of the income in the incomes list.
+The specified index will be then deleted.
+
+Keyword: `delete_income`
+
+Format: `delete_income INDEX`
+
+Example:
+
+....
+delete_income 2 (removes second income in the income list)
+....
+
+Result:
+
+Deletes the income at the specified `INDEX`.
+
+
+<<UG-DeleteIncomeExample>> and <<UG-DeleteIncomeResult>> shows what you can expect to see after typing in the example: `delete_income 2`.
+[[UG-DeleteIncomeExample]]
+[reftext="Figure 3.9.1"]
+[caption="Figure 3.9.1: "]
+.Type in the delete_income command.
+image::UG-Delete_income1.png[width="800"]
+[[UG-DeleteIncomeResult]]
+[reftext="Figure 3.9.2"]
+[caption="Figure 3.9.2: "]
+.The result after entering the command. The second income is now deleted off the incomes list.
+image::UG-Delete_income2.png[width="800"]
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* The index refers to the index number shown in the displayed income list.
+* The index *must be a positive integer* 1, 2, 3, ...
+
+====
+
+// tag::shortcutfeature[]
+
+=== Creating a shortcut
+
+Accidentally typed a command that is not in FinSec? Don't worry! FinSec will recognise that it is an unknown command and is smart enough to make that unknown entry into a shortcut!
+
+Upon entering an unknown command, FinSec will prompt you as to whether you would like that as a new shortcut or if it was just a mistake.
+
+*Choice 1 :* You can enter the keyword `n` to continue as per usual.
+
+*Choice 2 :* You can enter any `existing commands` to map your previous entry to it!
+
+If you have made a mistake and entered the wrong command,  *Choice 1* would allow you to continue.
+
+==== Example of *Choice 1* :
 
 ****
+User : add_conagtact
+
+FinSec: Create shortcut? To which command? If no, type "n"
+
+User : n
+****
+
+Result:
+
+No shortcut is created. Continue using FinSec as per normal!
+
+<<UG-NoShortcutexample1>>, <<UG-NoShortcutExample2>> and <<UG-NoShortcutResult>> shows what you can expect to see after typing in the example: `add_conagtact`.
+[[UG-NoShortcutexample1]]
+[reftext="Figure 3.11.1.1"]
+[caption="Figure 3.11.1.1: "]
+.When you enter an accidental typo
+image::UG-NoShortcut1.png[width="400"]
+
+[[UG-NoShortcutExample2]]
+[reftext="Figure 3.11.1.2"]
+[caption="Figure 3.11.1.2: "]
+.FinSec will ask you if you want to create a shortcut (in blue). If you do not wish to create one, enter the command "n" as shown above.
+image::UG-NoShortcut2.png[width="400"]
+
+[[UG-NoShortcutResult]]
+[reftext="Figure 3.11.1.3"]
+[caption="Figure 3.11.1.3: "]
+.Entering 'n' will allow you to continue.
+image::UG-NoShortcut3.png[width="400"]
+
+If you have wish to create a shortcut,  *Choice 2* would allow you to create a shortcut to a command.
+
+==== Example of *Choice 2* :
+
+****
+User : ai
+
+FinSec: Create shortcut? To which command? If no, type "n"
+
+User: add_income
+
+FinSec: New shortcut created! ai to add_income
+****
+
+Result:
+
+A new shortcut is created for you! From now on, `ai` can be used as a substitute for `add_income`!
+
+<<UG-createShortcutexample1>>, <<UG-createShortcutExample2>> and <<UG-createShortcutResult>> shows what you can expect to see when you want to create a shortcut `ai` as shown in the example.
+[[UG-createShortcutexample1]]
+[reftext="Figure 3.10.2.1"]
+[caption="Figure 3.10.2.1: "]
+.Enter the shortcut you wish to create.
+image::UG-createShortcut1.png[width="400"]
+
+[[UG-createShortcutExample2]]
+[reftext="Figure 3.10.2.2"]
+[caption="Figure 3.10.2.2: "]
+.Enter the command you wish to have an alias to.
+image::UG-createShortcut2.png[width="400"]
+
+[[UG-createShortcutResult]]
+[reftext="Figure 3.10.2.3"]
+[caption="Figure 3.10.2.3: "]
+.Congratulations! You have just created a shortcut! Now the shortcut is able for use.
+image::UG-createShortcut3.png[width="400"]
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* The shortcut you want to add has to be to a default FinSec command.
+
+====
+// end::shortcutfeature[]
+
+=== Deleting a shortcut : `delete_shortcut`
+
+You can delete a shortcut that you have created by using the delete shortcut command by entering the keyword `delete_shortcut` followed by shortcut name.
+The specified shortcut will be then deleted.
+
+Keyword: `delete_shortcut`
+
+Format: `delete_shortcut SHORTCUT`
+
+Example:
+
+....
+delete_shortcut ai (removes shortcut 'ai' )
+....
+
+Result:
+
+The shortcut is now no longer available for use.
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* The shortcut you want to delete has to be an existing shortcut.
+* This will not work for default commands.
+
+====
+
+//@@author {lawncegoh}
+// tag::introduction[]
+---
+[source, java]
+The 3 features below are made to be used in conjunction with each other. They are `goto`, `check` and `sort`/`reverse` respectively. They are an implementation of the other objects created in this application. You will be able to use these 3 features smoothly once you have input objects like `claim`, `income` into FinSec. You would then be able to switch between the different "tabs" that we call as `View`. Once you are in the specific `View` that displays the list of objects you created. You can`sort` or `reverse` this list. The list will then be sorted into a more organised manner for you. Once you have sorted the list, you can then use the `check` feature in the `contact` or `claim` View to sieve out a specific contact or claim that interests you. Now that you have gotten a clearer picture of how these 3 features will work together, read on to know more specific details about each feature.
+// end::introduction[]
+
+// tag::gotofeature[]
+=== Changing Views : `goto`
+
+This command changes the displayed list to show Contacts, Claims or Incomes. Such a command allows you to switch
+between the 3 lists easily. This feature has also been enhanced with the addition of tabs below the Command Result panel.
+These tabs give the same functionality as this goto feature so that you can choose to type or click on the tabs. +
+
+<<UG-GotoExample>> shows the command result panel after the `goto contacts` command has been entered
+as well as the tabs that are below this panel.
+[[UG-GotoExample]]
+[reftext="Figure 3.2.1"]
+[caption="Figure 3.2.1: "]
+.FinSec giving a brief description of the `goto` command
+image::UG-GotoExample.png[width="400"]
+
+Keyword: `goto` +
+
+Additional Parameters: claims, contacts, incomes +
+
+Format: `goto (parameter)`
+
+Example:
+`goto contacts`
+`goto claims`
+`goto incomes`
+
+// end::gotofeature[]
+
+// tag::checkfeature[]
+//@@author {lawncegoh}
+=== Checking a Contact or Claim : `check`
+
+This feature allows you to check an individual `Contact` or `Claim` in either lists. This will give you a clearer view of the 2 different objects
+that you need. This function in the contacts list will give you a pop-up of the contact and show you the basic details of this
+contact and most importantly, the claims that are under this contact. +
+
+As for the check in the claims list, it will show you the details of the claim in a pop-up too. There is however a difference that
+you should take note of:
+
+* The index used in this check in claims list is actually referring to the claimID of the `claim`.
+* From the contacts page, you can check the claimIDs that belong to a certain contact that you want to check.
+* You can then go to the claims list and enter `check CLAIMID` with this `CLAIMID` parameter as the specific claim
+that you want to see in clearer view.
+
+Keyword: `check`
+
+Format: `check INDEX`
+
+Examples:
+
+*Checking of a contact in the contacts page:* +
+*Step 1:* Type `check 1` into the command box and press kbd:[Enter] to execute it
+
+[[UG-CheckExample1]]
+image::UG-CheckExample1.png[width="400"]
+
+*Step 2:* The result box will display "Contact Shown"
+
+[[UG-CheckExample2]]
+image::UG-CheckExample2.png[width="400"]
+
+*Step 3:* This is the pop-up window that comes up after the command is entered. You are now
+able to see the claims that belong to this contact
+[[UG-CheckExample3]]
+image::UG-CheckExample3.png[width="400"]
+
+
+*Checking of a claim in the claims page:* +
+*Step 1:* Type `check 2` into the command box and press kbd:[Enter] to execute it. This index 2 represents the claimID
+of each individual claim card.
+
+[[UG-CheckExample1]]
+image::UG-CheckExample4.png[width="400"]
+
+*Step 2:* The result box will display "Claim Shown"
+
+[[UG-CheckExample2]]
+image::UG-CheckExample5.png[width="400"]
+
+*Step 3:* This is the pop-up window that comes up after the command is entered. You are now able to see the important
+details that belong to this claim.
+[[UG-CheckExample3]]
+image::UG-CheckExample6.png[width="200"]
+
+
+//end::checkfeature[]
+
+
+// tag::sortfeature[]
+//@@author {lawncegoh}
+=== Sorting the Contacts/Claims/Incomes list by Contact's Name
+
+This feature allows you to sort the various lists according to the contact's name in lexicographical order. The command
+is the same in all 3 lists and the objects are sorted based on the contact's name. In Claims, it
+is the description of the claim. In Incomes, it is the entity who provided the income.
+
+Keyword: `sort name`
+
+Format: `sort name`
+
+Examples:
+
+* `sort name`
+
+//@@author {lawncegoh}
+
+=== Sorting the Claims/Incomes list by Date
+
+This feature allows you to sort the various lists according to the date from the oldest to newest entry.
+
+Keyword: `sort date`
+
+Format: `sort date`
+
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+`sort date` doesn't apply to contacts list
+
+//@@author {lawncegoh}
+=== Sorting the Claims list by Status
+
+This feature allows you to sort the claims list according to the 3 different `status`. They are mainly APPROVED, REJECTED
+and PENDING. Once you enter this command, the claims list will be sorted with PENDING at the top of the list, followed by
+APPROVED and lastly REJECTED.
+
+Keyword: `sort status`
+
+Format: `sort status`
+
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+`sort status` only applies to the claims list
+
+<<UG-SortExample>> shows what you can expect to see when typing in the `sort status` command in claims list.
+[[UG-SortExample]]
+[reftext="Figure 3.15.1"]
+[caption="Figure 3.15.1: "]
+.FinSec Status of the claim is shown and the right and sorted as stated above. Pending, Approved then Rejected.
+image::UG-ClaimsListSort.png[width="400"]
+
+Examples:
+* `sort date`
+
+// end::sortfeature[]
+
+// tag::reversefeature[]
+//@@author {lawncegoh}
+=== Sorting the Contacts/Claims/Incomes list in reverse order
+
+This feature allows you to sort the various lists according to the contact's name in reverse lexicographical order.
+
+*Warning*
+`reverse name` in the claims list sorts it by desription of the claims
+
+Keyword: `reverse name`
+
+Format: `reverse name`
+
+//@@author {lawncegoh}
+=== Sorting the Claims/Incomes list in reverse order by Date
+
+This feature allows you to sort the various lists according to the date from the newest to oldest entry. This command is not
+applicable in the contacts' page
+
+Keyword: `reverse date`
+
+Format: `reverse date`
+
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+`reverse date` doesn't apply to contacts list
+
+//@@author {lawncegoh}
+=== Sorting the Claims list in reverse order by Status
+
+This feature allows you to sort the claims list according to the 3 different `status` in reverse order.
+Once you enter this command, the claims list will be sorted by the reverse of the sort command. The claims
+will be sorted as REJECTED at the top, followed by APPROVED then PENDING.
+
+Keyword: `reverse status`
+
+Format: `reverse status`
+
+// end::reversefeature[]
+
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+`reverse status` only applies to the claims list
+
+=== Deleting a Contact : `delete_contact`
+
+Deletes a Contact from the contact list
+
+Keyword: `delete_contact`
+
+Format: `delete_contact INDEX`
+
+Examples:
+
+....
+delete_contact 1 (removes first person in the contact list)
+....
+
+
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
-****
 
-Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+=== Viewing budget : `budget`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+Calculates the projected budget based on all income and approved claim values. It
+also displays a graph detailing total income, claim and budget values for every day of the current month. +
+To view your budget, use the command syntax given below.
 
-Clears all entries from the address book. +
+Format: `budget`
+
+Your projected budget is the balance of money you are expected to have after all your expenses from the approved
+claims have been subtracted from your income stream. +
+<<UG-BudgetExample1>> below shows what you can expect to see when typing in the `budget` command.
+
+[[UG-BudgetExample1]]
+[reftext="Figure 3.21.1"]
+[caption="Figure 3.21.1: "]
+.FinSec calculating your total projected budget value
+image::UG-BudgetExample1.PNG[width="600"]
+
+====
+--
+image::tip.png[width = "80", float = "left"]
+--
+You will never have to worry about going over budget, +
+as FinSec will warn you when that happens. +
+It would also result in a negative balance.
+
+====
+
+
+Next up, <<UG-BudgetExample2>> below shows the graph portion of the `budget` command, which shows your
+projected income, claim and budget values for the current month.
+[[UG-BudgetExample2]]
+[reftext="Figure 3.21.2"]
+[caption="Figure 3.21.2: "]
+.FinSec displaying your projected budget over the course of the current month in a graph
+image::UG-BudgetExample2.PNG[width="600"]
+
+====
+--
+image::tip.png[width = "80", float = "left"]
+--
+Hovering your mouse pointer over one of the data-points +
+of any line will cause a tooltip similar to the one +
+shown in the picture above to pop up.
+
+====
+
+//@@author{lawncegoh}
+// tag::clearfeature[]
+=== Clearing all data : `clear`
+
+This command wipes all data from the FinSec and starts with a new FinSec. This feature is also updated from addressbook
+to includes a second prompt function. The application will prompt you with a warning upon entering of the `clear` command.
+The clearing of data will only go through if you type in a `Y` for the second prompt. The input of `N` on the second prompt
+will abort the clear command. You can then continue with your tasks.
+
 Format: `clear`
+
+
+<<UG-ClearExample1>> and <<UG-ClearExample2>> shows what you can expect to see when typing in the `clear` command.
+[[UG-ClearExample1]]
+[reftext="Figure 3.14.1"]
+[caption="Figure 3.14.1: "]
+.When the clear command is typed, the prompt comes up to ensure that you did not type the command accidentally.
+image::UG-ClearExample1.PNG[width="800"]
+
+[[UG-ClearExample2]]
+[reftext="Figure 3.14.2"]
+[caption="Figure 3.14.2: "]
+.After the `clear` command is confirmed.
+image::UG-ClearExample2.PNG[width="800"]
+
+//end::clearfeature[]
+
+=== Making a mistake : `<any invalid entry>`
+
+Prompts user on whether he or she would want to create a shortcut as FinSec does not recognise the command.
+
+If the user wishes to create a shortcut with this entry, he would then proceed to type in which commands he would want
+to create the shortcut for.
+
+If the user does not want to create a shortcut and it is just a typo error, he can enter `"n"` to continue with his
+commands.
+
+Example:
+
+* `AC` (FinSec does not recognise the command)
+* `add_contact` (User chooses to create the shortcut for the command `add_contact`)
+* The shortcut `AC` is created for the command `add_contact`
+
+****
+* Creates an alternative keyword for the command `add_contact`
+* Now `AC` can be used as a replacement to add a contact
+****
 
 === Exiting the program : `exit`
 
@@ -151,11 +902,92 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+== Non-command Features
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+=== Detecting duplicates
+
+FinSec can automatically detect duplicate names of contacts, claims or incomes.
+
+=== Typing Guide
+
+Automatically detects command and comes up with suggestions as a pop-up on what syntax comes next.
+
+== Upcoming Features (To be implemented in v2.0)
+
+=== Attaching Pictures to Claims : `attach` (To be implemented in v2.0)
+
+Attaches a picture of the claim in the 'docs/claims/images' folder (directory is subject to change) to a claim.
+
+Keyword: `attach`
+
+Format: `attach INDEX`
+
+Examples:
+
+* `attach 1`
+
+****
+* Popup will appear upon entering of this command to allow the user to choose an image and it will be attached to the
+specified index from the user input
+****
+
+//@@author{lawncegoh}
+// tag::checkDatefeature[]
+=== Checking for months or dates (To be implemented in v2.0)
+
+Checks for the claims or incomes that matches the specific month or date that was typed as input.
+
+Keyword: `check`
+
+Format: `check FILTER`
+
+Examples:
+
+* `check november`
+* `check 28/12/2019`
+
+****
+The list of claims or incomes based on the above check filter will be shown in a similar pop-up to the
+current check feature. This is an increment to that feature.
+****
+//end::checkDatefeature[]
+
+//tag::statsfeature[]
+//@@author{lawncegoh}
+=== Display statistics of the application (To be implemented in v2.0)
+
+Displays the important statistics that a Finance Secretary need to know. Examples of statistics are:
+
+* Number of claims in the month
+* Total income received in a certain time period
+* What was the most expensive claim
+
+Keyword: `statistics`
+
+Format: `statistics`
+//end::statsfeature[]
+
+****
+This statistics feature will be the 4th view that the application can bring you to. All the specific data
+and graphs will be shown on this 4th view.
+****
+
+=== Grouping Users : `tag` (To be implemented in v2.0)
+
+Assigns tags to the people in the contact list to group them together to aid in finding specific groups of people
+
+Keyword: `tag`
+
+Format: `tag INDEX t/TAG`
+
+Examples:
+
+* `tag 1 t/FOP t/Sports`
+
+****
+* Further tagging can be done to people with current tags already, it will append to each other and be seen
+in the contacts list
+****
 
 == FAQ
 
@@ -164,14 +996,64 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Requesting Help* : `help cmd/COMMAND type/TYPE` +
+e.g. `help cmd/add_income type/brief`
+
+* *Changing of Views* `goto (parameter)`
+e.g. `goto claims`
+
+* *Adding Contacts* `add_person n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]...` +
+e.g. `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+
+* *Editing Contacts* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]` +
+e.g. `edit_contact 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports` +
+
+* *Adding Claims* `add_claim d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME [t/TAG]` +
+e.g. `add_claim d/Sports Equipment a/115.2 n/Lee Wei Gen t/Sports`
+
+* *Approving Claims* `approve INDEX` +
+e.g. `approve 1`
+
+* *Rejecting Claims* `reject INDEX` +
+e.g. `reject 1`
+
+* *Adding Incomes* `add_income d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
+e.g. `add_income d/Shirt Sales a/307.5 n/Lee Wei Gen p/96777777 t/Marketing`
+
+* *Editing Incomes* `edit_income INDEX d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
+e.g. `edit_income 2 d/Camp Fees a/1150.50 n/Lee Wei Gen p/96777777 t/FOP`
+
+* *Checking Person or Claim* `check INDEX` +
+e.g.
+** `check 1` (in contacts page, show details of the person in index 1)
+** `check 2` (in claims page, show details of the claim in index 2)
+
+* *Deleting Contacts* `delete_contact INDEX` +
+e.g. `delete_contact 3`
+
+* *Sorting Lists* `sort` +
+e.g.
+** `sort name`
+** `sort date`
+** `sort status` (only in Claims List)
+
+* *Sorting Lists in reverse order* `reverse` +
+e.g.
+** `reverse name`
+** `reverse date`
+** `reverse status` (only in Claims List)
+
+* *Viewing Budget* `budget`
+
+* *Resolving Claims* `resolve INDEX s/STATUS` +
+e.g.
+** `resolve 1 s/approved (in claims page, approve a claim)`
+** `resolve 2 s/rejected (in claims page, reject a claim)`
+
+* *Attaching Pictures to Claims* `attach INDEX` (To be implemented in v2.0) +
+e.g. `attach 1`
+
+* *Grouping Users* `tag INDEX t/TAG` (To be implemented in v2.0) +
+e.g. `tag 1 t/FOP t/Sports`
+
+* *Closing application* `exit`

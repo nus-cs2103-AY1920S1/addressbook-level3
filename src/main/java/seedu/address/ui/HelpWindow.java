@@ -1,28 +1,49 @@
 package seedu.address.ui;
 
+import java.io.IOException;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.parser.FinSecParser;
 
 /**
  * Controller for a help page
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-w12-1.github.io/main/UserGuide.html";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
+    private static TreeSet<String> defaultCommandList = new TreeSet<>(FinSecParser.getCommandList().values());
+    private static String helpMsg = "The 'help' command format is as follows: "
+            + "help cmd/COMMAND type/TYPE"
+            + "\n\n"
+            + "Command List: \n"
+            + getDefaultCommandList().toString().replace(", ", "]\n[")
+            + "\n\n"
+            //+ "Shortcut List:\n"
+            //+ FinSecParser.getShortcutList().toString()
+            //    .replace(", ", "]\n[")
+            //    .replace(" Word", "Shortcut")
+            //    .replace("Task", "    Command")
+            //+ "\n\n"
+            + "Type List:\n"
+            + "[brief] (gives a brief description)\n"
+            + "[guide] (opens up our user guide on your browser) \n"
+            + "[api] (for advanced users who want to know the inner workings of the command) \n\n"
+            + "Example: help cmd/add_contact type/guide\n"
+            + "For more information you can refer to the user guide by clicking on the button";
+
     @FXML
-    private Button copyButton;
+    private Button gotoButton;
 
     @FXML
     private Label helpMessage;
@@ -34,7 +55,7 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
+        helpMessage.setText(helpMsg);
     }
 
     /**
@@ -89,14 +110,19 @@ public class HelpWindow extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
+    public static TreeSet<String> getDefaultCommandList() {
+        return defaultCommandList;
+    }
+
+    public static String getHelpMsg() {
+        return helpMsg;
+    }
+
     /**
      * Copies the URL to the user guide to the clipboard.
      */
     @FXML
-    private void copyUrl() {
-        final Clipboard clipboard = Clipboard.getSystemClipboard();
-        final ClipboardContent url = new ClipboardContent();
-        url.putString(USERGUIDE_URL);
-        clipboard.setContent(url);
+    private void gotoUrl() throws IOException {
+        java.awt.Desktop.getDesktop().browse(java.net.URI.create(USERGUIDE_URL));
     }
 }

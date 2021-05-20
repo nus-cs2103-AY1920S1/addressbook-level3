@@ -1,8 +1,10 @@
 package seedu.address.ui;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -19,7 +21,7 @@ public class CommandBox extends UiPart<Region> {
     private final CommandExecutor commandExecutor;
 
     @FXML
-    private TextField commandTextField;
+    private AutocorrectTextField commandTextField;
 
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
@@ -36,7 +38,7 @@ public class CommandBox extends UiPart<Region> {
         try {
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | IOException | URISyntaxException e) {
             setStyleToIndicateCommandFailure();
         }
     }
@@ -71,7 +73,8 @@ public class CommandBox extends UiPart<Region> {
          *
          * @see seedu.address.logic.Logic#execute(String)
          */
-        CommandResult execute(String commandText) throws CommandException, ParseException;
+        CommandResult execute(String commandText) throws CommandException, ParseException,
+                IOException, URISyntaxException;
     }
 
 }

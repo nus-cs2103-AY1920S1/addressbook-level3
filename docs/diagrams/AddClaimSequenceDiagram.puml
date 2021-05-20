@@ -1,0 +1,87 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FinSecParser" as FinSecParser LOGIC_COLOR
+participant ":AddClaimCommandParser" as AddClaimCommandParser LOGIC_COLOR
+participant ":claim:PendingClaim" as Claim LOGIC_COLOR
+participant "cmd:AddClaimCommand" as AddClaimCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("add_claim d/....")
+activate LogicManager
+
+LogicManager -> FinSecParser : parseCommand("add_claim d/....")
+activate FinSecParser
+
+create AddClaimCommandParser
+FinSecParser -> AddClaimCommandParser
+activate AddClaimCommandParser
+
+AddClaimCommandParser --> FinSecParser
+deactivate AddClaimCommandParser
+
+FinSecParser -> AddClaimCommandParser : parse("d/...")
+activate AddClaimCommandParser
+
+create Claim
+AddClaimCommandParser -> Claim
+activate Claim
+
+Claim --> AddClaimCommandParser : claim
+deactivate Claim
+
+create AddClaimCommand
+AddClaimCommandParser -> AddClaimCommand
+activate AddClaimCommand
+
+AddClaimCommand --> AddClaimCommandParser : cmd
+deactivate AddClaimCommand
+
+AddClaimCommandParser --> FinSecParser : cmd
+deactivate AddClaimCommand
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddClaimCommandParser -[hidden]-> FinSecParser
+destroy AddClaimCommandParser
+
+FinSecParser --> LogicManager : cmd
+deactivate FinSecParser
+
+LogicManager -> AddClaimCommand : execute()
+activate AddClaimCommand
+
+
+AddClaimCommand -> Model : hasClaim(claim)
+activate Model
+Model --> AddClaimCommand
+deactivate Model
+
+AddClaimCommand -> Model : hasContactFor(claim)
+activate Model
+Model --> AddClaimCommand
+deactivate Model
+
+AddClaimCommand -> Model : addClaim(claim)
+activate Model
+Model --> AddClaimCommand
+deactivate Model
+
+create CommandResult
+AddClaimCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddClaimCommand
+deactivate CommandResult
+
+AddClaimCommand --> LogicManager : result
+deactivate AddClaimCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

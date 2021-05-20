@@ -1,0 +1,30 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam classAttributeFontColor #FFFFFF
+
+abstract Class Claim
+Class Status << enumeration >> {
+    PENDING
+    APPROVED
+    REJECTED
+}
+show Status fields
+
+FinSec *-right-> "1" UniqueClaimList
+UniqueClaimList o-right-> "*" Claim
+
+PendingClaim -down-|> Claim
+ApprovedClaim -down-|> Claim
+RejectedClaim -down-|> Claim
+
+Claim *--> "1" Id
+Claim *--> "1" Description
+Claim *--> "1" Amount
+Claim *--> "1" Date
+Claim *--> "1" Name
+Claim *-right-> "1" Status
+Claim o-right-> "*" Tag
+@enduml

@@ -1,0 +1,62 @@
+@startuml
+!include style.puml
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":FinSec" as FinSec MODEL_COLOR
+participant ":UniqueClaimList" as UniqueClaimList MODEL_COLOR
+end box
+
+box UI UI_COLOR_T1
+participant ":UiManager" as UiManager UI_COLOR
+end box
+
+box API
+participant ":ObservableList" as ObservableList USER_COLOR
+participant ":FilteredList" as FilteredList USER_COLOR
+end box
+
+[-> ModelManager : addClaim(claim)
+activate ModelManager
+
+ModelManager -> FinSec : addClaim(claim)
+activate FinSec
+
+FinSec -> UniqueClaimList : add(claim)
+activate UniqueClaimList
+
+UniqueClaimList -> UniqueClaimList : contains(claim)
+activate UniqueClaimList
+UniqueClaimList --> UniqueClaimList
+deactivate UniqueClaimList
+
+UniqueClaimList -> ObservableList : add(claim)
+activate ObservableList
+
+UniqueClaimList <-- ObservableList
+deactivate ObservableList
+
+UniqueClaimList --> FinSec
+deactivate UniqueClaimList
+
+FinSec --> ModelManager
+deactivate FinSec
+
+ModelManager -> ModelManager : updateFilteredClaimList()
+activate ModelManager
+
+ModelManager -> FilteredList : setPredicate(predicate)
+activate FilteredList
+ModelManager <-- FilteredList
+deactivate FilteredList
+
+ModelManager -> UiManager : startWithClaims()
+activate UiManager
+ModelManager <--UiManager
+deactivate UiManager
+
+deactivate ModelManager
+
+[<--ModelManager
+deactivate ModelManager
+@enduml

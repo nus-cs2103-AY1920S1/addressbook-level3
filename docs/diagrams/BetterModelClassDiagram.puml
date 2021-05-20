@@ -4,18 +4,29 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniquePersonList
-AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniquePersonList
-UniqueTagList -[hidden]down- UniquePersonList
+FinSec *-right-> "1" UniqueContactList
+FinSec *-right-> "1" UniqueClaimsList
+FinSec *-right-> "1" UniqueTagList
+FinSec *-down-> "1" UniqueIncomesList
+UniqueTagList -[hidden]down- UniqueContactList
+UniqueTagList -[hidden]down- UniqueContactList
 
 UniqueTagList *-right-> "*" Tag
-UniquePersonList o-right-> Person
+UniqueContactList o-right-> "*" Contact
+UniqueIncomesList o-down-> "*" Income
+UniqueClaimsList o-right-> "*" Claim
 
-Person o-up-> "*" Tag
+Contact o-up-> "*" Tag
+Income o-up-> "*" Tag
+Contact *--> "1" Name
+Contact *--> "1" Phone
+Contact *--> "1" Email
+Contact *--> "1" Address
+Contact o--> "*" Id
+Claim *--> "*" Id
+Income *--> "1" Name
+Income *--> "1" Description
+Income *--> "1" Phone
+Income *--> "1" Amount
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
 @enduml

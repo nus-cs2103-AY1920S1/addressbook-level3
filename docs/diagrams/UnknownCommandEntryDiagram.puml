@@ -1,0 +1,55 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FinSecParser" as FinSecParser LOGIC_COLOR
+participant "cmd:ShortCutRequestCommand" as ShortCutRequestCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("<unrecognised command>")
+activate LogicManager
+
+LogicManager -> FinSecParser : parseCommand("<unrecognised command>")
+activate FinSecParser
+
+create ShortCutRequestCommand
+FinSecParser -> ShortCutRequestCommand
+activate ShortCutRequestCommand
+
+ShortCutRequestCommand --> FinSecParser : cmd
+deactivate ShortCutRequestCommand
+
+FinSecParser --> LogicManager : cmd
+deactivate FinSecParser
+
+LogicManager -> ShortCutRequestCommand : execute()
+activate ShortCutRequestCommand
+
+ShortCutRequestCommand -> Model : saveCommand(ShortCutRequestCommand.shortcut)
+activate Model
+
+Model --> ShortCutRequestCommand
+deactivate Model
+
+create CommandResult
+ShortCutRequestCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ShortCutRequestCommand
+deactivate CommandResult
+
+ShortCutRequestCommand --> LogicManager : result
+deactivate ShortCutRequestCommand
+
+ShortCutRequestCommand -[hidden]-> LogicManager : result
+destroy ShortCutRequestCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

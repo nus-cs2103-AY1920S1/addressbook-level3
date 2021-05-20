@@ -1,0 +1,28 @@
+@startuml
+start
+:User executes AddClaimCommand;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([input has missing prefixes])
+    :Throws ParseException;
+else ([else])
+    :Parses input;
+    if () then ([has invalid parameters])
+        :Throws ParseException;
+    else ([else])
+        :Creates new Pending Claim;
+        :Attempts to add it;
+        if () then ([has duplicate claim])
+            :Throws CommandException;
+        else if () then ([contact not found])
+            :Throws CommandException;
+        else ([else])
+            :Adds claim into FinSec;
+            :Adds ID of claim into associated contact;
+        endif
+    endif
+endif
+stop
+@enduml
