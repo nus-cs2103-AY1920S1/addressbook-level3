@@ -1,0 +1,17 @@
+@startuml
+start
+:User adds/deletes a body;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+:LineChartPanel tree map gets updated;
+
+:Line chart series gets updated;
+
+if () then ([date of admission of body is within the last 10 days])
+    :Line chart appearance is updated;
+else ([else])
+endif
+stop
+@enduml

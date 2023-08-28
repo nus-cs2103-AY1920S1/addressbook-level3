@@ -1,0 +1,132 @@
+= Hong Shao Yi - Project Portfolio for Mortago
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== 1. Introduction
+
+This portfolio serves to document my contributions to my team's project - Mortago - for the CS2103T Software Engineering module.
+
+=== 1.1 Project Motivation
+
+Mortago has came a long way and it started from the https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book 3] (AB3) application, a rudimentary contacts-management application written in Java, targeted at CS2103T students for software engineering development. My team was tasked with enhancing or morphing AB3 to a fully functional application. We were given a tight span of three months to complete this project, all whilst balancing the workload of other modules. My team's dedicated commitment has resulted in this mortuary management system - Mortago.
+
+=== 1.2 About The Team
+
+My team consists of five Year 2 Computer Science undergraduates reading the CS2103T Software Engineering module.
+
+=== 1.3 About Mortago
+
+Mortago is a desktop application dedicated for mortuary managers to track their mortuary records. It is based on a Command Line Interface (CLI) and in turn, most user interactions are mediated through commands keyed into Mortago. However, users still have to rely on the Graphical User Interface (GUI) to view and track any commands entered into the application.
+
+Mortago provides a user-friendly dashboard that allows managers to manage various types of entries in a mortuary. It replaces and improves upon the traditional whiteboard to enhance productivity.
+
+There are many main features that Mortago is capable of. Users can *add* a `Body`, `Worker`, or `Fridge`, as well as *edit*, *delete* and *find* these entities. Users can also *undo* and *redo* when needed, track important *statistics* and *generate reports*. Mortago also generates *notifications* to alert users of important events.
+
+My role encompassed the complete design of the GUI and auxiliary features. The following sections illustrate these enhancements in greater detail. Excerpts - relevant to these enhancements - from the User Guide and Developer Guide are included to document my work.
+
+
+== 2. Summary of contributions
+
+This section gives an overview of my contributions to Mortago. A list of my pull requests (PRs) can be found https://github.com/AY1920S1-CS2103T-T13-2/main/pulls?utf8=%E2%9C%93&q=is%3Apr+assignee%3Ashaoyi1997+is%3Aclosed[here].
+
+=== 2.1. Major Enhancements
+
+I have contributed 2 major enhancements for Mortago, which will be detailed here.
+
+==== Major Enhancement 1: I did a major redesign of the GUI from AB3.
+* What it does: The GUI allows users to view all the entries in Mortago and serves as a visual representation of the data in the system.
+* Justification: This feature is important for users as a visually appealing GUI will attract and retain users. Users will find it easy to locate minute details in a large amount of information through the dashboard.
+* Highlights: This feature draws on more complex visual design techniques and guidelines to create visual elevation and impact. The dark theme utilised aims to improve visual ergonomics by reducing eye strain on the user. It was implemented through a meticulous and creative design process as perfecting minute details, such as positioning, counts towards the visual appeal of the interface. This feature posed unique challenges in terms of integrating Testfx GUI tests.
+
+==== Major Enhancement 2: I morphed the `add` command to add the 3 different entities in Mortago.
+* What it does: The `add` command allows the user to add `Body`, `Worker` and `Fridge` entities in Mortago.
+* Justification: The `add` command is polymorphic as it utilizes a `-FLAG` to tell Mortago what type of entity is being added in. This is vastly different compared to AB3, where only one type of entity can be added in. Users are also not required to input all attributes of an entity, hence saving time by only keying in the necessary information.
+* Highlight: This enhancement was particularly challenging due to the amount of refactoring required. Much of the refactoring for the `Model` and `Logic` components was done through this enhancement, which thus laid the groundwork for further enhancements. The large amount of attributes inherent to Mortago's entities also further deepens the complexity when parsing the `add` command.
+
+=== 2.2. Minor Enhancement
+
+This section details a minor enhancement that I have contributed in this project.
+
+==== Minor Enhancement 1: I adopted and morphed the `select` command from AB4.
+* What it does: The `select` command allows users to select a body via its unique `IdentificationNumber`, which allows them to view the full details of the body.
+* Highlights: The `select` command is different from that of AB4 as users now identify the body they want to select through its `IdentificationNumber` instead of its list index on the dashboard. This makes it more intuitive for the user as most interactions in Mortago are made through the `IdentificationNumber`.
+
+==== Minor Enhancement 2: I created the mechanism for creating unqiue `IdentificationNumbers` in Mortago.
+* What it does: `IdentificationNumbers` in Mortago consist of two parts: a leading letter that tells users whether it is a worker, body or fridge, and a number at the back that refers to its unique ID number.
+* Justification: In Mortago, each entity is assigned a unique `IdentificationNumber`. The `IdentificationNumber` for each entity is a central aspect of Mortago as most interactions with and references of entities in the application are made through their `IdentificationNumbers`.
+* Highlights: This mechanism is designed such that the `IdentificationNumber` of any deleted entity will be reassigned to the next added entity. This prevents gaps in the numbering of entities in the system, which otherwise will never be filled, leading to an exponential increase in the running ID number.
+
+=== 2.3. Code contributed
+
+You can view the code that I have contributed https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shaoyi1997&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D[via RepoSense].
+
+=== 2.4. Other contributions
+
+The following sections document other contributions made towards the project.
+
+** Project management
+*** The project was separated to 3 milestones, from version 1.2 - 1.4. I managed the v1.3 milestone and its associated issues in Github
+** Enhancement to existing features
+*** Added the ability to add photos for Worker
+*** Added the `showNotifs` command
+*** Wrote additional tests for existing features to increase coverage by 5.8% in PR https://github.com/AY1920S1-CS2103T-T13-2/main/pull/125[#125]
+
+** Documentation
+*** Wrote the User Guide and Developer Guide for the `add` command and user interface
+*** Added use cases for dashboard and add command to the Developer Guide in PR https://github.com/AY1920S1-CS2103T-T13-2/main/pull/45[#45]
+*** Added the Command Specifications and Appendix for the User Guide in PRs https://github.com/AY1920S1-CS2103T-T13-2/main/pull/84[#84], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/116[#116], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/282[#282]
+** Community
+*** Reviewed PRs with non-trivial comments in PRs https://github.com/AY1920S1-CS2103T-T13-2/main/pull/9[#9], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/47[#47], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/100[#100]
+*** Contributed to forum discussions in the following issues: https://github.com/nus-cs2103-AY1920S1/forum/issues/111[#111], https://github.com/nus-cs2103-AY1920S1/forum/issues/133[#133], https://github.com/nus-cs2103-AY1920S1/forum/issues/150[#150]
+*** Reported bugs and offered suggestions for other teams (view at https://github.com/shaoyi1997/ped/issues[this repo])
+** Tools:
+*** Integrated a third party library (ControlsFX) to the project in PR https://github.com/AY1920S1-CS2103T-T13-2/main/pull/79[#79]
+*** Integrated TestFx and adapted Graphical User Interface tests from AB4 in https://github.com/AY1920S1-CS2103T-T13-2/main/commit/34dec528d451b84dea466daeacb24d82dd643258#diff-7319d9e22324ed2aaaac3f06ade9f486[this commit]
+*** Integrated a Continuous Integration platform for Github (AppVeyor) to the team repository (but was eventually taken down due to relaxation of workflow rigour)
+
+== 3. Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+_{start of extract 1}_: Add Command
+
+'''
+include::../UserGuide.adoc[tag=add]
+
+_{end of extract 1}_
+
+_{start of extract 2}_: Select Command
+
+include::../UserGuide.adoc[tag=select]
+
+_{end of extract 2}_
+
+== 4. Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+_{start of extract 1}_: Unique Identification Number
+
+'''
+include::../DeveloperGuide.adoc[tag=uniqueIdentificationNumber]
+_{end of extract 1}_
+
+
+_{start of extract 2}_: Photo Feature
+
+'''
+include::../DeveloperGuide.adoc[tag=photo]
+
+_{end of extract 2}_
+
+_{start of extract 3}_: User Interface
+
+'''
+include::../DeveloperGuide.adoc[tag=ui]
+
+_{end of extract 3}_

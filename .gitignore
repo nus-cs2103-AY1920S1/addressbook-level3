@@ -19,3 +19,9 @@ src/test/data/sandbox/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
+
+# Ignore all pdf files
+*.pdf
+
+# Ignore Inkscape files
+drawing.svg

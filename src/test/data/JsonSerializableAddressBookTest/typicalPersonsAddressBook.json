@@ -42,5 +42,9 @@
     "email" : "anna@example.com",
     "address" : "4th street",
     "tagged" : [ ]
-  } ]
+  } ],
+  "bodies" : [ ],
+  "workers" : [ ],
+  "fridges" : [ ],
+  "notifs" : [ ]
 }

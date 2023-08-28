@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox id="workerCardPane" fx:id="workerCardPane" maxHeight="1.7976931348623157E308" maxWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+ <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" HBox.hgrow="NEVER">
+   <padding>
+     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+      <HBox fx:id="workerImptInfo" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" prefHeight="80.0" spacing="5" VBox.vgrow="ALWAYS">
+         <children>
+            <StackPane fx:id="displayPhotoPlaceholder" maxWidth="40.0" prefHeight="150.0" prefWidth="40.0">
+               <children>
+                  <ImageView fx:id="displayPhoto" fitHeight="40.0" fitWidth="40.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER" />
+               </children>
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+            </StackPane>
+            <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" prefHeight="80.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox maxHeight="1.7976931348623157E308">
+                     <children>
+                        <Label fx:id="id" alignment="TOP_LEFT" contentDisplay="TOP" styleClass="cell_big_label">
+                           <minWidth>
+                              <Region fx:constant="USE_PREF_SIZE" />
+                           </minWidth>
+                        </Label>
+                    <Label fx:id="name" alignment="TOP_LEFT" contentDisplay="TOP" maxHeight="1.7976931348623157E308" prefWidth="100.0" styleClass="cell_big_label" text="\$name" textAlignment="JUSTIFY" wrapText="true" />
+                     </children>
+                  </HBox>
+               <Label fx:id="workerId" maxHeight="1.7976931348623157E308" styleClass="cell_small_label" text="\$workerId" />
+                  <Label fx:id="designation" maxHeight="1.7976931348623157E308" prefWidth="100.0" styleClass="cell_small_label" text="\$designation" textAlignment="JUSTIFY" wrapText="true" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <GridPane alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Text id="workerLessImptInfoHeaders" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sex: " wrappingWidth="80.0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.valignment="TOP">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Label fx:id="sex" styleClass="cell_big_label" text="\$sex" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
+            <Text id="workerLessImptInfoHeaders" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone No.:" wrappingWidth="80.0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Label fx:id="phoneNumber" styleClass="cell_small_label" text="\$phoneNumber" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
+            <Text id="workerLessImptInfoHeaders" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Joined:" wrappingWidth="80.0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+         <Label fx:id="dateJoined" styleClass="cell_small_label" text="\$dateJoined" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
+            <Text id="workerLessImptInfoHeaders" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Birth:" wrappingWidth="80.0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Label fx:id="dateOfBirth" styleClass="cell_small_label" text="\$dateOfBirth" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
+            <Text id="workerLessImptInfoHeaders" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Employment Status:" wrappingWidth="80.0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="4" GridPane.valignment="TOP">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Label fx:id="employmentStatus" styleClass="cell_small_label" text="\$employmentStatus" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="4" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </GridPane>
+ </VBox>
+   <padding>
+      <Insets left="5.0" />
+   </padding>
+</HBox>

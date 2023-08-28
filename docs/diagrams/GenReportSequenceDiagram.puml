@@ -1,0 +1,131 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":GenReportCommandParser" as GenReportCommandParser LOGIC_COLOR
+participant "g:GenReportCommand" as GenReportCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":ReportGenerator" as ReportGenerator STORAGE_COLOR
+end box
+
+box iText ITEXT_COLOR
+participant ":Document" as Document ITEXT_COLOR_T1
+participant ":PdfWriter" as PdfWriter ITEXT_COLOR_T1
+end box
+
+[-> LogicManager : execute("genReport 1 John Doe")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("genReport 1 John Doe")
+activate AddressBookParser
+
+create GenReportCommandParser
+AddressBookParser -> GenReportCommandParser
+activate GenReportCommandParser
+
+GenReportCommandParser --> AddressBookParser
+deactivate GenReportCommandParser
+
+AddressBookParser -> GenReportCommandParser : parse("1 John Doe")
+activate GenReportCommandParser
+
+create GenReportCommand
+GenReportCommandParser -> GenReportCommand
+activate GenReportCommand
+create ReportGenerator
+GenReportCommand -> ReportGenerator
+activate ReportGenerator
+ReportGenerator --> GenReportCommand
+deactivate ReportGenerator
+
+GenReportCommand --> GenReportCommandParser : g
+deactivate GenReportCommand
+
+GenReportCommandParser --> AddressBookParser : g
+deactivate GenReportCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+GenReportCommandParser -[hidden]-> AddressBookParser
+destroy GenReportCommandParser
+
+AddressBookParser --> LogicManager : g
+deactivate AddressBookParser
+
+LogicManager -> GenReportCommand : execute()
+activate GenReportCommand
+
+GenReportCommand -> ReportGenerator : generate(body, John Doe)
+activate ReportGenerator
+
+create Document
+ReportGenerator -> Document
+activate Document
+Document --> ReportGenerator
+deactivate Document
+
+ReportGenerator -> PdfWriter : getInstance(document, new FileOutputStream("Report B00000001.pdf")
+PdfWriter --> ReportGenerator
+
+ReportGenerator -> ReportGenerator : addHeader(document, "Mortago Report for B00000001")
+activate ReportGenerator
+ReportGenerator -> Document : open()
+Document --> ReportGenerator
+ReportGenerator -> Document : add(element)
+Document --> ReportGenerator
+ReportGenerator --> ReportGenerator
+deactivate ReportGenerator
+
+ReportGenerator -> ReportGenerator : addPersonalDetails(document, body)
+activate ReportGenerator
+ReportGenerator -> Document : add(element)
+Document --> ReportGenerator
+ReportGenerator --> ReportGenerator
+deactivate ReportGenerator
+
+ReportGenerator -> ReportGenerator : addNokDetails(document, body)
+activate ReportGenerator
+ReportGenerator -> Document : add(element)
+Document --> ReportGenerator
+ReportGenerator --> ReportGenerator
+deactivate ReportGenerator
+
+ReportGenerator -> ReportGenerator : addOtherDetails(document, body)
+activate ReportGenerator
+ReportGenerator -> Document : add(element)
+Document --> ReportGenerator
+ReportGenerator --> ReportGenerator
+deactivate ReportGenerator
+
+ReportGenerator -> ReportGenerator : addFooter(document, sign)
+activate ReportGenerator
+ReportGenerator -> Document : add(element)
+Document --> ReportGenerator
+ReportGenerator --> ReportGenerator
+deactivate ReportGenerator
+ReportGenerator -> Document : close()
+Document --> ReportGenerator
+ReportGenerator -> PdfWriter : close()
+PdfWriter --> ReportGenerator
+
+ReportGenerator --> GenReportCommand
+deactivate ReportGenerator
+ReportGenerator -[hidden]-> GenReportCommand
+destroy ReportGenerator
+
+create CommandResult
+GenReportCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> GenReportCommand
+deactivate CommandResult
+
+GenReportCommand --> LogicManager : result
+deactivate GenReportCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -14,6 +15,10 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
+import seedu.address.model.entity.worker.Worker;
+import seedu.address.model.notif.Notif;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -61,6 +66,33 @@ public class LogicManager implements Logic {
         return model.getFilteredPersonList();
     }
 
+    //@@author shaoyi1997
+    @Override
+    public ObservableList<Worker> getFilteredWorkerList() {
+        return model.getFilteredWorkerList();
+    }
+
+    @Override
+    public ObservableList<Body> getFilteredBodyList() {
+        return model.getFilteredBodyList();
+    }
+
+    @Override
+    public ObservableList<Fridge> getFilteredFridgeList() {
+        return model.getFilteredFridgeList();
+    }
+
+    @Override
+    public ObservableList<Notif> getFilteredNotifList() {
+        return model.getFilteredNotifList();
+    }
+    //@@author
+
+    @Override
+    public ObservableList<Notif> getFilteredActiveNotifList() {
+        return model.getFilteredActiveNotifList();
+    }
+
     @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
@@ -75,4 +107,17 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
+    //@@author shaoyi1997-reused
+    //Reused from SE-EDU Address Book Level 4
+    @Override
+    public ReadOnlyProperty<Body> selectedBodyProperty() {
+        return model.selectedBodyProperty();
+    }
+
+    @Override
+    public void setSelectedBody(Body body) {
+        model.setSelectedBody(body);
+    }
+    //@@author
 }

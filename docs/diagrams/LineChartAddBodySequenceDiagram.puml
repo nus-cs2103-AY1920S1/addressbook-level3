@@ -1,0 +1,47 @@
+@startuml
+!include style.puml
+
+box Model MODEL_COLOR_T1
+participant ":AddressBook" as AddressBook MODEL_COLOR
+end box
+
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant "lineChartPanel:LineChartPanel" as LineChartPanel UI_COLOR
+
+end box
+
+MainWindow -> AddressBook : getBodyList()
+activate MainWindow
+
+sdf
+AddressBook --> MainWindow : bodyList
+deactivate MainWindow
+
+create LineChartPanel
+MainWindow -> LineChartPanel : LineChartPanel(bodyList)
+activate LineChartPanel
+
+LineChartPanel --> MainWindow : lineChartPanel
+deactivate LineChartPanel
+
+MainWindow -> LineChartPanel : getLineChart()
+activate LineChartPanel
+
+activate LineChartPanel
+
+LineChartPanel -> LineChartPanel: makeLineChart()
+
+activate LineChartPanel
+LineChartPanel -> LineChartPanel: initialiseTreeMap()
+
+LineChartPanel -> LineChartPanel: initialiseLineChart()
+
+LineChartPanel -> LineChartPanel: updateSeries()
+
+LineChartPanel -> LineChartPanel: updateUponChange()
+
+LineChartPanel --> MainWindow : lineChart
+deactivate LineChartPanel
+
+@enduml

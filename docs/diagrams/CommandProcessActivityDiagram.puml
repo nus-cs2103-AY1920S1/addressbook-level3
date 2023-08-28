@@ -1,0 +1,18 @@
+@startuml
+start
+:User executes command;
+if () then ([command is an UndoableCommand])
+    :Command is executed;
+    :Command is set to Undoable;
+    :Command saved in CommandHistory;
+    note left
+    This allows the
+    command to be
+    undone by an
+    UndoCommand.
+    end note
+else ([command is not an UndoableCommand])
+    :Command is executed;
+endif
+stop
+@enduml

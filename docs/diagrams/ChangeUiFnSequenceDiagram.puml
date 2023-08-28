@@ -1,0 +1,86 @@
+@startuml
+!include style.puml
+
+mainframe <b>sd</b> Runnable changeUI
+box Logic #b0d5f7
+participant "notifCommand:NotifCommand" as NotifCommand #1f69ad
+participant "updateBodyDescriptor:UpdateBodyDescriptor" as UpdateBodyDescriptor #1f69ad
+participant "up:UpdateCommand" as UpdateCommand #1f69ad
+end box
+
+box UI UI_COLOR_T1
+participant "notifWindow:NotifWindow" as NotifWindow UI_COLOR
+end box
+
+box Storage #f5c8a2
+participant "storage:StorageManager" as Storage #e67f25
+end box
+
+box Model #e6bdf2
+participant "model:Model" as Model #621c78
+participant "body:Body" as Body #621c78
+end box
+
+activate NotifCommand
+
+NotifCommand -> Body :getIdNum()
+activate Body
+NotifCommand <-- Body :bodyId
+deactivate Body
+create UpdateBodyDescriptor
+NotifCommand -> UpdateBodyDescriptor :UpdateBodyDescriptor(body)
+activate UpdateBodyDescriptor
+NotifCommand <-- UpdateBodyDescriptor :updateBodyDescriptor
+deactivate UpdateBodyDescriptor
+
+
+
+create UpdateCommand
+NotifCommand -> UpdateCommand :UpdateCommand(bodyId, updateBodyDescriptor)
+activate UpdateCommand
+NotifCommand <-- UpdateCommand :up
+deactivate UpdateCommand
+
+NotifCommand -> UpdateCommand :setUpdateFromNotif(true)
+activate UpdateCommand
+NotifCommand <-- UpdateCommand
+deactivate UpdateCommand
+
+NotifCommand -> UpdateCommand :execute(model)
+activate UpdateCommand
+NotifCommand <-- UpdateCommand
+deactivate UpdateCommand
+
+
+create NotifWindow
+NotifCommand-> NotifWindow :NotifWindow()
+activate NotifWindow
+NotifCommand <-- NotifWindow
+deactivate NotifWindow
+
+NotifCommand -> NotifWindow :setTitle("Contact Police")
+activate NotifWindow
+NotifCommand <-- NotifWindow
+deactivate NotifWindow
+
+NotifCommand -> NotifWindow :setContent("Body ...")
+activate NotifWindow
+NotifCommand <-- NotifWindow
+deactivate NotifWindow
+
+NotifCommand -> NotifWindow :display()
+activate NotifWindow
+NotifCommand <-- NotifWindow
+deactivate NotifWindow
+
+NotifCommand -> Model :getAddressBook()
+activate Model
+Model --> NotifCommand :addressBook
+deactivate Model
+
+NotifCommand -> Storage :saveAddressBook(addressBook)
+activate Storage
+Storage --> NotifCommand
+deactivate Storage
+
+@enduml

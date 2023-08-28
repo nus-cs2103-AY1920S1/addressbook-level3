@@ -1,0 +1,19 @@
+@startuml
+start
+
+
+while () is ([User wishes to adds or update a worker with a photo])
+    :User executes add or update command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([Image file is valid])
+    :Photo object is constructed;
+    :Image file is copied into the data directory;
+    :Photo object is assigned to an instance variable in the worker;
+else ([else])
+endif
+endwhile ([photo added or user stops adding a photo])
+stop
+@enduml

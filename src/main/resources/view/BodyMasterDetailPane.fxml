@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import org.controlsfx.control.MasterDetailPane?>
+
+
+<MasterDetailPane fx:id="bodyMasterDetailPane" dividerPosition="0.67" dividerSizeHint="1.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" />
